@@ -19,7 +19,7 @@
 /tmp/*
 !/tmp/.keep
 /doc/
-/public/system
+/public/
 /vendor/bundle
 /vendor/assets/bower_components
 .rvmrc
