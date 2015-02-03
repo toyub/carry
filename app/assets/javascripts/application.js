@@ -10,5 +10,6 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery/2.1.3.min.js
-//= require jquery_ujs/1.0.3.js
+//= require jquery/2.1.3.min
+//= require jquery_ujs/1.0.3
+//= require titletip/1.0.0
