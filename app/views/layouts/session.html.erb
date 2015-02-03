@@ -7,7 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div><%= form_tag('/session', method: 'delete', style: 'display: inline;') do %> <input type='submit' value='Logout' /> <% end %></div>
+<div id="notice">You're required to login!</div>
+<%if flash[:error].present? %>
+<div id="error_explanation">
+  <%= flash[:error] %>
+</div>
+<% end %>
 <%= yield %>
 
 </body>

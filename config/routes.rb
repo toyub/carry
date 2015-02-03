@@ -53,4 +53,14 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  namespace :kucun do
+    get '/', to: 'materials#index'
+    resources :materials
+  end
+
+  resource :session, only: [:new, :create, :destroy]
+
+  root 'kucun/materials#index'
+
 end

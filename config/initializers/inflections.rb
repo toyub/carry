@@ -16,5 +16,5 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.uncountable %w[ staff ]
+  inflect.uncountable %w[ staff store_staff ]
 end
