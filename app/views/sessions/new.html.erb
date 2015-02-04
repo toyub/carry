@@ -1,5 +1,5 @@
 <%= form_tag session_path, method: 'POST' do %>
-  <p><%= text_field_tag :login, nil, placeholder: 'login name', required: true %></p>
-  <p><%= password_field_tag :password, nil, placeholder: 'password', required: true %></p>
+  <p><%= text_field_tag :login, nil, placeholder: 'login name', required: true, title: 'Please input your signed phone number as login name' %></p>
+  <p><%= password_field_tag :password, nil, placeholder: 'password', required: true, title: 'Please enter your password' %></p>
   <p><%= submit_tag 'sign in' %></p>
 <% end %>

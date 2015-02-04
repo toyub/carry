@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MIS</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0">
+  <title>MIS-<% if content_for?(:title) %><%= yield :title %><% else %><%= I18n.t 'site.name' %><% end %></title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div><%= form_tag('/session', method: 'delete', style: 'display: inline;') do %> <input title="Click to logout" type='submit' value='Logout' /> <% end %></div>
+<div>
+  <%= form_tag('/session', method: 'delete', style: 'display: inline;') do %> <input title="Click to logout" type='submit' value='Logout' /> <% end %>
+</div>
+
 <%= yield %>
 
 </body>

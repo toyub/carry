@@ -225,3 +225,5 @@ en:
       short: ! '%d %b %H:%M'
       dateonly: '%Y-%m-%d'
     pm: pm
+  site:
+    name: 'Management Information System'

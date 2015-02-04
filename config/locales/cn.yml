@@ -221,3 +221,5 @@ cn:
       short: ! '%b%d日 %H:%M'
       date_only: '%Y年%b%d日'
     pm: 下午
+  site:
+    name: '百世威盛门店运营平台'

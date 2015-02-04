@@ -30,6 +30,17 @@ class StoreStaff <  ActiveRecord::Base
     self.save
   end
 
+  def screen_name
+    case self.name_display_type
+    when 'firstname_pre'
+      "#{self.first_name} #{self.last_name}"
+    when 'lastname_pre'
+      "#{self.last_name} #{self.first_name}"
+    else
+      "#{self.first_name} #{self.last_name}"
+    end
+  end
+
   private
   def encrypt_password()
     self.salt = Digest::MD5.hexdigest("--#{Time.now.to_i}--")
