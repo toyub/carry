@@ -12,4 +12,7 @@
 //
 //= require jquery/2.1.3.min
 //= require jquery_ujs/1.0.3
+//= require underscore/1.7.0.min
+//= require backbone/1.1.2.min
 //= require titletip/1.0.0
+
