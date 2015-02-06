@@ -135,7 +135,7 @@
             <col width="8%">
             <col width="5%">
           </colgroup> 
-
+          <thead>
             <tr>
               <th style="border-right:0px;" ></th>
               <th >商品名称</th>
@@ -149,99 +149,37 @@
               <th>库存数</th>
               <th>供应商</th>
               <th>备注</th>
-              
               <th class="last_td"> 操作</th>
             </tr>
-            <tr class="bg_tr">
-              <td>1</td>
-              <td>米其林轮胎</td>
-              <td>3080309075990</td>
-              <td>汽车配件</td>
-              <td>轮胎</td>
-              <td>185/60/14XM291V</td>
-              <td>条</td>
-              <td>530.00</td>
-              <td>650.00</td>
-              <td>8</td>
-              <td>杭州力德贸易有限公司</td>
-             
-              <td>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                <i class="fa fa-star-o"></i>
-              </td>
-              <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa fa-angle-double-right"></i></a></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>米其林轮胎</td>
-              <td>3080309075990</td>
-              <td>汽车配件</td>
-              <td>轮胎</td>
-              <td>185/60/14XM291V</td>
-              <td>条</td>
-              <td>530.00</td>
-              <td>650.00</td>
-              <td>8</td>
-              <td>杭州力德贸易有限公司</td>
-             
-              <td>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                <i class="fa fa-star-o"></i>
-              </td>
-              <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
-            </tr>
+          </thead>
+          <tbody>
+            <% 10.times do |i| %>
+              <tr class="bg_tr">
+                <td><%= i+1 %></td>
+                <td>米其林轮胎</td>
+                <td>3080309075990</td>
+                <td>汽车配件</td>
+                <td>轮胎</td>
+                <td>185/60/14XM291V</td>
+                <td>条</td>
+                <td>530.00</td>
+                <td>650.00</td>
+                <td>8</td>
+                <td>杭州力德贸易有限公司</td>
+               
+                <td>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-half-o"></i>
+                  <i class="fa fa-star-o"></i>
+                </td>
+                <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa fa-angle-double-right"></i></a></td>
+              </tr>
+
+            <% end %>
             <tr  class="bg_tr">
-               <td>3</td>
-              <td>米其林轮胎</td>
-              <td>3080309075990</td>
-              <td>汽车配件</td>
-              <td>轮胎</td>
-              <td>185/60/14XM291V</td>
-              <td>条</td>
-              <td>530.00</td>
-              <td>650.00</td>
-              <td>8</td>
-              <td>杭州力德贸易有限公司</td>
-             
-              <td>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                <i class="fa fa-star-o"></i>
-              </td>
-              <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
-            </tr>
-            <tr>
-             <td>4</td>
-              <td>米其林轮胎</td>
-              <td>3080309075990</td>
-              <td>汽车配件</td>
-              <td>轮胎</td>
-              <td>185/60/14XM291V</td>
-              <td>条</td>
-              <td>530.00</td>
-              <td>650.00</td>
-              <td>8</td>
-              <td>杭州力德贸易有限公司</td>
-             
-              <td>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                <i class="fa fa-star-o"></i>
-              </td>
-              <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
-            </tr>
-            <tr  class="bg_tr">
-              <td>5</td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -256,6 +194,7 @@
               
               <td class="last_td"></td>
             </tr>
+            </tbody>
           </table>
         </div>
         </div>
