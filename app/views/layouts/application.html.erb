@@ -19,66 +19,65 @@
     <nav class="nav">
       <div class="top">
         <div class='nav_top_left top_left'>
-        <i id='menutoggle' class="fa fa-list curcor_hand"></i>
-        <h2 class="font-24">库存管理</h2></div>
-        <div class="top_center">
-          <input class="input_query">
-        </div>
-        <div class="nav_top_right top_right">
-          <ul class="nav_right">
-            <li><i class="fa fa-comment"></i></li>
-            <li><i class="fa fa-th"></i></li>
-            <li><i class="fa fa-clock-o"></i></li>
-            <li><i class="fa  fa-user"></i></li>
+          <i id='menutoggle' class="fa fa-list curcor_hand"></i>
+          <h2 class="font-24">库存管理</h2></div>
+          <div class="top_center">
+            <input class="input_query">
+          </div>
+          <div class="nav_top_right top_right">
+            <ul class="nav_right">
+              <li><i class="fa fa-comment"></i></li>
+              <li><i class="fa fa-th"></i></li>
+              <li><i class="fa fa-clock-o"></i></li>
+              <li><i class="fa  fa-user"></i></li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+  </header>
+
+  <div id="main">
+    <div class="sidemenu" id="sidemenu">
+      <div class='float-left' >
+        <div class="pure-menu pure-menu-open crm_side-menu  first_menu">
+          <ul id="menu">
+            <li><a href="#"><i class="fa fa-clock-o"></i></a></li>
+            <li><a href="#"><i class="fa fa-calculator"></i></a></li>
+            <li><a href="#"><i class="fa fa-user"></i></a></li>
+            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+            <li><a href="#"><i class="fa fa-users"></i></a></li>
+            <li class="hover"><a href="#"><i class="fa fa-cubes"></i></a></li>
+            <li><a href="#"><i class="fa fa-jpy"></i></a></li>
+            <li><a href="#"><i class="fa fa-line-chart"></i></a></li>
+            <li><a href="#"><i class="fa fa-cog"></i></a></li>
           </ul>
         </div>
       </div>
-    </nav>
-</header>
 
-<div id="main">
-
-  <div class="sidemenu" id="sidemenu">
-    <div class='float-left' >
-       <div class="pure-menu pure-menu-open crm_side-menu  first_menu">
-        <ul id="menu">
-          <li><a href="#"><i class="fa fa-clock-o"></i></a></li>
-          <li><a href="#"><i class="fa fa-calculator"></i></a></li>
-          <li><a href="#"><i class="fa fa-user"></i></a></li>
-          <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-          <li><a href="#"><i class="fa fa-users"></i></a></li>
-          <li class="hover"><a href="#"><i class="fa fa-cubes"></i></a></li>
-          <li><a href="#"><i class="fa fa-jpy"></i></a></li>
-          <li><a href="#"><i class="fa fa-line-chart"></i></a></li>
-          <li><a href="#"><i class="fa fa-cog"></i></a></li>
-        </ul>
+      <div  class='float-left'>
+        <div class="pure-menu pure-menu-open menulist">
+          <h4>库存管理</h4>
+          <ul class="secont_menu">
+            <li class="hover"><a href="#">库存列表</a></li>
+            <li><a href="#">入库</a></li>
+            <li><a href="#">出库</a></li>
+            <li><a href="#">订货</a></li>
+            <li><a href="#">盘点</a></li>
+            <li><a href="#">报损</a></li>
+            <li><a href="#">退货</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div  class='float-left'>
-     <div class="pure-menu pure-menu-open menulist">
-        <h4>库存管理</h4>
-        <ul class="secont_menu">
-          <li class="hover"><a href="#">库存列表</a></li>
-          <li><a href="#">入库</a></li>
-          <li><a href="#">出库</a></li>
-          <li><a href="#">订货</a></li>
-          <li><a href="#">盘点</a></li>
-          <li><a href="#">报损</a></li>
-          <li><a href="#">退货</a></li>
-        </ul>
+
+    </div><!-- sidemenu -->
+
+
+    <div class="content"  id="content">
+      <div id='container'>
+        <%= yield %>
       </div>
     </div>
   </div>
-
-   <div class="content"  id="content">
-    <div id='container'>
-      <%= yield %>
-    </div>
-  </div>
-
-</div>
-  
-
   <%= yield :javascripts %>
 </body>
 </html>
