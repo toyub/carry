@@ -10,4 +10,6 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-Rails.application.config.assets.precompile += %w[ pinghei/PingHei-text.ttf awesome/fontawesome-webfont.woff ]
+Rails.application.config.assets.precompile += %w[ kucun.css ]
+
+Rails.application.config.assets.precompile += %w[ awesome/fontawesome-webfont.woff ]

@@ -1,0 +1,262 @@
+<div class="main_top">
+        <h2>库存列表</h2>
+      </div>
+      <div class="details">
+        <div class="container_list">
+          <div class="top_content records">
+            <div class="content_tab_top">
+          <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
+            <colgroup>
+            <col width="14.28%">
+            <col width="14.28%">
+            <col width="14.28%">
+            <col width="14.28%">
+            <col width="14.28%">
+            <col width="14.28%">
+            <col width="14.28%">
+            </colgroup>
+            <tr  style="height:50px;">
+              <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                  <tr>
+                    <td class="text-align-left"><a href="#">商品总数量</a> 
+                    <span   class="num_color font-24  tab_span ">86</span></td>
+                  </tr>
+                </table></td>
+              <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                  <tr>
+                    <td class=" text-align-left"><a href="#">数量最多商品</a>
+                    <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                  </tr>
+                  <tr>
+                    <td class=" text-align-left"><a href="#">金额最大商品</a>
+                    <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                  </tr>
+                </table></td>
+              <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                  <tr>
+                    <td class=" text-align-left"><a href="#">出库量最多</a>
+                    <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                  </tr>
+                  <tr>
+                    <td class=" text-align-left"><a href="#">出库量最少</a>
+                    <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                  </tr>
+                </table></td>
+              <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                  <tr>
+                    <td class=" text-align-left"><a href="#">库龄最短</a>
+                    <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                  </tr>
+                  <tr>
+                    <td class=" text-align-left"><a href="#">库龄最长</a>
+                    <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                  </tr>
+                </table></td>
+              <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                  <tr>
+                    <td class=" text-align-left"><a href="#">销售最多</a>
+                    <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                  </tr>
+                  <tr>
+                    <td class=" text-align-left"><a href="#">两用最多</a>
+                    <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                  </tr>
+                </table></td>
+              <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                  <tr>
+                    <td class="text-align-left"><a href="#">需回访客户</a>
+                    <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                  </tr>
+                  <tr>
+                    <td class=" text-align-left"><a href="#">已回访客户</a>
+                    <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                  </tr>
+                </table></td>
+              <td ><table cellpadding="0" cellspacing="0" class="in_tab">
+                  <tr>
+                    <td class=" text-align-right"><a href="#">商品总金额</a> <span   class="num_color text-align-right font-24 tab_span">22,8677</span></td>
+                  </tr>
+                </table></td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="stock_list_table">
+          <div class="search_nav">
+        
+          <div class="item-query">
+            <label>查找出库产品</label>
+            <input type="text" class="width-150" placeholder="输入产品关键字">
+          </div>
+          <div class="item-query">
+            <label>一级分类</label>
+            <select type="text" class="width-150">
+            <option></option>
+            <option></option>
+            </select>
+          </div>
+          <div class="item-query">
+            <label>二级分类</label>
+            <select type="text" class="width-150">
+            <option></option>
+            <option></option>
+            </select>
+          </div>
+          <div class="item-query">
+            <label>选择仓库</label>
+            <select type="text" class="width-150">
+            <option></option>
+            <option></option>
+            </select>
+            <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
+          </div>
+          
+          <div class="query_div">
+            <a href="#" class="new_btn btn">新建商品</a>
+            <a href="#" class="export_btn btn">导出</a>
+            <a href="#" class="print_btn btn">打印</a>
+          </div>
+       
+        
+          </div>
+          <table cellpadding="0" cellspacing="0" id="stock_table">
+           <colgroup>
+            <col width="2%">
+            <col width="10%">
+            <col width="8%">
+            <col width="8%">
+            <col width="8%">
+            <col width="8%">
+            <col width="5%">
+            <col width="8%">
+            <col width="8%">
+            <col width="6%">
+            <col width="10%">
+            <col width="8%">
+            <col width="5%">
+          </colgroup> 
+
+            <tr>
+              <th style="border-right:0px;" ></th>
+              <th >商品名称</th>
+              <th >商品条形码</th>
+              <th >一级分类</th>
+              <th >二级分类</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th >成本价</th>
+              <th>销售价</th>
+              <th>库存数</th>
+              <th>供应商</th>
+              <th>备注</th>
+              
+              <th class="last_td"> 操作</th>
+            </tr>
+            <tr class="bg_tr">
+              <td>1</td>
+              <td>米其林轮胎</td>
+              <td>3080309075990</td>
+              <td>汽车配件</td>
+              <td>轮胎</td>
+              <td>185/60/14XM291V</td>
+              <td>条</td>
+              <td>530.00</td>
+              <td>650.00</td>
+              <td>8</td>
+              <td>杭州力德贸易有限公司</td>
+             
+              <td>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+              </td>
+              <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa fa-angle-double-right"></i></a></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>米其林轮胎</td>
+              <td>3080309075990</td>
+              <td>汽车配件</td>
+              <td>轮胎</td>
+              <td>185/60/14XM291V</td>
+              <td>条</td>
+              <td>530.00</td>
+              <td>650.00</td>
+              <td>8</td>
+              <td>杭州力德贸易有限公司</td>
+             
+              <td>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+              </td>
+              <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
+            </tr>
+            <tr  class="bg_tr">
+               <td>3</td>
+              <td>米其林轮胎</td>
+              <td>3080309075990</td>
+              <td>汽车配件</td>
+              <td>轮胎</td>
+              <td>185/60/14XM291V</td>
+              <td>条</td>
+              <td>530.00</td>
+              <td>650.00</td>
+              <td>8</td>
+              <td>杭州力德贸易有限公司</td>
+             
+              <td>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+              </td>
+              <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
+            </tr>
+            <tr>
+             <td>4</td>
+              <td>米其林轮胎</td>
+              <td>3080309075990</td>
+              <td>汽车配件</td>
+              <td>轮胎</td>
+              <td>185/60/14XM291V</td>
+              <td>条</td>
+              <td>530.00</td>
+              <td>650.00</td>
+              <td>8</td>
+              <td>杭州力德贸易有限公司</td>
+             
+              <td>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+              </td>
+              <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
+            </tr>
+            <tr  class="bg_tr">
+              <td>5</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              
+              <td class="last_td"></td>
+            </tr>
+          </table>
+        </div>
+        </div>
+      </div>

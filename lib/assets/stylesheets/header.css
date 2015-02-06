@@ -1,0 +1,146 @@
+.header {
+  width: 100%;
+  min-width:1024px;
+  position: fixed;
+  margin: 0px;
+  top: 0px;
+  background: #e0e2cf;
+  z-index:3;
+}
+
+.nav .top{
+   width:100%; background-color:#2d1152; position:relative; overflow:hidden;
+}
+
+.nav .top i{
+   font-size:25px;
+   color:#ffffff;
+}
+
+.top_left{
+   width:190px; height:57px; position:absolute; top:0px; left:0px; line-height:57px; text-align:center; color:#FFF;
+}
+
+.top_left i{
+   padding-right:10px;
+}
+
+.top_left h2{
+  font-weight:100;
+  color:#ffffff;
+  display:inline;
+}
+
+.top_center{
+  margin-left:240px; height:46px;padding-top:11px; margin-right:240px;
+}
+
+.top_center .input_query{ height:35px; border:none;border-radius:6px; padding-left:10px; width:100%;font-size:14px;background:#533d71;}
+
+.top_right{width:190px; height:57px; position:absolute; top:0px; right:0px; line-height:57px; text-align:center; color:#FFF;}
+
+.nav {
+  color: #fff;
+  margin: 0 auto;
+  text-align: center;
+  background: #2d1152;
+  box-shadow: 0px 10px 10px #a0a0a0;
+}
+
+.nav_top_left {
+  height: 45px;
+  line-height: 45px;
+  margin-left:20px;  
+}
+
+.nav_top_left li {
+  list-style: none;
+  letter-spacing:0.1em;
+  display: inline;
+  height: 45px;
+  line-height: 45px;
+  font-size: 23px;
+}
+
+.nav_top_query {
+  height: 45px;
+  line-height: 45px;
+  font-size: 20px;
+  margin:0px 20px;
+  min-width:480px;
+  max-width:560px;
+  margin:auto;
+}
+
+.nav_top_right{
+  margin-right:20px;
+}
+
+.nav_top_query .search{
+  background: #533d71;
+  width:100%;
+  border: 0px;
+  border-radius: 5px;
+  margin:0 auto;
+  margin-top: 5px;
+  height:35px;
+  line-height:35px;
+  
+}
+
+.nav_top_query .search a{
+  display:inline-block;
+  text-decoration:none;
+  margin-top:10px;
+  margin-right:20px;
+  font-size:16px;
+  color:#C7BDBD;
+  margin-left:40px;
+  float:left;
+}
+
+.nav_top_query input {
+  height: 34px;
+  line-height: 34px;
+  background: #533d71;
+  width: 80%;
+  max-width:400px;
+  min-width:300px;
+  border: 0px;
+  border-radius: 5px;
+  font-size: 14px;
+  position:relative;
+  top:0px;
+}
+
+.nav_top_query input::-webkit-input-placeholder {
+ color:#ffffff;
+ font-weight:bold;
+}
+
+.nav_right {
+  margin: 0;
+  padding: 0;
+}
+
+.nav_right li {
+  list-style: none;
+  display: inline;
+  font-size: 25px;
+  line-height: 45px;
+  padding:8px 10px;
+}
+
+.nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+.nav li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav .current {
+  border-bottom: 1px solid #fff;
+}
