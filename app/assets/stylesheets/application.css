@@ -11,8 +11,7 @@
  * file per style scope.
  *
  *= require scaffolds
- *= require awesome
- *= require pinghei
  *= require pure/0.5.0-min
+ *= require awesome
  *= require_self
  */
