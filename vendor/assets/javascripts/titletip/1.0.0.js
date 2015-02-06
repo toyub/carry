@@ -20,20 +20,17 @@
 
         var top_c = function(window_height, document_scrollTop, tooltip_height, target_y, target_height){
           var result = target_y;
-          return result + tooltip_height > window_height + document_scrollTop ? result - tooltip_height : result;
+          return result + tooltip_height > window_height + document_scrollTop ? result - tooltip_height : result + target_height;
         }
 
         return this.each(function(index) {
             var $this = $(this);
             $tooltip = $("#divTooltip");
-            
-            $tooltip.hide();
-
             if ($tooltip.length == 0) {
                 $tooltip = $('<div id="divTooltip"></div>');
                 $('body').append($tooltip);
-                $tooltip.hide();
             }
+            $tooltip.hide();
 
             function show(evt) {
                 evt = evt ? evt : window.event;
@@ -62,7 +59,8 @@
                 var document_scrollTop = $(document).scrollTop();
                 var target_height = self.offsetHeight;
                 var target_x = evt.clientX;
-                var target_y = self.scrollHeight + self.scrollTop +  self.offsetTop;
+                var target_y = self.scrollHeight + self.scrollTop +  self.offsetTop + self.offsetHeight;
+                    target_y = evt.clientY;
 
                 $tooltip.css("left", left_c(window_with, document_scrollLeft, tooltip_with, target_x));
                 $tooltip.css("top", top_c(window_height, document_scrollTop, tooltip_height, target_y, target_height));
@@ -101,5 +99,6 @@
 })(jQuery);
 
 jQuery(function($){
+  console.log($("[title]"))
   $("[title]").tooltip({fixed: true});
 });
