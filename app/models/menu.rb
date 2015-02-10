@@ -1,0 +1,63 @@
+class Menu
+  def self.menu_for_staff(staff)
+    [{
+      icon: 'fa-clock-o', name: '现场管理',shortcut: 'xianchang',
+      second_menu: [
+          {
+            href: '1',
+            name: '现场一',
+            controller: '1',
+            action: 'index'
+          }
+        ]
+      },
+
+      {
+        icon: 'fa-calculator', name: '收银',shortcut: 'shouyin',
+        second_menu: []
+      },
+
+      {
+        icon: 'fa-user', name: 'CRM',shortcut: 'crm',
+        second_menu: []
+      },
+
+      {
+        icon: 'fa-shopping-cart', name: '销售管理',shortcut: 'xiaoshou',
+        second_menu: []
+      },
+
+      {
+        icon: 'fa-users', name: '员工管理',shortcut: 'yuangong',
+        second_menu: []
+      },
+
+      {
+        icon: 'fa-cubes', name: '库存',shortcut: 'kucun',
+        second_menu: [
+          {
+              href: 'materials',
+              controller: 'materials',
+              action: 'index',
+              name: '库存列表'
+          }
+        ]
+      },
+
+      {
+        icon: 'fa-jpy', name: '财务助手',shortcut: 'caiwu',
+        second_menu: []
+      },
+
+      {
+        icon: 'fa-line-chart', name: '统计分析',shortcut: 'tongji',
+        second_menu: []
+      },
+
+      {
+        icon: 'fa-cog', name: '系统设置',shortcut: 'sys_conf',
+        second_menu: []
+      }
+    ]
+  end
+end

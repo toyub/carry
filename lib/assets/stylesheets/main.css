@@ -6,8 +6,8 @@
 }
 
 #container {
-  margin: 8px 0px 0px 30px;
-  min-height: 960px;
+  margin: 0 auto;
+  position:relative;
   width:1400px;
 }
 
@@ -33,7 +33,6 @@
 }
 
 .content_tab_top {
-  
   font-size:15px;
   border-bottom: 1px solid #dad9d9;
 }
@@ -210,16 +209,20 @@
   height: 35px;
   line-height: 35px;
 }
+
 .recouds{
   border: 0px;
   background: #fff;
 }
+
 .recouds button {
   margin-top: 9px;
 }
+
 .border-right {
   border-right: 1px solid #e6e6e6;
 }
+
 .car_content{
   padding-left: 10px;
   color: #444;
@@ -243,6 +246,7 @@
   line-height: 35px;
   text-align: right;
 }
+
 .item_content label{
   text-align: right;
   display: inline-block;
@@ -250,6 +254,7 @@
   line-height: 35px;
 
 }
+
 .item_content input[ type="text"], .item_content select {
   background: #fff;
   color: #a4a5a4;
@@ -274,21 +279,18 @@
   float: left;
 }
 
-#container {
-  margin: 0 auto;
-  min-height: 960px;
-  position:relative;
 
-}
 #container .main_top{
   margin:0px 20px;
   font-size:16px;
   overflow:hidden;
 }
+
 #container .main_top h2{
   width:75%;
   float:left;
 }
+
 #container .main_top .add_span{
   display:inline-block; 
   width:30px; 
@@ -304,6 +306,7 @@
   box-shadow:3px 3px 3px #e0e0e0;
   
  }
+
 #container .crm_tab_top .add_btn,#container .main_top .add_btn{
   display:inline-block;
   width:65px;
@@ -319,10 +322,12 @@
   margin-left:0px;
   
 }
+
 #container .main_top .add_btn_group{
   position:relative;
   top:-40px;
 }
+
 .add_bold {
   font-weight: bold;
 }

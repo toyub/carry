@@ -99,6 +99,5 @@
 })(jQuery);
 
 jQuery(function($){
-  console.log($("[title]"))
   $("[title]").tooltip({fixed: true});
 });
