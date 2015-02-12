@@ -14,5 +14,6 @@
  *= require pure/0.5.0-min
  *= require pure_extends
  *= require awesome
+ *= require jquery_ui
  *= require_self
  */
