@@ -20,7 +20,8 @@
       <div class="top">
         <div class='nav_top_left top_left'>
           <i id='menutoggle' class="fa fa-list curcor_hand"></i>
-          <h2 class="font-24">库存管理</h2></div>
+          <h2 class="font-24">库存管理</h2>
+        </div>
           <div class="top_center">
             <input class="input_query">
           </div>
@@ -36,38 +37,31 @@
     </nav>
   </header>
 
+  <menu id="start_menu">
+    <ul id='primary'>
+      <% Menu.menu_for_staff(current_user).each do |menu| %>
+        <li class='<%= is_hover(nil, menu[:shortcut]) %>'>
+          <a href="#<%= menu[:shortcut] %>"><i class="fa <%= menu[:icon] %>"></i></a>
+        </li>
+      <% end %>
+    </ul>
+    <div id='submenus' class='float-left'>
+      <% Menu.menu_for_staff(current_user).each do |menu| %>
+      <div id='<%= menu[:shortcut] %>' class="submenu <%= is_hover(nil, menu[:shortcut]) %>">
+        <h4><%= menu[:name] %></h4>
+        <ul>
+          <% menu[:second_menu].each do |sec_menu| %>
+            <li class="<%= is_hover(sec_menu[:controller], menu[:shortcut], action_name: sec_menu[:action]) %>">
+              <a href="<%= sec_menu[:href] %>"><%= sec_menu[:name] %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+    </div>
+  </menu>
+
   <div id="main">
-    <div class="sidemenu" id="sidemenu">
-      <div class='float-left'>
-        <div class="pure-menu pure-menu-open crm_side-menu first_menu">
-          <ul id="menu">
-            <% Menu.menu_for_staff(current_user).each do |menu| %>
-              <li class='<%= is_hover(nil, menu[:shortcut]) %>' title="<%= menu[:name] %>">
-                <a href="#<%= menu[:shortcut] %>"><i class="fa <%= menu[:icon] %>"></i></a>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-
-      <div id='submenu' class='float-left'>
-        <% Menu.menu_for_staff(current_user).each do |menu| %>
-        <div id='<%= menu[:shortcut] %>' class="pure-menu pure-menu-open menulist <%= is_hover(nil, menu[:shortcut]) %>">
-          <h4><%= menu[:name] %></h4>
-          <ul class="second_menu">
-            <% menu[:second_menu].each do |sec_menu| %>
-              <li class="<%= is_hover(sec_menu[:controller], sec_menu[:shortcut], action: sec_menu[:action]) %>">
-                <a href="<%= sec_menu[:href] %>"><%= sec_menu[:name] %></a>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-        <% end %>
-      </div>
-
-    </div><!-- sidemenu -->
-
-
     <div class="content"  id="content">
       <div id='container'>
         <%= yield %>
