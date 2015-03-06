@@ -15,11 +15,11 @@
             <col width="14.28%">
             <col width="14.28%">
             </colgroup>
-            <tr  style="height:50px;">
+            <tr style="height:50px;">
               <td class="border-right">
                 <table cellpadding="0" cellspacing="0" class="in_tab">
                   <tr>
-                    <td class="text-align-left"><a href="#">商品总数量</a> 
+                    <td class="text-align-left"><a href="#">商品总数量</a>
                     <span   class="num_color font-24  tab_span ">86</span></td>
                   </tr>
                 </table>
@@ -92,10 +92,10 @@
             </tr>
           </table>
         </div>
-        
+
         <div class="stock_list_table">
           <div class="search_nav">
-        
+
           <div class="item-query">
             <label>查找出库产品</label>
             <input type="text" class="width-150" placeholder="输入产品关键字">
@@ -122,16 +122,16 @@
             </select>
             <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
           </div>
-          
+
           <div class="query_div">
-            <a href="#" class="new_btn btn">新建商品</a>
+            <a href="<%= new_kucun_material_path %>" class="new_btn btn">新建商品</a>
             <a href="#" class="export_btn btn">导出</a>
             <a href="#" class="print_btn btn">打印</a>
           </div>
-       
-        
+
+
           </div>
-          <table cellpadding="0" cellspacing="0" id="stock_table">
+          <table cellpadding="0" cellspacing="0" id="stock_table" class="stock_table">
            <colgroup>
             <col width="2%">
             <col width="10%">
@@ -146,7 +146,7 @@
             <col width="10%">
             <col width="8%">
             <col width="5%">
-          </colgroup> 
+          </colgroup>
           <thead>
             <tr>
               <th style="border-right:0px;" ></th>
@@ -166,7 +166,8 @@
           </thead>
           <tbody>
             <% 10.times do |i| %>
-              <tr class="bg_tr">
+              <% i%2 == 0 ? tr_class = 'bg_tr' : '' %>
+              <tr class="<%= tr_class %>">
                 <td><%= i+1 %></td>
                 <td>米其林轮胎</td>
                 <td>3080309075990</td>
@@ -178,7 +179,7 @@
                 <td>650.00</td>
                 <td>8</td>
                 <td>杭州力德贸易有限公司</td>
-               
+
                 <td>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
@@ -203,7 +204,7 @@
               <td></td>
               <td></td>
               <td></td>
-              
+
               <td class="last_td"></td>
             </tr>
             </tbody>
@@ -211,4 +212,3 @@
         </div>
         </div>
       </div>
-

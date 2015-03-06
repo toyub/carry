@@ -1,0 +1,318 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun/materials/new' %>
+<% end %>
+<div class="main_top">
+        <h2>库存列表</h2>
+      </div>
+      <div class="details">
+        <div class="container_list">
+          <div class="top_content records">
+            <div class="content_tab_top">
+              <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
+                <colgroup>
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                </colgroup>
+                <tr  style="height:50px;">
+                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                      <tr>
+                        <td class="text-align-left"><a href="#">商品总数量</a> <span   class="num_color font-24  tab_span ">86</span></td>
+                      </tr>
+                    </table></td>
+                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                      <tr>
+                        <td class=" text-align-left"><a href="#">数量最多商品</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                      </tr>
+                      <tr>
+                        <td class=" text-align-left"><a href="#">金额最大商品</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                      </tr>
+                    </table></td>
+                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                      <tr>
+                        <td class=" text-align-left"><a href="#">出库量最多</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                      </tr>
+                      <tr>
+                        <td class=" text-align-left"><a href="#">出库量最少</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                      </tr>
+                    </table></td>
+                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                      <tr>
+                        <td class=" text-align-left"><a href="#">库龄最短</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                      </tr>
+                      <tr>
+                        <td class=" text-align-left"><a href="#">库龄最长</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                      </tr>
+                    </table></td>
+                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                      <tr>
+                        <td class=" text-align-left"><a href="#">销售最多</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                      </tr>
+                      <tr>
+                        <td class=" text-align-left"><a href="#">两用最多</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                      </tr>
+                    </table></td>
+                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
+                      <tr>
+                        <td class="text-align-left"><a href="#">需回访客户</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
+                      </tr>
+                      <tr>
+                        <td class=" text-align-left"><a href="#">已回访客户</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
+                      </tr>
+                    </table></td>
+                  <td ><table cellpadding="0" cellspacing="0" class="in_tab">
+                      <tr>
+                        <td class=" text-align-right"><a href="#">商品总金额</a> <span   class="num_color text-align-right font-24 tab_span">22,8677</span></td>
+                      </tr>
+                    </table></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="details_nav">
+            <ul>
+              <li class="bg-color-fff"><a href="#" class="width-90">商品信息</a></li>
+              <% unless @store_material.new_record? %>
+              <li><a href="#" class="width-90">销售设置</a></li>
+              <li ><a href="#" class="width-90">提成</a></li>
+              <li ><a href="#" class="width-90">回访</a></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="details_nav_second">
+            <ul class="goods_nav">
+              <li><a href="#" class="width-90">▲上一件商品</a></li>
+              <li><a href="#" class="width-90">▼下一件商品</a></li>
+              <li ><a href="#" class="width-90">返回列表</a></li>
+            </ul>
+          </div>
+          <div class="details_content">
+
+            <div class="base_info">
+              <%= form_for(@store_material, url: kucun_materials_path, as: :material) do %>
+              <div class="goods_img">
+                <div id='material_img_preview' class="goods_main_img"></div>
+                <ul id='material_img_thumbnails' class="goods_small_img">
+                    <li data-id='0'><a class='fa fa-plus-square add_img' href="javascript:void(0);"></a></li>
+                </ul>
+              </div>
+
+              <div class=" car_content">
+              <div class="pure-u-1-1">
+                <div class="item_content">
+                  <label class="width-75">商品名称</label>
+                  <input name='material[name]' type="text" class="width-165 autocomplete" required=true autocomplete='off'>
+                </div>
+                <div class="item_content">
+                  <label class="width-75">条形码</label>
+                  <input type="text" name='material[barcode]' class="width-165">
+                </div>
+                <div class="item_content">
+                  <label class="width-75">一级分类</label>
+                  <select name='material[category1]' type="text" class="width-165">
+                    <option value='1'>美容</option>
+                    <option value='2'>汽配</option>
+                  </select>
+                </div>
+                <div class="item_content">
+                  <label class="width-75">二级分类</label>
+                  <select name='material[category2]' type="text" class="width-165">
+                    <option value='1'>美国蜡</option>
+                    <option value='2'>澜泰美容液</option>
+                  </select>
+                </div>
+                <div class="item_content">
+                  <label class="width-75">商品规格</label>
+                  <input name='material[speci]' type="text" class="width-165" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-75">商品单位</label>
+                  <input name='material[unit]' type="text" class="width-165" required=true list='categories' autocomplete='off'>
+                  <datalist id="categories">
+                    <option value="米">
+                    <option value="升">
+                    <option value="平方米">
+                    <option value='Add New Category'>
+                  </datalist>
+                </div>
+                <div class="item_content">
+                  <label class="width-75">成本价</label>
+                  <input name='material[cost_price]' type="text" class="width-165" placeholder="输入成本价会影响原成本价" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-75">零售价</label>
+                  <input name='material[retail_price]' type="text" class="width-165" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-75">商品品牌</label>
+                  <input name='material[brand]' type="text" class="width-165" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-75">生产单位</label>
+                  <input name='material[manufacturer]' type="text" class="width-165" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-75">助记码</label>
+                  <input name='material[mnemonic]' type="text" class="width-165" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-75">最低零售价</label>
+                  <input name='material[min_retail_price]' type="text" class="width-165" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-80"><input name='material[inventory_alarm]' type="radio" class='toggleable' >库存预警：</label>
+                  <div>
+                    <label class="width-75">数量上限</label>
+                    <input name='material[max_inventory]' type="number" class="width-53" required=true min=0.0 step='any'>
+                  </div>
+
+                  <div class="width-167">
+                    <label class="lab_50">数量下限</label>
+                    <input name='material[min_inventory]' type="number" class="width-53" required=true min=0.0 step='any'>
+                  </div>
+                </div>
+                <div class="item_content">
+                  <label class="width-75">保质期</label>
+                  <div class="input_span">
+                    <input type="text" name='material[expiry_date]' class="width-100 " style="border:0px;" required=true >
+                    <input type="radio" class="toggleable width-13">提醒
+                  </div>
+                </div>
+                <div class="item_textarea ">
+                  <label class="width-75">备注</label>
+                  <textarea name='material[remark]' class="textarea-width "></textarea>
+                </div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+            <div class="btn_group">
+              <a class="btn edit_btn">取消</a>
+              <a class="btn save_btn">保存</a>
+              <input form='new_material' type='submit'/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div id='piccut'>
+  <div class="overlay">
+		<div class="overlay-inner"></div>
+	</div>
+	<div id='arrange'>
+	  <div id='gallery' style="top: -1px; left: 115px;" class="resize-container"></div>
+	</div>
+  <label>支持jpg,png格式图片，单张不超过150k,最多5张</label>
+  <input type="file" id='imgfile' name="imgefile" size="12" accept="image/jpeg,image/png" />
+  <button class="btn-crop js-crop">截图</button>
+</div>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    v = new $$MIS.NewMaterialView();
+    v.setElement('#new_material');
+    v.model = new $$MIS.Material();
+    v.model.on('invalid', v.model.invalid_handle);
+  });
+</script>
+
+<script type="text/javascript">
+  var fr = new FileReader();
+  fr.onload = function(e){
+    if(document.getElementById('image_tag')){
+      document.getElementById('image_tag').remove();
+    }
+    document.getElementById("gallery").remove();
+
+    image = new Image();
+    image.className = "resize-image";
+    image.id = 'image_tag';
+    image.src = this.result;
+
+    div = document.createElement("div");
+    div.id='gallery';
+    div.className = 'resize-container';
+    div.style.top = '-1px';
+    div.style.left = '115px';
+    div.appendChild(image);
+    document.getElementById('arrange').appendChild(div);
+
+
+    var dataid=$('#material_img_thumbnails').data('id');
+    var preview = $('#material_img_thumbnails > li[data-id="'+ dataid +'"]');
+    resizeableImage(document.getElementById('image_tag'), $('.js-crop')[0], preview);
+  }
+
+
+  var d=document.getElementById("imgfile");
+  d.onchange = function(e){
+     f1 = this.files.item(0);
+    if(f1.type == 'image/png' || f1.type == 'image/jpeg'){
+      fr.readAsDataURL(f1, 'image/png');
+    }else{
+      alert('错误的文件格式，请选择PNG或JPG格式的图片文件！');
+      this.value = '';
+    }
+  }
+
+
+  $('a.add_img').on('click', function(){
+    var idd = $("#material_img_thumbnails>li").length;
+    $("#material_img_thumbnails>li[data-id='0']").before("<li class='goods_small_img' data-id='"+ idd +"'></li>");
+    $('#material_img_thumbnails').data('id', idd);
+    $('#piccut').show();
+  })
+
+  $('#material_img_thumbnails').on('click', 'li>img', function(evt){
+    if(!$("#material_img_preview>img").length){
+      var img = new Image();
+      img.src = this.src;
+      $("#material_img_preview").append(img);
+    }else{
+      $("#material_img_preview>img")[0].src = this.src;
+    }
+
+  });
+
+</script>
+
+<script>
+ jQuery(function($) {
+   $( "input.autocomplete" ).autocomplete({
+     source: function( request, response ) {
+       $.ajax({
+         url: "/kucun/materials/autocomplete_name",
+         dataType: "jsonp",
+         data: {
+           q: request.term
+         },
+         success: function( data ) {
+           response( data );
+         }
+       });
+     },
+     minLength: 3,
+     select: function( event, ui ) {
+       console.log( ui.item ?
+         "Selected: " + ui.item.label :
+         "Nothing selected, input was " + this.value);
+     },
+     open: function() {
+       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+     },
+     close: function() {
+       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+     }
+   });
+
+   $('input[name="material[unit]"]').on('input', function(evt){
+     console.log(this, evt)
+   })
+ });
+ </script>
+<% end %>

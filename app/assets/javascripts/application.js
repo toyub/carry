@@ -17,3 +17,4 @@
 //= require jquery_ui/1.11.2
 //= require titletip/1.0.0
 //= require menu
+//= require page_dom_init

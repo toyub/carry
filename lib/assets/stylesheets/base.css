@@ -65,3 +65,8 @@ nbsp2{width:28px; display:inline-block;height:2px;background:none;border:0px; ma
   50% { -webkit-box-shadow: 0 0 10px red; }
   to { -webkit-box-shadow: 0 0 5px #bbb; }
 }
+
+
+input[type='radio'].toggleable{
+  color: red;
+}

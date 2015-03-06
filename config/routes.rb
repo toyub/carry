@@ -56,7 +56,11 @@ Rails.application.routes.draw do
 
   namespace :kucun do
     get '/', to: 'materials#index'
-    resources :materials
+    resources :materials do
+      collection do
+        get :autocomplete_name
+      end
+    end
   end
 
   resource :session, only: [:new, :create, :destroy]

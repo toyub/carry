@@ -241,6 +241,11 @@
   line-height: 35px;
 }
 
+.item_content,.item_textarea{
+  float: left;
+  margin-left:29px;
+}
+
 .item_content {
   float: left;
   line-height: 35px;

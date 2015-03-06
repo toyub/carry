@@ -36,13 +36,13 @@ class Menu
         icon: 'fa-cubes', name: '库存',shortcut: 'kucun',
         second_menu: [
           {
-              href: 'kucun/materials',
+              href: '/kucun/materials',
               controller: 'materials',
               action: 'index',
               name: '库存列表'
           },
           {
-              href: 'materials/show',
+              href: '/kucun/materials/',
               controller: 'materials',
               action: 'show',
               name: '入库'

@@ -1,3 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*---------------------------------库存管理-库存列表---------------------------------------------*/
+
 .admin_img {
   padding-top: 2px;
 }
@@ -44,14 +50,14 @@
   margin: 10px auto;
   font-size: 12px;
   background: #fff;
-  border:1px solid #e0e0e0;
 }
-#stock_table {
+.stock_table {
   width: 100%;
   font-size: 12px;
   text-align: center;
+  border:1px solid #e6e6e6;
 }
-#stock_table th {
+.stock_table th {
   background: #ffffff;
   height: 45px;
   line-height: 45px;
@@ -61,7 +67,7 @@
   font-size: 14px;
   padding: 0px 5px;
 }
-#stock_table tr td {
+.stock_table tr td {
   border-right: 1px solid #e6e6e6;
   height: 28px;
   line-height: 28px;
@@ -69,14 +75,15 @@
   padding: 0px 5px;
   color:#595858;
 }
-#stock_table tr td.last_td,#stock_table tr th.last_td{
+.stock_table tr td.last_td,.stock_table tr th.last_td{
   border-right:0px;
 }
 .search_nav{
-  width:100%;
+  width:99.9%;
   overflow:hidden;
-  border-bottom: 1px solid #e6e6e6;
-  line-height:30px;
+  border: 1px solid #c6c6c6;
+  line-height:33px;
+  height:33px;
   background:#e9e7e7;
 }
 .item-query{
@@ -118,17 +125,62 @@
 }
 .goods_img{
   width:255px;
-  height:190px;
   float:left;
+}
+.goods_main_img{
+  height:190px;
   border:1px solid #e6e6e6;
 }
-.goods_img img{
-  width:255px;
+.goods_main_img img{
+  width:253px;
   height:190px;
+}
+.goods_small_img{
+  padding:5px;
+  border:1px solid #e6e6e6;
+}
+.goods_small_img img{
+  width:53px;
+  height:48px;
+  margin-right:5px;
+  
+}
+#material_img_thumbnails li{
+  width: 40px;
+  height: 30px;
+  display: inline-block;
+  border: 1px solid #999;
+  padding: 0;
+  margin: 0 0 0 3px;
+}
+#material_img_thumbnails li:last-child{
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 0;
+  margin: 0 0 0 3px;
+}
+#material_img_thumbnails li a.add_img{
+  font-size: 48px;
+  padding: 0;
+  margin: 0;
+}
+
+#material_img_thumbnails li img{
+  width: 40px;
+  height: 30px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.goods_choose_img{
+  margin-top:10px;
 }
 .car_content .item_content .input_span{
   display:inline-block;
-  height:25px;
+  height:26px;
   line-height:25px;
   border:1px solid #e6e6e6;
   padding:0px 10px 0px 0px;
@@ -139,10 +191,10 @@
 
 /*库存管理-库存列表-销售设置-start*/
 .item_textarea .server_textarea{
-  width:83.5%;
+  width:437px;
 }
  .server_list,.visit_list{
-   width:90%;
+   width:472px;
    float:right;
    margin-right:5px;
    min-height:435px;
@@ -151,7 +203,7 @@
  .server_list .top,.visit_list .top{
    height:45px;
    line-height:45px;
-   margin:0px 15px;
+   margin:0px 15px 0px 0px;
 }
  .server_list .top a,.visit_list .top a{
    display:inline-block;
@@ -171,6 +223,7 @@
   width:58%;
   margin:80px auto;
   display:none;
+  z-index:2;
 }
 .none_server_p,.none_visit_p{
   font-size:22px;
@@ -184,10 +237,14 @@
   text-align:center;
   color:#505250;
 }
+.server_list .list li.list_left{
+  width:99.5%;
+}
+
 .server_list .list,.visit_list .list{
   margin:0px 15px;
   border:0px;
-  display:none;
+  display:block;
 }
 .server_list .list .first_td{
   width:8%;
@@ -202,7 +259,7 @@
   width:20%;
 }
 .server_list .list .fifth_td{
-  width:25%;
+  width:24.9%;
   border-right:0px;
 }
 .server_list .list ul li,.visit_list .list ul li{
@@ -218,41 +275,28 @@
   
 }
 
-.list .list_top,.list .list_content,.visit_list .list .list_content{
-  width:100%;
-  overflow:hidden;
-  padding:0px;
-  border:1px solid #e6e6e6;
-  margin:0px;
-  
-}
- .list ul.list_content{
-  margin:0px 0px 5px 0px;
-  
-}
- .list .border-outer{
-  border:2px solid #00F;
-  background:url(../images/sanjiaoxing.png) no-repeat right;
-}
-
-.list .list_content li{
-  border-right:1px solid #e6e6e6;
-}
 
 .server_list .add_server,.visit_list .add_visit{
-  padding:0px 20px; 
+  padding:10px 20px;  
   margin-bottom:110px;
   overflow:hidden;
   border:1px solid #e6e6e6;
  box-shadow: -5px 0 5px #f2f2f2,0 -5px 5px #ffffff,0 5px 5px #cfcece,5px 0 5px #e9e9e9;
   
 }
- .car_content .add_server .text-align-left,.car_content .add_visit .text-align-left{
+.car_content .add_server .text-align-left,.car_content .add_visit .text-align-left{
   text-align:left;
 }
-.add_server .item_textarea textarea,.add_visit .item_textarea textarea {
+.add_server .item_textarea{
+  margin-top:5px;
+  margin-left:0px;
+}
+.add_server .item_textarea textarea{
   float: right;
-  width:225px;
+  width:252px;
+}
+.car_content .add_server .btn_group {
+  width: 100%;
 }
 .details  .add_server .btn,.details  .add_list .btn{
   width:100%;
@@ -266,27 +310,34 @@
 /*库存管理-库存列表-销售设置-end*/
 
 /*库存管理-库存列表-回访-start*/
+.visit_list .list li.list_left{
+  width:99.5%;
+}
 
 .visit_list .list .first_td{
-  width:8%;
+  width:10%;
 }
 .visit_list .list .second_td{
-  width:35.9%;
+  width:49%;
 }
 .visit_list .list .third_td{
   width:20%;
 }
 .visit_list .list .forth_td{
   width:20%;
-  border-right:0px;
+}
+.add_visit{
+  display:block;
 }
 .add_visit .item_textarea{
   margin-top:5px;
+  margin-left:0px;
 }
 .add_visit .item_textarea textarea{
   text-align:left;
   float:none;
-  margin-left:8px;
+  margin-left:4px;
+  width:265px;
 }
 
 /*库存管理-库存列表-回访-end*/
@@ -298,6 +349,9 @@
   margin: 10px auto;
   font-size: 12px/18px;
   background: #fff;
+}
+.in_storage .list li.list_left{
+  width:99%;
 }
 .in_storage ul{
   margin:0px;
@@ -342,6 +396,12 @@
   width:5%;
   border-right:0px;
 }
+.chevrondow{
+  float: right;
+    margin-right: 10px;
+    padding-top: 7px;
+  cursor:pointer;
+}
  .list .border_left{
   border-left:3px solid #198fff;
 }
@@ -369,13 +429,14 @@
 }
 .storage_details{
     border:1px solid #e6e6e6;
-    height:250px;
+  letter-spacing:normal;
+  height:250px;
     font-size:12px;
     float:right;
-    margin:-6px 0px 15px 0px;
-    position:absolute;
-    right:6.67%;
-    box-shadow:-5px 0 5px #f2f2f2,0 -5px 5px #ffffff,0 5px 5px #cfcece,5px 0 5px #e9e9e9;
+  margin:-6px 0px 15px 0px;
+  position:absolute;
+  right:6.67%;
+  box-shadow:-5px 0 5px #f2f2f2,0 -5px 5px #ffffff,0 5px 5px #cfcece,5px 0 5px #e9e9e9;
 }
 .storage_details .storage_details_tab{
   width:100%;
@@ -475,6 +536,12 @@
   box-shadow:0px 2px 0px #7845c4;
 }
 
+/*库存管理-入库-入库记录--------end--------------------*/
+/*----------------------------库存管理-入库-end-----------------------------------*/
+
+
+/*------------------------------库存管理-库存列表-新建商品--------------------------------------*/
+/*------------基本信息部分----------*/
 .new_commodity {
   background: #f9f9f9;
   overflow: hidden;
@@ -507,6 +574,8 @@
   overflow:hidden;
 }
 
+
+
 .car_content .item_content .sp_car_content{
   display:inline-block;
   border:1px solid #e5e5e5;
@@ -523,19 +592,6 @@ input[type="radio"], input[type="checkbox"] {
   vertical-align: middle;
 }
 
-.item_content img {
-  vertical-align: middle;
-}
-.item_textarea {
-  width: 100%;
-  float: left;
-  margin-top:10px;
-}
-.item_textarea textarea {
-  height: 100px;
-  width:407px;
-  border: 1px solid #dbd9d9;
-}
 
 /*-----------------上架信息部分---------*/
 .grounding_info {
@@ -613,6 +669,7 @@ input[type="radio"], input[type="checkbox"] {
 /*------------------提成部分-------------*/
 .tc{
   width:100%;
+  overflow:hidden;
 }
 .commission {
   overflow: hidden;
@@ -634,11 +691,11 @@ input[type="radio"], input[type="checkbox"] {
 }
 .sales_commission{
   float:left;
-  margin-left:77px;
+  margin-left:106px;
 }
 .artificer_commission{
   float:left;
-  margin-left:80px;
+  margin-left:168px;
 }
 .artificer_div, .sales_div {
   padding: 10px 0px;
@@ -689,7 +746,6 @@ input[type="radio"], input[type="checkbox"] {
   font-size: 12px;
   background: #fff;
 }
-
 .table_title {
   height: 25px;
   line-height: 25px;
@@ -697,18 +753,15 @@ input[type="radio"], input[type="checkbox"] {
   border-bottom: 0px;
   margin: 0px 1px;
 }
-
 .item_title {
   float: left;
   margin: 0px 20px;
 }
-
 #outbond_table {
   width: 100%;
   font-size: 12px;
   text-align: center;
 }
-
 #outbond_table th {
   background: #ddb3b3;
   color: #fff;
@@ -724,6 +777,8 @@ input[type="radio"], input[type="checkbox"] {
   border: 0px;
   color: #717171;
 }
+
+/*-----------------------------出库记录------------------------------------*/
 
 .outbound_records_query {
   border: 1px solid #b6bcc1;
@@ -742,3 +797,64 @@ input[type="radio"], input[type="checkbox"] {
   background: #b2e5ac;
   color: #717171;
 }
+
+
+/*------------------------库存管理-订货-start------------------*/
+.choose{
+    overflow:hidden; 
+  width:430px;
+  padding:10px 0px;
+}
+
+.choose .title{
+  height:50px;
+  letter-spacing:1.5;
+  
+}
+
+.choose .first_title{
+  color:#8f908f;
+}
+
+.choose .second_title{
+  width:65%;
+  margin-left:20px;
+  float:left;
+  
+}
+
+.choose_supplier,.choose_ordergoods{
+  margin-right:30px;
+  
+}
+
+.choose .supplier_content{
+  border:1px solid #e6e6e6;
+  padding:40px 0px;
+  overflow:hidden;
+  width:99.6%;
+  border-top:0px;
+  box-shadow:0px 3px 4px #999;
+
+}
+
+.supplier_content .item_content{
+  margin-left:10px;
+  margin-top:10px;
+  
+}
+
+.supplier_content .item_textarea textarea{
+  width:200px;
+}
+
+.choose .order_content{
+  border:1px solid #e6e6e6;
+  padding:40px 0px;
+  overflow:hidden;
+  width:99.6%;
+  border-top:0px;
+  box-shadow:0px 3px 4px #999;
+}
+/*---------------库存管理-订货-end---------------------------*/
+

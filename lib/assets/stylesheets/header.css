@@ -50,12 +50,12 @@
 .nav_top_left {
   height: 45px;
   line-height: 45px;
-  margin-left:20px;  
+  margin-left: 20px;
 }
 
 .nav_top_left li {
   list-style: none;
-  letter-spacing:0.1em;
+  letter-spacing: 0.1em;
   display: inline;
   height: 45px;
   line-height: 45px;
@@ -66,10 +66,10 @@
   height: 45px;
   line-height: 45px;
   font-size: 20px;
-  margin:0px 20px;
-  min-width:480px;
-  max-width:560px;
-  margin:auto;
+  margin: 0px 20px;
+  min-width: 480px;
+  max-width: 560px;
+  margin: auto;
 }
 
 .nav_top_right{
@@ -85,7 +85,6 @@
   margin-top: 5px;
   height:35px;
   line-height:35px;
-  
 }
 
 .nav_top_query .search a{
