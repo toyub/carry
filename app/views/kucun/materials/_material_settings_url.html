@@ -1,0 +1,6 @@
+<ul>
+  <li class="<%= is_hover 'materials', 'kucun', action_name: 'show', dom_class: ' bg-color-fff' %>"><a href="<%= kucun_material_path(@store_material) %>" class="width-90">商品信息</a></li>
+  <li class='ext_info <%= is_hover 'materials', 'kucun', action_name: 'saleinfo', dom_class: ' bg-color-fff' %>'><a href="<%= saleinfo_kucun_material_path(@store_material) %>" class="width-90">销售设置</a></li>
+  <li class='ext_info <%= is_hover 'materials', 'kucun', action_name: 'commission', dom_class: ' bg-color-fff' %>'><a href="<%= commission_kucun_material_path(@store_material) %>" class="width-90">提成</a></li>
+  <li class='ext_info <%= is_hover 'materials', 'kucun', action_name: 'tracing', dom_class: ' bg-color-fff' %>'><a href="<%= tracing_kucun_material_path(@store_material) %>" class="width-90">回访</a></li>
+</ul>

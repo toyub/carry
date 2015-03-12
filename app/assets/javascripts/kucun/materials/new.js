@@ -1,4 +1,9 @@
 //= require 'app/models/material'
+//= require 'app/models/material_unit'
+//= require 'app/models/material_category'
 //= require 'app/views/new_material'
+//= require 'app/views/material_unit'
+//= require 'app/views/material_category'
 //= require 'piccut/1.0.0'
+//= require 'select2/4.0.0.rc1'
 //= require_self

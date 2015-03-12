@@ -1,16 +1,17 @@
 module ViewHelper
   def is_hover(controller_name, namespace=nil, opt={})
+    dom_class_name = opt[:dom_class].present? ? opt[:dom_class] : 'hover'
     action_name=opt[:action_name]
     if namespace.present? && controller_name.present? && action_name.present?
-      "#{params[:controller]}/#{params[:action]}" == "#{namespace}/#{controller_name}/#{action_name}" ? 'hover' : ''
+      "#{params[:controller]}/#{params[:action]}" == "#{namespace}/#{controller_name}/#{action_name}" ? dom_class_name : ''
     elsif controller_name.present? && action_name.present?
-      "#{params[:controller]}/#{params[:action]}" == "#{controller_name}/#{action_name}" ? 'hover' : ''
+      "#{params[:controller]}/#{params[:action]}" == "#{controller_name}/#{action_name}" ? dom_class_name : ''
     elsif namespace.present? && controller_name.present?
-      params[:controller] == "#{namespace}/#{controller_name}" ? 'hover' : ''
+      params[:controller] == "#{namespace}/#{controller_name}" ? dom_class_name : ''
     elsif controller_name.present? && namespace.blank? && action_name.blank?
-      params[:controller] == controller_name ? 'hover' : ''
+      params[:controller] == controller_name ? dom_class_name : ''
     elsif namespace.present? && controller_name.blank? && action_name.blank?
-      params[:controller] =~ /^#{namespace}\//i ? 'hover' : ''
+      params[:controller] =~ /^#{namespace}\//i ? dom_class_name : ''
     else
       ""
     end

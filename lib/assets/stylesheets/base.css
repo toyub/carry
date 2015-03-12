@@ -70,3 +70,7 @@ nbsp2{width:28px; display:inline-block;height:2px;background:none;border:0px; ma
 input[type='radio'].toggleable{
   color: red;
 }
+
+.hidden{
+  display: none !important;
+}

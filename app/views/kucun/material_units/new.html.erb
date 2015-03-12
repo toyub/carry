@@ -1,0 +1,14 @@
+<div>
+  <%= form_for(@material_unit, url: kucun_material_units_path) do |form|%>
+    <%= form.text_field :name, placeholder: '请输入单位名称', required: true %>
+    <%= form.submit value: '保存' %>
+  <% end %>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function($){
+    
+  });
+  </script>
+<% end %>

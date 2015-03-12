@@ -1,3 +1,3 @@
 jQuery(function($){
-  $(document).tooltip({fixed: true});
+  //$(document).tooltip({fixed: true});
 });

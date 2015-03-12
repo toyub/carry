@@ -1,0 +1,192 @@
+<div class="main_top">
+    <span class="add_span">+</span>
+</div>
+<div class="details">
+    <div class="Content_list">
+        <div class="top_content records">
+            <%= render partial: 'table_head' %>
+        </div>
+        <div class="details_nav">
+            <%= render partial: 'material_settings_url' %>
+        </div>
+        <div class="details_nav_second">
+            <ul class="goods_nav">
+                <li><a href="#" class="width-90">▲上一件商品</a></li>
+                <li><a href="#" class="width-90">▼下一件商品</a></li>
+                <li ><a href="#" class="width-90">返回列表</a></li>
+            </ul>
+        </div>
+        <div class="details_content">
+            <div class="base_info">
+                <div class="goods_img">
+                    <div class="goods_main_img">
+                        <img src="images/car_01.jpg">
+                    </div>
+                    <div class="goods_small_img">
+                        <img src="images/car_01.jpg">
+                        <img src="images/car_01.jpg">
+                        <img src="images/car_01.jpg">
+                        <img src="images/car_01.jpg">
+                    </div>
+                    <div class="goods_choose_img">
+                        <input type="button" value="选择图片" class="choose_img_btn">
+                        <label>支持jpg,png格式图片，单张不超过150k,最多5张</label>
+                    </div>
+                </div>
+                <div class=" car_content">
+                    <div class="pure-u-1-2 float-left">
+                        <div class="item_content">
+                            <label class="width-75">商品名称</label>
+                            <input type="text" class="width-165">
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">零售价</label>
+                            <input type="text" class="width-165">
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">
+                                <input type="radio">
+                                优惠价
+                            </label>
+                            <input type="text" class="width-165">
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">商品积分</label>
+                            <input type="text" class="width-165">
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">规格</label>
+                            <input type="text" class="width-165">
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">销售分类</label>
+                            <select type="text" class="width-165">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">回访</label>
+                            <select type="text" class="width-165">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">回访方式</label>
+                            <select type="text" class="width-165">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div  class="pure-u-1-2 float-left">
+                        <div class="visit_list" >
+                            <div class="top">
+                                <h2>回访内容列表</h2>
+                                <a class="new_btn">创建</a>
+                            </div>
+                            <div class="none_visit_data">
+                                <p class="none_visit_p">当前没回访内容</p>
+                                <p class="none_details">
+                                你可以先选择回访下拉菜单中的"是"来激活回访列表，然后点击创建来添加配套的回访内容
+                                </p>
+                            </div>
+                            <div class="list">
+                                <ul class="list_top">
+                                    <li class="list_tr">
+                                        <ul>
+                                            <li class="first_td" style="border-left:2px solid #ffffff;">#</li>
+                                            <li class="second_td">内容</li>
+                                            <li class="third_td">间隔时间</li>
+                                            <li class="forth_td border-none">方式</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="list_content">
+                                    <li class="list_tr">
+                                        <ul>
+                                            <li class="first_td">1.</li>
+                                            <li class="second_td">感谢您购买产品，在使用中.....</li>
+                                            <li class="third_td">1</li>
+                                            <li class="forth_td border-none">微信</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="list_content">
+                                    <li class="list_tr">
+                                        <ul>
+                                            <li class="first_td">1.</li>
+                                            <li class="second_td">感谢您购买产品，在使用中.....</li>
+                                            <li class="third_td">1</li>
+                                            <li class="forth_td border-none">微信</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="list_content">
+                                    <li class="list_tr">
+                                        <ul>
+                                            <li class="first_td">1.</li>
+                                            <li class="second_td">感谢您购买产品，在使用中.....</li>
+                                            <li class="third_td">1</li>
+                                            <li class="forth_td border-none">微信</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="list_content">
+                                    <li class="list_tr">
+                                        <ul>
+                                            <li class="first_td">1.</li>
+                                            <li class="second_td">感谢您购买产品，在使用中.....</li>
+                                            <li class="third_td">1</li>
+                                            <li class="forth_td border-none">微信</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="add_visit">
+                                <div class=" text-align-left">
+                                    <label class="width-60">回访内容：</label>
+                                    <label class="width-75 text-align-left"> 选择短信模板</label>
+                                    <select class="width-265">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="  text-align-left">
+                                    <label class="width-60">回访时间：</label>
+                                    <label class="width-75 text-align-left"> 销售后</label>
+                                    <select class="width-120">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class=" text-align-left ">
+                                    <label class="width-60">回访方式：</label>
+                                    <label class="width-75 text-align-left"> 下拉选择</label>
+                                    <select class="width-120">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="item_textarea">
+                                    <label class="width-135" >&nbsp;</label>
+                                    <textarea class="item_textarea ">
+                                    </textarea>
+                                </div>
+                                <div class="btn_group">
+                                    <input type="reset"  value="取消" class=" btn cancel_btn" >
+                                    <input type="submit"  value="保存" class="btn save_btn" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn_group">
+                <a class="btn edit_btn" href="#">编辑</a>
+                <input type="button"  value="保存" class="btn save_btn" >
+            </div>
+        </div>
+    </div>
+</div>

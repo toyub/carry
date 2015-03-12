@@ -7,80 +7,16 @@
       <div class="details">
         <div class="container_list">
           <div class="top_content records">
-            <div class="content_tab_top">
-              <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
-                <colgroup>
-                <col width="14.28%">
-                <col width="14.28%">
-                <col width="14.28%">
-                <col width="14.28%">
-                <col width="14.28%">
-                <col width="14.28%">
-                <col width="14.28%">
-                </colgroup>
-                <tr  style="height:50px;">
-                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
-                      <tr>
-                        <td class="text-align-left"><a href="#">商品总数量</a> <span   class="num_color font-24  tab_span ">86</span></td>
-                      </tr>
-                    </table></td>
-                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
-                      <tr>
-                        <td class=" text-align-left"><a href="#">数量最多商品</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
-                      </tr>
-                      <tr>
-                        <td class=" text-align-left"><a href="#">金额最大商品</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
-                      </tr>
-                    </table></td>
-                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
-                      <tr>
-                        <td class=" text-align-left"><a href="#">出库量最多</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
-                      </tr>
-                      <tr>
-                        <td class=" text-align-left"><a href="#">出库量最少</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
-                      </tr>
-                    </table></td>
-                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
-                      <tr>
-                        <td class=" text-align-left"><a href="#">库龄最短</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
-                      </tr>
-                      <tr>
-                        <td class=" text-align-left"><a href="#">库龄最长</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
-                      </tr>
-                    </table></td>
-                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
-                      <tr>
-                        <td class=" text-align-left"><a href="#">销售最多</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
-                      </tr>
-                      <tr>
-                        <td class=" text-align-left"><a href="#">两用最多</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
-                      </tr>
-                    </table></td>
-                  <td class="border-right"><table cellpadding="0" cellspacing="0" class="in_tab">
-                      <tr>
-                        <td class="text-align-left"><a href="#">需回访客户</a> <span class="num_color  tab_span font-14 float-right">74位</span></td>
-                      </tr>
-                      <tr>
-                        <td class=" text-align-left"><a href="#">已回访客户</a> <span class="num_color  tab_span font-14 float-right">12位</span></td>
-                      </tr>
-                    </table></td>
-                  <td ><table cellpadding="0" cellspacing="0" class="in_tab">
-                      <tr>
-                        <td class=" text-align-right"><a href="#">商品总金额</a> <span   class="num_color text-align-right font-24 tab_span">22,8677</span></td>
-                      </tr>
-                    </table></td>
-                </tr>
-              </table>
-            </div>
+            <%= render partial: 'table_head' %>
           </div>
           <div class="details_nav">
             <ul>
               <li class="bg-color-fff"><a href="#" class="width-90">商品信息</a></li>
-              <% unless @store_material.new_record? %>
-              <li><a href="#" class="width-90">销售设置</a></li>
-              <li ><a href="#" class="width-90">提成</a></li>
-              <li ><a href="#" class="width-90">回访</a></li>
-              <% end %>
+
+              <li class='ext_info'><a href="javascript:void(0);" data-alert='请先保存商品信息！' class="width-90">销售设置</a></li>
+              <li class='ext_info'><a href="javascript:void(0);" data-alert='请先保存商品信息！' class="width-90">提成</a></li>
+              <li class='ext_info'><a href="javascript:void(0);" data-alert='请先保存商品信息！' class="width-90">回访</a></li>
+
             </ul>
           </div>
           <div class="details_nav_second">
@@ -91,9 +27,9 @@
             </ul>
           </div>
           <div class="details_content">
-
+            <%= form_for(@store_material, url: kucun_materials_path, as: :material) do %>
             <div class="base_info">
-              <%= form_for(@store_material, url: kucun_materials_path, as: :material) do %>
+
               <div class="goods_img">
                 <div id='material_img_preview' class="goods_main_img"></div>
                 <ul id='material_img_thumbnails' class="goods_small_img">
@@ -105,7 +41,7 @@
               <div class="pure-u-1-1">
                 <div class="item_content">
                   <label class="width-75">商品名称</label>
-                  <input name='material[name]' type="text" class="width-165 autocomplete" required=true autocomplete='off'>
+                  <input name='material[name]' type="text" class="width-165 autocomplete" required=true autocomplete='off' placeholder='请输入名称'>
                 </div>
                 <div class="item_content">
                   <label class="width-75">条形码</label>
@@ -113,31 +49,46 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">一级分类</label>
-                  <select name='material[category1]' type="text" class="width-165">
-                    <option value='1'>美容</option>
-                    <option value='2'>汽配</option>
-                  </select>
+                  <input type="hidden" name='material[category1]' value="">
+                  <span class="width-165 as_select" data-select='#material_category1_select' data-target='input[name="material[category1]"]'>请选择</span>
+                  <div id='material_category1_select' class="select">
+                    <ol>
+                      <% 3.times do |i| %>
+                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% end %>
+                    </ol>
+                    <a class='add_btn' data-method='add_category1' href="javascript:void(0);">新增</a>
+                  </div>
                 </div>
                 <div class="item_content">
                   <label class="width-75">二级分类</label>
-                  <select name='material[category2]' type="text" class="width-165">
-                    <option value='1'>美国蜡</option>
-                    <option value='2'>澜泰美容液</option>
-                  </select>
+                  <input type="hidden" name='material[store_material_category_id]' value="">
+                  <span class="width-165 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'>请选择</span>
+                  <div id='material_category_select' class="select">
+                    <ol>
+                      <% 3.times do |i| %>
+                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% end %>
+                    </ol>
+                    <a class='add_btn' data-method='add_category' href="javascript:void(0);">新增</a>
+                  </div>
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品规格</label>
-                  <input name='material[speci]' type="text" class="width-165" required=true >
+                  <input name='material[speci]' type="text" class="width-165" required=true>
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品单位</label>
-                  <input name='material[unit]' type="text" class="width-165" required=true list='categories' autocomplete='off'>
-                  <datalist id="categories">
-                    <option value="米">
-                    <option value="升">
-                    <option value="平方米">
-                    <option value='Add New Category'>
-                  </datalist>
+                  <input type="hidden" name='material[unit_id]' value="">
+                  <span class="width-165 as_select" data-select='#material_unit_select' data-target='input[name="material[unit_id]"]'>请选择</span>
+                  <div id='material_unit_select' class="select">
+                    <ol>
+                      <% 3.times do |i| %>
+                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% end %>
+                    </ol>
+                    <a class='add_btn' data-method='add_unit' href="javascript:void(0);">新增</a>
+                  </div>
                 </div>
                 <div class="item_content">
                   <label class="width-75">成本价</label>
@@ -149,11 +100,29 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品品牌</label>
-                  <input name='material[brand]' type="text" class="width-165" required=true >
+                  <input name='material[brand_id]' type="hidden">
+                  <span class="width-165 as_select" data-select='#material_brand_select' data-target='input[name="material[brand_id]"]'>请选择</span>
+                  <div id='material_brand_select' class="select">
+                    <ol>
+                      <% 3.times do |i| %>
+                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% end %>
+                    </ol>
+                    <a class='add_btn' data-method='add_brand' href="javascript:void(0);">新增</a>
+                  </div>
                 </div>
                 <div class="item_content">
                   <label class="width-75">生产单位</label>
-                  <input name='material[manufacturer]' type="text" class="width-165" required=true >
+                  <input name='material[manufacturer_id]' type="hidden">
+                  <span class="width-165 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[manufacturer_id]"]'>请选择</span>
+                  <div id='material_manufacturer_select' class="select">
+                    <ol>
+                      <% 3.times do |i| %>
+                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% end %>
+                    </ol>
+                    <a class='add_btn' data-method='add_manufacturer' href="javascript:void(0);">新增</a>
+                  </div>
                 </div>
                 <div class="item_content">
                   <label class="width-75">助记码</label>
@@ -164,22 +133,22 @@
                   <input name='material[min_retail_price]' type="text" class="width-165" required=true >
                 </div>
                 <div class="item_content">
-                  <label class="width-80"><input name='material[inventory_alarm]' type="radio" class='toggleable' >库存预警：</label>
+                  <label class="width-80"><input name='material[inventory_alarm]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
                   <div>
                     <label class="width-75">数量上限</label>
-                    <input name='material[max_inventory]' type="number" class="width-53" required=true min=0.0 step='any'>
+                    <input data-id='inventory' name='material[max_inventory]'  disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
 
                   <div class="width-167">
                     <label class="lab_50">数量下限</label>
-                    <input name='material[min_inventory]' type="number" class="width-53" required=true min=0.0 step='any'>
+                    <input data-id='inventory' name='material[min_inventory]' disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
                 </div>
                 <div class="item_content">
                   <label class="width-75">保质期</label>
                   <div class="input_span">
-                    <input type="text" name='material[expiry_date]' class="width-100 " style="border:0px;" required=true >
-                    <input type="radio" class="toggleable width-13">提醒
+                    <input type="text" data-id='expiry_date' name='material[expiry_date]' disabled=true class="width-100 " style="border:0px;" required=true >
+                    <label><input type="radio" data-target='expiry_date' class="toggleable width-13">提醒</label>
                   </div>
                 </div>
                 <div class="item_textarea ">
@@ -188,13 +157,12 @@
                 </div>
                 </div>
               </div>
-              <% end %>
             </div>
             <div class="btn_group">
-              <a class="btn edit_btn">取消</a>
-              <a class="btn save_btn">保存</a>
-              <input form='new_material' type='submit'/>
+              <a class="btn cancel_btn">取消</a>
+              <input type='submit' class="btn save_btn" value='保存'>
             </div>
+            <% end %>
           </div>
         </div>
       </div>
@@ -218,6 +186,35 @@
     v.setElement('#new_material');
     v.model = new $$MIS.Material();
     v.model.on('invalid', v.model.invalid_handle);
+
+    $('#new_material').on('submit', function(evt){
+        if(!v.model.isValid()){return false;}
+        v.model.save()
+               .success(function(data){
+
+                 v.model.set('id', 23);
+                 var url = v.model.url() + '/save_picture';
+                 $('#material_img_thumbnails > li > img').each(function(idx){
+                   $.post(url,
+                          {img: this.src},
+                          function(data){
+                            console.log(data)
+                          })
+                 });
+
+                 $('#modal_dialog').html('save successfully!').dialog({
+                    modal: true,
+                    buttons: {
+                      Ok: function() {
+                        $( this ).dialog( "close" );
+                      }
+                    }
+                  });
+                  //window.location.replace(v.model.url());
+                })
+              .error(function(data){alert('error')});
+        return false;
+    });
   });
 </script>
 
@@ -304,15 +301,12 @@
      },
      open: function() {
        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+       console.log(this)
      },
      close: function() {
        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
      }
    });
-
-   $('input[name="material[unit]"]').on('input', function(evt){
-     console.log(this, evt)
-   })
  });
  </script>
 <% end %>

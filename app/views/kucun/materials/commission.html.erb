@@ -1,0 +1,210 @@
+<div class="main_top">
+    <span class="add_span">+</span>
+</div>
+<div class="details">
+    <div class="container_list">
+        <div class="top_content records">
+            <%= render partial: 'table_head' %>
+            <div class="details_nav">
+                <%= render partial: 'material_settings_url' %>
+            </div>
+            <div class="details_nav_second">
+                <ul class="goods_nav">
+                    <li><a href="#" class="width-90">▲上一件商品</a></li>
+                    <li><a href="#" class="width-90">▼下一件商品</a></li>
+                    <li ><a href="#" class="width-90">返回列表</a></li>
+                </ul>
+            </div>
+            <div class="details_content">
+                <div class="base_info">
+                    <div class="goods_img">
+                        <div class="goods_main_img">
+                            <img src="images/car_01.jpg">
+                        </div>
+                        <div class="goods_small_img">
+                            <img src="images/car_01.jpg">
+                            <img src="images/car_01.jpg">
+                            <img src="images/car_01.jpg">
+                            <img src="images/car_01.jpg">
+                        </div>
+                        <div class="goods_choose_img">
+                            <input type="button" value="选择图片" class="choose_img_btn">
+                            <label>支持jpg,png格式图片，单张不超过150k,最多5张</label>
+                        </div>
+                    </div>
+                    <div class=" car_content">
+                        <div class="item_content">
+                            <label class="width-75">商品名称</label>
+                            <input class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">条形码</label>
+                            <input type="text" class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">一级分类</label>
+                            <select type="text" class="width-165">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">二级分类</label>
+                            <select type="text" class="width-165">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">商品规格</label>
+                            <input type="text" class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">商品单位</label>
+                            <input type="text" class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">成本价</label>
+                            <input type="text" class="width-165" placeholder="输入成本价会影响原成本价 ">
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">零售价</label>
+                            <input type="text" class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">商品品牌</label>
+                            <input type="text" class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">生产单位</label>
+                            <input type="text" class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">助记码</label>
+                            <input type="text" class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">最低零售价</label>
+                            <input type="text" class="width-165" readonly>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-80">
+                                <input type="radio" >
+                            库存预警：</label>
+                            <label class="width-160">
+                                <label class="width-75">金额上限</label>
+                                <input type="text"  class="width-75" readonly style="vertical-align:middle;">
+                            </label>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">上限数量</label>
+                            <label class="width-165">
+                                <input type="text"  class="width-55" readonly>
+                                <label class="lab_50">下线数量</label>
+                                <input type="text"class="width-54" readonly>
+                            </label>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">保质期</label>
+                            <span class="input_span">
+                            <input type="text" class="width-100 " style="border:0px;">
+                            <input type="radio" class="width-13">
+                            提醒 </span>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">状态</label>
+                            <select type="text" class="width-165">
+                                <option></option>
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="item_textarea ">
+                            <label class="width-75">备注</label>
+                            <textarea class="textarea-width "></textarea>
+                        </div>
+                        <div class="tc">
+                            <div class="sales_commission">
+                                <div class="sales_div">
+                                    <table cellpadding="0" cellspacing="0" class="sales_tab">
+                                        <colgroup>
+                                        <col width="20%">
+                                        <col width="10%">
+                                        <col width="30%">
+                                        <col width="10%">
+                                        <col width="30%">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td >销售提成</td>
+                                                <td><label  class="width-30">部门</label></td>
+                                                <td><span>
+                                                    <input type="text"  readonly>
+                                                %</span></td>
+                                                <td><label  class="width-30">个人</label></td>
+                                                <td><span>
+                                                    <input type="text" readonly >
+                                                %</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span>
+                                                    <input type="text"  readonly>
+                                                %</span></td>
+                                                <td></td>
+                                                <td><span>
+                                                    <input type="text"  readonly>
+                                                %</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="artificer_commission">
+                                <div class="artificer_div">
+                                    <table cellpadding="0" cellspacing="0" class="artificier_tab">
+                                        <colgroup>
+                                        <col width="20%">
+                                        <col width="10%">
+                                        <col width="30%">
+                                        <col width="10%">
+                                        <col width="30%">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td>技师提成</td>
+                                                <td><label  class="width-30">部门</label></td>
+                                                <td><span>
+                                                    <input type="text"  readonly>
+                                                %</span></td>
+                                                <td><label  class="width-30">个人</label></td>
+                                                <td><span>
+                                                    <input type="text"  readonly>
+                                                %</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span>
+                                                    <input type="text"  readonly>
+                                                %</span></td>
+                                                <td></td>
+                                                <td><span>
+                                                    <input type="text"  readonly>
+                                                %</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn_group">
+                    <input type="button"  value="编辑" class="edit_btn btn" >
+                    <input type="button"  value="保存" class="save_btn btn" >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

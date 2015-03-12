@@ -60,7 +60,16 @@ Rails.application.routes.draw do
       collection do
         get :autocomplete_name
       end
+      member do
+        post :save_picture
+        get :saleinfo
+        get :commission
+        get :tracing
+      end
     end
+
+    resources :material_units
+    resources :material_categories
   end
 
   resource :session, only: [:new, :create, :destroy]
