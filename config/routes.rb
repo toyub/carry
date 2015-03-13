@@ -70,6 +70,8 @@ Rails.application.routes.draw do
 
     resources :material_units
     resources :material_categories
+    resources :material_brands
+    resources :material_manufacturers
   end
 
   resource :session, only: [:new, :create, :destroy]

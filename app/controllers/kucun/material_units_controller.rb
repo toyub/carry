@@ -16,6 +16,7 @@ class Kucun::MaterialUnitsController < Kucun::ControllerBase
     material_unit.store_id = current_user.store_id
     material_unit.store_chain_id = current_user.store_chain_id
     material_unit.store_staff_id = current_user.id
+    material_unit.id = 2
     render json: material_unit
   end
 
@@ -30,6 +31,6 @@ class Kucun::MaterialUnitsController < Kucun::ControllerBase
 
   private
   def unit_params
-    params.require(:store_material_unit).permit(:name, :parent_id)
+    params.require(:store_material_unit).permit(:name)
   end
 end

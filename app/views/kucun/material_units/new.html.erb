@@ -8,7 +8,14 @@
 <% content_for :javascripts do %>
   <script>
   jQuery(function($){
-    
+    $('#new_store_material_unit').on('submit', function(){
+      $(this).ajaxSubmit(function(data, status, xhr){
+        if(window.top != window.self){
+          window.top.$$MIS.methods.get('add_unit_callback').apply(data)
+        }
+      });
+      return false;
+    })
   });
   </script>
 <% end %>
