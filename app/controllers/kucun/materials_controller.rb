@@ -4,7 +4,8 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def new
-    @store_material = StoreMaterial.new
+    @store = current_user.store
+    @store_material = @store.store_materials.new
   end
 
   def create
@@ -13,10 +14,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
     x.store_id=current_user.store_id
     x.store_chain_id=current_user.store_chain_id
     x.store_staff_id=current_user.id
-    
-    puts "\n"*8
-    p x.valid?
-    puts  "\n"*8
+    x.save
 
     render json: x
   end
@@ -67,6 +65,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   private
   def material_params
-    params.require(:material).permit(:name, :barcode, :retail_price, :min_retail_price, :mnemonic, :cost_price, :manufacturer_id, :brand_id, :speci)
+    params.require(:material).permit(:store_material_category_id, :store_material_unit_id, :store_material_manufacturer_id,
+      :store_material_brand_id, :speci, :name, :barcode, :min_retail_price, :mnemonic, :cost_price, :retail_price, :remark)
   end
 end

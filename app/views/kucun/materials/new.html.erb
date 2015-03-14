@@ -1,6 +1,7 @@
 <% content_for :pre_assets do %>
   <%= javascript_include_tag 'kucun/materials/new' %>
 <% end %>
+
 <div class="main_top">
         <h2>库存列表</h2>
       </div>
@@ -48,13 +49,14 @@
                   <input type="text" name='material[barcode]' class="width-165">
                 </div>
                 <div class="item_content">
+                  <% category = @store.store_material_categories.super_categories.first %>
                   <label class="width-75">一级分类</label>
-                  <input type="hidden" name='material[category1]' value="">
-                  <span class="width-165 as_select" data-select='#material_category1_select' data-target='input[name="material[category1]"]'>请选择</span>
+                  <input id='material_category1' type="hidden" name='material[category1]' value="<%= category.id %>">
+                  <span class="width-165 as_select" data-select='#material_category1_select' data-target='input[name="material[category1]"]'><%= category.name %></span>
                   <div id='material_category1_select' class="select">
                     <ol>
-                      <% 3.times do |i| %>
-                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% @store.store_material_categories.super_categories.each do |option| %>
+                      <li data-value="<%= option.id %>"><%= option.name %></li>
                       <% end %>
                     </ol>
                     <a class='add_btn' data-method='add_category1' href="javascript:void(0);">新增</a>
@@ -65,11 +67,7 @@
                   <input type="hidden" name='material[store_material_category_id]' value="">
                   <span class="width-165 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'>请选择</span>
                   <div id='material_category_select' class="select">
-                    <ol>
-                      <% 3.times do |i| %>
-                      <li data-value="<%= i %>">汗这些<%= i %></li>
-                      <% end %>
-                    </ol>
+                    <ol></ol>
                     <a class='add_btn' data-method='add_category' href="javascript:void(0);">新增</a>
                   </div>
                 </div>
@@ -79,12 +77,12 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品单位</label>
-                  <input type="hidden" name='material[unit_id]' value="">
-                  <span class="width-165 as_select" data-select='#material_unit_select' data-target='input[name="material[unit_id]"]'>请选择</span>
+                  <input type="hidden" name='material[store_material_unit_id]' value="">
+                  <span class="width-165 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'>请选择</span>
                   <div id='material_unit_select' class="select">
                     <ol>
-                      <% 3.times do |i| %>
-                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% @store.store_material_units.each do |option| %>
+                      <li data-value="<%= option.id %>"><%= option.name %></li>
                       <% end %>
                     </ol>
                     <a class='add_btn' data-method='add_unit' href="javascript:void(0);">新增</a>
@@ -92,20 +90,20 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">成本价</label>
-                  <input name='material[cost_price]' type="text" class="width-165" placeholder="输入成本价会影响原成本价" required=true >
+                  <input name='material[cost_price]' type="number" class="width-165" placeholder="输入成本价会影响原成本价" required=true >
                 </div>
                 <div class="item_content">
                   <label class="width-75">零售价</label>
-                  <input name='material[retail_price]' type="text" class="width-165" required=true >
+                  <input name='material[retail_price]' type="number" class="width-165" required=true >
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品品牌</label>
-                  <input name='material[brand_id]' type="hidden">
-                  <span class="width-165 as_select" data-select='#material_brand_select' data-target='input[name="material[brand_id]"]'>请选择</span>
+                  <input name='material[store_material_brand_id]' type="hidden">
+                  <span class="width-165 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'>请选择</span>
                   <div id='material_brand_select' class="select">
                     <ol>
-                      <% 3.times do |i| %>
-                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% @store.store_material_brands.each do |option| %>
+                      <li data-value="<%= option.id %>"><%= option.name %></li>
                       <% end %>
                     </ol>
                     <a class='add_btn' data-method='add_brand' href="javascript:void(0);">新增</a>
@@ -113,12 +111,12 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">生产单位</label>
-                  <input name='material[manufacturer_id]' type="hidden">
-                  <span class="width-165 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[manufacturer_id]"]'>请选择</span>
+                  <input name='material[store_material_manufacturer_id]' type="hidden">
+                  <span class="width-165 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'>请选择</span>
                   <div id='material_manufacturer_select' class="select">
                     <ol>
-                      <% 3.times do |i| %>
-                      <li data-value="<%= i %>">汗这些<%= i %></li>
+                      <% @store.store_material_manufacturers.each do |option| %>
+                      <li data-value="<%= option.id %>"><%= option.name %></li>
                       <% end %>
                     </ol>
                     <a class='add_btn' data-method='add_manufacturer' href="javascript:void(0);">新增</a>
@@ -130,7 +128,7 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">最低零售价</label>
-                  <input name='material[min_retail_price]' type="text" class="width-165" required=true >
+                  <input name='material[min_retail_price]' type="number" class="width-165" required=true >
                 </div>
                 <div class="item_content">
                   <label class="width-80"><input name='material[inventory_alarm]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
@@ -186,13 +184,12 @@
     v.setElement('#new_material');
     v.model = new $$MIS.Material();
     v.model.on('invalid', v.model.invalid_handle);
+    v.category_collection = new  $$MIS.MaterialCategoryCollection();
 
     $('#new_material').on('submit', function(evt){
         if(!v.model.isValid()){return false;}
         v.model.save()
                .success(function(data){
-
-                 v.model.set('id', 23);
                  var url = v.model.url() + '/save_picture';
                  $('#material_img_thumbnails > li > img').each(function(idx){
                    $.post(url,
@@ -210,7 +207,7 @@
                       }
                     }
                   });
-                  //window.location.replace(v.model.url());
+                  window.location.replace(v.model.url());
                 })
               .error(function(data){alert('error')});
         return false;

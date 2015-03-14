@@ -69,9 +69,14 @@ Rails.application.routes.draw do
     end
 
     resources :material_units
-    resources :material_categories
     resources :material_brands
     resources :material_manufacturers
+    resources :material_categories do
+      member do
+        get :add_sub_category
+        get :sub_categories
+      end
+    end
   end
 
   resource :session, only: [:new, :create, :destroy]

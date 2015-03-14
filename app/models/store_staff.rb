@@ -1,5 +1,7 @@
 class StoreStaff <  ActiveRecord::Base
   attr_accessor :password, :password_confirmation
+  belongs_to :store
+  belongs_to :store_chain
   
 
   validates :phone_number, presence: true

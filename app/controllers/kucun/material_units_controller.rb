@@ -16,7 +16,7 @@ class Kucun::MaterialUnitsController < Kucun::ControllerBase
     material_unit.store_id = current_user.store_id
     material_unit.store_chain_id = current_user.store_chain_id
     material_unit.store_staff_id = current_user.id
-    material_unit.id = 2
+    material_unit.save
     render json: material_unit
   end
 

@@ -1,0 +1,7 @@
+<%= form_for(@category, url: kucun_material_categories_path) do |form| %>
+  <%= form.text_field :name, required: true%>
+  <% if @category.has_parent? %>
+    <%= form.select "parent_id", options_from_collection_for_select([@parent], "id", "name") %>
+  <% end %>
+  <%= form.submit value: 'add new category' %>
+<% end %>
