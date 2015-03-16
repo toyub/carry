@@ -49,13 +49,14 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def save_picture
-    unless Rails.root.join('public', 'attachments', 'materials', '2', 'images').exist?
-      FileUtils.mkdir_p Rails.root.join('public', 'attachments', 'materials', '2', 'images')
+    material = StoreMaterial.find(params[:id])
+    pic_path = Rails.root.join('public', 'attachments', 'materials', material.id.to_s, 'images')
+    unless pic_path.exist?
+      FileUtils.mkdir_p pic_path
     end
     file_name="p#{Time.now.to_f}.png"
-    file_path = Rails.root.join('public', 'attachments', 'materials', '2', 'images', file_name).to_path
+    file_path = Rails.root.join(pic_path, file_name).to_path
     data = Base64.decode64(params[:img].gsub('data:image/png;base64,', ''))
-    p data
     File.open(file_path, 'w') do |f|
       IO.binwrite f, data
     end

@@ -117,7 +117,7 @@ var resizeableImage = function(image_target, crop_btn, preview) {
   resizeImage = function(width, height){
     resize_canvas.width = width;
     resize_canvas.height = height;
-    resize_canvas.getContext('2d').drawImage(orig_src, 0, 0, width, height);   
+    resize_canvas.getContext('2d').drawImage(orig_src, 0, 0, width, height);
     $(image_target).attr('src', resize_canvas.toDataURL("image/png"));  
   };
 
@@ -168,7 +168,7 @@ var resizeableImage = function(image_target, crop_btn, preview) {
       width = width * ratio;
       height = height * ratio;
       // To improve performance you might limit how often resizeImage() is called
-      resizeImage(width, height);
+      //resizeImage(width, height);
     }
   };
 

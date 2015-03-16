@@ -1159,3 +1159,17 @@ input[type="radio"], input[type="checkbox"] {
   content: "+";
   font-size: 15px;
 }
+
+.error{
+  border: 2px solid #e43ddf;
+}
+
+.error_tip{
+  display: inline-block;
+  position: absolute;
+  height: 22px;
+  width: auto;
+  border: 2px solid red;
+  background: #eee;
+  z-index: 10;
+}
