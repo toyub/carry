@@ -43,6 +43,7 @@ var resizeableImage = function(image_target, crop_btn, preview) {
     e.preventDefault();
     $(document).off('mouseup touchend', endResize);
     $(document).off('mousemove touchmove', resizing);
+    realy_resize($(image_target).data('width'), $(image_target).data('height'));
   };
 
   saveEventState = function(e){
@@ -115,11 +116,17 @@ var resizeableImage = function(image_target, crop_btn, preview) {
   }
 
   resizeImage = function(width, height){
+    $(image_target).css({width: width});
+    $(image_target).data('width', width);
+    $(image_target).data('height', height);
+  };
+
+  realy_resize = function(width, height){
     resize_canvas.width = width;
     resize_canvas.height = height;
     resize_canvas.getContext('2d').drawImage(orig_src, 0, 0, width, height);
-    $(image_target).attr('src', resize_canvas.toDataURL("image/png"));  
-  };
+    $(image_target).attr('src', resize_canvas.toDataURL("image/png"));
+  }
 
   startMoving = function(e){
     e.preventDefault();
@@ -175,23 +182,29 @@ var resizeableImage = function(image_target, crop_btn, preview) {
   crop = function(e){
     //Find the part of the image that is inside the crop box
     var crop_canvas,
-        left = $('.overlay').offset().left - $container.offset().left,
-        top =  $('.overlay').offset().top - $container.offset().top,
-        width = $('.overlay').width(),
-        height = $('.overlay').height();
-    
-    crop_canvas = document.createElement('canvas');
-    crop_canvas.width = width;
-    crop_canvas.height = height;
-    
-    console.log(e,[image_target.x, image_target.y, image_target.width, image_target.height], left, top, width, height, 0, 0, width, height)
-    
-    crop_canvas.getContext('2d').drawImage(image_target, left, top, width, height, 0, 0, width, height);
+        canvas_width = $('.overlay').width(),
+        canvas_height = $('.overlay').height();
 
+    var img_to_container_left = $('.overlay').offset().left - $container.offset().left,
+        img_to_container_top =  $('.overlay').offset().top - $container.offset().top;
+        
+    var image_width = parseFloat($(image_target).data('width')),
+        image_height = parseFloat($(image_target).data('height'));
+    
+    var sx = img_to_container_left, sy = img_to_container_top, swidth = canvas_width, sheight = canvas_height,
+        x = 0, y = 0, width = canvas_width, height = canvas_height;
+
+    if(sx < 0){sx = 0; swidth= canvas_width + img_to_container_left; x=img_to_container_left * (-1);}
+    if(sy < 0){sy = 0; sheight = canvas_height + img_to_container_top; y = img_to_container_top * (-1);}
+    if(swidth < width){width = swidth;}
+    if(sheight < height){height = sheight;}
+    var crop_canvas = document.createElement('canvas');
+    crop_canvas.width = canvas_width;
+    crop_canvas.height = canvas_height;
+    crop_canvas.getContext('2d').drawImage(image_target, sx, sy, swidth, sheight, x, y, width, height);
     var img = new Image();
     img.src = crop_canvas.toDataURL("image/png");
     preview.append(img);
-    //window.open(crop_canvas.toDataURL("image/png"));
     $('#piccut').hide();
     crop_canvas = null;
   }
