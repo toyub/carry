@@ -25,94 +25,79 @@
                               <img src="<%= image.asset_path %>">
                             <% end %>
                           </li>
-                          <li data-id='0'><a class='fa fa-plus-square add_img' href="javascript:void(0);"></a></li>
                       </ul>
                     </div>
                     <div class=" car_content">
                         <div class="item_content">
                             <label class="width-75">商品名称</label>
-                            <input class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.name %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">条形码</label>
-                            <input type="text" class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.barcode %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">一级分类</label>
-                            <select type="text" class="width-165">
-                                <option></option>
-                                <option></option>
-                            </select>
+                            <span class="width-165"><%= @store_material.store_material_category.parent.name %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">二级分类</label>
-                            <select type="text" class="width-165">
-                                <option></option>
-                                <option></option>
-                            </select>
+                            <span class="width-165"><%= @store_material.store_material_category.name %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">商品规格</label>
-                            <input type="text" class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.speci %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">商品单位</label>
-                            <input type="text" class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.store_material_unit.name %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">成本价</label>
-                            <input type="text" class="width-165" placeholder="输入成本价会影响原成本价 ">
+                            <span class="width-165"><%= @store_material.cost_price %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">零售价</label>
-                            <input type="text" class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.retail_price %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">商品品牌</label>
-                            <input type="text" class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.store_material_brand.name %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">生产单位</label>
-                            <input type="text" class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.store_material_manufacturer.name %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">助记码</label>
-                            <input type="text" class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.mnemonic %></span>
                         </div>
                         <div class="item_content">
                             <label class="width-75">最低零售价</label>
-                            <input type="text" class="width-165" readonly>
+                            <span class="width-165"><%= @store_material.min_retail_price %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-80">
-                                <input type="radio" >
-                            库存预警：</label>
-                            <label class="width-160">
-                                <label class="width-75">金额上限</label>
-                                <input type="text"  class="width-75" readonly style="vertical-align:middle;">
-                            </label>
+                          <label class="width-80"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
+                          <div>
+                            <label class="width-75">数量上限</label>
+                            <input data-id='inventory' name='material[max_inventory]'  disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
+                          </div>
+
+                          <div class="width-167">
+                            <label class="lab_50">数量下限</label>
+                            <input data-id='inventory' name='material[min_inventory]' disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
+                          </div>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">上限数量</label>
-                            <label class="width-165">
-                                <input type="text"  class="width-55" readonly>
-                                <label class="lab_50">下线数量</label>
-                                <input type="text"class="width-54" readonly>
-                            </label>
-                        </div>
-                        <div class="item_content">
-                            <label class="width-75">保质期</label>
-                            <span class="input_span">
-                            <input type="text" class="width-100 " style="border:0px;">
-                            <input type="radio" class="width-13">
-                            提醒 </span>
+                          <label class="width-75"><input type="radio" name='material[expiry_alarmify]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
+                          <div class="input_span">
+                            <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-100 " style="border:0px;" required=true >
+                            <span>天</span>
+                          </div>
                         </div>
                         <div class="item_content">
                             <label class="width-75">状态</label>
-                            <select type="text" class="width-165">
-                                <option></option>
-                                <option></option>
-                            </select>
+                            <span class="width-165">!TODO</span>
                         </div>
                         <div class="item_textarea ">
                             <label class="width-75">备注</label>
@@ -133,24 +118,24 @@
                                             <tr>
                                                 <td >销售提成</td>
                                                 <td><label  class="width-30">部门</label></td>
-                                                <td><span>
-                                                    <input type="text"  readonly>
-                                                %</span></td>
+                                                <td>
+                                                    <span><input type="number" step='any'>%</span>
+                                                </td>
                                                 <td><label  class="width-30">个人</label></td>
-                                                <td><span>
-                                                    <input type="text" readonly >
-                                                %</span></td>
+                                                <td>
+                                                    <span><input type="number" step='any'>%</span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td></td>
                                                 <td></td>
-                                                <td><span>
-                                                    <input type="text"  readonly>
-                                                %</span></td>
+                                                <td>
+                                                    <span><input type="number" step='any'>元</span>
+                                                </td>
                                                 <td></td>
-                                                <td><span>
-                                                    <input type="text"  readonly>
-                                                %</span></td>
+                                                <td>
+                                                    <span><input type="number" step='any'>元</span>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -170,24 +155,24 @@
                                             <tr>
                                                 <td>技师提成</td>
                                                 <td><label  class="width-30">部门</label></td>
-                                                <td><span>
-                                                    <input type="text"  readonly>
-                                                %</span></td>
+                                                <td>
+                                                    <span><input type="number" step='any'>%</span>
+                                                </td>
                                                 <td><label  class="width-30">个人</label></td>
-                                                <td><span>
-                                                    <input type="text"  readonly>
-                                                %</span></td>
+                                                <td>
+                                                    <span><input type="number" step='any'>%</span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td></td>
                                                 <td></td>
-                                                <td><span>
-                                                    <input type="text"  readonly>
-                                                %</span></td>
+                                                <td>
+                                                    <span><input type="number" step='any'>元</span>
+                                                </td>
                                                 <td></td>
-                                                <td><span>
-                                                    <input type="text"  readonly>
-                                                %</span></td>
+                                                <td>
+                                                    <span><input type="number" step='any'>元</span>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
