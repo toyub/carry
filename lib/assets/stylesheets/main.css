@@ -65,6 +65,14 @@
   text-decoration:none;
   border-bottom:1px solid #a5a5a5;
 }
+
+.content_tab_top .top_tab tr td a:hover {
+  color: #4823D2;
+  margin-left: 8px;
+  font-size: 12px;
+  text-decoration:none;
+  border-bottom:1px solid #4052CB; 
+}
 /*----------------------内容中的二级菜单-------------------------------*/
 .details .details_nav {
   width: 99.8%;
@@ -399,7 +407,7 @@
 }
 .list ul.list_content li.list_tr:hover{
   border:2px solid #00F;
-  background: url(../images/sanjiaoxing.png) no-repeat right;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAABFElEQVRYhc3SLQ7CMBTA8ee5BCfYDbCdQU0S9DwBAgTPEWAzUyCmCAlqQe4CZAK/zMxMgX6okcHare0+Hv+kqqK/vhYAAMB052C6SLI+USG+okCUYs6CFtA3QpgiwrB9PN0etfsDy5MEKCIM28ckzXB/uZf2htMjJmmGYRQrAlpADCwPwyjmHy4FaICoPVwaoIkQjl0LoIDIb/58vbh/Qh8ggSiOfTQ7Cz+mPgAAgLnLusPzsRu2Xz0J7X4QVR9usgvEiEYVEOPtFZM0w+H0yL3pZBfw9xsneA7p1UpNEK1lOitagC6i9VQRnaSC6CzmrmkBsojOq0P0UhWit0SIXmPOhhbAQ5BURJCVI0hjhy0t4B96A5y6zVuGh2NuAAAAAElFTkSuQmCC) no-repeat right;
 }
 .list ul li{
     display: inline-block;

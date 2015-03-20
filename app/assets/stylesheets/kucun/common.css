@@ -86,6 +86,10 @@
   border-right:0px;
 }
 
+.stock_table > tbody tr:nth-child(odd){
+  background:#f2f2f2;
+}
+
 .search_nav{
   width:99.9%;
   overflow:hidden;

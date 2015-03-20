@@ -34,6 +34,7 @@
               <div class="goods_img">
                 <div id='material_img_preview' class="goods_main_img"></div>
                 <ul id='material_img_thumbnails' class="goods_small_img">
+                    <li id='preview_list'></li>
                     <li data-id='0'><a class='fa fa-plus-square add_img' href="javascript:void(0);"></a></li>
                 </ul>
               </div>
@@ -48,8 +49,9 @@
                   <label class="width-75">条形码</label>
                   <input type="text" name='material[barcode]' class="width-165">
                 </div>
+
                 <div class="item_content">
-                  <% category = @store.store_material_categories.super_categories.first %>
+                  <% category = @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
                   <label class="width-75">一级分类</label>
                   <input id='material_category1' type="hidden" name='material[category1]' value="<%= category.id %>">
                   <span class="width-165 as_select" data-select='#material_category1_select' data-target='input[name="material[category1]"]'><%= category.name %></span>
@@ -62,6 +64,7 @@
                     <a class='add_btn' data-method='add_category1' href="javascript:void(0);">新增</a>
                   </div>
                 </div>
+
                 <div class="item_content">
                   <label class="width-75">二级分类</label>
                   <input type="hidden" name='material[store_material_category_id]' value="">
@@ -75,10 +78,12 @@
                     <a class='add_btn' data-method='add_category' href="javascript:void(0);">新增</a>
                   </div>
                 </div>
+
                 <div class="item_content">
                   <label class="width-75">商品规格</label>
                   <input name='material[speci]' type="text" class="width-165" required=true>
                 </div>
+
                 <div class="item_content">
                   <label class="width-75">商品单位</label>
                   <input type="hidden" name='material[store_material_unit_id]' value="">
@@ -92,6 +97,7 @@
                     <a class='add_btn' data-method='add_unit' href="javascript:void(0);">新增</a>
                   </div>
                 </div>
+
                 <div class="item_content">
                   <label class="width-75">成本价</label>
                   <input name='material[cost_price]' type="number" class="width-165" placeholder="输入成本价会影响原成本价" required=true >
@@ -135,7 +141,7 @@
                   <input name='material[min_retail_price]' type="number" class="width-165" required=true >
                 </div>
                 <div class="item_content">
-                  <label class="width-80"><input name='material[inventory_alarm]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
+                  <label class="width-80"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
                   <div>
                     <label class="width-75">数量上限</label>
                     <input data-id='inventory' name='material[max_inventory]'  disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
@@ -147,10 +153,10 @@
                   </div>
                 </div>
                 <div class="item_content">
-                  <label class="width-75">保质期</label>
+                  <label class="width-75"><input type="radio" name='material[expiry_alarmify]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
                   <div class="input_span">
-                    <input type="text" data-id='expiry_date' name='material[expiry_date]' disabled=true class="width-100 " style="border:0px;" required=true >
-                    <label><input type="radio" data-target='expiry_date' class="toggleable width-13">提醒</label>
+                    <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-100 " style="border:0px;" required=true >
+                    <span>天</span>
                   </div>
                 </div>
                 <div class="item_textarea ">
@@ -192,6 +198,8 @@
     v.model.view = v;
 
     $('#new_material').on('submit', function(evt){
+        evt.preventDefault();
+        evt.stopPropagation();
         var $this = $(this);
         if($this.data('error')){return false;}
         if(!v.model.isValid()){return false;}
@@ -199,12 +207,17 @@
         v.model.save()
                .success(function(data){
                  var url = v.model.url() + '/save_picture';
-                 $('#material_img_thumbnails > li > img').each(function(idx){
-                   $.post(url,
-                          {img: this.src},
-                          function(data){})
+                 $('#preview_list > img').each(function(idx){
+                    var img = this;
+                    $.ajax({
+                            type: "POST",
+                            url: url,
+                            sync: false,
+                            data: {img: img.src},
+                            success: function(data){console.log(data)},
+                            dataType: 'text'
+                          });
                  });
-
                  $('#modal_dialog').html('save successfully!').dialog({
                     modal: true,
                     buttons: {
@@ -242,9 +255,8 @@
     div.appendChild(image);
     document.getElementById('arrange').appendChild(div);
 
-
     var dataid=$('#material_img_thumbnails').data('id');
-    var preview = $('#material_img_thumbnails > li[data-id="'+ dataid +'"]');
+    var preview = $("#preview_list");
     resizeableImage(document.getElementById('image_tag'), $('.js-crop')[0], preview);
   }
 
@@ -260,14 +272,7 @@
     }
   }
 
-
-  $('a.add_img').on('click', function(){
-    var idd = $("#material_img_thumbnails>li").length;
-    $("#material_img_thumbnails>li[data-id='0']").before("<li class='goods_small_img' data-id='"+ idd +"'></li>");
-    $('#material_img_thumbnails').data('id', idd);
-    $('#piccut').show();
-  })
-
+  $('a.add_img').on('click', function(){$('#piccut').show();});
   $('#material_img_thumbnails').on('click', 'li>img', function(evt){
     if(!$("#material_img_preview>img").length){
       var img = new Image();
@@ -276,7 +281,6 @@
     }else{
       $("#material_img_preview>img")[0].src = this.src;
     }
-
   });
 
 </script>

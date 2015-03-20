@@ -63,10 +63,10 @@
           <thead>
             <tr>
               <th style="border-right:0px;" ></th>
-              <th >商品名称</th>
-              <th >商品条形码</th>
-              <th >一级分类</th>
-              <th >二级分类</th>
+              <th>商品名称</th>
+              <th>商品条形码</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
               <th>规格</th>
               <th>单位</th>
               <th >成本价</th>
@@ -78,10 +78,9 @@
             </tr>
           </thead>
           <tbody>
-            <% 10.times do |i| %>
-              <% i%2 == 0 ? tr_class = 'bg_tr' : '' %>
-              <tr class="<%= tr_class %>">
-                <td><%= i+1 %></td>
+            <% @store_materials.each_with_index do |material, idx| %>
+              <tr>
+                <td><%= idx+1 %></td>
                 <td>米其林轮胎</td>
                 <td>3080309075990</td>
                 <td>汽车配件</td>
@@ -100,7 +99,7 @@
                   <i class="fa fa-star-half-o"></i>
                   <i class="fa fa-star-o"></i>
                 </td>
-                <td class="last_td"><a href="crm管理-客户列表-详情.html">详情<i class="fa fa-angle-double-right"></i></a></td>
+                <td class="last_td"><a href="<%= kucun_material_path(material) %>">详情<i class="fa fa-angle-double-right"></i></a></td>
               </tr>
 
             <% end %>

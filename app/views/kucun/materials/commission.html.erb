@@ -18,19 +18,15 @@
             <div class="details_content">
                 <div class="base_info">
                     <div class="goods_img">
-                        <div class="goods_main_img">
-                            <img src="images/car_01.jpg">
-                        </div>
-                        <div class="goods_small_img">
-                            <img src="images/car_01.jpg">
-                            <img src="images/car_01.jpg">
-                            <img src="images/car_01.jpg">
-                            <img src="images/car_01.jpg">
-                        </div>
-                        <div class="goods_choose_img">
-                            <input type="button" value="选择图片" class="choose_img_btn">
-                            <label>支持jpg,png格式图片，单张不超过150k,最多5张</label>
-                        </div>
+                      <div id='material_img_preview' class="goods_main_img"></div>
+                      <ul id='material_img_thumbnails' class="goods_small_img">
+                          <li id='preview_list'>
+                            <% @store_material.store_material_images.each do |image| %>
+                              <img src="<%= image.asset_path %>">
+                            <% end %>
+                          </li>
+                          <li data-id='0'><a class='fa fa-plus-square add_img' href="javascript:void(0);"></a></li>
+                      </ul>
                     </div>
                     <div class=" car_content">
                         <div class="item_content">

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= session[:user_id].present? ? StoreStaff.find(session[:user_id]) : nil
+    @current_user ||= session[:user_id].present? ? StoreStaff.where(id: session[:user_id]).first : nil
   end
 
   def signed_in?
