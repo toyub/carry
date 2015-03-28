@@ -27,7 +27,7 @@
 
 .content{
    overflow:hidden;
-   letter-spacing:normal; 
+   letter-spacing:normal;
    z-index:1;
    padding:0px 20px;
    width:100%;
@@ -47,7 +47,7 @@
 }
 
 .content_tab_top {
-  
+
   font-size:15px;
   border-bottom: 1px solid #dad9d9;
 }
@@ -71,7 +71,7 @@
   margin-left: 8px;
   font-size: 12px;
   text-decoration:none;
-  border-bottom:1px solid #4052CB; 
+  border-bottom:1px solid #4052CB;
 }
 /*----------------------内容中的二级菜单-------------------------------*/
 .details .details_nav {
@@ -169,7 +169,7 @@
 .details_content .crm_base_title h {
   font-size: 23px;
 }
- 
+
 .details .btn_group .in_stg {
   background: #198fff;
   box-shadow: 0px 2px 0px #063a93;
@@ -185,7 +185,7 @@
   font-size: 12px;
   width: 70px;
   text-align: center;
-  
+
 }
 
 .records {
@@ -325,19 +325,19 @@
 }
 
 #container .main_top .add_span{
-  display:inline-block; 
-  width:30px; 
-  height:30px; 
+  display:inline-block;
+  width:30px;
+  height:30px;
   line-height:30px;
-  border-radius:15px; 
-  background:#f46842; 
-  float:right; 
+  border-radius:15px;
+  background:#f46842;
+  float:right;
   margin-top:24px;
   text-align:center;
   color:#ffffff;
   font-size:16px;
 }
- 
+
 #container .crm_tab_top .add_btn,#container .main_top .add_btn{
   display:inline-block;
   width:65px;
@@ -351,7 +351,7 @@
   float:right;
   font-size:12px;
   margin-left:0px;
-  
+
 }
 #container .main_top .add_btn_group{
   position:relative;
@@ -365,7 +365,7 @@
   text-align: right;
   margin: 30px 0px;
   margin-right:5px;
-  
+
 }
 
 /*list列表移动出现框*/
@@ -381,7 +381,7 @@
   height:45px;
   line-height:45px;
 }
- .list ul.list_content{
+ .list .list_content{
   border:0px;
   margin-bottom:10px;
   overflow:hidden;
@@ -400,14 +400,30 @@
   font-size:15px;
   color:#2F2E2E;
 }
-.list ul.list_content li.list_tr ul li{
+.list .list_content ul li{
   height:28px;
   line-height:28px;
   border-right:1px solid #e6e6e6;
 }
-.list ul.list_content li.list_tr:hover{
+
+.list .list_content .close_btn{
+  position: relative;
+  top: -28px;
+  float: right;
+  color: #ffffff;
+  background-color: blue;
+  margin: 0;
+  padding: 0;
+  right: -3px;
+  display: inline-block;
+  line-height: 0;
+  width: 16px;
+  height: 16px;
+  border: 0px;
+}
+
+.list .list_content:hover{
   border:2px solid #00F;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAABFElEQVRYhc3SLQ7CMBTA8ee5BCfYDbCdQU0S9DwBAgTPEWAzUyCmCAlqQe4CZAK/zMxMgX6okcHare0+Hv+kqqK/vhYAAMB052C6SLI+USG+okCUYs6CFtA3QpgiwrB9PN0etfsDy5MEKCIM28ckzXB/uZf2htMjJmmGYRQrAlpADCwPwyjmHy4FaICoPVwaoIkQjl0LoIDIb/58vbh/Qh8ggSiOfTQ7Cz+mPgAAgLnLusPzsRu2Xz0J7X4QVR9usgvEiEYVEOPtFZM0w+H0yL3pZBfw9xsneA7p1UpNEK1lOitagC6i9VQRnaSC6CzmrmkBsojOq0P0UhWit0SIXmPOhhbAQ5BURJCVI0hjhy0t4B96A5y6zVuGh2NuAAAAAElFTkSuQmCC) no-repeat right;
 }
 .list ul li{
     display: inline-block;
@@ -415,7 +431,7 @@
   line-height:30px;
   text-align: center;
   float: left;
-  
+
 }
 
 /*------list-tab列表信息------*/
@@ -425,5 +441,5 @@
   margin: 10px auto;
   font-size: 12px/18px;
   background: #fff;
-  
+
 }
