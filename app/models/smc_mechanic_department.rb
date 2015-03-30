@@ -1,0 +1,2 @@
+class SMCMechanicDepartment < StoreMaterialCommission
+end

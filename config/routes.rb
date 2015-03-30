@@ -74,6 +74,8 @@ Rails.application.routes.draw do
       resource :saleinfo do
         resources :material_services
       end
+
+      resources :material_commissions
     end
 
     resources :material_units

@@ -1,0 +1,3 @@
+class SMCSalesmanDepartment < StoreMaterialCommission
+  
+end

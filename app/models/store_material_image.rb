@@ -1,4 +1,4 @@
-class StoreMaterialImage < Attachment
+class StoreMaterialImage < StoreAttachment
   belongs_to :store_material, foreign_key: 'host_id'
 
   def asset_path

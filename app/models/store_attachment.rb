@@ -1,4 +1,4 @@
-class Attachment < ActiveRecord::Base
+class StoreAttachment < ActiveRecord::Base
   validates :file_name, :file_size, :content_type, presence: true
 
   def initialize(*args, &block)
