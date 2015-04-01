@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def login_required
+    if Rails.env.development?
+      @current_user = StoreStaff.first
+    end
+
     unless current_user.present?
       redirect_to new_session_path
     end

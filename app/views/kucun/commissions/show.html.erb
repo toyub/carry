@@ -4,9 +4,9 @@
 <div class="details">
     <div class="container_list">
         <div class="top_content records">
-            <%= render partial: 'table_head' %>
+            <%= render partial: '/kucun/materials/table_head' %>
             <div class="details_nav">
-                <%= render partial: 'material_settings_url' %>
+                <%= render partial: '/kucun/materials/material_settings_url' %>
             </div>
             <div class="details_nav_second">
                 <ul class="goods_nav">
@@ -64,18 +64,14 @@
                             <label class="width-75">商品单位</label>
                             <span class="width-165"><%= @store_material.store_material_unit.name %></span>
                         </div>
-                        
+
                         <div class="item_content">
                             <label class="width-75">成本价</label>
                             <span class="width-165"><%= @store_material.cost_price %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">零售价</label>
-                            <span class="width-165"><%= @store_material.retail_price %></span>
-                        </div>
-                        <div class="item_content">
-                            <label class="width-75">最低零售价</label>
-                            <span class="width-165"><%= @store_material.min_retail_price %></span>
+                            <label class="width-75">最低售价</label>
+                            <span class="width-165"><%= @store_material.min_price %></span>
                         </div>
                         <% if @store_material.inventory_alarmify %>
                         <div class="item_content">
@@ -91,19 +87,19 @@
                           </div>
                         </div>
                         <% end %>
-                        
+
                         <% if @store_material.expiry_alarmify %>
                         <div class="item_content">
                           <label class="width-75">保质期提醒</label><span> <%= @store_material.shelf_life %> 天</span>
                         </div>
                         <% end %>
-                        
+
                         <div class="item_textarea ">
                             <label class="width-75">备注</label>
                             <textarea class="textarea-width "></textarea>
                         </div>
                         <div class="tc">
-                            <%= form_tag kucun_material_material_commissions_path(@store_material), method: 'POST' do %>
+                            <%= form_tag kucun_material_commission_material_commissions_path(@store_material), method: 'POST' do %>
                             <div class="sales_commission">
                                 <div class="sales_div">
                                     <table cellpadding="0" cellspacing="0" class="sales_tab">

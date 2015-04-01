@@ -8,10 +8,10 @@
     <div class="details">
       <div class="container_list">
         <div class="top_content records">
-          <%= render partial: 'table_head' %>
+          <%= render partial: '/kucun/materials/table_head' %>
         </div>
         <div class="details_nav">
-          <%= render partial: 'material_settings_url' %>
+          <%= render partial: '/kucun/materials/material_settings_url' %>
         </div>
         <div class="details_nav_second">
           <ul class="goods_nav">
@@ -46,7 +46,7 @@
               </div>
               <div class="item_content">
                 <label class="width-75">零售价</label>
-                <span class="width-165"><%= @store_material.retail_price %></span>
+                <input name='saleinfo[retail_price]' type="number" class="width-165" required=true >
               </div>
               <div class="item_content">
                 <label class="width-75"><input class='toggleable' type="radio" data-target='bargain_price'>优惠价</label>

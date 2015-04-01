@@ -81,14 +81,14 @@
             <% @store_materials.each_with_index do |material, idx| %>
               <tr>
                 <td><%= idx+1 %></td>
-                <td>米其林轮胎</td>
-                <td>3080309075990</td>
-                <td>汽车配件</td>
-                <td>轮胎</td>
-                <td>185/60/14XM291V</td>
-                <td>条</td>
-                <td>530.00</td>
-                <td>650.00</td>
+                <td><%= material.name %></td>
+                <td><%= material.barcode %></td>
+                <td><%= material.store_material_category.parent_id %></td>
+                <td><%= material.store_material_category_id %></td>
+                <td><%= material.speci %></td>
+                <td><%= material.store_material_unit_id %></td>
+                <td><%= material.cost_price %></td>
+                <td><%= material.retail_price %></td>
                 <td>8</td>
                 <td>杭州力德贸易有限公司</td>
 

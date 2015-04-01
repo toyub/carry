@@ -4,10 +4,10 @@
 <div class="details">
     <div class="Content_list">
         <div class="top_content records">
-            <%= render partial: 'table_head' %>
+            <%= render partial: '/kucun/materials/table_head' %>
         </div>
         <div class="details_nav">
-            <%= render partial: 'material_settings_url' %>
+            <%= render partial: '/kucun/materials/material_settings_url' %>
         </div>
         <div class="details_nav_second">
             <ul class="goods_nav">
@@ -32,34 +32,55 @@
                     <div class="pure-u-1-2 float-left">
                         <div class="item_content">
                             <label class="width-75">商品名称</label>
-                            <input type="text" class="width-165">
+                            <span class="width-165"><%= @store_material.name %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">零售价</label>
-                            <input type="text" class="width-165">
+                            <label class="width-75">条形码</label>
+                            <span class="width-165"><%= @store_material.barcode %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">
-                                <input type="radio">
-                                优惠价
-                            </label>
-                            <input type="text" class="width-165">
+                            <label class="width-75">助记码</label>
+                            <span class="width-165"><%= @store_material.mnemonic %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">商品积分</label>
-                            <input type="text" class="width-165">
+                            <label class="width-75">一级分类</label>
+                            <span class="width-165"><%= @store_material.store_material_category.parent.name %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">规格</label>
-                            <input type="text" class="width-165">
+                            <label class="width-75">二级分类</label>
+                            <span class="width-165"><%= @store_material.store_material_category.name %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">销售分类</label>
-                            <select type="text" class="width-165">
-                                <option></option>
-                                <option></option>
-                            </select>
+                            <label class="width-75">商品品牌</label>
+                            <span class="width-165"><%= @store_material.store_material_brand.name %></span>
                         </div>
+                        <div class="item_content">
+                            <label class="width-75">生产单位</label>
+                            <span class="width-165"><%= @store_material.store_material_manufacturer.name %></span>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">商品规格</label>
+                            <span class="width-165"><%= @store_material.speci %></span>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">商品单位</label>
+                            <span class="width-165"><%= @store_material.store_material_unit.name %></span>
+                        </div>
+
+                        <div class="item_content">
+                            <label class="width-75">成本价</label>
+                            <span class="width-165"><%= @store_material.cost_price %></span>
+                        </div>
+                        <div class="item_content">
+                            <label class="width-75">最低售价</label>
+                            <span class="width-165"><%= @store_material.min_price %></span>
+                        </div>
+
+                        <% if @store_material.expiry_alarmify %>
+                        <div class="item_content">
+                          <label class="width-75">保质期提醒</label><span> <%= @store_material.shelf_life %> 天</span>
+                        </div>
+                        <% end %>
                         <div class="item_content">
                             <label class="width-75">回访</label>
                             <select type="text" class="width-165">
@@ -70,8 +91,9 @@
                         <div class="item_content">
                             <label class="width-75">回访方式</label>
                             <select type="text" class="width-165">
-                                <option></option>
-                                <option></option>
+                                <option value='0'>电话</option>
+                                <option value='1'>短信</option>
+                                <option value='2'>邮件</option>
                             </select>
                         </div>
                     </div>
@@ -165,9 +187,8 @@
                                     </select>
                                 </div>
                                 <div class="item_textarea">
-                                    <label class="width-135" >&nbsp;</label>
-                                    <textarea class="item_textarea ">
-                                    </textarea>
+                                    <label class="width-135"></label>
+                                    <textarea class="item_textarea "></textarea>
                                 </div>
                                 <div class="btn_group">
                                     <input type="reset"  value="取消" class=" btn cancel_btn" >

@@ -41,13 +41,31 @@
 
               <div class=" car_content">
               <div class="pure-u-1-1">
+
                 <div class="item_content">
                   <label class="width-75">商品名称</label>
                   <input name='material[name]' type="text" class="width-165 autocomplete" required=true autocomplete='off' placeholder='请输入名称'>
                 </div>
                 <div class="item_content">
                   <label class="width-75">条形码</label>
-                  <input type="text" name='material[barcode]' class="width-165">
+                  <input type="text" name='material[barcode]' class="width-165" placeholder='若不填则系统自动生成'>
+                </div>
+                <div class="item_content">
+                  <label class="width-75">助记码</label>
+                  <input name='material[mnemonic]' type="text" class="width-165" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-75">商品规格</label>
+                  <input name='material[speci]' type="text" class="width-165" required=true>
+                </div>
+
+                <div class="item_content">
+                  <label class="width-75">成本价</label>
+                  <input name='material[cost_price]' type="number" class="width-165" placeholder="输入成本价会影响原成本价" required=true >
+                </div>
+                <div class="item_content">
+                  <label class="width-75">最低售价</label>
+                  <input name='material[min_price]' type="number" class="width-165" required=true >
                 </div>
 
                 <div class="item_content">
@@ -80,11 +98,6 @@
                 </div>
 
                 <div class="item_content">
-                  <label class="width-75">商品规格</label>
-                  <input name='material[speci]' type="text" class="width-165" required=true>
-                </div>
-
-                <div class="item_content">
                   <label class="width-75">商品单位</label>
                   <input type="hidden" name='material[store_material_unit_id]' value="">
                   <span id='store_material_unit_id' class="width-165 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'>请选择</span>
@@ -98,14 +111,7 @@
                   </div>
                 </div>
 
-                <div class="item_content">
-                  <label class="width-75">成本价</label>
-                  <input name='material[cost_price]' type="number" class="width-165" placeholder="输入成本价会影响原成本价" required=true >
-                </div>
-                <div class="item_content">
-                  <label class="width-75">零售价</label>
-                  <input name='material[retail_price]' type="number" class="width-165" required=true >
-                </div>
+
                 <div class="item_content">
                   <label class="width-75">商品品牌</label>
                   <input name='material[store_material_brand_id]' type="hidden">
@@ -132,26 +138,22 @@
                     <a class='add_btn' data-method='add_manufacturer' href="javascript:void(0);">新增</a>
                   </div>
                 </div>
-                <div class="item_content">
-                  <label class="width-75">助记码</label>
-                  <input name='material[mnemonic]' type="text" class="width-165" required=true >
-                </div>
-                <div class="item_content">
-                  <label class="width-75">最低零售价</label>
-                  <input name='material[min_retail_price]' type="number" class="width-165" required=true >
-                </div>
+
+
+
                 <div class="item_content">
                   <label class="width-80"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
-                  <div>
+                  <div class='inline_block width-167'>
                     <label class="width-75">数量上限</label>
                     <input data-id='inventory' name='material[max_inventory]'  disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
 
-                  <div class="width-167">
+                  <div class="inline_block width-167">
                     <label class="lab_50">数量下限</label>
                     <input data-id='inventory' name='material[min_inventory]' disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
                 </div>
+
                 <div class="item_content">
                   <label class="width-75"><input type="radio" name='material[expiry_alarmify]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
                   <div class="input_span">
@@ -159,6 +161,37 @@
                     <span>天</span>
                   </div>
                 </div>
+
+
+                <div class="item_content">
+                  <label class="width-75">商品属性</label>
+                  <select class="" name="">
+                    <option value='0'>耗材</option>
+                    <option value='1'>汽车修理</option>
+                  </select>
+                </div>
+
+                <div class="item_content">
+                  <label class="width-75">计量单位</label>
+                  <select class="" name="">
+                    <option value='0'>升</option>
+                    <option value='1'>米</option>
+                  </select>
+                </div>
+
+                <div class="item_content">
+                  <label class="width-75">标准量</label>
+                  <input type="text" name="name" value="">
+                </div>
+
+                <div class="item_content">
+                  <label class="width-75">销售方式</label>
+                  <select class="" name="">
+                    <option value='0'>整进零出</option>
+                    <option value='1'>整进整出</option>
+                  </select>
+                </div>
+
                 <div class="item_textarea ">
                   <label class="width-75">备注</label>
                   <textarea name='material[remark]' class="textarea-width "></textarea>

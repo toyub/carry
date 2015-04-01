@@ -1,6 +1,6 @@
 class Kucun::MaterialsController < Kucun::ControllerBase
 
-  before_filter :set_material, only: [:show, :saleinfo, :commission, :tracing]
+  before_filter :set_material, only: [:show]
 
   def index
     @store_materials = StoreMaterial.all
@@ -13,7 +13,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   def create
     x = StoreMaterial.new(material_params)
-    
+
     x.store_id=current_user.store_id
     x.store_chain_id=current_user.store_chain_id
     x.store_staff_id=current_user.id
@@ -42,7 +42,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   def commission
   end
-  
+
   def update_commission
     render json: params
   end
@@ -73,7 +73,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
       IO.binwrite f, data
     end
     render text: file_name
-    
+
   end
 
   private

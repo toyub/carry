@@ -1,5 +1,4 @@
-class Kucun::SaleinfosController < Kucun::ControllerBase
-
+class Kucun::TrackingsController < Kucun::ControllerBase
   def new
   end
 

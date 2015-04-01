@@ -62,20 +62,18 @@ Rails.application.routes.draw do
       end
       member do
         post :save_picture
-        get :saleinfo
-        patch :update_saleinfo
-        post :saleinfo_createservice
-        get :commission
-        patch :update_commission
-        get :tracing
-        patch :update_tracing
       end
 
       resource :saleinfo do
         resources :material_services
       end
 
-      resources :material_commissions
+      resource :commission do
+        resources :material_commissions
+      end
+
+      resource :tracking do
+      end
     end
 
     resources :material_units
