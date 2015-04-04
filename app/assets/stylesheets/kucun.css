@@ -9,4 +9,5 @@
 *= require 'kucun/common'
 *= require piccut/1.0.0
 *= require select2/4.0.0.rc1
+*= require as_select
 */

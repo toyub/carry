@@ -1,0 +1,27 @@
+<p>
+  <br><br><br>
+</p>
+
+<%= form_for(@store_material_order, url: kucun_material_orders_path) do |form|%>
+
+  <table>
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @store_materials.each do |material| %>
+      <tr>
+        <td> <input type="hidden" name="store_material_order[store_material_order_items_attributes][<%= material.id %>][store_material_id]" value="<%= material.id %>"> <%= material.name %></td>
+        <td><%= material.cost_price %></td>
+        <td><input type="number" name="store_material_order[store_material_order_items_attributes][<%= material.id %>][quantity]" value="1" min=1 step='any'> </td>
+        <td><input type="checkbox" name="store_material_order[store_material_order_items_attributes][<%= material.id %>][checked]"></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= form.submit %>
+<% end %>

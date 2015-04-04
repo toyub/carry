@@ -12,6 +12,9 @@ class StoreMaterial < ActiveRecord::Base
   has_one :smc_mechanic_department
   has_one :smc_mechanic_personal
 
+  has_many :store_material_inventories
+  has_many :store_material_orders
+
   has_many :store_material_images, foreign_key: 'host_id'
 
   after_save :generate_barcode!

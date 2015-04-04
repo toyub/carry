@@ -85,6 +85,9 @@ Rails.application.routes.draw do
         get :sub_categories
       end
     end
+
+    resources :material_inventories
+    resources :material_orders
   end
 
   resource :session, only: [:new, :create, :destroy]

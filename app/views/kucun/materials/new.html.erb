@@ -14,9 +14,9 @@
             <ul>
               <li class="bg-color-fff"><a href="#" class="width-90">商品信息</a></li>
 
-              <li class='ext_info'><a href="javascript:void(0);" data-alert='请先保存商品信息！' class="width-90">销售设置</a></li>
-              <li class='ext_info'><a href="javascript:void(0);" data-alert='请先保存商品信息！' class="width-90">提成</a></li>
-              <li class='ext_info'><a href="javascript:void(0);" data-alert='请先保存商品信息！' class="width-90">回访</a></li>
+              <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">销售设置</a></li>
+              <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">提成</a></li>
+              <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">回访</a></li>
 
             </ul>
           </div>
@@ -165,31 +165,27 @@
 
                 <div class="item_content">
                   <label class="width-75">商品属性</label>
-                  <select class="" name="">
-                    <option value='0'>耗材</option>
-                    <option value='1'>汽车修理</option>
-                  </select>
+                  <div class="inline_block" style='border: 1px solid #333;'>
+                    <label for=""><input type="checkbox" name="name" value="">自用</label>
+                    <label for=""><input type="checkbox" name="name" value="">销售</label>
+                  </div>
                 </div>
 
-                <div class="item_content">
-                  <label class="width-75">计量单位</label>
-                  <select class="" name="">
-                    <option value='0'>升</option>
-                    <option value='1'>米</option>
-                  </select>
-                </div>
-
-                <div class="item_content">
-                  <label class="width-75">标准量</label>
-                  <input type="text" name="name" value="">
-                </div>
-
-                <div class="item_content">
-                  <label class="width-75">销售方式</label>
-                  <select class="" name="">
-                    <option value='0'>整进零出</option>
-                    <option value='1'>整进整出</option>
-                  </select>
+                <div class="clr">
+                  <fieldset>
+                    <legend><label><input type="checkbox" class='toggleable' name="divide_to_retail" data-target='divide_to_retail' value="">此商品拆分销售</label></legend>
+                    <div class="">
+                      <label class="width-75">计量单位</label>
+                      <select data-id='divide_to_retail' disabled=true class="" name="">
+                        <option value='0'>升</option>
+                        <option value='1'>米</option>
+                      </select>
+                    </div>
+                    <div class="">
+                      <label class="width-75">总量</label>
+                      <input  data-id='divide_to_retail' disabled=true type="text" name="name" value="">
+                    </div>
+                  </fieldset>
                 </div>
 
                 <div class="item_textarea ">
