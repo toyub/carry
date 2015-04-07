@@ -1,0 +1,108 @@
+.as_select{
+  display: inline-block;
+  border: 1px solid #a8a8a8;
+  text-align: left;
+  &:hover{
+    border: 1px solid #4996CD;
+  }
+
+  &:after {
+    content: '▼';
+    text-align: right;
+    float: right;
+  }
+}
+
+.select{
+  border: 1px solid #ADA8A8;
+  width: 165px;
+  text-align: left;
+  display: inline-block;
+  position: absolute;
+  background: #fff;
+  z-index: 99;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+  display: none;
+}
+
+.select ol{
+  width: 165px;
+  max-height: 150px;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  overflow-x:hidden;
+  overflow-y: auto;
+  border: none;
+  float: left;
+
+}
+
+
+.select {
+
+  ol {
+    li{
+
+      margin: 0;
+      padding: 3px 0 3px 0.4em;
+      height: 22px;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-bottom: 1px solid #aeaeae;
+      cursor: pointer;
+      display: inline-block;
+      width: 162px;
+      float: left;
+
+      &:hover {
+        position: relative;
+        margin: 0;
+        padding: 3px 0 3px 0.4em;
+        height: 22px;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: 1px solid #aeaeae;
+        cursor: pointer;
+        background: #cecece;
+      }
+    }
+
+  }
+
+  .add_btn{
+    display: inline-block;
+    width: 165px;
+    height: 22px;
+    line-height: normal;
+    border: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+    color: #1E10F5;
+    font-style: normal;
+    font-weight: 600;
+
+
+    &:before{
+      content: "+";
+      font-size: 15px;
+    }
+  }
+}
+.error{
+  border: 2px solid #e43ddf;
+}
+
+.error_tip{
+  display: inline-block;
+  position: absolute;
+  height: 22px;
+  width: auto;
+  border: 2px solid red;
+  background: #eee;
+  z-index: 10;
+}
