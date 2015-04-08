@@ -267,8 +267,50 @@
 }
 
 .item_content {
-  line-height: 35px;
+  line-height: 54px;
   text-align: right;
+}
+.item_content .material_for_sale_or_keep{
+  width:158px;
+  height:26px;
+  line-height:26px;
+}
+.item_content .material_for_sale_or_keep label{
+  margin-right:28px;
+  text-align:left;
+}
+.item_property{
+  height:26px;
+  width:224px;
+  line-height:26px;
+  margin:14px 0 0 54px;
+  padding-left:4px;
+  text-align:right;
+}
+.item_inventory{
+  width:481px;
+  height:58px;
+  line-height:58px;
+  margin:20px 0 20px 54px;
+  text-align:left;
+  padding-left:30px;
+}
+.shelf_life{
+  width:165px;
+  text-align:left;
+  margin-left:60px;
+  border:1px solid #dad9d9;
+  padding:0 30px 0 26px;
+  height:58px;
+  line-height:58px;
+  margin-top:20px;
+}
+.input_span{
+  float:right;
+  height:58px;
+  line-height:58px;
+  margin-left:4px;
+  width:59px;
 }
 
 .base_info label{
@@ -276,14 +318,15 @@
   display: inline-block;
   height: 35px;
   line-height: 35px;
+  color:#6b6b6b;
 }
 
 .item_content label{
   text-align: right;
   display: inline-block;
-  height: 35px;
-  line-height: 35px;
-
+  height: 26px;
+  line-height: 26px;
+  color:#6b6b6b;
 }
 
 .item_content input[ type="text"], .item_content select {
@@ -300,13 +343,15 @@
 }
 
 .item_textarea {
-  width:100%;
-  margin-top:10px;
+  width:1062px;
+  margin:0 0 0 52px;
 }
 
 .item_textarea textarea {
-  height: 100px;;
-  width:983px;
+  height: 146px;;
+  width:1068px;
+  padding:5px;
+  outline:none;
   border: 1px solid #dbd9d9;
 }
 

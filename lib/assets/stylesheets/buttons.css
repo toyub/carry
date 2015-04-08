@@ -9,13 +9,14 @@
   cursor:pointer;
 }
 
-.query_btn,.new_btn,.print_btn,.export_btn,.instorage_btn,.notes_btn{
+.query_btn,.new_btn,.print_btn,.export_btn,.outstorage_btn,.notes_btn,.cancel_btn,.edit_btn,.save_btn,.add_btn,.in_stg_btn,.search_btn,.returnstorage_btn{
+  display:inline-block;
   margin:0px 10px;
   padding:0px 15px;
   height:22px;
   line-height:22px;
   border:0px;
-  font-size:12px;  
+
 }
 
 .query_btn{
@@ -37,9 +38,9 @@
 }
 
 .save_btn {
-  background: #198fff;
+  background: #198fff !important;
   box-shadow: 0px 2px 0px #063a93;
-  color: #fff;
+  color: #fff !important;
   margin-right:0px;
 }
 
@@ -50,10 +51,10 @@
 }
 
 .edit_btn {
-  background: #e2e2e6;
+  background: #e2e2e6 !important;
   box-shadow: 0px 2px 0px #abaeb7;
   margin: 0px 20px;
-  color:#6e6e70;
+  color:#6e6e70 !important;
 }
 
 .btn-select {

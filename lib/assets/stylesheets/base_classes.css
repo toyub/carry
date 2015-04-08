@@ -76,6 +76,9 @@
 .width-85 {
     width: 85px;
 }
+.width-87 {
+  width:87px;
+}
 .width-90 {
     width: 90px;
 }
@@ -136,11 +139,17 @@
 .width-163 {
     width: 163px;
 }
+.width-164 {
+    width: 164px;
+}
 .width-165 {
     width: 165px;
 }
 .width-167 {
     width: 167px;
+}
+.width-168{
+  width:168px;
 }
 .width-169 {
     width: 169px;
@@ -148,11 +157,17 @@
 .width-170 {
     width: 170px;
 }
+.width-172{
+  width:172px;
+}
 .width-175 {
     width: 175px;
 }
 .width-180 {
     width: 180px;
+}
+.width-194 {
+    width: 194px;
 }
 .width-200 {
     width: 200px;
@@ -222,6 +237,12 @@
 }
 .font-28 {
     font-size: 28px;
+}
+.font-weight-bold{
+  font-weight:bold;
+}
+.font-black{
+  color:black !important;
 }
 .float-left {
     float: left;

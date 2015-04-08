@@ -239,7 +239,16 @@
 	line-height:20px;
 	display:initial;
 }
-
+.item_content input{
+  font-size:12px;
+  padding:6px 2px;
+  text-indent:0;
+  border:1px solid #dad9d9;
+  outline:none;
+}
+.outline{
+  outline:1px solid #dad9d9;
+}
 .item_content .input_div{
 	display:inline-block;
 	height:26px;
@@ -247,7 +256,6 @@
 	border:1px solid #e6e6e6;
 	padding:0px 10px 0px 0px;
 	width:153px;
-
 }
 /*库存管理-库存列表-商品信息-end*/
 
@@ -1557,5 +1565,9 @@ input[type="radio"], input[type="checkbox"] {
 	width:6%;
 }
 
-
+select[disabled] {
+  background:#F1EEF4;
+  border:none;
+  color:#F1EEF4;
+}
 /*----库存管理-报损-end------*/

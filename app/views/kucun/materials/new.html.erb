@@ -44,35 +44,35 @@
 
                 <div class="item_content">
                   <label class="width-75">商品名称</label>
-                  <input name='material[name]' type="text" class="width-165 autocomplete" required=true autocomplete='off' placeholder='请输入名称'>
+                  <input name='material[name]' type="text" class="width-170 autocomplete" required=true autocomplete='off' placeholder='请输入名称'>
                 </div>
                 <div class="item_content">
                   <label class="width-75">条形码</label>
-                  <input type="text" name='material[barcode]' class="width-165" placeholder='若不填则系统自动生成'>
+                  <input type="text" name='material[barcode]' class="width-170" placeholder='若不填则系统自动生成'>
                 </div>
                 <div class="item_content">
                   <label class="width-75">助记码</label>
-                  <input name='material[mnemonic]' type="text" class="width-165" required=true >
+                  <input name='material[mnemonic]' type="text" class="width-170" required=true >
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品规格</label>
-                  <input name='material[speci]' type="text" class="width-165" required=true>
+                  <input name='material[speci]' type="text" class="width-170" required=true>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">成本价</label>
-                  <input name='material[cost_price]' type="number" class="width-165" placeholder="输入成本价会影响原成本价" required=true >
+                  <input name='material[cost_price]' type="number" class="width-170" placeholder="输入成本价会影响原成本价" required=true >
                 </div>
                 <div class="item_content">
                   <label class="width-75">最低售价</label>
-                  <input name='material[min_price]' type="number" class="width-165" required=true >
+                  <input name='material[min_price]' type="number" class="width-170" required=true >
                 </div>
 
                 <div class="item_content">
                   <% category = @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
                   <label class="width-75">一级分类</label>
                   <input id='material_category1' type="hidden" name='material[category1]' value="<%= category.id %>">
-                  <span class="width-165 as_select" data-select='#material_category1_select' data-target='input[name="material[category1]"]'><%= category.name %></span>
+                  <span class="width-170 as_select" data-select='#material_category1_select' data-target='input[name="material[category1]"]'><%= category.name %></span>
                   <div id='material_category1_select' class="select">
                     <ol>
                       <% @store.store_material_categories.super_categories.each do |option| %>
@@ -86,7 +86,7 @@
                 <div class="item_content">
                   <label class="width-75">二级分类</label>
                   <input type="hidden" name='material[store_material_category_id]' value="">
-                  <span id='store_material_category_id' class="width-165 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'>请选择</span>
+                  <span id='store_material_category_id' class="width-170 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'>请选择</span>
                   <div id='material_category_select' class="select">
                     <ol>
                       <% category.sub_categories.each do |option| %>
@@ -100,7 +100,7 @@
                 <div class="item_content">
                   <label class="width-75">商品单位</label>
                   <input type="hidden" name='material[store_material_unit_id]' value="">
-                  <span id='store_material_unit_id' class="width-165 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'>请选择</span>
+                  <span id='store_material_unit_id' class="width-170 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'>请选择</span>
                   <div id='material_unit_select' class="select">
                     <ol>
                       <% @store.store_material_units.each do |option| %>
@@ -115,7 +115,7 @@
                 <div class="item_content">
                   <label class="width-75">商品品牌</label>
                   <input name='material[store_material_brand_id]' type="hidden">
-                  <span id='store_material_brand_id' class="width-165 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'>请选择</span>
+                  <span id='store_material_brand_id' class="width-170 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'>请选择</span>
                   <div id='material_brand_select' class="select">
                     <ol>
                       <% @store.store_material_brands.each do |option| %>
@@ -128,7 +128,7 @@
                 <div class="item_content">
                   <label class="width-75">生产单位</label>
                   <input name='material[store_material_manufacturer_id]' type="hidden">
-                  <span id='store_material_manufacturer_id' class="width-165 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'>请选择</span>
+                  <span id='store_material_manufacturer_id' class="width-170 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'>请选择</span>
                   <div id='material_manufacturer_select' class="select">
                     <ol>
                       <% @store.store_material_manufacturers.each do |option| %>
@@ -140,36 +140,39 @@
                 </div>
 
 
+                <div class="item_content outline item_property">
+                  <label class="width-50">商品属性</label>
+                  <div class="inline_block material_for_sale_or_keep" >
+                    <label for=""><input type="checkbox" name="name" value="">自用</label>
+                    <label for=""><input type="checkbox" name="name" value="">销售</label>
+                  </div>
+                </div>
 
-                <div class="item_content">
-                  <label class="width-80"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
-                  <div class='inline_block width-167'>
+
+
+                <div class="item_content outline item_inventory">
+                  <label class="width-87 font-weight-bold font-black"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
+                  <div class='inline_block width-194'>
                     <label class="width-75">数量上限</label>
                     <input data-id='inventory' name='material[max_inventory]'  disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
 
-                  <div class="inline_block width-167">
+                  <div class="inline_block width-194">
                     <label class="lab_50">数量下限</label>
                     <input data-id='inventory' name='material[min_inventory]' disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
                 </div>
 
-                <div class="item_content">
+                <div class="item_content shelf_life">
                   <label class="width-75"><input type="radio" name='material[expiry_alarmify]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
                   <div class="input_span">
-                    <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-100 " style="border:0px;" required=true >
+                    <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-30 " style="border:0px;" required=true >
                     <span>天</span>
                   </div>
                 </div>
 
 
-                <div class="item_content">
-                  <label class="width-75">商品属性</label>
-                  <div class="inline_block" style='border: 1px solid #333;'>
-                    <label for=""><input type="checkbox" name="name" value="">自用</label>
-                    <label for=""><input type="checkbox" name="name" value="">销售</label>
-                  </div>
-                </div>
+
 
                 <div class="clr">
                   <fieldset>
@@ -189,7 +192,7 @@
                 </div>
 
                 <div class="item_textarea ">
-                  <label class="width-75">备注</label>
+                  <label class="width-50">备注</label>
                   <textarea name='material[remark]' class="textarea-width "></textarea>
                 </div>
                 </div>

@@ -8,7 +8,7 @@ body {
   padding: 0px;
   margin: 0px;
   min-width:1024px;
-  color: #717171; 
+  color: #717171;
 }
 
 body, input, button, select, textarea {
@@ -26,9 +26,9 @@ table {border-collapse:collapse; border:0px; border-spacing:0px; }
 
 img{ border:none 0;}
 
-select {font-size: 13px;}
+select {font-size: 13px;outline:none;background:#fff;margin:20px 0;}
 
-input[ type="text"] {text-indent: 5px;}
+input[ type="text"] {text-indent: 5px;outline:none;}
 
 button {
   color: #fff;
@@ -46,12 +46,12 @@ nbsp1{width:14px; display:inline-block;height:2px;background:none;border:0px; ma
 nbsp2{width:28px; display:inline-block;height:2px;background:none;border:0px; margin:0px; padding:0px;}
 
 .btn:hover{
-  animation-name: shine_red; 
+  animation-name: shine_red;
   animation-duration: 1s;
-  animation-iteration-count: infinite; 
-  -webkit-animation-name: shine_red; 
+  animation-iteration-count: infinite;
+  -webkit-animation-name: shine_red;
   -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: infinite; 
+  -webkit-animation-iteration-count: infinite;
 }
 
 @keyframes  shine_red {

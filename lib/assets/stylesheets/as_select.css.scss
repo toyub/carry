@@ -1,7 +1,12 @@
 .as_select{
   display: inline-block;
-  border: 1px solid #a8a8a8;
+  border: 1px solid #dad9d9;
   text-align: left;
+  width:166px;
+  height:26px;
+  line-height:26px;
+  padding:0 4px;
+  color:#A3A2A2;
   &:hover{
     border: 1px solid #4996CD;
   }
@@ -14,8 +19,8 @@
 }
 
 .select{
-  border: 1px solid #ADA8A8;
-  width: 165px;
+  border: 1px solid #dad9d9;
+  width: 174px;
   text-align: left;
   display: inline-block;
   position: absolute;
@@ -27,7 +32,7 @@
 }
 
 .select ol{
-  width: 165px;
+  width: 174px;
   max-height: 150px;
   display: inline-block;
   margin: 0;
@@ -36,7 +41,6 @@
   overflow-y: auto;
   border: none;
   float: left;
-
 }
 
 
@@ -46,15 +50,16 @@
     li{
 
       margin: 0;
-      padding: 3px 0 3px 0.4em;
-      height: 22px;
+      padding: 0 0 0 4px;
+      height: 26px;
+      line-height:26px;
       border-left: none;
       border-right: none;
       border-top: none;
-      border-bottom: 1px solid #aeaeae;
+      border-bottom: 1px solid #dad9d9;
       cursor: pointer;
       display: inline-block;
-      width: 162px;
+      width: 170px;
       float: left;
 
       &:hover {
@@ -75,14 +80,14 @@
 
   .add_btn{
     display: inline-block;
-    width: 165px;
-    height: 22px;
-    line-height: normal;
+    width: 170px;
+    height: 26px;
+    line-height: 26px;
     border: none;
-    padding: 0;
+    padding:0 4px;
     margin: 0;
     float: left;
-    color: #1E10F5;
+    color: #402BF2;
     font-style: normal;
     font-weight: 600;
 
