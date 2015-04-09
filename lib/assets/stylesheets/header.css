@@ -18,7 +18,7 @@
 }
 
 .top_left{
-   width:190px; height:57px; position:absolute; top:0px; left:0px; line-height:57px; text-align:center; color:#FFF;
+   width:90px; height:57px; position:absolute; top:0px; left:0px; line-height:57px; text-align:center; color:#FFF;
 }
 
 .top_left i{
@@ -32,7 +32,7 @@
 }
 
 .top_center{
-  margin-left:240px; height:46px;padding-top:11px; margin-right:240px;
+  margin-left:128px; height:46px;padding-top:11px; margin-right:240px;
 }
 
 .top_center .input_query{ height:35px; border:none;border-radius:6px; padding-left:10px; width:100%;font-size:14px;background:#533d71;}
@@ -126,8 +126,8 @@
   list-style: none;
   display: inline;
   font-size: 25px;
-  line-height: 45px;
-  padding:8px 10px;
+  line-height: 56px;
+  padding:0 10px;
 }
 
 .nav ul {

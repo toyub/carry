@@ -22,6 +22,7 @@
   line-height: 25px;
   font-size: 12px;
   border: 1px solid #dbd9d9;
+  margin:0;
 }
 
 .pure-select-group {
@@ -52,4 +53,14 @@
 
 .pure-select-group button {
   margin-left: 25px;
+}
+
+#piccut input[type="file"]{
+  width:272px;
+  margin-top:26px;
+  margin-left:100px;
+  color:gray;
+}
+fieldset{
+  margin:0 0 0 47px;
 }

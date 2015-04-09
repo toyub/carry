@@ -162,22 +162,32 @@
 }
 
 .item-query{
-	height:30px;
-	line-height:30px;
+	height:33px;
+	line-height:33px;
 	margin:0px 10px;
 	font-size: 12px;
 	float:left;
+  width:248px;
 }
 
-.item-query input[ type="text"], .item-query select{
+.item-query input[ type="text"]{
 	background: #fff;
 	color: #717171;
 	height: 25px;
-	line-height: 25px;
 	font-size: 12px;
 	border: 1px solid #dbd9d9;
 }
-
+.item-query select{
+  background: #fff;
+	color: #717171;
+	height: 25px;
+	font-size: 12px;
+	border: 1px solid #dbd9d9;
+  margin:0;
+}
+.item-query label{
+  float:left;
+}
 /*库存管理-库存列表-商品信息-start*/
 .goods_nav{
 	margin: 0px;
@@ -211,12 +221,22 @@
 .goods_main_img{
 	height:190px;
 	border:1px solid #e6e6e6;
-
 }
 
 .goods_main_img img{
 	width:253px;
 	height:190px;
+}
+ul.goods_small_img{
+  width:243px;
+  height:40px;
+  line-height:40px;
+}
+ul.goods_small_img li{
+  float:left;
+}
+ul.goods_small_img li .fa{
+  font-size:36px;
 }
 
 .goods_small_img{
@@ -225,9 +245,9 @@
 }
 
 .goods_small_img img{
-    width:53px;
-	height:48px;
-	margin-right:5px;
+  width:43px;
+  height:33px;
+  margin-right:5px;
 }
 
 .goods_choose_img{
@@ -609,7 +629,7 @@
 	height:22px;
 	line-height:22px;
 	padding:0px 10px;
-	width:50px;
+	width:60px;
 	text-align:center;
 	margin-right:20px;
 }
@@ -1566,7 +1586,7 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 select[disabled] {
-  background:#F1EEF4;
+  background:#EBEBE4;
   border:none;
   color:#F1EEF4;
 }

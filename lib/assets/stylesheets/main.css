@@ -5,8 +5,8 @@
 #main {
   background: #fff;
   position: relative;
-  top:55px;
-  width:1400px;
+  top:74px;
+  width:1360px;
   margin:auto;
 }
 
@@ -29,7 +29,7 @@
    overflow:hidden;
    letter-spacing:normal;
    z-index:1;
-   padding:0px 20px;
+   padding:0;
    width:100%;
 }
 
@@ -263,11 +263,11 @@
 
 .item_content,.item_textarea{
   float: left;
-  margin-left:29px;
+  margin-left:19px;
 }
 
 .item_content {
-  line-height: 54px;
+  line-height: 44px;
   text-align: right;
 }
 .item_content .material_for_sale_or_keep{
@@ -281,38 +281,43 @@
 }
 .item_property{
   height:26px;
-  width:224px;
+  width:218px;
   line-height:26px;
-  margin:14px 0 0 54px;
+  margin:10px 0 0 50px;
   padding-left:4px;
   text-align:right;
 }
 .item_inventory{
-  width:481px;
-  height:58px;
-  line-height:58px;
-  margin:20px 0 20px 54px;
+  width:465px;
+  height:54px;
+  line-height:54px;
+  margin:12px 0 20px 49px;
   text-align:left;
   padding-left:30px;
 }
+.item_inventory input{
+  padding:2px 0 !important;
+}
 .shelf_life{
-  width:165px;
+  width:163px;
   text-align:left;
-  margin-left:60px;
+  margin-left:54px;
   border:1px solid #dad9d9;
   padding:0 30px 0 26px;
-  height:58px;
-  line-height:58px;
-  margin-top:20px;
+  height:54px;
+  line-height:54px;
+  margin-top:12px;
 }
 .input_span{
   float:right;
-  height:58px;
-  line-height:58px;
+  height:54px;
+  line-height:54px;
   margin-left:4px;
   width:59px;
 }
-
+.input_span input{
+  padding:1px 0 !important;
+}
 .base_info label{
   text-align: right;
   display: inline-block;
@@ -344,12 +349,12 @@
 
 .item_textarea {
   width:1062px;
-  margin:0 0 0 52px;
+  margin:0 0 0 47px;
 }
 
 .item_textarea textarea {
-  height: 146px;;
-  width:1068px;
+  height: 130px;;
+  width:1035px;
   padding:5px;
   outline:none;
   border: 1px solid #dbd9d9;
@@ -408,7 +413,7 @@
 
 .btn_group{
   text-align: right;
-  margin: 30px 0px;
+  margin: 18px 0px;
   margin-right:5px;
 
 }

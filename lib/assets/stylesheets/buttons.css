@@ -94,3 +94,29 @@
 .btn-select select option:hover {
   color: #fff;
 }
+
+button.btn-crop {
+  color: #fff;
+  margin-left:100px;
+  width:90px;
+  height:35px;
+  line-height:35px;
+  font-size:18px;
+  background:#198FFF;
+  padding: 0px 10px;
+  border: 0px;
+  box-shadow:0px 2px 0px #063a93;
+}
+input.btn-cancel{
+  color: #000;
+  margin-left:100px;
+  width:72px;
+  height:35px;
+  text-align:center;
+  font-size:18px;
+  background:#E2E2E6;
+  padding: 0px 10px;
+  border: 0px;
+  box-shadow:0px 2px 0px #abaeb7;
+  cursor:pointer;
+}

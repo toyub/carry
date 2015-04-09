@@ -26,19 +26,20 @@ table {border-collapse:collapse; border:0px; border-spacing:0px; }
 
 img{ border:none 0;}
 
-select {font-size: 13px;outline:none;background:#fff;margin:20px 0;}
+select {font-size: 13px;outline:none;background:#fff;margin:18px 0;}
 
 input[ type="text"] {text-indent: 5px;outline:none;}
 
 button {
   color: #fff;
-  background: #6574c1;
+  margin-left:300px;
+  width:100px;
+  height:40px;
+  font-size:18px;
+  background:#F05848;
   padding: 0px 10px;
   border: 0px;
-  height: 25px;
-  line-height: 25px;
-  width: 80px;
-  font-size: 13px;
+  line-height: 40px;
 }
 
 nbsp1{width:14px; display:inline-block;height:2px;background:none;border:0px; margin:0px; padding:0px;}
