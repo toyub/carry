@@ -53,6 +53,11 @@
                 <input data-id='bargain_price' type="text" class="width-165" disabled>
               </div>
               <div class="item_content">
+                <label class="width-75">批发价</label>
+                <input name='saleinfo[trade_price]' type="number" class="width-165" required=true >
+              </div>
+
+              <div class="item_content">
                 <label class="width-75">商品积分</label>
                 <input type="text" class="width-165">
               </div>
@@ -119,8 +124,8 @@
     </div>
   </div>
 </div>
-
-<tmpl id='lslfdsafj_tmpl' hidden >
+<% content_for :scenes do %>
+<script type='text/tmpl' id='lslfdsafj_tmpl' hidden >
   <form method="patch" action='<%= kucun_material_saleinfo_material_services_path(@store_material) %>'>
     <div class="pure-u-1-2  text-align-left float-left ">
       <label class="width-50">服务名称</label>
@@ -163,7 +168,8 @@
       <input type="submit" value="保存">
     </div>
   </form>
-</tmpl>
+</script>
+<% end %>
 
 <% content_for :javascripts do %>
   <script>
