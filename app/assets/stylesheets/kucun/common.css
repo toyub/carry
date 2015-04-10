@@ -277,6 +277,9 @@ ul.goods_small_img li .fa{
 	padding:0px 10px 0px 0px;
 	width:153px;
 }
+iframe{
+  width:99%;
+}
 /*库存管理-库存列表-商品信息-end*/
 
 /*库存管理-库存列表-销售设置-start*/

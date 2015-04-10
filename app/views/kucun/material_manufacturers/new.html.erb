@@ -1,4 +1,4 @@
-<div>
+<div style="width:220px;margin:auto;">
   <%= form_for(@material_manufacturer, url: kucun_material_manufacturers_path) do |form|%>
     <%= form.text_field :name, placeholder: '请输入工厂名称', required: true %>
     <%= form.submit value: '保存' %>
