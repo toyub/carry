@@ -1,4 +1,4 @@
-<%= form_for(@category, url: kucun_material_categories_path, html:{style: "width:70%;margin:4px auto;"}) do |form| %>
+<%= form_for(@category, url: kucun_material_categories_path, html:{style: "width:70%;margin:auto;"}) do |form| %>
   <% if @category.has_parent? %>
     <p style="font-size:12px;">一级分类：
     <%= form.select "parent_id", options_from_collection_for_select([@parent], "id", "name") %>

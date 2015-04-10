@@ -39,11 +39,11 @@
               <div class="pure-u-1-1">
                 <div class="item_content">
                   <label class="width-75">商品名称</label>
-                  <%= form.text_field :name, class: 'width-165 autocomplete', required: true, autocomplete: 'off', placeholder:'请输入名称'%>
+                  <%= form.text_field :name, class: 'width-170 autocomplete', required: true, autocomplete: 'off', placeholder:'请输入名称'%>
                 </div>
                 <div class="item_content">
                   <label class="width-75">条形码</label>
-                  <%= form.text_field :barcode, class: 'width-165' %>
+                  <%= form.text_field :barcode, class: 'width-170' %>
                 </div>
 
                 <div class="item_content">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品规格</label>
-                  <%= form.text_field :speci, class: 'width-165', required: true %>
+                  <%= form.text_field :speci, class: 'width-170', required: true %>
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品单位</label>
@@ -94,11 +94,11 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">成本价</label>
-                  <%= form.text_field :cost_price, type: 'number', class: 'width-165', required: true, placeholder: '输入成本价会影响原成本价', step: 'any' %>
+                  <%= form.text_field :cost_price, type: 'number', class: 'width-170', required: true, placeholder: '输入成本价会影响原成本价', step: 'any' %>
                 </div>
                 <div class="item_content">
                   <label class="width-75">最低售价</label>
-                  <%= form.text_field :min_price, type: 'number', class: 'width-165', required: true, step: 'any' %>
+                  <%= form.text_field :min_price, type: 'number', class: 'width-170', required: true, step: 'any' %>
                 </div>
                 <div class="item_content">
                   <label class="width-75">商品品牌</label>
@@ -128,9 +128,9 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">助记码</label>
-                  <%= form.text_field :mnemonic, class: 'width-165', required:true %>
+                  <%= form.text_field :mnemonic, class: 'width-170', required:true %>
                 </div>
-                <div class="item_content">
+                <div class="item_content outline item_inventory">
                   <label class="width-80">
                     <input name='material[inventory_alarm]' <%= @store_material.inventory_alarmify ? 'checked=true' : '' %> type="radio" class='toggleable' data-target='inventory'>库存预警：
                   </label>
@@ -144,15 +144,15 @@
                     <input data-id='inventory' name='material[min_inventory]' <%= @store_material.inventory_alarmify ? '' : 'disabled=true' %> type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
                 </div>
-                <div class="item_content">
+                <div class="item_content shelf_life">
                   <label class="width-75"><input type="radio" <%= @store_material.expiry_alarmify ? 'checked=true' : '' %> name='material[expiry_alarm]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
                   <div class="input_span">
-                    <input type="number" data-id='shelf_life' <%= @store_material.expiry_alarmify ? '' : 'disabled=true' %> name='material[shelf_life]' class="width-100 " style="border:0px;" required=true>
+                    <input type="number" data-id='shelf_life' <%= @store_material.expiry_alarmify ? '' : 'disabled=true' %> name='material[shelf_life]' class="width-30 " style="border:0px;" required=true>
                     <span>天</span>
                   </div>
                 </div>
                 <div class="item_textarea ">
-                  <label class="width-75">备注</label>
+                  <label class="width-50">备注</label>
                   <textarea name='material[remark]' class="textarea-width "></textarea>
                 </div>
 

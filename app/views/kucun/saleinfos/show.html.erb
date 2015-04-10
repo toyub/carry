@@ -38,11 +38,11 @@
             <div class="pure-u-1-2 float-left">
               <div class="item_content">
                 <label class="width-75">商品名称</label>
-                <span class="width-165"><%= @store_material.name %></span>
+                <span class="width-165 inline_block text-align-center"><%= @store_material.name %></span>
               </div>
               <div class="item_content">
-                <label class="width-75">规格</label>
-                <span class="width-165"><%= @store_material.speci %></span>
+                <label class="width-75">规 格</label>
+                <span class="width-165 inline_block text-align-center"><%= @store_material.speci %></span>
               </div>
               <div class="item_content">
                 <label class="width-75">零售价</label>
@@ -63,26 +63,30 @@
               </div>
               <div class="item_content">
                 <label class="width-75">销售分类</label>
-                <select type="text" class="width-165">
+                <select type="text" class="width-170">
                   <option>一个分类</option>
                   <option>两个分类</option>
                 </select>
               </div>
+              <div class="clr"></div>
+              <div class>
+                <fieldset class="width-472">
+                  <legend class="text-align-left">
+                    <label>
+                      <input type="checkbox" class="toggleable" name="need_mechanic" data-target="need_mechanic" value data-checked />
+                      "需要施工"
+                    </label>
+                  </legend>
+                    <div class="item_content">
+                      <label class="width-75">工时价格</label>
+                      <input type="text" class="width-165" data-id="need_mechanic" disabled="disabled"/>
+                    </div>
+                </fieldset>
+              </div>
 
-              <div class="item_content">
-                <label class="width-75">需要施工</label>
-                <select type="text" class="width-165">
-                  <option>该商品需要施工</option>
-                  <option>该商品不需要施工</option>
-                </select>
-              </div>
-              <div class="item_content">
-                <label class="width-75">工时价格</label>
-                <input type="text" class="width-165">
-              </div>
-              <div class="item_textarea ">
-                <label class="width-75">备注</label>
-                <textarea class="server_textarea"></textarea>
+              <div class="width-472" style="margin-left:46px;">
+                <label class="width-472 text-align-left">备注</label>
+                <textarea class="server_textarea width-489"></textarea>
               </div>
             </div>
 
