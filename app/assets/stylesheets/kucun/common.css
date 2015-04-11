@@ -298,15 +298,14 @@ iframe{
 }
 
  .server_list .top,.visit_list .top{
-   height:45px;
-   line-height:45px;
+   height:40px;
+   line-height:40px;
    margin:0px 15px 0px 0px;
 }
 
  .server_list .top a,.visit_list .top a{
    display:inline-block;
-   top: 20%;
-   position: relative;
+   margin-top:1.5%;
    float:right;
 }
 
@@ -340,7 +339,7 @@ iframe{
 }
 
 .server_list .list .list_tr,.visit_list .list .list_tr{
-	width:99.2%;
+	width:99.5%;
 }
 
 .list .delete:hover{
@@ -377,10 +376,11 @@ iframe{
 
 .server_list .list ul li,.visit_list .list ul li{
 	display:inline-block;
-	height:28px;
-	line-height:28px;
+	height:26px;
+	line-height:26px;
 	text-align:center;
 	float:left;
+  color:#7D7D7D;
 }
 
 .server_list .list .list_top,.visit_list .list .list_top{
@@ -455,6 +455,7 @@ iframe{
 	float:none;
 	margin-left:4px;
 	width:265px;
+  border:1px solid #dad9d9;
 }
 
 /*库存管理-库存列表-回访-end*/
@@ -938,14 +939,14 @@ input[type="radio"], input[type="checkbox"] {
 
 .sales_commission{
 	float:left;
-  margin:10px 0 30px 40px;;
+  margin:10px 0 30px 47px;;
   width:45%;
   height:130px;
 }
 
 .artificer_commission{
   float:right;
-  margin:10px 2px 0 0;
+  margin:10px 3px 0 0;
   width:45%;
   height:130px;
 }
@@ -1001,7 +1002,7 @@ input[type="radio"], input[type="checkbox"] {
 	color: #fff;
 }
 .stored_material{
-  text-align:center;
+  text-align:left;
   display:inline-block;
 }
 /*-----------------------------------------出库-------------------------------------*/
@@ -1616,6 +1617,7 @@ select[disabled] {
   line-height:54px;
   text-align:right;
   float:left;
+  margin-left:18px;
 }
 .item_content_tracking label{
   margin-right:8px;
@@ -1623,7 +1625,7 @@ select[disabled] {
 .item_content_tracking select{
   border:1px solid #dbd9d9;
   padding:2px 0;
-  margin-right:10px;
+  margin-right:14px;
   width:154px;
 }
 /*----库存管理-库存列表-回访-end------*/
