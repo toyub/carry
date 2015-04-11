@@ -44,34 +44,34 @@
               <div class="pure-u-1-1">
 
                 <div class="item_content">
-                  <label class="width-75">商品名称</label>
+                  <label class="width-67">商品名称</label>
                   <input name='material[name]' type="text" class="width-170 autocomplete" required=true autocomplete='off' placeholder='请输入名称'>
                 </div>
                 <div class="item_content">
-                  <label class="width-75">条形码</label>
+                  <label class="width-67">条形码</label>
                   <input type="text" name='material[barcode]' class="width-170" placeholder='若不填则系统自动生成'>
                 </div>
                 <div class="item_content">
-                  <label class="width-75">助记码</label>
+                  <label class="width-67">助记码</label>
                   <input name='material[mnemonic]' type="text" class="width-170" required=true >
                 </div>
                 <div class="item_content">
-                  <label class="width-75">商品规格</label>
+                  <label class="width-67">商品规格</label>
                   <input name='material[speci]' type="text" class="width-170" required=true>
                 </div>
 
                 <div class="item_content">
-                  <label class="width-75">成本价</label>
+                  <label class="width-67">成本价</label>
                   <input name='material[cost_price]' type="number" class="width-170" placeholder="输入成本价会影响原成本价" required=true >
                 </div>
                 <div class="item_content">
-                  <label class="width-75">最低售价</label>
+                  <label class="width-67">最低售价</label>
                   <input name='material[min_price]' type="number" class="width-170" required=true >
                 </div>
 
                 <div class="item_content">
                   <% category = @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
-                  <label class="width-75">一级分类</label>
+                  <label class="width-67">一级分类</label>
                   <input id='material_category1' type="hidden" name='material[category1]' value="<%= category.id %>">
                   <span class="width-170 as_select" data-select='#material_category1_select' data-target='input[name="material[category1]"]'><%= category.name %></span>
                   <div id='material_category1_select' class="select">
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="item_content">
-                  <label class="width-75">二级分类</label>
+                  <label class="width-67">二级分类</label>
                   <input type="hidden" name='material[store_material_category_id]' value="">
                   <span id='store_material_category_id' class="width-170 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'>请选择</span>
                   <div id='material_category_select' class="select">
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="item_content">
-                  <label class="width-75">商品单位</label>
+                  <label class="width-67">商品单位</label>
                   <input type="hidden" name='material[store_material_unit_id]' value="">
                   <span id='store_material_unit_id' class="width-170 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'>请选择</span>
                   <div id='material_unit_select' class="select">
@@ -114,7 +114,7 @@
 
 
                 <div class="item_content">
-                  <label class="width-75">商品品牌</label>
+                  <label class="width-67">商品品牌</label>
                   <input name='material[store_material_brand_id]' type="hidden">
                   <span id='store_material_brand_id' class="width-170 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'>请选择</span>
                   <div id='material_brand_select' class="select">
@@ -127,7 +127,7 @@
                   </div>
                 </div>
                 <div class="item_content">
-                  <label class="width-75">生产单位</label>
+                  <label class="width-67">生产单位</label>
                   <input name='material[store_material_manufacturer_id]' type="hidden">
                   <span id='store_material_manufacturer_id' class="width-170 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'>请选择</span>
                   <div id='material_manufacturer_select' class="select">
@@ -142,7 +142,7 @@
 
 
                 <div class="item_content outline item_property">
-                  <label class="width-50">商品属性</label>
+                  <label class="width-49">商品属性</label>
                   <div class="inline_block material_for_sale_or_keep" >
                     <label for=""><input type="checkbox" name="name" value="">自用</label>
                     <label for=""><input type="checkbox" name="name" value="">销售</label>

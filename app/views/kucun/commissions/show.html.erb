@@ -29,49 +29,49 @@
                     </div>
                     <div class=" car_content">
                         <div class="item_content">
-                            <label class="width-75">商品名称</label>
-                            <span class="width-165"><%= @store_material.name %></span>
+                            <label class="width-67">商品名称</label>
+                            <span class="width-176 stored_material"><%= @store_material.name %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">条形码</label>
-                            <span class="width-165"><%= @store_material.barcode %></span>
+                            <label class="width-67">条形码</label>
+                            <span class="width-176 stored_material"><%= @store_material.barcode %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">助记码</label>
-                            <span class="width-165"><%= @store_material.mnemonic %></span>
+                            <label class="width-67">助记码</label>
+                            <span class="width-176 stored_material"><%= @store_material.mnemonic %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">一级分类</label>
-                            <span class="width-165"><%= @store_material.store_material_category.parent.name %></span>
+                            <label class="width-67">一级分类</label>
+                            <span class="width-176 stored_material"><%= @store_material.store_material_category.parent.name %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">二级分类</label>
-                            <span class="width-165"><%= @store_material.store_material_category.name %></span>
+                            <label class="width-67">二级分类</label>
+                            <span class="width-176 stored_material"><%= @store_material.store_material_category.name %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">商品品牌</label>
-                            <span class="width-165"><%= @store_material.store_material_brand.name %></span>
+                            <label class="width-67">商品品牌</label>
+                            <span class="width-176 stored_material"><%= @store_material.store_material_brand.name %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">生产单位</label>
-                            <span class="width-165"><%= @store_material.store_material_manufacturer.name %></span>
+                            <label class="width-67">生产单位</label>
+                            <span class="width-176 stored_material"><%= @store_material.store_material_manufacturer.name %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">商品规格</label>
-                            <span class="width-165"><%= @store_material.speci %></span>
+                            <label class="width-67">商品规格</label>
+                            <span class="width-176 stored_material"><%= @store_material.speci %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">商品单位</label>
-                            <span class="width-165"><%= @store_material.store_material_unit.name %></span>
+                            <label class="width-67">商品单位</label>
+                            <span class="width-176 stored_material"><%= @store_material.store_material_unit.name %></span>
                         </div>
 
                         <div class="item_content">
-                            <label class="width-75">成本价</label>
-                            <span class="width-165"><%= @store_material.cost_price %></span>
+                            <label class="width-67">成本价</label>
+                            <span class="width-176 stored_material"><%= @store_material.cost_price %></span>
                         </div>
                         <div class="item_content">
-                            <label class="width-75">最低售价</label>
-                            <span class="width-165"><%= @store_material.min_price %></span>
+                            <label class="width-67">最低售价</label>
+                            <span class="width-176 stored_material"><%= @store_material.min_price %></span>
                         </div>
                         <% if @store_material.inventory_alarmify %>
                         <div class="item_content">

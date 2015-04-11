@@ -261,7 +261,7 @@ ul.goods_small_img li .fa{
 }
 .item_content input{
   font-size:12px;
-  padding:6px 2px;
+  padding:3px 2px;
   text-indent:0;
   border:1px solid #dad9d9;
   outline:none;
@@ -938,39 +938,52 @@ input[type="radio"], input[type="checkbox"] {
 
 .sales_commission{
 	float:left;
-	margin-left:106px;
+  margin:10px 0 30px 40px;;
+  width:45%;
+  height:130px;
 }
 
 .artificer_commission{
-  float:left;
-  margin-left:168px;
+  float:right;
+  margin:10px 2px 0 0;
+  width:45%;
+  height:130px;
 }
 
 .artificer_div, .sales_div {
 	padding: 10px 0px;
-	width:407px;
+	width:100%;
+  height:100%;
 	float:left;
 }
 
 .artificier_tab ,.sales_tab{
 		width:100%;
+    height:100%;
 }
 
 .artificer_div table, .sales_div table {
-	border: 1px solid #cfcfcf;
+	border: 1px solid #dbd9d9;
 	background: #fff;
 	font-size: 12px;
 	text-align: center;
 }
 
 .sales_commission span, .artificer_commission span {
-	border: 1px solid #cfcfcf;
 	display:inline-block;
 	height: 25px;
-	width: 80px;
-	margin: 10px 20px 10px 10px;
+	width: 102px;
+	margin: 10px 20px 10px 0;
 }
-
+.sales_commission input[type="number"], .artificer_commission input[ type="number"]{
+  width:80px;
+  height:22px;
+  outline:none;
+  text-align:center;
+  font-size:14px;
+  padding:1px 0;
+  border:1px solid #dbd9d9;
+}
 .sales_commission input[ type="text"], .artificer_commission input[ type="text"] {
 	width: 60px;
 	height: 25px;
@@ -987,7 +1000,10 @@ input[type="radio"], input[type="checkbox"] {
 	background: #4c23b4;
 	color: #fff;
 }
-
+.stored_material{
+  text-align:center;
+  display:inline-block;
+}
 /*-----------------------------------------出库-------------------------------------*/
 .outbound {
 	border: 1px solid #dbd9d9;
@@ -1594,3 +1610,20 @@ select[disabled] {
   color:#F1EEF4;
 }
 /*----库存管理-报损-end------*/
+/*----库存管理-库存列表-回访-start------*/
+.item_content_tracking{
+  height:54px;
+  line-height:54px;
+  text-align:right;
+  float:left;
+}
+.item_content_tracking label{
+  margin-right:8px;
+}
+.item_content_tracking select{
+  border:1px solid #dbd9d9;
+  padding:2px 0;
+  margin-right:10px;
+  width:154px;
+}
+/*----库存管理-库存列表-回访-end------*/
