@@ -47,22 +47,20 @@
           <table cellpadding="0" cellspacing="0" id="stock_table" class="stock_table">
            <colgroup>
             <col width="2%">
-            <col width="10%">
+            <col width="18%">
             <col width="8%">
             <col width="8%">
             <col width="8%">
-            <col width="8%">
-            <col width="5%">
-            <col width="8%">
-            <col width="8%">
+            <col width="14%">
             <col width="6%">
-            <col width="10%">
             <col width="8%">
-            <col width="5%">
+            <col width="8%">
+            <col width="16%">
+            <col width="4%">
           </colgroup>
           <thead>
             <tr>
-              <th style="border-right:0px;" ></th>
+              <th style="border-right:0px;" >#</th>
               <th>商品名称</th>
               <th>商品条形码</th>
               <th>一级分类</th>
@@ -70,9 +68,8 @@
               <th>规格</th>
               <th>单位</th>
               <th >成本价</th>
-              <th>销售价</th>
+
               <th>库存数</th>
-              <th>供应商</th>
               <th>备注</th>
               <th class="last_td"> 操作</th>
             </tr>
@@ -83,22 +80,13 @@
                 <td><%= idx+1 %></td>
                 <td><%= material.name %></td>
                 <td><%= material.barcode %></td>
-                <td><%= material.store_material_category.parent_id %></td>
-                <td><%= material.store_material_category_id %></td>
+                <td><%= material.store_material_category.parent.name %></td>
+                <td><%= material.store_material_category.name %></td>
                 <td><%= material.speci %></td>
-                <td><%= material.store_material_unit_id %></td>
+                <td><%= material.store_material_unit.name %></td>
                 <td><%= material.cost_price %></td>
-                <td><%= material.min_price %></td>
-                <td>8</td>
-                <td>杭州力德贸易有限公司</td>
-
-                <td>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-half-o"></i>
-                  <i class="fa fa-star-o"></i>
-                </td>
+                <td><%= material.inventory %></td>
+                <td><%= material.remark %></td>
                 <td class="last_td"><a href="<%= kucun_material_path(material) %>">详情<i class="fa fa-angle-double-right"></i></a></td>
               </tr>
 

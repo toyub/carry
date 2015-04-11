@@ -19,6 +19,10 @@ class StoreMaterial < ActiveRecord::Base
 
   after_save :generate_barcode!
 
+  def inventory
+    @inventory ||= self.store_material_inventories.sum(:quantity)
+  end
+
   private
   def generate_barcode!
     unless self.barcode.present?
