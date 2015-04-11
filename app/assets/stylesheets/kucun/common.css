@@ -266,6 +266,13 @@ ul.goods_small_img li .fa{
   border:1px solid #dad9d9;
   outline:none;
 }
+.item_content span{
+  border:1px solid #dad9d9;
+  height:24px;
+  line-height:24px;
+  color:rgb(168, 163, 163);
+  padding:0 4px;
+}
 .outline{
   outline:1px solid #dad9d9;
 }
@@ -661,7 +668,7 @@ iframe{
 	color: #717171;
 }
 /*库存管理-入库-入库记录--------start--------------------*/
-.query_div  a.export_btn {
+a.export_btn {
 	background:#936ad0;
 	color:#ffffff;
 	box-shadow:0px 2px 0px #7845c4;
@@ -980,7 +987,7 @@ input[type="radio"], input[type="checkbox"] {
   width:80px;
   height:22px;
   outline:none;
-  text-align:center;
+  text-align:right;
   font-size:14px;
   padding:1px 0;
   border:1px solid #dbd9d9;
@@ -1620,12 +1627,11 @@ select[disabled] {
   margin-left:18px;
 }
 .item_content_tracking label{
-  margin-right:8px;
+  margin-right:11px;
 }
 .item_content_tracking select{
   border:1px solid #dbd9d9;
   padding:2px 0;
-  margin-right:14px;
-  width:154px;
+  width:165px;
 }
 /*----库存管理-库存列表-回访-end------*/
