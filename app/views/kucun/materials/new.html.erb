@@ -62,11 +62,11 @@
 
                 <div class="item_content">
                   <label class="width-75">成本价</label>
-                  <input name='material[cost_price]' type="number" class="width-160" placeholder="输入成本价会影响原成本价" required=true >
+                  <input name='material[cost_price]' type="text" class="width-160" placeholder="输入成本价会影响原成本价" required=true >
                 </div>
                 <div class="item_content">
                   <label class="width-75">最低售价</label>
-                  <input name='material[min_price]' type="number" class="width-160" required=true >
+                  <input name='material[min_price]' type="text" class="width-160" required=true >
                 </div>
 
                 <div class="item_content">
@@ -155,12 +155,12 @@
                   <label class="width-87 font-weight-bold font-black"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
                   <div class='inline_block width-180'>
                     <label class="width-75">数量上限</label>
-                    <input data-id='inventory' name='material[max_inventory]'  disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
+                    <input data-id='inventory' name='material[max_inventory]'  disabled=true type="text" class="width-53" required=true min=0.0 step='any'>
                   </div>
 
                   <div class="inline_block width-180">
                     <label class="lab_50">数量下限</label>
-                    <input data-id='inventory' name='material[min_inventory]' disabled=true type="number" class="width-53" required=true min=0.0 step='any'>
+                    <input data-id='inventory' name='material[min_inventory]' disabled=true type="text" class="width-53" required=true min=0.0 step='any'>
                   </div>
                 </div>
 
