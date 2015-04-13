@@ -1,21 +1,14 @@
 
 *{margin:0;padding:0;font-size:12px;font-family: "微软雅黑","Microsoft YaHei" ; color:#252121;}
 
-html{ font-size:100%;}
+html{ font-size:100%;overflow-y:scroll;}
 
 body {
   background:#ffffff;
   padding: 0px;
   margin: 0px;
-  min-width:1024px;
   color: #717171;
 }
-
-body, input, button, select, textarea {
-  font-size: 13px;
-  font-size: 1.3rem;
-}
-
 ul li{ list-style:none;}
 
 ul {list-style: none;}
@@ -26,9 +19,9 @@ table {border-collapse:collapse; border:0px; border-spacing:0px; }
 
 img{ border:none 0;}
 
-select {font-size: 13px;outline:none;background:#fff;margin:18px 0;}
+select {font-size: 13px;outline:none;background:#fff;margin:12px 0;border:1px solid #dad9d9;}
 
-input[ type="text"] {text-indent: 5px;outline:none;}
+input[ type="text"] {text-indent: 5px;outline:none;border:1px solid #DAD9D9;}
 
 button {
   color: #fff;
@@ -47,24 +40,8 @@ nbsp1{width:14px; display:inline-block;height:2px;background:none;border:0px; ma
 nbsp2{width:28px; display:inline-block;height:2px;background:none;border:0px; margin:0px; padding:0px;}
 
 .btn:hover{
-  animation-name: shine_red;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  -webkit-animation-name: shine_red;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: infinite;
-}
-
-@keyframes  shine_red {
-  from {box-shadow: 0 0 5px #bbb; }
-  50%  { box-shadow: 0 0 10px red; }
-  to  {box-shadow: 0 0 5px #bbb; }
-}
-
-@-webkit-keyframes  shine_red {
-  from { -webkit-box-shadow: 0 0 5px #bbb; }
-  50% { -webkit-box-shadow: 0 0 10px red; }
-  to { -webkit-box-shadow: 0 0 5px #bbb; }
+  color:#fff;
+  background:#3574F5;
 }
 
 

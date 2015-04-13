@@ -19,6 +19,8 @@
   margin:0px 20px;
   font-size:16px;
   overflow:hidden;
+  height:36px;
+  line-height:32px;
 }
 
 #container .main_top h2{
@@ -73,12 +75,13 @@
   text-decoration:none;
   border-bottom:1px solid #4052CB;
 }
+
 /*----------------------内容中的二级菜单-------------------------------*/
 .details .details_nav {
   width: 99.8%;
   border: 1px solid #d5d6d7;
   margin: 5px auto;
-  background: #efeeee;
+  background: #E7E7E5;
   overflow:hidden;
 }
 
@@ -250,7 +253,7 @@
 }
 
 .car_content .btn_group{
-  width:95%;
+  width:92%;
   float:left;
 }
 
@@ -265,13 +268,23 @@
   float: left;
   margin-left:19px;
 }
-
+.car_content textarea{
+  border:1px solid #dad9d9;
+  outline:none;
+  height:140px;
+  padding:8px;
+}
 .item_content {
-  line-height: 44px;
+  height:30px;
+  line-height: 30px;
   text-align: right;
+  margin-bottom:12px;
+}
+.item_content .input_span span{
+  border:none;
 }
 .item_content .material_for_sale_or_keep{
-  width:158px;
+  width:142px;
   height:26px;
   line-height:26px;
 }
@@ -280,18 +293,18 @@
   text-align:left;
 }
 .item_property{
-  height:26px;
+  height:25px;
   width:218px;
-  line-height:26px;
-  margin:10px 0 0 50px;
+  line-height:25px;
+  margin:2px 0 0 50px;
   padding-left:4px;
   text-align:right;
 }
 .item_inventory{
-  width:465px;
+  width:468px;
   height:54px;
   line-height:54px;
-  margin:12px 0 20px 49px;
+  margin:12px 0 20px 47px;
   text-align:left;
   padding-left:30px;
 }
@@ -301,9 +314,9 @@
 .shelf_life{
   width:163px;
   text-align:left;
-  margin-left:54px;
+  margin-left:60px;
   border:1px solid #dad9d9;
-  padding:0 30px 0 26px;
+  padding:0 30px 0 20px;
   height:54px;
   line-height:54px;
   margin-top:12px;
@@ -319,7 +332,6 @@
   padding:1px 0 !important;
 }
 .base_info label{
-  text-align: right;
   display: inline-block;
   height: 35px;
   line-height: 35px;
@@ -332,12 +344,17 @@
   height: 26px;
   line-height: 26px;
   color:#6b6b6b;
+  margin-right:10px;
 }
 
 .item_content input[ type="text"], .item_content select {
   color: #252121;
+  border: 1px solid #dad9d9;
 }
-
+.item_content select{
+  margin:0;
+  height:24px;
+}
 .item_content input[readonly]{
   background: #f7f7f7;
   color: #666666;
@@ -349,12 +366,12 @@
 
 .item_textarea {
   width:1062px;
-  margin:0 0 0 47px;
+  margin:26px 0 10px 47px;
 }
 
 .item_textarea textarea {
-  height: 130px;;
-  width:1035px;
+  height: 90px !important;
+  width:1032px;
   padding:5px;
   outline:none;
   border: 1px solid #dbd9d9;
@@ -382,7 +399,6 @@
   border-radius:15px;
   background:#f46842;
   float:right;
-  margin-top:24px;
   text-align:center;
   color:#ffffff;
   font-size:16px;
@@ -413,9 +429,7 @@
 
 .btn_group{
   text-align: right;
-  margin: 18px 0px;
-  margin-right:5px;
-
+  margin:4px 5px 4px 42px;
 }
 
 /*list列表移动出现框*/
@@ -428,12 +442,12 @@
 }
 .list ul.list_top{
   border:0px;
-  height:45px;
-  line-height:45px;
+  height:40px;
+  line-height:40px;
 }
  .list .list_content{
   border:0px;
-  margin-bottom:10px;
+  margin-bottom:6px;
   overflow:hidden;
 }
  .list li.list_tr{
