@@ -266,7 +266,7 @@ ul.goods_small_img li .fa{
   border:1px solid #dad9d9;
   outline:none;
 }
-.item_content span{
+.car_content .item_content span{
   border:1px solid #dad9d9;
   height:24px;
   line-height:24px;
@@ -983,7 +983,7 @@ input[type="radio"], input[type="checkbox"] {
 	width: 102px;
 	margin: 10px 20px 10px 0;
 }
-.sales_commission input[type="text"], .artificer_commission input[ type="text"]{
+.sales_commission input[type="number"], .artificer_commission input[ type="number"]{
   width:80px;
   height:22px;
   outline:none;

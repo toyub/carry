@@ -136,18 +136,18 @@
                   </label>
                   <div class="inline_block width-167">
                     <label class="width-75">数量上限</label>
-                    <input data-id='inventory' name='material[max_inventory]'  <%= @store_material.inventory_alarmify ? '' : 'disabled=true' %> type="text" class="width-53" required=true min=0.0 step='any'>
+                    <input data-id='inventory' name='material[max_inventory]'  <%= @store_material.inventory_alarmify ? '' : 'disabled=true' %> type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
 
                   <div class="inline_block width-167">
                     <label class="lab_50">数量下限</label>
-                    <input data-id='inventory' name='material[min_inventory]' <%= @store_material.inventory_alarmify ? '' : 'disabled=true' %> type="text" class="width-53" required=true min=0.0 step='any'>
+                    <input data-id='inventory' name='material[min_inventory]' <%= @store_material.inventory_alarmify ? '' : 'disabled=true' %> type="number" class="width-53" required=true min=0.0 step='any'>
                   </div>
                 </div>
                 <div class="item_content shelf_life">
                   <label class="width-75"><input type="radio" <%= @store_material.expiry_alarmify ? 'checked=true' : '' %> name='material[expiry_alarm]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
                   <div class="input_span">
-                    <input type="text" data-id='shelf_life' <%= @store_material.expiry_alarmify ? '' : 'disabled=true' %> name='material[shelf_life]' class="width-30 " style="border:0px;" required=true>
+                    <input type="number" data-id='shelf_life' <%= @store_material.expiry_alarmify ? '' : 'disabled=true' %> name='material[shelf_life]' class="width-30 " style="border:0px;" required=true>
                     <span>天</span>
                   </div>
                 </div>
