@@ -78,8 +78,11 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   private
   def material_params
-    params.require(:material).permit(:store_material_category_id, :store_material_unit_id, :store_material_manufacturer_id,
-      :store_material_brand_id, :speci, :name, :barcode, :min_retail_price, :mnemonic, :cost_price, :retail_price, :remark)
+    params.require(:material).permit(:store_material_category_id,
+                                     :store_material_unit_id, :store_material_manufacturer_id,
+                                     :store_material_brand_id, :speci, :name, :barcode,
+                                     :min_retail_price, :mnemonic, :cost_price, :retail_price,
+                                     :inventory_alarmify, :max_inventory, :min_inventory, :remark)
   end
 
   def set_material

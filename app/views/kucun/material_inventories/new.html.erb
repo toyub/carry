@@ -213,7 +213,7 @@
 
           <td>{%= price %}</td>
           <td>{%= quantity %}</td>
-          <td><input type="number" ondblclick="if(this.hasAttribute('readonly')){this.attributes.removeNamedItem('readonly');}this.focus();" readonly class='quantity width-75' value="{%= quantity %}" name='items[{%= id%}][received_quantity]' data-price={%= price %} data-quantity={%= quantity %} min=0></td>
+          <td><input type="text" ondblclick="if(this.hasAttribute('readonly')){this.attributes.removeNamedItem('readonly');}this.focus();" readonly class='quantity width-75' value="{%= quantity %}" name='items[{%= id%}][received_quantity]' data-price={%= price %} data-quantity={%= quantity %} min=0></td>
           <td><span class='amount'>{%= amount %}</span></td>
           <td>
             <select name='items[{%= id%}][store_depot_id]'>
