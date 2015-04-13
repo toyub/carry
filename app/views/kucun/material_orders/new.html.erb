@@ -1,27 +1,484 @@
-<p>
-  <br><br><br>
-</p>
 
-<%= form_for(@store_material_order, url: kucun_material_orders_path) do |form|%>
+<div class="main_top">
+  <h2>订货</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="content_tab_top">
+    <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
+      <colgroup>
+        <col width="14.28%">
+        <col width="14.28%">
+        <col width="14.28%">
+        <col width="14.28%">
+        <col width="14.28%">
+        <col width="14.28%">
+        <col width="14.28%">
+      </colgroup>
+      <tbody>
+        <tr  style="height:50px;">
+          <td class="border-right">
+            <table cellpadding="0" cellspacing="0" class="in_tab">
+              <tr>
+                <td class="text-align-left"><a href="#">商品总数量</a>
+                  <span   class="num_color font-24  tab_span ">86</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="border-right">
+            <table cellpadding="0" cellspacing="0" class="in_tab">
+              <tr>
+                <td class=" text-align-left"><a href="#">数量最多商品</a>
+                  <span class="num_color  tab_span font-14 float-right">74位</span>
+                </td>
+              </tr>
+              <tr>
+                <td class=" text-align-left"><a href="#">金额最大商品</a>
+                  <span class="num_color  tab_span font-14 float-right">12位</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="border-right">
+            <table cellpadding="0" cellspacing="0" class="in_tab">
+              <tr>
+                <td class=" text-align-left"><a href="#">出库量最多</a>
+                  <span class="num_color  tab_span font-14 float-right">74位</span>
+                </td>
+              </tr>
+              <tr>
+                <td class=" text-align-left"><a href="#">出库量最少</a>
+                  <span class="num_color  tab_span font-14 float-right">12位</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="border-right">
+            <table cellpadding="0" cellspacing="0" class="in_tab">
+              <tr>
+                <td class=" text-align-left"><a href="#">库龄最短</a>
+                  <span class="num_color  tab_span font-14 float-right">74位</span>
+                </td>
+              </tr>
+              <tr>
+                <td class=" text-align-left"><a href="#">库龄最长</a>
+                  <span class="num_color  tab_span font-14 float-right">12位</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="border-right">
+            <table cellpadding="0" cellspacing="0" class="in_tab">
+              <tr>
+                <td class=" text-align-left"><a href="#">销售最多</a>
+                  <span class="num_color  tab_span font-14 float-right">74位</span>
+                </td>
+              </tr>
+              <tr>
+                <td class=" text-align-left"><a href="#">两用最多</a>
+                  <span class="num_color  tab_span font-14 float-right">12位</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="border-right">
+            <table cellpadding="0" cellspacing="0" class="in_tab">
+              <tr>
+                <td class="text-align-left"><a href="#">需回访客户</a>
+                  <span class="num_color  tab_span font-14 float-right">74位</span>
+                </td>
+              </tr>
+              <tr>
+                <td class=" text-align-left"><a href="#">已回访客户</a>
+                  <span class="num_color  tab_span font-14 float-right">11位</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td >
+            <table cellpadding="0" cellspacing="0" class="in_tab">
+              <tr>
+                <td class=" text-align-right"><a href="#">商品总金额</a>
+                  <span class="num_color text-align-right font-24 tab_span">22,8677</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="details_nav">
+    <ul>
+      <li><a href="#" class="width-90">供应商信息</a></li>
+      <li class="bg-color-fff"><a href="#" class="width-90">订货</a></li>
+      <li><a href="#"  class="width-90">记录</a></li>
+      <li ><a href="#" class="width-90">评估</a></li>
+    </ul>
+  </div>
+  <div class="details_nav_second">
+    <ul class="goods_nav">
+      <li><a href="#" class="width-90 previous_info">上一件商品</a></li>
+      <li><a href="#" class="width-90 next_info">下一件商品</a></li>
+      <li ><a href="#" class="width-90 back_info">返回列表</a></li>
+    </ul>
+  </div>
+  <div class="details_content">
+      <div class=" common_storage_content margin-bottom-50">
+        <div class="ordergoods_query">
+          <div class="pure-control-group">
+            <label>供应商：</label>
+            <input type="text" class="width-200">
+          </div>
+          <div class="pure-control-group ">
+            <label>时间：</label>
+            <input type="text" class="width-135">
+          </div>
+          <div class="pure-control-group">
+            <label>单号：</label>
+            <input type="text" class="width-135">
+          </div>
+          <div class="ordergoods_print">
+            <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
+            <a href="#" class="print_barcode">打印条码</a>
+          </div>
+        </div>
+        <div class=" common_storage_tab">
+          <table cellpadding="0" cellspacing="0" id="storage_tab">
+            <tr class="bg-color-e0e2cf color-282726">
+              <th width="3%">#</th>
+              <th width="18%" >商品名称</th>
+              <th  width="8%" >条码</th>
+              <th  width="8%" >规格</th>
+              <th width="4%" >单位</th>
+              <th  width="7%" >一级分类</th>
+              <th  width="7%">二级分类</th>
+              <th width="7%">单价</th>
+              <th width="5%" >数量</th>
+              <th  width="8%">小计</th>
+              <th width="6%">仓库</th>
+              <th  width="15%">备注</th>
+              <th width="4%"> 操作</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td class="after-spot" contenteditable="true"></td>
+              <td>887766555444</td>
+              <td>长皮盒6项目</td>
+              <td>套</td>
+              <td>美容产品</td>
+              <td>镀晶产品</td>
+              <td>680.00</td>
+              <td>8</td>
+              <td>5,440.00</td>
+              <td>未付款</td>
+              <td></td>
+              <td><img src="/mis/images/remove.png" class="curcor_hand"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="after-spot" contenteditable="true"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="after-spot" contenteditable="true"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="after-spot" contenteditable="true"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="after-spot" contenteditable="true"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="font-weight-bold text-align-left text-indent-10">合计:</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="font-weight-bold">8</td>
+              <td class="font-weight-bold text-align-left text-indent-10">5,400.00</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+        <div class="common_storage_query">
+          <div class="item_content margin-left-10" style="width:99%;">
+            <label class="width-75">备注：</label>
+            <textarea class="remarks_textarea"></textarea>
+          </div>
+          <div class="item_content margin-top-10  margin-left-10">
+            <label class="width-75">本次付款：</label>
+            <input type="text" class="width-253 margin-left-2">
+          </div>
+          <div class="item_content margin-top-10 ">
+            <label class="width-75 ">结算账户：</label>
+            <input type="text" class="width-253 ">
+          </div>
+          <div class="item_content margin-top-10 ">
+            <label  class="width-75">本次欠款：</label>
+            <input type="text" class="width-253">
+          </div>
+          <div class="item_content  margin-left-10">
+            <label class="width-75">制单人：</label>
+            <label class="width-253"></label>
+          </div>
+        </div>
+        <div class="btn_group margin-right-20">
+          <a class="edit_btn" href="#" >取消</a>
+          <a class="save_btn btn" href="#" >保存</a>
+        </div>
+      </div>
+  </div>
+  <div class="btn_group">
+    <input type="button"  value="编辑" class="edit_btn btn" >
+    <input type="button"  value="保存" class="save_btn btn" >
+  </div>
+</div>
+<div  class="popup_box" >
+  <div class="new_products">
+    <div class="new_products_inner">
+      <div class="top">
+        <span>新建商品</span>
+        <span class="font-28 float-right padding-right-10 curcor_hand">×</span>
+      </div>
+      <div class="new_product_content">
+        <div class="item_content">
+          <label class="width-75">商品名称</label>
+          <input type="text" class="width-165">
+        </div>
+        <div class="item_content">
+          <label class="width-75">条形码</label>
+          <select class="width-165">
+            <option>自动生成条形码</option>
+            <option>自动生成条形码</option>
+            <option>自动生成条形码</option>
+            <option>自动生成条形码</option>
+          </select>
+        </div>
+        <div class="item_content">
+          <label class="width-75">一级分类</label>
+          <select class="width-165">
+            <option></option>
+            <option></option>
+            <option></option>
+            <option></option>
+          </select>
+        </div>
+        <div class="item_content">
+          <label class="width-75">二级分类</label>
+          <select class="width-165">
+            <option></option>
+            <option></option>
+            <option></option>
+            <option></option>
+          </select>
+        </div>
+        <div class="item_content">
+          <label class="width-75">商品规格</label>
+          <input type="text" class="width-165">
+        </div>
+        <div class="item_content">
+          <label class="width-75">商品单位</label>
+          <input type="text" class="width-165">
+        </div>
+        <div class="item_content">
+          <label class="width-75">成本价</label>
+          <input type="text" class="width-165" placeholder="输入成本价会影响原成本价">
+        </div>
+        <div class="item_content">
+          <label class="width-75">零售价</label>
+          <input type="text" class="width-165">
+        </div>
+        <div class="item_content">
+          <label class="width-75">商品品牌</label>
+          <input type="text" class="width-165">
+        </div>
+        <div class="item_content">
+          <label class="width-75">生产单位</label>
+          <input type="text" class="width-165">
+        </div>
+        <div class="item_content">
+          <label class="width-75">助记码</label>
+          <input type="text" class="width-165">
+        </div>
+        <div class="item_content">
+          <label class="width-75">最低零售价</label>
+          <input type="text" class="width-165">
+        </div>
+        <div class="item_content">
+          <div class="width-80  font-weight-bold float-left">
+            <input type="radio">
+            <label>库存预警：</label>
+          </div>
+          <div class="width-160 float-left">
+            <label class="width-75">金额上限</label>
+            <input type="text"  class="width-75" style="vertical-align:middle;">
+          </div>
+        </div>
+        <div class="item_content">
+          <label class="width-78">上限数量</label>
+            <input type="text"  class="width-53">
+            <label class="width-52">下线数量</label>
+            <input type="text"class="width-53">
+        </div>
+        <div class="item_content">
+          <label class="width-75">保质期</label>
+          <div class="input_div">
+            <input type="text" class="width-100 " style="border:0px;">
+            <input type="radio" class="width-13"> 提醒
+          </div>
+        </div>
+        <div class="item_content">
+          <label class="width-75">状态</label>
+          <select class="width-165">
+            <option></option>
+            <option></option>
+            <option></option>
+            <option></option>
+          </select>
+        </div>
+        <div class="item_textarea ">
+          <label class="width-75">备注</label>
+          <textarea class="textarea-width "></textarea>
+        </div>
+      </div>
+      <div class="btn_group">
+          <input type="button"  value="编辑" class="edit_btn btn" >
+          <input type="button"  value="保存" class="save_btn btn" >
+       </div>
+    </div>
+  </div>
+</div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>name</th>
-        <th>price</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @store_materials.each do |material| %>
-      <tr>
-        <td><input type="hidden" name="store_material_order[store_material_order_items_attributes][<%= material.id %>][store_material_id]" value="<%= material.id %>"> <%= material.name %></td>
-        <td><input type="text" name="store_material_order[store_material_order_items_attributes][<%= material.id %>][price]" value="<%= material.cost_price %>" min=0.0 step='any'></td>
-        <td><input type="text" name="store_material_order[store_material_order_items_attributes][<%= material.id %>][quantity]" value="1" min=1></td>
-        <td><input type="checkbox" name="store_material_order[store_material_order_items_attributes][<%= material.id %>][checked]"></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= form.submit %>
-<% end %>
+<div class="popup_box">
+  <div   class=" choose_ordergoods" >
+    <div class="top">
+      <span>新建商品</span>
+      <span class="font-28 float-right padding-right-10 curcor_hand">×</span>
+    </div>
+    <div class="title">
+      <span class="font-20 float-left first_title">选择订货商品</span>
+      <span class="second_title">
+          如果供应商关联的商品不在列表内，请通过类别下拉菜单进行选择类别查询，如果还是没有，请点击新建按钮，添加新商品
+      </span>
+    </div>
+    <div class="ordergoods_content" >
+      <div class="order_list">
+        <div class="list">
+          <ul class="list_top">
+            <li class="list_tr">
+              <ul>
+                <li class="first_td" >
+                  <select  class="width-70 top_select">
+                    <option>商品</option>
+                    <option>商品</option>
+                    <option>商品</option>
+                  </select>
+                  <div class="select_ordergoods_div">
+                    <input type="text" class="width-165"  placeholder="查找产品">
+                    <a href="#" class="search_btn btn">查找</a>
+                  </div>
+                </li>
+                <li class="second_td" >条码</li>
+                <li class="third_td" >规格</li>
+                <li class="forth_td">
+                  <select class="width-60 top_select">
+                    <option>类别</option>
+                    <option>类别</option>
+                    <option>类别</option>
+                  </select>
+                </li>
+                <li class="fifth_td border-none">操作</li>
+              </ul>
+            </li>
+          </ul>
+          <div class="list_content list_tr">
+            <ul>
+              <li class="first_td">米其林轮胎</li>
+              <li class="second_td">12304567890123</li>
+              <li class="third_td">195/65/15XM291V</li>
+              <li class="forth_td">汽配</li>
+              <li class="fifth_td border-none"><input type="checkbox"></li>
+            </ul>
+          </div>
+          <div class="list_content list_tr">
+            <ul>
+              <li class="first_td">澜泰纳米镀金宾御套餐</li>
+              <li class="second_td">1234567890123</li>
+              <li class="third_td">6个项目</li>
+              <li class="forth_td">美容</li>
+              <li class="fifth_td border-none"><input type="checkbox"></li>
+            </ul>
+          </div>
+          <div class="list_content list_tr">
+            <ul>
+              <li class="first_td">风帆电瓶</li>
+              <li class="second_td">1234567890999</li>
+              <li class="third_td">65AH 奥迪A4专用</li>
+              <li class="forth_td">汽配</li>
+              <li class="fifth_td border-none"><input type="checkbox"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="order_new">
+        <a class="new_btn float-right btn">新建</a>
+      </div>
+      <div class="popup_order_foot">
+        <input type="submit" value="选中" class="save_btn btn">
+      </div>
+    </div>
+  </div>
+</div>
