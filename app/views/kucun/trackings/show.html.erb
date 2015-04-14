@@ -82,21 +82,22 @@
                         </div>
                         <% end %>
                         <div class="clr"></div>
-                        <div class="item_content_tracking">
-                            <label class="width-75">回访</label>
-                            <select type="text" class="width-165">
-                                <option></option>
-                                <option></option>
-                            </select>
+                        <div>
+                          <fieldset class="width-482">
+                            <legend class="text-align-left">
+                              <label>
+                                <input type="checkbox" class="toggleable" name="need_tracking" data-target="need_tracking" value data-checked />
+                                回访
+                              </label>
+                            </legend>
+                              <div  class="item_content">
+                                <p><label><input type="radio" name="tracking_method" class="width-75" data-id="need_tracking" disabled="disabled"/>电话</label></p>
+                                <p><label><input type="radio" name="tracking_method" class="width-75" data-id="need_tracking" disabled="disabled"/>短信</label></p>
+                                <p><label><input type="radio" name="tracking_method" class="width-75" data-id="need_tracking" disabled="disabled"/>邮件</label></p>
+                              </div>
+                          </fieldset>
                         </div>
-                        <div class="item_content_tracking">
-                            <label class="width-75">回访方式</label>
-                            <select type="text" class="width-165">
-                                <option value='0'>电话</option>
-                                <option value='1'>短信</option>
-                                <option value='2'>邮件</option>
-                            </select>
-                        </div>
+
                     </div>
                     <div  class="pure-u-1-2 float-left">
                         <div class="visit_list" >

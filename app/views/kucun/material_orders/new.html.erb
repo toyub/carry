@@ -406,10 +406,10 @@
   <div   class=" choose_ordergoods" >
     <div class="top">
       <span>新建商品</span>
-      <span class="font-28 float-right padding-right-10 curcor_hand">×</span>
+      <span class="font-28 float-right padding-right-10 curcor_hand cancel_neworder">×</span>
     </div>
     <div class="title">
-      <span class="font-20 float-left first_title">选择订货商品</span>
+      <span class="font-20 float-left first_title width-165">选择订货商品</span>
       <span class="second_title">
           如果供应商关联的商品不在列表内，请通过类别下拉菜单进行选择类别查询，如果还是没有，请点击新建按钮，添加新商品
       </span>
@@ -421,12 +421,9 @@
             <li class="list_tr">
               <ul>
                 <li class="first_td" >
-                  <select  class="width-70 top_select">
-                    <option>商品</option>
-                    <option>商品</option>
-                    <option>商品</option>
-                  </select>
-                  <div class="select_ordergoods_div">
+                <input type="button" value="商品 ▼"/>
+
+                  <div class="search_ordergoods">
                     <input type="text" class="width-165"  placeholder="查找产品">
                     <a href="#" class="search_btn btn">查找</a>
                   </div>
@@ -444,37 +441,40 @@
               </ul>
             </li>
           </ul>
-          <div class="list_content list_tr">
-            <ul>
-              <li class="first_td">米其林轮胎</li>
-              <li class="second_td">12304567890123</li>
-              <li class="third_td">195/65/15XM291V</li>
-              <li class="forth_td">汽配</li>
-              <li class="fifth_td border-none"><input type="checkbox"></li>
-            </ul>
-          </div>
-          <div class="list_content list_tr">
-            <ul>
-              <li class="first_td">澜泰纳米镀金宾御套餐</li>
-              <li class="second_td">1234567890123</li>
-              <li class="third_td">6个项目</li>
-              <li class="forth_td">美容</li>
-              <li class="fifth_td border-none"><input type="checkbox"></li>
-            </ul>
-          </div>
-          <div class="list_content list_tr">
-            <ul>
-              <li class="first_td">风帆电瓶</li>
-              <li class="second_td">1234567890999</li>
-              <li class="third_td">65AH 奥迪A4专用</li>
-              <li class="forth_td">汽配</li>
-              <li class="fifth_td border-none"><input type="checkbox"></li>
-            </ul>
+          <div class="clr"></div>
+          <div class="list_contents">
+            <div class="list_content list_tr">
+              <ul>
+                <li class="first_td">米其林轮胎</li>
+                <li class="second_td">12304567890123</li>
+                <li class="third_td">195/65/15XM291V</li>
+                <li class="forth_td">汽配</li>
+                <li class="fifth_td border-none"><input type="checkbox"></li>
+              </ul>
+            </div>
+            <div class="list_content list_tr">
+              <ul>
+                <li class="first_td">澜泰纳米镀金宾御套餐</li>
+                <li class="second_td">1234567890123</li>
+                <li class="third_td">6个项目</li>
+                <li class="forth_td">美容</li>
+                <li class="fifth_td border-none"><input type="checkbox"></li>
+              </ul>
+            </div>
+            <div class="list_content list_tr">
+              <ul>
+                <li class="first_td">风帆电瓶</li>
+                <li class="second_td">1234567890999</li>
+                <li class="third_td">65AH 奥迪A4专用</li>
+                <li class="forth_td">汽配</li>
+                <li class="fifth_td border-none"><input type="checkbox"></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
       <div class="order_new">
-        <a class="new_btn float-right btn">新建</a>
+        <a class="new_btn btn">新建</a>
       </div>
       <div class="popup_order_foot">
         <input type="submit" value="选中" class="save_btn btn">

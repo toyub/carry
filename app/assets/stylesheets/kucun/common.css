@@ -2,10 +2,6 @@
 /* CSS Document */
 
 /*----库存管理-公共部分-start*/
-.details{
-  position: relative;
-}
-
 .common_storage_list {
 	overflow: hidden;
 	width: 99.8%;
@@ -266,6 +262,7 @@ ul.goods_small_img li .fa{
   border:1px solid #dad9d9;
   outline:none;
 }
+
 .car_content .item_content span{
   border:1px solid #dad9d9;
   height:24px;
@@ -1116,9 +1113,15 @@ input[type="radio"], input[type="checkbox"] {
 	margin-right:30px;
 	width:410px;
 }
-
-.choose_ordergoods{
-	width:480px;
+.popup_box{
+  display:block;
+  width:100%;
+  height:1054px;
+  position:absolute;
+  top:0;
+  left:0;
+  background:rgba(127,127,127,0.5);
+  z-index:10;
 }
 
 .supplier_content .item_content,.supplier_info .item_content{
@@ -1129,92 +1132,6 @@ input[type="radio"], input[type="checkbox"] {
 .textarea_describe{
 	width:300px;
 	border:1px solid #dbd9d9;
-}
-
-.choose .ordergoods_content{
-	border:1px solid #e6e6e6;
-	padding:0px 0px;
-	overflow:hidden;
-	width:99.6%;
-	border-top:0px;
-	box-shadow:0px 3px 4px #999;
-	height:380px;
-}
-
-.order_list{
-	float: right;
-    margin-right: 5px;
-	width:100%;
-}
-
-.order_list .list{
-    margin: 0px 5px;
-    border: 0px;
-	display: block;
-}
-
-.order_list .list li.list_tr{
-	width:455px;
-	margin-left:10px;
-}
-
-.list_tr .top_select{
-	border:0px;
-	margin-top:10px;
-	font-size:15px;
-}
-.order_list .list .first_td{
-	width: 25%;
-}
-
-.order_list .list .second_td{
-	width:25%;
-}
-
-.order_list .list .third_td{
-	width: 25%;
-}
-
-.order_list .list .forth_td{
-	width: 13%;
-}
-
-.order_list .list .fifth_td{
-	width: 11%;
-}
-
-.ordergoods_content .order_new{
-	padding-top:20px;
-	width:100%;
-	overflow:hidden;
-}
-
-.ordergoods_content .order_new .new_btn{
-	margin-top:40px;
-	margin-left:40px;
-}
-
-.choose .order_content{
-	border:1px solid #e6e6e6;
-	padding:0px 0px 0px 0px;
-	overflow:hidden;
-	width:99.6%;
-	border-top:0px;
-	box-shadow:0px 3px 4px #999;
-	height:380px;
-}
-
-.order_content .item_content{
-	margin-left:10px;
-	margin-top:10px;
-}
-
-.order_content .order_top{
-	height:45px;
-	line-height:45px;
-	margin:0px 10px;
-	text-indent:5px;
-	border-bottom:1px solid #c9c9c9;
 }
 
 .order_content .order_top label{
