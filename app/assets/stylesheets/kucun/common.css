@@ -1218,14 +1218,6 @@ input[type="radio"], input[type="checkbox"] {
 	display:none;
 }
 
-.new_products{
-	display:block;
-	padding-bottom:20px;
-	position:absolute;
-	top:195px;
-	z-index:3;
-	display:none;
-}
 
 .new_products .new_products_inner{
 	margin:0 auto;

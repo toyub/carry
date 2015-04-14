@@ -286,21 +286,21 @@
     <input type="button"  value="保存" class="save_btn btn" >
   </div>
 </div>
-<div  class="popup_box" >
+<div  class="popupbox_new_products">
   <div class="new_products">
-    <div class="new_products_inner">
+
       <div class="top">
         <span>新建商品</span>
-        <span class="font-28 float-right padding-right-10 curcor_hand">×</span>
+        <span class="float-right padding-right-10 curcor_hand cancel_neworder">×</span>
       </div>
-      <div class="new_product_content">
+      <div class="new_product_contents">
         <div class="item_content">
           <label class="width-75">商品名称</label>
           <input type="text" class="width-165">
         </div>
         <div class="item_content">
           <label class="width-75">条形码</label>
-          <select class="width-165">
+          <select>
             <option>自动生成条形码</option>
             <option>自动生成条形码</option>
             <option>自动生成条形码</option>
@@ -357,27 +357,24 @@
           <label class="width-75">最低零售价</label>
           <input type="text" class="width-165">
         </div>
-        <div class="item_content">
-          <div class="width-80  font-weight-bold float-left">
-            <input type="radio">
-            <label>库存预警：</label>
+        <div class="item_inventory">
+          <label class="width-120 font-weight-bold font-black float-left"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
+          <div class='inline_block'>
+            <label class="width-78">数量上限</label>
+            <input data-id='inventory' name='material[max_inventory]'  disabled=true type="text" class="width-53" required=true min=0.0 step='any'>
           </div>
-          <div class="width-160 float-left">
-            <label class="width-75">金额上限</label>
-            <input type="text"  class="width-75" style="vertical-align:middle;">
+
+          <div class="inline_block">
+            <label class="lab_52">数量下限</label>
+            <input data-id='inventory' name='material[min_inventory]' disabled=true type="text" class="width-53" required=true min=0.0 step='any'>
           </div>
         </div>
-        <div class="item_content">
-          <label class="width-78">上限数量</label>
-            <input type="text"  class="width-53">
-            <label class="width-52">下线数量</label>
-            <input type="text"class="width-53">
-        </div>
-        <div class="item_content">
-          <label class="width-75">保质期</label>
-          <div class="input_div">
-            <input type="text" class="width-100 " style="border:0px;">
-            <input type="radio" class="width-13"> 提醒
+
+        <div class="item_content shelf_life">
+          <label class="width-75"><input type="radio" name='material[expiry_alarmify]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
+          <div class="input_span">
+            <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-30 " style="border:0px;" required=true >
+            <span>天</span>
           </div>
         </div>
         <div class="item_content">
@@ -389,21 +386,22 @@
             <option></option>
           </select>
         </div>
-        <div class="item_textarea ">
-          <label class="width-75">备注</label>
-          <textarea class="textarea-width "></textarea>
+
+        <div class="item_textarea">
+          <textarea class="textarea-width" placeholder="输入备注"></textarea>
         </div>
+
       </div>
       <div class="btn_group">
           <input type="button"  value="编辑" class="edit_btn btn" >
           <input type="button"  value="保存" class="save_btn btn" >
        </div>
-    </div>
+
   </div>
 </div>
 
-<div class="popup_box">
-  <div   class=" choose_ordergoods" >
+<div class="popupbox_choose_ordergoods">
+  <div class=" choose_ordergoods" >
     <div class="top">
       <span>新建商品</span>
       <span class="font-28 float-right padding-right-10 curcor_hand cancel_neworder">×</span>
@@ -482,3 +480,6 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  
+</script>
