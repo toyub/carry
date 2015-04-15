@@ -292,8 +292,14 @@
 .text-align-center {
     text-align: center;
 }
+.text-indent-10{
+  text-indent:10px;
+}
 .margin-left-2 {
     margin-left: 2px;
+}
+.margin-right-20{
+  margin-right:20px;
 }
 .margin-none {
     margin: 0px;
@@ -307,6 +313,9 @@
 }
 .bg-color-fff{
     background:#ffffff;
+}
+.bg-color-e0e2cf{
+  background:#e0e2cf;
 }
 .bg_tr{
     background:#f2f2f2;

@@ -18,7 +18,14 @@
   border:0px;
 
 }
+.ordergoods_print a.print_btn{
+  background:#2aaba3;
+  box-shadow:0px 2px 0px #17736e;
+  color:#fff;
+}
+.print_barcode{
 
+}
 .query_btn{
   color: #fff;
   background: #198fff;

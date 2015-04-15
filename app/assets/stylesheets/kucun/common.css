@@ -12,20 +12,44 @@
 
 .common_storage_content{
 	border: 1px solid #dbd9d9;
-    overflow: hidden;
+  overflow: hidden;
+	height:450px;
 }
-
+.common_storage_content .save_btn{
+	margin-right:20px;
+}
 .common_storage_query{
 	overflow: hidden;
-    width: 99%;
-    margin: 0 auto;
-    background: #fff;
+  width: 99%;
+  margin: 0 auto 90px auto;
+  background: #fff;
 }
-
+.common_storage_query .item_content{
+	height:30px;
+	line-height:30px;
+	text-align:right;
+	margin-bottom:20px;
+}
+.common_storage_query .item_content input{
+	height:19px;
+	margin-right:80px;
+}
+.common_storage_query .table_filler{
+	margin-left:45px;
+}
+.common_storage_query .table_filler span{
+	display:inline-block;
+	height:18px;
+	width:5em;
+	border:none;
+	border-bottom:1px solid #dad9d9;
+	outline:none;
+	margin:20px 0 0 12px;
+}
 .common_storage_tab{
 	overflow: hidden;
 	width: 99%;
-	margin: 0 auto;
+	margin: 12px auto;
 	background: #fff;
 }
 
@@ -260,7 +284,6 @@ ul.goods_small_img li .fa{
   padding:3px 2px;
   text-indent:0;
   border:1px solid #dad9d9;
-  outline:none;
 }
 
 .car_content .item_content span{
@@ -1076,8 +1099,60 @@ input[type="radio"], input[type="checkbox"] {
 
 
 /*------------------------库存管理-订货-start------------------*/
+.ordergoods_query{
+	height:38px;
+}
+.ordergoods_print{
+	width:15%;
+	height:40px;
+	line-height:40px;
+	float:right;
+}
+.ordergoods_print a{
+	text-decoration:none;
+	display:inline-block;
+	font-size:12px;
+	height:22px;
+	line-height:22px;
+	padding:0 10px;
+	width:50px;
+	text-align:center;
+	margin-right:20px;
+}
+.common_storage_tab table tr td a{
+	border:1px solid #9D9A9A;
+	border-radius:14px;
+	text-decoration:none;
+	font-size:12px;
+	padding:2px 5px;
+	text-align:center;
+}
+.in_storage_tab td.goods_name{
+	position:relative;
+}
+.in_storage_tab td.goods_name input{
+	height:27px;
+	width:100%;
+	border:none;
+}
+.in_storage_tab td.goods_name span{
+	position:absolute;
+	top:0;
+	right:0;
+	width:30px;
+	height:27px;
+}
+.in_storage_tab td.goods_name span:hover{
+	cursor:pointer;
+}
+.common_storage_query textarea{
+	min-height:40px;
+	width:1342px;
+	margin-top:10px;
+	margin-bottom:20px;
+}
 .choose{
-    overflow:hidden;
+  overflow:hidden;
 	padding:10px 0px;
 }
 

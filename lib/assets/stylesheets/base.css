@@ -21,7 +21,7 @@ img{ border:none 0;}
 
 select {font-size: 13px;outline:none;background:#fff;margin:12px 0;border:1px solid #dad9d9;}
 
-input[ type="text"] {text-indent: 5px;outline:none;border:1px solid #DAD9D9;}
+input[ type="text"] {text-indent: 5px;outline-color:#DEC9FA;border:1px solid #DAD9D9;}
 
 button {
   color: #fff;
@@ -51,4 +51,8 @@ input[type='radio'].toggleable{
 
 .hidden{
   display: none !important;
+}
+textarea{
+  border:1px solid #dbd9d9;
+  outline-color:#DEC9FA;
 }

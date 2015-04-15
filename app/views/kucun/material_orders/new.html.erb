@@ -140,11 +140,11 @@
             <input type="text" class="width-135">
           </div>
           <div class="ordergoods_print">
-            <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
+            <a href="#" class="print_btn">打<nbsp1></nbsp1>印</a>
             <a href="#" class="print_barcode">打印条码</a>
           </div>
         </div>
-        <div class=" common_storage_tab">
+        <div class=" common_storage_tab in_storage_tab">
           <table cellpadding="0" cellspacing="0" id="storage_tab">
             <tr class="bg-color-e0e2cf color-282726">
               <th width="3%">#</th>
@@ -163,7 +163,11 @@
             </tr>
             <tr>
               <td>1</td>
-              <td class="after-spot" contenteditable="true"></td>
+
+              <td class="goods_name">
+                <input type="text"/>
+                <span>...</span>
+              </td>
               <td>887766555444</td>
               <td>长皮盒6项目</td>
               <td>套</td>
@@ -174,67 +178,7 @@
               <td>5,440.00</td>
               <td>未付款</td>
               <td></td>
-              <td><img src="/mis/images/remove.png" class="curcor_hand"></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="after-spot" contenteditable="true"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="after-spot" contenteditable="true"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="after-spot" contenteditable="true"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td class="after-spot" contenteditable="true"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td><a href="#">X</a></td>
             </tr>
             <tr>
               <td></td>
@@ -254,9 +198,8 @@
           </table>
         </div>
         <div class="common_storage_query">
-          <div class="item_content margin-left-10" style="width:99%;">
-            <label class="width-75">备注：</label>
-            <textarea class="remarks_textarea"></textarea>
+          <div class="margin-left-10 text-align-left" style="width:99%;">
+            <textarea class="remarks_textarea" placeholder="输入备注"></textarea>
           </div>
           <div class="item_content margin-top-10  margin-left-10">
             <label class="width-75">本次付款：</label>
@@ -270,21 +213,18 @@
             <label  class="width-75">本次欠款：</label>
             <input type="text" class="width-253">
           </div>
-          <div class="item_content  margin-left-10">
+          <div class="table_filler  margin-left-10">
             <label class="width-75">制单人：</label>
-            <label class="width-253"></label>
+            <span>姜河</span>
           </div>
         </div>
-        <div class="btn_group margin-right-20">
+        <div class="btn_group">
           <a class="edit_btn" href="#" >取消</a>
           <a class="save_btn btn" href="#" >保存</a>
         </div>
       </div>
   </div>
-  <div class="btn_group">
-    <input type="button"  value="编辑" class="edit_btn btn" >
-    <input type="button"  value="保存" class="save_btn btn" >
-  </div>
+
 </div>
 <div  class="popupbox_new_products">
   <div class="new_products">
@@ -481,5 +421,5 @@
   </div>
 </div>
 <script type="text/javascript">
-  
+
 </script>
