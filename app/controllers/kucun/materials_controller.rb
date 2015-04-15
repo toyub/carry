@@ -1,6 +1,6 @@
 class Kucun::MaterialsController < Kucun::ControllerBase
 
-  before_filter :set_material, only: [:show]
+  before_filter :set_material, only: [:show, :edit]
 
   def index
     @store_materials = StoreMaterial.all
@@ -22,36 +22,15 @@ class Kucun::MaterialsController < Kucun::ControllerBase
     render json: x
   end
 
+  def edit
+    
+  end
+
   def update
     render json: params
   end
 
   def show
-  end
-
-  def saleinfo
-  end
-
-  def saleinfo_createservice
-    render json: params
-  end
-
-  def update_saleinfo
-    render json: params
-  end
-
-  def commission
-  end
-
-  def update_commission
-    render json: params
-  end
-
-  def tracing
-  end
-
-  def update_tracing
-    render json: params
   end
 
   def autocomplete_name

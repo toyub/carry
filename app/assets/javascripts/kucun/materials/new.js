@@ -7,4 +7,5 @@
 //= require 'app/collections/material_category'
 //= require 'piccut/1.0.0'
 //= require 'as_select'
+//= require helpers/kucun/page_dom_init
 //= require_self
