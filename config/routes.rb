@@ -88,6 +88,7 @@ Rails.application.routes.draw do
 
     resources :material_inventories
     resources :material_orders
+    resources :store_suppliers
   end
 
   resource :session, only: [:new, :create, :destroy]

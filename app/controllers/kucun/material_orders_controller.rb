@@ -1,8 +1,8 @@
 class Kucun::MaterialOrdersController < Kucun::ControllerBase
   def new
-    @store_materials = StoreMaterial.all
-    @store_material_order = StoreMaterialOrder.new
-    @store_materials.each {|m| @store_material_order.store_material_order_items.new(store_material_id: m.id) }
+    @store = current_user.store
+    @store_materials = @store.store_materials.all
+    @store_material_order = @store.store_material_orders.new
   end
 
   def create
