@@ -58,8 +58,9 @@
    width: 99.8%;
 }
 
-.common_storage .list li.list_tr{
-	width:99.8%;
+.common_storage .list .list_tr{
+	width:100%;
+	border:1px solid #dad9d9;
 }
 
 .common_storage ul{
