@@ -242,9 +242,8 @@
             $('.list').on('change', 'input[type=checkbox]', function(event){
                  var id = this.dataset.id;
                  if(this.checked){
-                   if(boxdd){
+                   if(boxdd && boxdd!=this){
                      boxdd.checked = false;
-
                    }
                    boxdd = this;
                    var html = '';

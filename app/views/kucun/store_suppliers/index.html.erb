@@ -1,0 +1,33 @@
+
+<div >
+  <a href="#">新建一个供应商</a> <nbsp2></nbsp2><a href="#">速单</a>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>供应商名字</th>
+      <th></th>
+      <th></th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @store.store_suppliers.each do |supplier| %>
+    <tr>
+      <td>
+        <%= supplier.id %>
+      </td>
+      <td>
+        <%= supplier.name %>
+      </td>
+      <td></td>
+      <td></td>
+      <td>
+        <a href="/kucun/material_orders/new?store_supplier_id=<%= supplier.id %>">订货</a>
+        <a href="#">详情</a>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

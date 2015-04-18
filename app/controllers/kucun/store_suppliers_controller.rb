@@ -1,4 +1,9 @@
 class Kucun::StoreSuppliersController < Kucun::ControllerBase
+  def index
+    @store = current_user.store
+    
+  end
+
   def new
     @store_supplier = StoreSupplier.new
     render layout: 'tiny'

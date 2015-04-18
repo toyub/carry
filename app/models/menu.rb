@@ -38,7 +38,7 @@ class Menu
           {:href=>"/kucun/materials/", :controller=>"materials", :action=>"index", :name=>"库存列表"},
           {:href=>"/kucun/material_inventories/new", :controller=>"materials", :action=>"show", :name=>"入库"},
           {:href=>"/kucun/materials/", :controller=>"materials", :action=>"show", :name=>"出库"},
-          {:href=>"/kucun/material_orders/new", :controller=>"materials", :action=>"show", :name=>"订货"},
+          {:href=>"/kucun/store_suppliers", :controller=>"kucun/store_suppliers", :action=>"index", :name=>"订货"},
           {:href=>"/kucun/materials/", :controller=>"materials", :action=>"show", :name=>"盘点"},
           {:href=>"/kucun/materials/", :controller=>"materials", :action=>"show", :name=>"报损"},
           {:href=>"/kucun/materials/", :controller=>"materials", :action=>"show", :name=>"退货"}
