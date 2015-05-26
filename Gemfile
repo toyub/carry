@@ -33,7 +33,24 @@ group :development, :test do
   gem 'spring'
 end
 
+# 性能检测
 gem 'rack-mini-profiler'
+
+# 缓存
+gem 'redis', '~> 3.2.1'
+gem "hiredis", "~> 0.6.0"
+# Redis 命名空间
+gem 'redis-namespace','~> 1.5.1'
+# 将一些数据存放入 Redis
+gem 'redis-objects', '1.1.0'
+
+# YAML 配置信息
+gem 'settingslogic', '~> 2.0.9'
+
+# 队列
+gem 'sidekiq', '3.3.4'
+# Sidekiq Web
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

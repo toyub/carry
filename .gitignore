@@ -8,6 +8,8 @@
 /.bundle
 
 /config/database.yml
+config/config.yml
+config/redis.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
