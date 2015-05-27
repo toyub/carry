@@ -52,6 +52,10 @@ gem 'sidekiq', '3.3.4'
 # Sidekiq Web
 gem 'sinatra', '>= 1.3.0', :require => nil
 
+group :development do
+  gem 'capistrano', '~> 3.3.0'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
