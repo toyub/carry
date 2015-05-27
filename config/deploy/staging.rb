@@ -11,6 +11,11 @@ role :db,  %w{wisdom@192.168.0.250}
 set :rvm_type, :system
 set :rvm_ruby_version, '2.1.3'
 
+set :nginx_sites_enabled_path, "#{shared_path}/config"
+set :nginx_sites_available_path, "#{shared_path}/config"
+
+set :rails_env, "staging"
+
 
 # Extended Server Syntax
 # ======================
