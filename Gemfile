@@ -54,6 +54,10 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 
 group :development do
   gem 'capistrano', '~> 3.3.0'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
 end
 
 # Use ActiveModel has_secure_password

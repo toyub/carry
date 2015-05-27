@@ -3,11 +3,11 @@ lock '3.3.5'
 
 set :application, 'mis'
 set :repo_url, 'git@git.icar99.com:/opt/git/wisdom/mis.git'
-set :deploy_to, "/home/wisdom/#{application}"
+set :deploy_to, "/home/wisdom/mis"
 set :scm, :git
 
-set :linked_files, fetch(:linked_files, []).push('config/database.yml')
-set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/redis.yml', 'config/config.yml')
+set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/uploads')
 set :keep_releases, 5
 set :deploy_via, :remote_cache
 

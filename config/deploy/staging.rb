@@ -8,6 +8,9 @@ role :app, %w{wisdom@192.168.0.250}
 role :web, %w{wisdom@192.168.0.250}
 role :db,  %w{wisdom@192.168.0.250}
 
+set :rvm_type, :system
+set :rvm_ruby_version, '2.1.3'
+
 
 # Extended Server Syntax
 # ======================
