@@ -52,6 +52,8 @@ gem 'sidekiq', '3.3.4'
 # Sidekiq Web
 gem 'sinatra', '>= 1.3.0', :require => nil
 
+gem 'puma'
+
 group :development do
   gem 'capistrano', '~> 3.3.0'
   gem 'capistrano-rvm'
