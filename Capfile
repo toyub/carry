@@ -16,6 +16,8 @@ require 'capistrano/puma/jungle'  # if you need the jungle tasks
 require 'capistrano/puma/monit'   # if you need the monit tasks
 require 'capistrano/puma/nginx'   # if you want to upload a nginx site template
 
+require 'capistrano/sidekiq'
+
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:

@@ -51,6 +51,7 @@ gem 'settingslogic', '~> 2.0.9'
 gem 'sidekiq', '3.3.4'
 # Sidekiq Web
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sidekiq-scheduler', '~> 1.1'
 
 gem 'puma'
 
@@ -60,6 +61,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
+  gem 'capistrano-sidekiq'
 end
 
 # Use ActiveModel has_secure_password
