@@ -6,7 +6,7 @@ set :repo_url, 'git@git.icar99.com:/opt/git/wisdom/mis.git'
 set :deploy_to, "/home/wisdom/mis"
 set :scm, :git
 
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/redis.yml', 'config/config.yml', 'config/initializers/secret_token.rb')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/redis.yml', 'config/config.yml', 'config/initializers/secret_token.rb', '.ruby-version')
 set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/uploads')
 set :keep_releases, 5
 set :deploy_via, :remote_cache
