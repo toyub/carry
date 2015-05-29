@@ -10,6 +10,7 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/
 set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/uploads')
 set :keep_releases, 5
 set :deploy_via, :remote_cache
+set :pty, true
 
 namespace :deploy do
   desc "Make sure local git is in sync with remote."
