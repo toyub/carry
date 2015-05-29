@@ -26,3 +26,4 @@ config/redis.yml
 /vendor/assets/bower_components
 .rvmrc
 .ruby-version
+TODOLIST.md
