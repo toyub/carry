@@ -16,7 +16,6 @@ set :nginx_sites_available_path, "#{shared_path}/config"
 set :puma_init_active_record, true
 
 set :rails_env, "staging"
-set :user_sudo, true
 
 
 # Extended Server Syntax
