@@ -13,6 +13,7 @@ set :rvm_ruby_version, '2.1.3'
 
 set :nginx_sites_enabled_path, "#{shared_path}/config"
 set :nginx_sites_available_path, "#{shared_path}/config"
+set :nginx_server_name, "mis.staging.zc"
 set :puma_init_active_record, true
 
 set :rails_env, "staging"
