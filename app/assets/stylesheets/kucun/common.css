@@ -160,6 +160,10 @@
 	padding: 0px 5px;
 }
 
+.stock_table tbody tr:nth-child(odd){
+	background:#f2f2f2;
+}
+
 .stock_table tr td {
 	border-right: 1px solid #e6e6e6;
 	height: 28px;

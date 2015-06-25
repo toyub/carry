@@ -124,7 +124,16 @@
         <div class="ordergoods_query">
           <div class="pure-control-group">
             <label>供应商：</label>
-            <input type="text" class="width-170" readonly value="<%= @supplier.name %>">
+            <input name='material[store_supplier_id]' type="hidden">
+            <span id='store_supplier_id' class="width-170 as_select" data-select='#material_supplier_select' data-target='input[name="material[store_supplier_id]"]'>请选择</span>
+            <div id='material_supplier_select' class="select">
+              <ol>
+                <% @store.store_suppliers.each do |option| %>
+                <li data-value="<%= option.id %>"><%= option.name %></li>
+                <% end %>
+              </ol>
+              <a class='add_btn' data-method='add_supplier' href="javascript:void(0);">新增</a>
+            </div>
           </div>
           <div class="pure-control-group ">
             <label>时间：</label>
@@ -132,7 +141,7 @@
           </div>
           <div class="pure-control-group">
             <label>单号：</label>
-            <input type="text" class="width-135" readonly value='DD<%= (Time.now.to_f*100).to_i %>' />
+            <input type="text" class="width-135" readonly value='2015041500006' />
           </div>
           <div class="ordergoods_print">
             <a href="#" class="print_btn">打<nbsp1></nbsp1>印</a>
