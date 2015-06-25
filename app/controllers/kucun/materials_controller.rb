@@ -60,8 +60,9 @@ class Kucun::MaterialsController < Kucun::ControllerBase
     params.require(:material).permit(:store_material_category_id,
                                      :store_material_unit_id, :store_material_manufacturer_id,
                                      :store_material_brand_id, :speci, :name, :barcode,
-                                     :min_retail_price, :mnemonic, :cost_price, :retail_price,
-                                     :inventory_alarmify, :max_inventory, :min_inventory, :remark)
+                                     :min_price, :mnemonic, :cost_price, :retail_price,
+                                     :inventory_alarmify, :max_inventory, :min_inventory, :remark,
+                                     :expiry_alarmify, :shelf_life)
   end
 
   def set_material

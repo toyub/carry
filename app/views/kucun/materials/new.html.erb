@@ -62,7 +62,7 @@
 
                 <div class="item_content">
                   <label class="width-75">成本价</label>
-                  <input name='material[cost_price]' type="text" class="width-160" placeholder="输入成本价会影响原成本价" required=true >
+                  <input name='material[cost_price]' type="text" class="width-160" placeholder="输入成本价会影响平均成本">
                 </div>
                 <div class="item_content">
                   <label class="width-75">最低售价</label>
@@ -144,8 +144,8 @@
                 <div class="item_content outline item_property">
                   <label class="width-49">商品属性</label>
                   <div class="inline_block material_for_sale_or_keep" >
-                    <label for=""><input type="checkbox" name="name" value="">自用</label>
-                    <label for=""><input type="checkbox" name="name" value="">销售</label>
+                    <label for=""><input type="checkbox" name="material[internal]" value="">自用</label>
+                    <label for=""><input type="checkbox" name="material[saleable]" value="">销售</label>
                   </div>
                 </div>
 
@@ -170,26 +170,6 @@
                     <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-30 " style="border:0px;" required=true >
                     <span>天</span>
                   </div>
-                </div>
-
-
-
-
-                <div class="clr">
-                  <fieldset>
-                    <legend><label><input type="checkbox" class='toggleable' name="divide_to_retail" data-target='divide_to_retail' value="">此商品拆分销售</label></legend>
-                    <div class="">
-                      <label class="width-75">计量单位</label>
-                      <select data-id='divide_to_retail' disabled=true class="" name="">
-                        <option value='0'>升</option>
-                        <option value='1'>米</option>
-                      </select>
-                    </div>
-                    <div class="">
-                      <label class="width-75">总量</label>
-                      <input  data-id='divide_to_retail' disabled=true type="text" name="name" value="">
-                    </div>
-                  </fieldset>
                 </div>
 
                 <div class="item_textarea ">
