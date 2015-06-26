@@ -34,7 +34,7 @@ group :development, :test do
 end
 
 # 性能检测
-gem 'rack-mini-profiler'
+#gem 'rack-mini-profiler'
 
 # 缓存
 gem 'redis', '~> 3.2.1'

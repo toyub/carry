@@ -1,11 +1,4 @@
 /*
-*= require 'pure_extends'
-*= require base
-*= require base_classes
-*= require header
-*= require menu
-*= require buttons
-*= require main
 *= require 'kucun/common'
 *= require piccut/1.0.0
 *= require select2/4.0.0.rc1
