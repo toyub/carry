@@ -76,6 +76,19 @@
             <label class="width-75">助记码</label>
             <span class="width-155 inline_block text-align-left"><%= @store_material.mnemonic %></span>
           </div>
+
+          <div class="item_content outline item_property">
+            <label class="width-49">商品属性</label>
+            <div class="inline_block material_for_sale_or_keep">
+              <% if @store_material.permitted_to_internal %>
+                <label for=""><input type="checkbox" name="material[permitted_to_internal]" value="1" disabled="disabled" checked='checked'>自用</label>
+              <% end %>
+              <% if @store_material.permitted_to_saleable %>
+                <label for=""><input type="checkbox" name="material[permitted_to_saleable]" value="1" disabled="disabled" checked='checked'>销售</label>
+              <% end %>
+            </div>
+          </div>
+
           <div class="item_content outline item_inventory">
             <label class="width-80">
               库存预警<%= @store_material.inventory_alarmify ? "[开]" : "[关]" %>：

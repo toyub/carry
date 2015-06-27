@@ -34,7 +34,8 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def autocomplete_name
-    result = [params[:q], 'a1', 'a2', 'a3']
+    result = StoreMaterial.where('name like :name', name: "%#{params[:q]}%").map(&:name)
+    
     render text: "#{params[:callback]}(#{result.to_json})"
   end
 
@@ -57,12 +58,13 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   private
   def material_params
-    params.require(:material).permit(:store_material_category_id,
-                                     :store_material_unit_id, :store_material_manufacturer_id,
-                                     :store_material_brand_id, :speci, :name, :barcode,
-                                     :min_price, :mnemonic, :cost_price, :retail_price,
-                                     :inventory_alarmify, :max_inventory, :min_inventory, :remark,
-                                     :expiry_alarmify, :shelf_life)
+    params.require(:material).permit(:store_material_category_id, :store_material_unit_id,
+                                     :store_material_manufacturer_id, :store_material_brand_id,
+                                     :name, :speci, :barcode, :mnemonic,
+                                     :min_price, :cost_price,
+                                     :inventory_alarmify, :max_inventory, :min_inventory,
+                                     :expiry_alarmify, :shelf_life, :permitted_to_internal,
+                                     :permitted_to_saleable, :remark)
   end
 
   def set_material
