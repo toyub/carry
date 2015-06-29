@@ -43,6 +43,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :xiaoshou do
+    resources :services, only: [:index]
+  end
+
   resource :session, only: [:new, :create, :destroy]
 
   root 'kucun/materials#index'

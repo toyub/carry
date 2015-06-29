@@ -11,9 +11,6 @@
  * file per style scope.
  *
  *= require scaffolds
- *= require pure/0.6.0-min
- *= require pure_extends
- *= require awesome
  *= require jquery_ui
  *= require_self
  */

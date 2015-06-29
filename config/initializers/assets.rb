@@ -13,5 +13,3 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w[ tiny.js kucun/materials/new.js kucun/materials/saleinfo.js kucun/material_orders/new.js]
 
 Rails.application.config.assets.precompile += %w[ kucun.css ]
-
-Rails.application.config.assets.precompile += %w[ awesome/fontawesome-webfont.woff ]
