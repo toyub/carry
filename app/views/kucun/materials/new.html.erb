@@ -36,7 +36,7 @@
                 <div id='material_img_preview' class="goods_main_img"></div>
                 <ul id='material_img_thumbnails' class="goods_small_img">
                     <li id='preview_list'></li>
-                    <li data-id='0'><a class='fa fa-plus-square add_img' href="javascript:void(0);"></a></li>
+                    <li data-id='0'><a class='fa fa-plus-square add_img font-30' href="javascript:void(0);"></a></li>
                 </ul>
               </div>
 
@@ -62,7 +62,7 @@
 
                 <div class="item_content">
                   <label class="width-75">成本价</label>
-                  <input name='material[cost_price]' type="text" class="width-160" placeholder="输入成本价会影响原成本价" required=true >
+                  <input name='material[cost_price]' type="text" class="width-160" placeholder="输入成本价会影响平均成本">
                 </div>
                 <div class="item_content">
                   <label class="width-75">最低售价</label>
@@ -141,55 +141,33 @@
                 </div>
 
 
-                <div class="item_content outline item_property">
+                <div class="item_content outline item_property text-align-left margin-left-54">
                   <label class="width-49">商品属性</label>
-                  <div class="inline_block material_for_sale_or_keep" >
-                    <label for=""><input type="checkbox" name="name" value="">自用</label>
-                    <label for=""><input type="checkbox" name="name" value="">销售</label>
-                  </div>
+                  <input class="margin-left-15" type="checkbox" name="material[permitted_to_internal]" value="1" checked='checked'><label for="">自用</label>
+                  <input class="margin-left-26" type="checkbox" name="material[permitted_to_saleable]" value="1"><label for="">销售</label>
                 </div>
 
 
 
-                <div class="item_content outline item_inventory">
-                  <label class="width-87 font-weight-bold font-black"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
-                  <div class='inline_block width-180'>
+                <div class="item_content outline item_inventory margin-left-106">
+                  <label class="width-80 font-weight-bold"><input name='material[inventory_alarmify]' type="radio" class='toggleable width-13' data-target='inventory'>库存预警：</label>
+                  <div class='display-inline-block width-155 text-align-center'>
                     <label class="width-75">数量上限</label>
                     <input data-id='inventory' name='material[max_inventory]'  disabled=true type="text" class="width-53" required=true min=0.0 step='any'>
                   </div>
 
-                  <div class="inline_block width-180">
+                  <div class="display-inline-block width-155 text-align-center">
                     <label class="lab_50">数量下限</label>
                     <input data-id='inventory' name='material[min_inventory]' disabled=true type="text" class="width-53" required=true min=0.0 step='any'>
                   </div>
                 </div>
 
-                <div class="item_content shelf_life">
+                <div class="item_content outline shelf_life margin-left-50">
                   <label class="width-75"><input type="radio" name='material[expiry_alarmify]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
-                  <div class="input_span">
-                    <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-30 " style="border:0px;" required=true >
+                  <div class="input_div">
+                    <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-50 border-none " style="border:0px;" required=true >
                     <span>天</span>
                   </div>
-                </div>
-
-
-
-
-                <div class="clr">
-                  <fieldset>
-                    <legend><label><input type="checkbox" class='toggleable' name="divide_to_retail" data-target='divide_to_retail' value="">此商品拆分销售</label></legend>
-                    <div class="">
-                      <label class="width-75">计量单位</label>
-                      <select data-id='divide_to_retail' disabled=true class="" name="">
-                        <option value='0'>升</option>
-                        <option value='1'>米</option>
-                      </select>
-                    </div>
-                    <div class="">
-                      <label class="width-75">总量</label>
-                      <input  data-id='divide_to_retail' disabled=true type="text" name="name" value="">
-                    </div>
-                  </fieldset>
                 </div>
 
                 <div class="item_textarea ">
@@ -215,9 +193,11 @@
   	<div id='arrange'>
   	  <div id='gallery' style="top: -1px; left: 115px;" class="resize-container"></div>
   	</div>
-    <input type="file" id='imgfile' name="imgefile" size="12" accept="image/jpeg,image/png" />
-    <button class="btn-crop js-crop">截图</button>
-    <input class="btn-cancel js-cancel" value="取消"/>
+    <div class="btn_group">
+      <input type="file" id='imgfile' name="imgefile" size="12" accept="image/jpeg,image/png" />
+      <button class="crop_btn btn-crop js-crop">截图</button>
+      <input class="cancel_btn btn-cancel js-cancel" type="button" value="取消"/>
+    </div>
   </div>
 <% end %>
 
