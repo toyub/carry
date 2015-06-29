@@ -8,7 +8,7 @@
   <%= stylesheet_link_tag "/stylesheets/style.css", "/stylesheets/main.css" %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <% if controller_namespace(params).present? %>
-    <%= stylesheet_link_tag "#{controller_namespace(params)}" %>
+    <%= stylesheet_link_tag "/stylesheets/#{controller_namespace(params)}.css" %>
   <% end %>
   <%= javascript_include_tag 'application' %>
 

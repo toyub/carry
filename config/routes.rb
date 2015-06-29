@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :sale do
+  namespace :xiaoshou do
     resources :services, only: [:index]
   end
 
