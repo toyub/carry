@@ -62,6 +62,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'capistrano-sidekiq'
+  gem 'quiet_assets'
 end
 
 # Use ActiveModel has_secure_password
