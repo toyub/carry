@@ -1,111 +1,114 @@
 <div class="main_top">
-        <h2 title="库存列表">库存列表</h2>
+  <h2>商品信息</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+
+  <%= render partial: 'table_head' %>
+
+  <div class="list_table">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>查找出库产品</label>
+        <input class="width-150" placeholder="输入产品关键字" type="text">
       </div>
-      <div class="details">
-        <div class="container_list">
-          <div class="top_content records">
-            <%= render partial: 'table_head' %>
-
-        <div class="stock_list_table">
-          <div class="search_nav">
-
-          <div class="item-query">
-            <label>查找出库产品</label>
-            <input type="text" class="width-150" placeholder="输入产品关键字">
-          </div>
-          <div class="item-query">
-            <label>一级分类</label>
-            <select type="text" class="width-150">
-            <option></option>
-            <option></option>
-            </select>
-          </div>
-          <div class="item-query">
-            <label>二级分类</label>
-            <select type="text" class="width-150">
-            <option></option>
-            <option></option>
-            </select>
-          </div>
-          <div class="item-query">
-            <label>选择仓库</label>
-            <select type="text" class="width-150">
-            <option></option>
-            <option></option>
-            </select>
-            <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
-          </div>
-
-          <div class="query_div">
-            <a href="<%= new_kucun_material_path %>" class="new_btn btn">新建商品</a>
-            <a href="#" class="export_btn btn">导出</a>
-            <a href="#" class="print_btn btn">打印</a>
-          </div>
-
-
-          </div>
-          <table cellpadding="0" cellspacing="0" id="stock_table" class="stock_table">
-           <colgroup>
-            <col width="2%">
-            <col width="18%">
-            <col width="8%">
-            <col width="8%">
-            <col width="8%">
-            <col width="14%">
-            <col width="6%">
-            <col width="8%">
-            <col width="8%">
-            <col width="16%">
-            <col width="4%">
-          </colgroup>
-          <thead>
-            <tr>
-              <th style="border-right:0px;" >#</th>
-              <th>商品名称</th>
-              <th>商品条形码</th>
-              <th>一级分类</th>
-              <th>二级分类</th>
-              <th>规格</th>
-              <th>单位</th>
-              <th >成本价</th>
-
-              <th>库存数</th>
-              <th>备注</th>
-              <th class="last_td"> 操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @store_materials.each_with_index do |material, idx| %>
-              <tr>
-                <td><%= idx+1 %></td>
-                <td><%= material.name %></td>
-                <td><%= material.barcode %></td>
-                <td><%= material.store_material_category.parent.name %></td>
-                <td><%= material.store_material_category.name %></td>
-                <td><%= material.speci %></td>
-                <td><%= material.store_material_unit.name %></td>
-                <td><%= material.cost_price %></td>
-                <td><%= material.inventory %></td>
-                <td><%= material.remark %></td>
-                <td class="last_td"><a href="<%= kucun_material_path(material) %>">详情<i class="fa fa-angle-double-right"></i></a></td>
-              </tr>
-
-            <% end %>
-            <tr  class="bg_tr">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="last_td"></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        </div>
+      <div class="item-query">
+        <label>一级分类</label>
+        <select class="width-150" type="text">
+          <option/><option/>
+        </select>
       </div>
+      <div class="item-query">
+        <label>
+          二级分类
+        </label>
+        <select class="width-150" type="text"><option/>
+          <option/>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>
+          选择仓库
+        </label>
+        <select class="width-150" type="text">
+          <option></option>
+          <option></option>
+        </select>
+        <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
+      </div>
+      <div class="query_div">
+        <a class="new_btn btn" href="<%= new_kucun_material_path %>">新建商品</a>
+        <a class="export_btn btn" href="#">导出
+        </a>
+        <a class="print_btn btn" href="#">
+          打印</a>
+      </div>
+    </div>
+    <table cellpadding="0" cellspacing="0" class="content_table">
+      <colgroup>
+        <col width="3%"><col width="10%"><col width="8%">
+        <col width="7%">
+        <col width="8%">
+        <col width="8%">
+        <col width="5%">
+        <col width="8%">
+        <col width="8%">
+        <col width="6%">
+        <col width="10%">
+        <col width="8%">
+        <col width="5%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th >
+            #
+          </th>
+          <th >
+            商品名称
+          </th>
+          <th >
+            商品条形码</th>
+          <th >
+            一级分类</th>
+          <th >
+            二级分类</th>
+          <th>
+            规格</th>
+          <th>
+            单位</th>
+          <th >
+            成本价</th>
+          <th>
+            销售价</th>
+          <th>
+            库存数</th>
+          <th>
+            供应商</th>
+          <th>
+            备注</th>
+          <th >
+            操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @store_materials.each do |material| %>
+        <tr>
+          <td class="number">1</td>
+          <td><a href="<%= kucun_material_path(material) %>">米其林轮胎</a></td>
+          <td>3080309075990</td>
+          <td>汽车配件</td>
+          <td>轮胎</td>
+          <td>185/60/14XM291V</td>
+          <td>条</td>
+          <td>530.00</td>
+          <td>650.00</td>
+          <td>8</td>
+          <td>杭州力德贸易有限公司</td>
+          <td></td>
+          <td><span class="operate_icon"><i class="fa fa-file-text-o "></i></span></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
