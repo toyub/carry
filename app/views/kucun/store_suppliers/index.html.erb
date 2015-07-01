@@ -1,33 +1,296 @@
 
-<div >
-  <a href="#">新建一个供应商</a> <nbsp2></nbsp2><a href="#">速单</a>
-</div>
-<table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>供应商名字</th>
-      <th></th>
-      <th></th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @store.store_suppliers.each do |supplier| %>
-    <tr>
-      <td>
-        <%= supplier.id %>
-      </td>
-      <td>
-        <%= supplier.name %>
-      </td>
-      <td></td>
-      <td></td>
-      <td>
-        <a href="<%= new_kucun_store_supplier_material_order_path(supplier) %>">订货</a>
-        <a href="#">详情</a>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+              <div class="main_top">
+        <h2>订货</h2>
+        <span class="add_span">+</span>
+      </div>
+      <div class="details">
+        <div class="top_content records">
+          <div class="content_tab_top">
+            <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
+              <colgroup>
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+                <col width="14.28%">
+              </colgroup>
+              <tr>
+                <td class="border-right">
+                  <table cellpadding="0" cellspacing="0" class="in_tab">
+                    <tr>
+                      <td class="text-align-left">
+                        <a href="#">供应商总数</a>
+                        <span   class="num_color font-24  tab_span ">132</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="border-right">
+                  <table cellpadding="0" cellspacing="0" class="in_tab">
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">汽车产品类</a>
+                        <span class="num_color  tab_span font-14 float-right">74位</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">美容产品类</a>
+                        <span class="num_color  tab_span font-14 float-right">12位</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="border-right">
+                  <table cellpadding="0" cellspacing="0" class="in_tab">
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">装饰产品类</a>
+                        <span class="num_color  tab_span font-14 float-right">74位</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">用品产品类</a>
+                        <span class="num_color  tab_span font-14 float-right">12位</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="border-right">
+                  <table cellpadding="0" cellspacing="0" class="in_tab">
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">电子产品类</a>
+                        <span class="num_color  tab_span font-14 float-right">74位</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">汽保工具类</a>
+                        <span class="num_color  tab_span font-14 float-right">12位</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="border-right">
+                  <table cellpadding="0" cellspacing="0" class="in_tab">
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">业务往来最多</a>
+                        <span class="num_color  tab_span font-14 float-right">74位</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">业务往来最少</a>
+                        <span class="num_color  tab_span font-14 float-right">12位</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="border-right">
+                  <table cellpadding="0" cellspacing="0" class="in_tab">
+                    <tr>
+                      <td class="text-align-left">
+                        <a href="#">业务金额最大</a>
+                        <span class="num_color  tab_span font-14 float-right">74位</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class=" text-align-left">
+                        <a href="#">业务数量最多</a>
+                        <span class="num_color  tab_span font-14 float-right">12位</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td >
+                  <table cellpadding="0" cellspacing="0" class="in_tab">
+                    <tr>
+                      <td class=" text-align-right">
+                        <a href="#">订货总金额</a>
+                        <span   class="num_color text-align-right font-24 tab_span">22,8677</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="list_table">
+          <div class="search_nav">
+            <div class="item-query">
+              <label>查找商品供应商</label>
+              <input type="text" class="width-150" placeholder="输入产品关键字或助记码">
+            </div>
+            <div class="item-query">
+              <label>一级分类</label>
+              <select type="text" class="width-150">
+              <option></option>
+              <option></option>
+              </select>
+            </div>
+            <div class="item-query">
+              <label>二级分类</label>
+              <select type="text" class="width-150">
+              <option></option>
+              <option></option>
+              </select>
+            </div>
+            <div class="item-query">
+              <label>结算规则</label>
+              <select type="text" class="width-150">
+              <option></option>
+              <option></option>
+              </select>
+              <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
+            </div>
+            <div class="query_div">
+              <a href="gongyingshangxinxi.html" class="new_btn btn">新建</a>
+              <a href="dinghuo.html" class="quick_order_btn btn">快速订货</a>
+            </div>
+          </div>
+          <table cellpadding="0" cellspacing="0" class="content_table">
+            <colgroup>
+              <col width="2%">
+              <col width="10%">
+              <col width="12%">
+              <col width="8%">
+              <col width="8%">
+              <col width="8%">
+              <col width="5%">
+              <col width="8%">
+              <col width="8%">
+              <col width="6%">
+              <col width="16%">
+              <col width="5%">
+            </colgroup>
+            <thead>
+              <tr>
+                <th style="border-right:0px;" >#</th>
+                <th >供应商编号</th>
+                <th >供应商名称</th>
+                <th >供应商类别</th>
+                <th >联系人</th>
+                <th >手机号码</th>
+                <th >结算方式</th>
+                <th >结算规则</th>
+                <th>结算日</th>
+                <th>余额</th>
+                <th>备注</th>
+                <th class=""> 操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td>1</td>
+                <td>HZ-001</td>
+                <td>杭州鼎鸿科技有限公司</td>
+                <td>美容产品</td>
+                <td>叶帆</td>
+                <td>13967189949</td>
+                <td>现结</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class=" ">
+                  <a href="gongyingshangxinxi.html" class="edit_a"><i class="fa fa-file-text-o "></i></a>
+                  <a class="literal-order " href="dinghuo.html">订</a>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>SH-001</td>
+                <td>上海妙声贸易有限公司</td>
+                <td>美容产品</td>
+                <td>冯巩</td>
+                <td>13967186897</td>
+                <td>现结</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class=" ">
+                  <a href="gongyingshangxinxi.html" class="edit_a"><i class="fa fa-file-text-o"></i></a>
+                  <a class="literal-order " href="">订</a>
+                </td>
+              </tr>
+              <tr >
+                <td>3</td>
+                <td>HZ-002</td>
+                <td>杭州力德贸易有限公司</td>
+                <td>轮胎产品</td>
+                <td>冯巩</td>
+                <td>13967186897</td>
+                <td>挂账</td>
+                <td>月结</td>
+                <td>每月20号</td>
+                <td>9,875.00</td>
+                <td></td>
+                <td class=" ">
+                  <a href="gongyingshangxinxi.html" class="edit_a"><i class="fa fa-file-text-o "></i></a>
+                  <a class="literal-order " href="dinghuo.html">订</a>
+                </td>
+              </tr>
+
+              <% @store_suppliers.each do |supplier| %>
+              <tr>
+                <td>3</td>
+                <td>HZ-002</td>
+                <td><%= supplier.name %></td>
+                <td>轮胎产品</td>
+                <td>冯巩</td>
+                <td>13967186897</td>
+                <td>挂账</td>
+                <td>月结</td>
+                <td>每月20号</td>
+                <td>9,875.00</td>
+                <td></td>
+                <td class=" ">
+                  <a href="gongyingshangxinxi.html" class="edit_a"><i class="fa fa-file-text-o "></i></a>
+                  <a class="literal-order " href="<%= new_kucun_material_order_path params: {store_supplier_id: supplier.id} %>">订</a>
+                </td>
+              </tr>
+              <% end %>
+
+              <tr>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class=" ">
+                  <a href="gongyingshangxinxi.html" class="edit_a"><i class="fa fa-file-text-o"></i></a>
+                  <a class="literal-order " href="dinghuo.html">订</a>
+                </td>
+              </tr>
+
+              <tr  >
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class=""></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
