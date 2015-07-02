@@ -1,0 +1,47 @@
+defaults: &defaults
+  connect:
+    user: admin
+    password: www.admin.c0m
+    host: localhost
+    port: 5672
+    vhost: '/zc'
+
+  exchange:
+    name:                 zcx.sms
+    type:                 topic
+    durable:              true
+    internal:             false
+    auto_delete:          false
+    arguments:
+      alternate_exchange: caishuox.unroutable
+
+  queue:
+    name: zcq.sms
+    durable: true
+    arguments:
+      dead_letter_exchange: caishuox.deadletter
+      dead_letter_routing_key: com.caishuo.pms.deadletter
+
+  bindings:
+  - source:           zcx.sms
+    destination:      zcq.sms
+    destination_type: queue
+    routing_key:      zcq.sms
+
+development:
+  <<: *defaults
+  exchange:
+    name:                 zcx.sms
+    type:                 topic
+    durable:              true
+
+  queue:
+    name: zcq.sms
+    durable: true
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
