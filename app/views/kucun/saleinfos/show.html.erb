@@ -45,6 +45,10 @@
                 <span class="width-155 inline_block text-align-left"><%= @store_material.speci %></span>
               </div>
               <div class="item_content">
+                <label class="width-75">最低售价</label>
+                <span class="width-155 inline_block text-align-left"><%= @store_material.min_price %></span>
+              </div>
+              <div class="item_content">
                 <label class="width-75">零售价</label>
                 <input name='saleinfo[retail_price]' type="text" class="width-160" required=true >
               </div>
@@ -62,14 +66,35 @@
                 <input type="text" class="width-160">
               </div>
               <div class="item_content">
-                <label class="width-75">销售分类</label>
+                <label class="width-75">销售类别</label>
                 <select type="text" class="width-165">
-                  <option>一个分类</option>
-                  <option>两个分类</option>
+                  <option></option>
+                  <option>是另一个标签</option>
+                  <option>例如清洁类</option>
+                  <option>销售时按照用途来分</option>
+                  <option>主要给统计时分类用</option>
+                  <option>从库存拷贝一个二级类别</option>
                 </select>
               </div>
-              <div class="clr"></div>
-              <div class>
+
+              <div class="clr">
+                <fieldset class="width-482">
+                  <legend><label><input type="checkbox" class='toggleable' name="material[divide_to_retail]" data-target='divide_to_retail' value="">此商品拆分销售</label></legend>
+                  <div class="">
+                    <label class="width-75">计量单位</label>
+                    <select data-id='divide_to_retail' disabled=true class="" name="material[divide_unit]">
+                      <option value='0'>升</option>
+                      <option value='1'>米</option>
+                    </select>
+                  </div>
+                  <div class="">
+                    <label class="width-75">总量</label>
+                    <input  data-id='divide_to_retail' disabled=true type="text" name="material[divide_total]" value="">
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="clr">
                 <fieldset class="width-482">
                   <legend class="text-align-left">
                     <label>
