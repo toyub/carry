@@ -8,6 +8,7 @@
 /.bundle
 
 /config/database.yml
+/config/sms_client.yml
 config/config.yml
 config/redis.yml
 
