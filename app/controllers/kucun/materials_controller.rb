@@ -4,6 +4,13 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   def index
     @store_materials = StoreMaterial.all
+    respond_to do |format|
+      format.json {
+        render json: @store_materials
+      }
+
+      format.html {}
+    end
   end
 
   def new
@@ -23,7 +30,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def edit
-    
+
   end
 
   def update
@@ -35,7 +42,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   def autocomplete_name
     result = StoreMaterial.where('name like :name', name: "%#{params[:q]}%").map(&:name)
-    
+
     render text: "#{params[:callback]}(#{result.to_json})"
   end
 
