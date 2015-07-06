@@ -129,6 +129,7 @@
         </div>
         <div class="details_content">
             <div class=" common_storage_content margin-bottom-50">
+            <%= form_tag "/kucun/material_orders/" do %>
               <div class="ordergoods_query">
                 <div class="pure-control-group">
                   <label>供应商：</label>
@@ -167,28 +168,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td class="number">1</td>
-                      <td >
-                        <div class="text_div">
-                          <input type="text" value="澜泰纳米镀晶宾御套餐">
-                          <span class="add bg-color-fff">...</span>
-                        </div>
-                      </td>
-                      <td>887766555444</td>
-                      <td>长皮盒6项目</td>
-                      <td>套</td>
-                      <td>美容产品</td>
-                      <td>镀晶产品</td>
-                      <td>680.00</td>
-                      <td>8</td>
-                      <td>5,440.00</td>
-                      <td>未付款</td>
-                      <td></td>
-                      <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
-                    </tr>
-                    <% 4.times do |i| %>
-                    <tr>
+                    <tr class="delete">
                       <td class="number"></td>
                       <td >
                         <div class="text_div">
@@ -208,7 +188,7 @@
                       <td></td>
                       <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
                     </tr>
-                    <% end %>
+
                     <tr>
                       <td></td>
                       <td class="font-weight-bold text-align-left text-indent-10">合计:</td>
@@ -251,8 +231,9 @@
               </div>
               <div class="btn_group margin-right-20">
                 <a class="edit_btn" href="#" >取消</a>
-                <a class="save_btn btn" href="#" >保存</a>
+                <input type='submit' class="save_btn btn" value='保存' />
               </div>
+            <% end %>
             </div>
         </div>
 
@@ -433,33 +414,6 @@
           </div>
 
           <div class="material_list">
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">米其林轮胎</li>
-                <li class="second_td">12304567890123</li>
-                <li class="third_td">195/65/15XM291V</li>
-                <li class="forth_td">汽配</li>
-                <li class="fifth_td border-none"><input type="checkbox" class="checkbox"></li>
-              </ul>
-            </div>
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">澜泰纳米镀金宾御套餐</li>
-                <li class="second_td">1234567890123</li>
-                <li class="third_td">6个项目</li>
-                <li class="forth_td">美容</li>
-                <li class="fifth_td border-none"><input type="checkbox" class="checkbox"></li>
-              </ul>
-            </div>
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">风帆电瓶</li>
-                <li class="second_td">1234567890999</li>
-                <li class="third_td">65AH 奥迪A4专用</li>
-                <li class="forth_td">汽配</li>
-                <li class="fifth_td border-none"><input type="checkbox" class="checkbox"></li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -501,7 +455,7 @@
         $pop_choose_goods.find("li.first_td").addClass('see_search');
       });
 
-      var tmp = _.template('<div class="list_content list_tr"><ul><li class="first_td">{%= name %}</li><li class="second_td">12304567890123</li><li class="third_td">195/65/15XM291V</li><li class="forth_td">汽配</li><li class="fifth_td border-none"><input type="checkbox" class="checkbox"></li></ul></div>');
+      var tmp = _.template('<div class="list_content list_tr"><ul><li class="first_td">{%= name %}</li><li class="second_td">{%= barcode %}</li><li class="third_td"> {%= speci %} </li><li class="forth_td">{%= store_material_category_id %}</li><li class="fifth_td border-none"><input data-materialid={%= id %} type="checkbox" class="checkbox"></li></ul></div>');
 
       $pop_choose_goods.on('click', '.search_btn', function(){
         var keyword = $pop_choose_goods.find('input.keyword')[0];
@@ -529,8 +483,13 @@
 
       });
 
+      var mtmp = _.template('<tr><td class="number">1 <input type="hidden" name="order[][material_id]" value="{%= id %}"> </td><td><div class="text_div"><input type="text" value="澜泰纳米镀晶宾御套餐"><span class="add bg-color-fff">...</span></div></td><td>887766555444</td><td>长皮盒6项目</td><td>套</td><td>美容产品</td><td>镀晶产品</td><td><input type="text" name="order[][material_price]" value=""></td><td>8</td><td>5,440.00</td><td>未付款</td><td></td><td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td></tr>');
+
       $pop_choose_goods.on('click', '.save_btn', function(){
 
+        var s = $pop_choose_goods.find('input[type="checkbox"]:checked').toArray().map(function(el){return mtmp({id: el.dataset.materialid})}).join('');
+        $('#storage_tab .delete:first').before(s);
+        $pop_choose_goods.hide();
       });
     });
   </script>
