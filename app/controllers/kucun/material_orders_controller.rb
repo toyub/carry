@@ -15,9 +15,7 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
 
   def create
     @store = current_user.store
-    _order_params = order_params
-    _order_params[:store_material_order_items_attributes].delete_if { |key, value| !value[:checked] }
-    order = StoreMaterialOrder.new(_order_params)
+    order = StoreMaterialOrder.new(order_params)
 
     order.store_id = @store.id
     order.store_chain_id = @store.store_chain_id
@@ -30,14 +28,13 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
       item.store_chain_id = order.store_chain_id
       item.store_staff_id = order.store_staff_id
       item.store_supplier_id = order.store_supplier_id
-      #item.price = item.store_material.cost_price
       item.amount = item.price * item.quantity
       order.amount += item.amount
     end
 
     order.save
     #render json: order.as_json.merge({items: order.store_material_order_items})
-    redirect_to '/kucun/materials/'
+    redirect_to '/kucun/material_orders/'
   end
 
   def show
@@ -52,6 +49,6 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
   end
 
   def order_params
-    params.require(:store_material_order).permit(store_material_order_items_attributes:[:store_material_id, :checked, :quantity, :price])
+    params.require(:store_material_order).permit(store_material_order_items_attributes:[:store_material_id, :quantity, :price])
   end
 end

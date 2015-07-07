@@ -483,7 +483,7 @@
 
       });
 
-      var mtmp = _.template('<tr><td class="number">1 <input type="hidden" name="order[][material_id]" value="{%= id %}"> </td><td><div class="text_div"><input type="text" value="澜泰纳米镀晶宾御套餐"><span class="add bg-color-fff">...</span></div></td><td>887766555444</td><td>长皮盒6项目</td><td>套</td><td>美容产品</td><td>镀晶产品</td><td><input type="text" name="order[][material_price]" value=""></td><td>8</td><td>5,440.00</td><td>未付款</td><td></td><td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td></tr>');
+      var mtmp = _.template('<tr><td class="number">1 <input type="hidden" name="store_material_order[store_material_order_items_attributes][][store_material_id]" value="{%= id %}"> </td><td><div class="text_div"><input type="text" value="澜泰纳米镀晶宾御套餐"><span class="add bg-color-fff">...</span></div></td><td>887766555444</td><td>长皮盒6项目</td><td>套</td><td>美容产品</td><td>镀晶产品</td><td><input type="text" name="store_material_order[store_material_order_items_attributes][][price]" value="" required></td><td><input type="number" min=1 name="store_material_order[store_material_order_items_attributes][][quantity]" autocomplete=off value="1" required></td><td>5,440.00</td><td>未付款</td><td></td><td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td></tr>');
 
       $pop_choose_goods.on('click', '.save_btn', function(){
 
