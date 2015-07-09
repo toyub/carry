@@ -1,7 +1,7 @@
 class Kucun::StoreSuppliersController < Kucun::ControllerBase
   def index
     @store = current_user.store
-    
+    @store_suppliers = @store.store_suppliers
   end
 
   def new

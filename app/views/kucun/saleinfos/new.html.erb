@@ -1,0 +1,244 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun/materials/saleinfo' %>
+<% end %>
+
+<div class="main_top">
+        <h2>库存列表</h2>
+        <span class="add_span">+</span>
+      </div>
+      <div class="details">
+        <%= render partial: 'kucun/materials/table_head' %>
+        <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
+          <div class="details_nav_second">
+            <ul class="goods_nav">
+              <li><a href="#" class="width-90">▲上一件商品</a></li>
+              <li><a href="#" class="width-90">▼下一件商品</a></li>
+              <li ><a href="#" class="width-90">返回列表</a></li>
+            </ul>
+          </div>
+          <div class="details_content">
+            <div class="base_info">
+              <div class="goods_img">
+                <div id='material_img_preview' class="goods_main_img"></div>
+                <ul id='material_img_thumbnails' class="goods_small_img">
+                    <li id='preview_list'></li>
+                    <li data-id='0'><a class='fa fa-plus-square add_img font-30' href="javascript:void(0);"></a></li>
+                </ul>
+              </div>
+              <div class=" car_content">
+                <div class="float-left pure-u-1-2">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
+                    <colgroup>
+                      <col width="50%">
+                      <col width="50%">
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label class="width-75">商品名称</label>
+                          <input type="text" class="width-165" value="碳纤白色保护膜" readonly />
+                        </td>
+                        <td>
+                          <label class="width-75">规格</label>
+                          <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly="true"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="width-75">最低售价</label>
+                          <input type="text" class="width-165" value="0.00" readonly />
+                        </td>
+                        <td>
+                          <label class="width-75">零售价</label>
+                          <input type="text" class="width-165"  />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="width-75 display-inline-block text-align-right">
+                            <input type="radio"  class="toggleable width-13" data-target="bargain" data-checked>
+                            优惠价
+                          </span>
+                          <input type="text" class="width-165" data-id="bargain" disabled="disabled" required="true">
+                        </td>
+                        <td>
+                          <label class="width-75">批发价</label>
+                          <input type="text" class="width-165">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="width-75">商品积分</label>
+                          <input type="text" class="width-165">
+                        </td>
+                        <td>
+                          <label class="width-75">销售分类</label>
+                          <select type="text" class="width-167">
+                            <option>是另一个标签</option>
+                            <option>例如:清洁类</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <fieldset class="width-490 margin-left-26">
+                            <legend class="margin-left-10">
+                              <input type="checkbox" class="toggleable" data-target="divide_to_retail">
+                              <label>此商品拆分销售</label>
+                            </legend>
+                            <div>
+                              <label class="width-75">计量单位</label>
+                              <select disabled class="width-80">
+                                <option>米</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label class="width-75">总量</label>
+                              <input type="text" class="width-165" readonly>
+                            </div>
+                          </fieldset>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <fieldset class="width-490 margin-left-26">
+                            <legend class="margin-left-10">
+                              <input type="checkbox" class="toggleable" data-target="divide_to_retail">
+                              <label>需要施工</label>
+                            </legend>
+
+                            <div>
+                              <label class="width-75">工时价格</label>
+                              <input type="text" class="width-165" readonly>
+                            </div>
+                          </fieldset>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+                <div  class="pure-u-1-2 float-left">
+                  <div class="server_list" >
+                    <div class="top">
+                      <h2>服务项目列表</h2>
+                      <span class="new_btn btn margin-top-10 float-right click_btn cursor" id="add_server_btn">创建</span>
+                    </div>
+                    <div class="none_server_data">
+                      <p class="none_server_p">当前没有配套服务</p>
+                      <p class="none_details">你可以先选择"需要施工"来激活服务列表，然后点击创建来添加配套的服务项目</p>
+                    </div>
+                    <div class="list" id="lists">
+                      <div class="list_top">
+                        <ul>
+                          <li class="first_td" >#</li>
+                          <li class="second_td" >名称</li>
+                          <li class="third_td" >数量</li>
+                          <li class="forth_td">施工时间</li>
+                          <li class="fifth_td border-none">技师</li>
+                        </ul>
+                      </div>
+                      <div class="list_content list_tr" data-id="list_content_01">
+                        <ul class=" list_tr_hover">
+                          <li class="first_td">1.</li>
+                          <li class="second_td">澜泰纳米镀金</li>
+                          <li class="third_td">1</li>
+                          <li class="forth_td">120</li>
+                          <li class="fifth_td border-none">高级-高级
+                           <span class="delete close" data-target="list_content_01"> × </span>
+                          </li>
+                        </ul>
+
+                      </div>
+                      <div class="list_content list_tr" data-id="list_content_02">
+                        <ul class="list_tr_hover">
+                          <li class="first_td">2.</li>
+                          <li class="second_td">澜泰纳米镀金</li>
+                          <li class="third_td">1</li>
+                          <li class="forth_td">120</li>
+                          <li class="fifth_td border-none">高级-高级</a><span class="delete close" data-target="list_content_02"> × </span></li>
+                        </ul>
+                      </div>
+                      <div class="list_content list_tr" data-id="list_content_03">
+                          <ul class="list_tr_hover">
+                            <li class="first_td">3.</li>
+                            <li class="second_td">澜泰纳米镀金</li>
+                            <li class="third_td">1</li>
+                            <li class="forth_td">120</li>
+                            <li class="fifth_td border-none">高级-高级<span class="delete close" data-target="list_content_03"> × </span></li>
+                          </ul>
+                      </div>
+                    </div>
+
+
+                    <div class="add_server" id="add_server" style="display:none;">
+                      <div class="pure-u-1-2  text-align-left float-left ">
+                        <label class="width-50">服务名称</label>
+                        <input type="text" class="width-130">
+                      </div>
+                      <div class="pure-u-1-2 text-align-right float-left ">
+                        <label class="width-50">施工时间</label>
+                        <input type="text" class="width-130">
+                      </div>
+                      <div class="pure-u-1-2  text-align-left float-left ">
+                        <label class="width-50">技师</label>
+                        <input type="text" class="width-130">
+                      </div>
+                      <div class="pure-u-1-2 text-align-right float-left ">
+                        <label class="width-50">施工提成</label>
+                        <input type="text" class="width-130">
+                      </div>
+                      <div class="pure-u-1-2  text-align-left float-left ">
+                       <label class="width-50">次数</label>
+                       <input type="text" class="width-55">
+                       <label class="width-50">售后回访</label>
+                       <input type="checkbox" class="width-15">
+                      </div>
+                      <div class="pure-u-1-2 text-align-right float-left ">
+                        <label class="width-60">回访时间:</label>
+                        <label class="width-60">施工结束后</label>
+                        <select class="width-60">
+                          <option></option>
+                          <option></option>
+                        </select>
+                      </div>
+                      <div class=" text-align-left float-right  pure-u-2-2">
+                        <label class="width-60">回访内容：</label>
+                        <label class="width-75 text-align-left"> 回访方式</label>
+                        <select class="width-253">
+                          <option></option>
+                          <option></option>
+                        </select>
+
+                       </div>
+                       <div class=" text-align-left float-right   pure-u-2-2">
+                        <label class="width-75 text-align-left"> 选择短信模板</label>
+                        <select class="width-253">
+                          <option></option>
+                          <option></option>
+                        </select>
+                      </div>
+
+                      <div class=" text-align-left float-right   pure-u-2-2 model">
+                        <textarea > </textarea>
+                        <div>
+                          <label>保存为模板</label>
+                          <input type="checkbox">
+                        </div>
+                      </div>
+
+                      <div class="btn_group">
+                        <input type="button"  value="取消" class="cancel_btn btn cancel"  >
+                        <input type="button"  value="保存" class="save_btn btn add_cancel"   >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="btn_group">
+                <a href="ticheng.html"  class="save_btn btn" >保存</a>
+              </div>
+            </div>
+          </div>
+      </div>

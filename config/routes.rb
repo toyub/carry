@@ -35,9 +35,9 @@ Rails.application.routes.draw do
     end
 
     resources :material_inventories
-
-    resources :material_orders
+    
     get "material_orders/nowaus", controller: 'material_orders', action: 'nowaus', as: :nowaus
+    resources :material_orders
     resources :store_suppliers do
       resources :material_orders
     end

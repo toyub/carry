@@ -1,296 +1,239 @@
-<% content_for :pre_assets do %>
-  <%= javascript_include_tag 'kucun/materials/saleinfo' %>
-<% end %>
-
 <div class="main_top">
-  <span class="add_span">+</span>
-</div>
-    <div class="details">
-      <div class="container_list">
-        <div class="top_content records">
-          <%= render partial: '/kucun/materials/table_head' %>
-        </div>
-        <div class="details_nav">
-          <%= render partial: '/kucun/materials/material_settings_url' %>
-        </div>
-        <div class="details_nav_second">
-          <ul class="goods_nav">
-            <li><a href="#" class="width-90">▲上一件商品</a></li>
-            <li><a href="#" class="width-90">▼下一件商品</a></li>
-            <li ><a href="#" class="width-90">返回列表</a></li>
-          </ul>
-        </div>
-      <div class="details_content">
-        <div class="base_info">
-
-         <div class="goods_img">
-            <div id='material_img_preview' class="goods_main_img"></div>
-            <ul id='material_img_thumbnails' class="goods_small_img">
-                <li id='preview_list'>
-                  <% @store_material.store_material_images.each do |image| %>
-                    <img src="<%= image.asset_path %>">
-                  <% end %>
-                </li>
+        <h2>库存列表</h2>
+        <span class="add_span">+</span>
+      </div>
+      <div class="details">
+        <div class="container_list">
+          <%= render partial: 'kucun/materials/table_head' %>
+          <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
+          <div class="details_nav_second">
+            <ul class="goods_nav">
+              <li><a href="#" class="width-90">▲上一件商品</a></li>
+              <li><a href="#" class="width-90">▼下一件商品</a></li>
+              <li ><a href="#" class="width-90">返回列表</a></li>
             </ul>
           </div>
-          <div class=" car_content">
+          <div class="details_content">
+            <div class="base_info">
+              <div class="goods_img">
+                <div id='material_img_preview' class="goods_main_img"></div>
+                <ul id='material_img_thumbnails' class="goods_small_img">
+                    <li id='preview_list'></li>
+                    <li data-id='0'><a class='fa fa-plus-square add_img font-30' href="javascript:void(0);"></a></li>
+                </ul>
+              </div>
+              <div class=" car_content">
+                <div class="pure-u-1-2 float-left">
+                  <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
+                    <colgroup>
+                      <col width="50%">
+                      <col width="50%">
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label class="width-75">商品名称</label>
+                          <input type="text" class="width-165" value="碳纤白色保护膜" readonly />
+                        </td>
+                        <td>
+                          <label class="width-75">规格</label>
+                          <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly="true"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="width-75">最低售价</label>
+                          <input type="text" class="width-165" value="0.00" readonly />
+                        </td>
+                        <td>
+                          <label class="width-75">零售价</label>
+                          <input type="text" class="width-165"  />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="width-75 display-inline-block text-align-right">
+                            <input type="radio"  class="toggleable width-13" data-target="bargain" data-checked>
+                            优惠价
+                          </span>
+                          <input type="text" class="width-165" data-id="bargain" disabled="disabled" required="true">
+                        </td>
+                        <td>
+                          <label class="width-75">批发价</label>
+                          <input type="text" class="width-165">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label class="width-75">商品积分</label>
+                          <input type="text" class="width-165">
+                        </td>
+                        <td>
+                          <label class="width-75">销售分类</label>
+                          <select type="text" class="width-167">
+                            <option>是另一个标签</option>
+                            <option>例如:清洁类</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <fieldset class="width-490 margin-left-26">
+                            <legend class="margin-left-10">
+                              <input type="checkbox" class="toggleable" data-target="divide_to_retail">
+                              <label>此商品拆分销售</label>
+                            </legend>
+                            <div>
+                              <label class="width-75">计量单位</label>
+                              <select disabled class="width-80">
+                                <option>米</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label class="width-75">总量</label>
+                              <input type="text" class="width-165" readonly>
+                            </div>
+                          </fieldset>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <fieldset class="width-490 margin-left-26">
+                            <legend class="margin-left-10">
+                              <input type="checkbox" class="toggleable" data-target="divide_to_retail">
+                              <label>需要施工</label>
+                            </legend>
 
-            <div class="pure-u-1-2 float-left">
-              <div class="item_content">
-                <label class="width-75">商品名称</label>
-                <span class="width-155 inline_block text-align-left"><%= @store_material.name %></span>
-              </div>
-              <div class="item_content">
-                <label class="width-75">规 格</label>
-                <span class="width-155 inline_block text-align-left"><%= @store_material.speci %></span>
-              </div>
-              <div class="item_content">
-                <label class="width-75">零售价</label>
-                <input name='saleinfo[retail_price]' type="text" class="width-160" required=true >
-              </div>
-              <div class="item_content">
-                <label class="width-75"><input class='toggleable' type="radio" data-target='bargain_price'>优惠价</label>
-                <input data-id='bargain_price' type="text" class="width-160" disabled>
-              </div>
-              <div class="item_content">
-                <label class="width-75">批发价</label>
-                <input name='saleinfo[trade_price]' type="text" class="width-160" required=true >
-              </div>
+                            <div>
+                              <label class="width-75">工时价格</label>
+                              <input type="text" class="width-165" readonly>
+                            </div>
+                          </fieldset>
+                        </td>
+                      </tr>
 
-              <div class="item_content">
-                <label class="width-75">商品积分</label>
-                <input type="text" class="width-160">
-              </div>
-              <div class="item_content">
-                <label class="width-75">销售分类</label>
-                <select type="text" class="width-165">
-                  <option>一个分类</option>
-                  <option>两个分类</option>
-                </select>
-              </div>
-              <div class="clr"></div>
-              <div class>
-                <fieldset class="width-482">
-                  <legend class="text-align-left">
-                    <label>
-                      <input type="checkbox" class="toggleable" name="need_mechanic" data-target="need_mechanic" value data-checked />
-                      需要施工
-                    </label>
-                  </legend>
-                    <div class="item_content">
-                      <label class="width-75">工时价格</label>
-                      <input type="text" class="width-165" data-id="need_mechanic" disabled="disabled"/>
+                    </tbody>
+                  </table>
+
+                </div>
+                <div  class="pure-u-1-2 float-left">
+                  <div class="server_list" >
+                    <div class="top">
+                      <h2>服务项目列表</h2>
                     </div>
-                </fieldset>
-              </div>
+                    <div class="none_server_data">
+                      <p class="none_server_p">当前没有配套服务</p>
+                      <p class="none_details">你可以先选择"需要施工"来激活服务列表，然后点击创建来添加配套的服务项目</p>
+                    </div>
+                    <div class="list" id="lists" style="display:block;">
+                      <div class="list_top">
+                        <ul>
+                          <li class="first_td" >#</li>
+                          <li class="second_td" >名称</li>
+                          <li class="third_td" >数量</li>
+                          <li class="forth_td">施工时间</li>
+                          <li class="fifth_td border-none">技师</li>
+                        </ul>
+                      </div>
+                      <div class="list_content list_tr">
+                        <ul class="list_tr_hover">
+                          <li class="first_td">1.</li>
+                          <li class="second_td">澜泰纳米镀金</li>
+                          <li class="third_td">1</li>
+                          <li class="forth_td">120</li>
+                          <li class="fifth_td border-none">高级-高级
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="list_content list_tr">
+                        <ul class="list_tr_hover">
+                          <li class="first_td">2.</li>
+                          <li class="second_td">澜泰纳米镀金</li>
+                          <li class="third_td">1</li>
+                          <li class="forth_td">120</li>
+                          <li class="fifth_td border-none">高级-高级
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="list_content list_tr">
+                          <ul class="list_tr_hover">
+                            <li class="first_td">3.</li>
+                            <li class="second_td">澜泰纳米镀金</li>
+                            <li class="third_td">1</li>
+                            <li class="forth_td">120</li>
+                            <li class="fifth_td border-none">高级-高级
+                            </li>
+                          </ul>
+                      </div>
+                    </div>
+                    <div class="add_server" id="add_server" style="display:none;">
+                      <div class="pure-u-1-2  text-align-left float-left ">
+                        <label class="width-50">服务名称</label>
+                        <input type="text" class="width-130">
+                      </div>
+                      <div class="pure-u-1-2 text-align-right float-left ">
+                        <label class="width-50">施工时间</label>
+                        <input type="text" class="width-130">
+                      </div>
+                      <div class="pure-u-1-2  text-align-left float-left ">
+                        <label class="width-50">技师</label>
+                        <input type="text" class="width-130">
+                      </div>
+                      <div class="pure-u-1-2 text-align-right float-left ">
+                        <label class="width-50">施工提成</label>
+                        <input type="text" class="width-130">
+                      </div>
+                      <div class="pure-u-1-2  text-align-left float-left ">
+                       <label class="width-50">次数</label>
+                       <input type="text" class="width-55">
+                       <label class="width-50">售后回访</label>
+                       <input type="checkbox" class="width-15">
+                      </div>
+                      <div class="pure-u-1-2 text-align-right float-left ">
+                        <label class="width-60">回访时间:</label>
+                        <label class="width-60">施工结束后</label>
+                        <select class="width-60">
+                          <option></option>
+                          <option></option>
+                        </select>
+                      </div>
+                      <div class=" text-align-left float-right  pure-u-2-2">
+                        <label class="width-60">回访内容：</label>
+                        <label class="width-75 text-align-left"> 回访方式</label>
+                        <select class="width-253">
+                          <option></option>
+                          <option></option>
+                        </select>
 
-              <div class="width-472" style="margin-left:46px;">
-                <textarea class="server_textarea width-482" placeholder="输入备注"></textarea>
+                       </div>
+                       <div class=" text-align-left float-right   pure-u-2-2">
+                        <label class="width-75 text-align-left"> 选择短信模板</label>
+                        <select class="width-253">
+                          <option></option>
+                          <option></option>
+                        </select>
+                      </div>
+
+                      <div class=" text-align-left float-right   pure-u-2-2 model">
+                        <textarea > </textarea>
+                        <div>
+                          <label>保存为模板</label>
+                          <input type="checkbox">
+                        </div>
+                      </div>
+                      <div class="btn_group">
+                        <input type="button"  value="取消" class="cancel_btn btn cancel"  >
+                        <input type="button"  value="保存" class="save_btn btn server_save add_cancel"   >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="btn_group">
+                <a href="xiaoshoushezhiedit.html"  class="edit_btn btn" >编辑</a>
+
               </div>
             </div>
-
-            <div class="pure-u-1-2 float-left">
-              <div class="server_list" >
-                <div class="top">
-                  <h2>服务项目列表</h2>
-                  <a class="new_btn">创建</a>
-                </div>
-                <div class="list">
-
-                  <ul class="list_top">
-                    <li class="list_tr">
-                         <ul>
-                            <li class="first_td">#</li>
-                            <li class="second_td">名称</li>
-                            <li class="third_td">数量</li>
-                            <li class="forth_td">施工时间</li>
-                            <li class="fifth_td border-none">技师</li>
-                        </ul>
-                    </li>
-                  </ul>
-
-                  <div id='no_service_tip'>
-                    <p class="none_server_p">当前没有配套服务</p>
-                    <p class="none_details">你可以先选择"需要施工"来激活服务列表，然后点击创建来添加配套的服务项目</p>
-                  </div>
-
-                </div>
           </div>
-         </div>
-        </div>
-
-        <div class="btn_group">
-           <input type="button"  value="取消" class="cancel_btn btn" >
-           <input type="button"  value="保存" class="save_btn btn" >
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<% content_for :scenes do %>
-<script type='text/tmpl' id='lslfdsafj_tmpl' hidden >
-  <form method="patch" action='<%= kucun_material_saleinfo_material_services_path(@store_material) %>'>
-    <div class="pure-u-1-2  text-align-left float-left ">
-      <label class="width-50">服务名称</label>
-      <input name="service[name]" type="text" class="width-130" required=true>
-    </div>
-    <div class="pure-u-1-2 text-align-right float-left ">
-      <label class="width-50">施工耗时</label>
-      <input name="service[time_consuming]" type="text" class="width-100" required=true>分钟
-    </div>
-    <div class="pure-u-1-2 text-align-right float-left ">
-      <label class="width-50">施工提成</label>
-      <input name="service[commission]" type="text" class="width-130" required=true>
-    </div>
-    <div class="pure-u-1-2  text-align-left float-left ">
-      <label class="width-50">次数</label>
-      <input name="service[number]" type="text" class="width-55" required=true>
-    </div>
-    <div class="pure-u-1-2 text-align-right float-left ">
-      <label><input class="toggleable" name="service[tracing_needed]" data-target="tracing" type="checkbox">售后回访</label>
-      <p>
-        <label>回访时间: 施工结束后</label>
-        <select data-id='tracing' name="service[tracing_delay]" required=true disabled>
-          <option></option>
-          <option value="30">30分钟</option>
-          <option value="60">1个小时</option>
-        </select>
-      </p>
-      <p>
-        <label> 选择短信模板</label>
-        <select data-id='tracing' required=true name="service[tracing_message_id]" disabled>
-          <option></option>
-          <option data-content='我是回访的内容，请给我好评!' value="1">人工回访模板一</option>
-          <option data-content='好评好评，我要好评，要好评!' value="2">短信回访模板二</option>
-        </select>
-      </p>
-      <textarea data-id='tracing' name="service[tracing_message]" class="item_textarea" disabled></textarea>
-    </div>
-    <div class="btn_group">
-      <input type="button" value="取消">
-      <input type="submit" value="保存">
-    </div>
-  </form>
-</script>
-<% end %>
-
-<% content_for :javascripts do %>
-  <script>
-    jQuery(function($){
-      $("div.list").on('click', '.list_content', function(){
-        if(!this.dataset.show){
-          this.dataset.show = true;
-          $("[data-id='"+this.dataset.target+"']").show();
-        }else{
-          this.dataset.show = '';
-          $("[data-id='"+this.dataset.target+"']").hide();
-        }
-      });
-
-      (function(win, doc, Backbone, $$MIS){
-        var MaterialService = Backbone.Model.extend({
-          defaults: {
-            number: null,
-            name: null,
-            time_consuming: null
-          },
-
-          save: function(key, val, options){
-            var model = this;
-            if(!this.get('tracing_needed')){
-              this.unset('tracing_delay');
-              this.unset('tracing_message');
-              this.unset('tracing_message_id');
-            }
-            $.ajax({
-              method: 'POST',
-              url: this.url,
-              data: {
-                metarial_service: this.attributes
-              },
-              success:function(data){
-                model.set('id', data.id)
-                model.url = model.url + "/" + data.id;
-              }
-            })
-          }
-
-        });
-        win.$$MIS = $$MIS || {};
-        win.$$MIS.MaterialService = MaterialService;
-      })(window, document, Backbone, window.$$MIS);
-
-
-      (function(win, doc, Backbone, $$MIS){
-        var View = Backbone.View.extend({
-          events: {
-            'change [name]': "set_attr",
-            'click input[type="submit"]': 'rerender',
-            'submit form': 'form_save',
-            'change select[name="service[tracing_message_id]"]': 'set_tracing_message'
-          },
-
-          tmpl: _.template('<li class="first_td">1.</li><li class="second_td">{%= name %}</li><li class="third_td">{%= number %}</li><li class="forth_td">{%= time_consuming %}</li><li class="fifth_td border-none">高级-高级</li>'),
-
-          rerender: function(){
-            var ul = this.tmpl(this.model.toJSON());
-            $("#service_" + this.vid + "> ul").html(ul);
-          },
-
-          set_attr: function(evt){
-            var input = evt.currentTarget;
-            var name = input.name.match(/\[(.*)\]/)[1];
-            if(!!name){
-              this.model.set(name, input.value);
-            }
-            if(name=='tracing_needed'){
-              this.model.set(name, input.checked);
-            }
-          },
-
-          set_tracing_message: function(event){
-            var selected_option = event.target.options[event.target.selectedIndex];
-            this.$('textarea[name="service[tracing_message]"]').val(selected_option.dataset.content).trigger('change');
-          },
-
-          form_save: function(event){
-            event.preventDefault();
-            event.stopPropagation();
-            var form = event.target;
-            this.model.url = form.action;
-            this.model.save();
-          }
-        });
-
-        win.$$MIS = $$MIS || {};
-        win.$$MIS.MaterialServiceView = View;
-      })(window, document, Backbone, window.$$MIS);
-
-      $('a.new_btn').on('click', function(){
-
-        if($("#no_service_tip").is(':visible')){
-          $("#no_service_tip").hide();
-        }
-
-        var vid = $('div.list').children("ul").length;
-        var x = $("<div data-id='service_"+vid+"' class='add_server' style='display:none;'>").html($("#lslfdsafj_tmpl").html());
-        var m = $("<div id='service_"+vid+"' class='list_content' data-target='service_"+vid+"'>");
-        v1 = new window.$$MIS.MaterialServiceView({el: x, model: new window.$$MIS.MaterialService()});
-        v1.vid = vid;
-        m.html("<ul>" + v1.tmpl(v1.model.toJSON()) + "</ul> <a class='close_btn'></a>");
-        v1.model.url = ''
-        v1.model.view = v1;
-        $('div.list').append(m);
-        $('div.list').append(x);
-        m.find('a.close_btn').on('click', function(event){
-          event.preventDefault();
-          event.stopPropagation();
-          if(confirm('You want delete this?')){
-            console.log(22)
-            v1.model.destroy();
-          }
-        })
-      });
-    });
-  </script>
-<% end %>

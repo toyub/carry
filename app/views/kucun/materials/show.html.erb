@@ -1,117 +1,148 @@
 <div class="main_top">
-    <span class="add_span">+</span>
-</div>
-<div class="details">
-  <div class="container_list">
-    <div class="top_content records">
-      <%= render partial: 'table_head' %>
-    </div>
-    <div class="details_nav">
-      <%= render partial: 'material_settings_url' %>
-    </div>
-    <div class="details_nav_second">
-      <ul class="goods_nav">
-        <li><a href="#" class="width-90">▲上一件商品</a></li>
-        <li><a href="#" class="width-90">▼下一件商品</a></li>
-        <li ><a href="#" class="width-90">返回列表</a></li>
-      </ul>
-    </div>
-    <div class="details_content">
-      <div class="base_info">
-        <div class="goods_img">
-          <div id='material_img_preview' class="goods_main_img"></div>
-          <ul id='material_img_thumbnails' class="goods_small_img">
-              <li id='preview_list'>
-                <% @store_material.store_material_images.each do |image| %>
-                  <img src="<%= image.asset_path %>">
-                <% end %>
-              </li>
-          </ul>
-        </div>
-
-        <div class=" car_content">
-        <div class="pure-u-1-1">
-          <div class="item_content">
-            <label class="width-75">商品名称</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.name %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">条形码</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.barcode %></span>
-          </div>
-
-          <div class="item_content">
-            <label class="width-75">一级分类</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.store_material_category.parent.name %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">二级分类</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.store_material_category.name %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">商品规格</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.speci %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">商品单位</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.store_material_unit.name %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">成本价</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.cost_price %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">最低售价</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.min_price %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">商品品牌</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.store_material_brand.name %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">生产单位</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.store_material_manufacturer.name %></span>
-          </div>
-          <div class="item_content">
-            <label class="width-75">助记码</label>
-            <span class="width-155 inline_block text-align-left"><%= @store_material.mnemonic %></span>
-          </div>
-          <div class="item_content outline item_inventory">
-            <label class="width-80">
-              库存预警<%= @store_material.inventory_alarmify ? "[开]" : "[关]" %>：
-            </label>
-            <div class="inline_block width-167">
-              <label class="width-75">数量上限</label>
-              <span class="width-40 inline_block text-align-left"><%= @store_material.max_inventory %></span>
-            </div>
-
-            <div class="inline_block width-167">
-              <label class="lab_50">数量下限</label>
-              <span class="width-40 inline_block text-align-left"><%= @store_material.min_inventory %></span>
-            </div>
-          </div>
-          <div class="item_content shelf_life">
-            <label class="width-80">保质期提醒<%= @store_material.expiry_alarmify ? "[开]" : "[关]" %></label>
-            <div class="input_span">
-              <span class="width-20 inline_block text-align-left"><%= @store_material.shelf_life %></span>
-              <span>天</span>
-            </div>
-          </div>
-          <div class="item_textarea ">
-            <label for="">备注：</label>
-            <p class="textarea-width"><%= @store_material.remark %></p>
-          </div>
-
-          <div class="item_content">
-              <label class="width-75">状态</label>
-              <span class="width-165">!TODO</span>
-          </div>
-          </div>
-        </div>
+        <h2>库存列表</h2>
+        <span class="add_span">+</span>
       </div>
-      <div class="btn_group">
-        <a href="javascript:alert('你没有权限！')" class="btn save_btn">编辑商品信息</a>
+      <div class="details">
+        <%= render partial: 'table_head' %>
+        <div class="details_nav"><%= render partial: 'material_settings_url' %></div>
+          <div class="details_nav_second">
+            <ul class="goods_nav">
+              <li><a href="#" class="width-90">▲上一件商品</a></li>
+              <li><a href="#" class="width-90">▼下一件商品</a></li>
+              <li ><a href="#" class="width-90">返回列表</a></li>
+            </ul>
+          </div>
+          <div class="details_content">
+            <div class="base_info">
+              <div class="goods_img">
+                <div id='material_img_preview' class="goods_main_img"></div>
+                <ul id='material_img_thumbnails' class="goods_small_img">
+                    <li id='preview_list'>
+                      <% @store_material.store_material_images.each do |image| %>
+                        <img src="<%= image.asset_path %>">
+                      <% end %>
+                    </li>
+                </ul>
+              </div>
+
+              <div class=" car_content">
+                <div class="pure-u-1-1">
+                  <div class="item_content">
+                    <label class="width-75">商品名称</label>
+                    <input type="text" class="width-165" placeholder="请输入名称" value="碳纤白色保护膜" readonly>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">条形码</label>
+                    <input type="text" class="width-165" placeholder="若不填则系统自动生成" value="N0000100001" readonly>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">助记码</label>
+                    <input type="text" class="width-165" value="txbm" readonly>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">商品规格</label>
+                    <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">成本价</label>
+                    <input type="text" class="width-165"  value="20000.00" readonly>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">最低售价</label>
+                    <input type="text" class="width-165" value="0.0" readonly>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">一级分类</label>
+                    <select  class="width-167" disabled>
+                      <option selected="selected">美容</option>
+                      <option>配件</option>
+                      <option>套装</option>
+                      <option>耗材</option>
+                      <option>工具</option>
+                    </select>
+
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">二级分类</label>
+                    <select  class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected">汽车膜</option>
+                      <option>镀晶</option>
+                    </select>
+                  </div>
+
+                  <div class="item_content">
+                    <label class="width-75">商品单位</label>
+                    <select class="width-167" disabled="disabled">
+                      <option >请选择</option>
+                      <option selected="selected">平方米</option>
+                      <option>个</option>
+                      <option>盒</option>
+                      <option>瓶</option>
+                      <option>条</option>
+                    </select>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">商品品牌</label>
+                    <select class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected" >澳大利亚卡古</option>
+                      <option>米其林</option>
+                      <option>澜泰</option>
+                      <option>巴尔扎克</option>
+                      <option>途乐</option>
+                    </select>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">生产单位</label>
+                    <select class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected">天津卡吉</option>
+                      <option>杭州米其林</option>
+                      <option>杭州澜泰</option>
+                      <option>米其林进口</option>
+                      <option>杭州雪兰</option>
+                      <option>杭州鼎洪</option>
+                    </select>
+                  </div>
+                  <div class="item_content outline item_property text-align-left margin-left-54">
+                    <label class="width-75">商品属性</label>
+                    <input type="checkbox" checked="checked" disabled class="margin-left-15"><label>自用</label>
+
+                  </div>
+
+
+                  <div class="item_content outline item_inventory margin-left-106">
+                    <label class="width-85  font-weight-bold">
+                      库存预警[关]：
+                    </label>
+                    <div class="display-inline-block width-155 text-align-center">
+                      <label>数量上限</label>
+                      <input data-id="inventory" disabled="true" type="text" class="width-80" required="true">
+                    </div>
+                    <div class="display-inline-block width-155 text-align-center">
+                      <label>数量下限</label>
+                      <input data-id="inventory" disabled="true" type="text" class="width-80" required="true">
+                    </div>
+                  </div>
+
+                  <div class="item_content outline shelf_life margin-left-50">
+                    <label >保质期提醒[关]</label>
+                    <div class="input_div">
+                      <input type="text" class="width-50 border-none" data-id="shelf_life" disabled="disabled" required="true" readonly>
+                      <label>天</label>
+                    </div>
+                  </div>
+                  <div class="item_textarea ">
+                    <label class="width-75">备注</label>
+                    <textarea class="textarea-width  text-indent-5 width-976" disabled="disabled">备注备注</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="btn_group">
+              <a href="#" class="btn edit_btn">编辑商品信息</a>
+
+            </div>
+          </div>
       </div>
-    </div>
-  </div>
-</div>
