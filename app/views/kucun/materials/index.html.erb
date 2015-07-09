@@ -44,50 +44,33 @@
           打印</a>
       </div>
     </div>
-    <table cellpadding="0" cellspacing="0" class="content_table">
+    <table id='materials' cellpadding="0" cellspacing="0" class="content_table">
       <colgroup>
-        <col width="3%"><col width="10%"><col width="8%">
+        <col width="3%">
+        <col width="12%">
+        <col width="8%">
         <col width="7%">
         <col width="8%">
-        <col width="8%">
+        <col width="15%">
         <col width="5%">
-        <col width="8%">
         <col width="8%">
         <col width="6%">
-        <col width="10%">
-        <col width="8%">
-        <col width="5%">
+        <col width="12%">
+        <col width="4%">
       </colgroup>
       <thead>
         <tr>
-          <th >
-            #
-          </th>
-          <th >
-            商品名称
-          </th>
-          <th >
-            商品条形码</th>
-          <th >
-            一级分类</th>
-          <th >
-            二级分类</th>
-          <th>
-            规格</th>
-          <th>
-            单位</th>
-          <th >
-            成本价</th>
-          <th>
-            销售价</th>
-          <th>
-            库存数</th>
-          <th>
-            供应商</th>
-          <th>
-            备注</th>
-          <th >
-            操作</th>
+          <th>#</th>
+          <th>商品名称</th>
+          <th>商品条形码</th>
+          <th>一级分类</th>
+          <th>二级分类</th>
+          <th>规格</th>
+          <th>单位</th>
+          <th>成本价</th>
+          <th>库存数</th>
+          <th>备注</th>
+          <th>操作</th>
         </tr>
       </thead>
       <tbody>
@@ -95,20 +78,55 @@
         <tr>
           <td class="number">1</td>
           <td><a href="<%= kucun_material_path(material) %>"><%= material.name %></a></td>
-          <td>3080309075990</td>
-          <td>汽车配件</td>
-          <td>轮胎</td>
-          <td>185/60/14XM291V</td>
-          <td>条</td>
-          <td>530.00</td>
-          <td>650.00</td>
-          <td>8</td>
-          <td>杭州力德贸易有限公司</td>
-          <td></td>
-          <td><span class="operate_icon"><i class="fa fa-file-text-o "></i></span></td>
+          <td><%= material.barcode %></td>
+          <td><%= material.store_material_category.parent.name %></td>
+          <td><%= material.store_material_category.name %></td>
+          <td><%= material.speci %></td>
+          <td><%= material.store_material_unit.name %></td>
+          <td><%= material.cost_price %></td>
+          <td><%= material.inventory %></td>
+          <td><%= material.remark %></td>
+          <td><span class="operate_icon" data-id='<%= material.id %>' ><i class="fa fa-file-text-o "></i></span></td>
         </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 </div>
+
+
+<% content_for :scenes do %>
+<div id='operate' class='operate'></div>
+<% end %>
+
+<% content_for :javascripts do %>
+
+  <script type="text/javascript">
+    jQuery(function(){
+      var tmp = _.template("<a href='/kucun/materials/{%= id %}'>商品详情</a><a href=''>订货</a><a href=''>入库</a><a href=''>出库</a><a href=''>退货</a><a href=''>报损</a><a href=''>备注</a>")
+      var $materials = $("#materials");
+      var $operate = $("#operate");
+      $(document).on("click", function(){
+        $materials.find('span.current').removeClass("current");
+        $operate.hide();
+      });
+      $materials.on("click", '.operate_icon', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        var op_width =61;
+        var $this = $(this);
+        if($this.hasClass("current")){
+          $this.removeClass("current");
+          $operate.hide();
+        }else{
+          var b_c_r=this.getBoundingClientRect();
+          $materials.find('span.current').removeClass("current");
+          $this.addClass("current");
+          $operate.html(tmp({id: $this.data('id')})).css({top: b_c_r.top+b_c_r.height, left: (b_c_r.left - b_c_r.width - op_width)}).show();
+        }
+      })
+
+    });
+  </script>
+
+<% end %>

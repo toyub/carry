@@ -8,7 +8,8 @@ class Store <  ActiveRecord::Base
   has_many :store_material_manufacturers
   has_many :store_depots
   has_many :store_suppliers
+  has_many :store_material_inventories
 
   validates :name, presence: true
-
+  
 end

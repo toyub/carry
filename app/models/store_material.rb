@@ -19,8 +19,14 @@ class StoreMaterial < ActiveRecord::Base
 
   after_save :generate_barcode!
 
-  def inventory
-    @inventory ||= self.store_material_inventories.sum(:quantity)
+  def inventory(depot_id=nil)
+    if @inventory.present?
+      return @inventory
+    else
+      count_scope = self.store_material_inventories
+      count_scope = count_scope.where(store_depot_id: depot_id) if depot_id.present?
+     @inventory = count_scope.sum(:quantity)
+   end
   end
 
   private
