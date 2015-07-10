@@ -81,3 +81,7 @@ end
 
 # Use jquery as the JavaScript library
 #gem 'jquery-rails'
+
+# 发送短信
+gem 'sms_client', git: 'git@git.icar99.com:/opt/git/wisdom/sms_client.git', tag: 'v0.0.2'
+
