@@ -11,6 +11,7 @@ class StoreMaterial < ActiveRecord::Base
   has_one :smc_salesman_personal
   has_one :smc_mechanic_department
   has_one :smc_mechanic_personal
+  has_one :store_material_saleinfo
 
   has_many :store_material_inventories
   has_many :store_material_orders

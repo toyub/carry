@@ -6,6 +6,7 @@
 //= require 'app/views/material_category'
 //= require 'app/collections/material_category'
 //= require 'piccut/1.0.0'
+//= require 'helpers/kucun/piccut_thumbnail'
 //= require 'as_select'
 //= require helpers/kucun/page_dom_init
 //= require_self
