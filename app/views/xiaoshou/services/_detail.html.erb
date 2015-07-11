@@ -1,0 +1,40 @@
+<div class="pure-u-1-2 float-left">
+  <div class="item_content">
+    <%= form.label :name, '服务名称', class: 'width-75' %>
+    <%= form.text_field :name, class: 'width-165' %>
+  </div>
+  <div class="item_content">
+    <%= form.label :retail_price, '销售价', class: 'width-75' %>
+    <%= form.text_field :retail_price, class: 'width-165' %>
+  </div>
+  <div class="item_content">
+    <input type="radio" class="toggleable margin-left-15" data-target="radio_btn" data-checked  >
+    <label class="width-40">
+      优惠价
+    </label>
+    <input type="text" class="width-165"  data-id="radio_btn" disabled="disabled" required="true">
+  </div>
+  <div class="item_content">
+    <label class="width-75">服务积分</label>
+    <input type="text" class="width-165">
+  </div>
+  <div class="item_content">
+    <label class="width-75">服务代码</label>
+    <input type="text" class="width-165">
+  </div>
+  <div class="item_content">
+    <label class="width-75">服务类别</label>
+    <select type="text" class="width-165">
+      <option></option>
+      <option></option>
+    </select>
+  </div>
+  <div class="item_textarea ">
+    <label class="width-75">服务介绍</label>
+    <textarea class="server_textarea width-432"></textarea>
+  </div>
+  <div class="item_textarea ">
+    <label class="width-75">备注</label>
+    <textarea class="height-120 text-indent-5 width-432" ></textarea>
+  </div>
+</div>

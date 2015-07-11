@@ -1,0 +1,95 @@
+<div class="main_top">
+  <h2>服务项目列表</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="top_content records">
+    <%= render 'summary' %>
+  </div>
+
+  <div class="list_table">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>查找服务</label>
+        <input type="text" class="width-150" placeholder="输入产品关键字">
+      </div>
+      <div class="item-query">
+        <label>服务类别</label>
+        <select type="text" class="width-150">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query c_price">
+        <div class="link" id="link_drop_list">
+          <span class="float-left margin-right-10" title="价格从高到低">价格</span>
+          <span><i class="fa fa-angle-down"></i></span>
+        </div>
+        <ul class="drop_list" id="drop_list">
+          <li class="sort"><a href="#" class="p_link">价格从低到高</a></li>
+          <li class="sort"><a href="#" class="p_link">价格从高到低</a></li>
+          <li class="sort"><a href="#" class="p_link">总价从低到高</a></li>
+          <li class="sort"><a href="#" class="p_link">总价从高到低</a></li>
+        </ul>
+      </div>
+      <div class="prices">
+        <div class="inputs" >
+          <div class="inner">
+            <ul class="items">
+              <li class="item"><input type="text" class="j_sortbar_price_input input" placeholder="¥" ></li>
+              <li class="sep">-</li>
+              <li class="item"><input type="text" class="j_sortbar_price_input input" placeholder="¥"></li>
+              <li class="submit"><button class="btn j_sortbar_price_submit">确定</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="item-query screen">
+        <div class="link">
+          <span class="float-left margin-right-10" title="价格从高到低">筛选</span>
+          <span><i class="fa fa-angle-down"></i></span>
+        </div>
+        <ul class="drop_list" >
+          <li class="sort"><a href="#" class="p_link">正常价格商品</a></li>
+          <li class="sort"><a href="#" class="p_link">优惠价格商品</a></li>
+          <li class="sort"><a href="#" class="p_link">参加活动商品</a></li>
+          <li class="sort"><a href="#" class="p_link">今天上架商品</a></li>
+          <li class="sort"><a href="#" class="p_link">本周上架商品</a></li>
+          <li class="sort"><a href="#" class="p_link">本月上架商品</a></li>
+        </ul>
+      </div>
+      <div class="operats">
+        <ul class="items">
+          <li class="item_add">
+            <%= link_to "新建", new_xiaoshou_service_path, class: 'btn add_btn' %>
+          </li>
+          <li class="item"><a href="#" class="link"><i class="fa fa-th"></i></a></li>
+          <li class="item"><a href="#" class="link"><i class="fa fa-bars"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <table cellpadding="0" cellspacing="0" class="index_list service">
+      <thead>
+        <tr>
+          <th style="border-right:0px;" >#</th>
+          <th >服务名称</th>
+          <th >服务代码</th>
+          <th >施工时间</th>
+          <th >单位</th>
+          <th>销售价</th>
+          <th>促销价</th>
+          <th >积分</th>
+          <th>技师</th>
+          <th>已售</th>
+          <th>服务分类</th>
+          <th class="last_td">状态</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @services.each_with_index do |service, index| %>
+          <%= render 'service', service: service %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

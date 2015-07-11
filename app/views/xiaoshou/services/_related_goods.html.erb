@@ -1,0 +1,171 @@
+<div class="pure-u-1-2 float-left">
+  <div class="server_list">
+  <div class="top">
+    <h2>关联商品表</h2>
+    <span class="appand_btn btn margin-top-10 float-right click_btn" id="add_server_btn">添加</span>
+  </div>
+  <div class="none_server_data" style="display:block;">
+    <p class="none_server_p">服务没有关联商品</p>
+    <p class="none_details">如果服务项目没有关联相关的商品，将会影响服务成本的统计，建议添加关联商品，点击添加进行操作。获取帮助<a href="#" class="color-73ACD4 text-decoration-underline">点我</a></p>
+  </div>
+
+  <div class="list" id="lists" style="display:none;">
+    <div class="list_top list_tr">
+      <ul>
+        <li class="first_td">#</li>
+        <li class="second_td">商品</li>
+        <li class="third_td">数量</li>
+        <li class="forth_td ">方式</li>
+      </ul>
+    </div>
+    <div class="list_content list_tr" data-id="list_content_01">
+      <ul class="list_tr_hover">
+        <li class="first_td">1.</li>
+        <li class="second_td">澜泰超浓缩洗车粉</li>
+        <li class="third_td">整计</li>
+        <li class="forth_td">领用<span class="delete close" data-target="list_content_01"> × </span></li>
+      </ul>
+    </div>
+    <div class="list_content list_tr" data-id="list_content_02">
+      <ul class="list_tr_hover">
+        <li class="first_td">1.</li>
+        <li class="second_td">澜泰超浓缩洗车粉</li>
+        <li class="third_td">整计</li>
+        <li class="forth_td">领用<span class="delete close" data-target="list_content_02"> × </span></li>
+      </ul>
+    </div>
+    <div class="list_content list_tr" data-id="list_content_03">
+      <ul class="list_tr_hover">
+        <li class="first_td">1.</li>
+        <li class="second_td">澜泰超浓缩洗车粉</li>
+        <li class="third_td">整计</li>
+        <li class="forth_td">领用<span class="delete close" data-target="list_content_03"> × </span></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="add_server" id="add_server" style="display:none;">
+      <div class="item_content text-align-left float-left ">
+        <label class="width-75">一级分类</label>
+        <select class="width-130">
+        <option></option>
+        <option></option>
+        <option></option>
+        </select>
+      </div>
+      <div class="item_content text-align-right float-left ">
+        <label class="width-75">二级分类</label>
+        <select class="width-130">
+        <option></option>
+        <option></option>
+        <option></option>
+        </select>
+      </div>
+      <div class="item_content  text-align-left float-left ">
+        <label class="width-75">关键字查找</label>
+        <input type="text" class="width-255">
+        <a href="#" class="query_btn btn">查询</a>
+      </div>
+      <div class="table_list">
+        <label class="width-75 float-left">查询结果</label>
+        <div class="query_results">
+        <table cellspacing="0" cellpadding="0" class="query_results_table">
+          <colgroup>
+          <col width="90%">
+          <col width="10%">
+          </colgroup>
+          <tbody>
+          <tr>
+            <td>澜泰超浓缩洗车粉</td>
+            <td><input type="checkbox"></td>
+          </tr>
+          <tr>
+            <td>澜泰超浓缩洗车粉</td>
+            <td><input type="checkbox"></td>
+          </tr>
+          <tr>
+            <td>澜泰超浓缩洗车粉</td>
+            <td><input type="checkbox"></td>
+          </tr>
+          </tbody>
+
+        </table>
+        </div>
+      </div>
+      <div class="table_list">
+        <label class="width-75 float-left">已选择</label>
+        <div class="selected" id="selected">
+        <table cellspacing="0" cellpadding="0" class="selected_table">
+          <colgroup>
+          <col width="38%">
+          <col width="62%">
+          </colgroup>
+          <tbody>
+          <tr>
+            <td>澜泰超浓缩洗车粉</td>
+            <td class="Selection_calculation">
+              <select class="width-55 ss">
+                <option selected="selected" value="1">整计</option>
+                <option value="2">零散</option>
+              </select>
+              <div class="scattered" style="display: none;">
+                <select class="width-78  font-12">
+                  <option>选择单位</option>
+                  <option>毫升</option>
+                  <option>升</option>
+                </select>
+
+                <input type="text" placeholder="填写剂量" class="width-55 font-12">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>澜泰超浓缩洗车粉</td>
+            <td class="Selection_calculation">
+              <select class="width-55 ss ">
+                <option value="1">整计</option>
+                <option selected="selected" value="2">零散</option>
+              </select>
+              <div class="scattered" style="display: block;">
+                <select class="width-78  font-12">
+                  <option>选择单位</option>
+                  <option>毫升</option>
+                  <option>升</option>
+                </select>
+
+                <input type="text" placeholder="填写剂量" class="width-55 font-12">
+              </div>
+            </td>
+          </tr>
+           <tr>
+            <td>澜泰超浓缩洗车粉</td>
+            <td class="Selection_calculation">
+              <select class="width-55 ss">
+                <option value="1">整计</option>
+                <option selected="selected" value="2">零散</option>
+              </select>
+              <div class="scattered" style="display: block;">
+                <select class="width-78  font-12">
+                  <option>选择单位</option>
+                  <option>毫升</option>
+                  <option>升</option>
+                </select>
+
+                <input type="text" placeholder="填写剂量" class="width-55 font-12">
+              </div>
+            </td>
+          </tr>
+
+          </tbody>
+
+        </table>
+        </div>
+      </div>
+
+      <div class="btn_group">
+        <a href="#" class="cancel_btn btn cancel">取消</a>
+        <a href="#" class="save_btn btn cancel add_cancel">保存</a>
+      </div>
+    </div>
+  </div>
+</div>

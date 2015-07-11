@@ -1,0 +1,32 @@
+<div class="main_top">
+  <h2>新建服务项目</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="top_content records">
+    <%= render 'summary' %>
+  </div>
+
+  <%= render 'nav' %>
+
+  <div class="details_content">
+    <div class="base_info">
+      <div class="goods_img">
+        <div id='material_img_preview' class="goods_main_img"></div>
+        <ul id='material_img_thumbnails' class="goods_small_img">
+          <li id='preview_list'></li>
+          <li data-id='0'><a class='fa fa-plus-square add_img font-30' href="javascript:void(0);"></a></li>
+        </ul>
+      </div>
+      <div class=" server_content">
+        <%= form_for @service, url: xiaoshou_services_path do |f| %>
+          <%= render 'detail', form: f %>
+          <%= render 'related_goods' %>
+        <% end %>
+      </div>
+      <div class="btn_group">
+        <a href="fuwushezhi.html" class="save_btn btn cancel">保存</a>
+      </div>
+    </div>
+  </div>
+</div>
