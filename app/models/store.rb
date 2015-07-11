@@ -9,6 +9,7 @@ class Store <  ActiveRecord::Base
   has_many :store_depots
   has_many :store_suppliers
   has_many :store_services
+  has_many :service_categories, class_name: 'StoreServiceCategory'
 
   validates :name, presence: true
 

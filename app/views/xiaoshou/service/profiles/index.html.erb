@@ -1,3 +1,7 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
+<% end %>
+
 <div class="main_top">
   <h2>服务项目列表</h2>
   <span class="add_span">+</span>
@@ -61,7 +65,7 @@
       <div class="operats">
         <ul class="items">
           <li class="item_add">
-            <%= link_to "新建", new_xiaoshou_service_path, class: 'btn add_btn' %>
+            <%= link_to "新建", [:new, :xiaoshou, :service, :profile], class: 'btn add_btn' %>
           </li>
           <li class="item"><a href="#" class="link"><i class="fa fa-th"></i></a></li>
           <li class="item"><a href="#" class="link"><i class="fa fa-bars"></i></a></li>

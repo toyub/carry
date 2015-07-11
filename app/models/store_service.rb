@@ -1,10 +1,11 @@
 class StoreService < ActiveRecord::Base
   belongs_to :store
+  belongs_to :store_service_category
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true
   validates :retail_price, presence: true
-  validates :store_category_id, presence: true
+  validates :store_service_category_id, presence: true
 
 end
 
@@ -25,7 +26,7 @@ end
 #  retail_price              :decimal(10, 2)   default(0.0)
 #  bargain_price             :decimal(10, 2)   default(0.0)
 #  point                     :integer
-#  Introduction              :text(65535)
+#  introduction              :text(65535)
 #  remark                    :text(65535)
 #  store_service_category_id :integer
 #  buffering_time            :integer
@@ -33,4 +34,5 @@ end
 #  engineer_count            :integer
 #  engineer_level            :integer
 #  position_mode             :integer
+#  favorable                 :boolean          default(FALSE)
 #

@@ -44,7 +44,10 @@ Rails.application.routes.draw do
   end
 
   namespace :xiaoshou do
-    resources :services, only: [:index, :new, :create]
+    namespace :service do
+      resources :profiles, only: [:index, :new, :create]
+      resources :settings, only: [:new]
+    end
   end
 
   resource :session, only: [:new, :create, :destroy]

@@ -64,6 +64,8 @@ group :development do
   gem 'capistrano-sidekiq'
   gem 'quiet_assets'
   gem 'annotate'
+  gem 'pry', "~> 0.9.12"
+  gem 'pry-nav', "~> 0.2.3"
 end
 
 # Use ActiveModel has_secure_password
