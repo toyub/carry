@@ -68,6 +68,8 @@ group :development do
   gem 'pry-nav', "~> 0.2.3"
 end
 
+gem 'backbone-on-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -12,8 +12,14 @@
 //
 //= require jquery/2.1.3.min
 //= require jquery_ujs/1.0.3
-//= require underscore/1.7.0.min
-//= require backbone/1.1.2.min
 //= require jquery_ui/1.11.2
 //= require titletip/1.0.0
 //= require menu
+//= require underscore
+//= require backbone
+//= require mis
+//= require_tree ../templates
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
