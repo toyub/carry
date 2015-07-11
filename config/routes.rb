@@ -12,16 +12,9 @@ Rails.application.routes.draw do
         post :save_picture
       end
 
-      resource :saleinfo do
-        resources :material_services
-      end
-
-      resource :commission do
-        resources :material_commissions
-      end
-
-      resource :tracking do
-      end
+      resource :saleinfo
+      resource :commission
+      resource :tracking
     end
 
     resources :material_units
