@@ -18,6 +18,7 @@
           </div>
           <div class="details_content">
             <div class="base_info">
+              <%= form_tag '/kucun/materials/2/saleinfo' do %>
               <div class="goods_img">
                 <div id='material_img_preview' class="goods_main_img"></div>
                 <ul id='material_img_thumbnails' class="goods_small_img">
@@ -53,26 +54,25 @@
                         </td>
                         <td>
                           <label class="width-75">零售价</label>
-                          <input type="text" class="width-165"  />
+                          <input type="text" class="width-165" name='store_material_saleinfo[retail_price]'  />
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <span class="width-75 display-inline-block text-align-right">
-                            <input type="radio"  class="toggleable width-13" data-target="bargain" data-checked>
-                            优惠价
-                          </span>
-                          <input type="text" class="width-165" data-id="bargain" disabled="disabled" required="true">
+                          <label class="width-75 display-inline-block text-align-right">
+                            <input type="radio" class="toggleable width-13" name='store_material_saleinfo[bargainable]' data-target="bargain" data-checked>优惠价
+                          </label>
+                          <input type="text" class="width-165" data-id="bargain" name='store_material_saleinfo[bargain_price]' disabled="disabled" required="true">
                         </td>
                         <td>
                           <label class="width-75">批发价</label>
-                          <input type="text" class="width-165">
+                          <input type="text" name='store_material_saleinfo[trade_price]' class="width-165">
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <label class="width-75">商品积分</label>
-                          <input type="text" class="width-165">
+                          <input type="text" class="width-165" name='store_material_saleinfo[reward_points]'>
                         </td>
                         <td>
                           <label class="width-75">销售分类</label>
@@ -86,18 +86,17 @@
                         <td colspan="2">
                           <fieldset class="width-490 margin-left-26">
                             <legend class="margin-left-10">
-                              <input type="checkbox" class="toggleable" data-target="divide_to_retail">
-                              <label>此商品拆分销售</label>
+                              <label><input type="checkbox" class="toggleable" name='store_material_saleinfo[divide_to_retail]' data-target="divide_to_retail">此商品拆分销售</label>
                             </legend>
                             <div>
                               <label class="width-75">计量单位</label>
-                              <select disabled class="width-80">
+                              <select data-id='divide_to_retail' disabled class="width-80">
                                 <option>米</option>
                               </select>
                             </div>
                             <div>
                               <label class="width-75">总量</label>
-                              <input type="text" class="width-165" readonly>
+                              <input data-id='divide_to_retail' type="text" class="width-165" disabled>
                             </div>
                           </fieldset>
                         </td>
@@ -106,21 +105,17 @@
                         <td colspan="2">
                           <fieldset class="width-490 margin-left-26">
                             <legend class="margin-left-10">
-                              <input type="checkbox" class="toggleable" data-target="divide_to_retail">
-                              <label>需要施工</label>
+                              <label><input type="checkbox" name='store_material_saleinfo[service_required]'>需要施工</label>
                             </legend>
-
                             <div>
                               <label class="width-75">工时价格</label>
-                              <input type="text" class="width-165" readonly>
+                              <input type="text" class="width-165" data-id='' disabled>
                             </div>
                           </fieldset>
                         </td>
                       </tr>
-
                     </tbody>
                   </table>
-
                 </div>
                 <div  class="pure-u-1-2 float-left">
                   <div class="server_list" >
@@ -173,7 +168,6 @@
                           </ul>
                       </div>
                     </div>
-
 
                     <div class="add_server" id="add_server" style="display:none;">
                       <div class="pure-u-1-2  text-align-left float-left ">
@@ -240,8 +234,9 @@
                 </div>
               </div>
               <div class="btn_group">
-                <a href="ticheng.html"  class="save_btn btn" >保存</a>
+                <input type="submit" class="save_btn btn" value="保存" />
               </div>
+              <% end %>
             </div>
           </div>
       </div>

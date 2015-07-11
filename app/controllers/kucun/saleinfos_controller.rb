@@ -14,6 +14,9 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
     @store = current_user.store
     @store_material = @store.store_materials.find(params[:material_id])
     @sale_info = @store_material.store_material_saleinfo
+    if @sale_info.blank?
+      redirect_to action: "new"
+    end
   end
 
   def update
@@ -22,5 +25,9 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
   def show
     @store = current_user.store
     @store_material = @store.store_materials.find(params[:material_id])
+    @sale_info = @store_material.store_material_saleinfo
+    if @sale_info.blank?
+      redirect_to action: "new"
+    end
   end
 end
