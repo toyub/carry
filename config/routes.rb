@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     namespace :service do
       resources :profiles, only: [:index, :new, :create]
       resources :settings, only: [:new]
+      resources :categories, only: [:create]
     end
   end
 

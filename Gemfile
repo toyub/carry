@@ -87,3 +87,5 @@ gem 'backbone-on-rails'
 
 # Use jquery as the JavaScript library
 #gem 'jquery-rails'
+
+gem 'responders', '~> 2.0'

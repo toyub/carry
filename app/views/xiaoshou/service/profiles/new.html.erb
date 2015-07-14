@@ -24,13 +24,40 @@
       </div>
       <%= form_for @service, url: [:xiaoshou, :service, :profiles] do |f| %>
         <div class=" server_content">
-            <%= render 'detail', form: f %>
-            <%= render 'related_goods' %>
-        </div>
-        <div class="btn_group">
-          <%= f.submit "保存", class: 'save_btn btn cancel' %>
-        </div>
-      <% end %>
+        <%= render 'detail', form: f %>
+        <%= render 'related_goods' %>
+      </div>
+      <div class="btn_group">
+        <%= f.submit "保存", class: 'save_btn btn cancel' %>
+      </div>
+    <% end %>
     </div>
   </div>
 </div>
+
+<div id="FloatWindow">
+  <div class="FloatContent width640">
+    <div class="fheader">
+      <span>新增服务类别</span>
+      <i class="close-window  lnr-cross lnr"></i>
+    </div>
+    <%= form_for @store.service_categories.build, remote: true, url: [:xiaoshou, :service, :categories], html: {class: 'form_content'} do |f| %>
+      <div class="form_item">
+        <%= f.label :name, '名称' %>
+        <%= f.text_field :name %>
+      </div>
+      <div class="ffooter">
+        <%= f.submit "保存", class: 'confirm_btn' %>
+        <input type="button" value="取消" class="cancel_btn">
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript" charset="utf-8">
+    $(function(){
+      new Mis.Views.XiaoshouServiceProfilesNew();
+    })
+  </script>
+<% end %>
