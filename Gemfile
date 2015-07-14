@@ -70,22 +70,7 @@ end
 
 gem 'backbone-on-rails'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Use sqlite3 as the database for Active Record
-#gem 'sqlite3'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-#gem 'jquery-rails'
-
 gem 'responders', '~> 2.0'
+
+# json生成
+gem 'active_model_serializers'

@@ -9,7 +9,7 @@ module Xiaoshou
 
       def new
         @services = @store.store_services
-        @categories = @store.service_categories
+        @categories = @store.service_categories.order("created_at desc")
         @service = @store.store_services.new
       end
 
