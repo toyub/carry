@@ -32,6 +32,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click div.j_categories li': 'selectCategory'
     'click i.close-window': 'hideCategoryForm'
     'click input.cancel_btn': 'hideCategoryForm'
+    'blur div.select': 'hideSelect'
 
   listServiceCategories: ->
     $("div.select").show()
@@ -50,3 +51,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     $(".error_tip").remove()
     $("#FloatWindow").fadeOut()
     $("#FloatWindow .FloatContent").slideUp()
+
+  hideSelect: ->
+    $("div.select").hide()
