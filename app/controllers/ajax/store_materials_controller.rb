@@ -1,6 +1,7 @@
 module Ajax
   class StoreMaterialsController < Ajax::BaseController
 
+    ## TODO: store_material已经将root_category冗余了进来，下一个版本考虑更改
     def index
       store_materials = current_store.store_materials.name_contains(params[:name])
       if params[:sub_category].present?
