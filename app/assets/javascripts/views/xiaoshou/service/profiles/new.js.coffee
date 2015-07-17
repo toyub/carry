@@ -127,7 +127,24 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     else
       $(event.currentTarget).next().hide()
 
+  nullUnitOrDose: =>
+    $("#selected tbody tr").filter(
+      ->
+        $(@).find(".use_mode").val() == '1' && ($(@).find("div.scattered select option:selected").text() == '选择单位' || $(@).find("div.scattered input").val() == '')
+    )
+
+  validateMaterialForm: =>
+    if $("#selected tbody tr").size() == 0
+      alert("请选择商品")
+      false
+    else if @nullUnitOrDose().size() > 0
+      alert("你选择了零散，却未指定单位或剂量")
+      false
+    else
+      true
+
   addMaterial: ->
+    return unless @validateMaterialForm()
     $("div.table_list table.selected_table tbody tr").each(
       ->
         dataId = $(@).attr('data-id')
