@@ -1,5 +1,6 @@
 class StoreService < ActiveRecord::Base
-  belongs_to :store
+  include BaseModel
+
   belongs_to :store_service_category
   has_many :store_service_store_materials
   has_many :store_materials, through: :store_service_store_materials
@@ -11,13 +12,6 @@ class StoreService < ActiveRecord::Base
   validates :store_staff_id, presence: true
 
   accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true
-
-  before_validation :set_store_chain
-
-  private
-  def set_store_chain
-    self.store_chain_id = self.store.store_chain_id
-  end
 
 end
 

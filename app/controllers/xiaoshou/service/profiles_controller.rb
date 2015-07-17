@@ -50,7 +50,7 @@ module Xiaoshou
       def store_service_store_materials_attrs
         {
           store_service_store_materials_attributes: profile_params[:store_service_store_materials_attributes].transform_values do |x|
-            x.merge(store_id: @store.id, store_chain_id: @store.store_chain_id, store_staff_id: current_staff.id)
+            x.merge(store_id: @store.id, store_staff_id: current_staff.id)
           end
         }
       end
