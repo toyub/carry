@@ -7,7 +7,7 @@
     $('#new_store_material_category').on('submit', function(){
       $(this).ajaxSubmit(function(data, status, xhr){
         if(window.top != window.self){
-          window.top.$$MIS.methods.get('add_category1_callback').apply(data)
+          window.top.$$MIS.methods.get('add_root_category_callback').apply(data)
         }
       });
       return false;

@@ -40,11 +40,11 @@
                       <tr>
                         <td>
                           <label class="width-75">商品名称</label>
-                          <input type="text" class="width-165" value="碳纤白色保护膜" readonly />
+                          <input type="text" class="width-165" value="<%= @store_material.name %>" readonly />
                         </td>
                         <td>
                           <label class="width-75">规格</label>
-                          <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly="true"/>
+                          <input type="text" class="width-165" value="<%= @store_material.speci %>" readonly="true"/>
                         </td>
                       </tr>
                       <tr>
@@ -105,11 +105,13 @@
                         <td colspan="2">
                           <fieldset class="width-490 margin-left-26">
                             <legend class="margin-left-10">
-                              <label><input type="checkbox" name='store_material_saleinfo[service_required]'>需要施工</label>
+                              <label><input type="checkbox" class='toggleable' name='store_material_saleinfo[service_required]' data-target='service_required'>需要施工</label>
                             </legend>
                             <div>
+
                               <label class="width-75">工时价格</label>
-                              <input type="text" class="width-165" data-id='' disabled>
+                              <input type="text" class="width-165" data-id='service_required' disabled>
+
                             </div>
                           </fieldset>
                         </td>
