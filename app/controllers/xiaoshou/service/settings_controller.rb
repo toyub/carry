@@ -1,17 +1,13 @@
 module Xiaoshou
   module Service
     class SettingsController < Xiaoshou::BaseController
-      before_action :load_store
 
       def new
-        @services = @store.store_services
-        @service = @store.store_services.new
+        @services = current_store.store_services
+        @service = current_store.store_services.new
       end
 
       private
-      def load_store
-        @store = current_user.store
-      end
 
       def setting_params
         params.require(:store_service).permit(

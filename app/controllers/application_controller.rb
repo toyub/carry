@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :current_staff
+  helper_method :current_user, :current_staff, :current_store
 
   def login_required
     if Rails.env.development?
@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= session[:user_id].present? ? StoreStaff.where(id: session[:user_id]).first : nil
+  end
+
+  def current_store
+    @current_store ||= current_user.store
   end
 
   alias :current_staff :current_user

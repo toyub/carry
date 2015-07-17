@@ -41,7 +41,7 @@
       <span>新增服务类别</span>
       <i class="close-window  lnr-cross lnr"></i>
     </div>
-    <%= form_for @store.service_categories.build, remote: true, url: [:xiaoshou, :service, :categories], html: {class: 'form_content'} do |f| %>
+    <%= form_for current_store.service_categories.build, remote: true, url: [:xiaoshou, :service, :categories], html: {class: 'form_content'} do |f| %>
       <div class="form_item">
         <%= f.label :name, '名称' %>
         <%= f.text_field :name %>
