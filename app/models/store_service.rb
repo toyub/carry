@@ -8,8 +8,16 @@ class StoreService < ActiveRecord::Base
   validates :code, presence: true, uniqueness: true
   validates :retail_price, presence: true
   validates :store_service_category_id, presence: true
+  validates :store_staff_id, presence: true
 
   accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true
+
+  before_validation :set_store_chain
+
+  private
+  def set_store_chain
+    self.store_chain_id = self.store.store_chain_id
+  end
 
 end
 

@@ -146,10 +146,14 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
   addMaterial: ->
     return unless @validateMaterialForm()
     $("div.table_list table.selected_table tbody tr").each(
-      ->
+      (index) ->
         dataId = $(@).attr('data-id')
         if $("#j_related_goods").has("div[data-id=#{dataId}]").size() == 0
           item = "<div data-id='#{dataId}' class='list_content list_tr'>"
+          item += "<input type='hidden' name='store_service[store_service_store_materials_attributes][#{index}][store_material_id]' value='#{dataId}' />"
+          item += "<input type='hidden' name='store_service[store_service_store_materials_attributes][#{index}][use_mode]' value='#{$(@).find("td:last-child select.use_mode").val()}' />"
+          item += "<input type='hidden' name='store_service[store_service_store_materials_attributes][#{index}][unit]' value='#{$(@).find("td:last-child select.use_mode option:selected").text()}' />" if $(@).find("td:last-child select.use_mode").val() == '1'
+          item += "<input type='hidden' name='store_service[store_service_store_materials_attributes][#{index}][dose]' value='#{$(@).find("td:last-child .scattered input").val()}' />" if $(@).find("td:last-child select.use_mode").val() == '1'
           item += "<ul class='list_tr_hover'>"
           item += "<li class='first_td'>#{dataId}</li>"
           item += "<li class='second_td'>#{$(@).find('td:first-child').text()}</li>"

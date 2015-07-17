@@ -8,7 +8,6 @@ class StoreServiceStoreMaterial < ActiveRecord::Base
   validates :store_staff_id, presence: true
   validates :store_chain_id, presence: true
   validates :store_id, presence: true
-  validates :store_service_id, presence: true
   validates :store_material_id, presence: true
   validates :store_material_id, uniqueness: {scope: [:store_service_id, :store_id]}
   validates :use_mode, presence: true
