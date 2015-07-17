@@ -98,11 +98,11 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
             $("table.query_results_table tbody").append item
       )
 
-  selectMaterials: ->
-    $("div.table_list table.selected_table tbody").empty()
-    $("table.query_results_table tbody tr input:checked").each(
-      ->
-        item = "<tr data-id='#{$(@).parent().attr("data-id")}'><td>#{$(@).parent().parent().find('td:first-child').text()}</td>"
+  selectMaterials: (event) ->
+    dataId = $(event.currentTarget).parent().attr('data-id')
+    if $(event.currentTarget)[0].checked
+      if $("div.table_list table.selected_table tbody").has("tr[data-id=#{dataId}]").size() == 0
+        item = "<tr data-id='#{dataId}'><td>#{$(event.currentTarget).parent().parent().find('td:first-child').text()}</td>"
         item += "<td class='Selection_calculation'>"
         item += "<select class='width-55 ss use_mode'>"
         item += "<option selected='selected' value='0'>整计</option>"
@@ -111,14 +111,15 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
         item += "<div class='scattered' style='display: none;'>"
         item += "<select class='width-78  font-12'>"
         item += "<option>选择单位</option>"
-        item += "<option>#{$(@).parent().attr('data-unit')}</option>"
+        item += "<option>#{$(event.currentTarget).parent().attr('data-unit')}</option>"
         item += "</select>"
         item += "<input type='text' placeholder='填写剂量' class='width-55 font-12'>"
         item += "</div>"
         item += "</td>"
         item += "</tr>"
         $("div.table_list table.selected_table tbody").append item
-    )
+    else
+      $("div.table_list table.selected_table tbody tr[data-id=#{dataId}]").remove()
 
   showUnit: (event) ->
     if $(event.currentTarget).val() == '1'
