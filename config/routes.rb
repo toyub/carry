@@ -51,6 +51,16 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :ajax do
+    resources :store_material_categories, only: [] do
+      member do
+        get :sub_categories
+      end
+    end
+
+    resources :store_materials, only: [:index]
+  end
+
   resource :session, only: [:new, :create, :destroy]
 
   root 'kucun/materials#index'

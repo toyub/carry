@@ -1,11 +1,15 @@
 class StoreService < ActiveRecord::Base
   belongs_to :store
   belongs_to :store_service_category
+  has_many :store_service_store_materials
+  has_many :store_materials, through: :store_service_store_materials
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true
   validates :retail_price, presence: true
   validates :store_service_category_id, presence: true
+
+  accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true
 
 end
 

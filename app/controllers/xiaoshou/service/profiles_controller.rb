@@ -10,6 +10,10 @@ module Xiaoshou
       def new
         @services = @store.store_services
         @categories = @store.service_categories.order("created_at desc")
+        @material_categories = @store.store_material_categories.super_categories.order("created_at desc")
+        @sub_categories = @material_categories.first.sub_categories.map {|c| [c.name, c.id]} if @material_categories.present?
+        category = @sub_categories.present? ? @sub_categories.first[1] : @material_categories.first.id
+        @materials = @store.store_materials.where(store_material_category_id: category)
         @service = @store.store_services.new
       end
 

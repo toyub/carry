@@ -17,6 +17,10 @@ class StoreMaterial < ActiveRecord::Base
 
   has_many :store_material_images, foreign_key: 'host_id'
 
+  scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}")}
+  scope :by_sub_category, -> (category) {where(store_material_category_id: category)}
+  scope :by_primary_category, -> (category) {where(store_material_category_id: category)}
+
   after_save :generate_barcode!
 
   def inventory
