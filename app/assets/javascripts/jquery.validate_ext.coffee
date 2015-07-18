@@ -3,11 +3,11 @@ jQuery.validator.setDefaults(
   errorClass: "err"
   focusInvalid: false
   errorPlacement: (error,element) ->
-    $('.error_tip').remove()
-    error.addClass('error_tip');
-    element.parent().append(error);
-    console.log('done')
+    $(element).parent().find('.error_tip').remove()
+    error.addClass('error_tip')
+    element.parent().append(error)
+    console.log('error')
   success: (label,element) ->
-    $('.error_tip').remove()
+    $(element).parent().find('.error_tip').remove()
     console.log('success')
 )
