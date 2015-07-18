@@ -62,7 +62,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'change select#sub_category': 'searchMaterials'
     'click a#search_materials': 'searchMaterials'
     'click table.query_results_table tbody tr input': 'selectMaterials'
-    'change td.Selection_calculation select.use_mode': 'showUnit'
     'click div.btn_group a.save_btn': 'addMaterial'
     'click div.btn_group a.cancel_btn': 'hideMaterialForm'
 
@@ -116,30 +115,11 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     dataId = $(event.currentTarget).parent().attr('data-id')
     if $(event.currentTarget)[0].checked
       if $("div.table_list table.selected_table tbody").has("tr[data-id=#{dataId}]").size() == 0
-        item = "<tr data-id='#{dataId}'><td>#{$(event.currentTarget).parent().parent().find('td:first-child').text()}</td>"
-        item += "<td class='Selection_calculation'>"
-        item += "<select class='width-55 ss use_mode'>"
-        item += "<option selected='selected' value='0'>整计</option>"
-        item += "<option value='1'>零散</option>"
-        item += "</select>"
-        item += "<div class='scattered' style='display: none;'>"
-        item += "<select class='width-78  font-12'>"
-        item += "<option>选择单位</option>"
-        item += "<option>#{$(event.currentTarget).parent().attr('data-unit')}</option>"
-        item += "</select>"
-        item += "<input type='text' placeholder='填写剂量' class='width-55 font-12'>"
-        item += "</div>"
-        item += "</td>"
-        item += "</tr>"
-        $("div.table_list table.selected_table tbody").append item
+        material = {name: $(event.currentTarget).parent().parent().find('td:first-child').text(), id: dataId, unit: $(event.currentTarget).parent().attr('data-unit')}
+        view = new Mis.Views.XiaoshouServiceProfilesMaterial(attributes: {'data-id': dataId}, material: material)
+        $("div.table_list table.selected_table tbody").append view.render().el
     else
       $("div.table_list table.selected_table tbody tr[data-id=#{dataId}]").remove()
-
-  showUnit: (event) ->
-    if $(event.currentTarget).val() == '1'
-      $(event.currentTarget).next().show()
-    else
-      $(event.currentTarget).next().hide()
 
   nullUnitOrDose: =>
     $("#selected tbody tr").filter(
@@ -163,18 +143,9 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
       (index) ->
         dataId = $(@).attr('data-id')
         if $("#j_related_goods").has("div[data-id=#{dataId}]").size() == 0
-          item = "<div data-id='#{dataId}' class='list_content list_tr'>"
-          item += "<input type='hidden' name='store_service[store_service_store_materials_attributes][#{index}][store_material_id]' value='#{dataId}' />"
-          item += "<input type='hidden' name='store_service[store_service_store_materials_attributes][#{index}][use_mode]' value='#{$(@).find("td:last-child select.use_mode").val()}' />"
-          item += "<input type='hidden' name='store_service[store_service_store_materials_attributes][#{index}][unit]' value='#{$(@).find("td:last-child select.use_mode option:selected").text()}' />" if $(@).find("td:last-child select.use_mode").val() == '1'
-          item += "<input type='hidden' name='store_service[store_service_store_materials_attributes][#{index}][dose]' value='#{$(@).find("td:last-child .scattered input").val()}' />" if $(@).find("td:last-child select.use_mode").val() == '1'
-          item += "<ul class='list_tr_hover'>"
-          item += "<li class='first_td'>#{dataId}</li>"
-          item += "<li class='second_td'>#{$(@).find('td:first-child').text()}</li>"
-          item += "<li class='third_td'>#{$(@).find('td:last-child select.use_mode option:selected').text()}</li>"
-          item += "<li class='forth_td'>领用<span class='delete close'> × </span></li>"
-          item += "</ul></div>"
-          $("#j_related_goods").append item
+          material = { index: index, id: dataId, name: $(@).find('td:first-child').text(), use_mode: $(@).find("td:last-child select.use_mode").val(), unit: $(@).find("td:last-child select.use_mode option:selected").text(), dose: $(@).find("td:last-child .scattered input").val() }
+          view = new Mis.Views.XiaoshouServiceProfilesRelatedMaterial(attributes: {'data-id': dataId}, material: material)
+          $("#j_related_goods").append view.render().el
     )
     $("div.add_server").hide()
     $("#j_related_goods").show()

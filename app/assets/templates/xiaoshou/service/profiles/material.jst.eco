@@ -1,0 +1,14 @@
+<td><%= @material.name %></td>
+<td class="Selection_calculation">
+  <select class="width-55 ss use_mode">
+    <option selected="selected" value="0">整计</option>
+    <option value="1">零散</option>
+  </select>
+  <div class="scattered" style="display: none;">
+    <select class="width-78  font-12">
+      <option>选择单位</option>
+      <option><%= @material.unit %></option>
+    </select>
+    <input type="text" placeholder="填写剂量" class="width-55 font-12">
+  </div>
+</td>
