@@ -16,7 +16,7 @@ module Xiaoshou
       end
 
       def create
-        @service = current_store.store_services.build(profile_params.merge(store_service_store_materials_attrs.merge(store_staff_id: current_staff.id)))
+        @service = current_store.store_services.build(profile_params.merge(store_staff_id: current_staff.id).merge(store_service_store_materials_attrs))
         if @service.save
           redirect_to [:new, :xiaoshou, :service, :setting]
         else
@@ -43,6 +43,7 @@ module Xiaoshou
       end
 
       def store_service_store_materials_attrs
+        return {} unless profile_params[:store_service_store_materials_attributes].present?
         {
           store_service_store_materials_attributes: profile_params[:store_service_store_materials_attributes].transform_values do |x|
             x.merge(store_id: current_store.id, store_staff_id: current_staff.id)
