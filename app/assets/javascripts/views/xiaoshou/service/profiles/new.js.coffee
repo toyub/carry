@@ -106,21 +106,11 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
   getSecondCategory: (event) =>
     $("#sub_category").empty()
     $("#sub_category").append "<option value=''>请选择</option>"
-    if $(event.currentTarget).val()
-      $.get "/ajax/store_material_categories/#{$(event.currentTarget).val()}/sub_categories", (data) ->
-        for category in data
-          $("#sub_category").append "<option value='#{category.id}'>#{category.name}</option>"
+    $.get "/ajax/store_material_categories/#{$(event.currentTarget).val()}/sub_categories" if $(event.currentTarget).val()
     @searchMaterials()
 
   searchMaterials: =>
     $.get("/ajax/store_materials", {primary_category: $("#primary_category").val(), sub_category: $("#sub_category").val(), name: $("#material_name").val()})
-      .done(
-        (data) ->
-          $("table.query_results_table tbody").empty()
-          for material in data
-            item = "<tr><td>#{material.name}</td><td data-id='#{material.id}' data-unit='#{material.unit}'><input type='checkbox'></td></tr>"
-            $("table.query_results_table tbody").append item
-      )
 
   selectMaterials: (event) ->
     dataId = $(event.currentTarget).parent().attr('data-id')

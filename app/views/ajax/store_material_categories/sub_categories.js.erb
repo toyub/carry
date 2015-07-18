@@ -1,0 +1,3 @@
+<% @sub_categories.each do |category| %>
+  $("#sub_category").append("<option value='<%= category.id %>'><%= category.name %></option>");
+<% end %>
