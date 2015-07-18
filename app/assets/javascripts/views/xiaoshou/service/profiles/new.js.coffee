@@ -24,6 +24,30 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
         )
     )
 
+    $("#new_store_service").validate(
+      ignore: []
+      rules:
+        'store_service[name]': "required"
+        'store_service[retail_price]':
+          required: true
+          number: true
+        'store_service[bargain_price]':
+          number: true
+        'store_service[point]':
+          digits: true
+        'store_service[store_service_category_id]': "required"
+      messages:
+        'store_service[name]': "请输入服务名称"
+        'store_service[retail_price]':
+          required: '请输入零售价'
+          number: '零售价必须是数字'
+        'store_service[bargain_price]':
+          number: '优惠价必须是数字'
+        'store_service[point]':
+          digits: '积分必须是整数'
+        'store_service[store_service_category_id]': "请选择类别"
+    )
+
   el: 'body'
 
   events:
