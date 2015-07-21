@@ -74,3 +74,6 @@ gem 'responders', '~> 2.0'
 
 # json生成
 gem 'active_model_serializers'
+
+# Generates javascript file that defines all Rails named routes as javascript helpers
+gem "js-routes"

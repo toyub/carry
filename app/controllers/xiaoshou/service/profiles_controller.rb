@@ -13,7 +13,7 @@ module Xiaoshou
 
       def create
         @service = current_store.store_services.create(profile_params.merge(store_staff_id: current_staff.id).merge(store_service_store_materials_attrs))
-        respond_with @service
+        respond_with @service, location: nil
       end
 
       private

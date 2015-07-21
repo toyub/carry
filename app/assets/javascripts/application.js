@@ -14,6 +14,7 @@
 //= require jquery_ujs/1.0.3
 //= require jquery_ui/1.11.2
 //= require titletip/1.0.0
+//= require js-routes
 //= require jquery.validate
 //= require jquery.form
 //= require jquery.validate_ext
