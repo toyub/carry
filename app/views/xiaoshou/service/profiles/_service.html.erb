@@ -1,9 +1,9 @@
 <tr>
   <td><%= index %></td>
   <td><%= service.name %></td>
-  <td><%= link_to service.code, xiaoshou_service_path(service) %></td>
+  <td><%= link_to service.code, xiaoshou_service_profile_path(service) %></td>
   <td>标准时间：<%= service.standard_time  %> (正负：<%= service.factor_time %>) 缓冲时间：<%= service.buffering_time %></td>
-  <td><%= service.unit.name %></td>
+  <td><%= service.unit.try(:name) %></td>
   <td><%= service.retail_price %></td>
   <td><%= service.bargain_price %></td>
   <td><%= service.point %></td>

@@ -91,7 +91,7 @@
       </thead>
       <tbody>
         <% @services.each_with_index do |service, index| %>
-          <%= render 'service', service: service %>
+          <%= render 'service', service: service, index: index %>
         <% end %>
       </tbody>
     </table>

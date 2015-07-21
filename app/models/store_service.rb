@@ -4,6 +4,8 @@ class StoreService < ActiveRecord::Base
   belongs_to :store_service_category
   has_many :store_service_store_materials
   has_many :store_materials, through: :store_service_store_materials
+  belongs_to :unit, foreign_key: 'store_service_unit_id'
+  has_many :order_items, class_name: 'StoreMaterialOrderItem'
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true
