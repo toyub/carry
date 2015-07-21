@@ -62,6 +62,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'change select#sub_category': 'searchMaterials'
     'click a#search_materials': 'searchMaterials'
     'click table.query_results_table tbody tr input': 'selectMaterials'
+    'click div.item_content input.toggleable': 'toggleFavorable'
     'click div.btn_group a.save_btn': 'addMaterial'
     'click div.btn_group a.cancel_btn': 'hideMaterialForm'
 
@@ -149,3 +150,9 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     )
     $("div.add_server").hide()
     $("#j_related_goods").show()
+    
+  toggleFavorable: (event) ->
+    if $(event.currentTarget).siblings().last().attr('disabled') == 'disabled'
+      $(event.currentTarget).siblings().last().attr('disabled', false)
+    else
+      $(event.currentTarget).siblings().last().attr('disabled', true)
