@@ -22,6 +22,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
               new Mis.Views.ErrorView({el: $(form), attrsWithErrors: JSON.parse(responseOrErrors.responseText).errors}).render()
             $(form).find('[type=submit]').attr('disabled', false)
         )
+        false
     )
 
     $("#new_store_service").validate(
