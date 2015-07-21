@@ -11,6 +11,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
       submitHandler: (form) ->
         $(form).find('[type=submit]').attr('disabled', 'disabled')
         $(form).ajaxSubmit(
+          dataType: 'json'
           success: (responseText, statusText, xhr) ->
             item = "<li data-value='#{responseText.id}'>#{responseText.name}</li>"
             $("div.select ol").prepend(item)
@@ -47,6 +48,19 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
         'store_service[point]':
           digits: '积分必须是整数'
         'store_service[store_service_category_id]': "请选择类别"
+
+      submitHandler: (form) ->
+        $(form).find('[type=submit]').attr('disabled', 'disabled')
+        $(form).ajaxSubmit(
+          dataType: 'json'
+          success: (responseText, statusText, xhr) ->
+            console.log 'xxxx'
+            $(form).find('[type=submit]').attr('disabled', false)
+          error: (responseOrErrors, statusText, xhr) ->
+            console.log 'xxxx'
+            $(form).find('[type=submit]').attr('disabled', false)
+        )
+        false
     )
 
   el: 'body'

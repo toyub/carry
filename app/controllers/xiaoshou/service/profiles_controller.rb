@@ -1,6 +1,7 @@
 module Xiaoshou
   module Service
     class ProfilesController < Xiaoshou::BaseController
+      respond_to :json, only: [:create]
       def index
         @services = current_store.store_services
       end
@@ -11,13 +12,8 @@ module Xiaoshou
       end
 
       def create
-        @service = current_store.store_services.build(profile_params.merge(store_staff_id: current_staff.id).merge(store_service_store_materials_attrs))
-        if @service.save
-          redirect_to [:new, :xiaoshou, :service, :setting]
-        else
-          load_data
-          render :new
-        end
+        @service = current_store.store_services.create(profile_params.merge(store_staff_id: current_staff.id).merge(store_service_store_materials_attrs))
+        respond_with @service
       end
 
       private
