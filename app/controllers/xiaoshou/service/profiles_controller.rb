@@ -2,8 +2,13 @@ module Xiaoshou
   module Service
     class ProfilesController < Xiaoshou::BaseController
       respond_to :json, only: [:create]
+      respond_to :json, :js, :html
+
       def index
-        @services = current_store.store_services
+        @q = current_store.store_services.ransack(params[:q])
+        @categories = current_store.service_categories.order("created_at desc")
+        @services = @q.result(distinct: true)
+        respond_with @services
       end
 
       def new

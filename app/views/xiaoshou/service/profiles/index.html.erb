@@ -13,17 +13,19 @@
 
   <div class="list_table">
     <div class="search_nav">
-      <div class="item-query">
-        <label>查找服务</label>
-        <input type="text" class="width-150" placeholder="输入产品关键字">
-      </div>
-      <div class="item-query">
-        <label>服务类别</label>
-        <select type="text" class="width-150">
-          <option></option>
-          <option></option>
-        </select>
-      </div>
+      <%= search_form_for @q, format: :js, url: [:xiaoshou, :service, :profiles], remote: true, method: :get do |f|%>
+        <div class="item-query">
+          <%= f.label :name_cont, '查找服务' %>
+          <%= f.text_field :name_cont, class: 'width-150', placeholder: '输入产品关键字' %>
+        </div>
+        <div class="item-query">
+          <%= f.label :store_service_category_id_eq, '服务类别' %>
+          <%= f.select :store_service_category_id_eq, options_for_select(@categories.map {|c| [c.name, c.id]}), include_blank: '请选择', class: 'width-150' %>
+        </div>
+        <div class="item-query">
+          <%= f.submit "查询", class: "btn query_btn" %>
+        </div>
+      <% end -%>
       <div class="item-query c_price">
         <div class="link" id="link_drop_list">
           <span class="float-left margin-right-10" title="价格从高到低">价格</span>
@@ -97,3 +99,11 @@
     </table>
   </div>
 </div>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      new Mis.Views.XiaoshouServiceProfilesIndex();
+    })
+  </script>
+<% end %>

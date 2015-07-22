@@ -77,3 +77,6 @@ gem 'active_model_serializers'
 
 # Generates javascript file that defines all Rails named routes as javascript helpers
 gem "js-routes"
+
+# Object-based searching
+gem 'ransack', '~> 1.6.6'
