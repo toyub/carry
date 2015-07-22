@@ -32,19 +32,17 @@
           <span><i class="fa fa-angle-down"></i></span>
         </div>
         <ul class="drop_list" id="drop_list">
-          <li class="sort"><a href="#" class="p_link">价格从低到高</a></li>
-          <li class="sort"><a href="#" class="p_link">价格从高到低</a></li>
-          <li class="sort"><a href="#" class="p_link">总价从低到高</a></li>
-          <li class="sort"><a href="#" class="p_link">总价从高到低</a></li>
+          <li data-name='retail_price' data-sort-direction="asc" class="sort"><a href="javascript:void(0)" class="">价格从低到高</a></li>
+          <li data-name='retail_price' data-sort-direction="desc" class="sort"><a href="javascript:void(0)" class="">价格从高到低</a></li>
         </ul>
       </div>
       <div class="prices">
         <div class="inputs" >
           <div class="inner">
             <ul class="items">
-              <li class="item"><input type="text" class="j_sortbar_price_input input" placeholder="¥" ></li>
+              <li data-name="retail_price_gteq" data-filter="" class="item j_active"><input type="text" class="j_sortbar_price_input input" placeholder="¥" ></li>
               <li class="sep">-</li>
-              <li class="item"><input type="text" class="j_sortbar_price_input input" placeholder="¥"></li>
+              <li data-name="retail_price_lteq" data-filter="" class="item j_active"><input type="text" class="j_sortbar_price_input input" placeholder="¥"></li>
               <li class="submit"><button class="btn j_sortbar_price_submit">确定</button></li>
             </ul>
           </div>
@@ -56,12 +54,12 @@
           <span><i class="fa fa-angle-down"></i></span>
         </div>
         <ul class="drop_list" >
-          <li class="sort"><a href="#" class="p_link">正常价格商品</a></li>
-          <li class="sort"><a href="#" class="p_link">优惠价格商品</a></li>
-          <li class="sort"><a href="#" class="p_link">参加活动商品</a></li>
-          <li class="sort"><a href="#" class="p_link">今天上架商品</a></li>
-          <li class="sort"><a href="#" class="p_link">本周上架商品</a></li>
-          <li class="sort"><a href="#" class="p_link">本月上架商品</a></li>
+          <li data-name='favorable_false' data-filter='1' class="sort"><a href="javascript:void(0)" class="">正常价格商品</a></li>
+          <li data-name='favorable_true' data-filter='1' class="sort"><a href="javascript:void(0)" class="">优惠价格商品</a></li>
+          <li data-name='campaign' data-filter='true' class="sort"><a href="javascript:void(0)" class="">参加活动商品</a></li>
+          <li data-name='created_at_gteq' data-filter='<%= Time.now.to_date %>' class="sort"><a href="javascript:void(0)" class="p_link">今天上架商品</a></li>
+          <li data-name='created_at_gteq' data-filter='<%= Time.now.at_beginning_of_week.to_date %>' class="sort"><a href="javascript:void(0)" class="">本周上架商品</a></li>
+          <li data-name='created_at_gteq' data-filter='<%= Time.now.at_beginning_of_month.to_date %>' class="sort"><a href="javascript:void(0)" class="">本月上架商品</a></li>
         </ul>
       </div>
       <div class="operats">

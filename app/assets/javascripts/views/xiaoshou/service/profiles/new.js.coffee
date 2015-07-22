@@ -168,5 +168,9 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
   toggleFavorable: (event) ->
     if $(event.currentTarget).siblings().last().attr('disabled') == 'disabled'
       $(event.currentTarget).siblings().last().attr('disabled', false)
+      $(event.currentTarget).attr("checked", "checked")
+      $(event.currentTarget).val(true)
     else
       $(event.currentTarget).siblings().last().attr('disabled', true)
+      $(event.currentTarget).attr("checked", false)
+      $(event.currentTarget).val(false)

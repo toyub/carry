@@ -1,4 +1,3 @@
-console.log('index.js')
 $("table.index_list tbody").empty();
 <% @services.each_with_index do |service, index| %>
   $("table.index_list tbody").append("<%= j render 'service', service: service, index: index %>");
