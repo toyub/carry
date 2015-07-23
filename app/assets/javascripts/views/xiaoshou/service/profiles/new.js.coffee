@@ -144,10 +144,10 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
 
   validateMaterialForm: =>
     if $("#selected tbody tr").size() == 0
-      alert("请选择商品")
+      ZhanchuangAlert("请选择商品")
       false
     else if @nullUnitOrDose().size() > 0
-      alert("你选择了零散，却未指定单位或剂量")
+      ZhanchuangAlert("你选择了零散，却未指定单位或剂量")
       false
     else
       true
