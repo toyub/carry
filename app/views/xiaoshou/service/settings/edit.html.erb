@@ -2,7 +2,7 @@
   <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
 <% end %>
 
-<form action="huifang.html" mehtod="get">
+<%= form_for @service, url: [:xiaoshou, :service, :setting], method: :put  do |f| %>
   <div class="main_top">
     <h2>服务设置详情</h2>
     <span class="add_span">+</span>
@@ -29,4 +29,4 @@
       </div>
     </div>
   </div>
-</form>
+<% end %>

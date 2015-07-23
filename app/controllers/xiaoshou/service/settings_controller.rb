@@ -2,7 +2,8 @@ module Xiaoshou
   module Service
     class SettingsController < Xiaoshou::BaseController
 
-      def new
+      def edit
+        @service = current_store.store_services.find(params[:id])
       end
 
       private

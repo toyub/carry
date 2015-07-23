@@ -54,7 +54,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
         $(form).ajaxSubmit(
           dataType: 'json'
           success: (responseText, statusText, xhr) ->
-            window.location = Routes.new_xiaoshou_service_setting_path()
+            window.location = Routes.edit_xiaoshou_service_setting_path(responseText.id)
           error: (responseOrErrors, statusText, xhr) ->
             console.log 'need to fix errors showing'
             $(form).find('[type=submit]').attr('disabled', false)
