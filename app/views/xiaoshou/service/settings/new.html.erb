@@ -1,0 +1,32 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
+<% end %>
+
+<form action="huifang.html" mehtod="get">
+  <div class="main_top">
+    <h2>服务设置详情</h2>
+    <span class="add_span">+</span>
+  </div>
+
+  <div class="details">
+    <div class="top_content records">
+      <%= render 'xiaoshou/service/shares/summary' %>
+    </div>
+
+    <%= render 'xiaoshou/service/shares/nav' %>
+
+    <div class="details_content">
+      <%= render 'base_info' %>
+
+      <div class="settings_in_service settings_in_sales">
+        <%= render 'general' %>
+
+        <%= render 'workflow' %>
+      </div>
+
+      <div class="btn_group">
+        <input type="submit" class="save_btn btn margin-right-2 do_link_to_service_tracking" value="保存">
+      </div>
+    </div>
+  </div>
+</form>

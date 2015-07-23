@@ -16,7 +16,7 @@
           <tr>
             <td class="text-align-left">
               <a href="#">服务项目总数</a>
-              <span   class="num_color font-24  tab_span "><%= @services.count %></span>
+              <span   class="num_color font-24  tab_span "><%= @services.try(:count) %></span>
             </td>
           </tr>
         </table>
