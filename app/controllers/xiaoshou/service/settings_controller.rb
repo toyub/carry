@@ -3,8 +3,6 @@ module Xiaoshou
     class SettingsController < Xiaoshou::BaseController
 
       def new
-        @services = current_store.store_services
-        @service = current_store.store_services.new
       end
 
       private
