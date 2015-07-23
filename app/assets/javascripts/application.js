@@ -18,6 +18,7 @@
 //= require jquery.validate
 //= require jquery.form
 //= require jquery.validate_ext
+//= require jquery.alert
 //= require menu
 //= require underscore
 //= require backbone
@@ -27,3 +28,8 @@
 //= require_tree ./collections
 //= require_tree ./views
 //= require_tree ./routers
+
+
+function ZhanchuangAlert(msg) {
+  $.alert({text: msg})
+}
