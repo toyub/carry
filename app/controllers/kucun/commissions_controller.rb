@@ -1,15 +1,20 @@
 class Kucun::CommissionsController < Kucun::ControllerBase
   def new
+    @store = current_user.store
+    @store_material = @store.store_materials.find(params[:material_id])
   end
 
   def show
     @store = current_user.store
     @store_material = @store.store_materials.find(params[:material_id])
-    
   end
 
+  def edit
+    @store = current_user.store
+    @store_material = @store.store_materials.find(params[:material_id])
+  end
 
-   def create
+  def create
     @store = current_user.store
     @store_material = @store.store_materials.find(params[:material_id])
 
@@ -24,6 +29,9 @@ class Kucun::CommissionsController < Kucun::ControllerBase
       c3: c3,
       c4: c4
     }
+  end
+
+  def update
   end
 
   private
