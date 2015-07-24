@@ -9,4 +9,5 @@
 //= require 'helpers/kucun/piccut_thumbnail'
 //= require 'as_select'
 //= require helpers/kucun/page_dom_init
+//= require toggleable
 //= require_self
