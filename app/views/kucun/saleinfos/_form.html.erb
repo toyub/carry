@@ -70,25 +70,25 @@
                           <td colspan="2">
                             <fieldset class="width-490 margin-left-26">
                               <legend class="margin-left-10">
-                                <input type="checkbox" class="toggleable" data-target="split_merchandise_sales" data-checked>
-                                <label>此商品拆分销售</label>
+                                <label>
+                                <input type="checkbox" class="toggleable" name='store_material_saleinfo[divide_to_retail]' data-target="divide_to_retail" data-checked>
+                                此商品拆分销售</label>
                               </legend>
                               <div>
                                 <label class="width-75">计量单位</label>
-                                <select class="width-160" data-id="split_merchandise_sales" disabled="disabled" required="true">
-                                  <option>请选择</option>
-                                  <option>米</option>
-                                  <option>平方米</option>
-                                  <option>升</option>
+                                <select class="width-160" name='saleinfo[unit]' data-id="divide_to_retail" disabled="disabled" required="true">
+                                  <option value="米">米</option>
+                                  <option value="平方米">平方米</option>
+                                  <option value="升">升</option>
                                 </select>
                               </div>
                               <div class="float-left">
                                 <label class="width-75">总量</label>
-                                <input type="text" class="width-160" data-id="split_merchandise_sales" disabled="disabled" required="true">
+                                <input type="number" min=1 name='saleinfo[volume]' data-costpirce='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" disabled="disabled" required="true">
                               </div>
                               <div class="float-left">
                                 <label class="width-75">拆分成本</label>
-                                <input type="text" class="width-160" data-id="split_merchandise_sales" disabled="disabled" required="true">
+                                <input type="text" class="width-160" readonly=true required="true">
                               </div>
                             </fieldset>
                           </td>
@@ -97,20 +97,20 @@
                           <td colspan="2">
                             <fieldset class="width-490 margin-left-26">
                               <legend class="margin-left-10">
-                                <input type="checkbox" class="toggleable" data-target="divide_to_retail"  data-checked>
+                                <input type="checkbox" class="toggleable" data-target="service_needed"  data-checked>
                                 <label>需要施工</label>
                               </legend>
                               <div class="float-left margin-left-20">
                                 <label class="width-75 text-align-left margin-left-10">
-                                  <input type="radio" class="width-15" name="radio_control" data-id="divide_to_retail" disabled checked>包含施工费
+                                  <input type="radio" class="width-15" name="radio_control" data-id="service_needed" disabled checked>包含施工费
                                 </label>
                               </div>
                               <div class="float-left">
                                 <label class="width-75  margin-left-26">
-                                  <input type="radio" class="width-15 toggleable" name="radio_control" data-id="divide_to_retail" disabled="disabled"
-                                   required="true" data-target="divide_to_retail_another" data-checked>另计施工费
+                                  <input type="radio" class="width-15 toggleable" name="radio_control" data-id="service_needed" disabled="disabled"
+                                   required="true" data-target="service_needed" data-checked>另计施工费
                                 </label>
-                                <input type="text" class="width-165" data-id="divide_to_retail_another" disabled required="true">
+                                <input type="text" class="width-165" data-id="service_needed" disabled required="true">
                               </div>
                             </fieldset>
                           </td>
