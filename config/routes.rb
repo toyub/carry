@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         get :sub_categories
       end
     end
+    resources :material_saleinfo_categories
 
     resources :material_inventories
     

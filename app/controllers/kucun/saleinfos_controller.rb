@@ -4,6 +4,14 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
     @store = current_user.store
     @store_material = StoreMaterial.find(params[:material_id])
     @sale_info = StoreMaterialSaleinfo.new
+    @store_material_saleinfo_category = StoreMaterialSaleinfoCategory.where(store_material_category_id: @store_material.store_material_category.id).first ||
+                                        StoreMaterialSaleinfoCategory.create(store_material_category_id: @store_material.store_material_category.id,
+                                                                             name: @store_material.store_material_category.name,
+                                                                             store_id: current_user.store_id,
+                                                                             store_chain_id: current_user.store_chain_id,
+                                                                             store_staff_id: current_user.id)
+    @store_material_saleinfo_categories = StoreMaterialSaleinfoCategory.all
+
   end
 
   def create

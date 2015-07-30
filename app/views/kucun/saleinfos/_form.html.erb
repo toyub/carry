@@ -1,241 +1,234 @@
-<form action="ticheng.html" method="get" >
-              <div class="base_info">
-                <div class="goods_img">
-                  <div id='material_img_preview' class="goods_main_img"></div>
-                  <ul id='material_img_thumbnails' class="goods_small_img">
-                    <li id='preview_list'>
-                      <% @store_material.store_material_images.each do |image| %>
-                        <img src="<%= image.asset_path %>">
-                      <% end %>
-                    </li>
-                  </ul>
-                </div>
-                <div class=" car_content">
-                  <div class="float-left pure-u-1-2">
-                    <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <label class="width-75">商品名称</label>
-                            <input type="text" class="width-165" value="碳纤白色保护膜" readonly />
-                          </td>
-                          <td>
-                            <label class="width-75">规格</label>
-                            <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly="true"/>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="width-75">最低售价</label>
-                            <input type="text" class="width-165" value="0.00" readonly />
-                          </td>
-                          <td>
-                            <label class="width-75">零售价</label>
-                            <input type="text" class="width-165"  />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span class="width-75 display-inline-block text-align-right">
-                              <input type="radio"  class="toggleable width-13" data-target="bargain" data-checked>
-                              优惠价
-                            </span>
-                            <input type="text" class="width-165" data-id="bargain" disabled="disabled" required="true">
-                          </td>
-                          <td>
-                            <label class="width-75">批发价</label>
-                            <input type="text" class="width-165">
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="width-75">商品积分</label>
-                            <input type="text" class="width-165">
-                          </td>
-                          <td>
-                            <label class="width-75">销售分类</label>
-                            <input type="hidden" name='material[store_sale_category_id]' value="">
-                            <span id='store_sale_brand_id' class="width-157 as_select" data-select='#sale_category_select'
-                            data-target='input[name="material[store_sale_category_id]"]'>请选择</span>
-                            <div id='sale_category_select' class="select width-165">
-                              <ol class="width-165">
-                                <li data-value="1">是另一个标签</li>
-                                <li data-value="2">例如:清洁类</li>
-                              </ol>
-                              <a class='add_btn width-158' data-method='add_category' href="javascript:void(0);">新增</a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colspan="2">
-                            <fieldset class="width-490 margin-left-26">
-                              <legend class="margin-left-10">
-                                <label>
-                                <input type="checkbox" class="toggleable" name='store_material_saleinfo[divide_to_retail]' data-target="divide_to_retail" data-checked>
-                                此商品拆分销售</label>
-                              </legend>
-                              <div>
-                                <label class="width-75">计量单位</label>
-                                <select class="width-160" name='saleinfo[unit]' data-id="divide_to_retail" disabled="disabled" required="true">
-                                  <option value="米">米</option>
-                                  <option value="平方米">平方米</option>
-                                  <option value="升">升</option>
-                                </select>
-                              </div>
-                              <div class="float-left">
-                                <label class="width-75">总量</label>
-                                <input type="number" min=1 name='saleinfo[volume]' data-costpirce='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" disabled="disabled" required="true">
-                              </div>
-                              <div class="float-left">
-                                <label class="width-75">拆分成本</label>
-                                <input type="text" class="width-160" readonly=true required="true">
-                              </div>
-                            </fieldset>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colspan="2">
-                            <fieldset class="width-490 margin-left-26">
-                              <legend class="margin-left-10">
-                                <input type="checkbox" class="toggleable" data-target="service_needed"  data-checked>
-                                <label>需要施工</label>
-                              </legend>
-                              <div class="float-left margin-left-20">
-                                <label class="width-75 text-align-left margin-left-10">
-                                  <input type="radio" class="width-15" name="radio_control" data-id="service_needed" disabled checked>包含施工费
-                                </label>
-                              </div>
-                              <div class="float-left">
-                                <label class="width-75  margin-left-26">
-                                  <input type="radio" class="width-15 toggleable" name="radio_control" data-id="service_needed" disabled="disabled"
-                                   required="true" data-target="service_needed" data-checked>另计施工费
-                                </label>
-                                <input type="text" class="width-165" data-id="service_needed" disabled required="true">
-                              </div>
-                            </fieldset>
-                          </td>
-                        </tr>
-
-                      </tbody>
-                    </table>
-
-                  </div>
-                  <div  class="pure-u-1-2 float-left">
-                    <div class="server_list" >
-                      <div class="top">
-                        <h2>服务项目列表</h2>
-                        <span class="new_btn btn margin-top-10 float-right click_btn cursor" id="add_server_btn">创建</span>
-                      </div>
-                      <div class="none_server_data">
-                        <p class="none_server_p">当前没有配套服务</p>
-                        <p class="none_details">你可以先选择"需要施工"来激活服务列表，然后点击创建来添加配套的服务项目</p>
-                      </div>
-                      <div class="list" id="lists">
-                        <div class="list_top">
-                          <ul>
-                            <li  >#</li>
-                            <li  >名称</li>
-                            <li >数量</li>
-                            <li >施工时间</li>
-                            <li >技师</li>
-                          </ul>
-                        </div>
-                        <div class="list_content list_tr" data-id="list_content_01">
-                          <ul class=" list_tr_hover">
-                            <li >1.</li>
-                            <li ><label class="click_btn cursor">澜泰纳米镀金</label></li>
-                            <li>1</li>
-                            <li >120</li>
-                            <li >高级-高级
-                             <span class="delete close" data-target="list_content_01"> <i class="lnr lnr-cross color-fff"></i> </span>
-                            </li>
-                          </ul>
-
-                        </div>
-                        <div class="list_content list_tr" data-id="list_content_02">
-                          <ul class="list_tr_hover">
-                            <li >2.</li>
-                            <li ><label  class="click_btn cursor">澜泰纳米镀金</label></li>
-                            <li>1</li>
-                            <li >120</li>
-                            <li >高级-高级</a><span class="delete close" data-target="list_content_02"> <i class="lnr lnr-cross color-fff"></i></span></li>
-                          </ul>
-                        </div>
-                        <div class="list_content list_tr" data-id="list_content_03">
-                            <ul class="list_tr_hover">
-                              <li >3.</li>
-                              <li ><label class="click_btn cursor">澜泰纳米镀金</label></li>
-                              <li>1</li>
-                              <li >120</li>
-                              <li >高级-高级<span class="delete close" data-target="list_content_03"> <i class="lnr lnr-cross color-fff"></i> </span></li>
-                            </ul>
-                        </div>
-                        <div class="list_content list_tr" data-id="list_content_04">
-                            <ul class="list_tr_hover">
-                              <li >4.</li>
-                              <li ><label class="click_btn cursor">澜泰纳米镀金</label></li>
-                              <li>1</li>
-                              <li >120</li>
-                              <li >高级-高级<span class="delete close" data-target="list_content_04"> <i class="lnr lnr-cross color-fff"></i> </span></li>
-                            </ul>
-                        </div>
-                      </div>
-
-
-                      <div class="add_server" id="add_server" style="display:none;">
-                        <div class="pure-u-1-2  text-align-left float-left ">
-                          <label class="width-50">服务名称</label>
-                          <input type="text" class="width-130">
-                        </div>
-                        <div class="pure-u-1-2 text-align-right float-left ">
-                          <label class="width-50">施工时间</label>
-                          <input type="text" class="width-130">
-                        </div>
-                        <div class="pure-u-1-2  text-align-left float-left ">
-                          <label class="width-50">技师</label>
-                          <input type="text" class="width-130">
-                        </div>
-                        <div class="pure-u-1-2 text-align-right float-left ">
-                          <label class="width-50">施工提成</label>
-                          <input type="text" class="width-130">
-                        </div>
-                        <div class="pure-u-1-2  text-align-left float-left ">
-                         <label class="width-50">次数</label>
-                         <input type="text" class="width-55">
-                         <label class="width-50">售后回访</label>
-                         <input type="checkbox" class="width-15">
-                        </div>
-                        <div class="pure-u-1-2 text-align-right float-left ">
-                          <label class="width-60">回访时间:</label>
-                          <label class="width-60">施工结束后</label>
-                          <select class="width-60">
-                            <option></option>
-                            <option></option>
-                          </select>
-                        </div>
-                        <div class=" text-align-left float-right  pure-u-2-2">
-                          <label class="width-60">回访内容：</label>
-                          <label class="width-75 text-align-left"> 回访方式</label>
-                          <select class="width-253">
-                            <option></option>
-                            <option></option>
-                          </select>
-                         </div>
-                        <div class=" text-align-left float-right   pure-u-2-2 model">
-                          <textarea > </textarea>
-                        </div>
-
-                        <div class="btn_group">
-                          <input type="reset"  value="取消" class="cancel_btn btn cancel"  >
-                          <input type="button"  value="保存" class="save_btn btn add_cancel"   >
-                        </div>
-                      </div>
+  <%= form_tag kucun_material_saleinfo_path do %>
+      <div class="base_info">
+        <div class="goods_img">
+          <div id='material_img_preview' class="goods_main_img"></div>
+          <ul id='material_img_thumbnails' class="goods_small_img">
+            <li id='preview_list'>
+              <% @store_material.store_material_images.each do |image| %>
+                <img src="<%= image.asset_path %>">
+              <% end %>
+            </li>
+          </ul>
+        </div>
+        <div class=" car_content">
+          <div class="float-left pure-u-1-2">
+            <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
+              <tbody>
+                <tr>
+                  <td>
+                    <label class="width-75">商品名称</label>
+                    <input type="text" class="width-165" value="碳纤白色保护膜" readonly />
+                  </td>
+                  <td>
+                    <label class="width-75">规格</label>
+                    <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly="true"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">最低售价</label>
+                    <input type="text" class="width-165" value="0.00" readonly />
+                  </td>
+                  <td>
+                    <label class="width-75">零售价</label>
+                    <input type="text" class="width-165" name="saleinfo[retail_price]"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="width-75 display-inline-block text-align-right">
+                      <input type="radio" name='saleinfo[bargainable]'  class="toggleable width-13" data-target="bargain" data-checked>
+                      优惠价
+                    </span>
+                    <input type="text" class="width-165" data-id="bargain" name='saleinfo[bargain_price]' disabled="disabled" required="true">
+                  </td>
+                  <td>
+                    <label class="width-75">批发价</label>
+                    <input type="text" class="width-165" name="saleinfo[trade_price]">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">商品积分</label>
+                    <input type="text" class="width-165" name="saleinfo[reward_points]">
+                  </td>
+                  <td>
+                    <label class="width-75">销售分类</label>
+                    <input type="hidden" name='saleinfo[store_material_saleinfo_category_id]' value="<%= @store_material_saleinfo_category.id %>">
+                    <span id='store_material_saleinfo_category_id' class="width-157 as_select" data-select='#saleinfo_category_select'
+                    data-target='input[name="saleinfo[store_material_saleinfo_category_id]"]'><%= @store_material_saleinfo_category.name %></span>
+                    <div id='saleinfo_category_select' class="select width-165">
+                      <ol class="width-165">
+                        <% @store_material_saleinfo_categories.each do |category| %>
+                        <li data-value='<%= category.id %>'><%= category.name %></li>
+                        <% end %>
+                      </ol>
+                      <a class='add_btn width-158' data-method='add_saleinfo_category' href="javascript:void(0);">新增</a>
                     </div>
-                  </div>
-                </div>
-                <div class="btn_group">
-                  <input type="submit" class="save_btn btn" value="保存">
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <fieldset class="width-490 margin-left-26">
+                      <legend class="margin-left-10">
+                        <label>
+                        <input type="checkbox" class="toggleable" name='saleinfo[divide_to_retail]' data-target="divide_to_retail" data-checked>
+                        此商品拆分销售</label>
+                      </legend>
+                      <div>
+                        <label class="width-75">计量单位</label>
+                        <select class="width-160" name='saleinfo[unit]' data-id="divide_to_retail" disabled="disabled" required="true">
+                          <option value="米">米</option>
+                          <option value="平方米">平方米</option>
+                          <option value="升">升</option>
+                        </select>
+                      </div>
+                      <div class="float-left">
+                        <label class="width-75">总量</label>
+                        <input type="number" min=1 name='saleinfo[volume]' data-costpirce='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" disabled="disabled" required="true">
+                      </div>
+                      <div class="float-left">
+                        <label class="width-75">拆分成本</label>
+                        <input id='divided_cost' type="text" class="width-160" readonly=true>
+                      </div>
+                    </fieldset>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <fieldset class="width-490 margin-left-26">
+                      <legend class="margin-left-10">
+                        <label>
+                        <input type="checkbox" name='saleinfo[service_needed]' class="toggleable" data-target="service_needed"  data-checked>
+                        需要施工</label>
+                      </legend>
+                      <div class="float-left margin-left-20">
+                        <label class="width-75 text-align-left margin-left-10">
+                          <input type="radio" class="width-15" name="saleinfo[service_fee_needed]" value='1' data-id="service_needed" disabled checked>包含施工费
+                        </label>
+                      </div>
+                      <div class="float-left">
+                        <label class="width-75  margin-left-26">
+                          <input type="radio" class="width-15" name="saleinfo[service_fee_needed]" value='2' data-id="service_needed" disabled="disabled" data-target="service_fee" data-checked>另计施工费
+                        </label>
+                        <input type="text" class="width-165" data-id="service_fee" name='saleinfo[service_fee]' disabled required="true">
+                      </div>
+                    </fieldset>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+          <div  class="pure-u-1-2 float-left">
+            <div class="server_list" >
+              <div class="top">
+                <h2>服务项目列表</h2>
+                <span class="new_btn btn margin-top-10 float-right click_btn cursor disabled" id="add_server_btn">创建</span>
+              </div>
+              <div class="none_server_data">
+                <p class="none_server_p">当前没有配套服务</p>
+                <p class="none_details">你可以先选择"需要施工"来激活服务列表，然后点击创建来添加配套的服务项目</p>
+              </div>
+              <div class="list" id="lists">
+                <div class="list_top">
+                  <ul>
+                    <li>#</li>
+                    <li>名称</li>
+                    <li>次数</li>
+                    <li>施工时间</li>
+                    <li>技师</li>
+                  </ul>
                 </div>
 
               </div>
-            </form>
+
+            </div>
+          </div>
+        </div>
+        <div class="btn_group">
+          <input type="submit" class="save_btn btn" value="保存">
+        </div>
+
+      </div>
+    <% end %>
+
+    <% content_for :scenes do %>
+
+      <template id="new_saleinfo_service">
+        <div data-id="{%= this.id %}" class="add_server">
+            <div class="pure-u-1-2  text-align-left float-left ">
+              <label class="width-50">服务名称</label>
+              <input type="text" name='saleinfo[store_material_saleinfo_services][][name]' class="width-130">
+            </div>
+            <div class="pure-u-1-2 text-align-right float-left ">
+              <label class="width-50">施工时间</label>
+              <input type="text" class="width-90" name='saleinfo[store_material_saleinfo_services][][work_time]'>
+              <select class="width-60" name='saleinfo[store_material_saleinfo_services][][work_time_unit]'>
+                <option>分钟</option>
+              </select>
+            </div>
+            <div class="pure-u-1-2  text-align-left float-left">
+              <label class="width-50">技师等级</label>
+              <select class="width-132" name="saleinfo[store_material_saleinfo_services][][mechanic_level]">
+                <option>初级以上(含初级)</option>
+                <option>中级以上(含中级)</option>
+                <option>高级</option>
+              </select>
+            </div>
+            <div class="pure-u-1-2 text-align-right float-left ">
+              <label class="width-50">施工提成</label>
+              <select class="width-155" name="saleinfo[store_material_saleinfo_services][][store_commission_id]">
+                <option>镀晶提成方案</option>
+              </select>
+            </div>
+            <div class="pure-u-1-2  text-align-left float-left ">
+             <label class="width-50">施工次数</label>
+             <input type="text" class="width-55" name="saleinfo[store_material_saleinfo_services][][times]">
+             <label class="width-50">售后回访</label>
+             <input type="checkbox" class="width-15" name="saleinfo[store_material_saleinfo_services][][tracking_needed]">
+            </div>
+            <div class="pure-u-1-2 text-align-right float-left ">
+              <label class="width-60">回访时间:</label>
+              <label class="width-60">施工结束后</label>
+              <input type="text" class="width-35" name="saleinfo[store_material_saleinfo_services][][tracking_time]">
+              <select class="width-45" name="saleinfo[store_material_saleinfo_services][][tracking_time_unit]">
+                <option>时</option>
+                <option>天</option>
+                <option>月</option>
+              </select>
+            </div>
+            <div class=" text-align-left float-right  pure-u-2-2">
+              <label class="width-95">回访内容：</label>
+              <label class="width-73 text-align-left">回访方式</label>
+              <select class="width-253" name="saleinfo[store_material_saleinfo_services][][tracking_contact_way]">
+                <option>短信</option>
+                <option>微信</option>
+              </select>
+             </div>
+            <div class=" text-align-left float-right   pure-u-2-2 model">
+              <textarea name='saleinfo[store_material_saleinfo_services][][tracking_content]'></textarea>
+            </div>
+
+            <div class="btn_group">
+              <input type="reset"  value="取消" class="cancel_btn btn cancel"  >
+              <input type="button"  value="保存" class="add_service save_btn btn add_cancel"   >
+            </div>
+        </div>
+      </template>
+
+      <template id="saleinfo_service_show">
+        <div class="list_content list_tr" data-id="service_{%= this.id %}">
+          <ul class=" list_tr_hover">
+            <li>1.</li>
+            <li><label data-editformid='{%= this.id %}' class="click_btn cursor">{%= this.name %}</label></li>
+            <li>{%= this.times %}</li>
+            <li>{%= this.work_time %}</li>
+            <li>{%= this.mechanic_level %}
+             <span class="delete close" data-target="list_content_01"> <i class="lnr lnr-cross color-fff"></i> </span>
+            </li>
+          </ul>
+        </div>
+      </template>
+    <% end %>
