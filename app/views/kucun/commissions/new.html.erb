@@ -21,3 +21,14 @@
         </div>
     </div>
 </div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      $('div.deduct_percentage').on('click', '.detail', function(){
+        $(this.dataset.showid).show();
+        console.log($(this).siblings('select').val());
+      });
+    });
+  </script>
+<% end %>

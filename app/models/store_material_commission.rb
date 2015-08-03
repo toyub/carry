@@ -1,6 +1,7 @@
 class StoreMaterialCommission < ActiveRecord::Base
     belongs_to :store
     belongs_to :store_chain
+    belongs_to :store_material
     belongs_to :creator, class_name: 'Staff', foreign_key: 'store_staff_id'
 
   def initialize(*args, &block)
