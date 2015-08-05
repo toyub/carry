@@ -10,6 +10,8 @@ class Store <  ActiveRecord::Base
   has_many :store_suppliers
   has_many :store_services
   has_many :service_categories, class_name: 'StoreServiceCategory'
+  has_many :store_workstation_categories
+  has_many :store_commission_templates
 
   validates :name, presence: true
 

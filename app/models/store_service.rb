@@ -6,6 +6,7 @@ class StoreService < ActiveRecord::Base
   has_many :store_materials, through: :store_service_store_materials
   belongs_to :unit, foreign_key: 'store_service_unit_id'
   has_many :store_order_items, as: :orderable
+  has_many :store_service_workflows
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true

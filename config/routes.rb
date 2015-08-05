@@ -59,6 +59,9 @@ Rails.application.routes.draw do
     end
 
     resources :store_materials, only: [:index]
+    resources :store_workstation_categories, only: [] do
+      resources :store_workstations, only: [:index]
+    end
   end
 
   resource :session, only: [:new, :create, :destroy]

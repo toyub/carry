@@ -1,8 +1,8 @@
-<div class="process_setting setting_right float-right">
+<div class="process_setting setting_right float-right j_workflow_setting">
   <h2>
-    <label class="color-ccc" for="process_setting">按流程设置</label>
-    <input type="radio" name="service_setting_select" class="margin-left-8 margin-top-0" id="process_setting">
-    <input type="button" class=" new_btn float-right not_available do_open_list_new_page" value="创建" disabled="">
+    <label class="color-ccc" for="workflow_setting">按流程设置</label>
+    <input type="radio" name="service_setting_select" class="margin-left-8 margin-top-0" id="workflow_setting">
+    <input type="button" id='create_workflow' class=" new_btn float-right not_available do_open_list_new_page" value="创建" disabled="">
   </h2>
   <p class="no_process">
   您可以根据需要施工流程进行拆分管理，流程拆分后，施工时间会根据您设定的流程步骤单独计算，
@@ -20,50 +20,10 @@
       <li>提成</li>
     </ul>
     <div class="do_new_lists_content">
-      <ul class="items_content">
-        <li>1.</li>
-        <li><label>钣金施工</label></li>
-        <li>1</li>
-        <li>初级</li>
-        <li>240</li>
-        <li>不限</li>
-        <li>
-        <span>班组计件</span>
-        <span class="delete delete_list">×</span>
-        </li>
-      </ul>
-
-      <ul class="items_content">
-        <li>2.</li>
-        <li><label>油漆做底</label></li>
-        <li>1</li>
-        <li>初级</li>
-        <li>240</li>
-        <li>不限</li>
-        <li>
-        <span>班组计件</span>
-        <span class="delete delete_list">×</span>
-        </li>
-      </ul>
-
-      <template>
-      <ul class="items_content">
-        <li>1.</li>
-        <li><label>钣金施工</label></li>
-        <li>1</li>
-        <li>初级</li>
-        <li>240</li>
-        <li>不限</li>
-        <li>
-        <span>班组计件</span>
-        <span class="delete delete_list">×</span>
-        </li>
-      </ul>
-      </template>
     </div>
   </div>
 
-  <div class="new_process_details new_items_details do_list_new_page" id="do_new_process_details">
+  <div class="new_process_details new_items_details do_list_new_page">
     <h3 class="color-fff">创建流程</h3>
     <table class="float-left" border="0">
       <tbody><tr>
@@ -96,7 +56,7 @@
         <td></td>
         <td colspan="5">
           <label>允许加时
-            <input type="radio" name="delay_allowed" onclick="clickRadio(this);">
+            <input type="radio" name="delay_allowed" id="delay_allowed" value="false" />
           </label>
         </td>
       </tr>
@@ -109,18 +69,18 @@
         <td>技师设置：</td>
         <td></td>
         <td>数量设置
-          <input type="text" name="the_number_of_mechanics" data-id="mechanics_number_limit">
+          <input type="text" name="the_number_of_mechanics" id="limited_mechanics" />
         </td>
         <td colspan="4">
           <label>数量不限
-            <input type="radio" name="unlimited_mechanics" class="discontrol" data-target="mechanics_number_limit">
+            <input type="radio" name="unlimited_mechanics" class="discontrol" value="false" id="unlimited_mechanics"/>
           </label>
           <label class="margin-right-30 margin-left-60">上岗方式</label>
           <label>自动
-            <input type="radio" name="sign_method_in_process_in_process" checked="">
+            <%= radio_button_tag "sign_method_in_process_in_process", StoreServiceWorkflow::POSITION_MODE['自动上岗'], checked: true %>
           </label>
           <label class="app">APP
-            <input type="radio" name="sign_method_in_process_in_process">
+            <%= radio_button_tag "sign_method_in_process_in_process", StoreServiceWorkflow::POSITION_MODE['APP上岗'], checked: false %>
           </label>
         </td>
       </tr>
@@ -128,12 +88,7 @@
         <td></td>
         <td></td>
         <td colspan="5">级别限定
-          <select>
-            <option></option>
-            <option>初级</option>
-            <option>中级</option>
-            <option>高级</option>
-          </select>
+          <%= select_tag :level_limited, options_for_select(StoreServiceWorkflow::ENGINEER_LEVEL), {include_blank: true} %>
           以上
         </td>
       </tr>
@@ -234,16 +189,22 @@
       <tr>
         <td>技师提成：</td>
         <td></td>
-        <td>提成方案
+        <td>提成对象
+          <select>
+            <option></option>
+            <option>按员工</option>
+            <option>按部门</option>
+          </select>
+        </td>
+        <td colspan="2">提成方案</td>
+        <td>
           <select>
             <option></option>
             <option>方案1</option>
             <option>方案2</option>
           </select>
         </td>
-        <td colspan="2"></td>
-        <td></td>
-        <td></td>
+        <td></td
       </tr>
     </tbody></table>
 
@@ -256,8 +217,8 @@
     </div>
 
     <div class=" btns float-left">
-      <input type="button" class="cancel_btn btn do_close_process_create" value="取消" id="do_cancel_new_list">
-      <input type="button" class="save_btn btn" value="保存" id="do_save_new_list">
+      <input type="button" class="cancel_btn btn do_close_process_create" value="取消" id="cancel_workflow">
+      <input type="button" class="save_btn btn" value="保存" id="save_workflow">
     </div>
   </div>
 </div>
