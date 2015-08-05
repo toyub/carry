@@ -41,7 +41,24 @@ Rails.application.routes.draw do
   end
 
   namespace :xiaoshou do
-    resources :services, only: [:index]
+    namespace :service do
+      resources :profiles, only: [:index, :show, :new, :create]
+      resources :settings, only: [:new, :edit, :update]
+      resources :categories, only: [:create]
+    end
+  end
+
+  namespace :ajax do
+    resources :store_material_categories, only: [] do
+      member do
+        get :sub_categories
+      end
+    end
+
+    resources :store_materials, only: [:index]
+    resources :store_workstation_categories, only: [] do
+      resources :store_workstations, only: [:index]
+    end
   end
 
   resource :session, only: [:new, :create, :destroy]

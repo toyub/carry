@@ -1,0 +1,81 @@
+<div class="pure-u-1-2 float-left">
+  <div class="server_list">
+  <div class="top">
+    <h2>关联商品表</h2>
+    <span class="appand_btn btn margin-top-10 float-right click_btn j_add_material" id="add_server_btn">添加</span>
+  </div>
+  <div class="none_server_data" style="display:block;">
+    <p class="none_server_p">服务没有关联商品</p>
+    <p class="none_details">如果服务项目没有关联相关的商品，将会影响服务成本的统计，建议添加关联商品，点击添加进行操作。获取帮助<a href="#" class="color-73ACD4 text-decoration-underline">点我</a></p>
+  </div>
+
+  <div class="list" id="j_related_goods" style="display:none;">
+    <div class="list_top list_tr">
+      <ul>
+        <li class="first_td">#</li>
+        <li class="second_td">商品</li>
+        <li class="third_td">数量</li>
+        <li class="forth_td ">方式</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="add_server" id="add_server" style="display:none;">
+      <div class="item_content text-align-left float-left ">
+        <label class="width-75">一级分类</label>
+        <%= select_tag 'primary_category', options_for_select(@material_categories.map {|c| [c.name, c.id]}), include_blank: '请选择', class: 'width-130' %>
+      </div>
+      <div class="item_content text-align-right float-left ">
+        <label class="width-75">二级分类</label>
+        <%= select_tag 'sub_category', options_for_select([]), include_blank: '请选择', class: 'width-130' %>
+      </div>
+      <div class="item_content  text-align-left float-left ">
+        <label class="width-75">关键字查找</label>
+        <%= text_field_tag 'material_name', nil, class: 'width-255' %>
+        <a href="javascript:void(0);" id="search_materials" class="query_btn btn">查询</a>
+      </div>
+      <div class="table_list">
+        <label class="width-75 float-left">查询结果</label>
+        <div class="query_results">
+          <table cellspacing="0" cellpadding="0" class="query_results_table">
+            <colgroup>
+            <col width="90%">
+            <col width="10%">
+            </colgroup>
+            <tbody>
+              <% @materials.each do |m| %>
+                <tr>
+                  <td><%= m.name %></td>
+                  <td data-id="<%= m.id %>" data-unit="<%= m.unit %>">
+                    <input type='checkbox'>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table_list">
+        <label class="width-75 float-left">已选择</label>
+        <div class="selected" id="selected">
+        <table cellspacing="0" cellpadding="0" class="selected_table">
+          <colgroup>
+          <col width="38%">
+          <col width="62%">
+          </colgroup>
+
+          <tbody>
+
+          </tbody>
+
+        </table>
+        </div>
+      </div>
+
+      <div class="btn_group">
+        <a href="javascript:void(0)" class="cancel_btn btn cancel">取消</a>
+        <a href="javascript:void(0)" class="save_btn btn cancel add_cancel">保存</a>
+      </div>
+    </div>
+  </div>
+</div>

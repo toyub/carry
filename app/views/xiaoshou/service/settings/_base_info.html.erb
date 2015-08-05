@@ -1,0 +1,24 @@
+<table border="0" class="service_info_abstract">
+  <tbody>
+  <tr>
+    <td>服务名称</td>
+    <td>销售价</td>
+    <td>优惠价</td>
+    <td>服务积分<label><%= @service.point %></label></td>
+    <td>服务类别<label><%= @service.store_service_category.name %></label></td>
+    <td>关联商品<label> </label></td>
+    <td>已销售<label></label></td>
+    <td>销售收入<label></label></td>
+  </tr>
+  <tr>
+    <td class="text-align-center font-18 font-weight-bold"><%= @service.name %></td>
+    <td class="text-align-center font-14 font-weight-bold"><%= @service.retail_price %></td>
+    <td class="text-align-center font-14 font-weight-bold"><%= @service.bargain_price %></td>
+    <td>服务代码<label><%= @service.code %></label></td>
+    <td>服务单位<label></label></td>
+    <td>商品数量<label></label></td>
+    <td>满意度<label></label></td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>

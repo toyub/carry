@@ -1,0 +1,40 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
+<% end %>
+
+<%= form_for @workflow, url: [:xiaoshou, :service, :setting], method: :put  do |f| %>
+  <div class="main_top">
+    <h2>服务设置详情</h2>
+    <span class="add_span">+</span>
+  </div>
+
+  <div class="details">
+    <div class="top_content records">
+      <%= render 'xiaoshou/service/shares/summary' %>
+    </div>
+
+    <%= render 'xiaoshou/service/shares/nav' %>
+
+    <div class="details_content">
+      <%= render 'base_info' %>
+
+      <div class="settings_in_service settings_in_sales">
+        <%= render 'general', f: f %>
+
+        <%= render 'workflow', f: f %>
+      </div>
+
+      <div class="btn_group">
+        <%= f.submit "保存", class: 'save_btn btn margin-right-2 do_link_to_service_tracking' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript" charset="utf-8">
+    $(function(){
+      new Mis.Views.XiaoshouServiceSettingsEdit();
+    })
+  </script>
+<% end %>

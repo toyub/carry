@@ -1,0 +1,10 @@
+$("table.index_list tbody").empty();
+<% if @services.present? %>
+  $("table.index_list").removeClass("no_search_result");
+  <% @services.each_with_index do |service, index| %>
+    $("table.index_list tbody").append("<%= j render 'service', service: service, index: index %>");
+  <% end %>
+<% else %>
+  $("table.index_list").addClass("no_search_result");
+  $("table.index_list tbody").html("<%= j render 'no_content' %>");
+<% end %>

@@ -1,0 +1,5 @@
+$("table.query_results_table tbody").empty();
+<% @store_materials.each do |material| %>
+  var item = "<tr><td><%= material.name %></td><td data-id='<%= material.id %>' data-unit='<%= material.store_material_unit.name %>'><input type='checkbox'></td></tr>";
+  $("table.query_results_table tbody").append(item);
+<% end %>

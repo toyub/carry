@@ -62,28 +62,26 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'capistrano-sidekiq'
+  gem 'quiet_assets'
+  gem 'annotate'
+  gem 'pry', "~> 0.9.12"
+  gem 'pry-nav', "~> 0.2.3"
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'backbone-on-rails'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+gem 'responders', '~> 2.0'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# json生成
+gem 'active_model_serializers'
 
-# Use sqlite3 as the database for Active Record
-#gem 'sqlite3'
+# Generates javascript file that defines all Rails named routes as javascript helpers
+gem "js-routes"
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-#gem 'jquery-rails'
-
-# 发送短信
-gem 'sms_client', git: 'git@git.icar99.com:/opt/git/wisdom/sms_client.git', tag: 'v0.0.2'
 
 #GEO
 gem 'geo', git: 'git@gitlab.icar99.com:zc/geo.git', tag: 'v0.0.3'
+
+# Object-based searching
+gem 'ransack', '~> 1.6.6'
+
