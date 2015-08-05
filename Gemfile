@@ -7,7 +7,7 @@ gem 'rails', '4.2.0'
 gem 'mysql2', '0.3.17'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '5.0.1'
+gem 'sass-rails', '~> 5.0.1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '2.7.0'
@@ -85,3 +85,4 @@ gem 'geo', git: 'git@gitlab.icar99.com:zc/geo.git', tag: 'v0.0.3'
 # Object-based searching
 gem 'ransack', '~> 1.6.6'
 
+gem 'sass', '3.4.10'
