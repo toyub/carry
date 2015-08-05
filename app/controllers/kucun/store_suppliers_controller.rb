@@ -9,7 +9,13 @@ class Kucun::StoreSuppliersController < Kucun::ControllerBase
     render layout: 'tiny'
   end
 
+  def add
+    @store_supplier = StoreSupplier.new
+  end
+
   def create
+    render json: params
+    return
     store = current_user.store
     store_supplier = store.store_suppliers.new(supplier_params)
     store_supplier.store_chain_id = store.store_chain_id

@@ -85,3 +85,5 @@ end
 # 发送短信
 gem 'sms_client', git: 'git@git.icar99.com:/opt/git/wisdom/sms_client.git', tag: 'v0.0.2'
 
+#GEO
+gem 'geo', git: 'git@gitlab.icar99.com:zc/geo.git', tag: 'v0.0.3'

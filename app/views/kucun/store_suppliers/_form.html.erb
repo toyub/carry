@@ -1,0 +1,148 @@
+<%= form_for(@store_supplier, url: kucun_store_suppliers_path) do %>
+  <div class="details_content">
+    <div class="supplier_info base_info ">
+        <div class="item_content">
+          <label class="width-75">供应商编号</label>
+          <input type="text" class="width-286" name='numero'>
+        </div>
+        <div class="item_content">
+          <label class="width-75">供应商名称</label>
+          <input type="text" class="width-245" name='name' required="true">
+        </div>
+        <div class="item_content">
+          <label class="width-75">联系人</label>
+          <input type="text" value="" class="width-130" name="contact_name">
+        </div>
+        <div class="item_content">
+          <label class="width-75">手机号码</label>
+          <input type="text"  class="width-130" name='contact_phone_number'>
+        </div>
+        <div class="item_content">
+          <label class="width-75">固定电话</label>
+          <input type="text"  class="width-130" name='contact_tel_number'>
+        </div>
+        <div class="item_content">
+          <label class="width-75">国家</label>
+          <select class="width-65 margin-left-0" name='country_code'>
+            <option value="">请选择</option>
+            <%= options_for_select(Geo.countries.map{|country| [country.name, country.code]}) %>
+          </select>
+          <label class="width-40">省份</label>
+          <select class="width-65 margin-left-0" name="state_code">
+            <option value="">请选择</option>
+          </select>
+          <label class="width-40">市</label>
+          <select class="width-64 margin-left-0" name="city_code">
+            <option value="">请选择</option>
+          </select>
+        </div>
+        <div class="item_content">
+          <label class="width-75">地址</label>
+          <input type="text" class="width-245" placeholder="必填项" name="address">
+        </div>
+        <div class="item_content">
+          <label class="width-75">助记码</label>
+          <input type="text"  class="width-130" name="mnemonic">
+        </div>
+        <div class="item_content">
+          <label class="width-75">传真号码</label>
+          <input type="text"  class="width-130" name="contact_fax_number">
+        </div>
+        <div class="item_content">
+          <label class="width-75">Email</label>
+          <input type="text"  class="width-130" name='contact_email'>
+        </div>
+        <div class="item_content">
+          <label class="width-75">一级分类</label>
+          <select class="width-103" name='root_category_id'>
+            <option>美容</option>
+            <option>镀晶</option>
+            <option>打蜡</option>
+          </select>
+
+          <label class="width-75">二级分类</label>
+          <select class="width-103" name="category_id">
+            <option>美容</option>
+            <option>镀晶</option>
+            <option>打蜡</option>
+          </select>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">信息来源</label>
+          <select class="width-87" name='info_source'>
+            <option>上门拜访</option>
+            <option>同行推荐</option>
+            <option>网络搜索</option>
+            <option>媒体杂志</option>
+          </select>
+        </div>
+
+        <div class="item_content">
+          <label class="width-68">重要程度</label>
+          <select class="width-88" name="weight">
+            <option>一般</option>
+            <option>重要</option>
+            <option>非常重要</option>
+          </select>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">结算方式</label>
+          <select class="width-132" name="clearing_mode">
+            <option>现结</option>
+            <option>挂账</option>
+          </select>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">结算周期</label>
+          <select class="width-132" name="clearing_cycle">
+            <option>按月</option>
+            <option>按周</option>
+          </select>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">结算日</label>
+          <input type="text" class="width-40" name="clearing_day">
+        </div>
+        <div class="item_content">
+          <label class="width-75">结算提醒<input type="checkbox" name='clearing_alarmify' class="width-13" ></label>
+        </div>
+        <div class="item_content">
+          <label class="width-75">开户银行</label>
+          <input type="text"  class="width-286" name="clearing_bank">
+        </div>
+        <div class="item_content">
+          <label class="width-75">银行账号</label>
+          <input type="text"  class="width-245" name="clearing_account">
+        </div>
+        <div class="item_content">
+          <label class="width-75">税号</label>
+          <input type="text"  class="width-340" name="clearing_vatin">
+        </div>
+         <div class="item_content">
+          <label class="width-75">付款方式</label>
+          <input type="text"  class="width-130" name="clearing_payment_method">
+        </div>
+        <div class="item_content">
+          <label class="width-75">备注</label>
+          <textarea class="width-1242 height-100 border-dbd9d9 texarea_width" name='remark'></textarea>
+        </div>
+    </div>
+    <div class="supplier_related" >
+      <div class="float-left">
+        <label class="width-80 text-align-right ">信息完整度:</label>
+        <span class>1%</span>
+      </div>
+        <div  class="float-right margin-right-40">
+          <label>停用供应商</label>
+          <input type="checkbox" name='status'>
+        </div>
+    </div>
+  </div>
+  <div class="btn_group margin-top-80 margin-right-40">
+    <input type="submit" class="save_btn btn" value="保存">
+  </div>
+<% end %>

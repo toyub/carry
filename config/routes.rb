@@ -33,6 +33,9 @@ Rails.application.routes.draw do
     get "material_orders/nowaus", controller: 'material_orders', action: 'nowaus', as: :nowaus
     resources :material_orders
     resources :store_suppliers do
+      collection do
+        get :add
+      end
       resources :material_orders
     end
   end

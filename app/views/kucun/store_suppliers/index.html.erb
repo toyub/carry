@@ -150,25 +150,11 @@
               <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
             </div>
             <div class="query_div">
-              <a href="gongyingshangxinxi.html" class="new_btn btn">新建</a>
+              <a href="/kucun/store_suppliers/add" class="new_btn btn">新建</a>
               <a href="dinghuo.html" class="quick_order_btn btn">快速订货</a>
             </div>
           </div>
-          <table cellpadding="0" cellspacing="0" class="content_table">
-            <colgroup>
-              <col width="2%">
-              <col width="10%">
-              <col width="12%">
-              <col width="8%">
-              <col width="8%">
-              <col width="8%">
-              <col width="5%">
-              <col width="8%">
-              <col width="8%">
-              <col width="6%">
-              <col width="16%">
-              <col width="5%">
-            </colgroup>
+          <table cellpadding="0" cellspacing="0" class="index_list order_goods">
             <thead>
               <tr>
                 <th style="border-right:0px;" >#</th>
@@ -188,56 +174,23 @@
             <tbody>
               <% @store_suppliers.each do |supplier| %>
               <tr>
-                <td>3</td>
-                <td>HZ-002</td>
+                <td>1</td>
+                <td>HZ-001</td>
                 <td><%= supplier.name %></td>
-                <td>轮胎产品</td>
-                <td>冯巩</td>
-                <td>13967186897</td>
-                <td>挂账</td>
-                <td>月结</td>
-                <td>每月20号</td>
-                <td>9,875.00</td>
+                <td>美容产品</td>
+                <td>叶帆</td>
+                <td>13967189949</td>
+                <td>现结</td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td class=" ">
                   <a href="gongyingshangxinxi.html" class="edit_a"><i class="fa fa-file-text-o "></i></a>
-                  <a class="literal-order " href="<%= new_kucun_material_order_path params: {store_supplier_id: supplier.id} %>">订</a>
+                  <a class="literal-order " href="<%=new_kucun_store_supplier_material_order_path(supplier)%>">订</a>
                 </td>
               </tr>
               <% end %>
-
-              <tr>
-                <td>4</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class=" ">
-                  <a href="gongyingshangxinxi.html" class="edit_a"><i class="fa fa-file-text-o"></i></a>
-                  <a class="literal-order " href="dinghuo.html">订</a>
-                </td>
-              </tr>
-
-              <tr  >
-                <td>5</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class=""></td>
-              </tr>
             </tbody>
           </table>
         </div>

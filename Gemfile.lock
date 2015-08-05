@@ -16,6 +16,15 @@ GIT
       bunny (~> 1.7.0)
       settingslogic (~> 2.0.9)
 
+GIT
+  remote: git@gitlab.icar99.com:zc/geo.git
+  revision: 2344fccb4fed65e63af79a6080a73b031695cdc2
+  tag: v0.0.3
+  specs:
+    geo (0.1.0)
+      activesupport
+      nokogiri
+
 GEM
   remote: http://ruby.taobao.org/
   specs:
@@ -231,6 +240,7 @@ DEPENDENCIES
   capistrano-sidekiq
   capistrano3-puma!
   coffee-rails (= 4.1.0)
+  geo!
   hiredis (~> 0.6.0)
   jbuilder (= 2.2.6)
   mysql2 (= 0.3.17)
