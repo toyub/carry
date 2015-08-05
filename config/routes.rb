@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     resources :material_saleinfo_categories
 
     resources :material_inventories
-    
+
     get "material_orders/nowaus", controller: 'material_orders', action: 'nowaus', as: :nowaus
     resources :material_orders
     resources :store_suppliers do
@@ -58,6 +58,11 @@ Rails.application.routes.draw do
     resources :store_materials, only: [:index]
     resources :store_workstation_categories, only: [] do
       resources :store_workstations, only: [:index]
+    end
+    resource :geo, only: [:show] do
+      member do
+        get :states
+      end
     end
   end
 

@@ -6,7 +6,6 @@ GIT
       capistrano (~> 3.0)
       puma (>= 2.6)
 
-<<<<<<< HEAD
 GIT
   remote: git@git.icar99.com:/opt/git/wisdom/sms_client.git
   revision: c3ec6a33f5c170760771c1fd58c0754ee40104b4
@@ -26,8 +25,6 @@ GIT
       activesupport
       nokogiri
 
-=======
->>>>>>> origin/staging
 GEM
   remote: http://ruby.taobao.org/
   specs:
