@@ -1,5 +1,9 @@
 class Ajax::GeosController < Ajax::BaseController
   def show
-    Geo.countries
+    respond_with Geo.countries
+  end
+
+  def states
+    respond_with Geo.countries
   end
 end

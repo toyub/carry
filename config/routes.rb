@@ -60,9 +60,8 @@ Rails.application.routes.draw do
       resources :store_workstations, only: [:index]
     end
     resource :geo, only: [:show] do
-      member do
-        get :states
-      end
+      get "/ajax/geo/countries/:country_code/states/", to: "geos#states", as: :country_states
+      get "/ajax/geo/countries/:country_code/states/:state_code/cities", to: "geos#cities", as: :country_state_cities
     end
   end
 
