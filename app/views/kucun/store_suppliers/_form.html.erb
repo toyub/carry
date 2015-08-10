@@ -1,134 +1,103 @@
-<%= form_for(@store_supplier, url: kucun_store_suppliers_path) do %>
+<%= form_for([:kucun, @store_supplier]) do |form| %>
   <div class="details_content">
     <div class="supplier_info base_info ">
         <div class="item_content">
           <label class="width-75">供应商编号</label>
-          <input type="text" class="width-286" name='numero'>
+          <%= form.text_field :numero, class: 'width-286' %>
         </div>
         <div class="item_content">
           <label class="width-75">供应商名称</label>
-          <input type="text" class="width-245" name='name' required="true">
+          <%= form.text_field :name, class: 'width-245', required:true %>
         </div>
         <div class="item_content">
           <label class="width-75">联系人</label>
-          <input type="text" value="" class="width-130" name="contact_name">
+          <%= form.text_field :contact_name, class: 'width-130' %>
         </div>
         <div class="item_content">
           <label class="width-75">手机号码</label>
-          <input type="text"  class="width-130" name='contact_phone_number'>
+          <%= form.text_field :contact_phone_number, class: 'width-130' %>
         </div>
         <div class="item_content">
           <label class="width-75">固定电话</label>
-          <input type="text"  class="width-130" name='contact_tel_number'>
+          <%= form.text_field :contact_tel_number, class: 'width-130' %>
         </div>
         <div class="item_content">
           <label class="width-75">国家</label>
-          <select class="width-65 margin-left-0" name='country_code'>
-            <option value="">请选择</option>
-            <%= options_for_select(Geo.countries.map{|country| [country.name, country.code]}) %>
-          </select>
+          <%= form.select :location_country_code, options_for_select(Geo.countries.map{|country| [country.name, country.code]}, ['中国', '1']), {}, {class: "width-65 margin-left-0"} %>
           <label class="width-40">省份</label>
-          <select class="width-65 margin-left-0" name="state_code">
-            <option value="">请选择</option>
-          </select>
+          <%= form.select :location_state_code, options_for_select(Geo.states('1').map{|state| [state.name, state.code]}, ['北京', '11']), {}, {class: "width-65 margin-left-0"} %>
           <label class="width-40">市</label>
-          <select class="width-64 margin-left-0" name="city_code">
-            <option value="">请选择</option>
-          </select>
+          <%= form.select :location_city_code, options_for_select(Geo.cities('1', '11').map{|city| [city.name, city.code]}), {}, {class: "width-64 margin-left-0"} %>
         </div>
         <div class="item_content">
           <label class="width-75">地址</label>
-          <input type="text" class="width-245" placeholder="必填项" name="address">
+          <%= form.text_field :location_address, class: 'width-245' %>
         </div>
         <div class="item_content">
           <label class="width-75">助记码</label>
-          <input type="text"  class="width-130" name="mnemonic">
+          <%= form.text_field :mnemonic, class: 'width-130' %>
         </div>
         <div class="item_content">
           <label class="width-75">传真号码</label>
-          <input type="text"  class="width-130" name="contact_fax_number">
+          <%= form.text_field :contact_fax_number, class: 'width-130' %>
         </div>
         <div class="item_content">
           <label class="width-75">Email</label>
-          <input type="text"  class="width-130" name='contact_email'>
+          <%= form.text_field :contact_email, class: 'width-130' %>
         </div>
         <div class="item_content">
           <label class="width-75">一级分类</label>
-          <select class="width-103" name='root_category_id'>
-            <option>美容</option>
-            <option>镀晶</option>
-            <option>打蜡</option>
-          </select>
-
+          <%= form.select :store_material_root_category_id, options_for_select(@store.store_material_categories.super_categories.map { |category| [category.name, category.id] }), {}, {class: "width-103"} %>
           <label class="width-75">二级分类</label>
-          <select class="width-103" name="category_id">
-            <option>美容</option>
-            <option>镀晶</option>
-            <option>打蜡</option>
-          </select>
+          <%= form.select :store_material_category_id, options_for_select(@store.store_material_categories.super_categories.first.sub_categories.map { |category| [category.name, category.id] }), {}, {class: "width-103"} %>
         </div>
 
         <div class="item_content">
           <label class="width-75">信息来源</label>
-          <select class="width-87" name='info_source'>
-            <option>上门拜访</option>
-            <option>同行推荐</option>
-            <option>网络搜索</option>
-            <option>媒体杂志</option>
-          </select>
+          <%= form.select :info_source_id, options_for_select(StoreSupplier::INFO_SOURCES.map{|key, value| [value, key]}), {}, {class: "width-87"} %>
         </div>
 
         <div class="item_content">
           <label class="width-68">重要程度</label>
-          <select class="width-88" name="weight">
-            <option>一般</option>
-            <option>重要</option>
-            <option>非常重要</option>
-          </select>
+          <%= form.select :weight_id, options_for_select(StoreSupplier::WEIGHTS.map{|key, value| [value, key]}), {}, {class: "width-88"} %>
         </div>
 
         <div class="item_content">
           <label class="width-75">结算方式</label>
-          <select class="width-132" name="clearing_mode">
-            <option>现结</option>
-            <option>挂账</option>
-          </select>
+          <%= form.select :clearing_mode_id, options_for_select(StoreSupplier::CLEARING_MODES.map{|key, value| [value, key]}), {}, {class: "width-132"} %>
         </div>
 
         <div class="item_content">
           <label class="width-75">结算周期</label>
-          <select class="width-132" name="clearing_cycle">
-            <option>按月</option>
-            <option>按周</option>
-          </select>
+          <%= form.select :clearing_cycle_id, options_for_select(StoreSupplier::CLEARING_CYCLES.map{|key, value| [value, key]}), {}, {class: "width-132"} %>
         </div>
 
         <div class="item_content">
           <label class="width-75">结算日</label>
-          <input type="text" class="width-40" name="clearing_day">
+          <%= form.text_field :clearing_day, class: 'width-40' %>
         </div>
         <div class="item_content">
-          <label class="width-75">结算提醒<input type="checkbox" name='clearing_alarmify' class="width-13" ></label>
+          <label class="width-75">结算提醒<%= form.check_box :clearing_alarmify, class: 'width-13' %></label>
         </div>
         <div class="item_content">
           <label class="width-75">开户银行</label>
-          <input type="text"  class="width-286" name="clearing_bank">
+          <%= form.text_field :clearing_bank, class:"width-286" %>
         </div>
         <div class="item_content">
           <label class="width-75">银行账号</label>
-          <input type="text"  class="width-245" name="clearing_account">
+          <%= form.text_field :clearing_account, class: 'width-245' %>
         </div>
         <div class="item_content">
           <label class="width-75">税号</label>
-          <input type="text"  class="width-340" name="clearing_vatin">
+          <%= form.text_field :clearing_vatin, class: 'width-340' %>
         </div>
          <div class="item_content">
           <label class="width-75">付款方式</label>
-          <input type="text"  class="width-130" name="clearing_payment_method">
+          <%= form.select :clearing_payment_method_id, options_for_select(StoreSupplier::CLEARING_PAYMENT_METHODS.map{|key, value| [value, key]}), {}, {class: "width-130"} %>
         </div>
         <div class="item_content">
           <label class="width-75">备注</label>
-          <textarea class="width-1242 height-100 border-dbd9d9 texarea_width" name='remark'></textarea>
+          <%= form.text_area :remark, class:"width-1242 height-100 border-dbd9d9 texarea_width" %>
         </div>
     </div>
     <div class="supplier_related" >
@@ -137,8 +106,7 @@
         <span class>1%</span>
       </div>
         <div  class="float-right margin-right-40">
-          <label>停用供应商</label>
-          <input type="checkbox" name='status'>
+          <label>停用供应商<%= form.check_box :status %></label>
         </div>
     </div>
   </div>

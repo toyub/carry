@@ -4,6 +4,10 @@ class Ajax::GeosController < Ajax::BaseController
   end
 
   def states
-    respond_with Geo.countries
+    respond_with Geo.states(params[:country_code].to_s)
+  end
+
+  def cities
+    respond_with Geo.cities(params[:country_code], params[:state_code])
   end
 end

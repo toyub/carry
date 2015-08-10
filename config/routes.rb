@@ -37,6 +37,7 @@ Rails.application.routes.draw do
         get :add
       end
       resources :material_orders
+      resources :assessments, controller: 'store_supplier_assessments'
     end
   end
 
@@ -60,8 +61,8 @@ Rails.application.routes.draw do
       resources :store_workstations, only: [:index]
     end
     resource :geo, only: [:show] do
-      get "/ajax/geo/countries/:country_code/states/", to: "geos#states", as: :country_states
-      get "/ajax/geo/countries/:country_code/states/:state_code/cities", to: "geos#cities", as: :country_state_cities
+      get "/:country_code/states/", to: "geos#states", as: :country_states
+      get "/:country_code/states/:state_code/cities", to: "geos#cities", as: :country_state_cities
     end
   end
 

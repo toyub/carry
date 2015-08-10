@@ -164,7 +164,7 @@
                 <th >联系人</th>
                 <th >手机号码</th>
                 <th >结算方式</th>
-                <th >结算规则</th>
+                <th >结算周期</th>
                 <th>结算日</th>
                 <th>余额</th>
                 <th>备注</th>
@@ -177,16 +177,16 @@
                 <td>1</td>
                 <td>HZ-001</td>
                 <td><%= supplier.name %></td>
-                <td>美容产品</td>
-                <td>叶帆</td>
-                <td>13967189949</td>
-                <td>现结</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><%= supplier.store_material_root_category.name %></td>
+                <td><%= supplier.contact_name %></td>
+                <td><%= supplier.contact_phone_number %></td>
+                <td><%= supplier.clearing_mode %></td>
+                <td><%= supplier.clearing_cycle %></td>
+                <td><%= supplier.clearing_day %></td>
+                <td><%= 0 %></td>
+                <td><%= supplier.remark %></td>
                 <td class=" ">
-                  <a href="gongyingshangxinxi.html" class="edit_a"><i class="fa fa-file-text-o "></i></a>
+                  <a href="<%= edit_kucun_store_supplier_path(supplier) %>" class="edit_a"><i class="fa fa-file-text-o "></i></a>
                   <a class="literal-order " href="<%=new_kucun_store_supplier_material_order_path(supplier)%>">订</a>
                 </td>
               </tr>
