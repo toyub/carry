@@ -14,46 +14,43 @@
             <li ><a href="index.html" class="width-90">返回列表</a></li>
           </ul>
         </div>
-        <div class="details_content">
-          <div   class="choose float-left  choose_supplier" >
+      <div class="details_content">
+        <div   class="choose float-left  choose_supplier" >
             <div class="title">
-              <span class="font-20 float-left first_title">选择供应商</span>
-              <span class="second_title">
-                核对供应商信息,可以通过下拉菜单选择其他供应商
-              </span>
+              <span class="font-20 float-left first_title">供应商信息</span>
             </div>
             <div class="supplier_content" >
               <div class="item_content">
                 <label class="width-75">供应商名称</label>
-                <input type="text" class="width-300">
+                <input type="text" class="width-300" readonly value="<%= @store_supplier.name %>">
               </div>
               <div class="item_content">
                 <label class="width-75">联系人</label>
-                <input type="text" class="width-110">
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.contact_name %>">
               </div>
               <div class="item_content">
-                <label class="width-75">联系方式</label>
-                <input type="text" class="width-110">
+                <label class="width-75">手机号码</label>
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.contact_phone_number %>">
               </div>
               <div class="item_content">
                 <label class="width-75">固定电话</label>
-                <input type="text" class="width-110">
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.contact_tel_number %>">
               </div>
               <div class="item_content">
                 <label class="width-75">传真</label>
-                <input type="text" class="width-110">
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.contact_fax_number %>">
               </div>
               <div class="item_content">
                 <label class="width-75">一级分类</label>
-                <input type="text" class="width-110">
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_root_category.name %>">
               </div>
               <div class="item_content">
                 <label class="width-75">二级分类</label>
-                <input type="text" class="width-110">
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_category.name %>">
               </div>
               <div class="item_content">
                 <label class="width-75">描述</label>
-                <textarea class="textarea_describe"></textarea>
+                <textarea class="textarea_describe" disabled><%= @store_supplier.remark %></textarea>
               </div>
             </div>
           </div>
@@ -248,5 +245,5 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>    
       </div>
