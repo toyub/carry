@@ -3,7 +3,7 @@
         <span class="add_span">+</span>
       </div>
       <div class="details">
-        
+
         <%= render partial: 'kucun/store_suppliers/shortcuts' -%>
         <%= render partial: 'kucun/store_suppliers/nav' -%>
 
@@ -49,7 +49,7 @@
                 <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_category.name %>">
               </div>
               <div class="item_content">
-                <label class="width-75">描述</label>
+                <label class="width-75">备注</label>
                 <textarea class="textarea_describe" disabled><%= @store_supplier.remark %></textarea>
               </div>
             </div>
@@ -245,5 +245,5 @@
               </div>
             </div>
           </div>
-        </div>    
+        </div>
       </div>
