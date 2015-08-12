@@ -3,9 +3,9 @@
 <% end %>
 
 <div class="main_top">
-        <h2>订货</h2>
-        <span class="add_span">+</span>
-      </div>
+  <h2>订货</h2>
+  <span class="add_span">+</span>
+</div>
       <div class="details">
         <div class="content_tab_top">
           <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
@@ -144,7 +144,7 @@
                 </div>
               </div>
               <div class=" order_goods_tab common_storage_tab">
-                <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab">
+                <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab order_tab">
                   <thead>
                     <tr class="bg-color-e0e2cf color-282726">
                       <th width="3%">#</th>
@@ -162,6 +162,23 @@
                       <th width="4%"> 操作</th>
                     </tr>
                   </thead>
+                  <tfoot>
+                      <tr>
+                        <td></td>
+                        <td class="text-align-left ">合计:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>8</td>
+                        <td>5,400.00</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  </tfoot>
                   <tbody>
                     <tr class="delete">
                       <td class="number"></td>
@@ -183,22 +200,6 @@
                       <td></td>
                       <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
                     </tr>
-
-                    <tr>
-                      <td></td>
-                      <td class="font-weight-bold text-align-left text-indent-10">合计:</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td class="font-weight-bold">8</td>
-                      <td class="font-weight-bold text-align-left text-indent-10">5,400.00</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -212,12 +213,12 @@
                   <input type="text" class="width-253 ">
                 </div>
                 <div class="item_content margin-top-10 float-left  margin-left-20">
-                  <label class="width-75 ">结算账户：</label>
-                  <input type="text" class="width-253 ">
+                  <label class="width-75 ">结算账户： </label>
+                  <input type="text" class="width-253 " value="<%= @store_supplier.clearing_account %>" readonly=true>
                 </div>
                 <div class="item_content margin-top-10  margin-left-20">
                   <label  class="width-75">本次欠款：</label>
-                  <input type="text" class="width-253">
+                  <input type="text" class="width-253" readonly=true>
                 </div>
                 <div class="item_content  margin-left-10">
                   <label class="width-75">制单人：</label>
@@ -243,7 +244,7 @@
     <div class="new_products_inner">
       <div class="top">
         <span class="float-left" >新建商品</span>
-        <span class="font-28 float-right padding-right-10 cursor doclose" id="close_02">×</span>
+        <span class="font-28 float-right padding-right-10 cursor-pointer doclose" id="close_02">×</span>
       </div>
       <div class="new_product_content">
         <form>
@@ -374,7 +375,7 @@
   <div   class="choose_ordergoods" >
     <div class="top">
       <span class="float-left">选择商品</span>
-      <span class="font-28 float-right padding-right-10 cursor doclose" >×</span>
+      <span class="font-28 float-right padding-right-10 cursor-pointer doclose" >×</span>
     </div>
     <div class="title">
       <span class="font-20 float-left first_title">选择订货商品</span>
@@ -389,7 +390,7 @@
           <div class="list_top list_tr border-none">
             <ul>
               <li class="first_td" >
-                <span class="do_see_search cursor">商品</span>
+                <span class="do_see_search cursor-pointer">商品</span>
                 <div class="select_ordergoods_div">
                   <input type="text" required class="keyword autocomplete width-165"  placeholder="查找产品">
                   <a href="#" class="search_btn btn">查找</a>
@@ -446,7 +447,7 @@
         $pop_choose_goods.show();
       });
       $pop_choose_goods.on('mouseover', 'span.do_see_search', function(){
-        this.className="cursor do_hide_search";
+        this.className="cursor-pointer do_hide_search";
         $pop_choose_goods.find("li.first_td").addClass('see_search');
       });
 
@@ -466,14 +467,15 @@
             keyword: keyword.value.trim()
           },
           success: function(data){
-            var ms = data.map(function(d){
+            var ms = data.materials.map(function(d){
               return tmp(d);
             });
+            console.log(ms)
             $pop_choose_goods.find("div.material_list").html(ms.join(''));
 
           }
         });/**END OF ajax*/
-        $pop_choose_goods.find(".do_hide_search")[0].className="cursor do_see_search";
+        $pop_choose_goods.find(".do_hide_search")[0].className="cursor-pointer do_see_search";
         $pop_choose_goods.find("li.first_td").removeClass('see_search');
 
       });

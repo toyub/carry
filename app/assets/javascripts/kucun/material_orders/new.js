@@ -8,4 +8,5 @@
 //= require 'piccut/1.0.0'
 //= require 'as_select'
 //= require helpers/kucun/page_dom_init
+//= require kucun/material_orders/new_test
 //= require_self
