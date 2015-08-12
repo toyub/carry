@@ -6,7 +6,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
     @store_materials = StoreMaterial.all
     respond_to do |format|
       format.json {
-        render json: @store_materials
+        render json: @store_materials.to_json
       }
 
       format.html {}
