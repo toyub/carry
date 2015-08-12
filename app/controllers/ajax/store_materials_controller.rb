@@ -1,6 +1,8 @@
 module Ajax
   class StoreMaterialsController < Ajax::BaseController
 
+    respond_to :json, :js
+
     ## TODO: store_material已经将root_category冗余了进来，下一个版本考虑更改
     def index
       @store_materials = current_store.store_materials.name_contains(params[:name])
@@ -9,6 +11,8 @@ module Ajax
       elsif params[:primary_category].present?
         @store_materials = @store_materials.joins(:store_material_category).where("store_material_categories.parent_id = ?", params[:primary_category])
       end
+
+      respond_with @store_materials
     end
 
   end
