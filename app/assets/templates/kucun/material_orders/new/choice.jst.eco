@@ -1,0 +1,21 @@
+<tr>
+  <td class="number">
+    1
+    <input type="hidden" name="store_material_order[store_material_order_items_attributes][][store_material_id]" value="<%= @id %>">
+  </td>
+  <td><div class="text_div"><%= @name %></div></td>
+  <td><%= @barcode %></td>
+  <td><%= @speci %></td>
+  <td><%= @unit %></td>
+  <td><%= @root_category %></td>
+  <td><%= @category %></td>
+  <td>
+    <input type="text" name="store_material_order[store_material_order_items_attributes][][price]" value="<%= @cost_price %>" class='width-130' required>
+  </td>
+  <td>
+    <input type="number" min=1 name="store_material_order[store_material_order_items_attributes][][quantity]" autocomplete=off value="1" class='width-50' required>
+  </td>
+  <td><%= @cost_price %></td>
+  <td><input type="text" name='store_material_order[store_material_order_items_attributes][][remark]' value="" class="width-160"></td>
+  <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
+</tr>

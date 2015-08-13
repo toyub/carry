@@ -1,7 +1,7 @@
 module Ajax
   class BaseController < ApplicationController
     before_filter :login_required
-    
+
     respond_to :json
 
     private

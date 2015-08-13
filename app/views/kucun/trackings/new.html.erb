@@ -1,0 +1,310 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun/materials/tracking' %>
+<% end %>
+
+<div class="main_top">
+  <h2>库存列表</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="content_list">
+    <%= render partial: '/kucun/materials/table_head' %>
+    <div class="details_nav">
+        <%= render partial: '/kucun/materials/material_settings_url' %>
+    </div>
+    <div class="details_nav_second">
+      <ul class="goods_nav">
+        <li><a href="#" class="width-90">▲上一件商品</a></li>
+        <li><a href="#" class="width-90">▼下一件商品</a></li>
+        <li ><a href="#" class="width-90">返回列表</a></li>
+      </ul>
+    </div>
+    <div class="details_content">
+      <div class="base_info">
+        <div class="goods_img">
+          <div id='material_img_preview' class="goods_main_img"></div>
+          <ul id='material_img_thumbnails' class="goods_small_img">
+            <li id='preview_list'>
+              <% @store_material.store_material_images.each do |image| %>
+                <img src="<%= image.asset_path %>">
+              <% end %>
+            </li>
+          </ul>
+        </div>
+        <div class=" car_content">
+          <div class="pure-u-1-2 float-left">
+            <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
+              <colgroup>
+                <col width="50%">
+                <col width="50%">
+              </colgroup>
+              <tbody>
+                <tr>
+                  <td>
+                    <label class="width-75">商品名称</label>
+                    <input type="text" class="width-165" value="<%= @store_material.name %>" readonly/>
+                  </td>
+                  <td>
+                    <label class="width-75">条形码</label>
+                    <input type="text" class="width-165" value="<%= @store_material.barcode %>" readonly/>
+                 </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">助记码</label>
+                    <input type="text" class="width-165" value="<%= @store_material.mnemonic %>" readonly/>
+                  </td>
+                  <td>
+                    <label class="width-75">一级分类</label>
+                    <select  class="width-167" disabled>
+                      <option selected="selected"><%=  %></option>
+                    </select>
+                 </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">二级分类</label>
+                    <select  class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected">汽车膜</option>
+                      <option>镀晶</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">商品品牌</label>
+                    <select class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected" >澳大利亚卡古</option>
+                      <option>米其林</option>
+                      <option>澜泰</option>
+                      <option>巴尔扎克</option>
+                      <option>途乐</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">生产单位</label>
+                    <select class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected">天津卡吉</option>
+                      <option>杭州米其林</option>
+                      <option>杭州澜泰</option>
+                      <option>米其林进口</option>
+                      <option>杭州雪兰</option>
+                      <option>杭州鼎洪</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">商品规格</label>
+                    <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">商品单位</label>
+                    <select class="width-167" disabled="disabled">
+                      <option >请选择</option>
+                      <option selected="selected">平方米</option>
+                      <option>个</option>
+                      <option>盒</option>
+                      <option>瓶</option>
+                      <option>条</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">成本价</label>
+                    <input type="text" class="width-165"  value="20000.00" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <label class="width-75">最低售价</label>
+                    <input type="text" class="width-165" value="0.0" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">回访类型</label>
+                    <select name='tracking[tracking_mode]' class="width-167" >
+                      <option selected="selected" value="0">没有回访</option>
+                      <option value="1">人工回访</option>
+                      <option value="2">自动回访</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">系统提醒</label>
+                      <label class="width-65 text-align-left"><input type="radio" value=0 disabled checked name="tracking[reminder_required]">关闭</label>
+                      <label class="width-65 text-align-left"><input type="radio" value=1 disabled name="tracking[reminder_required]">打开</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div  class="pure-u-1-2 float-left">
+            <div class="visit_list" id='sections'>
+              <div class="top">
+                <h2>回访内容列表</h2>
+                <span class="new_btn btn click_btn margin-top-10 float-right cursor disabled">创建</span>
+              </div>
+              <div class="none_visit_data">
+                <p class="none_visit_p">当前没回访内容</p>
+                <p class="none_details">
+                  你可以先选择回访下拉菜单中的"是"来激活回访列表，然后点击创建来添加配套的回访内容
+                </p>
+              </div>
+              <div class="list" id="lists">
+                <div class="list_top list_tr">
+                  <ul>
+                    <li class="margin-left-2">#</li>
+                    <li >内容</li>
+                    <li >间隔时间</li>
+                    <li >方式</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn_group">
+        <input type="reset" class="btn cancel_btn" value="取消">
+        <input type="submit" id='save_tracking' class="btn save_btn" value="保存">
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :scenes do %>
+
+<template id='section_edit_tmpl'>
+  <div class="add_visit">
+    <div class=" text-align-left">
+      <label class="width-60">回访内容：</label>
+      <label class="width-75 text-align-left"> 选择内容模板</label>
+      <select class="width-265">
+        <option></option>
+        <option></option>
+      </select>
+    </div>
+    <div class="  text-align-left">
+      <label class="width-60">回访时间：</label>
+      <label class="width-80 text-align-left"><input type="radio" checked=true name='section[timing]' value='1' class="width-15 margin-left-14">销售后</label>
+      <label class="width-100 text-align-left"><input type="radio" name='section[timing]'value='2' class="width-15">上次回访后</label>
+      <input name='section[delay]' type="number" min=1 class="width-60 margin-left-10" value="">
+      <select name='section[delay_unit]' class="width-60 margin-left-10">
+        <option value="hour">小时</option>
+        <option value="day">天</option>
+        <option value="week">周</option>
+        <option value="month">月</option>
+        <option value="year">年</option>
+      </select>
+    </div>
+    <div class=" text-align-left ">
+      <label class="width-60">回访方式：</label>
+      <label class="width-75 text-align-left"> 下拉选择</label>
+      <select class="width-120" name='section[contact_way]'>
+        <option value="1">短信</option>
+        <option value="2">微信</option>
+      </select>
+    </div>
+
+    <div class=" text-align-left float-right   pure-u-2-2 model">
+      <textarea name='section[content]'></textarea>
+    </div>
+    <div class="btn_group  margin-right-22">
+      <input type="reset"  value="取消" class=" btn cancel_btn cancel" >
+      <input type="submit"  value="保存" class="btn save_btn add_cancel" >
+    </div>
+  </div>
+</template>
+
+<template id='section_tmpl'>
+  <div class="list_content list_tr" data-id="list_content_{%= this.cid %}">
+    <ul class="list_tr_hover">
+      <li >{%= this.cid %}.</li>
+      <li ><label class="click_btn cursor" data-cid="{%= this.cid %}">{%= this.content() %}</label></li>
+      <li >{%= this.delay() %}</li>
+      <li >微信<span  class="delete close"  data-target="list_content_{%= this.cid %}">×</span></li>
+    </ul>
+  </div>
+</template>
+
+<% end %>
+
+<% content_for :javascripts do %>
+
+  <script type="text/javascript">
+    jQuery(function($) {
+      var $lists = $("#lists");
+
+      mtv = new $$MIS.MaterialTrackingView({el: $("#tracking_switch"), model: new $$MIS.MaterialTracking()});
+      mtsc = new $$MIS.MaterialTrackingSectionCollection();
+      $("select[name='tracking[tracking_mode]']").on('change', function(event) {
+        if(this.value == 0){
+          $('#sections').find('.new_btn').addClass('disabled');
+          $("input[name='tracking[reminder_required]']").attr('disabled', true)
+        }else{
+          $("input[name='tracking[reminder_required]'][disabled]").removeAttr('disabled');
+          if(this.value == 2){
+            $('#sections').find('.new_btn.disabled').removeClass('disabled')
+          }else{
+            if(!$('#sections').find('.new_btn').hasClass('disabled')){
+                $('#sections').find('.new_btn').addClass('disabled');
+            }
+          }
+        }
+      });
+
+      $(".new_btn").on('click', function(){
+        if(this.classList.contains('disabled')){
+          return false;
+        }
+        this.classList.add('disabled');
+        var new_btn = this;
+        var section = new $$MIS.MaterialTrackingSection();
+        var section_view = new $$MIS.MaterialTrackingSectionView({model: section});
+        section_view.on('after_commit', function(view, model){
+          new_btn.classList.remove('disabled');
+          view.$el.hide();
+          if(model.is_new_record()){
+            $lists.append(view.show()).show();
+          }else{
+            $lists.find('[data-id="list_content_c3"]').html(view.refresh_show());
+          }
+        });
+
+        section.on("invalid", function(model, error) {
+          alert(error);
+        });
+
+        section.view = section_view;
+        mtsc.push(section);
+        section_view.setElement($(section_view.render()))
+        $("#sections").append(section_view.el);
+      });
+
+      $lists.on('click', '.click_btn', function(event) {
+        $(".new_btn").addClass('disabled');
+        var model_cid = this.dataset.cid;
+        var model = mtsc.find(function(model){return model.cid == model_cid;});
+        model.view.$el.show();
+      });
+
+      $lists.on("click", '.delete', function(){
+        $lists.find('[data-id=' + this.dataset.target + ']').remove();
+      });
+
+      $("#save_tracking").on('click', function(){
+        var x = /\/kucun\/materials\/\d+\/tracking/;
+        mtv.model.urlRoot = x.exec(window.location.href)[0];
+        mtv.model.set('tracking_mode', $("select[name='tracking[tracking_mode]']").val());
+        mtv.model.set('reminder_required', $("input[name='tracking[reminder_required]']:checked").val());
+        mtv.model.set("sections", mtsc);
+        mtv.model.save();
+      });
+    });
+  </script>
+
+<% end %>

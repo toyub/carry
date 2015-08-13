@@ -3,9 +3,9 @@
 <% end %>
 
 <div class="main_top">
-        <h2>订货</h2>
-        <span class="add_span">+</span>
-      </div>
+  <h2>订货</h2>
+  <span class="add_span">+</span>
+</div>
       <div class="details">
         <div class="content_tab_top">
           <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
@@ -112,14 +112,9 @@
             </tbody>
           </table>
         </div>
-        <div class="details_nav">
-          <ul>
-            <li><a href="gongyingshangxinxishow.html" class="width-90">供应商信息</a></li>
-            <li class="bg-color-fff"><a href="dinghuo.html" class="width-90">订货</a></li>
-            <li><a href="jilu.html"  class="width-90">记录</a></li>
-            <li ><a href="pinggu.html" class="width-90">评估</a></li>
-          </ul>
-        </div>
+
+        <%= render partial: 'kucun/store_suppliers/nav' -%>
+
         <div class="details_nav_second">
           <ul class="goods_nav">
             <li><a href="#" class="width-90">▲上一件商品</a></li>
@@ -129,10 +124,11 @@
         </div>
         <div class="details_content">
             <div class=" common_storage_content margin-bottom-50">
+            <%= form_tag "/kucun/material_orders/" do %>
               <div class="ordergoods_query">
                 <div class="pure-control-group">
                   <label>供应商：</label>
-                  <input type="text" class="width-200" readonly="true" value="<%= @supplier.name %>">
+                  <input type="text" class="width-200" readonly="true" value="<%= @store_supplier.name %>">
                 </div>
                 <div class="pure-control-group ">
                   <label>时间：</label>
@@ -148,52 +144,46 @@
                 </div>
               </div>
               <div class=" order_goods_tab common_storage_tab">
-                <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab">
+                <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab order_tab">
                   <thead>
                     <tr class="bg-color-e0e2cf color-282726">
-                      <th width="3%">#</th>
-                      <th width="18%" >商品名称</th>
-                      <th  width="8%" >条码</th>
-                      <th  width="8%" >规格</th>
-                      <th width="4%" >单位</th>
-                      <th  width="7%" >一级分类</th>
-                      <th  width="7%">二级分类</th>
-                      <th width="7%">单价</th>
-                      <th width="5%" >数量</th>
-                      <th  width="8%">小计</th>
-                      <th width="6%">仓库</th>
-                      <th  width="15%">备注</th>
-                      <th width="4%"> 操作</th>
+                      <th>#</th>
+                      <th>商品名称</th>
+                      <th>条码</th>
+                      <th>规格</th>
+                      <th>单位</th>
+                      <th>一级分类</th>
+                      <th>二级分类</th>
+                      <th>单价</th>
+                      <th>数量</th>
+                      <th>小计</th>
+                      <th>备注</th>
+                      <th>操作</th>
                     </tr>
                   </thead>
+                  <tfoot>
+                      <tr>
+                        <td></td>
+                        <td class="text-align-left ">合计:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>8</td>
+                        <td>5,400.00</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  </tfoot>
                   <tbody>
-                    <tr>
-                      <td class="number">1</td>
-                      <td >
-                        <div class="text_div">
-                          <input type="text" value="澜泰纳米镀晶宾御套餐">
-                          <span class="add bg-color-fff">...</span>
-                        </div>
-                      </td>
-                      <td>887766555444</td>
-                      <td>长皮盒6项目</td>
-                      <td>套</td>
-                      <td>美容产品</td>
-                      <td>镀晶产品</td>
-                      <td>680.00</td>
-                      <td>8</td>
-                      <td>5,440.00</td>
-                      <td>未付款</td>
-                      <td></td>
-                      <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
-                    </tr>
-                    <% 4.times do |i| %>
-                    <tr>
+                    <tr class='handle'>
                       <td class="number"></td>
                       <td >
                         <div class="text_div">
-                          <input type="text" >
-                          <span class="add bg-color-fff">...</span>
+                          <input type="text" placeholder="请选择要订货的商品"  readonly>
+                          <span class="bg-color-fff">...</span>
                         </div>
                       </td>
                       <td></td>
@@ -205,24 +195,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td></td>
-                      <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
-                    </tr>
-                    <% end %>
-                    <tr>
-                      <td></td>
-                      <td class="font-weight-bold text-align-left text-indent-10">合计:</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td class="font-weight-bold">8</td>
-                      <td class="font-weight-bold text-align-left text-indent-10">5,400.00</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td class="text-align-center"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -237,12 +210,12 @@
                   <input type="text" class="width-253 ">
                 </div>
                 <div class="item_content margin-top-10 float-left  margin-left-20">
-                  <label class="width-75 ">结算账户：</label>
-                  <input type="text" class="width-253 ">
+                  <label class="width-75 ">结算账户： </label>
+                  <input type="text" class="width-253 " value="<%= @store_supplier.clearing_account %>" readonly=true>
                 </div>
                 <div class="item_content margin-top-10  margin-left-20">
                   <label  class="width-75">本次欠款：</label>
-                  <input type="text" class="width-253">
+                  <input type="text" class="width-253" readonly=true>
                 </div>
                 <div class="item_content  margin-left-10">
                   <label class="width-75">制单人：</label>
@@ -251,8 +224,9 @@
               </div>
               <div class="btn_group margin-right-20">
                 <a class="edit_btn" href="#" >取消</a>
-                <a class="save_btn btn" href="#" >保存</a>
+                <input type='submit' class="save_btn btn" value='保存' />
               </div>
+            <% end %>
             </div>
         </div>
 
@@ -267,7 +241,7 @@
     <div class="new_products_inner">
       <div class="top">
         <span class="float-left" >新建商品</span>
-        <span class="font-28 float-right padding-right-10 cursor doclose" id="close_02">×</span>
+        <span class="font-28 float-right padding-right-10 cursor-pointer doclose" id="close_02">×</span>
       </div>
       <div class="new_product_content">
         <form>
@@ -398,7 +372,7 @@
   <div   class="choose_ordergoods" >
     <div class="top">
       <span class="float-left">选择商品</span>
-      <span class="font-28 float-right padding-right-10 cursor doclose" >×</span>
+      <span class="font-28 float-right padding-right-10 cursor-pointer doclose" >×</span>
     </div>
     <div class="title">
       <span class="font-20 float-left first_title">选择订货商品</span>
@@ -413,7 +387,7 @@
           <div class="list_top list_tr border-none">
             <ul>
               <li class="first_td" >
-                <span class="do_see_search cursor">商品</span>
+                <span class="do_see_search cursor-pointer">商品</span>
                 <div class="select_ordergoods_div">
                   <input type="text" required class="keyword autocomplete width-165"  placeholder="查找产品">
                   <a href="#" class="search_btn btn">查找</a>
@@ -433,33 +407,6 @@
           </div>
 
           <div class="material_list">
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">米其林轮胎</li>
-                <li class="second_td">12304567890123</li>
-                <li class="third_td">195/65/15XM291V</li>
-                <li class="forth_td">汽配</li>
-                <li class="fifth_td border-none"><input type="checkbox" class="checkbox"></li>
-              </ul>
-            </div>
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">澜泰纳米镀金宾御套餐</li>
-                <li class="second_td">1234567890123</li>
-                <li class="third_td">6个项目</li>
-                <li class="forth_td">美容</li>
-                <li class="fifth_td border-none"><input type="checkbox" class="checkbox"></li>
-              </ul>
-            </div>
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">风帆电瓶</li>
-                <li class="second_td">1234567890999</li>
-                <li class="third_td">65AH 奥迪A4专用</li>
-                <li class="forth_td">汽配</li>
-                <li class="fifth_td border-none"><input type="checkbox" class="checkbox"></li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -475,10 +422,16 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      var $pop_choose_goods = $('#pop_choose_goods');
+      search_view = new $$MIS.MaterialOrderSearchView({
+        el: $('#pop_choose_goods'),
+        resultList: $('#storage_tab'),
+        materials: new $$MIS.MaterialCollection()
+      });
+
+      var $pop_choose_goods = search_view.$el;
       var $pop_new_material =  $("#pop_new_material");
       var pop_new_material_form = $("#pop_new_material form")[0];
-      $("#storage_tab").on("click", 'span.add', function(event){
+      $("#storage_tab").on("click", '.handle div.text_div', function(event){
         $pop_choose_goods.show();
       });
 
@@ -497,40 +450,8 @@
         $pop_choose_goods.show();
       });
       $pop_choose_goods.on('mouseover', 'span.do_see_search', function(){
-        this.className="cursor do_hide_search";
+        this.className="cursor-pointer do_hide_search";
         $pop_choose_goods.find("li.first_td").addClass('see_search');
-      });
-
-      var tmp = _.template('<div class="list_content list_tr"><ul><li class="first_td">{%= name %}</li><li class="second_td">12304567890123</li><li class="third_td">195/65/15XM291V</li><li class="forth_td">汽配</li><li class="fifth_td border-none"><input type="checkbox" class="checkbox"></li></ul></div>');
-
-      $pop_choose_goods.on('click', '.search_btn', function(){
-        var keyword = $pop_choose_goods.find('input.keyword')[0];
-        if(!keyword.value.trim()){
-          keyword.setCustomValidity("please input keyword");
-          alert("please input keyword");
-          return false;
-        }
-        $.ajax({
-          url: "/kucun/materials",
-          dataType: 'json',
-          data: {
-            keyword: keyword.value.trim()
-          },
-          success: function(data){
-            var ms = data.map(function(d){
-              return tmp(d);
-            });
-            $pop_choose_goods.find("div.material_list").html(ms.join(''));
-
-          }
-        });/**END OF ajax*/
-        $pop_choose_goods.find(".do_hide_search")[0].className="cursor do_see_search";
-        $pop_choose_goods.find("li.first_td").removeClass('see_search');
-
-      });
-
-      $pop_choose_goods.on('click', '.save_btn', function(){
-
       });
     });
   </script>

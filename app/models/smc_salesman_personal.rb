@@ -1,3 +1,0 @@
-class SMCSalesmanPersonal < StoreMaterialCommission
-  
-end

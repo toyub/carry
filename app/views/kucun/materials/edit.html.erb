@@ -1,175 +1,36 @@
 <% content_for :pre_assets do %>
   <%= javascript_include_tag 'kucun/materials/new' %>
 <% end %>
+
 <div class="main_top">
-    <span class="add_span">+</span>
-</div>
-<div class="details">
-  <div class="container_list">
-    <div class="top_content records">
-      <%= render partial: 'table_head' %>
-    </div>
-    <div class="details_nav">
-      <%= render partial: 'material_settings_url' %>
-    </div>
-    <div class="details_nav_second">
-      <ul class="goods_nav">
-        <li><a href="#" class="width-90">▲上一件商品</a></li>
-        <li><a href="#" class="width-90">▼下一件商品</a></li>
-        <li ><a href="#" class="width-90">返回列表</a></li>
-      </ul>
-    </div>
-    <div class="details_content">
-      <%= form_for(@store_material, url: kucun_material_path(@store_material), as: :material) do |form|%>
-            <div class="base_info">
+        <h2>库存列表</h2>
+        <span class="add_span">+</span>
+      </div>
+      <div class="details">
+        <div class="container_list">
+          <div class="top_content records">
+            <%= render partial: 'table_head' %>
+          </div>
+          <div class="details_nav">
+            <ul>
+              <li class="bg-color-fff"><a href="#" class="width-90">商品信息</a></li>
 
-              <div class="goods_img">
-                <div id='material_img_preview' class="goods_main_img"></div>
-                <ul id='material_img_thumbnails' class="goods_small_img">
-                    <li id='preview_list'>
-                      <% @store_material.store_material_images.each do |image| %>
-                        <img src="<%= image.asset_path %>">
-                      <% end %>
-                    </li>
-                    <li data-id='0'><a class='fa fa-plus-square add_img' href="javascript:void(0);"></a></li>
-                </ul>
-              </div>
+              <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">销售设置</a></li>
+              <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">提成</a></li>
+              <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">回访</a></li>
 
-              <div class=" car_content">
-              <div class="pure-u-1-1">
-                <div class="item_content">
-                  <label class="width-75">商品名称</label>
-                  <%= form.text_field :name, class: 'width-160 autocomplete', required: true, autocomplete: 'off', placeholder:'请输入名称'%>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">条形码</label>
-                  <%= form.text_field :barcode, class: 'width-160' %>
-                </div>
-
-                <div class="item_content">
-                  <% category = @store_material.store_material_category
-                     category1 = category.parent
-                   %>
-                  <label class="width-75">一级分类</label>
-                  <input id='material_category1' type="hidden" name='material[category1]' value="<%= category1.id %>">
-                  <span class="width-165 as_select" data-select='#material_category1_select' data-target='input[name="material[category1]"]'><%= category1.name %></span>
-                  <div id='material_category1_select' class="select">
-                    <ol>
-                      <% @store.store_material_categories.super_categories.each do |option| %>
-                      <li data-value="<%= option.id %>"><%= option.name %></li>
-                      <% end %>
-                    </ol>
-                    <a class='add_btn' data-method='add_category1' href="javascript:void(0);">新增</a>
-                  </div>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">二级分类</label>
-                  <input type="hidden" name='material[store_material_category_id]' value="<%= category.id %>">
-                  <span id='store_material_category_id' class="width-165 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'><%= category.name %></span>
-                  <div id='material_category_select' class="select">
-                    <ol>
-                      <% category1.sub_categories.each do |option| %>
-                      <li data-value="<%= option.id %>"><%= option.name %></li>
-                      <% end %>
-                    </ol>
-                    <a class='add_btn' data-method='add_category' href="javascript:void(0);">新增</a>
-                  </div>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">商品规格</label>
-                  <%= form.text_field :speci, class: 'width-160', required: true %>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">商品单位</label>
-                  <input type="hidden" name='material[store_material_unit_id]' value="<%= @store_material.store_material_unit.id %>">
-                  <span id='store_material_unit_id' class="width-165 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'><%= @store_material.store_material_unit.name %></span>
-                  <div id='material_unit_select' class="select">
-                    <ol>
-                      <% @store.store_material_units.each do |option| %>
-                      <li data-value="<%= option.id %>"><%= option.name %></li>
-                      <% end %>
-                    </ol>
-                    <a class='add_btn' data-method='add_unit' href="javascript:void(0);">新增</a>
-                  </div>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">成本价</label>
-                  <%= form.text_field :cost_price, type: 'number', class: 'width-160', required: true, placeholder: '输入成本价会影响原成本价', step: 'any' %>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">最低售价</label>
-                  <%= form.text_field :min_price, type: 'number', class: 'width-160', required: true, step: 'any' %>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">商品品牌</label>
-                  <input name='material[store_material_brand_id]' type="hidden" value="<%= @store_material.store_material_brand.id %>">
-                  <span id='store_material_brand_id' class="width-165 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'><%= @store_material.store_material_brand.name %></span>
-                  <div id='material_brand_select' class="select">
-                    <ol>
-                      <% @store.store_material_brands.each do |option| %>
-                      <li data-value="<%= option.id %>"><%= option.name %></li>
-                      <% end %>
-                    </ol>
-                    <a class='add_btn' data-method='add_brand' href="javascript:void(0);">新增</a>
-                  </div>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">生产单位</label>
-                  <input name='material[store_material_manufacturer_id]' type="hidden" value='<%= @store_material.store_material_manufacturer.id %>'>
-                  <span id='store_material_manufacturer_id' class="width-165 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'><%= @store_material.store_material_manufacturer.name %></span>
-                  <div id='material_manufacturer_select' class="select">
-                    <ol>
-                      <% @store.store_material_manufacturers.each do |option| %>
-                      <li data-value="<%= option.id %>"><%= option.name %></li>
-                      <% end %>
-                    </ol>
-                    <a class='add_btn' data-method='add_manufacturer' href="javascript:void(0);">新增</a>
-                  </div>
-                </div>
-                <div class="item_content">
-                  <label class="width-75">助记码</label>
-                  <%= form.text_field :mnemonic, class: 'width-160', required:true %>
-                </div>
-                <div class="item_content outline item_inventory">
-                  <label class="width-80">
-                    <input name='material[inventory_alarm]' <%= @store_material.inventory_alarmify ? 'checked=true' : '' %> type="radio" class='toggleable' data-target='inventory'>库存预警：
-                  </label>
-                  <div class="inline_block width-167">
-                    <label class="width-75">数量上限</label>
-                    <input data-id='inventory' name='material[max_inventory]'  <%= @store_material.inventory_alarmify ? '' : 'disabled=true' %> type="text" class="width-53" required=true min=0.0 step='any'>
-                  </div>
-
-                  <div class="inline_block width-167">
-                    <label class="lab_50">数量下限</label>
-                    <input data-id='inventory' name='material[min_inventory]' <%= @store_material.inventory_alarmify ? '' : 'disabled=true' %> type="text" class="width-53" required=true min=0.0 step='any'>
-                  </div>
-                </div>
-                <div class="item_content shelf_life">
-                  <label class="width-75"><input type="radio" <%= @store_material.expiry_alarmify ? 'checked=true' : '' %> name='material[expiry_alarm]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
-                  <div class="input_span">
-                    <input type="text" data-id='shelf_life' <%= @store_material.expiry_alarmify ? '' : 'disabled=true' %> name='material[shelf_life]' class="width-30 " style="border:0px;" required=true>
-                    <span>天</span>
-                  </div>
-                </div>
-                <div class="item_textarea ">
-                  <textarea name='material[remark]' class="textarea-width" placeholder="输入备注"></textarea>
-                </div>
-
-                <div class="item_content">
-                    <label class="width-75">状态</label>
-                    <span class="width-165">!TODO</span>
-                </div>
-                </div>
-              </div>
-            </div>
-            <div class="btn_group">
-              <a class="btn cancel_btn">取消</a>
-              <input type='submit' class="btn save_btn" value='更新商品信息'>
-            </div>
-            <% end %>
-    </div>
-  </div>
-</div>
+            </ul>
+          </div>
+          <div class="details_nav_second">
+            <ul class="goods_nav">
+              <li><a href="#" class="width-90">▲上一件商品</a></li>
+              <li><a href="#" class="width-90">▼下一件商品</a></li>
+              <li ><a href="#" class="width-90">返回列表</a></li>
+            </ul>
+          </div>
+          <div class="details_content"><%= render 'form' %></div>
+        </div>
+      </div>
 
 <% content_for :scenes do %>
   <div id='piccut'>
@@ -179,8 +40,89 @@
   	<div id='arrange'>
   	  <div id='gallery' style="top: -1px; left: 115px;" class="resize-container"></div>
   	</div>
-    <input type="file" id='imgfile' name="imgefile" size="12" accept="image/jpeg,image/png" />
-    <button class="btn-crop js-crop">截图</button>
-    <input class="btn-cancel js-cancel" onclick="closepiccut();" value="取消"/>
+    <div class="btn_group">
+      <input type="file" id='imgfile' name="imgefile" size="12" accept="image/jpeg,image/png" />
+      <button class="crop_btn btn-crop js-crop">截图</button>
+      <input class="cancel_btn btn-cancel js-cancel" type="button" value="取消"/>
+    </div>
   </div>
+<% end %>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    v = new $$MIS.NewMaterialView();
+    v.setElement('#new_material');
+    v.model = new $$MIS.Material();
+    v.model.on('invalid', v.invalid_handle);
+    v.category_collection = new  $$MIS.MaterialCategoryCollection();
+    v.model.view = v;
+
+    $('#new_material').on('submit', function(evt){
+        evt.preventDefault();
+        evt.stopPropagation();
+        var $this = $(this);
+        if($this.data('error')){return false;}
+        if(!v.model.isValid()){return false;}
+
+        v.model.save()
+               .success(function(data){
+                 var url = v.model.url() + '/save_picture';
+                 $('#preview_list > img').each(function(idx){
+                    var img = this;
+                    $.ajax({
+                            type: "POST",
+                            url: url,
+                            sync: false,
+                            data: {img: img.src},
+                            success: function(data){console.log(data)},
+                            dataType: 'text'
+                          });
+                 });
+                 $('#modal_dialog').html('save successfully!').dialog({
+                    modal: true,
+                    buttons: {
+                      Ok: function() {
+                        $( this ).dialog( "close" );
+                      }
+                    }
+                  });
+                  window.location.replace(v.model.url());
+                })
+              .error(function(data){alert('error')});
+        return false;
+    });
+  });
+</script>
+
+<script>
+ jQuery(function($) {
+   $( "input.autocomplete" ).autocomplete({
+     source: function( request, response ) {
+       $.ajax({
+         url: "/kucun/materials/autocomplete_name",
+         dataType: "jsonp",
+         data: {
+           q: request.term
+         },
+         success: function( data ) {
+           response( data );
+         }
+       });
+     },
+     minLength: 3,
+     select: function( event, ui ) {
+       console.log( ui.item ?
+         "Selected: " + ui.item.label :
+         "Nothing selected, input was " + this.value);
+     },
+     open: function() {
+       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+     },
+     close: function() {
+       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+     }
+   });
+ });
+ </script>
 <% end %>

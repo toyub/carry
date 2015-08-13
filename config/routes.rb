@@ -12,16 +12,9 @@ Rails.application.routes.draw do
         post :save_picture
       end
 
-      resource :saleinfo do
-        resources :material_services
-      end
-
-      resource :commission do
-        resources :material_commissions
-      end
-
-      resource :tracking do
-      end
+      resource :saleinfo
+      resource :commission
+      resource :tracking
     end
 
     resources :material_units
@@ -33,13 +26,18 @@ Rails.application.routes.draw do
         get :sub_categories
       end
     end
+    resources :material_saleinfo_categories
 
     resources :material_inventories
-    
+
     get "material_orders/nowaus", controller: 'material_orders', action: 'nowaus', as: :nowaus
     resources :material_orders
     resources :store_suppliers do
+      collection do
+        get :add
+      end
       resources :material_orders
+      resources :assessments, controller: 'store_supplier_assessments'
     end
   end
 
@@ -61,6 +59,10 @@ Rails.application.routes.draw do
     resources :store_materials, only: [:index]
     resources :store_workstation_categories, only: [] do
       resources :store_workstations, only: [:index]
+    end
+    resource :geo, only: [:show] do
+      get "/:country_code/states/", to: "geos#states", as: :country_states
+      get "/:country_code/states/:state_code/cities", to: "geos#cities", as: :country_state_cities
     end
   end
 
