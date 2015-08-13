@@ -178,12 +178,12 @@
                       </tr>
                   </tfoot>
                   <tbody>
-                    <tr class="delete">
+                    <tr class='handle'>
                       <td class="number"></td>
                       <td >
                         <div class="text_div">
-                          <input type="text">
-                          <span class="add bg-color-fff">...</span>
+                          <input type="text" placeholder="请选择要订货的商品"  readonly>
+                          <span class="bg-color-fff">...</span>
                         </div>
                       </td>
                       <td></td>
@@ -195,7 +195,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
+                      <td class="text-align-center"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -431,7 +431,7 @@
       var $pop_choose_goods = search_view.$el;
       var $pop_new_material =  $("#pop_new_material");
       var pop_new_material_form = $("#pop_new_material form")[0];
-      $("#storage_tab").on("click", 'span.add', function(event){
+      $("#storage_tab").on("click", '.handle div.text_div', function(event){
         $pop_choose_goods.show();
       });
 
