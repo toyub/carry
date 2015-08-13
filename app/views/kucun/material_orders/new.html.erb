@@ -126,15 +126,15 @@
             <div class=" common_storage_content margin-bottom-50">
             <%= form_tag "/kucun/material_orders/" do %>
               <div class="ordergoods_query">
-                <div class="pure-control-group">
+                <div class="nav-item-query">
                   <label>供应商：</label>
                   <input type="text" class="width-200" readonly="true" value="<%= @store_supplier.name %>">
                 </div>
-                <div class="pure-control-group ">
+                <div class="nav-item-query ">
                   <label>时间：</label>
                   <input type="text" class="width-135" readonly="true" value="<%= Time.now.strftime('%Y-%m-%d %H:%M') %>">
                 </div>
-                <div class="pure-control-group">
+                <div class="nav-item-query">
                   <label>单号：</label>
                   <input type="text" class="width-135" readonly="true" value="<%= x=Time.now; x.strftime('%Y%m%d%H%M%S') + ((x.to_f - x.to_i) * 100_0000).to_i.to_s(36).rjust(5, '0').upcase %>">
                 </div>

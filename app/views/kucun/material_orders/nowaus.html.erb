@@ -122,7 +122,7 @@
   <div class="details_content">
       <div class=" common_storage_content margin-bottom-50">
         <div class="ordergoods_query">
-          <div class="pure-control-group">
+          <div class="nav-item-query">
             <label>供应商：</label>
             <input name='material[store_supplier_id]' type="hidden">
             <span id='store_supplier_id' class="width-170 as_select" data-select='#material_supplier_select' data-target='input[name="material[store_supplier_id]"]'>请选择</span>
@@ -135,11 +135,11 @@
               <a class='add_btn' data-method='add_supplier' href="javascript:void(0);">新增</a>
             </div>
           </div>
-          <div class="pure-control-group ">
+          <div class="nav-item-query ">
             <label>时间：</label>
             <input type="text" class="width-135" readonly value="<%= Time.now.to_s(:date_only) %>">
           </div>
-          <div class="pure-control-group">
+          <div class="nav-item-query">
             <label>单号：</label>
             <input type="text" class="width-135" readonly value='2015041500006' />
           </div>
