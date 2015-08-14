@@ -422,37 +422,37 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      search_view = new $$MIS.MaterialOrderSearchView({
-        el: $('#pop_choose_goods'),
-        resultList: $('#storage_tab'),
-        materials: new $$MIS.MaterialCollection()
+      new_order_view = new $$MIS.NewMaterialOrderView({
+        el: $("#content")
       });
-
-      var $pop_choose_goods = search_view.$el;
+      search_view = new_order_view.search_view;
       var $pop_new_material =  $("#pop_new_material");
       var pop_new_material_form = $("#pop_new_material form")[0];
+
       $("#storage_tab").on("click", '.handle div.text_div', function(event){
-        $pop_choose_goods.show();
+        search_view.$el.show();
       });
 
-      $pop_choose_goods.on("click", '.new_btn', function(event){
+      search_view.$el.on("click", '.new_btn', function(event){
         $pop_new_material.show();
-        $pop_choose_goods.hide();
-      });
-
-      $pop_choose_goods.on("click", '.doclose,.cancel_btn', function(event){
-        $pop_choose_goods.hide();
+        search_view.$el.hide();
       });
 
       $pop_new_material.on("click", '.doclose,.cancel_btn', function(event){
         pop_new_material_form.reset();
         $pop_new_material.hide();
-        $pop_choose_goods.show();
+        search_view.$el.show();
       });
-      $pop_choose_goods.on('mouseover', 'span.do_see_search', function(){
-        this.className="cursor-pointer do_hide_search";
-        $pop_choose_goods.find("li.first_td").addClass('see_search');
+      
+      $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
+        if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
+          return false;
+        }
+        if(evt.keyCode == 46 && (/\.+/).test(this.value)){
+          return false;
+        }
       });
+
     });
   </script>
 
