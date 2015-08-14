@@ -10,7 +10,7 @@
   <td><%= @root_category %></td>
   <td><%= @category %></td>
   <td>
-    <input type="number" min=0 name="store_material_order[store_material_order_items_attributes][][price]" autocomplete=off value="<%= @cost_price %>" class='price width-130' required>
+    <input type="number" min=0 step='any' name="store_material_order[store_material_order_items_attributes][][price]" autocomplete=off value="<%= @cost_price %>" class='price width-130' required>
   </td>
   <td>
     <input type="number" min=1 name="store_material_order[store_material_order_items_attributes][][quantity]" autocomplete=off value="1" class='quantity width-50' required>
@@ -18,4 +18,3 @@
   <td><%= @cost_price %></td>
   <td><input type="text" name='store_material_order[store_material_order_items_attributes][][remark]' value="" class="width-160"></td>
   <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
-
