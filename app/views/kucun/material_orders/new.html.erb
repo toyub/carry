@@ -456,6 +456,9 @@
       });
 
       search_view.$el.on("click", '.new_btn', function(event){
+        new_m_v = new $$MIS.NewMaterialView({el: $('#pop_new_material'),
+         model: new $$MIS.Material(), category_collection: new  $$MIS.MaterialCategoryCollection()});
+        new_m_v.category_collection = new  $$MIS.MaterialCategoryCollection();
         $pop_new_material.show();
         search_view.$el.hide();
       });
