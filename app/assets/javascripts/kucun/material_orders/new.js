@@ -12,6 +12,6 @@
 //= require 'app/collections/material_category'
 //= require 'app/collections/material'
 //= require 'as_select'
-//= require helpers/kucun/page_dom_init
+//= require 'toggleable'
 //= require 'app/views/material_orders/new'
 //= require_self
