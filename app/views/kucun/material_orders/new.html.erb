@@ -235,7 +235,7 @@
 
 <% content_for :scenes do %>
 
-<div  class="popup_box" id="pop_new_material"  >
+<div  class="popup_box" id="pop_new_material">
   <span class="verticalAlign"></span>
   <div class="new_products">
     <div class="new_products_inner">
@@ -244,7 +244,7 @@
         <span class="font-28 float-right padding-right-10 cursor-pointer doclose" id="close_02">×</span>
       </div>
       <div class="new_product_content">
-        <form>
+        <form id='new_material'>
           <div class="item_content">
             <label class="width-75">商品名称</label>
             <input type="text" class="width-165" name='material[name]' placeholder="请输入名称">
@@ -270,7 +270,6 @@
             <input type="text" name='material[min_price]' class="width-165">
           </div>
 
-
           <div class="item_content">
             <% category = @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
             <label class="width-75">一级分类</label>
@@ -286,7 +285,6 @@
             </div>
           </div>
 
-
           <div class="item_content">
             <label class="width-75">二级分类</label>
             <input type="hidden" name='material[store_material_category_id]' value="<%= category.id %>">
@@ -300,7 +298,7 @@
               <a class='add_btn width-158' data-method='add_category' href="javascript:void(0);">新增</a>
             </div>
           </div>
-          
+
           <div class="item_content">
             <label class="width-75">商品单位</label>
             <input type="hidden" name='material[store_material_unit_id]' value="">
@@ -314,7 +312,7 @@
               <a class='add_btn width-158' data-method='add_unit' href="javascript:void(0);">新增</a>
             </div>
           </div>
-          
+
           <div class="item_content">
             <label class="width-75">商品品牌</label>
             <input name='material[store_material_brand_id]' type="hidden" value="">
@@ -383,7 +381,7 @@
       </div>
       <div class="btn_group">
         <a href="#" class="cancel_btn btn">取消</a>
-        <input type="submit"  value="保存" class="save_btn btn" id="save">
+        <input type="submit" form='new_material' value="保存" class="save_btn btn" id="save">
       </div>
     </div>
   </div>
@@ -448,27 +446,28 @@
         el: $("#content")
       });
       search_view = new_order_view.search_view;
-      var $pop_new_material =  $("#pop_new_material");
       var pop_new_material_form = $("#pop_new_material form")[0];
+
+      new_m_v = new $$MIS.NewMaterialView({el: $('#pop_new_material'),
+                                           model: new $$MIS.Material()
+                                         });
+      new_m_v.category_collection = new  $$MIS.MaterialCategoryCollection();
 
       $("#storage_tab").on("click", '.handle div.text_div', function(event){
         search_view.$el.show();
       });
 
       search_view.$el.on("click", '.new_btn', function(event){
-        new_m_v = new $$MIS.NewMaterialView({el: $('#pop_new_material'),
-         model: new $$MIS.Material(), category_collection: new  $$MIS.MaterialCategoryCollection()});
-        new_m_v.category_collection = new  $$MIS.MaterialCategoryCollection();
-        $pop_new_material.show();
+        new_m_v.$el.show();
         search_view.$el.hide();
       });
 
-      $pop_new_material.on("click", '.doclose,.cancel_btn', function(event){
+      new_m_v.$el.on("click", '.doclose,.cancel_btn', function(event){
         pop_new_material_form.reset();
-        $pop_new_material.hide();
+        new_m_v.$el.hide();
         search_view.$el.show();
       });
-      
+
       $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
         if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
           return false;
