@@ -442,32 +442,6 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      new_order_view = new $$MIS.NewMaterialOrderView({
-        el: $("#content")
-      });
-      search_view = new_order_view.search_view;
-      var pop_new_material_form = $("#pop_new_material form")[0];
-
-      new_m_v = new $$MIS.NewMaterialView({el: $('#pop_new_material'),
-                                           model: new $$MIS.Material()
-                                         });
-      new_m_v.category_collection = new  $$MIS.MaterialCategoryCollection();
-
-      $("#storage_tab").on("click", '.handle div.text_div', function(event){
-        search_view.$el.show();
-      });
-
-      search_view.$el.on("click", '.new_btn', function(event){
-        new_m_v.$el.show();
-        search_view.$el.hide();
-      });
-
-      new_m_v.$el.on("click", '.doclose,.cancel_btn', function(event){
-        pop_new_material_form.reset();
-        new_m_v.$el.hide();
-        search_view.$el.show();
-      });
-
       $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
         if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
           return false;
@@ -476,7 +450,9 @@
           return false;
         }
       });
-
+      new_order_view = new $$MIS.NewMaterialOrderView({
+        el: $("#content")
+      });
     });
   </script>
 
