@@ -15,8 +15,8 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
   #New Order With An Unkown Supplier => nowaus
   def nowaus
     @store = current_user.store
-    @store_materials = @store.store_materials.all
     @store_material_order = @store.store_material_orders.new
+    @store_material = @store.store_materials.find(params[:material_id]) if params[:material_id].present?
   end
 
   def create
