@@ -149,7 +149,7 @@
           </div>
         </div>
         <div class="order_goods_tab common_storage_tab">
-          <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab order_tab">
+          <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab order_tab" data-material='<%= StoreMaterialSerializer.new(@store_material).to_json %>'>
             <thead>
               <tr class="bg-color-e0e2cf color-282726">
                 <th>#</th>
@@ -651,7 +651,7 @@
   <script>
   jQuery(function(){
       <% if @store_material.present? %>
-        store_material = <%= StoreMaterialSerializer.new(@store_material).as_json(root: false).to_json.html_safe -%>;
+         var store_material = <%= StoreMaterialSerializer.new(@store_material).as_json(root: false).to_json.html_safe -%>;
       <% end %>
       $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
         if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
@@ -664,6 +664,10 @@
       new_order_view = new $$MIS.NewMaterialOrderView({
         el: $("#content")
       });
+      if(typeof(store_material)!=typeof(undefined)){
+          new_order_view.loadWith(store_material);
+      }
+
     });
   </script>
 
