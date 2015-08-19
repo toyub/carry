@@ -169,7 +169,9 @@
             <tbody>
               <% if @store_material.present? %>
                   <tr>
-                    <td class="number">1</td>
+                    <td class="number">1
+                      <input type="hidden" name="store_material_order[store_material_order_items_attributes][][store_material_id]" value="<%= @store_material.id %>">
+                    </td>
                     <td>
                       <div class="text_div">
                         <input type="text" value="<%= @store_material.name %>" readonly>
@@ -180,11 +182,17 @@
                     <td><%= @store_material.store_material_unit.name %></td>
                     <td><%= @store_material.store_material_root_category.name %></td>
                     <td><%= @store_material.store_material_category.name %></td>
-                    <td><input type="text" value="<%= @store_material.cost_price %>" class="width-130"></td>
-                    <td><input type="number" value="<%= 1 %>" class="width-50"></td>
+                    <td>
+                      <input type="number" min=0 step='any' name="store_material_order[store_material_order_items_attributes][][price]" autocomplete=off value="<%= @store_material.cost_price unless @store_material.cost_price == 0 %>" class='price width-130' required>
+                    </td>
+                    <td>
+                      <input type="number" min=1 name="store_material_order[store_material_order_items_attributes][][quantity]" autocomplete=off value="1" class='quantity width-50' required>
+                    </td>
                     <td><%= @store_material.cost_price * 1 %></td>
-                    <td><input type="text" value="" class="width-160"></td>
+                    <td><input type="text" name='store_material_order[store_material_order_items_attributes][][remark]' value="" class="width-160"></td>
                     <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
+
+
                   </tr>
               <% end %>
               <tr class='handle'>
@@ -642,6 +650,9 @@
 <% content_for :javascripts do %>
   <script>
   jQuery(function(){
+      <% if @store_material.present? %>
+        store_material = <%= StoreMaterialSerializer.new(@store_material).as_json(root: false).to_json.html_safe -%>;
+      <% end %>
       $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
         if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
           return false;
