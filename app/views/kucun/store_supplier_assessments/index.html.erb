@@ -42,11 +42,11 @@
               </div>
               <div class="item_content">
                 <label class="width-75">一级分类</label>
-                <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_root_category.name %>">
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_root_category.try(:name) %>">
               </div>
               <div class="item_content">
                 <label class="width-75">二级分类</label>
-                <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_category.name %>">
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_category.try(:name) %>">
               </div>
               <div class="item_content">
                 <label class="width-75">备注</label>
