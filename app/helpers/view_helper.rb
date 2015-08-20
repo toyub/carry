@@ -1,5 +1,9 @@
 module ViewHelper
   def is_hover(controller_name, namespace=nil, opt={})
+    if namespace.present? && namespace.is_a?(Hash)
+      opt = namespace
+      namespace = nil
+    end
     dom_class_name = opt[:dom_class].present? ? opt[:dom_class] : 'hover'
     action_name=opt[:action_name]
     if namespace.present? && controller_name.present? && action_name.present?
