@@ -47,10 +47,7 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
     respond_to do |format|
       order = StoreMaterialOrder.joins(store_material_order_items: [:store_material]).pending.find(params[:id])
       format.html { render text: 'html' }
-      format.json { render json: order.as_json.merge({
-          items: order.store_material_order_items.pending.map{|item| item.as_json.merge({material: item.store_material.as_json})  }
-        })
-      }
+      format.json { render json: order.as_json}
     end
   end
 
