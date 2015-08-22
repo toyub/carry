@@ -3,6 +3,7 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
   def index
     @store = current_user.store
     @store_supplier = @store.store_suppliers.find(params[:store_supplier_id])
+    @store_material_orders = @store.store_material_orders.where(store_supplier_id: @store_supplier.id)
   end
 
   def new
@@ -21,12 +22,13 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
 
   def create
     @store = current_user.store
-    order = StoreMaterialOrder.new(order_params)
+    store_supplier = @store.store_suppliers.find(params[:store_supplier_id])
 
+    order = StoreMaterialOrder.new(order_params)
     order.store_id = @store.id
     order.store_chain_id = @store.store_chain_id
     order.store_staff_id = current_user.id
-    order.store_supplier_id = 1
+    order.store_supplier_id = store_supplier.id
     order.numero = Time.now.strftime('%Y%m%d%H%M%S')
     order.amount = 0.0
     order.store_material_order_items.each do |item|
@@ -37,10 +39,8 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
       item.amount = item.price * item.quantity
       order.amount += item.amount
     end
-
     order.save
-    #render json: order.as_json.merge({items: order.store_material_order_items})
-    redirect_to '/kucun/material_orders/'
+    redirect_to kucun_store_supplier_material_orders_path({store_supplier_id: order.store_supplier_id})
   end
 
   def show
