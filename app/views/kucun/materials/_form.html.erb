@@ -1,5 +1,5 @@
-
-  <%= form_for(@store_material, url: kucun_materials_path, as: :material) do %>
+  <% action_uri = @store_material.new_record? ? kucun_materials_path : kucun_material_path(@store_material) %>
+  <%= form_for(@store_material, url: action_uri) do %>
   <div class="base_info">
 
     <div class="goods_img">
@@ -40,7 +40,7 @@
       </div>
 
       <div class="item_content">
-        <% category = (@store_material.store_material_category && @store_material.store_material_root_category) || @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
+        <% category = @store_material.store_material_root_category || @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
         <label class="width-75">一级分类</label>
         <input id='material_root_category' type="hidden" name='material[store_material_root_category_id]' value="<%= category.id %>">
         <span class="width-157 as_select" data-select='#material_root_category_select' data-target='input[name="material[store_material_root_category_id]"]'><%= category.name %></span>
@@ -55,10 +55,10 @@
       </div>
 
       <div class="item_content">
-        <% category = @store_material.store_material_category || @store.store_material_categories.new(name: '请选择') %>
         <label class="width-75">二级分类</label>
-        <input type="hidden" name='material[store_material_category_id]' value="<%= category.id %>">
-        <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'><%= category.name %></span>
+        <% sub_category = @store_material.store_material_category || category.sub_categories.first || category.sub_categories.new(name: '请选择') %>
+        <input type="hidden" name='material[store_material_category_id]' value="<%= sub_category.id %>">
+        <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'><%= sub_category.name %></span>
         <div id='material_category_select' class="select width-165">
           <ol class="width-165">
             <% category.sub_categories.each do |option| %>
