@@ -62,7 +62,7 @@
                           <%= order.store_material_order_items.first.store_material.name %>
                           <i class="fa fa-chevron-down chevrondow chevron float-right"></i>
                         </li>
-                        <li><input type="checkbox" data-id='<%= order.id %>' data-order='<%= order.as_json %>' name="sub_check"></li>
+                        <li><input type="checkbox" data-id='<%= order.id %>' data-order='<%= order.to_json %>' name="sub_check"></li>
                       </ul>
                   </div>
                  <% end %>
@@ -72,6 +72,8 @@
         </div>
 
         <div class="in_storage_content common_storage_content float-left  margin-bottom-50 margin-top-80">
+          <%= form_tag '/kucun/material_inventories', id: 'rukuruku' do %>
+          <input type="hidden" id='order_id' name='order_id'/>
           <div class="in_storage_query">
             <div class="nav-item-query">
               <div class="font-20 font-borderradius text-align-center">入</div>
@@ -139,10 +141,12 @@
             </div>
           </div>
           <div class="btn_group">
-            <a class="in_stg_btn" href="#" >入库</a>
+            <a id='submit' class="in_stg_btn" href="javascript:void(0);" >入库</a>
           </div>
+          <% end %>
       </div>
   </div>
+
 <%= content_for :scenes do %>
   <div id='order_items' class='storage_details' style="display:none"></div>
 <% end %>
@@ -161,6 +165,7 @@
              }
              boxdd = this;
              var order = $(this).data('order');
+             console.log(order)
              var html = '';
              $("#order_id").val(order.id);
              $("#order_time").html(Date.parse1(order.created_at).cn_date());
