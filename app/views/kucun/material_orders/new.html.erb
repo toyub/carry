@@ -6,279 +6,74 @@
   <h2>订货</h2>
   <span class="add_span">+</span>
 </div>
-      <div class="details">
-        <%= render partial: 'tabtop' %>
-        <%= render partial: 'kucun/store_suppliers/nav' -%>
-
-        <div class="details_nav_second">
-          <ul class="goods_nav">
-            <li><a href="#" class="width-90">▲上一件商品</a></li>
-            <li><a href="#" class="width-90">▼下一件商品</a></li>
-            <li ><a href="index.html" class="width-90">返回列表</a></li>
-          </ul>
+<div class="details">
+  <%= render partial: 'tabtop' %>
+  <%= render partial: 'kucun/store_suppliers/nav' -%>
+  <div class="details_nav_second">
+    <ul class="goods_nav">
+      <li><a href="#" class="width-90">▲上一件商品</a></li>
+      <li><a href="#" class="width-90">▼下一件商品</a></li>
+      <li ><a href="index.html" class="width-90">返回列表</a></li>
+    </ul>
+  </div>
+  <div class="details_content">
+      <div class=" common_storage_content margin-bottom-50">
+      <%= form_tag "/kucun/material_orders/" do %>
+        <div class="ordergoods_query">
+          <div class="nav-item-query">
+            <label>供应商：</label>
+            <input type="text" class="width-200" readonly="true" value="<%= @store_supplier.name %>">
+            <input type="hidden" name="store_supplier_id" value="<%= @store_supplier.id %>">
+          </div>
+          <div class="nav-item-query ">
+            <label>时间：</label>
+            <input type="text" class="width-135" readonly="true" value="<%= Time.now.strftime('%Y-%m-%d %H:%M') %>">
+          </div>
+          <div class="nav-item-query">
+            <label>单号：</label>
+            <input type="text" class="width-135" readonly="true" value="<%= x=Time.now; x.strftime('%Y%m%d%H%M%S') + ((x.to_f - x.to_i) * 100_0000).to_i.to_s(36).rjust(5, '0').upcase %>">
+          </div>
+          <div class="ordergoods_print">
+            <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
+            <a href="#" class="print_barcode_btn">打印条码</a>
+          </div>
         </div>
-        <div class="details_content">
-            <div class=" common_storage_content margin-bottom-50">
-            <%= form_tag "/kucun/material_orders/" do %>
-              <div class="ordergoods_query">
-                <div class="nav-item-query">
-                  <label>供应商：</label>
-                  <input type="text" class="width-200" readonly="true" value="<%= @store_supplier.name %>">
-                  <input type="hidden" name="store_supplier_id" value="<%= @store_supplier.id %>">
-                </div>
-                <div class="nav-item-query ">
-                  <label>时间：</label>
-                  <input type="text" class="width-135" readonly="true" value="<%= Time.now.strftime('%Y-%m-%d %H:%M') %>">
-                </div>
-                <div class="nav-item-query">
-                  <label>单号：</label>
-                  <input type="text" class="width-135" readonly="true" value="<%= x=Time.now; x.strftime('%Y%m%d%H%M%S') + ((x.to_f - x.to_i) * 100_0000).to_i.to_s(36).rjust(5, '0').upcase %>">
-                </div>
-                <div class="ordergoods_print">
-                  <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
-                  <a href="#" class="print_barcode_btn">打印条码</a>
-                </div>
-              </div>
-              <%= render partial: 'form' %>
-              <div class="order_goods_account">
-                <div class="item_content margin-left-10">
-                  <label class="width-75 margin-top-10 ">备注：</label>
-                  <textarea class="remarks_textarea width-1251"></textarea>
-                </div>
-                <div class="item_content margin-top-10  margin-left-10 float-left">
-                  <label class="width-75">本次付款：</label>
-                  <input type="text" class="width-253 ">
-                </div>
-                <div class="item_content margin-top-10 float-left  margin-left-20">
-                  <label class="width-75 ">结算账户： </label>
-                  <input type="text" class="width-253 " value="<%= @store_supplier.clearing_account %>" readonly=true>
-                </div>
-                <div class="item_content margin-top-10  margin-left-20">
-                  <label  class="width-75">本次欠款：</label>
-                  <input type="text" class="width-253" readonly=true>
-                </div>
-                <div class="item_content  margin-left-10">
-                  <label class="width-75">制单人：</label>
-                  <label class="width-253"><%= current_user.screen_name %></label>
-                </div>
-              </div>
-              <div class="btn_group margin-right-20">
-                <a class="edit_btn" href="#" >取消</a>
-                <input type='submit' class="save_btn btn" value='保存' />
-              </div>
-            <% end %>
-            </div>
+        <%= render partial: 'form' %>
+        <div class="order_goods_account">
+          <div class="item_content margin-left-10">
+            <label class="width-75 margin-top-10 ">备注：</label>
+            <textarea class="remarks_textarea width-1251"></textarea>
+          </div>
+          <div class="item_content margin-top-10  margin-left-10 float-left">
+            <label class="width-75">本次付款：</label>
+            <input type="text" class="width-253 ">
+          </div>
+          <div class="item_content margin-top-10 float-left  margin-left-20">
+            <label class="width-75 ">结算账户： </label>
+            <input type="text" class="width-253 " value="<%= @store_supplier.clearing_account %>" readonly=true>
+          </div>
+          <div class="item_content margin-top-10  margin-left-20">
+            <label  class="width-75">本次欠款：</label>
+            <input type="text" class="width-253" readonly=true>
+          </div>
+          <div class="item_content  margin-left-10">
+            <label class="width-75">制单人：</label>
+            <label class="width-253"><%= current_user.screen_name %></label>
+          </div>
         </div>
-
+        <div class="btn_group margin-right-20">
+          <a class="edit_btn" href="#" >取消</a>
+          <input type='submit' class="save_btn btn" value='保存' />
+        </div>
+      <% end %>
       </div>
-
-
+  </div>
+</div>
 <% content_for :scenes do %>
-
-<div  class="popup_box" id="pop_new_material">
-  <span class="verticalAlign"></span>
-  <div class="new_products">
-    <div class="new_products_inner">
-      <div class="top">
-        <span class="float-left">新建商品</span>
-        <span class="font-28 float-right padding-right-10 cursor-pointer doclose" id="close_02">×</span>
-      </div>
-      <div class="new_product_content">
-        <form id='new_material'>
-          <div class="item_content">
-            <label class="width-75">商品名称</label>
-            <input type="text" class="width-165" name='material[name]' placeholder="请输入名称" required="true">
-          </div>
-          <div class="item_content">
-            <label class="width-75">条形码</label>
-            <input type="text" class="width-165" name='material[barcode]' placeholder="若不填则系统自动生成">
-          </div>
-          <div class="item_content">
-            <label class="width-75">助记码</label>
-            <input type="text" name='material[mnemonic]' class="width-165">
-          </div>
-          <div class="item_content">
-            <label class="width-75">商品规格</label>
-            <input type="text" name='material[speci]' class="width-165" required="true">
-          </div>
-          <div class="item_content">
-            <label class="width-75">成本价</label>
-            <input type="text" name='material[cost_price]' class="width-165" placeholder="输入成本价会影响原成本价">
-          </div>
-          <div class="item_content">
-            <label class="width-75">最低售价</label>
-            <input type="text" name='material[min_price]' class="width-165">
-          </div>
-
-          <div class="item_content">
-            <% category = @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
-            <label class="width-75">一级分类</label>
-            <input id='material_root_category' type="hidden" name='material[store_material_root_category_id]' value="<%= category.id %>">
-            <span class="width-157 as_select" data-select='#material_root_category_select' data-target='input[name="material[store_material_root_category_id]"]'><%= category.name %></span>
-            <div id='material_root_category_select' class="select width-165">
-              <ol class="width-165">
-                <% @store.store_material_categories.super_categories.each do |option| %>
-                <li data-value="<%= option.id %>"><%= option.name %></li>
-                <% end %>
-              </ol>
-              <a class='add_btn width-158' data-method='add_root_category' href="javascript:void(0);">新增</a>
-            </div>
-          </div>
-
-          <div class="item_content">
-            <label class="width-75">二级分类</label>
-            <input type="hidden" name='material[store_material_category_id]' value="<%= category.id %>">
-            <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'><%= category.name %></span>
-            <div id='material_category_select' class="select width-165">
-              <ol class="width-165">
-                <% category.sub_categories.each do |option| %>
-                <li data-value="<%= option.id %>"><%= option.name %></li>
-                <% end %>
-              </ol>
-              <a class='add_btn width-158' data-method='add_category' href="javascript:void(0);">新增</a>
-            </div>
-          </div>
-
-          <div class="item_content">
-            <label class="width-75">商品单位</label>
-            <input type="hidden" name='material[store_material_unit_id]' value="">
-            <span id='store_material_unit_id' class="width-157 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'>请选择</span>
-            <div id='material_unit_select' class="select width-165">
-              <ol class="width-165">
-                <% @store.store_material_units.each do |option| %>
-                <li data-value="<%= option.id %>"><%= option.name %></li>
-                <% end %>
-              </ol>
-              <a class='add_btn width-158' data-method='add_unit' href="javascript:void(0);">新增</a>
-            </div>
-          </div>
-
-          <div class="item_content">
-            <label class="width-75">商品品牌</label>
-            <input name='material[store_material_brand_id]' type="hidden" value="">
-            <span id='store_material_brand_id' class="width-157 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'>请选择</span>
-            <div id='material_brand_select' class="select width-165">
-              <ol class="width-165">
-                <% @store.store_material_brands.each do |option| %>
-                <li data-value="<%= option.id %>"><%= option.name %></li>
-                <% end %>
-              </ol>
-              <a class='add_btn width-158' data-method='add_brand' href="javascript:void(0);">新增</a>
-            </div>
-          </div>
-
-          <div class="item_content">
-            <label class="width-75">生产单位</label>
-            <input name='material[store_material_manufacturer_id]' type="hidden" value="">
-            <span id='store_material_manufacturer_id' class="width-157 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'>请选择</span>
-            <div id='material_manufacturer_select' class="select width-165">
-              <ol class="width-165">
-                <% @store.store_material_manufacturers.each do |option| %>
-                <li data-value="<%= option.id %>"><%= option.name %></li>
-                <% end %>
-              </ol>
-              <a class='add_btn width-158' data-method='add_manufacturer' href="javascript:void(0);">新增</a>
-            </div>
-          </div>
-
-
-          <div class="item_content outline item_property text-align-left margin-left-54">
-            <label class="width-75">商品属性</label>
-            <input type="checkbox" name="material[permitted_to_internal]" value='1' checked="checked" class="margin-left-15"><label>自用</label>
-            <input type="checkbox" name="material[permitted_to_saleable]" value="1" class="margin-left-26" ><label >销售</label>
-          </div>
-
-
-          <div class="item_content outline item_inventory margin-left-106">
-            <label class="width-80  font-weight-bold">
-              <input type="radio"  class="toggleable width-13" name='material[inventory_alarmify]' data-target="inventory" data-checked>
-              库存预警：
-            </label>
-            <div class="display-inline-block width-155 text-align-center">
-              <label>数量上限</label>
-              <input data-id="inventory" name='material[max_inventory]' disabled="true" type="text" class="width-80" required="true">
-            </div>
-            <div class="display-inline-block width-155 text-align-center">
-              <label>数量下限</label>
-              <input data-id="inventory" name='material[min_inventory]' disabled="true" type="text" class="width-80" required="true">
-            </div>
-          </div>
-
-          <div class="item_content outline shelf_life margin-left-50">
-            <input type="radio" class="toggleable width-13" name='material[expiry_alarmify]' data-target="shelf_life" data-checked>
-            <label class="">保质期提醒</label>
-            <div class="input_div">
-              <input type="text" name='material[shelf_life]' class="width-50 border-none" data-id="shelf_life" disabled="disabled" required="true">
-              <label>天</label>
-            </div>
-          </div>
-
-          <div class="item_textarea ">
-            <label class="width-75">备注</label>
-            <textarea name='material[remark]' class="textarea-width  text-indent-5  width-976"></textarea>
-          </div>
-      </form>
-      </div>
-      <div class="btn_group">
-        <a href="#" class="cancel_btn btn">取消</a>
-        <input type="submit" form='new_material' value="保存" class="save_btn btn" id="save">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="popup_box" id="pop_choose_goods">
-  <span class="verticalAlign"></span>
-  <div   class="choose_ordergoods" >
-    <div class="top">
-      <span class="float-left">选择商品</span>
-      <span class="font-28 float-right padding-right-10 cursor-pointer doclose" >×</span>
-    </div>
-    <div class="title">
-      <span class="font-20 float-left first_title">选择订货商品</span>
-      <span class="second_title">
-          如果供应商关联的商品不在列表内，请通过类别下拉菜单进行选择类别查询，如果还是没有，请点击新建按钮，添加新商品
-          <a class="new_btn float-right btn margin-top-10 dobtn">新建商品</a>
-      </span>
-    </div>
-    <div class="ordergoods_content" >
-      <div class="order_list">
-        <div class="list">
-          <div class="list_top list_tr border-none">
-            <ul>
-              <li class="see_search first_td" >
-                <span class="do_see_search cursor-pointer">商品</span>
-                <div class="select_ordergoods_div">
-                  <input type="text" required class="keyword autocomplete width-165"  placeholder="查找产品">
-                  <a href="#" class="search_btn btn">查找</a>
-                </div>
-              </li>
-              <li class="second_td" >条 码</li>
-              <li class="third_td" >规格</li>
-              <li class="forth_td">
-                <select class="width-60 top_select">
-                  <option>类别</option>
-                  <option>类别</option>
-                  <option>类别</option>
-                </select>
-              </li>
-              <li class="fifth_td border-none">操作</li>
-            </ul>
-          </div>
-
-          <div class="material_list">
-          </div>
-        </div>
-      </div>
-      <div class="popup_order_foot">
-        <a href="#" class="cancel_btn btn margin-top-10">取消</a>
-        <input type="submit" value="选中" class="save_btn btn" id="pitch_on">
-      </div>
-    </div>
-  </div>
-</div>
-
+  <%= render partial: 'material_form' %>
+  <%= render partial: 'choose_goods' %>
 <% end %>
+
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
@@ -295,7 +90,6 @@
       });
     });
   </script>
-
 
   <script>
  jQuery(function($) {
