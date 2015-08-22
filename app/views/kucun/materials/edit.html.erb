@@ -52,7 +52,7 @@
 <script>
   jQuery(function($){
     v = new $$MIS.NewMaterialView();
-    v.setElement('#new_material');
+    v.setElement('#edit_material');
     v.model = new $$MIS.Material();
     v.model.on('invalid', v.invalid_handle);
     v.category_collection = new  $$MIS.MaterialCategoryCollection();
