@@ -6,111 +6,7 @@
   <span class="add_span">+</span>
 </div>
 <div class="details">
-  <div class="content_tab_top">
-    <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
-      <colgroup>
-        <col width="14.28%">
-        <col width="14.28%">
-        <col width="14.28%">
-        <col width="14.28%">
-        <col width="14.28%">
-        <col width="14.28%">
-        <col width="14.28%">
-      </colgroup>
-      <tbody>
-        <tr  style="height:50px;">
-          <td class="border-right">
-            <table cellpadding="0" cellspacing="0" class="in_tab">
-              <tr>
-                <td class="text-align-left"><a href="#">商品总数量</a>
-                  <span   class="num_color font-24  tab_span ">86</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td class="border-right">
-            <table cellpadding="0" cellspacing="0" class="in_tab">
-              <tr>
-                <td class=" text-align-left"><a href="#">数量最多商品</a>
-                  <span class="num_color  tab_span font-14 float-right">74位</span>
-                </td>
-              </tr>
-              <tr>
-                <td class=" text-align-left"><a href="#">金额最大商品</a>
-                  <span class="num_color  tab_span font-14 float-right">12位</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td class="border-right">
-            <table cellpadding="0" cellspacing="0" class="in_tab">
-              <tr>
-                <td class=" text-align-left"><a href="#">出库量最多</a>
-                  <span class="num_color  tab_span font-14 float-right">74位</span>
-                </td>
-              </tr>
-              <tr>
-                <td class=" text-align-left"><a href="#">出库量最少</a>
-                  <span class="num_color  tab_span font-14 float-right">12位</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td class="border-right">
-            <table cellpadding="0" cellspacing="0" class="in_tab">
-              <tr>
-                <td class=" text-align-left"><a href="#">库龄最短</a>
-                  <span class="num_color  tab_span font-14 float-right">74位</span>
-                </td>
-              </tr>
-              <tr>
-                <td class=" text-align-left"><a href="#">库龄最长</a>
-                  <span class="num_color  tab_span font-14 float-right">12位</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td class="border-right">
-            <table cellpadding="0" cellspacing="0" class="in_tab">
-              <tr>
-                <td class=" text-align-left"><a href="#">销售最多</a>
-                  <span class="num_color  tab_span font-14 float-right">74位</span>
-                </td>
-              </tr>
-              <tr>
-                <td class=" text-align-left"><a href="#">两用最多</a>
-                  <span class="num_color  tab_span font-14 float-right">12位</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td class="border-right">
-            <table cellpadding="0" cellspacing="0" class="in_tab">
-              <tr>
-                <td class="text-align-left"><a href="#">需回访客户</a>
-                  <span class="num_color  tab_span font-14 float-right">74位</span>
-                </td>
-              </tr>
-              <tr>
-                <td class=" text-align-left"><a href="#">已回访客户</a>
-                  <span class="num_color  tab_span font-14 float-right">11位</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td >
-            <table cellpadding="0" cellspacing="0" class="in_tab">
-              <tr>
-                <td class=" text-align-right"><a href="#">商品总金额</a>
-                  <span class="num_color text-align-right font-24 tab_span">22,8677</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <%= render partial: 'tabtop' %>
   <div class="details_nav">
     <ul>
       <li><a href="#" class="width-90">供应商信息</a></li>
@@ -125,14 +21,14 @@
           <div class="nav-item-query">
             <label>供应商：</label>
             <input name='material[store_supplier_id]' type="hidden">
-            <span id='store_supplier_id' class="width-170 as_select" data-select='#material_supplier_select' data-target='input[name="material[store_supplier_id]"]'>请选择</span>
-            <div id='material_supplier_select' class="select">
-              <ol>
+            <span id='store_supplier_id' class="width-150 as_select" data-select='#material_supplier_select' data-target='input[name="material[store_supplier_id]"]'>请选择</span>
+            <div id='material_supplier_select' class="select width-165">
+              <ol class='width-165'>
                 <% @store.store_suppliers.each do |option| %>
                 <li data-value="<%= option.id %>"><%= option.name %></li>
                 <% end %>
               </ol>
-              <a class='add_btn' data-method='add_supplier' href="javascript:void(0);">新增</a>
+              <a class='add_btn width-158 add_supplier' data-method='add_supplier' href="javascript:void(0);">新增</a>
             </div>
           </div>
           <div class="nav-item-query ">
@@ -148,306 +44,65 @@
             <a href="#" class="print_barcode">打印条码</a>
           </div>
         </div>
-        <div class="common_storage_tab in_storage_tab">
-          <table cellpadding="0" cellspacing="0" id="storage_tab">
-            <tr class="bg-color-e0e2cf color-282726">
-              <th width="3%">#</th>
-              <th width="18%" >商品名称</th>
-              <th  width="8%" >条码</th>
-              <th  width="8%" >规格</th>
-              <th width="4%" >单位</th>
-              <th  width="7%" >一级分类</th>
-              <th  width="7%">二级分类</th>
-              <th width="10%">单价</th>
-              <th width="8%" >数量</th>
-              <th  width="8%">小计</th>
-
-              <th  width="15%">备注</th>
-              <th width="4%"> 操作</th>
-            </tr>
-            <tr>
-              <td>1</td>
-
-              <td class="goods_name">
-                <input type="text"/>
-                <span class='add'>...</span>
-              </td>
-              <td>887766555444</td>
-              <td>长皮盒6项目</td>
-              <td>套</td>
-              <td>美容产品</td>
-              <td>镀晶产品</td>
-              <td><input type="text" name="price" value=""></td>
-              <td><input type="text" name="quantity" value=""></td>
-              <td><span class='amount'>5,440.00</span></td>
-
-              <td><input type="text" name="name" value=""></td>
-              <td><a href="#">X</a></td>
-            </tr>
-            <tr id='total'>
-              <td></td>
-              <td class="font-weight-bold text-align-left text-indent-10">合计:</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="font-weight-bold"><span class='total_quantity'></span></td>
-              <td class="font-weight-bold text-align-left text-indent-10"><span class='total_amount'>5,400.00</span></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </table>
-        </div>
-        <div class="common_storage_query">
-          <div class="margin-left-10 text-align-left" style="width:99%;">
-            <textarea class="remarks_textarea" placeholder="输入备注"></textarea>
+        <%= render partial: 'form'  %>
+        <div class="order_goods_account">
+          <div class="item_content margin-left-10">
+            <label class="width-75 margin-top-10 ">备注：</label>
+            <textarea class="remarks_textarea width-1251"></textarea>
           </div>
-          <div class="item_content margin-top-10  margin-left-10">
+          <div class="item_content margin-top-10  margin-left-10 float-left">
             <label class="width-75">本次付款：</label>
-            <input type="text" class="width-253 margin-left-2">
+            <input type="text" class="width-253">
           </div>
-          <div class="item_content margin-top-10 ">
+          <div class="item_content margin-top-10 float-left  margin-left-20">
             <label class="width-75 ">结算账户：</label>
             <input type="hidden" name="store_id" value="<%= @store.id %>">
             <input type="text" readonly class="width-253" value='<%= @store.name %>'>
           </div>
-          <div class="item_content margin-top-10 ">
+          <div class="item_content margin-top-10 margin-left-20">
             <label  class="width-75">本次欠款：</label>
             <input type="text" name='' class="width-253" value='5,400.00' readonly>
           </div>
-          <div class="table_filler  margin-left-10">
+          <div class="item_content  margin-left-10">
             <label class="width-75">制单人：</label>
-            <span><%= current_user.screen_name %></span>
+            <label class="width-253"><%= current_user.screen_name %></label>
           </div>
         </div>
-        <div class="btn_group">
-          <a class="edit_btn" href="#" >取消</a>
-          <a class="save_btn btn" href="#" >保存</a>
+        <div class="btn_group margin-right-20">
+          <input type="reset" class="cancel_btn" value='取消' >
+          <input type="submit" class="save_btn btn" value="保存">
         </div>
       </div>
   </div>
 </div>
 
 <% content_for :scenes do %>
-
-<div id='popupbox_new_products' class="popupbox_new_products">
-<form method="post">
-  <div class="new_products">
-      <div class="top">
-        <span>新建商品</span>
-        <span class="float-right padding-right-10 curcor_hand cancel_neworder">×</span>
-      </div>
-      <div class="new_product_contents">
-        <div class="item_content">
-          <label class="width-75">商品名称</label>
-          <input type="text" class="width-165">
-        </div>
-        <div class="item_content">
-          <label class="width-75">条形码</label>
-          <input type="text" class='width-165' name="name" value="" placeholder='若不输入则系统自动生成' autocomplete=off>
-        </div>
-        <div class="item_content">
-          <% category = @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
-          <label class="width-75">一级分类</label>
-          <input id='material_root_category' type="hidden" name='material[root_category]' value="<%= category.id %>">
-          <span class="width-170 as_select" data-select='#material_root_category_select' data-target='input[name="material[root_category]"]'><%= category.name %></span>
-          <div id='material_root_category_select' class="select">
-            <ol>
-              <% @store.store_material_categories.super_categories.each do |option| %>
-              <li data-value="<%= option.id %>"><%= option.name %></li>
-              <% end %>
-            </ol>
-            <a class='add_btn' data-method='add_root_category' href="javascript:void(0);">新增</a>
-          </div>
-        </div>
-        <div class="item_content">
-          <label class="width-75">二级分类</label>
-          <input type="hidden" name='material[store_material_category_id]' value="">
-          <span id='store_material_category_id' class="width-170 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'>请选择</span>
-          <div id='material_category_select' class="select">
-            <ol>
-              <% category.sub_categories.each do |option| %>
-              <li data-value="<%= option.id %>"><%= option.name %></li>
-              <% end %>
-            </ol>
-            <a class='add_btn' data-method='add_category' href="javascript:void(0);">新增</a>
-          </div>
-        </div>
-        <div class="item_content">
-          <label class="width-75">商品规格</label>
-          <input type="text" class="width-165">
-        </div>
-        <div class="item_content">
-          <label class="width-75">商品单位</label>
-          <input type="text" class="width-165">
-        </div>
-        <div class="item_content">
-          <label class="width-75">成本价</label>
-          <input type="text" class="width-165" placeholder="输入成本价会影响原成本价">
-        </div>
-        <div class="item_content">
-          <label class="width-75">零售价</label>
-          <input type="text" class="width-165">
-        </div>
-        <div class="item_content">
-          <label class="width-75">商品品牌</label>
-          <input type="text" class="width-165">
-        </div>
-        <div class="item_content">
-          <label class="width-75">生产单位</label>
-          <input type="text" class="width-165">
-        </div>
-        <div class="item_content">
-          <label class="width-75">助记码</label>
-          <input type="text" class="width-165">
-        </div>
-        <div class="item_content">
-          <label class="width-75">最低零售价</label>
-          <input type="text" class="width-165">
-        </div>
-        <div class="item_inventory">
-          <label class="width-120 font-weight-bold font-black float-left"><input name='material[inventory_alarmify]' type="radio" class='toggleable' data-target='inventory'>库存预警：</label>
-          <div class='inline_block'>
-            <label class="width-78">数量上限</label>
-            <input data-id='inventory' name='material[max_inventory]'  disabled=true type="text" class="width-53" required=true min=0.0 step='any'>
-          </div>
-
-          <div class="inline_block">
-            <label class="lab_52">数量下限</label>
-            <input data-id='inventory' name='material[min_inventory]' disabled=true type="text" class="width-53" required=true min=0.0 step='any'>
-          </div>
-        </div>
-
-        <div class="item_content shelf_life">
-          <label class="width-75"><input type="radio" name='material[expiry_alarmify]' data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
-          <div class="input_span">
-            <input type="text" data-id='shelf_life' name='material[shelf_life]' disabled=true class="width-30 " style="border:0px;" required=true >
-            <span>天</span>
-          </div>
-        </div>
-        <div class="item_content">
-          <label class="width-75">状态</label>
-          <select class="width-165">
-            <option></option>
-            <option></option>
-            <option></option>
-            <option></option>
-          </select>
-        </div>
-
-        <div class="item_textarea">
-          <textarea class="textarea-width" placeholder="输入备注"></textarea>
-        </div>
-
-      </div>
-      <div class="btn_group">
-          <input type="button"  value="取消" class="cancel_btn btn" >
-          <input type="button"  value="保存" class="save_btn btn" >
-       </div>
-  </div>
-</form>
-</div>
-
-<div id='popupbox_choose_ordergoods' class="popupbox_choose_ordergoods">
-<form method="post">
-  <div class=" choose_ordergoods" >
-    <div class="top">
-      <span>新建商品</span>
-      <span class="font-28 float-right padding-right-10 curcor_hand cancel_neworder">×</span>
-    </div>
-    <div class="title">
-      <span class="font-20 float-left first_title width-165">选择订货商品</span>
-      <span class="second_title">
-          ?如果供应商关联的商品不在列表内，请通过类别下拉菜单进行选择类别查询，如果还是没有，请点击新建按钮，添加新商品
-      </span>
-    </div>
-    <div class="ordergoods_content" >
-      <div class="order_list">
-        <div class="list">
-          <ul class="list_top">
-            <li class="list_tr">
-              <ul>
-                <li class="first_td" >
-                <input type="button" value="商品 ▼"/>
-
-                  <div class="search_ordergoods">
-                    <input type="text" class="width-165 autocomplete" autocomplete=off placeholder="查找产品">
-                    <a href="#" class="search_btn btn">查找</a>
-                  </div>
-                </li>
-                <li class="second_td" >条码</li>
-                <li class="third_td" >规格</li>
-                <li class="forth_td">
-                  <select class="width-60 top_select">
-                    <option value=''>全部类别</option>
-                    <% @store.store_material_categories.super_categories.each do |category| %>
-                    <option value="<%= category.id %>"><%= category.name %></option>
-                    <% end %>
-                  </select>
-                </li>
-                <li class="fifth_td border-none">操作</li>
-              </ul>
-            </li>
-          </ul>
-          <div class="clr"></div>
-          <div class="list_contents">
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">米其林轮胎</li>
-                <li class="second_td">12304567890123</li>
-                <li class="third_td">195/65/15XM291V</li>
-                <li class="forth_td">汽配</li>
-                <li class="fifth_td border-none"><input type="checkbox"></li>
-              </ul>
-            </div>
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">澜泰纳米镀金宾御套餐</li>
-                <li class="second_td">1234567890123</li>
-                <li class="third_td">6个项目</li>
-                <li class="forth_td">美容</li>
-                <li class="fifth_td border-none"><input type="checkbox"></li>
-              </ul>
-            </div>
-            <div class="list_content list_tr">
-              <ul>
-                <li class="first_td">风帆电瓶</li>
-                <li class="second_td">1234567890999</li>
-                <li class="third_td">65AH 奥迪A4专用</li>
-                <li class="forth_td">汽配</li>
-                <li class="fifth_td border-none"><input type="checkbox"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="order_new">
-        <a class="new_btn btn">新建商品</a>
-      </div>
-      <div class="popup_order_foot">
-        <a class="new_btn btn">添加新商品</a>
-
-        <input type="submit" value="选中" class="save_btn btn">
-      </div>
-    </div>
-  </div>
-</form>
-</div>
+  <%= render partial: 'material_form' %>
+  <%= render partial: 'choose_goods' %>
+  <%= render partial: 'supplier_form' %>
 <% end %>
+
 <% content_for :javascripts do %>
   <script>
-    $("#storage_tab").on("click", 'span.add', function(event){
-      $("#popupbox_choose_ordergoods").show();
-    });
+  jQuery(function(){
+      <% if @store_material.present? %>
+         var store_material = <%= StoreMaterialSerializer.new(@store_material).as_json(root: false).to_json.html_safe -%>;
+      <% end %>
+      $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
+        if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
+          return false;
+        }
+        if(evt.keyCode == 46 && (/\.+/).test(this.value)){
+          return false;
+        }
+      });
+      new_order_view = new $$MIS.NewMaterialOrderView({
+        el: $("#content")
+      });
+      if(typeof(store_material)!=typeof(undefined)){
+          new_order_view.loadWith(store_material);
+      }
 
-    $('#popupbox_choose_ordergoods').on("click", '.new_btn', function(event){
-      $("#popupbox_new_products").show();
-    });
-
-    $("#popupbox_new_products").on("click", '.cancel_btn, .cancel_neworder', function(event){
-      $("#popupbox_new_products > form")[0].reset();
     });
   </script>
 

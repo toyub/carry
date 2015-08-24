@@ -1,9 +1,9 @@
-<div class="main_top">
+      <div class="main_top">
         <h2>入库</h2>
         <span class="add_span">+</span>
       </div>
       <div class="details">
-          <div class="in_storage_list list_table">
+        <div class="in_storage_list list_table">
             <div class="search_nav">
               <div class="item-query">
                 <label>入库方式</label>
@@ -39,48 +39,52 @@
               <div class="list">
                 <div class="list_top list_tr">
                   <ul>
-                    <li  >#</li>
-                    <li >时间</li>
-                    <li >订货单号</li>
-                    <li >订货商</li>
-                    <li >金额</li>
-                    <li >明细</li>
-                    <li >操作</li>
+                    <li>#</li>
+                    <li>时间</li>
+                    <li>订货单号</li>
+                    <li>订货商</li>
+                    <li>金额</li>
+                    <li>明细</li>
+                    <li>操作</li>
                   </ul>
                 </div>
-                <% @store_material_orders.each do |order| %>
-                <div class="list_content list_tr border_left margin-top-0">
-                    <ul>
-                      <li >1.</li>
-                      <li >2014-12-19</li>
-                      <li >887766554444</li>
-                      <li >杭州鼎洪科技有限公司</li>
-                      <li >5,440.00</li>
-                      <li >澜泰纳米镀晶套装
-                        <i class="fa fa-chevron-down chevrondow chevron float-right" ></i>
-                      </li>
-                      <li>
-                      <input type="checkbox" data-id='<%= order.id %>' name="sub_check">
-                      </li>
-                    </ul>
+                <div class="list_contents">
 
+                  <% @store_material_orders.each_with_index do |order, idx| %>
+                  <div class="list_content list_tr border_left">
+                      <ul>
+                        <li><%= idx + 1%>.</li>
+                        <li><%= order.created_at.to_s(:date_only) %></li>
+                        <li><%= order.numero %></li>
+                        <li><%= order.store_supplier.name %></li>
+                        <li><%= order.amount %></li>
+                        <li class='items' data-items='<%= json_for(order.store_material_order_items) %>'>
+                          <%= order.store_material_order_items.first.store_material.name %>
+                          <i class="fa fa-chevron-down chevrondow chevron float-right"></i>
+                        </li>
+                        <li><input type="checkbox" data-id='<%= order.id %>' data-order='<%= order.to_json %>' name="sub_check"></li>
+                      </ul>
+                  </div>
+                 <% end %>
                </div>
-               <% end %>
               </div>
           </div>
         </div>
-        <div class="in_storage_content common_storage_content  margin-bottom-50">
+
+        <div class="in_storage_content common_storage_content float-left  margin-bottom-50 margin-top-80">
+          <%= form_tag '/kucun/material_inventories', id: 'rukuruku' do %>
+          <input type="hidden" id='order_id' name='order_id'/>
           <div class="in_storage_query">
             <div class="nav-item-query">
               <div class="font-20 font-borderradius text-align-center">入</div>
             </div>
             <div class="nav-item-query">
               <label>时间：</label>
-              <input type="text" class="width-135" value="<%= Time.now.to_s(:date_only) %>">
+              <input type="text" class="width-135" value="<%= Time.now.to_s(:date_only) %>" readonly>
             </div>
             <div class="nav-item-query">
               <label>单号：</label>
-              <input type="text" class="width-135" value="<%= 123214365754321 %>">
+              <input type="text" class="width-135" value="<%= 123214365754321 %>" readonly>
             </div>
             <div class="nav-item-query">
               <label>供应商：</label>
@@ -103,52 +107,26 @@
             </div>
           </div>
           <div class="in_storage_tab common_storage_tab">
-            <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order storage_tab">
+            <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order storage_tab" data-depots='<%= @store.store_depots.to_json %>'>
               <thead>
                 <tr class="bg-color-e0e2cf color-282726">
-                  <th width="3%">#</th>
-                  <th width="14%" >商品名称</th>
-                  <th  width="8%" >条码</th>
-                  <th  width="6%" >规格</th>
-                  <th width="4%" >单位</th>
-                  <th  width="7%" >一级分类</th>
-                  <th  width="7%">二级分类</th>
-                  <th width="6%">单价</th>
-                  <th width="5%" >订货数量</th>
-                  <th width="6%" >入库数量</th>
-                  <th width="7%">仓库</th>
-                  <th  width="8%">小计</th>
-                  <th width="6%">操作</th>
-                  <th  width="13%">备注</th>
-
+                  <th>#</th>
+                  <th>商品名称</th>
+                  <th>条码</th>
+                  <th>规格</th>
+                  <th>单位</th>
+                  <th>一级分类</th>
+                  <th>二级分类</th>
+                  <th>单价</th>
+                  <th>订货数量</th>
+                  <th>入库数量</th>
+                  <th>仓库</th>
+                  <th>小计</th>
+                  <th>操作</th>
+                  <th>备注</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="number">1</td>
-                  <td>澜泰宾御纳米镀晶套装</td>
-                  <td>887766555444</td>
-                  <td>长皮盒6项目</td>
-                  <td>套</td>
-                  <td>美容产品</td>
-                  <td>镀晶产品</td>
-                  <td>680.00</td>
-                  <td>8</td>
-                  <td><input type="text" class="width-50 height-20" value="8" readonly></td>
-                  <td>
-                    <select class="width-60 height-22">
-                      <option></option>
-                      <option></option>
-                      <option></option>
-                    </select>
-                  </td>
-                  <td>5,440.00</td>
-                  <td><i class=" lnr lnr-trash font-18 color-000"></i>
-                    <i class=" lnr lnr-undo font-18 color-BAA89D"></i>
-                  </td>
-                  <td></td>
-                </tr>
-
               </tbody>
             </table>
             <div class="common_storage_account">
@@ -162,85 +140,15 @@
               </div>
             </div>
           </div>
-
           <div class="btn_group">
-            <a class="in_stg_btn" href="#" >入库</a>
+            <a id='submit' class="in_stg_btn" href="javascript:void(0);" >入库</a>
           </div>
-
-      </div>
-
-
-      <div id='storage_details' class='storage_details' style="display:none;">
-        <table cellpadding='0' cellspacing='0'  class='storage_details_tab' >
-          <colgroup>
-            <col width="24.8%">
-            <col width="38.6%">
-            <col width="12.6%">
-            <col width="12.2%">
-            <col width="12.4%">
-          </colgroup>
-          <thead>
-            <tr>
-              <th>商品</th>
-              <th>归档</th>
-              <th>单位</th>
-              <th>单价</th>
-              <th>数量</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>米其林轮胎</td>
-              <td>255/60/17 XM2 91V</td>
-              <td>条</td>
-              <td>750.00</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-<% content_for :scenes do %>
-<script type='text/tmpl' hidden id='kk'>
-    <tr data-id={%=id%}>
-      <td class="number">1</td>
-      <td>
-          {%= material.name %}
-          <input type="hidden" name="items[{%= id%}][id]" value="{%=id%}">
-      </td>
-      <td>{%= material.barcode %}</td>
-      <td>{%= material.speci %}</td>
-      <td>{%= material.store_material_unit_id %}</td>
-      <td>{%= material.store_material_unit_id %}</td>
-      <td>{%= material.store_material_category_id %}</td>
-
-      <td>{%= price %}</td>
-      <td>{%= quantity %}</td>
-      <td>
-        <input type="number" class="width-50 height-20" ondblclick="if(this.hasAttribute('readonly')){this.attributes.removeNamedItem('readonly');}this.focus();" readonly value="{%= quantity %}" name='items[{%= id%}][received_quantity]' data-price={%= price %} data-quantity={%= quantity %} min=0>
-      </td>
-      <td>
-        <select  name='items[{%= id%}][store_depot_id]' class="width-60 height-22">
-          <%= @store.store_depots.each do |depot| %>
-          <option value='<%= depot.id %>'><%= depot.name %></option>
           <% end %>
-        </select>
-      </td>
-      <td><span class='amount'>{%= amount %}</span></td>
-      <td><i class=" lnr lnr-trash font-18 color-000"></i>
-        <i class=" lnr lnr-undo font-18 color-BAA89D"></i>
-      </td>
-      <td><input name='items[{%= id%}][remark]' type="text"></td>
-    </tr>
-</script>
+      </div>
+  </div>
+
+<%= content_for :scenes do %>
+  <div id='order_items' class='storage_details' style="display:none"></div>
 <% end %>
 
 <% content_for :javascripts do %>
@@ -248,27 +156,28 @@
     Date.parse1 = function(str){return new Date(Date.parse(str));}
     Date.prototype.cn_date = function(){return this.getFullYear() + '年' + ( this.getMonth() + 1 ) + '月' + this.getDate() + '日'}
     jQuery(function(){
-      var tm = _.template($('#kk').html().trim());
+      var tm = JST['kucun/material_inventories/new/inventoryitem'];
       var boxdd = null;
       $('.list').on('change', 'input[type=checkbox]', function(event){
-           var id = this.dataset.id;
            if(this.checked){
              if(boxdd && boxdd!=this){
                boxdd.checked = false;
              }
              boxdd = this;
+             var order = $(this).data('order');
+             console.log(order)
              var html = '';
-             $("#order_id").val(id);
+             $("#order_id").val(order.id);
+             $("#order_time").html(Date.parse1(order.created_at).cn_date());
+             $("#order_numero").html(order.numero);
+             $("#order_supplier").html(order.store_supplier_id)
+             var items = $('input:checked').parent().siblings('.items').data('items')
+             items.forEach(function(item){
 
-             $.get('/kucun/material_orders/'+ id +'.json', function(data){
-               $("#order_time").html(Date.parse1(data.created_at).cn_date());
-               $("#order_numero").html(data.numero);
-               $("#order_supplier").html(data.store_supplier_id)
-               data.items.forEach(function(item){
-                 html += tm(item)
-               });
-               $("#storage_tab > tbody").html(html);
-             });
+               html += tm({item: item, store_depots: $('#storage_tab').data('depots')})
+            });
+
+             $("#storage_tab > tbody").html(html);
          }else{
            $("#storage_tab > tbody").html('');
          }
@@ -297,6 +206,17 @@
         }else{
           $('#rukuruku').submit();
         }
+      });
+
+      $('.list_contents').on('click', '.items', function(){
+        var b_c_r = this.getBoundingClientRect();
+        var item_width=338;
+        var pop_width=400;
+        var x = JST['kucun/material_inventories/new/orderitems']({items: $(this).data("items")})
+        $("#order_items").html(x).css({
+          top: b_c_r.top + b_c_r.height,
+          left: b_c_r.left - (pop_width-item_width)
+        }).show();
       });
     });
   </script>

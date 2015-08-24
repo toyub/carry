@@ -55,14 +55,7 @@ class Kucun::MaterialInventoriesController < Kucun::ControllerBase
       order.process = order_process/order.store_material_order_items.length
       order.save
     end
-     
 
-
-
-    ret = {
-      order: order.as_json.merge({items: order.store_material_order_items})
-    }
-    ret.merge!({excess_order: excess_order.as_json.merge({items: excess_order.store_material_order_items})}) if excess_order.present?
-    render json: ret
+    redirect_to action: :new
   end
 end

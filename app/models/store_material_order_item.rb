@@ -44,12 +44,13 @@ class StoreMaterialOrderItem < ActiveRecord::Base
   end
 
   def put_in_depot!(depot_id)
-    inventory = self.store_material.store_material_inventories.find_or_create_by(store_depot_id: depot_id,
+    inventory = self.store_material.store_material_inventories.find_or_initialize_by(store_depot_id: depot_id,
                                                                                 store_id: self.store_id,
-                                                                                store_chain_id: self.store_chain_id,
-                                                                                store_staff_id: self.store_staff_id)
-
-
+                                                                                store_chain_id: self.store_chain_id)
+    if inventory.store_staff_id.blank?
+      inventory.store_staff_id = self.store_staff_id
+      inventory.save
+    end
 
     latest_cost_price=(self.store_material.cost_price * self.store_material.inventory + self.received_quantity*self.price)/(self.store_material.inventory+self.received_quantity)
     inventory.store_material_inventory_records.create(store_id: self.store_id,

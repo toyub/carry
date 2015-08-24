@@ -21,7 +21,13 @@ class Kucun::StoreSuppliersController < Kucun::ControllerBase
     store_supplier.store_staff_id = current_user.id
     store_supplier.save
 
-    redirect_to kucun_store_supplier_path(store_supplier)
+    if request.xhr?
+      render json:store_supplier.to_json
+    else
+      respond_to do |format|
+        format.html {redirect_to kucun_store_supplier_path(store_supplier)}
+      end
+    end
   end
 
   def edit

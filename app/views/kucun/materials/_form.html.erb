@@ -1,5 +1,5 @@
-
-  <%= form_for(@store_material, url: kucun_materials_path, as: :material) do %>
+  <% action_uri = @store_material.new_record? ? kucun_materials_path : kucun_material_path(@store_material) %>
+  <%= form_for(@store_material, url: action_uri, as: :material) do %>
   <div class="base_info">
 
     <div class="goods_img">
@@ -23,11 +23,11 @@
       </div>
       <div class="item_content">
         <label class="width-75">助记码</label>
-        <input name='material[mnemonic]' type="text" class="width-165" required=true value="<%= @store_material.mnemonic %>">
+        <input name='material[mnemonic]' type="text" class="width-165" value="<%= @store_material.mnemonic %>">
       </div>
       <div class="item_content">
         <label class="width-75">商品规格</label>
-        <input name='material[speci]' type="text" class="width-165" required=true value="<%= @store_material.speci %>">
+        <input name='material[speci]' type="text" class="width-165" required=true placeholder='请输入规格' value="<%= @store_material.speci %>">
       </div>
 
       <div class="item_content">
@@ -36,14 +36,14 @@
       </div>
       <div class="item_content">
         <label class="width-75">最低售价</label>
-        <input name='material[min_price]' type="text" class="width-165" required=true value="<%= @store_material.min_price %>">
+        <input name='material[min_price]' type="text" class="width-165" required=true value="<%= @store_material.min_price %>" placeholder="请输入最低售价">
       </div>
 
       <div class="item_content">
-        <% category = (@store_material.store_material_category && @store_material.store_material_root_category) || @store.store_material_categories.super_categories.first || @store.store_material_categories.new(name: '请选择') %>
+        <% category = @store_material.store_material_root_category || StoreMaterialCategory.new(name: '请选择') %>
         <label class="width-75">一级分类</label>
-        <input id='material_root_category' type="hidden" name='material[store_material_root_category_id]' value="<%= category.id %>">
-        <span class="width-157 as_select" data-select='#material_root_category_select' data-target='input[name="material[store_material_root_category_id]"]'><%= category.name %></span>
+        <input type="hidden" name='material[store_material_root_category_id]' value="<%= category.id %>">
+        <span id='store_material_root_category_id' class="width-157 as_select" data-select='#material_root_category_select' data-target='input[name="material[store_material_root_category_id]"]'><%= category.name %></span>
         <div id='material_root_category_select' class="select width-165">
           <ol class="width-165">
             <% @store.store_material_categories.super_categories.each do |option| %>
@@ -55,10 +55,10 @@
       </div>
 
       <div class="item_content">
-        <% category = @store_material.store_material_category || @store.store_material_categories.new(name: '请选择') %>
         <label class="width-75">二级分类</label>
-        <input type="hidden" name='material[store_material_category_id]' value="<%= category.id %>">
-        <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'><%= category.name %></span>
+        <% sub_category = @store_material.store_material_category || StoreMaterialCategory.new(name: '请选择') %>
+        <input type="hidden" name='material[store_material_category_id]' value="<%= sub_category.id %>">
+        <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'><%= sub_category.name %></span>
         <div id='material_category_select' class="select width-165">
           <ol class="width-165">
             <% category.sub_categories.each do |option| %>
@@ -70,7 +70,7 @@
       </div>
 
       <div class="item_content">
-        <% unit = @store_material.store_material_unit || @store.store_material_units.new(name: '请选择') %>
+        <% unit = @store_material.store_material_unit || StoreMaterialUnit.new(name: '请选择') %>
         <label class="width-75">商品单位</label>
         <input type="hidden" name='material[store_material_unit_id]' value="<%= unit.id %>">
         <span id='store_material_unit_id' class="width-157 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'><%= unit.name %></span>
@@ -86,7 +86,7 @@
 
 
       <div class="item_content">
-        <% brand = @store_material.store_material_brand || @store.store_material_brands.new(name: '请选择') %>
+        <% brand = @store_material.store_material_brand || StoreMaterialBrand.new(name: '请选择') %>
         <label class="width-75">商品品牌</label>
         <input name='material[store_material_brand_id]' type="hidden" value="<%= brand.id %>">
         <span id='store_material_brand_id' class="width-157 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'><%= brand.name %></span>
@@ -100,7 +100,7 @@
         </div>
       </div>
       <div class="item_content">
-        <% manufacturer = @store_material.store_material_manufacturer || @store.store_material_manufacturers.new(name: '请选择') %>
+        <% manufacturer = @store_material.store_material_manufacturer || StoreMaterialManufacturer.new(name: '请选择') %>
         <label class="width-75">生产单位</label>
         <input name='material[store_material_manufacturer_id]' type="hidden" value="<%= manufacturer.id %>">
         <span id='store_material_manufacturer_id' class="width-157 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'><%= manufacturer.name %></span>
