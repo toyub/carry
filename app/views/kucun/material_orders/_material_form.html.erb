@@ -34,10 +34,9 @@
           </div>
 
           <div class="item_content">
-            <% category =@store.store_material_categories.new(name: '请选择') %>
             <label class="width-75">一级分类</label>
-            <input type="hidden" name='material[store_material_root_category_id]' value="<%= category.id %>">
-            <span id='store_material_root_category_id' class="width-157 as_select" data-select='#material_root_category_select' data-target='input[name="material[store_material_root_category_id]"]'><%= category.name %></span>
+            <input type="hidden" name='material[store_material_root_category_id]' value="">
+            <span id='store_material_root_category_id' class="width-157 as_select" data-select='#material_root_category_select' data-target='input[name="material[store_material_root_category_id]"]'>请选择</span>
             <div id='material_root_category_select' class="select width-165">
               <ol class="width-165">
                 <% @store.store_material_categories.super_categories.each do |option| %>
@@ -50,9 +49,8 @@
 
           <div class="item_content">
             <label class="width-75">二级分类</label>
-            <% sub_category = category.sub_categories.new(name: '请选择') %>
             <input type="hidden" name='material[store_material_category_id]' value="">
-            <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'><%= sub_category.name %></span>
+            <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'>请选择</span>
             <div id='material_category_select' class="select width-165">
               <ol class="width-165">
               </ol>
