@@ -124,7 +124,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     @searchMaterials()
 
   searchMaterials: =>
-    $.get("/ajax/store_materials", {primary_category: $("#primary_category").val(), sub_category: $("#sub_category").val(), name: $("#material_name").val()})
+    $.get("/ajax/store_materials.js", {primary_category: $("#primary_category").val(), sub_category: $("#sub_category").val(), name: $("#material_name").val()})
 
   selectMaterials: (event) ->
     dataId = $(event.currentTarget).parent().attr('data-id')
