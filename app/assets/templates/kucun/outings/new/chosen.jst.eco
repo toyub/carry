@@ -1,0 +1,14 @@
+<tr data-id=<%= @id %>>
+  <td class="number">1</td>
+  <td><%= @name %></td>
+  <td><%= @barcode %></td>
+  <td><%= @speci %></td>
+  <td><%= @unit %></td>
+  <td><%= @root_category %></td>
+  <td><%= @category %></td>
+  <td><%= @cost_price %></td>
+  <td><%= '2**' %></td>
+  <td><input type="text" class="width-70 td_input" value="1"></td>
+  <td><option>仓库1</option></td>
+  <td><input type="text" name="outing[][remark]" value=""></td>
+</tr>

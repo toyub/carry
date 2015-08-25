@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       resources :material_orders
       resources :assessments, controller: 'store_supplier_assessments'
     end
+    resource :outing
   end
 
   namespace :xiaoshou do
