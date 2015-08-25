@@ -50,6 +50,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :soa do
+    resources :staff
+  end
+
   namespace :ajax do
     resources :store_material_categories, only: [] do
       member do
