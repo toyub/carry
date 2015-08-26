@@ -6,5 +6,5 @@
   <li class="first_td"><%= @material.id %></li>
   <li class="second_td"><%= @material.name %></li>
   <li class="third_td"><%= if @material.use_mode == '0' then '整计' else '零散' %></li>
-  <li class="forth_td">领用<span class="delete close"> × </span></li>
+  <li class="forth_td">领用<span class="delete close remove_goods"> × </span></li>
 </ul>

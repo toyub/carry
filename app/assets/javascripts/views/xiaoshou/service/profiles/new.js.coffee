@@ -25,6 +25,10 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click div.btn_group a.save_btn': 'addMaterial'
     'click div.btn_group a.cancel_btn': 'hideMaterialForm'
     'submit #new_store_service': 'createOnSubmit'
+    'click .remove_goods': 'removeGoods'
+
+  removeGoods: ->
+    $(event.target).closest('.list_content').remove()
 
   createOnSubmit: ->
     event.preventDefault()
