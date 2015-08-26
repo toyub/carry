@@ -2,10 +2,7 @@ class Mis.Models.StoreService extends Backbone.Model
 
   urlRoot: '/api/store_services'
 
-  toJSON: ->
-    hashWithRoot = {}
-    hashWithRoot['store_service'] = @attributes
-    _.clone(hashWithRoot)
+  modelName: 'store_service'
 
   validation:
     name:

@@ -24,6 +24,7 @@
 //= require underscore
 //= require backbone
 //= require backbone-validation-min
+//= require backbone-ext
 //= require mis
 //= require_tree ../templates
 //= require_tree ./models
