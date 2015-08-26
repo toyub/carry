@@ -17,11 +17,13 @@
 //= require js-routes
 //= require jquery.validate
 //= require jquery.form
+//= require jquery.serializejson
 //= require jquery.validate_ext
 //= require jquery.alert
 //= require menu
 //= require underscore
 //= require backbone
+//= require backbone-validation-min
 //= require mis
 //= require_tree ../templates
 //= require_tree ./models
