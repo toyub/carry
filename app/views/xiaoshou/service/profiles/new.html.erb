@@ -41,7 +41,8 @@
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
-      new Mis.Views.XiaoshouServiceProfilesNew();
+      var model = new Mis.Models.StoreService();
+      new Mis.Views.XiaoshouServiceProfilesNew({model: model});
     })
   </script>
 <% end %>

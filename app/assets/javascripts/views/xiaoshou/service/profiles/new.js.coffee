@@ -2,41 +2,13 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
   initialize: ->
     @serviceCategories = new Mis.Collections.StoreServiceCategories(@$('#serviceCategoryList').data('serviceCategories'))
     @serviceCategories.on('add', @addOneServiceCategory, @)
-    $("#new_store_service").validate(
-      ignore: []
-      rules:
-        'store_service[name]': "required"
-        'store_service[retail_price]':
-          required: true
-          number: true
-        'store_service[bargain_price]':
-          number: true
-        'store_service[point]':
-          digits: true
-        'store_service[store_service_category_id]': "required"
-      messages:
-        'store_service[name]': "请输入服务名称"
-        'store_service[retail_price]':
-          required: '请输入零售价'
-          number: '零售价必须是数字'
-        'store_service[bargain_price]':
-          number: '优惠价必须是数字'
-        'store_service[point]':
-          digits: '积分必须是整数'
-        'store_service[store_service_category_id]': "请选择类别"
-
-      submitHandler: (form) ->
-        $(form).find('[type=submit]').attr('disabled', 'disabled')
-        $(form).ajaxSubmit(
-          dataType: 'json'
-          success: (responseText, statusText, xhr) ->
-            window.location = Routes.edit_xiaoshou_service_setting_path(responseText.id)
-          error: (responseOrErrors, statusText, xhr) ->
-            console.log 'need to fix errors showing'
-            $(form).find('[type=submit]').attr('disabled', false)
-        )
-        false
+    Backbone.Validation.bind(@,
+      valid: (view, attr, selector) ->
+        #console.log attr
+      invalid: (view, attr, error, selector) ->
+        console.log(error)
     )
+    @model.on('sync', @handleSuccess, @)
 
   el: 'body'
 
@@ -52,6 +24,16 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click div.item_content input.toggleable': 'toggleFavorable'
     'click div.btn_group a.save_btn': 'addMaterial'
     'click div.btn_group a.cancel_btn': 'hideMaterialForm'
+    'submit #new_store_service': 'createOnSubmit'
+
+  createOnSubmit: ->
+    event.preventDefault()
+    @model.clear(silent: true)
+    @model.set(@$('#new_store_service').find(':input').filter(() -> $.trim(this.value).length > 0).serializeJSON().store_service)
+    @model.save() if @model.isValid(true)
+
+  handleSuccess: ->
+    window.location = Routes.edit_xiaoshou_service_setting_path(@model.get('id'))
 
   listServiceCategories: ->
     if @$("#serviceCategoryList").children().length == 0

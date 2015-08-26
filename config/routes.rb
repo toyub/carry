@@ -70,6 +70,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resource :store_service_categories, only: [:create]
+    resource :store_services, only: [:create]
   end
 
   root 'kucun/materials#index'
