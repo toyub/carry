@@ -61,7 +61,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_materials, only: [:index]
+    resources :store_materials, only: [:index] do
+      collection do
+        get :inventories
+      end
+    end
     resources :store_workstation_categories, only: [] do
       resources :store_workstations, only: [:index]
     end

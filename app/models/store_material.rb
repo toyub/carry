@@ -23,16 +23,12 @@ class StoreMaterial < ActiveRecord::Base
   scope :by_sub_category, -> (category) {where(store_material_category_id: category)}
   scope :by_primary_category, -> (category) {where(store_material_category_id: category)}
 
-  after_save :generate_barcode!
+  after_create :generate_barcode!
 
   def inventory(depot_id=nil)
-    if @inventory.present?
-      return @inventory
-    else
-      count_scope = self.store_material_inventories
-      count_scope = count_scope.where(store_depot_id: depot_id) if depot_id.present?
-     @inventory = count_scope.sum(:quantity)
-   end
+    count_scope = self.store_material_inventories
+    count_scope = count_scope.where(store_depot_id: depot_id) if depot_id.present?
+    count_scope.sum(:quantity)
   end
 
   private

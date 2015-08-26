@@ -15,5 +15,15 @@ module Ajax
       respond_with @store_materials
     end
 
+    def inventories
+      if params[:depot_id].blank?
+        respond_with []
+        return false
+      end
+      search_scope = StoreMaterialInventory.joins(:store_material).where(store_depot_id: params[:depot_id])
+      search_scope = search_scope.where('store_materials.name like ?', "%#{params[:name]}%") if params[:name].present?
+      respond_with search_scope.all
+    end
+
   end
 end
