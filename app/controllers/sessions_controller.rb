@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = StoreStaff.where(login_name: "在职#{params[:login]}").first
+    user = StoreStaff.where(login_name: params[:login]).first
     if user.blank? || user.encrypted_password != StoreStaff.encrypt_with_salt(params[:password], user.salt)
       flash[:error] = 'User login or password wrong!'
       redirect_to new_session_path

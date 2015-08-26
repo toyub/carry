@@ -5,7 +5,7 @@
 </div>
 
 <div class="details">
-  {% include yuangongguanli/yuangongliebiao_common.html %}
+  <%= render partial: 'top_content' %>
   <div class="list_table">
     <div class="search_nav">
       <div class="item-query">
@@ -35,7 +35,7 @@
         <a class=" btn query_btn do_search_result">查<nbsp1></nbsp1>询</a>
       </div>
       <div class="query_div">
-        <a href="jibenxinxi.html" class="new_btn btn">新建</a>
+        <a href="/soa/staff/new" class="new_btn btn">新建</a>
         <a href="#" class="export_btn btn">导出</a>
         <a href="#" class="print_btn btn">打印</a>
       </div>
@@ -78,9 +78,9 @@
           <td>-30.00</td>
           <td>0</td>
           <td>
-            {% for i in (1..4) %}
+            <% 4.times do %>
             <i class="fa fa-star color-C6676D"></i>
-            {% endfor %}
+            <% end %>
             <i class="fa fa-star-o color-C6676D"></i>
           </td>
           <td><a href="jibenxinxishow.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
@@ -101,19 +101,19 @@
           <td>-30.00</td>
           <td>0</td>
           <td>
-            {% for i in (1..3) %}
+            <% 3.times do %>
             <i class="fa fa-star color-C6676D"></i>
-            {% endfor %}
-            {% for i in (1..2) %}
+            <% end %>
+            <% 2.times do %>
             <i class="fa fa-star-o color-C6676D"></i>
-            {% endfor %}
+            <% end %>
           </td>
           <td><a href="jibenxinxishow.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
         </tr>
-        {% for i in (1..4) %}
+        <% @staffs.each do |staff|%>
         <tr>
           <td class="number">3</td>
-          <td><a href="jibenxinxishow.html">王海林</a></td>
+          <td><a href="<%= edit_soa_staff_path(staff) %>"><%= staff.screen_name %></a></td>
           <td>YG201110090001</td>
           <td>销售</td>
           <td>接待</td>
@@ -129,7 +129,7 @@
           <td></td>
           <td ></td>
         </tr>
-        {% endfor %}
+        <% end %>
       </tbody>
       <tbody class="no_search_result" style="display:none;">
         <tr>
