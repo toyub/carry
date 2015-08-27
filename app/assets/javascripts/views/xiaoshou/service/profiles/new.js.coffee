@@ -4,8 +4,15 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     @serviceCategories.on('add', @addOneServiceCategory, @)
     Backbone.Validation.bind(@,
       valid: (view, attr, selector) ->
-        #console.log attr
+        $el = view.$('input[id*=' + attr + ']')
+        $group = $el.closest('.item_content')
+        $group.find('.field_error').remove()
       invalid: (view, attr, error, selector) ->
+        $el = view.$('input[id*=' + attr + ']')
+        $group = $el.closest('.item_content')
+        $group.find('.field_error').remove()
+        error_ele = '<div class="field_error field_up"  class="width-200">' + error + '</div>'
+        $group.append(error_ele)
         console.log(error)
     )
     @model.on('sync', @handleSuccess, @)
