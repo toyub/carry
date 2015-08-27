@@ -17,13 +17,8 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click a.add_btn': 'openCategoryForm'
     'click div.j_categories li': 'selectCategory'
     'click .j_add_material': 'openMaterialForm'
-    'change select#primary_category': 'getSecondCategory'
-    'change select#sub_category': 'searchMaterials'
-    'click a#search_materials': 'searchMaterials'
-    'click table.query_results_table tbody tr input': 'selectMaterials'
     'click div.item_content input.toggleable': 'toggleFavorable'
     'click div.btn_group a.save_btn': 'addMaterial'
-    'click div.btn_group a.cancel_btn': 'hideMaterialForm'
     'submit #new_store_service': 'createOnSubmit'
     'click .remove_goods': 'removeGoods'
 
@@ -60,40 +55,10 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     $("div.j_categories span").text($(event.currentTarget).text())
     $(event.currentTarget).parent().parent().hide()
 
-  resetForm: =>
-    $("div.add_server .item_content input").val("")
-    $("#sub_category").html "<option value=''>请选择</option>"
-    $("#primary_category option:first-child").attr('selected', true)
-    $("#primary_category option:first-child").siblings().attr('selected', false)
-    $("div.table_list div.query_results tbody").empty()
-    $("div.table_list div.selected tbody").empty()
-
   openMaterialForm: ->
-    @resetForm()
-    $("div.add_server").show()
-    
-  hideMaterialForm: ->
-    @resetForm()
-    $("div.add_server").hide()
-
-  getSecondCategory: (event) =>
-    $("#sub_category").empty()
-    $("#sub_category").append "<option value=''>请选择</option>"
-    $.get "/ajax/store_material_categories/#{$(event.currentTarget).val()}/sub_categories" if $(event.currentTarget).val()
-    @searchMaterials()
-
-  searchMaterials: =>
-    $.get("/ajax/store_materials.js", {primary_category: $("#primary_category").val(), sub_category: $("#sub_category").val(), name: $("#material_name").val()})
-
-  selectMaterials: (event) ->
-    dataId = $(event.currentTarget).parent().attr('data-id')
-    if $(event.currentTarget)[0].checked
-      if $("div.table_list table.selected_table tbody").has("tr[data-id=#{dataId}]").size() == 0
-        material = {name: $(event.currentTarget).parent().parent().find('td:first-child').text(), id: dataId, unit: $(event.currentTarget).parent().attr('data-unit')}
-        view = new Mis.Views.XiaoshouServiceProfilesMaterial(attributes: {'data-id': dataId}, material: material)
-        $("div.table_list table.selected_table tbody").append view.render().el
-    else
-      $("div.table_list table.selected_table tbody tr[data-id=#{dataId}]").remove()
+    view = new Mis.Views.XiaoshouServiceProfilesMaterialForm()
+    view.render()
+    view.show()
 
   nullUnitOrDose: =>
     $("#selected tbody tr").filter(
