@@ -14,8 +14,8 @@
         -
       <% end %>
     </li>
-    <li><%= '2**' %></li>
-    <li><%= '仓XX' %></li>
+    <li><%= @quantity %></li>
+    <li><%= @depot_name %></li>
     <li><label><%= @remark %></label></li>
     <li>
       <input data-id='<%= @id %>' type="checkbox" name="sub_check">
