@@ -17,7 +17,8 @@ class StoreMaterial < ActiveRecord::Base
   has_many :store_material_inventories
   has_many :store_material_orders
 
-  has_many :store_material_images, foreign_key: 'host_id'
+  #has_many :store_material_images, foreign_key: 'host_id'
+  has_many :uploads, class_name: '::Upload::StoreMaterial', as: :fileable
 
   scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}%")}
   scope :by_sub_category, -> (category) {where(store_material_category_id: category)}

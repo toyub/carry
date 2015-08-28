@@ -47,20 +47,9 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def save_picture
-    material = StoreMaterial.find(params[:id])
-    pic_path = Rails.root.join('public', 'attachments', 'materials', material.id.to_s, 'images')
-    unless pic_path.exist?
-      FileUtils.mkdir_p pic_path
-    end
-    file_name="p#{Time.now.to_f}.png"
-    file_path = Rails.root.join(pic_path, file_name).to_path
-    data = Base64.decode64(params[:img].gsub('data:image/png;base64,', ''))
-    material.store_material_images.create(file_name: file_name, file_size: data.size, content_type: 'image/png')
-    File.open(file_path, 'w') do |f|
-      IO.binwrite f, data
-    end
-    render text: file_name
-
+    @material = StoreMaterial.find(params[:id])
+    @material.uploads.create(img_params)
+    render text: :ok
   end
 
   private
@@ -72,6 +61,10 @@ class Kucun::MaterialsController < Kucun::ControllerBase
                                      :inventory_alarmify, :max_inventory, :min_inventory,
                                      :expiry_alarmify, :shelf_life, :permitted_to_internal,
                                      :permitted_to_saleable, :remark)
+  end
+
+  def img_params
+    params.permit(:img).merge(store_staff_id: current_staff.id, store_id: current_store.id)
   end
 
   def set_material

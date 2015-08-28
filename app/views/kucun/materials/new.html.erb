@@ -65,7 +65,7 @@
 
         v.model.save()
                .success(function(data){
-                 var url = v.model.url() + '/save_picture';
+                 var url = v.model.url() + '/' + data.store_material.id + '/save_picture';
                  $('#preview_list > img').each(function(idx){
                     var img = this;
                     $.ajax({
@@ -85,7 +85,7 @@
                       }
                     }
                   });
-                  window.location.replace(v.model.url());
+                 window.location.replace(v.model.url());
                 })
               .error(function(data){alert('error')});
         return false;
