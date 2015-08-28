@@ -69,8 +69,12 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   namespace :api do
-    resource :store_service_categories, only: [:create]
-    resource :store_services, only: [:create]
+    resources :store_service_categories, only: [:create]
+    resources :store_services, only: [:create] do
+      member do
+        post :save_picture
+      end
+    end
   end
 
   root 'kucun/materials#index'

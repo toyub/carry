@@ -86,3 +86,7 @@ gem 'geo', git: 'git@gitlab.icar99.com:zc/geo.git', tag: 'v0.0.3'
 gem 'ransack', '~> 1.6.6'
 
 gem 'sass', '3.4.10'
+
+# 文件上传
+gem 'carrierwave'
+gem 'carrierwave-base64'

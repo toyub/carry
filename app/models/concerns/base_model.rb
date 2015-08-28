@@ -1,6 +1,6 @@
 module BaseModel
   extend ActiveSupport::Concern
-  
+
   included do
     belongs_to :store
     belongs_to :store_chain

@@ -5,6 +5,12 @@ module Api
       respond_with @service, location: nil
     end
 
+    def save_picture
+      @service = StoreService.find(params[:id])
+      @service.uploads.create(img_params)
+      respond_with @service, locaiton: nil
+    end
+
     private
 
       def service_params
@@ -15,6 +21,10 @@ module Api
           :store_service_category_id, :favorable,
           store_service_store_materials_attributes: [:store_material_id, :use_mode]
         )
+      end
+
+      def img_params
+        params.permit(:img).merge(store_staff_id: current_staff.id, store_id: current_store.id)
       end
   end
 end

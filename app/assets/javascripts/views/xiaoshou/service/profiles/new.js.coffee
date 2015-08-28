@@ -39,6 +39,17 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     @model.save() if @model.isValid(true)
 
   handleSuccess: ->
+    url = @model.url() + '/save_picture'
+    @$('#preview_list > img').each () ->
+      img = @
+      $.ajax(
+        type: 'POST'
+        url: url
+        data:
+          img: img.src
+        dataType: 'json'
+        success: (data) -> console.log data
+      )
     window.location = Routes.edit_xiaoshou_service_setting_path(@model.get('id'))
 
   listServiceCategories: ->
