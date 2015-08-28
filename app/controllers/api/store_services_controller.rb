@@ -8,7 +8,7 @@ module Api
     def save_picture
       @service = StoreService.find(params[:id])
       @service.uploads.create(img_params)
-      respond_with @service, locaiton: nil
+      respond_with @service, location: nil
     end
 
     private
