@@ -32,7 +32,7 @@ module Mis
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     I18n.enforce_available_locales = false
-    config.i18n.default_locale = :cn
+    config.i18n.default_locale = "zh-CN"
     I18n.locale = "zh-CN"
 
     # Do not swallow errors in after_commit/after_rollback callbacks.

@@ -1,6 +1,7 @@
 module ApplicationHelper
   def controller_namespace(params)
-    params[:controller].gsub(/(\w+)\/\w+/, '\1')
+    kontroller_paths = params[:controller].split('/')
+    kontroller_paths.first
   end
 
   def json_for(target, options = {})

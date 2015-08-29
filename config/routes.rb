@@ -40,6 +40,10 @@ Rails.application.routes.draw do
       resources :assessments, controller: 'store_supplier_assessments'
     end
     resources :outings
+    namespace :transfer do
+      resources :pickings
+      resources :receipts
+    end
   end
 
   namespace :xiaoshou do
