@@ -16,7 +16,7 @@
 #
 # 请阅读 http://guides.rubyonrails.org/i18n.html 以获得更多帮助内容。
 
-cn:
+zh-CN:
   hello: "Hello world"
   date:
     abbr_day_names:
