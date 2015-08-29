@@ -66,10 +66,10 @@
           <td class="number">1</td>
           <td><a href="<%= kucun_material_path(material) %>"><%= material.name %></a></td>
           <td><%= material.barcode %></td>
-          <td><%= material.store_material_root_category.name %></td>
-          <td><%= material.store_material_category.name %></td>
+          <td><%= material.store_material_root_category.try(:name) %></td>
+          <td><%= material.store_material_category.try(:name) %></td>
           <td><%= material.speci %></td>
-          <td><%= material.store_material_unit.name %></td>
+          <td><%= material.store_material_unit.try(:name) %></td>
           <td><%= material.cost_price %></td>
           <td><%= material.inventory %></td>
           <td><%= material.remark %></td>

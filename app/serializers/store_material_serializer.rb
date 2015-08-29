@@ -6,10 +6,10 @@ class StoreMaterialSerializer < ActiveModel::Serializer
   end
 
   def root_category
-    object.store_material_root_category.name
+    object.store_material_root_category.try(:name)
   end
 
   def category
-    object.store_material_category.name
+    object.store_material_category.try(:name)
   end
 end

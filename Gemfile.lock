@@ -87,6 +87,15 @@ GEM
       capistrano
       sidekiq
     capistrano-stats (1.1.1)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+    carrierwave-base64 (1.8)
+      activerecord (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      carrierwave (>= 0.8.0, < 0.11.0)
     celluloid (0.17.0)
       bundler
       celluloid-essentials
@@ -306,6 +315,8 @@ DEPENDENCIES
   capistrano-rvm
   capistrano-sidekiq
   capistrano3-puma!
+  carrierwave
+  carrierwave-base64
   coffee-rails (= 4.1.0)
   geo!
   hiredis (~> 0.6.0)
@@ -332,3 +343,6 @@ DEPENDENCIES
   spring
   uglifier (= 2.7.0)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6

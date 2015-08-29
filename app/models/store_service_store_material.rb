@@ -1,11 +1,8 @@
 class StoreServiceStoreMaterial < ActiveRecord::Base
-  include BaseModel
-
+  belongs_to :store
   belongs_to :store_service
   belongs_to :store_material
-  belongs_to :store_staff
 
-  validates :store_staff_id, presence: true
   validates :store_material_id, presence: true
   validates :store_material_id, uniqueness: {scope: [:store_service_id, :store_id]}
   validates :use_mode, presence: true
@@ -13,6 +10,14 @@ class StoreServiceStoreMaterial < ActiveRecord::Base
   validates :dose, presence: true, if: Proc.new {|x| x.use_mode == USE_MODE[:scattered]}
 
   USE_MODE = {scattered: 1, entire: 0}
+
+  before_validation :set_store_attrs
+
+  private
+    def set_store_attrs
+      self.store_id = self.store_material.store_id
+      self.store_chain_id = self.store_material.store_chain_id
+    end
 end
 
 # == Schema Information

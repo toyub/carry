@@ -77,6 +77,15 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
 
+  namespace :api do
+    resources :store_service_categories, only: [:create]
+    resources :store_services, only: [:create] do
+      member do
+        post :save_picture
+      end
+    end
+  end
+
   root 'kucun/materials#index'
 
   mount Sidekiq::Web => '/sidekiq'

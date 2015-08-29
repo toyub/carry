@@ -25,11 +25,11 @@
     <%= form.hidden_field :store_service_category_id %>
     <span class="width-157 as_select">请选择</span>
     <div class="select width-165 margin-left-78" style="display: none;">
-      <ol class="width-165">
+      <%= content_tag :ol, class: 'width-165', id: 'serviceCategoryList', data: { service_categories: json_for(@categories) } do -%>
         <% @categories.each do |c| %>
           <li data-value="<%= c.id %>"><%= c.name %></li>
-      <% end %>
-      </ol>
+        <% end %>
+      <% end -%>
       <a class="add_btn width-158" href="javascript:void(0);">新增</a>
     </div>
   </div>

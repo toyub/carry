@@ -11,7 +11,6 @@ module Xiaoshou
       end
 
       def update
-        binding.pry
         @service = current_store.store_services.find(params[:id])
         @workflow = @service.store_service_workflows.create(setting_params.merge(store_id: current_store.id))
         respond_with @workflow
