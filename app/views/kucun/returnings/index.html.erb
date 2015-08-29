@@ -1,0 +1,166 @@
+<div class="main_top">
+  <h2>退货记录</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>时间</label>
+        <select type="text" class="width-140">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>操作人</label>
+        <select type="text" class="width-140">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>商品名称</label>
+        <input type="text" class="width-140" placeholder="输入产品关键字">
+      </div>
+      <div class="item-query">
+        <label>供应商</label>
+        <select type="text" class="width-140">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <a href="#" class="query_btn btn">查<nbsp1></nbsp1>询</a>
+      </div>
+      <div class="query_div">
+        <a  href="/kucun/returnings/new" class="returnstorage_btn btn">退货</a>
+        <a  href="#" class="notes_btn">记录</a>
+      </div>
+    </div>
+    <div class="returnnotes_list" id="returnnotes_list">
+      <div class="list">
+        <div class="list_tr list_top">
+          <ul>
+            <li>#</li>
+            <li>退货时间</li>
+            <li>退货单号</li>
+            <li>商品</li>
+            <li>商品类别</li>
+            <li>退货金额</li>
+            <li>供应商</li>
+            <li>备注</li>
+            <li>操作</li>
+          </ul>
+        </div>
+        <div class="list_contents">
+          <% 5.times do %>
+          <div class="list_tr list_content">
+            <ul>
+              <li >1.</li>
+              <li >2014-12-9</li>
+              <li >8877665544</li>
+              <li>澜泰纳米镀金套装</li>
+              <li >美容类</li>
+              <li>13,800.00</li>
+              <li >杭州鼎洪科技有限公司</li>
+              <li>产品超过保质期，凝结无法使用</li>
+              <li class=" cursor-pointer click_btn  " >
+                <i class="fa fa-angle-down font-20 detailsbtn"></i>
+              </li>
+            </ul>
+          </div>
+          
+            <div class=" common_storage_content float-left return_storage_content" style="display:none;" id="ordernotes">
+              <div class="return_storage_query">
+                <div class="nav-item-query">
+                  <div class="font-20 font-borderradius text-align-center">退</div>
+                </div>
+                <div class="nav-item-query">
+                  <label>单号</label>
+                  <input type="text" class="width-200">
+                </div>
+                <div class="nav-item-query ">
+                  <label>时间：</label>
+                  <input type="text" class="width-135">
+                </div>
+                <div class="nav-item-query">
+                  <label>数量</label>
+                  <input type="text" class="width-135">
+                </div>
+                <div class="nav-item-query">
+                  <label>金额</label>
+                  <input type="text" class="width-135">
+                </div>
+                <div class="nav-item-query">
+                  <label>供应商</label>
+                  <input type="text" class="width-135">
+                </div>
+                <div class="nav-item-query">
+                  <label>操作人</label>
+                  <input type="text" class="width-135">
+                </div>
+              </div>
+              <div class="return_storage_tab common_storage_tab margin-bottom-10">
+                <table cellpadding="0" cellspacing="0" class="storage_tab">
+                  <thead>
+                    <tr class=" bg-color-797877  ">
+                      <th >#</th>
+                      <th >产品名称</th>
+                      <th >条码</th>
+                      <th >规格</th>
+                      <th >单位</th>
+                      <th >一级分类</th>
+                      <th >二级分类</th>
+                      <th >单价</th>
+                      <th >库存数</th>
+                      <th >仓库</th>
+                      <th >退货数</th>
+                      <th >备注</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 4.times do %>
+                    <tr>
+                      <td>1</td>
+                      <td>澜泰宾御纳米镀晶套装</td>
+                      <td>887766555444</td>
+                      <td>长皮盒6项目</td>
+                      <td>套</td>
+                      <td>美容产品</td>
+                      <td>镀晶产品</td>
+                      <td>680.00</td>
+                      <td>8</td>
+                      <td>仓库2</td>
+                      <td>1</td>
+                      <td></td>
+                    </tr>
+                    <% end %>
+
+                  </tbody>
+                </table>
+                <div class="return_storage_account">
+                  <div class="item_content ">
+                    <label class="width-75">备注：</label>
+                    <textarea class="remarks_textarea" disabled="true">1243354565</textarea>
+                  </div>
+                  <div class="item_content">
+                    <label class="width-75">制单人：</label>
+                    <span class="width-253">李宁</span>
+                  </div>
+                </div>
+                <div class="btn_group">
+                  <a class="cancel_btn cancel" href="#" >取消</a>
+                  <a class="save_btn cancel margin-right-20" href="#" >保存</a>
+                </div>
+              </div>
+
+            </div>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

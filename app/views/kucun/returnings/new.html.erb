@@ -1,0 +1,298 @@
+
+<div class="main_top">
+  <h2>退货</h2>
+  <span class="second_title">在导航栏中输入需要退货的商品名进行查找，也可以进行筛选进行精确查找，在结果表格中选择需要退货的商品进行退货单的操作</span>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="return_storage_list list_table">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>商品名称</label>
+        <input type="text" class="width-150" placeholder="输入产品关键字或助记码">
+      </div>
+      <div class="item-query">
+        <label>一级分类</label>
+        <select type="text" class="width-150">
+        <option></option>
+        <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>二级分类</label>
+        <select type="text" class="width-150">
+        <option></option>
+        <option></option>
+        </select>
+      </div>
+       <div class="item-query">
+        <label>选择仓库</label>
+        <select type="text" class="width-150">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>选择供应商</label>
+        <select type="text" class="width-150">
+        <option></option>
+        <option></option>
+        </select>
+        <a class=" btn query_btn">查询</a>
+      </div>
+      <div class="query_div">
+        <a href="#" class="returnstorage_btn btn">退货</a>
+        <a href="/kucun/returnings" class="notes_btn btn">记录</a>
+      </div>
+    </div>
+      <table cellpadding="0" cellspacing="0" class="index_list returned_purchase_invoice">
+
+        <thead>
+          <tr>
+            <th style="border-right:0px;" >#</th>
+            <th >商品名称</th>
+            <th >商品条码</th>
+            <th >一级分类</th>
+            <th >二级分类</th>
+            <th >规格</th>
+            <th >单位</th>
+            <th >成本价</th>
+            <th>销售价</th>
+            <th>库存数</th>
+            <th>供应商</th>
+            <th>备注</th>
+            <th > 操作</th>
+            <th ><input type="checkbox"  id="all_check"></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% 10.times do %>
+          <tr>
+            <td class="number">1</td>
+            <td ><span class="click_btn cursor-pointer click_underline">米其林轮胎</span></td>
+            <td>3080309075990</td>
+            <td>汽车配件</td>
+            <td>轮胎</td>
+            <td>185/60/14XM2 91V</td>
+            <td>条</td>
+            <td>530.00</td>
+            <td>650.00</td>
+            <td>3</td>
+            <td>杭州力德贸易有限公司</td>
+            <td></td>
+            <td >
+              <div class="edit_hover ">
+                <img src="/mis/images/edit.png" class="cursor-pointer click_btn">
+              </div>
+            </td>
+            <td><input type="checkbox" name="sub_check"></td>
+          </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+  </div>
+  <div class="return_storage_content margin-bottom-50  common_storage_content float-left">
+    <div class="return_storage_query">
+      <div class="nav-item-query">
+        <div class="font-20 font-borderradius text-align-center">退</div>
+      </div>
+      <div class="nav-item-query">
+        <label>单号：</label>
+        <input type="text" class="width-150">
+      </div>
+      <div class="nav-item-query">
+        <label>时间：</label>
+        <input type="text" class="width-150">
+      </div>
+      <div class="nav-item-query">
+        <label>数量</label>
+        <input type="text" class="width-150">
+      </div>
+      <div class="nav-item-query">
+        <label>金额</label>
+        <input type="text" class="width-150">
+      </div>
+      <div class="nav-item-query">
+        <label>供应商</label>
+        <select class="width-150">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="return_storage_print">
+        <a href="#" class="print_btn btn">打&nbsp;&nbsp;&nbsp;印</a>
+      </div>
+    </div>
+    <div class="return_storage_tab common_storage_tab color-fff">
+      <table cellpadding="0" cellspacing="0" id="storage_tab " class="check_order">
+
+        <thead>
+          <tr class=" bg-color-797877">
+            <th >#</th>
+            <th >产品名称</th>
+            <th >条码</th>
+            <th >规格</th>
+            <th >单位</th>
+            <th >一级分类</th>
+            <th >二级分类</th>
+            <th >单价</th>
+            <th >库存数</th>
+            <th >仓库</th>
+            <th >退货数</th>
+            <th >金额小计</th>
+            <th >备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% 10.times do %>
+          <tr>
+            <td class="number">1</td>
+            <td >澜泰宾御纳米镀晶套装</td>
+            <td>887766555444</td>
+            <td>长皮盒6项目</td>
+            <td>套</td>
+            <td>美容产品</td>
+            <td>镀晶产品</td>
+            <td>680.00</td>
+            <td>8</td>
+            <td>
+              <select class="width-60 height-22">
+                <option>仓库1</option>
+                <option>仓库2</option>
+              </select>
+            </td>
+            <td><input type="text" class="width-60  text-align-center" value="1"></td>
+            <td>8</td>
+            <td></td>
+          </tr>
+          <% end %>
+          
+        </tbody>
+      </table>
+      <div class="common_storage_account">
+        <div class="item_content margin-left-10" >
+          <label class="width-75">备注：</label>
+          <textarea class="remarks_textarea"></textarea>
+        </div>
+        <div class="item_content  margin-left-10">
+          <label class="width-75">制单人：</label>
+          <label class="width-253"></label>
+        </div>
+      </div>
+    </div>
+    <div class="btn_group margin-right-20">
+      <a class="save_btn btn" href="#" >保存</a>
+    </div>
+  </div>
+</div>
+<div class="commodity_details_wrap" id="commodity_details_wrap" style="display:none">
+  <span class="verticalAlign"></span>
+  <div class="commodity_details">
+    <div class="top">
+      <h2>商品详情</h2>
+      <span class="cursor-pointer "><i class="lnr lnr-cross cancel"></i></span>
+    </div>
+    <table cellpadding="0" cellspacing="0" class="commodity_info">>
+      <tbody>
+        <tr>
+          <td>
+            <label class="width-75">商品信息</label>
+            <input type="text" value="米其林轮胎" class="width-165" readonly>
+
+          </td>
+          <td>
+            <label class="width-75">条形码</label>
+            <input type="text" value="3307865432819909" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">一级分类</label>
+            <input type="text" value="汽配" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">二级分类</label>
+            <input type="text" value="轮胎" class="width-165" readonly>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="width-75">商品规格</label>
+            <input type="text" value="185/60/14 XM2 91V" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">商品单位</label>
+            <input type="text" value="条" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">成本价</label>
+            <input type="text" value="320.00" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">零售价</label>
+            <input type="text" value="530.00" class="width-165" readonly>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="width-75">商品品牌</label>
+            <input type="text" value="米其林" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">生产单位</label>
+            <input type="text" value="米其林沈阳公司" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">助记码</label>
+            <input type="text" value="MQL" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">最低零售价</label>
+            <input type="text" value="无" class="width-165" readonly>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="width-80  font-weight-bold">
+              <input type="radio"  class="toggleable width-13" data-target="warning"  disabled data-checked>
+              库存预警：
+            </label>
+            <label class="width-75">金额上限</label>
+            <input type="text"  class="width-84" data-id="warning" disabled="disabled" required="true">
+          </td>
+          <td>
+            <label class="width-75">上限数量</label>
+            <input type="text"  class="width-54"  value="6" readonly>
+            <label class="lab_50">下限数量</label>
+            <input type="text"class="width-54"  value="2" readonly>
+          </td>
+          <td>
+            <label class="width-75">保质期</label>
+            <div class="input_div">
+              <input type="text" class="width-100 border-none" data-id="shelf_life" disabled="disabled"
+              value="36个月" required="true" readonly>
+              <label>
+                <input type="radio" class="toggleable width-13" data-target="shelf_life"
+                data-checked checked disabled>
+                提醒
+              </label>
+            </div>
+          </td>
+          <td>
+            <label class="width-75">状态</label>
+            <input type="text" value="在售" class="width-165" readonly>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <label class="width-75">备注</label>
+            <textarea class=" text-indent-5  width-997 height-120" disabled>备注备注</textarea>
+          </div>
+          </td>
+        </tr>
+      </tbody>
+
+
+    </table>
+  </div>
+</div>

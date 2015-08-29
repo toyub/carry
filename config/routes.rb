@@ -44,6 +44,8 @@ Rails.application.routes.draw do
       resources :pickings
       resources :receipts
     end
+    resources :jits
+    resources :returnings
   end
 
   namespace :xiaoshou do
