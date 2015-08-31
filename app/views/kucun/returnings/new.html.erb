@@ -1,4 +1,3 @@
-
 <div class="main_top">
   <h2>退货</h2>
   <span class="second_title">在导航栏中输入需要退货的商品名进行查找，也可以进行筛选进行精确查找，在结果表格中选择需要退货的商品进行退货单的操作</span>
@@ -9,91 +8,79 @@
     <div class="search_nav">
       <div class="item-query">
         <label>商品名称</label>
-        <input type="text" class="width-150" placeholder="输入产品关键字或助记码">
+        <input id='keyword' type="text" class="width-150" placeholder="输入产品关键字或助记码">
       </div>
       <div class="item-query">
         <label>一级分类</label>
-        <select type="text" class="width-150">
-        <option></option>
-        <option></option>
+        <select id='root_category' type="text" class="width-150">
+          <option value="">所有类别</option>
+          <% @store.store_material_categories.super_categories.each do |category| %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+          <% end %>
         </select>
       </div>
       <div class="item-query">
         <label>二级分类</label>
-        <select type="text" class="width-150">
-        <option></option>
-        <option></option>
+        <select id='sub_category' type="text" class="width-150">
+          <option></option>
         </select>
       </div>
        <div class="item-query">
         <label>选择仓库</label>
-        <select type="text" class="width-150">
-          <option></option>
-          <option></option>
+        <select id='depot_id' type="text" class="width-150">
+          <% @store.store_depots.each do |depot| %>
+            <option value="<%= depot.id %>"><%= depot.name %></option>
+          <% end %>
         </select>
       </div>
       <div class="item-query">
-        <label>选择供应商</label>
-        <select type="text" class="width-150">
-        <option></option>
-        <option></option>
-        </select>
         <a class=" btn query_btn">查询</a>
       </div>
       <div class="query_div">
         <a href="#" class="returnstorage_btn btn">退货</a>
-        <a href="/kucun/returnings" class="notes_btn btn">记录</a>
+        <a href="/kucun/returnings/" class="notes_btn btn">记录</a>
       </div>
     </div>
-      <table cellpadding="0" cellspacing="0" class="index_list returned_purchase_invoice">
-
-        <thead>
-          <tr>
-            <th style="border-right:0px;" >#</th>
-            <th >商品名称</th>
-            <th >商品条码</th>
-            <th >一级分类</th>
-            <th >二级分类</th>
-            <th >规格</th>
-            <th >单位</th>
-            <th >成本价</th>
-            <th>销售价</th>
-            <th>库存数</th>
-            <th>供应商</th>
-            <th>备注</th>
-            <th > 操作</th>
-            <th ><input type="checkbox"  id="all_check"></th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <% 10.times do %>
-          <tr>
-            <td class="number">1</td>
-            <td ><span class="click_btn cursor-pointer click_underline">米其林轮胎</span></td>
-            <td>3080309075990</td>
-            <td>汽车配件</td>
-            <td>轮胎</td>
-            <td>185/60/14XM2 91V</td>
-            <td>条</td>
-            <td>530.00</td>
-            <td>650.00</td>
-            <td>3</td>
-            <td>杭州力德贸易有限公司</td>
-            <td></td>
-            <td >
-              <div class="edit_hover ">
-                <img src="/mis/images/edit.png" class="cursor-pointer click_btn">
-              </div>
-            </td>
-            <td><input type="checkbox" name="sub_check"></td>
-          </tr>
-          <% end %>
-
-        </tbody>
-      </table>
+    <div class="returned_purchase_list">
+      <ul>
+        <li>#</li>
+        <li>商品名称</li>
+        <li>商品条码</li>
+        <li>一级分类</li>
+        <li>二级分类</li>
+        <li>规格</li>
+        <li>单位</li>
+        <li>成本价</li>
+        <li>库存数</li>
+        <li>备注</li>
+        <li>操作</li>
+        <li><input type="checkbox"  id="all_check"></li>
+      </ul>
+      <div class="returned_purchase_invoice">
+        <table cellpadding="0" cellspacing="0" class="index_list ">
+          <tbody id="choices"></tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="return_storage_content margin-bottom-50  common_storage_content float-left">
+  <div class="return_storage_content margin-bottom-50  margin-top-80 common_storage_content float-left">
+    <%= form_tag '/kucun/returnings/', id: 'returning_form' do%>
     <div class="return_storage_query">
       <div class="nav-item-query">
         <div class="font-20 font-borderradius text-align-center">退</div>
@@ -126,50 +113,26 @@
       </div>
     </div>
     <div class="return_storage_tab common_storage_tab color-fff">
-      <table cellpadding="0" cellspacing="0" id="storage_tab " class="check_order">
+      <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order">
 
         <thead>
           <tr class=" bg-color-797877">
-            <th >#</th>
-            <th >产品名称</th>
-            <th >条码</th>
-            <th >规格</th>
-            <th >单位</th>
-            <th >一级分类</th>
-            <th >二级分类</th>
-            <th >单价</th>
-            <th >库存数</th>
-            <th >仓库</th>
-            <th >退货数</th>
-            <th >金额小计</th>
-            <th >备注</th>
+            <th>#</th>
+            <th>产品名称</th>
+            <th>条码</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>一级分类</th>
+            <th>二级分类</th>
+            <th>单价</th>
+            <th>库存数</th>
+            <th>仓库</th>
+            <th>退货数</th>
+            <th>金额小计</th>
+            <th>备注</th>
           </tr>
         </thead>
-        <tbody>
-          <% 10.times do %>
-          <tr>
-            <td class="number">1</td>
-            <td >澜泰宾御纳米镀晶套装</td>
-            <td>887766555444</td>
-            <td>长皮盒6项目</td>
-            <td>套</td>
-            <td>美容产品</td>
-            <td>镀晶产品</td>
-            <td>680.00</td>
-            <td>8</td>
-            <td>
-              <select class="width-60 height-22">
-                <option>仓库1</option>
-                <option>仓库2</option>
-              </select>
-            </td>
-            <td><input type="text" class="width-60  text-align-center" value="1"></td>
-            <td>8</td>
-            <td></td>
-          </tr>
-          <% end %>
-          
-        </tbody>
+        <tbody></tbody>
       </table>
       <div class="common_storage_account">
         <div class="item_content margin-left-10" >
@@ -183,10 +146,13 @@
       </div>
     </div>
     <div class="btn_group margin-right-20">
-      <a class="save_btn btn" href="#" >保存</a>
+      <input type='submit' class="save_btn btn" href="#" value="保存"/>
     </div>
+    <% end %>
   </div>
 </div>
+
+<% content_for :scenes do %>
 <div class="commodity_details_wrap" id="commodity_details_wrap" style="display:none">
   <span class="verticalAlign"></span>
   <div class="commodity_details">
@@ -229,8 +195,9 @@
             <input type="text" value="320.00" class="width-165" readonly>
           </td>
           <td>
-            <label class="width-75">零售价</label>
-            <input type="text" value="530.00" class="width-165" readonly>
+            <label class="width-75">商品属性</label>
+            <input type="checkbox" checked="checked" class="margin-left-15"><label>自用</label>
+            <input type="checkbox" class="margin-left-26" ><label >销售</label>
           </td>
         </tr>
         <tr>
@@ -267,32 +234,86 @@
             <input type="text"class="width-54"  value="2" readonly>
           </td>
           <td>
-            <label class="width-75">保质期</label>
-            <div class="input_div">
-              <input type="text" class="width-100 border-none" data-id="shelf_life" disabled="disabled"
-              value="36个月" required="true" readonly>
-              <label>
-                <input type="radio" class="toggleable width-13" data-target="shelf_life"
-                data-checked checked disabled>
-                提醒
-              </label>
+            <label class="width-80">
+              <input type="radio" class="toggleable width-13" data-target="shelf_life" data-checked>
+              保质期提醒
+            </label>
+            <div class="input_div width-100">
+              <input type="text" class="width-50 " data-id="shelf_life" disabled="disabled" required="true">
+              <label>天</label>
             </div>
           </td>
-          <td>
-            <label class="width-75">状态</label>
-            <input type="text" value="在售" class="width-165" readonly>
-          </td>
+
         </tr>
         <tr>
           <td colspan="4">
             <label class="width-75">备注</label>
             <textarea class=" text-indent-5  width-997 height-120" disabled>备注备注</textarea>
-          </div>
           </td>
         </tr>
       </tbody>
-
-
     </table>
   </div>
 </div>
+<% end %>
+
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function(){
+     choice_tmpl = JST['kucun/returnings/new/choice'];
+     chosen_tmpl = JST['kucun/returnings/new/chosen'];
+     materials = [];
+     $("#root_category").on('change', function(){
+       var id = this.value;
+       $.get(`/ajax/store_material_categories/${id}/sub_categories.json`, function(data){
+          $('#sub_category').html('<option value="">所有类别</option>')
+          $('#sub_category').append(data.map(function(category){
+            return `<option value=${category.id}>${category.name}</option>`;
+          }).join(''));
+       });
+     });
+
+     $('.query_btn').on('click', function(){
+        var keyword = $('#keyword').val().trim();
+        var depot_id =  $('#depot_id').val();
+        var root_category = $("#root_category").val();
+        var category = $('#sub_category').val();
+        var query_data = {
+          name: keyword,
+          depot_id:depot_id,
+          root_category_id: root_category,
+          category_id: category
+        };
+        $.get('/ajax/store_materials/inventories.json',query_data, function(data){
+          $('#choices').html('');
+          var html = data.map(function(inventory){
+            inventory.store_material.quantity = inventory.quantity;
+            inventory.store_material.depot_name = inventory.depot_name;
+            inventory.store_material.depot_id = inventory.store_depot_id;
+            return choice_tmpl(inventory.store_material);
+          }).join('');
+          $('#choices').html(html);
+          materials = data.slice();
+        });
+     });
+
+     $('#choices').on('change', 'input:checkbox', function(){
+        if(this.checked){
+          material_id = this.dataset.id;
+          material = materials.filter(function(m){return m.store_material.id == material_id})[0];
+          $('#storage_tab > tbody').append(chosen_tmpl(material.store_material));
+        }else{
+          material_id = this.dataset.id;
+          $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
+        }
+     });
+     $("#returning_form").on('submit', function(){
+       if(this.querySelectorAll('input[name^=returnings]').length < 1 ){
+        return false;
+      }else{
+        return true;
+      }
+     });
+  });
+  </script>
+<% end %>

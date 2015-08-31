@@ -12,6 +12,6 @@
   <td><%= @cost_price %></td>
   <td><%= @quantity %></td>
   <td><input name='outings[][quantity]' required=true type="number" max=<%= @quantity %> min=1 class="width-70 td_input" value="1"></td>
-  <td><option><%= @depot_name %></option></td>
+  <td><%= @depot_name %></td>
   <td><input type="text" name="outings[][remark]" value=""></td>
 </tr>
