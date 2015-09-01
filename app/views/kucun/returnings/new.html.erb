@@ -54,7 +54,7 @@
         <li>库存数</li>
         <li>备注</li>
         <li>操作</li>
-        <li><input type="checkbox"  id="all_check"></li>
+        <li><label></label></li>
       </ul>
       <div class="returned_purchase_invoice">
         <table cellpadding="0" cellspacing="0" class="index_list ">
@@ -87,29 +87,30 @@
       </div>
       <div class="nav-item-query">
         <label>单号：</label>
-        <input type="text" class="width-150">
+        <input type="text" class="width-150" value="<%= make_numero('R') %>">
       </div>
       <div class="nav-item-query">
         <label>时间：</label>
-        <input type="text" class="width-150">
+        <input type="text" class="width-150" readonly value="<%= Time.now.to_s(:date_only) %>">
       </div>
       <div class="nav-item-query">
         <label>数量</label>
-        <input type="text" class="width-150">
+        <input id='total_quantity' type="text" class="width-150" readonly>
       </div>
       <div class="nav-item-query">
         <label>金额</label>
-        <input type="text" class="width-150">
+        <input id='total_amount' type="text" class="width-150" readonly>
       </div>
       <div class="nav-item-query">
         <label>供应商</label>
-        <select class="width-150">
-          <option></option>
-          <option></option>
+        <select class="width-150" name='store_supplier_id'>
+          <% @store.store_suppliers.each do |opt| %>
+            <option value="<%= opt.id %>"><%= opt.name %></option>
+          <% end %>
         </select>
       </div>
       <div class="return_storage_print">
-        <a href="#" class="print_btn btn">打&nbsp;&nbsp;&nbsp;印</a>
+        <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
       </div>
     </div>
     <div class="return_storage_tab common_storage_tab color-fff">
@@ -265,8 +266,9 @@
      materials = [];
      $("#root_category").on('change', function(){
        var id = this.value;
+       $('#sub_category').html('')
        $.get(`/ajax/store_material_categories/${id}/sub_categories.json`, function(data){
-          $('#sub_category').html('<option value="">所有类别</option>')
+          $('#sub_category').html('<option value="">所有类别</option>');
           $('#sub_category').append(data.map(function(category){
             return `<option value=${category.id}>${category.name}</option>`;
           }).join(''));
@@ -290,6 +292,7 @@
             inventory.store_material.quantity = inventory.quantity;
             inventory.store_material.depot_name = inventory.depot_name;
             inventory.store_material.depot_id = inventory.store_depot_id;
+            inventory.store_material.inventory_id = inventory.id;
             return choice_tmpl(inventory.store_material);
           }).join('');
           $('#choices').html(html);
@@ -306,6 +309,33 @@
           material_id = this.dataset.id;
           $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
         }
+        calc_total();
+     });
+
+     function calc_total(){
+        var total_quantity = 0,
+            total_amount = 0;
+        $('[name$="[quantity]"]').each(function(){
+          total_quantity += parseInt(this.value);
+          total_amount += (this.value * this.dataset.price);
+        });
+        $('#total_quantity').val(total_quantity);
+        $('#total_amount').val(total_amount.toFixed(2));
+     }
+
+     $("#returning_form").on('input', '[name$="[quantity]"]', function(){
+       var max = parseInt(this.max);
+       if(!this.value){
+         return false;
+       }
+       if(this.value > max){
+         return false
+       }
+       if(this.value < 1){
+         return false;
+       }
+       $(this).parents('tr').find('td:eq(11)').html(this.value * this.dataset.price);
+       calc_total();
      });
      $("#returning_form").on('submit', function(){
        if(this.querySelectorAll('input[name^=returnings]').length < 1 ){
