@@ -1,0 +1,201 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun/materials/new' %>
+<% end %>
+<div class="main_top">
+  <h2>入库</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+    <div class="in_storage_list list_table single_shift_library">
+      <div class="search_nav">
+        <div class="item-query">
+          <label>入库方式</label>
+          <input type="hidden" name='material[in_store_type_id]' value="">
+          <span id='in_store_type_id' class="width-157 as_select" data-select='#in_store_type_select' data-target='input[name="material[in_store_type_id]"]'>按移库单入库</span>
+          <div id='in_store_type_select' class="select width-165">
+            <ol class="width-165">
+              <li data-value="1"><a href="javascript:void(0)">按移库单入库</a></li>
+              <li data-value="2"><a href="anshangpinruku.html">按商品入库</a></li>
+              <li data-value="3"><a href="index.html">按订单入库</a></li>
+            </ol>
+          </div>
+        </div>
+        <div class="item-query">
+          <label>查找订货单</label>
+          <select type="text" class="width-150">
+            <option></option>
+            <option></option>
+          </select>
+        </div>
+        <div class="item-query">
+          <label>供应商</label>
+          <select type="text" class="width-150">
+            <option></option>
+            <option></option>
+          </select>
+        </div>
+        <div class="item-query">
+         <a href="#" class="query_btn btn">查<nbsp2></nbsp2>询</a>
+        </div>
+        <div class="query_div">
+         <a href="index.html" class="in_stg_btn btn">入库</a>
+         <a href="jilu.html" class="notes_btn btn">记录</a>
+        </div>
+      </div>
+      <div class="in_storage common_storage ">
+        <div class="list">
+          <div class="list_top list_tr">
+            <ul>
+              <li>#</li>
+              <li>时间</li>
+              <li>移库单号</li>
+              <li>商品明细</li>
+              <li>商品数量</li>
+              <li>移出库</li>
+              <li>目标库</li>
+              <li>操作</li>
+            </ul>
+          </div>
+          <div class="list_contents">
+            <% 5.times do %>
+            <div class="list_content list_tr border_left ">
+              <ul>
+                <li >1.</li>
+                <li >2014-12-19</li>
+                <li >887766554444</li>
+                <li >纳米镀晶...
+                  <i class="lnr lnr-chevron-down chevrondow chevron float-right font-16 margin-right-10 cursor-pointer" ></i>
+                </li>
+                <li >76</li>
+                <li >总库房</li>
+                <li >商场库</li>
+                <li>
+                <input type="checkbox" name="sub_check">
+                </li>
+              </ul>
+            </div>
+            <% end %>
+
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="in_storage_content in_storage_by_receipt common_storage_content float-left  margin-bottom-50 margin-top-80">
+    <div class="in_storage_query">
+      <div class="nav-item-query">
+        <div class="font-20 font-borderradius text-align-center">入</div>
+      </div>
+      <div class="nav-item-query">
+        <label>时间：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>单号：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>数量：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>目标库</label>
+        <input type="text" class="width-150" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>金额：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="in_storage_print">
+        <a href="#" class="print_btn">打<nbsp1></nbsp1>印</a>
+        <a href="#" class="print_barcode_btn">打印条码</a>
+      </div>
+    </div>
+    <div class="in_storage_tab common_storage_tab ">
+      <table cellpadding="0" cellspacing="0" class="storage_tab" id="storage_tab" >
+
+        <thead>
+          <tr class="bg-color-e0e2cf color-282726">
+            <th >#</th>
+            <th >商品名称</th>
+            <th >条码</th>
+            <th >规格</th>
+            <th >单位</th>
+            <th >一级分类</th>
+            <th >二级分类</th>
+            <th >单价</th>
+            <th >数量</th>
+            <th >小计</th>
+            <th >实入数量</th>
+            <th >备注</th>
+            <th > 操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% 5.times do %>
+          <tr>
+            <td class="number">1</td>
+            <td >澜泰纳米镀晶宾御套餐</td>
+            <td>887766555444</td>
+            <td>长皮盒6项目</td>
+            <td>套</td>
+            <td>美容产品</td>
+            <td>镀晶产品</td>
+            <td>680.00</td>
+            <td>8</td>
+            <td>5,440.00</td>
+            <td><input type="text" class="width-70 "></td>
+            <td></td>
+            <td><i class="lnr lnr-cross-circle font-18 cursor-pointer"></i></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <div class="common_storage_account">
+        <div class="item_content margin-left-10" >
+          <label class="width-75">备注：</label>
+          <textarea class="remarks_textarea"></textarea>
+        </div>
+        <div class="item_content  margin-left-10">
+          <label class="width-75">制单人：</label>
+          <label class="width-253"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn_group">
+      <a class="edit_btn btn" href="#">编辑</a>
+      <a class="warehousing_btn btn" href="#" >入库</a>
+    </div>
+
+</div>
+
+<div id='storage_details' class='storage_details' style="display:none;">
+  <table cellpadding='0' cellspacing='0'  class='storage_details_tab' >
+    <thead>
+      <tr>
+        <th>商品</th>
+        <th>归档</th>
+        <th>单位</th>
+        <th>单价</th>
+        <th>数量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>米其林轮胎</td>
+        <td>255/60/17 XM2 91V</td>
+        <td>条</td>
+        <td>750.00</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

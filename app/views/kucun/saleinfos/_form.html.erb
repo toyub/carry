@@ -4,8 +4,8 @@
           <div id='material_img_preview' class="goods_main_img"></div>
           <ul id='material_img_thumbnails' class="goods_small_img">
             <li id='preview_list'>
-              <% @store_material.store_material_images.each do |image| %>
-                <img src="<%= image.asset_path %>">
+              <% @store_material.uploads.each do |image| %>
+                <img src="<%= image.img_url %>">
               <% end %>
             </li>
           </ul>

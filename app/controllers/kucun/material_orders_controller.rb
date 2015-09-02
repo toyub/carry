@@ -29,7 +29,7 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
     order.store_chain_id = @store.store_chain_id
     order.store_staff_id = current_user.id
     order.store_supplier_id = store_supplier.id
-    order.numero = Time.now.strftime('%Y%m%d%H%M%S')
+    order.numero = make_numero("MO")
     order.amount = 0.0
     order.store_material_order_items.each do |item|
       item.store_id = order.store_id

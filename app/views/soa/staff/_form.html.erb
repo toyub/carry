@@ -1,0 +1,133 @@
+<% action_uri = @staff.new_record? ? soa_staff_index_path : soa_staff_path(@staff) %>
+<%= form_for @staff, url: action_uri, html: {id: 'staff_form'} do |form| %>
+<div class="basic_info float-right width-1050">
+  <table border="0">
+    <tbody>
+      <tr>
+        <td class="text-align-right">姓</td>
+        <td>
+          <%= form.text_field :last_name, class: "width-50 margin-right-8", required: true, autocomplete: 'off' %>名<%= form.text_field :first_name, class: "width-100 margin-left-7", required: true, autocomplete: 'off' %>
+        </td>
+        <td class="text-align-right">员工编号</td>
+        <td><input type="text" class="width-180"></td>
+        <td class="text-align-right">所属部门</td>
+        <td>
+          <select class="width-182">
+            <option></option>
+          </select>
+        </td>
+        <td class="text-align-right">职称</td>
+        <td>
+          <select class="width-182">
+            <option></option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-align-right">性别</td>
+        <td>
+          <span>
+            <label><input type="radio" name="store_staff[gender]" value="male" checked>男</label>
+            <label class="margin-left-36"><input type="radio" name="store_staff[gender]" value="female">女</label>
+          </span>
+        </td>
+        <td class="text-align-right">出生日期</td>
+        <td><input type="date" class="width-180"></td>
+        <td class="text-align-right">文化程度</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+        <td class="text-align-right">政治面貌</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+      </tr>
+      <tr>
+        <td class="text-align-right">籍贯</td>
+        <td><input type="text" class="width-180"></td>
+        <td class="text-align-right">户籍类型</td>
+        <td><input type="text" class="width-180"></td>
+        <td class="text-align-right">身份证号</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+        <td class="text-align-right">婚姻状况</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+      </tr>
+      <tr>
+        <td class="text-align-right">职务</td>
+        <td>
+          <select class="width-182">
+            <option></option>
+          </select>
+        </td>
+        <td class="text-align-right">入职时间</td>
+        <td><input type="text" class="width-180"></td>
+        <td class="text-align-right">离职时间</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+        <td class="text-align-right">离职原因</td>
+        <td>
+          <select class="width-182">
+            <option></option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-align-right">身高</td>
+        <td>
+          <select class="width-182">
+            <option></option>
+          </select>
+        </td>
+        <td class="text-align-right">体重</td>
+        <td><input type="text" class="width-180"></td>
+        <td class="text-align-right">手机号</td>
+        <td>
+          <input type="text" class="width-180" name='store_staff[phone_number]' autocomplete=off required=true>
+        </td>
+        <td class="text-align-right">邮箱</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+      </tr>
+      <tr>
+        <td class="text-align-right">现住址</td>
+        <td colspan="3">
+          <input type="text" class="width-446">
+        </td>
+        <td class="text-align-right">户籍地址</td>
+        <td colspan="3">
+          <input type="text" class="width-446">
+        </td>
+      </tr>
+      <tr>
+        <td class="text-align-right">联系人</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+        <td class="text-align-right">联系人电话</td>
+        <td><input type="text" class="width-180"></td>
+        <td class="text-align-right">联系人2</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+        <td class="text-align-right">联系人电话</td>
+        <td>
+          <input type="text" class="width-180">
+        </td>
+      </tr>
+      <tr>
+        <td class="text-align-right">备注</td>
+        <td colspan="7" rowspan="2">
+          <textarea class="width-978 height-56 border-dbd9d9"></textarea>
+        </td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+</div>
+<% end %>

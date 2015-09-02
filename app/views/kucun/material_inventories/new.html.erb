@@ -1,3 +1,7 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun/materials/new' %>
+<% end %>
+
       <div class="main_top">
         <h2>入库</h2>
         <span class="add_span">+</span>
@@ -7,11 +11,15 @@
             <div class="search_nav">
               <div class="item-query">
                 <label>入库方式</label>
-                <a class="in_stock_type_span click_btn" id="in_stock_type_span" >按订单入库</a>
-                <ul class="in_stock_type_ul cancel" id="in_stock_type" style="display:none;">
-                  <li><a href="anshangpinruku.html">按商品入库</a></li>
-                  <li><a href="index.html">按订单入库</a></li>
-                </ul>
+                <input type="hidden" name='material[in_store_type_id]' value="">
+                <span id='in_store_type_id' class="width-157 as_select" data-select='#in_store_type_select' data-target='input[name="material[in_store_type_id]"]'>按订单入库</span>
+                <div id='in_store_type_select' class="select width-165">
+                  <ol class="width-165">
+                    <li data-value="1"><a href="javascript:void(0)">按订单入库</a></li>
+                    <li data-value="2"><a href="zhuanyiruku.html">转移入库</a></li>
+                    <li data-value="3"><a href="anshangpinruku.html">按商品入库</a></li>
+                  </ol>
+                </div>
               </div>
               <div class="item-query">
                 <label>查找订货单</label>
@@ -84,7 +92,7 @@
             </div>
             <div class="nav-item-query">
               <label>单号：</label>
-              <input type="text" class="width-135" value="<%= 123214365754321 %>" readonly>
+              <input type="text" class="width-135" value="<%= make_numero("IN") %>" readonly>
             </div>
             <div class="nav-item-query">
               <label>供应商：</label>

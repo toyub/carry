@@ -31,7 +31,7 @@
           </div>
           <div class="nav-item-query">
             <label>单号：</label>
-            <input type="text" class="width-135" readonly="true" value="<%= x=Time.now; x.strftime('%Y%m%d%H%M%S') + ((x.to_f - x.to_i) * 100_0000).to_i.to_s(36).rjust(5, '0').upcase %>">
+            <input type="text" class="width-135" readonly="true" value="<%= make_numero('MO') %>">
           </div>
           <div class="ordergoods_print">
             <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
@@ -50,7 +50,8 @@
           </div>
           <div class="item_content margin-top-10 float-left  margin-left-20">
             <label class="width-75 ">结算账户： </label>
-            <input type="text" class="width-253 " value="<%= @store_supplier.clearing_account %>" readonly=true>
+            <select class="width-253" name="">
+            </select>
           </div>
           <div class="item_content margin-top-10  margin-left-20">
             <label  class="width-75">本次欠款：</label>

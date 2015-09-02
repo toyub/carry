@@ -39,6 +39,13 @@ Rails.application.routes.draw do
       resources :material_orders
       resources :assessments, controller: 'store_supplier_assessments'
     end
+    resources :outings
+    namespace :transfer do
+      resources :pickings
+      resources :receipts
+    end
+    resources :jits
+    resources :returnings
   end
 
   namespace :xiaoshou do
@@ -49,6 +56,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :soa do
+    resources :staff
+  end
+
   namespace :ajax do
     resources :store_material_categories, only: [] do
       member do
@@ -56,7 +67,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_materials, only: [:index]
+    resources :store_materials, only: [:index] do
+      collection do
+        get :inventories
+      end
+    end
     resources :store_workstation_categories, only: [] do
       resources :store_workstations, only: [:index]
     end

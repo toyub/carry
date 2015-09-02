@@ -34,7 +34,7 @@ class Kucun::MaterialInventoriesController < Kucun::ControllerBase
             store_chain_id: order.store_chain_id,
             store_staff_id: order.store_staff_id,
             store_supplier_id: order.store_supplier_id,
-            numero: Time.now.strftime('%Y%m%d%H%M%S'),
+            numero: make_numero("MO"),
             remark: "#{Time.now.to_s(:date_only)} 临时补订货物"
         })
         excess_order.amount = 0.0
