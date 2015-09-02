@@ -54,24 +54,24 @@
           </ul>
         </div>
         <div class="list_contents">
-          <% 5.times do %>
+          <% @returning_items.each do |item|%>
           <div class="list_tr list_content">
             <ul>
               <li >1.</li>
-              <li >2014-12-9</li>
-              <li >8877665544</li>
-              <li>澜泰纳米镀金套装</li>
-              <li >美容类</li>
-              <li>13,800.00</li>
-              <li >杭州鼎洪科技有限公司</li>
-              <li>产品超过保质期，凝结无法使用</li>
+              <li><%= item.store_material_returning.created_at.to_s(:date_only) %></li>
+              <li><%= item.store_material_returning.numero %></li>
+              <li>包含"<%= item.store_material.name %>"等多样商品</li>
+              <li ><%= item.store_material.store_material_root_category.name %></li>
+              <li><%= item.price * item.quantity %></li>
+              <li><%= item.store_supplier.name %></li>
+              <li><label><%= item.remark %></label></li>
               <li class=" cursor-pointer click_btn  " >
                 <i class="fa fa-angle-down font-20 detailsbtn"></i>
               </li>
             </ul>
           </div>
-          
-            <div class=" common_storage_content float-left return_storage_content" style="display:none;" id="ordernotes">
+
+            <div class=" common_storage_content float-left return_storage_content" style="" id="ordernotes">
               <div class="return_storage_query">
                 <div class="nav-item-query">
                   <div class="font-20 font-borderradius text-align-center">退</div>

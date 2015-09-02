@@ -103,7 +103,7 @@
       </div>
       <div class="nav-item-query">
         <label>供应商</label>
-        <select class="width-150" name='store_supplier_id'>
+        <select class="width-150" name='returning[store_supplier_id]'>
           <% @store.store_suppliers.each do |opt| %>
             <option value="<%= opt.id %>"><%= opt.name %></option>
           <% end %>
@@ -115,7 +115,6 @@
     </div>
     <div class="return_storage_tab common_storage_tab color-fff">
       <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order">
-
         <thead>
           <tr class=" bg-color-797877">
             <th>#</th>
@@ -142,7 +141,7 @@
         </div>
         <div class="item_content  margin-left-10">
           <label class="width-75">制单人：</label>
-          <label class="width-253"></label>
+          <label class="width-253"><%= current_user.screen_name %></label>
         </div>
       </div>
     </div>
@@ -338,7 +337,7 @@
        calc_total();
      });
      $("#returning_form").on('submit', function(){
-       if(this.querySelectorAll('input[name^=returnings]').length < 1 ){
+       if($('#storage_tab tbody > tr').length < 1 ){
         return false;
       }else{
         return true;

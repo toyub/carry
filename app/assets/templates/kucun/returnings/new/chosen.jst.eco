@@ -1,6 +1,6 @@
 <tr data-id=<%= @id %>>
-  <td class="number"><%= 1 %><input type="hidden" name="returnings[<%= @id %>][inventory_id]" value="<%= @inventory_id %>"></td>
-  <td><%= @name %><input type="hidden" name="returnings[<%= @id %>][store_material_id]" value="<%= @id %>"></td>
+  <td class="number"><%= 1 %><input type="hidden" name="returning[items_attributes][][store_material_inventory_id]" value="<%= @inventory_id %>"></td>
+  <td><%= @name %><input type="hidden" name="returning[items_attributes][][store_material_id]" value="<%= @id %>"></td>
   <td><%= @barcode %></td>
   <td><%= @speci %></td>
   <td><%= @unit %></td>
@@ -8,8 +8,8 @@
   <td><%= @category %></td>
   <td><%= @cost_price %></td>
   <td><%= @quantity %></td>
-  <td><%= @depot_name %><input type="hidden" name="returnings[<%= @id %>][depot_id]" value="<%= @depot_id %>"></td>
-  <td><input required name="returnings[<%= @id %>][quantity]" type="number" class="width-60 text-align-center" data-price='<%= @cost_price %>' min=1 max=<%= @quantity %> value="1"></td>
+  <td><%= @depot_name %><input type="hidden" name="returning[items_attributes][][store_depot_id]" value="<%= @depot_id %>"></td>
+  <td><input required name="returning[items_attributes][][quantity]" type="number" class="width-60 text-align-center" data-price='<%= @cost_price %>' min=1 max=<%= @quantity %> value="1"></td>
   <td><%= @cost_price %></td>
-  <td><input type="text" name="returnings[<%= @id %>][remark]" value=""></td>
+  <td><input type="text" name="returning[items_attributes][][remark]" value=""></td>
 </tr>
