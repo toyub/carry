@@ -1,7 +1,11 @@
 class Kucun::ReturningsController < Kucun::ControllerBase
   def index
     @store = current_store
-    @returning_items = @store.store_material_returning_items.joins(:store_material_returning, :store_material)
+    query_scope = @store.store_material_returnings
+    query_scope = query_scope.where(store_staff_id: params[:store_staff_id]) if params[:store_staff_id].present?
+    query_scope = query_scope.where(store_supplier_id: params[:store_supplier_id]) if params[:store_supplier_id].present?
+
+    @returnings = query_scope.all
   end
 
   def new
@@ -10,29 +14,30 @@ class Kucun::ReturningsController < Kucun::ControllerBase
   end
 
   def create
-    @x = StoreMaterialReturning.new(returning_params)
+    returning = StoreMaterialReturning.new(returning_params)
+    returning.numero = Time.now.to_f #make_numero('R')
     total_amount = 0
     total_quantity = 0
-    @x.items.each do |item|
-      item.store_supplier_id = @x.store_supplier_id
+    returning.items.each do |item|
+      item.store_supplier_id = returning.store_supplier_id
       item.price = item.store_material.cost_price
       item.prior_quantity = item.store_material_inventory.quantity
       total_quantity += item.quantity
       total_amount += (item.quantity * item.price)
     end
-    @x.total_amount = total_amount
-    @x.total_quantity = total_quantity
-    @x.numero = Time.now.to_f #make_numero('R')
-    if @x.save
+    returning.total_amount = total_amount
+    returning.total_quantity = total_quantity
+    saved = StoreMaterialReturning.transaction do
+      returning.save!
+      returning.items.each do |item|
+        item.store_material_inventory.returning!(item.quantity)
+      end
+    end
+
+    if saved
       redirect_to action: 'index'
     else
-      render json: {
-        saved: false,
-        params: params,
-        returning_params: returning_params,
-        returning: @x,
-        items: @x.items
-      }
+      render text: '退货失败'
     end
   end
 

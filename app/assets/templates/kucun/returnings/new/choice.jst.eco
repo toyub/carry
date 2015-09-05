@@ -1,5 +1,5 @@
 <tr>
-  <td class="number"><%= 1 %></td>
+  <td class="number"><%= @idx %></td>
   <td><span class="click_btn cursor-pointer click_underline"><%= @name %></span></td>
   <td><%= @barcode %></td>
   <td><%= @root_category %></td>

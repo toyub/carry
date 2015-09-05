@@ -1,7 +1,7 @@
 <tr data-id=<%= @id %>>
-  <td class="number"><%= 1 %><input type="hidden" name="returning[items_attributes][][store_material_inventory_id]" value="<%= @inventory_id %>"></td>
+  <td class="number"></td>
   <td><%= @name %><input type="hidden" name="returning[items_attributes][][store_material_id]" value="<%= @id %>"></td>
-  <td><%= @barcode %></td>
+  <td><%= @barcode %><input type="hidden" name="returning[items_attributes][][store_material_inventory_id]" value="<%= @inventory_id %>"></td>
   <td><%= @speci %></td>
   <td><%= @unit %></td>
   <td><%= @root_category %></td>
