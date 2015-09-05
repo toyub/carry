@@ -5,24 +5,31 @@
 <div class="details">
   <div class="list_table">
     <div class="search_nav">
+      <%= form_tag '/kucun/returnings/', method: 'GET' do %>
       <div class="item-query">
-        <label>时间</label>
+        <label>日期从</label>
+        <input type="date" name="created_at" value="" class="width-140">
+      </div>
+      <div class="item-query">
+        <label>至</label>
         <input type="date" name="created_at" value="" class="width-140">
       </div>
       <div class="item-query">
         <label>操作人</label>
-        <select type="text" class="width-140">
+        <select type="text" class="width-140" name="store_staff_id">
           <option value="">全部</option>
-          <option></option>
+          <% @store.store_staff.each do |opt| %>
+            <option value="<%= opt.id %>"><%= opt.screen_name %></option>
+          <% end %>
         </select>
       </div>
       <div class="item-query">
         <label>商品名称</label>
-        <input type="text" class="width-140" placeholder="输入产品关键字">
+        <input type="text" name='keyword' class="width-140" placeholder="输入产品关键字" value="<%= params[:keyword] %>">
       </div>
       <div class="item-query">
         <label>供应商</label>
-        <select type="text" class="width-140">
+        <select type="text" class="width-140" name="store_supplier_id">
           <option value="">全部</option>
           <% @store.store_suppliers.each do |opt| %>
           <option value="<%= opt.id %>"><%= opt.name %></option>
@@ -30,8 +37,9 @@
         </select>
       </div>
       <div class="item-query">
-        <a href="#" class="query_btn btn">查<nbsp1></nbsp1>询</a>
+        <input type="submit" class="query_btn btn" value="查  询">
       </div>
+      <% end %>
       <div class="query_div">
         <a  href="/kucun/returnings/new" class="returnstorage_btn btn">退货</a>
         <a  href="#" class="notes_btn">记录</a>

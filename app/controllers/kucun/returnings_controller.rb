@@ -1,7 +1,11 @@
 class Kucun::ReturningsController < Kucun::ControllerBase
   def index
     @store = current_store
-    @returnings = @store.store_material_returnings
+    query_scope = @store.store_material_returnings
+    query_scope = query_scope.where(store_staff_id: params[:store_staff_id]) if params[:store_staff_id].present?
+    query_scope = query_scope.where(store_supplier_id: params[:store_supplier_id]) if params[:store_supplier_id].present?
+
+    @returnings = query_scope.all
   end
 
   def new
