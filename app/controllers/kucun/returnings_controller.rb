@@ -10,37 +10,30 @@ class Kucun::ReturningsController < Kucun::ControllerBase
   end
 
   def create
-    @x = StoreMaterialReturning.new(returning_params)
+    returning = StoreMaterialReturning.new(returning_params)
+    returning.numero = Time.now.to_f #make_numero('R')
     total_amount = 0
     total_quantity = 0
-    @x.items.each do |item|
-      item.store_supplier_id = @x.store_supplier_id
+    returning.items.each do |item|
+      item.store_supplier_id = returning.store_supplier_id
       item.price = item.store_material.cost_price
       item.prior_quantity = item.store_material_inventory.quantity
       total_quantity += item.quantity
       total_amount += (item.quantity * item.price)
     end
-    @x.total_amount = total_amount
-    @x.total_quantity = total_quantity
-    @x.numero = Time.now.to_f #make_numero('R')
+    returning.total_amount = total_amount
+    returning.total_quantity = total_quantity
     saved = StoreMaterialReturning.transaction do
-      @x.save!
-      @x.items.each do |item|
+      returning.save!
+      returning.items.each do |item|
         item.store_material_inventory.returning!(item.quantity)
       end
     end
 
     if saved
-
       redirect_to action: 'index'
     else
-      render json: {
-        saved: false,
-        params: params,
-        returning_params: returning_params,
-        returning: @x,
-        items: @x.items
-      }
+      render text: '退货失败'
     end
   end
 

@@ -287,11 +287,12 @@
         };
         $.get('/ajax/store_materials/inventories.json',query_data, function(data){
           $('#choices').html('');
-          var html = data.map(function(inventory){
+          var html = data.map(function(inventory, idx, collection, undef){
             inventory.store_material.quantity = inventory.quantity;
             inventory.store_material.depot_name = inventory.depot_name;
             inventory.store_material.depot_id = inventory.store_depot_id;
             inventory.store_material.inventory_id = inventory.id;
+            inventory.store_material.idx = idx+1;
             return choice_tmpl(inventory.store_material);
           }).join('');
           $('#choices').html(html);
@@ -309,6 +310,7 @@
           $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
         }
         calc_total();
+        list_seq();
      });
 
      function calc_total(){
@@ -320,6 +322,12 @@
         });
         $('#total_quantity').val(total_quantity);
         $('#total_amount').val(total_amount.toFixed(2));
+     }
+
+     function list_seq(argument) {
+       $('#storage_tab > tbody').children().each(function(idx, el, undef){
+         el.firstElementChild.innerText=(idx+1);
+       });
      }
 
      $("#returning_form").on('input', '[name$="[quantity]"]', function(){
