@@ -1,7 +1,7 @@
 class Kucun::ReturningsController < Kucun::ControllerBase
   def index
     @store = current_store
-    @returning_items = @store.store_material_returning_items.joins(:store_material_returning, :store_material)
+    @returnings = @store.store_material_returnings
   end
 
   def new
@@ -23,7 +23,15 @@ class Kucun::ReturningsController < Kucun::ControllerBase
     @x.total_amount = total_amount
     @x.total_quantity = total_quantity
     @x.numero = Time.now.to_f #make_numero('R')
-    if @x.save
+    saved = StoreMaterialReturning.transaction do
+      @x.save!
+      @x.items.each do |item|
+        item.store_material_inventory.returning!(item.quantity)
+      end
+    end
+
+    if saved
+
       redirect_to action: 'index'
     else
       render json: {
