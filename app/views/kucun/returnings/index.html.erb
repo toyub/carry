@@ -8,19 +8,17 @@
       <%= form_tag '/kucun/returnings/', method: 'GET' do %>
       <div class="item-query">
         <label>日期从</label>
-        <input type="date" name="created_at" value="" class="width-140">
+        <input type="date" name="created_from" value="<%= params[:created_from] %>" class="width-140">
       </div>
       <div class="item-query">
         <label>至</label>
-        <input type="date" name="created_at" value="" class="width-140">
+        <input type="date" name="created_end" value="<%= params[:created_end] %>" class="width-140">
       </div>
       <div class="item-query">
         <label>操作人</label>
         <select type="text" class="width-140" name="store_staff_id">
           <option value="">全部</option>
-          <% @store.store_staff.each do |opt| %>
-            <option value="<%= opt.id %>"><%= opt.screen_name %></option>
-          <% end %>
+          <%=options_from_collection_for_select(@store.store_staff, :id, :screen_name, params[:store_staff_id]) %>
         </select>
       </div>
       <div class="item-query">
@@ -31,9 +29,7 @@
         <label>供应商</label>
         <select type="text" class="width-140" name="store_supplier_id">
           <option value="">全部</option>
-          <% @store.store_suppliers.each do |opt| %>
-          <option value="<%= opt.id %>"><%= opt.name %></option>
-          <% end %>
+          <%= options_from_collection_for_select(@store.store_suppliers, :id, :name, params[:store_supplier_id]) %>
         </select>
       </div>
       <div class="item-query">
@@ -116,7 +112,6 @@
                     <th>一级分类</th>
                     <th>二级分类</th>
                     <th>单价</th>
-                    <th>库存数</th>
                     <th>仓库</th>
                     <th>退货数</th>
                     <th>备注</th>
@@ -133,7 +128,6 @@
                     <td><%= item.store_material.store_material_root_category.name %></td>
                     <td><%= item.store_material.store_material_category.name %></td>
                     <td><%= item.price %></td>
-                    <td>问题字段!</td>
                     <td><%= item.store_depot.name %></td>
                     <td><%= item.quantity %></td>
                     <td><%= item.remark %></td>
