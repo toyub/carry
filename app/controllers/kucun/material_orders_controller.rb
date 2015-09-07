@@ -38,6 +38,7 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
       item.store_supplier_id = order.store_supplier_id
       item.amount = item.price * item.quantity
       order.amount += item.amount
+      order.quantity += item.quantity
     end
     order.save
     redirect_to kucun_store_supplier_material_orders_path({store_supplier_id: order.store_supplier_id})

@@ -79,6 +79,7 @@ Rails.application.routes.draw do
       get "/:country_code/states/", to: "geos#states", as: :country_states
       get "/:country_code/states/:state_code/cities", to: "geos#cities", as: :country_state_cities
     end
+    resources :store_suppliers, only: [:index]
   end
 
   resource :session, only: [:new, :create, :destroy]

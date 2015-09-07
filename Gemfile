@@ -90,3 +90,10 @@ gem 'sass', '3.4.10'
 # 文件上传
 gem 'carrierwave'
 gem 'carrierwave-base64'
+
+#Select2 for rails asset pipeline
+#https://github.com/argerim/select2-rails
+#Select2 is a jQuery based replacement for select boxes.
+#https://github.com/select2/select2
+#https://select2.github.io/examples.html
+gem "select2-rails"
