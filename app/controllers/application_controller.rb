@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= session[:user_id].present? ? StoreStaff.where(id: session[:user_id]).first : nil
+    @current_user ||= StoreStaff.find_by(id: session[:user_id])
   end
 
   def current_store
