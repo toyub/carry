@@ -44,9 +44,9 @@ class StoreServiceWorkflow < ActiveRecord::Base
    self.engineer_level == ENGINEER_LEVEL['初级']
   end
 
-  #def engineer_level_name
-    #ENGINEER_LEVEL.invert[self.engineer_level]
-  #end
+  def engineer_level_name
+    ENGINEER_LEVEL.invert[self.engineer_level]
+  end
 
 end
 
