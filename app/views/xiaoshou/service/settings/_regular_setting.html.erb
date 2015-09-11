@@ -19,7 +19,7 @@
       <td></td>
       <td></td>
       <td>
-        <input type="radio" name="mechanic_level" disabled="">
+        <input type="radio" name="mechanic_level" <%= 'checked' if @service.regular? && @workflow.engineer_level_enable %> disabled="">
       </td>
       <td colspan="3">技师级别限定
         <select class="width-106 margin-right-14" disabled="">
