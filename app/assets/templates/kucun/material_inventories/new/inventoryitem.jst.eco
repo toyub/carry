@@ -13,7 +13,7 @@
   <td><%= @item.price  %></td>
   <td><%= @item.quantity  %></td>
   <td>
-    <input type="number" class="quantity width-50 height-20" readonly value="<%= @item.quantity  %>" name='items[<%= @item.id %>][received_quantity]' data-price=<%= @item.price  %> data-quantity=<%= @item.quantity  %> min=0>
+    <input type="number" class="quantity width-50 height-20" readonly value="<%= @item.quantity  %>" min=1 name='items[<%= @item.id %>][received_quantity]' data-price=<%= @item.price  %> data-quantity=<%= @item.quantity  %> required=true>
   </td>
   <td>
     <select  name='items[<%= @item.id %>][store_depot_id]' class="width-60 height-22">

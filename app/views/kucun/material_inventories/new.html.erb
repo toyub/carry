@@ -38,8 +38,8 @@
                <a href="#" class="query_btn btn">查<nbsp2></nbsp2>询</a>
               </div>
               <div class="query_div">
-               <a  href="index.html" class="in_stg_btn btn">入库</a>
-               <a  href="jilu.html" class="notes_btn btn">记录</a>
+               <a  href="#" class="in_stg_btn btn">入库</a>
+               <a  href="/kucun/material_inventories/" class="notes_btn btn">记录</a>
               </div>
             </div>
             <div class="in_storage common_storage by_orders">
@@ -79,7 +79,7 @@
         </div>
 
         <div class="in_storage_content common_storage_content float-left  margin-bottom-50 margin-top-80">
-          <%= form_tag '/kucun/material_inventories', id: 'rukuruku' do %>
+          <%= form_tag '/kucun/material_inventories', id: 'inventory_form' do %>
           <input type="hidden" id='order_id' name='order_id'/>
           <div class="in_storage_query">
             <div class="nav-item-query">
@@ -145,7 +145,7 @@
             </div>
           </div>
           <div class="btn_group">
-            <a id='submit' class="in_stg_btn" href="javascript:void(0);" >入库</a>
+            <input type='submit' id='submit' class="in_stg_btn" value='入库' />
           </div>
           <% end %>
       </div>
@@ -218,11 +218,12 @@
         calc_total();
       });
 
-      $("#submit").on('click', function(){
+      $("#inventory_form").on('submit', function(){
         if($("#storage_tab > tbody > tr").length < 1){
           ZhanchuangAlert('未选择任何商品进行入库！');
+          return false;
         }else{
-          $('#rukuruku').submit();
+          return true;
         }
       });
 
@@ -244,7 +245,7 @@
         this.classList.remove('to_hide');
         $("#order_items").hide();
       });
-      
+
       $("#order_items").on('click', function(evt){
         evt.stopPropagation();
       });
