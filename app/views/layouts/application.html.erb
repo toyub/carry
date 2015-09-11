@@ -168,6 +168,7 @@
     </div>
   </main>
 
+  <%= content_tag :div, '', id: 'bootstrap', data: {store_services: json_for(current_store.store_services)} %>
   <%= yield :scenes %>
   <%= yield :javascripts %>
 </body>
