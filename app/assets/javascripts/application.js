@@ -26,6 +26,7 @@
 //= require backbone-validation-min
 //= require backbone-ext
 //= require 'piccut/1.0.0'
+//= require 'select2'
 //= require mis
 //= require_tree ../templates
 //= require_tree ./models

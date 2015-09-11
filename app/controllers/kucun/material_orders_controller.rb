@@ -29,7 +29,7 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
     order.store_chain_id = @store.store_chain_id
     order.store_staff_id = current_user.id
     order.store_supplier_id = store_supplier.id
-    order.numero = make_numero("MO")
+    order.numero = ApplicationController.helpers.make_numero("MO")
     order.amount = 0.0
     order.store_material_order_items.each do |item|
       item.store_id = order.store_id
@@ -38,6 +38,7 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
       item.store_supplier_id = order.store_supplier_id
       item.amount = item.price * item.quantity
       order.amount += item.amount
+      order.quantity += item.quantity
     end
     order.save
     redirect_to kucun_store_supplier_material_orders_path({store_supplier_id: order.store_supplier_id})

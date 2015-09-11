@@ -1,0 +1,298 @@
+
+<div class="main_top">
+  <h2>入库记录</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>查找出库产品</label>
+        <input type="text" class="width-150" placeholder="输入产品关键字">
+      </div>
+      <div class="item-query">
+        <label>记录类型</label>
+        <select type="text" class="width-150" id="stock_type">
+          <option value="1">全部</option>
+          <option value="2">订单入库</option>
+          <option value="3">快速入库</option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>二级分类</label>
+        <select type="text" class="width-150">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>选择仓库</label>
+        <select type="text" class="width-150" >
+          <option></option>
+          <option></option>
+        </select>
+        <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
+      </div>
+      <div class="query_div">
+        <a href="#" class="print_btn btn">打印</a>
+        <a href="#" class="export_btn btn">导出</a>
+        <a href="/kucun/material_inventories/new" class="in_stg_btn btn">入库</a>
+        <a href="#"  class="notes_btn btn">记录</a>
+      </div>
+    </div>
+    <div id="all_in_stock">
+
+      <table cellpadding="0" cellspacing="0" class="index_list">
+        <thead>
+            <tr>
+              <th style="border-right:0px;"></th>
+              <th>入库时间</th>
+              <th>商品名称</th>
+              <th>商品条形码</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>成本价</th>
+              <th>销售价</th>
+              <th>库存数</th>
+              <th>小计</th>
+              <th>供应商</th>
+              <th>入库类型</th>
+              <th>操作人</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% 5.times do %>
+            <tr >
+              <td class="number">1</td>
+              <td>2015-01-27-14:47</td>
+              <td>米其林轮胎米其林轮胎</td>
+              <td>3080309075990</td>
+              <td>汽车配件</td>
+              <td>轮胎</td>
+              <td>185/60/14XM291V</td>
+              <td>条</td>
+              <td class="text-align-right">530.00</td>
+              <td class="text-align-right">65,650.00</td>
+              <td>8</td>
+               <td class="text-align-right">55,530.00</td>
+              <td>杭州力德贸易有限公司</td>
+              <td>订单入库</td>
+              <td class="">管理员</td>
+            </tr>
+          <% end %>
+         </tbody>
+      </table>
+    </div>
+    <div class="in_stock_by_orders common_in_storage"  id="in_stock_by_orders">
+      <ul class="title">
+        <li><span class="line"></span>单据时间</li>
+        <li><span class="line"></span>订货单号</li>
+        <li><span class="line"></span>入库单号</li>
+        <li><span class="line"></span>供应商</li>
+        <li><span class="line"></span>单据金额</li>
+        <li><span class="line"></span>操作</li>
+        <li><span class="line"></span>详情</li>
+      </ul>
+      <% 5.times do %>
+      <ul>
+        <li>2015-3-12</li>
+        <li class="click_btn cursor-pointer">DH2015031200028</a></li>
+        <li class="click_instorage_order cursor-pointer">RK2015031200028</li>
+        <li>杭州力得贸易有限工贸公司</li>
+        <li>2,380.00</li>
+        <li>李小龙</li>
+        <li></li>
+      </ul>
+      <div class=" common_storage_content float-left  ordergoods_details" style="display:none;" id="ordernotes">
+        <div class="ordergoods_query">
+          <div class="nav-item-query">
+            <label>供应商：</label>
+            <input type="text" class="width-200">
+          </div>
+          <div class="nav-item-query ">
+            <label>时间：</label>
+            <input type="text" class="width-135">
+          </div>
+          <div class="nav-item-query">
+            <label>单号：</label>
+            <input type="text" class="width-135">
+          </div>
+          <div class="ordergoods_print">
+            <a href="#" class="print_btn">打<nbsp1></nbsp1>印</a>
+          </div>
+        </div>
+        <div class=" common_storage_tab order_goods_tab ">
+          <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab">
+            <thead>
+              <tr class="bg-color-e0e2cf color-282726">
+                <th width="3%">#</th>
+                <th width="18%" >商品名称</th>
+                <th width="8%" >条码</th>
+                <th width="8%" >规格</th>
+                <th width="4%" >单位</th>
+                <th width="7%" >一级分类</th>
+                <th width="7%">二级分类</th>
+                <th width="7%">单价</th>
+                <th width="5%" >数量</th>
+                <th width="8%">小计</th>
+                <th width="6%">仓库</th>
+                <th width="15%">备注</th>
+                <th width="4%"> 操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% 4.times do %>
+              <tr>
+                <td class="number">1</td>
+                <td >澜泰宾御纳米镀晶套装</td>
+                <td>887766555444</td>
+                <td>长皮盒6项目</td>
+                <td>套</td>
+                <td>美容产品</td>
+                <td>镀晶产品</td>
+                <td>680.00</td>
+                <td>8</td>
+                <td>5,440.00</td>
+                <td>未付款</td>
+                <td></td>
+                <td><i class="lnr lnr-cross-circle font-18"></i></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="order_goods_account">
+          <div class="item_content margin-left-10 margin-top-10">
+            <label class="width-75 margin-top-10 ">备注：</label>
+            <textarea class="remarks_textarea width-1246" disabled="disabled">dfdgdfg</textarea>
+          </div>
+          <div class="item_content margin-top-10  margin-left-10 float-left">
+            <label class="width-75">本次付款：</label>
+            <input type="text" class="width-253 " readonly="true" value="1000.00">
+          </div>
+          <div class="item_content margin-top-10 float-left  margin-left-20">
+            <label class="width-75 ">结算账户：</label>
+            <input type="text" class="width-253 " readonly="true" value="622202000000000">
+          </div>
+          <div class="item_content margin-top-10  margin-left-20">
+            <label class="width-75">本次欠款：</label>
+            <input type="text" class="width-253" readonly="true" value="283.00">
+          </div>
+          <div class="item_content  margin-left-10 height-30">
+            <label class="width-75">制单人：</label>
+            <label class="width-253">李宁</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="in_storage_content common_storage_content float-left" id="in_storage_order" style="display:none">
+        <div class="in_storage_query">
+
+          <div class="nav-item-query">
+            <label>时间：</label>
+            <input type="text" class="width-135">
+          </div>
+          <div class="nav-item-query">
+            <label>单号：</label>
+            <input type="text" class="width-135">
+          </div>
+          <div class="nav-item-query">
+            <label>供应商：</label>
+            <select  class="width-240">
+              <option></option>
+              <option></option>
+            </select>
+          </div>
+          <div class="nav-item-query">
+            <label>数量：</label>
+            <input type="text" class="width-135">
+          </div>
+          <div class="nav-item-query">
+            <label>金额：</label>
+            <input type="text" class="width-135">
+          </div>
+          <div class="in_storage_print">
+            <a href="#" class="print_btn">打<nbsp1></nbsp1>印</a>
+            <a href="#" class="print_barcode_btn">打印条码</a>
+          </div>
+        </div>
+        <div class="in_storage_tab common_storage_tab">
+          <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab" >
+            <thead>
+              <tr class="bg-color-e0e2cf color-282726">
+                <th width="3%">#</th>
+                <th width="16%" >商品名称</th>
+                <th  width="8%" >条码</th>
+                <th  width="8%" >规格</th>
+                <th width="4%" >单位</th>
+                <th  width="7%" >一级分类</th>
+                <th  width="7%">二级分类</th>
+                <th width="7%">单价</th>
+                <th width="4%" >数量</th>
+                <th width="7%">仓库</th>
+                <th  width="8%">小计</th>
+                <th width="6%">付款状态</th>
+                <th  width="15%">备注</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              <% 3.times do %>
+              <tr>
+                <td class="number">1</td>
+                <td>澜泰宾御纳米镀晶套装</td>
+                <td>887766555444</td>
+                <td>长皮盒6项目</td>
+                <td>套</td>
+                <td>美容产品</td>
+                <td>镀晶产品</td>
+                <td>680.00</td>
+                <td>8</td>
+                <td>仓库1</td>
+                <td>5,440.00</td>
+                <td>未付款</td>
+                <td></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <div class="common_storage_account">
+            <div class="item_content margin-left-10" >
+              <label class="width-75">备注：</label>
+              <textarea class="remarks_textarea"></textarea>
+            </div>
+            <div class="item_content  margin-left-10">
+              <label class="width-75">制单人：</label>
+              <label class="width-253"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <div  class="quickly_in_stock common_in_storage" id="quickly_in_stock">
+      <ul class="title">
+        <li><span class="line"></span>单据时间 </li>
+        <li><span class="line"></span>单据编号</li>
+        <li><span class="line"></span>商品摘要 </li>
+        <li><span class="line"></span>供应商</li>
+        <li><span class="line"></span>操作</li>
+        <li><span class="line"></span>详情</li>
+      </ul>
+      <% 12.times do %>
+      <ul>
+        <li>2015-2-18</li>
+        <li >RK2015021800012</li>
+        <li>米其林轮胎、补胎贴片、灯泡</li>
+        <li>杭州海德行贸易有限公司</li>
+        <li>李小龙</li>
+        <li></li>
+      </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
