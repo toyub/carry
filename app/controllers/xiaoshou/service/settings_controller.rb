@@ -19,8 +19,12 @@ module Xiaoshou
         respond_with @workflow
       end
 
+      def modify
+        
+      end
+
       def show
-        @workflow = StoreServiceWorkflowDecorator.new(@service.store_service_workflows.first) if @service.regular?
+        @workflow = StoreServiceWorkflowSerializer.new(@service.store_service_workflows.first) if @service.regular?
       end
 
       private

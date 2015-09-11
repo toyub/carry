@@ -4,7 +4,7 @@ module Xiaoshou
       before_action :set_service
 
       def show
-        @workflow = StoreServiceWorkflowDecorator.new(@service.store_service_workflows.find(params[:id]))
+        @workflow = StoreServiceWorkflowSerializer.new(@service.store_service_workflows.find(params[:id]))
       end
 
       private

@@ -45,6 +45,9 @@ Rails.application.routes.draw do
     namespace :service do
       resources :profiles, only: [:index, :show, :new, :create]
       resources :settings, only: [:edit, :show, :update] do
+        member do
+          get :modify
+        end
         resources :workflows, only: :show
       end
       resources :categories, only: [:create]
