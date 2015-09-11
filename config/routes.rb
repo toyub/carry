@@ -44,7 +44,9 @@ Rails.application.routes.draw do
   namespace :xiaoshou do
     namespace :service do
       resources :profiles, only: [:index, :show, :new, :create]
-      resources :settings, only: [:new, :edit, :update]
+      resources :settings, only: [:edit, :show, :update] do
+        resources :workflows, only: :show
+      end
       resources :categories, only: [:create]
     end
   end
@@ -70,7 +72,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :store_service_categories, only: [:create]
-    resources :store_services, only: [:create] do
+    resources :store_services, only: [:create, :update] do
+      resources :store_service_workflows, only: [:create, :destroy, :update]
       member do
         post :save_picture
       end

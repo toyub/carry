@@ -1,165 +1,143 @@
-<div class="regular_setting setting_left float-left j_regular_setting">
-  <h2><label for="regular_setting">按常规设置</label>
-    <input type="radio" name="service_setting_select" class="margin-left-8" id="regular_setting" checked="">
-  </h2>
-  <table>
-    <tbody><tr>
-      <td>技师设置</td>
-      <td></td>
-      <td>
-        <%= f.radio_button :engineer_count_enable, true, class: 'control', id: 'count_unlimited', checked: true %>
-      </td>
-      <td><label for="mechanic_not_limit">数量不限</label></td>
-      <td>
-        <%= f.radio_button :engineer_count_enable, false, class: 'control', id: 'count_nominated' %>
-      </td>
-      <td>
-        <%= f.label :engineer_count, '精确数量' %>
-        <%= f.text_field :engineer_count, class: 'width-83 margin-left-5', disabled: true %>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>
-        <%= f.radio_button :engineer_level_enable, false, class: 'toggleable', id: 'engineer_level_enable' %>
-      </td>
-      <td colspan="3">
-        <%= f.label :engineer_level, '技师级别限定' %>
-        <%= f.select :engineer_level, options_for_select(StoreServiceWorkflow::ENGINEER_LEVEL), {include_blank: true}, {class: 'width-106 margin-right-14', disabled: true} %>
-        以上
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>
-        <%= f.radio_button :position_mode, StoreServiceWorkflow::POSITION_MODE['自动上岗'], checked: true, id: 'store_service_workflow_auto' %>
-      </td>
-      <td>
-        <%= f.label :auto, '自动上岗' %>
-      </td>
-      <td>
-        <%= f.radio_button :position_mode, StoreServiceWorkflow::POSITION_MODE['APP上岗'], id: 'store_service_workflow_app' %>
-      </td>
-      <td>
-        <%= f.label :app, 'APP上岗' %>
-      </td>
-    </tr>
-    <tr>
-      <td>施工时间</td>
-      <td></td>
-      <td>
-        <%= f.radio_button :standard_time_enable, true, id: 'standard_time_enable', class: 'toggleable', checked: true %>
-      </td>
-      <td colspan="3">
-        <label for="standard_time_enable">标准时间</label>
-        <%= f.text_field :standard_time, class: 'toggleable width-63 margin-right-10 margin-left-3'%>
-        正负
-        <%= f.text_field :factor_time, class: 'width-63 margin-left-3'%>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>
-        <%= f.radio_button :buffering_time_enable, false, id: 'buffering_time_enable', class: 'toggleable' %>
-      </td>
-      <td colspan="3">
-        <label for="prepare_time">缓冲时间</label>
-        <%= f.text_field :buffering_time, class: 'width-64 margin-left-2'%>
-      </td>
-    </tr>
-    <tr>
-      <td>工位设置</td>
-      <td></td>
-      <td>
-        <%= f.radio_button :nominated_workstation, false, id: 'unnominated_workstation', checked: true %>
-      </td>
-      <td colspan="3">
-        <label for="unnominated_workstation">系统自动分配</label>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>
-        <%= f.radio_button :nominated_workstation, true, id: 'nominated_workstation', checked: false %>
-      </td>
-      <td>
-        <label for="nominated_workstation">指定工位</label>
-      </td>
-      <td colspan="2" class="text-align-left">
-        <span id="get_workstation_category" class="cursor"></span>
-        <ul id="workstation_categories">
-          <% @workstation_categories.each do |c| %>
-            <li data-id='<%= c.id %>'><%= c.name %></li>
-          <% end %>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td colspan="3" rowspan="4" class="padding-0">
-        <div id="j_workstations">
-          <ul id="stations_of_cleaning" style="display: none;">
-
+<%= f.fields_for :store_service_workflows, @workflows.first do |ff| %>
+  <div class="regular_setting setting_left float-left j_regular_setting">
+    <h2><label for="regular_setting">按常规设置</label>
+      <input type="radio" name="service_setting_select" class="margin-left-8" id="regular_setting" checked="">
+    </h2>
+    <table>
+      <tbody><tr>
+        <td>技师设置</td>
+        <td></td>
+        <td>
+          <%= ff.radio_button :engineer_count_enable, true, class: 'control', id: 'count_unlimited', checked: true %>
+        </td>
+        <td><label for="mechanic_not_limit">数量不限</label></td>
+        <td>
+          <%= ff.radio_button :engineer_count_enable, false, class: 'control', id: 'count_nominated' %>
+        </td>
+        <td>
+          <%= ff.label :engineer_count, '精确数量' %>
+          <%= ff.text_field :engineer_count, class: 'width-83 margin-left-5', id: 'engineer_count', disabled: true %>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <%= ff.radio_button :engineer_level_enable, false, class: 'toggleable', id: 'engineer_level_enable' %>
+        </td>
+        <td colspan="3">
+          <%= ff.label :engineer_level, '技师级别限定' %>
+          <%= ff.select :engineer_level, options_for_select(StoreServiceWorkflow::ENGINEER_LEVEL), {include_blank: true}, {class: 'width-106 margin-right-14', id: 'engineer_level', disabled: true} %>
+          以上
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <%= ff.radio_button :position_mode, StoreServiceWorkflow::POSITION_MODE['自动上岗'], checked: true, id: 'store_service_workflow_auto' %>
+        </td>
+        <td>
+          <%= ff.label :auto, '自动上岗' %>
+        </td>
+        <td>
+          <%= ff.radio_button :position_mode, StoreServiceWorkflow::POSITION_MODE['APP上岗'], id: 'store_service_workflow_app' %>
+        </td>
+        <td>
+          <%= ff.label :app, 'APP上岗' %>
+        </td>
+      </tr>
+      <tr>
+        <td>施工时间</td>
+        <td></td>
+        <td>
+          <%= ff.radio_button :standard_time_enable, true, id: 'standard_time_enable', class: 'toggleable', checked: true %>
+        </td>
+        <td colspan="3">
+          <label for="standard_time_enable">标准时间</label>
+          <%= ff.text_field :standard_time, class: 'toggleable width-63 margin-right-10 margin-left-3 j_standard_time'%>
+          正负
+          <%= ff.text_field :factor_time, class: 'width-63 margin-left-3 j_standard_time'%>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <%= ff.radio_button :buffering_time_enable, false, id: 'buffering_time_enable', class: 'toggleable' %>
+        </td>
+        <td colspan="3">
+          <label for="prepare_time">缓冲时间</label>
+          <%= ff.text_field :buffering_time, class: 'width-64 margin-left-2', id: 'buffering_time' %>
+        </td>
+      </tr>
+      <tr>
+        <td>工位设置</td>
+        <td></td>
+        <td>
+          <%= ff.radio_button :nominated_workstation, false, id: 'unnominated_workstation', checked: true %>
+        </td>
+        <td colspan="3">
+          <label for="unnominated_workstation">系统自动分配</label>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <%= ff.radio_button :nominated_workstation, true, id: 'nominated_workstation', checked: false %>
+        </td>
+        <td>
+          <label for="nominated_workstation">指定工位</label>
+        </td>
+        <td colspan="2" class="text-align-left">
+          <span id="get_workstation_category" class="cursor"></span>
+          <ul id="workstation_categories">
+            <% @workstation_categories.each do |c| %>
+              <li data-id='<%= c.id %>'><%= c.name %></li>
+            <% end %>
           </ul>
-        </div>
-      </td>
-    </tr>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="3" rowspan="4" class="padding-0">
+          <div id="j_workstations">
+            <ul id="stations_of_cleaning" style="display: none;">
 
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+            </ul>
+          </div>
+        </td>
+      </tr>
 
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
 
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
 
-    <tr>
-      <td>销售提成</td>
-      <td></td>
-      <td colspan="4" style="text-align:left;">
-        提成对象
-        <%= f.select :sales_commission_subject, StoreServiceWorkflow::COMMISSION_SUBJECT, {include_blank: true}, {class: 'width-190'} %>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td colspan="4" style="text-align:left;">
-        提成方案
-        <%= f.select :sales_commission_template_id, @commission_templates, {include_blank: true}, {class: 'width-190'} %>
-      </td>
-    </tr>
-    <tr>
-      <td>技师提成</td>
-      <td></td>
-      <td colspan="4" style="text-align:left;">
-        提成对象
-        <%= f.select :engineer_commission_subject, StoreServiceWorkflow::COMMISSION_SUBJECT, {include_blank: true}, {class: 'width-190'} %>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td colspan="4" style="text-align:left;">
-        提成方案
-        <%= f.select :engineer_commission_template_id, @commission_templates, {include_blank: true}, {class: 'width-190'} %>
-      </td>
-    </tr>
-  </tbody></table>
-</div>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>技师提成</td>
+        <td></td>
+        <td colspan="4" style="text-align:left;">
+          提成方案
+          <%= ff.select :engineer_commission_template_id, @commission_templates, {include_blank: true}, {class: 'width-190'} %>
+        </td>
+      </tr>
+    </tbody></table>
+  </div>
+<% end %>

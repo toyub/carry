@@ -5,6 +5,14 @@ module Api
       respond_with @service, location: nil
     end
 
+    def update
+      binding.pry
+      @service = current_store.store_services.find(params[:id])
+      @service.store_service_workflows.clear
+      @service.update(service_params)
+      respond_with @service, location: nil
+    end
+
     def save_picture
       @service = StoreService.find(params[:id])
       @service.uploads.create(img_params)
@@ -12,6 +20,12 @@ module Api
     end
 
     private
+
+      def service_params_with_attrs
+        attrs = service_params
+        attrs[:store_service_workflows_attributes] = attrs[:store_service_workflows_attributes].transform_values {|x| x.merge(store_id: current_store.id, store_staff_id: current_staff.id)}
+        attrs
+      end
 
       def service_params
         params.require(:store_service).permit(

@@ -6,7 +6,7 @@ class StoreService < ActiveRecord::Base
   has_many :store_materials, through: :store_service_store_materials
   belongs_to :unit, foreign_key: 'store_service_unit_id'
   has_many :store_order_items, as: :orderable
-  has_many :store_service_workflows
+  has_many :store_service_workflows, dependent: :delete_all
   has_many :uploads, class_name: '::Upload::StoreService', as: :fileable
 
   validates :name, presence: true, uniqueness: true
@@ -16,6 +16,20 @@ class StoreService < ActiveRecord::Base
   validates :store_staff_id, presence: true
 
   accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true
+  accepts_nested_attributes_for :store_service_workflows, allow_destroy: true
+
+  SETTING_TYPE = {
+    regular: 0,
+    workflow: 1
+  }
+
+  def regular?
+    self.setting_type == SETTING_TYPE[:regular]
+  end
+
+  def workflow?
+    self.setting_type == SETTING_TYPE[:workflow]
+  end
 
 end
 

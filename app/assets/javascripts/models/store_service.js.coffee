@@ -4,6 +4,10 @@ class Mis.Models.StoreService extends Backbone.Model
 
   modelName: 'store_service'
 
+  initialize: ->
+    @on('change:store_service_workflows_attributes', @parseWorkflows)
+    @parseWorkflows()
+
   validation:
     name:
       required: true
@@ -35,3 +39,6 @@ class Mis.Models.StoreService extends Backbone.Model
     store_service_category_id:
       required: true
       msg: '请选择类别'
+
+  parseWorkflows: ->
+    @workflows = new Mis.Collections.StoreServiceWorkflows(@get 'store_service_workflows_attributes')

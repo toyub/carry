@@ -1,23 +1,11 @@
 class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
   initialize: ->
-    $('#new_store_service_workflow').validate(
-      ignore: []
-      submitHandler: (form) ->
-        $(form).find('[type=submit]').attr('disabled', 'disabled')
-        $(form).ajaxSubmit(
-          dataType: 'json'
-          success: (responseText, statusText, xhr) ->
-            console.log 'sucesssfully created'
-          error: (responseOrErrors, statusText, xhr) ->
-            console.log 'need to fix errors showing'
-            $(form).find('[type=submit]').attr('disabled', false)
-        )
-        false
-    )
+    @model.on('sync', @handleSuccess, @)
 
   el: 'body'
 
   events:
+    'submit #update_store_service': 'updateOnSubmit'
     'click #regular_setting': 'enableRegularSetting'
     'click #workflow_setting': 'enableWorkflowSetting'
     'click #create_workflow': 'newWorkFlow'
@@ -30,11 +18,32 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
     'click #nominated_workstation': 'enableNominatedWorkstation'
     'click span#get_workstation_category': 'toggleWorkstationCategory'
     'click #workstation_categories li': 'selectCategory'
-    'click #save_workflow': 'saveWorkflow'
     'click #delay_allowed': 'toggleDelayAllowed'
     'click #unlimited_mechanics': 'toggleEngineerCount'
+    'click #nominate_station_in_process': 'enableNomiatedWorkstationProcess'
+    'click #random_station_in_process': 'disableNomiatedWorkstationProcess'
+
+  updateOnSubmit: ->
+    event.preventDefault()
+    #@model.clear(silent: true)
+    if @isGeneral()
+      attrs = @$('#update_store_service').find(':input').filter(() -> $.trim(this.value).length > 0).serializeJSON().store_service
+      store_service_workflows_attributes = []
+      store_service_workflows_attributes.push(attrs['store_service_workflows_attributes'][0])
+      attrs['store_service_workflows_attributes'] = store_service_workflows_attributes
+      @model.set(attrs)
+      console.log @model
+      #@model.save() if @model.isValid(true)
+
+  isGeneral: =>
+    @$("#regular_setting").attr('checked')
+
+  handleSuccess: ->
+    console.log 'success'
 
   enableRegularSetting: ->
+    $("#regular_setting").attr('checked', true)
+    $("#workflow_setting").attr('checked', false)
     $("div.j_regular_setting table input").attr('disabled', false)
     $("div.j_regular_setting table select").attr('disabled', false)
     $("div.j_workflow_setting h2 input.do_open_list_new_page").removeClass('btn').addClass('not_available').attr('disabled', true).show()
@@ -42,46 +51,48 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
     $("div.j_workflow_setting div.do_list_new_page").hide()
 
   enableWorkflowSetting: ->
+    $("#workflow_setting").attr('checked', true)
+    $("#regular_setting").attr('checked', false)
     $("div.j_regular_setting table input").attr('disabled', true)
     $("div.j_regular_setting table select").attr('disabled', true)
     $("div.j_workflow_setting h2 input.do_open_list_new_page").removeClass('not_available').addClass('btn').attr('disabled', false)
     $("div.j_workflow_setting div.do_list_new_page input").attr('disabled', false)
 
   newWorkFlow: ->
-    $('div.do_list_new_page').show()
+    collection = new Mis.Collections.StoreServiceWorkflows()
+    view = new Mis.Views.XiaoshouServiceSettingsWorkflowForm(collection: collection, store_service: @model, model: new Mis.Models.StoreServiceWorkflow())
+    view.show()
     $('#create_workflow').hide()
 
   disableEngineerCount: ->
-    $("#store_service_workflow_engineer_count").attr('disabled', true)
+    $("#engineer_count").attr('disabled', true)
 
   enableEngineerCount: ->
-    $("#store_service_workflow_engineer_count").attr('disabled', false)
+    $("#engineer_count").attr('disabled', false)
 
   toggleEngineerLevel: (event) ->
     if $(event.currentTarget).attr('checked')
       $(event.currentTarget).attr('checked', false).val(false)
-      $("#store_service_workflow_engineer_level").attr('disabled', true)
+      $("#engineer_level").attr('disabled', true)
     else
       $(event.currentTarget).attr('checked', 'checked').val(true)
-      $("#store_service_workflow_engineer_level").attr('disabled', false)
+      $("#engineer_level").attr('disabled', false)
 
   toggleBufferingTime: (event) ->
     if $(event.currentTarget).attr('checked')
       $(event.currentTarget).attr('checked', false).val(false)
-      $("#store_service_workflow_buffering_time").attr('disabled', true)
+      $("#buffering_time").attr('disabled', true)
     else
       $(event.currentTarget).attr('checked', 'checked').val(true)
-      $("#store_service_workflow_buffering_time").attr('disabled', false)
+      $("#buffering_time").attr('disabled', false)
 
   toggleStandardTime: (event) ->
     if $(event.currentTarget).attr('checked')
       $(event.currentTarget).attr('checked', false).val(false)
-      $("#store_service_workflow_standard_time").attr('disabled', true)
-      $("#store_service_workflow_factor_time").attr('disabled', true)
+      $(".j_standard_time").attr('disabled', true)
     else
       $(event.currentTarget).attr('checked', 'checked').val(true)
-      $("#store_service_workflow_standard_time").attr('disabled', false)
-      $("#store_service_workflow_factor_time").attr('disabled', false)
+      $(".j_standard_time").attr('disabled', false)
 
   toggleWorkstationCategory: (event) ->
     if $("#nominated_workstation").attr('checked')
@@ -106,11 +117,11 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
     $(event.currentTarget).attr('checked', 'checked')
     $("#unnominated_workstation").attr('checked', false)
 
-  saveWorkflow: ->
-    if $("input[name=process_name]").val().trim()
-      console.log 'xxx'
-    else
-      ZhanchuangAlert("请至少填写流程名称")
+  disableNomiatedWorkstationProcess: (event) ->
+    $("#nominated_stations_in_process").hide()
+
+  enableNomiatedWorkstationProcess: (event) ->
+    $("#nominated_stations_in_process").show()
 
   toggleDelayAllowed: (event) ->
     if $(event.currentTarget).attr('checked')
@@ -120,9 +131,11 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
 
   toggleEngineerCount: (event) ->
     if $(event.currentTarget).attr('checked')
-      $(event.currentTarget).attr('checked', false).val(false)
+      $(event.currentTarget).attr('checked', false)
+      $("#engineer_count_enable").val('true')
       $("#limited_mechanics").attr('disabled', false)
     else
-      $(event.currentTarget).attr('checked', 'checked').val(true)
+      $(event.currentTarget).attr('checked', 'checked')
+      $("#engineer_count_enable").val('false')
       $("#limited_mechanics").attr('disabled', true)
 
