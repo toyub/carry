@@ -5,16 +5,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :current_staff, :current_store
 
-  def login_required
-    if Rails.env.development?
-      @current_user = StoreStaff.first
-    end
-
-    unless current_user.present?
-      redirect_to new_session_path
-    end
-  end
-
   def current_user
     @current_user ||= StoreStaff.find_by(id: session[:user_id])
   end
@@ -28,4 +18,11 @@ class ApplicationController < ActionController::Base
   def signed_in?
     current_user.present?
   end
+
+  private
+
+    def login_required
+      @current_user = StoreStaff.first if Rails.env.development?
+      redirect_to new_session_path unless current_user.present?
+    end
 end
