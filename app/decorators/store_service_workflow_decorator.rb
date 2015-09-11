@@ -16,6 +16,10 @@ class StoreServiceWorkflowDecorator
     @workflow.store.store_commission_templates
   end
 
+  def workstation_categories
+    @workflow.store.store_workstation_categories
+  end
+
   def method_missing(meth, *args)
     if @workflow.respond_to?(meth)
       @workflow.send(meth, *args)

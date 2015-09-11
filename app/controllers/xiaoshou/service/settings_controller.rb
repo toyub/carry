@@ -20,10 +20,7 @@ module Xiaoshou
       end
 
       def show
-        @workflow = @service.store_service_workflows.first
-        @workstation_categories = current_store.store_workstation_categories
-        @workstations = StoreWorkstation.all
-        @commission_templates = current_store.store_commission_templates
+        @workflow = StoreServiceWorkflowDecorator.new(@service.store_service_workflows.first) if @service.regular?
       end
 
       private
