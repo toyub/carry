@@ -69,13 +69,16 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Backbone.View
       data:
         q: {}
 
-    options['data']['q']['s'] = @sortParams()
     $.extend(options['data'], $("form").serializeJSON())
     $.extend(options['data']['q'], @filterParams())
+    options['data']['q']['s'] = @sortParams()
     @collection.fetch(options)
 
   sortParams:  =>
-    "#{$("div.item-query.c_price a.active").parent().attr('data-name')} #{$("div.item-query.c_price a.active").parent().attr('data-sort-direction')}"
+    current = $("div.item-query.c_price a.active").parent()
+    sortName = current.attr('data-name')
+    sortDirection = current.attr('data-sort-direction')
+    "#{sortName} #{sortDirection}"
 
   filterParams: =>
     options = {}
@@ -83,5 +86,4 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Backbone.View
       ->
         options[$(@).attr('data-name')] = $(@).attr('data-filter')
     )
-    console.log options
     options
