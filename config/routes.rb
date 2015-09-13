@@ -75,7 +75,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :store_service_categories, only: [:create]
-    resources :store_services, only: [:create, :update] do
+    resources :store_services, only: [:index, :create, :update] do
       resources :store_service_workflows, only: [:create, :destroy, :update]
       member do
         post :save_picture

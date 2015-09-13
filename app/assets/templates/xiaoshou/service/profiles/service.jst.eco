@@ -1,0 +1,16 @@
+<td><%= @id %></td>
+<td><%= @name %></td>
+<td><a href="javascript:void(0)"><%= @code %></a></td>
+<td><%= @standard_time %></td>
+<td><%= @unit %></td>
+<td><%= @retail_price %></td>
+<td><%= @bargain_price %></td>
+<td><%= @point %></td>
+<td></td>
+<td>0</td>
+<td><%= @category %></td>
+<td class="last_td">
+  <a href="#" class="link_i"><i class="fa fa-wrench"></i></a>
+  <a href="#" class="link_i"><i class="fa fa-bullhorn"></i></a>
+  <a href="#" class="link_i"><i class="fa fa-tty"></i></a>
+</td>

@@ -6,7 +6,6 @@ module Api
     end
 
     def update
-      binding.pry
       @service = current_store.store_services.find(params[:id])
       @service.store_service_workflows.clear
       @service.update(service_params)
@@ -17,6 +16,12 @@ module Api
       @service = StoreService.find(params[:id])
       @service.uploads.create(img_params)
       respond_with @service, location: nil
+    end
+
+    def index
+      @q = current_store.store_services.ransack(params[:q])
+      @services = @q.result(distinct: true)
+      respond_with @services
     end
 
     private
