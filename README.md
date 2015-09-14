@@ -3,7 +3,7 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-# branch 
+# branch gitflow workflow
 
 我们将使用gitflow workflow，他大概会用到如下分支
 master development staging feature release hotfix
