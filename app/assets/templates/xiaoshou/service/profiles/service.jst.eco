@@ -1,6 +1,6 @@
 <td><%= @id %></td>
-<td><%= @name %></td>
-<td><a href="javascript:void(0)"><%= @code %></a></td>
+<td class='name'><a href="javascript:void(0)"><%= @name %></a></td>
+<td><%= @code %></td>
 <td><%= @standard_time %></td>
 <td><%= @unit %></td>
 <td><%= @retail_price %></td>

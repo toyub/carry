@@ -1,0 +1,117 @@
+<div class="details_nav">
+  <ul>
+    <li class="bg-color-fff"><a href="fuwuxinxishow.html" class="width-90">服务信息</a></li>
+    <li><a href="fuwushezhishow.html" class="width-90">服务设置</a></li>
+    <li><a href="huifang2show.html" class="width-90">回访</a></li>
+    <li><a href="jilu.html" class="width-90">记录</a></li>
+  </ul>
+</div>
+<div class="details_nav_second">
+  <ul class="goods_nav">
+    <li><a href="#" class="width-90">▲上一次服务</a></li>
+    <li><a href="#" class="width-90">▼下一次服务</a></li>
+    <li><a href="index.html" class="width-90">返回列表</a></li>
+  </ul>
+</div>
+<div class="details_content">
+  <div class="base_info">
+    <div class="goods_img">
+      <div id="material_img_preview" class="goods_main_img"></div>
+      <ul id="material_img_thumbnails" class="goods_small_img">
+        <li id="preview_list"></li>
+        <li data-id="0"><a class="fa fa-plus-square add_img font-30" href="javascript:void(0);"></a></li>
+      </ul>
+    </div>
+    <div class=" server_content">
+      <div class="grid-1-2 float-left">
+        <div class="item_content">
+          <label class="width-75">服务名称</label>
+          <input type="text" class="width-165" value="<%= @name %>" readonly="">
+        </div>
+        <div class="item_content">
+          <label class="width-75">销售价</label>
+          <input type="text" class="width-165" value="<%= @retail_price %>" readonly="">
+        </div>
+        <div class="item_content">
+          <input type="radio" disabled class="toggleable margin-left-15" >
+          <label class="width-40">
+            优惠价
+          </label>
+          <input type="text" class="width-165" disabled="" value="<%= @bargain_price %>" readonly="">
+        </div>
+        <div class="item_content">
+          <label class="width-75">服务积分</label>
+          <input type="text" class="width-165" readonly="true" value="<%= @point %>">
+        </div>
+        <div class="item_content">
+          <label class="width-75">服务代码</label>
+          <input type="text" class="width-165" value="<%= @code %>" readonly="">
+        </div>
+        <div class="item_content">
+          <label class="width-75">服务类别</label>
+          <select type="text" class="width-165" disabled="">
+            <option selected><%= @category %></option>
+          </select>
+        </div>
+        <div class="item_textarea ">
+          <label class="width-75">服务介绍</label>
+          <textarea class="server_textarea width-432" disabled=""><%= @introduction %></textarea>
+        </div>
+        <div class="item_textarea ">
+          <label class="width-75">备注</label>
+          <textarea disabled="" class="height-120 text-indent-5 width-432"><%= @remark %></textarea>
+        </div>
+      </div>
+      <div class="grid-1-2 float-left">
+        <div class="server_list">
+          <div class="top">
+            <h2>关联商品表</h2>
+          </div>
+          <div class="none_server_data" style="display:none;">
+            <p class="none_server_p">服务没有关联商品</p>
+            <p class="none_details">如果服务项目没有关联相关的商品，将会影响服务成本的统计，建议添加关联商品，点击添加进行操作。获取帮助<a href="#" class="color-73ACD4 text-decoration-underline">点我</a></p>
+          </div>
+          <div class="list" style="display:block;">
+            <div class="list_top list_tr">
+              <ul>
+                <li>#</li>
+                <li>商品</li>
+                <li>数量</li>
+                <li>方式</li>
+              </ul>
+            </div>
+            <div class="list_content list_tr" data-id="list_content_01">
+              <ul class="list_tr_hover">
+                <li>1.</li>
+                <li><label>澜泰超浓缩洗车粉</label></li>
+                <li>整计</li>
+                <li>领用</li>
+              </ul>
+            </div>
+            <div class="list_content list_tr" data-id="list_content_02">
+              <ul class="list_tr_hover">
+                <li>1.</li>
+                <li><label>澜泰超浓缩洗车粉</label></li>
+                <li>整计</li>
+                <li>领用</li>
+              </ul>
+            </div>
+            <div class="list_content list_tr" data-id="list_content_03">
+              <ul class="list_tr_hover">
+                <li>1.</li>
+                <li><label>澜泰超浓缩洗车粉</label></li>
+                <li>整计</li>
+                <li>领用</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn_group">
+        <a href="fuwuxinxiedit.html" class="edit_btn btn margin-none">编辑</a>
+      </div>
+
+    </div>
+  </div>
+</div>
