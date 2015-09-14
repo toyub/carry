@@ -1,28 +1,28 @@
-== README
+## ZC/MIS
+---
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The project is the backend page of mis using Ruby on Rails
 
-Things you may want to cover:
+## Git Flow
 
-* Ruby version
+* origin/development
 
-* System dependencies
+Dev branch where source code of developers finished and self tested their feature reflects release state
+(功能初步完成并自我测试提交的分支，等待 merge Release branch)
 
-* Configuration
+* staging
 
-* Database creation
+Testing Branch where source code of self test branch
+(随便自我测试的线上分支)
 
-* Database initialization
+* release
 
-* How to run the test suite
+Production-ready branch where source code support preparation of a new production release
+(版本发布的分支)
 
-* Services (job queues, cache servers, search engines, etc.)
+* origin/master
 
-* Deployment instructions
+Main branch where source code of HEAD reflects production state.
+(正式产品上线的主要分支)
 
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+## TODO
