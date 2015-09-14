@@ -7,6 +7,7 @@ class StoreStaff <  ActiveRecord::Base
   validates :phone_number, presence: true
   validates :phone_number, length: {is: 11}, if: ->(staff){staff.phone_number.present?}
   validates :phone_number, numericality: { only_integer: true }, if: ->(staff){staff.phone_number.present?}
+
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
 
   # TODO Mysql set login_name not Null, add validation
