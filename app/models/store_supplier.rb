@@ -40,11 +40,11 @@ class StoreSupplier < ActiveRecord::Base
   end
 
   def location_state
-    Geo.cities(self.location_country_code, self.location_state_code).first.province
+    Geo.states(self.location_country_code).where(code: self.location_state_code).first
   end
 
   def location_city
-    Geo.cities(self.location_country_code, self.location_state_code).find(&->(city){ city.code == self.location_city_code })
+    Geo.cities(self.location_country_code, self.location_state_code).where(code: self.location_city_code).first
   end
 
   def status_suspended?

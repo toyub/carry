@@ -66,10 +66,10 @@
           <td class="number">1</td>
           <td><a href="<%= kucun_material_path(material) %>"><%= material.name %></a></td>
           <td><%= material.barcode %></td>
-          <td><%= material.store_material_root_category.name %></td>
-          <td><%= material.store_material_category.name %></td>
+          <td><%= material.store_material_root_category.try(:name) %></td>
+          <td><%= material.store_material_category.try(:name) %></td>
           <td><%= material.speci %></td>
-          <td><%= material.store_material_unit.name %></td>
+          <td><%= material.store_material_unit.try(:name) %></td>
           <td><%= material.cost_price %></td>
           <td><%= material.inventory %></td>
           <td><%= material.remark %></td>
@@ -90,7 +90,8 @@
 
   <script type="text/javascript">
     jQuery(function(){
-      var tmp = _.template("<a href='/kucun/materials/{%= id %}'>商品详情</a><a href=''>订货</a><a href=''>入库</a><a href=''>出库</a><a href=''>退货</a><a href=''>报损</a><a href=''>备注</a>")
+      
+      var tmp = function(id){return `<a href='/kucun/materials/${id}'>商品详情</a><a href='/kucun/material_orders/nowaus?material_id=${id}'>订货</a><a href=''>入库</a><a href=''>出库</a><a href=''>退货</a><a href=''>报损</a><a href=''>备注</a>`;}
       var $materials = $("#materials");
       var $operate = $("#operate");
       $(document).on("click", function(){
@@ -109,7 +110,7 @@
           var b_c_r=this.getBoundingClientRect();
           $materials.find('span.current').removeClass("current");
           $this.addClass("current");
-          $operate.html(tmp({id: $this.data('id')})).css({top: b_c_r.top+b_c_r.height, left: (b_c_r.left - b_c_r.width - op_width)}).show();
+          $operate.html(tmp($this.data('id'))).css({top: b_c_r.top, left: (b_c_r.left - b_c_r.width - op_width)}).show();
         }
       })
 

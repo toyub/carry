@@ -7,6 +7,7 @@ class StoreService < ActiveRecord::Base
   belongs_to :unit, foreign_key: 'store_service_unit_id'
   has_many :store_order_items, as: :orderable
   has_many :store_service_workflows
+  has_many :uploads, class_name: '::Upload::StoreService', as: :fileable
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true

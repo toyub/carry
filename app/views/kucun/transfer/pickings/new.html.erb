@@ -1,0 +1,212 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun/materials/new' %>
+<% end %>
+<div class="main_top">
+  <h2>出库</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="list_table out_storage_list">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>查找出库产品</label>
+        <input type="text" class="width-150" id='keyword' placeholder="输入产品关键字">
+      </div>
+      <div class="item-query">
+        <label>一级分类</label>
+        <select id='root_category' class="width-150">
+          <option value="">所有类别</option>
+          <% @store.store_material_categories.super_categories.each do |category| %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>二级分类</label>
+        <select id='sub_category' type="text" class="width-150">
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>选择仓库</label>
+        <select id='depot_id' class="width-150">
+          <%= options_from_collection_for_select(@store.store_depots, :id, :name, params[:store_depot_id]) %>
+        </select>
+      </div>
+      <div class="item-query">
+        <a href="#" class="query_btn btn">查<nbsp1></nbsp1>询</a>
+      </div>
+      <div class="query_div">
+        <a href="index.html" class="in_stg_btn btn" >出库</a>
+        <a href="jilu.html"  class="notes_btn">记录</a>
+      </div>
+    </div>
+    <div class="out_storage common_storage">
+      <div class="list">
+        <div class="list_top list_tr">
+          <ul>
+            <li>#</li>
+            <li>产品名称</li>
+            <li>条码</li>
+            <li>规格</li>
+            <li>单位</li>
+            <li>一级分类</li>
+            <li>二级分类</li>
+            <li>单价</li>
+            <li>仓库数</li>
+            <li>仓库位</li>
+            <li>备注</li>
+            <li class="twelfth_td">操作</li>
+          </ul>
+        </div>
+        <div id='choices' class="list_contents"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shift_library  margin-bottom-50 margin-top-80 common_storage_content float-left">
+    <%= form_tag '/kucun/transfer/pickings/' do %>
+    <div class="out_storage_query ">
+      <div class="nav-item-query">
+        <div class="font-20 font-borderradius text-align-center">移</div>
+      </div>
+      <div class="nav-item-query">
+        <label>单号：</label>
+        <input type="text" class="width-135" readonly value="<%= make_numero('T') %>">
+      </div>
+      <div class="nav-item-query">
+        <label>时间：</label>
+        <input type="text" class="width-135" value="<%= Time.now.to_s(:date_only) %>" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>操作人：</label>
+        <input type="text" class="widtn-135" value="<%= current_user.screen_name %>" readonly>
+      </div>
+
+      <div class="nav-item-query">
+        <label>出库类型</label>
+        <span id='out_store_type_id' class="width-157 as_select" data-select='#out_store_type_select' data-target='input[name="material[out_store_type_id]"]'>转移出库</span>
+        <div id='out_store_type_select' class="select width-165">
+          <ol class="width-165">
+            <li data-value="1"><a href="javascript:void(0)">转移出库</a></li>
+            <li data-value="2"><a href="/kucun/outings/new">领用出库</a></li>
+            <li data-value="3"><a href="/kucun/outings/new">销售出库</a></li>
+            <li data-value="4"><a href="/kucun/outings/new">赠送出库</a></li>
+            <li data-value="5"><a href="/kucun/outings/new">盘亏出库</a></li>
+            <li data-value="6"><a href="/kucun/outings/new">生产出库</a></li>
+          </ol>
+        </div>
+      </div>
+      <div class="nav-item-query">
+        <label>目标库</label>
+        <select name='picking[dest_depot_id]' class="width-135">
+          <%= options_from_collection_for_select(@store.store_depots, :id, :name, params[:store_depot_id]) %>
+        </select>
+      </div>
+      <div class="nav-item-query">
+        <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
+      </div>
+    </div>
+    <div class="out_storage_tab common_storage_tab">
+      <table id='storage_tab' cellpadding="0" cellspacing="0" class="check_order storage_tab">
+        <thead>
+          <tr style="display: table-row;">
+            <th> 序号</th>
+            <th>产品名称</th>
+            <th>条码</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>一级分类</th>
+            <th>二级分类</th>
+            <th>单价</th>
+            <th>库存数</th>
+            <th>出库数</th>
+            <th>原始库</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="common_storage_account">
+        <div class="item_content margin-left-10" >
+          <label class="width-75">备注：</label>
+          <textarea class="remarks_textarea"></textarea>
+        </div>
+        <div class="item_content  margin-left-10">
+          <label class="width-75">制单人：</label>
+          <label class="width-253"><%= current_user.screen_name %></label>
+        </div>
+      </div>
+    </div>
+    <div class="btn_group margin-right-40">
+      <a class="edit_btn btn" href="#">编辑</a>
+      <input type="submit" class="save_btn btn" value="确定">
+    </div>
+    <% end %>
+  </div>
+</div>
+
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function(){
+      choice_tmpl = JST['kucun/transfer/pickings/new/choice'];
+      chosen_tmpl = JST['kucun/transfer/pickings/new/chosen'];
+      $("#root_category").on('change', function(){
+        var id = this.value;
+        $.get(`/ajax/store_material_categories/${id}/sub_categories.json`, function(data){
+          $('#sub_category').html('<option value="">所有类别</option>')
+          $('#sub_category').append(data.map(function(category){
+            return `<option value=${category.id}>${category.name}</option>`;
+          }).join(''));
+        });
+      });
+
+      $('.query_btn').on('click', function(){
+        var keyword = $('#keyword').val().trim();
+        var depot_id =  $('#depot_id').val();
+        var root_category = $("#root_category").val();
+        var category = $('#sub_category').val();
+        var query_data = {
+          name: keyword,
+          depot_id:depot_id,
+          root_category_id: root_category,
+          category_id: category
+        };
+        $.get('/ajax/store_materials/inventories.json',query_data, function(data){
+          $('#choices').html('');
+          var html = data.map(function(inventory, idx){
+            inventory.store_material.quantity = inventory.quantity;
+            inventory.store_material.depot_id = inventory.store_depot_id;
+            inventory.store_material.depot_name = inventory.depot_name;
+            inventory.store_material.inventory_id = inventory.id;
+            inventory.store_material.idx = idx+1;
+            return choice_tmpl(inventory.store_material);
+          }).join('');
+          $('#choices').html(html);
+          materials = data.slice();
+        });
+      });
+
+      $('#choices').on('change', 'input:checkbox', function(){
+          if(this.checked){
+            material_id = this.dataset.id;
+            material = materials.filter(function(m){return m.store_material.id == material_id})[0];
+            $('#storage_tab > tbody').append(chosen_tmpl(material.store_material));
+          }else{
+            material_id = this.dataset.id;
+            $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
+          }
+          list_seq();
+       });
+
+
+     function list_seq(argument) {
+       $('#storage_tab > tbody').children().each(function(idx, el, undef){
+         el.firstElementChild.innerText=(idx+1);
+       });
+     }
+
+    });
+  </script>
+<% end %>

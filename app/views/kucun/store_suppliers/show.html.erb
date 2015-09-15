@@ -39,15 +39,15 @@
           <div class="item_content">
             <label class="width-75">国家</label>
             <select class="width-65"   disabled="true">
-              <option><%= @store_supplier.location_country.name %></option>
+              <option><%= @store_supplier.location_country.try(:name) %></option>
             </select>
              <label class="width-40">省份</label>
             <select class="width-68" disabled="true">
-              <option><%= @store_supplier.location_state.name %></option>
+              <option><%= @store_supplier.location_state.try(:name) %></option>
             </select>
              <label class="width-40">市</label>
             <select class="width-60" disabled="true">
-              <option><%= @store_supplier.location_city.name %></option>
+              <option><%= @store_supplier.location_city.try(:name) %></option>
             </select>
           </div>
            <div class="item_content">
@@ -68,9 +68,9 @@
           </div>
           <div class="item_content">
             <label class="width-75">一级分类</label>
-            <span  class="width-100 disable"><%= @store_supplier.store_material_root_category.name %></span>
+            <span  class="width-100 disable"><%= @store_supplier.store_material_root_category.try(:name) %></span>
             <label class="width-75">二级分类</label>
-            <span class="width-103 disable"><%= @store_supplier.store_material_category.name %></span>
+            <span class="width-103 disable"><%= @store_supplier.store_material_category.try(:name) %></span>
           </div>
           <div class="item_content">
             <label class="width-75">信息来源</label>

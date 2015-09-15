@@ -1,9 +1,29 @@
-== README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The project is the backend page of mis using Ruby on Rails
 
-# branch gitflow workflow
+## Git Flow(Summary)
+
+* origin/development
+
+Dev branch where source code of developers finished and self tested their feature reflects release state
+(功能初步完成并自我测试提交的分支，等待 merge Release branch)
+
+* staging
+
+Testing Branch where source code of self test branch
+(随便自我测试的线上分支)
+
+* release
+
+Production-ready branch where source code support preparation of a new production release
+(版本发布的分支)
+
+* origin/master
+
+Main branch where source code of HEAD reflects production state.
+(正式产品上线的主要分支)
+
+# branch gitflow workflow(Details)
 
 我们将使用gitflow workflow，他大概会用到如下分支
 master development staging feature release hotfix
@@ -43,3 +63,4 @@ feature branch并push到remote以供将来做merge request到development分支
 合并到master上，做deploy，同时不应忘记将其merge到development或者release中
 
 关于gitflow workflow的详细说明，参见https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+

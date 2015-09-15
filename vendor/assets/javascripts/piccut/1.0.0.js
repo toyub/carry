@@ -1,5 +1,5 @@
 
-var resizeableImage = function(image_target, crop_btn, preview) {
+var resizeableImage = function(image_target, crop_btn, preview, callback) {
   // Some variable and settings
   var $container,
       orig_src = new Image(),
@@ -11,6 +11,7 @@ var resizeableImage = function(image_target, crop_btn, preview) {
       max_width = 4096 , // Change as required :4K
       max_height = 3112,
       resize_canvas = document.createElement('canvas');
+  var callback_function = callback;
 
   init = function(){
 
@@ -207,6 +208,10 @@ var resizeableImage = function(image_target, crop_btn, preview) {
     preview.append(img);
     $('#piccut').hide();
     crop_canvas = null;
+    if(typeof(callback_function) != typeof(undefined)){
+      callback_function.apply(img);
+    }
+
   }
 
   init();

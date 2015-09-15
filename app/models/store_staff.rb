@@ -1,8 +1,8 @@
 class StoreStaff <  ActiveRecord::Base
-  attr_accessor :password, :password_confirmation
+  attr_accessor :password, :password_confirmation, :phone_number
   belongs_to :store
   belongs_to :store_chain
-  
+
 
   validates :phone_number, presence: true
   validates :phone_number, length: {is: 11}, if: ->(staff){staff.phone_number.present?}
@@ -15,7 +15,6 @@ class StoreStaff <  ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   before_create :encrypt_password
-  before_save :set_login_name
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -47,9 +46,5 @@ class StoreStaff <  ActiveRecord::Base
   def encrypt_password()
     self.salt = Digest::MD5.hexdigest("--#{Time.now.to_i}--")
     self.encrypted_password = self.class.encrypt_with_salt(self.password, self.salt)
-  end
-
-  def set_login_name
-    self.login_name = self.work_status + self.phone_number
   end
 end

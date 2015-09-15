@@ -1,5 +1,6 @@
 <% content_for :pre_assets do %>
   <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
+  <%= stylesheet_link_tag "/stylesheets/kucun.css" %>
 <% end %>
 
 <div class="main_top">
@@ -34,30 +35,90 @@
     </div>
   </div>
 </div>
+<div id="serviceCategory">
 
-<div id="FloatWindow">
-  <div class="FloatContent width640">
-    <div class="fheader">
-      <span>新增服务类别</span>
-      <i class="close-window  lnr-cross lnr"></i>
-    </div>
-    <%= form_for current_store.service_categories.build, url: [:xiaoshou, :service, :categories], html: {class: 'form_content'} do |f| %>
-      <div class="form_item">
-        <%= f.label :name, '名称' %>
-        <%= f.text_field :name %>
-      </div>
-      <div class="ffooter">
-        <%= f.submit "保存", class: 'confirm_btn' %>
-        <input type="button" value="取消" class="cancel_btn">
-      </div>
-    <% end %>
-  </div>
 </div>
+
+<% content_for :scenes do %>
+  <div id='piccut'>
+    <div class="overlay">
+  		<div class="overlay-inner"></div>
+  	</div>
+  	<div id='arrange'>
+  	  <div id='gallery' style="top: -1px; left: 115px;" class="resize-container"></div>
+  	</div>
+    <div class="btn_group">
+      <input type="file" id='imgfile' name="imgefile" size="12" accept="image/jpeg,image/png" />
+      <button class="crop_btn btn-crop js-crop">截图</button>
+      <input class="cancel_btn btn-cancel js-cancel" type="button" value="取消"/>
+    </div>
+  </div>
+<% end %>
 
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
-      new Mis.Views.XiaoshouServiceProfilesNew();
+      var model = new Mis.Models.StoreService();
+      new Mis.Views.XiaoshouServiceProfilesNew({model: model});
     })
   </script>
 <% end %>
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+
+      /*Image upload _BEGIN_*/
+  (function(window, document){
+    var imgfile=document.getElementById("imgfile");
+    if(!imgfile){return false;}
+    var fr = new FileReader();
+    fr.onload = function(e){
+      if(document.getElementById('image_tag')){
+        document.getElementById('image_tag').remove();
+      }
+      document.getElementById("gallery").remove();
+
+      var image = new Image();
+      image.className = "resize-image";
+      image.id = 'image_tag';
+      image.src = this.result;
+
+      div = document.createElement("div");
+      div.id='gallery';
+      div.className = 'resize-container';
+      div.style.top = '-1px';
+      div.style.left = '115px';
+      div.appendChild(image);
+      document.getElementById('arrange').appendChild(div);
+
+      var dataid=$('#material_img_thumbnails').data('id');
+      var preview = $("#preview_list");
+      resizeableImage(document.getElementById('image_tag'), $('.js-crop')[0], preview);
+    }
+
+    imgfile.onchange = function(e){
+       f1 = this.files.item(0);
+      if(f1.type == 'image/png' || f1.type == 'image/jpeg'){
+        fr.readAsDataURL(f1, 'image/png');
+      }else{
+        alert('错误的文件格式，请选择PNG或JPG格式的图片文件！');
+        this.value = '';
+      }
+    }
+
+    $('a.add_img').on('click', function(){$('#piccut').show();});
+    $('input.btn-cancel').on('click', function(){$('#piccut').hide();});
+
+  })(window, document);
+  /*Image upload _END_*/
+
+    $('#material_img_thumbnails').on('click', 'li>img', function(evt){
+      if(!$("#material_img_preview>img").length){
+        var img = new Image();
+        img.src = this.src;
+        $("#material_img_preview").append(img);
+      }else{
+        $("#material_img_preview>img")[0].src = this.src;
+      }
+    });
+  })
+</script>
