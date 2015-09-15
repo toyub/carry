@@ -7,6 +7,7 @@ module BaseModel
 
     validates :store_chain_id, presence: true
     validates :store_id, presence: true
+    validates :store_staff_id, presence: true
 
     before_validation :set_operator
     before_validation :set_store_attrs

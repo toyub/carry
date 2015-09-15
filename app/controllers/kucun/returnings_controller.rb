@@ -17,7 +17,7 @@ class Kucun::ReturningsController < Kucun::ControllerBase
 
   def create
     returning = StoreMaterialReturning.new(returning_params)
-    returning.numero = Time.now.to_f #make_numero('R')
+    returning.numero = ApplicationController.helpers.make_numero('R')
     total_amount = 0
     total_quantity = 0
     returning.items.each do |item|
