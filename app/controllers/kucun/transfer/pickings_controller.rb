@@ -8,7 +8,8 @@ module Kucun
       end
 
       def create
-        render json: params
+        picking = StoreMaterialPicking.new(picking_params)
+        render json: picking
       end
 
       private
