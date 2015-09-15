@@ -1,32 +1,60 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-
 ActiveRecord::Base.transaction do
   ## 门店信息
   chain = StoreChain.create!
   store = Store.create!(name: '门店', store_chain: chain)
-  admin = StoreStaff.create!(store: store, store_chain: chain, login_name: '小明', first_name: 'issac', last_name: 'lau', password: '88888888', password_confirmation: "88888888")
+  admin = StoreStaff.create!(
+    phone_number: "15000002923",
+    store: store,
+    store_chain: chain,
+    login_name: '小明',
+    first_name: 'issac',
+    last_name: 'lau',
+    password: '88888888',
+    password_confirmation: "88888888"
+  )
   store.update!(admin_id: admin.id)
   chain.update!(admin_id: admin.id, head_office: store)
 
-
   ## 职员信息
-  engineer_li = StoreStaff.create!(store: store, store_chain: chain, login_name: "李小龙", password: "88888888", password_confirmation: "88888888")
-  engineer_wang = StoreStaff.create!(store: store, store_chain: chain, login_name: "王小斌", password: "88888888", password_confirmation: "88888888")
+  engineer_li = StoreStaff.create!(
+    phone_number: "15000002923",
+    store: store,
+    store_chain: chain,
+    login_name: "李小龙",
+    password: "88888888",
+    password_confirmation: "88888888"
+  )
+  engineer_wang = StoreStaff.create!(
+    phone_number: "15000002923",
+    store: store,
+    store_chain: chain,
+    login_name: "王小斌",
+    password: "88888888",
+    password_confirmation: "88888888"
+  )
 
 
   ## 商品信息
-  unit = StoreMaterialUnit.create!(name: "个", store: store, store_chain: chain, store_staff_id: admin.id)
+  unit = StoreMaterialUnit.create!(
+    name: "个",
+    store: store,
+    store_chain: chain,
+    store_staff_id: admin.id
+  )
   brand = StoreMaterialBrand.create!(name: "斯诺比", store: store, store_chain: chain, store_staff: admin)
   category = StoreMaterialCategory.create!(name: "消费", store: store, store_chain: chain, store_staff_id: admin.id)
   manufacturer = StoreMaterialManufacturer.create!(name: "制造商", store: store, creator: admin)
-  material = StoreMaterial.create!(name: "米其林", store: store, store_chain: chain, store_staff_id: admin.id, store_material_unit: unit, store_material_manufacturer: manufacturer, store_material_brand: brand, store_material_category: category, store_material_root_category: category)
+  material = StoreMaterial.create!(
+    name: "米其林",
+    store: store,
+    store_chain: chain,
+    store_staff_id: admin.id,
+    store_material_unit: unit,
+    store_material_manufacturer: manufacturer,
+    store_material_brand: brand,
+    store_material_category: category,
+    store_material_root_category: category
+  )
 
 
   ## 服务信息
@@ -52,12 +80,40 @@ ActiveRecord::Base.transaction do
 
   ## 订单信息
   store_service_snapshot = store_service.snapshots.create!(store_service.attributes)
-  workflow1.snapshots.create!(workflow1.attributes.merge(store_service: store_service_snapshot, store_workstation: workstation1, store_engineer_ids: engineer_li.id))
-  workflow2.snapshots.create!(workflow2.attributes.merge(store_service: store_service_snapshot, store_workstation: workstation2, store_engineer_ids: engineer_wang.id))
+  workflow1.snapshots.create!(
+    workflow1.attributes.merge(
+      store_service: store_service_snapshot,
+      store_workstation: workstation1,
+      store_engineer_ids: engineer_li.id
+    )
+  )
+  workflow2.snapshots.create!(
+    workflow2.attributes.merge(
+      store_service: store_service_snapshot,
+      store_workstation: workstation2,
+      store_engineer_ids: engineer_wang.id
+    )
+  )
   material_snapshot = material.snapshots.create!(material.attributes)
 
   order = StoreOrder.create!(store_customer: customer, store: store, creator: admin, amount: 1000.00)
-  store_service_snapshot.create_store_order_item!(store_customer: customer, store: store, creator: admin, store_order: order, quantity: 1, price: 500, amount: 500)
-  material_snapshot.create_store_order_item!(store_customer: customer, store: store, creator: admin, store_order: order, quantity: 1, price: 500, amount: 500)
+  store_service_snapshot.create_store_order_item!(
+    store_customer: customer,
+    store: store,
+    creator: admin,
+    store_order: order,
+    quantity: 1,
+    price: 500,
+    amount: 500
+  )
+  material_snapshot.create_store_order_item!(
+    store_customer: customer,
+    store: store,
+    creator: admin,
+    store_order: order,
+    quantity: 1,
+    price: 500,
+    amount: 500
+  )
 
 end
