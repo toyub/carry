@@ -7,4 +7,5 @@ class StoreVehicle < ActiveRecord::Base
   has_one :engine, class_name: "StoreVehicleEngine", foreign_key: :store_vehicle_id
   has_one :frame, class_name: "StoreVehicleFrame", foreign_key: :store_vehicle_id
   has_one :registration_plate, class_name: "StoreVehicleRegistrationPlate", foreign_key: :store_vehicle_id
+  has_many :orders, class_name: "StoreOrder"
 end
