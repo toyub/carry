@@ -90,3 +90,6 @@ gem 'sass', '3.4.10'
 # 文件上传
 gem 'carrierwave'
 gem 'carrierwave-base64'
+
+# Paginator
+gem "kaminari"
