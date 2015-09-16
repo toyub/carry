@@ -94,6 +94,7 @@ Rails.application.routes.draw do
         post :save_picture
       end
     end
+    resources :store_vehicles, only: [:index]
   end
 
   root 'kucun/materials#index'
