@@ -4,6 +4,7 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
 
   events:
     'click #preview_list img': 'previewImage'
+    'click #serviceEdit': 'gotoEdit'
 
   render: ->
     @$el.html(@template(service: @model))
