@@ -95,6 +95,7 @@ Rails.application.routes.draw do
       end
     end
     resources :store_vehicles, only: [:index]
+    resources :store_orders, only: [:index]
   end
 
   root 'kucun/materials#index'
