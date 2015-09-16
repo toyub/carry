@@ -1,4 +1,5 @@
 class StoreMaterialPicking < ActiveRecord::Base
+  attr_accessor :dest_depot_id
   belongs_to :sotre
   belongs_to :store_chain
   belongs_to :store_staff

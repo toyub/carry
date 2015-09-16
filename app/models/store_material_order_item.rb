@@ -40,7 +40,7 @@ class StoreMaterialOrderItem < ActiveRecord::Base
   #depot has many materials through invetories
   #因此商品的价格、存库量就会存在店与库两套
   def latest_cost_price
-    (self.store_material.cost_price * self.store_material.inventory + self.received_quantity*self.price)/(self.store_material.inventory+self.received_quantity)
+    (self.store_material.cost_price.to_f * self.store_material.inventory.to_i + self.received_quantity*self.price)/(self.store_material.inventory+self.received_quantity)
   end
 
   def latest_depot_cost_price(inventory)
@@ -56,7 +56,7 @@ class StoreMaterialOrderItem < ActiveRecord::Base
       inventory.save
     end
 
-    inventory.store_material_inventory_records.create(store_id: self.store_id,
+    smir=inventory.store_material_inventory_records.create(store_id: self.store_id,
                                                     store_chain_id: self.store_chain_id,
                                                     store_staff_id: self.store_staff_id,
                                                     store_depot_id: depot_id,
@@ -87,6 +87,7 @@ class StoreMaterialOrderItem < ActiveRecord::Base
       })
     inventory.quantity = inventory.quantity + self.received_quantity
     self.store_material.cost_price = latest_cost_price
+    inventory.cost_price = smir.latest_cost_price
     inventory.save
     self.store_material.save
     self.save

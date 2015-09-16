@@ -9,4 +9,9 @@ class StoreMaterialInventory < ActiveRecord::Base
     quantity = quantity.to_i.abs
     self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) - #{quantity.to_i}")
   end
+
+  def outing!(quantity)
+    quantity = quantity.to_i.abs
+    self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) - #{quantity.to_i}")
+  end
 end
