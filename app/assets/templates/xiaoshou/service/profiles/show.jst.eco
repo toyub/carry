@@ -68,7 +68,7 @@
       <div class="grid-1-2 float-left">
         <div class="server_list">
           <div class="top">
-            <h2>关联商品表</h2>
+            <h2>关联耗材</h2>
           </div>
           <div class="list" style="display:block;">
             <div class="list_top list_tr">
