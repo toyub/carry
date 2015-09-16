@@ -6,7 +6,9 @@ class Mis.Models.StoreService extends Backbone.Model
 
   initialize: ->
     @on('change:store_service_workflows_attributes', @parseWorkflows)
+    @on('change:uploads', @parseUploads)
     @parseWorkflows()
+    @parseUploads()
 
   validation:
     name:
@@ -42,3 +44,6 @@ class Mis.Models.StoreService extends Backbone.Model
 
   parseWorkflows: ->
     @workflows = new Mis.Collections.StoreServiceWorkflows(@get 'store_service_workflows_attributes')
+
+  parseUploads: ->
+    @uploads = new Mis.Collections.Uploads(@get "uploads")

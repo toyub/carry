@@ -2,6 +2,7 @@ class StoreServiceSerializer < ActiveModel::Serializer
   attributes :id, :name, :engineer_levels, :workstations, :commissions, :point, :category, :retail_price, :bargain_price, :unit, :code, :introduction, :remark
 
   has_many :store_service_workflows, root: :store_service_workflows_attributes
+  has_many :uploads, serializer: UploadSerializer
 
   def engineer_levels
     StoreServiceWorkflow::ENGINEER_LEVEL

@@ -18,48 +18,51 @@
     <div class="goods_img">
       <div id="material_img_preview" class="goods_main_img"></div>
       <ul id="material_img_thumbnails" class="goods_small_img">
-        <li id="preview_list"></li>
-        <li data-id="0"><a class="fa fa-plus-square add_img font-30" href="javascript:void(0);"></a></li>
+        <li id="preview_list">
+          <% @service.uploads.each (upload) ->: %>
+            <img src="<%= upload.get 'img_url' %>" />
+          <% end %>
+        </li>
       </ul>
     </div>
     <div class=" server_content">
       <div class="grid-1-2 float-left">
         <div class="item_content">
           <label class="width-75">服务名称</label>
-          <input type="text" class="width-165" value="<%= @name %>" readonly="">
+          <input type="text" class="width-165" value="<%= @service.get 'name' %>" readonly="">
         </div>
         <div class="item_content">
           <label class="width-75">销售价</label>
-          <input type="text" class="width-165" value="<%= @retail_price %>" readonly="">
+          <input type="text" class="width-165" value="<%= @service.get 'retail_price' %>" readonly="">
         </div>
         <div class="item_content">
           <input type="radio" disabled class="toggleable margin-left-15" >
           <label class="width-40">
             优惠价
           </label>
-          <input type="text" class="width-165" disabled="" value="<%= @bargain_price %>" readonly="">
+          <input type="text" class="width-165" disabled="" value="<%= @service.get 'bargain_price' %>" readonly="">
         </div>
         <div class="item_content">
           <label class="width-75">服务积分</label>
-          <input type="text" class="width-165" readonly="true" value="<%= @point %>">
+          <input type="text" class="width-165" readonly="true" value="<%= @service.get 'point' %>">
         </div>
         <div class="item_content">
           <label class="width-75">服务代码</label>
-          <input type="text" class="width-165" value="<%= @code %>" readonly="">
+          <input type="text" class="width-165" value="<%= @service.get 'code' %>" readonly="">
         </div>
         <div class="item_content">
           <label class="width-75">服务类别</label>
           <select type="text" class="width-165" disabled="">
-            <option selected><%= @category %></option>
+            <option selected><%= @service.get 'category' %></option>
           </select>
         </div>
         <div class="item_textarea ">
           <label class="width-75">服务介绍</label>
-          <textarea class="server_textarea width-432" disabled=""><%= @introduction %></textarea>
+          <textarea class="server_textarea width-432" disabled=""><%= @service.get 'introduction' %></textarea>
         </div>
         <div class="item_textarea ">
           <label class="width-75">备注</label>
-          <textarea disabled="" class="height-120 text-indent-5 width-432"><%= @remark %></textarea>
+          <textarea disabled="" class="height-120 text-indent-5 width-432"><%= @service.get 'remark' %></textarea>
         </div>
       </div>
       <div class="grid-1-2 float-left">
