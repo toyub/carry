@@ -61,7 +61,7 @@
                 <li><%= picking.total_quantity %></li>
                 <li><%= first_item.store_depot.name %></li>
                 <li><%= first_item.dest_depot.name %></li>
-                <li><i class="fa fa-chevron-down cursor-pointer click_btn detailsbtn"></i><input data-item="<%= json_for(picking.items) %>" type="checkbox" name="sub_check"></li>
+                <li><i class="fa fa-chevron-down cursor-pointer click_btn detailsbtn"></i><input data-pickingid='<%= picking.id %>' data-item="<%= json_for(picking.items) %>" type="checkbox" name="sub_check"></li>
               </ul>
             </div>
 
@@ -70,20 +70,22 @@
           			<thead>
           				<tr class="bg-color-e0e2cf color-282726">
           					<th>商品</th>
-          					<th>归档</th>
+          					<th>规格</th>
           					<th>单位</th>
           					<th>单价</th>
           					<th>数量</th>
+                    <th>备注</th>
           				</tr>
           			</thead>
           			<tbody>
           				<% picking.items.each do |item| %>
           				<tr>
-          					<td >澜泰宾御纳米镀晶套装</td>
-          					<td>长皮盒6项目</td>
-          					<td>套</td>
-          					<td>680.00</td>
-          					<td>8</td>
+          					<td><%= item.store_material.name -%></td>
+          					<td><%= item.store_material.speci -%></td>
+          					<td><%= item.store_material.store_material_unit.name -%></td>
+          					<td><%= item.store_material.cost_price -%></td>
+          					<td><%= item.quantity -%></td>
+                    <td><%= item.remark -%></td>
           				</tr>
           				<% end %>
           			</tbody>
@@ -94,7 +96,9 @@
         </div>
       </div>
     </div>
-  <div class="in_storage_content in_storage_by_receipt common_storage_content float-left  margin-bottom-50 margin-top-80">
+<div class="in_storage_content in_storage_by_receipt common_storage_content float-left  margin-bottom-50 margin-top-80">
+  <%= form_tag '/kucun/transfer/receipts', id: 'receipt_form' do %>
+    <input type="hidden" name="receipt[store_material_picking_id]" id='store_material_picking_id' value="">
     <div class="in_storage_query">
       <div class="nav-item-query">
         <div class="font-20 font-borderradius text-align-center">入</div>
@@ -142,18 +146,19 @@
       <div class="common_storage_account">
         <div class="item_content margin-left-10" >
           <label class="width-75">备注：</label>
-          <textarea class="remarks_textarea"></textarea>
+          <textarea name='receipt[remark]' class="remarks_textarea"></textarea>
         </div>
         <div class="item_content  margin-left-10">
           <label class="width-75">制单人：</label>
-          <label class="width-253"></label>
+          <label class="width-253"><%= current_user.screen_name %></label>
         </div>
       </div>
     </div>
     <div class="btn_group">
       <a class="edit_btn btn" href="#">编辑</a>
-      <a class="warehousing_btn btn" href="#" >入库</a>
+      <input type="submit" value="入库" class="warehousing_btn btn">
     </div>
+  <% end %>
 </div>
 <% content_for :javascripts do %>
 <script>
@@ -162,13 +167,23 @@
   $('#pickings').on('click', '.click_btn', function(){
     $(this).parents('.list_content').next().toggle()
   });
+
+  $('#receipt_form').on('submit', function(evt){
+    if($("#storage_tab>tbody>tr").length<1){
+      ZhanchuangAlert('您还没有选择单据，请选择移库单以入库。');
+      evt.preventDefault();
+      return false;
+    }
+  });
   $('#pickings').on('change', 'input[type=checkbox]', function(){
     if(this.checked){
       if(boxdd && boxdd!=this){
         boxdd.checked = false;
       }
       boxdd = this;
-      var ht = $(this).data('item').map(function(item, idx){
+      var $this = $(this);
+      $("#store_material_picking_id").val($this.data('pickingid'));
+      var ht = $this.data('item').map(function(item, idx){
         return item_tmpl(item);
       }).join('');
       $("#storage_tab>tbody").html(ht);

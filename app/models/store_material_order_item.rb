@@ -71,20 +71,20 @@ class StoreMaterialOrderItem < ActiveRecord::Base
                                                     ordered_cost_price: self.price,
                                                     latest_cost_price: latest_depot_cost_price(inventory))
     StoreMaterialLog.create({
-        store_id: self.store_id,
-        store_chain_id: self.store_chain_id,
-        store_staff_id: self.store_staff_id,
-        store_material_id: self.store_material.id,
-        log_type: 'MaterialInventory',
-        prior_value: {
-          inventory: self.store_material.inventory,
-          cost_price: self.store_material.cost_price
-        }.to_json,
-        value: {
-          inventory: self.store_material.inventory + self.received_quantity,
-          cost_price: latest_cost_price
-        }.to_json
-      })
+      store_id: self.store_id,
+      store_chain_id: self.store_chain_id,
+      store_staff_id: self.store_staff_id,
+      store_material_id: self.store_material.id,
+      log_type: 'MaterialInventory',
+      prior_value: {
+        inventory: self.store_material.inventory,
+        cost_price: self.store_material.cost_price
+      }.to_json,
+      value: {
+        inventory: self.store_material.inventory + self.received_quantity,
+        cost_price: latest_cost_price
+      }.to_json
+    })
     inventory.quantity = inventory.quantity + self.received_quantity
     self.store_material.cost_price = latest_cost_price
     inventory.cost_price = smir.latest_cost_price

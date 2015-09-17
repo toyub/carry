@@ -9,6 +9,11 @@ class StoreMaterialPicking < ActiveRecord::Base
   accepts_nested_attributes_for :items
 
   after_create :save_search_keys
+
+  def received!
+    self.status = 1
+    self.save!
+  end
   private
   def save_search_keys
     self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',');
