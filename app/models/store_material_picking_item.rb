@@ -6,4 +6,5 @@ class StoreMaterialPickingItem < ActiveRecord::Base
   belongs_to :store_material_picking
   belongs_to :store_material_inventory
   belongs_to :store_depot
+  belongs_to :dest_depot, class_name: 'StoreDepot'
 end

@@ -12,6 +12,7 @@ module Kucun
         picking.total_quantity = 0
         picking.total_amount = 0.0
         picking.total_inventory_amount = 0.0
+        picking.numero = ApplicationController.helpers.make_numero('T')
         picking.items.each do |item|
           item.cost_price = item.store_material.cost_price
           item.dest_depot_id = picking.dest_depot_id
