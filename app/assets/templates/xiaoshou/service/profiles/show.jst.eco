@@ -78,16 +78,16 @@
                 <li>关联方式</li>
               </ul>
             </div>
-            <% _.each @service.get('store_service_store_materials'), (s)-> : %>
-              <div class="list_content list_tr">
-                <ul class="list_tr_hover">
-                  <li><%= s.store_material_id %></li>
-                  <li><label><%= s.name %></label></li>
-                  <li><%= s.mode %></li>
-                </ul>
-              </div>
-            <% end %>
+
+            <div class="list_contents materialList">
+
+            </div>
           </div>
+
+          <div class="show_server" id="show_server" style="display: none;">
+
+          </div>
+
         </div>
       </div>
 

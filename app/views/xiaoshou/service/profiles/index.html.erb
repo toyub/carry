@@ -119,11 +119,12 @@
 
 </div>
 
-<%= content_tag :div, '', id: 'bootstrap', data: {'store-services': json_for(current_store.store_services)} %>
+<%= content_tag :div, '', id: 'bootstrap', data: {'store': json_for(current_store), 'store-services': json_for(current_store.store_services)} %>
 
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
+      window.Store = new Mis.Models.Store($("#bootstrap").data("store").store);
       var collection = new Mis.Collections.StoreServices();
       view = new Mis.Views.XiaoshouServiceProfilesIndex({collection: collection});
       view.render();

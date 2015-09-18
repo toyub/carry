@@ -1,5 +1,5 @@
 class StoreMaterialSerializer < ActiveModel::Serializer
-  attributes :id, :name, :unit, :barcode, :speci, :root_category, :category, :cost_price
+  attributes :id, :name, :unit, :barcode, :speci, :root_category, :category, :cost_price, :mode
 
   def unit
     object.store_material_unit.name
@@ -11,5 +11,9 @@ class StoreMaterialSerializer < ActiveModel::Serializer
 
   def category
     object.store_material_category.try(:name)
+  end
+
+  def mode
+    "领用"
   end
 end
