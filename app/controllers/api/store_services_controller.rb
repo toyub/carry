@@ -12,8 +12,7 @@ module Api
 
     def update
       @service = current_store.store_services.find(params[:id])
-      binding.pry
-      #@service.store_service_workflows.clear
+      @service.store_materials.clear
       @service.update(service_params)
       respond_with @service, location: nil
     end
