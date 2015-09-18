@@ -6,6 +6,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
   events:
     'click #backToSHow': 'goToShow'
     'submit #editStoreService': 'updateOnSubmit'
+    'click #add_server_btn': 'openMaterialForm'
 
   render: ->
     @$el.html(@template(service: @model, store: window.Store))
@@ -25,3 +26,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
     view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
     $("#bodyContent").html(view.render().el)
     @model.fetch()
+
+  openMaterialForm: ->
+    view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
+    view.show()
