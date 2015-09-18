@@ -5,9 +5,15 @@ module Api
       respond_with @service, location: nil
     end
 
+    def show
+      @service = current_store.store_services.find(params[:id])
+      respond_with @service, location: nil
+    end
+
     def update
       @service = current_store.store_services.find(params[:id])
-      @service.store_service_workflows.clear
+      binding.pry
+      #@service.store_service_workflows.clear
       @service.update(service_params)
       respond_with @service, location: nil
     end
@@ -38,7 +44,7 @@ module Api
           :bargain_price, :point,
           :introduction, :remark,
           :store_service_category_id, :favorable,
-          store_service_store_materials_attributes: [:store_material_id, :use_mode]
+          store_service_store_materials_attributes: [:store_material_id]
         )
       end
 

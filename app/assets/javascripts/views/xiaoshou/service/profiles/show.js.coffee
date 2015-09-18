@@ -6,9 +6,12 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
     'click #preview_list img': 'previewImage'
     'click #serviceEdit': 'gotoEdit'
 
+  initialize: ->
+    @model.on('sync', @renderMaterials, @)
+
   render: ->
     @$el.html(@template(service: @model))
-    @model.materials.each @addMaterial
+    @renderMaterials()
     @
 
   previewImage: (event) ->
@@ -19,6 +22,11 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
   gotoEdit: ->
     view = new Mis.Views.XiaoshouServiceProfilesEdit(model: @model)
     @$("div.details_content").html(view.render().el)
+
+  renderMaterials: =>
+    console.log('xxxx')
+    @$(".materialList").empty()
+    @model.materials.each @addMaterial
 
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'show')

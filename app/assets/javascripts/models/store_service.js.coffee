@@ -8,6 +8,7 @@ class Mis.Models.StoreService extends Backbone.Model
     @on('change:store_service_workflows_attributes', @parseWorkflows)
     @on('change:uploads', @parseUploads)
     @on('change:store_materials', @parseMaterials)
+    @on('sync', @parseMaterials)
     @parseWorkflows()
     @parseUploads()
     @parseMaterials()
@@ -54,11 +55,12 @@ class Mis.Models.StoreService extends Backbone.Model
     @materials = new Mis.Collections.StoreMaterials(@get "store_materials")
 
   toJSON: ->
+    hashWithRoot = {}
     json = _.clone(@attributes)
     json.store_service_store_materials_attributes = @materials.map(
       (material) ->
         {store_material_id: material.id}
     )
-    hashWithRoot = {}
     hashWithRoot[@modelName] = json
+    hashWithRoot
 
