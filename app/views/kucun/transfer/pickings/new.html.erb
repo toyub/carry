@@ -85,15 +85,17 @@
 
       <div class="nav-item-query">
         <label>出库类型</label>
+        <input type="hidden" name="material[out_store_type_id]" value="<%= OutingType.find_by_name('转移出库').id %>" />
         <span id='out_store_type_id' class="width-157 as_select" data-select='#out_store_type_select' data-target='input[name="material[out_store_type_id]"]'>转移出库</span>
         <div id='out_store_type_select' class="select width-165">
           <ol class="width-165">
-            <li data-value="1"><a href="javascript:void(0)">转移出库</a></li>
-            <li data-value="2"><a href="/kucun/outings/new">领用出库</a></li>
-            <li data-value="3"><a href="/kucun/outings/new">销售出库</a></li>
-            <li data-value="4"><a href="/kucun/outings/new">赠送出库</a></li>
-            <li data-value="5"><a href="/kucun/outings/new">盘亏出库</a></li>
-            <li data-value="6"><a href="/kucun/outings/new">生产出库</a></li>
+            <% OutingType.collection.each do |tipe| %>
+              <% if tipe.name == '转移出库' %>
+                <li data-value="<%= tipe.id %>"><a href="javascript:void(0)"><%= tipe.name %></a></li>
+              <% else %>
+                <li data-value="<%= tipe.id %>"><a href="/kucun/outings/new"><%= tipe.name %></a></li>
+              <% end %>
+            <% end %>
           </ol>
         </div>
       </div>

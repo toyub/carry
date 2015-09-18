@@ -2,7 +2,7 @@
   <td class="number">1</td>
   <td>
     <%= @name %>
-    <input type="hidden" name="outings[][store_material_id]" value="<%= @id %>">
+    <input type="hidden" name="outing[items_attributes][<%= @id %>][store_material_id]" value="<%= @id %>">
   </td>
   <td><%= @barcode %></td>
   <td><%= @speci %></td>
@@ -10,8 +10,14 @@
   <td><%= @root_category %></td>
   <td><%= @category %></td>
   <td><%= @cost_price %></td>
-  <td><%= @quantity %></td>
-  <td><input name='outings[][quantity]' required=true type="number" max=<%= @quantity %> min=1 class="width-70 td_input" value="1"></td>
-  <td><%= @depot_name %></td>
-  <td><input type="text" name="outings[][remark]" value=""></td>
+  <td>
+    <%= @quantity %>
+    <input type="hidden" name='outing[items_attributes][<%= @id %>][store_material_inventory_id]' value='<%= @inventory_id %>' />
+  </td>
+  <td><input name='outing[items_attributes][<%= @id %>][quantity]' required=true type="number" max=<%= @quantity %> min=1 class="width-70 td_input" value="1"></td>
+  <td>
+    <%= @depot_name %>
+    <input type="hidden" name="outing[items_attributes][<%= @id %>][store_depot_id]" value="<%= @depot_id %>">
+  </td>
+  <td><input type="text" name="outing[items_attributes][<%= @id %>][remark]" value=""></td>
 </tr>

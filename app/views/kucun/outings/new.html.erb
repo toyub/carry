@@ -85,7 +85,7 @@
       </div>
       <div class="nav-item-query">
         <label>领用人：</label>
-        <select class="width-135" name='requester_id'>
+        <select class="width-135" name='outing[requester_id]'>
           <option></option>
           <% @store.store_staff.each do |staff| %>
             <option value="<%= staff.id %>"><%= staff.screen_name %></option>
@@ -94,16 +94,17 @@
       </div>
       <div class="nav-item-query">
         <label>出库类型</label>
-        <input type="hidden" name="outing_type_id" value="">
-        <span class="in_stock_type_span click_btn as_select"  data-select='#outing_type_select' data-target='input[name="outing_type_id"]'>领用出库</span>
+        <input type="hidden" name="outing[outing_type_id]" value="<%= OutingType.find_by_name('领用出库').id %>">
+        <span class="in_stock_type_span click_btn as_select" data-select='#outing_type_select' data-target='input[name="outing_type_id"]'>领用出库</span>
         <div id='outing_type_select' class="select width-165">
           <ol class="width-165">
-            <li data-value="2">领用出库</li>
-            <li data-value="3">销售出库</li>
-            <li data-value="4">赠送出库</li>
-            <li data-value="5">盘亏出库</li>
-            <li data-value="6">生产出库</li>
-            <li data-value="1"><a href="/kucun/transfer/pickings/new">转移出库</a></li>
+            <% OutingType.collection.each do |tipe| %>
+              <% if tipe.name == '转移出库' %>
+                <li data-value="<%= tipe.id %>"><a href="/kucun/transfer/pickings/new"><%= tipe.name %></a></li>
+              <% else %>
+                <li data-value="<%= tipe.id %>"><a href="javascript:void(0);"><%= tipe.name %></a></li>
+              <% end %>
+            <% end %>
           </ol>
         </div>
       </div>
@@ -135,7 +136,7 @@
       <div class="common_storage_account">
         <div class="item_content margin-left-10" >
           <label class="width-75">备注：</label>
-          <textarea name='remark' class="remarks_textarea"></textarea>
+          <textarea name='outing[remark]' class="remarks_textarea"></textarea>
         </div>
         <div class="item_content  margin-left-10">
           <label class="width-75">制单人：</label>
@@ -145,7 +146,7 @@
     </div>
     <div class="btn_group margin-right-40">
       <a class="edit_btn btn" href="#">取消</a>
-      <input type="submit" name="name" value="确定" class="save_btn btn" />
+      <input type="submit" value="确定" class="save_btn btn" />
     </div>
   </div>
   <% end %>
@@ -182,6 +183,8 @@
           var html = data.map(function(inventory){
             inventory.store_material.quantity = inventory.quantity;
             inventory.store_material.depot_name = inventory.depot_name;
+            inventory.store_material.inventory_id = inventory.id;
+            inventory.store_material.depot_id = inventory.store_depot_id;
             return choice_tmpl(inventory.store_material);
           }).join('');
           $('#choices').html(html);
@@ -200,7 +203,8 @@
         }
      });
      $("#outing_form").on('submit', function(){
-       if(this.querySelectorAll('input[name^=outings]').length < 1 ){
+       if($('#storage_tab > tbody > tr').length < 1 ){
+        ZhanchuangAlert('请选择出库的商品');
         return false;
       }else{
         return true;
