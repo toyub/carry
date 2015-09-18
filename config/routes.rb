@@ -60,6 +60,10 @@ Rails.application.routes.draw do
     resources :staff
   end
 
+  namespace :xianchang do
+    resources :field_constructions, only: [:index]
+  end
+
   namespace :ajax do
     resources :store_material_categories, only: [] do
       member do
