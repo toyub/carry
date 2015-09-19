@@ -23,14 +23,14 @@ ActiveRecord::Base.transaction do
 
   ## 商品信息
   unit = StoreMaterialUnit.create!(name: "个", store: store, store_chain: chain, store_staff_id: admin.id)
-  brand = StoreMaterialBrand.create!(name: "斯诺比", store: store, store_chain: chain, store_staff: admin)
+  brand = StoreMaterialBrand.create!(name: "斯诺比", store: store, store_chain: chain, creator: admin)
   category = StoreMaterialCategory.create!(name: "消费", store: store, store_chain: chain, store_staff_id: admin.id)
   manufacturer = StoreMaterialManufacturer.create!(name: "制造商", store: store, creator: admin)
   material = StoreMaterial.create!(name: "米其林", store: store, store_chain: chain, store_staff_id: admin.id, store_material_unit: unit, store_material_manufacturer: manufacturer, store_material_brand: brand, store_material_category: category, store_material_root_category: category)
 
 
   ## 服务信息
-  service_category = StoreServiceCategory.create!(name: "服务类别", store: store)
+  service_category = StoreServiceCategory.create!(name: "服务类别", store: store, creator: admin)
   store_service = StoreService.create!(name: '澜泰纳米镀晶', store: store, creator: admin, store_service_category: service_category, code: "xxxxx")
   workflow1 = store_service.store_service_workflows.create!(name: '镀晶', store_id: store.id, store_chain_id: chain.id, store_staff_id: admin.id)
   workflow2 = store_service.store_service_workflows.create!(name: '抛光', store_id: store.id, store_chain_id: chain.id, store_staff_id: admin.id)
