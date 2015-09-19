@@ -4,6 +4,7 @@ module BaseModel
   included do
     belongs_to :store
     belongs_to :store_chain
+    belongs_to :creator, class_name: 'StoreStaff', foreign_key: :store_staff_id
 
     validates :store_chain_id, presence: true
     validates :store_id, presence: true
@@ -20,7 +21,7 @@ module BaseModel
 
   def set_operator(operator=nil)
     return false if self.store_staff_id.blank? && operator.blank?
-    staff = self.store_staff || operator
+    staff = self.creator || operator
     self.store_staff_id = staff.id if self.store_staff_id.blank?
     self.store_id = staff.store.id
     true

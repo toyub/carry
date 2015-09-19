@@ -8,7 +8,6 @@ class StoreService < ActiveRecord::Base
   has_many :store_service_workflows
   has_many :uploads, class_name: '::Upload::StoreService', as: :fileable
   has_many :snapshots, class_name: "StoreServiceSnapshot", foreign_key: :store_service_id
-  belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true
