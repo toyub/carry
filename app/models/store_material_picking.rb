@@ -8,7 +8,7 @@ class StoreMaterialPicking < ActiveRecord::Base
 
   accepts_nested_attributes_for :items
 
-  after_create :save_search_keys
+  before_save :save_search_keys
 
   def received!
     self.status = 1

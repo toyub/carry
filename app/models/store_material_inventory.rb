@@ -6,12 +6,19 @@ class StoreMaterialInventory < ActiveRecord::Base
   has_many :store_material_inventory_records
 
   def returning!(quantity)
-    quantity = quantity.to_i.abs
-    self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) - #{quantity.to_i}")
+    down!(quantity)
   end
 
   def outing!(quantity)
-    quantity = quantity.to_i.abs
-    self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) - #{quantity.to_i}")
+    down!(quantity)
+  end
+
+  private
+  def down!(quantity)
+    self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) - #{quantity.to_i.abs}")
+  end
+
+  def up!
+    self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) + #{quantity.to_i.abs}")
   end
 end
