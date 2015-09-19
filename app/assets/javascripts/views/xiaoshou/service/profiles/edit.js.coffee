@@ -29,4 +29,4 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
 
   openMaterialForm: ->
     view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
-    view.show()
+    view.open()

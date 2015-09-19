@@ -13,6 +13,11 @@ class Store <  ActiveRecord::Base
   has_many :service_categories, class_name: 'StoreServiceCategory'
   has_many :store_workstation_categories
   has_many :store_commission_templates
+
+  # 一级商品类别
+  has_many :root_material_categories, -> { where parent_id: 0 },
+    class_name: 'StoreMaterialCategory'
+
   validates :name, presence: true
   
 end
