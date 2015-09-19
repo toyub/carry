@@ -1,5 +1,8 @@
 Mis.Views.FieldConstructionsView = Backbone.View.extend({
   el:  ".js-waiting-vehicle",
+  events: {
+    'click li img':'showWrap',
+  },
   initialize: function(){
     var _this = this;
     store_orders = new Mis.Collections.StoreOrders;
@@ -16,6 +19,10 @@ Mis.Views.FieldConstructionsView = Backbone.View.extend({
     _(this.collection.models).each(function(item){
       $(_this.el).append("<li><span>" + item.attributes.store_vehicle.name + "</span><img src='/small_car.png'></img></li>");
     })
+  },
+
+  showWrap: function(){
+    $("#vehicle_order_details").show();
   }
 })
 
