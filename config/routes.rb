@@ -62,6 +62,7 @@ Rails.application.routes.draw do
 
   namespace :xianchang do
     resources :field_constructions, only: [:index]
+    resources :pre_orders, only: [:index]
   end
 
   namespace :ajax do

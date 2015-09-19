@@ -33,6 +33,9 @@
 //= require_tree ./views
 //= require_tree ./routers
 //= require base/close
+//= require extjs/ext-all
+//
+//= require xianchang/pre_order
 
 
 function ZhanchuangAlert(msg) {
