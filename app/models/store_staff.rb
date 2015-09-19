@@ -4,9 +4,9 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_chain
 
 
-  validates :phone_number, presence: true
-  validates :phone_number, length: {is: 11}, if: ->(staff){staff.phone_number.present?}
-  validates :phone_number, numericality: { only_integer: true }, if: ->(staff){staff.phone_number.present?}
+  #validates :phone_number, presence: true
+  #validates :phone_number, length: {is: 11}, if: ->(staff){staff.phone_number.present?}
+  #validates :phone_number, numericality: { only_integer: true }, if: ->(staff){staff.phone_number.present?}
   #validates uniqueness
 
   validates :password, presence: true
