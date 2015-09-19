@@ -16,7 +16,6 @@ class StoreMaterialPicking < ActiveRecord::Base
   end
   private
   def save_search_keys
-    self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',');
-    self.save
+    self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',')
   end
 end
