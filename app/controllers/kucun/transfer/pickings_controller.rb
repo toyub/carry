@@ -3,6 +3,12 @@
 module Kucun
   module Transfer
     class PickingsController < Kucun::ControllerBase
+      def index
+        @store = current_store
+
+        @outing_items = StoreMaterialPickingItem.where(store_id: @store.id)
+      end
+
       def new
         @store = current_store
       end
@@ -17,8 +23,10 @@ module Kucun
           item.cost_price = item.store_material.cost_price
           item.dest_depot_id = picking.dest_depot_id
           item.inventory_cost_price = item.store_material_inventory.cost_price
+          item.amount = item.quantity.to_i * item.cost_price.to_f
+          
           picking.total_quantity += item.quantity.to_i
-          picking.total_amount += item.quantity.to_i * item.cost_price.to_f
+          picking.total_amount += item.amount
           picking.total_inventory_amount += item.quantity.to_i * item.inventory_cost_price.to_f
         end
         StoreMaterialPicking.transaction do

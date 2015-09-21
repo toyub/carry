@@ -6,6 +6,11 @@ class Kucun::OutingsController < Kucun::ControllerBase
 
   def new
     @store = current_store
+    if params[:outing_type_id].present?
+      @outing_type=OutingType.find(params[:outing_type_id].to_i)
+    else
+      @outing_type=OutingType.find_by_name('领用出库')
+    end
   end
 
   def create

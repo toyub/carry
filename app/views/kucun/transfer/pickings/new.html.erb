@@ -2,7 +2,7 @@
   <%= javascript_include_tag 'kucun/materials/new' %>
 <% end %>
 <div class="main_top">
-  <h2>出库</h2>
+  <h2>转移出库</h2>
   <span class="add_span">+</span>
 </div>
 <div class="details">
@@ -37,8 +37,8 @@
         <a href="#" class="query_btn btn">查<nbsp1></nbsp1>询</a>
       </div>
       <div class="query_div">
-        <a href="index.html" class="in_stg_btn btn" >出库</a>
-        <a href="jilu.html"  class="notes_btn">记录</a>
+        <a href="javascript:void(0);" class="in_stg_btn btn">出库</a>
+        <a href="/kucun/transfer/pickings/" class="notes_btn">记录</a>
       </div>
     </div>
     <div class="out_storage common_storage">
@@ -93,7 +93,7 @@
               <% if tipe.name == '转移出库' %>
                 <li data-value="<%= tipe.id %>"><a href="javascript:void(0)"><%= tipe.name %></a></li>
               <% else %>
-                <li data-value="<%= tipe.id %>"><a href="/kucun/outings/new"><%= tipe.name %></a></li>
+                <li data-value="<%= tipe.id %>"><a href="/kucun/outings/new?outing_type_id=<%= tipe.id %>"><%= tipe.name %></a></li>
               <% end %>
             <% end %>
           </ol>

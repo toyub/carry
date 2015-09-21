@@ -94,8 +94,8 @@
       </div>
       <div class="nav-item-query">
         <label>出库类型</label>
-        <input type="hidden" name="outing[outing_type_id]" value="<%= OutingType.find_by_name('领用出库').id %>">
-        <span class="in_stock_type_span click_btn as_select" data-select='#outing_type_select' data-target='input[name="outing_type_id"]'>领用出库</span>
+        <input type="hidden" name="outing[outing_type_id]" value="<%= @outing_type.id %>">
+        <span class="in_stock_type_span click_btn as_select" data-select='#outing_type_select' data-target='input[name="outing_type_id"]'><%= @outing_type.name %></span>
         <div id='outing_type_select' class="select width-165">
           <ol class="width-165">
             <% OutingType.collection.each do |tipe| %>
