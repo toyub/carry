@@ -29,7 +29,7 @@ class Kucun::OutingsController < Kucun::ControllerBase
       end
       outing.save!
     end
-    render json: {outing: outing, items: outing.items}
+    redirect_to action: 'index'
   end
 
   private

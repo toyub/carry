@@ -63,7 +63,7 @@
           <tr>
             <td><%= idx + 1 %></td>
             <td><%= item.created_at.to_s(:date_only) %></td>
-            <td><%= item.store_material.name %></td>
+            <td title="<%= item.store_material.name %>"><%= item.store_material.name.to_s.truncate(11) %></td>
             <td><%= item.store_material.barcode %></td>
             <td><%= item.store_material.store_material_root_category.name %></td>
             <td><%= item.store_material.store_material_category.name %></td>
