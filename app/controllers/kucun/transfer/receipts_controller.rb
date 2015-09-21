@@ -4,6 +4,10 @@
 module Kucun
   module Transfer
     class ReceiptsController < Kucun::ControllerBase
+      def index
+        @store = current_store
+        @trans_receipt_items = StoreMaterialTransReceiptItem.where(store_id: @store.id)
+      end
 
       def new
         @store = current_store
@@ -49,7 +53,7 @@ module Kucun
           end
           picking.received!
         end
-        render json: params
+        redirect_to action: 'index'
       end
 
       private
