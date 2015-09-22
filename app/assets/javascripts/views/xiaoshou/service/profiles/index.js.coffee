@@ -90,5 +90,6 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Backbone.View
     options
 
   goToNew: ->
-    view = new Mis.Views.XiaoshouServiceProfilesNew(collection: @collection)
+    model = new Mis.Models.StoreService()
+    view = new Mis.Views.XiaoshouServiceProfilesNew(model: model)
     $("#bodyContent").html(view.render().el)
