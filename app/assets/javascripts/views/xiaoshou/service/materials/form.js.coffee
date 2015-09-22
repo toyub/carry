@@ -10,16 +10,20 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
     'change #rootCategory': 'renderSubCategory'
     'change #subCategory': 'renderQueryResults'
     'click .query_btn': 'searchOnClick'
+    'click .cancel': 'close'
+    'click .save_btn': 'addRelatedOnClick'
 
   render: ->
     @$el.html(@template(service: @model, store: @store))
     @
 
   open: ->
+    @store.materials.clearSelected()
     @render()
     @$el.show()
 
-  close: ->
+  close: =>
+    @undelegateEvents()
     @$el.hide()
 
   searchOnClick: ->
@@ -64,3 +68,10 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
     criterial = _.extend(criterial, root_category_id: rootId) if rootId
     criterial = _.extend(criterial, category_id: categoryId) if categoryId
     criterial
+
+  addRelatedOnClick: ->
+    _.each @store.materials.selected(), @addOneMaterial
+    @close()
+
+  addOneMaterial: (material) =>
+    @model.materials.add material

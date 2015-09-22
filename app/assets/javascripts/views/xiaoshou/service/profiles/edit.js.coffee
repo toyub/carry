@@ -3,6 +3,9 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
 
   template: JST['xiaoshou/service/profiles/edit']
 
+  initialize: ->
+    @model.materials.on('add', @addMaterial, @)
+
   events:
     'click #backToSHow': 'goToShow'
     'submit #editStoreService': 'updateOnSubmit'
