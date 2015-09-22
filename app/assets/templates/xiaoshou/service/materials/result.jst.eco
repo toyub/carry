@@ -1,0 +1,2 @@
+<td><%= @material.get 'name' %></td>
+<td><input type="checkbox"></td>

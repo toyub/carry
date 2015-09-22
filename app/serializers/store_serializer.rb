@@ -3,4 +3,5 @@ class StoreSerializer < ActiveModel::Serializer
 
   has_many :service_categories
   has_many :root_material_categories
+  has_many :store_materials
 end

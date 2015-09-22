@@ -1,6 +1,6 @@
 <div class="item_content text-align-left float-left ">
   <label class="width-75">一级分类</label>
-  <select class="width-130">
+  <select class="width-130" id="rootCategory">
     <option>请选择</option>
     <% @store.rootMaterialCategories.each (c) ->: %>
       <option value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
@@ -9,34 +9,21 @@
 </div>
 <div class="item_content text-align-right float-left ">
   <label class="width-75">二级分类</label>
-  <select class="width-130">
-    <option></option>
-    <option></option>
-    <option></option>
+  <select class="width-130" id="subCategory">
+
   </select>
 </div>
 <div class="item_content  text-align-left float-left ">
   <label class="width-75">关键字查找</label>
-  <input type="text" class="width-255">
-  <a href="#" class="query_btn btn">查询</a>
+  <input type="text" name="name" class="width-255">
+  <a href="javascript:void(0);" class="query_btn btn">查询</a>
 </div>
 <div class="table_list">
   <label class="width-75 float-left">查询结果</label>
   <div class="query_results">
     <table cellspacing="0" cellpadding="0" class="query_results_table">
-      <tbody>
-      <tr>
-        <td>澜泰超浓缩洗车粉</td>
-        <td><input type="checkbox"></td>
-      </tr>
-      <tr>
-        <td>澜泰超浓缩洗车粉</td>
-        <td><input type="checkbox"></td>
-      </tr>
-      <tr>
-        <td>澜泰超浓缩洗车粉</td>
-        <td><input type="checkbox"></td>
-      </tr>
+      <tbody id="queryResults">
+
       </tbody>
 
     </table>
