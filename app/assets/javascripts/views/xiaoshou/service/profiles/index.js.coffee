@@ -26,6 +26,7 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Backbone.View
     'click div.prices li.submit': 'filterByPrice'
     'click div.item-query.screen li': 'filterByDate'
     'submit #store_service_search': 'searchOnSubmit'
+    'click #newService': 'goToNew'
 
   sortByPrice: (event) ->
     $(event.currentTarget).parent().prev().find("span:first").attr("title", $(event.currentTarget).text())
@@ -87,3 +88,7 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Backbone.View
         options[$(@).attr('data-name')] = $(@).attr('data-filter')
     )
     options
+
+  goToNew: ->
+    view = new Mis.Views.XiaoshouServiceProfilesNew(collection: @collection)
+    $("#bodyContent").html(view.render().el)
