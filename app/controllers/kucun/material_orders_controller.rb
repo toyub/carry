@@ -31,7 +31,7 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
     order.store_supplier_id = store_supplier.id
     order.numero = ApplicationController.helpers.make_numero("MO")
     order.amount = 0.0
-    order.store_material_order_items.each do |item|
+    order.items.each do |item|
       item.store_id = order.store_id
       item.store_chain_id = order.store_chain_id
       item.store_staff_id = order.store_staff_id
@@ -46,13 +46,13 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
 
   def show
     respond_to do |format|
-      order = StoreMaterialOrder.joins(store_material_order_items: [:store_material]).pending.find(params[:id])
+      order = StoreMaterialOrder.joins(items: [:store_material]).pending.find(params[:id])
       format.html { render text: 'html' }
       format.json { render json: order.as_json}
     end
   end
 
   def order_params
-    params.require(:store_material_order).permit(store_material_order_items_attributes:[:store_material_id, :quantity, :price])
+    params.require(:store_material_order).permit(items_attributes:[:store_material_id, :quantity, :price])
   end
 end

@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       resources :pickings
       resources :receipts
     end
-    resources :jits
+    resources :checkins
     resources :returnings
   end
 

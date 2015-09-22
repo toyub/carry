@@ -1,0 +1,18 @@
+<tr>
+  <td class="number"><%= 1 %></td>
+  <td>
+    <div class="text_div">
+      <input type="text" value="澜泰纳米镀晶宾御套餐" readonly>
+    </div>
+  </td>
+  <td>887766555444</td>
+  <td>长皮盒6项目</td>
+  <td>套</td>
+  <td>美容产品</td>
+  <td>镀晶产品</td>
+  <td><input type="text" value="680.00" class="width-130"></td>
+  <td><input type="number" value="8" class="width-50"></td>
+  <td>5,440.00</td>
+  <td><input type="text" value="" class="width-160"></td>
+  <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
+</tr>
