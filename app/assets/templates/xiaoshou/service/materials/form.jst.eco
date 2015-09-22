@@ -15,7 +15,7 @@
 </div>
 <div class="item_content  text-align-left float-left ">
   <label class="width-75">关键字查找</label>
-  <input type="text" name="name" class="width-255">
+  <input type="text" name="materialName" class="width-255">
   <a href="javascript:void(0);" class="query_btn btn">查询</a>
 </div>
 <div class="table_list">

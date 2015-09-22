@@ -28,7 +28,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
 
   searchOnClick: ->
     @renderQueryResults()
-    @$("input[name=name]").val("")
+    $("input[name=materialName]").val("")
 
   renderSubCategory: (event) ->
     rootId = $(event.target).find("option:selected").attr("value")
@@ -57,7 +57,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
     @$("#queryResults").append view.render().el
 
   queryCriterial: (material) =>
-    name = @$("input[name=name]").val()
+    name = $("input[name=materialName]").val()
     return true unless name
     s(material.get("name")).contains(name)
 
