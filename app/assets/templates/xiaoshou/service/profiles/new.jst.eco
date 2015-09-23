@@ -34,11 +34,11 @@
             <input name="retail_price" id="retail_price" type="text" class="width-165">
           </div>
           <div class="item_content">
-            <input type="radio" name="favorable" id="favorable" class="toggleable margin-left-15">
+            <input type="radio" name="favorable" value="false" id="favorable" class="toggleable margin-left-15">
             <label class="width-40">
               优惠价
             </label>
-            <input type="text" class="width-165" name="bargain_price" id="bargain_price">
+            <input type="text" class="width-165" name="bargain_price" disabled id="bargain_price">
           </div>
           <div class="item_content">
             <label class="width-75">服务积分</label>

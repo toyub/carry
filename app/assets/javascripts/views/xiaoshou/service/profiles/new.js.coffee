@@ -12,6 +12,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click #add_server_btn': 'openMaterialForm'
     'click span.as_select': 'listServiceCategories'
     'click #addServiceCategory': 'openCategoryForm'
+    'click input.toggleable': 'toggleFavorable'
 
   render: ->
     @$el.html(@template(service: @model))
@@ -53,3 +54,11 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     model = new Mis.Models.StoreServiceCategory()
     view = new Mis.Views.XiaoshouServiceCategoriesForm(collection: @store.serviceCategories, model: model)
     view.open()
+
+  toggleFavorable: ->
+    if $("#bargain_price").attr('disabled') == 'disabled'
+      $("#bargain_price").attr('disabled', false)
+      $("#favorable").attr("checked", "checked").val(true)
+    else
+      $("#bargain_price").attr('disabled', true)
+      $("#favorable").attr("checked", false).val(false)
