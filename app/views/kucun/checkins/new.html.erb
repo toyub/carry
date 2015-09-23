@@ -34,7 +34,7 @@
           </div>
           <div class="nav-item-query">
             <label>单据时间：</label>
-            <input type="text" class="width-135" value="<% Time.now.to_s(:date_only) %>" readonly>
+            <input type="text" class="width-135" value="<%= Time.now.to_s(:date_only) %>" readonly>
           </div>
           <div class="nav-item-query">
             <label>单据编号：</label>
@@ -119,21 +119,9 @@
             <label class="width-75">备注：</label>
             <textarea class="in_storage_remarks_textarea"></textarea>
           </div>
-          <div class="item_content margin-top-10  margin-left-10">
-            <label class="width-75">本次付款：</label>
-            <input type="text" class="width-253 ">
-          </div>
-          <div class="item_content margin-top-10  margin-left-20">
-            <label class="width-75 ">结算账户：</label>
-            <input type="text" class="width-253 ">
-          </div>
-          <div class="item_content margin-top-10  margin-left-20 ">
-            <label  class="width-75">本次欠款：</label>
-            <input type="text" class="width-253">
-          </div>
           <div class="item_content  margin-left-10 ">
             <label class="width-75">制单人：</label>
-            <label class="width-253"></label>
+            <label class="width-253"><%= current_user.screen_name %></label>
           </div>
         </div>
         <div class="btn_group margin-right-20">
