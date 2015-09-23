@@ -1,0 +1,16 @@
+<div class="FloatContent width640">
+  <div class="fheader">
+    <span>新增服务类别</span>
+    <i class="close-window  lnr-cross lnr"></i>
+  </div>
+  <form class="form_content" id="new_store_service_category" action="<%= @url %>" accept-charset="UTF-8">
+    <div class="form_item">
+      <label for="store_service_category_name">名称</label>
+      <input type="text" name="store_service_category[name]" id="store_service_category_name">
+    </div>
+    <div class="ffooter">
+      <input type="submit" name="commit" value="保存" class="confirm_btn">
+      <input type="button" value="取消" class="cancel_btn">
+    </div>
+  </form>
+</div>

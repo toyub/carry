@@ -52,6 +52,12 @@
             <label class="width-75">服务类别</label>
             <input type="hidden" class="width-165" name="store_service_category_id" id="store_service_category_id">
             <span class="width-157 as_select">请选择</span>
+            <div class="select width-165 margin-left-78" style="display: none;">
+              <ol class="width-165" id="serviceCategoryList">
+
+              </ol>
+              <a class="add_btn width-158" id="addServiceCategory" href="javascript:void(0);">新增</a>
+            </div>
           </div>
           <div class="item_textarea ">
             <label class="width-75">服务介绍</label>
@@ -103,4 +109,7 @@
       </div>
     </div>
   </form>
+</div>
+<div id="FloatWindow" style="display: none;">
+
 </div>
