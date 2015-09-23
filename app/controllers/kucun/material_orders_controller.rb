@@ -21,6 +21,10 @@ class Kucun::MaterialOrdersController < Kucun::ControllerBase
   end
 
   def create
+    if order_params[:items_attributes].blank?
+      redirect_to action: 'new', params: {store_supplier_id: params[:store_supplier_id]}
+      return false
+    end
     @store = current_user.store
     store_supplier = @store.store_suppliers.find(params[:store_supplier_id])
     order = StoreMaterialOrder.new(order_params)

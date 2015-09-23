@@ -17,7 +17,7 @@
   </div>
   <div class="details_content">
       <div class=" common_storage_content margin-bottom-50">
-        <%= form_tag "/kucun/material_orders/" do %>
+        <%= form_tag "/kucun/material_orders/", id: 'nowaus_form' do %>
         <div class="ordergoods_query">
           <div class="nav-item-query">
             <label>供应商：</label>
@@ -81,6 +81,18 @@
       if(typeof(store_material)!=typeof(undefined)){
           new_order_view.loadWith(store_material);
       }
+
+      $("#nowaus_form").on('submit', function(){
+        if(!$('input[name="store_supplier_id"]').val()){
+          ZhanchuangAlert('请选择供应商！');
+          return false;
+        }
+
+        if($("#storage_tab > tbody >tr:not(.handle)").length < 1){
+          ZhanchuangAlert('请选择订货的商品');
+          return false;
+        }
+      });
 
     });
   </script>
