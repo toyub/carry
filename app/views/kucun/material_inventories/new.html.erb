@@ -17,7 +17,7 @@
                   <ol class="width-165">
                     <li data-value="1"><a href="javascript:void(0)">按订单入库</a></li>
                     <li data-value="2"><a href="/kucun/transfer/receipts/new">转移入库</a></li>
-                    <li data-value="3"><a href="/kucun/jits/new">按商品入库</a></li>
+                    <li data-value="3"><a href="/kucun/checkins/new">按商品入库</a></li>
                   </ol>
                 </div>
               </div>
@@ -65,8 +65,8 @@
                         <li><%= order.numero %></li>
                         <li><%= order.store_supplier.name %></li>
                         <li><%= order.amount %></li>
-                        <li class='items' data-items='<%= json_for(order.store_material_order_items) %>'>
-                          <%= order.store_material_order_items.first.store_material.name %>
+                        <li class='items' data-items='<%= json_for(order.items) %>'>
+                          <%= order.items.first.store_material.name %>
                           <i class="fa fa-chevron-down chevrondow chevron float-right"></i>
                         </li>
                         <li><input type="checkbox" data-id='<%= order.id %>' data-supplier='<%= order.store_supplier.name %>' data-order='<%= order.to_json %>' name="sub_check"></li>

@@ -17,11 +17,12 @@
   </div>
   <div class="details_content">
       <div class=" common_storage_content margin-bottom-50">
+        <%= form_tag "/kucun/material_orders/" do %>
         <div class="ordergoods_query">
           <div class="nav-item-query">
             <label>供应商：</label>
-            <input name='material[store_supplier_id]' type="hidden">
-            <span id='store_supplier_id' class="width-150 as_select" data-select='#material_supplier_select' data-target='input[name="material[store_supplier_id]"]'>请选择</span>
+            <input name='store_supplier_id' type="hidden">
+            <span id='store_supplier_id' class="width-150 as_select" data-select='#material_supplier_select' data-target='input[name="store_supplier_id"]'>请选择</span>
             <div id='material_supplier_select' class="select width-165">
               <ol class='width-165'>
                 <% @store.store_suppliers.each do |option| %>
@@ -49,6 +50,7 @@
           <input type="reset" class="cancel_btn" value='取消' >
           <input type="submit" class="save_btn btn" value="保存">
         </div>
+        <% end %>
       </div>
   </div>
 </div>
