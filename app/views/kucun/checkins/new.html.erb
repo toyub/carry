@@ -78,7 +78,7 @@
               <tr class="handle">
                 <td class="number">1</td>
                 <td>
-                  <div class="text_div">
+                  <div class="text_div add_material">
                     <input type="text" placeholder="请选择要入库的商品"  readonly>
                     <span class="bg-color-fff">...</span>
                   </div>
@@ -141,8 +141,6 @@
 
 <% content_for :javascripts do %>
 <script>
-new_order_view = new $$MIS.NewMaterialOrderView({
-      el: $("#content")
-    });
+new_order_view = new $$MIS.NewMaterialOrderView({el: $("#content")});
 </script>
 <% end %>
