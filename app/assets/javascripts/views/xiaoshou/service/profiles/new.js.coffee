@@ -4,6 +4,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     @model.materials.on('add', @addMaterial, @)
     @store.serviceCategories.on('add', @addOneCategory, @)
     Backbone.Validation.bind(@)
+    @model.on('sync', @handleSuccess, @)
 
   template: JST['xiaoshou/service/profiles/new']
 
@@ -13,6 +14,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click span.as_select': 'listServiceCategories'
     'click #addServiceCategory': 'openCategoryForm'
     'click input.toggleable': 'toggleFavorable'
+    'click a.add_img': 'openImageForm'
 
   render: ->
     @$el.html(@template(service: @model))
@@ -62,3 +64,21 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     else
       $("#bargain_price").attr('disabled', true)
       $("#favorable").attr("checked", false).val(false)
+
+  handleSuccess: ->
+    url = @model.url() + '/save_picture'
+    @$('#preview_list > img').each () ->
+      img = @
+      $.ajax(
+        type: 'POST'
+        url: url
+        data:
+          img: img.src
+        dataType: 'json'
+        success: (data) -> console.log data
+      )
+    window.location = Routes.edit_xiaoshou_service_setting_path(@model.get('id'))
+
+  openImageForm: ->
+    view = new Mis.Views.XiaoshouServicePicturesForm()
+    view.open()

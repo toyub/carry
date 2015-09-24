@@ -16,7 +16,7 @@
 <div class="details_content">
   <form action="" id="createService" method="post">
     <div class="base_info">
-      <div class="goods_img">
+      <div class="goods_img" id="imagePreview">
         <div id="material_img_preview" class="goods_main_img"></div>
         <ul id="material_img_thumbnails" class="goods_small_img">
           <li id="preview_list"></li>
@@ -110,6 +110,11 @@
     </div>
   </form>
 </div>
+
+<div id='piccut'>
+
+</div>
+
 <div id="FloatWindow" style="display: none;">
 
 </div>
