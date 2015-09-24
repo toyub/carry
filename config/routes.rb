@@ -64,6 +64,12 @@ Rails.application.routes.draw do
     resources :field_constructions, only: [:index]
   end
 
+  namespace :settings do
+    namespace :settlements do
+      resources :accounts
+    end
+  end
+
   namespace :ajax do
     resources :store_material_categories, only: [] do
       member do

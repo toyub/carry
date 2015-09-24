@@ -1,0 +1,169 @@
+
+<div class="main_top">
+  <h2>结算信息设置</h2>
+  <span class="add_span">+</span>
+</div>
+
+
+<div class="details">
+
+  <div class="details_content account">
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>账户名称</th>
+          <th>开户行</th>
+          <th>帐号</th>
+          <th>摘要</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @store.store_settlement_accounts.each do |account| %>
+        <tr class="done_editing">
+          <td>2</td>
+          <td>
+            <input name="name" type="text" value="私人银行卡">
+            <span><%= account.name %></span>
+          </td>
+          <td>
+            <input name="bank" type="text" value="工商银行文三路支行">
+            <span>工商银行文三路支行</span>
+          </td>
+          <td>
+            <input name="account_number" type="text" value="33087654467990765457">
+            <span>33087654467990765457</span>
+          </td>
+          <td>
+            <input name="descript" type="text" value="对私结算账户">
+            <span>对私结算账户</span>
+          </td>
+          <td>
+            <a href="javascript:void(0);">停用中</a>
+          </td>
+          <td>
+            <input class="btn save_btn" type="button" value="保存">
+            <i class="fa fa-pencil"/>
+          </td>
+        </tr>
+        <% end %>
+        <tr class="done_editing">
+          <td>1</td>
+          <td>
+            <input type="text" name="name" value="银行基本结算账户">
+            <span>银行基本结算账户</span>
+          </td>
+          <td>
+            <input type="text" name="bank" value="工商银行文三路支行">
+            <span>工商银行文三路支行</span>
+          </td>
+          <td>
+            <input type="text" name="account_number" value="33087654467990765457">
+            <span>33087654467990765457</span>
+          </td>
+          <td>
+            <input type="text" name="descript" value="对公结算账户">
+            <span>对公结算账户</span>
+          </td>
+          <td>
+            <a href="#" class="active">使用中</a>
+          </td>
+          <td>
+            <input type="button" class="btn save_btn" value="保存">
+            <i class="fa fa-pencil"></i>
+          </td>
+        </tr>
+
+        <tr class="done_editing">
+          <td>2</td>
+          <td>
+            <input type="text" name="name" value="私人银行卡">
+            <span>私人银行卡</span>
+          </td>
+          <td>
+            <input type="text" name="bank" value="工商银行文三路支行">
+            <span>工商银行文三路支行</span>
+          </td>
+          <td>
+            <input type="text" name="account_number" value="33087654467990765457">
+            <span>33087654467990765457</span>
+          </td>
+          <td>
+            <input type="text" name="descript" value="对私结算账户">
+            <span>对私结算账户</span>
+          </td>
+          <td>
+            <a href="#">停用中</a>
+          </td>
+          <td>
+            <input type="button" class="btn save_btn" value="保存">
+            <i class="fa fa-pencil"></i>
+          </td>
+        </tr>
+
+        <tr class='handle'>
+          <td></td>
+          <td>
+            <input type="text" name="name">
+            <span></span>
+          </td>
+          <td>
+            <input type="text" name="bank">
+            <span></span>
+          </td>
+          <td>
+            <input type="text" name="account_number">
+            <span></span>
+          </td>
+          <td>
+            <input type="text" name="descript">
+            <span></span>
+          </td>
+          <td>
+            <a href="#" class="active">使用中</a>
+          </td>
+          <td>
+            <input type="button" class="btn save_btn" value="保存">
+            <i class="fa fa-pencil"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+
+<template id="new_row">
+  <tr>
+    <td></td>
+    <td>
+      <input type="text" name="name">
+      <span></span>
+    </td>
+    <td>
+      <input type="text" name="bank">
+      <span></span>
+    </td>
+    <td>
+      <input type="text" name="account_number">
+      <span></span>
+    </td>
+    <td>
+      <input type="text" name="descript">
+      <span></span>
+    </td>
+    <td>
+      <a href="#" class="active">使用中</a>
+    </td>
+    <td>
+      <input type="button" class="btn save_btn" value="保存">
+      <i class="fa fa-pencil"></i>
+    </td>
+  </tr>
+</template>
