@@ -28,7 +28,7 @@ class Kucun::MaterialInventoriesController < Kucun::ControllerBase
         order_process += item.process
       end
       order.process = order_process/order.items.length
-      order.save
+      order.save!
     end
     redirect_to action: :new
   end
