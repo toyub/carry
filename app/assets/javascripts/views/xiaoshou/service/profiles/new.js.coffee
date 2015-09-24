@@ -78,7 +78,8 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
         dataType: 'json'
         success: (data) -> console.log data
       )
-    window.location = Routes.edit_xiaoshou_service_setting_path(@model.get('id'))
+    console.log 'redirect to setting'
+    #window.location = Routes.edit_xiaoshou_service_setting_path(@model.get('id'))
 
   openImageForm: ->
     view = new Mis.Views.XiaoshouServicePicturesForm()

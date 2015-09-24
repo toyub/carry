@@ -1,24 +1,23 @@
 module Api
   class StoreServicesController < BaseController
+    before_action :set_service, except: [:create, :index]
+
     def create
       @service = current_store.store_services.create(service_params.merge(store_staff_id: current_staff.id))
       respond_with @service, location: nil
     end
 
     def show
-      @service = current_store.store_services.find(params[:id])
       respond_with @service, location: nil
     end
 
     def update
-      @service = current_store.store_services.find(params[:id])
       @service.store_materials.clear
       @service.update(service_params)
       respond_with @service, location: nil
     end
 
     def save_picture
-      @service = StoreService.find(params[:id])
       @service.uploads.create(img_params)
       respond_with @service, location: nil
     end
@@ -30,6 +29,10 @@ module Api
     end
 
     private
+
+      def set_service
+        @service = current_store.store_services.find(params[:id])
+      end
 
       def service_params_with_attrs
         attrs = service_params
