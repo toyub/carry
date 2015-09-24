@@ -42,7 +42,7 @@
           </div>
           <div class="nav-item-query">
             <label>选择仓库：</label>
-            <select class="width-135" name="checkin[store_depot_id]" required="true">
+            <select class="width-135" name="store_material_order[store_depot_id]" required="true">
               <option value="">请选择仓库</option>
               <% @store.store_depots.each do |opt| %>
                 <option value="<%= opt.id -%>"><%= opt.name %></option>
@@ -78,7 +78,7 @@
               <tr class="handle">
                 <td class="number">1</td>
                 <td>
-                  <div class="text_div">
+                  <div class="text_div add_material">
                     <input type="text" placeholder="请选择要入库的商品"  readonly>
                     <span class="bg-color-fff">...</span>
                   </div>
@@ -104,8 +104,8 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td>8</td>
-                  <td>5,400.00</td>
+                  <td>0</td>
+                  <td>0</td>
                   <td></td>
                   <td></td>
                 </tr>
@@ -117,7 +117,7 @@
         <div class="common_storage_query">
           <div class="item_content margin-left-10 margin-top-10" >
             <label class="width-75">备注：</label>
-            <textarea class="in_storage_remarks_textarea"></textarea>
+            <textarea name='store_material_order[remark]' class="in_storage_remarks_textarea"></textarea>
           </div>
           <div class="item_content  margin-left-10 ">
             <label class="width-75">制单人：</label>
@@ -141,8 +141,6 @@
 
 <% content_for :javascripts do %>
 <script>
-new_order_view = new $$MIS.NewMaterialOrderView({
-      el: $("#content")
-    });
+new_order_view = new $$MIS.NewMaterialOrderView({el: $("#content")});
 </script>
 <% end %>

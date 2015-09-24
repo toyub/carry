@@ -65,13 +65,40 @@
                         <li><%= order.numero %></li>
                         <li><%= order.store_supplier.name %></li>
                         <li><%= order.amount %></li>
-                        <li class='items' data-items='<%= json_for(order.items) %>'>
-                          <%= order.items.first.store_material.name %>
-                          <i class="fa fa-chevron-down chevrondow chevron float-right"></i>
+                        <li>
+                          包含‘<%= order.items.first.store_material.name.to_s.truncate(11) %>’等<%= order.items.length %>类商品。
                         </li>
-                        <li><input type="checkbox" data-id='<%= order.id %>' data-supplier='<%= order.store_supplier.name %>' data-order='<%= order.to_json %>' name="sub_check"></li>
+                        <li>
+                          <input type="checkbox" data-id='<%= order.id %>' data-supplier='<%= order.store_supplier.name %>' data-order='<%= order.to_json %>' data-items='<%= json_for(order.items) %>' name="sub_check">
+                          <i class="fa fa-chevron-down chevrondow chevron float-right detailsbtn"></i>
+                        </li>
                       </ul>
                   </div>
+                  <div class="common_storage_content float-left ordergoods_details" style="display:none;">
+                		<table cellpadding="0" cellspacing="0" class="storage_tab storage_details_tab">
+                			<thead>
+                				<tr class="bg-color-e0e2cf color-282726">
+                					<th>商品</th>
+                					<th>规格</th>
+                					<th>单位</th>
+                					<th>单价</th>
+                					<th>数量</th>
+                				</tr>
+                			</thead>
+                			<tbody>
+                				<% order.items.each do |item| %>
+                				<tr>
+                					<td><%= item.store_material.name %></td>
+                					<td><%= item.store_material.speci %></td>
+                					<td><%= item.store_material.store_material_unit.name %></td>
+                					<td><%= item.price %></td>
+                					<td><%= item.quantity %></td>
+                				</tr>
+                				<% end %>
+                			</tbody>
+                		</table>
+                </div>
+
                  <% end %>
                </div>
               </div>
@@ -157,22 +184,20 @@
 
 <% content_for :javascripts do %>
   <script>
-    Date.parse1 = function(str){return new Date(Date.parse(str));}
-    Date.prototype.cn_date = function(){return this.getFullYear() + '年' + ( this.getMonth() + 1 ) + '月' + this.getDate() + '日'}
-    function calc_total() {
-      var _total_quantity=0,
-          _total_amount = 0;
-      $('#storage_tab > tbody > tr').each(function(){
-        var _input = this.cells[9].children[0];
-        var quantity = parseInt(_input.value);
-        _total_quantity += quantity;
-        _total_amount += (_input.dataset.price*quantity);
-      });
-      $("#total_amount").val(_total_amount.toFixed(2));
-      $("#total_quantity").val(_total_quantity);
-    }
     jQuery(function(){
-      var tm = JST['kucun/material_inventories/new/inventoryitem'];
+      function calc_total() {
+        var _total_quantity=0,
+            _total_amount = 0;
+        $('#storage_tab > tbody > tr').each(function(){
+          var _input = this.cells[9].children[0];
+          var quantity = parseInt(_input.value);
+          _total_quantity += quantity;
+          _total_amount += (_input.dataset.price*quantity);
+        });
+        $("#total_amount").val(_total_amount.toFixed(2));
+        $("#total_quantity").val(_total_quantity);
+      }
+      var tm = JST['kucun/material_inventories/new/chosen'];
       var boxdd = null;
       $('.list').on('change', 'input[type=checkbox]', function(event){
            if(this.checked){
@@ -180,13 +205,14 @@
                boxdd.checked = false;
              }
              boxdd = this;
-             var order = $(this).data('order');
+             var $this = $(this);
+             var order = $this.data('order');
              var html = '';
              $("#order_id").val(order.id);
              $("#total_amount").val(order.amount);
              $("#total_quantity").val(order.quantity);
              $("#order_supplier").val(this.dataset.supplier);
-             var items = $('input:checked').parent().siblings('.items').data('items')
+             var items = $this.data('items');
              items.forEach(function(item){
                html += tm({item: item, store_depots: $('#storage_tab').data('depots')})
             });
@@ -227,34 +253,17 @@
         }
       });
 
-      $('.list_contents').on('click', '.items', function(evt){
-        evt.stopPropagation();
-        $('.list_contents').find('.to_hide').removeClass('to_hide');
-        this.classList.add('to_hide');
-        var b_c_r = this.getBoundingClientRect();
-        var item_width=338;
-        var pop_width=400;
-        var x = JST['kucun/material_inventories/new/orderitems']({items: $(this).data("items")})
-        $("#order_items").html(x).css({
-          top: b_c_r.top + b_c_r.height,
-          left: b_c_r.left - (pop_width-item_width)
-        }).show();
+      $('.list_contents').on('click', 'i.detailsbtn', function(){
+        if(this.classList.contains('fa-chevron-down')){
+          this.classList.remove('fa-chevron-down');
+          this.classList.add('fa-chevron-up');
+        }else{
+          this.classList.remove('fa-chevron-up');
+          this.classList.add('fa-chevron-down');
+        };
+        $(this).parents('.list_content').next().toggle();
       });
-      $('.list_contents').on('click', '.to_hide', function(evt){
-        evt.stopPropagation();
-        this.classList.remove('to_hide');
-        $("#order_items").hide();
-      });
-
-      $("#order_items").on('click', function(evt){
-        evt.stopPropagation();
-      });
-
-      $(document).on('click', function(){
-        $('.list_contents').find('.to_hide').removeClass('to_hide');
-        $("#order_items").hide();
-      });
-
+      
       $("#store_supplier_id").select2();
     });
   </script>

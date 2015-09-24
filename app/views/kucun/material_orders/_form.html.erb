@@ -26,8 +26,8 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>8</td>
-          <td>5,400.00</td>
+          <td>0</td>
+          <td>0</td>
           <td></td>
           <td></td>
         </tr>
@@ -35,8 +35,8 @@
     <tbody>
       <tr class='handle'>
         <td class="number"></td>
-        <td >
-          <div class="text_div">
+        <td>
+          <div class="text_div add_material">
             <input type="text" placeholder="请选择要订货的商品"  readonly>
             <span class="bg-color-fff">...</span>
           </div>
@@ -62,7 +62,7 @@
   </div>
   <div class="item_content margin-top-10  margin-left-10 float-left">
     <label class="width-75">本次付款：</label>
-    <input id='downpayment' name='store_material_order[payments_attributes][][amount]' type="text" class="width-253" />
+    <input id='downpayment' name='store_material_order[payments_attributes][][amount]' type="number" step='any' min=0 class="width-253" />
   </div>
   <div class="item_content margin-top-10 float-left  margin-left-20">
     <label class="width-75 ">结算账户：</label>
@@ -74,7 +74,7 @@
   </div>
   <div class="item_content margin-top-10 margin-left-20">
     <label class="width-75">本次欠款：</label>
-    <input id='debt' type="text" class="width-253" value='5,400.00' readonly>
+    <input id='debt' type="text" class="width-253" value='0' readonly>
   </div>
   <div class="item_content  margin-left-10">
     <label class="width-75">制单人：</label>
