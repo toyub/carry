@@ -15,6 +15,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click #addServiceCategory': 'openCategoryForm'
     'click input.toggleable': 'toggleFavorable'
     'click a.add_img': 'openImageForm'
+    'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template(service: @model))
@@ -82,3 +83,8 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
   openImageForm: ->
     view = new Mis.Views.XiaoshouServicePicturesForm()
     view.open()
+
+  previewImage: (e) ->
+    img = new Image()
+    img.src = e.target.src
+    $("#material_img_preview").html(img)
