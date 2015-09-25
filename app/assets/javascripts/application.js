@@ -34,7 +34,7 @@
 //= require_tree ./routers
 //= require base/close
 //= require extjs/ext-all
-//
+//= require extjs/ext-locale-zh_CN
 //= require xianchang/pre_order
 
 
