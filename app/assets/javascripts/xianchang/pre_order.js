@@ -26,6 +26,7 @@ Ext.onReady(function(){
   var orderGrid = Ext.create('Ext.grid.Panel', {
     store: store,
     columnLines: true,
+    minHeight: 500,
     columns: [
       {xtype: 'rownumberer'},
       {text: "编号", dataIndex: 'id', sortable: true},
