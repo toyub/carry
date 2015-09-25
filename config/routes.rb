@@ -66,7 +66,11 @@ Rails.application.routes.draw do
 
   namespace :settings do
     namespace :settlements do
-      resources :accounts
+      resources :accounts do
+        member do
+          patch :toggle_status
+        end
+      end
     end
   end
 
