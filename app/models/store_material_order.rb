@@ -11,7 +11,7 @@ class StoreMaterialOrder < ActiveRecord::Base
   accepts_nested_attributes_for :items, :payments
 
   scope :pending, ->{where('store_material_orders.process = 0')}
-  scope :suspense, ->{where('0 < store_material_orders.process and store_material_orders.process < 100')}
+  scope :suspense, ->{where('0 <= store_material_orders.process and store_material_orders.process < 100')}
   scope :finished, ->{where('store_material_orders.process = 100')}
 
   def balance

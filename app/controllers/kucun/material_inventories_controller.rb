@@ -4,7 +4,7 @@ class Kucun::MaterialInventoriesController < Kucun::ControllerBase
 
   def new
     @store = current_user.store
-    @store_material_orders = @store.store_material_orders.pending.all
+    @store_material_orders = @store.store_material_orders.suspense.all
   end
 
   def create
