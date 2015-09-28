@@ -92,6 +92,7 @@
       }
       saveForm({account: form}, tr.dataset.id, function(data){
         data.idx = tr.rowIndex;
+        data.active = data.status=='active';
         tr.className = 'done_editing';
         tr.innerHTML = showtmp(data);
       });
@@ -105,8 +106,9 @@
         return false;
       }
       saveForm({account: form}, undefined, function(data){
+        data.active = data.status=='active';
         data.idx = tr.rowIndex;
-        $(tr).before(showtmp2(data))
+        $(tr).before(showtmp2(data));
         account_form.reset();
       });
     });
