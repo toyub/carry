@@ -35,6 +35,7 @@
 //= require base/close
 //= require extjs/ext-all
 //= require extjs/ext-locale-zh_CN
+//= require extjs_app/actioncolumn_patch
 //= require xianchang/pre_order
 
 

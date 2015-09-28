@@ -38,7 +38,17 @@ Ext.onReady(function(){
       {text: "制单", dataIndex: 'store_customer_first_name'},
       {text: "状态", dataIndex: 'store_customer_first_name'},
       {text: "备注", dataIndex: 'store_customer_first_name'},
-      {text: "操作", dataIndex: 'store_customer.first_name'},
+      {
+        text: "操作",
+        xtype: "myactioncolumn",
+        items: [{
+          glyph: "lnr lnr-edit",
+          handler: function(grid, rowIndex, colIndex){
+            console.log(rowIndex);
+          },
+        }]
+
+      }
     ],
     forceFit: true,
     layout: 'fit',
@@ -66,12 +76,12 @@ Ext.onReady(function(){
   });
 
   // update panel body on selection change
-  orderGrid.getSelectionModel().on('selectionchange', function(sm, selectedRecord) {
-    if (selectedRecord.length) {
-      var detailPanel = Ext.getCmp('detailPanel');
-      detailPanel.update(bookTpl.apply(selectedRecord[0].data));
-    }
-  });
+  //orderGrid.getSelectionModel().on('selectionchange', function(sm, selectedRecord) {
+    //if (selectedRecord.length) {
+      //var detailPanel = Ext.getCmp('detailPanel');
+      //detailPanel.update(bookTpl.apply(selectedRecord[0].data));
+    //}
+  //});
 
   store.load();
 });
