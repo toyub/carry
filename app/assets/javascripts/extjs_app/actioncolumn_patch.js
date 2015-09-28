@@ -36,25 +36,23 @@ Ext.define('MyApp.overrides.grid.column.Action', {
       }
 
       if (glyph) {
-        window.mouse = "<i class=" + glyph + "></i>";
-        console.log(glyph);
-          if (typeof glyph === 'string') {
-              glyphParts = glyph.split('@');
-              glyph = glyphParts[0];
-              glyphFontFamily = glyphParts[1];
-          } else {
-              glyphFontFamily = Ext._glyphFontFamily;
-          }
+        if (typeof glyph === 'string') {
+            glyphParts = glyph.split('@');
+            glyph = glyphParts[0];
+            glyphFontFamily = glyphParts[1];
+        } else {
+            glyphFontFamily = Ext._glyphFontFamily;
+        }
 
-          ret += '<i role="button" title="' + (item.altText || me.altText) + '" class="' + glyph + " " + prefix + 'action-col-icon ' + prefix + 'action-col-glyph ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +
-              ' ' + (Ext.isFunction(item.getClass) ? item.getClass.apply(item.scope || scope, arguments) : (item.iconCls || me.iconCls || '')) + '"' +
-              '"' +
-              (tooltip ? ' data-qtip="' + tooltip + '"' : '') + '>' + '</i>';
+        ret += '<i role="button" title="' + (item.altText || me.altText) + '" class="' + glyph + " " + prefix + 'action-col-icon ' + prefix + 'action-col-glyph ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +
+            ' ' + (Ext.isFunction(item.getClass) ? item.getClass.apply(item.scope || scope, arguments) : (item.iconCls || me.iconCls || '')) + '"' +
+            '"' +
+            (tooltip ? ' data-qtip="' + tooltip + '"' : '') + '>' + '</i>';
       } else {
-          ret += '<img role="button" alt="' + (item.altText || me.altText) + '" src="' + (item.icon || Ext.BLANK_IMAGE_URL) +
-              '" class="' + prefix + 'action-col-icon ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +
-              ' ' + (Ext.isFunction(item.getClass) ? item.getClass.apply(item.scope || scope, arguments) : (item.iconCls || me.iconCls || '')) + '"' +
-              (tooltip ? ' data-qtip="' + tooltip + '"' : '') + ' />';
+        ret += '<img role="button" alt="' + (item.altText || me.altText) + '" src="' + (item.icon || Ext.BLANK_IMAGE_URL) +
+            '" class="' + prefix + 'action-col-icon ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +
+            ' ' + (Ext.isFunction(item.getClass) ? item.getClass.apply(item.scope || scope, arguments) : (item.iconCls || me.iconCls || '')) + '"' +
+            (tooltip ? ' data-qtip="' + tooltip + '"' : '') + ' />';
       }
     }
     return ret;

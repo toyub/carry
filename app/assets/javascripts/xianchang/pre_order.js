@@ -1,4 +1,6 @@
 Ext.onReady(function(){
+  if($("#pre-order-main").length <= 0)
+    return;
 
   //Ext.define("StoreCustomer", {
     //extend: "Ext.data.Model",
@@ -28,7 +30,7 @@ Ext.onReady(function(){
     columnLines: true,
     minHeight: 500,
     columns: [
-      {xtype: 'rownumberer'},
+      {text: "序号", xtype: 'rownumberer'},
       {text: "编号", dataIndex: 'id', sortable: true},
       {text: "预约人", dataIndex: 'fullname'},
       {text: "车牌", dataIndex: 'store_customer_first_name'},
@@ -43,11 +45,17 @@ Ext.onReady(function(){
         xtype: "myactioncolumn",
         items: [{
           glyph: "lnr lnr-edit",
-          handler: function(grid, rowIndex, colIndex){
-            console.log(rowIndex);
-          },
+          handler: function(grid, rowIndex, colIndex){}
+        },{
+          glyph: "lnr lnr-pencil",
+          handler: function(grid, rowIndex, colIndex){}
+        },{
+          glyph: "lnr lnr-file-empty",
+          handler: function(grid, rowIndex, colIndex){}
+        },{
+          glyph: "lnr lnr-trash",
+          handler: function(grid, rowIndex, colIndex){}
         }]
-
       }
     ],
     forceFit: true,
@@ -72,12 +80,15 @@ Ext.onReady(function(){
     title: '订单列表',
     width: "100%",
     layout: 'fit',
-    items: [orderGrid]
+    items: [
+      //topBannerPanel,
+      orderGrid
+    ]
   });
 
   // update panel body on selection change
   //orderGrid.getSelectionModel().on('selectionchange', function(sm, selectedRecord) {
-    //if (selectedRecord.length) {
+
       //var detailPanel = Ext.getCmp('detailPanel');
       //detailPanel.update(bookTpl.apply(selectedRecord[0].data));
     //}
