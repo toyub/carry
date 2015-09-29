@@ -172,84 +172,6 @@
     <% end %>
   </div>
 </div>
-
-
-<% content_for :scenes do %>
-  <div id="FloatWindow">
-    <div class="FloatContent" style="width:600px">
-      <div class="fheader"><span>系统提示</span><i title='取消' type='button' class="lnr lnr-cross close_window do_close" data-action=0></i></div>
-      <span><nbsp1></nbsp1>以下商品入库数量与订单数量不一致，请处理</span>
-      <div class="textbody float-left">
-        <table>
-          <thead>
-            <tr>
-              <th>商品名称</th><th>条码</th><th>一级分类</th><th>二级分类</th><th>订货数量</th><th>入库数量</th><th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                老师地方
-              </td>
-              <td>
-                sdfajsd
-              </td>
-              <td>
-                ssdaf
-              </td>
-              <td>
-                fsafsdf
-              </td>
-              <td>
-                3
-              </td>
-              <td>
-                5
-              </td>
-              <td>
-                <input type="button" value="按订单数" title="系统将按照订单上的数量进行入库">
-                <input type="button" value="按实入数" title="系统将修改订单数量并按照新的数量入库">
-                <input type="button" value="挂起" title="系统将先入一部分，并挂起订单以便后续处理">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="ffooter">
-        <input type="button" value="好了"  class="confirm_btn">
-        <input type="button" value="取消" class="cancel_btn">
-      </div>
-    </div>
-  </div>
-
-  <template id="lt_confirm">
-    <header class="bg-color-311951"></header>
-    <div class="fheader"><span>系统提示</span><i title='取消' type='button' class="lnr lnr-cross close_window do_close" data-action=0></i></div>
-    <div class="textbody float-left">
-      <div class="float-left width-50 text-align-center"><i class="lnr lnr-info font-34"></i></div>
-      <div class="float-left font-14 " style="width:380px; line-height:30px;">商品 「商品1」 「商品2」 「商品3」入库数量小于订货数量，请选择处理方式</div>
-    </div>
-    <div class="ffooter">
-      <input title='选择此处理方式按输入的入库数量录入，并将订单上的订货数量修改。' data-action=1 type="button" value="按实际入并修改订单数量"  class="confirm_btn">
-      <input title='选择此处理方式会入库一部分，将剩余部分挂起以便后续处理。' data-action=2 type="button" value="按实际入并挂起订单"  class="confirm_btn">
-      <input type="button" value="取消" class="cancel_btn" data-action=0>
-    </div>
-  </template>
-
-  <template id="gt_confirm">
-    <header class="bg-color-311951"></header>
-    <div class="fheader"><span>系统提示</span><i title='取消' type='button' class="lnr lnr-cross close_window do_close" data-action=0></i></div>
-    <div class="textbody float-left">
-      <div class="float-left width-50 text-align-center"><i class="lnr lnr-info font-34"></i></div>
-      <div class="float-left font-14 " style="width:380px; line-height:30px;">商品「商品1」「商品2」「商品3」入库数量大于订货数量，是否更改订货数量为实入数量？ </div>
-    </div>
-    <div class="ffooter">
-      <input data-action=1 type="button" value="确定"  class="confirm_btn">
-      <input type="button" value="取消" class="cancel_btn" data-action=0>
-    </div>
-  </template>
-<% end %>
-
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
@@ -292,44 +214,21 @@
       });
 
       $('#storage_tab').on('click', 'i.lnr-trash', function(event){
-        confirm("请问删除操作？ 1 不入库此商品，并从订单删除  2 本次不入库，挂起下次入库");
-        var tr = $(this).closest('tr');
-        var id=tr[0].dataset.id;
-        var order_id = $("#order_id").val();
-        tr.remove();
-        calc_total();
-        if($('#storage_tab > tbody').children().length < 1){
-          $('input[data-id="'+order_id+'"]').removeAttr('checked');
+        if(confirm("确定现在不入库此商品（可在下次进行入库操作）？")){
+          var tr = $(this).closest('tr');
+          var id=tr[0].dataset.id;
+          var order_id = $("#order_id").val();
+          tr.remove();
+          calc_total();
+          if($('#storage_tab > tbody').children().length < 1){
+            $('input[data-id="'+order_id+'"]').removeAttr('checked');
+          }
         }
-      });
-
-      $('#storage_tab').on('dblclick', 'input.quantity', function(){
-        this.readOnly=false;
-      });
-
-      $('#storage_tab').on('input', 'input.quantity', function(){
-        var tr = $(this).closest('tr');
-        var amount = (this.value * this.dataset.price).toFixed(4)
-        tr.find('.amount').html(amount);
-        calc_total();
       });
 
       $("#inventory_form").on('submit', function(){
         if($("#storage_tab > tbody > tr").length < 1){
           ZhanchuangAlert('未选择任何商品进行入库！');
-          return false;
-        }
-        var gts = [], lts=[];
-        $("input[name$='[received_quantity]'").each(function(idx, input){
-          if(input.value > input.dataset.quantity){
-            gts.push(input);
-          }
-          if(input.value < input.dataset.quantity){
-            lts.push(input);
-          }
-        });
-
-        if(gts.length > 0 || lts.length > 0){
           return false;
         }
       });
