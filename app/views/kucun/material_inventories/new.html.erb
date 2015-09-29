@@ -65,7 +65,7 @@
                     包含‘<%= order.items.first.store_material.name.to_s.truncate(11) %>’等<%= order.items.length %>类商品。
                   </li>
                   <li>
-                    <input type="checkbox" data-id='<%= order.id %>' data-supplier='<%= order.store_supplier.name %>' data-order='<%= order.to_json %>' data-items='<%= json_for(order.items) %>' name="sub_check">
+                    <input type="checkbox" data-id='<%= order.id %>' data-supplier='<%= order.store_supplier.name %>' data-order='<%= order.to_json %>' data-items='<%= json_for(order.items.suspense) %>' name="sub_check">
                     <i class="fa fa-chevron-down chevrondow chevron float-right detailsbtn"></i>
                   </li>
                 </ul>
@@ -79,6 +79,7 @@
           					<th>单位</th>
           					<th>单价</th>
           					<th>数量</th>
+                    <th>状态</th>
           				</tr>
           			</thead>
           			<tbody>
@@ -89,6 +90,13 @@
           					<td><%= item.store_material.store_material_unit.name %></td>
           					<td><%= item.price %></td>
           					<td><%= item.quantity %></td>
+                    <td>
+                      <% if item.process == 100 %>
+                      已入库
+                      <% else %>
+                      未入库
+                      <% end %>
+                    </td>
           				</tr>
           				<% end %>
           			</tbody>
@@ -158,7 +166,7 @@
       <div class="common_storage_account">
         <div class="item_content margin-left-10" >
           <label class="width-75">备注：</label>
-          <textarea class="remarks_textarea"></textarea>
+          <textarea name='remark' class="remarks_textarea"></textarea>
         </div>
         <div class="item_content  margin-left-10">
           <label class="width-75">制单人：</label>

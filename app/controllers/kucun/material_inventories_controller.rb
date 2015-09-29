@@ -9,12 +9,9 @@ class Kucun::MaterialInventoriesController < Kucun::ControllerBase
 
   def create
     store = current_user.store
-    order = store.store_material_orders.find(params[:order_id])
-    order_process = 0
-    excess_order = nil
-
+    order = store.store_material_orders.suspense.find(params[:order_id])
     ActiveRecord::Base.transaction do
-      smr = StoreMaterialReceipt.create(store_staff_id: current_user.id)
+      smr = StoreMaterialReceipt.create(store_staff_id: current_user.id, remark: params[:remark])
       order.items.where(id: params[:items].keys).each do |item|
         item_params = params[:items][item.id.to_s]
         if item.quantity == item_params[:received_quantity].to_f
@@ -25,9 +22,8 @@ class Kucun::MaterialInventoriesController < Kucun::ControllerBase
           item.partially_receive(item_params[:received_quantity].to_f)
         end
         item.put_in_depot!(item_params[:store_depot_id], smr.id)
-        order_process += item.process
       end
-      order.process = order_process/order.items.length
+      order.process = order.items.sum(:process)/order.items.length
       order.save!
     end
     redirect_to action: :new
