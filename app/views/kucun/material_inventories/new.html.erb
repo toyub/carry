@@ -173,9 +173,87 @@
   </div>
 </div>
 
+
+<% content_for :scenes do %>
+  <div id="FloatWindow">
+    <div class="FloatContent" style="width:600px">
+      <div class="fheader"><span>系统提示</span><i title='取消' type='button' class="lnr lnr-cross close_window do_close" data-action=0></i></div>
+      <span><nbsp1></nbsp1>以下商品入库数量与订单数量不一致，请处理</span>
+      <div class="textbody float-left">
+        <table>
+          <thead>
+            <tr>
+              <th>商品名称</th><th>条码</th><th>一级分类</th><th>二级分类</th><th>订货数量</th><th>入库数量</th><th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                老师地方
+              </td>
+              <td>
+                sdfajsd
+              </td>
+              <td>
+                ssdaf
+              </td>
+              <td>
+                fsafsdf
+              </td>
+              <td>
+                3
+              </td>
+              <td>
+                5
+              </td>
+              <td>
+                <input type="button" value="按订单数" title="系统将按照订单上的数量进行入库">
+                <input type="button" value="按实入数" title="系统将修改订单数量并按照新的数量入库">
+                <input type="button" value="挂起" title="系统将先入一部分，并挂起订单以便后续处理">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ffooter">
+        <input type="button" value="好了"  class="confirm_btn">
+        <input type="button" value="取消" class="cancel_btn">
+      </div>
+    </div>
+  </div>
+
+  <template id="lt_confirm">
+    <header class="bg-color-311951"></header>
+    <div class="fheader"><span>系统提示</span><i title='取消' type='button' class="lnr lnr-cross close_window do_close" data-action=0></i></div>
+    <div class="textbody float-left">
+      <div class="float-left width-50 text-align-center"><i class="lnr lnr-info font-34"></i></div>
+      <div class="float-left font-14 " style="width:380px; line-height:30px;">商品 「商品1」 「商品2」 「商品3」入库数量小于订货数量，请选择处理方式</div>
+    </div>
+    <div class="ffooter">
+      <input title='选择此处理方式按输入的入库数量录入，并将订单上的订货数量修改。' data-action=1 type="button" value="按实际入并修改订单数量"  class="confirm_btn">
+      <input title='选择此处理方式会入库一部分，将剩余部分挂起以便后续处理。' data-action=2 type="button" value="按实际入并挂起订单"  class="confirm_btn">
+      <input type="button" value="取消" class="cancel_btn" data-action=0>
+    </div>
+  </template>
+
+  <template id="gt_confirm">
+    <header class="bg-color-311951"></header>
+    <div class="fheader"><span>系统提示</span><i title='取消' type='button' class="lnr lnr-cross close_window do_close" data-action=0></i></div>
+    <div class="textbody float-left">
+      <div class="float-left width-50 text-align-center"><i class="lnr lnr-info font-34"></i></div>
+      <div class="float-left font-14 " style="width:380px; line-height:30px;">商品「商品1」「商品2」「商品3」入库数量大于订货数量，是否更改订货数量为实入数量？ </div>
+    </div>
+    <div class="ffooter">
+      <input data-action=1 type="button" value="确定"  class="confirm_btn">
+      <input type="button" value="取消" class="cancel_btn" data-action=0>
+    </div>
+  </template>
+<% end %>
+
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
+
       function calc_total() {
         var _total_quantity=0,
             _total_amount = 0;
@@ -250,14 +328,6 @@
             lts.push(input);
           }
         });
-
-        if(gts.length > 0){
-          confirm("入库数量大于订货数量，是否更改订货数量为实入数量？ ");
-        }
-
-        if(lts.length > 0){
-          confirm("入库数量小于订货数量，请问如何处理， 1 按实际入库，并将订货数量改变； 2 按实际入库并挂起订单后续处理； 3 取消")
-        }
 
         if(gts.length > 0 || lts.length > 0){
           return false;
