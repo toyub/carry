@@ -5,6 +5,7 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
   events:
     'click #preview_list img': 'previewImage'
     'click #serviceEdit': 'gotoEdit'
+    'click #createSettingStub': 'goToSettingNew'
 
   initialize: ->
     @model.on('sync', @renderMaterials, @)
@@ -31,3 +32,9 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'show')
     @$(".materialList").append view.render().el
+
+  goToSettingNew: ->
+    model = new Mis.Models.StoreServiceSetting(store_service: @model)
+    view = new Mis.Views.XiaoshouServiceSettingsNew(model: model)
+    $("#bodyContent").html(view.render().el)
+

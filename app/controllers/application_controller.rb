@@ -28,4 +28,24 @@ class ApplicationController < ActionController::Base
   def signed_in?
     current_user.present?
   end
+
+  ## add store_attrs to params
+  def append_store_attrs options
+    nested_attrs = options.select(&nested_selector).transform_values(&nested_transformer)
+    options.merge(store_options).merge(nested_attrs)
+  end
+
+  private
+
+    def store_options
+      {store_staff_id: current_staff.id, store_id: current_store.id}
+    end
+
+    def nested_transformer
+      -> (v) { v.map { |x| x.merge(store_options) } }
+    end
+
+    def nested_selector
+      -> (k, v) { k.end_with?('_attributes') }
+    end
 end

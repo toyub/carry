@@ -1,5 +1,5 @@
 class StoreServiceSerializer < ActiveModel::Serializer
-  attributes :id, :name, :engineer_levels, :workstations, :commissions, :point, :category, :retail_price, :bargain_price, :unit, :code, :introduction, :remark
+  attributes :id, :name, :engineer_levels, :workstations, :point, :category, :retail_price, :bargain_price, :unit, :code, :introduction, :remark
 
   has_many :store_service_workflows, root: :store_service_workflows_attributes
   has_many :uploads, serializer: UploadSerializer
@@ -13,9 +13,9 @@ class StoreServiceSerializer < ActiveModel::Serializer
     StoreWorkstation.all
   end
 
-  def commissions
-    object.store.store_commission_templates
-  end
+  #def commissions
+    #object.store.store_commission_templates
+  #end
 
   def category
     object.store_service_category.name

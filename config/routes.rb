@@ -80,6 +80,8 @@ Rails.application.routes.draw do
       member do
         post :save_picture
       end
+
+      resource :store_service_settings, only: [:show, :create, :update]
     end
   end
 

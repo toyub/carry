@@ -67,6 +67,15 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
       $("#favorable").attr("checked", false).val(false)
 
   handleSuccess: ->
+    @uploadImages()
+    @goToSettingNew()
+
+  goToSettingNew: ->
+    model = new Mis.Models.StoreServiceSetting(store_service: @model)
+    view = new Mis.Views.XiaoshouServiceSettingsNew(model: model)
+    $("#bodyContent").html(view.render().el)
+
+  uploadImages: ->
     url = @model.url() + '/save_picture'
     @$('#preview_list > img').each () ->
       img = @
@@ -78,8 +87,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
         dataType: 'json'
         success: (data) -> console.log data
       )
-    console.log 'redirect to setting'
-    #window.location = Routes.edit_xiaoshou_service_setting_path(@model.get('id'))
 
   openImageForm: ->
     view = new Mis.Views.XiaoshouServicePicturesForm()

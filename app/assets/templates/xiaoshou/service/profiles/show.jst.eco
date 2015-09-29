@@ -9,7 +9,7 @@
 <div class="details_nav_second">
   <ul class="goods_nav">
     <li><a href="#" class="width-90">▲上一次服务</a></li>
-    <li><a href="#" class="width-90">▼下一次服务</a></li>
+    <li><a href="javascript:void(0);" id="createSettingStub" class="width-90">▼下一次服务</a></li>
     <li><a href="<%= Routes.xiaoshou_service_profiles_path() %>" class="width-90">返回列表</a></li>
   </ul>
 </div>

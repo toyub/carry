@@ -8,6 +8,7 @@ class StoreService < ActiveRecord::Base
   has_many :store_order_items, as: :orderable
   has_many :store_service_workflows, dependent: :delete_all
   has_many :uploads, class_name: '::Upload::StoreService', as: :fileable
+  has_one :setting, class_name: 'StoreServiceSetting', dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true

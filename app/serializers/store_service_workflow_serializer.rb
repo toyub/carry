@@ -1,5 +1,20 @@
 class StoreServiceWorkflowSerializer < ActiveModel::Serializer
-  attributes :id, :name, :engineer_count_enable, :engineer_count, :engineer_level_enable, :engineer_level, :standard_time, :standard_time_enable, :buffering_time_enable, :buffering_time, :factor_time, :nominated_workstation, :engineer_commission_template_id, :workstations
+  FIELDS = [:id,
+            :name,
+            :engineer_count_enable,
+            :engineer_count,
+            :engineer_level_enable,
+            :engineer_level,
+            :standard_time,
+            :standard_time_enable,
+            :buffering_time_enable,
+            :buffering_time,
+            :factor_time,
+            :nominated_workstation,
+            :engineer_commission_template_id,
+            :workstations]
+
+  attributes *FIELDS
 
   def engineer_levels
     StoreServiceWorkflow::ENGINEER_LEVEL.keys
