@@ -1,0 +1,134 @@
+<div class="main_top">
+  <h2>报损记录</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="top_content">
+    <div class=" list_table">
+      <div class="search_nav">
+        <div class="item-query">
+          <label>时间</label>
+          <select type="text" class="width-140">
+            <option></option>
+            <option></option>
+          </select>
+        </div>
+        <div class="item-query">
+          <label>操作人</label>
+          <select type="text" class="width-140">
+            <option></option>
+            <option></option>
+          </select>
+        </div>
+        <div class="item-query">
+          <label>商品名称</label>
+          <input type="text" class="width-140" placeholder="输入产品关键字">
+        </div>
+        <div class="item-query">
+          <a href="#" class="query_btn btn">查<nbsp1></nbsp1>询</a>
+        </div>
+        <div class="query_div">
+          <a href="/kucun/shrinkages/new" class="returnstorage_btn btn">报损</a>
+          <a href="javascript:void(0);" class="notes_btn">记录</a>
+        </div>
+      </div>
+      <div class=" loss_report_list">
+        <div class="list">
+          <div class="list_top list_tr">
+            <ul>
+              <li>#</li>
+              <li>报损时间</li>
+              <li>报损单号</li>
+              <li>明细</li>
+              <li>商品类别</li>
+              <li>金额</li>
+              <li>备注</li>
+              <li>操作</li>
+            </ul>
+          </div>
+          <div class="list_contents">
+            <div class="list_content list_tr">
+              <ul>
+                <li>1</li>
+                <li>2014-12-09</li>
+                <li>887766555444</li>
+                <li>澜泰纳米镀金套装</li>
+                <li>美容类</li>
+                <li>5,440.00</li>
+                <li>产品超过保质期，无法凝结</li>
+                <li>
+                  <i class="fa fa-chevron-down cursor-pointer click_btn detailsbtn"></i>
+                </li>
+              </ul>
+            </div>
+
+
+
+
+            <div class="loss_report_content margin-bottom-50 common_storage_content float-left">
+              <div class="loss_report_query">
+                <div class="nav-item-query">
+                  <div class="font-20 font-borderradius text-align-center">损</div>
+                </div>
+                <div class="nav-item-query">
+                  <label>单号：</label>
+                  <input type="text" class="width-150">
+                </div>
+                <div class="nav-item-query">
+                  <label>时间：</label>
+                  <input type="text" class="width-150">
+                </div>
+                <div class="nav-item-query">
+                  <label>操作人：</label>
+                  <input type="text" class="width-150">
+                </div>
+
+                <div class="loss_report_print ">
+                  <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
+                </div>
+              </div>
+              <div class="loss_report_tab common_storage_tab">
+                <table cellpadding="0" cellspacing="0" class="storage_tab">
+                  <thead>
+                    <tr class="bg-color-e39e66">
+                      <th>#</th>
+                      <th>产品名称</th>
+                      <th>条码</th>
+                      <th>规格</th>
+                      <th>单位</th>
+                      <th>一级分类</th>
+                      <th>二级分类</th>
+                      <th>单价</th>
+                      <th>库存数</th>
+                      <th>报损数</th>
+                      <th>备注</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 5.times do |idx| %>
+                    <tr>
+                      <td><%= idx + 1 %></td>
+                      <td>澜泰宾御纳米镀晶套装</td>
+                      <td>887766555444</td>
+                      <td>长皮盒6项目</td>
+                      <td>套</td>
+                      <td>美容产品</td>
+                      <td>镀晶产品</td>
+                      <td>680.00</td>
+                      <td>8</td>
+                      <td>1</td>
+                      <td>sdfsdafdsa</td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -46,7 +46,8 @@ Rails.application.routes.draw do
     end
     resources :checkins
     resources :returnings
-  end
+    resources :shrinkages
+  end# END of namespace :kucun
 
   namespace :xiaoshou do
     namespace :service do

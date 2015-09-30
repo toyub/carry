@@ -1,0 +1,127 @@
+<div class="main_top">
+  <h2>报损</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+    <div class="list_table">
+      <%= render partial: 'kucun/partials/inventory_search' %>
+      <div class="loss_report">
+        <table cellpadding="0" cellspacing="0" class="index_list damaged_list">
+          <thead>
+            <tr>
+              <th>全选</th>
+              <th>商品名称</th>
+              <th>商品条形码</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>成本价</th>
+              <th>库存数</th>
+              <th>备注</th>
+              <th><input type="checkbox"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% 5.times do |idx| %>
+            <tr>
+              <td class="number"><%= idx+1 %></td>
+              <td>米其林轮胎</td>
+              <td>3080309075990</td>
+              <td>汽车配件</td>
+              <td>轮胎</td>
+              <td>185/60/14XM291V</td>
+              <td>条</td>
+              <td>530.00</td>
+              <td>8</td>
+              <td></td>
+              <td><input type="checkbox" name="sub_check"  ></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="loss_report_content margin-bottom-50 common_storage_content float-left">
+      <div class="loss_report_query">
+        <div class="nav-item-query">
+          <div class="font-20 font-borderradius text-align-center">损</div>
+        </div>
+        <div class="nav-item-query">
+          <label>单号：</label>
+          <input type="text" class="width-150" readonly>
+        </div>
+        <div class="nav-item-query">
+          <label>时间：</label>
+          <input type="text" class="width-150" readonly>
+        </div>
+        <div class="nav-item-query">
+          <label>操作人：</label>
+          <input type="text" class="width-150" readonly>
+        </div>
+        <div class="loss_report_print ">
+          <a href="#" class="print_btn btn">打&nbsp;&nbsp;&nbsp;印</a>
+        </div>
+      </div>
+      <div class="loss_report_tab common_storage_tab">
+        <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order storage_tab">
+          <thead>
+            <tr class=" bg-color-e39e66">
+              <th>#</th>
+              <th>产品名称</th>
+              <th>条码</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>单价</th>
+              <th>仓库</th>
+              <th>库存数</th>
+              <th>报损数</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% 5.times do %>
+            <tr>
+              <td class="number">1</td>
+              <td>澜泰宾御纳米镀晶套装</td>
+              <td>887766555444</td>
+              <td>长皮盒6项目</td>
+              <td>套</td>
+              <td>美容产品</td>
+              <td>镀晶产品</td>
+              <td>680.00</td>
+              <td>主</td>
+              <td>8</td>
+              <td><input type="text" class="width-70 td_input text-align-center" value="1"></td>
+              <td></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="common_storage_account">
+          <div class="item_content margin-left-10" >
+            <label class="width-75 vertical-align-top">备注：</label>
+            <textarea class="remarks_textarea"></textarea>
+          </div>
+          <div class="item_content  margin-left-10">
+            <label class="width-75">制单人：</label>
+            <label class="width-253"></label>
+          </div>
+        </div>
+      </div>
+      <div class="btn_group margin-right-20">
+        <a class="save_btn btn" href="#" >保存</a>
+      </div>
+    </div>
+</div>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+
+  });
+</script>
+<% end %>
