@@ -228,17 +228,7 @@
      choice_tmpl = JST['kucun/returnings/new/choice'];
      chosen_tmpl = JST['kucun/returnings/new/chosen'];
      materials = [];
-     $("#root_category").on('change', function(){
-       var id = this.value;
-       $('#sub_category').html('')
-       $.get(`/ajax/store_material_categories/${id}/sub_categories.json`, function(data){
-          $('#sub_category').html('<option value="">所有类别</option>');
-          $('#sub_category').append(data.map(function(category){
-            return `<option value=${category.id}>${category.name}</option>`;
-          }).join(''));
-       });
-     });
-
+     
      $('.query_btn').on('click', function(){
         var keyword = $('#keyword').val().trim();
         var depot_id =  $('#depot_id').val();
