@@ -1,3 +1,6 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun' %>
+<% end %>
 <div class="main_top">
   <h2>退货</h2>
   <span class="second_title">在导航栏中输入需要退货的商品名进行查找，也可以进行筛选进行精确查找，在结果表格中选择需要退货的商品进行退货单的操作</span>
@@ -230,28 +233,10 @@
      materials = [];
      
      $('.query_btn').on('click', function(){
-        var keyword = $('#keyword').val().trim();
-        var depot_id =  $('#depot_id').val();
-        var root_category = $("#root_category").val();
-        var category = $('#sub_category').val();
-        var query_data = {
-          name: keyword,
-          depot_id:depot_id,
-          root_category_id: root_category,
-          category_id: category
-        };
-        $.get('/ajax/store_materials/inventories.json',query_data, function(data){
-          $('#choices').html('');
-          var html = data.map(function(inventory, idx, collection, undef){
-            inventory.store_material.quantity = inventory.quantity;
-            inventory.store_material.depot_name = inventory.depot_name;
-            inventory.store_material.depot_id = inventory.store_depot_id;
-            inventory.store_material.inventory_id = inventory.id;
-            inventory.store_material.idx = idx+1;
-            return choice_tmpl(inventory.store_material);
-          }).join('');
+        $('#choices').html('');
+        InventorySearch.search(InventorySearch.query_data(), choice_tmpl, function(html, data){
           $('#choices').html(html);
-          materials = data.slice();
+          materials = data.slice();  
         });
      });
 

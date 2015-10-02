@@ -124,25 +124,8 @@
      materials = [];
 
      $('.query_btn').on('click', function(){
-        var keyword = $('#keyword').val().trim();
-        var depot_id =  $('#depot_id').val();
-        var root_category = $("#root_category").val();
-        var category = $('#sub_category').val();
-        var query_data = {
-          name: keyword,
-          depot_id:depot_id,
-          root_category_id: root_category,
-          category_id: category
-        };
-        $.get('/ajax/store_materials/inventories.json',query_data, function(data){
-          $('#choices').html('');
-          var html = data.map(function(inventory){
-            inventory.store_material.quantity = inventory.quantity;
-            inventory.store_material.depot_name = inventory.depot_name;
-            inventory.store_material.inventory_id = inventory.id;
-            inventory.store_material.depot_id = inventory.store_depot_id;
-            return choice_tmpl(inventory.store_material);
-          }).join('');
+        $('#choices').html('');
+        InventorySearch.search(InventorySearch.query_data(), choice_tmpl, function(html, data){
           $('#choices').html(html);
           materials = data.slice();
         });
