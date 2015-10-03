@@ -1,0 +1,14 @@
+<tr>
+  <td class="number"><%= @idx %></td>
+  <td>澜泰宾御纳米镀晶套装</td>
+  <td>887766555444</td>
+  <td>长皮盒6项目</td>
+  <td>套</td>
+  <td>美容产品</td>
+  <td>镀晶产品</td>
+  <td>680.00</td>
+  <td>主</td>
+  <td><input required name="returning[items_attributes][][quantity]" type="number" class="width-60 text-align-center" data-price='<%= @cost_price %>' min=1 max=<%= @quantity %> value="1"></td>
+  <td><input type="text" class="width-70 td_input text-align-center" value="1"></td>
+  <td></td>
+</tr>

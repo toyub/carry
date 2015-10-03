@@ -25,22 +25,7 @@
               <th><input type="checkbox"></th>
             </tr>
           </thead>
-          <tbody>
-            <% 5.times do |idx| %>
-            <tr>
-              <td class="number"><%= idx+1 %></td>
-              <td>米其林轮胎</td>
-              <td>3080309075990</td>
-              <td>汽车配件</td>
-              <td>轮胎</td>
-              <td>185/60/14XM291V</td>
-              <td>条</td>
-              <td>530.00</td>
-              <td>8</td>
-              <td></td>
-              <td><input type="checkbox" name="sub_check"  ></td>
-            </tr>
-            <% end %>
+          <tbody id='choices'>
           </tbody>
         </table>
       </div>
@@ -85,24 +70,7 @@
               <th>备注</th>
             </tr>
           </thead>
-          <tbody>
-            <% 5.times do %>
-            <tr>
-              <td class="number">1</td>
-              <td>澜泰宾御纳米镀晶套装</td>
-              <td>887766555444</td>
-              <td>长皮盒6项目</td>
-              <td>套</td>
-              <td>美容产品</td>
-              <td>镀晶产品</td>
-              <td>680.00</td>
-              <td>主</td>
-              <td>8</td>
-              <td><input type="text" class="width-70 td_input text-align-center" value="1"></td>
-              <td></td>
-            </tr>
-            <% end %>
-          </tbody>
+          <tbody></tbody>
         </table>
         <div class="common_storage_account">
           <div class="item_content margin-left-10" >
@@ -124,6 +92,47 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
+     choice_tmpl = JST['kucun/shrinkages/new/choice'];
+     chosen_tmpl = JST['kucun/shrinkages/new/chosen'];
+
+     materials = [];
+     $('.query_btn').on('click', function(){
+        $('#choices').html('');
+        InventorySearch.search(InventorySearch.query_data(), choice_tmpl, function(html, data){
+          $('#choices').html(html);
+          materials = data.slice();  
+        });
+     });
+
+     function calc_total(){
+        var total_quantity = 0,
+            total_amount = 0;
+        $('[name$="[quantity]"]').each(function(){
+          total_quantity += parseInt(this.value);
+          total_amount += (this.value * this.dataset.price);
+        });
+        $('#total_quantity').val(total_quantity);
+        $('#total_amount').val(total_amount.toFixed(2));
+     }
+
+     function list_seq(argument) {
+       $('#storage_tab > tbody').children().each(function(idx, el, undef){
+         el.firstElementChild.innerText=(idx+1);
+       });
+     }
+
+     $('#choices').on('change', 'input:checkbox', function(){
+        if(this.checked){
+          material_id = this.dataset.id;
+          material = materials.filter(function(m){return m.store_material.id == material_id})[0];
+          $('#storage_tab > tbody').append(chosen_tmpl(material.store_material));
+        }else{
+          material_id = this.dataset.id;
+          $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
+        }
+        calc_total();
+        list_seq();
+     });
 
   });
 </script>
