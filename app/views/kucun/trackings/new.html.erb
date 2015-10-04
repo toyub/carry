@@ -220,17 +220,6 @@
   </div>
 </template>
 
-<template id='section_tmpl'>
-  <div class="list_content list_tr" data-id="list_content_{%= this.cid %}">
-    <ul class="list_tr_hover">
-      <li >{%= this.cid %}.</li>
-      <li ><label class="click_btn cursor" data-cid="{%= this.cid %}">{%= this.content() %}</label></li>
-      <li >{%= this.delay() %}</li>
-      <li >微信<span  class="delete close"  data-target="list_content_{%= this.cid %}">×</span></li>
-    </ul>
-  </div>
-</template>
-
 <% end %>
 
 <% content_for :javascripts do %>
