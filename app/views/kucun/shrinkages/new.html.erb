@@ -33,26 +33,24 @@
 
     <div class="loss_report_content margin-bottom-50 common_storage_content float-left">
       <div class="loss_report_query">
-        <div class="nav-item-query">
-          <div class="font-20 font-borderradius text-align-center">损</div>
-        </div>
-        <div class="nav-item-query">
-          <label>单号：</label>
-          <input type="text" class="width-150" readonly>
-        </div>
-        <div class="nav-item-query">
-          <label>时间：</label>
-          <input type="text" class="width-150" readonly>
-        </div>
-        <div class="nav-item-query">
-          <label>操作人：</label>
-          <input type="text" class="width-150" readonly>
-        </div>
-        <div class="loss_report_print ">
-          <a href="#" class="print_btn btn">打&nbsp;&nbsp;&nbsp;印</a>
-        </div>
+          <div class="nav-item-query">
+            <div class="font-20 font-borderradius text-align-center">损</div>
+          </div>
+          <div class="nav-item-query">
+            <label>单号：</label>
+            <input type="text" class="width-150" readonly>
+          </div>
+          <div class="nav-item-query">
+            <label>时间：</label>
+            <input type="text" class="width-150" readonly>
+          </div>
+          <div class="nav-item-query">
+            <label>操作人：</label>
+            <input type="text" class="width-150" readonly>
+          </div>
       </div>
       <div class="loss_report_tab common_storage_tab">
+        <%= form_tag '/kucun/shrinkages' do %>      
         <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order storage_tab">
           <thead>
             <tr class=" bg-color-e39e66">
@@ -75,7 +73,7 @@
         <div class="common_storage_account">
           <div class="item_content margin-left-10" >
             <label class="width-75 vertical-align-top">备注：</label>
-            <textarea class="remarks_textarea"></textarea>
+            <textarea name='shrinkage[remark]' class="remarks_textarea"></textarea>
           </div>
           <div class="item_content  margin-left-10">
             <label class="width-75">制单人：</label>
@@ -84,8 +82,9 @@
         </div>
       </div>
       <div class="btn_group margin-right-20">
-        <a class="save_btn btn" href="#" >保存</a>
+        <input type="submit" class="save_btn btn" value="保存">
       </div>
+      <% end %>
     </div>
 </div>
 

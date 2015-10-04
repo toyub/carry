@@ -1,13 +1,13 @@
 <tr>
   <td class="number"><%= @idx %></td>
-  <td>米其林轮胎</td>
-  <td>3080309075990</td>
-  <td>汽车配件</td>
-  <td>轮胎</td>
-  <td>185/60/14XM291V</td>
-  <td>条</td>
-  <td>530.00</td>
-  <td>8</td>
-  <td></td>
+  <td><%= @name %></td>
+  <td><%= @barcode %></td>
+  <td><%= @root_category %></td>
+  <td><%= @category %></td>
+  <td><%= @speci %></td>
+  <td><%= @unit %></td>
+  <td><%= @cost_price %></td>
+  <td><%= @quantity %></td>
+  <td><%= @remark %></td>
   <td><input type="checkbox" data-id=<%= @idx %> name="sub_check"  ></td>
 </tr>
