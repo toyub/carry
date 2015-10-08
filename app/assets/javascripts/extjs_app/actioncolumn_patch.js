@@ -37,17 +37,17 @@ Ext.define('MyApp.overrides.grid.column.Action', {
 
       if (glyph) {
         if (typeof glyph === 'string') {
-            glyphParts = glyph.split('@');
-            glyph = glyphParts[0];
-            glyphFontFamily = glyphParts[1];
+          glyphParts = glyph.split('@');
+          glyph = glyphParts[0];
+          glyphFontFamily = glyphParts[1];
         } else {
-            glyphFontFamily = Ext._glyphFontFamily;
+          glyphFontFamily = Ext._glyphFontFamily;
         }
 
-        ret += '<i role="button" title="' + (item.altText || me.altText) + '" class="' + glyph + " " + prefix + 'action-col-icon ' + prefix + 'action-col-glyph ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +
+        ret += '<i style="margin-right:10px" role="button" title="' + (item.altText || me.altText) + '" class="' + glyph + " " + prefix + 'action-col-icon ' + prefix + 'action-col-glyph ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +
             ' ' + (Ext.isFunction(item.getClass) ? item.getClass.apply(item.scope || scope, arguments) : (item.iconCls || me.iconCls || '')) + '"' +
             '"' +
-            (tooltip ? ' data-qtip="' + tooltip + '"' : '') + '>' + '</i>';
+            (tooltip ? ' data-qtip="' + tooltip + '"' : '') + '>' +'</i>';
       } else {
         ret += '<img role="button" alt="' + (item.altText || me.altText) + '" src="' + (item.icon || Ext.BLANK_IMAGE_URL) +
             '" class="' + prefix + 'action-col-icon ' + prefix + 'action-col-' + String(i) + ' ' + (disabled ? prefix + 'item-disabled' : ' ') +

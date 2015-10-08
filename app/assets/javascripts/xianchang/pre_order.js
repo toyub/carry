@@ -2,11 +2,6 @@ Ext.onReady(function(){
   if($("#pre-order-main").length <= 0)
     return;
 
-  //Ext.define("StoreCustomer", {
-    //extend: "Ext.data.Model",
-    //fields: ["id", "full_name", "first_name"]
-  //});
-
   Ext.define('StoreOrder',{
     extend: 'Ext.data.Model',
     fields: [
@@ -28,11 +23,19 @@ Ext.onReady(function(){
   var orderGrid = Ext.create('Ext.grid.Panel', {
     store: store,
     columnLines: true,
-    minHeight: 500,
+    minHeight: 600,
+    dockedItem: [
+      {
+        xtype: "toolbar",
+        dock: "top",
+        items: [
+          { text: "你哈ahshshdajsdasd" }
+        ]
+      }
+    ],
     columns: [
-      {text: "序号", xtype: 'rownumberer'},
-      {text: "编号", dataIndex: 'id', sortable: true},
-      {text: "预约人", dataIndex: 'fullname'},
+      {text: "#", xtype: 'rownumberer', width: 50},
+      {text: "预约人", dataIndex: 'fullname', sortable: false},
       {text: "车牌", dataIndex: 'store_customer_first_name'},
       {text: "联系电话", dataIndex: 'store_customer_first_name'},
       {text: "约定时间", dataIndex: 'store_customer_first_name'},
@@ -46,7 +49,8 @@ Ext.onReady(function(){
         items: [{
           glyph: "lnr lnr-edit",
           handler: function(grid, rowIndex, colIndex){}
-        },{
+        },
+        {
           glyph: "lnr lnr-pencil",
           handler: function(grid, rowIndex, colIndex){}
         },{
@@ -65,34 +69,41 @@ Ext.onReady(function(){
     bbar: {xtype: "pagingtoolbar", store: store, displayInfo: true}
   });
 
-  // define a template to use for the detail view
-  var bookTplMarkup = [
-    'Title: <a href="{DetailPageURL}" target="_blank">{Title}</a><br/>',
-    'Author: {Author}<br/>',
-    'Manufacturer: {Manufacturer}<br/>',
-    'Product Group: {ProductGroup}<br/>'
-  ];
-  var bookTpl = Ext.create('Ext.Template', bookTplMarkup);
-
   Ext.create('Ext.Panel', {
     renderTo: 'pre-order-main',
     frame: true,
-    title: '订单列表',
     width: "100%",
     layout: 'fit',
     items: [
+      {
+        bodyPadding: 5,
+        layout: {
+          type: "box"
+        },
+        items: [{
+          emptyText: "输入手机和号码",
+          labelAlign: "right",
+          name: "phone",
+          fieldLabel: "信息查询",
+          xtype: "textfield"
+        },{
+          labelAlign: "right",
+          name: "order_time",
+          fieldLabel: "预约时间",
+          xtype: "textfield"
+        },{
+          xtype: "button",
+          margin: "0 0 0 10px",
+          text: "查询",
+          handler: function(){
+            console.log("提交");
+          }
+        }]
+      },
       //topBannerPanel,
       orderGrid
     ]
   });
-
-  // update panel body on selection change
-  //orderGrid.getSelectionModel().on('selectionchange', function(sm, selectedRecord) {
-
-      //var detailPanel = Ext.getCmp('detailPanel');
-      //detailPanel.update(bookTpl.apply(selectedRecord[0].data));
-    //}
-  //});
 
   store.load();
 });
