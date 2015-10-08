@@ -8,7 +8,13 @@
 </div>
 <div class="details">
   <div class="return_storage_list list_table">
-    <%= render partial: 'kucun/partials/inventory_search' %>
+    <div class="search_nav">
+      <%= render partial: 'kucun/partials/inventory_search' %>
+      <div class="query_div">
+        <a href="#" class="returnstorage_btn btn">退货</a>
+        <a href="/kucun/returnings/" class="notes_btn btn">记录</a>
+      </div>
+    </div>
     <div class="returned_purchase_list">
       <ul>
         <li>#</li>
@@ -231,12 +237,12 @@
      choice_tmpl = JST['kucun/returnings/new/choice'];
      chosen_tmpl = JST['kucun/returnings/new/chosen'];
      materials = [];
-     
+
      $('.query_btn').on('click', function(){
         $('#choices').html('');
         InventorySearch.search(InventorySearch.query_data(), choice_tmpl, function(html, data){
           $('#choices').html(html);
-          materials = data.slice();  
+          materials = data.slice();
         });
      });
 

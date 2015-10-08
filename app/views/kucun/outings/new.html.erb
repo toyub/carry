@@ -7,7 +7,14 @@
 </div>
 <div class="details">
   <div class="list_table out_storage_list">
-    <%= render partial: 'kucun/partials/inventory_search' %>
+    <div class="search_nav">
+      <%= render partial: 'kucun/partials/inventory_search' %>
+      <div class="query_div">
+        <a href="#" class="returnstorage_btn btn">出库</a>
+        <a href="/kucun/outings/" class="notes_btn btn">记录</a>
+      </div>
+    </div>
+
     <div class="out_storage common_storage">
       <div class="list">
         <div class="list_top list_tr">

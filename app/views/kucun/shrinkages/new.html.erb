@@ -7,7 +7,13 @@
 </div>
 <div class="details">
     <div class="list_table">
-      <%= render partial: 'kucun/partials/inventory_search' %>
+      <div class="search_nav">
+        <%= render partial: 'kucun/partials/inventory_search' %>
+        <div class="query_div">
+          <a href="#" class="returnstorage_btn btn">报损</a>
+          <a href="/kucun/shrinkages/" class="notes_btn btn">记录</a>
+        </div>
+      </div>
       <div class="loss_report">
         <table cellpadding="0" cellspacing="0" class="index_list damaged_list">
           <thead>
@@ -22,7 +28,7 @@
               <th>成本价</th>
               <th>库存数</th>
               <th>备注</th>
-              <th><input type="checkbox"></th>
+              <th></th>
             </tr>
           </thead>
           <tbody id='choices'>
@@ -50,7 +56,7 @@
           </div>
       </div>
       <div class="loss_report_tab common_storage_tab">
-        <%= form_tag '/kucun/shrinkages' do %>      
+        <%= form_tag '/kucun/shrinkages' do %>
         <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order storage_tab">
           <thead>
             <tr class=" bg-color-e39e66">
@@ -99,7 +105,7 @@
         $('#choices').html('');
         InventorySearch.search(InventorySearch.query_data(), choice_tmpl, function(html, data){
           $('#choices').html(html);
-          materials = data.slice();  
+          materials = data.slice();
         });
      });
 

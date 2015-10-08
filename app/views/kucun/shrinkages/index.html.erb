@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class=" loss_report_list">
-        <div class="list">
+        <div class="list" id='shrinkages'>
           <div class="list_top list_tr">
             <ul>
               <li>#</li>
@@ -47,40 +47,39 @@
             </ul>
           </div>
           <div class="list_contents">
+            <% @shrinkages.each_with_index do |shrinkage, idx| %>
+            <% item = shrinkage.items.first %>
             <div class="list_content list_tr">
               <ul>
-                <li>1</li>
-                <li>2014-12-09</li>
-                <li>887766555444</li>
-                <li>澜泰纳米镀金套装</li>
-                <li>美容类</li>
-                <li>5,440.00</li>
-                <li>产品超过保质期，无法凝结</li>
+                <li><%= idx + 1 %></li>
+                <li><%= shrinkage.created_at.to_s(:date_only) %></li>
+                <li><%= shrinkage.numero %></li>
+                <li>包含「<%= item.store_material.name.truncate(11) %>」等多个商品</li>
+                <li>包含「<%= item.store_material.store_material_root_category.name %>」 等多个类别</li>
+                <li><%= shrinkage.total_amount %></li>
+                <li><%= shrinkage.remark %><nbsp1></nbsp1></li>
                 <li>
                   <i class="fa fa-chevron-down cursor-pointer click_btn detailsbtn"></i>
                 </li>
               </ul>
             </div>
 
-
-
-
-            <div class="loss_report_content margin-bottom-50 common_storage_content float-left">
+            <div class="loss_report_content margin-bottom-50 common_storage_content float-left" style="display:none;">
               <div class="loss_report_query">
                 <div class="nav-item-query">
                   <div class="font-20 font-borderradius text-align-center">损</div>
                 </div>
                 <div class="nav-item-query">
                   <label>单号：</label>
-                  <input type="text" class="width-150">
+                  <input type="text" class="width-150" value="<%= shrinkage.numero %>" readonly>
                 </div>
                 <div class="nav-item-query">
                   <label>时间：</label>
-                  <input type="text" class="width-150">
+                  <input type="text" class="width-150" value="<%= shrinkage.created_at.to_s(:date_only) %>" readonly>
                 </div>
                 <div class="nav-item-query">
                   <label>操作人：</label>
-                  <input type="text" class="width-150">
+                  <input type="text" class="width-150" value="<%= shrinkage.creator.screen_name %>" readonly>
                 </div>
 
                 <div class="loss_report_print ">
@@ -105,26 +104,26 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% 5.times do |idx| %>
+                    <% shrinkage.items.each_with_index do |item, jdx| %>
                     <tr>
-                      <td><%= idx + 1 %></td>
-                      <td>澜泰宾御纳米镀晶套装</td>
-                      <td>887766555444</td>
-                      <td>长皮盒6项目</td>
-                      <td>套</td>
-                      <td>美容产品</td>
-                      <td>镀晶产品</td>
-                      <td>680.00</td>
-                      <td>8</td>
-                      <td>1</td>
-                      <td>sdfsdafdsa</td>
+                      <td><%= jdx + 1 %></td>
+                      <td title="<%= item.store_material.name %>"><%= item.store_material.name.truncate(11) %></td>
+                      <td><%= item.store_material.barcode %></td>
+                      <td><%= item.store_material.speci %></td>
+                      <td><%= item.store_material.store_material_unit.name %></td>
+                      <td><%= item.store_material.store_material_root_category.name %></td>
+                      <td><%= item.store_material.store_material_category.name %></td>
+                      <td><%= item.store_material.cost_price %></td>
+                      <td><%= item.prior_quantity %></td>
+                      <td><%= item.quantity %></td>
+                      <td><%= item.remark %></td>
                     </tr>
                     <% end %>
                   </tbody>
                 </table>
               </div>
             </div>
-
+            <% end %>
 
           </div>
         </div>
@@ -132,3 +131,20 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      $('#shrinkages').on('click', 'i.detailsbtn', function(){
+        $(this).parents(".list_tr").next().toggle();
+        if(this.classList.contains('fa-chevron-down')){
+          this.classList.remove('fa-chevron-down');
+          this.classList.add('fa-chevron-up');
+        }else{
+          this.classList.remove('fa-chevron-up');
+          this.classList.add('fa-chevron-down');
+        }
+      });
+    });
+  </script>
+<% end %>
