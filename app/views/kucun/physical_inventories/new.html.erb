@@ -1,0 +1,90 @@
+<div class="main_top">
+  <h2>盘点</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="index.html" class="width-90">系统库存</a></li>
+      <li><a href="pandiandanju.html" class="width-90">盘点单据</a></li>
+      <li><a href="lishijilu.html"  class="width-90">历史记录</a></li>
+    </ul>
+  </div>
+  <div class="details_nav_second border-none padding-top-10">
+    <div class="item-query float-left">
+      <label>日期</label>
+      <input type="text" class="width-165">
+    </div>
+    <div class="item-query float-left margin-left-20">
+      <select class="width-90">
+        <option>选择仓库</option>
+        <option>1</option>
+       <option>2</option>
+      </select>
+    </div>
+    <div class="item-query float-left margin-left-20 zero_inventory">
+      <label >
+        <input type="checkbox">零库存</label>
+    </div>
+
+     <div class="item-query float-left margin-left-20">
+        <a href="#" class="exporting_system_inventory_btn btn">导出系统库存</a>
+        <a href="#" class=" import_inventory_stock_btn btn btn">导入盘点库存</a>
+        <a href="javascript:void(0)" class="generated_tab_btn btn">生成盘点单据</a>
+     </div>
+  </div>
+  <div class="container_list">
+    <div class="top_content check_content">
+      <div class="list_table">
+        <table cellpadding="0" cellspacing="0" class="index_list check_list_table">
+          <thead>
+            <tr>
+              <th style="border-right:0px;" >#</th>
+              <th >商品名称</th>
+              <th >商品条码</th>
+              <th >一级分类</th>
+              <th >二级分类</th>
+              <th >规格</th>
+              <th>单位</th>
+              <th>库存数</th>
+              <th >盘点数</th>
+              <th>盘盈盘亏</th>
+              <th>仓库</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% 5.times do %>
+            <tr >
+              <td class="number"></td>
+              <td class="product_name">米其林轮胎米其林轮胎</td>
+              <td class="product_barcode">3080309075990</td>
+              <td class="first_level">汽车配件</td>
+              <td class="second_level">轮胎</td>
+              <td class="product_standard">185/60/14XM291V</td>
+              <td class="product_unit">条</td>
+              <td class="do_stock_number">8</td>
+              <td class="padding-0 do_inventory_number" ><input type="text" class="width-110" ></td>
+              <td ><span class=" diff"></span></td>
+              <td class="warehouse">仓库1</td>
+            </tr>
+            <% end %>
+
+            <tr  >
+              <td>5</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
