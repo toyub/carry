@@ -19,20 +19,41 @@ Ext.onReady(function(){
     },
   });
 
+  var topBannerPanel = Ext.create("Ext.panel.Panel", {
+    bodyPadding: 5,
+    layout: {
+      type: "box"
+    },
+    items: [{
+      emptyText: "输入车牌或电话",
+      labelAlign: "right",
+      fieldLabel: "信息查询",
+      id: "phone_or_number",
+      xtype: "textfield"
+    },{
+      labelAlign: "right",
+      fieldLabel: "预约时间",
+      id: "order_time",
+      xtype: "textfield"
+    },{
+      xtype: "button",
+      margin: "0 0 0 10px",
+      text: "查询",
+      handler: function(){
+        var phone = Ext.getCmp("phone_or_number").getValue();
+        var orderTime = Ext.getCmp("order_time").getValue();
+        if(phone == "")
+          console.log("空的");
+        store.load({ params: { phone: phone }});
+      }
+    }]
+  })
+
   // create the grid
   var orderGrid = Ext.create('Ext.grid.Panel', {
     store: store,
     columnLines: true,
     minHeight: 600,
-    dockedItem: [
-      {
-        xtype: "toolbar",
-        dock: "top",
-        items: [
-          { text: "你哈ahshshdajsdasd" }
-        ]
-      }
-    ],
     columns: [
       {text: "#", xtype: 'rownumberer', width: 50},
       {text: "预约人", dataIndex: 'fullname', sortable: false},
@@ -75,32 +96,7 @@ Ext.onReady(function(){
     width: "100%",
     layout: 'fit',
     items: [
-      {
-        bodyPadding: 5,
-        layout: {
-          type: "box"
-        },
-        items: [{
-          emptyText: "输入手机和号码",
-          labelAlign: "right",
-          name: "phone",
-          fieldLabel: "信息查询",
-          xtype: "textfield"
-        },{
-          labelAlign: "right",
-          name: "order_time",
-          fieldLabel: "预约时间",
-          xtype: "textfield"
-        },{
-          xtype: "button",
-          margin: "0 0 0 10px",
-          text: "查询",
-          handler: function(){
-            console.log("提交");
-          }
-        }]
-      },
-      //topBannerPanel,
+      topBannerPanel,
       orderGrid
     ]
   });
