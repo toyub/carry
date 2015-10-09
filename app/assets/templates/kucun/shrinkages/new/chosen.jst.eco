@@ -9,6 +9,6 @@
   <td><%= @cost_price %></td>
   <td><%= @depot_name %> <input type="hidden" name="shrinkage[items_attributes][][store_depot_id]" value="<%=  @depot_id%>"></td>
   <td><%= @quantity %> <input type="hidden" name="shrinkage[items_attributes][][store_material_inventory_id]" value="<%= @inventory_id %>"> </td>
-  <td><input required name="shrinkage[items_attributes][][quantity]" type="number" class="width-60 text-align-center" data-price='<%= @cost_price %>' min=1 max=<%= @quantity %> value="1"></td>
+  <td><input required name="shrinkage[items_attributes][][quantity]" type="text" num un int class="width-60 text-align-center" data-price='<%= @cost_price %>' min=1 max=<%= @quantity %> value="1"></td>
   <td> <input type="text" name="shrinkage[items_attributes][][remark]" /> </td>
 </tr>

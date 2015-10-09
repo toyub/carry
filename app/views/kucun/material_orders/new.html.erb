@@ -54,14 +54,6 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
-        if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
-          return false;
-        }
-        if(evt.keyCode == 46 && (/\.+/).test(this.value)){
-          return false;
-        }
-      });
       new_order_view = new $$MIS.NewMaterialOrderView({
         el: $("#content")
       });
@@ -72,7 +64,6 @@
           return false;
         }
       });
-
     });
   </script>
 
