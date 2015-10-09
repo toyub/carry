@@ -16,6 +16,22 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
   end
 
   def create
-    render json: params
+    if params[:store_physical_inventories][:items_attributes].blank?
+      render 'Error'
+      return false
+    end
+    
+    @physical = StorePhysicalInventory.new(physical_params)
+    render json: {
+      p: @physical,
+      items: @physical.items
+    }
+  end
+
+  private
+  def physical_params
+    params.require(:store_physical_inventories)
+          .permit(:store_depot_id, 
+                  items_attributes:[:store_material_id, :store_depot_id, :store_inventory_id, :inventory, :physical, :remark])
   end
 end
