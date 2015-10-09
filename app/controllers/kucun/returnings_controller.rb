@@ -4,7 +4,9 @@ class Kucun::ReturningsController < Kucun::ControllerBase
     query_scope = @store.store_material_returnings
     query_scope = query_scope.where(store_staff_id: params[:store_staff_id]) if params[:store_staff_id].present?
     query_scope = query_scope.where(store_supplier_id: params[:store_supplier_id]) if params[:store_supplier_id].present?
-
+    query_scope = query_scope.where("search_keys like :keyword", keyword: "%#{params[:keyword]}%") if params[:keyword].present?
+    query_scope = query_scope.where("created_at >= :created_from", created_from: params[:created_from]) if params[:created_from].present?
+    query_scope = query_scope.where("created_at <= :created_end", created_end: params[:created_end]) if params[:created_end].present?
     @returnings = query_scope.all
   end
 

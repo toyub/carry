@@ -4,7 +4,6 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :orderable, polymorphic: true
   belongs_to :store_order
   belongs_to :store_customer
-  belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
 end
 
 # == Schema Information

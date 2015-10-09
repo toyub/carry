@@ -6,5 +6,4 @@ class StoreOrder < ActiveRecord::Base
   belongs_to :store_vehicle
 
   enum state: %i[pending constructed waiting_pay paid]
-
 end

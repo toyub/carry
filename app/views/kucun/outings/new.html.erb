@@ -14,7 +14,7 @@
       </div>
       <div class="item-query">
         <label>一级分类</label>
-        <select id='root_category' type="text" class="width-150">
+        <select id='root_category' class="width-150">
           <option value="">所有类别</option>
           <% @store.store_material_categories.super_categories.each do |category| %>
             <option value="<%= category.id %>"><%= category.name %></option>
@@ -103,7 +103,7 @@
             <li data-value="4">赠送出库</li>
             <li data-value="5">盘亏出库</li>
             <li data-value="6">生产出库</li>
-            <li data-value="1"><a href="zhuanyichuku.html">转移出库</a></li>
+            <li data-value="1"><a href="/kucun/transfer/pickings/new">转移出库</a></li>
           </ol>
         </div>
       </div>

@@ -13,6 +13,7 @@
  *= require scaffolds
  *= require jquery_ui
  *= require_self
+ *= require select2
  */
 
 #noticebox {
