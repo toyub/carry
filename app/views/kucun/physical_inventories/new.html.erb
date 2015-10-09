@@ -10,7 +10,7 @@
     <ul>
       <li class="bg-color-fff"><a href="javascript:void(0);" class="width-90">系统库存</a></li>
       <li><a href="" class="width-90">盘点单据</a></li>
-      <li><a href="" class="width-90">历史记录</a></li>
+      <li><a href="/kucun/physical_inventories" class="width-90">历史记录</a></li>
     </ul>
   </div>
   <div class="details_nav_second border-none padding-top-10">
@@ -59,6 +59,8 @@
                 <input type="hidden" class='material' value="<%= inventory.store_material_id %>">
                 <input type="hidden" class='depot' value="<%= inventory.store_depot_id %>">
                 <input type="hidden" class='inventory' value="<%= inventory.id %>">
+                <input type="hidden" class='inventory_cost_price' value="<%= inventory.cost_price %>">
+                <input type="hidden" class='cost_price' value="<%= inventory.store_material.cost_price %>">
               </td>
               <td title="<%= inventory.store_material.name %>"><%= inventory.store_material.name.truncate(11) %></td>
               <td><%= inventory.store_material.barcode %></td>
@@ -123,6 +125,8 @@
         thistr.querySelector('.material').setAttribute('name', 'store_physical_inventories[items_attributes][][store_material_id]');
         thistr.querySelector('.depot').setAttribute('name', 'store_physical_inventories[items_attributes][][store_depot_id]');
         thistr.querySelector('.inventory').setAttribute('name', 'store_physical_inventories[items_attributes][][store_inventory_id]');
+        thistr.querySelector('.inventory_cost_price').setAttribute('name', 'store_physical_inventories[items_attributes][][inventory_cost_price]');
+        thistr.querySelector('.cost_price').setAttribute('name', 'store_physical_inventories[items_attributes][][cost_price]');
       });
     });
   </script>

@@ -1,0 +1,221 @@
+<div class="main_top">
+        <h2>盘点</h2>
+        <span class="add_span">+</span>
+      </div>
+      <div class="details">
+        <div class="details_nav">
+          <ul>
+            <li><a href="index.html" class="width-90">系统库存</a></li>
+            <li  class="bg-color-fff"><a href="pandiandanju.html" class="width-90">盘点单据</a></li>
+            <li><a href="lishijilu.html" class="width-90">历史记录</a></li>
+          </ul>
+        </div>
+        <div class="details_nav_second border-right-0 padding-top-10">
+          <div class="item-query float-left">
+            <label>查看结果</label>
+            <select class="width-90">
+              <option>全部</option>
+              <option>盘盈</option>
+              <option>盘亏</option>
+
+            </select>
+          </div>
+          <div class="item-query float-left margin-left-20">
+            <select class="width-90">
+              <option>选择仓库</option>
+              <option>仓库1</option>
+              <option>仓库2</option>
+            </select>
+          </div>
+          <div class="item-query float-left margin-left-20">
+            <select class="width-90">
+              <option>全部</option>
+              <option>未核销</option>
+              <option>已核销</option>
+            </select>
+          </div>
+          <div class="item-query float-left margin-left-20">
+            <a href="javascript:void(0)" class="single_shortage_btn btn">盘亏单</a>
+            <a href="javascript:void(0)" class=" overage_single_btn btn">盘盈单</a>
+          </div>
+        </div>
+          <div class=" check_content">
+            <div class="list_table">
+              <table cellpadding="0" cellspacing="0" class="index_list inventory_list">
+                <thead>
+                  <tr >
+                    <th class="border-right-0" >#</th>
+                    <th class="border-right-0"><input type="checkbox" class="float-left " id="all_checked"></th>
+                    <th >商品名称</th>
+                    <th >商品条码</th>
+                    <th >一级分类</th>
+                    <th >二级分类</th>
+                    <th >规格</th>
+                    <th>单位</th>
+                    <th>库存数</th>
+                    <th >盘点数</th>
+                    <th>盘盈盘亏</th>
+                    <th>仓库</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <div class="btn_group">
+          <input type="submit" class="save_btn btn"  value="保存">
+        </div>
+      </div>
+
+      <div class="popup_box do_popup_show" style="display:none">
+        <div class="out_storage_content the_warehouse_verification  common_storage_content  do_out_show" style="display:none">
+          <div class="out_storage_query">
+            <div class="nav-item-query">
+              <div class="font-20 font-borderradius text-align-center">出</div>
+            </div>
+            <div class="nav-item-query">
+              <label>单号：</label>
+              <input type="text" class="width-135" readonly>
+            </div>
+            <div class="nav-item-query">
+              <label>时间：</label>
+              <input type="text" class="width-135" readonly>
+            </div>
+            <div class="nav-item-query">
+              <label>操作人：</label>
+              <input type="text" class="widtn-135" readonly>
+            </div>
+            <div class="nav-item-query">
+              <label>领用人：</label>
+              <select  class="width-135">
+                <option></option>
+                <option></option>
+              </select>
+            </div>
+            <div class="nav-item-query">
+              <label>出库类型</label>
+              <select  class="width-135">
+                <option>领用出库</option>
+                <option>销售出库</option>
+                <option>赠送出库</option>
+                <option>盈亏出库</option>
+                <option>生产出库</option>
+              </select>
+            </div>
+            <div class="out_storage_print">
+              <a href="#" class="print_btn btn">打&nbsp;&nbsp;&nbsp;印</a>
+            </div>
+          </div>
+          <div class="out_storage_tab common_storage_tab">
+            <table cellpadding="0" cellspacing="0" class=" storage_tab" id="out_storage">
+
+              <thead>
+                <tr>
+                  <th >#</th>
+                  <th >商品名称</th>
+                  <th >条码</th>
+                  <th >规格</th>
+                  <th >单位</th>
+                  <th >一级分类</th>
+                  <th >二级分类</th>
+                  <th >单价</th>
+                  <th >库存数</th>
+                  <th >出库数</th>
+                  <th>仓库</th>
+                  <th >出库类型</th>
+                  <th >备注</th>
+                </tr>
+              </thead>
+
+            </table>
+            <div class="common_storage_account">
+              <div class="item_content margin-left-10" >
+                <label class="width-75 vertical-align-top">备注：</label>
+                <textarea class="remarks_textarea"></textarea>
+              </div>
+              <div class="item_content margin-left-10 float-left">
+                <label class="width-75">制单人：</label>
+                <label class="width-253">&nbsp;</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn_group margin-right-40">
+            <a class="cancel_btn btn" href="pandiandanju.html" >取消</a>
+            <a class="save_btn btn do_save_btn" href="javascript:void(0)" >确定</a>
+          </div>
+        </div>
+
+        <div class="in_storage_content common_storage_content  the_warehouse_verification do_in_show"  style="display:none">
+          <div class="in_storage_query">
+            <div class="nav-item-query">
+              <div class="font-20 font-borderradius text-align-center">入</div>
+            </div>
+            <div class="nav-item-query">
+              <label>时间：</label>
+              <input type="text" class="width-135" readonly>
+            </div>
+            <div class="nav-item-query">
+              <label>数量：</label>
+              <input type="text" class="width-135" readonly>
+            </div>
+            <div class="nav-item-query">
+              <label>金额：</label>
+              <input type="text" class="width-135" readonly>
+            </div>
+            <div class="in_storage_print">
+              <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
+            </div>
+          </div>
+          <div class="in_storage_tab common_storage_tab">
+            <table cellpadding="0" cellspacing="0" class=" storage_tab" id="in_storage" >
+              <thead>
+                <tr class="bg-color-e0e2cf color-282726">
+                  <th>#</th>
+                  <th>商品名称</th>
+                  <th>条码</th>
+                  <th>规格</th>
+                  <th>单位</th>
+                  <th>一级分类</th>
+                  <th>二级分类</th>
+                  <th>单价</th>
+                  <th>差异数</th>
+                  <th>仓库</th>
+                  <th>小计</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="common_storage_account">
+              <div class="item_content margin-left-10" >
+                <label class="width-75 vertical-align-top">备注：</label>
+                <textarea class="remarks_textarea"></textarea>
+              </div>
+              <div class="item_content  margin-left-10 float-left">
+                <label class="width-75">制单人：</label>
+                <label class="width-253">&nbsp;</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn_group">
+            <a class="cancel_btn btn" href="pandiandanju.html"  >取消</a>
+            <a class="warehousing_btn btn do_save_btn" href="javascript:void(0)" >入库</a>
+          </div>
+      </div>
+
+
+      <script type="text/javascript" src="/mis/js/kucun/pandian.js" ></script>
+
+      <script type="text/javascript" >
+        $(function(){
+          var productList = new ProductList();
+          productList.fetch();
+          console.log(productList);
+          var invoiceView = new InvoiceView({collection: productList});
+          invoiceView.render();
+
+
+        })
+      </script>
