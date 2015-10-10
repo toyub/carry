@@ -14,6 +14,7 @@
  *= require jquery_ui
  *= require ext-theme-crisp/build/resources/ext-theme-crisp-all
  *= require_self
+ *= require select2
  */
 
 #noticebox {

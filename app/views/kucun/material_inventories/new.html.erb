@@ -16,8 +16,8 @@
                 <div id='in_store_type_select' class="select width-165">
                   <ol class="width-165">
                     <li data-value="1"><a href="javascript:void(0)">按订单入库</a></li>
-                    <li data-value="2"><a href="zhuanyiruku.html">转移入库</a></li>
-                    <li data-value="3"><a href="anshangpinruku.html">按商品入库</a></li>
+                    <li data-value="2"><a href="/kucun/transfer/receipts/new">转移入库</a></li>
+                    <li data-value="3"><a href="/kucun/jits/new">按商品入库</a></li>
                   </ol>
                 </div>
               </div>
@@ -30,17 +30,16 @@
               </div>
               <div class="item-query">
                 <label>供应商</label>
-                <select type="text" class="width-150">
-                  <option></option>
-                  <option></option>
+                <select id='store_supplier_id' name='store_supplier_id' type="text" class="width-150">
+                  <%= options_from_collection_for_select(@store.store_suppliers, :id, :name, params[:store_supplier_id]) %>
                 </select>
               </div>
               <div class="item-query">
                <a href="#" class="query_btn btn">查<nbsp2></nbsp2>询</a>
               </div>
               <div class="query_div">
-               <a  href="index.html" class="in_stg_btn btn">入库</a>
-               <a  href="jilu.html" class="notes_btn btn">记录</a>
+               <a  href="#" class="in_stg_btn btn">入库</a>
+               <a  href="/kucun/material_inventories/" class="notes_btn btn">记录</a>
               </div>
             </div>
             <div class="in_storage common_storage by_orders">
@@ -70,7 +69,7 @@
                           <%= order.store_material_order_items.first.store_material.name %>
                           <i class="fa fa-chevron-down chevrondow chevron float-right"></i>
                         </li>
-                        <li><input type="checkbox" data-id='<%= order.id %>' data-order='<%= order.to_json %>' name="sub_check"></li>
+                        <li><input type="checkbox" data-id='<%= order.id %>' data-supplier='<%= order.store_supplier.name %>' data-order='<%= order.to_json %>' name="sub_check"></li>
                       </ul>
                   </div>
                  <% end %>
@@ -80,7 +79,7 @@
         </div>
 
         <div class="in_storage_content common_storage_content float-left  margin-bottom-50 margin-top-80">
-          <%= form_tag '/kucun/material_inventories', id: 'rukuruku' do %>
+          <%= form_tag '/kucun/material_inventories', id: 'inventory_form' do %>
           <input type="hidden" id='order_id' name='order_id'/>
           <div class="in_storage_query">
             <div class="nav-item-query">
@@ -96,21 +95,18 @@
             </div>
             <div class="nav-item-query">
               <label>供应商：</label>
-              <select  class="width-240">
-                <option></option>
-                <option></option>
-              </select>
+              <input id='order_supplier' type="text" value="" class="width-240" readonly>
             </div>
             <div class="nav-item-query">
               <label>数量：</label>
-              <input type="text" class="width-135">
+              <input id='total_quantity' type="text" class="width-135" readonly>
             </div>
             <div class="nav-item-query">
               <label>金额：</label>
-              <input type="text" class="width-135">
+              <input id='total_amount' type="text" class="width-135" readonly>
             </div>
             <div class="in_storage_print">
-              <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
+              <a href="#" class="print_btn">打<nbsp1></nbsp1>印</a>
               <a href="#" class="print_barcode_btn">打印条码</a>
             </div>
           </div>
@@ -149,7 +145,7 @@
             </div>
           </div>
           <div class="btn_group">
-            <a id='submit' class="in_stg_btn" href="javascript:void(0);" >入库</a>
+            <input type='submit' id='submit' class="in_stg_btn" value='入库' />
           </div>
           <% end %>
       </div>
@@ -163,6 +159,18 @@
   <script>
     Date.parse1 = function(str){return new Date(Date.parse(str));}
     Date.prototype.cn_date = function(){return this.getFullYear() + '年' + ( this.getMonth() + 1 ) + '月' + this.getDate() + '日'}
+    function calc_total() {
+      var _total_quantity=0,
+          _total_amount = 0;
+      $('#storage_tab > tbody > tr').each(function(){
+        var _input = this.cells[9].children[0];
+        var quantity = parseInt(_input.value);
+        _total_quantity += quantity;
+        _total_amount += (_input.dataset.price*quantity);
+      });
+      $("#total_amount").val(_total_amount.toFixed(2));
+      $("#total_quantity").val(_total_quantity);
+    }
     jQuery(function(){
       var tm = JST['kucun/material_inventories/new/inventoryitem'];
       var boxdd = null;
@@ -173,50 +181,56 @@
              }
              boxdd = this;
              var order = $(this).data('order');
-             console.log(order)
              var html = '';
              $("#order_id").val(order.id);
-             $("#order_time").html(Date.parse1(order.created_at).cn_date());
-             $("#order_numero").html(order.numero);
-             $("#order_supplier").html(order.store_supplier_id)
+             $("#total_amount").val(order.amount);
+             $("#total_quantity").val(order.quantity);
+             $("#order_supplier").val(this.dataset.supplier);
              var items = $('input:checked').parent().siblings('.items').data('items')
              items.forEach(function(item){
-
                html += tm({item: item, store_depots: $('#storage_tab').data('depots')})
             });
-
-             $("#storage_tab > tbody").html(html);
+            $("#storage_tab > tbody").html(html);
          }else{
            $("#storage_tab > tbody").html('');
          }
       });
 
-      $('#storage_tab').on('click', 'i.delete', function(event){
+      $('#storage_tab').on('click', 'i.lnr-trash', function(event){
         var tr = $(this).closest('tr');
         var id=tr[0].dataset.id;
         var order_id = $("#order_id").val();
         tr.remove();
-
+        calc_total();
         if($('#storage_tab > tbody').children().length < 1){
           $('input[data-id="'+order_id+'"]').removeAttr('checked');
         }
       });
 
+      $('#storage_tab').on('dblclick', 'input.quantity', function(){
+        this.readOnly=false;
+      });
 
       $('#storage_tab').on('input', 'input.quantity', function(){
         var tr = $(this).closest('tr');
         var amount = (this.value * this.dataset.price).toFixed(4)
         tr.find('.amount').html(amount);
+        calc_total();
       });
 
-      $("#submit").on('click', function(){
+      $("#inventory_form").on('submit', function(){
         if($("#storage_tab > tbody > tr").length < 1){
+          ZhanchuangAlert('未选择任何商品进行入库！');
+          return false;
         }else{
-          $('#rukuruku').submit();
+          return true;
         }
       });
 
-      $('.list_contents').on('click', '.items', function(){
+      $('.list_contents').on('click', '.items', function(evt){
+        evt.stopPropagation();
+        $('.list_contents').find('.to_hide').removeClass('to_hide');
+        this.classList.add('to_hide');
         var b_c_r = this.getBoundingClientRect();
         var item_width=338;
         var pop_width=400;
@@ -226,6 +240,22 @@
           left: b_c_r.left - (pop_width-item_width)
         }).show();
       });
+      $('.list_contents').on('click', '.to_hide', function(evt){
+        evt.stopPropagation();
+        this.classList.remove('to_hide');
+        $("#order_items").hide();
+      });
+
+      $("#order_items").on('click', function(evt){
+        evt.stopPropagation();
+      });
+
+      $(document).on('click', function(){
+        $('.list_contents').find('.to_hide').removeClass('to_hide');
+        $("#order_items").hide();
+      });
+
+      $("#store_supplier_id").select2();
     });
   </script>
 <% end %>
