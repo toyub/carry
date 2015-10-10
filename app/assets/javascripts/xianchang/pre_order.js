@@ -6,7 +6,13 @@ Ext.onReady(function(){
     extend: 'Ext.data.Model',
     fields: [
       "id",
-      {name: "fullname", mapping: "store_customer.full_name" },
+      { name: "fullname", mapping: "store_customer.full_name" },
+      { name: "store_vehicle_license_number", mapping: "store_vehicle.license_number" },
+      { name: "store_customer_phone_number", mapping: "store_customer.phone_number" },
+      "subscribe_date",
+      "order_type",
+      "state",
+      "remark"
     ]
   });
 
@@ -60,13 +66,13 @@ Ext.onReady(function(){
     columns: [
       {text: "#", xtype: 'rownumberer', width: 50},
       {text: "预约人", dataIndex: 'fullname', sortable: false},
-      {text: "车牌", dataIndex: 'store_customer_first_name'},
-      {text: "联系电话", dataIndex: 'store_customer_first_name'},
-      {text: "约定时间", dataIndex: 'store_customer_first_name'},
+      {text: "车牌", dataIndex: 'store_vehicle_license_number'},
+      {text: "联系电话", dataIndex: 'store_customer_phone_number'},
+      {text: "约定时间", dataIndex: 'subscribe_date'},
       {text: "约定项目", dataIndex: 'store_customer_first_name'},
-      {text: "制单", dataIndex: 'store_customer_first_name'},
-      {text: "状态", dataIndex: 'store_customer_first_name'},
-      {text: "备注", dataIndex: 'store_customer_first_name'},
+      {text: "制单", dataIndex: 'order_type'},
+      {text: "状态", dataIndex: 'state'},
+      {text: "备注", dataIndex: 'remark', width: 150},
       {
         text: "操作",
         xtype: "myactioncolumn",

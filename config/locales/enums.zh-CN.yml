@@ -3,5 +3,7 @@ zh-CN:
     store_subscribe_order:
       state:
         pending: 未加工
+        processing: 加工中
+        done: 完工
       order_type:
         auto: 自主
