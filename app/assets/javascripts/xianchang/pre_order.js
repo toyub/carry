@@ -84,9 +84,7 @@ Ext.onReady(function(){
       }
     ],
     forceFit: true,
-    layout: 'fit',
     split: true,
-    region: 'north',
     bbar: {xtype: "pagingtoolbar", store: store, displayInfo: true}
   });
 
@@ -94,12 +92,10 @@ Ext.onReady(function(){
     renderTo: 'pre-order-main',
     frame: true,
     width: "100%",
-    layout: 'fit',
     items: [
       topBannerPanel,
       orderGrid
     ]
   });
-
   store.load();
 });
