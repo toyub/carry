@@ -1,0 +1,7 @@
+zh-CN:
+  enums:
+    store_subscribe_order:
+      state:
+        pending: 未加工
+      order_type:
+        auto: 自主

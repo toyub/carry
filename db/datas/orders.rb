@@ -8,4 +8,7 @@ StoreSubscribeOrder.create(
   remark: "备注",
   store_customer: StoreCustomer.first,
   store_vehicle: StoreVehicle.first,
+  subscribe_date: Time.now.end_of_month,
+  order_type: :auto,
+    state: :pending,
 )
