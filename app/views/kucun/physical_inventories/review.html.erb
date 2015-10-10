@@ -1,271 +1,311 @@
 <div class="main_top">
-        <h2>盘点</h2>
-        <span class="add_span">+</span>
-      </div>
-      <div class="details">
-        <div class="details_nav">
-          <ul>
-            <li><a href="/kucun/physical_inventories/new?store_depot_id=<%=params[:store_depot_id]%>" class="width-90">系统库存</a></li>
-            <li class="bg-color-fff"><a href="pandiandanju.html" class="width-90">盘点单据</a></li>
-            <li><a href="lishijilu.html" class="width-90">历史记录</a></li>
-          </ul>
-        </div>
-        <div class="details_nav_second border-right-0 padding-top-10">
-          <%= form_tag '/kucun/physical_inventories/review', id: 'query_form', method: 'GET' do %>
-          <div class="item-query float-left">
-            <label>仓库</label>
-            <select class="width-90" name="store_depot_id">
-              <option>选择仓库</option>
-              <%= options_from_collection_for_select(@store.store_depots, :id, :name, @physical.try(:store_depot_id)) %>
-            </select>
-          </div>
+  <h2>盘点</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="details_nav">
+    <ul>
+      <li><a href="/kucun/physical_inventories/new?store_depot_id=<%=params[:store_depot_id]%>" class="width-90">系统库存</a></li>
+      <li class="bg-color-fff"><a href="pandiandanju.html" class="width-90">盘点单据</a></li>
+      <li><a href="lishijilu.html" class="width-90">历史记录</a></li>
+    </ul>
+  </div>
+  <div class="details_nav_second border-right-0 padding-top-10">
+    <%= form_tag '/kucun/physical_inventories/review', id: 'query_form', method: 'GET' do %>
+    <div class="item-query float-left">
+      <label>仓库</label>
+      <select class="width-90" name="store_depot_id">
+        <option>选择仓库</option>
+        <%= options_from_collection_for_select(@store.store_depots, :id, :name, @physical.try(:store_depot_id)) %>
+      </select>
+    </div>
 
-          <div class="item-query float-left margin-left-20">
-            <label>盈亏</label>
-            <select class="width-90" name="diff">
-              <option value="">全部</option>
-              <%= options_for_select([['盘盈', 1],['盘亏', -1]], params[:diff]) %>
-            </select>
-          </div>
+    <div class="item-query float-left margin-left-20">
+      <label>盈亏</label>
+      <select class="width-90" name="diff">
+        <option value="">全部</option>
+        <%= options_for_select([['盘盈', 1],['盘亏', -1]], params[:diff]) %>
+      </select>
+    </div>
 
-          <div class="item-query float-left margin-left-20">
-            <label>处理</label>
-            <select class="width-90" name="status">
-              <option value="">全部</option>
-              <%= options_for_select([['未处理', 0],['已处理', 1]], params[:status]) %>
-            </select>
-          </div>
-          <% end %>
-          <div class="item-query float-left margin-left-20">
-            <input type="submit" class='btn query_btn' form="query_form" value="查询"/>
-            <a href="javascript:void(0)" class="single_shortage_btn btn">盘亏单</a>
-            <a href="javascript:void(0)" class=" overage_single_btn btn">盘盈单</a>
-          </div>
-        </div>
-          <div class=" check_content">
-            <div class="list_table">
-              <table cellpadding="0" cellspacing="0" class="index_list inventory_list">
-                <thead>
-                  <tr>
-                    <th class="border-right-0" >#</th>
-                    <th class="border-right-0">
-                      <% if params[:diff] %>
-                      <input type="checkbox" class="float-left" id="all_checked">
-                      <% end %>
-                    </th>
-                    <th>商品名称</th>
-                    <th>商品条码</th>
-                    <th>一级分类</th>
-                    <th>二级分类</th>
-                    <th>规格</th>
-                    <th>单位</th>
-                    <th>库存数</th>
-                    <th>盘点数</th>
-                    <th>盘盈盘亏</th>
-                    <th>仓库</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% if params[:store_depot_id].blank? %>
-                    <tr>
-                      <td colspan="12">
-                        请选择仓库进行查询。
-                      </td>
-                    </tr>
+    <div class="item-query float-left margin-left-20">
+      <label>处理</label>
+      <select class="width-90" name="status">
+        <option value="">全部</option>
+        <%= options_for_select([['未处理', 0],['已处理', 1]], params[:status]) %>
+      </select>
+    </div>
+    <% end %>
+    <div class="item-query float-left margin-left-20">
+      <input type="submit" class='btn query_btn' form="query_form" value="查询"/>
+      <a href="javascript:void(0)" id='loss_btn' class="single_shortage_btn btn disabled">盘亏单</a>
+      <a href="javascript:void(0)" id='profit_btn' class="overage_single_btn btn disabled">盘盈单</a>
+    </div>
+  </div>
+    <div class=" check_content">
+      <div class="list_table">
+        <table id='physical_items' cellpadding="0" cellspacing="0" class="index_list inventory_list">
+          <thead>
+            <tr>
+              <th class="border-right-0" >#</th>
+              <th class="border-right-0">
+                <% if params[:diff].present? %>
+                <input type="checkbox" class="float-left" id="all_checked">
+                <% end %>
+              </th>
+              <th>商品名称</th>
+              <th>商品条码</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>库存数</th>
+              <th>盘点数</th>
+              <th>盘盈盘亏</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if params[:store_depot_id].blank? %>
+              <tr>
+                <td colspan="12">
+                  请选择仓库进行查询。
+                </td>
+              </tr>
+            <% end %>
+            <% if @physical_count.present? %>
+              <tr>
+                <td colspan="12">
+                  此仓库有<%= @inventory_count %>种类商品，已经盘点 <%= @physical_count %>， 剩余 <%= @inventory_count - @physical_count %>；
+                </td>
+              </tr>
+            <% end %>
+            <% if @physical.present? %>
+              <% @physical.items.status_is(params[:status]).diff_is(params[:diff]).each_with_index do |item, idx| %>
+              <%
+                 diff_class= if item.diff > 0
+                      'profit'
+                    elsif item.diff < 0
+                      'loss'
+                    else
+                      ''
+                    end
+               %>
+              <tr class="<%= (item.diff != 0 && item.status == 0) ? 'unapplied' : 'breakeven' %>">
+                <td class="number"><%= idx + 1 %></td>
+                <td class="border-right-0">
+                  <% if item.diff != 0 && item.status == 0 %>
+                  <input class='check <%= diff_class %>' data-id="<%= item.id %>" type="checkbox">
                   <% end %>
-                  <% if @physical_count.present? %>
-                    <tr>
-                      <td colspan="12">
-                        此仓库有<%= @inventory_count %>种类商品，已经盘点 <%= @physical_count %>， 剩余 <%= @inventory_count - @physical_count %>；
-                      </td>
-                    </tr>
-                  <% end %>
-                  <% if @physical.present? %>
-                    <% @physical.items.status_is(params[:status]).diff_is(params[:diff]).each_with_index do |item, idx| %>
-                    <tr class="<%= (item.diff != 0 && item.status == 0) ? 'unapplied' : 'breakeven' %>">
-                      <td class="number"><%= idx + 1 %></td>
-                      <td class="border-right-0">
-                        <% if item.diff != 0 && item.status == 0 %>
-                        <input data-id="<%= item.id %>" type="checkbox">
-                        <% end %>
-                      </td>
-                      <td title="<%= item.store_material.name %>"><%= item.store_material.name.truncate(11) %></td>
-                      <td><%= item.store_material.barcode %></td>
-                      <td><%= item.store_material.store_material_root_category.name %></td>
-                      <td><%= item.store_material.store_material_category.name %></td>
-                      <td><%= item.store_material.speci %></td>
-                      <td><%= item.store_material.store_material_unit.name %></td>
-                      <td><%= item.inventory %></td>
-                      <td><%= item.physical %></td>
-                      <td><span class="diff <%= 'clolor-FD797B' if item.diff != 0 %>"> <%= item.diff %></span></td>
-                      <td><%= item.remark %></td>
-                    </tr>
-                    <% end %>
-                  <% elsif params[:store_depot_id].present? %>
-                    <tr>
-                      <td colspan="12">
-                        此仓库本月还没有盘点，请先盘点 <a href="/kucun/physical_inventories/new?store_depot_id=<%= @physical.try(:store_depot_id) %>">去盘点</a>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        <div class="btn_group">
-          <span>注意： 商品全部盘点完成才能核销！若月底没有核销，系统将自动核销。</span>
-          <input type="submit" class="save_btn btn <%= 'disabled' unless  @inventory_count == @physical_count  %>" value="核销盘点">
+                </td>
+                <td title="<%= item.store_material.name %>"><%= item.store_material.name.truncate(11) %></td>
+                <td><%= item.store_material.barcode %></td>
+                <td><%= item.store_material.store_material_root_category.name %></td>
+                <td><%= item.store_material.store_material_category.name %></td>
+                <td><%= item.store_material.speci %></td>
+                <td><%= item.store_material.store_material_unit.name %></td>
+                <td><%= item.inventory %></td>
+                <td><%= item.physical %></td>
+                <td><span class="diff <%= diff_class %>"> <%= item.diff %></span></td>
+                <td><%= item.remark %></td>
+              </tr>
+              <% end %>
+            <% elsif params[:store_depot_id].present? %>
+              <tr>
+                <td colspan="12">
+                  此仓库本月还没有盘点，请先盘点 <a href="/kucun/physical_inventories/new?store_depot_id=<%= @physical.try(:store_depot_id) %>">去盘点</a>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <div class="btn_group">
+    <span>注意： 商品全部盘点完成才能核销！若月底没有核销，系统将自动核销。</span>
+    <input type="submit" class="save_btn btn <%= 'disabled' unless  @inventory_count == @physical_count  %>" value="核销盘点">
+  </div>
+</div>
+
+
+
+<% content_for :scenes do %>
+<div class="popup_box do_popup_show do_out_show" style="display:none">
+  <div class="out_storage_content the_warehouse_verification  common_storage_content  ">
+    <div class="out_storage_query">
+      <div class="nav-item-query">
+        <div class="font-20 font-borderradius text-align-center">出</div>
+      </div>
+      <div class="nav-item-query">
+        <label>单号：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>时间：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>操作人：</label>
+        <input type="text" class="widtn-135" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>领用人：</label>
+        <select  class="width-135">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="nav-item-query">
+        <label>出库类型</label>
+        <select  class="width-135">
+          <option>领用出库</option>
+          <option>销售出库</option>
+          <option>赠送出库</option>
+          <option>盈亏出库</option>
+          <option>生产出库</option>
+        </select>
+      </div>
+      <div class="out_storage_print">
+        <a href="#" class="print_btn btn">打&nbsp;&nbsp;&nbsp;印</a>
+      </div>
+    </div>
+    <div class="out_storage_tab common_storage_tab">
+      <table cellpadding="0" cellspacing="0" class=" storage_tab" id="out_storage">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>商品名称</th>
+            <th>条码</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>一级分类</th>
+            <th>二级分类</th>
+            <th>单价</th>
+            <th>库存数</th>
+            <th>出库数</th>
+            <th>仓库</th>
+            <th>出库类型</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+
+      </table>
+      <div class="common_storage_account">
+        <div class="item_content margin-left-10" >
+          <label class="width-75 vertical-align-top">备注：</label>
+          <textarea class="remarks_textarea"></textarea>
+        </div>
+        <div class="item_content margin-left-10 float-left">
+          <label class="width-75">制单人：</label>
+          <label class="width-253">&nbsp;</label>
         </div>
       </div>
+    </div>
 
-      <div class="popup_box do_popup_show" style="display:none">
-        <div class="out_storage_content the_warehouse_verification  common_storage_content  do_out_show" style="display:none">
-          <div class="out_storage_query">
-            <div class="nav-item-query">
-              <div class="font-20 font-borderradius text-align-center">出</div>
-            </div>
-            <div class="nav-item-query">
-              <label>单号：</label>
-              <input type="text" class="width-135" readonly>
-            </div>
-            <div class="nav-item-query">
-              <label>时间：</label>
-              <input type="text" class="width-135" readonly>
-            </div>
-            <div class="nav-item-query">
-              <label>操作人：</label>
-              <input type="text" class="widtn-135" readonly>
-            </div>
-            <div class="nav-item-query">
-              <label>领用人：</label>
-              <select  class="width-135">
-                <option></option>
-                <option></option>
-              </select>
-            </div>
-            <div class="nav-item-query">
-              <label>出库类型</label>
-              <select  class="width-135">
-                <option>领用出库</option>
-                <option>销售出库</option>
-                <option>赠送出库</option>
-                <option>盈亏出库</option>
-                <option>生产出库</option>
-              </select>
-            </div>
-            <div class="out_storage_print">
-              <a href="#" class="print_btn btn">打&nbsp;&nbsp;&nbsp;印</a>
-            </div>
-          </div>
-          <div class="out_storage_tab common_storage_tab">
-            <table cellpadding="0" cellspacing="0" class=" storage_tab" id="out_storage">
+    <div class="btn_group margin-right-40">
+      <a class="cancel_btn btn" href="pandiandanju.html" >取消</a>
+      <a class="save_btn btn do_save_btn" href="javascript:void(0)" >确定</a>
+    </div>
+  </div>
+</div>
 
-              <thead>
-                <tr>
-                  <th >#</th>
-                  <th >商品名称</th>
-                  <th >条码</th>
-                  <th >规格</th>
-                  <th >单位</th>
-                  <th >一级分类</th>
-                  <th >二级分类</th>
-                  <th >单价</th>
-                  <th >库存数</th>
-                  <th >出库数</th>
-                  <th>仓库</th>
-                  <th >出库类型</th>
-                  <th >备注</th>
-                </tr>
-              </thead>
-
-            </table>
-            <div class="common_storage_account">
-              <div class="item_content margin-left-10" >
-                <label class="width-75 vertical-align-top">备注：</label>
-                <textarea class="remarks_textarea"></textarea>
-              </div>
-              <div class="item_content margin-left-10 float-left">
-                <label class="width-75">制单人：</label>
-                <label class="width-253">&nbsp;</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="btn_group margin-right-40">
-            <a class="cancel_btn btn" href="pandiandanju.html" >取消</a>
-            <a class="save_btn btn do_save_btn" href="javascript:void(0)" >确定</a>
-          </div>
-        </div>
-
-        <div class="in_storage_content common_storage_content  the_warehouse_verification do_in_show"  style="display:none">
-          <div class="in_storage_query">
-            <div class="nav-item-query">
-              <div class="font-20 font-borderradius text-align-center">入</div>
-            </div>
-            <div class="nav-item-query">
-              <label>时间：</label>
-              <input type="text" class="width-135" readonly>
-            </div>
-            <div class="nav-item-query">
-              <label>数量：</label>
-              <input type="text" class="width-135" readonly>
-            </div>
-            <div class="nav-item-query">
-              <label>金额：</label>
-              <input type="text" class="width-135" readonly>
-            </div>
-            <div class="in_storage_print">
-              <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
-            </div>
-          </div>
-          <div class="in_storage_tab common_storage_tab">
-            <table cellpadding="0" cellspacing="0" class=" storage_tab" id="in_storage" >
-              <thead>
-                <tr class="bg-color-e0e2cf color-282726">
-                  <th>#</th>
-                  <th>商品名称</th>
-                  <th>条码</th>
-                  <th>规格</th>
-                  <th>单位</th>
-                  <th>一级分类</th>
-                  <th>二级分类</th>
-                  <th>单价</th>
-                  <th>差异数</th>
-                  <th>仓库</th>
-                  <th>小计</th>
-                  <th>备注</th>
-                </tr>
-              </thead>
-            </table>
-            <div class="common_storage_account">
-              <div class="item_content margin-left-10" >
-                <label class="width-75 vertical-align-top">备注：</label>
-                <textarea class="remarks_textarea"></textarea>
-              </div>
-              <div class="item_content  margin-left-10 float-left">
-                <label class="width-75">制单人：</label>
-                <label class="width-253">&nbsp;</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="btn_group">
-            <a class="cancel_btn btn" href="pandiandanju.html"  >取消</a>
-            <a class="warehousing_btn btn do_save_btn" href="javascript:void(0)" >入库</a>
-          </div>
+<div class="popup_box do_popup_show do_in_show" style="display:none">
+  <div class="in_storage_content common_storage_content  the_warehouse_verification do_in_show">
+    <div class="in_storage_query">
+      <div class="nav-item-query">
+        <div class="font-20 font-borderradius text-align-center">入</div>
       </div>
+      <div class="nav-item-query">
+        <label>时间：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>数量：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>金额：</label>
+        <input type="text" class="width-135" readonly>
+      </div>
+      <div class="in_storage_print">
+        <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
+      </div>
+    </div>
+    <div class="in_storage_tab common_storage_tab">
+      <table cellpadding="0" cellspacing="0" class=" storage_tab" id="in_storage" >
+        <thead>
+          <tr class="bg-color-e0e2cf color-282726">
+            <th>#</th>
+            <th>商品名称</th>
+            <th>条码</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>一级分类</th>
+            <th>二级分类</th>
+            <th>单价</th>
+            <th>差异数</th>
+            <th>仓库</th>
+            <th>小计</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="common_storage_account">
+        <div class="item_content margin-left-10" >
+          <label class="width-75 vertical-align-top">备注：</label>
+          <textarea class="remarks_textarea"></textarea>
+        </div>
+        <div class="item_content  margin-left-10 float-left">
+          <label class="width-75">制单人：</label>
+          <label class="width-253">&nbsp;</label>
+        </div>
+      </div>
+    </div>
 
+    <div class="btn_group">
+      <a class="cancel_btn btn" href="pandiandanju.html">取消</a>
+      <a class="warehousing_btn btn do_save_btn" href="javascript:void(0)">入库</a>
+    </div>
+  </div>
+</div>
+<% end %>
 
-      <script type="text/javascript" src="/mis/js/kucun/pandian.js" ></script>
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      function checked_call(){
+        if(this.classList.contains('profit')){
+          if(!$('#profit_btn').hasClass('disabled')){return false;}
+          $("#physical_items").find('input.loss').attr('disabled', true);
+          $('#profit_btn').removeClass('disabled');
+        }else if(this.classList.contains('loss')){
+          if(!$('#loss_btn').hasClass('disabled')){return false;}
+          $("#physical_items").find('input.profit').attr('disabled', true);
+          $('#loss_btn').removeClass('disabled');
+        }
+      }
 
-      <script type="text/javascript" >
-        $(function(){
-          var productList = new ProductList();
-          productList.fetch();
-          console.log(productList);
-          var invoiceView = new InvoiceView({collection: productList});
-          invoiceView.render();
+      function unchecked_call(){
+        if(this.classList.contains('profit')){
+          if($("#physical_items").find('input.profit').toArray().every(function(input){return !input.checked})){
+            $("#physical_items").find('input.loss').removeAttr('disabled');
+            $('#profit_btn').addClass('disabled');
+          }
+        }else if(this.classList.contains('loss')){
+          if($("#physical_items").find('input.loss').toArray().every(function(input){return !input.checked})){
+            $("#physical_items").find('input.profit').removeAttr('disabled');
+            $('#loss_btn').addClass('disabled');
+          }
+        }
+      }
 
-
-        })
-      </script>
+      $("#physical_items").on("click", 'input.check', function(){
+        if(this.checked){
+          checked_call.apply(this);
+        }else{
+          unchecked_call.apply(this);
+        }
+      });
+    });
+  </script>
+<% end %>
