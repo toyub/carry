@@ -5,36 +5,39 @@
       <div class="details">
         <div class="details_nav">
           <ul>
-            <li><a href="index.html" class="width-90">系统库存</a></li>
-            <li  class="bg-color-fff"><a href="pandiandanju.html" class="width-90">盘点单据</a></li>
+            <li><a href="/kucun/physical_inventories/new?store_depot_id=<%=params[:store_depot_id]%>" class="width-90">系统库存</a></li>
+            <li class="bg-color-fff"><a href="pandiandanju.html" class="width-90">盘点单据</a></li>
             <li><a href="lishijilu.html" class="width-90">历史记录</a></li>
           </ul>
         </div>
         <div class="details_nav_second border-right-0 padding-top-10">
+          <%= form_tag '/kucun/physical_inventories/review', id: 'query_form', method: 'GET' do %>
           <div class="item-query float-left">
-            <label>查看结果</label>
-            <select class="width-90">
-              <option>全部</option>
-              <option>盘盈</option>
-              <option>盘亏</option>
-
-            </select>
-          </div>
-          <div class="item-query float-left margin-left-20">
-            <select class="width-90">
+            <label>仓库</label>
+            <select class="width-90" name="store_depot_id">
               <option>选择仓库</option>
-              <option>仓库1</option>
-              <option>仓库2</option>
+              <%= options_from_collection_for_select(@store.store_depots, :id, :name, @physical.try(:store_depot_id)) %>
             </select>
           </div>
+
           <div class="item-query float-left margin-left-20">
-            <select class="width-90">
-              <option>全部</option>
-              <option>未核销</option>
-              <option>已核销</option>
+            <label>盈亏</label>
+            <select class="width-90" name="diff">
+              <option value="">全部</option>
+              <%= options_for_select([['盘盈', 1],['盘亏', -1]], params[:diff]) %>
             </select>
           </div>
+
           <div class="item-query float-left margin-left-20">
+            <label>处理</label>
+            <select class="width-90" name="status">
+              <option value="">全部</option>
+              <%= options_for_select([['未处理', 0],['已处理', 1]], params[:status]) %>
+            </select>
+          </div>
+          <% end %>
+          <div class="item-query float-left margin-left-20">
+            <input type="submit" class='btn query_btn' form="query_form" value="查询"/>
             <a href="javascript:void(0)" class="single_shortage_btn btn">盘亏单</a>
             <a href="javascript:void(0)" class=" overage_single_btn btn">盘盈单</a>
           </div>
@@ -43,28 +46,75 @@
             <div class="list_table">
               <table cellpadding="0" cellspacing="0" class="index_list inventory_list">
                 <thead>
-                  <tr >
+                  <tr>
                     <th class="border-right-0" >#</th>
-                    <th class="border-right-0"><input type="checkbox" class="float-left " id="all_checked"></th>
-                    <th >商品名称</th>
-                    <th >商品条码</th>
-                    <th >一级分类</th>
-                    <th >二级分类</th>
-                    <th >规格</th>
+                    <th class="border-right-0">
+                      <% if params[:diff] %>
+                      <input type="checkbox" class="float-left" id="all_checked">
+                      <% end %>
+                    </th>
+                    <th>商品名称</th>
+                    <th>商品条码</th>
+                    <th>一级分类</th>
+                    <th>二级分类</th>
+                    <th>规格</th>
                     <th>单位</th>
                     <th>库存数</th>
-                    <th >盘点数</th>
+                    <th>盘点数</th>
                     <th>盘盈盘亏</th>
                     <th>仓库</th>
                   </tr>
                 </thead>
-                <tbody id="tbody">
+                <tbody>
+                  <% if params[:store_depot_id].blank? %>
+                    <tr>
+                      <td colspan="12">
+                        请选择仓库进行查询。
+                      </td>
+                    </tr>
+                  <% end %>
+                  <% if @physical_count.present? %>
+                    <tr>
+                      <td colspan="12">
+                        此仓库有<%= @inventory_count %>种类商品，已经盘点 <%= @physical_count %>， 剩余 <%= @inventory_count - @physical_count %>；
+                      </td>
+                    </tr>
+                  <% end %>
+                  <% if @physical.present? %>
+                    <% @physical.items.status_is(params[:status]).diff_is(params[:diff]).each_with_index do |item, idx| %>
+                    <tr class="<%= (item.diff != 0 && item.status == 0) ? 'unapplied' : 'breakeven' %>">
+                      <td class="number"><%= idx + 1 %></td>
+                      <td class="border-right-0">
+                        <% if item.diff != 0 && item.status == 0 %>
+                        <input data-id="<%= item.id %>" type="checkbox">
+                        <% end %>
+                      </td>
+                      <td title="<%= item.store_material.name %>"><%= item.store_material.name.truncate(11) %></td>
+                      <td><%= item.store_material.barcode %></td>
+                      <td><%= item.store_material.store_material_root_category.name %></td>
+                      <td><%= item.store_material.store_material_category.name %></td>
+                      <td><%= item.store_material.speci %></td>
+                      <td><%= item.store_material.store_material_unit.name %></td>
+                      <td><%= item.inventory %></td>
+                      <td><%= item.physical %></td>
+                      <td><span class="diff <%= 'clolor-FD797B' if item.diff != 0 %>"> <%= item.diff %></span></td>
+                      <td><%= item.remark %></td>
+                    </tr>
+                    <% end %>
+                  <% elsif params[:store_depot_id].present? %>
+                    <tr>
+                      <td colspan="12">
+                        此仓库本月还没有盘点，请先盘点 <a href="/kucun/physical_inventories/new?store_depot_id=<%= @physical.try(:store_depot_id) %>">去盘点</a>
+                      </td>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             </div>
           </div>
         <div class="btn_group">
-          <input type="submit" class="save_btn btn"  value="保存">
+          <span>注意： 商品全部盘点完成才能核销！若月底没有核销，系统将自动核销。</span>
+          <input type="submit" class="save_btn btn <%= 'disabled' unless  @inventory_count == @physical_count  %>" value="核销盘点">
         </div>
       </div>
 

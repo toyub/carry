@@ -14,7 +14,7 @@
     </ul>
   </div>
   <div class="details_nav_second border-none padding-top-10">
-    <%= form_tag '/kucun/physical_inventories/new', method: 'GET', id: 'new_form' do %>
+    <%= form_tag '/kucun/physical_inventories/new', method: 'GET', id: 'query_form' do %>
     <div class="item-query float-left margin-left-20">
       <select required=true name='store_depot_id' class="width-90">
         <option value="">选择仓库</option>
@@ -26,7 +26,7 @@
     </div>
     <% end %>
     <div class="item-query float-left margin-left-20">
-      <input type="submit" class='btn query_btn' form="new_form" value="查询"/>
+      <input type="submit" class='btn query_btn' form="query_form" value="查询"/>
       <a href="javascript:void(0)" class="generated_tab_btn btn">生成盘点单据</a>
     </div>
   </div>
@@ -52,6 +52,26 @@
             </tr>
           </thead>
           <tbody>
+            <% if params[:store_depot_id].blank? %>
+              <tr>
+                <td colspan="11">
+                  请选择仓库进行盘点。
+                </td>
+              </tr>
+            <% elsif @ids.length > 0 && @inventories.length == 0%>
+              <tr>
+                <td colspan="11">
+                  此仓库所有商品已经盘点过了。
+                </td>
+              </tr>
+            <% elsif @ids.length > 0 %>
+              <tr>
+                <td colspan="11">
+                  此仓库部分商品<%= @ids.length %>已经盘点，未予显示。
+                </td>
+              </tr>
+            <% end %>
+
             <% @inventories.each_with_index do |inventory, idx| %>
             <tr>
               <td class="number">

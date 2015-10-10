@@ -47,7 +47,11 @@ Rails.application.routes.draw do
     resources :checkins
     resources :returnings
     resources :shrinkages
-    resources :physical_inventories
+    resources :physical_inventories do
+      collection do
+        get :review
+      end
+    end
   end# END of namespace :kucun
 
   namespace :xiaoshou do
