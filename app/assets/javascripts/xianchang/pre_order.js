@@ -41,9 +41,13 @@ Ext.onReady(function(){
       }
     },{
       labelAlign: "right",
+      emptyText: "选择时间",
       fieldLabel: "预约时间",
       id: "order_time",
-      xtype: "textfield"
+      xtype: "datefield",
+      fieldStyle: {
+        color: "#717171"
+      }
     },{
       xtype: "button",
       margin: "0 0 0 10px",
@@ -51,9 +55,7 @@ Ext.onReady(function(){
       handler: function(){
         var phone = Ext.getCmp("phone_or_number").getValue();
         var orderTime = Ext.getCmp("order_time").getValue();
-        if(phone == "")
-          console.log("空的");
-        store.load({ params: { phone: phone }});
+        store.load({ params: { phone: phone, subscribe_date: orderTime }});
       }
     }]
   })
