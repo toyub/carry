@@ -15,7 +15,7 @@ Ext.onReady(function(){
     model: 'StoreOrder',
     proxy: {
       type: 'ajax',
-      url: "/api/store_orders"
+      url: "/api/store_subscribe_orders"
     },
   });
 
@@ -29,7 +29,10 @@ Ext.onReady(function(){
       labelAlign: "right",
       fieldLabel: "信息查询",
       id: "phone_or_number",
-      xtype: "textfield"
+      xtype: "textfield",
+      fieldStyle: {
+        color: "#717171"
+      }
     },{
       labelAlign: "right",
       fieldLabel: "预约时间",
