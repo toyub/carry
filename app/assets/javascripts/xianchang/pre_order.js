@@ -25,6 +25,15 @@ Ext.onReady(function(){
     },
   });
 
+  var states = Ext.create('Ext.data.Store', {
+    fields: ['state_name'],
+    data : [
+        {"state_name": "未执行", state: "0" },
+        {"state_name": "执行中", state: "1"},
+        {"state_name": "已执行", state: "2"},
+    ]
+  });
+
   var topBannerPanel = Ext.create("Ext.panel.Panel", {
     bodyPadding: 5,
     layout: {
@@ -55,7 +64,25 @@ Ext.onReady(function(){
       handler: function(){
         var phone = Ext.getCmp("phone_or_number").getValue();
         var orderTime = Ext.getCmp("order_time").getValue();
-        store.load({ params: { phone: phone, subscribe_date: orderTime }});
+        var state = Ext.getCmp("state_select").getValue();
+        console.log(state)
+        store.load({ params: { phone: phone, subscribe_date: orderTime, state: state}});
+      }
+    },{
+      labelAlign: "right",
+      fieldLabel: "状态选择",
+      emptyText: "未执行",
+      id: "state_select",
+      xtype: "combobox",
+      editable: false,
+      store: states,
+      queryMode: "local",
+      displayField: "state_name",
+      valueField: "state",
+      listeners: {
+        select: function(obj){
+          store.load({ params: {state: obj.getValue()}})
+        }
       }
     }]
   })
