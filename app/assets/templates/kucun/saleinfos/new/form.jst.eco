@@ -13,15 +13,17 @@
     <div class="grid-1-2  text-align-left float-left">
       <label class="width-50">技师等级</label>
       <select class="width-132" name="saleinfo[store_material_saleinfo_services][][mechanic_level]">
-        <option>初级以上(含初级)</option>
-        <option>中级以上(含中级)</option>
-        <option>高级</option>
+        <option value="0">初级以上(含初级)</option>
+        <option value="1">中级以上(含中级)</option>
+        <option value="2">高级</option>
       </select>
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-50">施工提成</label>
-      <select class="width-155" name="saleinfo[store_material_saleinfo_services][][store_commission_id]">
-        <option>镀晶提成方案</option>
+      <select class="width-155" name="saleinfo[store_material_saleinfo_services][][store_commission_template_id]">
+        <% for option in @store_commission_templates: %>
+        <option value="<%= option.id %>"><%= option.name %></option>
+        <% end %>
       </select>
     </div>
     <div class="grid-1-2  text-align-left float-left ">

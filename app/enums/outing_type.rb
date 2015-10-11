@@ -1,4 +1,4 @@
-class OutingType
+class OutingType < Enums::Base
   attr_reader :id, :name
   ID_TYPES={ 0 => '领用出库', 1 => '销售出库', 2 => '赠送出库', 3=> '盘亏出库', 4 => '生产出库', 5 => '转移出库', 6 => '报损出库'}
   TYPES_ID = ID_TYPES.invert

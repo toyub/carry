@@ -26,6 +26,8 @@
     jQuery(function(){
       var new_service_tmpl = JST['kucun/saleinfos/new/form'];
       var show_tmpl = JST['kucun/saleinfos/new/summary'];
+      var form_url = "<%= kucun_material_saleinfo_saleinfo_services_path(material_id: @store_material.id) %>"
+      var store_commission_templates = <%= @store_commission_templates.to_json.html_safe %>
       services = [];
       $("input[name='saleinfo[volume]']").on('change', function(){
         if(this.value){
@@ -66,7 +68,9 @@
         var id = services.length + 1;
         var service = {id: id}
         services.push(service);
-        $('div.server_list').append(new_service_tmpl(service));
+        var cloned = JSON.parse(JSON.stringify(service));
+        cloned.store_commission_templates = store_commission_templates;
+        $('div.server_list').append(new_service_tmpl(cloned));
       });
 
       $('div.server_list').on('click', 'input.save_service', function(){
@@ -77,7 +81,9 @@
         obj.times = $form.find('[name="saleinfo[store_material_saleinfo_services][][times]"]').val();
         obj.work_time = $form.find("[name='saleinfo[store_material_saleinfo_services][][work_time]']").val();
         obj.mechanic_level = $form.find('[name="saleinfo[store_material_saleinfo_services][][mechanic_level]"]').val();
-
+        $.post(form_url, obj, function (data) {
+          console.log(data)
+        });
         if(!obj.saved){
           obj.saved = true;
           $('#lists').append(show_tmpl(obj)).show();
