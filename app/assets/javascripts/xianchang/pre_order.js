@@ -117,7 +117,25 @@ Ext.onReady(function(){
           handler: function(grid, rowIndex, colIndex){}
         },{
           glyph: "lnr lnr-trash",
-          handler: function(grid, rowIndex, colIndex){}
+          handler: function(grid, rowIndex, colIndex){
+            Ext.Msg.show({
+              title:'操作',
+              message: '是否确定删除？',
+              buttons: Ext.Msg.YESNO,
+              fn: function(btn){
+                if(btn == "yes"){
+                  var rec = store.getAt(rowIndex)
+                  Ext.Ajax.request({
+                    url: '/api/store_subscribe_orders/' + rec.id,
+                    method: "DELETE",
+                    success: function(response){
+                      store.remove(rec)
+                    }
+                  });
+                }
+              }
+            })
+          }
         }]
       }
     ],
