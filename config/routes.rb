@@ -53,6 +53,7 @@ Rails.application.routes.draw do
       collection do
         get :review
         post :loss_report
+        post :profit_report
       end
     end
   end# END of namespace :kucun

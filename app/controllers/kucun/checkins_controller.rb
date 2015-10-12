@@ -16,8 +16,9 @@ class Kucun::CheckinsController < Kucun::ControllerBase
       @checkin.items.each do |item|
         item.store_depot_id = @checkin.store_depot_id
         item.store_staff_id = @checkin.store_staff_id
+        item.amount = item.quantity * item.price
         @checkin.quantity += item.quantity
-        @checkin.amount += item.quantity * item.price
+        @checkin.amount += item.amount
 
 
         inventory = StoreMaterialInventory.find_or_initialize_by(store_depot_id: item.store_depot_id,
@@ -69,7 +70,7 @@ class Kucun::CheckinsController < Kucun::ControllerBase
   def latest_cost_price(material, item)
     puts "\n"*8
     p item
-    puts 
+    puts
     puts "\n"*8
     a = material.inventory.to_i * material.cost_price
     b = item.price * item.quantity

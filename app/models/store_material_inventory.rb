@@ -16,12 +16,16 @@ class StoreMaterialInventory < ActiveRecord::Base
     down!(quantity)
   end
 
+  def checkin!(quantity)
+    up!(quantity)
+  end
+
   private
   def down!(quantity)
     self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) - #{quantity.to_i.abs}")
   end
 
-  def up!
+  def up!(quantity)
     self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) + #{quantity.to_i.abs}")
   end
 end

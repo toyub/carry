@@ -127,12 +127,11 @@
   </div>
 </div>
 
-
-
 <% content_for :scenes do %>
 <div id='loss_pop' class="popup_box do_popup_show do_out_show" style="display:none">
   <%= form_tag '/kucun/physical_inventories/loss_report' do %>
   <input type="hidden" name="store_depot_id" value="<%= @physical.store_depot_id %>">
+  <input type="hidden" name="physical_id" value="<%= @physical.id %>">
   <div class="out_storage_content the_warehouse_verification common_storage_content">
     <div class="out_storage_query">
       <div class="nav-item-query">
@@ -159,7 +158,7 @@
         </select>
       </div>
       <div class="out_storage_print">
-        <a href="#" class="print_btn btn">打&nbsp;&nbsp;&nbsp;印</a>
+        <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
       </div>
     </div>
     <div class="out_storage_tab common_storage_tab">
@@ -178,31 +177,32 @@
             <th>备注</th>
           </tr>
         </thead>
-        <tbody>
-
-        </tbody>
+        <tbody></tbody>
       </table>
       <div class="common_storage_account">
         <div class="item_content margin-left-10" >
           <label class="width-75 vertical-align-top">备注：</label>
-          <textarea class="remarks_textarea"></textarea>
+          <textarea name='outing[remark]' class="remarks_textarea"></textarea>
         </div>
         <div class="item_content margin-left-10 float-left">
           <label class="width-75">制单人：</label>
-          <label class="width-253">&nbsp;</label>
+          <label class="width-253"><%= current_staff.screen_name %></label>
         </div>
       </div>
     </div>
 
     <div class="btn_group margin-right-40">
       <a class="cancel_btn btn" href="pandiandanju.html" >取消</a>
-      <a class="save_btn btn do_save_btn" href="javascript:void(0)" >确定</a>
+      <input type="submit" value="确定" class="save_btn btn do_save_btn"/>
     </div>
   </div>
   <% end %>
 </div>
 
 <div id='profit_pop' class="popup_box do_popup_show do_in_show" style="display:none">
+  <%= form_tag '/kucun/physical_inventories/profit_report' do %>
+  <input type="hidden" name="store_depot_id" value="<%= @physical.store_depot_id %>">
+  <input type="hidden" name="physical_id" value="<%= @physical.id %>">
   <div class="in_storage_content common_storage_content  the_warehouse_verification do_in_show">
     <div class="in_storage_query">
       <div class="nav-item-query">
@@ -213,12 +213,8 @@
         <input type="text" class="width-135" readonly>
       </div>
       <div class="nav-item-query">
-        <label>数量：</label>
-        <input type="text" class="width-135" readonly>
-      </div>
-      <div class="nav-item-query">
-        <label>金额：</label>
-        <input type="text" class="width-135" readonly>
+        <label>仓库：</label>
+        <input type="text" class="widtn-135" readonly value="<%= @physical.store_depot.name %>">
       </div>
       <div class="in_storage_print">
         <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
@@ -239,27 +235,26 @@
             <th>备注</th>
           </tr>
         </thead>
-        <tbody>
-
-        </tbody>
+        <tbody></tbody>
       </table>
       <div class="common_storage_account">
         <div class="item_content margin-left-10" >
           <label class="width-75 vertical-align-top">备注：</label>
-          <textarea class="remarks_textarea"></textarea>
+          <textarea name='checkin[remark]' class="remarks_textarea"></textarea>
         </div>
         <div class="item_content  margin-left-10 float-left">
           <label class="width-75">制单人：</label>
-          <label class="width-253">&nbsp;</label>
+          <label class="width-253"><%= current_staff.screen_name %></label>
         </div>
       </div>
     </div>
 
     <div class="btn_group">
       <a class="cancel_btn btn" href="pandiandanju.html">取消</a>
-      <a class="warehousing_btn btn do_save_btn" href="javascript:void(0)">入库</a>
+      <input type="submit" class='warehousing_btn btn do_save_btn' value="入 库"/>
     </div>
   </div>
+  <% end %>
 </div>
 <% end %>
 
@@ -309,8 +304,11 @@
         var html = $('input.loss:checked').map(function(idx, input){
           var data = $(this).data('item');
           data.store_material.idx = idx + 1;
+          data.store_material.store_depot_id = data.store_depot_id;
+          data.store_material.store_inventory_id = data.store_inventory_id;
           data.store_material.inventory = data.inventory;
           data.store_material.diff = data.diff;
+          data.store_material.item_id = data.id;
           data.store_material.remark = data.remark;
           return loss_tmpl(data.store_material);
         }).toArray();
@@ -319,6 +317,20 @@
 
       $("#profit_btn").on("click", function(){
         if(this.classList.contains("disabled")){return false;}
+        $("#profit_pop").show();
+
+        var html = $('input.profit:checked').map(function(idx, input){
+          var data = $(this).data('item');
+          data.store_material.idx = idx + 1;
+          data.store_material.store_depot_id = data.store_depot_id;
+          data.store_material.store_inventory_id = data.store_inventory_id;
+          data.store_material.inventory = data.inventory;
+          data.store_material.diff = data.diff;
+          data.store_material.item_id = data.id;
+          data.store_material.remark = data.remark;
+          return profit_tmpl(data.store_material);
+        }).toArray();
+        $("#in_storage > tbody").html(html.join(''));
       });
     });
   </script>
