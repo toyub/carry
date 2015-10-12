@@ -58,18 +58,24 @@
                   请选择仓库进行盘点。
                 </td>
               </tr>
-            <% elsif @ids.length > 0 && @inventories.length == 0%>
+            <% elsif @ids.length > 0 && @inventories.length == 0 %>
               <tr>
                 <td colspan="11">
                   此仓库所有商品已经盘点过了。
                 </td>
               </tr>
-            <% elsif @ids.length > 0 %>
+            <% elsif @ids.length >= 0 %>
               <tr>
                 <td colspan="11">
                   此仓库部分商品<%= @ids.length %>已经盘点，未予显示。
                 </td>
               </tr>
+            <% elsif @inventories.length == 0 %>
+            <tr>
+              <td colspan="11">
+                此仓库没有商品
+              </td>
+            </tr>
             <% end %>
 
             <% @inventories.each_with_index do |inventory, idx| %>

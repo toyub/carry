@@ -24,11 +24,11 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
         @ids = []
       end
 
-      @inventories = StoreMaterialInventory.includes(:store_material)
-                                           .where(store_id: @store.id,
-                                                  store_depot_id: params[:store_depot_id])
+      @inventories = @store.store_material_inventories
+                           .inclmd
+                           .by_depot(params[:store_depot_id])
                                            
-      @inventories = @inventories.where('store_material_inventories.id not in (?)', @ids)
+      @inventories = @inventories.where('store_material_inventories.id not in (?)', @ids) if @ids.present?
       @inventories = @inventories.where('quantity > 0') if params[:nz]
 
     else

@@ -2,9 +2,11 @@ class StoreMaterialInventory < ActiveRecord::Base
   include BaseModel
   belongs_to :store_depot
   belongs_to :store_material
-  belongs_to :store_material_order
-  belongs_to :store_material_order_item
+  has_many :store_material_orders
   has_many :store_material_inventory_records
+
+  scope :by_depot, ->(depot_id){where(store_depot_id: depot_id) if depot_id.present?}
+  scope :inclmd, ->{includes(:store_material, :store_depot)}
 
   def returning!(quantity)
     down!(quantity)

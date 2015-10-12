@@ -3,7 +3,8 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   before_filter :set_material, only: [:show, :edit]
 
   def index
-    @store_materials = StoreMaterial.all
+    @store = current_store
+    @store_materials = @store.store_materials
     respond_to do |format|
       format.json {
         render json: @store_materials.to_json

@@ -3,7 +3,7 @@ class StoreMaterialOrder < ActiveRecord::Base
   belongs_to :store_material
   belongs_to :store_supplier
 
-  has_many :store_material_inventories
+  belongs_to :store_material_inventory
   has_many :items, class_name: 'StoreMaterialOrderItem'
   has_many :payments, class_name: 'StoreMaterialOrderPayment'
 
