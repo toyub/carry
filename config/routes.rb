@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     resources :physical_inventories do
       collection do
         get :review
+        post :loss_report
       end
     end
   end# END of namespace :kucun

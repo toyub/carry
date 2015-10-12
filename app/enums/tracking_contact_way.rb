@@ -1,2 +1,2 @@
-class TrackingContactWay < Enums::Base
+class TrackingContactWay
 end

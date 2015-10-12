@@ -1,6 +1,6 @@
-class OutingType < Enums::Base
+class OutingType
   attr_reader :id, :name
-  ID_TYPES={ 0 => '领用出库', 1 => '销售出库', 2 => '赠送出库', 3=> '盘亏出库', 4 => '生产出库', 5 => '转移出库', 6 => '报损出库'}
+  ID_TYPES={ 0 => '领用出库', 1 => '销售出库', 2 => '赠送出库', 3=> '盘亏出库', 4 => '生产出库', 5 => '转移出库', 6 => '报损出库', 7 => '盈亏出库'}
   TYPES_ID = ID_TYPES.invert
 
   def initialize(_id, _name)
@@ -22,6 +22,10 @@ class OutingType < Enums::Base
     else
       nil
     end
+  end
+
+  def self.name_in(names)
+    ID_TYPES.find_all(&->(key,val){names.include?(val)}).map(&->(tipe){self.new(*tipe) })
   end
 
   def self.collection

@@ -1,14 +1,12 @@
 <tr>
   <td class="number"><%= @idx %></td>
-  <td><%= @name %></td>
+  <td title="<%= @name %>"><%= @name.substring(0, 11) %><%= '...' if @name.length > 11 %></td>
   <td><%= @barcode %></td>
   <td><%= @speci %></td>
   <td><%= @unit %></td>
   <td><%= @root_category %></td>
   <td><%= @category %></td>
-  <td><%= @cost_price %></td>
-  <td><%= @inventory  %></td>
-  <td><%= @diff %></td>
-  <td></td>
-  <td></td>
+  <td><%= @inventory %></td>
+  <td><%= Math.abs(@diff)  %></td>
+  <td><input type="text" name="items[][remark]" value="<%= @remark %>"></td>
 </tr>

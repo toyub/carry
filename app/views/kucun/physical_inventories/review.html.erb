@@ -131,7 +131,9 @@
 
 <% content_for :scenes do %>
 <div id='loss_pop' class="popup_box do_popup_show do_out_show" style="display:none">
-  <div class="out_storage_content the_warehouse_verification  common_storage_content  ">
+  <%= form_tag '/kucun/physical_inventories/loss_report' do %>
+  <input type="hidden" name="store_depot_id" value="<%= @physical.store_depot_id %>">
+  <div class="out_storage_content the_warehouse_verification common_storage_content">
     <div class="out_storage_query">
       <div class="nav-item-query">
         <div class="font-20 font-borderradius text-align-center">出</div>
@@ -145,16 +147,15 @@
         <input type="text" class="width-135" readonly>
       </div>
       <div class="nav-item-query">
-        <label>操作人：</label>
-        <input type="text" class="widtn-135" readonly>
+        <label>仓库：</label>
+        <input type="text" class="widtn-135" readonly value="<%= @physical.store_depot.name %>">
       </div>
       <div class="nav-item-query">
         <label>出库类型</label>
-        <select class="width-135">
-          <option selected='selected'>盈亏出库</option>
-          <option>销售出库</option>
-          <option>赠送出库</option>
-          <option>生产出库</option>
+        <select class="width-135" name="outing[outing_type_id]" >
+          <% OutingType.name_in(["盈亏出库", '销售出库', '赠送出库', '生产出库']).each do |opt| %>
+            <option <%= 'selected' if opt.name == '盈亏出库' %> value="<%= opt.id %>"><%= opt.name %></option>
+          <% end %>
         </select>
       </div>
       <div class="out_storage_print">
@@ -198,6 +199,7 @@
       <a class="save_btn btn do_save_btn" href="javascript:void(0)" >确定</a>
     </div>
   </div>
+  <% end %>
 </div>
 
 <div id='profit_pop' class="popup_box do_popup_show do_in_show" style="display:none">
@@ -304,15 +306,15 @@
         if(this.classList.contains("disabled")){return false;}
         $("#loss_pop").show();
 
-        $('input.loss:checked').map(function(){
+        var html = $('input.loss:checked').map(function(idx, input){
           var data = $(this).data('item');
-          console.log(data)
-          return data;
-          
-        })
-
-
-  //        $("#out_storage > tbody").html(html)
+          data.store_material.idx = idx + 1;
+          data.store_material.inventory = data.inventory;
+          data.store_material.diff = data.diff;
+          data.store_material.remark = data.remark;
+          return loss_tmpl(data.store_material);
+        }).toArray();
+        $("#out_storage > tbody").html(html.join(''));
       });
 
       $("#profit_btn").on("click", function(){

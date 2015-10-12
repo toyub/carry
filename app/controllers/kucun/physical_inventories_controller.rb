@@ -83,6 +83,10 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
     @physical = StorePhysicalInventory.find(params[:id])
   end
 
+  def loss_report
+    render json:params
+  end
+
   private
   def physical_params
     params.require(:store_physical_inventories)
