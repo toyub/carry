@@ -1,0 +1,14 @@
+<tr>
+  <td class="number"><%= @idx %></td>
+  <td><%= @name %></td>
+  <td><%= @barcode %></td>
+  <td><%= @speci %></td>
+  <td><%= @unit %></td>
+  <td><%= @root_category %></td>
+  <td><%= @category %></td>
+  <td><%= @cost_price %></td>
+  <td><%= @inventory  %></td>
+  <td><%= @diff %></td>
+  <td></td>
+  <td></td>
+</tr>

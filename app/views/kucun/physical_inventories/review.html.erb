@@ -95,7 +95,7 @@
                 <td class="number"><%= idx + 1 %></td>
                 <td class="border-right-0">
                   <% if item.diff != 0 && item.status == 0 %>
-                  <input class='check <%= diff_class %>' data-id="<%= item.id %>" type="checkbox">
+                  <input data-item="<%= json_for(item, root:false) %>" class='check <%= diff_class %>' data-id="<%= item.id %>" type="checkbox">
                   <% end %>
                 </td>
                 <td title="<%= item.store_material.name %>"><%= item.store_material.name.truncate(11) %></td>
@@ -130,7 +130,7 @@
 
 
 <% content_for :scenes do %>
-<div class="popup_box do_popup_show do_out_show" style="display:none">
+<div id='loss_pop' class="popup_box do_popup_show do_out_show" style="display:none">
   <div class="out_storage_content the_warehouse_verification  common_storage_content  ">
     <div class="out_storage_query">
       <div class="nav-item-query">
@@ -149,19 +149,11 @@
         <input type="text" class="widtn-135" readonly>
       </div>
       <div class="nav-item-query">
-        <label>领用人：</label>
-        <select  class="width-135">
-          <option></option>
-          <option></option>
-        </select>
-      </div>
-      <div class="nav-item-query">
         <label>出库类型</label>
-        <select  class="width-135">
-          <option>领用出库</option>
+        <select class="width-135">
+          <option selected='selected'>盈亏出库</option>
           <option>销售出库</option>
           <option>赠送出库</option>
-          <option>盈亏出库</option>
           <option>生产出库</option>
         </select>
       </div>
@@ -180,15 +172,14 @@
             <th>单位</th>
             <th>一级分类</th>
             <th>二级分类</th>
-            <th>单价</th>
             <th>库存数</th>
             <th>出库数</th>
-            <th>仓库</th>
-            <th>出库类型</th>
             <th>备注</th>
           </tr>
         </thead>
+        <tbody>
 
+        </tbody>
       </table>
       <div class="common_storage_account">
         <div class="item_content margin-left-10" >
@@ -209,7 +200,7 @@
   </div>
 </div>
 
-<div class="popup_box do_popup_show do_in_show" style="display:none">
+<div id='profit_pop' class="popup_box do_popup_show do_in_show" style="display:none">
   <div class="in_storage_content common_storage_content  the_warehouse_verification do_in_show">
     <div class="in_storage_query">
       <div class="nav-item-query">
@@ -232,7 +223,7 @@
       </div>
     </div>
     <div class="in_storage_tab common_storage_tab">
-      <table cellpadding="0" cellspacing="0" class=" storage_tab" id="in_storage" >
+      <table cellpadding="0" cellspacing="0" class="storage_tab" id="in_storage" >
         <thead>
           <tr class="bg-color-e0e2cf color-282726">
             <th>#</th>
@@ -242,13 +233,13 @@
             <th>单位</th>
             <th>一级分类</th>
             <th>二级分类</th>
-            <th>单价</th>
-            <th>差异数</th>
-            <th>仓库</th>
-            <th>小计</th>
+            <th>入库数量</th>
             <th>备注</th>
           </tr>
         </thead>
+        <tbody>
+
+        </tbody>
       </table>
       <div class="common_storage_account">
         <div class="item_content margin-left-10" >
@@ -273,6 +264,8 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
+      var loss_tmpl = JST['kucun/physical_inventories/review/loss'];
+      var profit_tmpl = JST['kucun/physical_inventories/review/profit'];
       function checked_call(){
         if(this.classList.contains('profit')){
           if(!$('#profit_btn').hasClass('disabled')){return false;}
@@ -305,6 +298,25 @@
         }else{
           unchecked_call.apply(this);
         }
+      });
+
+      $("#loss_btn").on("click", function(){
+        if(this.classList.contains("disabled")){return false;}
+        $("#loss_pop").show();
+
+        $('input.loss:checked').map(function(){
+          var data = $(this).data('item');
+          console.log(data)
+          return data;
+          
+        })
+
+
+  //        $("#out_storage > tbody").html(html)
+      });
+
+      $("#profit_btn").on("click", function(){
+        if(this.classList.contains("disabled")){return false;}
       });
     });
   </script>
