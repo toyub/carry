@@ -1,11 +1,12 @@
 <div data-id="<%= @id %>" class="add_server">
+  <form>
     <div class="grid-1-2  text-align-left float-left ">
       <label class="width-50">服务名称</label>
-      <input type="text" name='saleinfo[store_material_saleinfo_services][][name]' class="width-130">
+      <input type="text" required=true name='saleinfo[store_material_saleinfo_services][][name]' class="width-130">
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-50">施工时间</label>
-      <input type="text" num int un class="width-90" name='saleinfo[store_material_saleinfo_services][][work_time]'>
+      <input type="text" required=true num int un class="width-90" name='saleinfo[store_material_saleinfo_services][][work_time]'>
       <select class="width-60" name='saleinfo[store_material_saleinfo_services][][work_time_unit]'>
         <option>分钟</option>
       </select>
@@ -28,15 +29,14 @@
     </div>
     <div class="grid-1-2  text-align-left float-left ">
      <label class="width-50">施工次数</label>
-     <input type="text" class="width-55" name="saleinfo[store_material_saleinfo_services][][times]">
-     <label class="width-50">售后回访</label>
-     <input type="checkbox" class="width-15" name="saleinfo[store_material_saleinfo_services][][tracking_needed]">
+     <input type="text" required=true value='1' min='1' class="width-55" name="saleinfo[store_material_saleinfo_services][][times]">
+     <label class="width-75">需要回访<input type="checkbox" class="width-15" name="saleinfo[store_material_saleinfo_services][][tracking_needed]"></label>
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-60">回访时间:</label>
       <label class="width-60">施工结束后</label>
-      <input type="text" num int un class="width-35" name="saleinfo[store_material_saleinfo_services][][tracking_time]">
-      <select class="width-45" name="saleinfo[store_material_saleinfo_services][][tracking_time_unit]">
+      <input disabled required=true type="text" num int un class="width-35" name="saleinfo[store_material_saleinfo_services][][tracking_time]">
+      <select disabled required=true class="width-45" name="saleinfo[store_material_saleinfo_services][][tracking_time_unit]">
         <option>时</option>
         <option>天</option>
         <option>月</option>
@@ -45,17 +45,18 @@
     <div class=" text-align-left float-right  pure-u-2-2">
       <label class="width-95">回访内容：</label>
       <label class="width-73 text-align-left">回访方式</label>
-      <select class="width-253" name="saleinfo[store_material_saleinfo_services][][tracking_contact_way]">
+      <select disabled required=true class="width-253" name="saleinfo[store_material_saleinfo_services][][tracking_contact_way]">
         <option>短信</option>
         <option>微信</option>
       </select>
      </div>
-    <div class=" text-align-left float-right   pure-u-2-2 model">
-      <textarea name='saleinfo[store_material_saleinfo_services][][tracking_content]'></textarea>
+    <div class="text-align-left float-right   pure-u-2-2 model">
+      <textarea required=true disabled name='saleinfo[store_material_saleinfo_services][][tracking_content]'></textarea>
     </div>
 
     <div class="btn_group">
       <input type="reset"  value="取消" class="cancel_btn btn cancel"  >
-      <input type="button"  value="保存" class="save_service save_btn btn add_cancel"   >
+      <input type="submit"  value="保存" class="save_service save_btn btn add_cancel">
     </div>
+  </form>
 </div>
