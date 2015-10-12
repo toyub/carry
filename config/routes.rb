@@ -88,6 +88,7 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :commission_templates
   end
 
   namespace :ajax do
