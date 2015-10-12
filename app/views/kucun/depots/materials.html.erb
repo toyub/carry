@@ -7,8 +7,6 @@
 </div>
 <div class="details">
 
-  <%= render partial: 'table_head' %>
-
   <div class="list_table">
     <div class="search_nav">
       <%= render partial: 'kucun/partials/material_search' %>
@@ -35,7 +33,8 @@
         </tr>
       </thead>
       <tbody>
-        <% @store_materials.each_with_index do |material, idx| %>
+        <% @inventories.each_with_index do |inventory, idx| %>
+        <% material = inventory.store_material %>
         <tr>
           <td class="number"><%= idx + 1 %></td>
           <td title="<%= material.name %>"><a href="<%= kucun_material_path(material) %>"><%= material.name.truncate(11) %></a></td>
@@ -45,7 +44,7 @@
           <td><%= material.speci %></td>
           <td><%= material.store_material_unit.try(:name) %></td>
           <td><%= material.cost_price %></td>
-          <td><%= material.inventory %></td>
+          <td><%= inventory.quantity %></td>
           <td><%= material.remark %></td>
           <td><span class="operate_icon" data-id='<%= material.id %>' ><i class="fa fa-file-text-o "></i></span></td>
         </tr>
@@ -64,7 +63,7 @@
 
   <script type="text/javascript">
     jQuery(function(){
-      
+
       var tmp = function(id){return `<a href='/kucun/materials/${id}'>商品详情</a><a href='/kucun/material_orders/nowaus?material_id=${id}'>订货</a><a href=''>入库</a><a href=''>出库</a><a href=''>退货</a><a href=''>报损</a><a href=''>备注</a>`;}
       var $materials = $("#materials");
       var $operate = $("#operate");

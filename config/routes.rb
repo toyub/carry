@@ -56,6 +56,12 @@ Rails.application.routes.draw do
         post :profit_report
       end
     end
+
+    resources :depots do
+      member do
+        get :materials
+      end
+    end
   end# END of namespace :kucun
 
   namespace :xiaoshou do

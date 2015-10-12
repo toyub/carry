@@ -23,7 +23,8 @@ class StoreMaterial < ActiveRecord::Base
 
   scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}%")}
   scope :by_sub_category, -> (category) {where(store_material_category_id: category) if category.present?}
-  scope :by_primary_category, -> (category) {where(store_material_category_id: category) if category.present? }
+  scope :by_primary_category, -> (category) {where(store_material_root_category_id: category) if category.present? }
+  scope :keyword, -> (keyword){ where('name like :keyword', keyword: "%#{keyword}%") if keyword.present?  }
 
   after_create :generate_barcode!
 
