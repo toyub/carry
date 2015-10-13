@@ -5,6 +5,9 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
   initialize: ->
     @store = window.Store
 
+    @model.workflows.on('add', @renderWorkflow, @)
+    @model.on('sync', @handleSuccess, @)
+
   events:
     'click #createSetting': 'createOnClick'
     'click #getWorkstationCategory': 'getWorkstationCategory'
@@ -19,7 +22,17 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
 
   render: ->
     @$el.html(@template(store: @store, setting: @model))
+    @renderProfileSummary()
     @
+
+  renderProfileSummary: ->
+    view = new Mis.Views.XiaoshouServiceProfilesSummary(model: @model)
+    @$("#profileSummary").html view.render().el
+
+  renderWorkflow: (workflow) ->
+    view = new Mis.Views.XiaoshouServiceWorkflowsItem(model: workflow, setting: @model)
+    @$("#workflow_list").append view.render().el
+    @$("#workflow_list").parent().show()
 
   unnominatedWorkstation: ->
     @$("#workstationCategories").hide()
@@ -61,10 +74,13 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
 
   createOnClick: (e) ->
     e.preventDefault()
-    @model.set @$(".j_regular_setting").find("input,select").serializeJSON()
+    if $("input[name=setting_type]:checked").val() == String(Mis.Models.StoreServiceSetting.prototype.SETTING_TYPE.workflow)
+      @model.set @$(".j_workflow_setting").find("input,select").serializeJSON()
+    else
+      @model.set @$(".j_regular_setting").find("input,select").serializeJSON()
     console.log @model
     console.log @model.toJSON()
-    #@model.save
+    @model.save()
 
   getWorkstationCategory: ->
     if @$("input[name=nominated_workstations]:checked").val() == 'true'
@@ -81,6 +97,9 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
 
   openWorkflowForm: ->
     model = new Mis.Models.StoreServiceWorkflow()
-    view = new Mis.Views.XiaoshouServiceWorkflowsForm(model: model)
+    view = new Mis.Views.XiaoshouServiceWorkflowsForm(model: model, setting: @model)
     view.open()
 
+  handleSuccess: ->
+    view = new Mis.Views.XiaoshouServiceSettingsShow()
+    $("#bodyContent").html(view.render().el)

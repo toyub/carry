@@ -3,8 +3,9 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Backbone.View
 
   template: JST['xiaoshou/service/workflows/form']
 
-  initialize: ->
+  initialize: (options) ->
     @store = window.Store
+    @setting = options.setting
 
   events:
     'click #cancel_workflow': 'close'
@@ -12,21 +13,27 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Backbone.View
     'click #delay_allowed': 'toggleDelayAllowed'
     'click #unlimited_mechanics': 'toggleEngineerCount'
     'click #nominate_station': 'showWorkstations'
+    'click #random_station_in_process': 'hideWorkstations'
 
   render: ->
     @$el.html(@template(workflow: @model, store: @store))
+    @renderWorkstations()
     @
 
   open: ->
     @render()
     @$el.show()
 
-  close: ->
+  close: =>
+    @undelegateEvents()
     @$el.hide()
 
   addWorkflow: ->
     @model.set @$el.find("input,select").serializeJSON().workflow
     console.log @model
+    @setting.workflows.add @model
+    @close()
+    console.log @setting
 
   toggleDelayAllowed: (event) ->
     if $(event.target).attr('checked')
@@ -42,11 +49,16 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Backbone.View
       @$(event.target).attr('checked', 'checked')
       @$("#limited_mechanics").attr("disabled", true)
 
-  showWorkstations: ->
+  renderWorkstations: ->
     @$("#nominated_stations").empty()
     @store.workstations.each @addWorkstation
+
+  showWorkstations: ->
     @$("#nominated_stations").show()
 
+  hideWorkstations: ->
+    @$("#nominated_stations").hide()
+
   addWorkstation: (workstation) =>
-    view = new Mis.Views.XiaoshouServiceWorkstationsWorkstation(model: workstation)
+    view = new Mis.Views.XiaoshouServiceWorkstationsWorkstation(workflow: @model, model: workstation)
     @$("#nominated_stations").append view.render().el

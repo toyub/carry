@@ -11,6 +11,10 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
     regular: 0
     workflow: 1
 
+  POSITION_MODE:
+    auto: 1
+    app: 2
+
   defaults:
     setting_type: @::SETTING_TYPE.regular
 
@@ -18,6 +22,8 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
     @parseStoreService()
     @parseWorkflows()
     @initWorkstations()
+
+    @on('change:workflows', @parseWorkflows, @)
 
   initWorkstations: ->
     @workstations = new Mis.Collections.StoreWorkstations()
@@ -31,6 +37,24 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
   isRegular: ->
     parseInt(@get 'setting_type') == @SETTING_TYPE.regular
 
+  isAppPosition: ->
+    parseInt(@get('position_mode')) == @POSITION_MODE.app
+
+  isLimitedEngineerCount: ->
+    @get 'engineer_count_enable'
+
+  isLimitedEngineerLevel: ->
+    @get 'engineer_level_enable'
+
+  standardTimeEnable: ->
+    @get 'standard_time_enable'
+
+  bufferingTimeEnable: ->
+    @get 'buffering_time_enable'
+
+  nominatedWorkstation: ->
+    @get 'nominated_workstation'
+
   toJSON: ->
     hashWithRoot = {}
     json = _.clone(@attributes)
@@ -40,7 +64,8 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
     else
       json.workflows_attributes = @workflows.map(
         (workflow) ->
-          workflow.attributes
+          workstation_attrs = {store_workstation_ids: workflow.workstations.workstation_ids()}
+          _.extend workflow.attributes, workstation_attrs
       )
     hashWithRoot[@modelName] = json
     hashWithRoot

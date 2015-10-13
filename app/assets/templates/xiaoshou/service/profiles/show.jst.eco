@@ -1,7 +1,7 @@
 <div class="details_nav">
   <ul>
     <li class="bg-color-fff"><a href="fuwuxinxishow.html" class="width-90">服务信息</a></li>
-    <li><a href="fuwushezhishow.html" class="width-90">服务设置</a></li>
+    <li><a href="javascript:void(0);" class="width-90 setting">服务设置</a></li>
     <li><a href="huifang2show.html" class="width-90">回访</a></li>
     <li><a href="jilu.html" class="width-90">记录</a></li>
   </ul>

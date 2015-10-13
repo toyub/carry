@@ -1,0 +1,20 @@
+<tr>
+  <td>服务名称</td>
+  <td>销售价</td>
+  <td>优惠价</td>
+  <td>服务积分<label><%= @setting.store_service.get 'point' %></label></td>
+  <td>服务类别<label><%= @setting.store_service.get 'category' %></label></td>
+  <td>关联商品<label> </label></td>
+  <td>已销售<label></label></td>
+  <td>销售收入<label></label></td>
+</tr>
+<tr>
+  <td class="text-align-center font-18 font-weight-bold"><%= @setting.store_service.get 'name' %></td>
+  <td class="text-align-center font-14 font-weight-bold"><%= @setting.store_service.get 'retail_price' %></td>
+  <td class="text-align-center font-14 font-weight-bold"><%= @setting.store_service.get 'bargain_price' %></td>
+  <td>服务代码<label><%= @setting.store_service.get 'code' %></label></td>
+  <td>服务单位<label><%= @setting.store_service.get 'unit' %></label></td>
+  <td>商品数量<label></label></td>
+  <td>满意度<label></label></td>
+  <td></td>
+</tr>

@@ -6,7 +6,7 @@ class StoreServiceWorkflow < ActiveRecord::Base
   belongs_to :engineer_commission, class_name: 'StoreCommissionTemplate', foreign_key: :engineer_commission_template_id
 
   validates :store_staff_id, presence: true
-  validates :store_service_id, presence: true
+  #validates :store_service_setting_id, presence: true
 
   ENGINEER_LEVEL = {
     '初级' => 1,

@@ -1,17 +1,20 @@
 class Mis.Views.XiaoshouServiceWorkstationsWorkstation extends Backbone.View
   tagName: 'li'
 
-  template: JST['xiaoshou/service/workstations/item']
+  template: JST['xiaoshou/service/workstations/workstation']
+
+  initialize: (options) ->
+    @workflow = options.workflow
 
   events:
     'click input.checked': 'toggleChecked'
 
   render: ->
-    @$el.html(@template(@model.attributes))
+    @$el.html(@template(w: @model, workflow: @workflow))
     @
 
   toggleChecked: (event) ->
     if event.target.checked
-      @model.workstations.add @model
+      @workflow.workstations.add @model
     else
-      @model.workstations.remove @model
+      @workflow.workstations.remove @model
