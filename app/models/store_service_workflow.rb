@@ -28,9 +28,9 @@ class StoreServiceWorkflow < ActiveRecord::Base
     self.store_workstation_ids || ''
   end
 
-  def workstations=(workstations)
-    self.store_workstation_ids = workstations.join(',')
-  end
+  #def workstations=(workstations)
+    #self.store_workstation_ids = workstations.join(',')
+  #end
 
   #def auto_position?
     #self.position_mode == POSITION_MODE['自动上岗']

@@ -7,6 +7,13 @@ module Api
       respond_with @setting, location: nil
     end
 
+    def update
+      @setting = @service.setting
+      @setting.workflows.clear
+      @setting.update(append_store_attrs setting_params)
+      respond_with @setting, location: nil
+    end
+
     def show
       @setting = @service.setting
       respond_with @setting, location: nil
@@ -22,6 +29,7 @@ module Api
         params.require(:store_service_setting).permit(
           :setting_type,
           workflows_attributes: [
+            :name,
             :engineer_count_enable,
             :engineer_count,
             :engineer_level_enable,
@@ -33,8 +41,7 @@ module Api
             :factor_time,
             :nominated_workstation,
             :engineer_commission_template_id,
-            :store_workstation_ids,
-            :workstations]
+            :store_workstation_ids]
         )
       end
   end

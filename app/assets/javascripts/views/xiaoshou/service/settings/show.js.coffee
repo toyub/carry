@@ -8,7 +8,7 @@ class Mis.Views.XiaoshouServiceSettingsShow extends Backbone.View
 
   initialize: ->
     @store = window.Store
-    @model.on('sync', @render, @)
+    @model.on('sync', @renderSettings, @)
 
   render: ->
     @$el.html(@template(setting: @model))

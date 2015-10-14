@@ -24,6 +24,7 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
     @initWorkstations()
 
     @on('change:workflows', @parseWorkflows, @)
+    @on('sync', @parseWorkflows)
 
   initWorkstations: ->
     @workstations = new Mis.Collections.StoreWorkstations()
@@ -62,10 +63,12 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
       workstation_attrs = {store_workstation_ids: @workstations.workstation_ids()}
       json.workflows_attributes = Array(_.extend @omit(['setting_type', 'store_service', 'workflows']), workstation_attrs)
     else
+      json = _.pick(json, 'setting_type')
       json.workflows_attributes = @workflows.map(
         (workflow) ->
-          workstation_attrs = {store_workstation_ids: workflow.workstations.workstation_ids()}
-          _.extend workflow.attributes, workstation_attrs
+          store_workstation_ids = if _.isEmpty(workflow.workstations.workstation_ids()) then workflow.get('workstations') else workflow.workstations.workstation_ids()
+          workstation_attrs = {store_workstation_ids: store_workstation_ids}
+          _.extend workflow.omit('view'), workstation_attrs
       )
     hashWithRoot[@modelName] = json
     hashWithRoot

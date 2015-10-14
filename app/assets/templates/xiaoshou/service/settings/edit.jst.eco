@@ -28,7 +28,7 @@
           </td>
           <td>
             <label for="engineer_count">精确数量</label>
-            <input class="width-83 margin-left-5" id="engineer_count" type="text" name="engineer_count" <%= 'disabled' if @setting.isRegular() && !@setting.isLimitedEngineerCount() %>>
+            <input class="width-83 margin-left-5" id="engineer_count" type="text" name="engineer_count" <%= 'disabled' if @setting.isRegular() && @setting.isLimitedEngineerCount() %>>
           </td>
         </tr>
         <tr>
@@ -165,8 +165,8 @@
     <div class="process_setting setting_right float-right j_workflow_setting">
       <h2>
         <label class="color-ccc" for="workflow_setting">按流程设置</label>
-        <input type="radio" value="1" name="setting_type" class="margin-left-8 margin-top-0" id="workflow_setting" >
-        <input type="button" id="create_workflow" class="new_btn float-right do_open_list_new_page btn" value="创建" disabled>
+        <input type="radio" value="1" name="setting_type" <%= 'checked' if !@setting.isRegular() %> class="margin-left-8 margin-top-0" id="workflow_setting" >
+        <input type="button" id="create_workflow" class="new_btn float-right do_open_list_new_page btn" value="创建" <%= 'disabled' if @setting.isRegular() %>>
       </h2>
       <p class="no_process">
       您可以根据需要施工流程进行拆分管理，流程拆分后，施工时间会根据您设定的流程步骤单独计算，
