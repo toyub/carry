@@ -4,13 +4,13 @@ class Mis.Views.XiaoshouServiceSettingsShow extends Backbone.View
 
   events:
     'click a.profile': 'goToProfilesShow'
+    'click #editSetting': 'goToEdit'
 
   initialize: ->
     @store = window.Store
     @model.on('sync', @render, @)
 
   render: ->
-    console.log @model
     @$el.html(@template(setting: @model))
     @renderNav()
     @renderSubNav()
@@ -24,7 +24,6 @@ class Mis.Views.XiaoshouServiceSettingsShow extends Backbone.View
     else
       view = new Mis.Views.XiaoshouServiceSettingsWorkflow(model: @model)
     @$("#settings").html(view.render().el)
-
 
   renderNav: ->
     view = new Mis.Views.XiaoshouServiceNavsMaster()
@@ -40,4 +39,8 @@ class Mis.Views.XiaoshouServiceSettingsShow extends Backbone.View
 
   goToProfilesShow: ->
     view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model.store_service)
+    $("#bodyContent").html(view.render().el)
+
+  goToEdit: ->
+    view = new Mis.Views.XiaoshouServiceSettingsEdit(model: @model)
     $("#bodyContent").html(view.render().el)
