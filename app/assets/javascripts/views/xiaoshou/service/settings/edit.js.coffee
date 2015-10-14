@@ -1,128 +1,128 @@
 class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
-  initialize: ->
-    $('#new_store_service_workflow').validate(
-      ignore: []
-      submitHandler: (form) ->
-        $(form).find('[type=submit]').attr('disabled', 'disabled')
-        $(form).ajaxSubmit(
-          dataType: 'json'
-          success: (responseText, statusText, xhr) ->
-            console.log 'sucesssfully created'
-          error: (responseOrErrors, statusText, xhr) ->
-            console.log 'need to fix errors showing'
-            $(form).find('[type=submit]').attr('disabled', false)
-        )
-        false
-    )
 
-  el: 'body'
+  template: JST['xiaoshou/service/settings/edit']
+
+  initialize: ->
+    @store = window.Store
+
+    @model.workflows.on('add', @renderWorkflow, @)
+    @model.on('sync', @handleSuccess, @)
 
   events:
-    'click #regular_setting': 'enableRegularSetting'
-    'click #workflow_setting': 'enableWorkflowSetting'
-    'click #create_workflow': 'newWorkFlow'
+    'click #updateSetting': 'updateOnClick'
+    'click #getWorkstationCategory': 'getWorkstationCategory'
     'click #count_unlimited': 'disableEngineerCount'
-    'click #count_nominated': 'enableEngineerCount'
+    'click #count_limited': 'enableEngineerCount'
     'click #engineer_level_enable': 'toggleEngineerLevel'
-    'click #buffering_time_enable': 'toggleBufferingTime'
     'click #standard_time_enable': 'toggleStandardTime'
-    'click #unnominated_workstation': 'disableNominatedWorkstation'
-    'click #nominated_workstation': 'enableNominatedWorkstation'
-    'click span#get_workstation_category': 'toggleWorkstationCategory'
-    'click #workstation_categories li': 'selectCategory'
-    'click #save_workflow': 'saveWorkflow'
-    'click #delay_allowed': 'toggleDelayAllowed'
-    'click #unlimited_mechanics': 'toggleEngineerCount'
+    'click #buffering_time_enable': 'toggleBufferingTime'
+    'click #unnominated_workstation': 'unnominatedWorkstation'
+    'click #workflow_setting': 'enableWorkflowSetting'
+    'click #create_workflow': 'openWorkflowForm'
+    'click #closeWithoutSave': 'goTOShow'
 
-  enableRegularSetting: ->
-    $("div.j_regular_setting table input").attr('disabled', false)
-    $("div.j_regular_setting table select").attr('disabled', false)
-    $("div.j_workflow_setting h2 input.do_open_list_new_page").removeClass('btn').addClass('not_available').attr('disabled', true).show()
-    $("div.j_workflow_setting div.do_list_new_page input").attr('disabled', true)
-    $("div.j_workflow_setting div.do_list_new_page").hide()
+  render: ->
+    @$el.html(@template(store: @store, setting: @model))
+    @renderNav()
+    @renderSubNav()
+    @renderProfileSummary()
+    @renderWorkflows() if !@model.isRegular()
+    @
 
-  enableWorkflowSetting: ->
-    $("div.j_regular_setting table input").attr('disabled', true)
-    $("div.j_regular_setting table select").attr('disabled', true)
-    $("div.j_workflow_setting h2 input.do_open_list_new_page").removeClass('not_available').addClass('btn').attr('disabled', false)
-    $("div.j_workflow_setting div.do_list_new_page input").attr('disabled', false)
+  renderNav: ->
+    view = new Mis.Views.XiaoshouServiceNavsMaster()
+    @$("#masterNav").html view.render().el
 
-  newWorkFlow: ->
-    $('div.do_list_new_page').show()
-    $('#create_workflow').hide()
+  renderSubNav: ->
+    view = new Mis.Views.XiaoshouServiceNavsSub()
+    @$("#subNav").html view.render().el
+
+  renderProfileSummary: ->
+    view = new Mis.Views.XiaoshouServiceProfilesSummary(model: @model)
+    @$("#profileSummary").html view.render().el
+
+  renderWorkflow: (workflow) =>
+    view = new Mis.Views.XiaoshouServiceWorkflowsItem(model: workflow, setting: @model, action: 'edit')
+    @$("#workflow_list").append view.render().el
+    @$("#workflow_list").parent().show()
+
+  unnominatedWorkstation: ->
+    @$("#workstationCategories").hide()
+    @$("#storeWorkstations").hide()
+    @$("#getWorkstationCategory").text("")
+    @model.workstations.reset()
 
   disableEngineerCount: ->
-    $("#store_service_workflow_engineer_count").attr('disabled', true)
+    @$("#engineer_count").attr('disabled', true)
 
   enableEngineerCount: ->
-    $("#store_service_workflow_engineer_count").attr('disabled', false)
+    @$("#engineer_count").attr('disabled', false)
 
-  toggleEngineerLevel: (event) ->
-    if $(event.currentTarget).attr('checked')
-      $(event.currentTarget).attr('checked', false).val(false)
-      $("#store_service_workflow_engineer_level").attr('disabled', true)
+  toggleEngineerLevel: ->
+    if @$("#engineer_level_enable").attr('checked')
+      @$("#engineer_level_enable").attr('checked', false)
+      @$("#engineer_level").attr('disabled', true)
     else
-      $(event.currentTarget).attr('checked', 'checked').val(true)
-      $("#store_service_workflow_engineer_level").attr('disabled', false)
+      @$("#engineer_level_enable").attr('checked', 'checked')
+      @$("#engineer_level").attr('disabled', false)
 
-  toggleBufferingTime: (event) ->
-    if $(event.currentTarget).attr('checked')
-      $(event.currentTarget).attr('checked', false).val(false)
-      $("#store_service_workflow_buffering_time").attr('disabled', true)
+  toggleStandardTime: ->
+    if @$("#standard_time_enable").attr("checked")
+      @$("#standard_time_enable").attr('checked', false)
+      @$("#standard_time").attr('disabled', true)
+      @$("#factor_time").attr('disabled', true)
     else
-      $(event.currentTarget).attr('checked', 'checked').val(true)
-      $("#store_service_workflow_buffering_time").attr('disabled', false)
+      @$("#standard_time_enable").attr('checked', 'checked')
+      @$("#standard_time").attr('disabled', false)
+      @$("#factor_time").attr('disabled', false)
 
-  toggleStandardTime: (event) ->
-    if $(event.currentTarget).attr('checked')
-      $(event.currentTarget).attr('checked', false).val(false)
-      $("#store_service_workflow_standard_time").attr('disabled', true)
-      $("#store_service_workflow_factor_time").attr('disabled', true)
+  toggleBufferingTime: ->
+    if @$("#buffering_time_enable").attr("checked")
+      @$("#buffering_time_enable").attr("checked", false)
+      @$("#buffering_time").attr("disabled", true)
     else
-      $(event.currentTarget).attr('checked', 'checked').val(true)
-      $("#store_service_workflow_standard_time").attr('disabled', false)
-      $("#store_service_workflow_factor_time").attr('disabled', false)
+      @$("#buffering_time_enable").attr("checked", 'checked')
+      @$("#buffering_time").attr("disabled", false)
 
-  toggleWorkstationCategory: (event) ->
-    if $("#nominated_workstation").attr('checked')
-      if $(event.currentTarget).next().is(":visible")
-        $(event.currentTarget).next().hide()
-      else
-        $(event.currentTarget).next().show()
-
-  selectCategory: (event) ->
-    $("span#get_workstation_category").text($(event.currentTarget).text())
-    $("#workstation_categories").hide()
-    $.get "/ajax/store_workstation_categories/#{$(event.currentTarget).attr('data-id')}/store_workstations"
-
-  disableNominatedWorkstation: (event) ->
-    $(event.currentTarget).attr('checked', 'checked')
-    $("#nominated_workstation").attr('checked', false)
-    $("span#get_workstation_category").text("")
-    $("#workstation_categories").hide()
-    $("div#j_workstations ul").hide()
-
-  enableNominatedWorkstation: (event) ->
-    $(event.currentTarget).attr('checked', 'checked')
-    $("#unnominated_workstation").attr('checked', false)
-
-  saveWorkflow: ->
-    if $("input[name=process_name]").val().trim()
-      console.log 'xxx'
+  updateOnClick: (e) ->
+    e.preventDefault()
+    if $("input[name=setting_type]:checked").val() == String(Mis.Models.StoreServiceSetting.prototype.SETTING_TYPE.workflow)
+      @model.set @$(".j_workflow_setting").find("input,select").serializeJSON()
+      console.log('workflow')
     else
-      ZhanchuangAlert("请至少填写流程名称")
+      @model.set @$(".j_regular_setting").find("input,select").serializeJSON()
+      console.log('regular')
+    console.log @model
+    console.log @model.toJSON()
+    console.log JSON.stringify(@model.toJSON())
+    @model.save()
 
-  toggleDelayAllowed: (event) ->
-    if $(event.currentTarget).attr('checked')
-      $(event.currentTarget).attr('checked', false).val(false)
-    else
-      $(event.currentTarget).attr('checked', 'checked').val(true)
+  getWorkstationCategory: ->
+    if @$("input[name=nominated_workstations]:checked").val() == 'true'
+      @$("#workstationCategories").empty()
+      @store.workstationCategories.each @addWorkstationCategory
+      @$("#workstationCategories").show()
 
-  toggleEngineerCount: (event) ->
-    if $(event.currentTarget).attr('checked')
-      $(event.currentTarget).attr('checked', false).val(false)
-      $("#limited_mechanics").attr('disabled', false)
-    else
-      $(event.currentTarget).attr('checked', 'checked').val(true)
-      $("#limited_mechanics").attr('disabled', true)
+  addWorkstationCategory: (category) =>
+    view = new Mis.Views.XiaoshouServiceWorkstationsCategory(model: category, setting: @model)
+    @$("#workstationCategories").append view.render().el
 
+  enableWorkflowSetting: ->
+    @$("#create_workflow").attr('disabled', false)
+
+  openWorkflowForm: ->
+    model = new Mis.Models.StoreServiceWorkflow()
+    view = new Mis.Views.XiaoshouServiceWorkflowsForm(model: model, setting: @model)
+    view.open()
+
+  handleSuccess: ->
+    view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
+    $("#bodyContent").html(view.render().el)
+
+  renderWorkflows: ->
+    @model.workflows.each @renderWorkflow
+
+  goTOShow: ->
+    view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
+    $("#bodyContent").html(view.render().el)
+    @model.fetch()

@@ -1,44 +1,81 @@
 class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
   initialize: ->
-    @serviceCategories = new Mis.Collections.StoreServiceCategories(@$('#serviceCategoryList').data('serviceCategories'))
-    @serviceCategories.on('add', @addOneServiceCategory, @)
-    Backbone.Validation.bind(@,
-      valid: (view, attr, selector) ->
-        $el = view.$('input[id*=' + attr + ']')
-        $group = $el.closest('.item_content')
-        $group.find('.field_error').remove()
-      invalid: (view, attr, error, selector) ->
-        $el = view.$('input[id*=' + attr + ']')
-        $group = $el.closest('.item_content')
-        $group.find('.field_error').remove()
-        error_ele = '<div class="field_error field_up"  class="width-200">' + error + '</div>'
-        $group.append(error_ele)
-        console.log(error)
-    )
+    @store = window.Store
+    @model.materials.on('add', @addMaterial, @)
+    @store.serviceCategories.on('add', @addOneCategory, @)
+    Backbone.Validation.bind(@)
     @model.on('sync', @handleSuccess, @)
 
-  el: 'body'
+  template: JST['xiaoshou/service/profiles/new']
 
   events:
+    'submit #createService': 'createOnSubmit'
+    'click #add_server_btn': 'openMaterialForm'
     'click span.as_select': 'listServiceCategories'
-    'click a.add_btn': 'openCategoryForm'
-    'click div.j_categories li': 'selectCategory'
-    'click .j_add_material': 'openMaterialForm'
-    'click div.item_content input.toggleable': 'toggleFavorable'
-    'click div.btn_group a.save_btn': 'addMaterial'
-    'submit #new_store_service': 'createOnSubmit'
-    'click .remove_goods': 'removeGoods'
+    'click #addServiceCategory': 'openCategoryForm'
+    'click input.toggleable': 'toggleFavorable'
+    'click a.add_img': 'openImageForm'
+    'click li img': 'previewImage'
 
-  removeGoods: ->
-    $(event.target).closest('.list_content').remove()
+  render: ->
+    @$el.html(@template(service: @model))
+    @renderServiceCategories()
+    @
 
   createOnSubmit: ->
     event.preventDefault()
-    @model.clear(silent: true)
-    @model.set(@$('#new_store_service').find(':input').filter(() -> $.trim(this.value).length > 0).serializeJSON().store_service)
+    @model.set $("#createService").serializeJSON()
     @model.save() if @model.isValid(true)
+    console.log @model
+    console.log 'xxxx'
+
+  openMaterialForm: ->
+    view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
+    view.open()
+
+  addMaterial: (material) =>
+    view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model)
+    @$(".materialList").append view.render().el
+    @$(".materialList").parent().show()
+
+  renderServiceCategories: ->
+    @store.serviceCategories.each @renderServiceCategory
+
+  renderServiceCategory: (category) =>
+    view = new Mis.Views.XiaoshouServiceCategoriesItem(model: category)
+    @$("#serviceCategoryList").append view.render().el
+
+  addOneCategory: (category) ->
+    view = new Mis.Views.XiaoshouServiceCategoriesItem(model: category)
+    @$("#serviceCategoryList").prepend view.render().el
+    view.select()
+
+  listServiceCategories: ->
+    @$("#serviceCategoryList").parent().show()
+
+  openCategoryForm: ->
+    model = new Mis.Models.StoreServiceCategory()
+    view = new Mis.Views.XiaoshouServiceCategoriesForm(collection: @store.serviceCategories, model: model)
+    view.open()
+
+  toggleFavorable: ->
+    if $("#bargain_price").attr('disabled') == 'disabled'
+      $("#bargain_price").attr('disabled', false)
+      $("#favorable").attr("checked", "checked").val(true)
+    else
+      $("#bargain_price").attr('disabled', true)
+      $("#favorable").attr("checked", false).val(false)
 
   handleSuccess: ->
+    @uploadImages()
+    @goToSettingNew()
+
+  goToSettingNew: ->
+    model = new Mis.Models.StoreServiceSetting(store_service: @model)
+    view = new Mis.Views.XiaoshouServiceSettingsNew(model: model)
+    $("#bodyContent").html(view.render().el)
+
+  uploadImages: ->
     url = @model.url() + '/save_picture'
     @$('#preview_list > img').each () ->
       img = @
@@ -50,69 +87,12 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
         dataType: 'json'
         success: (data) -> console.log data
       )
-    window.location = Routes.edit_xiaoshou_service_setting_path(@model.get('id'))
 
-  listServiceCategories: ->
-    if @$("#serviceCategoryList").children().length == 0
-      view = new Mis.Views.XiaoshouServiceProfilesCategory(collection: @serviceCategories)
-      @$("#serviceCategoryList").html(view.render().el)
-    @$("#serviceCategoryList").parent().show()
+  openImageForm: ->
+    view = new Mis.Views.XiaoshouServicePicturesForm()
+    view.open()
 
-  addOneServiceCategory: (category) ->
-    view = new Mis.Views.XiaoshouServiceProfilesCategory(model: category)
-    @$('#serviceCategoryList').prepend(view.render().el)
-
-  openCategoryForm: ->
-    model = new Mis.Models.StoreServiceCategory()
-    view = new Mis.Views.XiaoshouServiceProfilesCategoryForm(collection: @serviceCategories, model: model)
-    @$("#serviceCategory").html(view.render().el)
-    view.show()
-
-  selectCategory: (event) ->
-    $("input[id*='service_category_id']").val($(event.currentTarget).attr('data-value'))
-    $("div.j_categories span").text($(event.currentTarget).text())
-    $(event.currentTarget).parent().parent().hide()
-
-  openMaterialForm: ->
-    view = new Mis.Views.XiaoshouServiceProfilesMaterialForm()
-    view.render()
-    view.show()
-
-  nullUnitOrDose: =>
-    $("#selected tbody tr").filter(
-      ->
-        $(@).find(".use_mode").val() == '1' && ($(@).find("div.scattered select option:selected").text() == '选择单位' || $(@).find("div.scattered input").val() == '')
-    )
-
-  validateMaterialForm: =>
-    if $("#selected tbody tr").size() == 0
-      ZhanchuangAlert("请选择商品")
-      false
-    else if @nullUnitOrDose().size() > 0
-      ZhanchuangAlert("你选择了零散，却未指定单位或剂量")
-      false
-    else
-      true
-
-  addMaterial: ->
-    return unless @validateMaterialForm()
-    $("div.table_list table.selected_table tbody tr").each(
-      (index) ->
-        dataId = $(@).attr('data-id')
-        if $("#j_related_goods").has("div[data-id=#{dataId}]").size() == 0
-          material = { index: index, id: dataId, name: $(@).find('td:first-child').text(), use_mode: $(@).find("td:last-child select.use_mode").val(), unit: $(@).find("td:last-child select.use_mode option:selected").text(), dose: $(@).find("td:last-child .scattered input").val() }
-          view = new Mis.Views.XiaoshouServiceProfilesRelatedMaterial(attributes: {'data-id': dataId}, material: material)
-          $("#j_related_goods").append view.render().el
-    )
-    $("div.add_server").hide()
-    $("#j_related_goods").show()
-    
-  toggleFavorable: (event) ->
-    if $(event.currentTarget).siblings().last().attr('disabled') == 'disabled'
-      $(event.currentTarget).siblings().last().attr('disabled', false)
-      $(event.currentTarget).attr("checked", "checked")
-      $(event.currentTarget).val(true)
-    else
-      $(event.currentTarget).siblings().last().attr('disabled', true)
-      $(event.currentTarget).attr("checked", false)
-      $(event.currentTarget).val(false)
+  previewImage: (e) ->
+    img = new Image()
+    img.src = e.target.src
+    $("#material_img_preview").html(img)
