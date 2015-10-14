@@ -3,7 +3,6 @@ module Api
     before_action :set_service
 
     def create
-      binding.pry
       @setting = @service.create_setting(append_store_attrs setting_params)
       respond_with @setting, location: nil
     end

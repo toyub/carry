@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     end
 
     def nested_transformer
-      -> (v) { v.map { |x| x.merge(store_options) } }
+      -> (v) { v.is_a?(Array) ? v.map { |x| x.merge(store_options) } : v.merge(store_options) }
     end
 
     def nested_selector

@@ -78,8 +78,6 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
       @model.set @$(".j_workflow_setting").find("input,select").serializeJSON()
     else
       @model.set @$(".j_regular_setting").find("input,select").serializeJSON()
-    console.log @model
-    console.log @model.toJSON()
     @model.save()
 
   getWorkstationCategory: ->
@@ -101,5 +99,5 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
     view.open()
 
   handleSuccess: ->
-    view = new Mis.Views.XiaoshouServiceSettingsShow()
+    view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
     $("#bodyContent").html(view.render().el)

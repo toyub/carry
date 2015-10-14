@@ -60,7 +60,7 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
     json = _.clone(@attributes)
     if @isRegular()
       workstation_attrs = {store_workstation_ids: @workstations.workstation_ids()}
-      json.workflows_attributes = _.extend @omit(['setting_type', 'store_service', 'workflows']), workstation_attrs
+      json.workflows_attributes = Array(_.extend @omit(['setting_type', 'store_service', 'workflows']), workstation_attrs)
     else
       json.workflows_attributes = @workflows.map(
         (workflow) ->
