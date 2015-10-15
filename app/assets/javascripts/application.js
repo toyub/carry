@@ -22,6 +22,7 @@
 //= require jquery.alert
 //= require menu
 //= require underscore
+//= require underscore.string.min
 //= require backbone
 //= require backbone-validation-min
 //= require backbone-ext

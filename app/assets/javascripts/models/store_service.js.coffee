@@ -4,6 +4,15 @@ class Mis.Models.StoreService extends Backbone.Model
 
   modelName: 'store_service'
 
+  initialize: ->
+    @on('change:store_service_workflows_attributes', @parseWorkflows)
+    @on('change:uploads', @parseUploads)
+    @on('change:store_materials', @parseMaterials)
+    @on('sync', @parseMaterials)
+    @parseWorkflows()
+    @parseUploads()
+    @parseMaterials()
+
   validation:
     name:
       required: true
@@ -35,3 +44,23 @@ class Mis.Models.StoreService extends Backbone.Model
     store_service_category_id:
       required: true
       msg: '请选择类别'
+
+  parseWorkflows: ->
+    @workflows = new Mis.Collections.StoreServiceWorkflows(@get 'store_service_workflows_attributes')
+
+  parseUploads: ->
+    @uploads = new Mis.Collections.Uploads(@get "uploads")
+
+  parseMaterials: ->
+    @materials = new Mis.Collections.StoreMaterials(@get "store_materials")
+
+  toJSON: ->
+    hashWithRoot = {}
+    json = _.clone(@attributes)
+    json.store_service_store_materials_attributes = @materials.map(
+      (material) ->
+        {store_material_id: material.id}
+    )
+    hashWithRoot[@modelName] = json
+    hashWithRoot
+

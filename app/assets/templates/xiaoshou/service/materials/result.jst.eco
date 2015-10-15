@@ -1,0 +1,2 @@
+<td><%= @material.get 'name' %></td>
+<td><input type="checkbox" <%= 'checked' if @material.get 'selected' %> class="check"></td>
