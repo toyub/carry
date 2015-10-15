@@ -1,0 +1,231 @@
+<div id="masterNav" class="details_nav">
+
+</div>
+<div id="subNav" class="details_nav_second">
+
+</div>
+<div class="details_content">
+  <table id="profileSummary" border="0" class="service_info_abstract">
+
+  </table>
+
+  <div class="lists_in_service_tracking lists_in_tracking">
+    <div class="reminder_list left_list">
+      <h2>实时提醒列表
+        <input type="button" class="btn new_btn float-right" value="创建" id="do_open_reminder_new_page" style="display: block;">
+      </h2>
+
+      <div class="no_reminder">
+        <h3>当前没有实时提醒</h3>
+      </div>
+
+      <div class="new_reminder new_list" id="new_reminder" style="display: none;">
+        <h3 class="color-fff">创建实时提醒</h3>
+
+        <div class="reminder_content">
+          <ul>
+            <li class="position-relative">
+            <label class="width-75">提醒内容：</label>
+            <label class="width-80">选择提醒模板</label>
+            <span class="moni_select position-relative text-indent-16 width-245" id="reminder_mould_select"></span>
+            <ol class="as_options" id="reminder_selection">
+              <li>
+              您的爱车即将开始普通洗车。。。
+              </li>
+            </ol>
+            </li>
+
+            <li>
+            <label class="width-100">提醒触发：</label>
+            <label class="width-100"><input type="radio" name="reminder_apply" class="control" data-distarget="reminder_time" checked="">技师上岗后</label>
+            <label class="width-80"><input type="radio" name="reminder_apply" class="control" data-target="reminder_time">施工结束后</label>
+            <input type="text" class="width-80" data-id="reminder_time" disabled=""> 分钟
+            </li>
+
+            <li class="position-relative">
+            <label class="width-158">提醒方式：</label>
+            <select class="width-80">
+              <option>短信</option>
+              <option>微信</option>
+            </select>
+            <label class="width-100 text-align-right margin-left-50"><input type="radio" onclick="clickRadio(this);">提醒后通知</label>
+            </li>
+
+            <li>
+            <label class="width-158">自定义内容</label>
+            <div class="display-inline-block">
+              <textarea rows="9" class="width-245"></textarea>
+              <label class="save_as_model width-80">
+                保存为模板<input type="checkbox" class="float-right">
+              </label>
+            </div>
+            </li>
+          </ul>
+
+          <div class="btn_group margin-top-20">
+            <input type="button" class="btn cancel_btn closeReminderCreate" id="do_cancel_reminder_new_list" value="取消">
+            <input type="button" class="btn save_btn closeReminderCreate" id="do_save_reminder_new_list" value="保存">
+          </div>
+        </div>
+
+        <div class="tips float-right">
+          <h4 class="text-align-center">提示</h4>
+          <p>
+          1、创建回访可以直接从回访模板中选择回访内容
+          </p>
+          <p>
+          2、回访时间请选择在销售后还是上次回访结束后
+          </p>
+          <p>
+          3、回访方式请选择系统已建立的方式，如短信或微信，没有上述回访方式则默认为系统提示做人工电话回访
+          </p>
+          <p>
+          4、选择回访后通知则在自动回访后在系统消息中出现提示信息
+          </p>
+          <p>
+          5、自定义回访内容可以作为模板保存，在弹出的标题框内输入模板名称即可保存
+          </p>
+        </div>
+      </div>
+
+      <div class="reminder_new_lists new_lists" id="reminder_new_lists" style="display: block;">
+        <ul class="list_header">
+          <li>#</li>
+          <li>项目</li>
+          <li>施工时间</li>
+          <li>提醒触发</li>
+          <li>提醒内容</li>
+          <li>提醒方式</li>
+          <li>操作</li>
+        </ul>
+
+        <ul class="list_content">
+          <li>1.</li>
+          <li>普通洗车</li>
+          <li>240分钟</li>
+          <li>技师上岗</li>
+          <li><label class="selected_reminder_content"></label></li>
+          <li><label class="selected_reminder_method"></label></li>
+          <li>
+          <input type="button" name="reminder_edit_btn" class="btn edit_btn btn_edit_regular_reminder_list" value="编辑">
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="tracking_list right_list">
+      <h2>售后回访列表
+        <input type="button" class="btn new_btn float-right do_open_list_new_page" value="创建" id="do_open_list_new_page">
+      </h2>
+      <div class="do_new_lists new_lists" id="" style="display:none;">
+        <ul class="list_header">
+          <li>#</li>
+          <li>内容</li>
+          <li>回访规律</li>
+          <li>时间</li>
+          <li>方式</li>
+        </ul>
+
+        <div class=" do_new_lists_content">
+          <ul class="tracking_list_content list_content">
+            <li>1.</li>
+            <li><label>感谢您购买产品，在使用中...</label></li>
+            <li>销售后</li>
+            <li>10:30</li>
+            <li>微信
+            <span class="delete delete_list">×</span>
+            </li>
+          </ul>
+
+          <template>
+          <ul class="tracking_list_content list_content">
+            <li>1.</li>
+            <li><label>感谢您购买产品，在使用中...</label></li>
+            <li>销售后</li>
+            <li>10:30</li>
+            <li>微信
+            <span class="delete delete_list">×</span>
+            </li>
+          </ul>
+          </template>
+        </div>
+      </div>
+
+      <div class="service_tracking_create tracking_create do_list_new_page">
+        <h3 class="color-fff">创建回访</h3>
+        <div class="details_create">
+          <div class="content_create float-left">
+
+            <ul>
+              <li class="position-relative">
+              <label class="width-64">回访内容：</label>
+              <label class="width-75">选择回访模板</label>
+              <input type="text" list="muban" class="width-253 text-indent-10">
+              <datalist id="muban">
+                <option value="感谢您购买产品，在使用中">
+                </option><option value="其他">
+              </option></datalist>
+              </li>
+
+              <li>
+              <label class="width-84">回访时间：</label>
+              <label>
+                <input type="radio" name="tracking_time" class="margin-right-2 control" data-target="after_sale" data-distarget="after_previous_tracking" checked="">
+                销售后
+              </label>
+              <select class="width-84 after_sale" data-id="after_sale">
+                <option></option>
+              </select>
+              <label>
+                <input type="radio" name="tracking_time" class="margin-left-10 margin-right-2 control" data-target="after_previous_tracking" data-distarget="after_sale">上次回访后
+              </label>
+              <select class="width-79 previous_tracking" data-id="after_previous_tracking" disabled="">
+                <option></option>
+              </select>
+              </li>
+
+              <li class="position-relative">
+              <label class="width-84">回访方式：</label>
+              <label class="width-55">下拉选择</label>
+              <select class="width-110">
+                <option></option>
+                <option>短信</option>
+                <option>微信</option>
+              </select>
+              <label class="width-90 text-align-right margin-left-50"><input type="radio" onclick="clickRadio(this);">回访后通知</label>
+              </li>
+
+              <li>
+              <label class="width-142">自定义内容</label>
+              <div class="display-inline-block">
+                <textarea rows="9" class="width-253">短信发送每条限70字节，超过会按2条计费</textarea>
+                <label class="save_as_model width-80">
+                  保存为模板<input type="checkbox" class="float-right">
+                </label>
+              </div>
+              </li>
+            </ul>
+
+            <div class="btn_group margin-top-20">
+              <input type="button" class="btn cancel_btn" value="取消" id="do_cancel_new_list">
+              <input type="button" class="btn save_btn" value="保存" id="do_save_new_list">
+            </div>
+          </div>
+
+          <div class="tips float-right">
+            <h4 class="text-align-center">提示</h4>
+            <p>1. 创建回访可以直接从回访模板中选择回访内容</p>
+            <p>2. 回访时间请选择在销售后还是上次回访结束后</p>
+            <p>3. 回访方式请选择系统已建立的方式，如短信或微信，没有上述回访方式则默认为系统提示做人工电话回访</p>
+            <p>4. 选择回访后通知则在自动回访后在系统消息中出现提示信息</p>
+            <p>5. 自定义回访内容可以作为模板保存，在弹出的标题框内输入模板名称即可保存</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="btn_group">
+  <input type="submit" class="save_btn btn " value="保存">
+</div>

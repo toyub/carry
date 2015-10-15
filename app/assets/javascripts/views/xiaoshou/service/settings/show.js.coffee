@@ -5,6 +5,7 @@ class Mis.Views.XiaoshouServiceSettingsShow extends Backbone.View
   events:
     'click a.profile': 'goToProfilesShow'
     'click #editSetting': 'goToEdit'
+    'click a.tracking': 'goToTrackingNew'
 
   initialize: ->
     @store = window.Store
@@ -44,3 +45,8 @@ class Mis.Views.XiaoshouServiceSettingsShow extends Backbone.View
   goToEdit: ->
     view = new Mis.Views.XiaoshouServiceSettingsEdit(model: @model)
     $("#bodyContent").html(view.render().el)
+
+  goToTrackingNew: ->
+    console.log 'tracking'
+    view = new Mis.Views.XiaoshouServiceTrackingsNew(model: @model)
+    $("#bodyContent").html view.render().el
