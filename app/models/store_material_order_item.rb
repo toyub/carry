@@ -4,8 +4,12 @@ class StoreMaterialOrderItem < ActiveRecord::Base
 
   attr_accessor :checked
   scope :pending, ->{where('store_material_order_items.process = 0')}
-  scope :suspense, ->{where('0 < store_material_order_items.process and store_material_order_items.process < 100')}
+  scope :suspense, ->{where('0 <= store_material_order_items.process and store_material_order_items.process < 100')}
   scope :finished, ->{where('store_material_order_items.process = 100')}
+
+  def left_quantity
+    self.quantity - (self.received_quantity + self.returned_quantity)
+  end
 
   def all_return!
     self.received_quantity = 0

@@ -12,7 +12,9 @@ Rails.application.routes.draw do
         post :save_picture
       end
 
-      resource :saleinfo
+      resource :saleinfo do
+        resources :saleinfo_services
+      end
       resource :commission
       resource :tracking
     end
@@ -46,7 +48,21 @@ Rails.application.routes.draw do
     end
     resources :checkins
     resources :returnings
-  end
+    resources :shrinkages
+    resources :physical_inventories do
+      collection do
+        get :review
+        post :loss_report
+        post :profit_report
+      end
+    end
+
+    resources :depots do
+      member do
+        get :materials
+      end
+    end
+  end# END of namespace :kucun
 
   namespace :xiaoshou do
     namespace :service do
@@ -71,8 +87,13 @@ Rails.application.routes.draw do
 
   namespace :settings do
     namespace :settlements do
-      resources :accounts
+      resources :accounts do
+        member do
+          patch :toggle_status
+        end
+      end
     end
+    resources :commission_templates
   end
 
   namespace :ajax do

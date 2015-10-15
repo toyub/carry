@@ -14,7 +14,7 @@
     <%= @quantity %>
     <input type="hidden" name='outing[items_attributes][<%= @id %>][store_material_inventory_id]' value='<%= @inventory_id %>' />
   </td>
-  <td><input name='outing[items_attributes][<%= @id %>][quantity]' required=true type="number" max=<%= @quantity %> min=1 class="width-70 td_input" value="1"></td>
+  <td><input name='outing[items_attributes][<%= @id %>][quantity]' required=true type='text' num un int max=<%= @quantity %> min=1 class="width-70 td_input" value="1"></td>
   <td>
     <%= @depot_name %>
     <input type="hidden" name="outing[items_attributes][<%= @id %>][store_depot_id]" value="<%= @depot_id %>">

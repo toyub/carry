@@ -34,7 +34,7 @@
 //= require_tree ./collections
 //= require_tree ./views
 //= require_tree ./routers
-
+//= require number_input
 
 function ZhanchuangAlert(msg) {
   $.alert({text: msg})

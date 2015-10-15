@@ -13,7 +13,7 @@
   <td><%= @item.price  %></td>
   <td><%= @item.quantity  %></td>
   <td>
-    <input type="number" class="quantity width-50 height-20" readonly value="<%= @item.quantity  %>" min=1 name='items[<%= @item.id %>][received_quantity]' data-price=<%= @item.price  %> data-quantity=<%= @item.quantity  %> required=true>
+    <input type="text" num int un class="quantity width-50 height-20" readonly value="<%= @item.quantity  %>" min=1 name='items[<%= @item.id %>][received_quantity]' data-price=<%= @item.price  %> data-quantity=<%= @item.quantity  %> required=true>
   </td>
   <td>
     <select  name='items[<%= @item.id %>][store_depot_id]' class="width-60 height-22">
@@ -24,8 +24,7 @@
   </td>
   <td><span class='amount'><%= @item.amount  %></span></td>
   <td>
-    <i class=" lnr lnr-trash font-18 color-000"></i>
-    <i class=" lnr lnr-undo font-18 color-BAA89D"></i>
+    <i title='应用本操作后，这次将不入库这个商品，下次再入库' class=" lnr lnr-trash font-18 color-000"></i>
   </td>
   <td><input name='items[<%= @item.id %>][remark]' type="text"></td>
 </tr>
