@@ -30,3 +30,4 @@ config/redis.yml
 .ruby-gemset
 /.capistrano
 TODOLIST.md
+.DS_Store
