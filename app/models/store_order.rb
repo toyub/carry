@@ -1,6 +1,7 @@
 class StoreOrder < ActiveRecord::Base
   include BaseModel
 
+  belongs_to :store_customer
 end
 
 # == Schema Information

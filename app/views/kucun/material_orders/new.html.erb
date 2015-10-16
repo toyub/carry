@@ -1,7 +1,6 @@
 <% content_for :pre_assets do %>
-  <%= javascript_include_tag 'kucun/material_orders/new' %>
+  <%= javascript_include_tag 'kucun' %>
 <% end %>
-
 <div class="main_top">
   <h2>订货</h2>
   <span class="add_span">+</span>
@@ -18,7 +17,7 @@
   </div>
   <div class="details_content">
       <div class=" common_storage_content margin-bottom-50">
-      <%= form_tag "/kucun/material_orders/" do %>
+      <%= form_tag "/kucun/material_orders/", id: 'new_order_form' do %>
         <div class="ordergoods_query">
           <div class="nav-item-query">
             <label>供应商：</label>
@@ -31,7 +30,7 @@
           </div>
           <div class="nav-item-query">
             <label>单号：</label>
-            <input type="text" class="width-135" readonly="true" value="<%= x=Time.now; x.strftime('%Y%m%d%H%M%S') + ((x.to_f - x.to_i) * 100_0000).to_i.to_s(36).rjust(5, '0').upcase %>">
+            <input type="text" class="width-135" readonly="true" value="<%= make_numero('MO') %>">
           </div>
           <div class="ordergoods_print">
             <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
@@ -39,28 +38,6 @@
           </div>
         </div>
         <%= render partial: 'form' %>
-        <div class="order_goods_account">
-          <div class="item_content margin-left-10">
-            <label class="width-75 margin-top-10 ">备注：</label>
-            <textarea class="remarks_textarea width-1251"></textarea>
-          </div>
-          <div class="item_content margin-top-10  margin-left-10 float-left">
-            <label class="width-75">本次付款：</label>
-            <input type="text" class="width-253 ">
-          </div>
-          <div class="item_content margin-top-10 float-left  margin-left-20">
-            <label class="width-75 ">结算账户： </label>
-            <input type="text" class="width-253 " value="<%= @store_supplier.clearing_account %>" readonly=true>
-          </div>
-          <div class="item_content margin-top-10  margin-left-20">
-            <label  class="width-75">本次欠款：</label>
-            <input type="text" class="width-253" readonly=true>
-          </div>
-          <div class="item_content  margin-left-10">
-            <label class="width-75">制单人：</label>
-            <label class="width-253"><%= current_user.screen_name %></label>
-          </div>
-        </div>
         <div class="btn_group margin-right-20">
           <a class="edit_btn" href="#" >取消</a>
           <input type='submit' class="save_btn btn" value='保存' />
@@ -77,16 +54,15 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
-        if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
-          return false;
-        }
-        if(evt.keyCode == 46 && (/\.+/).test(this.value)){
-          return false;
-        }
-      });
       new_order_view = new $$MIS.NewMaterialOrderView({
         el: $("#content")
+      });
+
+      $("#new_order_form").on('submit', function(){
+        if($("#storage_tab > tbody >tr:not(.handle)").length < 1){
+          ZhanchuangAlert('请选择订货的商品');
+          return false;
+        }
       });
     });
   </script>

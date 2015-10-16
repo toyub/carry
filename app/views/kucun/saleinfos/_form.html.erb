@@ -4,8 +4,8 @@
           <div id='material_img_preview' class="goods_main_img"></div>
           <ul id='material_img_thumbnails' class="goods_small_img">
             <li id='preview_list'>
-              <% @store_material.store_material_images.each do |image| %>
-                <img src="<%= image.asset_path %>">
+              <% @store_material.uploads.each do |image| %>
+                <img src="<%= image.img_url %>">
               <% end %>
             </li>
           </ul>
@@ -85,7 +85,7 @@
                       </div>
                       <div class="float-left">
                         <label class="width-75">总量</label>
-                        <input type="number" min=1 name='saleinfo[volume]' data-costpirce='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" disabled="disabled" required="true">
+                        <input type="text" num un int min=1 name='saleinfo[volume]' data-costpirce='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" disabled="disabled" required="true">
                       </div>
                       <div class="float-left">
                         <label class="width-75">拆分成本</label>
@@ -152,83 +152,4 @@
         </div>
 
       </div>
-    <% end %>
-
-    <% content_for :scenes do %>
-
-      <template id="new_saleinfo_service">
-        <div data-id="{%= this.id %}" class="add_server">
-            <div class="grid-1-2  text-align-left float-left ">
-              <label class="width-50">服务名称</label>
-              <input type="text" name='saleinfo[store_material_saleinfo_services][][name]' class="width-130">
-            </div>
-            <div class="grid-1-2 text-align-right float-left ">
-              <label class="width-50">施工时间</label>
-              <input type="text" class="width-90" name='saleinfo[store_material_saleinfo_services][][work_time]'>
-              <select class="width-60" name='saleinfo[store_material_saleinfo_services][][work_time_unit]'>
-                <option>分钟</option>
-              </select>
-            </div>
-            <div class="grid-1-2  text-align-left float-left">
-              <label class="width-50">技师等级</label>
-              <select class="width-132" name="saleinfo[store_material_saleinfo_services][][mechanic_level]">
-                <option>初级以上(含初级)</option>
-                <option>中级以上(含中级)</option>
-                <option>高级</option>
-              </select>
-            </div>
-            <div class="grid-1-2 text-align-right float-left ">
-              <label class="width-50">施工提成</label>
-              <select class="width-155" name="saleinfo[store_material_saleinfo_services][][store_commission_id]">
-                <option>镀晶提成方案</option>
-              </select>
-            </div>
-            <div class="grid-1-2  text-align-left float-left ">
-             <label class="width-50">施工次数</label>
-             <input type="text" class="width-55" name="saleinfo[store_material_saleinfo_services][][times]">
-             <label class="width-50">售后回访</label>
-             <input type="checkbox" class="width-15" name="saleinfo[store_material_saleinfo_services][][tracking_needed]">
-            </div>
-            <div class="grid-1-2 text-align-right float-left ">
-              <label class="width-60">回访时间:</label>
-              <label class="width-60">施工结束后</label>
-              <input type="text" class="width-35" name="saleinfo[store_material_saleinfo_services][][tracking_time]">
-              <select class="width-45" name="saleinfo[store_material_saleinfo_services][][tracking_time_unit]">
-                <option>时</option>
-                <option>天</option>
-                <option>月</option>
-              </select>
-            </div>
-            <div class=" text-align-left float-right  pure-u-2-2">
-              <label class="width-95">回访内容：</label>
-              <label class="width-73 text-align-left">回访方式</label>
-              <select class="width-253" name="saleinfo[store_material_saleinfo_services][][tracking_contact_way]">
-                <option>短信</option>
-                <option>微信</option>
-              </select>
-             </div>
-            <div class=" text-align-left float-right   pure-u-2-2 model">
-              <textarea name='saleinfo[store_material_saleinfo_services][][tracking_content]'></textarea>
-            </div>
-
-            <div class="btn_group">
-              <input type="reset"  value="取消" class="cancel_btn btn cancel"  >
-              <input type="button"  value="保存" class="add_service save_btn btn add_cancel"   >
-            </div>
-        </div>
-      </template>
-
-      <template id="saleinfo_service_show">
-        <div class="list_content list_tr" data-id="service_{%= this.id %}">
-          <ul class=" list_tr_hover">
-            <li>1.</li>
-            <li><label data-editformid='{%= this.id %}' class="click_btn cursor">{%= this.name %}</label></li>
-            <li>{%= this.times %}</li>
-            <li>{%= this.work_time %}</li>
-            <li>{%= this.mechanic_level %}
-             <span class="delete close" data-target="list_content_01"> <i class="lnr lnr-cross color-fff"></i> </span>
-            </li>
-          </ul>
-        </div>
-      </template>
     <% end %>

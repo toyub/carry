@@ -1,0 +1,15 @@
+<tr data-id=<%= @id %>>
+  <td class="number"></td>
+  <td><%= @name %><input type="hidden" name="returning[items_attributes][][store_material_id]" value="<%= @id %>"></td>
+  <td><%= @barcode %><input type="hidden" name="returning[items_attributes][][store_material_inventory_id]" value="<%= @inventory_id %>"></td>
+  <td><%= @speci %></td>
+  <td><%= @unit %></td>
+  <td><%= @root_category %></td>
+  <td><%= @category %></td>
+  <td><%= @cost_price %></td>
+  <td><%= @quantity %></td>
+  <td><%= @depot_name %><input type="hidden" name="returning[items_attributes][][store_depot_id]" value="<%= @depot_id %>"></td>
+  <td><input required name="returning[items_attributes][][quantity]" type='text' num un int class="width-60 text-align-center" data-price='<%= @cost_price %>' min=1 max=<%= @quantity %> value="1"></td>
+  <td><%= @cost_price %></td>
+  <td><input type="text" name="returning[items_attributes][][remark]" value=""></td>
+</tr>

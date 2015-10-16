@@ -5,18 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :current_staff, :current_store
 
-  def login_required
-    if Rails.env.development?
-      @current_user = StoreStaff.first
-    end
-
-    unless current_user.present?
-      redirect_to new_session_path
-    end
-  end
-
   def current_user
-    @current_user ||= session[:user_id].present? ? StoreStaff.where(id: session[:user_id]).first : nil
+    @current_user ||= StoreStaff.find_by(id: session[:user_id])
   end
 
   def current_store
@@ -29,13 +19,18 @@ class ApplicationController < ActionController::Base
     current_user.present?
   end
 
-  ## add store_attrs to params
-  def append_store_attrs options
-    nested_attrs = options.select(&nested_selector).transform_values(&nested_transformer)
-    options.merge(store_options).merge(nested_attrs)
-  end
-
   private
+
+    def login_required
+      @current_user = StoreStaff.first if Rails.env.development?
+      redirect_to new_session_path unless current_user.present?
+    end
+
+    ## add store_attrs to params
+    def append_store_attrs options
+      nested_attrs = options.select(&nested_selector).transform_values(&nested_transformer)
+      options.merge(store_options).merge(nested_attrs)
+    end
 
     def store_options
       {store_staff_id: current_staff.id, store_id: current_store.id}

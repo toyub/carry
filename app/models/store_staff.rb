@@ -1,21 +1,20 @@
 class StoreStaff <  ActiveRecord::Base
-  attr_accessor :password, :password_confirmation
+  attr_accessor :password, :password_confirmation, :phone_number
   belongs_to :store
   belongs_to :store_chain
-  
+
 
   validates :phone_number, presence: true
   validates :phone_number, length: {is: 11}, if: ->(staff){staff.phone_number.present?}
   validates :phone_number, numericality: { only_integer: true }, if: ->(staff){staff.phone_number.present?}
-  #validates uniqueness
 
-  validates :password, presence: true
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
 
-  validates :password_confirmation, presence: true
+  # TODO Mysql set login_name not Null, add validation
+  # Maybe login_name equal to phone_number?
+  validates_presence_of :password, :password_confirmation, :login_name
 
   before_create :encrypt_password
-  before_save :set_login_name
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -47,9 +46,5 @@ class StoreStaff <  ActiveRecord::Base
   def encrypt_password()
     self.salt = Digest::MD5.hexdigest("--#{Time.now.to_i}--")
     self.encrypted_password = self.class.encrypt_with_salt(self.password, self.salt)
-  end
-
-  def set_login_name
-    self.login_name = self.work_status + self.phone_number
   end
 end

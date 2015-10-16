@@ -26,8 +26,8 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>8</td>
-          <td>5,400.00</td>
+          <td>0</td>
+          <td>0</td>
           <td></td>
           <td></td>
         </tr>
@@ -35,8 +35,8 @@
     <tbody>
       <tr class='handle'>
         <td class="number"></td>
-        <td >
-          <div class="text_div">
+        <td>
+          <div class="text_div add_material">
             <input type="text" placeholder="请选择要订货的商品"  readonly>
             <span class="bg-color-fff">...</span>
           </div>
@@ -54,4 +54,30 @@
       </tr>
     </tbody>
   </table>
+</div>
+<div class="order_goods_account">
+  <div class="item_content margin-left-10">
+    <label class="width-75 margin-top-10 ">备注：</label>
+    <textarea name='store_material_order[remark]' class="remarks_textarea width-1251"></textarea>
+  </div>
+  <div class="item_content margin-top-10  margin-left-10 float-left">
+    <label class="width-75">本次付款：</label>
+    <input id='downpayment' name='store_material_order[payments_attributes][][amount]' type='text' num un min=0 class="width-253" />
+  </div>
+  <div class="item_content margin-top-10 float-left  margin-left-20">
+    <label class="width-75 ">结算账户：</label>
+    <select class="width-253" name='store_material_order[payments_attributes][][store_settlement_account_id]'>
+      <% @store.store_settlement_accounts.each do |opt| %>
+         <option value="<%= opt.id %>"><%= opt.name %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="item_content margin-top-10 margin-left-20">
+    <label class="width-75">本次欠款：</label>
+    <input id='debt' type="text" class="width-253" value='0' readonly>
+  </div>
+  <div class="item_content  margin-left-10">
+    <label class="width-75">制单人：</label>
+    <label class="width-253"><%= current_user.screen_name %></label>
+  </div>
 </div>

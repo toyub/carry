@@ -1,0 +1,302 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun' %>
+<% end %>
+<div class="main_top">
+  <h2>退货</h2>
+  <span class="second_title">在导航栏中输入需要退货的商品名进行查找，也可以进行筛选进行精确查找，在结果表格中选择需要退货的商品进行退货单的操作</span>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="return_storage_list list_table">
+    <div class="search_nav">
+      <%= render partial: 'kucun/partials/inventory_search' %>
+      <div class="query_div">
+        <a href="#" class="returnstorage_btn btn">退货</a>
+        <a href="/kucun/returnings/" class="notes_btn btn">记录</a>
+      </div>
+    </div>
+    <div class="returned_purchase_list">
+      <ul>
+        <li>#</li>
+        <li>商品名称</li>
+        <li>商品条码</li>
+        <li>一级分类</li>
+        <li>二级分类</li>
+        <li>规格</li>
+        <li>单位</li>
+        <li>成本价</li>
+        <li>库存数</li>
+        <li>备注</li>
+        <li>操作</li>
+        <li><label></label></li>
+      </ul>
+      <div class="returned_purchase_invoice">
+        <table cellpadding="0" cellspacing="0" class="index_list ">
+          <tbody id="choices"></tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="return_storage_content margin-bottom-50  margin-top-80 common_storage_content float-left">
+    <%= form_tag '/kucun/returnings/', id: 'returning_form' do%>
+    <div class="return_storage_query">
+      <div class="nav-item-query">
+        <div class="font-20 font-borderradius text-align-center">退</div>
+      </div>
+      <div class="nav-item-query">
+        <label>单号：</label>
+        <input type="text" class="width-150" value="<%= make_numero('R') %>">
+      </div>
+      <div class="nav-item-query">
+        <label>时间：</label>
+        <input type="text" class="width-150" readonly value="<%= Time.now.to_s(:date_only) %>">
+      </div>
+      <div class="nav-item-query">
+        <label>数量</label>
+        <input id='total_quantity' type="text" class="width-150" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>金额</label>
+        <input id='total_amount' type="text" class="width-150" readonly>
+      </div>
+      <div class="nav-item-query">
+        <label>供应商</label>
+        <select class="width-150" name='returning[store_supplier_id]'>
+          <% @store.store_suppliers.each do |opt| %>
+            <option value="<%= opt.id %>"><%= opt.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="return_storage_print">
+        <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
+      </div>
+    </div>
+    <div class="return_storage_tab common_storage_tab color-fff">
+      <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order">
+        <thead>
+          <tr class=" bg-color-797877">
+            <th>#</th>
+            <th>产品名称</th>
+            <th>条码</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>一级分类</th>
+            <th>二级分类</th>
+            <th>单价</th>
+            <th>库存数</th>
+            <th>仓库</th>
+            <th>退货数</th>
+            <th>金额小计</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="common_storage_account">
+        <div class="item_content margin-left-10" >
+          <label class="width-75">备注：</label>
+          <textarea class="remarks_textarea"></textarea>
+        </div>
+        <div class="item_content  margin-left-10">
+          <label class="width-75">制单人：</label>
+          <label class="width-253"><%= current_user.screen_name %></label>
+        </div>
+      </div>
+    </div>
+    <div class="btn_group margin-right-20">
+      <input type='submit' class="save_btn btn" href="#" value="保存"/>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :scenes do %>
+<div class="commodity_details_wrap" id="commodity_details_wrap" style="display:none">
+  <span class="verticalAlign"></span>
+  <div class="commodity_details">
+    <div class="top">
+      <h2>商品详情</h2>
+      <span class="cursor-pointer "><i class="lnr lnr-cross cancel"></i></span>
+    </div>
+    <table cellpadding="0" cellspacing="0" class="commodity_info">>
+      <tbody>
+        <tr>
+          <td>
+            <label class="width-75">商品信息</label>
+            <input type="text" value="米其林轮胎" class="width-165" readonly>
+
+          </td>
+          <td>
+            <label class="width-75">条形码</label>
+            <input type="text" value="3307865432819909" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">一级分类</label>
+            <input type="text" value="汽配" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">二级分类</label>
+            <input type="text" value="轮胎" class="width-165" readonly>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="width-75">商品规格</label>
+            <input type="text" value="185/60/14 XM2 91V" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">商品单位</label>
+            <input type="text" value="条" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">成本价</label>
+            <input type="text" value="320.00" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">商品属性</label>
+            <input type="checkbox" checked="checked" class="margin-left-15"><label>自用</label>
+            <input type="checkbox" class="margin-left-26" ><label >销售</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="width-75">商品品牌</label>
+            <input type="text" value="米其林" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">生产单位</label>
+            <input type="text" value="米其林沈阳公司" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">助记码</label>
+            <input type="text" value="MQL" class="width-165" readonly>
+          </td>
+          <td>
+            <label class="width-75">最低零售价</label>
+            <input type="text" value="无" class="width-165" readonly>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="width-80  font-weight-bold">
+              <input type="radio"  class="toggleable width-13" data-target="warning"  disabled data-checked>
+              库存预警：
+            </label>
+            <label class="width-75">金额上限</label>
+            <input type="text"  class="width-84" data-id="warning" disabled="disabled" required="true">
+          </td>
+          <td>
+            <label class="width-75">上限数量</label>
+            <input type="text"  class="width-54"  value="6" readonly>
+            <label class="lab_50">下限数量</label>
+            <input type="text"class="width-54"  value="2" readonly>
+          </td>
+          <td>
+            <label class="width-80">
+              <input type="radio" class="toggleable width-13" data-target="shelf_life" data-checked>
+              保质期提醒
+            </label>
+            <div class="input_div width-100">
+              <input type="text" class="width-50 " data-id="shelf_life" disabled="disabled" required="true">
+              <label>天</label>
+            </div>
+          </td>
+
+        </tr>
+        <tr>
+          <td colspan="4">
+            <label class="width-75">备注</label>
+            <textarea class=" text-indent-5  width-997 height-120" disabled>备注备注</textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% end %>
+
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function(){
+     choice_tmpl = JST['kucun/returnings/new/choice'];
+     chosen_tmpl = JST['kucun/returnings/new/chosen'];
+     materials = [];
+
+     $('.query_btn').on('click', function(){
+        $('#choices').html('');
+        InventorySearch.search(InventorySearch.query_data(), choice_tmpl, function(html, data){
+          $('#choices').html(html);
+          materials = data.slice();
+        });
+     });
+
+     $('#choices').on('change', 'input:checkbox', function(){
+        if(this.checked){
+          material_id = this.dataset.id;
+          material = materials.filter(function(m){return m.store_material.id == material_id})[0];
+          $('#storage_tab > tbody').append(chosen_tmpl(material.store_material));
+        }else{
+          material_id = this.dataset.id;
+          $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
+        }
+        calc_total();
+        list_seq();
+     });
+
+     function calc_total(){
+        var total_quantity = 0,
+            total_amount = 0;
+        $('[name$="[quantity]"]').each(function(){
+          total_quantity += parseInt(this.value);
+          total_amount += (this.value * this.dataset.price);
+        });
+        $('#total_quantity').val(total_quantity);
+        $('#total_amount').val(total_amount.toFixed(2));
+     }
+
+     function list_seq(argument) {
+       $('#storage_tab > tbody').children().each(function(idx, el, undef){
+         el.firstElementChild.innerText=(idx+1);
+       });
+     }
+
+     $("#returning_form").on('input', '[name$="[quantity]"]', function(){
+       var max = parseInt(this.max);
+       if(!this.value){
+         return false;
+       }
+       if(this.value > max){
+         return false
+       }
+       if(this.value < 1){
+         return false;
+       }
+       $(this).parents('tr').find('td:eq(11)').html(this.value * this.dataset.price);
+       calc_total();
+     });
+     $("#returning_form").on('submit', function(){
+       if($('#storage_tab tbody > tr').length < 1 ){
+        return false;
+      }else{
+        return true;
+      }
+     });
+  });
+  </script>
+<% end %>

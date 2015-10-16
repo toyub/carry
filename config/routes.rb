@@ -12,7 +12,9 @@ Rails.application.routes.draw do
         post :save_picture
       end
 
-      resource :saleinfo
+      resource :saleinfo do
+        resources :saleinfo_services
+      end
       resource :commission
       resource :tracking
     end
@@ -39,7 +41,28 @@ Rails.application.routes.draw do
       resources :material_orders
       resources :assessments, controller: 'store_supplier_assessments'
     end
-  end
+    resources :outings
+    namespace :transfer do
+      resources :pickings
+      resources :receipts
+    end
+    resources :checkins
+    resources :returnings
+    resources :shrinkages
+    resources :physical_inventories do
+      collection do
+        get :review
+        post :loss_report
+        post :profit_report
+      end
+    end
+
+    resources :depots do
+      member do
+        get :materials
+      end
+    end
+  end# END of namespace :kucun
 
   namespace :xiaoshou do
     namespace :service do
@@ -54,6 +77,25 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :soa do
+    resources :staff
+  end
+
+  namespace :xianchang do
+    resources :field_constructions, only: [:index]
+  end
+
+  namespace :settings do
+    namespace :settlements do
+      resources :accounts do
+        member do
+          patch :toggle_status
+        end
+      end
+    end
+    resources :commission_templates
+  end
+
   namespace :ajax do
     resources :store_material_categories, only: [] do
       member do
@@ -61,7 +103,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_materials, only: [:index]
+    resources :store_materials, only: [:index] do
+      collection do
+        get :inventories
+      end
+    end
     resources :store_workstation_categories, only: [] do
       resources :store_workstations, only: [:index]
     end
@@ -69,6 +115,7 @@ Rails.application.routes.draw do
       get "/:country_code/states/", to: "geos#states", as: :country_states
       get "/:country_code/states/:state_code/cities", to: "geos#cities", as: :country_state_cities
     end
+    resources :store_suppliers, only: [:index]
   end
 
   resource :session, only: [:new, :create, :destroy]
