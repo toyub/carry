@@ -13,11 +13,17 @@
   </div>
 
   <div class="object">
-    <label>适用对象</label>
-    <select>
+    <label>适用对象<%= @aim_to %><%= @mode_id %></label>
+    <select class="aim">
+      <% if @aim_to == '0' : %>
       <option value='0'>销售</option>
+      <% else if @aim_to == '1' : %>
       <option value='1'>技师</option>
+      <% else if @aim_to == '2' : %>
       <option value='2'>其他</option>
+      <% else : %>
+      <option value=""><%= @aim_to %></option>
+      <% end %>
     </select>
   </div>
 
@@ -55,11 +61,7 @@
         <li><span class="new_list cursor-pointer">+</span></li>
       </ul>
 
-      <div class="lists_content">
-
-        <ul></ul>
-
-      </div>
+      <div class="lists_content"></div>
     </div>
   </div>
 
@@ -77,12 +79,7 @@
         <li><span class="new_list cursor-pointer">+</span></li>
       </ul>
 
-      <div class="lists_content">
-
-        <ul>
-        </ul>
-
-      </div>
+      <div class="lists_content"></div>
     </div>
   </div>
 </div>
