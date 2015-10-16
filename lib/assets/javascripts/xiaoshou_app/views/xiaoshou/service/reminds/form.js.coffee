@@ -21,5 +21,7 @@ class Mis.Views.XiaoshouServiceRemindsForm extends Backbone.View
 
   updateRemind: ->
     @model.set @$el.find("input,select,textarea").serializeJSON()
+    @model.save()
     @close()
     console.log @model
+    console.log @model.url()

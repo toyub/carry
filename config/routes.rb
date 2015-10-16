@@ -129,6 +129,7 @@ Rails.application.routes.draw do
       end
 
       resource :store_service_settings, only: [:show, :create, :update]
+      resources :store_service_reminds, only: [:update]
     end
   end
 

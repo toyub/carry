@@ -3,7 +3,7 @@ module Api
     before_action :set_service, :set_remind
 
     def update
-      @remind.update(remind_params)
+      @remind.update(append_store_attrs remind_params)
       respond_with @remind
     end
 
@@ -18,8 +18,7 @@ module Api
       end
 
       def remind_params
-        remind = %w(:content :mode :delay :enable :notice_required :trigger_timing)
-        params.require(:store_service_remind).permit(*remind)
+        params.require(:store_service_remind).permit(:content, :mode, :delay_interval, :enable, :notice_required, :trigger_timing)
       end
   end
 end
