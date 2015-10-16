@@ -7,6 +7,7 @@ class Mis.Views.XiaoshouServiceTrackingsNew extends Backbone.View
     @renderNav()
     @renderSubNav()
     @renderProfileSummary()
+    @renderReminds()
     @
 
   renderNav: ->
@@ -20,3 +21,11 @@ class Mis.Views.XiaoshouServiceTrackingsNew extends Backbone.View
   renderProfileSummary: ->
     view = new Mis.Views.XiaoshouServiceProfilesSummary(model: @model)
     @$("#profileSummary").html view.render().el
+
+  renderReminds: ->
+    @model.store_service.reminds.each @renderRemind
+
+  renderRemind: (remind) =>
+    view = new Mis.Views.XiaoshouServiceRemindsItem(model: remind)
+    console.log view.render().el
+    @$("#reminds").append view.render().el

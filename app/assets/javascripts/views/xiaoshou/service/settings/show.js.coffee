@@ -48,5 +48,6 @@ class Mis.Views.XiaoshouServiceSettingsShow extends Backbone.View
 
   goToTrackingNew: ->
     console.log 'tracking'
+    console.log @model.store_service
     view = new Mis.Views.XiaoshouServiceTrackingsNew(model: @model)
     $("#bodyContent").html view.render().el
