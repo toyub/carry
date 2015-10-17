@@ -5,6 +5,9 @@ class Mis.Views.XiaoshouServiceRemindsItem extends Backbone.View
 
   template: JST['xiaoshou/service/reminds/item']
 
+  initialize: ->
+    @model.on("change", @render, @)
+
   events:
     'click input.editRemind': 'openRemindForm'
 
