@@ -12,6 +12,7 @@
   <% end %>
   <%= javascript_include_tag 'application' %>
 
+  <%= include_javascript_by_namespace %>
   <%= yield :pre_assets %>
 </head>
 <body>
