@@ -4,7 +4,7 @@ module Api
 
     def update
       @remind.update(append_store_attrs remind_params)
-      respond_with @remind
+      respond_with @remind, loction: nil
     end
 
     private

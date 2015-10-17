@@ -20,9 +20,9 @@
       <div class="reminder_new_lists new_lists" style="display: block;">
         <ul class="list_header">
           <li>#</li>
-          <li>项目</li>
-          <li>施工时间</li>
+          <li>服务名称</li>
           <li>提醒触发</li>
+          <li>提醒启用</li>
           <li>提醒内容</li>
           <li>提醒方式</li>
           <li>操作</li>

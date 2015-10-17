@@ -31,3 +31,6 @@ class Mis.Models.StoreServiceRemind extends Backbone.Model
 
   isNoticeRequired: ->
     String(@get 'notice_required') == 'true'
+
+  serviceName: ->
+    window.StoreServices.get(@get 'store_service_id').get 'name'
