@@ -130,6 +130,9 @@ Rails.application.routes.draw do
 
       resource :store_service_settings, only: [:show, :create, :update]
     end
+    resources :store_vehicles, only: [:index]
+    resources :store_orders, only: [:index]
+    resources :store_subscribe_orders, only: [:index]
   end
 
   root 'kucun/materials#index'
