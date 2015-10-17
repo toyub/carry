@@ -1,17 +1,17 @@
 <ul>
   <li class="sequence_num">1</li>
-  <li>大于<input type="text" class="width-20" name="numend"></li>
+  <li>大于<input num un name='template[sections_attributes][][min]' type="text" class="width-20"></li>
   <li>
-    <select>
-      <option>金额</option>
-      <option>百分比</option>
+    <select name="template[sections_attributes][][type_id]">
+      <option value="0">金额</option>
+      <option value="1">百分比</option>
     </select>
   </li>
   <li>
-    <select class="width-120">
-      <option>商品或服务的毛利</option>
+    <select class="width-120" name="template[sections_attributes][][source_id]">
+      <option value="0">商品或服务的毛利</option>
     </select>
   </li>
-  <li><input type="text" class="width-40" name="profit"></li>
+  <li><input type="text" class="width-40" name="template[sections_attributes][][amount]"></li>
   <li><span class="delete delete_list cursor-pointer">×</span></li>
 </ul>

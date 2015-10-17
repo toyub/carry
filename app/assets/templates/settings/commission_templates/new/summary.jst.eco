@@ -1,7 +1,5 @@
-<ul>
-  <li class="sequence_num"><%= @idx %>.</li>
-  <li><label class="edit_list">销售计件提成方案</label></li>
-  <li>班组</li>
-  <li>金额</li>
-  <li><a class="active" href="javascript:void(0)"></a></li>
-</ul>
+<li class="sequence_num"><%= @idx %>.</li>
+<li><label data-viewid='<%= @viewid %>' class="edit_list"><%= @name %></label></li>
+<li><%= @confined %></li>
+<li><%= @mode %></li>
+<li><a class="active" href="javascript:void(0)"></a></li>
