@@ -1,0 +1,11 @@
+<div class="overlay">
+  <div class="overlay-inner"></div>
+</div>
+<div id='arrange'>
+  <div id='gallery' style="top: -1px; left: 115px;" class="resize-container"></div>
+</div>
+<div class="btn_group">
+  <input type="file" id='imgfile' name="imgefile" size="12" accept="image/jpeg,image/png" />
+  <button class="crop_btn btn-crop js-crop">截图</button>
+  <input class="cancel_btn btn-cancel js-cancel" type="button" value="取消"/>
+</div>

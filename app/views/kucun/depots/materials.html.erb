@@ -1,0 +1,93 @@
+<% content_for :pre_assets do %>
+  <%= javascript_include_tag 'kucun' %>
+<% end %>
+<div class="main_top">
+  <h2>商品信息</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+
+  <div class="list_table">
+    <div class="search_nav">
+      <%= render partial: 'kucun/partials/material_search' %>
+      <div class="query_div">
+        <a class="new_btn btn" href="<%= new_kucun_material_path %>">新建商品</a>
+        <a class="export_btn btn" href="#">导出</a>
+        <a class="print_btn btn" href="#">打印</a>
+      </div>
+    </div>
+    <table id='materials' cellpadding="0" cellspacing="0" class="index_list materials">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>商品名称</th>
+          <th>商品条形码</th>
+          <th>一级分类</th>
+          <th>二级分类</th>
+          <th>规格</th>
+          <th>单位</th>
+          <th>成本价</th>
+          <th>库存数</th>
+          <th>备注</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @inventories.each_with_index do |inventory, idx| %>
+        <% material = inventory.store_material %>
+        <tr>
+          <td class="number"><%= idx + 1 %></td>
+          <td title="<%= material.name %>"><a href="<%= kucun_material_path(material) %>"><%= material.name.truncate(11) %></a></td>
+          <td><%= material.barcode %></td>
+          <td><%= material.store_material_root_category.try(:name) %></td>
+          <td><%= material.store_material_category.try(:name) %></td>
+          <td><%= material.speci %></td>
+          <td><%= material.store_material_unit.try(:name) %></td>
+          <td><%= material.cost_price %></td>
+          <td><%= inventory.quantity %></td>
+          <td><%= material.remark %></td>
+          <td><span class="operate_icon" data-id='<%= material.id %>' ><i class="fa fa-file-text-o "></i></span></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<% content_for :scenes do %>
+<div id='operate' class='operate'></div>
+<% end %>
+
+<% content_for :javascripts do %>
+
+  <script type="text/javascript">
+    jQuery(function(){
+
+      var tmp = function(id){return `<a href='/kucun/materials/${id}'>商品详情</a><a href='/kucun/material_orders/nowaus?material_id=${id}'>订货</a><a href=''>入库</a><a href=''>出库</a><a href=''>退货</a><a href=''>报损</a><a href=''>备注</a>`;}
+      var $materials = $("#materials");
+      var $operate = $("#operate");
+      $(document).on("click", function(){
+        $materials.find('span.current').removeClass("current");
+        $operate.hide();
+      });
+      $materials.on("click", '.operate_icon', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        var op_width =61;
+        var $this = $(this);
+        if($this.hasClass("current")){
+          $this.removeClass("current");
+          $operate.hide();
+        }else{
+          var b_c_r=this.getBoundingClientRect();
+          $materials.find('span.current').removeClass("current");
+          $this.addClass("current");
+          $operate.html(tmp($this.data('id'))).css({top: b_c_r.top, left: (b_c_r.left - b_c_r.width - op_width)}).show();
+        }
+      })
+
+    });
+  </script>
+
+<% end %>

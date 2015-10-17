@@ -1,0 +1,154 @@
+<% workflow = @workflow %>
+<h3 class="color-fff">创建流程</h3>
+<table class="float-left" border="0">
+  <tbody>
+    <tr>
+      <td>流程名称：</td>
+      <td></td>
+      <td colspan="5">
+        <input type="text" name="<%= workflow.modelName %>[name]" value="<%= workflow.get 'name' %>" style="width:99.7%;">
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td colspan="5"></td>
+    </tr>
+    <tr>
+      <td>施工时间：</td>
+      <td></td>
+      <td>缓冲时间
+        <input type="text" name="<%= workflow.modelName %>[buffering_time]" value="<%= workflow.get 'buffering_time' %>">
+      </td>
+      <td colspan="3">标准时间
+        <input type="text" name="<%= workflow.modelName %>[standard_time]" value="<%= workflow.get 'standard_time' %>">
+      </td>
+      <td class="text-align-right">正负
+        <input type="text" name="<%= workflow.modelName %>[factor_time]" value="<%= workflow.get 'factor_time' %>">
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td colspan="5">
+        <label>允许加时
+          <input type="radio" name="delay_allowed" id="delay_allowed" value="false">
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td colspan="5"></td>
+    </tr>
+    <tr>
+      <td>技师设置：</td>
+      <td></td>
+      <td>数量设置
+        <input type="text" name="<%= workflow.modelName %>[engineer_count]" value="<%= workflow.get 'engineer_count' %>" <%= 'disabled' if workflow.get('engineer_count_enable') == 'false' && !workflow.isNew() %> id="limited_mechanics">
+      </td>
+      <td colspan="4">
+        <label>数量不限
+          <input type="hidden" name="<%= workflow.modelName %>[engineer_count_enable]" id="engineer_count_enable" value="<%= if workflow.get('engineer_count_enable') == 'false' && !workflow.isNew() then 'false' else 'true' %>" />
+          <input type="radio" name="count" class="discontrol" <%= 'checked' if workflow.get('engineer_count_enable') == 'false' && !workflow.isNew() %> id="unlimited_mechanics">
+        </label>
+        <label class="margin-right-30 margin-left-60">上岗方式</label>
+        <label>自动
+          <input type="radio" name="<%= workflow.modelName %>[position_mode]" id="sign_method_in_process_in_process_1" value="1" <%= 'checked' if workflow.get('position_mode') != '2' %>>
+        </label>
+        <label class="app">APP
+          <input type="radio" name="<%= workflow.modelName %>[position_mode]" id="sign_method_in_process_in_process_2" value="2" <%= 'checked' if workflow.get('position_mode') == '2' %>>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td colspan="5">级别限定
+        <select name="<%= workflow.modelName %>[engineer_level]" id="level_limited">
+          <option value=""></option>
+          <% _.each @levels, (value, key) -> : %>
+            <option value="<%= value %>" <%= 'selected' if workflow.get('engineer_level') == value.toString() %>><%= key %></option>
+          <% end %>
+          以上
+      </td>
+    </tr>
+    <tr>
+      <td>工位设置：</td>
+      <td></td>
+      <td>
+        <label>
+          指定工位
+          <input type="radio" name="<%= workflow.modelName %>[nominated_workstation]" <%= 'checked' if (workflow.get('nominated_workstation') == 'true' || workflow.isNew()) %> value="true" id="nominate_station_in_process">
+        </label>
+      </td>
+      <td colspan="4">
+        <label>
+          系统自动分配
+          <input type="radio" name="<%= workflow.modelName %>[nominated_workstation]" <%= 'checked' if workflow.get('nominated_workstation') == 'false' && !workflow.isNew() %> value="false" id="random_station_in_process">
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td colspan="5" rowspan="3">
+        <div>
+          <ul id="nominated_stations_in_process" style="<%= 'display: none;' if workflow.get('nominated_workstation') == 'false' && !workflow.isNew() %>">
+            <% _.each @workstations, (workstation) -> : %>
+              <li>
+                <%= workstation.name %>
+                <input type='checkbox' name='<%= workflow.modelName %>[workstations][]' <%= 'checked' if _.contains(workflow.get('workstations'), workstation.id.toString()) %> value='<%= workstation.id %>'/>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td colspan="5"></td>
+    </tr>
+    <tr>
+      <td>技师提成：</td>
+      <td></td>
+      <td>
+      </td>
+      <td colspan="2">提成方案</td>
+      <td>
+        <select name='<%= workflow.modelName %>[engineer_commission_template_id]'>
+          <option></option>
+          <% _.each @commissions, (commission) -> : %>
+            <option value="<%= commission.id %>" <%= 'selected' if workflow.get('engineer_commission_template_id') == commission.id.toString() %> ><%= commission.name %></option>
+          <% end %>
+        </select>
+      </td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="tips float-right">
+  <h4 class="text-align-center">提示</h4>
+  <p>
+  在这里可以按您的需要将一个服务精细划分成多个流程，或者工序来进行施工操作，对该项服务实行精确管理。
+  流程设置可以应用在多种服务上，尤其是需要多工种共同完成一种服务。
+  </p>
+</div>
+
+<div class=" btns float-left">
+  <input type="button" class="cancel_btn btn do_close_process_create" value="取消" id="cancel_workflow">
+  <input type="button" class="save_btn btn" value="保存" id="save_workflow">
+</div>

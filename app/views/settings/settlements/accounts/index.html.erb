@@ -1,0 +1,135 @@
+
+<div class="main_top">
+  <h2>结算信息设置</h2>
+  <span class="add_span">+</span>
+</div>
+
+
+<div class="details">
+
+  <div class="details_content account">
+
+    <table id='accounts'>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>账户名称</th>
+          <th>开户行</th>
+          <th>帐号</th>
+          <th>摘要</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class='handle modifying'>
+          <td></td>
+          <td><input type="text" form='account_form' name="account[name]" placeholder="请输入账户名称"></td>
+          <td><input type="text" form='account_form' name="account[bank_name]" placeholder="请输入开户行"></td>
+          <td><input type="text" form='account_form' name="account[bank_card_number]" placeholder="请输入帐号"></td>
+          <td><input type="text" form='account_form' name="account[remark]" placeholder="请输入摘要"></td>
+          <td></td>
+          <td><input type="button" class="btn save_btn create" value="保存"></td>
+        </tr>
+      </tbody>
+    </table>
+    <form action="" method="post" id='account_form'></form>
+  </div>
+
+</div>
+
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    accounts = <%= @store.store_settlement_accounts.to_json.html_safe %>;
+    var showtmp = JST['settings/settlements/accounts/new/row'];
+    var showtmp2 = function(model){
+      model.active = model.status=='active';
+      return `<tr data-id=${model.id} data-active=${model.active} class='done_editing'>${showtmp(model)}</tr>`;
+    }
+    var account_form = document.getElementById('account_form');
+    var html = accounts.map(function(account, idx, collect, undef){
+      account.idx = idx + 1;
+      return showtmp2(account);
+    }).join('');
+
+    $('tr.handle').before(html);
+
+    $("#accounts").on('click', 'i.edit', function(){
+      var tr = this.closest('tr');
+      tr.className = 'modifying';
+    });
+
+    function formData(tr, opt){
+      $(tr).find('input[name^=account]').each(function(){
+        var attr = (/\[(\w+)\]/).exec(this.name)[1];
+        opt[attr] = this.value;
+      });
+      return opt;
+    }
+
+    function saveForm(form, id, callback){
+      if(id){
+        $.ajax({
+          type: 'PUT',
+          url: `/settings/settlements/accounts/${id}`,
+          data: form,
+          success: callback
+        });
+      }else{
+        $.post('/settings/settlements/accounts', form, callback);
+      }
+    }
+
+    $('#accounts').on('click', 'input.update', function(){
+      var tr = this.closest('tr');
+      var form = formData(tr, {active: tr.dataset.active});
+      if(!form.name){
+        alert('请输入账户名！');
+        return false;
+      }
+      saveForm({account: form}, tr.dataset.id, function(data){
+        data.idx = tr.rowIndex;
+        data.active = data.status=='active';
+        tr.className = 'done_editing';
+        tr.innerHTML = showtmp(data);
+      });
+    });
+
+    $('#accounts').on('click', 'input.create', function(data){
+      var tr = this.closest('tr');
+      var form = formData(tr, {active: true});
+      if(!form.name){
+        alert('请输入账户名！');
+        return false;
+      }
+      saveForm({account: form}, undefined, function(data){
+        data.active = data.status=='active';
+        data.idx = tr.rowIndex;
+        $(tr).before(showtmp2(data));
+        account_form.reset();
+      });
+    });
+
+    $("#accounts").on('click', 'a.status', function(){
+      var tr = this.closest("tr");
+      var button = this;
+      var $tr = $(tr);
+      $.ajax({
+        url: `/settings/settlements/accounts/${tr.dataset.id}/toggle_status`,
+        type: 'PATCH',
+        success:function(){
+          $tr.data('active', !$tr.data('active'));
+          if($tr.data('active')){
+            button.className = 'status active';
+          }else{
+            button.className = 'status';
+          }
+        }
+      });
+    });
+  });
+</script>
+<% end %>

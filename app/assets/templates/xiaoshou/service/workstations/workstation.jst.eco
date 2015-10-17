@@ -1,0 +1,2 @@
+<%= @w.get 'name' %>
+<input type="checkbox" name="checked" class="checked" <%= 'checked' if @workflow.workstations.contains(@w)%>>

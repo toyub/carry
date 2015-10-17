@@ -1,0 +1,11 @@
+<tr>
+  <td class="number"><%= @idx %> <input type="hidden" name='physical_items[]' value="<%= @item_id %>"></td>
+  <td title="<%= @name %>"><%= @name.substring(0, 11) %><%= '...' if @name.length > 11 %></td>
+  <td><%= @barcode %> <input type="hidden" name="checkin[items_attributes][][store_material_id]" value="<%= @id %>" ></td>
+  <td><%= @speci %> <input type="hidden" name="checkin[items_attributes][][store_material_inventory_id]" value="<%= @store_inventory_id %>"></td>
+  <td><%= @unit %><input type="hidden" name="checkin[items_attributes][][store_depot_id]" value="<%= @store_depot_id %>"></td>
+  <td><%= @root_category %></td>
+  <td><%= @category %></td>
+  <td><%= Math.abs(@diff) %><input type="hidden" name="checkin[items_attributes][][quantity]" value="<%= Math.abs(@diff) %>"></td>
+  <td><input type="text" name="checkin[items_attributes][][remark]" value="<%= @remark %>"></td>
+</tr>
