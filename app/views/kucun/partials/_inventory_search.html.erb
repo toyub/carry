@@ -1,0 +1,30 @@
+<div class="item-query">
+  <label>商品名称</label>
+  <input id='keyword' type="text" class="width-150" placeholder="输入产品关键字或助记码">
+</div>
+<div class="item-query">
+  <label>一级分类</label>
+  <select id='root_category' type="text" class="width-150">
+    <option value="">所有类别</option>
+    <% @store.store_material_categories.super_categories.each do |category| %>
+      <option value="<%= category.id %>"><%= category.name %></option>
+    <% end %>
+  </select>
+</div>
+<div class="item-query">
+  <label>二级分类</label>
+  <select id='sub_category' type="text" class="width-150">
+    <option></option>
+  </select>
+</div>
+ <div class="item-query">
+  <label>选择仓库</label>
+  <select id='depot_id' type="text" class="width-150">
+    <% @store.store_depots.each do |depot| %>
+      <option value="<%= depot.id %>"><%= depot.name %></option>
+    <% end %>
+  </select>
+</div>
+<div class="item-query">
+  <a class=" btn query_btn">查询</a>
+</div>

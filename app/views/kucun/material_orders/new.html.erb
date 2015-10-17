@@ -1,7 +1,6 @@
 <% content_for :pre_assets do %>
-  <%= javascript_include_tag 'kucun/material_orders/new' %>
+  <%= javascript_include_tag 'kucun' %>
 <% end %>
-
 <div class="main_top">
   <h2>订货</h2>
   <span class="add_span">+</span>
@@ -18,7 +17,7 @@
   </div>
   <div class="details_content">
       <div class=" common_storage_content margin-bottom-50">
-      <%= form_tag "/kucun/material_orders/" do %>
+      <%= form_tag "/kucun/material_orders/", id: 'new_order_form' do %>
         <div class="ordergoods_query">
           <div class="nav-item-query">
             <label>供应商：</label>
@@ -55,16 +54,15 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      $('#storage_tab').on('keypress', 'input[type=number]', function(evt){
-        if(evt.keyCode != 46 && (evt.keyCode < 48 || evt.keyCode > 57)){
-          return false;
-        }
-        if(evt.keyCode == 46 && (/\.+/).test(this.value)){
-          return false;
-        }
-      });
       new_order_view = new $$MIS.NewMaterialOrderView({
         el: $("#content")
+      });
+
+      $("#new_order_form").on('submit', function(){
+        if($("#storage_tab > tbody >tr:not(.handle)").length < 1){
+          ZhanchuangAlert('请选择订货的商品');
+          return false;
+        }
       });
     });
   </script>

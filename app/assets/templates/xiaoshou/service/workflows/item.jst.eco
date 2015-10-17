@@ -1,0 +1,12 @@
+<li><%= @id %>.</li>
+<li><label class="name"><%= @name %></label></li>
+<li><%= @engineer_count %></li>
+<li><%= @engineer_level %></li>
+<li><%= @standard_time %></li>
+<li>不限</li>
+<li>
+<span>班组计件</span>
+<% if @view.isEdit(): %>
+  <span class="delete delete_list">×</span>
+<% end %>
+</li>

@@ -1,0 +1,90 @@
+
+<h3>
+  <label class="font-14">新建提成方案</label>
+  <span class="font-18 do_cancel_create_list">✕</span>
+</h3>
+
+<div class="float-left plan">
+  <span class="num">1</span>
+
+  <div class="plan_name">
+    <label>方案名称</label>
+    <input type="text" value='<%= @name %>'>
+  </div>
+
+  <div class="object">
+    <label>适用对象</label>
+    <select>
+      <option value='0'>销售</option>
+      <option value='1'>技师</option>
+      <option value='2'>其他</option>
+    </select>
+  </div>
+
+  <div class="commission_coverage">
+    <label>提成范围</label>
+    <select>
+      <option value="0">班组</option>
+      <option value='1'>个人</option>
+    </select>
+  </div>
+</div>
+
+
+<div class="ticheng float-left">
+  <span class="num">2</span>
+  <div class="ticheng_sel">
+    <label>标准提成<input class='type' type="radio" name="templates[type]" checked value="0"></label>
+    <label>阶梯提成<input class='type' type="radio" name="templates[type]" value="1"></label>
+    <label>分段提成<input class='type' type="radio" name="templates[type]" value="2"></label>
+  </div>
+
+  <div data-typeid=0 class="regular_ticheng do_ticheng_setting" style="display:block;"></div>
+
+  <div data-typeid=1 class="ladder_ticheng do_ticheng_setting" style="display:none;">
+    <p class="line-height-25 margin-left-36">阶梯提成定义为：</p>
+    <p class="line-height-25 margin-left-36 margin-bottom-15 width-300">提成基数按阶梯状递增，每个阶段数量溢出，则按设定的基数</p>
+
+    <div class="setting">
+      <ul class="lists_header">
+        <li>#</li>
+        <li>完成数</li>
+        <li>形式</li>
+        <li>提成源</li>
+        <li>数量</li>
+        <li><span class="new_list cursor-pointer">+</span></li>
+      </ul>
+
+      <div class="lists_content">
+
+        <ul></ul>
+
+      </div>
+    </div>
+  </div>
+
+  <div data-typeid=2 class="period_ticheng do_ticheng_setting" style="display:none;">
+    <p class="line-height-25 margin-left-36">分段提成定义为：</p>
+    <p class="line-height-25 margin-left-36 margin-bottom-15 width-300">提成分为几个阶段的基数进行不同金额的提成，互相不累计。</p>
+
+    <div class="setting">
+      <ul class="lists_header">
+        <li>#</li>
+        <li>完成数</li>
+        <li>形式</li>
+        <li>提成源</li>
+        <li>数量</li>
+        <li><span class="new_list cursor-pointer">+</span></li>
+      </ul>
+
+      <div class="lists_content">
+
+        <ul>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="button" class="btn save_btn float-right do_save_new_list_btn" value="保存">

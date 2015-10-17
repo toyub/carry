@@ -1,0 +1,13 @@
+zh-CN:
+  activerecord:
+    models:
+      store_service_store_material: 关联商品
+    attributes:
+      store_service_store_material:
+        store_material_id: id
+    errors:
+      models:
+        store_service_store_material:
+          attributes:
+            store_material_id:
+              taken: 已存在
