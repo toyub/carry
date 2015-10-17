@@ -1,10 +1,10 @@
 <ul>
-  <li class="sequence_num">1</li>
+  <li class="sequence_num">1<input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]'/></li>
   <li><input num un name='template[sections_attributes][][min]' type="text" class="width-20" required> - <input num un name='template[sections_attributes][][max]' type="text" class="width-20" required></li>
   <li>
     <select name='template[sections_attributes][][type_id]'>
       <option value="0">金额</option>
-      <option value="1">百分比</option>
+      <option <%= 'selected' if @type_id == '1' %> value="1">百分比</option>
     </select>
   </li>
   <li>
