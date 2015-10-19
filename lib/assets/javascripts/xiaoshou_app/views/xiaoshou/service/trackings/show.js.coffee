@@ -1,15 +1,12 @@
-class Mis.Views.XiaoshouServiceTrackingsNew extends Backbone.View
+class Mis.Views.XiaoshouServiceTrackingsShow extends Backbone.View
 
-  template: JST['xiaoshou/service/trackings/new']
+  template: JST['xiaoshou/service/trackings/show']
 
   initialize: ->
     @store_service = @model.store_service
 
-    @store_service.trackings.on('add', @renderTracking, @)
-
   events:
-    'click #newTracking': 'openTrackingForm'
-    'click #save': 'goToShow'
+    'click #edit': 'goToEdit'
 
   render: ->
     @$el.html(@template())
@@ -36,22 +33,17 @@ class Mis.Views.XiaoshouServiceTrackingsNew extends Backbone.View
     @model.store_service.reminds.each @renderRemind
 
   renderRemind: (remind) =>
-    view = new Mis.Views.XiaoshouServiceRemindsItem(model: remind)
+    view = new Mis.Views.XiaoshouServiceRemindsItem(model: remind, action: 'show')
     @$("#reminds").append view.render().el
 
-  openTrackingForm: ->
-    model = new Mis.Models.StoreServiceTracking(store_service: @store_service)
-    view = new Mis.Views.XiaoshouServiceTrackingsForm(model: model)
-    view.open()
-
   renderTracking: (tracking) =>
-    view = new Mis.Views.XiaoshouServiceTrackingsItem(model: tracking)
+    view = new Mis.Views.XiaoshouServiceTrackingsItem(model: tracking, action: 'show')
     @$("#trackingList").append view.render().el
     @$("#trackingList").parent().show()
 
   renderTrackings: ->
     @store_service.trackings.each @renderTracking
 
-  goToShow: ->
-    view = new Mis.Views.XiaoshouServiceTrackingsShow(model: @model)
+  goToEdit: ->
+    view = new Mis.Views.XiaoshouServiceTrackingsNew(model: @model)
     $("#bodyContent").html view.render().el

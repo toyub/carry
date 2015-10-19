@@ -3,17 +3,18 @@ class Mis.Views.XiaoshouServiceTrackingsForm extends Backbone.View
 
   template: JST['xiaoshou/service/trackings/form']
 
-  initialize: ->
+  initialize: (options) ->
     @store_service = @model.store_service
+    @action = options.action
 
     @model.on('change', @addTracking, @)
 
   events:
-    'click #closeWithoutSave': 'close'
+    'click .closeWithoutSave': 'close'
     'click #saveTracking': 'saveTracking'
 
   render: ->
-    @$el.html(@template(tracking: @model))
+    @$el.html(@template(tracking: @model, view: @))
     @
 
   open: ->
@@ -31,3 +32,6 @@ class Mis.Views.XiaoshouServiceTrackingsForm extends Backbone.View
 
   addTracking: ->
     @store_service.trackings.add @model
+
+  isShow: ->
+    @action == 'show'

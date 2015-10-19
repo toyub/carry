@@ -3,5 +3,7 @@
 <li><%= @tracking.timingName() %></li>
 <li><%= @tracking.delay() %></li>
 <li><%= @tracking.modeName() %>
-  <span class="delete delete_list">×</span>
+  <% unless @view.isShow(): %>
+    <span class="delete delete_list">×</span>
+  <% end %>
 </li>

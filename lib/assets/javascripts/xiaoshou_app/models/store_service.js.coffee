@@ -60,7 +60,7 @@ class Mis.Models.StoreService extends Backbone.Model
     @reminds = new Mis.Collections.StoreServiceReminds(@get "reminds")
 
   parseTrackings: ->
-    @trackings = new Mis.Collections.StoreServiceTrackings()
+    @trackings = new Mis.Collections.StoreServiceTrackings(@get "trackings")
 
   toJSON: ->
     hashWithRoot = {}

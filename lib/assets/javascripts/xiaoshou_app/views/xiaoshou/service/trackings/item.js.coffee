@@ -6,7 +6,9 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
 
   template: JST['xiaoshou/service/trackings/item']
 
-  initialize: ->
+  initialize: (options) ->
+    @action = options.action
+
     @model.on('change', @render, @)
     @model.on('destroy', @remove, @)
 
@@ -15,11 +17,11 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
     'click span.delete': 'clear'
 
   render: ->
-    @$el.html(@template(tracking: @model))
+    @$el.html(@template(tracking: @model, view: @))
     @
 
   editTracking: ->
-    view = new Mis.Views.XiaoshouServiceTrackingsForm(model: @model)
+    view = new Mis.Views.XiaoshouServiceTrackingsForm(model: @model, action: @action)
     view.open()
 
   clear: ->
@@ -29,3 +31,6 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
     @$el.remove()
     @undelegateEvents()
     @model.off()
+
+  isShow: ->
+    @action == 'show'
