@@ -39,10 +39,10 @@ class Mis.Views.XiaoshouServiceTrackingsNew extends Backbone.View
 
   openTrackingForm: ->
     model = new Mis.Models.StoreServiceTracking(store_service: @store_service)
-    view = new Mis.Views.XiaoshouServiceTrackingsForm(model: model, store_service: @store_service)
+    view = new Mis.Views.XiaoshouServiceTrackingsForm(model: model)
     view.open()
 
   renderTracking: (tracking) ->
-    view = new Mis.Views.XiaoshouServiceTrackingsItem(model: tracking, store_service: @store_service)
+    view = new Mis.Views.XiaoshouServiceTrackingsItem(model: tracking)
     @$("#trackingList").append view.render().el
     @$("#trackingList").parent().show()

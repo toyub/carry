@@ -6,9 +6,7 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
 
   template: JST['xiaoshou/service/trackings/item']
 
-  initialize: (options) ->
-    @store_service = options.store_service
-
+  initialize: ->
     @model.on('change', @render, @)
 
   events:
@@ -19,5 +17,5 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
     @
 
   editTracking: ->
-    view = new Mis.Views.XiaoshouServiceTrackingsForm(model: @model, store_service: @store_service)
+    view = new Mis.Views.XiaoshouServiceTrackingsForm(model: @model)
     view.open()

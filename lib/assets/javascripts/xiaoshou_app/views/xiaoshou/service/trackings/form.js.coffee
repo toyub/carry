@@ -3,8 +3,8 @@ class Mis.Views.XiaoshouServiceTrackingsForm extends Backbone.View
 
   template: JST['xiaoshou/service/trackings/form']
 
-  initialize: (options) ->
-    @store_service = options.store_service
+  initialize: ->
+    @store_service = @model.store_service
 
     @model.on('change', @addTracking, @)
 
