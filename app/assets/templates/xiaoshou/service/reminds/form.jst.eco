@@ -1,0 +1,68 @@
+<% [remind, view] = [@remind, @view] %>
+<h3 class="color-fff">创建实时提醒</h3>
+
+<div class="reminder_content">
+  <ul>
+    <li class="position-relative">
+      <label class="width-158">启用提醒：</label>
+      <label class="width-100"><input type="radio" <%= 'disabled' if view.isShow() %> name="enable" value="true" <%= 'checked' if remind.isEnabled() %>> 是</label>
+      <label class="width-100"><input type="radio" <%= 'disabled' if view.isShow() %> name="enable" value="false" <%= 'checked' unless remind.isEnabled() %>> 否</label>
+    </li>
+
+    <li>
+      <label class="width-100">提醒触发：</label>
+      <label class="width-100"><%= remind.timingName() %></label>
+      <input type="text" <%= 'disabled' if view.isShow() %> name="delay_interval" value="<%= remind.get 'delay_interval' %>" class="width-80" > 分钟
+    </li>
+
+    <li class="position-relative">
+      <label class="width-158">提醒方式：</label>
+      <select <%= 'disabled' if view.isShow() %> class="width-80" name="mode">
+        <% _.each remind.modes(), (v,k) ->: %>
+          <option <%= 'selected' if k == remind.get('mode') %> value="<%= k %>"><%= v %></option>
+        <% end %>
+      </select>
+    </li>
+
+    <li class="position-relative">
+      <label class="width-158">提醒后通知：</label>
+      <label class="width-100"><input <%= 'disabled' if view.isShow() %> type="radio" name="notice_required" value="true" <%= 'checked' if remind.isNoticeRequired() %>> 是</label>
+      <label class="width-100"><input <%= 'disabled' if view.isShow() %> type="radio" name="notice_required" value="false" <%= 'checked' unless remind.isNoticeRequired() %>> 否</label>
+    </li>
+
+    <li>
+      <label class="width-158">提醒内容：</label>
+      <div class="display-inline-block">
+        <textarea <%= 'disabled' if view.isShow() %> rows="9" class="width-245" name="content"><%= @remind.get('content') %></textarea>
+      </div>
+    </li>
+  </ul>
+
+  <div class="btn_group margin-top-20">
+    <% if view.isShow(): %>
+      <input type="button" class="btn close_btn closeWithoutUpdate" value="关闭">
+    <% else: %>
+      <input type="button" class="btn cancel_btn closeReminderCreate closeWithoutUpdate" value="取消">
+      <input type="button" class="btn save_btn closeReminderCreate" id="updateRemind" value="保存">
+    <% end %>
+  </div>
+</div>
+
+<div class="tips float-right">
+  <h4 class="text-align-center">提示</h4>
+  <p>
+  1、创建回访可以直接从回访模板中选择回访内容
+  </p>
+  <p>
+  2、回访时间请选择在销售后还是上次回访结束后
+  </p>
+  <p>
+  3、回访方式请选择系统已建立的方式，如短信或微信，没有上述回访方式则默认为系统提示做人工电话回访
+  </p>
+  <p>
+  4、选择回访后通知则在自动回访后在系统消息中出现提示信息
+  </p>
+  <p>
+  5、自定义回访内容可以作为模板保存，在弹出的标题框内输入模板名称即可保存
+  </p>
+</div>

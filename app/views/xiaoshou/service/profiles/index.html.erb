@@ -126,8 +126,8 @@
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
       window.Store = new Mis.Models.Store($("#bootstrap").data("store").store);
-      var collection = new Mis.Collections.StoreServices();
-      view = new Mis.Views.XiaoshouServiceProfilesIndex({collection: collection});
+      window.StoreServices = new Mis.Collections.StoreServices();
+      view = new Mis.Views.XiaoshouServiceProfilesIndex({collection: window.StoreServices});
       view.render();
     })
   </script>
