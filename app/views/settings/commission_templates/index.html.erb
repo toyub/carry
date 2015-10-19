@@ -69,11 +69,7 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      commission_templates = new $$MIS.CommissionTemplateCollection();
-      commission_templates.root_url = '/settings/commission_templates';
-      x = new $$MIS.NewCommissionTemplateView({
-        el: 'body'
-      })
+      new $$MIS.CommissionTemplateHandle();
     });
   </script>
 <% end %>
