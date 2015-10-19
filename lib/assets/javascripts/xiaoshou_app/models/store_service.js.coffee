@@ -13,6 +13,7 @@ class Mis.Models.StoreService extends Backbone.Model
     @parseUploads()
     @parseMaterials()
     @parseReminds()
+    @parseTrackings()
 
   validation:
     name:
@@ -57,6 +58,9 @@ class Mis.Models.StoreService extends Backbone.Model
 
   parseReminds: ->
     @reminds = new Mis.Collections.StoreServiceReminds(@get "reminds")
+
+  parseTrackings: ->
+    @trackings = new Mis.Collections.StoreServiceTrackings()
 
   toJSON: ->
     hashWithRoot = {}

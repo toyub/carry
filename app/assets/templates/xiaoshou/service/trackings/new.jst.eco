@@ -37,9 +37,9 @@
 
     <div class="tracking_list right_list">
       <h2>售后回访列表
-        <input type="button" class="btn new_btn float-right do_open_list_new_page" value="创建" id="do_open_list_new_page">
+        <input type="button" class="btn new_btn float-right do_open_list_new_page" value="创建" id="newTracking">
       </h2>
-      <div class="do_new_lists new_lists" id="" style="display:none;">
+      <div class="do_new_lists new_lists" style="display:none;">
         <ul class="list_header">
           <li>#</li>
           <li>内容</li>
@@ -48,101 +48,13 @@
           <li>方式</li>
         </ul>
 
-        <div class=" do_new_lists_content">
-          <ul class="tracking_list_content list_content">
-            <li>1.</li>
-            <li><label>感谢您购买产品，在使用中...</label></li>
-            <li>销售后</li>
-            <li>10:30</li>
-            <li>微信
-            <span class="delete delete_list">×</span>
-            </li>
-          </ul>
+        <div class="do_new_lists_content" id="trackingList">
 
-          <template>
-          <ul class="tracking_list_content list_content">
-            <li>1.</li>
-            <li><label>感谢您购买产品，在使用中...</label></li>
-            <li>销售后</li>
-            <li>10:30</li>
-            <li>微信
-            <span class="delete delete_list">×</span>
-            </li>
-          </ul>
-          </template>
         </div>
       </div>
 
-      <div class="service_tracking_create tracking_create do_list_new_page">
-        <h3 class="color-fff">创建回访</h3>
-        <div class="details_create">
-          <div class="content_create float-left">
+      <div class="service_tracking_create tracking_create do_list_new_page" id="trackingForm">
 
-            <ul>
-              <li class="position-relative">
-              <label class="width-64">回访内容：</label>
-              <label class="width-75">选择回访模板</label>
-              <input type="text" list="muban" class="width-253 text-indent-10">
-              <datalist id="muban">
-                <option value="感谢您购买产品，在使用中">
-                </option><option value="其他">
-              </option></datalist>
-              </li>
-
-              <li>
-              <label class="width-84">回访时间：</label>
-              <label>
-                <input type="radio" name="tracking_time" class="margin-right-2 control" data-target="after_sale" data-distarget="after_previous_tracking" checked="">
-                销售后
-              </label>
-              <select class="width-84 after_sale" data-id="after_sale">
-                <option></option>
-              </select>
-              <label>
-                <input type="radio" name="tracking_time" class="margin-left-10 margin-right-2 control" data-target="after_previous_tracking" data-distarget="after_sale">上次回访后
-              </label>
-              <select class="width-79 previous_tracking" data-id="after_previous_tracking" disabled="">
-                <option></option>
-              </select>
-              </li>
-
-              <li class="position-relative">
-              <label class="width-84">回访方式：</label>
-              <label class="width-55">下拉选择</label>
-              <select class="width-110">
-                <option></option>
-                <option>短信</option>
-                <option>微信</option>
-              </select>
-              <label class="width-90 text-align-right margin-left-50"><input type="radio" onclick="clickRadio(this);">回访后通知</label>
-              </li>
-
-              <li>
-              <label class="width-142">自定义内容</label>
-              <div class="display-inline-block">
-                <textarea rows="9" class="width-253">短信发送每条限70字节，超过会按2条计费</textarea>
-                <label class="save_as_model width-80">
-                  保存为模板<input type="checkbox" class="float-right">
-                </label>
-              </div>
-              </li>
-            </ul>
-
-            <div class="btn_group margin-top-20">
-              <input type="button" class="btn cancel_btn" value="取消" id="do_cancel_new_list">
-              <input type="button" class="btn save_btn" value="保存" id="do_save_new_list">
-            </div>
-          </div>
-
-          <div class="tips float-right">
-            <h4 class="text-align-center">提示</h4>
-            <p>1. 创建回访可以直接从回访模板中选择回访内容</p>
-            <p>2. 回访时间请选择在销售后还是上次回访结束后</p>
-            <p>3. 回访方式请选择系统已建立的方式，如短信或微信，没有上述回访方式则默认为系统提示做人工电话回访</p>
-            <p>4. 选择回访后通知则在自动回访后在系统消息中出现提示信息</p>
-            <p>5. 自定义回访内容可以作为模板保存，在弹出的标题框内输入模板名称即可保存</p>
-          </div>
-        </div>
       </div>
     </div>
   </div>
