@@ -4,7 +4,7 @@
   <li>
     <select name='template[sections_attributes][][type_id]'>
       <option value="0">金额</option>
-      <option <%= 'selected' if @type_id == '1' %> value="1">百分比</option>
+      <option <%= 'selected' if @type_id.toString() == '1' %> value="1">百分比</option>
     </select>
   </li>
   <li>
