@@ -1,7 +1,7 @@
 <form>
 <h3>
   <label class="font-14">新建提成方案</label>
-  <span class="font-18 do_cancel_create_list">✕</span>
+  <span class="font-18 do_cancel">✕</span>
 </h3>
 
 <div class="float-left plan">
@@ -15,11 +15,11 @@
   <div class="object">
     <label>适用对象</label>
     <select name='template[aim_to]' class="aim">
-      <% if @aim_to == '0' : %>
+      <% if @aim_to == 0 : %>
       <option value='0'>销售</option>
-      <% else if @aim_to == '1' : %>
+      <% else if @aim_to == 1 : %>
       <option value='1'>技师</option>
-      <% else if @aim_to == '2' : %>
+      <% else if @aim_to == 2 : %>
       <option value='2'>其他</option>
       <% else : %>
       <option value=""><%= @aim_to %></option>
