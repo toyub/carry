@@ -44,44 +44,7 @@
     <label>阶梯提成<input class='mode' type="radio" name="template[mode_id]" value="1" <%= 'checked' if @mode_id.toString() == '1' %> ></label>
     <label>分段提成<input class='mode' type="radio" name="template[mode_id]" value="2" <%= 'checked' if @mode_id.toString() == '2' %> ></label>
   </div>
-
-  <div data-modeid=0 class="regular_ticheng do_ticheng_setting" style="<%= 'display:none' if @mode_id.toString() != '0' %>"></div>
-
-  <div data-modeid=1 class="ladder_ticheng do_ticheng_setting" style="<%= 'display:none' if @mode_id.toString() != '1' %>">
-    <p class="line-height-25 margin-left-36">阶梯提成定义为：</p>
-    <p class="line-height-25 margin-left-36 margin-bottom-15 width-300">提成基数按阶梯状递增，每个阶段数量溢出，则按设定的基数</p>
-
-    <div class="setting">
-      <ul class="lists_header">
-        <li>#</li>
-        <li>完成数</li>
-        <li>形式</li>
-        <li>提成源</li>
-        <li>数量</li>
-        <li><span class="new_list cursor-pointer">+</span></li>
-      </ul>
-
-      <div class="lists_content"></div>
-    </div>
-  </div>
-
-  <div data-modeid=2 class="period_ticheng do_ticheng_setting" style="<%= 'display:none' if @mode_id.toString() != '2' %>">
-    <p class="line-height-25 margin-left-36">分段提成定义为：</p>
-    <p class="line-height-25 margin-left-36 margin-bottom-15 width-300">提成分为几个阶段的基数进行不同金额的提成，互相不累计。</p>
-
-    <div class="setting">
-      <ul class="lists_header">
-        <li>#</li>
-        <li>完成数</li>
-        <li>形式</li>
-        <li>提成源</li>
-        <li>数量</li>
-        <li><span class="new_list cursor-pointer">+</span></li>
-      </ul>
-
-      <div class="lists_content"></div>
-    </div>
-  </div>
+  <div data-id='container'></div>
 </div>
 <input type="button" class="btn cancel_btn" value="取消">
 <input type="submit" class="btn save_btn float-right" value="保存">

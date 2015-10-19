@@ -1,17 +1,19 @@
-<ul>
-  <li class="sequence_num">1<input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]'/></li>
-  <li><input num un name='template[sections_attributes][][min]' type="text" class="width-20" required> - <input num un name='template[sections_attributes][][max]' type="text" class="width-20" required></li>
-  <li>
-    <select name='template[sections_attributes][][type_id]'>
-      <option value="0">金额</option>
-      <option <%= 'selected' if @type_id.toString() == '1' %> value="1">百分比</option>
-    </select>
-  </li>
-  <li>
-    <select class="width-120" name='template[sections_attributes][][source_id]'>
-      <option value="0">商品或服务的毛利</option>
-    </select>
-  </li>
-  <li><input type="text" class="width-40" name='template[sections_attributes][][amount]'></li>
-  <li><span class="delete delete_list cursor-pointer">×</span></li>
-</ul>
+<p class="line-height-25 margin-left-36">分段提成定义为：</p>
+<p class="line-height-25 margin-left-36 margin-bottom-15 width-300">提成分为几个阶段的基数进行不同金额的提成，互相不累计。</p>
+
+<div class="setting">
+  <ul class="lists_header">
+    <li>#</li>
+    <li>完成数</li>
+    <li>形式</li>
+    <li>提成源</li>
+    <li>数量</li>
+    <li><span class="new_list cursor-pointer">+</span></li>
+  </ul>
+
+  <div class="lists_content">
+    <% for section in @sections : %>
+    <%- JST['settings/commission_templates/sections/section1'](section) %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<ul>
+  <li class="sequence_num">1<input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]'/></li>
+  <li><input num un name='template[sections_attributes][][min]' value='<%= @min %>' type="text" class="width-20" required> - <input num un name='template[sections_attributes][][max]' type="text" class="width-20" value="<%= @max %>" required></li>
+  <li>
+    <select name='template[sections_attributes][][type_id]'>
+      <option value="0">金额</option>
+      <option <%= 'selected' if @type_id.toString() == '1' %> value="1">百分比</option>
+    </select>
+  </li>
+  <li>
+    <select class="width-120" name='template[sections_attributes][][source_id]'>
+      <option value="0">商品或服务的毛利</option>
+    </select>
+  </li>
+  <li><input type="text" class="width-40" name='template[sections_attributes][][amount]' value="<%= @amount %>"></li>
+  <li><span class="delete delete_list cursor-pointer">×</span></li>
+</ul>
