@@ -49,3 +49,6 @@ class Mis.Models.StoreServiceTracking extends Backbone.Model
 
   delay: ->
     @get("delay_interval") + @DELAY_UNITS[@get 'delay_unit']
+
+  clear: ->
+    @destroy()

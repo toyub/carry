@@ -8,9 +8,11 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
 
   initialize: ->
     @model.on('change', @render, @)
+    @model.on('destroy', @remove, @)
 
   events:
     'click label.content': 'editTracking'
+    'click span.delete': 'clear'
 
   render: ->
     @$el.html(@template(tracking: @model))
@@ -19,3 +21,11 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
   editTracking: ->
     view = new Mis.Views.XiaoshouServiceTrackingsForm(model: @model)
     view.open()
+
+  clear: ->
+    @model.clear()
+
+  remove: ->
+    @$el.remove()
+    @undelegateEvents()
+    @model.off()
