@@ -1,8 +1,6 @@
-<div class="list_content list_tr" data-id="list_content_<%= @cid %>">
-    <ul class="list_tr_hover">
-      <li ><%= @cid %>.</li>
-      <li ><label class="click_btn cursor" data-cid="<%= @cid %>"><%= @content() %></label></li>
-      <li ><%= @delay() %></li>
-      <li >微信<span  class="delete close"  data-target="list_content_<%= @cid %>">×</span></li>
-    </ul>
-  </div>
+<ul class="list_tr_hover">
+  <li ><%= @cid %>.</li>
+  <li ><label class="click_btn cursor" data-cid="<%= @cid %>"><%= @content %></label></li>
+  <li ><%= @delay %></li>
+  <li >微信<span  class="delete close"  data-target="list_content_<%= @cid %>">×</span></li>
+</ul>
