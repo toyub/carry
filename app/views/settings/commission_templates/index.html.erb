@@ -1,13 +1,20 @@
 <% content_for :pre_assets do %>
   <%= javascript_include_tag 'settings' %>
 <% end %>
+<% list_header = '<ul class="list_header">
+  <li>#</li>
+  <li>名称</li>
+  <li>提成范围</li>
+  <li>提成方法</li>
+  <li>状态</li>
+</ul>'
+ %>
 <div class="main_top">
   <h2>规则设置</h2>
   <span class="add_span">+</span>
 </div>
 
 <div class="details">
-
 
   <div class="details_nav">
     <ul>
@@ -22,146 +29,33 @@
     <div class="ticheng_plan float-left margin-right-31">
       <h2>
         <label class="font-14">销售提成方案</label>
-        <input type="button" class="btn new_btn do_create_new_list" value="新建">
+        <input type="button" data-aim='0' class="btn new_btn do_create_new_list" value="新建">
       </h2>
       <div class="new_lists">
-        <ul class="list_header">
-          <li>#</li>
-          <li>名称</li>
-          <li>提成范围</li>
-          <li>形式</li>
-          <li>状态</li>
-        </ul>
-
-        <div class="new_lists_content">
-          <ul>
-            <li class="sequence_num">1.</li>
-            <li><label class="edit_list">销售计件提成方案</label></li>
-            <li>班组</li>
-            <li>金额</li>
-            <li>
-              <a class="disable" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-
-          <ul>
-            <li class="sequence_num">2.</li>
-            <li><label class="edit_list">销售累计提成方案</label></li>
-            <li>班组</li>
-            <li>百分比</li>
-            <li>
-              <a class="active" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-
-          <ul>
-            <li class="sequence_num">3.</li>
-            <li><label class="edit_list">销售阶梯提成方案</label></li>
-            <li>个人</li>
-            <li>百分比</li>
-            <li>
-              <a class="active" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-        </div>
+        <%= list_header.html_safe %>
+        <div id='aim0' class="new_lists_content"></div>
       </div>
     </div>
-
 
     <div class="ticheng_plan float-left margin-right-31">
       <h2>
         <label class="font-14">技师提成方案</label>
-        <input type="button" class="btn new_btn do_create_new_list" value="新建">
+        <input type="button" data-aim='1' class="btn new_btn do_create_new_list" value="新建">
       </h2>
       <div class="new_lists">
-        <ul class="list_header">
-          <li>#</li>
-          <li>名称</li>
-          <li>提成范围</li>
-          <li>形式</li>
-          <li>状态</li>
-        </ul>
-
-        <div class="new_lists_content">
-          <ul>
-            <li class="sequence_num">1.</li>
-            <li><label class="edit_list">销售计件提成方案</label></li>
-            <li>班组</li>
-            <li>金额</li>
-            <li>
-              <a class="active" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-
-          <ul>
-            <li class="sequence_num">2.</li>
-            <li><label class="edit_list">销售累计提成方案</label></li>
-            <li>班组</li>
-            <li>百分比</li>
-            <li>
-              <a class="active" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-
-          <ul>
-            <li class="sequence_num">3.</li>
-            <li><label class="edit_list">销售阶梯提成方案</label></li>
-            <li>个人</li>
-            <li>百分比</li>
-            <li>
-              <a class="active" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-        </div>
+        <%= list_header.html_safe %>
+        <div id='aim1' class="new_lists_content"></div>
       </div>
     </div>
-
 
     <div class="ticheng_plan float-left">
       <h2>
         <label class="font-14">其他提成方案</label>
-        <input type="button" class="btn new_btn do_create_new_list" value="新建">
+        <input type="button" data-aim='2' class="btn new_btn do_create_new_list" value="新建">
       </h2>
       <div class="new_lists">
-        <ul class="list_header">
-          <li>#</li>
-          <li>名称</li>
-          <li>提成范围</li>
-          <li>形式</li>
-          <li>状态</li>
-        </ul>
-
-        <div class="new_lists_content">
-          <ul>
-            <li class="sequence_num">1.</li>
-            <li><label class="edit_list">销售计件提成方案</label></li>
-            <li>班组</li>
-            <li>金额</li>
-            <li>
-              <a class="active" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-
-          <ul>
-            <li class="sequence_num">2.</li>
-            <li><label class="edit_list">销售累计提成方案</label></li>
-            <li>班组</li>
-            <li>百分比</li>
-            <li>
-              <a class="active" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-
-          <ul>
-            <li class="sequence_num">3.</li>
-            <li><label class="edit_list">销售阶梯提成方案</label></li>
-            <li>个人</li>
-            <li>百分比</li>
-            <li>
-              <a class="active" href="javascript:void(0)"></a>
-            </li>
-          </ul>
-        </div>
+        <%= list_header.html_safe %>
+        <div id='aim2' class="new_lists_content"></div>
       </div>
     </div>
 
@@ -175,9 +69,7 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      x = new $$MIS.NewCommissionTemplateView({
-        el: 'body'
-      })
+      new $$MIS.CommissionTemplateHandle();
     });
   </script>
 <% end %>
