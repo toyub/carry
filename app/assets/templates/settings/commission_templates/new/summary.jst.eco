@@ -1,5 +1,5 @@
 <li class="sequence_num"><%= @idx %>.</li>
-<li><label data-modelid=<%=@cid%> data-viewid='<%= @viewid %>' class="edit_list"><%= @name %></label></li>
+<li><label data-modelid='<%= @cid %>' data-viewid='<%= @viewid %>' class="edit_list"><%= @name %></label></li>
 <li><%= @confined %></li>
 <li><%= @mode %></li>
 <li><a class="active" href="javascript:void(0)"></a></li>

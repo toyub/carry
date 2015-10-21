@@ -7,6 +7,7 @@ class Settings::CommissionTemplatesController < Settings::BaseController
       confined_to = rand(1)
 
       {
+        id: i + 1,
         name: 'dslfkj'+i.to_s,
         mode_id: mode_id,
         aim_to: aim_to,
