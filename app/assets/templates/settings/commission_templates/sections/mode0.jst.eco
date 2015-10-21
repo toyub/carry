@@ -14,4 +14,4 @@
 </select>
 
 <label>输入数量</label>
-<input name="template[sections_attributes][][amount]" num un type="text" value="<%= @amount %>">
+<input name="template[sections_attributes][][amount]" num un type="text" value="<%= @amount %>" required=true autocomplete=off>
