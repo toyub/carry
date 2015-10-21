@@ -17,11 +17,9 @@ class Store <  ActiveRecord::Base
   has_many :store_material_returnings
   has_many :store_material_returning_items
   has_many :store_settlement_accounts
-
-  validates :name, presence: true
-
   has_many :workstations, class_name: 'StoreWorkstation'
   has_many :commission_templates, class_name: 'StoreCommissionTemplate'
+  has_many :store_packages
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },

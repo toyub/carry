@@ -75,6 +75,8 @@ Rails.application.routes.draw do
       end
       resources :categories, only: [:create]
     end
+
+    resources :packages, only: [:index]
   end
 
   namespace :soa do
