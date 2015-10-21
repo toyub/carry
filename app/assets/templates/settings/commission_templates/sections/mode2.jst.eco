@@ -13,7 +13,7 @@
 
   <div class="lists_content">
     <% for section in @sections : %>
-    <%- JST['settings/commission_templates/sections/section1'](section) %>
+    <%- JST['settings/commission_templates/sections/section2'](section) %>
     <% end %>
   </div>
 </div>
