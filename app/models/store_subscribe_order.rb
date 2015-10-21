@@ -5,4 +5,14 @@ class StoreSubscribeOrder < ActiveRecord::Base
 
   enum state: %i[pending processing done]
   enum order_type: %i[auto]
+
+  # TODO set to db default
+  before_create :default_state_order_type
+
+  private
+
+    def default_state_order_type
+      self.state = 0
+      self.order_type = 0
+    end
 end
