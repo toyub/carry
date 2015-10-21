@@ -1,6 +1,9 @@
 class StoreCommissionTemplate < ActiveRecord::Base
   include BaseModel
 
+  has_many :sections, class_name: 'StoreCommissionTemplateSection'
+
+  accepts_nested_attributes_for :sections, allow_destroy: true
 end
 
 # == Schema Information

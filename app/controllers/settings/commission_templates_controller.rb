@@ -1,29 +1,7 @@
 class Settings::CommissionTemplatesController < Settings::BaseController
   def index
 
-    @templates = 15.times.map do |i|
-      mode_id = rand(3)
-      aim_to = rand(2)
-      confined_to = rand(1)
-
-      {
-        id: i + 1,
-        name: 'dslfkj'+i.to_s,
-        mode_id: mode_id,
-        aim_to: aim_to,
-        confined_to: confined_to,
-        status: 0,
-        sections_attributes: [
-          {
-            mode_id: mode_id,
-            type_id: 0,
-            source_id: 0,
-            amount: 2.2
-          }
-        ]
-
-      }
-    end
+    @templates = StoreCommissionTemplate.all
 
 
     respond_to do |format|
@@ -36,7 +14,13 @@ class Settings::CommissionTemplatesController < Settings::BaseController
   end
 
   def create
-    render json: template_params
+    ct = StoreCommissionTemplate.new(template_params)
+    ct.store_staff_id = current_user.id
+    ct.sections.each do |section|
+      section.store_staff_id = ct.store_staff_id
+    end
+    ct.save
+    render json: ct, root: false
   end
 
   def update
@@ -47,6 +31,6 @@ class Settings::CommissionTemplatesController < Settings::BaseController
 
   def template_params
     params.permit(:aim_to, :confined_to, :mode_id, :name,
-                  sections_attributes: [:mode_id, :type_id, :source_id, :amount])
+                  sections_attributes: [:mode_id, :type_id, :source_id, :amount, :id, :_destroy])
   end
 end
