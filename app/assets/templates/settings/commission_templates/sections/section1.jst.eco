@@ -13,5 +13,5 @@
     </select>
   </li>
   <li><input type="text" class="width-40" name="template[sections_attributes][][amount]" value="<%= @amount %>"></li>
-  <li><span class="delete delete_list cursor-pointer">×</span></li>
+  <li><span data-modeid='<%= @cid %>' class="delete delete_list cursor-pointer">×</span></li>
 </ul>
