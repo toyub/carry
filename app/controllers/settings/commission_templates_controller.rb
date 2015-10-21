@@ -13,7 +13,7 @@ class Settings::CommissionTemplatesController < Settings::BaseController
         aim_to: aim_to,
         confined_to: confined_to,
         status: 0,
-        sections: [
+        sections_attributes: [
           {
             mode_id: mode_id,
             type_id: 0,
@@ -33,5 +33,20 @@ class Settings::CommissionTemplatesController < Settings::BaseController
 
       format.html {}
     end
+  end
+
+  def create
+    render json: template_params
+  end
+
+  def update
+    render json: template_params
+  end
+
+  private
+
+  def template_params
+    params.permit(:aim_to, :confined_to, :mode_id, :name,
+                  sections_attributes: [:mode_id, :type_id, :source_id, :amount])
   end
 end
