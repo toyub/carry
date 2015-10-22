@@ -1,0 +1,10 @@
+<ul>
+  <li>方案名称:<label><%= @name %></label></li>
+  <li>使用对象：<label>销售</label></li>
+  <li>提成范围：<label>班组</label></li>
+  <li>适用范围：<label></label></li>
+  <li>提成模式：<label>标准提成</label></li>
+  <li>提成源：<label>商品或服务的毛利</label></li>
+  <li>提成形式：<label>金额</label></li>
+  <li>提成数量：<label>10.00</label></li>
+</ul>
