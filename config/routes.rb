@@ -138,6 +138,11 @@ Rails.application.routes.draw do
     resources :store_vehicles, only: [:index]
     resources :store_orders, only: [:index]
     resources :store_subscribe_orders
+    resources :store_packages, only: [:create] do
+      member do
+        post :save_picture
+      end
+    end
   end
 
   root 'kucun/materials#index'

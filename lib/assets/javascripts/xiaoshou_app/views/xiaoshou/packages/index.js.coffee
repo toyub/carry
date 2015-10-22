@@ -10,7 +10,7 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
     'click div.prices li.submit': 'filterByPrice'
     'click div.item-query.screen li': 'filterByDate'
     'submit #store_service_search': 'searchOnSubmit'
-    'click #newService': 'goToNew'
+    'click #newPackage': 'goToNew'
 
   render: ->
     @renderStats()
@@ -95,6 +95,6 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
     options
 
   goToNew: ->
-    model = new Mis.Models.StoreService()
-    view = new Mis.Views.XiaoshouServiceProfilesNew(model: model)
+    model = new Mis.Models.StorePackage()
+    view = new Mis.Views.XiaoshouPackagesNew(model: model)
     $("#bodyContent").html(view.render().el)
