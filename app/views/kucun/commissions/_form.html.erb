@@ -100,50 +100,28 @@
               <div class="commission_scheme">
                 <label class="width-100">选择提成方案：</label>
                 <select class="width-235" name='commission[salesman][store_commission_template_id]'>
-                  <% @store_commission_templates.each do |tmpl| %>
-                    <option value="<%= tmpl.id %>">tmpl.name</option>
+                  <option value=""></option>
+                  <% @store_commission_templates.each do |opt| %>
+                    <option data-template='<%= json_for(opt) %>' value="<%= opt.id %>"><%= opt.name %></option>
                   <% end %>
-                  <option value="option">option</option>
                 </select>
                 <span class="detail color-0C489C click_btn" data-showid='#sales_commission'>详情</span>
               </div>
-              <div class="commission_scheme_details" id="sales_commission" style="display:none;">
-                <ul>
-                  <li>方案名称:<label>销售计件提成方案</label></li>
-                  <li>使用对象：<label>销售</label></li>
-                  <li>提成范围：<label>班组</label></li>
-                  <li>适用范围：<label></label></li>
-                  <li>提成模式：<label>标准提成</label></li>
-                  <li>提成源：<label>商品或服务的毛利</label></li>
-                  <li>提成形式：<label>金额</label></li>
-                  <li>提成数量：<label>10.00</label></li>
-                </ul>
-              </div>
+              <div class="commission_scheme_details" id="sales_commission" style="display:none;"></div>
             </div>
             <div class="commission float-right">
               <h2>技师提成</h2>
               <div class="commission_scheme">
                 <label class="width-100">选择提成方案：</label>
                 <select class="width-235" name="commission[mechanic][store_commission_template_id]">
-                  <% @store_commission_templates.each do |tmpl| %>
-                    <option value="<%= tmpl.id %>">tmpl.name</option>
+                  <option value=""></option>
+                  <% @store_commission_templates.each do |opt| %>
+                    <option data-template='<%= json_for(opt) %>' value="<%= opt.id %>"><%= opt.name %></option>
                   <% end %>
-                  <option value="option">option</option>
                 </select>
                 <span  class="detail color-0C489C clickbtn" data-showid='#technician_commission'>详情</span>
               </div>
-              <div class="commission_scheme_details" id='technician_commission' style="display:none;">
-                <ul>
-                  <li>方案名称:<label>销售计件提成方案</label></li>
-                  <li>使用对象：<label>销售</label></li>
-                  <li>提成范围：<label>班组</label></li>
-                  <li>适用范围：<label></label></li>
-                  <li>提成模式：<label>标准提成</label></li>
-                  <li>提成源：<label>商品或服务的毛利</label></li>
-                  <li>提成形式：<label>金额</label></li>
-                  <li>提成数量：<label>10.00</label></li>
-                </ul>
-              </div>
+              <div class="commission_scheme_details" id='technician_commission' style="display:none;"></div>
           </div>
 
         </div>
