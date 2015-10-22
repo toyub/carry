@@ -10,7 +10,7 @@
     <li><%= @cost_price %></li>
     <li><%= @quantity %></li>
     <li><%= @depot_name %></li>
-    <li><%= @remark %><nbsp1></nbsp1></li>
+    <li><nbsp1></nbsp1></li>
     <li>
       <input data-id='<%=@id%>' type="checkbox" value="<%= @id %>">
     </li>

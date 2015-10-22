@@ -1,4 +1,0 @@
-<option>请选择</option>
-<% @categories.each (category) ->: %>
-  <option value="<%= category.get 'id' %>"><%= category.get 'name' %></option>
-<% end %>

@@ -1,20 +1,11 @@
 class StoreMaterialOrder < ActiveRecord::Base
-  include BaseModel
   belongs_to :store_material
+  has_many :store_material_inventories
+  has_many :store_material_order_items
   belongs_to :store_supplier
 
-  belongs_to :store_material_inventory
-  has_many :items, class_name: 'StoreMaterialOrderItem'
-  has_many :payments, class_name: 'StoreMaterialOrderPayment'
-
-
-  accepts_nested_attributes_for :items, :payments
-
+  accepts_nested_attributes_for :store_material_order_items
   scope :pending, ->{where('store_material_orders.process = 0')}
-  scope :suspense, ->{where('0 <= store_material_orders.process and store_material_orders.process < 100')}
+  scope :suspense, ->{where('0 < store_material_orders.process and store_material_orders.process < 100')}
   scope :finished, ->{where('store_material_orders.process = 100')}
-
-  def balance
-    self.amount - self.paid_amount
-  end
 end

@@ -15,22 +15,25 @@
 //= require jquery_ui/1.11.2
 //= require titletip/1.0.0
 //= require js-routes
-//= require jquery_validate/1.14.0
-//= require jquery_form/3.51.0
-//= require jquery_serializejson/2.6.1
-//= require jquery_ext/jquery.validate_ext
-//= require jquery_ext/jquery.alert
-//= require jquery_ext/jquery.confirm
+//= require jquery.validate
+//= require jquery.form
+//= require jquery.serializejson
+//= require jquery.validate_ext
+//= require jquery.alert
 //= require menu
 //= require underscore
-//= require underscore_string/3.2.2
 //= require backbone
-//= require backbone_validation/0.11.5
-//= require backbone_ext/model.tojson
+//= require backbone-validation-min
+//= require backbone-ext
 //= require 'piccut/1.0.0'
 //= require 'select2'
 //= require mis
-//= require number_input
+//= require_tree ../templates
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
+
 
 function ZhanchuangAlert(msg) {
   $.alert({text: msg})

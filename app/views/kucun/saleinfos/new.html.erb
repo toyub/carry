@@ -1,5 +1,5 @@
 <% content_for :pre_assets do %>
-  <%= javascript_include_tag 'kucun' %>
+  <%= javascript_include_tag 'kucun/materials/saleinfo' %>
 <% end %>
 
 <div class="main_top">
@@ -24,11 +24,25 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      var new_service_tmpl = JST['kucun/saleinfos/new/form'];
-      var show_tmpl = JST['kucun/saleinfos/new/summary'];
-      var form_url = "<%= kucun_material_saleinfo_saleinfo_services_path(material_id: @store_material.id) %>"
-      var store_commission_templates = <%= @store_commission_templates.to_json.html_safe %>
+      window.$$MIS = window.$$MIS || {};
+      $$MIS.methods = $$MIS.methods || {
+        get: function(method_name){
+              if(!method_name)return function(){console.error('Invalid method name!')}
+              if(this[method_name]){return this[method_name];}else{return function(){console.log("Method #" + method_name + ' is not defined!')}}
+            }
+      };
+
+      $$MIS.methods.add_saleinfo_category = function(){
+        $('#modal_dialog').html("<iframe src='/kucun/material_saleinfo_categories/new' frameborder=0></iframe>").dialog({modal: true});
+      }
+
+      $$MIS.methods.add_material_saleinfo_category_callback = function(){
+        var dialog = $('#modal_dialog').dialog('instance');
+        $("#saleinfo_category_select > ol").append("<li data-value="+ this.id +">" + this.name + "</li>")
+        dialog.destroy();
+      }
       services = [];
+      var show_tmpl = _.template($("#saleinfo_service_show").html());
       $("input[name='saleinfo[volume]']").on('change', function(){
         if(this.value){
           var x = (this.dataset.costpirce/this.value).toFixed(2);
@@ -50,6 +64,7 @@
          }else{
           $("[name='saleinfo[service_fee]']").attr('disabled', true);
          }
+
       });
 
       $("input[name='saleinfo[service_needed]']").on('change', function(){
@@ -67,30 +82,31 @@
         this.classList.add('disabled');
         var id = services.length + 1;
         var service = {id: id}
-        services.push(service);
-        var cloned = JSON.parse(JSON.stringify(service));
-        cloned.store_commission_templates = store_commission_templates;
-        $('div.server_list').append(new_service_tmpl(cloned));
+        services.push(service)
+        var new_service_tmpl = _.template($("#new_saleinfo_service").html());
+        $('div.server_list').append(new_service_tmpl.apply(service));
       });
 
-      $('div.server_list').on('click', 'input.save_service', function(){
+      $('div.server_list').on('click', 'input.add_service', function(){
         var $form = $(this.parentNode.parentNode);
         var id = $form.data('id');
-        obj = services.filter(function(ser){ return ser.id == id})[0];
+        var obj = services.filter(function(ser){ return ser.id == id})[0];
         obj.name = $form.find('[name="saleinfo[store_material_saleinfo_services][][name]"]').val();
         obj.times = $form.find('[name="saleinfo[store_material_saleinfo_services][][times]"]').val();
         obj.work_time = $form.find("[name='saleinfo[store_material_saleinfo_services][][work_time]']").val();
         obj.mechanic_level = $form.find('[name="saleinfo[store_material_saleinfo_services][][mechanic_level]"]').val();
-        $.post(form_url, obj, function (data) {
-          console.log(data)
-        });
+
+
         if(!obj.saved){
           obj.saved = true;
-          $('#lists').append(show_tmpl(obj)).show();
+          $('#lists').append(show_tmpl.apply(obj)).show();
         }else{
-          $(`[data-id="service_${obj.id}"]`).html(show_tmpl(obj));
+          $(`[data-id="service_${obj.id}"]`).html(show_tmpl.apply(obj));
         }
+
+
         $form.hide();
+
         $('#add_server_btn').removeClass('disabled');
       });
 

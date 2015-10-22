@@ -1,9 +1,0 @@
-class Mis.Views.XiaoshouServiceMaterialsSelectedItem extends Backbone.View
-
-  tagName: 'tr'
-
-  template: JST['xiaoshou/service/materials/selected_item']
-
-  render: ->
-    @$el.html(@template(material: @model))
-    @

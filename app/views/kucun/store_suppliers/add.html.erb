@@ -32,7 +32,7 @@
                   var x = data.map(function(state){
                     return `<option value=${state.code}>${state.name}</option>`;
                   }).join("");
-                  $("[name='store_supplier[location_state_code]']").html(x);
+                  $("[name='store_supplier[state_code]']").html(x);
                   if(data[0]){
                     fill_city_select(country_code, data[0].code);
                   }
@@ -45,7 +45,7 @@
                   var x = data.map(function(state){
                     return `<option value=${state.code}>${state.name}</option>`;
                   }).join("");
-                  $("[name='store_supplier[location_city_code]']").html(x);
+                  $("[name='store_supplier[city_code]']").html(x);
                 });
               };
 
@@ -61,17 +61,17 @@
 
               $('select').on('change', function(){
                 switch(this.name){
-                  case 'store_supplier[location_country_code]':
-                    $("[name='store_supplier[location_state_code]']").html("");
-                    $("[name='store_supplier[location_city_code]']").html("");
+                  case 'store_supplier[country_code]':
+                    $("[name='store_supplier[state_code]']").html("");
+                    $("[name='store_supplier[city_code]']").html("");
                     fill_state_select(this.value);
                     break;
-                  case 'store_supplier[location_state_code]':
-                    $("[name='store_supplier[location_city_code]']").html("");
-                    var country_code = $("[name='store_supplier[location_country_code]']").val();
+                  case 'store_supplier[state_code]':
+                    $("[name='store_supplier[city_code]']").html("");
+                    var country_code = $("[name='store_supplier[country_code]']").val();
                     fill_city_select(country_code, this.value);
                     break;
-                  case 'store_supplier[location_city_code]':
+                  case 'store_supplier[city_code]':
                     break;
                   case 'store_supplier[root_category_id]':
                     $("[name='store_supplier[category_id]']").html('');

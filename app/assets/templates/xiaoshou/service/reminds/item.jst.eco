@@ -1,9 +1,0 @@
-<li><%= @remind.get 'id' %>.</li>
-<li><%= @remind.serviceName() %></li>
-<li><%= @remind.timingName() %></li>
-<li><%= if @remind.isEnabled() then '是' else '否' %></li>
-<li><label class="selected_reminder_content"><%= @remind.get 'content' %></label></li>
-<li><label class="selected_reminder_method"><%= @remind.modeName() %></label></li>
-<li>
-  <input type="button" name="reminder_edit_btn" class="btn edit_btn btn_edit_regular_reminder_list editRemind" value="编辑">
-</li>

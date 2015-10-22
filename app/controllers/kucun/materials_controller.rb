@@ -3,16 +3,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   before_filter :set_material, only: [:show, :edit]
 
   def index
-    @store = current_store
-    @store_materials = @store.store_materials
-                             .by_primary_category(params[:root_category_id])
-                             .by_sub_category(params[:category_id])
-                             .keyword(params[:keyword])
-
-    if params[:root_category_id].present?
-      @root_category = @store.store_material_categories.find(params[:root_category_id])
-    end
-
+    @store_materials = StoreMaterial.all
     respond_to do |format|
       format.json {
         render json: @store_materials.to_json

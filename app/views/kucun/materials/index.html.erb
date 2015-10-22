@@ -1,6 +1,3 @@
-<% content_for :pre_assets do %>
-  <%= javascript_include_tag 'kucun' %>
-<% end %>
 <div class="main_top">
   <h2>商品信息</h2>
   <span class="add_span">+</span>
@@ -11,11 +8,40 @@
 
   <div class="list_table">
     <div class="search_nav">
-      <%= render partial: 'kucun/partials/material_search' %>
+      <div class="item-query">
+        <label>查找出库产品</label>
+        <input class="width-150" placeholder="输入产品关键字" type="text">
+      </div>
+      <div class="item-query">
+        <label>一级分类</label>
+        <select class="width-150" type="text">
+          <option/><option/>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>
+          二级分类
+        </label>
+        <select class="width-150" type="text"><option/>
+          <option/>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>
+          选择仓库
+        </label>
+        <select class="width-150" type="text">
+          <option></option>
+          <option></option>
+        </select>
+        <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
+      </div>
       <div class="query_div">
         <a class="new_btn btn" href="<%= new_kucun_material_path %>">新建商品</a>
-        <a class="export_btn btn" href="#">导出</a>
-        <a class="print_btn btn" href="#">打印</a>
+        <a class="export_btn btn" href="#">导出
+        </a>
+        <a class="print_btn btn" href="#">
+          打印</a>
       </div>
     </div>
     <table id='materials' cellpadding="0" cellspacing="0" class="index_list materials">
@@ -35,10 +61,10 @@
         </tr>
       </thead>
       <tbody>
-        <% @store_materials.each_with_index do |material, idx| %>
+        <% @store_materials.each do |material| %>
         <tr>
-          <td class="number"><%= idx + 1 %></td>
-          <td title="<%= material.name %>"><a href="<%= kucun_material_path(material) %>"><%= material.name.truncate(11) %></a></td>
+          <td class="number">1</td>
+          <td><a href="<%= kucun_material_path(material) %>"><%= material.name %></a></td>
           <td><%= material.barcode %></td>
           <td><%= material.store_material_root_category.try(:name) %></td>
           <td><%= material.store_material_category.try(:name) %></td>

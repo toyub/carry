@@ -19,12 +19,206 @@
       <li>工位设置</li>
       <li>提成</li>
     </ul>
-    <div class="do_new_lists_content" id="workflow_list">
-
+    <div class="do_new_lists_content">
     </div>
   </div>
 
-  <div id="workflow_form" class="new_process_details new_items_details do_list_new_page">
+  <div class="new_process_details new_items_details do_list_new_page">
+    <h3 class="color-fff">创建流程</h3>
+    <table class="float-left" border="0">
+      <tbody><tr>
+        <td>流程名称：</td>
+        <td></td>
+        <td colspan="5">
+          <input type="text" name="process_name" style="width:99.7%;">
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td colspan="5"></td>
+      </tr>
+      <tr>
+        <td>施工时间：</td>
+        <td></td>
+        <td>缓冲时间
+          <input type="text" name="prepare_time">
+        </td>
+        <td colspan="3">标准时间
+          <input type="text" name="routine_time">
+        </td>
+        <td class="text-align-right">正负
+          <input type="text" name="plus_minus_time">
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td colspan="5">
+          <label>允许加时
+            <input type="radio" name="delay_allowed" id="delay_allowed" value="false" />
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td colspan="5"></td>
+      </tr>
+      <tr>
+        <td>技师设置：</td>
+        <td></td>
+        <td>数量设置
+          <input type="text" name="the_number_of_mechanics" id="limited_mechanics" />
+        </td>
+        <td colspan="4">
+          <label>数量不限
+            <input type="radio" name="unlimited_mechanics" class="discontrol" value="false" id="unlimited_mechanics"/>
+          </label>
+          <label class="margin-right-30 margin-left-60">上岗方式</label>
+          <label>自动
+            <%= radio_button_tag "sign_method_in_process_in_process", StoreServiceWorkflow::POSITION_MODE['自动上岗'], checked: true %>
+          </label>
+          <label class="app">APP
+            <%= radio_button_tag "sign_method_in_process_in_process", StoreServiceWorkflow::POSITION_MODE['APP上岗'], checked: false %>
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td colspan="5">级别限定
+          <%= select_tag :level_limited, options_for_select(StoreServiceWorkflow::ENGINEER_LEVEL), {include_blank: true} %>
+          以上
+        </td>
+      </tr>
+      <tr>
+        <td>工位设置：</td>
+        <td></td>
+        <td>
+          <label>
+            指定工位
+            <input type="radio" name="station_setting_in_process" checked="" id="nominate_station_in_process">
+          </label>
+        </td>
+        <td colspan="4">
+          <label>
+            系统自动分配
+            <input type="radio" name="station_setting_in_process" id="random_station_in_process">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td colspan="5" rowspan="3">
+          <div>
+            <ul id="nominated_stations_in_process">
+              <li>
+              洗车1号工位
+              <input type="checkbox">
+              </li>
+              <li>
+              洗车2号工位
+              <input type="checkbox">
+              </li>
+              <li>
+              洗车3号工位
+              <input type="checkbox">
+              </li>
+              <li>
+              洗车4号工位
+              <input type="checkbox">
+              </li>
+              <li>
+              洗车5号工位
+              <input type="checkbox">
+              </li>
+              <li>
+              洗车6号工位
+              <input type="checkbox">
+              </li>
+              <li>
+              洗车7号工位
+              <input type="checkbox">
+              </li>
+              <li>
+              洗车8号工位
+              <input type="checkbox">
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
 
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td colspan="5"></td>
+      </tr>
+      <tr>
+        <td>销售提成：</td>
+        <td></td>
+        <td>提成对象
+          <select>
+            <option></option>
+            <option>按员工</option>
+            <option>按部门</option>
+          </select>
+        </td>
+        <td colspan="2">提成方案</td>
+        <td>
+          <select>
+            <option></option>
+            <option>方案1</option>
+            <option>方案2</option>
+          </select>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>技师提成：</td>
+        <td></td>
+        <td>提成对象
+          <select>
+            <option></option>
+            <option>按员工</option>
+            <option>按部门</option>
+          </select>
+        </td>
+        <td colspan="2">提成方案</td>
+        <td>
+          <select>
+            <option></option>
+            <option>方案1</option>
+            <option>方案2</option>
+          </select>
+        </td>
+        <td></td
+      </tr>
+    </tbody></table>
+
+    <div class="tips float-right">
+      <h4 class="text-align-center">提示</h4>
+      <p>
+      在这里可以按您的需要将一个服务精细划分成多个流程，或者工序来进行施工操作，对该项服务实行精确管理。
+      流程设置可以应用在多种服务上，尤其是需要多工种共同完成一种服务。
+      </p>
+    </div>
+
+    <div class=" btns float-left">
+      <input type="button" class="cancel_btn btn do_close_process_create" value="取消" id="cancel_workflow">
+      <input type="button" class="save_btn btn" value="保存" id="save_workflow">
+    </div>
   </div>
 </div>

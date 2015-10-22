@@ -11,7 +11,7 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
                                                                              store_chain_id: current_user.store_chain_id,
                                                                              store_staff_id: current_user.id)
     @store_material_saleinfo_categories = StoreMaterialSaleinfoCategory.all
-    @store_commission_templates = StoreCommissionTemplate.all
+
   end
 
   def create

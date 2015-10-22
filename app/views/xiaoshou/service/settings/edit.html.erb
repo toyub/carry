@@ -2,8 +2,7 @@
   <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
 <% end %>
 
-<%= form_for @service, url: [:xiaoshou, :service, :setting], method: :put, html: {id: 'update_store_service'}  do |f| %>
-  <%= f.hidden_field :id, value: @service.id %>
+<%= form_for @workflow, url: [:xiaoshou, :service, :setting], method: :put  do |f| %>
   <div class="main_top">
     <h2>服务设置详情</h2>
     <span class="add_span">+</span>
@@ -32,13 +31,10 @@
   </div>
 <% end %>
 
-<%= content_tag :div, '', id: 'bootstrap', data: {service: json_for(@service)} %>
-
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
     $(function(){
-      var model = new Mis.Models.StoreService($('#bootstrap').data('service').store_service);
-      new Mis.Views.XiaoshouServiceSettingsEdit({model: model});
+      new Mis.Views.XiaoshouServiceSettingsEdit();
     })
   </script>
 <% end %>

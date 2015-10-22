@@ -5,6 +5,11 @@ class StoreServiceStoreMaterial < ActiveRecord::Base
 
   validates :store_material_id, presence: true
   validates :store_material_id, uniqueness: {scope: [:store_service_id, :store_id]}
+  validates :use_mode, presence: true
+  validates :unit, presence: true, if: Proc.new {|x| x.use_mode == USE_MODE[:scattered]}
+  validates :dose, presence: true, if: Proc.new {|x| x.use_mode == USE_MODE[:scattered]}
+
+  USE_MODE = {scattered: 1, entire: 0}
 
   before_validation :set_store_attrs
 

@@ -33,50 +33,112 @@
           <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
         </div>
         <div class="query_div">
-          <a href='javascript:void(0);' class="print_btn btn">打印</a>
-          <a href='javascript:void(0);' class="export_btn btn bg-color-936ACB color-fff">导出</a>
+          <a href="#" class="print_btn btn">打印</a>
+          <a href="#" class="export_btn btn bg-color-936ACB color-fff">导出</a>
           <a href="/kucun/outings/new" class="outstorage_btn btn">出库</a>
-          <a href='javascript:void(0);' class="notes_btn btn">记录</a>
+          <a href="#" class="notes_btn btn">记录</a>
         </div>
       </div>
       <table cellpadding="0" cellspacing="0" class="index_list">
         <thead>
           <tr>
             <th style="border-right:0px;" ></th>
-            <th>出库时间</th>
-            <th>商品名称</th>
-            <th>商品条形码</th>
-            <th>一级分类</th>
-            <th>二级分类</th>
+            <th >出库时间</th>
+            <th >商品名称</th>
+            <th >商品条形码</th>
+            <th >一级分类</th>
+            <th >二级分类</th>
             <th>规格</th>
             <th>单位</th>
-            <th>成本价</th>
+            <th >成本价</th>
+            <th>销售价</th>
             <th>出库数量</th>
             <th>小计</th>
             <th>出库类型</th>
-            <th>领用人</th>
-            <th>操作人</th>
+            <th class=""> 操作</th>
           </tr>
         </thead>
         <tbody>
-          <% @outing_items.each_with_index do |item, idx| %>
-          <tr>
-            <td><%= idx + 1 %></td>
-            <td><%= item.created_at.to_s(:date_only) %></td>
-            <td title="<%= item.store_material.name %>"><%= item.store_material.name.to_s.truncate(11) %></td>
-            <td><%= item.store_material.barcode %></td>
-            <td><%= item.store_material.store_material_root_category.name %></td>
-            <td><%= item.store_material.store_material_category.name %></td>
-            <td><%= item.store_material.speci %></td>
-            <td><%= item.store_material.store_material_unit.name %></td>
-            <td class="text-align-right"><%= item.store_material.cost_price %></td>
-            <td><%= item.quantity -%></td>
-            <td class="text-align-right"><%= item.amount %></td>
-            <td><%= item.outing_type.name %></td>
-            <td class="text-align-right"><%= item.requester.try(:screen_name) -%></td>
-            <td><%= item.creator.screen_name %></td>
+          <tr class="bg_tr">
+            <td>1</td>
+            <td>2015-01-27-14:47</td>
+            <td>米其林轮胎米其林轮胎</td>
+            <td>3080309075990</td>
+            <td>汽车配件</td>
+            <td>轮胎</td>
+            <td>185/60/14XM291V</td>
+            <td>条</td>
+            <td  class="text-align-right">530.00</td>
+            <td  class="text-align-right">65,650.00</td>
+            <td>8</td>
+            <td  class="text-align-right">55,530.00</td>
+            <td>销售</td>
+            <td class="">管理员</td>
           </tr>
-          <% end %>
+          <tr>
+            <td>2</td>
+            <td>2015-01-27-14:47</td>
+            <td>米其林轮胎</td>
+            <td>3080309075990</td>
+            <td>汽车配件</td>
+            <td>轮胎</td>
+            <td>185/60/14XM291V</td>
+            <td>条</td>
+            <td  class="text-align-right">530.00</td>
+            <td  class="text-align-right">650.00</td>
+            <td>8</td>
+            <td  class="text-align-right">530.00</td>
+            <td>销售</td>
+            <td class="">王琳琳</td>
+          </tr>
+          <tr  class="bg_tr">
+            <td>3</td>
+            <td>2015-01-27-14:47</td>
+            <td>米其林轮胎</td>
+            <td>3080309075990</td>
+            <td>汽车配件</td>
+            <td>轮胎</td>
+            <td>185/60/14XM291V</td>
+            <td>条</td>
+            <td  class="text-align-right">530.00</td>
+            <td  class="text-align-right">650.00</td>
+            <td>8</td>
+            <td  class="text-align-right">530.00</td>
+            <td>销售</td>
+            <td class="">王琳琳</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>2015-01-27-14:47</td>
+            <td>米其林轮胎</td>
+            <td>3080309075990</td>
+            <td>汽车配件</td>
+            <td>轮胎</td>
+            <td>185/60/14XM291V</td>
+            <td>条</td>
+            <td  class="text-align-right">55,530.00</td>
+            <td  class="text-align-right">650.00</td>
+            <td>8</td>
+            <td  class="text-align-right">530.00</td>
+            <td>销售</td>
+            <td class="">王琳琳</td>
+          </tr>
+          <tr  class="bg_tr">
+            <td>5</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td  class="text-align-right"></td>
+            <td></td>
+            <td class=""></td>
+          </tr>
         </tbody>
       </table>
     </div>

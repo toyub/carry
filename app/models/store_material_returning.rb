@@ -7,10 +7,11 @@ class StoreMaterialReturning < ActiveRecord::Base
 
   accepts_nested_attributes_for :items
 
-  before_save :save_search_keys
+  after_create :save_search_keys
 
   private
   def save_search_keys
-    self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',')
+    self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',');
+    self.save
   end
 end
