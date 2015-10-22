@@ -16,6 +16,22 @@ class Store <  ActiveRecord::Base
   has_many :store_staff
   has_many :store_material_returnings
   has_many :store_material_returning_items
+  has_many :store_settlement_accounts
+
   validates :name, presence: true
 
+  has_many :workstations, class_name: 'StoreWorkstation'
+  has_many :commission_templates, class_name: 'StoreCommissionTemplate'
+
+  # 一级商品类别
+  has_many :root_material_categories, -> { where parent_id: 0 },
+    class_name: 'StoreMaterialCategory'
+
+  validates :name, presence: true
+
+  ENGINEER_LEVEL = {
+    '初级' => 1,
+    '中级' => 2,
+    '高级' => 3
+  }
 end

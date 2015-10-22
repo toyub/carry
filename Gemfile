@@ -1,4 +1,4 @@
-source 'http://ruby.taobao.org'
+source 'https://ruby.taobao.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -90,6 +90,9 @@ gem 'sass', '3.4.10'
 # 文件上传
 gem 'carrierwave'
 gem 'carrierwave-base64'
+
+# Paginator
+gem "kaminari"
 
 #Select2 for rails asset pipeline
 #https://github.com/argerim/select2-rails
