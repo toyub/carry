@@ -4,6 +4,7 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
 
   events:
     'click #preview_list img': 'previewImage'
+    'click #editPackage': 'goToEdit'
 
   render: ->
     @$el.html(@template(package: @model))
@@ -34,3 +35,7 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
     src = $(event.target).attr('src')
     image = "<img src='#{src}' />"
     @$("#material_img_preview").html(image)
+
+  goToEdit: ->
+    view = new Mis.Views.XiaoshouPackagesEdit(model: @model)
+    $("#bodyContent").html view.render().el

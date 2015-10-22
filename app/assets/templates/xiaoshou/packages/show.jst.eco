@@ -59,7 +59,7 @@
   </div>
 
   <div class="btn_group">
-    <a href="taocanxinxiedit.html" class="edit_btn btn margin-right-2">编辑</a>
+    <a href="javascript:void(0);" class="edit_btn btn margin-right-2" id="editPackage">编辑</a>
   </div>
 
 </div>

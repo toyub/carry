@@ -1,9 +1,14 @@
 module Api
   class StorePackagesController < BaseController
-    before_action :set_package, only: [:save_picture]
+    before_action :set_package, except: [:create]
 
     def create
       @package = current_store.store_packages.create(append_store_attrs package_params)
+      respond_with @package, location: nil
+    end
+
+    def update
+      @package.update(append_store_attrs package_params)
       respond_with @package, location: nil
     end
 
