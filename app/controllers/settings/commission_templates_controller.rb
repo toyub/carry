@@ -24,13 +24,21 @@ class Settings::CommissionTemplatesController < Settings::BaseController
   end
 
   def update
-    render json: template_params
+    ct = StoreCommissionTemplate.find(params[:id])
+    ct.update(template_params)
+    render json: ct, root: false
   end
 
   private
 
   def template_params
-    params.permit(:aim_to, :confined_to, :mode_id, :name,
-                  sections_attributes: [:mode_id, :type_id, :source_id, :amount, :id, :_destroy])
+    safe_params = params.permit(:aim_to, :confined_to, :mode_id, :name,
+                    sections_attributes: [:mode_id, :type_id, :source_id, :min, :max, :amount, :id, :_destroy])
+    safe_params[:sections_attributes].each do |section|
+      if section[:store_staff_id].blank?
+        section[:store_staff_id] = current_user.id
+      end
+    end
+    safe_params
   end
 end
