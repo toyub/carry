@@ -39,6 +39,7 @@ class Settings::CommissionTemplatesController < Settings::BaseController
         section[:store_staff_id] = current_user.id
       end
     end
+    safe_params[:level_weight_hash] = params[:level_weight].to_json
     safe_params
   end
 end

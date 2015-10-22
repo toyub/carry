@@ -31,9 +31,34 @@
     <label>提成范围</label>
     <select name='template[confined_to]' class="confined_to">
       <option value="0">班组</option>
-      <option <%= 'selected' if @confined_to.toString() == '1' %> value='1'>个人</option>
+      <option value='1' <%= 'selected' if @confined_to.toString() == '1' %> value='1'>个人</option>
+      <option value='2' <%= 'selected' if @confined_to.toString() == '2' %> value='1'>多人合作</option>
     </select>
   </div>
+
+  <div>
+    <p>提成系数设置</p>
+    <span>多人合作提成多用于多个技师合同对一个项目施工的情况。设置提成系数后将会按比例进行分配提成金额。</span>
+    <ul>
+      <li>
+        <label>专家：</label>
+        <input type="text" <%= 'disabled' if @confined_to.toString() != '2' %> required="true" autocomplete="off" num un name="template[level_weight][3]" value='<%= @level_weight[3] %>' />
+      </li>
+      <li>
+        <label>高级：</label>
+        <input type="text" <%= 'disabled' if @confined_to.toString() != '2' %> required="true" autocomplete="off" num un name="template[level_weight][2]" value='<%= @level_weight[2] %>' />
+      </li>
+      <li>
+        <label>中级：</label>
+        <input type="text" <%= 'disabled' if @confined_to.toString() != '2' %> required="true" autocomplete="off" num un name="template[level_weight][1]" value='<%= @level_weight[1] %>' />
+      </li>
+      <li>
+        <label>初级：</label>
+        <input type="text" <%= 'disabled' if @confined_to.toString() != '2' %> required="true" autocomplete="off" num un name="template[level_weight][0]" value='<%= @level_weight[0] %>' />
+      </li>
+    </ul>
+  </div>
+
 </div>
 
 
@@ -46,6 +71,9 @@
   </div>
   <div data-id='container'></div>
 </div>
-<input type="button" class="btn cancel_btn" value="取消">
-<input type="submit" class="btn save_btn float-right" value="保存">
+<div class="btn_group text-align-right">
+  <input type="button" class="btn cancel_btn" value="取消">
+  <input type="submit" class="btn save_btn" value="保存">
+</div>
+
 </form>

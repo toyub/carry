@@ -1,5 +1,10 @@
 <ul>
-  <li class="sequence_num">1<input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]'/></li>
+  <li class="sequence_num">1
+    <input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]'/>
+    <% if @id :%>
+      <input type="hidden" name="template[sections_attributes][][id]" value="<%= @id %>">
+    <% end %>
+  </li>
   <li><input num un name='template[sections_attributes][][min]' value='<%= @min %>' type="text" class="width-20" required=true autocomplete=off> - <input num un name='template[sections_attributes][][max]' type="text" class="width-20" value="<%= @max %>" required=true autocomplete=off></li>
   <li>
     <select name='template[sections_attributes][][type_id]'>

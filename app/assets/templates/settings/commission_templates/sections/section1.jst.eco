@@ -1,5 +1,10 @@
 <ul>
-  <li class="sequence_num">1<input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]' required=true autocomplete=off/></li>
+  <li class="sequence_num">1
+    <input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]' required=true autocomplete=off/>
+    <% if @id :%>
+      <input type="hidden" name="template[sections_attributes][][id]" value="<%= @id %>">
+    <% end %>
+  </li>
   <li>大于<input num un name='template[sections_attributes][][min]' value='<%= @min %>' type="text" class="width-20" required=true autocomplete=off></li>
   <li>
     <select name="template[sections_attributes][][type_id]">
