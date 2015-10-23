@@ -6,6 +6,9 @@ class Mis.Views.XiaoshouPackageNavsSub extends Backbone.View
 
   template: JST['xiaoshou/package_navs/sub']
 
+  events:
+    'click .next_info': 'goTo'
+
   render: ->
     @$el.html(@template())
     @
