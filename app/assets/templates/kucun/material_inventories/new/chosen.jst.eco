@@ -1,0 +1,30 @@
+<tr data-id='<%=@item.id %>'>
+  <td class="number">1</td>
+  <td>
+      <%= @item.store_material.name  %>
+      <input type="hidden" name="items[<%= @item.id %>][id]" value="<%=@item.id %>">
+  </td>
+  <td><%= @item.store_material.barcode  %></td>
+  <td><%= @item.store_material.speci  %></td>
+  <td><%= @item.store_material.unit  %></td>
+  <td><%= @item.store_material.root_category  %></td>
+  <td><%= @item.store_material.category  %></td>
+
+  <td><%= @item.price  %></td>
+  <td><%= @item.quantity  %></td>
+  <td>
+    <input type="text" num int un class="quantity width-50 height-20" readonly value="<%= @item.quantity  %>" min=1 name='items[<%= @item.id %>][received_quantity]' data-price=<%= @item.price  %> data-quantity=<%= @item.quantity  %> required=true>
+  </td>
+  <td>
+    <select  name='items[<%= @item.id %>][store_depot_id]' class="width-60 height-22">
+      <% for depot in @store_depots: %>
+      <option value='<%= depot.id %>'><%= depot.name %></option>
+      <% end %>
+    </select>
+  </td>
+  <td><span class='amount'><%= @item.amount  %></span></td>
+  <td>
+    <i title='应用本操作后，这次将不入库这个商品，下次再入库' class=" lnr lnr-trash font-18 color-000"></i>
+  </td>
+  <td><input name='items[<%= @item.id %>][remark]' type="text"></td>
+</tr>

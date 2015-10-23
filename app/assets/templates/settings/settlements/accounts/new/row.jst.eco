@@ -1,0 +1,28 @@
+<td><%= @idx %></td>
+<td>
+  <input name="account[name]" type="text" required=true value="<%= @name %>">
+  <span><%= @name %></span>
+</td>
+<td>
+  <input name="account[bank_name]" type="text" value="<%= @bank_name %>">
+  <span><%= @bank_name %></span>
+</td>
+<td>
+  <input name="account[bank_card_number]" type="text" value="<%= @bank_card_number %>">
+  <span><%= @bank_card_number %></span>
+</td>
+<td>
+  <input name="account[remark]" type="text" value="<%= @remark %>">
+  <span><%= @remark %></span>
+</td>
+<td>
+  <% if @active: %>
+    <a href="javascript:void(0)" class="status active"></a>
+  <% else: %>
+    <a href="javascript:void(0);" class="status"></a>
+  <% end %>
+</td>
+<td>
+  <input class="btn save_btn update" type="button" value="保存">
+  <i class="fa fa-pencil edit"/>
+</td>

@@ -4,15 +4,15 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_chain
 
 
-  #validates :phone_number, presence: true
-  #validates :phone_number, length: {is: 11}, if: ->(staff){staff.phone_number.present?}
-  #validates :phone_number, numericality: { only_integer: true }, if: ->(staff){staff.phone_number.present?}
-  #validates uniqueness
+  validates :phone_number, presence: true
+  validates :phone_number, length: {is: 11}, if: ->(staff){staff.phone_number.present?}
+  validates :phone_number, numericality: { only_integer: true }, if: ->(staff){staff.phone_number.present?}
 
-  validates :password, presence: true
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
 
-  validates :password_confirmation, presence: true
+  # TODO Mysql set login_name not Null, add validation
+  # Maybe login_name equal to phone_number?
+  validates_presence_of :password, :password_confirmation, :login_name
 
   before_create :encrypt_password
 

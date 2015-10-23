@@ -91,6 +91,9 @@ gem 'sass', '3.4.10'
 gem 'carrierwave'
 gem 'carrierwave-base64'
 
+# Paginator
+gem "kaminari"
+
 #Select2 for rails asset pipeline
 #https://github.com/argerim/select2-rails
 #Select2 is a jQuery based replacement for select boxes.

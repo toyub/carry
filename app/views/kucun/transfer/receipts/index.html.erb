@@ -1,0 +1,86 @@
+
+<div class="main_top">
+  <h2>转移入库记录</h2>
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>查找出库产品</label>
+        <input type="text" class="width-150" placeholder="输入产品关键字">
+      </div>
+      <div class="item-query">
+        <label>记录类型</label>
+        <select type="text" class="width-150" id="stock_type">
+          <option value="1">全部</option>
+          <option value="2">订单入库</option>
+          <option value="3">快速入库</option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>二级分类</label>
+        <select type="text" class="width-150">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>选择仓库</label>
+        <select type="text" class="width-150" >
+          <option></option>
+          <option></option>
+        </select>
+        <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
+      </div>
+      <div class="query_div">
+        <a href="javascript:void(0);" class="print_btn btn">打印</a>
+        <a href="javascript:void(0);" class="export_btn btn">导出</a>
+        <a href="/kucun/transfer/receipts/new" class="in_stg_btn btn">入库</a>
+        <a href="javascript:void(0);"  class="notes_btn btn">记录</a>
+      </div>
+    </div>
+    <div id="all_in_stock">
+      <table cellpadding="0" cellspacing="0" class="index_list">
+        <thead>
+            <tr>
+              <th style="border-right:0px;"></th>
+              <th>入库时间</th>
+              <th>商品名称</th>
+              <th>商品条形码</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>成本价</th>
+              <th>转移数量</th>
+              <th>小计</th>
+              <th>转出仓库</th>
+              <th>目的仓库</th>
+              <th>操作人</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @trans_receipt_items.each_with_index do |item, idx| %>
+            <tr>
+              <td class="number"><%= idx + 1 %></td>
+              <td><%= item.created_at.to_s(:date_only) %></td>
+              <td title="<%= item.store_material.name %>"><%= item.store_material.name.to_s.truncate(11) %></td>
+              <td><%= item.store_material.barcode %></td>
+              <td><%= item.store_material.store_material_root_category.name %></td>
+              <td><%= item.store_material.store_material_category.name %></td>
+              <td><%= item.store_material.speci %></td>
+              <td><%= item.store_material.store_material_unit.name %></td>
+              <td class="text-align-right"><%= item.store_material.cost_price %></td>
+              <td><%= item.quantity %></td>
+              <td class="text-align-right"><%= item.amount %></td>
+              <td><%= item.store_material_picking_item.store_depot.name %></td>
+              <td><%= item.store_material_picking_item.dest_depot.name %></td>
+              <td class=""><%= item.creator.screen_name %></td>
+            </tr>
+          <% end %>
+         </tbody>
+      </table>
+    </div>
+  </div>
+</div>

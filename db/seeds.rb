@@ -39,7 +39,7 @@ ActiveRecord::Base.transaction do
 
 
   ## 客户信息
-  customer = StoreCustomer.create!(store: store, creator: admin, first_name: '靖', last_name: "郭", full_name: "郭靖")
+  customer = StoreCustomer.create!(store: store, creator: admin, first_name: '靖', last_name: "郭", full_name: "郭靖", phone_number: "15000002923")
 
 
   ## 车辆信息

@@ -1,20 +1,16 @@
-class StoreMaterialOuting
-  def initialize(params)
-    @requester_id = params[:requester_id]
-    @outing_type_id = params[:outing_type_id]
-    @remark = params[:remark]
+class StoreMaterialOuting < ActiveRecord::Base
+  include BaseModel
+  belongs_to :store_staff
+  belongs_to :requester, class_name: 'StoreStaff'
 
-    @items = params[:outings].map do |item|
-      StoreMaterialOutingItem.new(item)
-    end
-  end
+  has_many :items, class_name: 'StoreMaterialOutingItem'
 
-  def as_json(a, *b, **c, &block)
-    {
-      requester_id: @requester_id,
-      outing_type_id: @outing_type_id,
-      remark: @remark,
-      items: @items.map { |item|  item.as_json(0) }
-    }
+  accepts_nested_attributes_for :items
+
+  before_save :save_search_keys
+
+  private
+  def save_search_keys
+    self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',')
   end
 end

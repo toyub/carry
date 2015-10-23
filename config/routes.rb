@@ -12,7 +12,9 @@ Rails.application.routes.draw do
         post :save_picture
       end
 
-      resource :saleinfo
+      resource :saleinfo do
+        resources :saleinfo_services
+      end
       resource :commission
       resource :tracking
     end
@@ -44,20 +46,55 @@ Rails.application.routes.draw do
       resources :pickings
       resources :receipts
     end
-    resources :jits
+    resources :checkins
     resources :returnings
-  end
+    resources :shrinkages
+    resources :physical_inventories do
+      collection do
+        get :review
+        post :loss_report
+        post :profit_report
+      end
+    end
+
+    resources :depots do
+      member do
+        get :materials
+      end
+    end
+  end# END of namespace :kucun
 
   namespace :xiaoshou do
     namespace :service do
-      resources :profiles, only: [:index, :show, :new, :create]
-      resources :settings, only: [:new, :edit, :update]
+      resources :profiles, only: [:index, :show, :create]
+      resources :settings, only: [:edit, :show, :update] do
+        member do
+          get :modify
+        end
+        resources :workflows, only: :show
+      end
       resources :categories, only: [:create]
     end
   end
 
   namespace :soa do
     resources :staff
+  end
+
+  namespace :xianchang do
+    resources :field_constructions, only: [:index]
+    resources :pre_orders, only: [:index]
+  end
+
+  namespace :settings do
+    namespace :settlements do
+      resources :accounts do
+        member do
+          patch :toggle_status
+        end
+      end
+    end
+    resources :commission_templates
   end
 
   namespace :ajax do
@@ -86,11 +123,19 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :store_service_categories, only: [:create]
-    resources :store_services, only: [:create] do
+    resources :store_services, only: [:index, :show, :create, :update] do
+      resources :store_service_workflows, only: [:create, :destroy, :update]
       member do
         post :save_picture
       end
+
+      resource :store_service_settings, only: [:show, :create, :update]
+      resources :store_service_reminds, only: [:update]
+      resources :store_service_trackings, only: [:create, :update, :destroy]
     end
+    resources :store_vehicles, only: [:index]
+    resources :store_orders, only: [:index]
+    resources :store_subscribe_orders
   end
 
   root 'kucun/materials#index'
