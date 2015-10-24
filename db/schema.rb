@@ -792,7 +792,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "store_service_id"
   end
 
-  add_index "store_service_snapshots", ["store_service_category_id"], name: "store_service_category_id", using: :btree
+  add_index "store_service_snapshots", ["store_service_category_id"], name: "store_service_snapshots_store_service_category_id", using: :btree
 
   create_table "store_service_store_materials", force: :cascade do |t|
     t.datetime "created_at"
@@ -900,7 +900,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "setting_type",                              default: 0
   end
 
-  add_index "store_services", ["store_service_category_id"], name: "store_service_category_id", using: :btree
+  add_index "store_services", ["store_service_category_id"], name: "store_services_store_service_category_id", using: :btree
 
   create_table "store_settlement_accounts", force: :cascade do |t|
     t.integer  "store_id",               null: false
