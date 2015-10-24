@@ -32,3 +32,5 @@ config/redis.yml
 /.capistrano
 TODOLIST.md
 .DS_Store
+.idea
+
