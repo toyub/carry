@@ -48,7 +48,7 @@ namespace :deploy do
     end
   end
 
-  before 'deploy:migrate', :load_schema
+  #before 'deploy:migrate', :load_schema
   #before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup

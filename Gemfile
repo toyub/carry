@@ -3,8 +3,8 @@ source 'https://ruby.taobao.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 
-# Use mysql2 as the database for Active Record
-gem 'mysql2', '0.3.17'
+# Use pg as the database for Active Record
+gem 'pg', '~> 0.18.3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
@@ -21,8 +21,6 @@ gem 'jbuilder', '2.2.6'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '0.4.1', group: :doc
-
-gem 'pg'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
