@@ -16,3 +16,5 @@ set :puma_init_active_record, true
 set :rails_env, "production"
 
 set :branch, 'deploy'
+
+set :sidekiq_role, :worker

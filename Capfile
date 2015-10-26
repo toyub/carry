@@ -17,6 +17,8 @@ require 'capistrano/puma/monit'   # if you need the monit tasks
 require 'capistrano/puma/nginx'   # if you want to upload a nginx site template
 
 require 'capistrano/sidekiq'
+require 'capistrano/sidekiq/monit'
+
 require 'capistrano/monit'
 
 # Include tasks from other gems included in your Gemfile

@@ -8,7 +8,7 @@ namespace :deploy do
 
   desc "install nodejs"
   task :install_nodejs do
-    on roles(:app) do
+    on roles(:all) do
       execute :sudo, "apt-get -y install nodejs"
     end
   end
@@ -25,13 +25,13 @@ namespace :deploy do
   task :initial_setup do
     on roles(:all) do
       invoke 'deploy:change_gem_sources'
+      invoke 'deploy:install_nodejs'
       invoke 'deploy:install_bundler'
       invoke 'monit:install'
       invoke 'monit:config'
     end
 
     on roles(:app) do
-      invoke 'deploy:install_nodejs'
       invoke 'puma:monit:config'
       invoke 'puma:nginx_config'
       invoke 'puma:config'
