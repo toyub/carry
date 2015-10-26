@@ -1,13 +1,5 @@
 
 <div class="add_visit">
-  <div class=" text-align-left">
-    <label class="width-60">回访内容：</label>
-    <label class="width-75 text-align-left"> 选择内容模板</label>
-    <select class="width-265">
-      <option><%= 'sdfghhgfdsaaaahdfjghderw' %></option>
-      <option></option>
-    </select>
-  </div>
   <div class="  text-align-left">
     <label class="width-60">回访时间：</label>
     <label class="width-80 text-align-left"><input type="radio" checked=true name='section[timing]' value='1' class="width-15 margin-left-14">销售后</label>

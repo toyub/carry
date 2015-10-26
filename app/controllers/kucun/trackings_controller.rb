@@ -18,4 +18,10 @@ class Kucun::TrackingsController < Kucun::ControllerBase
       redirect_to action: "new"
     end
   end
+
+  private
+  def tracking_params
+    params.require(:tracking).permit(:tracking_mode, :reminder_required,
+                                     sections_attributes: [:content])
+  end
 end

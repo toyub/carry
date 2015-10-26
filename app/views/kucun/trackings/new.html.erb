@@ -167,6 +167,11 @@
         </div>
       </div>
       
+      <div class="btn_group">
+        <input type="reset" class="btn cancel_btn" value="取消">
+        <input type="submit" id='save_tracking' class="btn save_btn" value="保存">
+      </div>
+
     </div>
   </div>
 </div>
@@ -206,7 +211,7 @@
         section_view.on('after_commit', function(view, model){
           new_btn.classList.remove('disabled');
           view.$el.hide();
-          if(model.is_new_record()){
+          if(model.isNew()){
             $lists.append(view.show()).show();
           }else{
             $lists.find('[data-id="list_content_c3"]').html(view.refresh_show());
@@ -240,6 +245,10 @@
         mtv.model.set('tracking_mode', $("select[name='tracking[tracking_mode]']").val());
         mtv.model.set('reminder_required', $("input[name='tracking[reminder_required]']:checked").val());
         mtv.model.set("sections", mtsc);
+        if(mtv.model.get('tracking_mode') == 2 && mtsc.length == 0){
+          alert('请至少添加一条回访规则');
+          return false;
+        }
         mtv.model.save();
       });
     });
