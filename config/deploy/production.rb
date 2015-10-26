@@ -11,3 +11,5 @@ set :nginx_server_name, "com.icar99.store"
 set :puma_init_active_record, true
 
 set :rails_env, "production"
+
+set :branch, 'deploy'

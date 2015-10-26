@@ -2,7 +2,7 @@
 lock '3.3.5'
 
 set :application, 'mis'
-set :repo_url, 'git@git.icar99.com:/opt/git/wisdom/mis.git'
+set :repo_url, 'git@gitlab.icar99.com:zc/mis.git'
 set :deploy_to, "/home/wisdom/mis"
 set :scm, :git
 
@@ -16,7 +16,7 @@ namespace :deploy do
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
+      unless `git rev-parse HEAD` == `git rev-parse origin/deploy`
         puts "WARNING: HEAD is not the same as origin/master"
         puts "Run `git push` to sync changes."
         exit
@@ -39,7 +39,7 @@ namespace :deploy do
     end
   end
 
-  before :starting,     :check_revision
+  #before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart

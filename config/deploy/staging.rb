@@ -17,6 +17,7 @@ set :nginx_server_name, "mis.staging.zc"
 set :puma_init_active_record, true
 
 set :rails_env, "staging"
+set :branch, 'deploy'
 
 
 # Extended Server Syntax
