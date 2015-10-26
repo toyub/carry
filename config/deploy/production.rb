@@ -1,6 +1,9 @@
-role :app, %w{deploy@121.40.229.244 deploy@114.215.198.108}
+role :app, %w{deploy@114.215.198.108}
+#role :app, %w{deploy@121.40.229.244 deploy@114.215.198.108}
 role :db,  %w{deploy@114.215.198.108}
-role :worker,  %w{deploy@120.26.85.169}
+#role :worker,  %w{deploy@120.26.85.169}
+
+set :deploy_to, "/var/www/mis"
 
 set :rvm_type, :system
 set :rvm_ruby_version, '2.2.2'

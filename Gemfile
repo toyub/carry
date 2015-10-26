@@ -62,6 +62,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'capistrano-sidekiq'
+  gem 'capistrano-monit', git: 'git@gitlab.icar99.com:zc/capistrano-monit.git', tag: 'v0.0.2', require: false
   gem 'quiet_assets'
   gem 'annotate'
   gem 'pry', "~> 0.9.12"

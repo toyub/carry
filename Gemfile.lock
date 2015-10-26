@@ -7,6 +7,14 @@ GIT
       puma (>= 2.6)
 
 GIT
+  remote: git@gitlab.icar99.com:zc/capistrano-monit.git
+  revision: 6caa6023864cc1b56560e7ef3fbac862ae099df8
+  tag: v0.0.2
+  specs:
+    capistrano-monit (0.1.0)
+      capistrano
+
+GIT
   remote: git@gitlab.icar99.com:zc/geo.git
   revision: 2344fccb4fed65e63af79a6080a73b031695cdc2
   tag: v0.0.3
@@ -316,6 +324,7 @@ DEPENDENCIES
   byebug
   capistrano (~> 3.3.0)
   capistrano-bundler (~> 1.1.2)
+  capistrano-monit!
   capistrano-rails (~> 1.1)
   capistrano-rvm
   capistrano-sidekiq

@@ -48,6 +48,13 @@ namespace :deploy do
     end
   end
 
+  desc "install bundler"
+  task :install_bundler do
+    on roles(:app) do
+      execute :sudo, "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do gem install bundler --no-ri --no-rdoc"
+    end
+  end
+
   #before 'deploy:migrate', :load_schema
   #before :starting,     :check_revision
   after  :finishing,    :compile_assets
