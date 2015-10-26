@@ -24,13 +24,13 @@ namespace :deploy do
     end
   end
 
-  desc 'Initial Deploy'
-  task :initial do
-    on roles(:app) do
-      before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
-    end
-  end
+  #desc 'Initial Deploy'
+  #task :initial do
+    #on roles(:app) do
+      #before 'deploy:restart', 'puma:start'
+      #invoke 'deploy'
+    #end
+  #end
 
   desc 'Restart application'
   task :restart do
@@ -48,12 +48,12 @@ namespace :deploy do
     end
   end
 
-  desc "install bundler"
-  task :install_bundler do
-    on roles(:app) do
-      execute :sudo, "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do gem install bundler --no-ri --no-rdoc"
-    end
-  end
+  #desc "install bundler"
+  #task :install_bundler do
+    #on roles(:all) do
+      #execute :sudo, "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do gem install bundler --no-ri --no-rdoc"
+    #end
+  #end
 
   #before 'deploy:migrate', :load_schema
   #before :starting,     :check_revision
