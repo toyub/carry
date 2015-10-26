@@ -330,7 +330,7 @@ DEPENDENCIES
   js-routes
   kaminari
   mysql2 (= 0.3.17)
-  pg (~> 0.18.3)
+  pg
   pry (~> 0.9.12)
   pry-nav (~> 0.2.3)
   puma
