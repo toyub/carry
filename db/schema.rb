@@ -564,7 +564,7 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.integer  "store_material_id",                                  null: false
     t.integer  "store_material_tracking_id",                         null: false
     t.integer  "timing",                                 default: 1, null: false
-    t.integer  "delay",                                              null: false
+    t.integer  "delay_interval",                                     null: false
     t.string   "delay_unit",                 limit: 10,              null: false
     t.integer  "delay_in_seconds",                                   null: false
     t.integer  "contact_way",                            default: 1, null: false
