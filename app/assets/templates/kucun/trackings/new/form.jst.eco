@@ -4,7 +4,7 @@
     <label class="width-60">回访时间：</label>
     <label class="width-80 text-align-left"><input type="radio" checked=true name='section[timing]' value='1' class="width-15 margin-left-14">销售后</label>
     <label class="width-100 text-align-left"><input type="radio" name='section[timing]'value='2' class="width-15">上次回访后</label>
-    <input name='section[delay]' type='text' num int un min=1 class="width-60 margin-left-10" value="">
+    <input name='section[delay_interval]' type='text' num int un min=1 class="width-60 margin-left-10" value="">
     <select name='section[delay_unit]' class="width-60 margin-left-10">
       <option value="hour">小时</option>
       <option value="day">天</option>

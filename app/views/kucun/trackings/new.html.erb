@@ -166,7 +166,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="btn_group">
         <input type="reset" class="btn cancel_btn" value="取消">
         <input type="submit" id='save_tracking' class="btn save_btn" value="保存">
@@ -180,77 +180,7 @@
 
   <script type="text/javascript">
     jQuery(function($) {
-      var $lists = $("#lists");
-
-      mtv = new $$MIS.MaterialTrackingView({el: $("#tracking_switch"), model: new $$MIS.MaterialTracking()});
-      mtsc = new $$MIS.MaterialTrackingSectionCollection();
-      $("select[name='tracking[tracking_mode]']").on('change', function(event) {
-        if(this.value == 0){
-          $('#sections').find('.new_btn').addClass('disabled');
-          $("input[name='tracking[reminder_required]']").attr('disabled', true)
-        }else{
-          $("input[name='tracking[reminder_required]'][disabled]").removeAttr('disabled');
-          if(this.value == 2){
-            $('#sections').find('.new_btn.disabled').removeClass('disabled')
-          }else{
-            if(!$('#sections').find('.new_btn').hasClass('disabled')){
-                $('#sections').find('.new_btn').addClass('disabled');
-            }
-          }
-        }
-      });
-
-      $(".new_btn").on('click', function(){
-        if(this.classList.contains('disabled')){
-          return false;
-        }
-        this.classList.add('disabled');
-        var new_btn = this;
-        var section = new $$MIS.MaterialTrackingSection();
-        var section_view = new $$MIS.MaterialTrackingSectionView({model: section});
-        section_view.on('after_commit', function(view, model){
-          new_btn.classList.remove('disabled');
-          view.$el.hide();
-          if(model.isNew()){
-            $lists.append(view.show()).show();
-          }else{
-            $lists.find('[data-id="list_content_c3"]').html(view.refresh_show());
-          }
-        });
-
-        section.on("invalid", function(model, error) {
-          alert(error);
-        });
-
-        section.view = section_view;
-        mtsc.push(section);
-        section_view.setElement($(section_view.render()))
-        $("#sections").append(section_view.el);
-      });
-
-      $lists.on('click', '.click_btn', function(event) {
-        $(".new_btn").addClass('disabled');
-        var model_cid = this.dataset.cid;
-        var model = mtsc.find(function(model){return model.cid == model_cid;});
-        model.view.$el.show();
-      });
-
-      $lists.on("click", '.delete', function(){
-        $lists.find('[data-id=' + this.dataset.target + ']').remove();
-      });
-
-      $("#save_tracking").on('click', function(){
-        var x = /\/kucun\/materials\/\d+\/tracking/;
-        mtv.model.urlRoot = x.exec(window.location.href)[0];
-        mtv.model.set('tracking_mode', $("select[name='tracking[tracking_mode]']").val());
-        mtv.model.set('reminder_required', $("input[name='tracking[reminder_required]']:checked").val());
-        mtv.model.set("sections", mtsc);
-        if(mtv.model.get('tracking_mode') == 2 && mtsc.length == 0){
-          alert('请至少添加一条回访规则');
-          return false;
-        }
-        mtv.model.save();
-      });
+      x =  new $$MIS.MaterialTrackingView();
     });
   </script>
 

@@ -7,7 +7,8 @@ class Kucun::TrackingsController < Kucun::ControllerBase
   end
 
   def create
-    render json: params[:tracking]
+    tracking = StoreMaterialTracking.new(tracking_params)
+    render json: tracking, root: false
   end
 
   def show
@@ -21,7 +22,7 @@ class Kucun::TrackingsController < Kucun::ControllerBase
 
   private
   def tracking_params
-    params.require(:tracking).permit(:tracking_mode, :reminder_required,
-                                     sections_attributes: [:content])
+    params.require(:tracking).permit(:enabled, :tracking_mode, :reminder_required,
+                                     sections_attributes: [:timing, :delay_interval, :delay_unit, :delay_in_seconds, :contact_way, :content])
   end
 end
