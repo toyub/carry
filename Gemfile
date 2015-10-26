@@ -64,7 +64,6 @@ group :development do
   gem 'capistrano-sidekiq'
   gem 'capistrano-monit', git: 'git@gitlab.icar99.com:zc/capistrano-monit.git', tag: 'v0.0.2', require: false
   gem 'quiet_assets'
-  gem 'annotate'
   gem 'pry', "~> 0.9.12"
   gem 'pry-nav', "~> 0.2.3"
 end
