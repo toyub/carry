@@ -39,6 +39,14 @@ namespace :deploy do
     end
   end
 
+  desc "load schema"
+  task :load_schema do
+    on roles(:db) do
+      execute :bundle, "exec rake", "db:schema:load"
+    end
+  end
+
+  before 'deploy:migrate', :load_schema
   #before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
