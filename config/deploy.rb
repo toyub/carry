@@ -42,7 +42,9 @@ namespace :deploy do
   desc "load schema"
   task :load_schema do
     on roles(:db) do
-      execute :bundle, "exec rake", "db:schema:load"
+      within current_path do
+        execute :bundle, "exec rake", "db:schema:load", "RAILS_ENV=#{fetch(:rails_env)}"
+      end
     end
   end
 
