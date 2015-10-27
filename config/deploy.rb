@@ -1,9 +1,18 @@
+require 'capistrano/scm'
+require 'capistrano/console'
+require File.expand_path('../../lib/capistrano/extention', __FILE__)
+
 # config valid only for current version of Capistrano
 lock '3.3.5'
 
 set :application, 'mis'
+
 set :repo_url, 'git@gitlab.icar99.com:zc/mis.git'
+set :repo_html_url, 'git@gitlab.icar99.com:ued/mis.git'
+
 set :deploy_to, "/home/wisdom/mis"
+set :html_deploy_to, "#{fetch(:deploy_to)}/html"
+
 set :scm, :git
 
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/redis.yml', 'config/config.yml', 'config/initializers/secret_token.rb', '.ruby-version')
@@ -60,6 +69,8 @@ namespace :deploy do
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+
+  after :updating, 'html:update'
 end
 
 # ps aux | grep puma    # Get puma pid

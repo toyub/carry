@@ -21,15 +21,24 @@ namespace :deploy do
     end
   end
 
+  desc "install jekyll to build static assets"
+  task :install_jekyll do
+    on roles :web, :app do
+      execute :sudo, "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do gem install jekyll --no-ri --no-rdoc"
+    end
+  end
+
   desc "set up"
   task :initial_setup do
     on roles(:all) do
       invoke 'deploy:change_gem_sources'
       invoke 'deploy:install_nodejs'
       invoke 'deploy:install_bundler'
+      invoke 'deploy:install_jekyll'
       invoke 'monit:install'
       invoke 'monit:config'
     end
+
 
     on roles(:app) do
       invoke 'puma:monit:config'

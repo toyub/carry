@@ -4,6 +4,7 @@ role :db,  %w{deploy@121.40.229.244}
 role :worker,  %w{deploy@120.26.85.169}
 
 set :deploy_to, "/var/www/mis"
+set :html_deploy_to, "#{fetch(:deploy_to)}/html"
 
 set :rvm_type, :system
 set :rvm_ruby_version, '2.2.2'
@@ -16,5 +17,7 @@ set :puma_init_active_record, true
 set :rails_env, "production"
 
 set :branch, 'deploy'
+set :html_branch, 'development'
 
 set :sidekiq_role, :worker
+set :monit_role, :all
