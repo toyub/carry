@@ -63,8 +63,8 @@ end
 #  retail_price              :decimal(10, 2)   default(0.0)
 #  bargain_price             :decimal(10, 2)   default(0.0)
 #  point                     :integer
-#  introduction              :text(65535)
-#  remark                    :text(65535)
+#  introduction              :text
+#  remark                    :text
 #  store_service_category_id :integer
 #  buffering_time            :integer
 #  factor_time               :integer
@@ -72,4 +72,9 @@ end
 #  engineer_level            :integer
 #  position_mode             :integer
 #  favorable                 :boolean          default(FALSE)
+#  setting_type              :integer          default(0)
+#
+# Indexes
+#
+#  store_services_store_service_category_id  (store_service_category_id)
 #

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: store_service_settings
+#
+#  id               :integer          not null, primary key
+#  created_at       :datetime
+#  updated_at       :datetime
+#  store_id         :integer          not null
+#  store_chain_id   :integer          not null
+#  store_staff_id   :integer          not null
+#  setting_type     :integer          default(0)
+#  store_service_id :integer
+#
+
 class StoreServiceSettingSerializer < ActiveModel::Serializer
   WORKFLOW_FIELDS = [:engineer_count_enable,
                      :engineer_count,

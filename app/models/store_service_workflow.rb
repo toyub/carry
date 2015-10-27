@@ -67,7 +67,6 @@ end
 #  standard_time                   :integer
 #  buffering_time                  :integer
 #  factor_time                     :integer
-#  store_service_id                :integer          not null
 #  sales_commission_subject        :integer
 #  sales_commission_template_id    :integer
 #  engineer_commission_subject     :integer
@@ -78,4 +77,7 @@ end
 #  buffering_time_enable           :boolean
 #  store_workstation_ids           :string(255)
 #  nominated_workstation           :boolean
+#  name                            :string(45)
+#  store_service_setting_id        :integer
+#  store_service_id                :integer
 #

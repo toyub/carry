@@ -31,3 +31,19 @@ class StoreMaterialInventory < ActiveRecord::Base
     self.class.unscoped.where(id: self.id).update_all("quantity=COALESCE(quantity, 0) + #{quantity.to_i.abs}")
   end
 end
+
+# == Schema Information
+#
+# Table name: store_material_inventories
+#
+#  id                :integer          not null, primary key
+#  store_id          :integer          not null
+#  store_chain_id    :integer          not null
+#  store_staff_id    :integer          not null
+#  store_material_id :integer          not null
+#  store_depot_id    :integer          not null
+#  cost_price        :decimal(10, 2)   default(0.0)
+#  quantity          :integer          default(0), not null
+#  created_at        :datetime
+#  updated_at        :datetime
+#

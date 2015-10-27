@@ -27,7 +27,4 @@ end
 #  store_staff_id    :integer
 #  store_service_id  :integer          not null
 #  store_material_id :integer          not null
-#  use_mode          :integer          not null
-#  unit              :string(45)
-#  dose              :decimal(10, 2)
 #

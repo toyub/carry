@@ -4,7 +4,7 @@ source 'https://ruby.taobao.org'
 gem 'rails', '4.2.0'
 
 # Use mysql2 as the database for Active Record
-gem 'mysql2', '0.3.17'
+gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
