@@ -52,9 +52,9 @@
   <div class="ticheng float-left" >
     <span class="num">2</span>
     <div class="ticheng_sel">
-      <label>标准提成 <% if @mode_id.toString() == '0' : %><input type="radio" checked><% end %> </label>
-      <label>阶梯提成 <% if @mode_id.toString() == '1' : %><input type="radio" checked><% end %> </label>
-      <label>分段提成 <% if @mode_id.toString() == '2' : %><input type="radio" checked><% end %> </label>
+      <label class="<%= 'unable' unless @mode_id.toString() == '0' %>">标准提成 <% if @mode_id.toString() == '0' : %><input type="radio" checked><% end %> </label>
+      <label class="<%= 'unable' unless @mode_id.toString() == '1' %>">阶梯提成 <% if @mode_id.toString() == '1' : %><input type="radio" checked><% end %> </label>
+      <label class="<%= 'unable' unless @mode_id.toString() == '2' %>">分段提成 <% if @mode_id.toString() == '2' : %><input type="radio" checked><% end %> </label>
     </div>
 
     <% if @mode_id.toString() == '0' : %>
