@@ -5,7 +5,7 @@
       <input type="hidden" name="template[sections_attributes][][id]" value="<%= @id %>">
     <% end %>
   </li>
-  <li><input num un name='template[sections_attributes][][min]' value='<%= @min %>' type="text" class="width-20" required=true autocomplete=off> - <input num un name='template[sections_attributes][][max]' type="text" class="width-20" value="<%= @max %>" required=true autocomplete=off></li>
+  <li title="完成数是商品的销售数量"><input num un name='template[sections_attributes][][min]' value='<%= @min %>' type="text" class="width-20" required=true autocomplete=off> - <input num un name='template[sections_attributes][][max]' type="text" class="width-20" value="<%= @max %>" required=true autocomplete=off></li>
   <li>
     <select name='template[sections_attributes][][type_id]'>
       <option value="0">金额</option>
