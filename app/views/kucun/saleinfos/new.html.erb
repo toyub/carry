@@ -19,6 +19,10 @@
     </div>
 </div>
 
+<% content_for :scenes do %>
+  <div class="list_new_page_wrap do_create_ticheng_window" style='display:none;' id="commission_tempalte_detail"></div>
+<% end %>
+
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
@@ -95,6 +99,23 @@
       $("#lists").on('click','.click_btn', function(){
         $("[data-id='"+this.dataset.editformid+"']").show();
       });
+
+
+      var detail_tmpl = JST['kucun/commissions/new/detail'];
+      $('.detail').on('click', function(){
+        var select = $(this).siblings('select')[0];
+        if(select.value){
+            var data = $(select.options[select.selectedIndex]).data('template');
+            $("#commission_tempalte_detail").html(detail_tmpl(data.store_commission_template)).show();
+        }else{
+          ZhanchuangAlert('请选择一个方案');
+        }
+      });
+
+      $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
+        $('#commission_tempalte_detail').hide();
+      });
+
     });
   </script>
 <% end %>
