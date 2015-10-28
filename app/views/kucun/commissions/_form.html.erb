@@ -105,25 +105,9 @@
                     <option data-template='<%= json_for(opt) %>' value="<%= opt.id %>"><%= opt.name %></option>
                   <% end %>
                 </select>
-                <span class="detail color-0C489C click_btn" data-showid='#sales_commission'>详情</span>
+                <span class="detail color-0C489C click_btn">详情</span>
               </div>
-              <div class="commission_scheme_details" id="sales_commission" style="display:none;"></div>
             </div>
-            <div class="commission float-right">
-              <h2>技师提成</h2>
-              <div class="commission_scheme">
-                <label class="width-100">选择提成方案：</label>
-                <select class="width-235" name="commission[mechanic][store_commission_template_id]">
-                  <option value=""></option>
-                  <% @store_commission_templates.each do |opt| %>
-                    <option data-template='<%= json_for(opt) %>' value="<%= opt.id %>"><%= opt.name %></option>
-                  <% end %>
-                </select>
-                <span  class="detail color-0C489C clickbtn" data-showid='#technician_commission'>详情</span>
-              </div>
-              <div class="commission_scheme_details" id='technician_commission' style="display:none;"></div>
-          </div>
-
         </div>
       </div>
     </div>

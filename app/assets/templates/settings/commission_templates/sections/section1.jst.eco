@@ -1,5 +1,5 @@
 <ul>
-  <li class="sequence_num">1
+  <li class="sequence_num"><%= @idx %>
     <input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]' required=true autocomplete=off/>
     <% if @id :%>
       <input type="hidden" name="template[sections_attributes][][id]" value="<%= @id %>">
@@ -14,7 +14,7 @@
   </li>
   <li>
     <select class="width-120" name="template[sections_attributes][][source_id]">
-      <option value="0">商品或服务的毛利</option>
+      <option value="0">商品或服务的售价</option>
     </select>
   </li>
   <li><input type="text" class="width-40" name="template[sections_attributes][][amount]" value="<%= @amount %>" required=true autocomplete=off></li>
