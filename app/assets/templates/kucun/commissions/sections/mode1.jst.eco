@@ -1,0 +1,26 @@
+<div class="ladder_ticheng do_ticheng_setting">
+  <p class="line-height-25 margin-left-36">阶梯提成定义为：</p>
+  <p class="line-height-25 margin-left-36 margin-bottom-15 width-300">提成基数按阶梯状递增，每个阶段数量溢出，则按设定的基数</p>
+
+  <div class="setting">
+    <ul class="lists_header">
+      <li>#</li>
+      <li>完成数</li>
+      <li>提成源</li>
+      <li>形式</li>
+      <li>数量</li>
+    </ul>
+
+    <div class="lists_content">
+      <% for section,idx in @sections : %>
+      <ul>
+        <li class="sequence_num"><%= idx+1 %></li>
+        <li><span>大于<%=section.min%></span></li>
+        <li><span><%= section.method_type %></span></li>
+        <li><span><%= section.source_type %></span></li>
+        <li><span class="width-40" name="profit"><%= section.amount %></span></li>
+      </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
