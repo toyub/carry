@@ -3,8 +3,8 @@ source 'https://ruby.taobao.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 
-# Use mysql2 as the database for Active Record
-gem 'mysql2', '0.3.17'
+# Use pg as the database for Active Record
+gem 'pg', '~> 0.18.3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
@@ -62,8 +62,8 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'capistrano-sidekiq'
+  gem 'capistrano-monit', git: 'git@gitlab.icar99.com:zc/capistrano-monit.git', tag: 'v0.0.2', require: false
   gem 'quiet_assets'
-  gem 'annotate'
   gem 'pry', "~> 0.9.12"
   gem 'pry-nav', "~> 0.2.3"
 end
