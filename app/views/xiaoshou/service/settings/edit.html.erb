@@ -1,6 +1,3 @@
-<% content_for :pre_assets do %>
-  <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
-<% end %>
 
 <%= form_for @service, url: [:xiaoshou, :service, :setting], method: :put, html: {id: 'update_store_service'}  do |f| %>
   <%= f.hidden_field :id, value: @service.id %>

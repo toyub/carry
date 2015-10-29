@@ -61,7 +61,7 @@
     </div>
 
     <div class="btn_group">
-      <input type="reset"  value="取消" class="cancel_btn btn cancel"  >
+      <input type="reset"  value="取消" class="cancel_btn btn cancel">
       <input type="submit"  value="保存" class="save_service save_btn btn add_cancel">
     </div>
   </form>
