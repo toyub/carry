@@ -88,13 +88,8 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
     e.preventDefault()
     if $("input[name=setting_type]:checked").val() == String(Mis.Models.StoreServiceSetting.prototype.SETTING_TYPE.workflow)
       @model.set @$(".j_workflow_setting").find("input,select").serializeJSON()
-      console.log('workflow')
     else
       @model.set @$(".j_regular_setting").find("input,select").serializeJSON()
-      console.log('regular')
-    console.log @model
-    console.log @model.toJSON()
-    console.log JSON.stringify(@model.toJSON())
     @model.save()
 
   getWorkstationCategory: ->

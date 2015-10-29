@@ -83,6 +83,7 @@ Rails.application.routes.draw do
 
   namespace :xianchang do
     resources :field_constructions, only: [:index]
+    resources :pre_orders, only: [:index]
   end
 
   namespace :settings do
@@ -129,7 +130,12 @@ Rails.application.routes.draw do
       end
 
       resource :store_service_settings, only: [:show, :create, :update]
+      resources :store_service_reminds, only: [:update]
+      resources :store_service_trackings, only: [:create, :update, :destroy]
     end
+    resources :store_vehicles, only: [:index]
+    resources :store_orders, only: [:index]
+    resources :store_subscribe_orders
   end
 
   root 'kucun/materials#index'

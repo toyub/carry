@@ -1,45 +1,23 @@
-# Simple Role Syntax
-# ==================
-# Supports bulk-adding hosts to roles, the primary server in each group
-# is considered to be the first unless any hosts have the primary
-# property set.  Don't declare `role :all`, it's a meta role.
+role :app, %w{deploy@121.40.229.244 deploy@114.215.198.108}
+role :web, %w{deploy@121.40.229.244 deploy@114.215.198.108}
+role :db,  %w{deploy@121.40.229.244}
+role :worker,  %w{deploy@120.26.85.169}
 
-role :app, %w{deploy@example.com}
-role :web, %w{deploy@example.com}
-role :db,  %w{deploy@example.com}
+set :deploy_to, "/var/www/mis"
+set :html_deploy_to, "#{fetch(:deploy_to)}/html"
 
+set :rvm_type, :system
+set :rvm_ruby_version, '2.2.2'
 
-# Extended Server Syntax
-# ======================
-# This can be used to drop a more detailed server definition into the
-# server list. The second argument is a, or duck-types, Hash and is
-# used to set extended properties on the server.
+#set :nginx_sites_enabled_path, "#{shared_path}/config"
+#set :nginx_sites_available_path, "#{shared_path}/config"
+set :nginx_server_name, "store.icar99.com"
+set :puma_init_active_record, true
 
-server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
+set :rails_env, "production"
 
+set :branch, 'deploy'
+set :html_branch, 'development'
 
-# Custom SSH Options
-# ==================
-# You may pass any option but keep in mind that net/ssh understands a
-# limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
-#
-# Global options
-# --------------
-#  set :ssh_options, {
-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
-#    forward_agent: false,
-#    auth_methods: %w(password)
-#  }
-#
-# And/or per server (overrides global)
-# ------------------------------------
-# server 'example.com',
-#   user: 'user_name',
-#   roles: %w{web app},
-#   ssh_options: {
-#     user: 'user_name', # overrides user setting above
-#     keys: %w(/home/user_name/.ssh/id_rsa),
-#     forward_agent: false,
-#     auth_methods: %w(publickey password)
-#     # password: 'please use keys'
-#   }
+set :sidekiq_role, :worker
+set :monit_role, :all

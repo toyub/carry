@@ -1,0 +1,9 @@
+<li><%= @tracking.get 'id' %>.</li>
+<li><label class="content"><%= s.truncate(@tracking.get('content'), 20) %></label></li>
+<li><%= @tracking.timingName() %></li>
+<li><%= @tracking.delay() %></li>
+<li><%= @tracking.modeName() %>
+  <% unless @view.isShow(): %>
+    <span class="delete delete_list">×</span>
+  <% end %>
+</li>
