@@ -128,7 +128,7 @@
                         <select class="width-235" name='commission[salesman][store_commission_template_id]'>
                           <option value=""></option>
                           <% @store_commission_templates.each do |opt| %>
-                            <option data-template='<%= json_for(opt) %>' value="<%= opt.id %>"><%= opt.name %></option>
+                            <option data-template='<%= json_for(opt, root:false) %>' value="<%= opt.id %>"><%= opt.name %></option>
                           <% end %>
                         </select>
                         <a class="detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
@@ -141,7 +141,7 @@
             </table>
 
           </div>
-          
+
           <div  class="grid-1-2 float-left">
             <div class="server_list" >
               <div class="top">

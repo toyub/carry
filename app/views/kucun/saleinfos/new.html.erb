@@ -29,7 +29,7 @@
       var new_service_tmpl = JST['kucun/saleinfos/new/form'];
       var show_tmpl = JST['kucun/saleinfos/new/summary'];
       var form_url = "<%= kucun_material_saleinfo_saleinfo_services_path(material_id: @store_material.id) %>"
-      var store_commission_templates = <%= @store_commission_templates.to_json.html_safe %>
+      var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>
       services = [];
       $("input[name='saleinfo[volume]']").on('change', function(){
         if(this.value){
@@ -102,11 +102,11 @@
 
 
       var detail_tmpl = JST['kucun/commissions/new/detail'];
-      $('.detail').on('click', function(){
+      $('#main').on('click', '.detail', function(){
         var select = $(this).siblings('select')[0];
         if(select.value){
             var data = $(select.options[select.selectedIndex]).data('template');
-            $("#commission_tempalte_detail").html(detail_tmpl(data.store_commission_template)).show();
+            $("#commission_tempalte_detail").html(detail_tmpl(data)).show();
         }else{
           ZhanchuangAlert('请选择一个方案');
         }

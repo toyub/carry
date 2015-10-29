@@ -21,11 +21,13 @@
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-50">施工提成</label>
-      <select class="width-155" name="saleinfo[store_material_saleinfo_services][][store_commission_template_id]">
+      <select class="width-130" name="saleinfo[store_material_saleinfo_services][][store_commission_template_id]">
+        <option value=""></option>
         <% for option in @store_commission_templates: %>
-        <option value="<%= option.id %>"><%= option.name %></option>
+        <option data-template='<%= JSON.stringify(option) %>' value="<%= option.id %>"><%= option.name %></option>
         <% end %>
       </select>
+      <a href="javascript:void(0)" class="detail color-0C489C">详情</a>
     </div>
     <div class="grid-1-2  text-align-left float-left ">
      <label class="width-50">施工次数</label>
