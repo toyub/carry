@@ -9,6 +9,8 @@
       <input type="text" required=true num int un class="width-90" name='work_time'>
       <select class="width-60" name='work_time_unit'>
         <option value="minutes">分钟</option>
+        <option value="hours">小时</option>
+        <option value="days">天</option>
       </select>
     </div>
     <div class="grid-1-2  text-align-left float-left">
@@ -40,9 +42,9 @@
       <label class="width-60">施工结束后</label>
       <input disabled required=true type="text" num int un class="width-35" name="tracking_time">
       <select disabled required=true class="width-45" name="tracking_time_unit">
-        <option>时</option>
-        <option>天</option>
-        <option>月</option>
+        <option value="hours">时</option>
+        <option value="days">天</option>
+        <option value="months">月</option>
       </select>
     </div>
     <div class=" text-align-left float-right  pure-u-2-2">

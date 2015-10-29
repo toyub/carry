@@ -6,19 +6,19 @@
     <label class="width-100 text-align-left"><input type="radio" name='section[timing]'value='2' class="width-15">上次回访后</label>
     <input name='section[delay_interval]' type='text' num int un min=1 class="width-60 margin-left-10" value="">
     <select name='section[delay_unit]' class="width-60 margin-left-10">
-      <option value="hour">小时</option>
-      <option value="day">天</option>
-      <option value="week">周</option>
-      <option value="month">月</option>
-      <option value="year">年</option>
+      <option value="hours">小时</option>
+      <option value="days">天</option>
+      <option value="weeks">周</option>
+      <option value="months">月</option>
+      <option value="years">年</option>
     </select>
   </div>
   <div class=" text-align-left ">
     <label class="width-60">回访方式：</label>
     <label class="width-75 text-align-left"> 下拉选择</label>
     <select class="width-120" name='section[contact_way]'>
-      <option value="1">短信</option>
-      <option value="2">微信</option>
+      <option value="0">短信</option>
+      <option value="1">微信</option>
     </select>
   </div>
 
