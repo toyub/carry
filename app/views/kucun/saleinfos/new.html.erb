@@ -26,11 +26,11 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      var new_service_tmpl = JST['kucun/saleinfos/new/form'];
-      var show_tmpl = JST['kucun/saleinfos/new/summary'];
+      var detail_tmpl = JST['kucun/commissions/new/detail'];
+
       var form_url = "<%= kucun_material_saleinfo_saleinfo_services_path(material_id: @store_material.id) %>"
-      var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>
-      services = [];
+      var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
+      views = {};
       $("input[name='saleinfo[volume]']").on('change', function(){
         if(this.value){
           var x = (this.dataset.costpirce/this.value).toFixed(2);
@@ -67,41 +67,36 @@
           return false;
         }
         this.classList.add('disabled');
-        var id = services.length + 1;
-        var service = {id: id}
-        services.push(service);
-        var cloned = JSON.parse(JSON.stringify(service));
-        cloned.store_commission_templates = store_commission_templates;
-        $('div.server_list').append(new_service_tmpl(cloned));
+        var service_view = new $$MIS.SaleinfoServiceView({
+          model: new $$MIS.SaleinfoService()
+        });
+
+        service_view.store_commission_templates = store_commission_templates;
+        $('div.server_list').append(service_view.render().el);
+        service_view.idx = $('#lists').find('.list_content').length + 1;
+        views[service_view.cid] = service_view;
+
+        service_view.on('created', function(){
+          $('#lists').append(service_view.show()).show();
+          service_view.$el.hide();
+          $('#add_server_btn').removeClass('disabled');
+          service_view.summary_el = $('#lists').find("div[data-viewid='"+ service_view.cid +"']");
+        });
+
+        service_view.on('updated', function(){
+          service_view.summary_el.html(service_view.summary())
+          service_view.$el.hide();
+          $('#add_server_btn').removeClass('disabled');
+        });
       });
 
-      $('div.server_list').on('click', 'input.save_service', function(){
-        var $form = $(this.parentNode.parentNode);
-        var id = $form.data('id');
-        obj = services.filter(function(ser){ return ser.id == id})[0];
-        obj.name = $form.find('[name="saleinfo[store_material_saleinfo_services][][name]"]').val();
-        obj.times = $form.find('[name="saleinfo[store_material_saleinfo_services][][times]"]').val();
-        obj.work_time = $form.find("[name='saleinfo[store_material_saleinfo_services][][work_time]']").val();
-        obj.mechanic_level = $form.find('[name="saleinfo[store_material_saleinfo_services][][mechanic_level]"]').val();
-        $.post(form_url, obj, function (data) {
-          console.log(data)
-        });
-        if(!obj.saved){
-          obj.saved = true;
-          $('#lists').append(show_tmpl(obj)).show();
-        }else{
-          $(`[data-id="service_${obj.id}"]`).html(show_tmpl(obj));
-        }
-        $form.hide();
-        $('#add_server_btn').removeClass('disabled');
-      });
 
       $("#lists").on('click','.click_btn', function(){
-        $("[data-id='"+this.dataset.editformid+"']").show();
+        $('#add_server_btn').addClass('disabled');
+        var service_view = views[this.dataset.viewid];
+        service_view.$el.show();
       });
-
-
-      var detail_tmpl = JST['kucun/commissions/new/detail'];
+      
       $('#main').on('click', '.detail', function(){
         var select = $(this).siblings('select')[0];
         if(select.value){

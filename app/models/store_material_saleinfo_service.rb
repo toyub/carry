@@ -5,6 +5,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
   MECHANIC_LEVELS = {
     0 => "初级以上(含初级)",
     1 => "中级以上(含中级)",
-    2 => "高级"
+    2 => "高级以上(含高级)",
+    3 => "专家"
   }
 end
