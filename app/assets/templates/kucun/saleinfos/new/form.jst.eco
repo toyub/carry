@@ -1,5 +1,5 @@
 
-  <form>
+  <form name='services[]'>
     <div class="grid-1-2  text-align-left float-left ">
       <label class="width-50">服务名称</label>
       <input type="text" required=true name='name' class="width-130">
@@ -24,7 +24,7 @@
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-50">施工提成</label>
-      <select class="width-130" name="store_commission_template_id">
+      <select class="width-130" name="mechanic_commission_template_id">
         <option value=""></option>
         <% for option in @store_commission_templates: %>
         <option data-template='<%= JSON.stringify(option) %>' value="<%= option.id %>"><%= option.name %></option>
@@ -35,13 +35,14 @@
     <div class="grid-1-2  text-align-left float-left ">
      <label class="width-50">施工次数</label>
      <input type="text" int un required=true value='1' min='1' class="width-55" name="times">
-     <label class="width-75">需要回访<input type="checkbox" class="width-15" name="tracking_needed"></label>
+     <label class="width-75">需要回访<input type="checkbox" class="width-15 toggleable" data-target='tracking_needed' name="tracking_needed"></label>
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-60">回访时间:</label>
       <label class="width-60">施工结束后</label>
-      <input disabled required=true type="text" num int un class="width-35" name="tracking_time">
-      <select disabled required=true class="width-45" name="tracking_time_unit">
+      <input data-id='tracking_needed' disabled required=true type="text" num int un class="width-35" name="tracking_time">
+      <select data-id='tracking_needed' disabled required=true class="width-45" name="tracking_time_unit">
+        <option value="minutes">分</option>
         <option value="hours">时</option>
         <option value="days">天</option>
         <option value="months">月</option>
@@ -50,13 +51,13 @@
     <div class=" text-align-left float-right  pure-u-2-2">
       <label class="width-95">回访内容：</label>
       <label class="width-73 text-align-left">回访方式</label>
-      <select disabled required=true class="width-253" name="tracking_contact_way">
-        <option>短信</option>
-        <option>微信</option>
+      <select data-id='tracking_needed' disabled required=true class="width-253" name="tracking_contact_way">
+        <option value="0">短信</option>
+        <option value="1">微信</option>
       </select>
      </div>
     <div class="text-align-left float-right   pure-u-2-2 model">
-      <textarea required=true disabled name='tracking_content'></textarea>
+      <textarea data-id='tracking_needed' required=true disabled name='tracking_content'></textarea>
     </div>
 
     <div class="btn_group">
