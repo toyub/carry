@@ -23,10 +23,21 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
     @store = current_user.store
     @store_material = StoreMaterial.find(params[:material_id])
     if @store_material.store_material_saleinfo.present?
-      redirect_to action: 'show'
+      if request.xhr?
+        render json: {msg: 'Already saved, please update!'}
+      else
+        redirect_to action: 'show'
+      end
       return false
     end
     saleinfo = @store_material.build_store_material_saleinfo(saleinfo_params)
+    saleinfo.store_staff_id = current_user.id
+    saleinfo.services.each do |service|
+      service.store_material_id = @store_material.id
+      service.store_staff_id = saleinfo.store_staff_id
+    end
+
+    saleinfo.save!
 
     render json: {
       saleinfo: saleinfo,
