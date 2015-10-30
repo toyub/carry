@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029084946) do
+ActiveRecord::Schema.define(version: 20151030090048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 20151029084946) do
   end
 
   add_index "store_attachments", ["type", "host_id"], name: "type_of_attachments", using: :btree
+
+  create_table "store_business_status_records", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "staffer_id"
+    t.string   "reason"
+    t.integer  "previous_status"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "store_chains", force: :cascade do |t|
     t.integer  "admin_store_id"
@@ -480,24 +490,25 @@ ActiveRecord::Schema.define(version: 20151029084946) do
   end
 
   create_table "store_material_saleinfos", force: :cascade do |t|
-    t.integer  "store_id",                                                                null: false
-    t.integer  "store_chain_id",                                                          null: false
-    t.integer  "store_staff_id",                                                          null: false
-    t.integer  "store_material_id",                                                       null: false
-    t.boolean  "bargainable",                                             default: false
-    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0,   null: false
-    t.integer  "reward_points",                                           default: 0
-    t.boolean  "divide_to_retail",                                        default: false
+    t.integer  "store_id",                                                                     null: false
+    t.integer  "store_chain_id",                                                               null: false
+    t.integer  "store_staff_id",                                                               null: false
+    t.integer  "store_material_id",                                                            null: false
+    t.boolean  "bargainable",                                                  default: false
+    t.decimal  "bargain_price",                       precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "retail_price",                        precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "trade_price",                         precision: 10, scale: 2, default: 0.0,   null: false
+    t.integer  "reward_points",                                                default: 0
+    t.boolean  "divide_to_retail",                                             default: false
     t.integer  "unit"
-    t.decimal  "volume",                         precision: 10, scale: 2
-    t.boolean  "service_needed",                                          default: false
-    t.boolean  "service_fee_needed",                                      default: false
-    t.decimal  "service_fee",                    precision: 10, scale: 2
+    t.decimal  "volume",                              precision: 10, scale: 2
+    t.boolean  "service_needed",                                               default: false
+    t.boolean  "service_fee_needed",                                           default: false
+    t.decimal  "service_fee",                         precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "saleman_commission_template_id"
+    t.integer  "store_material_saleinfo_category_id"
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|
@@ -733,6 +744,20 @@ ActiveRecord::Schema.define(version: 20151029084946) do
     t.decimal  "cost_price",                              precision: 10, scale: 2
     t.string   "remark",                      limit: 255
     t.integer  "status",                                                           default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_renewal_records", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "staffer_id"
+    t.integer  "renewal_type_id"
+    t.datetime "paid_at"
+    t.decimal  "amount"
+    t.integer  "payment_type_id"
+    t.integer  "invoice_type_id"
+    t.boolean  "receipt_required"
+    t.string   "remark"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1078,6 +1103,8 @@ ActiveRecord::Schema.define(version: 20151029084946) do
     t.integer  "payment_status",             default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "expired_at"
+    t.decimal  "balance"
   end
 
 end

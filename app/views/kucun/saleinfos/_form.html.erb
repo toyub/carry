@@ -31,26 +31,26 @@
                   </td>
                   <td>
                     <label class="width-75">零售价</label>
-                    <input type="text" num un class="width-165" name="saleinfo[retail_price]" required="true" autocomplete="off"/>
+                    <input type="text" num un class="width-165" name="saleinfo[retail_price]" required="true" autocomplete="off" value="<%= @saleinfo.retail_price %>" />
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <span class="width-75 display-inline-block text-align-right">
-                      <input type="radio" name='saleinfo[bargainable]'  class="toggleable width-13" data-target="bargain" data-checked>
+                      <input type="radio" name='saleinfo[bargainable]' <%= 'checked' if @saleinfo.bargainable %>  class="toggleable width-13" data-target="bargain" data-checked='<%="checked" if @saleinfo.bargainable %>'>
                       优惠价
                     </span>
-                    <input type="text" num un class="width-165" data-id="bargain" name='saleinfo[bargain_price]' disabled="disabled" required="true" autocomplete="off">
+                    <input type="text" num un class="width-165" data-id="bargain" name='saleinfo[bargain_price]' <%= 'disabled="disabled"' unless @saleinfo.bargainable %> required="true" autocomplete="off" value='<%= @saleinfo.bargain_price %>'>
                   </td>
                   <td>
                     <label class="width-75">批发价</label>
-                    <input type="text" num un class="width-165" name="saleinfo[trade_price]" autocomplete="off">
+                    <input type="text" num un class="width-165" name="saleinfo[trade_price]" autocomplete="off" value="<%= @saleinfo.trade_price %>">
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <label class="width-75">商品积分</label>
-                    <input num int un type="text" class="width-165" name="saleinfo[reward_points]" autocomplete="off">
+                    <input num int un type="text" class="width-165" name="saleinfo[reward_points]" autocomplete="off" value="<%= @saleinfo.reward_points %>">
                   </td>
                   <td>
                     <label class="width-75">销售分类</label>
@@ -72,12 +72,12 @@
                     <fieldset class="width-490 margin-left-26">
                       <legend class="margin-left-10">
                         <label>
-                        <input type="checkbox" class="toggleable" name='saleinfo[divide_to_retail]' data-target="divide_to_retail" data-checked>
+                        <input type="checkbox" class="toggleable" <%= 'checked' if @saleinfo.divide_to_retail %> name='saleinfo[divide_to_retail]' data-target="divide_to_retail" data-checked='<%= "checked" if @saleinfo.divide_to_retail %>'>
                         此商品拆分销售</label>
                       </legend>
                       <div>
                         <label class="width-75">计量单位</label>
-                        <select class="width-160" name='saleinfo[unit]' data-id="divide_to_retail" disabled="disabled" required="true">
+                        <select class="width-160" name='saleinfo[unit]' data-id="divide_to_retail" <%='disabled="disabled"' unless @saleinfo.divide_to_retail %> required="true">
                           <option value="米">米</option>
                           <option value="平方米">平方米</option>
                           <option value="升">升</option>
@@ -85,7 +85,7 @@
                       </div>
                       <div class="float-left">
                         <label class="width-75">总量</label>
-                        <input type="text" num un int min=1 name='saleinfo[volume]' data-costpirce='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" disabled="disabled" required="true">
+                        <input type="text" num un int min=1 name='saleinfo[volume]' data-costpirce='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" <%='disabled="disabled"' unless @saleinfo.divide_to_retail %> required="true" value='<%= @saleinfo.volume %>'>
                       </div>
                       <div class="float-left">
                         <label class="width-75">拆分成本</label>
@@ -99,19 +99,19 @@
                     <fieldset class="width-490 margin-left-26">
                       <legend class="margin-left-10">
                         <label>
-                        <input type="checkbox" name='saleinfo[service_needed]' class="toggleable" data-target="service_needed"  data-checked>
+                        <input type="checkbox" name='saleinfo[service_needed]' <%= 'checked' if @saleinfo.service_needed %> class="toggleable" data-target="service_needed"  data-checked='<%= "checked" if @saleinfo.service_needed %>'>
                         需要施工</label>
                       </legend>
                       <div class="float-left margin-left-20">
                         <label class="width-75 text-align-left margin-left-10">
-                          <input type="radio" class="width-15" name="saleinfo[service_fee_needed]" value='0' data-id="service_needed" disabled checked>包含施工费
+                          <input type="radio" class="width-15" <%= 'checked' unless @saleinfo.service_fee_needed %> name="saleinfo[service_fee_needed]" value='0' data-id="service_needed" <%= 'disabled' unless @saleinfo.service_needed%> >包含施工费
                         </label>
                       </div>
                       <div class="float-left">
                         <label class="width-75  margin-left-26">
-                          <input type="radio" class="width-15" name="saleinfo[service_fee_needed]" value='1' data-id="service_needed" disabled="disabled" data-target="service_fee" data-checked>另计施工费
+                          <input type="radio" class="width-15" <%= 'checked' if @saleinfo.service_fee_needed %> name="saleinfo[service_fee_needed]" value='1' data-id="service_needed" <%= 'disabled' unless @saleinfo.service_needed%> data-target="service_fee" data-checked="<%= 'checked' if @saleinfo.service_fee_needed %>">另计施工费
                         </label>
-                        <input type="text" num un class="width-165" data-id="service_fee" name='saleinfo[service_fee]' disabled required="true">
+                        <input type="text" num un class="width-165" data-id="service_fee" name='saleinfo[service_fee]' <%= 'disabled' unless @saleinfo.service_fee_needed %> required="true" value='<%= @saleinfo.service_fee %>'>
                       </div>
                     </fieldset>
                   </td>
@@ -125,10 +125,10 @@
                       </legend>
                       <div class="commission_scheme">
                         <label class="width-100">选择提成方案：</label>
-                        <select class="width-235" name='saleinfo[salesman_commission_template_id]'>
+                        <select class="width-235" name='saleinfo[saleman_commission_template_id]'>
                           <option value=""></option>
                           <% @store_commission_templates.each do |opt| %>
-                            <option data-template='<%= json_for(opt, root:false) %>' value="<%= opt.id %>"><%= opt.name %></option>
+                            <option <%= 'selected' if opt.id == @saleinfo.saleman_commission_template_id %> data-template='<%= json_for(opt, root:false) %>' value="<%= opt.id %>"><%= opt.name %></option>
                           <% end %>
                         </select>
                         <a class="detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
@@ -146,7 +146,7 @@
             <div class="server_list" >
               <div class="top">
                 <h2>服务项目列表</h2>
-                <span class="new_btn btn margin-top-10 float-right click_btn cursor disabled" id="add_server_btn">创建</span>
+                <span class="new_btn btn margin-top-10 float-right click_btn cursor <%='disabled' unless @saleinfo.service_needed %>" id="add_server_btn">创建</span>
               </div>
               <div class="none_server_data">
                 <p class="none_server_p">当前没有配套服务</p>
@@ -162,7 +162,19 @@
                     <li>技师</li>
                   </ul>
                 </div>
-
+                <% @saleinfo.services.each_with_index do |service, idx| %>
+                <div class="list_content list_tr">
+                  <ul class=" list_tr_hover">
+                    <li><%= idx %>.</li>
+                    <li><label data-viewid="<%=  @viewid %>" class="click_btn cursor"><%=  @name %></label></li>
+                    <li><%=  service.times %></li>
+                    <li><%=  service.work_time %></li>
+                    <li><%=  service.mechanic_level %>
+                     <span class="delete close" data-target="list_content_01"> <i class="lnr lnr-cross color-fff"></i> </span>
+                    </li>
+                  </ul>
+                </div>
+                <% end %>
               </div>
 
             </div>
