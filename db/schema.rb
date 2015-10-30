@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029084946) do
+ActiveRecord::Schema.define(version: 20151030080550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 20151029084946) do
   end
 
   add_index "store_attachments", ["type", "host_id"], name: "type_of_attachments", using: :btree
+
+  create_table "store_business_status_records", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "staffer_id"
+    t.string   "reason"
+    t.integer  "previous_status"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "store_chains", force: :cascade do |t|
     t.integer  "admin_store_id"
@@ -737,6 +747,20 @@ ActiveRecord::Schema.define(version: 20151029084946) do
     t.datetime "updated_at"
   end
 
+  create_table "store_renewal_records", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "staffer_id"
+    t.integer  "renewal_type_id"
+    t.datetime "paid_at"
+    t.decimal  "amount"
+    t.integer  "payment_type_id"
+    t.integer  "invoice_type_id"
+    t.boolean  "receipt_required"
+    t.string   "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "store_service_categories", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1078,6 +1102,8 @@ ActiveRecord::Schema.define(version: 20151029084946) do
     t.integer  "payment_status",             default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "expired_at"
+    t.decimal  "balance"
   end
 
 end
