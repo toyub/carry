@@ -25,9 +25,10 @@
     jQuery(function(){
       var detail_tmpl = JST['kucun/commissions/new/detail'];
 
-      var form_url = "<%= kucun_material_saleinfo_saleinfo_services_path(material_id: @store_material.id) %>"
+      var form_url = "<%= kucun_material_saleinfo_path(material_id: @store_material.id) %>"
       var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
       views = {};
+      services = [];
       $("input[name='saleinfo[volume]']").on('change', function(){
         if(this.value){
           var x = (this.dataset.costpirce/this.value).toFixed(2);
@@ -78,6 +79,7 @@
           service_view.$el.hide();
           $('#add_server_btn').removeClass('disabled');
           service_view.summary_el = $('#lists').find("div[data-viewid='"+ service_view.cid +"']");
+          services.push(service_view.model);
         });
 
         service_view.on('updated', function(){
@@ -93,7 +95,7 @@
         var service_view = views[this.dataset.viewid];
         service_view.$el.show();
       });
-      
+
       $('#main').on('click', '.detail', function(){
         var select = $(this).siblings('select')[0];
         if(select.value){
@@ -108,6 +110,29 @@
         $('#commission_tempalte_detail').hide();
       });
 
+      $("#saleinfo_form").on('submit', function(evt){
+        evt.preventDefault();
+        var formdata = $(this).serializeJSON();
+        formdata.saleinfo.services_attributes = services.map(function(model, idx, collection, undef){
+          return model.attributes;
+        });
+
+        $.ajax({
+          url: form_url,
+          dataType: 'json',
+          type : 'POST',
+          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+          data: formdata,
+          success:function(data){
+            window.location.replace('/kucun/materials/<%= @store_material.id %>/saleinfo')
+          },
+          error: function(){
+            ZhanchuangAlert('系统错误，请重试。');
+          }
+        })
+
+        return false;
+      });
     });
   </script>
 <% end %>

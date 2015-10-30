@@ -1,4 +1,4 @@
-  <%= form_tag kucun_material_saleinfo_path do %>
+  <%= form_tag kucun_material_saleinfo_path(@store_material), id: 'saleinfo_form' do %>
       <div class="base_info">
         <div class="goods_img">
           <div id='material_img_preview' class="goods_main_img"></div>
@@ -31,7 +31,7 @@
                   </td>
                   <td>
                     <label class="width-75">零售价</label>
-                    <input type="text" class="width-165" name="saleinfo[retail_price]"/>
+                    <input type="text" class="width-165" name="saleinfo[retail_price]"/ required="true">
                   </td>
                 </tr>
                 <tr>
@@ -125,7 +125,7 @@
                       </legend>
                       <div class="commission_scheme">
                         <label class="width-100">选择提成方案：</label>
-                        <select class="width-235" name='salesman_commission_template_id'>
+                        <select class="width-235" name='saleinfo[salesman_commission_template_id]'>
                           <option value=""></option>
                           <% @store_commission_templates.each do |opt| %>
                             <option data-template='<%= json_for(opt, root:false) %>' value="<%= opt.id %>"><%= opt.name %></option>

@@ -8,9 +8,6 @@ class StoreMaterial < ActiveRecord::Base
   belongs_to :store_material_manufacturer
   belongs_to :creator, class_name: 'StoreStaff', foreign_key: 'store_staff_id'
 
-  has_many :store_material_commissions
-  has_one :smc_salesman
-  has_one :smc_mechanic
   has_one :store_material_saleinfo
   has_one :store_material_tracking
 
