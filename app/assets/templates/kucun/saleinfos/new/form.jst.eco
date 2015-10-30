@@ -2,14 +2,14 @@
   <form name='services[]'>
     <div class="grid-1-2  text-align-left float-left ">
       <label class="width-50">服务名称</label>
-      <input type="text" required=true name='name' class="width-130">
+      <input type="text" required=true name='name' class="width-130" autocomplete=off>
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-50">施工时间</label>
-      <input type="text" required=true num int un class="width-90" name='work_time'>
+      <input type="text" required=true num int un class="width-90" name='work_time' autocomplete=off>
       <select class="width-60" name='work_time_unit'>
-        <option value="minutes">分钟</option>
-        <option value="hours">小时</option>
+        <option value="minutes">分</option>
+        <option value="hours">时</option>
         <option value="days">天</option>
       </select>
     </div>
@@ -34,14 +34,14 @@
     </div>
     <div class="grid-1-2  text-align-left float-left ">
      <label class="width-50">施工次数</label>
-     <input type="text" int un required=true value='1' min='1' class="width-55" name="times">
+     <input type="text" num int un required=true value='1' min='1' class="width-55" name="times" autocomplete=off>
      <label class="width-75">需要回访<input type="checkbox" class="width-15 toggleable" data-target='tracking_needed' name="tracking_needed"></label>
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-60">回访时间:</label>
       <label class="width-60">施工结束后</label>
-      <input data-id='tracking_needed' disabled required=true type="text" num int un class="width-35" name="tracking_time">
-      <select data-id='tracking_needed' disabled required=true class="width-45" name="tracking_time_unit">
+      <input data-id='tracking_needed' disabled required=true type="text" num int un class="width-35" name="tracking_delay" autocomplete=off>
+      <select data-id='tracking_needed' disabled required=true class="width-45" name="tracking_delay_unit">
         <option value="minutes">分</option>
         <option value="hours">时</option>
         <option value="days">天</option>

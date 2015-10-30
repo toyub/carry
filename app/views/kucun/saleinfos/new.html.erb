@@ -114,7 +114,7 @@
         evt.preventDefault();
         var formdata = $(this).serializeJSON();
         formdata.saleinfo.services_attributes = services.map(function(model, idx, collection, undef){
-          return model.attributes;
+          return model.form_attrs();
         });
 
         $.ajax({
@@ -124,7 +124,8 @@
           contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
           data: formdata,
           success:function(data){
-            window.location.replace('/kucun/materials/<%= @store_material.id %>/saleinfo')
+            console.log(data)
+            //window.location.replace('/kucun/materials/<%= @store_material.id %>/saleinfo')
           },
           error: function(){
             ZhanchuangAlert('系统错误，请重试。');
