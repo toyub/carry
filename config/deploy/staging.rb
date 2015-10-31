@@ -16,7 +16,7 @@ set :puma_init_active_record, true
 
 set :rails_env, "staging"
 
-set :branch, 'deploy'
+set :branch, 'staging'
 set :html_branch, 'development'
 
 set :sidekiq_role, :none
