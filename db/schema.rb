@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031013943) do
+ActiveRecord::Schema.define(version: 20151031033729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -761,6 +761,7 @@ ActiveRecord::Schema.define(version: 20151031013943) do
     t.string   "remark"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "store_chain_id"
   end
 
   create_table "store_service_categories", force: :cascade do |t|
