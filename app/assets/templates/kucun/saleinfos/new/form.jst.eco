@@ -34,7 +34,7 @@
     </div>
     <div class="grid-1-2  text-align-left float-left ">
      <label class="width-50">施工次数</label>
-     <input type="text" num int un required=true value='1' min='1' class="width-55" name="times" autocomplete=off>
+     <input type="text" num int un required=true value='1' min='1' class="width-55" name="quantity" autocomplete=off>
      <label class="width-75">需要回访<input type="checkbox" class="width-15 toggleable" data-target='tracking_needed' name="tracking_needed"></label>
     </div>
     <div class="grid-1-2 text-align-right float-left ">

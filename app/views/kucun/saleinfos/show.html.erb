@@ -17,7 +17,6 @@
           <div id='material_img_preview' class="goods_main_img"></div>
           <ul id='material_img_thumbnails' class="goods_small_img">
               <li id='preview_list'></li>
-              <li data-id='0'><a class='fa fa-plus-square add_img font-30' href="javascript:void(0);"></a></li>
           </ul>
         </div>
         <div class=" car_content">
@@ -31,65 +30,64 @@
                 <tr>
                   <td>
                     <label class="width-75">商品名称</label>
-                    <input type="text" class="width-165" value="碳纤白色保护膜" readonly />
+                    <input type="text" class="width-165" value="<%= @store_material.name %>" readonly />
                   </td>
                   <td>
                     <label class="width-75">规格</label>
-                    <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly="true"/>
+                    <input type="text" class="width-165" value="<%= @store_material.speci %>" readonly="true"/>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <label class="width-75">最低售价</label>
-                    <input type="text" class="width-165" value="0.00" readonly />
+                    <input type="text" class="width-165" value="<%= @store_material.min_price %>" readonly />
                   </td>
                   <td>
                     <label class="width-75">零售价</label>
-                    <input type="text" class="width-165"  />
+                    <input type="text" class="width-165" value="<%= @saleinfo.retail_price %>"  readonly />
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <span class="width-75 display-inline-block text-align-right">
-                      <input type="radio"  class="toggleable width-13" data-target="bargain" data-checked>
+                      <input type="radio"  class="width-13" <%= 'checked' if @saleinfo.bargainable %> disabled>
                       优惠价
                     </span>
-                    <input type="text" class="width-165" data-id="bargain" disabled="disabled" required="true">
+                    <input type="text" class="width-165" value="<%= @saleinfo.bargain_price %>" readonly>
                   </td>
                   <td>
                     <label class="width-75">批发价</label>
-                    <input type="text" class="width-165">
+                    <input type="text" class="width-165" value="<%= @saleinfo.trade_price %>" readonly>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <label class="width-75">商品积分</label>
-                    <input type="text" class="width-165">
+                    <input type="text" class="width-165" value="<%= @saleinfo.reward_points %>" readonly>
                   </td>
                   <td>
                     <label class="width-75">销售分类</label>
-                    <select type="text" class="width-167">
-                      <option>是另一个标签</option>
-                      <option>例如:清洁类</option>
-                    </select>
+                    <input class="width-167" type="text" value="<%= @saleinfo.store_material_saleinfo_category.try(:name) %>" readonly>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">
                     <fieldset class="width-490 margin-left-26">
                       <legend class="margin-left-10">
-                        <input type="checkbox" class="toggleable" data-target="divide_to_retail">
+                        <input type="checkbox" <%= 'checked' if @saleinfo.divide_to_retail %> disabled>
                         <label>此商品拆分销售</label>
                       </legend>
                       <div>
                         <label class="width-75">计量单位</label>
-                        <select disabled class="width-80">
-                          <option>米</option>
-                        </select>
+                        <input class="width-80" type="text" value="<%= @saleinfo.divide_unit_type %>" readonly />
                       </div>
                       <div>
                         <label class="width-75">总量</label>
-                        <input type="text" class="width-165" readonly>
+                        <input type="text" class="width-165" value="<%= @saleinfo.volume %>" readonly>
+                      </div>
+                      <div>
+                        <label class="width-75">拆分成本</label>
+                        <input type="text" class="width-160" readonly=true value="<%= @saleinfo.cost_price_per_unit %> 元/<%= @saleinfo.divide_unit_type %>">
                       </div>
                     </fieldset>
                   </td>
@@ -98,13 +96,37 @@
                   <td colspan="2">
                     <fieldset class="width-490 margin-left-26">
                       <legend class="margin-left-10">
-                        <input type="checkbox" class="toggleable" data-target="divide_to_retail">
+                        <input type="checkbox" <%= 'checked' if @saleinfo.service_needed %> disabled>
                         <label>需要施工</label>
                       </legend>
 
-                      <div>
-                        <label class="width-75">工时价格</label>
-                        <input type="text" class="width-165" readonly>
+                      <div class="float-left margin-left-20">
+                        <label class="width-75 text-align-left margin-left-10">
+                          <input type="radio" class="width-15" <%= 'checked' unless @saleinfo.service_fee_needed %> disabled>包含施工费
+                        </label>
+                      </div>
+                      <div class="float-left">
+                        <label class="width-75  margin-left-26">
+                          <input type="radio" class="width-15" <%= 'checked' if @saleinfo.service_fee_needed %> disabled>另计施工费
+                        </label>
+                        <input type="text" class="width-165" value='<%= @saleinfo.service_fee %>' readonly>
+                      </div>
+                    </fieldset>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="2">
+                    <fieldset class="width-490 margin-left-26">
+                      <legend class="margin-left-10">
+                        <label>销售提成</label>
+                      </legend>
+                      <div class="commission_scheme">
+                        <label class="width-100">提成方案：</label>
+                        <input type="text" class="width-235" value="<%= @saleinfo.saleman_commission_template.try(:name) %>" readonly>
+                        <% if @saleinfo.saleman_commission_template.present? %>
+                        <a data-template='<%= json_for(@saleinfo.saleman_commission_template, root:false) %>' class="detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
+                        <% end %>
                       </div>
                     </fieldset>
                   </td>

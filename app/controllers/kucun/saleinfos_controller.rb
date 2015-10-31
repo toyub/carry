@@ -92,6 +92,6 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
                                      services_attributes: [:id, :store_commission_template_id, :name, :mechanic_level, :work_time,
                                                            :work_time_unit, :work_time_in_seconds, :tracking_needed, :tracking_delay,
                                                            :tracking_delay_unit, :tracking_delay_in_seconds, :tracking_contact_way,
-                                                           :tracking_content, :mechanic_commission_template_id]
+                                                           :tracking_content, :mechanic_commission_template_id, :quantity]
   end
 end

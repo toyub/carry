@@ -78,9 +78,9 @@
                       <div>
                         <label class="width-75">计量单位</label>
                         <select class="width-160" name='saleinfo[unit]' data-id="divide_to_retail" <%='disabled="disabled"' unless @saleinfo.divide_to_retail %> required="true">
-                          <option value="米">米</option>
-                          <option value="平方米">平方米</option>
-                          <option value="升">升</option>
+                          <option value="0">米</option>
+                          <option value="1">平方米</option>
+                          <option value="2">升</option>
                         </select>
                       </div>
                       <div class="float-left">
@@ -167,7 +167,7 @@
                   <ul class=" list_tr_hover">
                     <li><%= idx %>.</li>
                     <li><label data-viewid="<%=  @viewid %>" class="click_btn cursor"><%=  @name %></label></li>
-                    <li><%=  service.times %></li>
+                    <li><%=  service.quantity %></li>
                     <li><%=  service.work_time %></li>
                     <li><%=  service.mechanic_level %>
                      <span class="delete close" data-target="list_content_01"> <i class="lnr lnr-cross color-fff"></i> </span>

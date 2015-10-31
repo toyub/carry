@@ -9,4 +9,11 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   accepts_nested_attributes_for :services
 
+  def divide_unit_type
+    MaterialDivideUnitType.find(self.unit).name
+  end
+
+  def cost_price_per_unit
+    self.store_material.cost_price.to_f / self.volume.to_f
+  end
 end
