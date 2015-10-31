@@ -15,7 +15,6 @@ Rails.application.routes.draw do
       resource :saleinfo do
         resources :saleinfo_services
       end
-      resource :commission
       resource :tracking
     end
 

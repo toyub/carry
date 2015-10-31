@@ -155,97 +155,8 @@
                     <li class="fifth_td border-none">技师</li>
                   </ul>
                 </div>
-                <div class="list_content list_tr">
-                  <ul class="list_tr_hover">
-                    <li class="first_td">1.</li>
-                    <li class="second_td">澜泰纳米镀金</li>
-                    <li class="third_td">1</li>
-                    <li class="forth_td">120</li>
-                    <li class="fifth_td border-none">高级-高级
-                    </li>
-                  </ul>
-                </div>
-                <div class="list_content list_tr">
-                  <ul class="list_tr_hover">
-                    <li class="first_td">2.</li>
-                    <li class="second_td">澜泰纳米镀金</li>
-                    <li class="third_td">1</li>
-                    <li class="forth_td">120</li>
-                    <li class="fifth_td border-none">高级-高级
-                    </li>
-                  </ul>
-                </div>
-                <div class="list_content list_tr">
-                    <ul class="list_tr_hover">
-                      <li class="first_td">3.</li>
-                      <li class="second_td">澜泰纳米镀金</li>
-                      <li class="third_td">1</li>
-                      <li class="forth_td">120</li>
-                      <li class="fifth_td border-none">高级-高级
-                      </li>
-                    </ul>
-                </div>
               </div>
-              <div class="add_server" id="add_server" style="display:none;">
-                <div class="grid-1-2  text-align-left float-left ">
-                  <label class="width-50">服务名称</label>
-                  <input type="text" class="width-130">
-                </div>
-                <div class="grid-1-2 text-align-right float-left ">
-                  <label class="width-50">施工时间</label>
-                  <input type="text" class="width-130">
-                </div>
-                <div class="grid-1-2  text-align-left float-left ">
-                  <label class="width-50">技师</label>
-                  <input type="text" class="width-130">
-                </div>
-                <div class="grid-1-2 text-align-right float-left ">
-                  <label class="width-50">施工提成</label>
-                  <input type="text" class="width-130">
-                </div>
-                <div class="grid-1-2  text-align-left float-left ">
-                 <label class="width-50">次数</label>
-                 <input type="text" class="width-55">
-                 <label class="width-50">售后回访</label>
-                 <input type="checkbox" class="width-15">
-                </div>
-                <div class="grid-1-2 text-align-right float-left ">
-                  <label class="width-60">回访时间:</label>
-                  <label class="width-60">施工结束后</label>
-                  <select class="width-60">
-                    <option></option>
-                    <option></option>
-                  </select>
-                </div>
-                <div class=" text-align-left float-right  pure-u-2-2">
-                  <label class="width-60">回访内容：</label>
-                  <label class="width-75 text-align-left"> 回访方式</label>
-                  <select class="width-253">
-                    <option></option>
-                    <option></option>
-                  </select>
-
-                 </div>
-                 <div class=" text-align-left float-right   pure-u-2-2">
-                  <label class="width-75 text-align-left"> 选择短信模板</label>
-                  <select class="width-253">
-                    <option></option>
-                    <option></option>
-                  </select>
-                </div>
-
-                <div class=" text-align-left float-right   pure-u-2-2 model">
-                  <textarea > </textarea>
-                  <div>
-                    <label>保存为模板</label>
-                    <input type="checkbox">
-                  </div>
-                </div>
-                <div class="btn_group">
-                  <input type="button"  value="取消" class="cancel_btn btn cancel">
-                  <input type="button"  value="保存" class="save_btn btn server_save add_cancel">
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -256,3 +167,20 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      collection = new $$MIS.SaleinfoServiceCollection();
+      collection.url = "/kucun/materials/<%= @store_material.id %>/saleinfo/saleinfo_services";
+      collection.fetch().success(function(){
+        collection.each(function(model, idx, models, undef){
+          var sview = new $$MIS.SaleinfoServiceSummaryView({model: model});
+          sview.idx = idx + 1;
+          console.log(model.attributes)
+          $("#lists").append(sview.render())
+        });
+      });
+    });
+  </script>
+<% end %>

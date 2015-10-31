@@ -1,0 +1,46 @@
+<div class="add_server">
+
+    <div class="grid-1-2  text-align-left float-left ">
+      <label class="width-50">服务名称</label>
+      <span class="width-130"><%= @name %></span>
+    </div>
+    <div class="grid-1-2 text-align-right float-left ">
+      <label class="width-50">施工时间</label>
+      <span class="width-90"><%= @work_time %></span>
+      <span class="width-60"><%= @work_time_unit %></span>
+    </div>
+    <div class="grid-1-2  text-align-left float-left">
+      <label class="width-50">技师等级</label>
+      <span class="width-132"><%= @mechanic_level %></span>
+    </div>
+    <div class="grid-1-2 text-align-right float-left ">
+      <label class="width-50">施工提成</label>
+      <span class="width-130"><%= @mechanic_commission_template_id %></span>
+      <a href="javascript:void(0)" class="detail color-0C489C">详情</a>
+    </div>
+    <div class="grid-1-2  text-align-left float-left ">
+     <label class="width-50">施工次数</label>
+     <span class="width-55"><%= @quantity %></span>
+     <label class="width-75">需要回访<input type="checkbox" class="width-15" disabled <%= 'checked' if @tracking_needed %>></label>
+    </div>
+    <div class="grid-1-2 text-align-right float-left ">
+      <label class="width-60">回访时间:</label>
+      <label class="width-60">施工结束后</label>
+      <span class="width-35"><%= @tracking_delay %></span>
+      <span class="width-45"><%= @tracking_delay_unit %></span>
+    </div>
+    <div class=" text-align-left float-right  pure-u-2-2">
+      <label class="width-95">回访内容：</label>
+      <label class="width-73 text-align-left">回访方式</label>
+      <span class="width-253"><%= @tracking_contact_way %></span>
+    </div>
+    <div class="text-align-left float-right   pure-u-2-2 model">
+      <p>
+        <%= @tracking_content %>
+      </p>
+    </div>
+    <div class="btn_group">
+      <input type="reset"  value="关闭" class="cancel_btn btn cancel">
+    </div>
+    
+</div>
