@@ -4,7 +4,7 @@ namespace :load do
     set :html_deploy_to, -> { "#{fetch(:deploy_to)}/#{fetch(:html_project_name)}" }
     set :html_build_path, -> { "#{fetch(:html_deploy_to)}/assets" }
     set :html_static_path, -> { "#{fetch(:html_deploy_to)}/assets/mis" }
-    set :html_revision_log, -> { File.join(current_path, "html_revision_log.txt") }
+    set :html_revision_log, -> { File.join(release_path, "html_revision_log.txt") }
     set :html_linked_dirs,  %w{images stylesheets}
   end
 end

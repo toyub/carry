@@ -21,6 +21,15 @@ namespace :deploy do
     end
   end
 
+  desc "rake db seed"
+  task :db_seed do
+    on roles(:db) do
+      within current_path do
+          execute :sudo, "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do rake db:seed RAILS_ENV=#{fetch(:rails_env)}"
+      end
+    end
+  end
+
   desc "install jekyll to build static assets"
   task :install_jekyll do
     on roles :web, :app do
