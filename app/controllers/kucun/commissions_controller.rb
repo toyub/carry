@@ -4,7 +4,7 @@ class Kucun::CommissionsController < Kucun::ControllerBase
     @store_material = @store.store_materials.find(params[:material_id])
     @scm_salesman = SMCSalesman.new
     @smc_mechanic = SMCMechanic.new
-    @store_commission_templates = [] #StoreCommissionTemplate.all
+    @store_commission_templates = StoreCommissionTemplate.all
   end
 
   def show

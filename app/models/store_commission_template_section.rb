@@ -7,4 +7,16 @@ class StoreCommissionTemplateSection < ActiveRecord::Base
   include BaseModel
   belongs_to :store_commission_template
 
+  def mode_type
+    CommissionModeType.find(self.mode_id).name
+  end
+
+  def method_type
+    CommissionSectionMethodType.find(self.type_id).name
+  end
+
+  def source_type
+    CommissionSectionSourceType.find(self.source_id).name
+  end
+
 end

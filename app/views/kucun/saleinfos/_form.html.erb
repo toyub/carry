@@ -17,17 +17,17 @@
                 <tr>
                   <td>
                     <label class="width-75">商品名称</label>
-                    <input type="text" class="width-165" value="碳纤白色保护膜" readonly />
+                    <input type="text" class="width-165" value="<%= @store_material.name %>" readonly />
                   </td>
                   <td>
                     <label class="width-75">规格</label>
-                    <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly="true"/>
+                    <input type="text" class="width-165" value="<%= @store_material.speci %>" readonly="true"/>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <label class="width-75">最低售价</label>
-                    <input type="text" class="width-165" value="0.00" readonly />
+                    <input type="text" class="width-165" value="<%= @store_material.min_price %>" readonly />
                   </td>
                   <td>
                     <label class="width-75">零售价</label>
@@ -117,10 +117,31 @@
                   </td>
                 </tr>
 
+                <tr>
+                  <td colspan="2">
+                    <fieldset class="width-490 margin-left-26">
+                      <legend class="margin-left-10">
+                        <label>销售提成</label>
+                      </legend>
+                      <div class="commission_scheme">
+                        <label class="width-100">选择提成方案：</label>
+                        <select class="width-235" name='salesman_commission_template_id'>
+                          <option value=""></option>
+                          <% @store_commission_templates.each do |opt| %>
+                            <option data-template='<%= json_for(opt, root:false) %>' value="<%= opt.id %>"><%= opt.name %></option>
+                          <% end %>
+                        </select>
+                        <a class="detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
+                      </div>
+                    </fieldset>
+                  </td>
+                </tr>
+
               </tbody>
             </table>
 
           </div>
+
           <div  class="grid-1-2 float-left">
             <div class="server_list" >
               <div class="top">
@@ -146,6 +167,7 @@
 
             </div>
           </div>
+
         </div>
         <div class="btn_group">
           <input type="submit" class="save_btn btn" value="保存">

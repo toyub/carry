@@ -12,7 +12,7 @@
 
 <label>提成源</label>
 <select name="template[sections_attributes][][source_id]">
-  <option value="0">商品或服务的毛利</option>
+  <option value="0">商品或服务的售价</option>
 </select>
 
 <label>输入数量</label>
