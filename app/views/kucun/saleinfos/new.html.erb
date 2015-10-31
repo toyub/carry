@@ -22,43 +22,14 @@
 
 <% content_for :javascripts do %>
   <script>
-    jQuery(function(){
-      var detail_tmpl = JST['kucun/commissions/new/detail'];
+    jQuery(function($){
+      
 
       var form_url = "<%= kucun_material_saleinfo_path(material_id: @store_material.id) %>"
       var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
       views = {};
       services = [];
-      $("input[name='saleinfo[volume]']").on('change', function(){
-        if(this.value){
-          var x = (this.dataset.costpirce/this.value).toFixed(2);
-          $('#divided_cost').val(x + '元/' + $("select[name='saleinfo[unit]'").val())
-        }
-      });
-
-      $("select[name='saleinfo[unit]'").on('change', function(){
-        var m = $("input[name='saleinfo[volume]']")[0];
-        if(m.value){
-          var x = (m.dataset.costpirce/m.value).toFixed(2);
-          $('#divided_cost').val(x + '元/' + this.value)
-        }
-      });
-
-      $('[name="saleinfo[service_fee_needed]"]').on('change', function(){
-         if(this.dataset.target){
-          $("[name='saleinfo[service_fee]']").removeAttr('disabled');
-         }else{
-          $("[name='saleinfo[service_fee]']").attr('disabled', true);
-         }
-      });
-
-      $("input[name='saleinfo[service_needed]']").on('change', function(){
-        if(this.checked){
-          $('#add_server_btn').removeClass('disabled');
-        }else{
-          $('#add_server_btn').addClass('disabled');
-        }
-      });
+      
 
       $('#add_server_btn').on('click', function(){
         if(this.classList.contains('disabled')){
@@ -96,15 +67,7 @@
         service_view.$el.show();
       });
 
-      $('#main').on('click', '.detail', function(){
-        var select = $(this).siblings('select')[0];
-        if(select.value){
-            var data = $(select.options[select.selectedIndex]).data('template');
-            $("#commission_tempalte_detail").html(detail_tmpl(data)).show();
-        }else{
-          ZhanchuangAlert('请选择一个方案');
-        }
-      });
+      
 
       $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
         $('#commission_tempalte_detail').hide();

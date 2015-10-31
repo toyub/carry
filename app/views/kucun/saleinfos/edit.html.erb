@@ -15,3 +15,13 @@
       <div class="base_info"><%= render 'form' %></div>
     </div>
 </div>
+<% content_for :scenes do %>
+  <div class="list_new_page_wrap do_create_ticheng_window" style='display:none;' id="commission_tempalte_detail"></div>
+<% end %>
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      handle = new $$MIS.SaleinfoHandleView();
+    });
+  </script>
+<% end -%>
