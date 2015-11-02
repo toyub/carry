@@ -168,19 +168,30 @@
     </div>
   </div>
 </div>
+<% content_for :scenes do %>
+  <div class="list_new_page_wrap do_create_ticheng_window" style='display:none;' id="commission_tempalte_detail"></div>
+<% end %>
 
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      collection = new $$MIS.SaleinfoServiceCollection();
+      var detail_tmpl = JST['kucun/commissions/new/detail'];
+      var collection = new $$MIS.SaleinfoServiceCollection();
       collection.url = "/kucun/materials/<%= @store_material.id %>/saleinfo/saleinfo_services";
       collection.fetch().success(function(){
         collection.each(function(model, idx, models, undef){
           var sview = new $$MIS.SaleinfoServiceSummaryView({model: model});
           sview.idx = idx + 1;
-          console.log(model.attributes)
           $("#lists").append(sview.render())
         });
+      });
+    
+      $('#content').on('click', '.commission_detail', function(){
+        var template = $(this).data('template');
+        $("#commission_tempalte_detail").html(detail_tmpl(template)).show();
+      });
+      $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
+        $('#commission_tempalte_detail').hide();
       });
     });
   </script>
