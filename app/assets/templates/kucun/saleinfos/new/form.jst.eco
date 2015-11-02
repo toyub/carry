@@ -1,6 +1,9 @@
 
   <form name='services[]'>
     <div class="grid-1-2  text-align-left float-left ">
+      <% if @id : %>
+      <input type="hidden" name="id" value="<%= @id %>">
+      <% end %>
       <label class="width-50">服务名称</label>
       <input type="text" required=true name='name' class="width-130" autocomplete=off value="<%= @name %>">
     </div>

@@ -72,6 +72,28 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
   end
 
   def update
+    @store = current_user.store
+    @store_material = StoreMaterial.find(params[:material_id])
+    unless @store_material.store_material_saleinfo.present?
+      render json: {msg: 'No saleinfo found, use create'}
+      return false
+    end
+    saleinfo = @store_material.store_material_saleinfo
+    safe_params = saleinfo_params
+    if safe_params[:services_attributes]
+      safe_params[:services_attributes].each do |idx, service|
+        if service[:store_staff_id].blank?
+          service[:store_staff_id] = current_user.id
+          service[:store_id] = current_store.id
+          service[:store_chain_id] = current_store.store_chain_id
+        end
+      end
+    end
+    saleinfo.update!(safe_params)
+    render json: {
+      saleinfo: saleinfo,
+      services_attributes: saleinfo.services
+    }
   end
 
   def show

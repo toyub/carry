@@ -1,4 +1,7 @@
   <%= form_tag kucun_material_saleinfo_path(@store_material), id: 'saleinfo_form' do %>
+      <% if @saleinfo.id %>
+      <input type="hidden" name="saleinfo[id]" value="<%= @saleinfo.id %>">
+      <% end %>
       <div class="base_info">
         <div class="goods_img">
           <div id='material_img_preview' class="goods_main_img"></div>

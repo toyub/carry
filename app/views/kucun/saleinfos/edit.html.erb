@@ -21,22 +21,9 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      collection = new $$MIS.SaleinfoServiceCollection();
-      collection.url = "/kucun/materials/<%= @store_material.id %>/saleinfo/saleinfo_services";
-      var summary_tmpl = JST['kucun/saleinfos/new/summary'];
-      collection.fetch().success(function(){
-        collection.each(function(model, idx, models, undef){
-          var attrs = model.summary_attrs();
-          attrs.idx = idx + 1;
-          $("#lists").append('<div class="list_content list_tr" data-viewid="">' +
-                  summary_tmpl(attrs) +
-                '</div>');
-        });
-      });
-
-      var form_url = "<%= kucun_material_saleinfo_path(material_id: @store_material.id) %>"
+      var urlRoot = "/kucun/materials/<%= @store_material.id %>/saleinfo";
       var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
-      handle = new $$MIS.SaleinfoHandleView();
+      handle = new $$MIS.SaleinfoHandleView({urlRoot: urlRoot});
       handle.store_commission_templates = store_commission_templates;
       $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
         $('#commission_tempalte_detail').hide();
