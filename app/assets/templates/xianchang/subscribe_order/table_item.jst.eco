@@ -9,7 +9,6 @@
 <td><%= @remark %></td>
 <td data-id='<%= @id %>'>
   <i class="lnr lnr-edit cursor-pointer show_committed_btn" ></i>
-	<i class="lnr lnr-pencil cursor-pointer edit_committed_btn"></i>
 	<i class="lnr lnr-file-empty cursor-pointer" ></i>
   <i class="lnr lnr-trash cursor-pointer delete_committed_btn"></i>
 </td>

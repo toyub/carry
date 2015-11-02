@@ -1,6 +1,7 @@
 module Api
   class StoreSubscribeOrdersController < BaseController
 
+    before_action :set_order, only: [:destroy, :update]
     protect_from_forgery except: :destroy
 
     def index
@@ -18,10 +19,26 @@ module Api
     end
 
     def destroy
-      @order = StoreSubscribeOrder.find(params[:id])
       @order.destroy
       render json: {success: true}
     end
 
+    def update
+      if @order.update(order_params)
+        render json: {success: true}
+      else
+        render json: {success: false}
+      end
+    end
+
+    private
+
+      def order_params
+        params.require(:store_subscribe_order).permit(:state)
+      end
+
+      def set_order
+        @order = StoreSubscribeOrder.find(params[:id])
+      end
   end
 end
