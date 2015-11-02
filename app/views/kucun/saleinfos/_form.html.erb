@@ -152,7 +152,7 @@
                 <p class="none_server_p">当前没有配套服务</p>
                 <p class="none_details">你可以先选择"需要施工"来激活服务列表，然后点击创建来添加配套的服务项目</p>
               </div>
-              <div class="list" id="lists" style="<%= 'display:block' if @saleinfo.services.present? %>">
+              <div class="list" style="<%= 'display:block' if @saleinfo.services.present? %>">
                 <div class="list_top">
                   <ul>
                     <li>#</li>
@@ -162,19 +162,7 @@
                     <li>技师</li>
                   </ul>
                 </div>
-                <% @saleinfo.services.each_with_index do |service, idx| %>
-                <div class="list_content list_tr">
-                  <ul class=" list_tr_hover">
-                    <li><%= idx + 1 %>.</li>
-                    <li><label data-viewid="<%=  @viewid %>" class="click_btn cursor"><%=  service.name %></label></li>
-                    <li><%=  service.quantity %></li>
-                    <li><%=  service.work_time %></li>
-                    <li><%=  service.mechanic_level_type %>
-                     <span class="delete close" data-target="list_content_01"> <i class="lnr lnr-cross color-fff"></i> </span>
-                    </li>
-                  </ul>
-                </div>
-                <% end %>
+                <div id="lists" class="list_contents"></div>
               </div>
 
             </div>

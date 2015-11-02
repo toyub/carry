@@ -23,78 +23,13 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      
-
       var form_url = "<%= kucun_material_saleinfo_path(material_id: @store_material.id) %>"
       var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
-      views = {};
-      services = [];
-      
-
-      $('#add_server_btn').on('click', function(){
-        if(this.classList.contains('disabled')){
-          return false;
-        }
-        this.classList.add('disabled');
-        var service_view = new $$MIS.SaleinfoServiceView({
-          model: new $$MIS.SaleinfoService()
-        });
-
-        service_view.store_commission_templates = store_commission_templates;
-        $('div.server_list').append(service_view.render().el);
-        service_view.idx = $('#lists').find('.list_content').length + 1;
-        views[service_view.cid] = service_view;
-
-        service_view.on('created', function(){
-          $('#lists').append(service_view.show()).show();
-          service_view.$el.hide();
-          $('#add_server_btn').removeClass('disabled');
-          service_view.summary_el = $('#lists').find("div[data-viewid='"+ service_view.cid +"']");
-          services.push(service_view.model);
-        });
-
-        service_view.on('updated', function(){
-          service_view.summary_el.html(service_view.summary())
-          service_view.$el.hide();
-          $('#add_server_btn').removeClass('disabled');
-        });
-      });
-
-
-      $("#lists").on('click','.click_btn', function(){
-        $('#add_server_btn').addClass('disabled');
-        var service_view = views[this.dataset.viewid];
-        service_view.$el.show();
-      });
-
-      
+      handle = new $$MIS.SaleinfoHandleView();
+      handle.store_commission_templates = store_commission_templates;
 
       $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
         $('#commission_tempalte_detail').hide();
-      });
-
-      $("#saleinfo_form").on('submit', function(evt){
-        evt.preventDefault();
-        var formdata = $(this).serializeJSON();
-        formdata.saleinfo.services_attributes = services.map(function(model, idx, collection, undef){
-          return model.form_attrs();
-        });
-
-        $.ajax({
-          url: form_url,
-          dataType: 'json',
-          type : 'POST',
-          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-          data: formdata,
-          success:function(data){
-            window.location.replace('/kucun/materials/<%= @store_material.id %>/saleinfo')
-          },
-          error: function(){
-            ZhanchuangAlert('系统错误，请重试。');
-          }
-        })
-
-        return false;
       });
     });
   </script>
