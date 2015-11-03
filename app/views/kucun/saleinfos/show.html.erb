@@ -125,7 +125,7 @@
                         <label class="width-100">提成方案：</label>
                         <input type="text" class="width-235" value="<%= @saleinfo.saleman_commission_template.try(:name) %>" readonly>
                         <% if @saleinfo.saleman_commission_template.present? %>
-                        <a data-template='<%= json_for(@saleinfo.saleman_commission_template, root:false) %>' class="detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
+                        <a data-template='<%= json_for(@saleinfo.saleman_commission_template, root:false) %>' class="commission_detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
                         <% end %>
                       </div>
                     </fieldset>
@@ -157,7 +157,7 @@
                 </div>
                 <div class="list_contents"  id="lists"></div>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -185,7 +185,7 @@
           $("#lists").append(sview.render())
         });
       });
-    
+
       $('#content').on('click', '.commission_detail', function(){
         var template = $(this).data('template');
         $("#commission_tempalte_detail").html(detail_tmpl(template)).show();
