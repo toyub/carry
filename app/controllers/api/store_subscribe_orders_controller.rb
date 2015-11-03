@@ -23,6 +23,7 @@ module Api
       render json: {success: true}
     end
 
+    # TODO sync create order
     def update
       if @order.update(order_params)
         render json: {success: true}
