@@ -44,8 +44,8 @@ end
 #  store_chain_id  :integer          not null
 #  admin_id        :integer
 #  name            :string(60)       not null
+#  business_status :integer          default(0)
+#  payment_status  :integer          default(0)
 #  created_at      :datetime
 #  updated_at      :datetime
-#  business_status :boolean          default(TRUE)
-#  payment_status  :boolean          default(TRUE)
 #
