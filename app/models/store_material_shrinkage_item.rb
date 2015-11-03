@@ -3,6 +3,7 @@ class StoreMaterialShrinkageItem < ActiveRecord::Base
   belongs_to :store_material_inventory
   belongs_to :store_material
 end
+<<<<<<< HEAD
 
 # == Schema Information
 #
@@ -25,3 +26,5 @@ end
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #
+=======
+>>>>>>> development

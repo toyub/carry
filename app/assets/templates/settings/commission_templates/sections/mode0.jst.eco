@@ -1,0 +1,19 @@
+<% if @id :%>
+  <input type="hidden" name="template[sections_attributes][][id]" value="<%= @id %>">
+<% end %>
+<p class="line-height-25">标准提成定义为：</p>
+<p class="line-height-25 margin-bottom-15">无论销售数量或者施工数量为多少，只按每件固定的金额或百分点进行提成，并进行累计，请在第三步进行详细设置。</p>
+<input type="hidden" value="<%= @mode_id %>" name='template[sections_attributes][][mode_id]'/>
+<label>提成形式</label>
+<select name="template[sections_attributes][][type_id]">
+  <option value="0">金额</option>
+  <option <%= 'selected' if @type_id.toString() == '1' %> value="1">百分比</option>
+</select>
+
+<label>提成源</label>
+<select name="template[sections_attributes][][source_id]">
+  <option value="0">商品或服务的售价</option>
+</select>
+
+<label>输入数量</label>
+<input name="template[sections_attributes][][amount]" num un type="text" value="<%= @amount %>" required=true autocomplete=off>

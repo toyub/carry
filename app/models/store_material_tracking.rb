@@ -1,6 +1,9 @@
 class StoreMaterialTracking < ActiveRecord::Base
   belongs_to :store_material
-  has_many :store_material_tracking_sections
+
+  has_many :sections, class_name: 'StoreMaterialTrackingSection'
+  accepts_nested_attributes_for :sections, allow_destroy: true
+  
 end
 
 # == Schema Information

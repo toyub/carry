@@ -1,9 +1,5 @@
-<ul>
-  <li class="sequence_num"><%= @idx %></li>
-  <li><label class="edit_list">销售计件提成方案</label></li>
-  <li>班组</li>
-  <li>金额</li>
-  <li>使用
-    <span class="delete delete_list font-14 text-align-center color-fff">×</span>
-  </li>
-</ul>
+<li class="sequence_num"><%= @idx %>.</li>
+<li><label data-modelid='<%= @cid %>' data-viewid='<%= @viewid %>' class="edit_list"><%= @name %></label></li>
+<li><%= @confined %></li>
+<li><%= @mode %></li>
+<li><a data-modelid='<%= @cid %>' data-viewid='<%= @viewid %>' class="status_btn <%= if @status.toString() == '0' then 'active' else 'disable' %>" href="javascript:void(0)"></a></li>

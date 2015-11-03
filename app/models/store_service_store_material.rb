@@ -14,6 +14,7 @@ class StoreServiceStoreMaterial < ActiveRecord::Base
       self.store_chain_id = self.store_material.store_chain_id
     end
 end
+<<<<<<< HEAD
 
 # == Schema Information
 #
@@ -28,3 +29,5 @@ end
 #  store_service_id  :integer          not null
 #  store_material_id :integer          not null
 #
+=======
+>>>>>>> development

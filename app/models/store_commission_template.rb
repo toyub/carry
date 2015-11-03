@@ -1,22 +1,33 @@
 class StoreCommissionTemplate < ActiveRecord::Base
   include BaseModel
 
-end
+  has_many :sections, class_name: 'StoreCommissionTemplateSection'
+  has_one  :mode0_section,  -> {where('store_commission_template_sections.mode_id = 0')},
+                            class_name: 'StoreCommissionTemplateSection'
+  has_many :mode1_sections, -> {where('store_commission_template_sections.mode_id = 1')},
+                            class_name: 'StoreCommissionTemplateSection'
+  has_many :mode2_sections, -> {where('store_commission_template_sections.mode_id = 2')},
+                            class_name: 'StoreCommissionTemplateSection'
 
-# == Schema Information
-#
-# Table name: store_commission_templates
-#
-#  id                :integer          not null, primary key
-#  store_id          :integer          not null
-#  store_chain_id    :integer          not null
-#  store_staff_id    :integer          not null
-#  name              :string(45)
-#  aim_to            :integer
-#  confined_to       :integer
-#  mode_id           :integer
-#  level_weight_hash :string(100)
-#  status            :integer          default(0)
-#  created_at        :datetime
-#  updated_at        :datetime
-#
+  accepts_nested_attributes_for :sections, allow_destroy: true
+
+  def level_weight
+    if self.level_weight_hash.present?
+      JSON.parse(self.level_weight_hash)
+    else
+      {}
+    end
+  end
+
+  def mode_type
+    CommissionModeType.find(self.mode_id).name
+  end
+
+  def confined_type
+    CommissionConfineType.find(self.confined_to).name
+  end
+
+  def aim_type
+    CommissionAimType.find(self.aim_to).name
+  end
+end

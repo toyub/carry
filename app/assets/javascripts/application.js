@@ -20,6 +20,7 @@
 //= require jquery_serializejson/2.6.1
 //= require jquery_ext/jquery.validate_ext
 //= require jquery_ext/jquery.alert
+//= require jquery_ext/jquery.confirm
 //= require menu
 //= require underscore
 //= require underscore_string/3.2.2

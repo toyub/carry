@@ -50,6 +50,7 @@ class StoreServiceWorkflow < ActiveRecord::Base
   end
 
 end
+<<<<<<< HEAD
 
 # == Schema Information
 #
@@ -81,3 +82,5 @@ end
 #  store_service_setting_id        :integer
 #  store_service_id                :integer
 #
+=======
+>>>>>>> development

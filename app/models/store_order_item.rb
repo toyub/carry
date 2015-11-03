@@ -5,6 +5,7 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :store_order
   belongs_to :store_customer
 end
+<<<<<<< HEAD
 
 # == Schema Information
 #
@@ -29,3 +30,5 @@ end
 #
 #  orderable  (orderable_id)
 #
+=======
+>>>>>>> development

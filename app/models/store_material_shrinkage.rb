@@ -11,6 +11,7 @@ class StoreMaterialShrinkage < ActiveRecord::Base
     self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',')
   end
 end
+<<<<<<< HEAD
 
 # == Schema Information
 #
@@ -28,3 +29,5 @@ end
 #  created_at     :datetime
 #  updated_at     :datetime
 #
+=======
+>>>>>>> development

@@ -45,6 +45,7 @@ class StoreService < ActiveRecord::Base
   end
 
 end
+<<<<<<< HEAD
 
 # == Schema Information
 #
@@ -78,3 +79,5 @@ end
 #
 #  store_services_store_service_category_id  (store_service_category_id)
 #
+=======
+>>>>>>> development

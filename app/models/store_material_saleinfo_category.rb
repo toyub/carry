@@ -1,6 +1,7 @@
 class StoreMaterialSaleinfoCategory < ActiveRecord::Base
   has_many :store_material_saleinfos
 end
+<<<<<<< HEAD
 
 # == Schema Information
 #
@@ -15,3 +16,5 @@ end
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #
+=======
+>>>>>>> development
