@@ -30,11 +30,11 @@
                 <tr>
                   <td>
                     <label class="width-75">最低售价</label>
-                    <input type="text" num un class="width-165" value="<%= @store_material.min_price %>" readonly />
+                    <input type="text" num un class="width-165" value="<%= @store_material.min_price  %>" readonly />
                   </td>
                   <td>
                     <label class="width-75">零售价</label>
-                    <input type="text" num un class="width-165" name="saleinfo[retail_price]" required="true" autocomplete="off" value="<%= @saleinfo.retail_price %>" />
+                    <input type="text" num un class="width-165" name="saleinfo[retail_price]" required="true" autocomplete="off" value="<%= @saleinfo.retail_price unless @saleinfo.retail_price == 0 %>" />
                   </td>
                 </tr>
                 <tr>
@@ -43,11 +43,11 @@
                       <input type="radio" name='saleinfo[bargainable]' <%= 'checked' if @saleinfo.bargainable %>  class="toggleable width-13" data-target="bargain" data-checked='<%="checked" if @saleinfo.bargainable %>'>
                       优惠价
                     </span>
-                    <input type="text" num un class="width-165" data-id="bargain" name='saleinfo[bargain_price]' <%= 'disabled="disabled"' unless @saleinfo.bargainable %> required="true" autocomplete="off" value='<%= @saleinfo.bargain_price %>'>
+                    <input type="text" num un class="width-165" data-id="bargain" name='saleinfo[bargain_price]' <%= 'disabled="disabled"' unless @saleinfo.bargainable %> required="true" autocomplete="off" value='<%= @saleinfo.bargain_price unless @saleinfo.bargain_price == 0 %>'>
                   </td>
                   <td>
                     <label class="width-75">批发价</label>
-                    <input type="text" num un class="width-165" name="saleinfo[trade_price]" autocomplete="off" value="<%= @saleinfo.trade_price %>">
+                    <input type="text" num un class="width-165" name="saleinfo[trade_price]" autocomplete="off" value="<%= @saleinfo.trade_price unless @saleinfo.trade_price == 0 %>">
                   </td>
                 </tr>
                 <tr>

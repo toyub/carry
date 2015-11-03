@@ -193,6 +193,9 @@
       $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
         $('#commission_tempalte_detail').hide();
       });
+      $('#content').on('click', '.server_details .cancel_btn', function(){
+        $(this).parents('.server_details').hide();
+      });
     });
   </script>
 <% end %>
