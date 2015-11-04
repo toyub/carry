@@ -1,4 +1,3 @@
-<div class="add_server server_details">
 
     <div>
       <label class="width-60">服务名称</label>
@@ -46,5 +45,3 @@
     <div class="btn_group">
       <input type="reset"  value="关闭" class="cancel_btn btn cancel">
     </div>
-
-</div>
