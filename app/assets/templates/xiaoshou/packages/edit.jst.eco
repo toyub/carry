@@ -29,19 +29,14 @@
         <p>请在套餐设置中添加需要组合的内容，点击导航栏中的套餐设置进入，进行套餐内容创建和编辑，来添加套餐内容会影响开单销售</p>
       </div>
 
-      <div class="created_package_card_lists" style="display:block;">
+      <div class="created_package_card_lists" id="packageItemList" style="display:block;">
         <ul class="list_head">
           <li>#</li>
           <li>项目/商品</li>
           <li>面值</li>
           <li>方式</li>
         </ul>
-        <ul class="list_content">
-          <li>1.</li>
-          <li>充1000送200</li>
-          <li>1200.00</li>
-          <li>卡扣</li>
-        </ul>
+
       </div>
     </div>
 
