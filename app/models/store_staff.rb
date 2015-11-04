@@ -1,5 +1,5 @@
 class StoreStaff <  ActiveRecord::Base
-  attr_accessor :password, :password_confirmation
+  attr_accessor :password, :password_confirmation, :phone_number
   belongs_to :store
   belongs_to :store_chain
 
