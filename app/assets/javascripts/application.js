@@ -29,7 +29,6 @@
 //= require backbone_ext/model.tojson
 //= require 'piccut/1.0.0'
 //= require 'select2'
-//= require mis
 //= require number_input
 
 function ZhanchuangAlert(msg) {
