@@ -4,7 +4,6 @@
   <span class="add_span">+</span>
 </div>
 <div class="details">
-  <%= render partial: 'tabtop' %>
   <div class="details_nav">
     <ul>
       <li><a href="#" class="width-90">供应商信息</a></li>
@@ -65,7 +64,7 @@
       <% if @store_material.present? %>
          var store_material = <%= StoreMaterialSerializer.new(@store_material).as_json(root: false).to_json.html_safe -%>;
       <% end %>
-      
+
       new_order_view = new $$MIS.NewMaterialOrderView({
         el: $("#content")
       });

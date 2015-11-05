@@ -1,19 +1,13 @@
 
 <div class="main_top">
+  <h2>库存>商品>销售设置</h2>
   <span class="add_span">+</span>
 </div>
 <div class="details">
   <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
-    <div class="details_nav_second">
-      <ul class="goods_nav">
-        <li><a href="#" class="width-90">▲上一件商品</a></li>
-        <li><a href="#" class="width-90">▼下一件商品</a></li>
-        <li><a href="#" class="width-90">返回列表</a></li>
-      </ul>
-    </div>
-    <div class="details_content">
-      <div class="base_info"><%= render 'form' %></div>
-    </div>
+  <div class="details_content">
+    <div class="base_info"><%= render 'form' %></div>
+  </div>
 </div>
 <% content_for :scenes do %>
   <div class="list_new_page_wrap do_create_ticheng_window" style='display:none;' id="commission_tempalte_detail"></div>
