@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031033729) do
+ActiveRecord::Schema.define(version: 20151105011657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,15 @@ ActiveRecord::Schema.define(version: 20151031033729) do
 
   add_index "roles", ["abbrev"], name: "abbrev_UNIQUE", unique: true, using: :btree
   add_index "roles", ["name"], name: "name_UNIQUE", unique: true, using: :btree
+
+  create_table "staffer_operation_logs", force: :cascade do |t|
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.integer  "staffer_id"
+    t.string   "log"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "staffers", force: :cascade do |t|
     t.datetime "created_at"
@@ -145,6 +154,14 @@ ActiveRecord::Schema.define(version: 20151031033729) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone_number",   limit: 45
+  end
+
+  create_table "store_deposit_cards", force: :cascade do |t|
+    t.decimal  "price",        precision: 10, scale: 2
+    t.decimal  "denomination", precision: 10, scale: 2
+    t.string   "name"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "store_depots", force: :cascade do |t|
@@ -686,6 +703,20 @@ ActiveRecord::Schema.define(version: 20151031033729) do
     t.integer  "state"
   end
 
+  create_table "store_package_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.decimal  "price",                    precision: 10, scale: 2
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "package_itemable_type"
+    t.integer  "package_itemable_id"
+    t.integer  "store_package_setting_id"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+  end
+
   create_table "store_package_settings", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -717,6 +748,21 @@ ActiveRecord::Schema.define(version: 20151031033729) do
     t.text     "remark"
   end
 
+  create_table "store_payments", force: :cascade do |t|
+    t.integer  "staffer_id"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "renewal_type_id"
+    t.datetime "paid_at"
+    t.decimal  "amount",           precision: 10, scale: 2
+    t.integer  "payment_type_id"
+    t.integer  "invoice_type_id"
+    t.boolean  "receipt_required"
+    t.string   "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "store_physical_inventories", force: :cascade do |t|
     t.integer  "store_id",                              null: false
     t.integer  "store_chain_id",                        null: false
@@ -745,21 +791,6 @@ ActiveRecord::Schema.define(version: 20151031033729) do
     t.integer  "status",                                                           default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "store_renewal_records", force: :cascade do |t|
-    t.integer  "store_id"
-    t.integer  "staffer_id"
-    t.integer  "renewal_type_id"
-    t.datetime "paid_at"
-    t.decimal  "amount"
-    t.integer  "payment_type_id"
-    t.integer  "invoice_type_id"
-    t.boolean  "receipt_required"
-    t.string   "remark"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "store_chain_id"
   end
 
   create_table "store_service_categories", force: :cascade do |t|
