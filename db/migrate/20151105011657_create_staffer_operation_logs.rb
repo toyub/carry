@@ -4,7 +4,7 @@ class CreateStafferOperationLogs < ActiveRecord::Migration
       t.integer :resource_id
       t.string :resource_type
       t.integer :staffer_id
-      t.string :log
+      t.json :log
 
       t.timestamps
     end

@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20151105011657) do
     t.integer  "resource_id"
     t.string   "resource_type"
     t.integer  "staffer_id"
-    t.string   "log"
+    t.json     "log"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
