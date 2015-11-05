@@ -142,6 +142,8 @@ Rails.application.routes.draw do
       member do
         post :save_picture
       end
+
+      resources :store_package_settings, only: [:create]
     end
   end
 

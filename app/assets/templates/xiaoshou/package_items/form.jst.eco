@@ -1,0 +1,114 @@
+<ul class="items_create_head" id="do_sel_types_to_create_package_card">
+  <li class="color-dad8d8">
+    <label>
+      服务项目
+      <input type="radio" name="package_itemable_type">
+    </label>
+  </li>
+  <li>
+    <label>
+      储值
+      <input type="radio" name="card_item_option" checked="">
+    </label>
+  </li>
+  <li class="color-dad8d8">
+    <label>
+      商品
+      <input type="radio" name="card_item_option">
+    </label>
+  </li>
+</ul>
+<div id="items_create_contents" class="position-relative height-355">
+  <ul class="service_wrap wrap" style="display: block;">
+    <li>
+      <label class="width-80">服务项目：</label>
+      <input type="text" class="width-436">
+    </li>
+    <li>
+      <label class="width-80 margin-top-32">项目规则：</label>
+      <ol>
+        <li>
+          <label><input type="radio" name="service_rule" class="control margin-right-6" data-target="time_count" data-distarget="day_count" checked=""> 计次</label>
+          <input type="text" data-id="time_count"> 次
+        </li>
+        <li>
+          <label><input type="radio" name="service_rule" class="control margin-right-6" data-target="day_count" data-distarget="time_count"> 计时</label>
+          <input type="text" data-id="day_count" disabled="disabled"> 天
+        </li>
+      </ol>
+    </li>
+    <li>
+      <label class="width-80 margin-top-32">项目价格：</label>
+      <ol>
+        <li>
+          <label><input type="radio" name="price" class="control margin-right-8" data-distarget="single_price" checked="">总价决定</label>
+        </li>
+        <li>
+          <label><input type="radio" name="price" class="control margin-right-8" data-target="single_price">单独计价</label>
+          <input type="text" data-id="single_price"> 元/次
+        </li>
+        <li>
+          <label><input type="radio" name="price" class="control margin-right-8" data-distarget="single_price">免费</label>
+        </li>
+      </ol>
+    </li>
+  </ul>
+
+  <div class="fee_charge_wrap wrap" style="display: none;">
+    <div class="fee_charge">
+      <p>储值名称：
+        <input type="text" class="width-368" placeholder="充1000元送200元储值卡">
+        <label class="color-b1afaf margin-left-10">已有储值卡<input type="radio" name="type"></label>
+        <label class="margin-left-10">新建储值卡<input type="radio" checked="" name="type"></label>
+      </p>
+      <p class="margin-top-50"><label class="width-120">储值规则：</label>
+        储值 <input type="text" class="width-110" placeholder="1000"> <label class="width-25">元</label>
+      </p>
+    </div>
+  </div>
+
+  <div class="goods_wrap wrap" style="display: none;">
+    <table>
+      <tbody>
+        <tr class="text-align-right">
+          <td>商品：</td>
+          <td colspan="4">
+            <input type="text" placeholder="输入商品名称或关键字展开" class="width-442 text-indent-40">
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td class="text-align-right">商品数量：</td>
+          <td></td>
+          <td></td>
+          <td><input type="text" class="margin-right-12">件</td>
+          <td></td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td class="text-align-right">项目价格：</td>
+          <td></td>
+          <td colspan="3">
+            <label><input type="radio" name="goods_price" class="control margin-right-8" data-distarget="single_price" checked="">总价决定</label>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td colspan="2">
+            <label class="margin-right-4"><input type="radio" name="goods_price" class="control margin-right-8" data-target="single_price">单独计价</label>
+            <input type="text" data-id="single_price">
+          </td>
+          <td>元</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td colspan="3">
+            <label><input type="radio" name="goods_price" class="control margin-right-8" data-distarget="single_price">免费</label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

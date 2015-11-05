@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026134947) do
+ActiveRecord::Schema.define(version: 20151104120750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,16 @@ ActiveRecord::Schema.define(version: 20151026134947) do
 
   add_index "store_attachments", ["type", "host_id"], name: "type_of_attachments", using: :btree
 
+  create_table "store_business_status_records", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "staffer_id"
+    t.string   "reason"
+    t.integer  "previous_status"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "store_chains", force: :cascade do |t|
     t.integer  "admin_store_id"
     t.integer  "admin_id"
@@ -135,6 +145,14 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone_number",   limit: 45
+  end
+
+  create_table "store_deposit_cards", force: :cascade do |t|
+    t.decimal  "price",        precision: 10, scale: 2
+    t.decimal  "denomination", precision: 10, scale: 2
+    t.string   "name"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "store_depots", force: :cascade do |t|
@@ -457,45 +475,47 @@ ActiveRecord::Schema.define(version: 20151026134947) do
   end
 
   create_table "store_material_saleinfo_services", force: :cascade do |t|
-    t.integer  "store_id",                                                 null: false
-    t.integer  "store_chain_id",                                           null: false
-    t.integer  "store_staff_id",                                           null: false
-    t.integer  "store_material_id"
-    t.integer  "store_material_saleinfo_id"
-    t.integer  "store_commission_template_id"
-    t.string   "name",                         limit: 45,                  null: false
-    t.integer  "mechanic_level",                           default: 1,     null: false
-    t.integer  "work_time"
-    t.string   "work_time_unit",               limit: 45
-    t.integer  "work_time_in_seconds"
-    t.boolean  "tracking_needed",                          default: false
-    t.integer  "tracking_delay"
-    t.string   "tracking_delay_unit",          limit: 10
-    t.integer  "tracking_delay_in_seconds"
-    t.integer  "tracking_contact_way"
-    t.string   "tracking_content",             limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "store_material_saleinfos", force: :cascade do |t|
     t.integer  "store_id",                                                    null: false
     t.integer  "store_chain_id",                                              null: false
     t.integer  "store_staff_id",                                              null: false
-    t.integer  "store_material_id",                                           null: false
-    t.boolean  "bargainable",                                 default: false
-    t.decimal  "bargain_price",      precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "retail_price",       precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",        precision: 10, scale: 2, default: 0.0,   null: false
-    t.integer  "reward_points",                               default: 0
-    t.boolean  "divide_to_retail",                            default: false
-    t.integer  "unit"
-    t.decimal  "volume",             precision: 10, scale: 2
-    t.boolean  "service_needed",                              default: false
-    t.boolean  "service_fee_needed",                          default: false
-    t.decimal  "service_fee",        precision: 10, scale: 2
+    t.integer  "store_material_id"
+    t.integer  "store_material_saleinfo_id"
+    t.integer  "store_commission_template_id"
+    t.string   "name",                            limit: 45,                  null: false
+    t.integer  "mechanic_level",                              default: 1,     null: false
+    t.integer  "work_time"
+    t.string   "work_time_unit",                  limit: 45
+    t.integer  "work_time_in_seconds"
+    t.boolean  "tracking_needed",                             default: false
+    t.integer  "tracking_delay"
+    t.string   "tracking_delay_unit",             limit: 10
+    t.integer  "tracking_delay_in_seconds"
+    t.integer  "tracking_contact_way"
+    t.string   "tracking_content",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "mechanic_commission_template_id"
+  end
+
+  create_table "store_material_saleinfos", force: :cascade do |t|
+    t.integer  "store_id",                                                                null: false
+    t.integer  "store_chain_id",                                                          null: false
+    t.integer  "store_staff_id",                                                          null: false
+    t.integer  "store_material_id",                                                       null: false
+    t.boolean  "bargainable",                                             default: false
+    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0,   null: false
+    t.integer  "reward_points",                                           default: 0
+    t.boolean  "divide_to_retail",                                        default: false
+    t.integer  "unit"
+    t.decimal  "volume",                         precision: 10, scale: 2
+    t.boolean  "service_needed",                                          default: false
+    t.boolean  "service_fee_needed",                                      default: false
+    t.decimal  "service_fee",                    precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "saleman_commission_template_id"
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|
@@ -674,6 +694,20 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.integer  "state"
   end
 
+  create_table "store_package_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.decimal  "price",                    precision: 10, scale: 2
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "package_itemable_type"
+    t.integer  "package_itemable_id"
+    t.integer  "store_package_setting_id"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+  end
+
   create_table "store_package_settings", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -733,6 +767,21 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.integer  "status",                                                           default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "store_renewal_records", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "staffer_id"
+    t.integer  "renewal_type_id"
+    t.datetime "paid_at"
+    t.decimal  "amount"
+    t.integer  "payment_type_id"
+    t.integer  "invoice_type_id"
+    t.boolean  "receipt_required"
+    t.string   "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "store_chain_id"
   end
 
   create_table "store_service_categories", force: :cascade do |t|
@@ -1076,6 +1125,8 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.integer  "payment_status",             default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "expired_at"
+    t.decimal  "balance"
   end
 
 end

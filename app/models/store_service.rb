@@ -13,6 +13,7 @@ class StoreService < ActiveRecord::Base
   has_one :setting, class_name: 'StoreServiceSetting', dependent: :destroy
   has_many :reminds, class_name: 'StoreServiceRemind', dependent: :destroy
   has_many :trackings, class_name: 'StoreServiceTracking', dependent: :destroy
+  has_many :store_package_items, as: :package_itemable
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true
