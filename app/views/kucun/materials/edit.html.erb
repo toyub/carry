@@ -12,7 +12,6 @@
         <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">销售设置</a></li>
         <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">提成</a></li>
         <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">回访</a></li>
-
       </ul>
     </div>
     <div class="details_content"><%= render 'form' %></div>
@@ -38,48 +37,7 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-    v = new $$MIS.NewMaterialView();
-    v.setElement('#edit_material');
-    v.model = new $$MIS.Material();
-    v.model.on('invalid', v.invalid_handle);
-    v.category_collection = new  $$MIS.MaterialCategoryCollection();
-    v.model.view = v;
-
-    $('#new_material').on('submit', function(evt){
-        evt.preventDefault();
-        evt.stopPropagation();
-        var $this = $(this);
-        if($this.data('error')){return false;}
-        if(!v.model.isValid()){return false;}
-
-        v.model.save()
-               .success(function(data){
-                 var url = v.model.url() + '/save_picture';
-                 $('#preview_list > img').each(function(idx){
-                    var img = this;
-                    $.ajax({
-                            type: "POST",
-                            url: url,
-                            sync: false,
-                            data: {img: img.src},
-                            success: function(data){console.log(data)},
-                            dataType: 'text'
-                          });
-                 });
-                 $('#modal_dialog').html('save successfully!').dialog({
-                    modal: true,
-                    buttons: {
-                      Ok: function() {
-                        $( this ).dialog( "close" );
-                      }
-                    }
-                  });
-                  window.location.replace(v.model.url());
-                })
-              .error(function(data){alert('error')});
-        return false;
-    });
-  });
+    //v = new $$MIS.NewMaterialView({urlRoot: "/kucun/materials/<%=@store_material.id%>"});
 </script>
 
 <script>
