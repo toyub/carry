@@ -1,17 +1,9 @@
 class StoreStaff <  ActiveRecord::Base
-  attr_accessor :password, :password_confirmation, :phone_number
+  attr_accessor :password, :password_confirmation
   belongs_to :store
   belongs_to :store_chain
 
-
-  validates :phone_number, presence: true
-  validates :phone_number, length: {is: 11}, if: ->(staff){staff.phone_number.present?}
-  validates :phone_number, numericality: { only_integer: true }, if: ->(staff){staff.phone_number.present?}
-
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
-
-  # TODO Mysql set login_name not Null, add validation
-  # Maybe login_name equal to phone_number?
   validates_presence_of :password, :password_confirmation, :login_name
 
   before_create :encrypt_password

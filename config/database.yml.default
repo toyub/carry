@@ -8,11 +8,11 @@ default: &default
 development:
   <<: *default
   database: store_development
-  username: issac
-  password: issac
+  username: postgres
+  password: postgres
 
 test:
   <<: *default
   database: store_test
-  username: issac
-  password: issac
+  username: postgres
+  password: postgres
