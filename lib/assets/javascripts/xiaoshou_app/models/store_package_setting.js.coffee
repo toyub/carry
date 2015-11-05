@@ -17,5 +17,7 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
     json = _.clone(@attributes)
     json.items_attributes = @items.map(
       (item) ->
-        
+        item.attributes
     )
+    hashWithRoot[@modelName] = json
+    hashWithRoot

@@ -9,6 +9,9 @@ class Mis.Views.XiaoshouPackageItemsForm extends Backbone.View
   events:
     'click #saveAndClose': 'saveOnClick'
     'click #closeWithoutSave': 'close'
+    'click #serviceItem': 'openServiceItem'
+    'click #depositItem': 'openDepositItem'
+    'click #materialItem': 'openMaterialItem'
 
   render: ->
     @$el.find("#packageCreateDetails").html(@template(item: @model))
@@ -24,3 +27,12 @@ class Mis.Views.XiaoshouPackageItemsForm extends Backbone.View
   close: ->
     @undelegateEvents()
     @$el.hide()
+
+  openServiceItem: ->
+    @$("#serviceItemForm").show().siblings().hide()
+
+  openDepositItem: ->
+    @$("#depositItemForm").show().siblings().hide()
+
+  openMaterialItem: ->
+    @$("#materialItemForm").show().siblings().hide()
