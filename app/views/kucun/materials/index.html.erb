@@ -1,9 +1,10 @@
 
 <div class="main_top">
+  <h2>库存>商品列表</h2>
   <span class="add_span">+</span>
 </div>
 <div class="details">
-
+  
   <div class="list_table">
     <div class="search_nav">
       <%= render partial: 'kucun/partials/material_search' %>
@@ -59,7 +60,7 @@
 
   <script type="text/javascript">
     jQuery(function(){
-      
+
       var tmp = function(id){return `<a href='/kucun/materials/${id}'>商品详情</a><a href='/kucun/material_orders/nowaus?material_id=${id}'>订货</a><a href=''>入库</a><a href=''>出库</a><a href=''>退货</a><a href=''>报损</a><a href=''>备注</a>`;}
       var $materials = $("#materials");
       var $operate = $("#operate");

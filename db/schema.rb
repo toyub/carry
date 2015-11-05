@@ -156,14 +156,6 @@ ActiveRecord::Schema.define(version: 20151105021840) do
     t.string   "phone_number",   limit: 45
   end
 
-  create_table "store_deposit_cards", force: :cascade do |t|
-    t.decimal  "price",        precision: 10, scale: 2
-    t.decimal  "denomination", precision: 10, scale: 2
-    t.string   "name"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-  end
-
   create_table "store_depots", force: :cascade do |t|
     t.integer  "store_id",                  null: false
     t.integer  "store_chain_id",            null: false
@@ -504,27 +496,29 @@ ActiveRecord::Schema.define(version: 20151105021840) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "mechanic_commission_template_id"
+    t.integer  "quantity"
   end
 
   create_table "store_material_saleinfos", force: :cascade do |t|
-    t.integer  "store_id",                                                                null: false
-    t.integer  "store_chain_id",                                                          null: false
-    t.integer  "store_staff_id",                                                          null: false
-    t.integer  "store_material_id",                                                       null: false
-    t.boolean  "bargainable",                                             default: false
-    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0,   null: false
-    t.integer  "reward_points",                                           default: 0
-    t.boolean  "divide_to_retail",                                        default: false
+    t.integer  "store_id",                                                                     null: false
+    t.integer  "store_chain_id",                                                               null: false
+    t.integer  "store_staff_id",                                                               null: false
+    t.integer  "store_material_id",                                                            null: false
+    t.boolean  "bargainable",                                                  default: false
+    t.decimal  "bargain_price",                       precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "retail_price",                        precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "trade_price",                         precision: 10, scale: 2, default: 0.0,   null: false
+    t.integer  "reward_points",                                                default: 0
+    t.boolean  "divide_to_retail",                                             default: false
     t.integer  "unit"
-    t.decimal  "volume",                         precision: 10, scale: 2
-    t.boolean  "service_needed",                                          default: false
-    t.boolean  "service_fee_needed",                                      default: false
-    t.decimal  "service_fee",                    precision: 10, scale: 2
+    t.decimal  "volume",                              precision: 10, scale: 2
+    t.boolean  "service_needed",                                               default: false
+    t.boolean  "service_fee_needed",                                           default: false
+    t.decimal  "service_fee",                         precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "saleman_commission_template_id"
+    t.integer  "store_material_saleinfo_category_id"
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|
@@ -701,20 +695,6 @@ ActiveRecord::Schema.define(version: 20151105021840) do
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
-  end
-
-  create_table "store_package_items", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "quantity"
-    t.decimal  "price",                    precision: 10, scale: 2
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_staff_id"
-    t.string   "package_itemable_type"
-    t.integer  "package_itemable_id"
-    t.integer  "store_package_setting_id"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
   end
 
   create_table "store_package_settings", force: :cascade do |t|
