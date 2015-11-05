@@ -15,6 +15,7 @@
       </ul>
     </div>
     <div class="details_content"><%= render 'form' %></div>
+    <input type="hidden" data-material='<%= @store_material.to_json.html_safe %>' id='material_json'>
   </div>
 </div>
 
@@ -37,37 +38,8 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-    //v = new $$MIS.NewMaterialView({urlRoot: "/kucun/materials/<%=@store_material.id%>"});
+    material = $('#material_json').data('material');
+    v = new $$MIS.NewMaterialView({urlRoot: "/kucun/materials/<%=@store_material.id%>", model: new $$MIS.Material(material)});
+  });
 </script>
-
-<script>
- jQuery(function($) {
-   $( "input.autocomplete" ).autocomplete({
-     source: function( request, response ) {
-       $.ajax({
-         url: "/kucun/materials/autocomplete_name",
-         dataType: "jsonp",
-         data: {
-           q: request.term
-         },
-         success: function( data ) {
-           response( data );
-         }
-       });
-     },
-     minLength: 3,
-     select: function( event, ui ) {
-       console.log( ui.item ?
-         "Selected: " + ui.item.label :
-         "Nothing selected, input was " + this.value);
-     },
-     open: function() {
-       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-     },
-     close: function() {
-       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-     }
-   });
- });
- </script>
 <% end %>

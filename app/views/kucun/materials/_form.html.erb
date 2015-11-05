@@ -1,5 +1,5 @@
   <% action_uri = @store_material.new_record? ? kucun_materials_path : kucun_material_path(@store_material) %>
-  <%= form_for(@store_material, url: action_uri, as: :material) do %>
+  <%= form_for(@store_material, url: action_uri, as: :material, html: {id: 'material_form'}) do %>
   <div class="base_info">
 
     <div class="goods_img">
