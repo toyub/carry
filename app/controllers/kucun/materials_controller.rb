@@ -28,22 +28,21 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def create
-    x = StoreMaterial.new(material_params)
-
-    x.store_id=current_user.store_id
-    x.store_chain_id=current_user.store_chain_id
-    x.store_staff_id=current_user.id
-    x.save
-
-    render json: x
+    store = current_store
+    store_material = store.store_materials.build(material_params)
+    store_material.store_staff_id=current_user.id
+    store_material.save!
+    render json: store_material
   end
 
   def edit
-
   end
 
   def update
-    render json: params
+    store = current_store
+    store_material = store.store_materials.find(params[:id])
+    store_material.update!(material_params)
+    render json: store_material
   end
 
   def show
@@ -51,7 +50,6 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   def autocomplete_name
     result = StoreMaterial.where('name like :name', name: "%#{params[:q]}%").map(&:name)
-
     render text: "#{params[:callback]}(#{result.to_json})"
   end
 
