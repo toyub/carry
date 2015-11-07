@@ -1,0 +1,182 @@
+
+<div class="main_top">
+  <span class="add_span">+</span>
+</div>
+<div class="details">
+  <div class="content_list">
+    <div class="details_nav">
+        <%= render partial: '/kucun/materials/material_settings_url' %>
+    </div>
+    <div class="details_content">
+      <div class="base_info">
+        <div class="goods_img">
+          <div id='material_img_preview' class="goods_main_img"></div>
+          <ul id='material_img_thumbnails' class="goods_small_img">
+            <li id='preview_list'>
+              <% @store_material.uploads.each do |image| %>
+                <img src="<%= image.img_url %>">
+              <% end %>
+            </li>
+          </ul>
+        </div>
+        <div class=" car_content">
+          <div class="grid-1-2 float-left">
+            <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
+              <colgroup>
+                <col width="50%">
+                <col width="50%">
+              </colgroup>
+              <tbody>
+                <tr>
+                  <td>
+                    <label class="width-75">商品名称</label>
+                    <input type="text" class="width-165" value="<%= @store_material.name %>" readonly/>
+                  </td>
+                  <td>
+                    <label class="width-75">条形码</label>
+                    <input type="text" class="width-165" value="<%= @store_material.barcode %>" readonly/>
+                 </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">助记码</label>
+                    <input type="text" class="width-165" value="<%= @store_material.mnemonic %>" readonly/>
+                  </td>
+                  <td>
+                    <label class="width-75">一级分类</label>
+                    <select  class="width-167" disabled>
+                      <option selected="selected"><%=  %></option>
+                    </select>
+                 </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">二级分类</label>
+                    <select  class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected">汽车膜</option>
+                      <option>镀晶</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">商品品牌</label>
+                    <select class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected" >澳大利亚卡古</option>
+                      <option>米其林</option>
+                      <option>澜泰</option>
+                      <option>巴尔扎克</option>
+                      <option>途乐</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">生产单位</label>
+                    <select class="width-167" disabled>
+                      <option >请选择</option>
+                      <option selected="selected">天津卡吉</option>
+                      <option>杭州米其林</option>
+                      <option>杭州澜泰</option>
+                      <option>米其林进口</option>
+                      <option>杭州雪兰</option>
+                      <option>杭州鼎洪</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">商品规格</label>
+                    <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">商品单位</label>
+                    <select class="width-167" disabled="disabled">
+                      <option >请选择</option>
+                      <option selected="selected">平方米</option>
+                      <option>个</option>
+                      <option>盒</option>
+                      <option>瓶</option>
+                      <option>条</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">成本价</label>
+                    <input type="text" class="width-165"  value="20000.00" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <label class="width-75">最低售价</label>
+                    <input type="text" class="width-165" value="0.0" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="width-75">回访类型</label>
+                    <% if @tracking.id %>
+                      <input type="hidden" id='tracking_id' value="<%= @tracking.id %>">
+                    <% end %>
+                    <select name='tracking[tracking_mode]' class="width-167" >
+                      <option <%= 'selected' if @tracking.tracking_mode.to_i == 0 %> value="0">没有回访</option>
+                      <option <%= 'selected' if @tracking.tracking_mode.to_i == 1 %> value="1">人工回访</option>
+                      <option <%= 'selected' if @tracking.tracking_mode.to_i == 2 %> value="2">自动回访</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">系统提醒</label>
+                      <label class="width-65 text-align-left"><input type="radio" value=0 <%= 'disabled' if @tracking.tracking_mode.to_i == 0 %> <%= 'checked' unless @tracking.reminder_required %> name="tracking[reminder_required]">关闭</label>
+                      <label class="width-65 text-align-left"><input type="radio" value=1 <%= 'disabled' if @tracking.tracking_mode.to_i == 0 %> <%= 'checked' if @tracking.reminder_required %> name="tracking[reminder_required]">打开</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div  class="grid-1-2 float-left">
+            <div class="visit_list" id='sections'>
+              <div class="top">
+                <h2>回访内容列表</h2>
+                <span class="new_btn btn click_btn margin-top-10 float-right cursor <%= 'disabled' if @tracking.tracking_mode.to_i == 0 %>">创建</span>
+              </div>
+              <div class="none_visit_data">
+                <p class="none_visit_p">当前没回访内容</p>
+                <p class="none_details">
+                  你可以先选择回访下拉菜单中的"是"来激活回访列表，然后点击创建来添加配套的回访内容
+                </p>
+              </div>
+              <div class="list">
+                <div class="list_top list_tr">
+                  <ul>
+                    <li class="margin-left-2">#</li>
+                    <li >内容</li>
+                    <li >间隔时间</li>
+                    <li >方式</li>
+                  </ul>
+                </div>
+                <div id="lists" class="list_contents"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn_group">
+        <input type="reset" class="btn cancel_btn" value="取消">
+        <input type="submit" id='save_tracking' class="btn save_btn" value="保存">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+
+  <script type="text/javascript">
+    jQuery(function($) {
+      var urlRoot = '/kucun/materials/<%= @store_material.id %>/tracking';
+      x =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot});
+    });
+  </script>
+
+<% end %>
