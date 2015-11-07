@@ -1,0 +1,61 @@
+(function(win, $){
+  var create_xhr_with = function(options){
+    var xhr = new XMLHttpRequest();
+    if(options.onabort){
+      xhr.onabort = options.onabort
+    }
+    if(options.onabort){
+      xhr.onabort = options.onabort
+    }
+    if(options.onerror){
+      xhr.onerror = options.onerror
+    }
+    if(options.onload){
+      xhr.onload = options.onload
+    }
+    if(options.onloadend){
+      xhr.onloadend = options.onloadend
+    }
+    if(options.onloadstart){
+      xhr.onloadstart = options.onloadstart
+    }
+    if(options.onprogress){
+      xhr.onprogress = options.onprogress
+    }
+    if(options.onreadystatechange){
+      xhr.onreadystatechange = options.onreadystatechange
+    }
+    if(options.ontimeout){
+      xhr.ontimeout = options.ontimeout
+    }
+    if(options.upload.onprogress){
+      xhr.upload.onprogress = options.upload.onprogress
+    }
+    return xhr;
+  }
+
+  var putb64 = function(base64_data, uptoken, opt){
+    if(!base64_data || !uptoken){
+      throw Error('Require 2 params "base64_data" and "uptoken"!');
+    }
+    var url = "http://up.qiniu.com/putb64/-1";
+    var xhr = create_xhr_with(opt);
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/octet-stream");
+    xhr.setRequestHeader("Authorization", uptoken);
+    xhr.send(base64_data);
+    return xhr;
+  }
+
+  var  qiniu_putb64 = function(img_data_url, opt){
+    var base64code = img_data_url.replace('data:image/png;base64,', '');
+    $.get('/api/qiniu/upload_token.json').done(function(data){
+      if(data.uptoken){
+        return putb64(base64code, data.uptoken, opt);
+      }else{
+        throw Error("can not fetch 'Qiniu Upload Token'");
+      }
+    });
+  }
+  window.qiniu_putb64 = qiniu_putb64;
+})(window, jQuery);

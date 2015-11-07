@@ -100,3 +100,11 @@ gem "kaminari"
 #https://github.com/select2/select2
 #https://select2.github.io/examples.html
 gem "select2-rails"
+
+#Qiniu Ruby SDK
+#  https://github.com/qiniu/ruby-sdk
+#Qiniu upload image base64 data-url
+#  http://kb.qiniu.com/5rroxdgb
+#Qiniu upload token
+#  http://developer.qiniu.com/docs/v6/api/reference/security/upload-token.html
+gem 'qiniu'

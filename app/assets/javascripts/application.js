@@ -30,6 +30,7 @@
 //= require 'piccut/1.0.0'
 //= require 'select2'
 //= require number_input
+//= require uploader/image
 
 function ZhanchuangAlert(msg) {
   $.alert({text: msg})
