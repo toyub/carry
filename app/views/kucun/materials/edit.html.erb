@@ -35,23 +35,6 @@
       <input class="cancel_btn btn-cancel js-cancel" type="button" value="取消"/>
     </div>
   </div>
-
-
-<div id="FloatWindow" style="display:none">
-  <div class="FloatContent">
-    <div class="bg-color-311951 float_head"></div>
-    <div class="uploading_progress_window">
-      <p>正在上传文件，请不要关闭窗口或刷新浏览器</p>
-      <ul id='progress_list'></ul>
-      <p id='upload_completed' style="display:none">上传完成！</p>
-      <div class="btn_group">
-        <input value="关闭" class="close_btn" type="button">
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <% end %>
 
 <% content_for :javascripts do %>
@@ -60,46 +43,69 @@
     material = $('#material_json').data('material');
     v = new $$MIS.NewMaterialView({urlRoot: "/kucun/materials/<%=@store_material.id%>", model: new $$MIS.Material(material)});
   });
-
-  var form = [];
   
-  var save_image_for_material = function(form_data){
-    var qiniu_imgs = {qiniu_imgs: form_data};
-    var url = "/kucun/materials/<%= @store_material.id %>/save_picture";
-    $.post(url, qiniu_imgs)
-      .done(function(response){
-          $('#upload_completed').show();
+  function QiniuUploadHandle(total, form_url, redirect_to){
+    this.total = total;
+    this.form_url = form_url;
+    this.progress = 0;
+    this.qiniu_results = [];
+    
+    this.add_results = function(idx, result){
+      this.qiniu_results.push({idx: idx, qiniu_res: result});
+      this.progress += 1;
+    };
+    
+    this.form_data = function(){
+      var sorted = this.qiniu_results.sort(function(r1, r2){return r1.idx > r2.idx});
+      return {results: sorted};
+    };
+
+    this.save_image_for = function(url){
+      $.post(url, this.form_data())
+       .done(function(response){
+          UploadDialog.completed();
+       });
+    }
+
+    this.deal_with = function(idx, response){
+      this.add_results(idx, response);
+      if (this.progress == this.total){this.save_image_for(this.form_url);}
+    }
+
+    this.starting = function(){
+      UploadDialog.show({
+        close: function(){
+          window.location.replace(redirect_to);
+        }
       });
+    }
   }
-  var deal_with = function(upfile_count, upload_count, idx, response){
-    form.push({idx: idx,qiniu_res: response});
-    if (upfile_count == upload_count){save_image_for_material(form);}
-  }
+  
 
 
   $("#putimg").on('click', function(){
-    if($('#preview_list > img').length > 1){
-      var upfile_count = $('#preview_list > img').length;
-      var upload_count = 0;
-      $('#FloatWindow').show();
+    if($('#preview_list > img').length > 0){
+      var upload_handle = new QiniuUploadHandle($('#preview_list > img').length,
+                                                "/kucun/materials/<%= @store_material.id %>/save_picture",
+                                                '/kucun/materials/<%= @store_material.id %>');
+      
+      upload_handle.starting();
       $('#preview_list > img').each(function(idx,img, undef){/* *this = img;*/
          qiniu_b64_upload(img.src, {
           onloadstart:function(evt){
-            var li = '<li><span>正在上传文件' + (idx +1 ) +'</span><progress upid='+ idx +' value="0" max="100"></progress></li>';
-            $('#progress_list').append(li);
+            UploadDialog.add_progress(idx + 1);
           },
           
           upload: {
             onprogress: function(evt){
               var progress_val = (evt.loaded / evt.total)*100;
-              $('[upid='+ idx +']').val(progress_val)
+              UploadDialog.up_progress(idx + 1, progress_val);
             }
           },
 
           onloadend: function(evt){/* *this=XMLHttpRequest; *evt=XMLHttpRequestProgressEvent */
-            upload_count += 1;
             var res_json = JSON.parse(this.response);
-            deal_with(upfile_count, upload_count, idx, res_json);
+            upload_handle.deal_with(idx, res_json);
           }
          })
       });

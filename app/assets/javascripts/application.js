@@ -31,6 +31,7 @@
 //= require 'select2'
 //= require number_input
 //= require uploader/image
+//= require dialogs/upload
 
 function ZhanchuangAlert(msg) {
   $.alert({text: msg})
