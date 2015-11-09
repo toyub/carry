@@ -32,7 +32,17 @@
 //= require number_input
 //= require uploader/image
 //= require dialogs/upload
+//= require jquery_ext/jquery.datetimepicker
+
 
 function ZhanchuangAlert(msg) {
   $.alert({text: msg})
 }
+
+// 全局默认的配置, 如需单独配置，在各自模块配置
+$(document).ready(function(){
+  $("#datetimepicker").datetimepicker({
+    lang: "zh",
+    format: 'Y-m-d H:i',
+  });
+})
