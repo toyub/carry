@@ -20,4 +20,10 @@ module ViewHelper
       ""
     end
   end
+
+  def breadcrumb_navigation(crumbs=[], redirect_path=nil)
+    nav_str = "<h2>#{crumbs.join(' >')}</h2>"
+    nav_str = nav_str + "<a class='back_to_list' href='#{redirect_path}'><i class='fa-arrow-circle-left fa'></i>返回列表</a>" if redirect_path
+    nav_str.html_safe
+  end
 end
