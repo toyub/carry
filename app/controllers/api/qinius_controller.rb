@@ -13,5 +13,12 @@ module Api
       end
       respond_with result, location: nil
     end
+
+    def post_img_src
+      p request.body
+      render json: {md5: "#{Time.now.to_f}#{rand}#{rand}#{rand}"}
+    end
+
+
   end
 end

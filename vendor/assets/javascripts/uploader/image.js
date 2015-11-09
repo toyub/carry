@@ -34,7 +34,7 @@
     return xhr;
   }
 
-  var putb64 = function(base64_data, uptoken, opt){
+  var qiniu_putb64 = function(base64_data, uptoken, opt){
     if(!base64_data || !uptoken){
       throw Error('Require 2 params "base64_data" and "uptoken"!');
     }
@@ -47,15 +47,16 @@
     return xhr;
   }
 
-  var  qiniu_putb64 = function(img_data_url, opt){
+  var  qiniu_b64_upload = function(img_data_url, opt){
     var base64code = img_data_url.replace('data:image/png;base64,', '');
     $.get('/api/qiniu/upload_token.json').done(function(data){
       if(data.uptoken){
-        return putb64(base64code, data.uptoken, opt);
+        return qiniu_putb64(base64code, data.uptoken, opt);
       }else{
         throw Error("can not fetch 'Qiniu Upload Token'");
       }
     });
   }
-  window.qiniu_putb64 = qiniu_putb64;
+
+  window.qiniu_b64_upload = qiniu_b64_upload;
 })(window, jQuery);

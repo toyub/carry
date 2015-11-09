@@ -54,9 +54,10 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def save_picture
-    @material = StoreMaterial.find(params[:id])
-    @material.uploads.create(img_params)
-    render text: :ok
+    #@material = StoreMaterial.find(params[:id])
+    #@material.uploads.create(img_params)
+
+    render json: params
   end
 
   private
