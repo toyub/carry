@@ -30,7 +30,16 @@
 //= require 'piccut/1.0.0'
 //= require 'select2'
 //= require number_input
+//= require jquery_ext/jquery.datetimepicker
 
 function ZhanchuangAlert(msg) {
   $.alert({text: msg})
 }
+
+// 全局默认的配置, 如需单独配置，在各自模块配置
+$(document).ready(function(){
+  $("#datetimepicker").datetimepicker({
+    lang: "zh",
+    format: 'Y-m-d H:i',
+  });
+})
