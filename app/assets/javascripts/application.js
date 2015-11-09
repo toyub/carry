@@ -30,7 +30,10 @@
 //= require 'piccut/1.0.0'
 //= require 'select2'
 //= require number_input
+//= require uploader/image
+//= require dialogs/upload
 //= require jquery_ext/jquery.datetimepicker
+
 
 function ZhanchuangAlert(msg) {
   $.alert({text: msg})

@@ -137,6 +137,13 @@ Rails.application.routes.draw do
     resources :store_vehicles, only: [:index]
     resources :store_orders, only: [:index]
     resources :store_subscribe_orders
+
+    resource :qiniu do
+      collection do
+        get :upload_token
+        post :post_img_src
+      end
+    end
   end
 
   root 'kucun/materials#index'

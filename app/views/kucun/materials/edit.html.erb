@@ -12,10 +12,10 @@
         <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">销售设置</a></li>
         <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">提成</a></li>
         <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">回访</a></li>
-
       </ul>
     </div>
     <div class="details_content"><%= render 'form' %></div>
+    <input type="hidden" data-material='<%= @store_material.to_json.html_safe %>' id='material_json'>
   </div>
 </div>
 
@@ -28,7 +28,7 @@
   	  <div id='gallery' style="top: -1px; left: 115px;" class="resize-container"></div>
   	</div>
     <div class="btn_group">
-      <input type="file" id='imgfile' name="imgefile" size="12" accept="image/jpeg,image/png" />
+      <input type="file" id='imgfile' size="12" accept="image/jpeg,image/png" />
       <button class="crop_btn btn-crop js-crop">截图</button>
       <input class="cancel_btn btn-cancel js-cancel" type="button" value="取消"/>
     </div>
@@ -38,78 +38,9 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-    v = new $$MIS.NewMaterialView();
-    v.setElement('#edit_material');
-    v.model = new $$MIS.Material();
-    v.model.on('invalid', v.invalid_handle);
-    v.category_collection = new  $$MIS.MaterialCategoryCollection();
-    v.model.view = v;
-
-    $('#new_material').on('submit', function(evt){
-        evt.preventDefault();
-        evt.stopPropagation();
-        var $this = $(this);
-        if($this.data('error')){return false;}
-        if(!v.model.isValid()){return false;}
-
-        v.model.save()
-               .success(function(data){
-                 var url = v.model.url() + '/save_picture';
-                 $('#preview_list > img').each(function(idx){
-                    var img = this;
-                    $.ajax({
-                            type: "POST",
-                            url: url,
-                            sync: false,
-                            data: {img: img.src},
-                            success: function(data){console.log(data)},
-                            dataType: 'text'
-                          });
-                 });
-                 $('#modal_dialog').html('save successfully!').dialog({
-                    modal: true,
-                    buttons: {
-                      Ok: function() {
-                        $( this ).dialog( "close" );
-                      }
-                    }
-                  });
-                  window.location.replace(v.model.url());
-                })
-              .error(function(data){alert('error')});
-        return false;
-    });
+    material = $('#material_json').data('material');
+    v = new $$MIS.NewMaterialView({urlRoot: "/kucun/materials/<%=@store_material.id%>", model: new $$MIS.Material(material)});
   });
-</script>
 
-<script>
- jQuery(function($) {
-   $( "input.autocomplete" ).autocomplete({
-     source: function( request, response ) {
-       $.ajax({
-         url: "/kucun/materials/autocomplete_name",
-         dataType: "jsonp",
-         data: {
-           q: request.term
-         },
-         success: function( data ) {
-           response( data );
-         }
-       });
-     },
-     minLength: 3,
-     select: function( event, ui ) {
-       console.log( ui.item ?
-         "Selected: " + ui.item.label :
-         "Nothing selected, input was " + this.value);
-     },
-     open: function() {
-       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-     },
-     close: function() {
-       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-     }
-   });
- });
- </script>
+</script>
 <% end %>
