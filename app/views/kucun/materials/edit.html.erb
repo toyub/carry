@@ -16,8 +16,6 @@
     </div>
     <div class="details_content"><%= render 'form' %></div>
     <input type="hidden" data-material='<%= @store_material.to_json.html_safe %>' id='material_json'>
-
-    <input type="button" id='putimg' value="UpImage">
   </div>
 </div>
 
@@ -42,74 +40,6 @@
   jQuery(function($){
     material = $('#material_json').data('material');
     v = new $$MIS.NewMaterialView({urlRoot: "/kucun/materials/<%=@store_material.id%>", model: new $$MIS.Material(material)});
-  });
-  
-  function QiniuUploadHandle(total, form_url, redirect_to){
-    this.total = total;
-    this.form_url = form_url;
-    this.progress = 0;
-    this.qiniu_results = [];
-    
-    this.add_results = function(idx, result){
-      this.qiniu_results.push({idx: idx, qiniu_res: result});
-      this.progress += 1;
-    };
-    
-    this.form_data = function(){
-      var sorted = this.qiniu_results.sort(function(r1, r2){return r1.idx > r2.idx});
-      return {results: sorted};
-    };
-
-    this.save_image_for = function(url){
-      $.post(url, this.form_data())
-       .done(function(response){
-          UploadDialog.completed();
-       });
-    }
-
-    this.deal_with = function(idx, response){
-      this.add_results(idx, response);
-      if (this.progress == this.total){this.save_image_for(this.form_url);}
-    }
-
-    this.starting = function(){
-      UploadDialog.show({
-        close: function(){
-          window.location.replace(redirect_to);
-        }
-      });
-    }
-  }
-  
-
-
-  $("#putimg").on('click', function(){
-    if($('#preview_list > img').length > 0){
-      var upload_handle = new QiniuUploadHandle($('#preview_list > img').length,
-                                                "/kucun/materials/<%= @store_material.id %>/save_picture",
-                                                '/kucun/materials/<%= @store_material.id %>');
-      
-      upload_handle.starting();
-      $('#preview_list > img').each(function(idx,img, undef){/* *this = img;*/
-         qiniu_b64_upload(img.src, {
-          onloadstart:function(evt){
-            UploadDialog.add_progress(idx + 1);
-          },
-          
-          upload: {
-            onprogress: function(evt){
-              var progress_val = (evt.loaded / evt.total)*100;
-              UploadDialog.up_progress(idx + 1, progress_val);
-            }
-          },
-
-          onloadend: function(evt){/* *this=XMLHttpRequest; *evt=XMLHttpRequestProgressEvent */
-            var res_json = JSON.parse(this.response);
-            upload_handle.deal_with(idx, res_json);
-          }
-         })
-      });
-    }
   });
 
 </script>

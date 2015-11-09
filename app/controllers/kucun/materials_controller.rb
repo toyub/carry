@@ -32,7 +32,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
     store_material = store.store_materials.build(material_params)
     store_material.store_staff_id=current_user.id
     store_material.save!
-    render json: store_material
+    render json: store_material, root: nil
   end
 
   def edit
@@ -42,7 +42,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
     store = current_store
     store_material = store.store_materials.find(params[:id])
     store_material.update!(material_params)
-    render json: store_material
+    render json: store_material, root: nil
   end
 
   def show
@@ -54,10 +54,12 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def save_picture
-    #@material = StoreMaterial.find(params[:id])
-    #@material.uploads.create(img_params)
+    @material = StoreMaterial.find(params[:id])
+    Upload::Base.create(params[:results].map{|qiniu_key|
+      {fileable: @material,img: qiniu_key,store_staff_id: current_staff.id}
+    })
 
-    render json: params
+    render text: 'ok'
   end
 
   private
