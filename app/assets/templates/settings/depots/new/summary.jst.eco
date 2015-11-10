@@ -1,10 +1,28 @@
-<tr>
-  <td class="sequence_num"></td>
-  <td class="warehouse_name <%= warehouse.get('defaultHouse') %>"><%= warehouse.get("name") %></td>
-  <td class="warehouse_descript"><%= warehouse.get("descript") %></td>
-  <td class="time"><%= warehouse.get("createtime") %></td>
+
+  <td class="sequence_num"><%= @idx %></td>
+  <td class="warehouse_name"><%= @name %></td>
+  <td class="warehouse_descript"><%= @description %></td>
+  <td class="time"><%=  @created_on %></td>
   <td class="operator"><%= "王强" %></td>
-  <td class="admin"><%= warehouse.get("admin") %></td>
-  <td><a class="cursor-pointer <%= warehouse.get('statusAttr') %>"><%= warehouse.get("statusTxt") %></a></td>
-  <td><i class="edit_warehouse fa fa-pencil margin-right-8 cursor-pointer font-14"></i><i class="delete_warehouse fa fa-trash-o cursor-pointer font-14"></i></td>
-</tr>
+  <td class="admin"><%= @admins %></td>
+  <td>
+    <% if @useable : %>
+      <a class="cursor-pointer status available"></a>
+    <% else : %>
+      <a class="cursor-pointer status not_avail"></a>
+    <% end %>
+  </td>
+  <td>
+    <% if @preferred : %>
+      <a class="default"></a>
+    <% else: %>
+      <a href="javascript:void(0)" class="not_default"></a>
+    <% end %>
+  </td>
+  <td data-modelid='<%= @modelid %>' data-viewid='<%= @viewid %>'>
+    <i class="edit_warehouse fa fa-pencil margin-right-8 cursor-pointer font-14"></i>
+    <% if @status=='not_use' : %>
+      <i class="delete_warehouse fa fa-trash-o cursor-pointer font-14"></i>
+    <% end %>
+  </td>
+

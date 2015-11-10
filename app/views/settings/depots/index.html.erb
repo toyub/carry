@@ -15,7 +15,7 @@
     <table class="warehouse">
       <thead>
         <tr>
-          <th colspan="7"></th>
+          <th colspan="8"></th>
           <th><input type="button" class="btn new_btn new_warehouse_btn" value="新建"></th>
         </tr>
         <tr>
@@ -26,10 +26,11 @@
           <th>创建人</th>
           <th>库管员</th>
           <th>状态</th>
+          <th>默认仓库</th>
           <th>操作</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody id='summaries'></tbody>
     </table>
   </div>
 
@@ -50,4 +51,11 @@
       </div>
     </div>
   </div>
+<% end %>
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      handle = new $$MIS.DepotsHandleView();
+    });
+  </script>
 <% end %>
