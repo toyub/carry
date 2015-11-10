@@ -1,0 +1,10 @@
+<li><%= @item.get 'id' %>.</li>
+<li><label class="name"><%= @item.name() %></label></li>
+<li><%= @item.category() %></li>
+<li><%= @item.retail_price() %></li>
+<li><%= @item.price() %></li>
+<li><%= @item.get 'quantity' %></li>
+<li>
+  <span><%= @item.amount() %></span>
+  <span class="delete delete_list">×</span>
+</li>

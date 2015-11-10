@@ -1,93 +1,41 @@
-<ul class="items_create_head" id="do_sel_types_to_create_package_card">
-  <li class="color-dad8d8">
-  <label>
-    服务项目
-    <input type="radio" id="serviceItem" name="package_itemable_type" value="StoreService" checked>
-  </label>
-  </li>
-  <li>
-  <label>
-    储值
-    <input type="radio" id="depositItem" name="package_itemable_type" value="StoreDepositCard">
-  </label>
-  </li>
-  <li class="color-dad8d8">
-  <label>
-    商品
-    <input type="radio" id="materialItem" name="package_itemable_type" value="StoreMaterial">
-  </label>
-  </li>
-</ul>
-<div id="items_create_contents" class="position-relative height-355">
-  <ul class="service_wrap wrap" id="serviceItemForm" style="display: block;">
-    <li>
-      <label>服务项目：</label>
-      <select name="store_service_id" id="store_service_id" class="width-260">
-        <% window.Store.store_services.each (service) ->: %>
-          <option value="<%= service.get 'id' %>"><%= service.get 'name' %></option>
-        <% end %>
-      </select>
-    </li>
-    <li>
-      <label>名称：</label>
-      <span></span>
-    </li>
-    <li>
-      <label>零售价：</label>
-      <span></span>
-    </li>
-    <li>
-      <label>次数：</label>
-      <input type="text" name="quntity"> 次
-    </li>
-    <li>
-      <label>套餐价：</label>
-      <input type="text" name="price"> 元
-    </li>
-  </ul>
+<div class="creating_window do_list_new_page" style="display: block;">
 
-  <ul class="fee_charge_wrap wrap" id="depositItemForm" style="display: none;">
-    <li>
-      <label>储值名称：</label>
-      <input type="text" class="width-260">
-    </li>
-    <li>
-      <label>名称：</label>
-      <span></span>
-    </li>
-    <li>
-      <label>零售价：</label>
-      <span></span>
-    </li>
-    <li>
-      <label>套餐面额：</label>
-      <input type="text" name="denomination"> 元
-    </li>
-    <li>
-      <label>套餐价：</label>
-      <input type="text" nae="price"> 元
-    </li>
-  </ul>
-  <ul class="goods_wrap wrap" id="materialItemForm" style="display: none;">
-    <li>
-      <label>商品名称：</label>
-      <input type="text" class="width-260" placeholder="输入商品名称或关键字展开">
-    </li>
-    <li>
-      <label>名称：</label>
-      <span></span>
-    </li>
-    <li>
-      <label>零售价：</label>
-      <span></span>
-    </li>
-    <li>
-      <label>数量：</label>
-      <input type="text" name="quntity"> 件
-    </li>
-    <li>
-      <label>套餐价：</label>
-      <input type="text" name="price"> 元
-    </li>
-  </ul>
+  <h3>创建套餐内容</h3>
+
+  <div class="creating_details float-left">
+    <ul class="items_create_head" id="do_sel_types_to_create_package_card">
+      <li class="color-dad8d8">
+        <label>
+          服务项目
+          <input type="radio" id="serviceItem" name="package_itemable_type" value="StoreService" <%= 'checked' if @item.isStoreService() %>>
+        </label>
+      </li>
+      <li>
+        <label>
+          储值
+          <input type="radio" id="depositItem" name="package_itemable_type" value="StoreDepositCard" <%= 'checked' if @item.isStoreDepositCard() %>>
+        </label>
+      </li>
+      <li class="color-dad8d8">
+        <label>
+          商品
+          <input type="radio" id="materialItem" name="package_itemable_type" value="StoreMaterial" <%= 'checked' if @item.isStoreMaterial() %>>
+        </label>
+      </li>
+    </ul>
+    <div id="itemsCreateContents" class="position-relative height-355">
+
+    </div>
+  </div>
+  <div class=" btn_group_in_package">
+    <label class="cancel_btn btn cancel color-000" id="closeWithoutSave">取消</label>
+    <label class="save_btn btn" id="saveAndClose">保存</label>
+  </div>
+
+  <div class="tips float-right">
+    <h4 class="text-align-center">提示</h4>
+    <p>在这里可以按您的需要将一个服务精细划分成多个流程，或者工序来进行施工操作，对该项服务实行精确管理。
+    流程设置可以应用在多种服务上，尤其是需要多工种共同完成一种服务。
+    </p>
+  </div>
 </div>

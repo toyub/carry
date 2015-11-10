@@ -4,6 +4,9 @@ class CreateStoreDepositCards < ActiveRecord::Migration
       t.decimal :price, precision: 10, scale: 2
       t.decimal :denomination, precision: 10, scale: 2
       t.string :name
+      t.integer :store_id
+      t.integer :store_chain_id
+      t.integer :store_staff_id
 
       t.timestamps null: false
     end

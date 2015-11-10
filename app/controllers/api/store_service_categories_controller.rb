@@ -1,7 +1,7 @@
 module Api
   class StoreServiceCategoriesController < BaseController
     def create
-      @category = current_store.service_categories.create(category_params)
+      @category = current_store.service_categories.create(append_store_attrs category_params)
       respond_with @category, location: nil
     end
 

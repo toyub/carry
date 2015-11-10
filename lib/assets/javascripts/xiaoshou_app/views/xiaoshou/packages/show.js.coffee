@@ -18,7 +18,7 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
     @$("#masterNav").html view.render().el
 
   renderSubNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsSub()
+    view = new Mis.Views.XiaoshouPackageNavsSub(package: @model)
     @$("#subNav").html view.render().el
 
   renderPackageItems: ->

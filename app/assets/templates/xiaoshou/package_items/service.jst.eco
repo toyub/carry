@@ -1,0 +1,25 @@
+<li>
+  <label>服务项目：</label>
+  <select name="package_itemable_id" id="store_service_id" class="width-132">
+    <option></option>
+    <% window.StoreServices.each (service) ->: %>
+    <option value="<%= service.get 'id' %>"><%= service.get 'name' %></option>
+  <% end %>
+  </select>
+</li>
+<li>
+  <label>名称：</label>
+  <span id="serviceName"></span>
+</li>
+<li>
+  <label>零售价：</label>
+  <span id="servicePrice"></span>
+</li>
+<li>
+  <label>次数：</label>
+  <input type="text" name="quantity"> 次
+</li>
+<li>
+  <label>套餐价：</label>
+  <input type="text" name="price"> 元
+</li>

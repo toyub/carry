@@ -5,6 +5,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     @store.serviceCategories.on('add', @addOneCategory, @)
     Backbone.Validation.bind(@)
     @model.on('sync', @handleSuccess, @)
+    @model.on('validated:invalid', @invalid, @)
 
   template: JST['xiaoshou/service/profiles/new']
 
@@ -39,6 +40,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     @$(".materialList").parent().show()
 
   renderServiceCategories: ->
+    console.log @store.serviceCategories
     @store.serviceCategories.each @renderServiceCategory
 
   renderServiceCategory: (category) =>
@@ -96,3 +98,9 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     img = new Image()
     img.src = e.target.src
     $("#material_img_preview").html(img)
+
+  invalid: (model, errors) ->
+    @handleError(model, errors)
+
+  handleError: (model, responseOrErrors) ->
+    console.log responseOrErrors

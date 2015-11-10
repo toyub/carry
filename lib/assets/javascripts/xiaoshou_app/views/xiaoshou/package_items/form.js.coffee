@@ -1,9 +1,11 @@
 class Mis.Views.XiaoshouPackageItemsForm extends Backbone.View
-  el: "#newPackageItem"
+  className: 'creating_details float-left'
 
   template: JST['xiaoshou/package_items/form']
 
   initialize: (options) ->
+    Backbone.Validation.bind(@)
+    @model.on('validated:invalid', @invalid, @)
     console.log 123
 
   events:
@@ -14,25 +16,43 @@ class Mis.Views.XiaoshouPackageItemsForm extends Backbone.View
     'click #materialItem': 'openMaterialItem'
 
   render: ->
-    @$el.find("#packageCreateDetails").html(@template(item: @model))
+    @$el.html(@template(item: @model))
+    @renderItemForm()
     @
 
   open: ->
-    @render()
-    @$el.show()
+    $("#newPackageItem").html @render().el
+    $("#newPackageItem").show()
 
   saveOnClick: ->
-    console.log 123
+    console.log 'add package items'
+    attrs = @$el.find("input, select").serializeJSON()
+    @model.set attrs
+    if @model.isValid(true)
+      @model.package_setting.items.add @model
+      @close()
 
   close: ->
     @undelegateEvents()
-    @$el.hide()
+    $("#newPackageItem").hide()
+
+  renderItemForm: ->
+    @openServiceItem() if @model.isStoreService
 
   openServiceItem: ->
-    @$("#serviceItemForm").show().siblings().hide()
+    view = new Mis.Views.XiaoshouPackageItemsService()
+    @$("#itemsCreateContents").html view.render().el
+    view.open()
 
   openDepositItem: ->
-    @$("#depositItemForm").show().siblings().hide()
+    view = new Mis.Views.XiaoshouPackageItemsDeposit()
+    @$("#itemsCreateContents").html view.render().el
+    view.open()
 
   openMaterialItem: ->
-    @$("#materialItemForm").show().siblings().hide()
+    view = new Mis.Views.XiaoshouPackageItemsMaterial()
+    @$("#itemsCreateContents").html view.render().el
+    view.open()
+
+  invalid: (model, errors) ->
+    console.log errors

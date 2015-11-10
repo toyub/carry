@@ -85,24 +85,23 @@
           <input type="button" id="openPackageItemForm" class="btn new_btn do_open_list_new_page" value="创建">
         </h2>
 
-        <div class="creating_window do_list_new_page" id="newPackageItem" style="display: none;">
+        <div class="created_package_items do_new_lists" style="">
+          <ul class="items_head">
+            <li class="border-none">#</li>
+            <li>项目名称</li>
+            <li>类别</li>
+            <li>正常售价</li>
+            <li>套餐价</li>
+            <li>数量</li>
+            <li>小计</li>
+          </ul>
 
-          <h3>创建套餐内容</h3>
-
-          <div class="creating_details float-left" id="package_create_details">
+          <div id="itemList" class="do_new_lists_content">
           </div>
+        </div>
 
-          <div class=" btn_group_in_package">
-            <label class="cancel_btn btn cancel color-000" id="closeWithoutSave">取消</label>
-            <label class="save_btn btn" id="saveAndClose">保存</label>
-          </div>
+        <div id="newPackageItem">
 
-          <div class="tips float-right">
-            <h4 class="text-align-center">提示</h4>
-            <p>在这里可以按您的需要将一个服务精细划分成多个流程，或者工序来进行施工操作，对该项服务实行精确管理。
-              流程设置可以应用在多种服务上，尤其是需要多工种共同完成一种服务。
-            </p>
-          </div>
         </div>
       </div>
     </div>

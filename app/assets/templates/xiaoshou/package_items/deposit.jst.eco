@@ -1,0 +1,14 @@
+<li>
+  <label>储值名称：</label>
+  <input type="text" name="name">
+</li>
+
+<li>
+  <label>套餐面额：</label>
+  <input type="text" name="denomination"> 元
+</li>
+
+<li>
+  <label>套餐价：</label>
+  <input type="text" name="price"> 元
+</li>

@@ -6,6 +6,9 @@ class Mis.Views.XiaoshouPackageSettingsNew extends Backbone.View
     'submit #newPackageSetting': 'createPackageSetting'
     'click #openPackageItemForm': 'openPackageItemForm'
 
+  initialize: ->
+    @model.items.on('add', @renderItem, @)
+
   render: ->
     @$el.html(@template(setting: @model))
     @renderNav()
@@ -35,3 +38,7 @@ class Mis.Views.XiaoshouPackageSettingsNew extends Backbone.View
     model = new Mis.Models.StorePackageItem(package_setting: @model)
     view = new Mis.Views.XiaoshouPackageItemsForm(model: model)
     view.open()
+
+  renderItem: (item) ->
+    view = new Mis.Views.XiaoshouPackageItemsPackageItem(model: item)
+    @$("#itemList").append view.render().el

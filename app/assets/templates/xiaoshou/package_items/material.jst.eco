@@ -1,0 +1,28 @@
+<li>
+  <label>商品名称：</label>
+  <select name="package_itemable_id" id="store_material_id" class="width-132">
+    <% window.Store.materials.each (m) ->: %>
+    <option value="<%= m.get 'id' %>"><%= m.get 'name' %></option>
+  <% end %>
+  </select>
+</li>
+
+<li>
+  <label>名称：</label>
+  <span id="materialName"></span>
+</li>
+
+<li>
+  <label>零售价：</label>
+  <span id="materialPrice"></span>
+</li>
+
+<li>
+  <label>数量：</label>
+  <input name="quantity" type="text"> 件
+</li>
+
+<li>
+  <label>套餐价：</label>
+  <input name="price" type="text"> 元
+</li>
