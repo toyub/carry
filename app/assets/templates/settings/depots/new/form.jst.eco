@@ -1,0 +1,29 @@
+
+<div class="new_warehouse">
+  <p>新建仓库</p>
+  <table>
+    <tr>
+      <td >仓库名称</td>
+      <td colspan="2"><input type="text" class="warehouse_name"></td>
+    </tr>
+    <tr>
+      <td class="vertical-align-top ">仓库描述</td>
+      <td colspan="2">
+        <textarea rows="6" class="warehouse_descript"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>库管员</td>
+      <td colspan="2"><input type="text" class="admin"></td>
+    </tr>
+    <tr>
+      <td><label for="set_default">设置默认</label></td>
+      <td><input id="set_default" type="checkbox"></td>
+      <td>只能有一个默认仓库</td>
+    </tr>
+  </table>
+  <div class="btns text-align-right">
+    <input type="button" class="btn cancel_btn" value="取消">
+    <input type="button" class="btn cfm_btn save_list_btn" value="确定">
+  </div>
+</div>

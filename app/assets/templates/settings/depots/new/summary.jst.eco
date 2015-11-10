@@ -1,0 +1,10 @@
+<tr>
+  <td class="sequence_num"></td>
+  <td class="warehouse_name <%= warehouse.get('defaultHouse') %>"><%= warehouse.get("name") %></td>
+  <td class="warehouse_descript"><%= warehouse.get("descript") %></td>
+  <td class="time"><%= warehouse.get("createtime") %></td>
+  <td class="operator"><%= "王强" %></td>
+  <td class="admin"><%= warehouse.get("admin") %></td>
+  <td><a class="cursor-pointer <%= warehouse.get('statusAttr') %>"><%= warehouse.get("statusTxt") %></a></td>
+  <td><i class="edit_warehouse fa fa-pencil margin-right-8 cursor-pointer font-14"></i><i class="delete_warehouse fa fa-trash-o cursor-pointer font-14"></i></td>
+</tr>
