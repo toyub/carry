@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105021840) do
+ActiveRecord::Schema.define(version: 20151110011308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20151105021840) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   create_table "renewal_records", force: :cascade do |t|
@@ -154,6 +155,17 @@ ActiveRecord::Schema.define(version: 20151105021840) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone_number",   limit: 45
+  end
+
+  create_table "store_deposit_cards", force: :cascade do |t|
+    t.decimal  "price",          precision: 10, scale: 2
+    t.decimal  "denomination",   precision: 10, scale: 2
+    t.string   "name"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   create_table "store_depots", force: :cascade do |t|
@@ -695,6 +707,20 @@ ActiveRecord::Schema.define(version: 20151105021840) do
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
+  end
+
+  create_table "store_package_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.decimal  "price",                    precision: 10, scale: 2
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "package_itemable_type"
+    t.integer  "package_itemable_id"
+    t.integer  "store_package_setting_id"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
   end
 
   create_table "store_package_settings", force: :cascade do |t|
