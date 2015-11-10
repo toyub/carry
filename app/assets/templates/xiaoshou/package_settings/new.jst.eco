@@ -38,8 +38,8 @@
             <label class="title">有效期</label>
             <ol>
               <li>
-                <input type="radio" checked="" name="period_enable"> <input type="text" name="period" class="width-80">
-                <select name="period_unit" class="width-80">
+                <input type="radio" checked="" value="true" id="periodEnable" name="period_enable"> <input type="text" name="period" class="width-80 period">
+                <select name="period_unit" class="width-80 period">
                   <option value="0">年</option>
                   <option value="1">月</option>
                   <option value="2">天</option>
@@ -47,9 +47,9 @@
               </li>
               <li>
                 <label class="margin-right-20">
-                  <input type="radio" class="toggleable" name="expired_notice_required"> 逾期前提醒
+                  <input type="radio" class="toggleable" value="true" name="expired_notice_required" id="noticeRequired"> 逾期前提醒
                 </label>
-                <input type="text" class="width-80" name="before_expired" disabled=""> 天
+                <input type="text" class="width-80" name="before_expired" disabled="" id="beforeExpiredDays"> 天
               </li>
             </ol>
           </li>
@@ -69,9 +69,9 @@
               <li>
                 <label>提成方案</label>
                 <select name="store_commission_template_id" class="width-190">
-                  <option></option>
-                  <option>方案1</option>
-                  <option>方案2</option>
+                  <% window.Store.commissionTemplates.each (c) ->: %>
+                    <option value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
+                  <% end %>
                 </select>
               </li>
             </ol>

@@ -3,7 +3,7 @@ class StorePackageItem < ActiveRecord::Base
 
   belongs_to :package_itemable, polymorphic: true
 
-  validates :store_package_setting_id, presence: true
+  #validates :store_package_setting_id, presence: true
   validates :package_itemable_id, presence: true, uniqueness: { scope: [:store_package_setting_id, :package_itemable_type, :store_id] }
   validates :package_itemable_type, presence: true
 

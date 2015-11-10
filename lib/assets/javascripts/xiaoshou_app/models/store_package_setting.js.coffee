@@ -4,6 +4,9 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
 
   modelName: 'store_package_setting'
 
+  url: ->
+    @store_package.url() + '/store_package_settings'
+
   initialize: (options) ->
     @store_package = options.store_package
 
