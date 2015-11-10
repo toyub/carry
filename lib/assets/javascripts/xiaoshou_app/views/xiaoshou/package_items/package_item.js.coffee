@@ -9,6 +9,7 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Backbone.View
     @package_setting = @model.package_setting
 
     @model.on('remove', @remove, @)
+    @model.on('change', @render, @)
 
   events:
     'click span.delete': 'clear'

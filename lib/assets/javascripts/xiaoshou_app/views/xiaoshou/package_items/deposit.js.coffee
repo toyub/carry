@@ -6,7 +6,7 @@ class Mis.Views.XiaoshouPackageItemsDeposit extends Backbone.View
   template: JST['xiaoshou/package_items/deposit']
 
   render: ->
-    @$el.html(@template())
+    @$el.html(@template(item: @model))
     @
 
   open: ->

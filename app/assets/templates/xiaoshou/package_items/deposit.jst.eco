@@ -1,14 +1,14 @@
 <li>
   <label>储值名称：</label>
-  <input type="text" name="name">
+  <input type="text" name="name" value="<%= @item.name('StoreDepositCard') %>">
 </li>
 
 <li>
   <label>套餐面额：</label>
-  <input type="text" name="denomination"> 元
+  <input type="text" name="denomination" value="<%= @item.get 'denomination' %>"> 元
 </li>
 
 <li>
   <label>套餐价：</label>
-  <input type="text" name="price"> 元
+  <input type="text" name="price" value="<%= @item.price('StoreDepositCard') %>"> 元
 </li>

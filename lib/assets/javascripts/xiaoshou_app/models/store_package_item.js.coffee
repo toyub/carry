@@ -36,22 +36,29 @@ class Mis.Models.StorePackageItem extends Backbone.Model
       required: true
       msg: '套餐价不能为空'
 
-  name: ->
-    switch @get('package_itemable_type')
-      when 'StoreMaterial' then window.Store.materials.get(@get 'package_itemable_id').get 'name'
-      when 'StoreService' then window.StoreServices.get(@get 'package_itemable_id').get 'name'
-      else @get 'name'
+  packageItemable: ->
+    itemable = switch @get('package_itemable_type')
+      when 'StoreMaterial' then window.Store.materials.get(@get 'package_itemable_id')
+      when 'StoreService' then window.StoreServices.get(@get 'package_itemable_id')
+      else @
+    itemable ? new Mis.Models.NullObject()
 
-  retail_price: ->
-    switch @get('package_itemable_type')
-      when 'StoreMaterial' then window.Store.materials.get(@get 'package_itemable_id').get 'cost_price'
-      when 'StoreService' then window.StoreServices.get(@get 'package_itemable_id').get 'retail_price'
-      else @get 'price'
+  name: (type = '') ->
+    return '' if type != '' && type != @get('package_itemable_type')
+    @packageItemable().get 'name'
 
-  price: ->
-    switch @get('package_itemable_type')
-      when 'StoreMaterial', 'StoreService' then @get 'price'
-      else @get 'denomination'
+  retail_price: (type = '') ->
+    return '' if type != '' && type != @get('package_itemable_type')
+    return @get 'denomination' if @isStoreDepositCard()
+    @packageItemable().get 'price'
+
+  price: (type = '') ->
+    return '' if type != '' && type != @get('package_itemable_type')
+    @get 'price'
+
+  quantity: (type = '') ->
+    return '' if type != '' && type != @get('package_itemable_type')
+    @get 'quantity'
 
   category: ->
     @ITEM_TYPE[@get 'package_itemable_type']
@@ -60,10 +67,10 @@ class Mis.Models.StorePackageItem extends Backbone.Model
     @price() * (@get('quantity') ? 1)
 
   isStoreService: ->
-    @get 'package_itemable_type' == 'StoreService'
+    @get('package_itemable_type') == 'StoreService'
 
   isStoreMaterial: ->
-    @get 'package_itemable_type' == 'StoreMaterial'
+    @get('package_itemable_type') == 'StoreMaterial'
 
   isStoreDepositCard: ->
-    @get 'package_itemable_type' == 'StoreDepositCard'
+    @get('package_itemable_type') == 'StoreDepositCard'

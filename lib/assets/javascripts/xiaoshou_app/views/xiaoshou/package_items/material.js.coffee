@@ -9,7 +9,7 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Backbone.View
     'change #store_material_id': 'renderDetails'
 
   render: ->
-    @$el.html(@template())
+    @$el.html(@template(item: @model))
     @
 
   open: ->

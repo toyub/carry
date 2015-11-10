@@ -1,28 +1,30 @@
+<% item = @item %>
 <li>
   <label>商品名称：</label>
   <select name="package_itemable_id" id="store_material_id" class="width-132">
     <% window.Store.materials.each (m) ->: %>
-    <option value="<%= m.get 'id' %>"><%= m.get 'name' %></option>
+    <option>请选择</option>
+    <option value="<%= m.get 'id' %>" <%= 'selected' if (String(item.get('package_itemable_id')) == String(m.get 'id') && item.isStoreMaterial())  %>><%= m.get 'name' %></option>
   <% end %>
   </select>
 </li>
 
 <li>
   <label>名称：</label>
-  <span id="materialName"></span>
+  <span id="materialName"><%= item.name('StoreMaterial') %></span>
 </li>
 
 <li>
   <label>零售价：</label>
-  <span id="materialPrice"></span>
+  <span id="materialPrice"><%= item.retail_price('StoreMaterial') %></span>
 </li>
 
 <li>
   <label>数量：</label>
-  <input name="quantity" type="text"> 件
+  <input name="quantity" type="text" value="<%= item.quantity('StoreMaterial') %>"> 件
 </li>
 
 <li>
   <label>套餐价：</label>
-  <input name="price" type="text"> 元
+  <input name="price" type="text" value="<%= item.price('StoreMaterial') %>"> 元
 </li>
