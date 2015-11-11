@@ -22,6 +22,8 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
 
   defaults:
     apply_range: @::RANGE.only
+    period_enable: true
+    expired_notice_required: false
 
   initialize: (options) ->
     @store_package = options.store_package
@@ -30,6 +32,15 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
 
   period_unit_name: ->
     @PERIOD_UNIT[@get('period_unit')]
+
+  periodUnits: ->
+    @PERIOD_UNIT
+
+  periodEnable: ->
+    String(@get 'period_enable') == 'true'
+
+  noticeRequired: ->
+    String(@get 'expired_notice_required') == 'true'
 
   applyAll: ->
     String(@get 'apply_range') == String(@RANGE.all)

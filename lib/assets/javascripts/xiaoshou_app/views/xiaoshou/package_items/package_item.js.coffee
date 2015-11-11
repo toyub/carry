@@ -5,7 +5,8 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Backbone.View
 
   template: JST['xiaoshou/package_items/package_item']
 
-  initialize: ->
+  initialize: (options) ->
+    @action = options.action if options
     @package_setting = @model.package_setting
 
     @model.on('remove', @remove, @)
@@ -16,7 +17,7 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Backbone.View
     'click label.name': 'edit'
 
   render: ->
-    @$el.html(@template(item: @model))
+    @$el.html(@template(item: @model, view: @))
     @
 
   clear: ->
@@ -27,6 +28,13 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Backbone.View
     @undelegateEvents()
     @$el.remove()
 
+  isShow: ->
+    @action == 'show'
+
   edit: ->
-    view = new Mis.Views.XiaoshouPackageItemsForm(model: @model)
-    view.open()
+    if @isShow()
+      view = new Mis.Views.XiaoshouPackageItemsShow(model: @model)
+      view.open()
+    else
+      view = new Mis.Views.XiaoshouPackageItemsForm(model: @model)
+      view.open()

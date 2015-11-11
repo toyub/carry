@@ -6,5 +6,7 @@
 <li><%= @item.get 'quantity' %></li>
 <li>
   <span><%= @item.amount() %></span>
-  <span class="delete delete_list">×</span>
+  <% unless @view.isShow() : %>
+    <span class="delete delete_list">×</span>
+  <% end %>
 </li>

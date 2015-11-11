@@ -5,51 +5,53 @@
 
 </div>
 <div class="details_content package">
-    <table border="0" id="packageSummary" class="abstract">
+  <table border="0" id="packageSummary" class="abstract">
 
-    </table>
+  </table>
   <div class="setting_content">
     <div class="rules_setting">
       <h2>规则设置</h2>
 
       <ul class="rules_content">
         <li>
-          <label class="title">适用门店</label>
-          <label class="width-85">
-            <input type="radio" name="card_usage" <%= 'checked' unless @setting.applyAll() %> disabled=""> 限本店
-          </label>
-          <label>
-            <input type="radio" name="card_usage" disabled="" <%= 'checked' if @setting.applyAll() %>> 所有门店
-          </label>
+        <label class="title">适用门店</label>
+        <label class="width-85">
+          <input type="radio" name="card_usage" <%= 'checked' unless @setting.applyAll() %> disabled=""> 限本店
+        </label>
+        <label>
+          <input type="radio" name="card_usage" disabled="" <%= 'checked' if @setting.applyAll() %>> 所有门店
+        </label>
         </li>
 
         <li>
-          <label class="title">使用设置</label>
-          <ol>
-            <li>
-              <label>
-                <input type="radio" name="card_pay_method" disabled <%= 'checked' if @setting.passwordAuth() %>> 密码支付
-              </label>
-            </li>
-            <li>
-              <label>
-                <input type="radio" name="card_pay_method" disabled <%= 'checked' unless @setting.passwordAuth() %>> 短信验证支付
-              </label>
-            </li>
-          </ol>
-        </li>
-
-        <li>
-          <label class="title">有效期</label>
+        <label class="title">使用设置</label>
         <ol>
           <li>
-            <input type="radio" <%= 'checked' if @setting.periodEnable() %>disabled>
-              <span class="width-80 show_content"><%= @setting.get 'period' %></span>
-              <span class="width-80 show_content"><%= @setting.period_unit_name() %></span>
+          <label>
+            <input type="radio" name="card_pay_method" disabled <%= 'checked' if @setting.passwordAuth() %>> 密码支付
+          </label>
           </li>
           <li>
-          <label class="margin-right-20"><input type="radio" class="toggleable" data-target="deadline_remind" disabled=""> 逾期前提醒</label>
-          <input type="text" class="width-80" data-id="deadline_remind" disabled=""> 天
+          <label>
+            <input type="radio" name="card_pay_method" disabled <%= 'checked' unless @setting.passwordAuth() %>> 短信验证支付
+          </label>
+          </li>
+        </ol>
+        </li>
+
+        <li>
+        <label class="title">有效期</label>
+        <ol>
+          <li>
+          <input type="radio" <%= 'checked' if @setting.periodEnable() %> disabled>
+          <span class="width-80 show_content"><%= @setting.get 'period' %></span>
+          <span class="width-80 show_content"><%= @setting.period_unit_name() %></span>
+          </li>
+          <li>
+          <label class="margin-right-20">
+            <input type="radio" <%= 'checked' if @setting.noticeRequired() %> class="toggleable" disabled> 逾期前提醒
+          </label>
+          <input type="text" class="width-80" value="<%= @setting.get 'before_expired' %>" disabled> 天
           </li>
         </ol>
         </li>
@@ -58,7 +60,7 @@
         <label class="title">套餐积分</label>
         <ol>
           <li>
-          <span class="show_content width-130">110</span>
+          <span class="show_content width-130"><%= @setting.get 'point' %></span>
           </li>
         </ol>
         </li>
@@ -68,7 +70,7 @@
         <ol>
           <li>
           <label>提成方案</label>
-          <span class="width-190 show_content">方案1</span>
+          <span class="width-190 show_content"><%= @setting.get 'store_commission_template_id' %></span>
           </li>
         </ol>
         </li>
@@ -90,157 +92,16 @@
           <li>数量</li>
           <li>小计</li>
         </ul>
-        <div class="do_new_lists_content">
-          <ul class="items_content" data-id="card_item_content_list01">
-            <li>1.</li>
-            <li><label>充1000元送200元储值卡</label></li>
-            <li>清洗服务</li>
-            <li>1200</li>
-            <li>
+        <div id="itemList" class="do_new_lists_content">
 
-            <input type="button" value="-">
-            <input type="text" name="price" value="1000.00" readonly="">
-            <input type="button" value="+">
-            </li>
-
-            <li class="package_quantity">
-            <form>
-              <input type="button" value="-">
-              <input type="text" name="amount" value="10" readonly="">
-              <input type="button" value="+">
-            </form>
-            </li>
-            <li>
-            <span>12000.00</span>
-            </li>
-          </ul>
         </div>
       </div>
+      <div id="showPackageItem">
 
-      <div class="creating_window do_list_new_page" id="package_card_create" style="display: none;">
-
-        <h3>创建套餐内容</h3>
-
-        <div class="creating_details float-left" id="package_create_details">
-          <ul class="items_create_head" id="do_sel_types_to_create_package_card">
-            <li class="color-dad8d8">
-            <label>
-              服务项目
-              <input type="radio" name="card_item_option">
-            </label>
-            </li>
-            <li>
-            <label>
-              储值
-              <input type="radio" name="card_item_option" checked="">
-            </label>
-            </li>
-            <li class="color-dad8d8">
-            <label>
-              商品
-              <input type="radio" name="card_item_option">
-            </label>
-            </li>
-          </ul>
-
-          <div id="items_create_contents" class="position-relative height-355">
-            <ul class="service_wrap wrap" style="display: none;">
-              <li>
-              <label>服务项目：</label>
-              <input type="text" class="width-260">
-              </li>
-
-              <li>
-              <label>名称：</label>
-              <span></span>
-              </li>
-
-              <li>
-              <label>零售价：</label>
-              <span></span>
-              </li>
-
-              <li>
-              <label>次数：</label>
-              <input type="text"> 次
-              </li>
-
-              <li>
-              <label>套餐价：</label>
-              <input type="text"> 元
-              </li>
-            </ul>
-
-            <ul class="fee_charge_wrap wrap" style="display: block;">
-              <li>
-              <label>储值名称：</label>
-              <input type="text" class="width-260" readonly="">
-              </li>
-
-              <li>
-              <label>名称：</label>
-              <span></span>
-              </li>
-
-              <li>
-              <label>零售价：</label>
-              <span></span>
-              </li>
-
-              <li>
-              <label>套餐面额：</label>
-              <input type="text" readonly=""> 元
-              </li>
-
-              <li>
-              <label>套餐价：</label>
-              <input type="text" readonly=""> 元
-              </li>
-            </ul>
-
-
-            <ul class="goods_wrap wrap" style="display: none;">
-              <li>
-              <label>商品名称：</label>
-              <input type="text" class="width-260" placeholder="输入商品名称或关键字展开">
-              </li>
-
-              <li>
-              <label>名称：</label>
-              <span></span>
-              </li>
-
-              <li>
-              <label>零售价：</label>
-              <span></span>
-              </li>
-
-              <li>
-              <label>数量：</label>
-              <input type="text"> 件
-              </li>
-
-              <li>
-              <label>套餐价：</label>
-              <input type="text"> 元
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class=" btn_group_in_package">
-          <label class="cancel_btn btn cancel color-000" id="do_cancel_new_list">取消</label>
-          <label class="save_btn btn" id="do_save_new_list">保存</label>
-        </div>
-
-        <div class="tips float-right">
-          <h4 class="text-align-center">提示</h4>
-          <p>在这里可以按您的需要将一个服务精细划分成多个流程，或者工序来进行施工操作，对该项服务实行精确管理。
-          流程设置可以应用在多种服务上，尤其是需要多工种共同完成一种服务。
-          </p>
-        </div>
       </div>
-
     </div>
   </div>
+</div>
+<div class="btn_group">
+  <a href="JavaScript:void(0);" class="edit_btn btn margin-right-2" id="goToEdit">编辑</a>
 </div>
