@@ -10,11 +10,15 @@ class Settings::DepotsController < Settings::BaseController
   end
 
   def create
-    render json: depot_params.merge(id: Time.now.to_i)
+    store = current_store
+
+    depot = store.store_depots.new(depot_params)
+
+    render json: depot, root: nil
   end
 
   def update
-    render json: depot_params
+    render json: depot_params, root: nil
   end
 
   def toggle_useable
@@ -31,11 +35,6 @@ class Settings::DepotsController < Settings::BaseController
 
   private
   def depot_params
-    params.require(:depot).permit(:id, :name, :description, :admins,
-                                                            :created_at,
-                                                            :creator,
-                                                            :deleted,
-                                                            :preferred,
-                                                            :useable)
+    params.require(:depot).permit(:id, :name, :description, :admin_ids).merge(store_staff_id: current_staff.id)
   end
 end

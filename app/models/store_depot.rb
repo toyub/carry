@@ -1,4 +1,4 @@
 class StoreDepot  < ActiveRecord::Base
-  belongs_to :store
+  include BaseModel
   has_many :store_material_inventories
 end
