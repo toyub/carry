@@ -15,7 +15,7 @@
       <tr>
         <td>库管员</td>
         <td colspan="2">
-          <select class="admin_ids" name="admin_ids" multiple="multiple">
+          <select class="admin_ids" name="admin_ids[]" multiple="multiple">
             <%  for opt in @staff : %>
               <option value="<%= opt.id %>"><%= opt.login_name %></option>
             <% end %>

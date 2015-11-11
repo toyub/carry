@@ -3,7 +3,7 @@
   <td class="warehouse_name"><%= @name %></td>
   <td class="warehouse_descript"><%= @description %></td>
   <td class="time"><%=  @created_on %></td>
-  <td class="operator"><%= "王强" %></td>
+  <td class="operator"><%= @creator %></td>
   <td class="admin"><%= @admins %></td>
   <td>
     <% if @useable : %>

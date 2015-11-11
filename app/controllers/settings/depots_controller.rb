@@ -14,7 +14,7 @@ class Settings::DepotsController < Settings::BaseController
     store = current_store
 
     depot = store.store_depots.new(depot_params)
-
+    depot.save
     render json: depot, root: nil
   end
 
@@ -36,6 +36,6 @@ class Settings::DepotsController < Settings::BaseController
 
   private
   def depot_params
-    params.require(:depot).permit(:id, :name, :description, :admin_ids).merge(store_staff_id: current_staff.id)
+    params.require(:depot).permit(:id, :name, :description, admin_ids: []).merge(store_staff_id: current_staff.id)
   end
 end
