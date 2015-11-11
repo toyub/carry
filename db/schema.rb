@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110011308) do
+ActiveRecord::Schema.define(version: 20151111062940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,24 +157,18 @@ ActiveRecord::Schema.define(version: 20151110011308) do
     t.string   "phone_number",   limit: 45
   end
 
-  create_table "store_deposit_cards", force: :cascade do |t|
-    t.decimal  "price",          precision: 10, scale: 2
-    t.decimal  "denomination",   precision: 10, scale: 2
-    t.string   "name"
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_staff_id"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-  end
-
   create_table "store_depots", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
+    t.integer  "store_id",                                  null: false
+    t.integer  "store_chain_id",                            null: false
+    t.integer  "store_staff_id",                            null: false
     t.string   "name",           limit: 45
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",                   default: false
+    t.boolean  "preferred",                 default: false
+    t.boolean  "useable",                   default: true
+    t.integer  "admin_ids",                                              array: true
+    t.string   "description"
   end
 
   create_table "store_files", force: :cascade do |t|
@@ -707,20 +701,6 @@ ActiveRecord::Schema.define(version: 20151110011308) do
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
-  end
-
-  create_table "store_package_items", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "quantity"
-    t.decimal  "price",                    precision: 10, scale: 2
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_staff_id"
-    t.string   "package_itemable_type"
-    t.integer  "package_itemable_id"
-    t.integer  "store_package_setting_id"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
   end
 
   create_table "store_package_settings", force: :cascade do |t|
