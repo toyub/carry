@@ -96,7 +96,17 @@ Rails.application.routes.draw do
       end
     end
     resources :commission_templates
-    resources :depots
+    resources :depots do
+      collection do
+        get :fetch
+      end
+
+      member do
+        put :toggle_useable
+        put :prefer
+        get :binding_material_count
+      end
+    end
   end
 
   namespace :ajax do

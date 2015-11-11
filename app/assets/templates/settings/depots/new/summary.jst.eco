@@ -7,16 +7,16 @@
   <td class="admin"><%= @admins %></td>
   <td>
     <% if @useable : %>
-      <a class="cursor-pointer status available"></a>
+      <a class="cursor-pointer status useable available"></a>
     <% else : %>
-      <a class="cursor-pointer status not_avail"></a>
+      <a class="cursor-pointer status useable not_avail"></a>
     <% end %>
   </td>
   <td>
     <% if @preferred : %>
-      <a class="default"></a>
+      <a class="preferred default"></a>
     <% else: %>
-      <a href="javascript:void(0)" class="not_default"></a>
+      <a href="javascript:void(0)" class="preferred not_default"></a>
     <% end %>
   </td>
   <td data-modelid='<%= @modelid %>' data-viewid='<%= @viewid %>'>
