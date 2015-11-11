@@ -1,16 +1,9 @@
 
 <div class="main_top">
-  <h2>类别设置</h2>
+  <%= breadcrumb_navigation(['设置', '仓库管理']) %>
 </div>
 
 <div class="details">
-
-  <div class="details_nav">
-    <ul>
-      <li class="bg-color-fff"><a class="width-90">仓库</a></li>
-    </ul>
-  </div>
-
   <div class="details_content warehouse_content">
     <table class="warehouse">
       <thead>
@@ -33,7 +26,7 @@
       <tbody id='summaries'></tbody>
     </table>
   </div>
-
+  <input type="hidden" id='store_staff' data-staff='<%= @store_staff.to_json.html_safe %>'>
 </div>
 <% content_for :scenes do %>
   <div id='bound_alert' class="system_alert_wrap" style="display:none;">
@@ -53,7 +46,7 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      handle = new $$MIS.DepotsHandleView({urlRoot: '/settings/depots'});
+      handle = new $$MIS.DepotsHandleView({urlRoot: '/settings/depots', staff: $('#store_staff').data('staff')});
     });
   </script>
 <% end %>

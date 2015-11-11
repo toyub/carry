@@ -1,6 +1,7 @@
 class Settings::DepotsController < Settings::BaseController
   def index
     @store = current_store
+    @store_staff = @store.store_staff #loginable
   end
 
   def fetch
