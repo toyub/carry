@@ -10,6 +10,7 @@ class Mis.Views.XiaoshouPackageSettingsNew extends Backbone.View
 
   initialize: ->
     @model.items.on('add', @renderItem, @)
+    @model.on('sync', @handleSuccess, @)
 
   render: ->
     @$el.html(@template(setting: @model))
@@ -62,3 +63,7 @@ class Mis.Views.XiaoshouPackageSettingsNew extends Backbone.View
     else
       $(e.target).attr('checked', 'checked')
       $("#beforeExpiredDays").attr('disabled', false)
+
+  handleSuccess: ->
+    view = new Mis.Views.XiaoshouPackageSettingsShow(model: @model)
+    $("#bodyContent").html(view.render().el)

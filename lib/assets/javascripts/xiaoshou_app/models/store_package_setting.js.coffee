@@ -7,10 +7,35 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
   url: ->
     @store_package.url() + '/store_package_settings'
 
+  RANGE:
+    only: 0
+    all: 1
+
+  PAYMENT_MODE:
+    password: 0
+    message: 1
+
+  PERIOD_UNIT:
+    0: '年'
+    1: '月'
+    2: '日'
+
+  defaults:
+    apply_range: @::RANGE.only
+
   initialize: (options) ->
     @store_package = options.store_package
 
     @parseItems()
+
+  period_unit_name: ->
+    @PERIOD_UNIT[@get('period_unit')]
+
+  applyAll: ->
+    String(@get 'apply_range') == String(@RANGE.all)
+
+  passwordAuth: ->
+    String(@get 'payment_mode') == String(@PAYMENT_MODE.password)
 
   parseItems: ->
     @items = new Mis.Collections.StorePackageItems(@get 'items')
