@@ -28,7 +28,7 @@ class Mis.Models.StorePackageTracking extends Backbone.Model
     1: '微信'
 
   defaluts:
-    trigger_timing: @::TIMING.after_sale
+    trigger_timing: 1
     mode: 0
     delay_unit: 0
     notice_required: false
