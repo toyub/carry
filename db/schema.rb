@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110070320) do
+ActiveRecord::Schema.define(version: 20151111045252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -741,6 +741,21 @@ ActiveRecord::Schema.define(version: 20151110070320) do
     t.integer  "apply_range",                                           default: 0
     t.integer  "point",                                                 default: 0
     t.integer  "payment_mode",                                          default: 0
+  end
+
+  create_table "store_package_trackings", force: :cascade do |t|
+    t.integer  "mode"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_package_id"
+    t.boolean  "notice_required",  default: false
+    t.string   "content"
+    t.integer  "delay_interval",   default: 0
+    t.integer  "delay_unit"
+    t.integer  "trigger_timing"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "store_packages", force: :cascade do |t|

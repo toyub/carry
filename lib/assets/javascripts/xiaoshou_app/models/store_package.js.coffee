@@ -6,6 +6,7 @@ class Mis.Models.StorePackage extends Backbone.Model
 
   initialize: ->
     @parseUploads()
+    @parseTrackings()
 
   validation:
     name:
@@ -17,3 +18,6 @@ class Mis.Models.StorePackage extends Backbone.Model
 
   parseUploads: ->
     @uploads = new Mis.Collections.Uploads(@get 'uploads')
+
+  parseTrackings: ->
+    @trackings = new Mis.Collections.StorePackageTrackings(store_package: @)

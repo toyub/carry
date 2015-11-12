@@ -1,0 +1,5 @@
+<li><%= @item.get 'id' %>.</li>
+<li><%= @item.name() %></li>
+<li><%= @item.category() %></li>
+<li><%= @item.price() %></li>
+<li><%= @item.get 'quantity' %></li>

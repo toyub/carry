@@ -7,6 +7,7 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Backbone.View
     'click #openPackageItemForm': 'openPackageItemForm'
     'click #periodEnable': 'togglePeriodEnable'
     'click #noticeRequired': 'toggleNoticeRequired'
+    'click .tracking': 'goToTracking'
 
   initialize: ->
     @model.items.on('add', @renderItem, @)
@@ -71,3 +72,8 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Backbone.View
   handleSuccess: ->
     view = new Mis.Views.XiaoshouPackageSettingsShow(model: @model)
     $("#bodyContent").html(view.render().el)
+
+  goToTracking: ->
+    model = new Mis.Models.StorePackageTracking(package_setting: @model)
+    view = new Mis.Views.XiaoshouPackageTrackingsNew(model: @model)
+    $("#bodyContent").html view.render().el
