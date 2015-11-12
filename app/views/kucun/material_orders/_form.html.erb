@@ -66,7 +66,7 @@
   </div>
   <div class="item_content margin-top-10 float-left  margin-left-20">
     <label class="width-75 ">结算账户：</label>
-    <select class="width-253" name='store_material_order[payments_attributes][][store_settlement_account_id]'>
+    <select class="width-253" name='store_material_order[payments_attributes][][store_settlement_account_id]' required>
       <% @store.store_settlement_accounts.each do |opt| %>
          <option value="<%= opt.id %>"><%= opt.name %></option>
       <% end %>
