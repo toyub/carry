@@ -56,6 +56,10 @@ Rails.application.routes.draw do
         post :loss_report
         post :profit_report
       end
+
+      member do
+        post :checked
+      end
     end
 
     resources :depots do

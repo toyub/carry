@@ -24,9 +24,7 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
         @ids = []
       end
 
-      @inventories = @store.store_material_inventories
-                           .inclmd
-                           .by_depot(params[:store_depot_id])
+      @inventories = @store.store_material_inventories.by_depot(params[:store_depot_id])
 
       @inventories = @inventories.where('store_material_inventories.id not in (?)', @ids) if @ids.present?
       @inventories = @inventories.where('quantity > 0') if params[:nz]
@@ -37,6 +35,7 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
   end
 
   def review
+    
     @store = current_store
     now = Time.now
     month = now.strftime("%Y%m")
@@ -48,12 +47,17 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
       @inventory_count = StoreMaterialInventory.where(store_depot_id: params[:store_depot_id])
                                              .count(:id)
       @physical_count = @physical.items.count(:id)
+    else
+      render text: '该仓库还没有盘点，请先去盘点'
     end
+  end
+
+  def verify
   end
 
   def create
     if params[:store_physical_inventories][:items_attributes].blank?
-      render 'Error'
+      render text: 'Error'
       return false
     end
 
