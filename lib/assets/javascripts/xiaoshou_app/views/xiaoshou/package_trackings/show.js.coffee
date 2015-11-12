@@ -1,15 +1,10 @@
-class Mis.Views.XiaoshouPackageTrackingsNew extends Backbone.View
+class Mis.Views.XiaoshouPackageTrackingsShow extends Backbone.View
 
-  template: JST['xiaoshou/package_trackings/new']
-
-  events:
-    'click #newTracking': 'openTrackingForm'
+  template: JST['xiaoshou/package_trackings/show']
 
   initialize: ->
     @store_package = @model.store_package
     @trackings = @store_package.trackings
-
-    @trackings.on('add', @renderTracking, @)
 
   render: ->
     @$el.html(@template())
@@ -17,6 +12,7 @@ class Mis.Views.XiaoshouPackageTrackingsNew extends Backbone.View
     @renderSubNav()
     @renderPackage()
     @renderItems()
+    @renderTrackings()
     @
 
   renderNav: ->
@@ -38,16 +34,9 @@ class Mis.Views.XiaoshouPackageTrackingsNew extends Backbone.View
     view = new Mis.Views.XiaoshouPackageItemsListItem(model: item)
     @$("#itemList").append view.render().el
 
-  openTrackingForm: ->
-    model = new Mis.Models.StorePackageTracking(store_package: @store_package)
-    view = new Mis.Views.XiaoshouPackageTrackingsForm(model: model, collection: @trackings)
-    @$("#trackingForm").html view.render().el
-    view.open()
+  renderTrackings: ->
+    @trackings.each @renderTracking
 
-  renderTracking: (tracking) ->
-    view = new Mis.Views.XiaoshouPackageTrackingsItem(model: tracking)
+  renderTracking: (tracking) =>
+    view = new Mis.Views.XiaoshouPackageTrackingsItem(model: tracking, action: 'show')
     @$("#trackingList").append view.render().el
-
-  goToShow: ->
-    view = new Mis.Views.XiaoshouPackageTrackingsShow(model: @model)
-    $("#bodyContent").html view.render().el

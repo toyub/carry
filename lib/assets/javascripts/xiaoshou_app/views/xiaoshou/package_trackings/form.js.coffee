@@ -3,9 +3,6 @@ class Mis.Views.XiaoshouPackageTrackingsForm extends Backbone.View
 
   template: JST['xiaoshou/package_trackings/form']
 
-  initialize: ->
-    @store_package = @model.package_setting.store_package
-
   events:
     'click #closeWithoutSave': 'close'
     'click #createTracking': 'createTracking'
@@ -24,7 +21,7 @@ class Mis.Views.XiaoshouPackageTrackingsForm extends Backbone.View
   createTracking: ->
     attrs = @$el.find("input, select, textarea").serializeJSON()
     if @model.isNew()
-      @store_package.trackings.create attrs
+      @collection.create attrs
     else
       @model.save attrs
     @close()

@@ -25,9 +25,7 @@
     </div>
 
     <div class="right_list package_card_tracking">
-      <h2>售后回访列表
-        <input type="button" id="newTracking" class="btn new_btn float-right do_open_list_new_page" value="创建" id="do_open_list_new_page" style="display: block;">
-      </h2>
+      <h2>售后回访列表</h2>
 
       <div class="do_new_lists created_tracking_lists new_lists" style="display: block;">
         <ul class="list_header">
@@ -49,5 +47,5 @@
   </div>
 </div>
 <div class="btn_group">
-  <input type="button" class="save_btn btn" value="保存" id="goToShow">
+  <input type="button" class="save_btn btn" value="编辑" id="goToEdit">
 </div>

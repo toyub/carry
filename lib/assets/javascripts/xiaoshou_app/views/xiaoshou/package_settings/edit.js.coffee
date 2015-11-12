@@ -74,6 +74,5 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Backbone.View
     $("#bodyContent").html(view.render().el)
 
   goToTracking: ->
-    model = new Mis.Models.StorePackageTracking(package_setting: @model)
     view = new Mis.Views.XiaoshouPackageTrackingsNew(model: @model)
     $("#bodyContent").html view.render().el

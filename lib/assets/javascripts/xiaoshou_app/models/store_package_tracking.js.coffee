@@ -1,12 +1,12 @@
 class Mis.Models.StorePackageTracking extends Backbone.Model
 
   urlRoot: ->
-    @package_setting.store_package.url() + '/store_package_trackings'
+    @store_package.url() + '/store_package_trackings'
 
   modelName: 'store_package_tracking'
 
   initialize: (options) ->
-    @package_setting = options.package_setting
+    @store_package = options.store_package
 
   TIMING:
     last_tracking: 0

@@ -5,20 +5,25 @@ class Mis.Views.XiaoshouPackageTrackingsItem extends Backbone.View
 
   template: JST['xiaoshou/package_trackings/item']
 
-  initialize: ->
+  initialize: (options) ->
+    @action = options.action if options
+
     @model.on('change', @render, @)
     @model.on('destroy', @remove, @)
 
   events:
-    'click label.content': 'openEditForm'
+    'click label.content': 'showOrEdit'
     'click span.delete': 'clear'
 
   render: ->
-    @$el.html(@template(tracking: @model))
+    @$el.html(@template(tracking: @model, view: @))
     @
 
-  openEditForm: ->
-    view = new Mis.Views.XiaoshouPackageTrackingsForm(model: @model)
+  showOrEdit: ->
+    if @isShow()
+      view = new Mis.Views.XiaoshouPackageTrackingsFormShow(model: @model)
+    else
+      view = new Mis.Views.XiaoshouPackageTrackingsForm(model: @model)
     $("#trackingForm").html view.render().el
     view.open
 
@@ -29,3 +34,6 @@ class Mis.Views.XiaoshouPackageTrackingsItem extends Backbone.View
     @undelegateEvents()
     @model.off()
     @$el.remove()
+
+  isShow: ->
+    @action == 'show'
