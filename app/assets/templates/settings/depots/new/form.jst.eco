@@ -4,20 +4,20 @@
     <table>
       <tr>
         <td >仓库名称</td>
-        <td colspan="2"><input type="text" name='name' autocomplete='off' class="warehouse_name" required></td>
+        <td colspan="2"><input type="text" name='name' autocomplete='off' class="warehouse_name" required value="<%= @name %>"></td>
       </tr>
       <tr>
         <td class="vertical-align-top ">仓库描述</td>
         <td colspan="2">
-          <textarea rows="6" name="description" class="warehouse_descript"></textarea>
+          <textarea rows="6" name="description" class="warehouse_descript"><%= @description %></textarea>
         </td>
       </tr>
       <tr>
         <td>库管员</td>
         <td colspan="2">
-          <select class="admin_ids" name="admin_ids[]" multiple="multiple">
+          <select class="admin_ids" style="width:252px;" name="admin_ids[]" multiple="multiple" required>
             <%  for opt in @staff : %>
-              <option value="<%= opt.id %>"><%= opt.login_name %></option>
+              <option <%= 'selected' if @admin_ids.indexOf(opt.id) > -1 %> value="<%= opt.id %>"><%= opt.login_name %></option>
             <% end %>
           </select>
         </td>

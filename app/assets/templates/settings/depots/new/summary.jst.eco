@@ -21,7 +21,7 @@
   </td>
   <td data-modelid='<%= @modelid %>' data-viewid='<%= @viewid %>'>
     <i class="edit_warehouse fa fa-pencil margin-right-8 cursor-pointer font-14"></i>
-    <% if @status=='not_use' : %>
+    <% unless @useable : %>
       <i class="delete_warehouse fa fa-trash-o cursor-pointer font-14"></i>
     <% end %>
   </td>
