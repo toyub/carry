@@ -2,6 +2,9 @@ class Mis.Views.XiaoshouPackageTrackingsShow extends Backbone.View
 
   template: JST['xiaoshou/package_trackings/show']
 
+  events:
+    'click #goToEdit': 'goToEdit'
+
   initialize: ->
     @store_package = @model.store_package
     @trackings = @store_package.trackings
@@ -40,3 +43,7 @@ class Mis.Views.XiaoshouPackageTrackingsShow extends Backbone.View
   renderTracking: (tracking) =>
     view = new Mis.Views.XiaoshouPackageTrackingsItem(model: tracking, action: 'show')
     @$("#trackingList").append view.render().el
+
+  goToEdit: ->
+    view = new Mis.Views.XiaoshouPackageTrackingsEdit(model: @model)
+    $("#bodyContent").html view.render().el

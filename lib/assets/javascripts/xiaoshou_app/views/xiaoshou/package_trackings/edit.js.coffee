@@ -1,6 +1,6 @@
-class Mis.Views.XiaoshouPackageTrackingsNew extends Backbone.View
+class Mis.Views.XiaoshouPackageTrackingsEdit extends Backbone.View
 
-  template: JST['xiaoshou/package_trackings/new']
+  template: JST['xiaoshou/package_trackings/edit']
 
   events:
     'click #newTracking': 'openTrackingForm'
