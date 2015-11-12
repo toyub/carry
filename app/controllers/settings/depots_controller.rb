@@ -7,7 +7,7 @@ class Settings::DepotsController < Settings::BaseController
   end
 
   def fetch
-    @depots = @store.store_depots.where(deleted: false)
+    @depots = @store.store_depots
     render json: @depots, root: nil
   end
 
