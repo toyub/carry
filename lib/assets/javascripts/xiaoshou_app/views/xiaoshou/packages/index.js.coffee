@@ -13,13 +13,8 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
     'click #newPackage': 'goToNew'
 
   render: ->
-    @renderStats()
     @renderPackages()
     @
-
-  renderStats: ->
-    view = new Mis.Views.XiaoshouSharedStats(count: @collection.length, resource_name: '套餐')
-    @$("#stats").html view.render().el
 
   renderPackages: ->
     if @collection.length
