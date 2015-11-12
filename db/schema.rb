@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105021840) do
+ActiveRecord::Schema.define(version: 20151111062940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20151105021840) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   create_table "renewal_records", force: :cascade do |t|
@@ -157,12 +158,17 @@ ActiveRecord::Schema.define(version: 20151105021840) do
   end
 
   create_table "store_depots", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
+    t.integer  "store_id",                                  null: false
+    t.integer  "store_chain_id",                            null: false
+    t.integer  "store_staff_id",                            null: false
     t.string   "name",           limit: 45
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",                   default: false
+    t.boolean  "preferred",                 default: false
+    t.boolean  "useable",                   default: true
+    t.integer  "admin_ids",                                              array: true
+    t.string   "description"
   end
 
   create_table "store_files", force: :cascade do |t|

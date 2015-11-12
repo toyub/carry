@@ -1,0 +1,52 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['设置', '仓库管理']) %>
+</div>
+
+<div class="details">
+  <div class="details_content warehouse_content">
+    <table class="warehouse">
+      <thead>
+        <tr>
+          <th colspan="8"></th>
+          <th><input type="button" class="btn new_btn new_warehouse_btn" value="新建"></th>
+        </tr>
+        <tr>
+          <th>#</th>
+          <th>仓库名称</th>
+          <th>描述</th>
+          <th>创建时间</th>
+          <th>创建人</th>
+          <th>库管员</th>
+          <th>状态</th>
+          <th>默认仓库</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id='summaries'></tbody>
+    </table>
+  </div>
+  <input type="hidden" id='store_staff' data-staff='<%= @store_staff.to_json.html_safe %>'>
+</div>
+<% content_for :scenes do %>
+  <div id='bound_alert' class="system_alert_wrap" style="display:none;">
+    <div class="alert">
+      <p>系统提醒</p>
+      <div class="alert_content">
+        <i class="fa fa-info-circle font-34 margin-right-8"></i>
+        <label>该仓库有<span id='bound_count'></span>件商品登记在册，如要删除或者停用该仓库，请先将商品转移至其他仓库后再操作，操作分别在出库和入库的转移功能进行，点击确定直接跳转至出库页面，点击取消，放弃本次操作。</label>
+      </div>
+      <div class="btns text-align-right">
+        <input type="button" class="btn cancel_btn" value="取消">
+        <a id='transfer_link' href="" class="btn cfm_btn" target="_blank">确定</a>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      handle = new $$MIS.DepotsHandleView({urlRoot: '/settings/depots', staff: $('#store_staff').data('staff')});
+    });
+  </script>
+<% end %>
