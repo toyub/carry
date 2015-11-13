@@ -21,7 +21,8 @@ class Mis.Models.StorePackage extends Backbone.Model
     @uploads = new Mis.Collections.Uploads(@get 'uploads')
 
   parseTrackings: ->
-    @trackings = new Mis.Collections.StorePackageTrackings(store_package: @)
+    attrs = @get 'trackings'
+    @trackings = new Mis.Collections.StorePackageTrackings(attrs, store_package: @)
 
   parsePackageSetting: ->
     attrs = @get 'package_setting'

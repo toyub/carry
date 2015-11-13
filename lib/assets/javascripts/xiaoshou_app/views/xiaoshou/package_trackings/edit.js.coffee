@@ -17,6 +17,7 @@ class Mis.Views.XiaoshouPackageTrackingsEdit extends Backbone.View
     @renderNav()
     @renderPackage()
     @renderItems()
+    @renderTrackings()
     @
 
   renderNav: ->
@@ -44,7 +45,10 @@ class Mis.Views.XiaoshouPackageTrackingsEdit extends Backbone.View
     @$("#trackingForm").html view.render().el
     view.open()
 
-  renderTracking: (tracking) ->
+  renderTrackings: ->
+    @trackings.each @renderTracking
+
+  renderTracking: (tracking) =>
     view = new Mis.Views.XiaoshouPackageTrackingsItem(model: tracking)
     @$("#trackingList").append view.render().el
 

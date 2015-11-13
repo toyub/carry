@@ -3,4 +3,5 @@ class StorePackageSerializer < ActiveModel::Serializer
 
   has_many :uploads, serializer: UploadSerializer
   has_one :package_setting
+  has_many :trackings
 end

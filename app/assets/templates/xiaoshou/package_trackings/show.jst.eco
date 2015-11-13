@@ -43,5 +43,5 @@
   </div>
 </div>
 <div class="btn_group">
-  <input type="button" class="save_btn btn" value="编辑" id="goToEdit">
+  <input type="button" class="cancel_btn btn" value="编辑" id="goToEdit">
 </div>

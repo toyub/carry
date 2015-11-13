@@ -1,7 +1,9 @@
 class Mis.Collections.StorePackageTrackings extends Backbone.Collection
   model: Mis.Models.StorePackageTracking
 
-  initialize: (options) ->
+  initialize: (trackings, options = {}) ->
+    super(trackings)
+
     @store_package = options.store_package
 
   url: ->
