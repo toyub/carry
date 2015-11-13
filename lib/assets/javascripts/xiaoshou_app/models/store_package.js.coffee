@@ -7,6 +7,7 @@ class Mis.Models.StorePackage extends Backbone.Model
   initialize: ->
     @parseUploads()
     @parseTrackings()
+    @parsePackageSetting()
 
   validation:
     name:
@@ -21,3 +22,7 @@ class Mis.Models.StorePackage extends Backbone.Model
 
   parseTrackings: ->
     @trackings = new Mis.Collections.StorePackageTrackings(store_package: @)
+
+  parsePackageSetting: ->
+    attrs = @get 'package_setting'
+    @package_setting = new Mis.Models.StorePackageSetting(_.extend {store_package: @}, attrs)

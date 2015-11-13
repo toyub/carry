@@ -1,9 +1,6 @@
 <div id="masterNav" class="details_nav">
 
 </div>
-<div id="subNav" class="details_nav_second">
-
-</div>
 <div class="details_content package">
   <form id="createPackage" action="" method="post">
     <div class="base_info">

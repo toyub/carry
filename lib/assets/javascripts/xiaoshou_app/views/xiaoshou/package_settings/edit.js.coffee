@@ -7,27 +7,26 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Backbone.View
     'click #openPackageItemForm': 'openPackageItemForm'
     'click #periodEnable': 'togglePeriodEnable'
     'click #noticeRequired': 'toggleNoticeRequired'
-    'click .tracking': 'goToTracking'
 
   initialize: ->
     @model.items.on('add', @renderItem, @)
     @model.on('sync', @handleSuccess, @)
 
   render: ->
+    console.log @model
     @$el.html(@template(setting: @model))
     @renderNav()
-    @renderSubNav()
     @renderPackage()
     @renderItems()
     @
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsMaster()
+    view = new Mis.Views.XiaoshouPackageNavsMaster(model: @model.store_package, active: 'setting')
     @$("#masterNav").html view.render().el
 
-  renderSubNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsSub()
-    @$("#subNav").html view.render().el
+  #renderSubNav: ->
+    #view = new Mis.Views.XiaoshouPackageNavsSub()
+    #@$("#subNav").html view.render().el
 
   renderPackage: ->
     view = new Mis.Views.XiaoshouPackageNavsSummary(package: @model.store_package)
@@ -73,6 +72,6 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Backbone.View
     view = new Mis.Views.XiaoshouPackageSettingsShow(model: @model)
     $("#bodyContent").html(view.render().el)
 
-  goToTracking: ->
-    view = new Mis.Views.XiaoshouPackageTrackingsNew(model: @model)
-    $("#bodyContent").html view.render().el
+  #goToTracking: ->
+    #view = new Mis.Views.XiaoshouPackageTrackingsNew(model: @model)
+    #$("#bodyContent").html view.render().el

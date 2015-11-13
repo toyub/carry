@@ -1,4 +1,4 @@
-<li class="bg-color-fff"><a href="taocanxinxi.html" class="width-90">套餐信息</a></li>
-<li><a href="#" class="width-90">套餐设置</a></li>
-<li><a href="JavaScript:void(0);" class="width-90 tracking">回访</a></li>
-<li><a href="#" class="width-90">记录</a></li>
+<li class="<%= 'bg-color-fff' if @view.active == 'package' %>"><a href="javascript:void(0);" class="width-90 package">套餐信息</a></li>
+<li class="<%= 'bg-color-fff' if @view.active == 'setting' %>"><a href="javascript:void(0);" class="width-90 setting">套餐设置</a></li>
+<li class="<%= 'bg-color-fff' if @view.active == 'tracking' %>"><a href="javascript:void(0);" class="width-90 tracking">回访</a></li>
+<li class="<%= 'bg-color-fff' if @view.active == 'record' %>"><a href="javaScript:void(0);" class="width-90 record">记录</a></li>

@@ -4,7 +4,7 @@ module Api
     before_action :set_setting, only: [:update]
 
     def create
-      @setting = @package.create_store_package_setting(append_store_attrs setting_params)
+      @setting = @package.create_package_setting(append_store_attrs setting_params)
       respond_with @setting, location: nil
     end
 
@@ -21,7 +21,7 @@ module Api
       end
 
       def set_setting
-        @setting = @package.store_package_setting
+        @setting = @package.package_setting
       end
 
       def setting_params

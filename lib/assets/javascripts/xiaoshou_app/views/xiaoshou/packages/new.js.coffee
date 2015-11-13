@@ -14,16 +14,11 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
   render: ->
     @$el.html(@template())
     @renderNav()
-    @renderSubNav()
     @
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsMaster()
+    view = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
     @$("#masterNav").html view.render().el
-
-  renderSubNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsSub()
-    @$("#subNav").html view.render().el
 
   createOnSubmit: ->
     event.preventDefault()
@@ -33,7 +28,7 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
 
   handleSuccess: ->
     @uploadImages()
-    @goToPackageSettingsNew()
+    @goToShow()
 
   uploadImages: ->
     url = @model.url() + '/save_picture'
@@ -48,10 +43,14 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
         success: (data) -> console.log data
       )
 
-  goToPackageSettingsNew: ->
-    model = new Mis.Models.StorePackageSetting(store_package: @model)
-    view = new Mis.Views.XiaoshouPackageSettingsNew(model: model)
-    $("#bodyContent").html(view.render().el)
+  goToShow: ->
+    view = new Mis.Views.XiaoshouPackagesShow(model: @model)
+    $("#bodyContent").html view.render().el
+
+  #goToPackageSettingsNew: ->
+    #model = new Mis.Models.StorePackageSetting(store_package: @model)
+    #view = new Mis.Views.XiaoshouPackageSettingsNew(model: model)
+    #$("#bodyContent").html(view.render().el)
 
   openImageForm: ->
     view = new Mis.Views.XiaoshouServicePicturesForm()

@@ -13,13 +13,12 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
   render: ->
     @$el.html(@template(package: @model))
     @renderNav()
-    @renderSubNav()
     @renderForm()
     #@renderPackageItems()
     @
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsMaster()
+    view = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
     @$("#masterNav").html view.render().el
 
   renderSubNav: ->

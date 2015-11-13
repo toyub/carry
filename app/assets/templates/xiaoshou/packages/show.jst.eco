@@ -1,9 +1,6 @@
 <div id="masterNav" class="details_nav">
 
 </div>
-<div id="subNav" class="details_nav_second">
-
-</div>
 <div class="details_content package">
   <div class="goods_img">
     <div id="material_img_preview" class="goods_main_img"></div>
