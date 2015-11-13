@@ -19,21 +19,20 @@
     </div>
 
     <div class="package_card_list float-right position-relative">
-      <h2><label class="float-left">套餐列表</label>
+      <h2><label class="float-left">套餐项目列表</label>
       </h2>
       <div class="no_content">
         <h3>当前没套餐内有内容</h3>
         <p>请在套餐设置中添加需要组合的内容，点击导航栏中的套餐设置进入，进行套餐内容创建和编辑，来添加套餐内容会影响开单销售</p>
       </div>
 
-      <div class="created_package_card_lists" id="packageItemList" style="display:block;">
+      <div class="created_package_card_lists" id="packageItemList" style="display: none;">
         <ul class="list_head">
           <li>#</li>
-          <li>项目/商品</li>
-          <li>面值</li>
-          <li>方式</li>
+          <li>名称</li>
+          <li>类别</li>
+          <li>总价</li>
         </ul>
-
       </div>
     </div>
 

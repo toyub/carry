@@ -9,8 +9,7 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
   render: ->
     @$el.html(@template(package: @model))
     @renderNav()
-    @renderSubNav()
-    #@renderPackageItems()
+    @renderPackageItems()
     @
 
   renderNav: ->
@@ -21,16 +20,6 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
     view = new Mis.Views.XiaoshouPackageNavsSub(package: @model)
     @$("#subNav").html view.render().el
 
-  renderPackageItems: ->
-    if @model.packageItems.length
-      @model.packageItems.each @renderPackageItem
-    else
-      @$("#packageItemList").hide()
-
-  renderPackageItem: (item) ->
-    view = new Mis.Views.XiaoshouPackageItemsItem(model: item)
-    @$("#packageItemList").append view.render().el
-
   previewImage: (event) ->
     src = $(event.target).attr('src')
     image = "<img src='#{src}' />"
@@ -39,3 +28,11 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
   goToEdit: ->
     view = new Mis.Views.XiaoshouPackagesEdit(model: @model)
     $("#bodyContent").html view.render().el
+
+  renderPackageItems: ->
+    @$("#packageItemList").show() if @model.package_setting.items.length > 0
+    @model.package_setting.items.each @renderPackageItem
+
+  renderPackageItem: (item) =>
+    view = new Mis.Views.XiaoshouPackageItemsItem(model: item)
+    @$("#packageItemList").append view.render().el

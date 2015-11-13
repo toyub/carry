@@ -1,4 +1,4 @@
-<li><%= @id %>.</li>
-<li>充1000送200</li>
-<li>1200.00</li>
-<li>卡扣</li>
+<li><%= @item.get 'id' %>.</li>
+<li><%= @item.name() %></li>
+<li><%= @item.category() %></li>
+<li><%= @item.amount() %></li>

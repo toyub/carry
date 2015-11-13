@@ -6,5 +6,5 @@ class Mis.Views.XiaoshouPackageItemsItem extends Backbone.View
   template: JST['xiaoshou/package_items/item']
 
   render: ->
-    @$el.html(@template(@model.attributes))
+    @$el.html(@template(item: @model))
     @

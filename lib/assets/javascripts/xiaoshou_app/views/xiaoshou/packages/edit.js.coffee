@@ -14,16 +14,12 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
     @$el.html(@template(package: @model))
     @renderNav()
     @renderForm()
-    #@renderPackageItems()
+    @renderPackageItems()
     @
 
   renderNav: ->
     view = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
     @$("#masterNav").html view.render().el
-
-  renderSubNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsSub()
-    @$("#subNav").html view.render().el
 
   renderForm: ->
     view = new Mis.Views.XiaoshouPackagesForm(model: @model)
@@ -32,7 +28,6 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
   updateOnSubmit: ->
     event.preventDefault()
     @model.set $("#createPackage").serializeJSON()
-    console.log @model
     @model.save() if @model.isValid(true)
 
   previewImage: (e) ->
@@ -46,3 +41,11 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
 
   handleSuccess: ->
     @goToShow()
+
+  renderPackageItems: ->
+    @$("#packageItemList").show() if @model.package_setting.items.length > 0
+    @model.package_setting.items.each @renderPackageItem
+
+  renderPackageItem: (item) =>
+    view = new Mis.Views.XiaoshouPackageItemsItem(model: item)
+    @$("#packageItemList").append view.render().el

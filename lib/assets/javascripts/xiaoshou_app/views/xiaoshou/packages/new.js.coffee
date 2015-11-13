@@ -23,7 +23,6 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
   createOnSubmit: ->
     event.preventDefault()
     @model.set $("#createPackage").serializeJSON()
-    console.log @model
     @model.save() if @model.isValid(true)
 
   handleSuccess: ->
@@ -46,11 +45,6 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
   goToShow: ->
     view = new Mis.Views.XiaoshouPackagesShow(model: @model)
     $("#bodyContent").html view.render().el
-
-  #goToPackageSettingsNew: ->
-    #model = new Mis.Models.StorePackageSetting(store_package: @model)
-    #view = new Mis.Views.XiaoshouPackageSettingsNew(model: model)
-    #$("#bodyContent").html(view.render().el)
 
   openImageForm: ->
     view = new Mis.Views.XiaoshouServicePicturesForm()
