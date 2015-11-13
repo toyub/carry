@@ -59,6 +59,7 @@ Rails.application.routes.draw do
 
       member do
         post :checked
+        get :excel
       end
     end
 

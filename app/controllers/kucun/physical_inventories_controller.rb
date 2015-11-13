@@ -1,11 +1,35 @@
 class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
-  def index
+  before_action :set_store
 
+  def index
+    @physicals = @store.store_physical_inventories.where(status: 1)
+    if params[:month].to_s =~ /^\d{4}(?:\-|\/){1}(?:0?[1-9]|1[0-2])$/
+      from_date = Date.parse(params[:month].to_s.gsub(/(^\d{4})(?:\-|\/){1}(0?[1-9]|1[0-2])$/, '\1-\2') + "-01")
+                      .to_time.beginning_of_day
+      end_date = from_date.end_of_month.to_time.end_of_day
+    else
+      params[:month] = Time.now.strftime('%Y-%m')
+      from_date = Time.now.beginning_of_month
+      end_date = Time.now.end_of_month
+    end
+
+    @physicals = @physicals.where('created_at between :from_date and :end_date', from_date: from_date, end_date: end_date)
+
+    if params[:store_depot_id].present?
+      @physicals = @physicals.where(store_depot_id: params[:store_depot_id])
+    end
+  end
+
+  def excel
+    @physical = @store.store_physical_inventories.find(params[:id])
+    rows = @physical.items.map do |item|
+      "\"#{item.store_material.name}\",\"#{item.store_material.barcode}\",\"#{item.store_material.store_material_root_category.name}\",\"#{item.store_material.store_material_category.name}\",\"#{item.store_material.speci}\",\"#{item.store_material.store_material_unit.name}\",\"#{item.inventory}\",\"#{item.physical}\",\"#{item.diff}\",\"#{item.remark}\""
+    end
+    rows.unshift("\uFEFF 商品名称, 商品条码, 一级分类, 二级分类, 规格, 单位, 库存数, 盘点数, 盘盈盘亏, 备注")
+    send_data rows.join("\n"), type: 'csv', filename: "库存盘点-#{@physical.store_depot.name}-#{@physical.created_at.strftime('%Y-%m')}.csv"
   end
 
   def new
-    @store = current_store
-
     now = Time.now
     month = now.strftime('%Y%m')
     pandianri = 28
@@ -35,8 +59,6 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
   end
 
   def review
-    
-    @store = current_store
     now = Time.now
     month = now.strftime("%Y%m")
     @physical = StorePhysicalInventory.where(store_depot_id: params[:store_depot_id])
@@ -47,12 +69,17 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
       @inventory_count = StoreMaterialInventory.where(store_depot_id: params[:store_depot_id])
                                              .count(:id)
       @physical_count = @physical.items.count(:id)
-    else
-      render text: '该仓库还没有盘点，请先去盘点'
     end
   end
 
-  def verify
+  def checked
+    @physical = StorePhysicalInventory.find(params[:id])
+    if @physical.items.where(status: 0).count(:id) > 0
+      render json: {error: 'There some item not checked!'}
+    else
+      @physical.update!(status: 1)
+      redirect_to action: 'index'
+    end
   end
 
   def create
@@ -83,12 +110,10 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
   end
 
   def edit
-    @store = current_store
     @physical = StorePhysicalInventory.find(params[:id])
   end
 
   def loss_report
-    @store = current_store
     @physical = StorePhysicalInventory.where(store_id: @store.id, id: params[:physical_id]).first
 
     outing = StoreMaterialOuting.new(outing_params)
@@ -116,7 +141,6 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
   end
 
   def profit_report
-    @store = current_store
     @physical = StorePhysicalInventory.where(store_id: @store.id, id: params[:physical_id]).first
     checkin = StoreMaterialCheckin.new(checkin_params)
 
@@ -165,5 +189,9 @@ class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
       store_staff_id: current_user.id
     })
     safe_params
+  end
+
+  def set_store
+    @store = current_store
   end
 end
