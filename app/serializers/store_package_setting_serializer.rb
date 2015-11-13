@@ -13,4 +13,6 @@ class StorePackageSettingSerializer < ActiveModel::Serializer
     :store_commission_template_id]
 
   attributes *FILEDS
+
+  has_many :items
 end
