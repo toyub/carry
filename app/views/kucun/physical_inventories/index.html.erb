@@ -1,61 +1,66 @@
 <div class="main_top">
-  <h2>盘点</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '盘点', '盘点历史']) %>
 </div>
 <div class="details">
   <div class="details_nav">
     <ul>
       <li><a href="/kucun/physical_inventories/new" class="width-90">系统库存</a></li>
-      <li><a href="javascript:void(0);" class="width-90">盘点单据</a></li>
-      <li class="bg-color-fff"><a href="javascript:void(0);" class="width-90">历史记录</a></li>
+      <li><a href="/kucun/physical_inventories/review?store_depot_id=<%=params[:store_depot_id]%>" class="width-90">盘点单据</a></li>
+      <li class="bg-color-fff"><a href="/kucun/physical_inventories" class="width-90">历史记录</a></li>
     </ul>
   </div>
   <div class="details_nav_second padding-top-10">
-     <div class="item-query float-left">
-       <label>日期</label>
-       <input type="text" class="width-165">
-       <a href="#" class="query_btn btn">查找</a>
-     </div>
-     <div class="item-query margin-left-20 float-left">
-        <a href="#" class="export_inventory_records_btn btn">导出盘点记录</a>
-     </div>
+    <%= form_tag '/kucun/physical_inventories', method: 'GET' do %>
+    <div class="item-query float-left">
+     <label>日期</label>
+     <input type="month" name='month' class="width-165" value="<%=params[:month]%>">
+    </div>
+    <div class="item-query float-left margin-left-30">
+     <label>仓库</label>
+     <select name='store_depot_id' class="width-90">
+       <option value="">选择仓库</option>
+       <%= options_from_collection_for_select(@store.store_depots, :id, :name, params[:store_depot_id]) %>
+     </select>
+     <input type="submit" class="query_btn btn" value="查找">
+    </div>
+    <% end %>
   </div>
+  <% if @physicals.blank? %>
+    <div>没有查找到相关记录!</div>
+  <% end %>
+  <% @physicals.each do |physical| %>
   <div class="check_notes">
-    <table cellpadding="0" cellspacing="0" class="check_notes_tab">
-      <tbody>
-        <tr>
-          <td>盘点日期</td>
-          <td>2014-09-30</td>
-        </tr>
-         <tr>
-          <td>核销日期</td>
-          <td>2014-09-31</td>
-        </tr>
-        <tr>
-          <td>已盘点仓库</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>未盘点仓库</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>已盘点商品</td>
-          <td>2,31</td>
-        </tr>
-        <tr>
-          <td>未盘点商品</td>
-          <td>55</td>
-        </tr>
-        <tr>
-          <td>操作人</td>
-          <td>王艳</td>
-        </tr>
-        <tr>
-          <td>选择导出</td>
-          <td><input type="checkbox"></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="check_notes_tab">
+      <dl>
+        <dd>仓库名称</dd>
+        <dd><%= physical.store_depot.name %></dd>
+      </dl>
+      <dl>
+        <dd>盘点日期</dd>
+        <dd><%= physical.created_at.to_s(:date_only)%></dd>
+      </dl>
+       <dl>
+        <dd>核销日期</dd>
+        <dd><%= physical.updated_at.to_s(:date_only) %></dd>
+      </dl>
+
+      <dl>
+        <dd>已盘点商品</dd>
+        <dd><%= physical.checked_count %></dd>
+      </dl>
+      <dl>
+        <dd>未盘点商品</dd>
+        <dd><%= physical.unchecked_count %></dd>
+      </dl>
+      <dl>
+        <dd>操作人</dd>
+        <dd><%= physical.creator.screen_name %></dd>
+      </dl>
+      <dl>
+        <dd><a href="<%= excel_kucun_physical_inventory_path(physical) %>" class="export_btn btn">导出</a></dd>
+      </dl>
+    </div>
   </div>
+  <% end %>
+
 </div>

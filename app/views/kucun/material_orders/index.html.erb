@@ -1,36 +1,10 @@
 <div class="main_top">
-<h2>订货记录</h2>
-<span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '订货', '订货记录']) %>
 </div>
 <div class="details">
 
 <%= render partial: 'kucun/store_suppliers/nav' -%>
 <div class="details_content">
-  <table cellpadding="0" cellspacing="0" class="abstract_tab">
-    <tbody>
-      <tr>
-        <td><label class="float-left">供应商名称</label></td>
-        <td><label class="float-left">订货次数</label></td>
-        <td><label class="float-left">订货总金额</label></td>
-        <td class="border-bottom-d1d1d1"><label class="float-left">联系人</label> <span >王强</span></td>
-        <td class="border-bottom-d1d1d1"><label class="float-left">固定号码</label><span >0571-88828383</span></td>
-        <td class="border-bottom-d1d1d1"><label class="float-left">一级分类</label><span >产品</span></td>
-        <td class="border-bottom-d1d1d1"><label class="float-left">结算周期</label><span >按月</span></td>
-        <td><label class="float-left">未付款订单</label><span>3000</span></td>
-      </tr>
-      <tr>
-        <td><span class="font-18 "><%= @store_supplier.name %></span></td>
-        <td><span class="float-left">45</span></td>
-        <td><span class="float-left">2000</span></td>
-        <td><label class="float-left">电话号码</label><span>13064522578</span></td>
-        <td><label class="float-left">传真号码</label><span>88828383</span></td>
-        <td><label class="float-left">二级分类</label><span>清洁</span></td>
-        <td><label class="float-left">结算时间</label><span>3个月</span></td>
-        <td><label class="float-left">未付款金额</label><span>1,900.00</span></td>
-      </tr>
-    </tbody>
-  </table>
-
   <div class="ordernotes_list" id="ordernotes_list">
     <div class="list">
       <div class="list_tr list_top">

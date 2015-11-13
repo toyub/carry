@@ -1,6 +1,5 @@
 <div class="main_top">
-  <h2>库存>订货>供应商详情</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '供应商', '详情']) %>
 </div>
 <div class="details">
   <%= render partial: 'nav' -%>
@@ -108,10 +107,6 @@
           </div>
       </div>
       <div class="supplier_related" >
-        <div class="float-left">
-          <label class="width-80 text-align-right ">信息完整度:</label>
-          <span class><%=@store_supplier.fill_percent %>%</span>
-        </div>
           <div  class="float-right margin-right-40">
             <label>停用供应商</label>
             <input type="checkbox" disabled="true" <%= 'checked="checked"' if @store_supplier.status_suspended? %> >
