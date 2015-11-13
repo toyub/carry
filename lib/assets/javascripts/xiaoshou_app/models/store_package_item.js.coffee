@@ -66,6 +66,9 @@ class Mis.Models.StorePackageItem extends Backbone.Model
   amount: ->
     @price() * (@get('quantity') ? 1)
 
+  regularAmount: ->
+    @retail_price() * (@get('quantity') ? 1)
+
   isStoreService: ->
     @get('package_itemable_type') == 'StoreService'
 

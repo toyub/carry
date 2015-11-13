@@ -8,12 +8,11 @@
 
   <div class="lists_in_tracking">
     <div class="left_list package_card_lists">
-      <h2>套餐列表</h2>
+      <h2>套餐项目列表</h2>
       <ul class="list_header list_header" style="display: block;">
         <li>#</li>
         <li>项目</li>
         <li>类别</li>
-        <li>套餐价</li>
         <li>数量</li>
       </ul>
       <div style="display: block;" id="itemList">

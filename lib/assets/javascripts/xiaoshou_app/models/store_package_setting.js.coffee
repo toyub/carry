@@ -51,6 +51,23 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
   parseItems: ->
     @items = new Mis.Collections.StorePackageItems(@get 'items')
 
+  amount: ->
+    @items.map((item) ->
+      item.amount()
+    ).reduce((sum, amount) ->
+      sum + amount
+    ,0)
+
+  regularAmount: ->
+    @items.map((item) ->
+      item.regularAmount()
+    ).reduce((sum, amount) ->
+      sum + amount
+    ,0)
+
+  discountRate: ->
+    (@amount()/@regularAmount()).toFixed(2)
+
   toJSON: ->
     hashWithRoot = {}
     json = _.clone(@attributes)
