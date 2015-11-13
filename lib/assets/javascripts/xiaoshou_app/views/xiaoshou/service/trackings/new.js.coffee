@@ -14,19 +14,14 @@ class Mis.Views.XiaoshouServiceTrackingsNew extends Backbone.View
   render: ->
     @$el.html(@template())
     @renderNav()
-    @renderSubNav()
     @renderProfileSummary()
     @renderReminds()
     @renderTrackings()
     @
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouServiceNavsMaster()
+    view = new Mis.Views.XiaoshouServiceNavsMaster(model: @store_service, active: 'tracking')
     @$("#masterNav").html view.render().el
-
-  renderSubNav: ->
-    view = new Mis.Views.XiaoshouServiceNavsSub()
-    @$("#subNav").html view.render().el
 
   renderProfileSummary: ->
     view = new Mis.Views.XiaoshouServiceProfilesSummary(model: @model)

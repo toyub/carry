@@ -20,15 +20,18 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
 
   render: ->
     @$el.html(@template(service: @model))
+    @renderNav()
     @renderServiceCategories()
     @
+
+  renderNav: ->
+    view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model, active: 'service')
+    @$("#masterNav").html view.render().el
 
   createOnSubmit: ->
     event.preventDefault()
     @model.set $("#createService").serializeJSON()
     @model.save() if @model.isValid(true)
-    console.log @model
-    console.log 'xxxx'
 
   openMaterialForm: ->
     view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
@@ -40,7 +43,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     @$(".materialList").parent().show()
 
   renderServiceCategories: ->
-    console.log @store.serviceCategories
     @store.serviceCategories.each @renderServiceCategory
 
   renderServiceCategory: (category) =>
@@ -70,11 +72,10 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
 
   handleSuccess: ->
     @uploadImages()
-    @goToSettingNew()
+    @goToShow()
 
-  goToSettingNew: ->
-    model = new Mis.Models.StoreServiceSetting(store_service: @model)
-    view = new Mis.Views.XiaoshouServiceSettingsNew(model: model)
+  goToShow: ->
+    view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
     $("#bodyContent").html(view.render().el)
 
   uploadImages: ->

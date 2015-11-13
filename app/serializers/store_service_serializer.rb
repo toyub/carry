@@ -6,6 +6,7 @@ class StoreServiceSerializer < ActiveModel::Serializer
   has_many :store_materials
   has_many :reminds
   has_many :trackings
+  has_one :setting
 
   def engineer_levels
     StoreServiceWorkflow::ENGINEER_LEVEL

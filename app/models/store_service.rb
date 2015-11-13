@@ -24,7 +24,7 @@ class StoreService < ActiveRecord::Base
   accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true
   accepts_nested_attributes_for :store_service_workflows, allow_destroy: true
 
-  after_create :create_service_reminds
+  after_create :create_service_reminds, :create_one_setting
 
   SETTING_TYPE = {
     regular: 0,
@@ -35,6 +35,10 @@ class StoreService < ActiveRecord::Base
     StoreServiceRemind::TIMING.keys.each do |t|
       self.reminds.create(store_id: self.store_id, store_staff_id: self.store_staff_id, trigger_timing: t, enable: false)
     end
+  end
+
+  def create_one_setting
+    self.create_setting(creator: self.creator)
   end
 
   def regular?

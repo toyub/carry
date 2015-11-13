@@ -100,3 +100,5 @@ gem "kaminari"
 #https://github.com/select2/select2
 #https://select2.github.io/examples.html
 gem "select2-rails"
+
+gem 'naught', git: 'git@gitlab.icar99.com:issac/naught.git', tag: '0.1.2'
