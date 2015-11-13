@@ -1,8 +1,5 @@
 class Mis.Models.StorePackageTracking extends Backbone.Model
 
-  urlRoot: ->
-    @store_package.url() + '/store_package_trackings'
-
   modelName: 'store_package_tracking'
 
   initialize: (options) ->
@@ -27,9 +24,10 @@ class Mis.Models.StorePackageTracking extends Backbone.Model
     0: '短信'
     1: '微信'
 
-  defaluts:
+  defaults:
     trigger_timing: 1
     mode: 0
+    delay_interval: 0
     delay_unit: 0
     notice_required: false
 
@@ -61,3 +59,6 @@ class Mis.Models.StorePackageTracking extends Backbone.Model
 
   clear: ->
     @destroy()
+
+  unitName: ->
+    @DELAY_UNITS[@get 'delay_unit']

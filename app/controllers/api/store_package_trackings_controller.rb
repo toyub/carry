@@ -4,7 +4,7 @@ module Api
     before_action :set_tracking, except: [:create]
 
     def create
-      @tracking = @package.trackings.create!(append_store_attrs tracking_params)
+      @tracking = @package.trackings.create(append_store_attrs tracking_params)
       respond_with @tracking, location: nil
     end
 
@@ -29,7 +29,7 @@ module Api
       end
 
       def tracking_params
-        params.require(:store_service_tracking).permit(:content, :mode, :delay_interval, :delay_unit, :notice_required, :trigger_timing)
+        params.require(:store_package_tracking).permit(:content, :mode, :delay_interval, :delay_unit, :notice_required, :trigger_timing)
       end
   end
 end

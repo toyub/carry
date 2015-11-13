@@ -25,7 +25,7 @@ class Mis.Views.XiaoshouPackageTrackingsItem extends Backbone.View
     else
       view = new Mis.Views.XiaoshouPackageTrackingsForm(model: @model)
     $("#trackingForm").html view.render().el
-    view.open
+    view.open()
 
   clear: ->
     @model.clear()

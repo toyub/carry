@@ -7,46 +7,37 @@
       <tr>
         <td>回访时间：</td>
         <td colspan="3">
-          <label>
-            <input type="radio" disabled name="trigger_timing" value="<%= tracking.timings().last_tracking %>" class="margin-left-10 margin-right-2 control" <%= 'checked' unless tracking.isTriggeredAfterSale() %>>上次回访后
+          <label class="width-100">
+            <input type="radio" disabled name="trigger_timing" value="<%= tracking.timings().last_tracking %>" class="margin-left-10" <%= 'checked' unless tracking.isTriggeredAfterSale() %>>上次回访后
           </label>
           <label>
-            <input type="radio" disabled name="trigger_timing" value="<%= tracking.timings().after_sale %>" class="margin-right-2 control" <%= 'checked' if tracking.isTriggeredAfterSale() %>>销售后
+            <input type="radio" disabled name="trigger_timing" value="<%= tracking.timings().after_sale %>" <%= 'checked' if tracking.isTriggeredAfterSale() %>>销售后
           </label>
-          <input type="text" disabled name="delay_interval" value="<%= tracking.get 'delay_interval' %>">
-          <select class="width-84" disabled name="delay_unit">
-            <% _.each tracking.delayUnits(), (name, unit) ->: %>
-              <option value="<%= unit %>" <%= 'selected' if unit.toString() == tracking.get('delay_unit').toString() %>><%= name %></option>
-            <% end %>
-          </select>
+          <span class="show_content width-75"><%= tracking.get 'delay_interval' %></span>
+          <span class="show_content width-75"><%= tracking.unitName() %></span>
         </td>
       </tr>
       <tr>
         <td>回访方式：</td>
-        <td>下拉选择</td>
+        <td></td>
         <td>
-          <select class="width-110" disabled>
-            <% _.each tracking.trackingModes(), (name, mode) ->: %>
-              <option value="<%= mode %>" <%= 'selected' if mode.toString() == tracking.get('mode').toString() %>><%= name %></option>
-            <% end %>
-          </select>
+          <span class="show_content width-110"><%= tracking.modeName() %></span>
         </td>
         <td>
           <label><input type="radio" disabled class="margin-right-2" name="notice_required" <%= 'checked' if tracking.noticeRequired() %> value="true">回访后通知</label>
         </td>
       </tr>
-      <tr></tr>
       <tr>
         <td colspan="2" class="line-height-10 vertical-align-top">自定义内容：</td>
         <td colspan="2" class="position-relative">
-          <textarea disabled class="width-258 height-124 padding-top-30 text-indent-16" name="content" placeholder="xxxx"><%= tracking.get 'content' %></textarea>
+          <textarea disabled class="width-258 height-124 padding-top-30 text-indent-16" name="content"><%= tracking.get 'content' %></textarea>
         </td>
       </tr>
       </tbody>
     </table>
 
-    <div class="btn_group">
-      <input type="button" class="btn cancel_btn" value="关闭" id="closeWithoutSave">
+    <div class="btn_group margin-top-10">
+      <input type="button" class="btn close_btn" value="关闭" id="closeWithoutSave">
     </div>
   </div>
 

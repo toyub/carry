@@ -21,8 +21,10 @@ class Mis.Views.XiaoshouPackageTrackingsForm extends Backbone.View
   createTracking: ->
     attrs = @$el.find("input, select, textarea").serializeJSON()
     if @model.isNew()
+      console.log 'new tracking'
       @collection.create attrs
     else
+      console.log 'update tracking'
       @model.save attrs
     @close()
     console.log @model
