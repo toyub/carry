@@ -3,6 +3,10 @@ class StoreDepot  < ActiveRecord::Base
   has_many :store_material_inventories
 
   default_scope {where(deleted: false).order('id asc')}
+
+  def material_types_count
+    self.store_material_inventories.count(:id)
+  end
   
   def toggle_useable!
     self.update!(useable: !self.useable)

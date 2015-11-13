@@ -17,6 +17,7 @@ class Store <  ActiveRecord::Base
   has_many :store_material_returnings
   has_many :store_material_returning_items
   has_many :store_settlement_accounts
+  has_many :store_physical_inventories
 
   validates :name, presence: true
 
