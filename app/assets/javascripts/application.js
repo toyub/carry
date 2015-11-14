@@ -41,7 +41,7 @@ function ZhanchuangAlert(msg) {
 
 // 全局默认的配置, 如需单独配置，在各自模块配置
 $(document).ready(function(){
-  $("#datetimepicker").datetimepicker({
+  $(".datetimepicker").datetimepicker({
     lang: "zh",
     format: 'Y-m-d H:i',
   });
