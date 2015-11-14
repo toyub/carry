@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113065200) do
+ActiveRecord::Schema.define(version: 20151114061742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,9 @@ ActiveRecord::Schema.define(version: 20151113065200) do
     t.boolean  "admin"
     t.integer  "role_id"
     t.string   "fullname",               limit: 45
+    t.string   "family_name"
+    t.string   "name"
+    t.string   "login_name"
   end
 
   create_table "store_attachments", force: :cascade do |t|
