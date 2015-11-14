@@ -81,6 +81,8 @@ Rails.application.routes.draw do
       end
       resources :categories, only: [:create]
     end
+
+    resources :packages, only: [:index]
   end
 
   namespace :soa do
@@ -153,6 +155,14 @@ Rails.application.routes.draw do
     resources :store_vehicles, only: [:index]
     resources :store_orders, only: [:index]
     resources :store_subscribe_orders
+    resources :store_packages, only: [:create, :update] do
+      member do
+        post :save_picture
+      end
+
+      resource :store_package_settings, only: [:create, :update]
+      resources :store_package_trackings, only: [:create, :update, :destroy]
+    end
 
     resource :qiniu do
       collection do

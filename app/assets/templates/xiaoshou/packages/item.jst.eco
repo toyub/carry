@@ -1,0 +1,12 @@
+<td class="sequence_num"><%= @package.get 'id' %></td>
+<td><a class='name' href="javascript:void(0);"><%= @package.get 'name' %></a></td>
+<td><%= @package.get 'code' %></td>
+<td><%= @package.validPeriod() %></td>
+<td><%= @package.get 'point' %></td>
+<td><%= @package.get 'retail_price' %></td>
+<td><%= @package.get 'abstract' %></td>
+<td>
+  <a href="#" class="link_i"><i class="fa fa-wrench"></i></a>
+  <a href="#" class="link_i"><i class="fa fa-bullhorn"></i></a>
+  <a href="#" class="link_i"><i class="fa fa-tty"></i></a>
+</td>
