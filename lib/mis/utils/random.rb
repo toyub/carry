@@ -4,7 +4,7 @@ module Mis::Utils
   module Random
     class << self
       def text
-        SecureRandom.hex
+        SecureRandom.hex(10)
       end
     end
   end
