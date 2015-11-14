@@ -5,3 +5,4 @@ module Mis
 end
 
 require_relative 'utils/encryption'
+require_relative 'utils/random'

@@ -1,5 +1,8 @@
 class StoreService < ActiveRecord::Base
   include BaseModel
+  include RandomTextable
+
+  random :code
 
   belongs_to :store_service_category
   has_many :store_service_store_materials
@@ -16,7 +19,6 @@ class StoreService < ActiveRecord::Base
   has_many :store_package_items, as: :package_itemable
 
   validates :name, presence: true, uniqueness: true
-  validates :code, presence: true, uniqueness: true
   validates :retail_price, presence: true
   validates :store_service_category_id, presence: true
   validates :store_staff_id, presence: true
