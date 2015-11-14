@@ -1,0 +1,9 @@
+access:
+  access_key: '< Qiniu ACCESS_KEY >' 
+  secret_key: '< Qiniu SECRET_KEY >'
+
+buckets:
+  bucket_name1:
+    domain: '< the bucket domain >'
+  bucket_name2:
+    domain: '< the bucket domain >'

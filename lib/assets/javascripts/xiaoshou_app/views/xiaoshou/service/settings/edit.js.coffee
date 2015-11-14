@@ -24,18 +24,13 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
   render: ->
     @$el.html(@template(store: @store, setting: @model))
     @renderNav()
-    @renderSubNav()
     @renderProfileSummary()
     @renderWorkflows() if !@model.isRegular()
     @
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouServiceNavsMaster()
+    view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model.store_service, active: 'setting')
     @$("#masterNav").html view.render().el
-
-  renderSubNav: ->
-    view = new Mis.Views.XiaoshouServiceNavsSub()
-    @$("#subNav").html view.render().el
 
   renderProfileSummary: ->
     view = new Mis.Views.XiaoshouServiceProfilesSummary(model: @model)

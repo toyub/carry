@@ -1,0 +1,61 @@
+<% tracking = @tracking %>
+<h3 class="color-fff">创建回访</h3>
+<div class="details_create">
+  <div class="content_create float-left">
+    <table border="0">
+      <tbody>
+        <tr>
+          <td>回访时间：</td>
+          <td colspan="3">
+            <label class="width-100">
+              <input type="radio" name="trigger_timing" value="<%= tracking.timings().last_tracking %>" class="margin-left-10" <%= 'checked' unless tracking.isTriggeredAfterSale() %>>上次回访后
+            </label>
+            <label>
+              <input type="radio" name="trigger_timing" value="<%= tracking.timings().after_sale %>" <%= 'checked' if tracking.isTriggeredAfterSale() %>>销售后
+            </label>
+            <input type="text" class="width-70" name="delay_interval" value="<%= tracking.get 'delay_interval' %>">
+            <select class="width-84" name="delay_unit">
+              <% _.each tracking.delayUnits(), (name, unit) ->: %>
+                <option value="<%= unit %>" <%= 'selected' if unit.toString() == tracking.get('delay_unit').toString() %>><%= name %></option>
+              <% end %>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>回访方式：</td>
+          <td>下拉选择</td>
+          <td>
+            <select class="width-110" name="mode">
+              <% _.each tracking.trackingModes(), (name, mode) ->: %>
+                <option value="<%= mode %>" <%= 'selected' if mode.toString() == tracking.get('mode').toString() %>><%= name %></option>
+              <% end %>
+            </select>
+          </td>
+          <td>
+            <label><input type="radio" class="margin-right-2" name="notice_required" <%= 'checked' if tracking.noticeRequired() %> value="true">回访后通知</label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="line-height-10 vertical-align-top">自定义内容：</td>
+          <td colspan="2" class="position-relative">
+            <textarea class="width-258 height-124 padding-top-30 text-indent-16" name="content" placeholder="短信发送每条限70字节，超过会按2条计费"><%= tracking.get 'content' %></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="btn_group">
+      <input type="button" class="btn cancel_btn" value="取消" id="closeWithoutSave">
+      <input type="button" class="btn save_btn" value="保存" id="createTracking">
+    </div>
+  </div>
+
+  <div class="tips float-right">
+    <h4 class="text-align-center">提示</h4>
+    <p>1. 创建回访可以直接从回访模板中选择回访内容</p>
+    <p>2. 回访时间请选择在销售后还是上次回访结束后</p>
+    <p>3. 回访方式请选择系统已建立的方式，如短信或微信，没有上述回访方式则默认为系统提示做人工电话回访</p>
+    <p>4. 选择回访后通知则在自动回访后在系统消息中出现提示信息</p>
+    <p>5. 自定义回访内容可以作为模板保存，在弹出的标题框内输入模板名称即可保存</p>
+  </div>
+</div>

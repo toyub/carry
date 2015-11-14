@@ -1,18 +1,8 @@
 <div class="main_top">
-  <h2>订货</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '供应商', '详情']) %>
 </div>
 <div class="details">
-  <%= render partial: 'shortcuts' -%>
   <%= render partial: 'nav' -%>
-  <div class="details_nav_second">
-    <ul class="goods_nav">
-      <li><a href="#" class="width-200">▲上一个供应商(美国3M美国...)</a></li>
-      <li><a href="#" class="width-200">▼下一个供应商(杭州鼎洪科技)</a></li>
-      <li ><a href="index.html" class="width-90">返回列表</a></li>
-    </ul>
-  </div>
-
   <form action="<%= edit_kucun_store_supplier_path(@store_supplier) %>" method="get" >
     <div class="details_content">
       <div class="supplier_info base_info">
@@ -117,10 +107,6 @@
           </div>
       </div>
       <div class="supplier_related" >
-        <div class="float-left">
-          <label class="width-80 text-align-right ">信息完整度:</label>
-          <span class><%=@store_supplier.fill_percent %>%</span>
-        </div>
           <div  class="float-right margin-right-40">
             <label>停用供应商</label>
             <input type="checkbox" disabled="true" <%= 'checked="checked"' if @store_supplier.status_suspended? %> >

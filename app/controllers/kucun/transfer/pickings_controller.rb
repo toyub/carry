@@ -36,7 +36,7 @@ module Kucun
           end
         end
         
-        render json: {picking: picking, items: picking.items}
+        redirect_to action: 'index'
       end
 
       private

@@ -97,14 +97,10 @@
         </div>
         <div class="item_content">
           <label class="width-75">备注</label>
-          <%= form.text_area :remark, class:"width-1242 height-100 border-dbd9d9 texarea_width" %>
+          <%= form.text_area :remark, maxlength: 200, class:"width-1242 height-100 border-dbd9d9 texarea_width" %>
         </div>
     </div>
     <div class="supplier_related" >
-      <div class="float-left">
-        <label class="width-80 text-align-right ">信息完整度:</label>
-        <span class><%= @store_supplier.fill_percent %></span>
-      </div>
         <div  class="float-right margin-right-40">
           <label>停用供应商<%= form.check_box :status %></label>
         </div>

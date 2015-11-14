@@ -13,6 +13,7 @@ class StoreService < ActiveRecord::Base
   has_one :setting, class_name: 'StoreServiceSetting', dependent: :destroy
   has_many :reminds, class_name: 'StoreServiceRemind', dependent: :destroy
   has_many :trackings, class_name: 'StoreServiceTracking', dependent: :destroy
+  has_many :store_package_items, as: :package_itemable
 
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true
@@ -23,7 +24,7 @@ class StoreService < ActiveRecord::Base
   accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true
   accepts_nested_attributes_for :store_service_workflows, allow_destroy: true
 
-  after_create :create_service_reminds
+  after_create :create_service_reminds, :create_one_setting
 
   SETTING_TYPE = {
     regular: 0,
@@ -34,6 +35,10 @@ class StoreService < ActiveRecord::Base
     StoreServiceRemind::TIMING.keys.each do |t|
       self.reminds.create(store_id: self.store_id, store_staff_id: self.store_staff_id, trigger_timing: t, enable: false)
     end
+  end
+
+  def create_one_setting
+    self.create_setting(creator: self.creator)
   end
 
   def regular?

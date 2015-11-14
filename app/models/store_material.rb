@@ -1,16 +1,12 @@
 class StoreMaterial < ActiveRecord::Base
-  belongs_to :store
-  belongs_to :store_chain
+  include BaseModel
+
   belongs_to :store_material_unit
   belongs_to :store_material_brand
   belongs_to :store_material_category
   belongs_to :store_material_root_category, class_name: 'StoreMaterialCategory', foreign_key: 'store_material_root_category_id'
   belongs_to :store_material_manufacturer
-  belongs_to :creator, class_name: 'StoreStaff', foreign_key: 'store_staff_id'
 
-  has_many :store_material_commissions
-  has_one :smc_salesman
-  has_one :smc_mechanic
   has_one :store_material_saleinfo
   has_one :store_material_tracking
 
@@ -20,6 +16,7 @@ class StoreMaterial < ActiveRecord::Base
 
   #has_many :store_material_images, foreign_key: 'host_id'
   has_many :uploads, class_name: '::Upload::StoreMaterial', as: :fileable
+  has_many :store_package_items, as: :package_itemable
 
   scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}%")}
   scope :by_sub_category, -> (category) {where(store_material_category_id: category) if category.present?}

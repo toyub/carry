@@ -1,22 +1,12 @@
 <div class="main_top">
-  <h2>订货</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '供应商', '编辑信息']) %>
 </div>
 <div class="details">
-  <%= render partial: 'shortcuts' -%>
   <div class="details_nav">
     <ul>
       <li class="bg-color-fff"><a href="gongyingshangxinxishow.html" class="width-90">供应商信息</a></li>
       <li><a href="javascript:void(0);" onclick='alert("请先保存供应商信息")' class="width-90">订货</a></li>
       <li><a href="javascript:void(0);" onclick='alert("请先保存供应商信息")' class="width-90">记录</a></li>
-      <li><a href="javascript:void(0);" onclick='alert("请先保存供应商信息")' class="width-90">评估</a></li>
-    </ul>
-  </div>
-  <div class="details_nav_second">
-    <ul class="goods_nav">
-      <li><a href="#" class="width-90">▲上一件商品</a></li>
-      <li><a href="#" class="width-90">▼下一件商品</a></li>
-      <li ><a href="index.html" class="width-90">返回列表</a></li>
     </ul>
   </div>
   <%= render partial: 'form' -%>

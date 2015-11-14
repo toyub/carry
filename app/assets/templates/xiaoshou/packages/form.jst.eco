@@ -1,0 +1,17 @@
+<div class="name">
+  <label for="package_name">套餐名称</label>
+  <input type="text" name="name" value="<%= @package.get 'name' %>" id="package_name">
+</div>
+<div class="code">
+  <label for="package_code">套餐代码</label>
+  <input type="text" name="code" value="<%= @package.get 'code' %>" id="package_code">
+</div>
+<div class="abstract">
+  <label for="package_abstract">摘要</label>
+  <textarea name="abstract" id="package_abstract"><%= @package.get 'abstract' %></textarea>
+</div>
+<div class="descript">
+  <label for="package_remark">套餐介绍</label>
+  <textarea name="remark" id="package_remark"><%= @package.get 'remark' %></textarea>
+</div>
+

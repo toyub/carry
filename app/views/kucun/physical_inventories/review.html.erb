@@ -1,13 +1,12 @@
 <div class="main_top">
-  <h2>盘点</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '盘点', '盘点单审核']) %>
 </div>
 <div class="details">
   <div class="details_nav">
     <ul>
       <li><a href="/kucun/physical_inventories/new?store_depot_id=<%=params[:store_depot_id]%>" class="width-90">系统库存</a></li>
-      <li class="bg-color-fff"><a href="pandiandanju.html" class="width-90">盘点单据</a></li>
-      <li><a href="lishijilu.html" class="width-90">历史记录</a></li>
+      <li class="bg-color-fff"><a href="/kucun/physical_inventories/review?store_depot_id=<%=params[:store_depot_id]%>" class="width-90">盘点单据</a></li>
+      <li><a href="/kucun/physical_inventories/" class="width-90">历史记录</a></li>
     </ul>
   </div>
   <div class="details_nav_second border-right-0 padding-top-10">
@@ -16,7 +15,7 @@
       <label>仓库</label>
       <select class="width-90" name="store_depot_id">
         <option>选择仓库</option>
-        <%= options_from_collection_for_select(@store.store_depots, :id, :name, @physical.try(:store_depot_id)) %>
+        <%= options_from_collection_for_select(@store.store_depots, :id, :name, @physical.try(:store_depot_id)||params[:store_depot_id]) %>
       </select>
     </div>
 
@@ -113,7 +112,7 @@
             <% elsif params[:store_depot_id].present? %>
               <tr>
                 <td colspan="12">
-                  此仓库本月还没有盘点，请先盘点 <a href="/kucun/physical_inventories/new?store_depot_id=<%= @physical.try(:store_depot_id) %>">去盘点</a>
+                  此仓库本月还没有盘点，请先盘点 <a class='color-0669B7' href="/kucun/physical_inventories/new?store_depot_id=<%= @physical.try(:store_depot_id)||params[:store_depot_id] %>">去盘点</a>
                 </td>
               </tr>
             <% end %>
@@ -122,11 +121,16 @@
       </div>
     </div>
   <div class="btn_group">
+    <% if @physical.present? %>
+    <%= form_tag checked_kucun_physical_inventory_path(@physical) do %>
     <span>注意： 商品全部盘点完成才能核销！若月底没有核销，系统将自动核销。</span>
-    <input type="submit" class="save_btn btn <%= 'disabled' unless  @inventory_count == @physical_count  %>" value="核销盘点">
+    <input type="submit" class="save_btn btn <%= 'disabled' unless  @inventory_count == @physical_count  %>" <%= 'disabled' unless  @inventory_count == @physical_count  %> value="核销盘点">
+    <% end %>
+    <% end %>
   </div>
 </div>
 
+<% if @physical.present? %>
 <% content_for :scenes do %>
 <div id='loss_pop' class="popup_box do_popup_show do_out_show" style="display:none">
   <%= form_tag '/kucun/physical_inventories/loss_report' do %>
@@ -257,7 +261,7 @@
   <% end %>
 </div>
 <% end %>
-
+<% end %>
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){

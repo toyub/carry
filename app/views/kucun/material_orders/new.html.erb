@@ -1,18 +1,9 @@
 
 <div class="main_top">
-  <h2>订货</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '订货', '新建订货单']) %>
 </div>
 <div class="details">
-  <%= render partial: 'tabtop' %>
   <%= render partial: 'kucun/store_suppliers/nav' -%>
-  <div class="details_nav_second">
-    <ul class="goods_nav">
-      <li><a href="#" class="width-90">▲上一件商品</a></li>
-      <li><a href="#" class="width-90">▼下一件商品</a></li>
-      <li ><a href="index.html" class="width-90">返回列表</a></li>
-    </ul>
-  </div>
   <div class="details_content">
       <div class=" common_storage_content margin-bottom-50">
       <%= form_tag "/kucun/material_orders/", id: 'new_order_form' do %>
@@ -31,8 +22,7 @@
             <input type="text" class="width-135" readonly="true" value="<%= make_numero('MO') %>">
           </div>
           <div class="ordergoods_print">
-            <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
-            <a href="#" class="print_barcode_btn">打印条码</a>
+            <a href="javascript:void(0);" class="print_btn">打<nbsp1></nbsp1>印</a>
           </div>
         </div>
         <%= render partial: 'form' %>
@@ -64,35 +54,4 @@
       });
     });
   </script>
-
-  <script>
- jQuery(function($) {
-   $( "input.autocomplete" ).autocomplete({
-     source: function( request, response ) {
-       $.ajax({
-         url: "/kucun/materials/autocomplete_name",
-         dataType: "jsonp",
-         data: {
-           q: request.term
-         },
-         success: function( data ) {
-           response( data );
-         }
-       });
-     },
-     minLength: 3,
-     select: function( event, ui ) {
-       console.log( ui.item ?
-         "Selected: " + ui.item.label :
-         "Nothing selected, input was " + this.value);
-     },
-     open: function() {
-       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-     },
-     close: function() {
-       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-     }
-   });
- });
- </script>
 <% end %>

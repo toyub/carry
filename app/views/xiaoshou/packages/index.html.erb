@@ -1,0 +1,106 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
+  <%= javascript_include_tag 'xiaoshou' %>
+<% end %>
+
+<div class="main_top">
+  <h2>套餐列表</h2>
+  <a class="back_to_list" href="<%= xiaoshou_packages_path %>">
+    <i class="fa-arrow-circle-left  fa"></i>返回列表
+  </a>
+</div>
+
+<div class="details" id="packageIndex">
+  <div class="container_list">
+    <div id="bodyContent">
+
+      <div class="list_table">
+        <div class="search_nav">
+          <div class="item-query">
+            <label>查找套餐</label>
+            <input type="text" class="width-150" placeholder="输入产品关键字">
+          </div>
+          <div class="item-query query_div">
+            <button class="btn query_btn do_search_result">查<nbsp1></nbsp1>询</button>
+          </div>
+          <div class="item-query c_price">
+            <div class="link" id="link_drop_list">
+              <span class="float-left margin-right-10" title="价格从高到低">价格</span>
+              <span><i class="fa fa-angle-down"></i></span>
+            </div>
+            <ul class="drop_list" id="drop_list">
+              <li class="sort"><a href="#">价格从低到高</a></li>
+              <li class="sort"><a href="#">价格从高到低</a></li>
+            </ul>
+
+          </div>
+          <div class="prices">
+            <div class="inputs">
+              <div class="inner">
+                <ul class="items">
+                  <li class="item"><input type="text" class="j_sortbar_price_input input" placeholder="¥"></li>
+                  <li class="sep">-</li>
+                  <li class="item"><input type="text" class="j_sortbar_price_input input" placeholder="¥"></li>
+                  <li class="submit"><button class="btn j_sortbar_price_submit">确定</button></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="item-query screen">
+            <div class="link">
+              <span class="float-left margin-right-10" title="价格从高到低">筛选</span>
+              <span><i class="fa fa-angle-down"></i></span>
+            </div>
+            <ul class="drop_list">
+              <li class="sort"><a href="#">今天上架套餐</a></li>
+              <li class="sort"><a href="#">本周上架套餐</a></li>
+              <li class="sort"><a href="#">本月上架套餐</a></li>
+            </ul>
+          </div>
+          <div class="operats">
+            <ul class="items">
+              <li class="item_add"><a href="javascript:void(0);" id="newPackage" class="btn add_btn">新建</a></li>
+              <li class="item"><a href="#" class="link"><i class="fa fa-th"></i></a></li>
+              <li class="item"><a href="#" class="link"><i class="fa fa-bars"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <table cellpadding="0" cellspacing="0" class="index_list taocan">
+          <thead>
+            <tr>
+              <th style="border-right:0px;">#</th>
+              <th>套餐名称</th>
+              <th>套餐代码</th>
+              <th>有效时间</th>
+              <th>销售价</th>
+              <th>积分</th>
+              <th>摘要</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody id="packageList">
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+<%= content_tag :div, '', id: 'bootstrap', data: {'store': json_for(current_store),
+                                                  'store-packages': json_for(current_store.store_packages),
+                                                  'store-deposits': json_for(current_store.store_deposits),
+                                                  'store-services': json_for(current_store.store_services)} %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      window.Store = new Mis.Models.Store($("#bootstrap").data("store").store);
+      window.StorePackages = new Mis.Collections.StorePackages($('#bootstrap').data('store-packages'));
+      window.StoreServices = new Mis.Collections.StoreServices($('#bootstrap').data('store-services'));
+      window.StoreDepositCards = new Mis.Collections.StoreDepositCards($('#bootstrap').data('store-deposits'));
+      view = new Mis.Views.XiaoshouPackagesIndex({collection: window.StorePackages});
+      view.render();
+    })
+  </script>
+<% end %>

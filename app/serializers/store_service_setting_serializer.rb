@@ -23,7 +23,7 @@ class StoreServiceSettingSerializer < ActiveModel::Serializer
   delegate *WORKFLOW_FIELDS, to: :workflow
 
   def workflow
-    object.workflows.first if regular?
+    (object.workflows.first || NullObject.new) if regular?
   end
 
   def regular?

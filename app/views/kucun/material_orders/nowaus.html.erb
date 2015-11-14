@@ -1,16 +1,14 @@
 
 <div class="main_top">
-  <h2>订货</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '订货', '快速订货']) %>
 </div>
 <div class="details">
-  <%= render partial: 'tabtop' %>
   <div class="details_nav">
     <ul>
       <li><a href="#" class="width-90">供应商信息</a></li>
       <li class="bg-color-fff"><a href="#" class="width-90">订货</a></li>
       <li><a href="#"  class="width-90">记录</a></li>
-      <li ><a href="#" class="width-90">评估</a></li>
+      <li><a href="#" class="width-90">评估</a></li>
     </ul>
   </div>
   <div class="details_content">
@@ -39,8 +37,7 @@
             <input type="text" class="width-135" readonly value='2015041500006' />
           </div>
           <div class="ordergoods_print">
-            <a href="#" class="print_btn">打<nbsp1></nbsp1>印</a>
-            <a href="#" class="print_barcode">打印条码</a>
+            <a href="javascript:void(0);" class="print_btn">打<nbsp1></nbsp1>印</a>
           </div>
         </div>
         <%= render partial: 'form'  %>
@@ -65,7 +62,7 @@
       <% if @store_material.present? %>
          var store_material = <%= StoreMaterialSerializer.new(@store_material).as_json(root: false).to_json.html_safe -%>;
       <% end %>
-      
+
       new_order_view = new $$MIS.NewMaterialOrderView({
         el: $("#content")
       });
@@ -87,36 +84,4 @@
 
     });
   </script>
-
-
-  <script>
- jQuery(function($) {
-   $( "input.autocomplete" ).autocomplete({
-     source: function( request, response ) {
-       $.ajax({
-         url: "/kucun/materials/autocomplete_name",
-         dataType: "jsonp",
-         data: {
-           q: request.term
-         },
-         success: function( data ) {
-           response( data );
-         }
-       });
-     },
-     minLength: 3,
-     select: function( event, ui ) {
-       console.log( ui.item ?
-         "Selected: " + ui.item.label :
-         "Nothing selected, input was " + this.value);
-     },
-     open: function() {
-       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-     },
-     close: function() {
-       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-     }
-   });
- });
- </script>
 <% end %>

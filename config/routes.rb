@@ -15,8 +15,9 @@ Rails.application.routes.draw do
       resource :saleinfo do
         resources :saleinfo_services
       end
-      resource :commission
-      resource :tracking
+      resource :tracking, only: [:show, :create, :update] do
+        get :sections, on: :collection
+      end
     end
 
     resources :material_units
@@ -55,6 +56,11 @@ Rails.application.routes.draw do
         post :loss_report
         post :profit_report
       end
+
+      member do
+        post :checked
+        get :excel
+      end
     end
 
     resources :depots do
@@ -75,6 +81,8 @@ Rails.application.routes.draw do
       end
       resources :categories, only: [:create]
     end
+
+    resources :packages, only: [:index]
   end
 
   namespace :soa do
@@ -96,6 +104,17 @@ Rails.application.routes.draw do
       end
     end
     resources :commission_templates
+    resources :depots do
+      collection do
+        get :fetch
+      end
+
+      member do
+        put :toggle_useable
+        put :prefer
+        get :binding_material_count
+      end
+    end
   end
 
   namespace :ajax do
@@ -137,6 +156,21 @@ Rails.application.routes.draw do
     resources :store_vehicles, only: [:index]
     resources :store_orders, only: [:index]
     resources :store_subscribe_orders
+    resources :store_packages, only: [:create, :update] do
+      member do
+        post :save_picture
+      end
+
+      resource :store_package_settings, only: [:create, :update]
+      resources :store_package_trackings, only: [:create, :update, :destroy]
+    end
+
+    resource :qiniu do
+      collection do
+        get :upload_token
+        post :post_img_src
+      end
+    end
   end
 
   root 'kucun/materials#index'
