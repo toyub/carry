@@ -134,7 +134,7 @@
       </div>
 
       <div class="btn_group">
-        <input type="reset" class="btn cancel_btn" value="取消">
+        <a href='<%= kucun_material_tracking_path(@store_material) %>' class="btn cancel_btn">取消</a>
         <input type="submit" id='save_tracking' class="btn save_btn" value="保存">
       </div>
 
@@ -147,7 +147,7 @@
   <script type="text/javascript">
     jQuery(function($) {
       var urlRoot = '/kucun/materials/<%= @store_material.id %>/tracking';
-      x =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot});
+      handle =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot});
     });
   </script>
 
