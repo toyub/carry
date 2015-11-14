@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       end
       resource :tracking, only: [:show, :create, :update] do
         get :sections, on: :collection
+        resources :tracking_sections
       end
     end
 
