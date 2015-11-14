@@ -3,6 +3,7 @@ window.Mis =
   Collections: {}
   Views: {}
   Routers: {}
+  Helpers: {}
   initialize: ->
     console.log 'Hello from Backbone!'
 

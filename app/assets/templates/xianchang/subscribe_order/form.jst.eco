@@ -68,43 +68,7 @@
                   <dd class="number">1</dd>
                   <dd>精致洗车</dd>
                   <dd>
-                    <a class="minus" href="javascript:void(0)">-</a><input type="text" class="width-40"><a href="javascript:void(0)">+</a>
-                  </dd>
-                  <dd>68.00</dd>
-                  <dd></dd>
-                </dl>
-                <dl>
-                  <dd class="number">2</dd>
-                  <dd>精致洗车</dd>
-                  <dd>
-                    <a class="minus" href="javascript:void(0)">-</a><input type="text" class="width-40"><a href="javascript:void(0)">+</a>
-                  </dd>
-                  <dd>68.00</dd>
-                  <dd></dd>
-                </dl>
-                <dl>
-                  <dd class="number">3</dd>
-                  <dd>精致洗车</dd>
-                  <dd>
-                    <a class="minus" href="javascript:void(0)">-</a><input type="text" class="width-40"><a href="javascript:void(0)">+</a>
-                  </dd>
-                  <dd>68.00</dd>
-                  <dd></dd>
-                </dl>
-                <dl>
-                  <dd class="number">4</dd>
-                  <dd>精致洗车</dd>
-                  <dd>
-                    <a class="minus" href="javascript:void(0)">-</a><input type="text" class="width-40"><a href="javascript:void(0)">+</a>
-                  </dd>
-                  <dd>68.00</dd>
-                  <dd></dd>
-                </dl>
-                <dl>
-                  <dd class="number">5</dd>
-                  <dd>精致洗车</dd>
-                  <dd>
-                    <a class="minus" href="javascript:void(0)">-</a><input type="text" class="width-40"><a href="javascript:void(0)">+</a>
+                    <input type="number" class="width-100 number-box-input">
                   </dd>
                   <dd>68.00</dd>
                   <dd></dd>
