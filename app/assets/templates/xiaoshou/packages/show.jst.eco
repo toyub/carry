@@ -7,7 +7,7 @@
     <ul id="material_img_thumbnails" class="goods_small_img">
       <li id="preview_list">
         <% @package.uploads.each (upload) ->: %>
-          <img src="<%= upload.get 'img_url' %>" />
+          <img src="<%= upload.get 'file_url' %>" />
         <% end %>
       </li>
     </ul>

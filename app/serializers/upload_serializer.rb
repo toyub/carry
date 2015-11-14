@@ -1,7 +1,4 @@
 class UploadSerializer < ActiveModel::Serializer
-  attributes :img_url
+  attributes :file_url
 
-  def img_url
-    object.img
-  end
 end
