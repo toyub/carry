@@ -13,7 +13,7 @@ module Api
     end
 
     def save_picture
-      @package.uploads.create(append_store_attrs img_params)
+      @package.uploads.create(params[:results].map {|key| {img: key, creator: current_staff}})
       respond_with @package, location: nil
     end
 
@@ -25,10 +25,6 @@ module Api
 
       def package_params
         params.require(:store_package).permit(:name, :code, :abstract, :remark)
-      end
-
-      def img_params
-        params.permit(:img)
       end
   end
 end
