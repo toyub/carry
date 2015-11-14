@@ -1,4 +1,6 @@
 class Store <  ActiveRecord::Base
+  include PrettyIdable
+
   belongs_to :store_chain
   has_many :store_materials
   has_many :store_material_categories

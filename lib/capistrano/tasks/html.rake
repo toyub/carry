@@ -48,7 +48,6 @@ namespace :html do
     on release_roles :web do
       fetch(:html_linked_dirs).each do |dir|
         target = release_path.join("public", dir)
-        # source = "#{fetch(:html_project_path)}/caishuohtml/#{dir}"  # TODO 不起作用
         source = "#{fetch(:html_static_path)}/#{dir}"
         execute :ln, '-sfT', source, target
       end
