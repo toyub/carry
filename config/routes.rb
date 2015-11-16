@@ -167,7 +167,6 @@ Rails.application.routes.draw do
     resource :qiniu do
       collection do
         get :upload_token
-        post :post_img_src
       end
     end
   end
