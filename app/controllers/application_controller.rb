@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def current_store
     @current_store ||= current_user.store
-    raise ActiveRecord::RecordNotFound.new if @current_store.blank?
+    raise ActiveRecord::RecordNotFound.new unless @current_store
     @current_store
   end
 

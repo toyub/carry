@@ -3,7 +3,7 @@ module Uploadable
 
   def save_picture
     resource.uploads.create(params[:results].map {|key| {img: key, creator: current_staff}})
-    respond_with resource, location: nil
+    render json: resource
   end
 
   def resource
