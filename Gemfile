@@ -110,3 +110,6 @@ gem 'naught', git: 'git@gitlab.icar99.com:issac/naught.git', tag: '0.1.2'
 #Qiniu upload token
 #  http://developer.qiniu.com/docs/v6/api/reference/security/upload-token.html
 gem 'qiniu'
+
+# Hash ID, 用来生成加密ID，来保护数据库id, 需保证可逆加密
+gem 'hashids', '~> 1.0', '>= 1.0.2'

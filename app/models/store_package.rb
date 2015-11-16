@@ -1,5 +1,8 @@
 class StorePackage < ActiveRecord::Base
   include BaseModel
+  include RandomTextable
+
+  random :code
 
   has_many :uploads, class_name: '::Upload::Base', as: :fileable, dependent: :destroy
   has_one :package_setting, class_name: 'StorePackageSetting', dependent: :destroy
@@ -10,4 +13,5 @@ class StorePackage < ActiveRecord::Base
   def create_one_setting
     self.create_package_setting(creator: self.creator)
   end
+
 end

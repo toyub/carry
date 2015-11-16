@@ -27,7 +27,7 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
 
   updateOnSubmit: ->
     event.preventDefault()
-    @model.set $("#createPackage").serializeJSON()
+    @model.set $("#updatePackage").serializeJSON()
     @model.save() if @model.isValid(true)
 
   previewImage: (e) ->

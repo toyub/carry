@@ -2,5 +2,5 @@
   <li><%= @idx %>.</li>
   <li><label class="edit click_btn cursor" data-viewid="<%= @viewid %>" data-modelid='<%=@cid%>'><%= @content %></label></li>
   <li><%= @delay %></li>
-  <li>微信<span  class="delete close"  data-target="list_content_<%= @cid %>">×</span></li>
+  <li>微信<span  class="delete close" data-modelid='<%=@cid%>'>×</span></li>
 </ul>
