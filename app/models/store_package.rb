@@ -4,7 +4,7 @@ class StorePackage < ActiveRecord::Base
 
   random :code
 
-  has_many :uploads, class_name: '::Upload::Base', as: :fileable, dependent: :destroy
+  has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_one :package_setting, class_name: 'StorePackageSetting', dependent: :destroy
   has_many :trackings, class_name: 'StorePackageTracking', dependent: :destroy
 
