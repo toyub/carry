@@ -96,7 +96,9 @@
     this.starting = function(){
       UploadDialog.show({
         close: function(){
-          window.location.replace(redirect_to);
+          if(redirect_to){
+            window.location.replace(redirect_to);
+          }
         }
       });
     }
