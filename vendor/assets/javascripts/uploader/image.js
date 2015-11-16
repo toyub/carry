@@ -94,13 +94,11 @@
     }
 
     this.starting = function(){
-      UploadDialog.show({
-        close: function(){
-          if(redirect_to){
-            window.location.replace(redirect_to);
-          }
-        }
-      });
+      var opt = {};
+      if(redirect_to){
+        opt.close = function(){window.location.replace(redirect_to);}
+      }
+      UploadDialog.show(opt);
     }
   }
 
