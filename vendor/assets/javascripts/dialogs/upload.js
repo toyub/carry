@@ -37,9 +37,8 @@
           if(opt && opt.close){
             this.instance.on('closed', opt.close);
           }
-        }else{
-          this.instance.show();
         }
+        this.instance.show();
       },
       add_progress: function(idx){
         this.progress_list.append('<li><span>正在上传文件' + idx +'</span><progress upid='+ idx +' value="0" max="100"></progress></li>');
