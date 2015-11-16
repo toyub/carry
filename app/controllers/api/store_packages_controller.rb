@@ -1,5 +1,7 @@
 module Api
   class StorePackagesController < BaseController
+    include Uploadable
+
     before_action :set_package, except: [:create]
 
     def create
@@ -12,12 +14,10 @@ module Api
       respond_with @package, location: nil
     end
 
-    def save_picture
-      @package.uploads.create(params[:results].map {|key| {img: key, creator: current_staff}})
-      respond_with @package, location: nil
-    end
-
     private
+      def resource
+        @package ||= set_package
+      end
 
       def set_package
         @package = current_store.store_packages.find(params[:id])

@@ -1,5 +1,7 @@
 module Api
   class StoreServicesController < BaseController
+    include Uploadable
+
     before_action :set_service, except: [:create, :index]
 
     def create
@@ -17,11 +19,6 @@ module Api
       respond_with @service, location: nil
     end
 
-    def save_picture
-      @service.uploads.create(params[:results].map {|key| {img: key, creator: current_staff}})
-      respond_with @service, location: nil
-    end
-
     def index
       @q = current_store.store_services.ransack(params[:q])
       @services = @q.result(distinct: true)
@@ -29,6 +26,9 @@ module Api
     end
 
     private
+      def resource
+        @service ||= set_service
+      end
 
       def set_service
         @service = current_store.store_services.find(params[:id])
