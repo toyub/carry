@@ -8,12 +8,16 @@ class Mis.Models.StoreService extends Backbone.Model
     @on('change:store_service_workflows_attributes', @parseWorkflows)
     @on('change:uploads', @parseUploads)
     @on('change:store_materials', @parseMaterials)
+    @on('change:reminds', @parseReminds)
+    @on('change:trackings', @parseTrackings)
     @on('sync', @parseMaterials)
+
     @parseWorkflows()
     @parseUploads()
     @parseMaterials()
     @parseReminds()
     @parseTrackings()
+    @parseSetting()
 
   validation:
     name:
@@ -61,6 +65,10 @@ class Mis.Models.StoreService extends Backbone.Model
 
   parseTrackings: ->
     @trackings = new Mis.Collections.StoreServiceTrackings(@get "trackings")
+
+  parseSetting: ->
+    attrs = @get 'setting'
+    @setting = new Mis.Models.StoreServiceSetting(_.extend {store_service: @}, attrs)
 
   toJSON: ->
     hashWithRoot = {}

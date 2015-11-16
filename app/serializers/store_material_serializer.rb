@@ -30,7 +30,7 @@
 #
 
 class StoreMaterialSerializer < ActiveModel::Serializer
-  attributes :id, :name, :unit, :barcode, :speci, :root_category, :category, :cost_price, :mode, :root_category_id, :category_id, :remark
+  attributes :id, :name, :unit, :barcode, :speci, :root_category, :category, :cost_price, :mode, :root_category_id, :category_id, :remark, :price
 
   def unit
     object.store_material_unit.name
@@ -54,5 +54,9 @@ class StoreMaterialSerializer < ActiveModel::Serializer
 
   def mode
     "领用"
+  end
+
+  def price
+    object.cost_price
   end
 end

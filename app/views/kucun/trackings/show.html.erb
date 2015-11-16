@@ -1,6 +1,6 @@
 
 <div class="main_top">
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '商品', '回访设置']) %>
 </div>
 <div class="details">
   <div class="content_list">
@@ -30,87 +30,59 @@
                 <tr>
                   <td>
                     <label class="width-75">商品名称</label>
-                    <input type="text" class="width-165" value="<%= @store_material.name %>" readonly/>
+                    <span class="width-167 show_content"><%= @store_material.name %></span>
                   </td>
                   <td>
                     <label class="width-75">条形码</label>
-                    <input type="text" class="width-165" value="<%= @store_material.barcode %>" readonly/>
+                    <span class="width-167 show_content"><%= @store_material.barcode %></span>
                  </td>
                 </tr>
                 <tr>
                   <td>
                     <label class="width-75">助记码</label>
-                    <input type="text" class="width-165" value="<%= @store_material.mnemonic %>" readonly/>
+                    <span class="width-167 show_content"><%= @store_material.mnemonic %></span>
                   </td>
                   <td>
                     <label class="width-75">一级分类</label>
-                    <select  class="width-167" disabled>
-                      <option selected="selected"><%=  %></option>
-                    </select>
+                    <span class="width-167 show_content"><%= @store_material.store_material_root_category.name %></span>
                  </td>
                 </tr>
                 <tr>
                   <td>
                     <label class="width-75">二级分类</label>
-                    <select  class="width-167" disabled>
-                      <option >请选择</option>
-                      <option selected="selected">汽车膜</option>
-                      <option>镀晶</option>
-                    </select>
+                    <span class="width-167 show_content"><%= @store_material.store_material_category.name %></span>
                   </td>
                   <td>
                     <label class="width-75">商品品牌</label>
-                    <select class="width-167" disabled>
-                      <option >请选择</option>
-                      <option selected="selected" >澳大利亚卡古</option>
-                      <option>米其林</option>
-                      <option>澜泰</option>
-                      <option>巴尔扎克</option>
-                      <option>途乐</option>
-                    </select>
+                    <span class="width-167 show_content"><%= @store_material.store_material_brand.name %></span>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <label class="width-75">生产单位</label>
-                    <select class="width-167" disabled>
-                      <option >请选择</option>
-                      <option selected="selected">天津卡吉</option>
-                      <option>杭州米其林</option>
-                      <option>杭州澜泰</option>
-                      <option>米其林进口</option>
-                      <option>杭州雪兰</option>
-                      <option>杭州鼎洪</option>
-                    </select>
+                    <span class="width-167 show_content"><%= @store_material.store_material_manufacturer.name %></span>
                   </td>
                   <td>
                     <label class="width-75">商品规格</label>
-                    <input type="text" class="width-165" value="白色 碳纤 3米X50米" readonly>
+                    <span class="width-167 show_content"><%= @store_material.speci %></span>
                   </td>
                 </tr>
+
                 <tr>
                   <td>
-                    <label class="width-75">商品单位</label>
-                    <select class="width-167" disabled="disabled">
-                      <option >请选择</option>
-                      <option selected="selected">平方米</option>
-                      <option>个</option>
-                      <option>盒</option>
-                      <option>瓶</option>
-                      <option>条</option>
-                    </select>
-                  </td>
-                  <td>
-                    <label class="width-75">成本价</label>
-                    <input type="text" class="width-165"  value="20000.00" readonly>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
                     <label class="width-75">最低售价</label>
-                    <input type="text" class="width-165" value="0.0" readonly>
+                    <span class="width-167 show_content"><%= @store_material.min_price %></span>
+                  </td>
+                  <td>
+                    <label class="width-75">保质期</label>
+                    <span class="width-167 show_content">
+                      <% if @store_material.shelf_life %>
+                        <%= @store_material.shelf_life %> 天
+                      <% end %>
+                    </span>
                   </td>
                 </tr>
+
                 <tr>
                   <td>
                     <label class="width-75">回访类型</label>
@@ -136,7 +108,7 @@
             <div class="visit_list" id='sections'>
               <div class="top">
                 <h2>回访内容列表</h2>
-                <span class="new_btn btn click_btn margin-top-10 float-right cursor <%= 'disabled' if @tracking.tracking_mode.to_i == 0 %>">创建</span>
+                <span class="new_btn btn click_btn margin-top-10 float-right cursor <%= 'disabled' unless @tracking.tracking_mode.to_i == 2 %>">创建</span>
               </div>
               <div class="none_visit_data">
                 <p class="none_visit_p">当前没回访内容</p>
@@ -148,9 +120,9 @@
                 <div class="list_top list_tr">
                   <ul>
                     <li class="margin-left-2">#</li>
-                    <li >内容</li>
-                    <li >间隔时间</li>
-                    <li >方式</li>
+                    <li>内容</li>
+                    <li>间隔时间</li>
+                    <li>方式</li>
                   </ul>
                 </div>
                 <div id="lists" class="list_contents"></div>
@@ -162,7 +134,7 @@
       </div>
 
       <div class="btn_group">
-        <input type="reset" class="btn cancel_btn" value="取消">
+        <a href='<%= kucun_material_tracking_path(@store_material) %>' class="btn cancel_btn">取消</a>
         <input type="submit" id='save_tracking' class="btn save_btn" value="保存">
       </div>
 
@@ -175,7 +147,7 @@
   <script type="text/javascript">
     jQuery(function($) {
       var urlRoot = '/kucun/materials/<%= @store_material.id %>/tracking';
-      x =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot});
+      handle =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot});
     });
   </script>
 

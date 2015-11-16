@@ -7,6 +7,14 @@ class StorePhysicalInventory < ActiveRecord::Base
 
   accepts_nested_attributes_for :items
 
+  def checked_count
+    self.items.count(:id)
+  end
+
+  def unchecked_count
+    self.store_depot.material_types_count - self.checked_count
+  end
+
   private
   def set_created_month
     if self.new_record?

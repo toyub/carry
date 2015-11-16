@@ -34,17 +34,6 @@ class Kucun::TrackingsController < Kucun::ControllerBase
     end
   end
 
-  def sections
-    store = current_store
-    store_material = store.store_materials.find(params[:material_id])
-    stracking = store_material.store_material_tracking
-    if stracking.present?
-      render json: stracking.sections, root: nil
-    else
-      render json: [], root: nil
-    end
-  end
-
   def show
     @store = current_user.store
     @store_material = @store.store_materials.find(params[:material_id])

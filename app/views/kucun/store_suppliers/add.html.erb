@@ -1,6 +1,5 @@
 <div class="main_top">
-  <h2>库存>订货>添加供应商</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '供应商', '添加供应商']) %>
 </div>
 <div class="details">
   <div class="details_nav">
@@ -8,7 +7,6 @@
       <li class="bg-color-fff"><a href="gongyingshangxinxishow.html" class="width-90">供应商信息</a></li>
       <li><a href="javascript:void(0);" onclick='alert("请先保存供应商信息")' class="width-90">订货</a></li>
       <li><a href="javascript:void(0);" onclick='alert("请先保存供应商信息")' class="width-90">记录</a></li>
-      <li><a href="javascript:void(0);" onclick='alert("请先保存供应商信息")' class="width-90">评估</a></li>
     </ul>
   </div>
   <%= render partial: 'form' -%>

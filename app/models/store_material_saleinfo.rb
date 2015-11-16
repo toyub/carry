@@ -15,7 +15,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   def cost_price_per_unit
     if self.volume.to_f > 0
-      self.store_material.cost_price.to_f / self.volume.to_f
+      (self.store_material.cost_price.to_f / self.volume.to_f).round(2)
     else
       '-'
     end

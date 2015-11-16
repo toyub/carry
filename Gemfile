@@ -100,3 +100,16 @@ gem "kaminari"
 #https://github.com/select2/select2
 #https://select2.github.io/examples.html
 gem "select2-rails"
+
+# null object
+gem 'naught', git: 'git@gitlab.icar99.com:issac/naught.git', tag: '0.1.2'
+#Qiniu Ruby SDK
+#  https://github.com/qiniu/ruby-sdk
+#Qiniu upload image base64 data-url
+#  http://kb.qiniu.com/5rroxdgb
+#Qiniu upload token
+#  http://developer.qiniu.com/docs/v6/api/reference/security/upload-token.html
+gem 'qiniu'
+
+# Hash ID, 用来生成加密ID，来保护数据库id, 需保证可逆加密
+gem 'hashids', '~> 1.0', '>= 1.0.2'

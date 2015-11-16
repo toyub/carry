@@ -18,8 +18,8 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
   defaults:
     setting_type: @::SETTING_TYPE.regular
 
-  initialize: ->
-    @parseStoreService()
+  initialize: (options) ->
+    @store_service = options.store_service
     @parseWorkflows()
     @initWorkstations()
 

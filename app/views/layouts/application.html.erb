@@ -22,17 +22,13 @@
         <div class='nav_top_left top_left'>
           <i id='menutoggle' class="fa fa-list curcor_hand"></i>
         </div>
-          <div class="top_center">
-            <input class="input_query">
-          </div>
-          <div class="nav_top_right top_right">
-            <ul class="nav_right">
-              <li><i class="fa fa-comment"></i></li>
-              <li><i class="fa fa-th"></i></li>
-              <li><i class="fa fa-clock-o"></i></li>
-              <li><i class="fa fa-user"></i></li>
-            </ul>
-          </div>
+
+        <div class="nav_top_right top_right">
+          <ul class="nav_right">
+            <li><i class="fa fa-comment"></i></li>
+            <li><i class="fa fa-user"></i></li>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>
@@ -93,7 +89,7 @@
             <ul class="second_menu">
               <li><a href="<%= kucun_path %>">商品</a></li>
               <li><%= link_to "服务", ['xiaoshou', 'service', 'profiles'] %></li>
-              <li><a href="/mis/xiaoshou/taocan/index.html">套餐</a></li>
+              <li><%= link_to "套餐", ['xiaoshou', 'packages'] %></li>
               <li><a href="/mis/xiaoshou/huodong/index.html">活动</a></li>
               <li><a href="/mis/xiaoshou/tuiguang/index.html">推广</a></li>
             </ul>
@@ -162,6 +158,7 @@
               <li><a href="#">权限设置</a></li>
               <li><a href="#">类别设置</a></li>
               <li><a href="/settings/settlements/accounts">结算信息</a></li>
+              <li><a href="/settings/depots">仓库管理</a></li>
             </ul>
           </div>
         </div>

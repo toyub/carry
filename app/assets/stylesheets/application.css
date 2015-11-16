@@ -13,6 +13,7 @@
  *= require scaffolds
  *= require jquery_ui
  *= require select2
+ *= require datetimepicker/jquery.datetimepicker
  *= require_self
  */
 

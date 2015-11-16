@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107014040) do
+ActiveRecord::Schema.define(version: 20151114061742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20151107014040) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   create_table "renewal_records", force: :cascade do |t|
@@ -83,6 +84,9 @@ ActiveRecord::Schema.define(version: 20151107014040) do
     t.boolean  "admin"
     t.integer  "role_id"
     t.string   "fullname",               limit: 45
+    t.string   "family_name"
+    t.string   "name"
+    t.string   "login_name"
   end
 
   create_table "store_attachments", force: :cascade do |t|
@@ -156,13 +160,29 @@ ActiveRecord::Schema.define(version: 20151107014040) do
     t.string   "phone_number",   limit: 45
   end
 
+  create_table "store_deposit_cards", force: :cascade do |t|
+    t.decimal  "price",          precision: 10, scale: 2
+    t.decimal  "denomination",   precision: 10, scale: 2
+    t.string   "name"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
   create_table "store_depots", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
+    t.integer  "store_id",                                  null: false
+    t.integer  "store_chain_id",                            null: false
+    t.integer  "store_staff_id",                            null: false
     t.string   "name",           limit: 45
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",                   default: false
+    t.boolean  "preferred",                 default: false
+    t.boolean  "useable",                   default: true
+    t.integer  "admin_ids",                                              array: true
+    t.string   "description"
   end
 
   create_table "store_employees", force: :cascade do |t|
@@ -523,6 +543,7 @@ ActiveRecord::Schema.define(version: 20151107014040) do
     t.datetime "updated_at"
     t.integer  "mechanic_commission_template_id"
     t.integer  "quantity"
+    t.boolean  "deleted",                                     default: false
   end
 
   create_table "store_material_saleinfos", force: :cascade do |t|
@@ -607,19 +628,20 @@ ActiveRecord::Schema.define(version: 20151107014040) do
   end
 
   create_table "store_material_tracking_sections", force: :cascade do |t|
-    t.integer  "store_id",                                           null: false
-    t.integer  "store_chain_id",                                     null: false
-    t.integer  "store_staff_id",                                     null: false
-    t.integer  "store_material_id",                                  null: false
-    t.integer  "store_material_tracking_id",                         null: false
-    t.integer  "timing",                                 default: 1, null: false
-    t.integer  "delay_interval",                                     null: false
-    t.string   "delay_unit",                 limit: 10,              null: false
-    t.integer  "delay_in_seconds",                                   null: false
-    t.integer  "contact_way",                            default: 1, null: false
-    t.string   "content",                    limit: 255,             null: false
+    t.integer  "store_id",                                               null: false
+    t.integer  "store_chain_id",                                         null: false
+    t.integer  "store_staff_id",                                         null: false
+    t.integer  "store_material_id",                                      null: false
+    t.integer  "store_material_tracking_id",                             null: false
+    t.integer  "timing",                                 default: 1,     null: false
+    t.integer  "delay_interval",                                         null: false
+    t.string   "delay_unit",                 limit: 10,                  null: false
+    t.integer  "delay_in_seconds",                                       null: false
+    t.integer  "contact_way",                            default: 1,     null: false
+    t.string   "content",                    limit: 255,                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",                                default: false
   end
 
   create_table "store_material_trackings", force: :cascade do |t|
@@ -723,6 +745,21 @@ ActiveRecord::Schema.define(version: 20151107014040) do
     t.integer  "state"
   end
 
+  create_table "store_package_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.decimal  "price",                    precision: 10, scale: 2
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "package_itemable_type"
+    t.integer  "package_itemable_id"
+    t.integer  "store_package_setting_id"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.decimal  "denomination",             precision: 10, scale: 2
+  end
+
   create_table "store_package_settings", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -740,6 +777,21 @@ ActiveRecord::Schema.define(version: 20151107014040) do
     t.integer  "apply_range",                                           default: 0
     t.integer  "point",                                                 default: 0
     t.integer  "payment_mode",                                          default: 0
+  end
+
+  create_table "store_package_trackings", force: :cascade do |t|
+    t.integer  "mode"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_package_id"
+    t.boolean  "notice_required",  default: false
+    t.string   "content"
+    t.integer  "delay_interval",   default: 0
+    t.integer  "delay_unit"
+    t.integer  "trigger_timing"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "store_packages", force: :cascade do |t|
@@ -1060,7 +1112,7 @@ ActiveRecord::Schema.define(version: 20151107014040) do
     t.string   "clearing_vatin",                  limit: 45
     t.boolean  "clearing_alarmify",                          default: false
     t.integer  "clearing_payment_method_id"
-    t.string   "remark",                          limit: 45
+    t.string   "remark"
     t.integer  "status",                                     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"

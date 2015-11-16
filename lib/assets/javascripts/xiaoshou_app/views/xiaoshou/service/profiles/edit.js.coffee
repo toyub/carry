@@ -4,6 +4,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
   template: JST['xiaoshou/service/profiles/edit']
 
   initialize: ->
+    @model.on("sync", @handleSuccess, @)
     @model.materials.on('add', @addMaterial, @)
 
   events:
@@ -22,14 +23,16 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
 
   updateOnSubmit: ->
     event.preventDefault()
-    @model.save $("#editStoreService").serializeJSON()
-    @goToShow()
+    @model.set $("#editStoreService").serializeJSON()
+    @model.save() if @model.isValid(true)
 
   goToShow: ->
     view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
     $("#bodyContent").html(view.render().el)
-    @model.fetch()
 
   openMaterialForm: ->
     view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
     view.open()
+
+  handleSuccess: ->
+    @goToShow()

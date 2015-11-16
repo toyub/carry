@@ -1,17 +1,5 @@
-<div class="details_nav">
-  <ul>
-    <li class="bg-color-fff"><a href="fuwuxinxishow.html" class="width-90">服务信息</a></li>
-    <li><a href="javascript:void(0);" class="width-90 setting">服务设置</a></li>
-    <li><a href="huifang2show.html" class="width-90">回访</a></li>
-    <li><a href="jilu.html" class="width-90">记录</a></li>
-  </ul>
-</div>
-<div class="details_nav_second">
-  <ul class="goods_nav">
-    <li><a href="#" class="width-90">▲上一次服务</a></li>
-    <li><a href="javascript:void(0);" id="createSettingStub" class="width-90">▼下一次服务</a></li>
-    <li><a href="<%= Routes.xiaoshou_service_profiles_path() %>" class="width-90">返回列表</a></li>
-  </ul>
+<div id="masterNav" class="details_nav">
+
 </div>
 <div class="details_content">
   <div class="base_info">
