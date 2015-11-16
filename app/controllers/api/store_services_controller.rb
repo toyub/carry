@@ -18,7 +18,7 @@ module Api
     end
 
     def save_picture
-      @service.uploads.create(img_params)
+      @service.uploads.create(params[:results].map {|key| {img: key, creator: current_staff}})
       respond_with @service, location: nil
     end
 
@@ -48,10 +48,6 @@ module Api
           :store_service_category_id, :favorable,
           store_service_store_materials_attributes: [:store_material_id]
         )
-      end
-
-      def img_params
-        params.permit(:img).merge(store_staff_id: current_staff.id, store_id: current_store.id)
       end
   end
 end

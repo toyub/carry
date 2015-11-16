@@ -80,16 +80,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
 
   uploadImages: ->
     url = @model.url() + '/save_picture'
-    @$('#preview_list > img').each () ->
-      img = @
-      $.ajax(
-        type: 'POST'
-        url: url
-        data:
-          img: img.src
-        dataType: 'json'
-        success: (data) -> console.log data
-      )
+    uploading($('#preview_list > img'), url) if $('#preview_list > img').length > 0
 
   openImageForm: ->
     view = new Mis.Views.XiaoshouServicePicturesForm()
