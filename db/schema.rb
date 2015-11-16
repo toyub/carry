@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114061742) do
+ActiveRecord::Schema.define(version: 20151116135633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1055,6 +1055,7 @@ ActiveRecord::Schema.define(version: 20151114061742) do
     t.integer  "levle_type_id"
     t.string   "reason_for_leave"
     t.string   "numero"
+    t.integer  "store_position_id"
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
