@@ -5,6 +5,6 @@
     <li><%=  @quantity %></li>
     <li><%=  @work_time_h %></li>
     <li><%=  @mechanic_level_type %>
-     <span class="delete close"> <i class="lnr lnr-cross color-fff"></i> </span>
+     <span data-modelid='<%=@cid%>' class="delete close"> <i class="lnr lnr-cross color-fff"></i> </span>
     </li>
   </ul>

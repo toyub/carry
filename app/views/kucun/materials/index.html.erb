@@ -42,48 +42,10 @@
           <td><%= material.cost_price %></td>
           <td><%= material.inventory %></td>
           <td><%= material.remark %></td>
-          <td><span class="operate_icon" data-id='<%= material.id %>' ><i class="fa fa-file-text-o "></i></span></td>
+          <td><a href='<%= kucun_material_path(material) %>' class="operate_icon"><i class="fa fa-file-text-o "></i></a></td>
         </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 </div>
-
-
-<% content_for :scenes do %>
-<div id='operate' class='operate'></div>
-<% end %>
-
-<% content_for :javascripts do %>
-
-  <script type="text/javascript">
-    jQuery(function(){
-
-      var tmp = function(id){return `<a href='/kucun/materials/${id}'>商品详情</a><a href='/kucun/material_orders/nowaus?material_id=${id}'>订货</a><a href=''>入库</a><a href=''>出库</a><a href=''>退货</a><a href=''>报损</a><a href=''>备注</a>`;}
-      var $materials = $("#materials");
-      var $operate = $("#operate");
-      $(document).on("click", function(){
-        $materials.find('span.current').removeClass("current");
-        $operate.hide();
-      });
-      $materials.on("click", '.operate_icon', function(event){
-        event.preventDefault();
-        event.stopPropagation();
-        var op_width =61;
-        var $this = $(this);
-        if($this.hasClass("current")){
-          $this.removeClass("current");
-          $operate.hide();
-        }else{
-          var b_c_r=this.getBoundingClientRect();
-          $materials.find('span.current').removeClass("current");
-          $this.addClass("current");
-          $operate.html(tmp($this.data('id'))).css({top: b_c_r.top, left: (b_c_r.left - b_c_r.width - op_width)}).show();
-        }
-      })
-
-    });
-  </script>
-
-<% end %>

@@ -160,7 +160,6 @@
 <% content_for :javascripts do %>
 <script>
   $("#returnnotes_list").on('click', 'li.click_btn', function(){
-    console.log(this.parentElement.parentElement)
     $(this.parentElement.parentElement.nextElementSibling).toggle();
   });
 </script>
