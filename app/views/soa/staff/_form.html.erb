@@ -47,8 +47,8 @@
 
     <div class="basic_info float-right width-1050">
       <div class="name">
-        <label class="width-50">姓</label> <input type="text" class="width-50" name="employee[last_name]">
-        <label>名</label> <input type="text" class="width-90" name="employee[first_name]">
+        <label class="width-50">姓</label> <input type="text" class="width-50" name="employee[last_name]" required>
+        <label>名</label> <input type="text" class="width-90" name="employee[first_name]" required>
       </div>
 
       <div class="gender">
@@ -83,25 +83,25 @@
       <div class="position">
         <label for="" class="width-50">职务属性</label>
         <select name="staff[job_type_id]">
-          <option></option>
+          <%= options_from_collection_for_select(JobType.collection, 'id', 'name') %>
         </select>
 
         <label for="">职务</label>
-        <select name="staff[levle_type_id]">
+        <select name="staff[store_position_id]">
           <option></option>
         </select>
       </div>
 
       <div class="level">
         <label for="">职称</label>
-        <select>
-          <option></option>
+        <select name="staff[levle_type_id]">
+          <%= options_from_collection_for_select(StoreStaffLevel.collection, 'id', 'name') %>
         </select>
       </div>
 
       <div>
         <label for="">政治面貌</label>
-        <input type="text">
+        <input type="text" name="employee[polity]">
       </div>
 
       <div>
@@ -155,7 +155,7 @@
 
       <div>
         <label for="">手机号</label>
-        <input type="text">
+        <input type="text" name="employee[phone_number]" required>
       </div>
 
       <div>

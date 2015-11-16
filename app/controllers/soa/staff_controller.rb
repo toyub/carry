@@ -10,24 +10,21 @@ class Soa::StaffController < Soa::ControllerBase
   end
 
   def create
-    @store = current_store
-    x = @store.store_staff.where(login_name: staff_params[:phone_number]).count
-    if x > 0
-      render text: 'Error login name dup!'
-      return false
-    end
 
-    x = @store.store_staff.where(last_name: staff_params[:last_name], first_name: staff_params[:first_name]).count
-    if x > 0
-      render text: 'Warning same name ><'
-      return false
-    end
-    staff = @store.store_staff.new(staff_params)
-    staff.store_chain_id = @store.store_chain_id
+    employee = StoreEmployee.new(employee_params)
+    staff = StoreStaff.new(staff_params)
+    staff.store_id = current_staff.store_id
+    staff.store_chain_id = current_staff.store_chain_id
     staff.login_name = staff.phone_number
-    staff.password = staff.password_confirmation = staff.phone_number
-    staff.save
-    render json: staff
+    staff.password = staff.password_confirmation = '123456'
+    if employee.save && staff.save
+      redirect_to action: 'index'
+    else
+      render json: {
+        staff_errors: staff.errors,
+        employee_errors: employee.errors
+      }
+    end
   end
 
   def edit
@@ -41,6 +38,17 @@ class Soa::StaffController < Soa::ControllerBase
 
   private
   def staff_params
-    params.require(:store_staff).permit(:first_name, :last_name, :gender, :phone_number)
+    params.require(:staff).permit(:login_name, :gender, :first_name, :last_name, :name_display_type,
+                                                        :encrypted_password, :salt, :work_status, :job_type_id, :store_department_id,
+                                                        :employeed_at, :terminated_at, :levle_type_id, :reason_for_leave,
+                                                        :numero, :store_position_id).merge(params.require(:employee).permit(:last_name, :first_name, :gender, :phone_number))
+  end
+
+  def employee_params
+    params.require(:employee).permit(:last_name, :first_name, :gender, :birthday, :education,
+                                                                  :polity, :native_place, :census_register, :identity_card,
+                                                                  :marital_status, :height, :weight, :phone_number, :mailbox,
+                                                                  :address, :census_register_address, :contact_one, :contact_one_phone_number,
+                                                                  :contact_two, :contact_two_phone_number, :remark, :created_at, :updated_at)
   end
 end
