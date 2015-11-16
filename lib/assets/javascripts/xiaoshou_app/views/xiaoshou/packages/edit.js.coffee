@@ -8,7 +8,6 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
   events:
     'submit #updatePackage': 'updateOnSubmit'
     'click li img': 'previewImage'
-    'click a.add_img': 'openImageForm'
     'click #goToShow': 'goToShow'
 
   render: ->
@@ -63,7 +62,3 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
   renderUploadTemplate: ->
     view = new Mis.Views.XiaoshouUploadsTemplate()
     @$("#uploadTemplate").html view.render().el
-
-  openImageForm: ->
-    view = new Mis.Views.XiaoshouServicePicturesForm()
-    view.open()

@@ -11,9 +11,11 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
     'click #backToSHow': 'goToShow'
     'submit #editStoreService': 'updateOnSubmit'
     'click #add_server_btn': 'openMaterialForm'
+    'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template(service: @model, store: window.Store))
+    @renderUploadTemplate()
     @model.materials.each @addMaterial
     @
 
@@ -36,3 +38,12 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
 
   handleSuccess: ->
     @goToShow()
+
+  renderUploadTemplate: ->
+    view = new Mis.Views.XiaoshouUploadsTemplate()
+    @$("#uploadTemplate").html view.render().el
+
+  previewImage: (e) ->
+    img = new Image()
+    img.src = e.target.src
+    $("#material_img_preview").html(img)

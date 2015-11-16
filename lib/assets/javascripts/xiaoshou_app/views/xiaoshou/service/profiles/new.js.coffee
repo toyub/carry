@@ -15,12 +15,12 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click span.as_select': 'listServiceCategories'
     'click #addServiceCategory': 'openCategoryForm'
     'click input.toggleable': 'toggleFavorable'
-    'click a.add_img': 'openImageForm'
     'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template(service: @model))
     @renderNav()
+    @renderUploadTemplate()
     @renderServiceCategories()
     @
 
@@ -82,10 +82,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     url = @model.url() + '/save_picture'
     uploading($('#preview_list > img'), url) if $('#preview_list > img').length > 0
 
-  openImageForm: ->
-    view = new Mis.Views.XiaoshouServicePicturesForm()
-    view.open()
-
   previewImage: (e) ->
     img = new Image()
     img.src = e.target.src
@@ -96,3 +92,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
 
   handleError: (model, responseOrErrors) ->
     console.log responseOrErrors
+
+  renderUploadTemplate: ->
+    view = new Mis.Views.XiaoshouUploadsTemplate()
+    @$("#uploadTemplate").html view.render().el
