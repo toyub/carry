@@ -2,13 +2,8 @@
 
 </div>
 <div class="details_content package">
-  <div class="goods_img">
-    <div id="material_img_preview" class="goods_main_img"></div>
-    <ul id="material_img_thumbnails" class="goods_small_img">
-      <li id="preview_list">
+  <div id="uploadTemplate">
 
-      </li>
-    </ul>
   </div>
 
   <div class="package_descript float-left">

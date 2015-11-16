@@ -16,6 +16,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
   render: ->
     @$el.html(@template(service: @model, store: window.Store))
     @renderUploadTemplate()
+    @renderImages()
     @model.materials.each @addMaterial
     @
 
@@ -47,3 +48,10 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
     img = new Image()
     img.src = e.target.src
     $("#material_img_preview").html(img)
+
+  renderImages: ->
+    @model.uploads.each @renderImage
+
+  renderImage: (image) =>
+    view = new Mis.Views.XiaoshouUploadsItem(model: image)
+    @$("#preview_list").append view.render().el

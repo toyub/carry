@@ -9,9 +9,13 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
   initialize: ->
     @model.on('sync', @renderMaterials, @)
 
+    @model.uploads.on('add', @renderImage, @)
+
   render: ->
     @$el.html(@template(service: @model))
     @renderNav()
+    @renderUploadTemplate()
+    @renderImages()
     @renderMaterials()
     @
 
@@ -35,3 +39,14 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'show')
     @$(".materialList").append view.render().el
+
+  renderImages: ->
+    @model.uploads.each @renderImage
+
+  renderImage: (image) =>
+    view = new Mis.Views.XiaoshouUploadsItem(model: image)
+    @$("#preview_list").append view.render().el
+
+  renderUploadTemplate: ->
+    view = new Mis.Views.XiaoshouUploadsTemplate(action: 'show')
+    @$("#uploadTemplate").html view.render().el
