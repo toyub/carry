@@ -8,12 +8,15 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
   events:
     'submit #updatePackage': 'updateOnSubmit'
     'click li img': 'previewImage'
+    'click a.add_img': 'openImageForm'
     'click #goToShow': 'goToShow'
 
   render: ->
     @$el.html(@template(package: @model))
     @renderNav()
+    @renderUploadTemplate()
     @renderForm()
+    @renderImages()
     @renderPackageItems()
     @
 
@@ -49,3 +52,18 @@ class Mis.Views.XiaoshouPackagesEdit extends Backbone.View
   renderPackageItem: (item) =>
     view = new Mis.Views.XiaoshouPackageItemsItem(model: item)
     @$("#packageItemList").append view.render().el
+
+  renderImages: ->
+    @model.uploads.each @renderImage
+
+  renderImage: (image) =>
+    view = new Mis.Views.XiaoshouUploadsItem(model: image)
+    @$("#preview_list").append view.render().el
+
+  renderUploadTemplate: ->
+    view = new Mis.Views.XiaoshouUploadsTemplate()
+    @$("#uploadTemplate").html view.render().el
+
+  openImageForm: ->
+    view = new Mis.Views.XiaoshouServicePicturesForm()
+    view.open()

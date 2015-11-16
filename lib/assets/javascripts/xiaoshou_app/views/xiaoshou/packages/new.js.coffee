@@ -14,6 +14,7 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
   render: ->
     @$el.html(@template())
     @renderNav()
+    @renderUploadTemplate()
     @
 
   renderNav: ->
@@ -45,3 +46,7 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
     img = new Image()
     img.src = e.target.src
     $("#material_img_preview").html(img)
+
+  renderUploadTemplate: ->
+    view = new Mis.Views.XiaoshouUploadsTemplate()
+    @$("#uploadTemplate").html view.render().el

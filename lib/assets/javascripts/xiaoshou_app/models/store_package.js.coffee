@@ -5,6 +5,8 @@ class Mis.Models.StorePackage extends Backbone.Model
   modelName: 'store_package'
 
   initialize: ->
+    @on('change:uploads', @parseUploads, @)
+
     @parseUploads()
     @parseTrackings()
     @parsePackageSetting()
