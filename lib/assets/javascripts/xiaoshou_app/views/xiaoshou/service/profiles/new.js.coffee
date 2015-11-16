@@ -94,5 +94,5 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     console.log responseOrErrors
 
   renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate()
+    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads)
     @$("#uploadTemplate").html view.render().el

@@ -9,8 +9,11 @@ class Mis.Views.XiaoshouUploadsTemplate extends Backbone.View
   initialize: (options) ->
     @action = options.action if options
 
+    @collection.on('add', @renderImage, @)
+
   render: ->
     @$el.html(@template(view: @))
+    @renderImages()
     @
 
   openImageForm: ->
@@ -19,3 +22,10 @@ class Mis.Views.XiaoshouUploadsTemplate extends Backbone.View
 
   isShow: ->
     @action == 'show'
+
+  renderImages: ->
+    @collection.each @renderImage
+
+  renderImage: (image) =>
+    view = new Mis.Views.XiaoshouUploadsItem(model: image)
+    @$("#preview_list").append view.render().el

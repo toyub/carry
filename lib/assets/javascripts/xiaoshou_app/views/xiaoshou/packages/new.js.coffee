@@ -43,5 +43,5 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
     $("#material_img_preview").html(img)
 
   renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate()
+    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads)
     @$("#uploadTemplate").html view.render().el

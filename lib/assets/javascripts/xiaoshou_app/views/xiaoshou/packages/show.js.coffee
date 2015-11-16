@@ -6,14 +6,10 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
     'click #preview_list img': 'previewImage'
     'click #editPackage': 'goToEdit'
 
-  initialize: ->
-    @model.uploads.on('add', @renderImage, @)
-
   render: ->
     @$el.html(@template(package: @model))
     @renderNav()
     @renderUploadTemplate()
-    @renderImages()
     @renderPackageItems()
     @
 
@@ -42,13 +38,6 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
     view = new Mis.Views.XiaoshouPackageItemsItem(model: item)
     @$("#packageItemList").append view.render().el
 
-  renderImages: ->
-    @model.uploads.each @renderImage
-
-  renderImage: (image) =>
-    view = new Mis.Views.XiaoshouUploadsItem(model: image)
-    @$("#preview_list").append view.render().el
-
   renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate(action: 'show')
+    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads, action: 'show')
     @$("#uploadTemplate").html view.render().el
