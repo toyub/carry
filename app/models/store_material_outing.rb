@@ -14,22 +14,3 @@ class StoreMaterialOuting < ActiveRecord::Base
     self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',')
   end
 end
-
-# == Schema Information
-#
-# Table name: store_material_outings
-#
-#  id             :integer          not null, primary key
-#  store_id       :integer          not null
-#  store_chain_id :integer          not null
-#  store_staff_id :integer          not null
-#  requester_id   :integer
-#  outing_type_id :integer
-#  numero         :string(45)
-#  total_quantity :integer
-#  total_amount   :decimal(10, 2)
-#  remark         :string(45)
-#  search_keys    :string(255)
-#  created_at     :datetime
-#  updated_at     :datetime
-#

@@ -1,34 +1,3 @@
-# == Schema Information
-#
-# Table name: store_service_workflows
-#
-#  id                              :integer          not null, primary key
-#  created_at                      :datetime
-#  updated_at                      :datetime
-#  store_id                        :integer          not null
-#  store_chain_id                  :integer          not null
-#  store_staff_id                  :integer          not null
-#  engineer_level                  :integer
-#  engineer_count                  :integer
-#  position_mode                   :integer
-#  standard_time                   :integer
-#  buffering_time                  :integer
-#  factor_time                     :integer
-#  sales_commission_subject        :integer
-#  sales_commission_template_id    :integer
-#  engineer_commission_subject     :integer
-#  engineer_commission_template_id :integer
-#  engineer_count_enable           :boolean
-#  engineer_level_enable           :boolean
-#  standard_time_enable            :boolean
-#  buffering_time_enable           :boolean
-#  store_workstation_ids           :string(255)
-#  nominated_workstation           :boolean
-#  name                            :string(45)
-#  store_service_setting_id        :integer
-#  store_service_id                :integer
-#
-
 class StoreServiceWorkflowSerializer < ActiveModel::Serializer
   FIELDS = [:id,
             :name,
