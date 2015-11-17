@@ -106,7 +106,7 @@
       window.StoreDepositCards = new Mis.Collections.StoreDepositCards($('#bootstrap').data('store-deposits'));
       view = new Mis.Views.XiaoshouPackagesIndex({collection: window.StorePackages});
       view.render();
-      new Mis.Routers.Packages({collection: window.StorePackages});
+      new Mis.Routers.StorePackages({collection: window.StorePackages});
     })
   </script>
 <% end %>

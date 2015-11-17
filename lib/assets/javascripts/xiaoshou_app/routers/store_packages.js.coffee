@@ -1,4 +1,4 @@
-class Mis.Routers.Packages extends Mis.Base.Router
+class Mis.Routers.StorePackages extends Mis.Base.Router
   routes:
     "api/store_packages/:id": "show"
 
