@@ -1,0 +1,8 @@
+<div id="material_img_preview" class="goods_main_img"></div>
+<ul id="material_img_thumbnails" class="goods_small_img">
+  <li id="preview_list"></li>
+  <% unless @view.isShow(): %>
+    <li><a class="fa fa-plus-square add_img font-30" href="javascript:void(0);"></a></li>
+  <% end %>
+</ul>
+

@@ -1,8 +1,8 @@
-class Mis.Views.XiaoshouServicePicturesForm extends Backbone.View
+class Mis.Views.XiaoshouUploadsForm extends Backbone.View
 
   el: '#piccut'
 
-  template: JST['xiaoshou/service/pictures/form']
+  template: JST['xiaoshou/uploads/form']
 
   events:
     'click .js-cancel': 'close'
@@ -54,4 +54,3 @@ class Mis.Views.XiaoshouServicePicturesForm extends Backbone.View
   close: ->
     @undelegateEvents()
     @$el.hide()
-

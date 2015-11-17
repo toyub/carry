@@ -2,15 +2,8 @@
 
 </div>
 <div class="details_content package">
-  <div class="goods_img">
-    <div id="material_img_preview" class="goods_main_img"></div>
-    <ul id="material_img_thumbnails" class="goods_small_img">
-      <li id="preview_list">
-        <% @package.uploads.each (upload) ->: %>
-          <img src="<%= upload.get 'img_url' %>" />
-        <% end %>
-      </li>
-    </ul>
+  <div id="uploadTemplate">
+
   </div>
 
   <div class="package_descript float-left">

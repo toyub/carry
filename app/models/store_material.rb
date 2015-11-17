@@ -15,7 +15,7 @@ class StoreMaterial < ActiveRecord::Base
   has_many :snapshots, class_name: "StoreMaterialSnapshot", foreign_key: :store_material_id
 
   #has_many :store_material_images, foreign_key: 'host_id'
-  has_many :uploads, class_name: '::Upload::StoreMaterial', as: :fileable
+  has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_package_items, as: :package_itemable
 
   scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}%")}
