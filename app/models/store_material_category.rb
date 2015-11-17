@@ -14,17 +14,3 @@ class StoreMaterialCategory < ActiveRecord::Base
     self.parent_id == 0
   end
 end
-
-# == Schema Information
-#
-# Table name: store_material_categories
-#
-#  id             :integer          not null, primary key
-#  store_id       :integer          not null
-#  store_chain_id :integer          not null
-#  store_staff_id :integer          not null
-#  parent_id      :integer          default(0), not null
-#  name           :string(45)
-#  created_at     :datetime
-#  updated_at     :datetime
-#

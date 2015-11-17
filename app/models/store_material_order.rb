@@ -18,25 +18,3 @@ class StoreMaterialOrder < ActiveRecord::Base
     self.amount - self.paid_amount
   end
 end
-
-# == Schema Information
-#
-# Table name: store_material_orders
-#
-#  id                :integer          not null, primary key
-#  store_id          :integer          not null
-#  store_chain_id    :integer          not null
-#  store_staff_id    :integer          not null
-#  store_supplier_id :integer          not null
-#  numero            :string(45)
-#  amount            :decimal(12, 4)   default(0.0)
-#  quantity          :integer          default(0)
-#  paid_amount       :decimal(10, 2)   default(0.0)
-#  process           :integer          default(0), not null
-#  remark            :string(255)
-#  status            :integer          default(0)
-#  paid_status       :integer          default(0)
-#  received_status   :integer          default(0)
-#  created_at        :datetime
-#  updated_at        :datetime
-#
