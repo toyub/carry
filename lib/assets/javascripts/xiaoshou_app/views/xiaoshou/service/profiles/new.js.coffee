@@ -1,4 +1,6 @@
-class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
+class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
+
   initialize: ->
     @store = window.Store
     @model.materials.on('add', @addMaterial, @)
@@ -15,12 +17,12 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click span.as_select': 'listServiceCategories'
     'click #addServiceCategory': 'openCategoryForm'
     'click input.toggleable': 'toggleFavorable'
-    'click a.add_img': 'openImageForm'
     'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template(service: @model))
     @renderNav()
+    @renderUploadTemplate()
     @renderServiceCategories()
     @
 
@@ -77,23 +79,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
   goToShow: ->
     view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
     $("#bodyContent").html(view.render().el)
-
-  uploadImages: ->
-    url = @model.url() + '/save_picture'
-    @$('#preview_list > img').each () ->
-      img = @
-      $.ajax(
-        type: 'POST'
-        url: url
-        data:
-          img: img.src
-        dataType: 'json'
-        success: (data) -> console.log data
-      )
-
-  openImageForm: ->
-    view = new Mis.Views.XiaoshouServicePicturesForm()
-    view.open()
 
   previewImage: (e) ->
     img = new Image()

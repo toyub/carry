@@ -1,4 +1,6 @@
-class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
+class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
+
   className: "base_info"
 
   template: JST['xiaoshou/service/profiles/edit']
@@ -11,9 +13,11 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
     'click #backToSHow': 'goToShow'
     'submit #editStoreService': 'updateOnSubmit'
     'click #add_server_btn': 'openMaterialForm'
+    'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template(service: @model, store: window.Store))
+    @renderUploadTemplate()
     @model.materials.each @addMaterial
     @
 
@@ -35,4 +39,10 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
     view.open()
 
   handleSuccess: ->
+    @uploadImages()
     @goToShow()
+
+  previewImage: (e) ->
+    img = new Image()
+    img.src = e.target.src
+    $("#material_img_preview").html(img)

@@ -3,17 +3,10 @@
 </div>
 <div class="details_content">
   <div class="base_info">
-    <div class="goods_img">
-      <div id="material_img_preview" class="goods_main_img"></div>
-      <ul id="material_img_thumbnails" class="goods_small_img">
-        <li id="preview_list">
-          <% @service.uploads.each (upload) ->: %>
-            <img src="<%= upload.get 'img_url' %>" />
-          <% end %>
-        </li>
-      </ul>
+    <div id="uploadTemplate">
+
     </div>
-    <div class=" server_content">
+    <div class="server_content">
       <div class="grid-1-2 float-left">
         <div class="item_content">
           <label class="width-75">服务名称</label>

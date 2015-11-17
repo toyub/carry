@@ -100,6 +100,14 @@
 
 <%= content_tag :div, '', id: 'bootstrap', data: {'store': json_for(current_store), 'store-services': json_for(current_store.store_services)} %>
 
+<div id='piccut'>
+
+</div>
+
+<div id="FloatWindow" style="display: none">
+
+</div>
+
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){

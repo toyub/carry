@@ -4,14 +4,9 @@
 <div class="details_content package">
   <form id="createPackage" action="" method="post">
     <div class="base_info">
-      <div class="goods_img">
-        <div id="material_img_preview" class="goods_main_img"></div>
-        <ul id="material_img_thumbnails" class="goods_small_img">
-            <li id="preview_list"></li>
-            <li><a class="fa fa-plus-square add_img font-30" href="javascript:void(0);"></a></li>
-        </ul>
-      </div>
+      <div id="uploadTemplate">
 
+      </div>
       <div class="package_descript float-left">
         <div class="name">
           <label for="package_name">套餐名称</label>
@@ -46,8 +41,4 @@
 
     </div>
   </form>
-</div>
-
-<div id='piccut'>
-
 </div>
