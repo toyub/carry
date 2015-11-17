@@ -12,4 +12,4 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-Rails.application.config.assets.precompile += %w[  tiny.js kucun.js settings.js xiaoshou.js xianchang.js xiaoshou/service/profiles/new.js ]
+Rails.application.config.assets.precompile += %w[ tiny.js kucun.js settings.js xiaoshou.js xianchang.js soa.js ]

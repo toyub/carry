@@ -3,6 +3,8 @@ window.Mis =
   Collections: {}
   Views: {}
   Routers: {}
+  Mixins: {}
+  Base: {}
   initialize: ->
     console.log 'Hello from Backbone!'
 

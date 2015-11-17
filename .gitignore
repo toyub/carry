@@ -34,3 +34,5 @@ config/qiniu.yml
 /.capistrano
 TODOLIST.md
 .DS_Store
+.idea
+

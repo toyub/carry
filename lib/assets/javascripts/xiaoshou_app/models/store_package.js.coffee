@@ -5,6 +5,8 @@ class Mis.Models.StorePackage extends Backbone.Model
   modelName: 'store_package'
 
   initialize: ->
+    @on('change:uploads', @parseUploads, @)
+
     @parseUploads()
     @parseTrackings()
     @parsePackageSetting()
@@ -18,6 +20,8 @@ class Mis.Models.StorePackage extends Backbone.Model
     @get 'period' + @get 'period_unit'
 
   parseUploads: ->
+    console.log 'uploads'
+    console.log @get('uploads')
     @uploads = new Mis.Collections.Uploads(@get 'uploads')
 
   parseTrackings: ->

@@ -1,4 +1,5 @@
-class Mis.Views.XiaoshouPackagesNew extends Backbone.View
+class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
 
   template: JST['xiaoshou/packages/new']
 
@@ -8,12 +9,12 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
 
   events:
     'submit #createPackage': 'createOnSubmit'
-    'click a.add_img': 'openImageForm'
     'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template())
     @renderNav()
+    @renderUploadTemplate()
     @
 
   renderNav: ->
@@ -29,26 +30,9 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
     @uploadImages()
     @goToShow()
 
-  uploadImages: ->
-    url = @model.url() + '/save_picture'
-    @$('#preview_list > img').each () ->
-      img = @
-      $.ajax(
-        type: 'POST'
-        url: url
-        data:
-          img: img.src
-        dataType: 'json'
-        success: (data) -> console.log data
-      )
-
   goToShow: ->
     view = new Mis.Views.XiaoshouPackagesShow(model: @model)
     $("#bodyContent").html view.render().el
-
-  openImageForm: ->
-    view = new Mis.Views.XiaoshouServicePicturesForm()
-    view.open()
 
   previewImage: (e) ->
     img = new Image()
