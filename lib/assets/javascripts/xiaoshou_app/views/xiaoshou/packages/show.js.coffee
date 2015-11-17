@@ -4,7 +4,6 @@ class Mis.Views.XiaoshouPackagesShow extends Mis.Base.View
   template: JST['xiaoshou/packages/show']
 
   events:
-    'click #preview_list img': 'previewImage'
     'click #editPackage': 'goToEdit'
 
   render: ->
@@ -21,11 +20,6 @@ class Mis.Views.XiaoshouPackagesShow extends Mis.Base.View
   renderSubNav: ->
     view = new Mis.Views.XiaoshouPackageNavsSub(package: @model)
     @$("#subNav").html view.render().el
-
-  previewImage: (event) ->
-    src = $(event.target).attr('src')
-    image = "<img src='#{src}' />"
-    @$("#material_img_preview").html(image)
 
   goToEdit: ->
     view = new Mis.Views.XiaoshouPackagesEdit(model: @model)

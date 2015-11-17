@@ -9,7 +9,6 @@ class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
 
   events:
     'submit #createPackage': 'createOnSubmit'
-    'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template())
@@ -33,8 +32,3 @@ class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
   goToShow: ->
     view = new Mis.Views.XiaoshouPackagesShow(model: @model)
     $("#bodyContent").html view.render().el
-
-  previewImage: (e) ->
-    img = new Image()
-    img.src = e.target.src
-    $("#material_img_preview").html(img)

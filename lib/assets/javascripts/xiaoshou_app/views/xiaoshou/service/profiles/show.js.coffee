@@ -4,7 +4,6 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
   template: JST['xiaoshou/service/profiles/show']
 
   events:
-    'click #preview_list img': 'previewImage'
     'click #serviceEdit': 'gotoEdit'
 
   initialize: ->
@@ -20,11 +19,6 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
   renderNav: ->
     view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model, active: 'service')
     @$("#masterNav").html view.render().el
-
-  previewImage: (event) ->
-    src = $(event.target).attr('src')
-    image = "<img src='#{src}' />"
-    @$("#material_img_preview").html(image)
 
   gotoEdit: ->
     view = new Mis.Views.XiaoshouServiceProfilesEdit(model: @model)

@@ -8,7 +8,6 @@ class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
 
   events:
     'submit #updatePackage': 'updateOnSubmit'
-    'click li img': 'previewImage'
     'click #goToShow': 'goToShow'
 
   render: ->
@@ -31,11 +30,6 @@ class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
     event.preventDefault()
     @model.set $("#updatePackage").serializeJSON()
     @model.save() if @model.isValid(true)
-
-  previewImage: (e) ->
-    img = new Image()
-    img.src = e.target.src
-    $("#material_img_preview").html(img)
 
   goToShow: ->
     view = new Mis.Views.XiaoshouPackagesShow(model: @model)

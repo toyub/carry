@@ -17,7 +17,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
     'click span.as_select': 'listServiceCategories'
     'click #addServiceCategory': 'openCategoryForm'
     'click input.toggleable': 'toggleFavorable'
-    'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template(service: @model))
@@ -79,11 +78,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
   goToShow: ->
     view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
     $("#bodyContent").html(view.render().el)
-
-  previewImage: (e) ->
-    img = new Image()
-    img.src = e.target.src
-    $("#material_img_preview").html(img)
 
   invalid: (model, errors) ->
     @handleError(model, errors)
