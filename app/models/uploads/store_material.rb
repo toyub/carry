@@ -1,28 +1,10 @@
-class StoreMaterialSnapshot < ActiveRecord::Base
-  belongs_to :store
-  belongs_to :store_chain
-  belongs_to :store_material_unit
-  belongs_to :store_material_brand
-  belongs_to :store_material_category
-  belongs_to :store_material_root_category, class_name: 'StoreMaterialCategory', foreign_key: 'store_material_root_category_id'
-  belongs_to :store_material_manufacturer
-  belongs_to :creator, class_name: 'Staff', foreign_key: 'store_staff_id'
-
-  has_many :store_material_commissions
-  has_one :smc_salesman
-  has_one :smc_mechanic
-  has_one :store_material_saleinfo
-  has_one :store_material_tracking
-  has_one :store_order_item, as: :orderable
-
-  has_many :store_material_inventories
-  belongs_to :store_material
-
+class Upload::StoreMaterial < Upload::Base
+  mount_base64_uploader :img, StoreMaterialUploader
 end
 
 # == Schema Information
 #
-# Table name: store_material_snapshots
+# Table name: store_materials
 #
 #  id                              :integer          not null, primary key
 #  store_id                        :integer          not null
@@ -33,7 +15,7 @@ end
 #  store_material_unit_id          :integer          not null
 #  store_material_manufacturer_id  :integer          not null
 #  store_material_brand_id         :integer          not null
-#  name                            :string(45)       not null
+#  name                            :string(100)      not null
 #  barcode                         :string(45)
 #  mnemonic                        :string(45)
 #  speci                           :string(45)
@@ -49,5 +31,4 @@ end
 #  remark                          :text
 #  created_at                      :datetime
 #  updated_at                      :datetime
-#  store_material_id               :integer
 #

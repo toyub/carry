@@ -1,24 +1,10 @@
-class StoreServiceSnapshot < ActiveRecord::Base
-  include BaseModel
-
-  belongs_to :store_service_category
-  has_many :store_service_store_materials
-  has_many :store_materials, through: :store_service_store_materials
-  belongs_to :unit, foreign_key: 'store_service_unit_id'
-  has_one :store_order_item, as: :orderable
-  has_many :store_service_workflows
-
-  validates :name, presence: true
-  validates :code, presence: true
-  validates :retail_price, presence: true
-  validates :store_service_category_id, presence: true
-  validates :store_staff_id, presence: true
-
+class Upload::StoreService < Upload::Base
+  mount_base64_uploader :img, StoreServiceUploader
 end
 
 # == Schema Information
 #
-# Table name: store_service_snapshots
+# Table name: store_services
 #
 #  id                        :integer          not null, primary key
 #  created_at                :datetime
@@ -43,9 +29,8 @@ end
 #  position_mode             :integer
 #  favorable                 :boolean          default(FALSE)
 #  setting_type              :integer          default(0)
-#  store_service_id          :integer
 #
 # Indexes
 #
-#  store_service_snapshots_store_service_category_id  (store_service_category_id)
+#  store_services_store_service_category_id  (store_service_category_id)
 #

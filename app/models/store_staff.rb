@@ -1,5 +1,5 @@
 class StoreStaff <  ActiveRecord::Base
-  attr_accessor :password, :password_confirmation
+  attr_accessor :password, :password_confirmation, :phone_number
   belongs_to :store
   belongs_to :store_chain
 
@@ -40,3 +40,26 @@ class StoreStaff <  ActiveRecord::Base
     self.encrypted_password = self.class.encrypt_with_salt(self.password, self.salt)
   end
 end
+
+# == Schema Information
+#
+# Table name: store_staff
+#
+#  id                 :integer          not null, primary key
+#  store_id           :integer
+#  store_chain_id     :integer
+#  login_name         :string(45)       not null
+#  gender             :string(6)        default("male"), not null
+#  first_name         :string(45)
+#  last_name          :string(45)
+#  name_display_type  :string(13)       default("lastname_pre"), not null
+#  encrypted_password :text             not null
+#  salt               :text             not null
+#  work_status        :integer          default(0), not null
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+# Indexes
+#
+#  login_name_work_status_index  (login_name,work_status)
+#

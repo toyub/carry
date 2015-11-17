@@ -5,7 +5,6 @@
 </div>
 
 <div class="details">
-  <%= render partial: 'top_content' %>
   <div class="list_table">
     <div class="search_nav">
       <div class="item-query">
@@ -62,57 +61,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr >
-          <td>1</td>
-          <td><a href="jibenxinxishow.html">王海林</a></td>
-          <td>YG201110090001</td>
-          <td>销售</td>
-          <td>接待</td>
-          <td>中级</td>
-          <td>2015-10-09</td>
-          <td>在职</td>
-          <td>是</td>
-          <td>2</td>
-          <td>11,2789.00</td>
-          <td>975.00</td>
-          <td>-30.00</td>
-          <td>0</td>
-          <td>
-            <% 4.times do %>
-            <i class="fa fa-star color-C6676D"></i>
-            <% end %>
-            <i class="fa fa-star-o color-C6676D"></i>
-          </td>
-          <td><a href="jibenxinxishow.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
-        </tr>
+        <% @staffs.each_with_index do |staff, idx|%>
         <tr>
-          <td>2</td>
-          <td><a href="jibenxinxishow.html">王海林</a></td>
-          <td>YG201110090001</td>
-          <td>销售</td>
-          <td>接待</td>
-          <td>中级</td>
-          <td>2015-10-09</td>
-          <td>在职</td>
-          <td>是</td>
-          <td>2</td>
-          <td>11,2789.00</td>
-          <td>975.00</td>
-          <td>-30.00</td>
-          <td>0</td>
-          <td>
-            <% 3.times do %>
-            <i class="fa fa-star color-C6676D"></i>
-            <% end %>
-            <% 2.times do %>
-            <i class="fa fa-star-o color-C6676D"></i>
-            <% end %>
-          </td>
-          <td><a href="jibenxinxishow.html">详情<i class="fa  fa-angle-double-right"></i></a></td>
-        </tr>
-        <% @staffs.each do |staff|%>
-        <tr>
-          <td class="number">3</td>
+          <td class="number"><%= idx + 1 %></td>
           <td><a href="<%= edit_soa_staff_path(staff) %>"><%= staff.screen_name %></a></td>
           <td>YG201110090001</td>
           <td>销售</td>
