@@ -7,7 +7,7 @@ Mis.Mixins.Uploadable =
   included: ->
     @::action = s.underscored(@::constructor.name).split("_").pop()
 
-  # TODO: 需要引入router来解决上传完跳转的问题
   uploadImages: ->
     url = @model.url() + '/save_picture'
-    uploading($('#preview_list > img'), url) if $('#preview_list > img').length > 0
+    route_to = window.location.pathname + '#' + @model.url()
+    uploading($('#preview_list > img'), url, route_to) if $('#preview_list > img').length > 0

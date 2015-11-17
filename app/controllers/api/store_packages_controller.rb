@@ -14,6 +14,10 @@ module Api
       respond_with @package, location: nil
     end
 
+    def show
+      respond_with @package, location: nil
+    end
+
     private
       def resource
         @package ||= set_package

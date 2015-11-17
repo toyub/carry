@@ -156,7 +156,7 @@ Rails.application.routes.draw do
     resources :store_vehicles, only: [:index]
     resources :store_orders, only: [:index]
     resources :store_subscribe_orders
-    resources :store_packages, only: [:create, :update] do
+    resources :store_packages, only: [:show, :create, :update] do
       member do
         post :save_picture
       end

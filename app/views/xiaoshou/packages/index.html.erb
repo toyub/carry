@@ -99,12 +99,14 @@
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
+      Mis.initialize();
       window.Store = new Mis.Models.Store($("#bootstrap").data("store").store);
       window.StorePackages = new Mis.Collections.StorePackages($('#bootstrap').data('store-packages'));
       window.StoreServices = new Mis.Collections.StoreServices($('#bootstrap').data('store-services'));
       window.StoreDepositCards = new Mis.Collections.StoreDepositCards($('#bootstrap').data('store-deposits'));
       view = new Mis.Views.XiaoshouPackagesIndex({collection: window.StorePackages});
       view.render();
+      new Mis.Routers.Packages({collection: window.StorePackages});
     })
   </script>
 <% end %>

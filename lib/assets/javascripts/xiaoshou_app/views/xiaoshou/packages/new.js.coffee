@@ -27,8 +27,3 @@ class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
 
   handleSuccess: ->
     @uploadImages()
-    @goToShow()
-
-  goToShow: ->
-    view = new Mis.Views.XiaoshouPackagesShow(model: @model)
-    $("#bodyContent").html view.render().el

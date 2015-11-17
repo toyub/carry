@@ -6,6 +6,9 @@ class Mis.Views.XiaoshouPackagesShow extends Mis.Base.View
   events:
     'click #editPackage': 'goToEdit'
 
+  initialize: ->
+    @model.on('change', @render, @)
+
   render: ->
     @$el.html(@template(package: @model))
     @renderNav()
