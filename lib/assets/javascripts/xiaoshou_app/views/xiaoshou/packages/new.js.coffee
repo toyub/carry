@@ -30,11 +30,6 @@ class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
     @uploadImages()
     @goToShow()
 
-  # TODO: 需要引入router来解决上传完跳转的问题
-  uploadImages: ->
-    url = @model.url() + '/save_picture'
-    uploading($('#preview_list > img'), url) if $('#preview_list > img').length > 0
-
   goToShow: ->
     view = new Mis.Views.XiaoshouPackagesShow(model: @model)
     $("#bodyContent").html view.render().el

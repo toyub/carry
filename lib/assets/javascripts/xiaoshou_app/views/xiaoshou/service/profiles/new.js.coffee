@@ -80,10 +80,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
     view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
     $("#bodyContent").html(view.render().el)
 
-  uploadImages: ->
-    url = @model.url() + '/save_picture'
-    uploading($('#preview_list > img'), url) if $('#preview_list > img').length > 0
-
   previewImage: (e) ->
     img = new Image()
     img.src = e.target.src

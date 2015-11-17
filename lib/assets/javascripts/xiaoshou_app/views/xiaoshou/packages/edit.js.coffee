@@ -42,6 +42,7 @@ class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
     $("#bodyContent").html view.render().el
 
   handleSuccess: ->
+    @uploadImages()
     @goToShow()
 
   renderPackageItems: ->

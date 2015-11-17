@@ -39,6 +39,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
     view.open()
 
   handleSuccess: ->
+    @uploadImages()
     @goToShow()
 
   previewImage: (e) ->
