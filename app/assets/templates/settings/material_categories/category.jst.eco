@@ -1,0 +1,21 @@
+<ul class="abstract">
+  <li><label class="sequence_num bg-color-198FFF">1</label></li>
+  <li class="root editing"></li>
+  <li>
+    <span class="includes">该分类包含：</span>
+    <label class="show_subcategories"></label>
+  </li>
+  <li>共<label class="count_categories"></label>二级分类</li>
+  <li><i class="lnr-chevron-down lnr cursor-pointer"></i></li>
+</ul>
+
+<div class="category_details">
+  <ul>
+    <li class="sub editing" style="display:none">
+      <input type="text">
+      <input type="button" class="btn create_subcategory save_btn" value="保存">
+      <input type="button" class="btn cancel_create cancel_btn margin-none" value="取消">
+    </li>
+    <li><input class="new_second_category" type="text" value="+新建二级分类" readonly></li>
+  </ul>
+</div>
