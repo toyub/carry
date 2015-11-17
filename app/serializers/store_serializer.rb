@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: stores
-#
-#  id              :integer          not null, primary key
-#  store_chain_id  :integer          not null
-#  admin_id        :integer
-#  name            :string(60)       not null
-#  business_status :integer          default(0)
-#  payment_status  :integer          default(0)
-#  created_at      :datetime
-#  updated_at      :datetime
-#
-
 class StoreSerializer < ActiveModel::Serializer
   attributes :id, :name, :engineer_levels
 
