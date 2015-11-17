@@ -1,4 +1,5 @@
-class Mis.Views.XiaoshouPackagesNew extends Backbone.View
+class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
 
   template: JST['xiaoshou/packages/new']
 
@@ -29,6 +30,7 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
     @uploadImages()
     @goToShow()
 
+  # TODO: 需要引入router来解决上传完跳转的问题
   uploadImages: ->
     url = @model.url() + '/save_picture'
     uploading($('#preview_list > img'), url) if $('#preview_list > img').length > 0
@@ -41,7 +43,3 @@ class Mis.Views.XiaoshouPackagesNew extends Backbone.View
     img = new Image()
     img.src = e.target.src
     $("#material_img_preview").html(img)
-
-  renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads)
-    @$("#uploadTemplate").html view.render().el

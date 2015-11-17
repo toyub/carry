@@ -1,4 +1,5 @@
-class Mis.Views.XiaoshouPackagesShow extends Backbone.View
+class Mis.Views.XiaoshouPackagesShow extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
 
   template: JST['xiaoshou/packages/show']
 
@@ -37,7 +38,3 @@ class Mis.Views.XiaoshouPackagesShow extends Backbone.View
   renderPackageItem: (item) =>
     view = new Mis.Views.XiaoshouPackageItemsItem(model: item)
     @$("#packageItemList").append view.render().el
-
-  renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads, action: 'show')
-    @$("#uploadTemplate").html view.render().el

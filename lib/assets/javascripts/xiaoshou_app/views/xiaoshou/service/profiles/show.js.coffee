@@ -1,4 +1,5 @@
-class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
+class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
 
   template: JST['xiaoshou/service/profiles/show']
 
@@ -36,7 +37,3 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'show')
     @$(".materialList").append view.render().el
-
-  renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads, action: 'show')
-    @$("#uploadTemplate").html view.render().el

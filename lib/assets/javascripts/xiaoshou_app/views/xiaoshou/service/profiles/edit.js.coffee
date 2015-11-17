@@ -1,4 +1,6 @@
-class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
+class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
+
   className: "base_info"
 
   template: JST['xiaoshou/service/profiles/edit']
@@ -38,10 +40,6 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
 
   handleSuccess: ->
     @goToShow()
-
-  renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate()
-    @$("#uploadTemplate").html view.render().el
 
   previewImage: (e) ->
     img = new Image()

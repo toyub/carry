@@ -8,6 +8,7 @@ class Mis.Views.XiaoshouUploadsTemplate extends Backbone.View
 
   initialize: (options) ->
     @action = options.action if options
+    console.log @collection
 
     @collection.on('add', @renderImage, @)
 
@@ -27,5 +28,6 @@ class Mis.Views.XiaoshouUploadsTemplate extends Backbone.View
     @collection.each @renderImage
 
   renderImage: (image) =>
+    console.log image
     view = new Mis.Views.XiaoshouUploadsItem(model: image)
     @$("#preview_list").append view.render().el

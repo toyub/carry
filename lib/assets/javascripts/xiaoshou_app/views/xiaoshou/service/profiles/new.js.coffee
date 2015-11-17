@@ -1,4 +1,6 @@
-class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
+class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
+
   initialize: ->
     @store = window.Store
     @model.materials.on('add', @addMaterial, @)
@@ -92,7 +94,3 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
 
   handleError: (model, responseOrErrors) ->
     console.log responseOrErrors
-
-  renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads)
-    @$("#uploadTemplate").html view.render().el
