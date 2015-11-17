@@ -115,6 +115,7 @@
       window.StoreServices = new Mis.Collections.StoreServices();
       view = new Mis.Views.XiaoshouServiceProfilesIndex({collection: window.StoreServices});
       view.render();
+      new Mis.Routers.StoreServices({collection: window.StoreServices});
     })
   </script>
 <% end %>

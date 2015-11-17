@@ -8,5 +8,5 @@ window.Mis =
   initialize: ->
     Backbone.history.start()
 
-#$(document).ready ->
-  #Mis.initialize()
+$(document).ready ->
+  Mis.initialize()

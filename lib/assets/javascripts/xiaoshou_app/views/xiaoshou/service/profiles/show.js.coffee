@@ -8,6 +8,7 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
 
   initialize: ->
     @model.on('sync', @renderMaterials, @)
+    @model.on('change', @render, @)
 
   render: ->
     @$el.html(@template(service: @model))
