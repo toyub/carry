@@ -1,62 +1,70 @@
-<div data-id="<%= @id %>" class="add_server">
-  <form>
+
+  <form name='services[]'>
     <div class="grid-1-2  text-align-left float-left ">
+      <% if @id : %>
+      <input type="hidden" name="id" value="<%= @id %>">
+      <% end %>
       <label class="width-50">服务名称</label>
-      <input type="text" required=true name='saleinfo[store_material_saleinfo_services][][name]' class="width-130">
+      <input type="text" required=true name='name' class="width-130" autocomplete=off value="<%= @name %>">
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-50">施工时间</label>
-      <input type="text" required=true num int un class="width-90" name='saleinfo[store_material_saleinfo_services][][work_time]'>
-      <select class="width-60" name='saleinfo[store_material_saleinfo_services][][work_time_unit]'>
-        <option>分钟</option>
+      <input type="text" required=true num int un class="width-90" name='work_time' autocomplete=off value="<%= @work_time %>">
+      <select class="width-60" name='work_time_unit'>
+        <option <%= 'selected' if @work_time == 'minutes' %> value="minutes">分</option>
+        <option <%= 'selected' if @work_time == 'hours' %> value="hours">时</option>
+        <option <%= 'selected' if @work_time == 'days' %> value="days">天</option>
       </select>
     </div>
     <div class="grid-1-2  text-align-left float-left">
       <label class="width-50">技师等级</label>
-      <select class="width-132" name="saleinfo[store_material_saleinfo_services][][mechanic_level]">
-        <option value="0">初级以上(含初级)</option>
-        <option value="1">中级以上(含中级)</option>
-        <option value="2">高级</option>
+      <select class="width-132" name="mechanic_level">
+        <option <%= 'selected' if @mechanic_level.toString() == '0' %> value="0">初级以上(含初级)</option>
+        <option <%= 'selected' if @mechanic_level.toString() == '1' %> value="1">中级以上(含中级)</option>
+        <option <%= 'selected' if @mechanic_level.toString() == '2' %> value="2">高级以上(含高级)</option>
+        <option <%= 'selected' if @mechanic_level.toString() == '3' %> value="3">专家</option>
       </select>
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-50">施工提成</label>
-      <select class="width-155" name="saleinfo[store_material_saleinfo_services][][store_commission_template_id]">
+      <select class="width-130" name="mechanic_commission_template_id">
+        <option value=""></option>
         <% for option in @store_commission_templates: %>
-        <option value="<%= option.id %>"><%= option.name %></option>
+        <option <%= 'selected' if @mechanic_commission_template_id == option.id %> data-template='<%= JSON.stringify(option) %>' value="<%= option.id %>"><%= option.name %></option>
         <% end %>
       </select>
+      <a href="javascript:void(0)" class="detail color-0C489C">详情</a>
     </div>
     <div class="grid-1-2  text-align-left float-left ">
      <label class="width-50">施工次数</label>
-     <input type="text" required=true value='1' min='1' class="width-55" name="saleinfo[store_material_saleinfo_services][][times]">
-     <label class="width-75">需要回访<input type="checkbox" class="width-15" name="saleinfo[store_material_saleinfo_services][][tracking_needed]"></label>
+     <input type="text" num int un required=true value='<%= @quantity %>' min='1' class="width-55" name="quantity" autocomplete=off>
+     <label class="width-75">需要回访<input <%= 'checked' if @tracking_needed %> type="checkbox" class="width-15 toggleable" data-target='tracking_needed' name="tracking_needed" data-checked='<%= 'checked' if @tracking_needed %>'></label>
     </div>
     <div class="grid-1-2 text-align-right float-left ">
       <label class="width-60">回访时间:</label>
       <label class="width-60">施工结束后</label>
-      <input disabled required=true type="text" num int un class="width-35" name="saleinfo[store_material_saleinfo_services][][tracking_time]">
-      <select disabled required=true class="width-45" name="saleinfo[store_material_saleinfo_services][][tracking_time_unit]">
-        <option>时</option>
-        <option>天</option>
-        <option>月</option>
+      <input data-id='tracking_needed' <%= 'disabled' unless @tracking_needed %> required=true type="text" num int un class="width-35" name="tracking_delay" autocomplete=off value='<%= @tracking_delay %>'>
+      <select data-id='tracking_needed' <%= 'disabled' unless @tracking_needed %> required=true class="width-45" name="tracking_delay_unit">
+        <option <%= 'selected' if @tracking_delay_unit == 'minutes' %> value="minutes">分</option>
+        <option <%= 'selected' if @tracking_delay_unit == 'hours' %> value="hours">时</option>
+        <option <%= 'selected' if @tracking_delay_unit == 'days' %> value="days">天</option>
+        <option <%= 'selected' if @tracking_delay_unit == 'months' %> value="months">月</option>
       </select>
     </div>
     <div class=" text-align-left float-right  pure-u-2-2">
       <label class="width-95">回访内容：</label>
       <label class="width-73 text-align-left">回访方式</label>
-      <select disabled required=true class="width-253" name="saleinfo[store_material_saleinfo_services][][tracking_contact_way]">
-        <option>短信</option>
-        <option>微信</option>
+      <select data-id='tracking_needed' <%= 'disabled' unless @tracking_needed %> required=true class="width-253" name="tracking_contact_way">
+        <option <%= 'selected' if @tracking_contact_way.toString() == '0' %> value="0">短信</option>
+        <option <%= 'selected' if @tracking_contact_way.toString() == '1' %> value="1">微信</option>
       </select>
      </div>
     <div class="text-align-left float-right   pure-u-2-2 model">
-      <textarea required=true disabled name='saleinfo[store_material_saleinfo_services][][tracking_content]'></textarea>
+      <textarea data-id='tracking_needed' required=true <%= 'disabled' unless @tracking_needed %> name='tracking_content'><%= @tracking_content %></textarea>
     </div>
 
     <div class="btn_group">
-      <input type="reset"  value="取消" class="cancel_btn btn cancel"  >
+      <input type="reset"  value="取消" class="cancel_btn btn cancel">
       <input type="submit"  value="保存" class="save_service save_btn btn add_cancel">
     </div>
   </form>
-</div>

@@ -1,33 +1,11 @@
-<% content_for :pre_assets do %>
-  <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
-  <%= javascript_include_tag 'xiaoshou' %>
-<% end %>
 
 <div class="main_top">
   <h2>服务项目列表</h2>
-  <span class="add_span">+</span>
+  <a class="back_to_list" href="<%= xiaoshou_service_profiles_path %>">
+    <i class="fa-arrow-circle-left  fa"></i>返回列表
+  </a>
 </div>
 <div class="details" id="serviceIndex">
-  <div class="top_content records">
-    <div class="content_tab_top">
-      <table cellpadding="0" cellspacing="0" width="100%" class="top_tab">
-        <colgroup>
-          <col width="14.28%">
-          <col width="14.28%">
-          <col width="14.28%">
-          <col width="14.28%">
-          <col width="14.28%">
-          <col width="14.28%">
-          <col width="14.28%">
-        </colgroup>
-        <tbody id="serviceStats">
-
-        </tbody>
-      </table>
-    </div>
-
-  </div>
-
   <div id="bodyContent">
     <div class="list_table">
       <div class="search_nav">
@@ -121,6 +99,14 @@
 </div>
 
 <%= content_tag :div, '', id: 'bootstrap', data: {'store': json_for(current_store), 'store-services': json_for(current_store.store_services)} %>
+
+<div id='piccut'>
+
+</div>
+
+<div id="FloatWindow" style="display: none">
+
+</div>
 
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">

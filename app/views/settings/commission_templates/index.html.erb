@@ -1,6 +1,4 @@
-<% content_for :pre_assets do %>
-  <%= javascript_include_tag 'settings' %>
-<% end %>
+
 <% list_header = '<ul class="list_header">
   <li>#</li>
   <li>名称</li>
@@ -9,19 +7,13 @@
   <li>状态</li>
 </ul>'
  %>
-<div class="main_top">
-  <h2>规则设置</h2>
-  <span class="add_span">+</span>
-</div>
+<div class="main_top"><%= breadcrumb_navigation(["系统设置", '提成方案']) %></div>
 
 <div class="details">
 
   <div class="details_nav">
     <ul>
-      <li><a href="javascript:void(0);" class="width-90 to_be_continued">组织架构</a></li>
-      <li class="bg-color-fff"><a href="tichengfangan.html" class="width-90">提成方案</a></li>
-      <li><a href="javascript:void(0);" class="width-90 to_be_continued">考勤规则</a></li>
-      <li><a href="javascript:void(0);" class="width-90 to_be_continued">绩效规则</a></li>
+      <li class="bg-color-fff"><a href="javascript:void(0);" class="width-90">提成方案</a></li>
     </ul>
   </div>
 

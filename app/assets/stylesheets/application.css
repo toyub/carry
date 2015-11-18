@@ -12,9 +12,9 @@
  *
  *= require scaffolds
  *= require jquery_ui
- *= require ext-theme-crisp/build/resources/ext-theme-crisp-all
- *= require_self
  *= require select2
+ *= require datetimepicker/jquery.datetimepicker
+ *= require_self
  */
 
 #noticebox {

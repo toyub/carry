@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026134947) do
+ActiveRecord::Schema.define(version: 20151116135633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   create_table "renewal_records", force: :cascade do |t|
@@ -57,6 +58,15 @@ ActiveRecord::Schema.define(version: 20151026134947) do
   add_index "roles", ["abbrev"], name: "abbrev_UNIQUE", unique: true, using: :btree
   add_index "roles", ["name"], name: "name_UNIQUE", unique: true, using: :btree
 
+  create_table "staffer_operation_logs", force: :cascade do |t|
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.integer  "staffer_id"
+    t.json     "log"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "staffers", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -74,6 +84,9 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.boolean  "admin"
     t.integer  "role_id"
     t.string   "fullname",               limit: 45
+    t.string   "family_name"
+    t.string   "name"
+    t.string   "login_name"
   end
 
   create_table "store_attachments", force: :cascade do |t|
@@ -87,6 +100,16 @@ ActiveRecord::Schema.define(version: 20151026134947) do
   end
 
   add_index "store_attachments", ["type", "host_id"], name: "type_of_attachments", using: :btree
+
+  create_table "store_business_status_records", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "staffer_id"
+    t.string   "reason"
+    t.integer  "previous_status"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "store_chains", force: :cascade do |t|
     t.integer  "admin_store_id"
@@ -137,11 +160,53 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.string   "phone_number",   limit: 45
   end
 
+  create_table "store_deposit_cards", force: :cascade do |t|
+    t.decimal  "price",          precision: 10, scale: 2
+    t.decimal  "denomination",   precision: 10, scale: 2
+    t.string   "name"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
   create_table "store_depots", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
+    t.integer  "store_id",                                  null: false
+    t.integer  "store_chain_id",                            null: false
+    t.integer  "store_staff_id",                            null: false
     t.string   "name",           limit: 45
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "deleted",                   default: false
+    t.boolean  "preferred",                 default: false
+    t.boolean  "useable",                   default: true
+    t.integer  "admin_ids",                                              array: true
+    t.string   "description"
+  end
+
+  create_table "store_employees", force: :cascade do |t|
+    t.string   "last_name"
+    t.string   "first_name"
+    t.string   "gender",                   limit: 6,   default: "male", null: false
+    t.datetime "birthday"
+    t.string   "education"
+    t.string   "polity"
+    t.string   "native_place"
+    t.string   "census_register"
+    t.string   "identity_card"
+    t.string   "marital_status"
+    t.string   "height"
+    t.string   "weight"
+    t.string   "phone_number",                                          null: false
+    t.string   "mailbox"
+    t.string   "address"
+    t.string   "census_register_address"
+    t.string   "contact_one"
+    t.string   "contact_one_phone_number"
+    t.string   "contact_two"
+    t.string   "contact_two_phone_number"
+    t.string   "remark",                   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -457,45 +522,50 @@ ActiveRecord::Schema.define(version: 20151026134947) do
   end
 
   create_table "store_material_saleinfo_services", force: :cascade do |t|
-    t.integer  "store_id",                                                 null: false
-    t.integer  "store_chain_id",                                           null: false
-    t.integer  "store_staff_id",                                           null: false
-    t.integer  "store_material_id"
-    t.integer  "store_material_saleinfo_id"
-    t.integer  "store_commission_template_id"
-    t.string   "name",                         limit: 45,                  null: false
-    t.integer  "mechanic_level",                           default: 1,     null: false
-    t.integer  "work_time"
-    t.string   "work_time_unit",               limit: 45
-    t.integer  "work_time_in_seconds"
-    t.boolean  "tracking_needed",                          default: false
-    t.integer  "tracking_delay"
-    t.string   "tracking_delay_unit",          limit: 10
-    t.integer  "tracking_delay_in_seconds"
-    t.integer  "tracking_contact_way"
-    t.string   "tracking_content",             limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "store_material_saleinfos", force: :cascade do |t|
     t.integer  "store_id",                                                    null: false
     t.integer  "store_chain_id",                                              null: false
     t.integer  "store_staff_id",                                              null: false
-    t.integer  "store_material_id",                                           null: false
-    t.boolean  "bargainable",                                 default: false
-    t.decimal  "bargain_price",      precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "retail_price",       precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",        precision: 10, scale: 2, default: 0.0,   null: false
-    t.integer  "reward_points",                               default: 0
-    t.boolean  "divide_to_retail",                            default: false
-    t.integer  "unit"
-    t.decimal  "volume",             precision: 10, scale: 2
-    t.boolean  "service_needed",                              default: false
-    t.boolean  "service_fee_needed",                          default: false
-    t.decimal  "service_fee",        precision: 10, scale: 2
+    t.integer  "store_material_id"
+    t.integer  "store_material_saleinfo_id"
+    t.integer  "store_commission_template_id"
+    t.string   "name",                            limit: 45,                  null: false
+    t.integer  "mechanic_level",                              default: 1,     null: false
+    t.integer  "work_time"
+    t.string   "work_time_unit",                  limit: 45
+    t.integer  "work_time_in_seconds"
+    t.boolean  "tracking_needed",                             default: false
+    t.integer  "tracking_delay"
+    t.string   "tracking_delay_unit",             limit: 10
+    t.integer  "tracking_delay_in_seconds"
+    t.integer  "tracking_contact_way"
+    t.string   "tracking_content",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "mechanic_commission_template_id"
+    t.integer  "quantity"
+    t.boolean  "deleted",                                     default: false
+  end
+
+  create_table "store_material_saleinfos", force: :cascade do |t|
+    t.integer  "store_id",                                                                     null: false
+    t.integer  "store_chain_id",                                                               null: false
+    t.integer  "store_staff_id",                                                               null: false
+    t.integer  "store_material_id",                                                            null: false
+    t.boolean  "bargainable",                                                  default: false
+    t.decimal  "bargain_price",                       precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "retail_price",                        precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "trade_price",                         precision: 10, scale: 2, default: 0.0,   null: false
+    t.integer  "reward_points",                                                default: 0
+    t.boolean  "divide_to_retail",                                             default: false
+    t.integer  "unit"
+    t.decimal  "volume",                              precision: 10, scale: 2
+    t.boolean  "service_needed",                                               default: false
+    t.boolean  "service_fee_needed",                                           default: false
+    t.decimal  "service_fee",                         precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "saleman_commission_template_id"
+    t.integer  "store_material_saleinfo_category_id"
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|
@@ -558,19 +628,20 @@ ActiveRecord::Schema.define(version: 20151026134947) do
   end
 
   create_table "store_material_tracking_sections", force: :cascade do |t|
-    t.integer  "store_id",                                           null: false
-    t.integer  "store_chain_id",                                     null: false
-    t.integer  "store_staff_id",                                     null: false
-    t.integer  "store_material_id",                                  null: false
-    t.integer  "store_material_tracking_id",                         null: false
-    t.integer  "timing",                                 default: 1, null: false
-    t.integer  "delay_interval",                                     null: false
-    t.string   "delay_unit",                 limit: 10,              null: false
-    t.integer  "delay_in_seconds",                                   null: false
-    t.integer  "contact_way",                            default: 1, null: false
-    t.string   "content",                    limit: 255,             null: false
+    t.integer  "store_id",                                               null: false
+    t.integer  "store_chain_id",                                         null: false
+    t.integer  "store_staff_id",                                         null: false
+    t.integer  "store_material_id",                                      null: false
+    t.integer  "store_material_tracking_id",                             null: false
+    t.integer  "timing",                                 default: 1,     null: false
+    t.integer  "delay_interval",                                         null: false
+    t.string   "delay_unit",                 limit: 10,                  null: false
+    t.integer  "delay_in_seconds",                                       null: false
+    t.integer  "contact_way",                            default: 1,     null: false
+    t.string   "content",                    limit: 255,                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",                                default: false
   end
 
   create_table "store_material_trackings", force: :cascade do |t|
@@ -674,6 +745,21 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.integer  "state"
   end
 
+  create_table "store_package_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.decimal  "price",                    precision: 10, scale: 2
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "package_itemable_type"
+    t.integer  "package_itemable_id"
+    t.integer  "store_package_setting_id"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.decimal  "denomination",             precision: 10, scale: 2
+  end
+
   create_table "store_package_settings", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -693,6 +779,21 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.integer  "payment_mode",                                          default: 0
   end
 
+  create_table "store_package_trackings", force: :cascade do |t|
+    t.integer  "mode"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_package_id"
+    t.boolean  "notice_required",  default: false
+    t.string   "content"
+    t.integer  "delay_interval",   default: 0
+    t.integer  "delay_unit"
+    t.integer  "trigger_timing"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
   create_table "store_packages", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -703,6 +804,21 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.string   "code",           limit: 45
     t.string   "abstract",       limit: 255
     t.text     "remark"
+  end
+
+  create_table "store_payments", force: :cascade do |t|
+    t.integer  "staffer_id"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "renewal_type_id"
+    t.datetime "paid_at"
+    t.decimal  "amount",           precision: 10, scale: 2
+    t.integer  "payment_type_id"
+    t.integer  "invoice_type_id"
+    t.boolean  "receipt_required"
+    t.string   "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "store_physical_inventories", force: :cascade do |t|
@@ -922,16 +1038,24 @@ ActiveRecord::Schema.define(version: 20151026134947) do
   create_table "store_staff", force: :cascade do |t|
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.string   "login_name",         limit: 45,                          null: false
-    t.string   "gender",             limit: 6,  default: "male",         null: false
-    t.string   "first_name",         limit: 45
-    t.string   "last_name",          limit: 45
-    t.string   "name_display_type",  limit: 13, default: "lastname_pre", null: false
-    t.text     "encrypted_password",                                     null: false
-    t.text     "salt",                                                   null: false
-    t.integer  "work_status",                   default: 0,              null: false
+    t.string   "login_name",          limit: 45,                          null: false
+    t.string   "gender",              limit: 6,  default: "male",         null: false
+    t.string   "first_name",          limit: 45
+    t.string   "last_name",           limit: 45
+    t.string   "name_display_type",   limit: 13, default: "lastname_pre", null: false
+    t.text     "encrypted_password",                                      null: false
+    t.text     "salt",                                                    null: false
+    t.integer  "work_status",                    default: 0,              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "job_type_id"
+    t.integer  "store_department_id"
+    t.datetime "employeed_at"
+    t.datetime "terminated_at"
+    t.integer  "levle_type_id"
+    t.string   "reason_for_leave"
+    t.string   "numero"
+    t.integer  "store_position_id"
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
@@ -989,7 +1113,7 @@ ActiveRecord::Schema.define(version: 20151026134947) do
     t.string   "clearing_vatin",                  limit: 45
     t.boolean  "clearing_alarmify",                          default: false
     t.integer  "clearing_payment_method_id"
-    t.string   "remark",                          limit: 45
+    t.string   "remark"
     t.integer  "status",                                     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1069,13 +1193,16 @@ ActiveRecord::Schema.define(version: 20151026134947) do
   end
 
   create_table "stores", force: :cascade do |t|
-    t.integer  "store_chain_id",                         null: false
+    t.integer  "store_chain_id",                            null: false
     t.integer  "admin_id"
-    t.string   "name",            limit: 60,             null: false
+    t.string   "name",            limit: 60,                null: false
     t.integer  "business_status",            default: 0
     t.integer  "payment_status",             default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "expired_at"
+    t.decimal  "balance"
+    t.boolean  "available",                  default: true
   end
 
 end

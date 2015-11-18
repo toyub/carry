@@ -1,9 +1,6 @@
-<% content_for :pre_assets do %>
-  <%= javascript_include_tag 'kucun' %>
-<% end %>
+
 <div class="main_top">
-  <h2>报损</h2>
-  <span class="add_span">+</span>
+  <%= breadcrumb_navigation(['库存', '报损', '新建报损单']) %>
 </div>
 <div class="details">
     <div class="list_table">

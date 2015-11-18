@@ -11,6 +11,7 @@
 /config/sms_client.yml
 config/config.yml
 config/redis.yml
+config/qiniu.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -33,3 +34,5 @@ config/redis.yml
 /.capistrano
 TODOLIST.md
 .DS_Store
+.idea
+

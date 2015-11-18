@@ -1,0 +1,9 @@
+<li><%= @tracking.get 'id' %>.</li>
+<li><label class="content"><%= @tracking.content() %></label></li>
+<li><%= @tracking.timingName() %></li>
+<li><%= @tracking.delay() %></li>
+<li><%= @tracking.modeName() %>
+  <% unless @view.isShow(): %>
+    <span class="delete_list delete">×</span>
+  <% end %>
+</li>

@@ -1,9 +1,5 @@
-<% content_for :pre_assets do %>
-  <%= javascript_include_tag 'kucun' %>
-<% end %>
 <div class="main_top">
-  <h2>按商品入库</h2><sup>注意：按商品入库将无法追溯商品来源。</sup>
-  <span class="add_span">+</span>
+  <h2>库存 >入库 >按商品入库</h2><sup>注意：按商品入库将无法追溯商品来源。</sup>
 </div>
 <div class="details">
   <div class="details_content">
@@ -23,7 +19,7 @@
           </div>
         <div class="query_div">
           <a href="javascript:void(0);" class="in_stg_btn btn">入库</a>
-          <a href="javascript:void(0);" class="notes_btn btn">记录</a>
+          <a href="/kucun/checkins/" class="notes_btn btn">记录</a>
         </div>
       </div>
       <div class="in_storage_content common_storage_content float-left margin-bottom-50 margin-top-5">
@@ -51,8 +47,7 @@
 
           </div>
           <div class="in_storage_print">
-            <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
-            <a href="#" class="print_barcode_btn btn">打印条码</a>
+            <a href="javascript:void(0);" class="print_btn btn">打<nbsp1></nbsp1>印</a>
           </div>
         </div>
 

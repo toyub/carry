@@ -1,10 +1,13 @@
-class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
+class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
+
   initialize: ->
     @store = window.Store
     @model.materials.on('add', @addMaterial, @)
     @store.serviceCategories.on('add', @addOneCategory, @)
     Backbone.Validation.bind(@)
     @model.on('sync', @handleSuccess, @)
+    @model.on('validated:invalid', @invalid, @)
 
   template: JST['xiaoshou/service/profiles/new']
 
@@ -14,20 +17,23 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
     'click span.as_select': 'listServiceCategories'
     'click #addServiceCategory': 'openCategoryForm'
     'click input.toggleable': 'toggleFavorable'
-    'click a.add_img': 'openImageForm'
     'click li img': 'previewImage'
 
   render: ->
     @$el.html(@template(service: @model))
+    @renderNav()
+    @renderUploadTemplate()
     @renderServiceCategories()
     @
+
+  renderNav: ->
+    view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model, active: 'service')
+    @$("#masterNav").html view.render().el
 
   createOnSubmit: ->
     event.preventDefault()
     @model.set $("#createService").serializeJSON()
     @model.save() if @model.isValid(true)
-    console.log @model
-    console.log 'xxxx'
 
   openMaterialForm: ->
     view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
@@ -68,31 +74,19 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Backbone.View
 
   handleSuccess: ->
     @uploadImages()
-    @goToSettingNew()
+    @goToShow()
 
-  goToSettingNew: ->
-    model = new Mis.Models.StoreServiceSetting(store_service: @model)
-    view = new Mis.Views.XiaoshouServiceSettingsNew(model: model)
+  goToShow: ->
+    view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
     $("#bodyContent").html(view.render().el)
-
-  uploadImages: ->
-    url = @model.url() + '/save_picture'
-    @$('#preview_list > img').each () ->
-      img = @
-      $.ajax(
-        type: 'POST'
-        url: url
-        data:
-          img: img.src
-        dataType: 'json'
-        success: (data) -> console.log data
-      )
-
-  openImageForm: ->
-    view = new Mis.Views.XiaoshouServicePicturesForm()
-    view.open()
 
   previewImage: (e) ->
     img = new Image()
     img.src = e.target.src
     $("#material_img_preview").html(img)
+
+  invalid: (model, errors) ->
+    @handleError(model, errors)
+
+  handleError: (model, responseOrErrors) ->
+    console.log responseOrErrors

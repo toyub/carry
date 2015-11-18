@@ -1,4 +1,5 @@
 class Kucun::MaterialsController < Kucun::ControllerBase
+  include Uploadable
 
   before_filter :set_material, only: [:show, :edit]
 
@@ -28,22 +29,21 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def create
-    x = StoreMaterial.new(material_params)
-
-    x.store_id=current_user.store_id
-    x.store_chain_id=current_user.store_chain_id
-    x.store_staff_id=current_user.id
-    x.save
-
-    render json: x
+    store = current_store
+    store_material = store.store_materials.build(material_params)
+    store_material.store_staff_id=current_user.id
+    store_material.save!
+    render json: store_material, root: nil
   end
 
   def edit
-
   end
 
   def update
-    render json: params
+    store = current_store
+    store_material = store.store_materials.find(params[:id])
+    store_material.update!(material_params)
+    render json: store_material, root: nil
   end
 
   def show
@@ -51,17 +51,14 @@ class Kucun::MaterialsController < Kucun::ControllerBase
 
   def autocomplete_name
     result = StoreMaterial.where('name like :name', name: "%#{params[:q]}%").map(&:name)
-
     render text: "#{params[:callback]}(#{result.to_json})"
   end
 
-  def save_picture
-    @material = StoreMaterial.find(params[:id])
-    @material.uploads.create(img_params)
-    render text: :ok
+  private
+  def resource
+    @store_material ||= set_material
   end
 
-  private
   def material_params
     params.require(:material).permit(:store_material_root_category_id, :store_material_category_id, :store_material_unit_id,
                                      :store_material_manufacturer_id, :store_material_brand_id,
@@ -72,12 +69,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
                                      :permitted_to_saleable, :remark)
   end
 
-  def img_params
-    params.permit(:img).merge(store_staff_id: current_staff.id, store_id: current_store.id)
-  end
-
   def set_material
-    @store = current_user.store
-    @store_material = @store.store_materials.find(params[:id])
+    @store_material = current_store.store_materials.find(params[:id])
   end
 end

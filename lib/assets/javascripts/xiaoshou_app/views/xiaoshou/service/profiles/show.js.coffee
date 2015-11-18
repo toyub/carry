@@ -1,20 +1,25 @@
-class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
+class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
 
   template: JST['xiaoshou/service/profiles/show']
 
   events:
     'click #preview_list img': 'previewImage'
     'click #serviceEdit': 'gotoEdit'
-    'click #createSettingStub': 'goToSettingNew'
-    'click a.setting': 'goToSettingShow'
 
   initialize: ->
     @model.on('sync', @renderMaterials, @)
 
   render: ->
     @$el.html(@template(service: @model))
+    @renderNav()
+    @renderUploadTemplate()
     @renderMaterials()
     @
+
+  renderNav: ->
+    view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model, active: 'service')
+    @$("#masterNav").html view.render().el
 
   previewImage: (event) ->
     src = $(event.target).attr('src')
@@ -32,15 +37,3 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Backbone.View
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'show')
     @$(".materialList").append view.render().el
-
-  goToSettingNew: ->
-    model = new Mis.Models.StoreServiceSetting(store_service: @model)
-    view = new Mis.Views.XiaoshouServiceSettingsNew(model: model)
-    $("#bodyContent").html(view.render().el)
-
-  # todo render two times
-  goToSettingShow: ->
-    model = new Mis.Models.StoreServiceSetting(store_service: @model)
-    view = new Mis.Views.XiaoshouServiceSettingsShow(model: model)
-    $("#bodyContent").html(view.render().el)
-    model.fetch()
