@@ -5,55 +5,8 @@
 <div class="details" id="packageIndex">
   <div class="container_list">
     <div class="list_table">
-      <div class="search_nav">
-        <div class="item-query">
-          <label>查找套餐</label>
-          <input type="text" class="width-150" placeholder="输入产品关键字">
-        </div>
-        <div class="item-query query_div">
-          <button class="btn query_btn do_search_result">查<nbsp1></nbsp1>询</button>
-        </div>
-        <div class="item-query c_price">
-          <div class="link" id="link_drop_list">
-            <span class="float-left margin-right-10" title="价格从高到低">价格</span>
-            <span><i class="fa fa-angle-down"></i></span>
-          </div>
-          <ul class="drop_list" id="drop_list">
-            <li class="sort"><a href="#">价格从低到高</a></li>
-            <li class="sort"><a href="#">价格从高到低</a></li>
-          </ul>
+      <div id="searchForm" class="search_nav">
 
-        </div>
-        <div class="prices">
-          <div class="inputs">
-            <div class="inner">
-              <ul class="items">
-                <li class="item"><input type="text" class="j_sortbar_price_input input" placeholder="¥"></li>
-                <li class="sep">-</li>
-                <li class="item"><input type="text" class="j_sortbar_price_input input" placeholder="¥"></li>
-                <li class="submit"><button class="btn j_sortbar_price_submit">确定</button></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="item-query screen">
-          <div class="link">
-            <span class="float-left margin-right-10" title="价格从高到低">筛选</span>
-            <span><i class="fa fa-angle-down"></i></span>
-          </div>
-          <ul class="drop_list">
-            <li class="sort"><a href="#">今天上架套餐</a></li>
-            <li class="sort"><a href="#">本周上架套餐</a></li>
-            <li class="sort"><a href="#">本月上架套餐</a></li>
-          </ul>
-        </div>
-        <div class="operats">
-          <ul class="items">
-            <li class="item_add"><a href="javascript:void(0);" id="newPackage" class="btn add_btn">新建</a></li>
-            <li class="item"><a href="#" class="link"><i class="fa fa-th"></i></a></li>
-            <li class="item"><a href="#" class="link"><i class="fa fa-bars"></i></a></li>
-          </ul>
-        </div>
       </div>
       <table cellpadding="0" cellspacing="0" class="index_list taocan">
         <thead>

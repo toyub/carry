@@ -3,24 +3,28 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
   template: JST['xiaoshou/packages/index']
 
   initialize: ->
-    console.log 'xxx'
+    @collection.on('add', @renderPackage, @)
 
   events:
     'click div.item-query.c_price li': 'sortByPrice'
     'click div.prices li.submit': 'filterByPrice'
     'click div.item-query.screen li': 'filterByDate'
-    'submit #store_service_search': 'searchOnSubmit'
     'click #newPackage': 'goToNew'
 
   render: ->
     @$el.html(@template())
     @renderTop()
+    @renderSearchForm()
     @renderPackages()
     @
 
   renderTop: ->
     view = new Mis.Views.XiaoshouSharedTop(title: '套餐列表')
     @$("#mainTop").html view.render().el
+
+  renderSearchForm: ->
+    view = new Mis.Views.XiaoshouSharedSearchForm(collection: @collection)
+    @$("#searchForm").html view.render().el
 
   renderPackages: ->
     if @collection.length
@@ -55,16 +59,6 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
     $(event.currentTarget).siblings().removeClass("j_active")
     $(event.currentTarget).addClass("j_active")
     @sort()
-
-  searchOnSubmit: (event) ->
-    event.preventDefault()
-
-    options =
-      reset: true
-      data:
-        q: {}
-    $.extend(options['data'], $("form").serializeJSON())
-    @collection.fetch(options)
 
   sort: =>
     $("div.prices li.item input").each(

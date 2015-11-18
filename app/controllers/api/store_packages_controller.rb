@@ -2,7 +2,12 @@ module Api
   class StorePackagesController < BaseController
     include Uploadable
 
-    before_action :set_package, except: [:create]
+    before_action :set_package, except: [:create, :index]
+
+    def index
+      @q = current_store.store_packages.ransack(params[:q])
+      @packages = @q.result(distinct: true)
+    end
 
     def create
       @package = current_store.store_packages.create(append_store_attrs package_params)
