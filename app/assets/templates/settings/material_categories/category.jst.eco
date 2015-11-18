@@ -1,5 +1,5 @@
 <ul class="abstract">
-  <li><label class="sequence_num bg-color-198FFF">1</label></li>
+  <li><label class="sequence_num bg-color-198FFF"><%= @idx %></label></li>
   <li class="root"></li>
   <li>
     <span class="includes">该分类包含：</span>
