@@ -14,8 +14,13 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
 
   render: ->
     @$el.html(@template())
+    @renderTop()
     @renderPackages()
     @
+
+  renderTop: ->
+    view = new Mis.Views.XiaoshouSharedTop(title: '套餐列表')
+    @$("#mainTop").html view.render().el
 
   renderPackages: ->
     if @collection.length

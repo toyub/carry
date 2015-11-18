@@ -1,5 +1,5 @@
-<div class="main_top">
-  <h2>套餐列表</h2>
+<div class="main_top" id="mainTop">
+
 </div>
 
 <div class="details" id="packageIndex">

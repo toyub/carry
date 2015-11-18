@@ -1,8 +1,5 @@
-<div class="main_top">
-  <h2>套餐信息新建</h2>
-  <a class="back_to_list" href="<%= Routes.xiaoshou_packages_path() %>">
-    <i class="fa-arrow-circle-left  fa"></i>返回列表
-  </a>
+<div id="mainTop" class="main_top">
+
 </div>
 
 <div class="details">
