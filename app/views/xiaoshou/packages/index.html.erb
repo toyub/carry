@@ -12,6 +12,7 @@
 </div>
 <%= content_tag :div, '', id: 'bootstrap', data: {'store-materials': current_store.store_materials.to_json(only: [:id, :name], methods: :price),
                                                   'store-packages': json_for(current_store.store_packages),
+                                                  'store-commissions': current_store.commission_templates.to_json(only: [:id, :name]),
                                                   'store-services': current_store.store_services.to_json(only: [:id, :name, :retail_price])} %>
 
 <% content_for :javascripts do %>
@@ -20,6 +21,7 @@
       Mis.Constants.StoreMaterialCollection = new Mis.Collections.StoreMaterials($("#bootstrap").data("store-materials"));
       Mis.Constants.StorePackageCollection = new Mis.Collections.StorePackages($('#bootstrap').data('store-packages'));
       Mis.Constants.StoreServiceCollection = new Mis.Collections.StoreServices($('#bootstrap').data('store-services'));
+      Mis.Constants.StoreCommissionTemplateCollection = new Mis.Collections.StoreCommissionTemplates($('#bootstrap').data('store-commissions'));
       var route = new Mis.Routers.StorePackages({collection: Mis.Constants.StorePackageCollection});
       route.navigate("api/store_packages", {trigger: true});
     })

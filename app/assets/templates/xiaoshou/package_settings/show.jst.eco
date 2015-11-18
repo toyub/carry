@@ -1,104 +1,113 @@
-<div id="masterNav" class="details_nav">
-
+<div class="main_top">
+  <h2>套餐设置详情</h2>
+  <a class="back_to_list" href="<%= Routes.xiaoshou_packages_path() %>">
+    <i class="fa-arrow-circle-left  fa"></i>返回列表
+  </a>
 </div>
-<div class="details_content package">
-  <table border="0" id="packageSummary" class="abstract">
 
-  </table>
-  <div class="setting_content">
-    <div class="rules_setting">
-      <h2>规则设置</h2>
+<div class="details">
+  <div id="masterNav" class="details_nav">
 
-      <ul class="rules_content">
-        <li>
-        <label class="title">适用门店</label>
-        <label class="width-85">
-          <input type="radio" name="card_usage" <%= 'checked' unless @setting.applyAll() %> disabled=""> 限本店
-        </label>
-        <label>
-          <input type="radio" name="card_usage" disabled="" <%= 'checked' if @setting.applyAll() %>> 所有门店
-        </label>
-        </li>
+  </div>
+  <div class="details_content package">
+    <table border="0" id="packageSummary" class="abstract">
 
-        <li>
-        <label class="title">使用设置</label>
-        <ol>
+    </table>
+    <div class="setting_content">
+      <div class="rules_setting">
+        <h2>规则设置</h2>
+
+        <ul class="rules_content">
           <li>
+          <label class="title">适用门店</label>
+          <label class="width-85">
+            <input type="radio" name="card_usage" <%= 'checked' unless @setting.applyAll() %> disabled=""> 限本店
+          </label>
           <label>
-            <input type="radio" name="card_pay_method" disabled <%= 'checked' if @setting.passwordAuth() %>> 密码支付
+            <input type="radio" name="card_usage" disabled="" <%= 'checked' if @setting.applyAll() %>> 所有门店
           </label>
           </li>
-          <li>
-          <label>
-            <input type="radio" name="card_pay_method" disabled <%= 'checked' unless @setting.passwordAuth() %>> 短信验证支付
-          </label>
-          </li>
-        </ol>
-        </li>
 
-        <li>
-        <label class="title">有效期</label>
-        <ol>
           <li>
-          <input type="radio" <%= 'checked' if @setting.periodEnable() %> disabled>
-          <span class="width-80 show_content"><%= @setting.get 'period' %></span>
-          <span class="width-80 show_content"><%= @setting.period_unit_name() %></span>
+          <label class="title">使用设置</label>
+          <ol>
+            <li>
+            <label>
+              <input type="radio" name="card_pay_method" disabled <%= 'checked' if @setting.passwordAuth() %>> 密码支付
+            </label>
+            </li>
+            <li>
+            <label>
+              <input type="radio" name="card_pay_method" disabled <%= 'checked' unless @setting.passwordAuth() %>> 短信验证支付
+            </label>
+            </li>
+          </ol>
           </li>
+
           <li>
-          <label class="margin-right-20">
-            <input type="radio" <%= 'checked' if @setting.noticeRequired() %> class="toggleable" disabled> 逾期前提醒
-          </label>
-          <input type="text" class="width-80" value="<%= @setting.get 'before_expired' %>" disabled> 天
+          <label class="title">有效期</label>
+          <ol>
+            <li>
+            <input type="radio" <%= 'checked' if @setting.periodEnable() %> disabled>
+            <span class="width-80 show_content"><%= @setting.get 'period' %></span>
+            <span class="width-80 show_content"><%= @setting.period_unit_name() %></span>
+            </li>
+            <li>
+            <label class="margin-right-20">
+              <input type="radio" <%= 'checked' if @setting.noticeRequired() %> class="toggleable" disabled> 逾期前提醒
+            </label>
+            <input type="text" class="width-80" value="<%= @setting.get 'before_expired' %>" disabled> 天
+            </li>
+          </ol>
           </li>
-        </ol>
-        </li>
 
-        <li>
-        <label class="title">套餐积分</label>
-        <ol>
           <li>
-          <span class="show_content width-130"><%= @setting.get 'point' %></span>
+          <label class="title">套餐积分</label>
+          <ol>
+            <li>
+            <span class="show_content width-130"><%= @setting.get 'point' %></span>
+            </li>
+          </ol>
           </li>
-        </ol>
-        </li>
 
-        <li>
-        <label class="title">售卡提成</label>
-        <ol>
           <li>
-          <label>提成方案</label>
-          <span class="width-190 show_content"><%= @setting.get 'store_commission_template_id' %></span>
+          <label class="title">售卡提成</label>
+          <ol>
+            <li>
+            <label>提成方案</label>
+            <span class="width-190 show_content"><%= @setting.get 'store_commission_template_id' %></span>
+            </li>
+          </ol>
           </li>
-        </ol>
-        </li>
-      </ul>
-    </div>
-
-    <div class="items_setting" style="display:block;">
-      <h2>
-        <label>项目设置</label>
-      </h2>
-
-      <div class="created_package_items do_new_lists" style="display:block;">
-        <ul class="items_head">
-          <li class="border-none">#</li>
-          <li>项目名称</li>
-          <li>类别</li>
-          <li>正常售价</li>
-          <li>套餐价</li>
-          <li>数量</li>
-          <li>小计</li>
         </ul>
-        <div id="itemList" class="do_new_lists_content">
+      </div>
+
+      <div class="items_setting" style="display:block;">
+        <h2>
+          <label>项目设置</label>
+        </h2>
+
+        <div class="created_package_items do_new_lists" style="display:block;">
+          <ul class="items_head">
+            <li class="border-none">#</li>
+            <li>项目名称</li>
+            <li>类别</li>
+            <li>正常售价</li>
+            <li>套餐价</li>
+            <li>数量</li>
+            <li>小计</li>
+          </ul>
+          <div id="itemList" class="do_new_lists_content">
+
+          </div>
+        </div>
+        <div id="showPackageItem">
 
         </div>
       </div>
-      <div id="showPackageItem">
-
-      </div>
     </div>
   </div>
-</div>
-<div class="btn_group">
-  <a href="JavaScript:void(0);" class="edit_btn btn margin-right-2" id="goToEdit">编辑</a>
+  <div class="btn_group">
+    <a href="JavaScript:void(0);" class="edit_btn btn margin-right-2" id="goToEdit">编辑</a>
+  </div>
 </div>
