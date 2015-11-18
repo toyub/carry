@@ -6,6 +6,7 @@ class Mis.Models.StorePackage extends Backbone.Model
 
   initialize: ->
     @on('change:uploads', @parseUploads, @)
+    @on('change:trackings', @parseTrackings, @)
 
     @parseUploads()
     @parseTrackings()

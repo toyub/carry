@@ -5,6 +5,9 @@ class Mis.Views.XiaoshouPackageSettingsShow extends Backbone.View
   events:
     'click #goToEdit': 'goToEdit'
 
+  initialize: ->
+    @model.on('change', @render, @)
+
   render: ->
     @$el.html(@template(setting: @model))
     @renderNav()

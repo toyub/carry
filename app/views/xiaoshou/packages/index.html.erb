@@ -22,8 +22,8 @@
       Mis.Constants.StorePackageCollection = new Mis.Collections.StorePackages($('#bootstrap').data('store-packages'));
       Mis.Constants.StoreServiceCollection = new Mis.Collections.StoreServices($('#bootstrap').data('store-services'));
       Mis.Constants.StoreCommissionTemplateCollection = new Mis.Collections.StoreCommissionTemplates($('#bootstrap').data('store-commissions'));
-      var route = new Mis.Routers.StorePackages({collection: Mis.Constants.StorePackageCollection});
-      route.navigate("api/store_packages", {trigger: true});
+      Mis.Constants.StorePackageRouter = new Mis.Routers.StorePackages({collection: Mis.Constants.StorePackageCollection});
+      Mis.Constants.StorePackageRouter.navigate("api/store_packages", {trigger: true});
     })
   </script>
 <% end %>

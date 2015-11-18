@@ -11,5 +11,4 @@ class Mis.Views.XiaoshouPackagesItem extends Backbone.View
     @
 
   goToPackageShow: ->
-    view = new Mis.Views.XiaoshouPackagesShow(model: @model)
-    $("#bodyContent").html view.render().el
+    Mis.Constants.StorePackageRouter.navigate(@model.url(), trigger: true)

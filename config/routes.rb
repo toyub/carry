@@ -161,7 +161,7 @@ Rails.application.routes.draw do
         post :save_picture
       end
 
-      resource :store_package_settings, only: [:create, :update]
+      resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
 

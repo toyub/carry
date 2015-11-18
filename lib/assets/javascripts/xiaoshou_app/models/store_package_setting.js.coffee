@@ -27,6 +27,7 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
 
   initialize: (options) ->
     @store_package = options.store_package
+    @on('change:items', @parseItems)
 
     @parseItems()
 

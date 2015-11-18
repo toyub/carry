@@ -18,12 +18,14 @@ class Mis.Views.XiaoshouPackageNavsMaster extends Backbone.View
 
   goToSetting: ->
     unless @model.isNew()
-      view = new Mis.Views.XiaoshouPackageSettingsEdit(model: @model.package_setting)
+      model = @model.package_setting
+      model.fetch()
+      view = new Mis.Views.XiaoshouPackageSettingsShow(model: model)
       $("#bodyContent").html view.render().el
 
   goToTracking: ->
     unless @model.isNew()
-      view = new Mis.Views.XiaoshouPackageTrackingsEdit(model: @model.package_setting)
+      view = new Mis.Views.XiaoshouPackageTrackingsShow(model: @model.package_setting)
       $("#bodyContent").html view.render().el
 
   goToPackage: ->
