@@ -15,7 +15,6 @@ class Mis.Views.XiaoshouPackageTrackingsNew extends Backbone.View
   render: ->
     @$el.html(@template())
     @renderNav()
-    @renderSubNav()
     @renderPackage()
     @renderItems()
     @
@@ -23,10 +22,6 @@ class Mis.Views.XiaoshouPackageTrackingsNew extends Backbone.View
   renderNav: ->
     view = new Mis.Views.XiaoshouPackageNavsMaster()
     @$("#masterNav").html view.render().el
-
-  renderSubNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsSub()
-    @$("#subNav").html view.render().el
 
   renderPackage: ->
     view = new Mis.Views.XiaoshouPackageNavsSummary(package: @store_package)
