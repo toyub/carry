@@ -1,0 +1,5 @@
+<form>
+  <input type="text" name='name' value="<%= @name %>" class="category_name" readonly required>
+  <input type="submit" class="btn save_btn" value="保存">
+  <input type="button" class="btn cancel_btn margin-none" value="取消">
+</form>

@@ -115,6 +115,15 @@ Rails.application.routes.draw do
         get :binding_material_count
       end
     end
+
+    resources :material_categories do
+      collection do
+        get :fetch
+      end
+    end
+
+    resources :organizational_structures
+    resources :customer_categories
   end
 
   namespace :ajax do
