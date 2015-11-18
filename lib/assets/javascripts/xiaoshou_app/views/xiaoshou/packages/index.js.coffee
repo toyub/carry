@@ -97,5 +97,5 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
 
   goToNew: ->
     model = new Mis.Models.StorePackage()
-    view = new Mis.Views.XiaoshouPackagesNew(model: model)
+    view = new Mis.Views.XiaoshouPackagesNew(model: model, collection: @collection)
     $("#bodyContent").html(view.render().el)

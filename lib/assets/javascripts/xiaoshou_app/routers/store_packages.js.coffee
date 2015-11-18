@@ -9,7 +9,7 @@ class Mis.Routers.StorePackages extends Mis.Base.Router
   show: (id) ->
     model = new Mis.Models.StorePackage(id: id)
     model.fetch()
-    view = new Mis.Views.XiaoshouPackagesShow(model: model)
+    view = new Mis.Views.XiaoshouPackagesShow(model: model, collection: @collection)
     $("#bodyContent").html view.render().el
 
   index: ->

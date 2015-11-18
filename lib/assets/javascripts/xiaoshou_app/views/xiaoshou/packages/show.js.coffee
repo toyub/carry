@@ -18,7 +18,7 @@ class Mis.Views.XiaoshouPackagesShow extends Mis.Base.View
     @
 
   renderTop: ->
-    view = new Mis.Views.XiaoshouSharedTop(title: '套餐信息详情', redirect_url: Routes.xiaoshou_packages_path())
+    view = new Mis.Views.XiaoshouSharedTop(collection: @collection, title: '套餐信息详情', redirect_url: 'package')
     @$("#mainTop").html view.render().el
 
   renderNav: ->
@@ -26,7 +26,7 @@ class Mis.Views.XiaoshouPackagesShow extends Mis.Base.View
     @$("#masterNav").html view.render().el
 
   goToEdit: ->
-    view = new Mis.Views.XiaoshouPackagesEdit(model: @model)
+    view = new Mis.Views.XiaoshouPackagesEdit(model: @model, collection: @collection)
     $("#bodyContent").html view.render().el
 
   renderPackageItems: ->

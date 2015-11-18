@@ -20,7 +20,7 @@ class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
     @
 
   renderTop: ->
-    view = new Mis.Views.XiaoshouSharedTop(title: '套餐信息编辑', redirect_url: Routes.xiaoshou_packages_path())
+    view = new Mis.Views.XiaoshouSharedTop(collection: @collection, title: '套餐信息编辑', redirect_url: 'package')
     @$("#mainTop").html view.render().el
 
   renderNav: ->
@@ -37,7 +37,7 @@ class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
     @model.save() if @model.isValid(true)
 
   goToShow: ->
-    view = new Mis.Views.XiaoshouPackagesShow(model: @model)
+    view = new Mis.Views.XiaoshouPackagesShow(model: @model, collection: @collection)
     $("#bodyContent").html view.render().el
 
   handleSuccess: ->
