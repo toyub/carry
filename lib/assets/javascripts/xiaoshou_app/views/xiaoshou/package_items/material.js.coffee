@@ -17,7 +17,7 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Backbone.View
     @$el.show()
 
   renderDetails: (e) ->
-    service = window.Store.materials.get($(e.target).val())
+    service = Mis.Constants.StoreMaterialCollection.get($(e.target).val())
     if service
       $("#materialName").text(service.get 'name')
       $("#materialPrice").text(service.get 'cost_price')

@@ -15,7 +15,6 @@ module Api
     end
 
     def show
-      respond_with @package, location: nil
     end
 
     private

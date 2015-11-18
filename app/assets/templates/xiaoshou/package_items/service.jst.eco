@@ -3,7 +3,7 @@
   <label>服务项目：</label>
   <select name="package_itemable_id" id="store_service_id" class="width-132">
     <option>请选择</option>
-    <% window.StoreServices.each (service) ->: %>
+    <% Mis.Constants.StoreServiceCollection.each (service) ->: %>
     <option value="<%= service.get 'id' %>" <%= 'selected' if (String(item.get('package_itemable_id')) == String(service.get('id')) && item.isStoreService()) %>><%= service.get 'name' %></option>
   <% end %>
   </select>

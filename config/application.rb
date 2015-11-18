@@ -38,5 +38,8 @@ module Mis
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += %W(#{config.root}/lib)
+
+    # 替换默认解析器 jbuilder activesupport底层都使用multi_json
+    MultiJson.use :yajl
   end
 end

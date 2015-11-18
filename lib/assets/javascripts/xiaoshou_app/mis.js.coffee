@@ -5,8 +5,11 @@ window.Mis =
   Routers: {}
   Mixins: {}
   Base: {}
+  Constants: {}
   initialize: ->
-    Backbone.history.start()
+    console.log 'xxx'
+    if not Backbone.History.started
+      Backbone.history.start()
 
 $(document).ready ->
   Mis.initialize()

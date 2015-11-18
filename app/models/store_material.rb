@@ -31,6 +31,10 @@ class StoreMaterial < ActiveRecord::Base
     count_scope.sum(:quantity)
   end
 
+  def price
+    self.cost_price
+  end
+
   private
   def generate_barcode!
     unless self.barcode.present?

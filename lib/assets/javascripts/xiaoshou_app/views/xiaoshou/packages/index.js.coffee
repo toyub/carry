@@ -1,6 +1,6 @@
 class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
 
-  el: '#packageIndex'
+  template: JST['xiaoshou/packages/index']
 
   initialize: ->
     console.log 'xxx'
@@ -13,6 +13,7 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
     'click #newPackage': 'goToNew'
 
   render: ->
+    @$el.html(@template())
     @renderPackages()
     @
 
@@ -24,7 +25,7 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
       view = new Mis.Views.XiaoshouSharedNone(cols: 8, resource_name: '套餐')
       @$("#packageList").addClass("no_search_result").html view.render().el
 
-  renderPackage: (p) ->
+  renderPackage: (p) =>
     view = new Mis.Views.XiaoshouPackagesItem(model: p)
     @$("#packageList").append view.render().el
 
