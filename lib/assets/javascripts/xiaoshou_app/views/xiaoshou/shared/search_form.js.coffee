@@ -6,6 +6,9 @@ class Mis.Views.XiaoshouSharedSearchForm extends Support.CompositeView
     'submit #search': 'searchOnSubmit'
     'click #priceSortList li': 'sortByPrice'
 
+  initialize: (search) ->
+    @packageSearch = search
+
   render: ->
     @$el.html(@template())
     @
@@ -13,10 +16,10 @@ class Mis.Views.XiaoshouSharedSearchForm extends Support.CompositeView
   searchOnSubmit: (event) ->
     event.preventDefault()
 
-    @collection.fetch(data: $("form").serializeJSON())
+    @packageSearch.search(data: $("form").serializeJSON())
 
   sortByPrice: (e) ->
     direction = $(e.target).data('direction')
     @$("#priceSortList input").val(direction)
     options = @$el.find(':input').filter(() -> $.trim(this.value).length > 0).serializeJSON()
-    @collection.fetch(data: options)
+    @packageSearch.search(data: options)

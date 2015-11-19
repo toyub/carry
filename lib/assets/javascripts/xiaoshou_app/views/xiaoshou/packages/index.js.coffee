@@ -3,7 +3,11 @@ class Mis.Views.XiaoshouPackagesIndex extends Support.CompositeView
   template: JST['xiaoshou/packages/index']
 
   initialize: ->
-    @listenTo(@collection, 'add', @renderPackage)
+    @packageSearch = new Mis.PackageSearch(@collection)
+
+    @listenTo(@packageSearch.filteredCollection, 'add', @renderPackages)
+    @listenTo(@packageSearch.filteredCollection, 'remove', @renderPackages)
+    @listenTo(@packageSearch.filteredCollection, 'reset', @renderPackages)
 
   events:
     'click div.item-query.c_price li': 'sortByPrice'
@@ -24,14 +28,14 @@ class Mis.Views.XiaoshouPackagesIndex extends Support.CompositeView
     @$("#mainTop").html top.el
 
   renderSearchForm: ->
-    search = new Mis.Views.XiaoshouSharedSearchForm(collection: @collection)
+    search = new Mis.Views.XiaoshouSharedSearchForm(@packageSearch)
     @renderChild(search)
     @$("#searchForm").html search.el
 
   renderPackages: ->
     if @collection.length
       @$("#packageList").removeClass("no_search_result").empty()
-      @collection.each @renderPackage
+      @packageSearch.filteredCollection.each @renderPackage
     else
       none = new Mis.Views.XiaoshouSharedNone(cols: 8, resource_name: '套餐')
       @renderChild(none)
