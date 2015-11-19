@@ -11,10 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116135633) do
+ActiveRecord::Schema.define(version: 20151119023242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agent_payments", force: :cascade do |t|
+    t.integer "agent_id"
+    t.integer "quantity"
+    t.decimal "amount"
+    t.integer "creator_id"
+    t.decimal "price"
+  end
+
+  create_table "agents", force: :cascade do |t|
+    t.integer "staffer_id"
+    t.integer "quota"
+    t.decimal "balance"
+    t.string  "charge_area"
+    t.string  "company_name"
+    t.string  "company_address"
+    t.string  "phone_number"
+    t.string  "cooperation_way"
+    t.text    "remark"
+  end
 
   create_table "ca_stations", force: :cascade do |t|
     t.integer  "store_id",                  null: false
