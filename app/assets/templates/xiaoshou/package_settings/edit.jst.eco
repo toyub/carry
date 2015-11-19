@@ -79,7 +79,7 @@
               <li>
               <label>提成方案</label>
               <select name="store_commission_template_id" class="width-190">
-                <% Mis.Constants.StoreCommissionTemplateCollection.each (c) ->: %>
+                <% Mis.commissions.each (c) ->: %>
                 <option value="<%= c.get 'id' %>" <%= 'selected' if c.get('id').toString() == setting.get('store_commission_template_id').toString() %>><%= c.get 'name' %></option>
               <% end %>
               </select>

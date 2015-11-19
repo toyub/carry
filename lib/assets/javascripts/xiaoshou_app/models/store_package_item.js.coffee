@@ -39,7 +39,7 @@ class Mis.Models.StorePackageItem extends Backbone.Model
   packageItemable: ->
     itemable = switch @get('package_itemable_type')
       when 'StoreMaterial' then Mis.Constants.StoreMaterialCollection.get(@get 'package_itemable_id')
-      when 'StoreService' then Mis.Constants.StoreServiceCollection.get(@get 'package_itemable_id')
+      when 'StoreService' then Mis.services.get(@get 'package_itemable_id')
       else @
     itemable ? new Mis.Models.NullObject()
 

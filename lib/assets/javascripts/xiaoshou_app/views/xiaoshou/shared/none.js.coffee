@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouSharedNone extends Backbone.View
+class Mis.Views.XiaoshouSharedNone extends Support.CompositeView
   tagName: 'tr'
 
   template: JST['xiaoshou/shared/none']

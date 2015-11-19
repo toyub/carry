@@ -1,9 +1,9 @@
-class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
+class Mis.Views.XiaoshouPackagesIndex extends Support.CompositeView
 
   template: JST['xiaoshou/packages/index']
 
   initialize: ->
-    @collection.on('add', @renderPackage, @)
+    @listenTo(@collection, 'add', @renderPackage)
 
   events:
     'click div.item-query.c_price li': 'sortByPrice'
@@ -19,24 +19,28 @@ class Mis.Views.XiaoshouPackagesIndex extends Backbone.View
     @
 
   renderTop: ->
-    view = new Mis.Views.XiaoshouSharedTop(title: '套餐列表')
-    @$("#mainTop").html view.render().el
+    top = new Mis.Views.XiaoshouSharedTop(title: '套餐列表')
+    @renderChild(top)
+    @$("#mainTop").html top.el
 
   renderSearchForm: ->
-    view = new Mis.Views.XiaoshouSharedSearchForm(collection: @collection)
-    @$("#searchForm").html view.render().el
+    search = new Mis.Views.XiaoshouSharedSearchForm(collection: @collection)
+    @renderChild(search)
+    @$("#searchForm").html search.el
 
   renderPackages: ->
     if @collection.length
       @$("#packageList").removeClass("no_search_result").empty()
       @collection.each @renderPackage
     else
-      view = new Mis.Views.XiaoshouSharedNone(cols: 8, resource_name: '套餐')
-      @$("#packageList").addClass("no_search_result").html view.render().el
+      none = new Mis.Views.XiaoshouSharedNone(cols: 8, resource_name: '套餐')
+      @renderChild(none)
+      @$("#packageList").addClass("no_search_result").html none.el
 
   renderPackage: (p) =>
-    view = new Mis.Views.XiaoshouPackagesItem(model: p)
-    @$("#packageList").append view.render().el
+    row = new Mis.Views.XiaoshouPackagesItem(model: p)
+    @renderChild(row)
+    @$("#packageList").append row.el
 
   sortByPrice: (event) ->
     $(event.currentTarget).parent().prev().find("span:first").attr("title", $(event.currentTarget).text())

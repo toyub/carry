@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouSharedTop extends Mis.Base.View
+class Mis.Views.XiaoshouSharedTop extends Support.CompositeView
 
   template: JST['xiaoshou/shared/top']
 

@@ -114,3 +114,5 @@ gem 'qiniu'
 
 # Hash ID, 用来生成加密ID，来保护数据库id, 需保证可逆加密
 gem 'hashids', '~> 1.0', '>= 1.0.2'
+
+gem 'backbone-support', '~> 0.5.1'

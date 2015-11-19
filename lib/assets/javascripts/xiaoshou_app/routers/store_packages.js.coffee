@@ -1,17 +1,20 @@
-class Mis.Routers.StorePackages extends Mis.Base.Router
+class Mis.Routers.StorePackages extends Support.SwappingRouter
   routes:
-    "api/store_packages": "index"
-    "api/store_packages/:id": "show"
+    "": "index"
+    "store_packages/:id": "show"
 
   initialize: (options) ->
+    @el = $('#bodyContent')
     @collection = options.collection
 
   show: (id) ->
-    model = new Mis.Models.StorePackage(id: id)
-    model.fetch()
-    view = new Mis.Views.XiaoshouPackagesShow(model: model, collection: @collection)
-    $("#bodyContent").html view.render().el
+    model = @collection.get(id)
+    self = this
+    model.fetch(success: () ->
+      view = new Mis.Views.XiaoshouPackagesShow(model: model, collection: self.collection)
+      self.swap(view)
+    )
 
   index: ->
     view = new Mis.Views.XiaoshouPackagesIndex(collection: @collection)
-    $("#bodyContent").html view.render().el
+    @swap(view)

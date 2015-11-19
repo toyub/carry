@@ -3,7 +3,7 @@
   <label>商品名称：</label>
   <select name="package_itemable_id" id="store_material_id" class="width-132">
     <option>请选择</option>
-    <% Mis.Constants.StoreMaterialCollection.each (m) ->: %>
+    <% Mis.materials.each (m) ->: %>
     <option value="<%= m.get 'id' %>" <%= 'selected' if (String(item.get('package_itemable_id')) == String(m.get 'id') && item.isStoreMaterial())  %>><%= m.get 'name' %></option>
   <% end %>
   </select>

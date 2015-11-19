@@ -1,22 +1,14 @@
-class Mis.Views.XiaoshouPackagesItem extends Backbone.View
+class Mis.Views.XiaoshouPackagesItem extends Support.CompositeView
   tagName: 'tr'
 
   template: JST['xiaoshou/packages/item']
 
   initialize: ->
-    @model.on('remove', @remove, @)
-
-  events:
-    'click a.name': 'goToPackageShow'
+    @listenTo(@model, 'remove', @leave)
 
   render: ->
-    @$el.html(@template(package: @model))
+    @$el.html(@template(package: @model, view: @))
     @
 
-  remove: ->
-    @$el.remove()
-    @undelegateEvents()
-    @model.off()
-
-  goToPackageShow: ->
-    Mis.Constants.StorePackageRouter.navigate(@model.url(), trigger: true)
+  packageUrl: ->
+    "#store_packages/" + @model.id

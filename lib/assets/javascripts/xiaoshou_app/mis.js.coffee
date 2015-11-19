@@ -6,10 +6,11 @@ window.Mis =
   Mixins: {}
   Base: {}
   Constants: {}
-  initialize: ->
-    console.log 'xxx'
+  initialize: (data) ->
+    @packages = new Mis.Collections.StorePackages(data.packages)
+    @materials = new Mis.Collections.StoreMaterials(data.materials)
+    @services = new Mis.Collections.StoreServices(data.services)
+    @commissions = new Mis.Collections.StoreCommissionTemplates(data.commissions)
+    new Mis.Routers.StorePackages(collection: @packages)
     if not Backbone.History.started
       Backbone.history.start()
-
-$(document).ready ->
-  Mis.initialize()
