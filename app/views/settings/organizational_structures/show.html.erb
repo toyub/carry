@@ -21,11 +21,9 @@
           <input type="text" name="name" value="">
           <i title="新建" class="fa fa-plus-circle"></i>
         </div>
-        <ul class="branch"></ul>
+        <ul id='depart_root' class="branch"></ul>
       </li>
     </ul>
-
-    <div class="branch_details"></div>
 
   </div>
 
@@ -34,23 +32,8 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function(){
-    var depart_tmpl = JST["settings/organizational_structures/department"];
-    var posi_tmpl = JST['settings/organizational_structures/position'];
-
-
-    function log_tree(nodes){
-      var departments_html = nodes.map(function(node){
-        var branch_html =
-          '<li class="branch_li">'+ depart_tmpl(node) + '</li>';
-        return branch_html;
-      }).join('');
-      return departments_html;
-    }
-    $.get('/api/store_departments', function(data){
-      var html = log_tree(data);
-      $('ul.branch').append(html);
-    });
-
+    
+    
 
 
 var company = {
@@ -90,17 +73,7 @@ var company = {
     $(e.target).parent().removeClass("editing");
   },
 
-  showDetails : function(e){
-    $(".branch_details").show();
-    $(".tree .branch_name.active").removeClass("active");
-    $(e.target).parent().addClass("active");
-    $.get('/api/store_departments/2/store_positions', function(data){
-      data.forEach(function(position){
-        var x = posi_tmpl({positions: data});
-        $("div.branch_details").html(x)
-      });
-    });
-  },
+  
 
 
   addBranch : function(e){
@@ -129,19 +102,20 @@ function init(){
 
   $(document).on("blur", ".position_name input[type='text']",company.saveName);
 
-  $(document).on("dblclick", ".branch_name span", company.editName);
+  
 
-  $(document).on("blur", ".branch_name input[type='text']", company.saveName);
 
-  $(document).on("click",".branch_name .fa-list", company.showDetails);
 
-  $(document).on("click",".fa-plus-circle",company.addBranch);
+//  $(document).on("click",".fa-plus-circle",company.addBranch);
 
 }
 init();
 
 
-  handle = new $$MIS.OrganizationalStructuresHandleView({urlRoot: '/settings/organizational_structure'});
+  handle = new $$MIS.OrganizationalStructuresHandleView({
+    departments_path: Routes.api_store_departments_path,
+    positions_path: Routes.api_store_department_store_positions_path
   });
+});
 </script>
 <% end %>
