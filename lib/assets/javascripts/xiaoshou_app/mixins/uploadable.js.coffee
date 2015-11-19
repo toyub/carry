@@ -1,8 +1,9 @@
 Mis.Mixins.Uploadable =
 
   renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads, action: @action)
-    @$("#uploadTemplate").html view.render().el
+    upload = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads, action: @action)
+    @renderChild(upload)
+    @$("#uploadTemplate").html upload.el
 
   included: ->
     @::action = s.underscored(@::constructor.name).split("_").pop()

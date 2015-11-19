@@ -18,12 +18,14 @@ class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
     @
 
   renderTop: ->
-    view = new Mis.Views.XiaoshouSharedTop(collection: @collection, title: '套餐详情新建', redirect_url: 'package')
-    @$("#mainTop").html view.render().el
+    top = new Mis.Views.XiaoshouSharedTop(title: '套餐详情新建', redirect_url: 'package')
+    @renderChild(top)
+    @$("#mainTop").html top.el
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
-    @$("#masterNav").html view.render().el
+    nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
+    @renderChild(nav)
+    @$("#masterNav").html nav.el
 
   createOnSubmit: ->
     event.preventDefault()

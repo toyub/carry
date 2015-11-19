@@ -1,6 +1,7 @@
 class Mis.Routers.StorePackages extends Support.SwappingRouter
   routes:
     "": "index"
+    "store_packages/new": "newPackage"
     "store_packages/:id": "show"
     "store_packages/:id/edit": "edit"
 
@@ -24,3 +25,6 @@ class Mis.Routers.StorePackages extends Support.SwappingRouter
   index: ->
     view = new Mis.Views.XiaoshouPackagesIndex(collection: @collection)
     @swap(view)
+
+  newPackage: ->
+    console.log 'new'

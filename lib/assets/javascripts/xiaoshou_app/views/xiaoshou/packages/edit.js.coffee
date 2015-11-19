@@ -4,14 +4,13 @@ class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
   template: JST['xiaoshou/packages/edit']
 
   initialize: ->
-    @model.on("sync", @handleSuccess, @)
+    @listenTo(@model, 'sync', @handleSuccess)
 
   events:
     'submit #updatePackage': 'updateOnSubmit'
-    'click #goToShow': 'goToShow'
 
   render: ->
-    @$el.html(@template(package: @model))
+    @$el.html(@template(package: @model, view: @))
     @renderTop()
     @renderNav()
     @renderUploadTemplate()
@@ -20,34 +19,36 @@ class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
     @
 
   renderTop: ->
-    view = new Mis.Views.XiaoshouSharedTop(collection: @collection, title: '套餐信息编辑', redirect_url: 'package')
-    @$("#mainTop").html view.render().el
+    top = new Mis.Views.XiaoshouSharedTop(title: '套餐信息编辑', redirect_url: 'package')
+    @renderChild(top)
+    @$("#mainTop").html top.el
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
-    @$("#masterNav").html view.render().el
+    nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
+    @renderChild(nav)
+    @$("#masterNav").html nav.el
 
   renderForm: ->
-    view = new Mis.Views.XiaoshouPackagesForm(model: @model)
-    @$("#packageForm").html view.render().el
+    form = new Mis.Views.XiaoshouPackagesForm(model: @model)
+    @renderChild(form)
+    @$("#packageForm").html form.el
 
   updateOnSubmit: ->
     event.preventDefault()
     @model.set $("#updatePackage").serializeJSON()
     @model.save() if @model.isValid(true)
 
-  goToShow: ->
-    view = new Mis.Views.XiaoshouPackagesShow(model: @model, collection: @collection)
-    $("#bodyContent").html view.render().el
+  packageUrl: ->
+    "#store_packages/#{@model.id}"
 
   handleSuccess: ->
     @uploadImages()
-    @goToShow()
 
   renderPackageItems: ->
     @$("#packageItemList").show() if @model.package_setting.items.length > 0
     @model.package_setting.items.each @renderPackageItem
 
   renderPackageItem: (item) =>
-    view = new Mis.Views.XiaoshouPackageItemsItem(model: item)
-    @$("#packageItemList").append view.render().el
+    item = new Mis.Views.XiaoshouPackageItemsItem(model: item)
+    @renderChild(item)
+    @$("#packageItemList").append item.el
