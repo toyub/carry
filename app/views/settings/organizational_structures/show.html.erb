@@ -32,90 +32,28 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function(){
-    
-    
+   
+  $(document).on("click",".branch_name .fa-folder-open", function(e){
+      $(e.target).parent().addClass("slide_up").siblings().slideUp();
+  });
 
 
-var company = {
-  slideUpTree : function(e){
-    $(e.target).parent().addClass("slide_up").siblings().slideUp();
-  },
-
-  slideDownTree : function(e){
+  $(document).on("click",".branch_name .fa-folder", function(e){
     $(e.target).parent().removeClass("slide_up").siblings().slideDown();
-  },
+  });
 
-  slideUpStaff : function(e){
+  $(document).on("click",".position .fa-angle-double-left",function(e){
     $(e.target).parent().addClass("slide_up").siblings().slideUp("fast");
-  },
+  });
 
-  slideDownStaff : function(e){
+  $(document).on("click",".position .fa-angle-double-right",function(e){
     $(e.target).parent().removeClass("slide_up").siblings().slideDown("fast");
-  },
-
-  addOnePosition : function(e){
-    var content = $("#new_position").html();
-    $(".position:last").after(content);
-    $(".position:last .position_name").addClass("editing").find("input").focus();
-
-  },
-
-  editName : function(e){
-    $(e.target).parent().addClass("editing");
-    $(e.target).next().focus();
-  },
-
-  saveName : function(e){
-    var value = $(e.target).val();
-    if(value){
-      $(e.target).prev().text(value);
-    }
-    $(e.target).parent().removeClass("editing");
-  },
-
-  
-
-
-  addBranch : function(e){
-    var child = $(e.target).parent().siblings("ul");
-    var content = "<li class='branch_li'>" + depart_tmpl({positions: []}) + "</li>"
-    $(child).append(content);
-    $(child).find(".branch_name").last().addClass("editing").find("input").focus();
-  }
-
-};
-
-
-function init(){
-
-  $(document).on("click",".branch_name .fa-folder-open",company.slideUpTree);
-
-  $(document).on("click",".branch_name .fa-folder",company.slideDownTree);
-
-  $(document).on("click",".position .fa-angle-double-left",company.slideUpStaff);
-
-  $(document).on("click",".position .fa-angle-double-right",company.slideDownStaff);
-
-  
-
-  
-
-
-
-  
-
-
-
-//  $(document).on("click",".fa-plus-circle",company.addBranch);
-
-}
-init();
-
+  });
 
   handle = new $$MIS.OrganizationalStructuresHandleView({
-    departments_path: Routes.api_store_departments_path,
-    positions_path: Routes.api_store_department_store_positions_path
-  });
+              departments_path: Routes.api_store_departments_path,
+              positions_path: Routes.api_store_department_store_positions_path
+            });
 });
 </script>
 <% end %>
