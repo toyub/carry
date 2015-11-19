@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackagesIndex extends Support.CompositeView
+class Mis.Views.XiaoshouPackagesIndex extends Mis.Base.View
 
   template: JST['xiaoshou/packages/index']
 
@@ -13,7 +13,6 @@ class Mis.Views.XiaoshouPackagesIndex extends Support.CompositeView
     'click div.item-query.c_price li': 'sortByPrice'
     'click div.prices li.submit': 'filterByPrice'
     'click div.item-query.screen li': 'filterByDate'
-    'click #newPackage': 'goToNew'
 
   render: ->
     @$el.html(@template())
@@ -96,8 +95,3 @@ class Mis.Views.XiaoshouPackagesIndex extends Support.CompositeView
         options[$(@).attr('data-name')] = $(@).attr('data-filter')
     )
     options
-
-  goToNew: ->
-    model = new Mis.Models.StorePackage()
-    view = new Mis.Views.XiaoshouPackagesNew(model: model, collection: @collection)
-    $("#bodyContent").html(view.render().el)
