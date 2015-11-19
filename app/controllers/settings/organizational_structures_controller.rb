@@ -1,4 +1,4 @@
 class Settings::OrganizationalStructuresController < Settings::BaseController
-  def index
+  def show
   end
 end

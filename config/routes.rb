@@ -122,7 +122,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :organizational_structures
+    resource :organizational_structure
+
     resources :customer_categories
   end
 
@@ -179,6 +180,11 @@ Rails.application.routes.draw do
         get :upload_token
       end
     end
+
+    resources :store_departments do
+      resources :store_positions
+    end
+
   end
 
   root 'kucun/materials#index'

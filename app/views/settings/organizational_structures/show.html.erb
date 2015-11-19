@@ -1,0 +1,147 @@
+
+<div class="main_top">
+  <h2>组织架构</h2>
+</div>
+
+<div class="details">
+
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="zuzhijiagou.html" class="width-90">组织架构</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content zuzhi">
+    <ul class="company_tree">
+      <li class="tree">
+        <div class="branch_name">
+          <i title="收起" class="fa fa-folder-open"></i>
+          <i title="展开" class="fa fa-folder"></i>
+          <span title="双击修改">公司</span>
+          <input type="text" name="name" value="">
+          <i title="新建" class="fa fa-plus-circle"></i>
+        </div>
+        <ul class="branch"></ul>
+      </li>
+    </ul>
+
+    <div class="branch_details"></div>
+
+  </div>
+
+</div>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function(){
+    var depart_tmpl = JST["settings/organizational_structures/department"];
+    var posi_tmpl = JST['settings/organizational_structures/position'];
+
+
+    function log_tree(nodes){
+      var departments_html = nodes.map(function(node){
+        var branch_html =
+          '<li class="branch_li">'+ depart_tmpl(node) + '</li>';
+        return branch_html;
+      }).join('');
+      return departments_html;
+    }
+    $.get('/api/store_departments', function(data){
+      var html = log_tree(data);
+      $('ul.branch').append(html);
+    });
+
+
+
+var company = {
+  slideUpTree : function(e){
+    $(e.target).parent().addClass("slide_up").siblings().slideUp();
+  },
+
+  slideDownTree : function(e){
+    $(e.target).parent().removeClass("slide_up").siblings().slideDown();
+  },
+
+  slideUpStaff : function(e){
+    $(e.target).parent().addClass("slide_up").siblings().slideUp("fast");
+  },
+
+  slideDownStaff : function(e){
+    $(e.target).parent().removeClass("slide_up").siblings().slideDown("fast");
+  },
+
+  addOnePosition : function(e){
+    var content = $("#new_position").html();
+    $(".position:last").after(content);
+    $(".position:last .position_name").addClass("editing").find("input").focus();
+
+  },
+
+  editName : function(e){
+    $(e.target).parent().addClass("editing");
+    $(e.target).next().focus();
+  },
+
+  saveName : function(e){
+    var value = $(e.target).val();
+    if(value){
+      $(e.target).prev().text(value);
+    }
+    $(e.target).parent().removeClass("editing");
+  },
+
+  showDetails : function(e){
+    $(".branch_details").show();
+    $(".tree .branch_name.active").removeClass("active");
+    $(e.target).parent().addClass("active");
+    $.get('/api/store_departments/2/store_positions', function(data){
+      data.forEach(function(position){
+        var x = posi_tmpl({positions: data});
+        $("div.branch_details").html(x)
+      });
+    });
+  },
+
+
+  addBranch : function(e){
+    var child = $(e.target).parent().siblings("ul");
+    var content = "<li class='branch_li'>" + depart_tmpl({positions: []}) + "</li>"
+    $(child).append(content);
+    $(child).find(".branch_name").last().addClass("editing").find("input").focus();
+  }
+
+};
+
+
+function init(){
+
+  $(document).on("click",".branch_name .fa-folder-open",company.slideUpTree);
+
+  $(document).on("click",".branch_name .fa-folder",company.slideDownTree);
+
+  $(document).on("click",".position .fa-angle-double-left",company.slideUpStaff);
+
+  $(document).on("click",".position .fa-angle-double-right",company.slideDownStaff);
+
+  $(document).on("click",".branch_details .fa-plus-square",company.addOnePosition);
+
+  $(document).on("click",".branch_details .position_name span",company.editName);
+
+  $(document).on("blur", ".position_name input[type='text']",company.saveName);
+
+  $(document).on("dblclick", ".branch_name span", company.editName);
+
+  $(document).on("blur", ".branch_name input[type='text']", company.saveName);
+
+  $(document).on("click",".branch_name .fa-list", company.showDetails);
+
+  $(document).on("click",".fa-plus-circle",company.addBranch);
+
+}
+init();
+
+
+  handle = new $$MIS.OrganizationalStructuresHandleView({urlRoot: '/settings/organizational_structure'});
+  });
+</script>
+<% end %>

@@ -1,0 +1,9 @@
+<div class="branch_name slide_up">
+  <i title="收起" class="fa fa-folder-open"></i>
+  <i title="展开" class="fa fa-folder"></i>
+  <span title="双击修改">新建分组</span>
+  <input type="text" name="name" value="">
+  <i title="显示详情" class="fa fa-list"></i>
+  <i title="新建" class="fa fa-plus-circle"></i>
+</div>
+<ul class="branch"></ul>
