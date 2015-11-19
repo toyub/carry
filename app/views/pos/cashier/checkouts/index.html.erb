@@ -1,0 +1,413 @@
+<div class="main_top">
+  <h2>收银POS</h2>
+</div>
+
+<div class="details">
+  <div class="search_nav">
+    <div class="item-query">
+      <label>查找车辆</label>
+      <input type="text" class="width-180" placeholder="输入车牌或项目模糊查询">
+    </div>
+    <div class="item-query">
+      <a href="#" class="query_btn btn">查&nbsp;询</a>
+    </div>
+  </div>
+
+  <div class="cashiering">
+    <div class="vehicle_state">
+      <ul class="vehicle_state_list">
+        <li>
+          <div class="vehicle_operating">
+            <div class="width-200 float-left">
+              <span class="display-block">正在排队</span>
+              <span class="display-block font-22 color-0669B7 font-weight-bold">2</span>
+            </div>
+            <span class="float-right">
+              <i class="lnr-chevron-down lnr font-18 cursor-pointer"></i>
+            </span>
+          </div>
+          <ul class="item_vehicle">
+            <% 3.times do %>
+            <li>
+              <div>
+                <span class="width-90">浙A62034</span>
+                <img src="/mis/images/small_car.png" class="width-80"></img>
+              </div>
+              <div>
+                <span >订单金额:</span>
+                <span class="margin-left-5"><i class="fa fa-jpy"></i>939996.00</span>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <div class="vehicle_operating">
+            <div class="width-200 float-left">
+              <span class="display-block">正在施工</span>
+              <span class="display-block font-22 color-BAB7A3 font-weight-bold">12</span>
+            </div>
+            <span class="float-right">
+              <i class="lnr-chevron-down lnr font-18 cursor-pointer"></i>
+            </span>
+          </div>
+          <ul class="item_vehicle">
+            <% 3.times do %>
+            <li>
+              <div>
+                <span class="width-90">浙A62034</span>
+                <img src="/mis/images/small_car.png" class="width-80"></img>
+              </div>
+              <div>
+                <span >订单金额:</span>
+                <span class="margin-left-5"><i class="fa fa-jpy"></i>939996.00</span>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <div class="vehicle_operating">
+            <div class="width-200 float-left">
+              <span class="display-block">等待付款</span>
+              <span class="display-block font-22 color-4CA848 font-weight-bold">4</span>
+            </div>
+            <span class="float-right">
+              <i class="lnr-chevron-down lnr font-18 cursor-pointer"></i>
+            </span>
+          </div>
+          <ul class="item_vehicle">
+            <% 5.times do %>
+            <li>
+              <div>
+                <span class="width-90">浙A62034</span>
+                <img src="/mis/images/small_car.png" class="width-80"></img>
+              </div>
+              <div>
+                <span >订单金额:</span>
+                <span class="margin-left-5"><i class="fa fa-jpy"></i>939996.00</span>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <div class="vehicle_operating">
+            <div class="width-200 float-left">
+              <span class="display-block">今日完成</span>
+              <span class="display-block font-22 color-F43C59 font-weight-bold">22</span>
+            </div>
+            <span class="float-right">
+              <i class="lnr-chevron-down lnr font-18 cursor-pointer"></i>
+            </span>
+          </div>
+          <ul class="item_vehicle">
+            <% 4.times do %>
+            <li>
+              <div>
+                <span class="width-90">浙A62034</span>
+                <img src="/mis/images/small_car.png" class="width-80"></img>
+              </div>
+              <div>
+                <span >订单金额:</span>
+                <span class="margin-left-5"><i class="fa fa-jpy"></i>939996.00</span>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="cashiering_vehicle_order">
+      <div class="order_details">
+        <div class="dialog_nav">
+          <span class="dialog_title ">单号:20141105001</span>
+          <a href="/mis/shouyin/yewukaidan/kaidan.html" target="_blank">完整订单</a>
+        </div>
+
+        <div class="vehicle_order_details">
+          <div class="vehicle_info">
+            <dl>
+              <dd>
+                <label class="width-50" >车牌号</label>
+                <input type="text" value="浙A16034" class="width-110" readonly>
+              </dd>
+              <dd>
+                <label class="width-50" >客户姓名</label>
+                <input type="text" value="王" class="width-110" readonly>
+              </dd>
+              <dd>
+                <label class="width-50" >手机号</label>
+                <input type="text" value="13335930000" class="width-110" readonly>
+              </dd>
+            </dl>
+          </div>
+
+          <div class="vehicle_order">
+            <span class="vehicle_order_title title doslide">
+              客户账户信息
+            </span>
+            <div class="account_info">
+              <dl>
+                <dd>
+                  <label class="width-80 text-align-left">储值卡:</label>
+                </dd>
+                <dd>
+                  <label class="width-80" >可用余额:</label>
+                  <span>863.00</span>
+                </dd>
+              </dl>
+              <dl>
+                <dd>
+                  <label class="width-80 text-align-left">挂账余额:</label>
+                </dd>
+                <dd>
+                  <label class="width-80" >可用余额:</label>
+                  <span>15,000.00</span>
+                </dd>
+              </dl>
+              <dl>
+                <dd>
+                  <label class="width-80 text-align-left">可用积分:</label>
+                </dd>
+                <dd>
+                  <label class="width-80" >可用积分:</label>
+                  <span>20,000.00</span>
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="vehicle_order">
+            <span class="vehicle_order_title title doslide">
+              业务信息
+            </span>
+            <div class="order_info">
+              <h2>商品明细</h2>
+              <table cellpadding="0" cellspacing="0" class="commodity_details">
+                <thead>
+                  <tr>
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>单位</th>
+                    <th>数量</th>
+                    <th>单价</th>
+                    <th>属性</th>
+                    <th>优惠</th>
+                    <th>小计</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-id="list_content_01">
+                    <td>米其林</td>
+                    <td>195/65/15 XM2 91V</td>
+                    <td>条</td>
+                    <td><input type="text" value="1" class="width-40 text-align-center"></td>
+                    <td>430.00</td>
+                    <td>会员</td>
+                    <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
+                    <td>430.00
+                      <span class="delete close" data-target="list_content_01">
+                        <i class="lnr lnr-cross color-fff"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr data-id="list_content_02">
+                    <td>摇头公仔</td>
+                    <td>斯诺比</td>
+                    <td>个</td>
+                    <td><input type="text" value="1" class="width-40 text-align-center"></td>
+                    <td>85.00</td>
+                    <td>会员</td>
+                    <td><input type="text" value="5.00" class="width-60 text-align-right"></td>
+                    <td>80.00
+                      <span class="delete close" data-target="list_content_02">
+                        <i class="lnr lnr-cross color-fff"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr data-id="list_content_03">
+                    <td>飞歌DVD...</td>
+                    <td>本田雅阁专用</td>
+                    <td>台</td>
+                    <td><input type="text" value="1" class="width-40 text-align-center"></td>
+                    <td>8,675.00</td>
+                    <td>会员</td>
+                    <td><input type="text" value="133.3" class="width-60 text-align-right"></td>
+                    <td>8,541.70
+                      <span class="delete close" data-target="list_content_03">
+                        <i class="lnr lnr-cross color-fff"></i>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr class="text-align-right">
+                    <td colspan="10">
+                      <label class="margin-right-10">商品金额总计:</label><label>9051.70</label>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+
+              <h2>服务明细</h2>
+              <table cellpadding="0" cellspacing="0" class="service_details">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>项目</th>
+                    <th>流程</th>
+                    <th>属性</th>
+                    <th>单价</th>
+                    <th>优惠</th>
+                    <th>小计</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-id="list_content_01">
+                    <td>1</td>
+                    <td>精致洗车</td>
+                    <td><span class="fa-check fa"></span></td>
+                    <td>零售</td>
+                    <td class="text-align-right">68.00</td>
+                    <td><input type="text" class="width-60 text-align-right" value="0.00"></td>
+                    <td class="text-align-right">68.00
+                      <span class="delete close" data-target="list_content_01">
+                        <i class="lnr lnr-cross color-fff"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr data-id="list_content_02">
+                    <td>2</td>
+                    <td>澜泰纳米镀晶</td>
+                    <td><span >1/3</span></td>
+                    <td>零售</td>
+                    <td class="text-align-right">868.00</td>
+                    <td><input type="text" class="width-60 text-align-right" value="0.00"></td>
+                    <td class="text-align-right">868.00
+                      <span class="delete close" data-target="list_content_02">
+                        <i class="lnr lnr-cross color-fff"></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr data-id="list_content_03">
+                    <td>3</td>
+                    <td>澜泰纳米镀晶</td>
+                    <td><span >1/3</span></td>
+                    <td>套餐</td>
+                    <td class="text-align-right">868.00</td>
+                    <td><input type="text" class="width-60 text-align-right" value="0.00"></td>
+                    <td class="text-align-right">868.00
+                      <span class="delete close" data-target="list_content_03">
+                        <i class="lnr lnr-cross color-fff"></i>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr class="text-align-right">
+                    <td colspan="8">
+                      <label class="margin-right-10">服务金额总计:</label><label>936.00</label>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+              <div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="payment_wrap">
+      <div class="payment">
+        <dl>
+          <dd>
+            <label class="width-70">款项总额</label>
+            <span>9,987.00</span>
+          </dd>
+        </dl>
+        <dl>
+          <dd>
+            <label class="width-70">应收总计</label>
+            <span>9,987.00</span>
+          </dd>
+        </dl>
+      </div>
+
+      <div class="payment_method_wrap">
+        <div class="payment_method">
+          <dl>
+            <dd>
+              <label class="width-70">收款方式</label>
+              <select class="width-147">
+                <option>现金</option>
+                <option>挂账</option>
+                <option>银行卡</option>
+                <option>支付宝</option>
+                <option>微信</option>
+                <option>储值卡余额</option>
+              </select>
+            </dd>
+            <dd>
+              <label class="width-70">收款金额</label>
+              <input type="text" class="width-135" placeholder="0.00">
+            </dd>
+          </dl>
+        </div>
+
+        <dl style="display:none;">
+          <dd>
+            <label class="width-70">验证码</label>
+            <input type="text" class="width-75">
+            <a href="javascript:void(0)" class="width-60 code">获取验证码</a>
+          </dd>
+        </dl>
+
+        <div class="prompt">
+          <a href="javascript:void(0)" class="fa fa-plus add_method"></a>
+        </div>
+
+      </div>
+
+      <div class="payment_btn">
+        <dl>
+          <dd>
+            <a class="receipt_btn bg-color-CBE19B" href="javascript:void(0)">小票</a>
+            <a class="receipt_btn bg-color-E4BE7F" href="print_order.html">单据</a>
+            <span class="invoice">开发票<input type="checkbox"></span>
+          </dd>
+          <dd class="margin-left-60">
+            <a href="javascript:void(0)" class="cancel_btn btn">取消</a>
+            <a href="javascript:void(0)" class="save_btn btn">确定</a>
+
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+
+<template id="payment_method">
+  <dl>
+    <dd>
+      <label class="width-70">收款方式</label>
+      <select class="width-147">
+        <option>现金</option>
+        <option>挂账</option>
+        <option>银行卡</option>
+        <option>支付宝</option>
+        <option>微信</option>
+        <option>储值卡余额</option>
+      </select>
+    </dd>
+    <dd>
+      <label class="width-70">收款金额</label>
+      <input type="text" class="width-135" placeholder="0.00">
+    </dd>
+  </dl>
+
+</template>
