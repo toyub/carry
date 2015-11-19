@@ -11,4 +11,4 @@ class Mis.Views.XiaoshouPackagesItem extends Support.CompositeView
     @
 
   packageUrl: ->
-    "#store_packages/" + @model.id
+    "#store_packages/#{@model.id}"

@@ -1,6 +1,6 @@
 <h2><%= @title %></h2>
 <% if @redirect_url: %>
-  <a class="back_to_list" href="javascript:void(0);">
+  <a class="back_to_list" href="#">
     <i class="fa-arrow-circle-left  fa"></i>返回列表
   </a>
 <% end %>

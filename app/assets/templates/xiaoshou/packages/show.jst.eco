@@ -54,7 +54,7 @@
     </div>
 
     <div class="btn_group">
-      <a href="javascript:void(0);" class="edit_btn btn margin-right-2" id="editPackage">编辑</a>
+      <a href="<%= @view.packageEditUrl() %>" class="edit_btn btn margin-right-2" id="editPackage">编辑</a>
     </div>
 
   </div>

@@ -3,14 +3,11 @@ class Mis.Views.XiaoshouPackagesShow extends Mis.Base.View
 
   template: JST['xiaoshou/packages/show']
 
-  events:
-    'click #editPackage': 'goToEdit'
-
   initialize: ->
     @model.on('change', @render, @)
 
   render: ->
-    @$el.html(@template(package: @model))
+    @$el.html(@template(package: @model, view: @))
     @renderTop()
     @renderNav()
     @renderUploadTemplate()
@@ -25,9 +22,8 @@ class Mis.Views.XiaoshouPackagesShow extends Mis.Base.View
     view = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
     @$("#masterNav").html view.render().el
 
-  goToEdit: ->
-    view = new Mis.Views.XiaoshouPackagesEdit(model: @model, collection: @collection)
-    $("#bodyContent").html view.render().el
+  packageEditUrl: ->
+    "#store_packages/#{@model.id}/edit"
 
   renderPackageItems: ->
     @$("#packageItemList").show() if @model.package_setting.items.length > 0
