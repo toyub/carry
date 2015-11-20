@@ -19,7 +19,7 @@
           <i title="展开" class="fa fa-folder"></i>
           <span title="双击修改">公司</span>
           <input type="text" name="name" value="">
-          <i title="新建" class="fa fa-plus-circle"></i>
+          <i id='add_root' title="新建" class="fa fa-plus-circle"></i>
         </div>
         <ul id='depart_root' class="branch"></ul>
       </li>
@@ -33,22 +33,6 @@
 <script>
   jQuery(function(){
    
-  $(document).on("click",".branch_name .fa-folder-open", function(e){
-      $(e.target).parent().addClass("slide_up").siblings().slideUp();
-  });
-
-
-  $(document).on("click",".branch_name .fa-folder", function(e){
-    $(e.target).parent().removeClass("slide_up").siblings().slideDown();
-  });
-
-  $(document).on("click",".position .fa-angle-double-left",function(e){
-    $(e.target).parent().addClass("slide_up").siblings().slideUp("fast");
-  });
-
-  $(document).on("click",".position .fa-angle-double-right",function(e){
-    $(e.target).parent().removeClass("slide_up").siblings().slideDown("fast");
-  });
 
   handle = new $$MIS.OrganizationalStructuresHandleView({
               departments_path: Routes.api_store_departments_path,
