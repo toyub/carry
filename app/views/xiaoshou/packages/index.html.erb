@@ -10,15 +10,12 @@
 <div id='piccut'>
 
 </div>
-<%= content_tag :div, '', id: 'bootstrap', data: {'materials': current_store.store_materials.to_json(only: [:id, :name], methods: :price),
-                                                  'packages': json_for(current_store.store_packages),
-                                                  'commissions': current_store.commission_templates.to_json(only: [:id, :name]),
-                                                  'services': current_store.store_services.to_json(only: [:id, :name, :retail_price])} %>
+<%= content_tag :div, '', id: 'bootstrap', data: {store: @data} %>
 
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
-      Mis.initialize($("#bootstrap").data());
+      Mis.initialize($("#bootstrap").data('store'));
     })
   </script>
 <% end %>
