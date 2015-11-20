@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageTrackingsShow extends Backbone.View
+class Mis.Views.XiaoshouPackageTrackingsShow extends Mis.Base.View
 
   template: JST['xiaoshou/package_trackings/show']
 
@@ -18,27 +18,28 @@ class Mis.Views.XiaoshouPackageTrackingsShow extends Backbone.View
     @
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsMaster(model: @store_package, active: 'tracking')
-    @$("#masterNav").html view.render().el
+    nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @store_package, active: 'tracking')
+    @renderChildInto(nav, @$("#masterNav"))
 
   renderPackage: ->
     view = new Mis.Views.XiaoshouPackageNavsSummary(package: @store_package)
-    @$("#packageSummary").html view.render().el
+    @renderChildInto(view, @$("#packageSummary"))
 
   renderItems: ->
     @model.items.each @renderItem
 
   renderItem: (item) =>
     view = new Mis.Views.XiaoshouPackageItemsListItem(model: item)
-    @$("#itemList").append view.render().el
+    @appendChildTo(view, @$("#itemList"))
 
   renderTrackings: ->
     @trackings.each @renderTracking
 
   renderTracking: (tracking) =>
     view = new Mis.Views.XiaoshouPackageTrackingsItem(model: tracking, action: 'show')
-    @$("#trackingList").append view.render().el
+    @appendChildTo(view, @$("#trackingList"))
 
   goToEdit: ->
+    @leave()
     view = new Mis.Views.XiaoshouPackageTrackingsEdit(model: @model)
     $("#bodyContent").html view.render().el

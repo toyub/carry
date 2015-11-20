@@ -18,7 +18,7 @@ class Mis.Models.StorePackageItem extends Backbone.Model
   validation:
     package_itemable_id:
       required: (val, attr, model) ->
-        _.includes(['StoreMaterial', 'StoreService'], model.package_itemable_type)
+        _.contains(['StoreMaterial', 'StoreService'], model.package_itemable_type)
       msg: '项目名称不能为空'
     name:
       required: (val, attr, model) ->
@@ -30,7 +30,7 @@ class Mis.Models.StorePackageItem extends Backbone.Model
       msg: '面额不能为空'
     quantity:
       required: (val, attr, model) ->
-        _.includes(['StoreMaterial', 'StoreService'], model.package_itemable_type)
+        _.contains(['StoreMaterial', 'StoreService'], model.package_itemable_type)
       msg: '次数或数量不能为空'
     price:
       required: true
@@ -38,7 +38,7 @@ class Mis.Models.StorePackageItem extends Backbone.Model
 
   packageItemable: ->
     itemable = switch @get('package_itemable_type')
-      when 'StoreMaterial' then Mis.Constants.StoreMaterialCollection.get(@get 'package_itemable_id')
+      when 'StoreMaterial' then Mis.materials.get(@get 'package_itemable_id')
       when 'StoreService' then Mis.services.get(@get 'package_itemable_id')
       else @
     itemable ? new Mis.Models.NullObject()

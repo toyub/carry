@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageItemsService extends Backbone.View
+class Mis.Views.XiaoshouPackageItemsService extends Mis.Base.View
   tagName: 'ul'
 
   className: 'service_wrap wrap'
@@ -10,11 +10,9 @@ class Mis.Views.XiaoshouPackageItemsService extends Backbone.View
 
   render: ->
     @$el.html(@template(item: @model))
-    @
-
-  open: ->
     @$("select").select2()
     @$el.show()
+    @
 
   renderDetails: (e) ->
     service = Mis.services.get($(e.target).val())

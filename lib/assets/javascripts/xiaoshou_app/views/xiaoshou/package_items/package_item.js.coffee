@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageItemsPackageItem extends Backbone.View
+class Mis.Views.XiaoshouPackageItemsPackageItem extends Mis.Base.View
   tagName: 'ul'
 
   className: 'items_content'
@@ -9,8 +9,8 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Backbone.View
     @action = options.action if options
     @package_setting = @model.package_setting
 
-    @model.on('remove', @remove, @)
-    @model.on('change', @render, @)
+    @listenTo(@model, 'remove', @leave)
+    @listenTo(@model, 'change', @render)
 
   events:
     'click span.delete': 'clear'
@@ -23,18 +23,15 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Backbone.View
   clear: ->
     @package_setting.items.remove @model
 
-  remove: ->
-    @model.off()
-    @undelegateEvents()
-    @$el.remove()
-
   isShow: ->
     @action == 'show'
 
   edit: ->
     if @isShow()
       view = new Mis.Views.XiaoshouPackageItemsShow(model: @model)
-      view.open()
+      @renderChild(view)
+      $("#newPackageItem").html view.el
     else
       view = new Mis.Views.XiaoshouPackageItemsForm(model: @model)
-      view.open()
+      @renderChild(view)
+      $("#newPackageItem").html view.el

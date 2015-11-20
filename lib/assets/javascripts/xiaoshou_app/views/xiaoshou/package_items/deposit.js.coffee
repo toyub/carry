@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageItemsDeposit extends Backbone.View
+class Mis.Views.XiaoshouPackageItemsDeposit extends Mis.Base.View
   tagName: 'ul'
 
   className: 'fee_charge_wrap wrap'
@@ -7,8 +7,6 @@ class Mis.Views.XiaoshouPackageItemsDeposit extends Backbone.View
 
   render: ->
     @$el.html(@template(item: @model))
-    @
-
-  open: ->
     @$("select").select2()
     @$el.show()
+    @

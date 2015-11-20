@@ -10,5 +10,5 @@ Mis.Mixins.Uploadable =
 
   uploadImages: ->
     url = @model.url() + '/save_picture'
-    route_to = window.location.pathname + '#' + @model.url()
+    route_to = window.location.pathname + '#' + @model.url().replace('/api', '')
     uploading($('#preview_list > img'), url, route_to) if $('#preview_list > img').length > 0

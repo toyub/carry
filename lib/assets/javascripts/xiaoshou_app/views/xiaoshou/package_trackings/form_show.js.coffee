@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageTrackingsFormShow extends Backbone.View
+class Mis.Views.XiaoshouPackageTrackingsFormShow extends Mis.Base.View
   className: 'tracking_create package_card_tracking_create do_list_new_page'
 
   template: JST['xiaoshou/package_trackings/form_show']
@@ -8,11 +8,8 @@ class Mis.Views.XiaoshouPackageTrackingsFormShow extends Backbone.View
 
   render: ->
     @$el.html(@template(tracking: @model))
+    @$el.show()
     @
 
-  open: ->
-    @$el.show()
-
   close: ->
-    @undelegateEvents()
-    @$el.hide()
+    @leave()

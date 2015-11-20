@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageNavsMaster extends Backbone.View
+class Mis.Views.XiaoshouPackageNavsMaster extends Mis.Base.View
 
   tagName: 'ul'
 
@@ -11,6 +11,7 @@ class Mis.Views.XiaoshouPackageNavsMaster extends Backbone.View
 
   initialize: (options) ->
     @active = options.active
+    @setting = @model.package_setting
 
   render: ->
     @$el.html(@template(view: @))
@@ -18,17 +19,21 @@ class Mis.Views.XiaoshouPackageNavsMaster extends Backbone.View
 
   goToSetting: ->
     unless @model.isNew()
-      model = @model.package_setting
-      model.fetch()
-      view = new Mis.Views.XiaoshouPackageSettingsShow(model: model)
-      $("#bodyContent").html view.render().el
+      self = this
+      @setting.fetch(success: () ->
+        self.parent.leave()
+        view = new Mis.Views.XiaoshouPackageSettingsShow(model: self.setting)
+        $("#bodyContent").html view.render().el
+      )
 
   goToTracking: ->
     unless @model.isNew()
-      view = new Mis.Views.XiaoshouPackageTrackingsShow(model: @model.package_setting)
+      @parent.leave()
+      view = new Mis.Views.XiaoshouPackageTrackingsShow(model: @setting)
       $("#bodyContent").html view.render().el
 
   goToPackage: ->
     unless @model.isNew()
+      @parent.leave()
       view = new Mis.Views.XiaoshouPackagesShow(model: @model)
       $("#bodyContent").html view.render().el

@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageItemsMaterial extends Backbone.View
+class Mis.Views.XiaoshouPackageItemsMaterial extends Mis.Base.View
   tagName: 'ul'
 
   className: 'goods_wrap wrap'
@@ -10,14 +10,12 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Backbone.View
 
   render: ->
     @$el.html(@template(item: @model))
-    @
-
-  open: ->
     @$("select").select2()
     @$el.show()
+    @
 
   renderDetails: (e) ->
-    service = Mis.Constants.StoreMaterialCollection.get($(e.target).val())
+    service = Mis.materials.get($(e.target).val())
     if service
       $("#materialName").text(service.get 'name')
       $("#materialPrice").text(service.get 'cost_price')

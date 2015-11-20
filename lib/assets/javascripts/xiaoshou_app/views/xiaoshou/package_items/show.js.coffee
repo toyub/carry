@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageItemsShow extends Backbone.View
+class Mis.Views.XiaoshouPackageItemsShow extends Mis.Base.View
   className: 'creating_window do_list_new_page'
 
   template: JST['xiaoshou/package_items/show']
@@ -10,10 +10,5 @@ class Mis.Views.XiaoshouPackageItemsShow extends Backbone.View
     @$el.html(@template(item: @model))
     @
 
-  open: ->
-    $("#showPackageItem").html @render().el
-    $("#showPackageItem").show()
-
   close: ->
-    @undelegateEvents()
-    $("#showPackageItem").hide()
+    @leave()

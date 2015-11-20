@@ -5,7 +5,7 @@ class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
 
   initialize: ->
     Backbone.Validation.bind(@)
-    @model.on('sync', @handleSuccess, @)
+    @listenTo(@model, 'sync', @handleSuccess)
 
   events:
     'submit #createPackage': 'createOnSubmit'
@@ -33,4 +33,5 @@ class Mis.Views.XiaoshouPackagesNew extends Mis.Base.View
     @model.save() if @model.isValid(true)
 
   handleSuccess: ->
+    @collection.add @model
     @uploadImages()

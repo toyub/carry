@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageTrackingsEdit extends Backbone.View
+class Mis.Views.XiaoshouPackageTrackingsEdit extends Mis.Base.View
 
   template: JST['xiaoshou/package_trackings/edit']
 
@@ -10,7 +10,7 @@ class Mis.Views.XiaoshouPackageTrackingsEdit extends Backbone.View
     @store_package = @model.store_package
     @trackings = @store_package.trackings
 
-    @trackings.on('add', @renderTracking, @)
+    @listenTo(@trackings, 'add', @renderTracking)
 
   render: ->
     @$el.html(@template())
@@ -21,33 +21,33 @@ class Mis.Views.XiaoshouPackageTrackingsEdit extends Backbone.View
     @
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsMaster(model: @store_package, active: 'tracking')
-    @$("#masterNav").html view.render().el
+    nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @store_package, active: 'tracking')
+    @renderChildInto(nav, @$("#masterNav"))
 
   renderPackage: ->
     view = new Mis.Views.XiaoshouPackageNavsSummary(package: @store_package)
-    @$("#packageSummary").html view.render().el
+    @renderChildInto(view, @$("#packageSummary"))
 
   renderItems: ->
     @model.items.each @renderItem
 
   renderItem: (item) =>
     view = new Mis.Views.XiaoshouPackageItemsListItem(model: item)
-    @$("#itemList").append view.render().el
+    @appendChildTo(view, @$("#itemList"))
 
   openTrackingForm: ->
     model = new Mis.Models.StorePackageTracking(store_package: @store_package)
     view = new Mis.Views.XiaoshouPackageTrackingsForm(model: model, collection: @trackings)
-    @$("#trackingForm").html view.render().el
-    view.open()
+    @renderChildInto(view, @$("#trackingForm"))
 
   renderTrackings: ->
     @trackings.each @renderTracking
 
   renderTracking: (tracking) =>
     view = new Mis.Views.XiaoshouPackageTrackingsItem(model: tracking)
-    @$("#trackingList").append view.render().el
+    @appendChildTo(view, @$("#trackingList"))
 
   goToShow: ->
+    @leave()
     view = new Mis.Views.XiaoshouPackageTrackingsShow(model: @model)
     $("#bodyContent").html view.render().el
