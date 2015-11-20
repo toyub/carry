@@ -1,6 +1,6 @@
 class Mis.Routers.StorePackages extends Mis.Base.Router
   routes:
-    "": "index"
+    "store_packages": "index"
     "store_packages/new": "newPackage"
     "store_packages/:id": "show"
     "store_packages/:id/edit": "edit"

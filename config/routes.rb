@@ -71,20 +71,7 @@ Rails.application.routes.draw do
     end
   end# END of namespace :kucun
 
-  namespace :xiaoshou do
-    namespace :service do
-      resources :profiles, only: [:index, :show, :create]
-      resources :settings, only: [:edit, :show, :update] do
-        member do
-          get :modify
-        end
-        resources :workflows, only: :show
-      end
-      resources :categories, only: [:create]
-    end
-
-    resources :packages, only: [:index]
-  end
+  get "xiaoshou/main", to:  "xiaoshou#main"
 
   namespace :soa do
     resources :staff

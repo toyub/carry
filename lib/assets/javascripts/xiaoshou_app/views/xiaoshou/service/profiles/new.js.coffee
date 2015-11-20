@@ -1,33 +1,31 @@
 class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
   @include Mis.Mixins.Uploadable
 
+  className: 'details'
+
   initialize: ->
-    @store = window.Store
-    @model.materials.on('add', @addMaterial, @)
-    @store.serviceCategories.on('add', @addOneCategory, @)
     Backbone.Validation.bind(@)
-    @model.on('sync', @handleSuccess, @)
-    @model.on('validated:invalid', @invalid, @)
+
+    @listenTo(@model.materials, 'add', @addMaterial)
+    @listenTo(@model, 'sync', @handleSuccess)
+    @listenTo(@model, 'validated:invalid', @invalid)
 
   template: JST['xiaoshou/service/profiles/new']
 
   events:
     'submit #createService': 'createOnSubmit'
     'click #add_server_btn': 'openMaterialForm'
-    'click span.as_select': 'listServiceCategories'
-    'click #addServiceCategory': 'openCategoryForm'
     'click input.toggleable': 'toggleFavorable'
 
   render: ->
     @$el.html(@template(service: @model))
     @renderNav()
     @renderUploadTemplate()
-    @renderServiceCategories()
     @
 
   renderNav: ->
     view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model, active: 'service')
-    @$("#masterNav").html view.render().el
+    @renderChildInto(view, @$("#masterNav"))
 
   createOnSubmit: ->
     event.preventDefault()
@@ -36,32 +34,12 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
 
   openMaterialForm: ->
     view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
-    view.open()
+    @appendChildTo(view, @$(".server_list"))
 
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model)
-    @$(".materialList").append view.render().el
+    @appendChildTo(view, @$(".materialList"))
     @$(".materialList").parent().show()
-
-  renderServiceCategories: ->
-    @store.serviceCategories.each @renderServiceCategory
-
-  renderServiceCategory: (category) =>
-    view = new Mis.Views.XiaoshouServiceCategoriesItem(model: category)
-    @$("#serviceCategoryList").append view.render().el
-
-  addOneCategory: (category) ->
-    view = new Mis.Views.XiaoshouServiceCategoriesItem(model: category)
-    @$("#serviceCategoryList").prepend view.render().el
-    view.select()
-
-  listServiceCategories: ->
-    @$("#serviceCategoryList").parent().show()
-
-  openCategoryForm: ->
-    model = new Mis.Models.StoreServiceCategory()
-    view = new Mis.Views.XiaoshouServiceCategoriesForm(collection: @store.serviceCategories, model: model)
-    view.open()
 
   toggleFavorable: ->
     if $("#bargain_price").attr('disabled') == 'disabled'
@@ -73,11 +51,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
 
   handleSuccess: ->
     @uploadImages()
-    @goToShow()
-
-  goToShow: ->
-    view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
-    $("#bodyContent").html(view.render().el)
 
   invalid: (model, errors) ->
     @handleError(model, errors)

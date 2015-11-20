@@ -1,5 +1,5 @@
-class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
-  el: '#add_server'
+class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
+  className: 'add_server do_cancel'
 
   template: JST['xiaoshou/service/materials/form']
 
@@ -17,14 +17,8 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
     @$el.html(@template(service: @model, store: @store))
     @
 
-  open: ->
-    @store.materials.clearSelected()
-    @render()
-    @$el.show()
-
   close: =>
-    @undelegateEvents()
-    @$el.hide()
+    @leave()
 
   searchOnClick: ->
     @renderQueryResults()

@@ -22,7 +22,6 @@ module Api
     def index
       @q = current_store.store_services.ransack(params[:q])
       @services = @q.result(distinct: true)
-      respond_with @services
     end
 
     private
