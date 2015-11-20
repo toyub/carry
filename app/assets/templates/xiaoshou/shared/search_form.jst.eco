@@ -16,10 +16,10 @@
   <ul class="drop_list" id="priceSortList">
     <input type="hidden" name="q[s]" value="" />
     <li class="sort">
-      <a href="javascript:void(0)" data-direction="retail_price asc" class="">价格从低到高</a>
+      <a href="javascript:void(0)" data-direction="price asc" class="">价格从低到高</a>
     </li>
     <li class="sort">
-      <a href="javascript:void(0)" data-direction="retail_price desc" class="">价格从高到低</a>
+      <a href="javascript:void(0)" data-direction="price desc" class="">价格从高到低</a>
     </li>
   </ul>
 </div>
@@ -28,11 +28,11 @@
     <div class="inner">
       <ul class="items">
         <li class="item j_active">
-          <input type="text" name="q[retail_price_gteq]" class="j_sortbar_price_input input" placeholder="¥">
+          <input type="text" name="q[price_gteq]" class="j_sortbar_price_input input" placeholder="¥">
         </li>
         <li class="sep">-</li>
         <li class="item j_active">
-          <input type="text" name="q[retail_price_lteq]" class="j_sortbar_price_input input" placeholder="¥">
+          <input type="text" name="q[price_lteq]" class="j_sortbar_price_input input" placeholder="¥">
         </li>
         <li class="submit"><button class="btn j_sortbar_price_submit">确定</button></li>
       </ul>
@@ -45,15 +45,15 @@
     <span><i class="fa fa-angle-down"></i></span>
   </div>
   <ul class="drop_list">
-    <input type="hidden" name="created_at_gteq" value="" />
+    <input type="hidden" name="q[created_at_gteq]" id="filterDate" value="" />
     <li class="sort">
-      <a href="javascript:void(0)" class="p_link">今天上架商品</a>
+      <a href="javascript:void(0)" data-date="<%= Mis.Time.now().beginningOfDay() %>" class="filterByDate p_link">今天上架商品</a>
     </li>
     <li class="sort">
-      <a href="javascript:void(0)" class="">本周上架商品</a>
+      <a href="javascript:void(0)" data-date="<%= Mis.Time.now().beginningOfWeek() %>" class="filterByDate">本周上架商品</a>
     </li>
     <li class="sort">
-      <a href="javascript:void(0)" class="">本月上架商品</a>
+      <a href="javascript:void(0)" data-date="<%= Mis.Time.now().beginningOfMonth() %>" class="filterByDate">本月上架商品</a>
     </li>
   </ul>
 </div>

@@ -18,7 +18,7 @@ class Mis.Models.StorePackage extends Backbone.Model
       msg: '请输入名称'
 
   validPeriod: ->
-    @get 'period' + @get 'period_unit'
+    @package_setting.validPeriod()
 
   parseUploads: ->
     @uploads = new Mis.Collections.Uploads(@get 'uploads')

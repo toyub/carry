@@ -9,11 +9,6 @@ class Mis.Views.XiaoshouPackagesIndex extends Mis.Base.View
     @listenTo(@packageSearch.filteredCollection, 'remove', @renderPackages)
     @listenTo(@packageSearch.filteredCollection, 'reset', @renderPackages)
 
-  events:
-    'click div.item-query.c_price li': 'sortByPrice'
-    'click div.prices li.submit': 'filterByPrice'
-    'click div.item-query.screen li': 'filterByDate'
-
   render: ->
     @$el.html(@template())
     @renderTop()
@@ -44,54 +39,3 @@ class Mis.Views.XiaoshouPackagesIndex extends Mis.Base.View
     row = new Mis.Views.XiaoshouPackagesItem(model: p)
     @renderChild(row)
     @$("#packageList").append row.el
-
-  sortByPrice: (event) ->
-    $(event.currentTarget).parent().prev().find("span:first").attr("title", $(event.currentTarget).text())
-    $(event.currentTarget).parent().prev().find("span:first").text($(event.currentTarget).text())
-    $(event.currentTarget).parent().prev().find("span i").attr('class', if $(event.currentTarget).attr("data-sort-derection") == 'asc' then 'fa fa-angle-up' else 'fa fa-angle-down')
-    $(event.currentTarget).siblings().find("a").removeClass("active")
-    $(event.currentTarget).find("a").addClass("active")
-    @sort()
-
-  filterByPrice: (event) ->
-    $(event.currentTarget).parent().find("li.item").each(
-      ->
-        $(@).attr("data-filter", $(@).find("input").val())
-    )
-    @sort()
-
-  filterByDate: (event) ->
-    $(event.currentTarget).siblings().find("a").removeClass("active")
-    $(event.currentTarget).find("a").addClass("active")
-    $(event.currentTarget).siblings().removeClass("j_active")
-    $(event.currentTarget).addClass("j_active")
-    @sort()
-
-  sort: =>
-    $("div.prices li.item input").each(
-      ->
-        $(@).val($(@).parent().attr('data-filter'))
-    )
-    options =
-      reset: true
-      data:
-        q: {}
-
-    $.extend(options['data'], $("form").serializeJSON())
-    $.extend(options['data']['q'], @filterParams())
-    options['data']['q']['s'] = @sortParams()
-    @collection.fetch(options)
-
-  sortParams:  =>
-    current = $("div.item-query.c_price a.active").parent()
-    sortName = current.attr('data-name')
-    sortDirection = current.attr('data-sort-direction')
-    "#{sortName} #{sortDirection}"
-
-  filterParams: =>
-    options = {}
-    $("li.j_active").each(
-      ->
-        options[$(@).attr('data-name')] = $(@).attr('data-filter')
-    )
-    options

@@ -31,6 +31,9 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
 
     @parseItems()
 
+  validPeriod: ->
+    @get 'period' + @period_unit_name()
+
   period_unit_name: ->
     @PERIOD_UNIT[@get('period_unit')]
 
