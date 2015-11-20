@@ -182,6 +182,9 @@ Rails.application.routes.draw do
     end
 
     resources :store_departments do
+      member do
+        get :children
+      end
       resources :store_positions
     end
 

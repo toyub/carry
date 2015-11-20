@@ -1,41 +1,28 @@
 module Api
   class StoreDepartmentsController < BaseController
     def index
-      departments = [
-        {
-          id: 12,
-          name: 'xxxxxx',
-          departments: [
-            {
-              name: 'yyyyyy'
-            },
-            {
-              name: 'dccccccccc'
-            },
-            {
-              name: 'sdfklsdfjsdlfa'
-            }
-          ]
-        },
-        {
-          name: 'xxcfsdkljwei',
-          departments: [
-            {
-            name: 'sdafklajndflo'
-            }
-          ]
-        }
-      ]
+      store = current_store
+      departments = store.store_departments.where(parent_id: 0)
 
       respond_with departments, location: nil
     end
 
     def create
-      render json: department_params
+      department = StoreDepartment.new(append_store_attrs(department_params))
+      department.save!
+      render json: department, location: nil
     end
 
     def update
-      render json: department_params
+      department = StoreDepartment.find(params[:id])
+      department.update!(department_params)
+      render json: department, location: nil
+    end
+
+    def children
+      department = StoreDepartment.find(params[:id])
+      departments = department.children
+      respond_with departments, location: nil
     end
 
     private
