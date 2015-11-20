@@ -14,10 +14,15 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
 
   render: ->
     @$el.html(@template(setting: @model))
+    @renderTop()
     @renderNav()
     @renderPackage()
     @renderItems()
     @
+
+  renderTop: ->
+    top = new Mis.Views.XiaoshouSharedTop(title: '套餐设置编辑', redirect_url: 'package')
+    @renderChildInto(top, @$("#mainTop"))
 
   renderNav: ->
     nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @model.store_package, active: 'setting')

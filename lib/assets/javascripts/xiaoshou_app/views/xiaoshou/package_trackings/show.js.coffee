@@ -11,11 +11,16 @@ class Mis.Views.XiaoshouPackageTrackingsShow extends Mis.Base.View
 
   render: ->
     @$el.html(@template())
+    @renderTop()
     @renderNav()
     @renderPackage()
     @renderItems()
     @renderTrackings()
     @
+
+  renderTop: ->
+    top = new Mis.Views.XiaoshouSharedTop(title: '套餐回访详情', redirect_url: 'package')
+    @renderChildInto(top, @$("#mainTop"))
 
   renderNav: ->
     nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @store_package, active: 'tracking')
