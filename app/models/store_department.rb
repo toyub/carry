@@ -7,4 +7,6 @@ class StoreDepartment < ActiveRecord::Base
   validates_presence_of :name
   validates :parent, presence: true, unless: ->(m){m.parent_id == 0}
 
+  scope :root_departments, ->(){where(parent_id: 0)}
+  
 end

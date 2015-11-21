@@ -1,33 +1,31 @@
 module Api
   class StoreDepartmentsController < BaseController
+    before_action :set_department, only: [:update, :children]
     def index
-      store = current_store
-      departments = store.store_departments.where(parent_id: 0)
-
-      respond_with departments, location: nil
+      respond_with current_store.store_departments.root_departments, location: nil
     end
 
     def create
-      department = StoreDepartment.new(append_store_attrs(department_params))
-      department.save!
-      render json: department, location: nil
+      department = StoreDepartment.create(append_store_attrs(department_params))
+      respond_with department, location: nil
     end
 
     def update
-      department = StoreDepartment.find(params[:id])
-      department.update!(department_params)
-      render json: department, location: nil
+      @department.update(department_params)
+      respond_with @department, location: nil
     end
 
     def children
-      department = StoreDepartment.find(params[:id])
-      departments = department.children
-      respond_with departments, location: nil
+      respond_with @department.children, location: nil
     end
 
     private
     def department_params
       params.require(:store_department).permit(:parent_id, :name)
+    end
+
+    def set_department
+      @department = StoreDepartment.find(params[:id])
     end
   end
 end
