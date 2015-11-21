@@ -1,7 +1,7 @@
-class Mis.Views.XiaoshouPackagesItem extends Support.CompositeView
+class Mis.Views.XiaoshouPackageProfilesItem extends Mis.Base.View
   tagName: 'tr'
 
-  template: JST['xiaoshou/packages/item']
+  template: JST['xiaoshou/package_profiles/item']
 
   initialize: ->
     @listenTo(@model, 'remove', @leave)

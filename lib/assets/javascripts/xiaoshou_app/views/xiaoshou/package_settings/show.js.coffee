@@ -1,4 +1,5 @@
 class Mis.Views.XiaoshouPackageSettingsShow extends Mis.Base.View
+  @include Mis.Views.Concerns.Top
 
   template: JST['xiaoshou/package_settings/show']
 
@@ -15,10 +16,6 @@ class Mis.Views.XiaoshouPackageSettingsShow extends Mis.Base.View
     @renderPackage()
     @renderItems()
     @
-
-  renderTop: ->
-    top = new Mis.Views.XiaoshouSharedTop(title: '套餐设置详情', redirect_url: 'package')
-    @renderChildInto(top, @$("#mainTop"))
 
   renderNav: ->
     nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @model.store_package, active: 'setting')

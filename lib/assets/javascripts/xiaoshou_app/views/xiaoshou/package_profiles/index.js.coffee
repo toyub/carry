@@ -1,6 +1,7 @@
-class Mis.Views.XiaoshouPackagesIndex extends Mis.Base.View
+class Mis.Views.XiaoshouPackageProfilesIndex extends Mis.Base.View
+  @include Mis.Views.Concerns.Top
 
-  template: JST['xiaoshou/packages/index']
+  template: JST['xiaoshou/package_profiles/index']
 
   initialize: ->
     @packageSearch = new Mis.PackageSearch(@collection)
@@ -15,11 +16,6 @@ class Mis.Views.XiaoshouPackagesIndex extends Mis.Base.View
     @renderSearchForm()
     @renderPackages()
     @
-
-  renderTop: ->
-    top = new Mis.Views.XiaoshouSharedTop(title: '套餐列表')
-    @renderChild(top)
-    @$("#mainTop").html top.el
 
   renderSearchForm: ->
     search = new Mis.Views.XiaoshouSharedSearchForm(@packageSearch)
@@ -36,6 +32,6 @@ class Mis.Views.XiaoshouPackagesIndex extends Mis.Base.View
       @$("#packageList").addClass("no_search_result").html none.el
 
   renderPackage: (p) =>
-    row = new Mis.Views.XiaoshouPackagesItem(model: p)
+    row = new Mis.Views.XiaoshouPackageProfilesItem(model: p)
     @renderChild(row)
     @$("#packageList").append row.el

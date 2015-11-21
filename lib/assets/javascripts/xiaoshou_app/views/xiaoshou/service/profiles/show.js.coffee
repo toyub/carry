@@ -1,10 +1,12 @@
 class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
   @include Mis.Mixins.Uploadable
+  @include Mis.Views.Concerns.Top
 
   template: JST['xiaoshou/service/profiles/show']
 
   render: ->
     @$el.html(@template(service: @model))
+    @renderTop()
     @renderNav()
     @renderUploadTemplate()
     @renderMaterials()

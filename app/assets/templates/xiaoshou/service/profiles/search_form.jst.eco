@@ -67,7 +67,7 @@
 <div class="operats">
   <ul class="items">
     <li class="item_add">
-    <a class="btn add_btn" id="newService" href="javascript:void(0);">新建</a>
+    <a class="btn add_btn" id="newService" href="#store_services/new">新建</a>
     </li>
     <li class="item"><a href="#" class="link"><i class="fa fa-th"></i></a></li>
     <li class="item"><a href="#" class="link"><i class="fa fa-bars"></i></a></li>

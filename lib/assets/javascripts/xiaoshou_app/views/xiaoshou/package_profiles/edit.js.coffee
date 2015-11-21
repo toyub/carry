@@ -1,7 +1,8 @@
-class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
+class Mis.Views.XiaoshouPackageProfilesEdit extends Mis.Base.View
   @include Mis.Mixins.Uploadable
+  @include Mis.Views.Concerns.Top
 
-  template: JST['xiaoshou/packages/edit']
+  template: JST['xiaoshou/package_profiles/edit']
 
   initialize: ->
     @listenTo(@model, 'sync', @handleSuccess)
@@ -18,18 +19,13 @@ class Mis.Views.XiaoshouPackagesEdit extends Mis.Base.View
     @renderPackageItems()
     @
 
-  renderTop: ->
-    top = new Mis.Views.XiaoshouSharedTop(title: '套餐信息编辑', redirect_url: 'package')
-    @renderChild(top)
-    @$("#mainTop").html top.el
-
   renderNav: ->
     nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @model, active: 'package')
     @renderChild(nav)
     @$("#masterNav").html nav.el
 
   renderForm: ->
-    form = new Mis.Views.XiaoshouPackagesForm(model: @model)
+    form = new Mis.Views.XiaoshouPackageProfilesForm(model: @model)
     @renderChild(form)
     @$("#packageForm").html form.el
 

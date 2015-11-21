@@ -1,7 +1,6 @@
 class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
   @include Mis.Mixins.Uploadable
-
-  className: 'details'
+  @include Mis.Views.Concerns.Top
 
   initialize: ->
     Backbone.Validation.bind(@)
@@ -19,6 +18,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
 
   render: ->
     @$el.html(@template(service: @model))
+    @renderTop()
     @renderNav()
     @renderUploadTemplate()
     @

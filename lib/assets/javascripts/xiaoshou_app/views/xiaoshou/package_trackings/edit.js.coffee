@@ -1,4 +1,5 @@
 class Mis.Views.XiaoshouPackageTrackingsEdit extends Mis.Base.View
+  @include Mis.Views.Concerns.Top
 
   template: JST['xiaoshou/package_trackings/edit']
 
@@ -20,10 +21,6 @@ class Mis.Views.XiaoshouPackageTrackingsEdit extends Mis.Base.View
     @renderItems()
     @renderTrackings()
     @
-
-  renderTop: ->
-    top = new Mis.Views.XiaoshouSharedTop(title: '套餐回访编辑', redirect_url: 'package')
-    @renderChildInto(top, @$("#mainTop"))
 
   renderNav: ->
     nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @store_package, active: 'tracking')

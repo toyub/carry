@@ -1,7 +1,6 @@
 class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
   @include Mis.Mixins.Uploadable
-
-  className: "details"
+  @include Mis.Views.Concerns.Top
 
   template: JST['xiaoshou/service/profiles/edit']
 
@@ -15,6 +14,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
 
   render: ->
     @$el.html(@template(service: @model))
+    @renderTop()
     @renderNav()
     @renderUploadTemplate()
     @model.materials.each @addMaterial

@@ -1,11 +1,11 @@
 window.Mis =
   Models: {}
   Collections: {}
-  Views: {}
+  Views:
+    Concerns: {}
   Routers: {}
   Mixins: {}
   Base: {}
-  Constants: {}
   initialize: (data) ->
     @packages = new Mis.Collections.StorePackages(data.packages)
     @materials = new Mis.Collections.StoreMaterials(data.materials)

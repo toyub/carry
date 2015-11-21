@@ -1,4 +1,6 @@
 class Mis.Views.XiaoshouServiceProfilesIndex extends Mis.Base.View
+  @include Mis.Views.Concerns.Top
+
   template: JST['xiaoshou/service/profiles/index']
 
   initialize: ->
@@ -10,6 +12,7 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Mis.Base.View
 
   render: ->
     @$el.html(@template())
+    @renderTop()
     @renderSearchForm()
     @renderServices()
     @

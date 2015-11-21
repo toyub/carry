@@ -13,20 +13,20 @@ class Mis.Routers.StorePackages extends Mis.Base.Router
     model = @collection.get(id)
     self = this
     model.fetch(success: () ->
-      view = new Mis.Views.XiaoshouPackagesShow(model: model, collection: self.collection)
+      view = new Mis.Views.XiaoshouPackageProfilesShow(model: model, collection: self.collection)
       self.swap(view)
     )
 
   edit: (packageId) ->
     model = @collection.get(packageId)
-    view = new Mis.Views.XiaoshouPackagesEdit(model: model, collection: @collection)
+    view = new Mis.Views.XiaoshouPackageProfilesEdit(model: model, collection: @collection)
     @swap(view)
 
   index: ->
-    view = new Mis.Views.XiaoshouPackagesIndex(collection: @collection)
+    view = new Mis.Views.XiaoshouPackageProfilesIndex(collection: @collection)
     @swap(view)
 
   newPackage: ->
     model = new Mis.Models.StorePackage()
-    view = new Mis.Views.XiaoshouPackagesNew(model: model, collection: @collection)
+    view = new Mis.Views.XiaoshouPackageProfilesNew(model: model, collection: @collection)
     @swap(view)
