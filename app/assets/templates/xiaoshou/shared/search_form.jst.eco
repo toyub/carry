@@ -60,9 +60,7 @@
 <div class="operats">
   <ul class="items">
     <li class="item_add">
-    <a class="btn add_btn" id="newPackage" href="#store_packages/new">新建</a>
+      <a class="btn add_btn" id="newPackage" href="#store_packages/new">新建</a>
     </li>
-    <li class="item"><a href="#" class="link"><i class="fa fa-th"></i></a></li>
-    <li class="item"><a href="#" class="link"><i class="fa fa-bars"></i></a></li>
   </ul>
 </div>
