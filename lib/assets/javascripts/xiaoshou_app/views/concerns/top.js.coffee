@@ -25,4 +25,4 @@ Mis.Views.Concerns.Top =
 
   renderTop: ->
     top = new Mis.Views.XiaoshouSharedTop(title: @topTitle, redirect_url: @redirect_url)
-    @renderChildInto(top, @$("#mainTop"))
+    @prependChild(top)

@@ -1,5 +1,5 @@
-class Mis.Views.XiaoshouServiceWorkflowsForm extends Backbone.View
-  el: '#workflow_form'
+class Mis.Views.XiaoshouServiceWorkflowsForm extends Mis.Base.View
+  className: 'new_process_details new_items_details do_list_new_page'
 
   template: JST['xiaoshou/service/workflows/form']
 
@@ -18,15 +18,11 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Backbone.View
   render: ->
     @$el.html(@template(workflow: @model, store: @store))
     @renderWorkstations()
+    @$el.show()
     @
 
-  open: ->
-    @render()
-    @$el.show()
-
   close: =>
-    @undelegateEvents()
-    @$el.hide()
+    @leave()
 
   addWorkflow: ->
     @model.set @$el.find("input,select").serializeJSON().workflow
@@ -61,4 +57,4 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Backbone.View
 
   addWorkstation: (workstation) =>
     view = new Mis.Views.XiaoshouServiceWorkstationsWorkstation(workflow: @model, model: workstation)
-    @$("#nominated_stations").append view.render().el
+    @appendChildTo(view, @$("#nominated_stations"))

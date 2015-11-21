@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceSettingsRegular extends Backbone.View
+class Mis.Views.XiaoshouServiceSettingsRegular extends Mis.Base.View
 
   template: JST['xiaoshou/service/settings/regular']
 

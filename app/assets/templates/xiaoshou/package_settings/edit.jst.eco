@@ -1,8 +1,4 @@
 <% setting = @setting %>
-<div class="main_top" id="mainTop">
-
-</div>
-
 <div class="details">
   <div id="masterNav" class="details_nav">
 

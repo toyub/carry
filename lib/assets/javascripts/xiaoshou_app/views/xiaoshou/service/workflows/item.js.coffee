@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceWorkflowsItem extends Backbone.View
+class Mis.Views.XiaoshouServiceWorkflowsItem extends Mis.Base.View
   className: 'items_content'
 
   tagName: 'ul'
@@ -9,8 +9,8 @@ class Mis.Views.XiaoshouServiceWorkflowsItem extends Backbone.View
     @setting = options.setting
     @action = options.action
 
-    @model.on('remove', @remove, @)
-    @model.on('change', @render, @)
+    @listenTo(@model, 'remove', @leave)
+    @listenTo(@model, 'change', @render)
 
   events:
     'click span.delete': 'clear'
@@ -26,14 +26,9 @@ class Mis.Views.XiaoshouServiceWorkflowsItem extends Backbone.View
   clear: ->
     @setting.workflows.remove @model
 
-  remove: ->
-    @model.off()
-    @undelegateEvents()
-    @$el.remove()
-
   editOrShow: ->
     if @isEdit()
       view = new Mis.Views.XiaoshouServiceWorkflowsForm(model: @model, setting: @setting)
     else
       view = new Mis.Views.XiaoshouServiceWorkflowsShow(model: @model)
-    view.open()
+    @parent.appendChildTo(view, @parent.$(".j_workflow_setting"))
