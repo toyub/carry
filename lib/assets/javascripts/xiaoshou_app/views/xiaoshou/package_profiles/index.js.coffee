@@ -18,7 +18,7 @@ class Mis.Views.XiaoshouPackageProfilesIndex extends Mis.Base.View
     @
 
   renderSearchForm: ->
-    search = new Mis.Views.XiaoshouSharedSearchForm(@packageSearch)
+    search = new Mis.Views.XiaoshouPackageProfilesSearchForm(@packageSearch)
     @renderChild(search)
     @$("#searchForm").html search.el
 

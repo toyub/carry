@@ -35,5 +35,5 @@ class Mis.Views.XiaoshouPackageNavsMaster extends Mis.Base.View
   goToPackage: ->
     unless @model.isNew()
       @parent.leave()
-      view = new Mis.Views.XiaoshouPackagesShow(model: @model)
+      view = new Mis.Views.XiaoshouPackageProfilesShow(model: @model)
       $("#bodyContent").html view.render().el
