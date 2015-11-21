@@ -32,7 +32,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     else
       subCategories = new Mis.Collections.StoreMaterialCategories()
     view = new Mis.Views.XiaoshouServiceMaterialsCategory(collection: subCategories)
-    view.render()
+    @renderChild(view)
     @renderQueryResults()
 
   renderQueryResults: =>
@@ -46,9 +46,9 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     @$("#queryResults").empty()
     _.each materials, @addMaterial
 
-  addMaterial: (material) ->
+  addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsResult(model: material)
-    @$("#queryResults").append view.render().el
+    @appendChildTo(view, @$("#queryResults"))
 
   queryCriterial: (material) =>
     name = $("input[name=materialName]").val()
