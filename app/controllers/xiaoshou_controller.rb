@@ -12,12 +12,7 @@ class XiaoshouController < ApplicationController
       json.materials current_store.store_materials, :id, :name, :price
       json.packages current_store.store_packages do |package|
         json.(package, :id, :name, :code, :abstract, :remark, :price)
-        json.package_setting do
-          json.id package.package_setting.id
-          json.period package.package_setting.period
-          json.period_unit package.package_setting.period_unit
-          json.point package.package_setting.point
-        end
+        json.(package_setting, :id, :period, :period_unit, :point)
       end
       json.commissions current_store.commission_templates, :id, :name
       json.services current_store.store_services, :id, :name, :code, :bargain_price, :point, :retail_price
