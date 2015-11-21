@@ -5,7 +5,7 @@
     <i title="收起" class="fa fa-angle-double-left"></i>
     <i title="展开" class="fa fa-angle-double-right"></i>
     <i title="保存" class="fa fa-save"></i>
-    <i title="保存" class="fa fa-undo"></i>
+    <i title="取消" class="fa fa-undo"></i>
   </div>
   <div class="staff">
     <% for staffi in @store_staff : %>

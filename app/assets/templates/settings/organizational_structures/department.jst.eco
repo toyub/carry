@@ -6,6 +6,6 @@
   <i title="显示详情" class="fa fa-list"></i>
   <i title="新建" class="fa fa-plus-circle"></i>
   <i title="保存" class="fa fa-save"></i>
-  <i title="保存" class="fa fa-undo"></i>
+  <i title="取消" class="fa fa-undo"></i>
 </div>
 <ul class="branch"></ul>
