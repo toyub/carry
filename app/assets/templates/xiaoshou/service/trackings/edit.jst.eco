@@ -30,7 +30,9 @@
       </div>
 
       <div class="tracking_list right_list">
-        <h2>售后回访列表</h2>
+        <h2>售后回访列表
+          <input type="button" class="btn new_btn float-right do_open_list_new_page" value="创建" id="newTracking">
+        </h2>
         <div class="do_new_lists new_lists" style="display:none;">
           <ul class="list_header">
             <li>#</li>
@@ -48,6 +50,6 @@
     </div>
   </div>
   <div class="btn_group">
-    <a href="javascript:void(0);" class="edit_btn btn margin-none" id="edit">编辑</a>
+    <input type="submit" class="save_btn btn " id="save" value="保存">
   </div>
 </div>

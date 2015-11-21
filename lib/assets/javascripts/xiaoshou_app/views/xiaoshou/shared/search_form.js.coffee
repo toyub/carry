@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouSharedSearchForm extends Support.CompositeView
+class Mis.Views.XiaoshouSharedSearchForm extends Mis.Base.View
 
   template: JST['xiaoshou/shared/search_form']
 
