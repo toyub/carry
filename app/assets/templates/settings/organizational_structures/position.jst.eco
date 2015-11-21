@@ -1,0 +1,14 @@
+
+  <div class="position_name">
+    <span title="点击修改"><%= @name %></span>
+    <input type="text" name="name" value="<%= @name || '新建职位' %>" autocomplete='off'>
+    <i title="收起" class="fa fa-angle-double-left"></i>
+    <i title="展开" class="fa fa-angle-double-right"></i>
+    <i title="保存" class="fa fa-save"></i>
+    <i title="取消" class="fa fa-undo"></i>
+  </div>
+  <div class="staff">
+    <% for staffi in @store_staff : %>
+    <a href="javascript:void(0);"><%= staffi.screen_name %></a>
+    <% end %>
+  </div>
