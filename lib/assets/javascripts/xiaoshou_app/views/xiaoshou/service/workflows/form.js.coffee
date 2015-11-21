@@ -4,7 +4,7 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Backbone.View
   template: JST['xiaoshou/service/workflows/form']
 
   initialize: (options) ->
-    @store = window.Store
+    @store = Mis.store
     @setting = options.setting
 
   events:

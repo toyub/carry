@@ -7,7 +7,7 @@ class Mis.Views.XiaoshouServiceWorkflowsShow extends Backbone.View
     'click #closeShow': 'close'
 
   render: ->
-    @$el.html(@template(workflow: @model, store: window.Store))
+    @$el.html(@template(workflow: @model, store: Mis.store))
     @
 
   open: ->

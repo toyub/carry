@@ -4,7 +4,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
   template: JST['xiaoshou/service/materials/form']
 
   initialize: ->
-    @store = window.Store
+    @store = Mis.store
 
   events:
     'change #rootCategory': 'renderSubCategory'

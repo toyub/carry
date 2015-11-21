@@ -5,7 +5,7 @@ class Mis.Views.XiaoshouServiceMaterialsResult extends Backbone.View
   template: JST['xiaoshou/service/materials/result']
 
   initialize: ->
-    @store = window.Store
+    @store = Mis.store
     @model.on('change:selected', @renderSelectedMaterials, @)
 
   events:

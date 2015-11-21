@@ -3,7 +3,7 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
   template: JST['xiaoshou/service/settings/new']
 
   initialize: ->
-    @store = window.Store
+    @store = Mis.store
 
     @model.workflows.on('add', @renderWorkflow, @)
     @model.on('sync', @handleSuccess, @)

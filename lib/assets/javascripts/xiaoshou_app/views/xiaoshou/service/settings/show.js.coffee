@@ -6,7 +6,7 @@ class Mis.Views.XiaoshouServiceSettingsShow extends Backbone.View
     'click #editSetting': 'goToEdit'
 
   initialize: ->
-    @store = window.Store
+    @store = Mis.store
     @model.on('sync', @renderSettings, @)
 
   render: ->
