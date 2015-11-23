@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceMaterialsSelectedItem extends Backbone.View
+class Mis.Views.XiaoshouServiceMaterialsSelectedItem extends Mis.Base.View
 
   tagName: 'tr'
 

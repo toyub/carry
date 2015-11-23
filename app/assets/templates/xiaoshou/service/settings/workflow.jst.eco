@@ -132,7 +132,7 @@
   </table>
 </div>
 
-<div class="process_setting setting_right float-right">
+<div class="process_setting setting_right float-right j_workflow_setting">
   <h2>
     <label>按流程设置</label>
     <input type="radio" name="service_setting_select" id="service_process_setting_sel" class="margin-left-8 margin-top-0 " checked="" disabled="">
@@ -155,9 +155,5 @@
     <div class="do_new_lists_content" id="workflow_list">
 
     </div>
-  </div>
-
-  <div class="new_process_details new_items_details do_list_new_page" id="workflow_form">
-
   </div>
 </div>

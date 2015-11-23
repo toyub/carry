@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceMaterialsResult extends Backbone.View
+class Mis.Views.XiaoshouServiceMaterialsResult extends Mis.Base.View
 
   tagName: 'tr'
 
@@ -6,7 +6,7 @@ class Mis.Views.XiaoshouServiceMaterialsResult extends Backbone.View
 
   initialize: ->
     @store = Mis.store
-    @model.on('change:selected', @renderSelectedMaterials, @)
+    @listenTo(@model, 'change:selected', @renderSelectedMaterials)
 
   events:
     'click .check': 'toggleSelected'
@@ -21,7 +21,8 @@ class Mis.Views.XiaoshouServiceMaterialsResult extends Backbone.View
 
   renderMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsSelectedItem(model: material)
-    $("#selectedMaterials").append view.render().el
+    @renderChild(view)
+    $("#selectedMaterials").append view.el
 
   toggleSelected: ->
     @model.toggleSelected()
