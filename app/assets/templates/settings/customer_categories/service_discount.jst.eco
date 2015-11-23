@@ -1,11 +1,12 @@
 <div data-parentid='<%= @id %>' class="secondary_category">
   <div class="discount">
-    <label><input type="checkbox" name='discounts[materials][][store_material_root_category_id]'>类别统一折扣</label><input type="text">
+    <input type="hidden" name="discounts[service_root_categories][][id]" value="<%= @id %>">
+    <label><input type="checkbox" name='discounts[service_root_categories][][forall_enabled]'>类别统一折扣</label><input name='discounts[service_root_categories][][forall_rate]' type="number" max=100 min=0>
   </div>
   <ul class='store_services'>
     <% for category in @categories: %>
     <li>
-      <label><%= category.name %></label><input type="text">
+      <label><%= category.name %><input type="hidden" name="discounts[service_root_categories][][services][][id]" value="<%= category.id %>"></label><input type="number" max=100 name="discounts[service_root_categories][][services][][rate]" min=0>
     </li>
     <% end %>
   </ul>
