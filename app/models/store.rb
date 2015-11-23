@@ -34,4 +34,8 @@ class Store <  ActiveRecord::Base
     '中级' => 2,
     '高级' => 3
   }
+
+  def engineer_levels
+    ENGINEER_LEVEL.invert
+  end
 end

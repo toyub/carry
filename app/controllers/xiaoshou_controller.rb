@@ -8,7 +8,7 @@ class XiaoshouController < ApplicationController
   private
   def to_builder
     Jbuilder.encode do |json|
-      json.(current_store, :id, :name)
+      json.(current_store, :id, :name, :engineer_levels)
       json.materials current_store.store_materials, :id, :name, :price
       json.packages current_store.store_packages do |package|
         json.(package, :id, :name, :code, :abstract, :remark, :price)

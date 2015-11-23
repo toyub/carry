@@ -1,0 +1,11 @@
+json.engineer_count @setting.workflow.engineer_count
+json.engineer_count_enable @setting.workflow.engineer_count_enable
+json.engineer_level_enable @setting.workflow.engineer_level_enable
+json.engineer_level @setting.workflow.engineer_level
+json.standard_time @setting.workflow.standard_time
+json.standard_time_enable @setting.workflow.standard_time_enable
+json.buffering_time @setting.workflow.buffering_time
+json.buffering_time_enable @setting.workflow.buffering_time_enable
+json.factor_time @setting.workflow.factor_time
+json.nominated_workstation @setting.workflow.nominated_workstation
+json.engineer_commission_template_id @setting.workflow.engineer_commission_template_id
