@@ -11,29 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151120025347) do
+ActiveRecord::Schema.define(version: 20151121022829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "agent_payments", force: :cascade do |t|
-    t.integer "agent_id"
-    t.integer "quantity"
-    t.decimal "amount"
-    t.integer "creator_id"
-    t.decimal "price"
+    t.integer  "agent_id"
+    t.integer  "quantity"
+    t.decimal  "amount"
+    t.integer  "creator_id"
+    t.decimal  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "agents", force: :cascade do |t|
-    t.integer "staffer_id"
-    t.integer "quota"
-    t.decimal "balance"
-    t.string  "charge_area"
-    t.string  "company_name"
-    t.string  "company_address"
-    t.string  "phone_number"
-    t.string  "cooperation_way"
-    t.text    "remark"
+    t.integer  "staffer_id"
+    t.integer  "quota"
+    t.decimal  "balance"
+    t.string   "charge_area"
+    t.string   "company_name"
+    t.string   "company_address"
+    t.string   "phone_number"
+    t.string   "cooperation_way"
+    t.text     "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "ca_stations", force: :cascade do |t|
