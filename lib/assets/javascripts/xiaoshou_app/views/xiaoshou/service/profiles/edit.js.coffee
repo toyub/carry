@@ -1,10 +1,12 @@
 class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
   @include Mis.Mixins.Uploadable
   @include Mis.Views.Concerns.Top
+  @include Mis.Views.Concerns.Validateable
 
   template: JST['xiaoshou/service/profiles/edit']
 
   initialize: ->
+    @validateBinding()
     @listenTo(@model, 'sync', @handleSuccess)
     @listenTo(@model.materials, 'add', @addMaterial)
 
