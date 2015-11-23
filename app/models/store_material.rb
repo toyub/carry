@@ -35,6 +35,13 @@ class StoreMaterial < ActiveRecord::Base
     self.cost_price
   end
 
+  def root_category
+    self.store_material_root_category.try(:name)
+  end
+
+  def category
+    self.store_material_category.try(:name)
+  end
   private
   def generate_barcode!
     unless self.barcode.present?

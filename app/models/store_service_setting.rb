@@ -7,4 +7,8 @@ class StoreServiceSetting < ActiveRecord::Base
   validates :store_staff_id, presence: true
 
   accepts_nested_attributes_for :workflows, allow_destroy: true
+
+  def workflow
+    workflows.first
+  end
 end

@@ -50,4 +50,5 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
       $("#favorable").attr("checked", false).val(false)
 
   handleSuccess: ->
+    @collection.add @model
     @uploadImages()
