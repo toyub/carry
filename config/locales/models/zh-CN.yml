@@ -2,12 +2,9 @@ zh-CN:
   activerecord:
     models:
       store_service_store_material: 关联商品
-      store_service: 服务
     attributes:
       store_service_store_material:
         store_material_id: id
-      store_service:
-        store_service_category_id: 服务类别
     errors:
       models:
         store_service_store_material:
