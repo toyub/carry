@@ -47,9 +47,6 @@ class Mis.Models.StoreService extends Backbone.Model
         msg: '积分必须是整数'
       }
     ]
-    store_service_category_id:
-      required: true
-      msg: '请选择类别'
 
   parseWorkflows: ->
     @workflows = new Mis.Collections.StoreServiceWorkflows(@get 'store_service_workflows_attributes')
