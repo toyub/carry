@@ -29,10 +29,6 @@
               <label class="width-75">服务积分</label>
               <input type="text" class="width-165" name="point" id="point">
             </div>
-            <div class="item_content">
-              <label class="width-75">服务代码</label>
-              <input type="text" class="width-165" name="code" id="code">
-            </div>
             <div class="item_textarea ">
               <label class="width-75">服务介绍</label>
               <textarea class="server_textarea width-432" name="introduction" id="introduction"></textarea>
