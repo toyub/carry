@@ -57,4 +57,6 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
     @handleError(model, errors)
 
   handleError: (model, responseOrErrors) ->
-    console.log responseOrErrors
+    errors = new Mis.Views.ErrorList(responseOrErrors)
+    view = new Mis.Views.ErrorView(el: @el, errors: errors)
+    view.render()
