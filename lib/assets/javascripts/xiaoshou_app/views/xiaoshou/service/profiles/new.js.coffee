@@ -1,14 +1,13 @@
 class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
   @include Mis.Mixins.Uploadable
   @include Mis.Views.Concerns.Top
+  @include Mis.Views.Concerns.Validateable
 
   initialize: ->
-    Backbone.Validation.bind(@)
+    @validateBinding()
 
     @listenTo(@model.materials, 'add', @addMaterial)
     @listenTo(@model, 'sync', @handleSuccess)
-    @listenTo(@model, 'validated:invalid', @invalid)
-    @listenTo(@model, 'error', @handleError)
 
   template: JST['xiaoshou/service/profiles/new']
 
@@ -52,11 +51,3 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
 
   handleSuccess: ->
     @uploadImages()
-
-  invalid: (model, errors) ->
-    @handleError(model, errors)
-
-  handleError: (model, responseOrErrors) ->
-    errors = new Mis.Views.ErrorList(responseOrErrors)
-    view = new Mis.Views.ErrorView(el: @el, errors: errors)
-    view.render()
