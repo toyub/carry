@@ -8,6 +8,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
     @listenTo(@model.materials, 'add', @addMaterial)
     @listenTo(@model, 'sync', @handleSuccess)
     @listenTo(@model, 'validated:invalid', @invalid)
+    @listenTo(@model, 'error', @handleError)
 
   template: JST['xiaoshou/service/profiles/new']
 
