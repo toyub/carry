@@ -14,8 +14,8 @@
 
   <div class="details_content customer_content">
     <div class="head">
-      <label class="new_customer_btn">新建客户类别</label>
-      <label class="delete_customer_btn">删除</label>
+      <a href="javascript:void(0)" class="button add">新建客户类别</a>
+      <a href="javascript:void(0)" class="button delete disabled">删除</a>
     </div>
 
     <div id='categories' class="content">
@@ -27,12 +27,15 @@
   </div>
 
 </div>
-<input type="hidden" id='material_root_categories' data-categories='<%= [] %>'>
-<input type="hidden" id='service_root_categories' data-categories='<%= [] %>'>
+<input type="hidden" id='material_root_categories' data-categories='<%= json_for(@material_categories) %>'>
+<input type="hidden" id='service_root_categories' data-categories='<%= json_for(@service_categories) %>'>
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      handle = new $$MIS.CustomerCategoriesHandleView();
+      handle = new $$MIS.CustomerCategoriesHandleView({
+        material_categories: $('#material_root_categories').data('categories'),
+        service_categories: $('#service_root_categories').data('categories')
+      });
     });
   </script>
 <% end %>

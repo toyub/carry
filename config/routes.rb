@@ -124,7 +124,11 @@ Rails.application.routes.draw do
 
     resource :organizational_structure
 
-    resources :customer_categories
+    resources :customer_categories do
+      collection do
+        get :services
+      end
+    end
   end
 
   namespace :ajax do

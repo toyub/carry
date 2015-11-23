@@ -1,0 +1,12 @@
+<div data-parentid='<%= @id %>' class="secondary_category">
+  <div class="discount">
+    <label><input type="checkbox" name='discounts[materials][][store_material_root_category_id]'>类别统一折扣</label><input type="text">
+  </div>
+  <ul class='store_services'>
+    <% for category in @categories: %>
+    <li>
+      <label><%= category.name %></label><input type="text">
+    </li>
+    <% end %>
+  </ul>
+</div>

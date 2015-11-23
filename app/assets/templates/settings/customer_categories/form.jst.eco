@@ -17,7 +17,7 @@
         <ul>
           <li>
             <label class="margin-right-6">消费金额达到：</label>
-            <input type="text" name="conditions[consume_amount]" value="" title="100万" class="margin-right-15" autocomplete='off'>
+            <input type="text" name="conditions[consume_amount]" value="" class="margin-right-15" autocomplete='off'>
             <label>元</label>
           </li>
           <li>
@@ -50,30 +50,22 @@
           <p class="font-14 font-weight-bold">客户特权</p>
 
           <div class="check_btns">
-            <label><input type="checkbox" class="vertical-align-middle"> 只显示已选</label>
+            <label><input type="checkbox" class="vertical-align-middle">只显示打折类别</label>
           </div>
 
           <div class="product_category">
 
             <div class="category_head">
-              <label><input type="checkbox">商品一级分类</label>
+              <label>商品一级分类</label>
               <label>二级分类</label>
               <label>折扣率</label>
             </div>
 
             <div class="primary_category">
-              <ul>
-                <li><input type="checkbox" name="discount[materials][root_category_id]">汽车用品</li>
-              </ul>
-            </div>
-
-            <div class="secondary_category">
-              <ul>
-
-                <li>
-                  <label><input type="hidden" name="discount[materials][][category_id]"></label><input type="text" name="discount[materials][][rate]">
-                </li>
-
+              <ul class='material_categories'>
+                <% for category in @material_categories : %>
+                <li data-id='<%= category.id %>'><%= category.name %></li>
+                <% end %>
               </ul>
             </div>
 
@@ -82,27 +74,21 @@
           <div class="service_category">
 
             <div class="category_head">
-              <label><input type="checkbox">服务类别</label>
+              <label>服务类别</label>
               <label>项目</label>
               <label>折扣率</label>
             </div>
 
             <div class="primary_category">
-              <ul>
-                <li><input type="checkbox" name="discount[services][category_id]">清洗服务</li>
+              <ul class='service_categories'>
+                <% for category in @service_categories : %>
+                <li data-id='<%= category.id %>'><%= category.name %></li>
+                <% end %>
               </ul>
             </div>
 
-            <div class="secondary_category">
-              <ul>
-
-                <li>
-                  <label><input type="hidden" name="discount[services][][id]"></label><input type="text" name="discount[services][][rate]">
-                </li>
-
-              </ul>
-            </div>
           </div>
+
           <div class="clr"></div>
           <div class="privilege_select">
             <label>预约优先<input type="checkbox" name="privileges[subscribe]"></label>
