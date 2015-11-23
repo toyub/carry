@@ -11,10 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116135633) do
+ActiveRecord::Schema.define(version: 20151120025347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agent_payments", force: :cascade do |t|
+    t.integer "agent_id"
+    t.integer "quantity"
+    t.decimal "amount"
+    t.integer "creator_id"
+    t.decimal "price"
+  end
+
+  create_table "agents", force: :cascade do |t|
+    t.integer "staffer_id"
+    t.integer "quota"
+    t.decimal "balance"
+    t.string  "charge_area"
+    t.string  "company_name"
+    t.string  "company_address"
+    t.string  "phone_number"
+    t.string  "cooperation_way"
+    t.text    "remark"
+  end
 
   create_table "ca_stations", force: :cascade do |t|
     t.integer  "store_id",                  null: false
@@ -158,6 +178,14 @@ ActiveRecord::Schema.define(version: 20151116135633) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone_number",   limit: 45
+  end
+
+  create_table "store_departments", force: :cascade do |t|
+    t.integer "store_id"
+    t.integer "store_chain_id"
+    t.integer "store_staff_id"
+    t.integer "parent_id",      default: 0
+    t.string  "name"
   end
 
   create_table "store_deposit_cards", force: :cascade do |t|
@@ -849,6 +877,14 @@ ActiveRecord::Schema.define(version: 20151116135633) do
     t.integer  "status",                                                           default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "store_positions", force: :cascade do |t|
+    t.integer "store_id"
+    t.integer "store_chain_id"
+    t.integer "store_staff_id"
+    t.integer "store_department_id"
+    t.string  "name"
   end
 
   create_table "store_service_categories", force: :cascade do |t|
