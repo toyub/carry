@@ -8,7 +8,7 @@ class Mis.Views.XiaoshouServiceRemindsItem extends Mis.Base.View
   initialize: (options) ->
     @action = options.action
 
-    @model.on("change", @render, @)
+    @listenTo(@model, 'change', @render)
 
   events:
     'click input.editRemind': 'openRemindForm'
