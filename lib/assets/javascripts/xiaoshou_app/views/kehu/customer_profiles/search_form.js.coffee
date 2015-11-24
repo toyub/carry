@@ -14,9 +14,8 @@ class Mis.Views.KehuCustomerProfilesIndex extends Mis.Base.View
     @renderCustomers()
     @
 
-  renderCustomers: ->
-    @filteredCollection.each @renderCustomer
+  renderSearchForm: ->
+    search = new Mis.Views.KehuCustomerProfilesSearchForm(@packageSearch)
+    @renderChild(search)
+    @$("#searchForm").html search.el
 
-  renderCustomer: (customer) =>
-    row = new Mis.Views.KehuCustomerProfilesItem(model: customer)
-    @appendChildTo(row, @$("tbody"))

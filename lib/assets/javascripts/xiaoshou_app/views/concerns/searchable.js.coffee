@@ -12,5 +12,4 @@ Mis.Views.Concerns.Searchable =
   renderSearchForm: ->
     cons = eval("Mis.Views.#{@constructor.name.replace('Index', 'SearchForm')}")
     search = new cons(@resourceSearch)
-    @renderChild(search)
-    @$("#searchForm").html search.el
+    @prependChildTo(search, @$(".details .list_table"))

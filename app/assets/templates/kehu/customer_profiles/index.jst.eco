@@ -1,0 +1,167 @@
+<div class="details">
+
+  <div class="crm_list_table list_table">
+
+    <table cellpadding="0" cellspacing="0" id="crm_table" class="crm_table index_list">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>客户姓名</th>
+          <th>手机号码</th>
+          <th><div class="font-14 sequence">类别<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">车辆<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">优惠特权<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">资产<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">来店次数<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">消费总金额<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">积分<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">信息完整度<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">活跃度<i class="fa fa-sort"></i></div></th>
+          <th><div class="font-14 sequence">满意度<i class="fa fa-sort"></i></div></th>
+          <th> 维护</th>
+          <th> 操作</th>
+        </tr>
+      </thead>
+      <tbody class="resourceList">
+      <tr>
+        <td>1</td>
+        <td><span class="span_border_left">李小林</span></td>
+        <td>13809178899</td>
+        <td>个人</td>
+        <td>3辆</td>
+        <td>是</td>
+        <td>有</td>
+        <td>86</td>
+        <td>60,7891.00</td>
+        <td>2700</td>
+        <td>７0%</td>
+        <td>222次/年</td>
+        <td>
+
+          <i class="fa fa-star color-C6676D "></i>
+
+          <i class="fa fa-star color-C6676D "></i>
+
+          <i class="fa fa-star color-C6676D "></i>
+
+          <i class="fa fa-star color-C6676D "></i>
+
+          <i class="fa fa-star-o color-D5C3C4"></i>
+        </td>
+        <td>王丽丽</td>
+        <td>
+          <a href="kehushow.html">详情
+            <i class="fa fa-angle-double-right font-size-16"></i>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><span>李小林</span></td>
+        <td>13809178899</td>
+        <td>个人</td>
+        <td>3辆</td>
+        <td>是</td>
+        <td>有</td>
+        <td>86</td>
+        <td>60,7891.00</td>
+        <td>2700</td>
+        <td>70%</td>
+        <td>222次/年</td>
+        <td>
+
+          <i class="fa fa-star color-C6676D "></i>
+
+          <i class="fa fa-star color-C6676D "></i>
+
+          <i class="fa fa-star color-C6676D "></i>
+
+          <i class="fa fa-star color-C6676D "></i>
+
+          <i class="fa fa-star-o color-D5C3C4"></i>
+        </td>
+        <td>王丽丽</td>
+        <td>
+          <a href="kehushow.html">详情
+            <i class="fa fa-angle-double-right font-size-16"></i>
+          </a>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td></td>
+        <td><span></span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td><span></span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td><span></span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td><span></span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
