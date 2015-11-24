@@ -1,12 +1,21 @@
 <div data-parentid='<%= @id %>' class="secondary_category">
   <div class="discount">
-    <input type="hidden" name="discounts[service_root_categories][][id]" value="<%= @id %>">
-    <label><input type="checkbox" data-id=<%=@id%> class='forall_enabled' data-target='s_rate_<%= @id %>' data-class='store_services' name='discounts[service_root_categories][][forall_enabled]'>类别统一折扣</label><input name='discounts[service_root_categories][][forall_rate]' data-id='s_rate_<%= @id %>' type="number" max=100 min=0 disabled>
+    <input type="hidden" name="discounts[service_root_categories][<%=@id%>][id]" value="<%= @id %>">
+    <label>
+      <input type="checkbox" data-id='<%=@id%>' class='forall_enabled' data-target='s_rate_<%= @id %>' data-class='store_services'
+        name='discounts[service_root_categories][<%=@id%>][forall_enabled]'>
+      类别统一折扣
+    </label>
+    <input name='discounts[service_root_categories][<%=@id%>][forall_rate]' data-id='s_rate_<%= @id %>' type="number" max=100 min=0 disabled>
   </div>
   <ul class='store_services' data-pid='<%= @id %>'>
     <% for category in @categories: %>
     <li>
-      <label><%= category.name %><input type="hidden" name="discounts[service_root_categories][][services][][id]" value="<%= category.id %>"></label><input type="number" max=100 name="discounts[service_root_categories][][services][][rate]" min=0>
+      <label>
+        <%= category.name %>
+        <input type="hidden" name="discounts[service_root_categories][<%=@id%>][services][][id]" value="<%= category.id %>">
+      </label>
+      <input type="number" max=100 name="discounts[service_root_categories][<%=@id%>][services][][rate]" min=0>
     </li>
     <% end %>
   </ul>

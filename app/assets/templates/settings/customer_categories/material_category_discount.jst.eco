@@ -1,12 +1,21 @@
 <div data-parentid='<%= @id %>' class="secondary_category">
   <div class="discount">
-    <input type="hidden" name='discounts[material_root_categories][][id]' value="<%= @id %>">
-    <label><input class='forall_enabled' data-id='<%= @id %>' data-target='mc_rate_<%= @id %>' data-class='material_sub_categories' name='discounts[material_root_categories][][forall_enabled]' type="checkbox">类别统一折扣</label><input type="number" max=100 name='discounts[material_root_categories][][forall_rate]' min=0 disabled data-id='mc_rate_<%= @id %>'>
+    <input type="hidden" name='discounts[material_root_categories][<%=@id%>][id]' value="<%= @id %>">
+    <label>
+      <input class='forall_enabled' data-id='<%= @id %>' data-target='mc_rate_<%= @id %>' data-class='material_sub_categories'
+          name='discounts[material_root_categories][<%=@id%>][forall_enabled]' type="checkbox">
+      类别统一折扣
+    </label>
+    <input type="number" max=100 name='discounts[material_root_categories][<%=@id%>][forall_rate]' min=0 disabled data-id='mc_rate_<%= @id %>'>
   </div>
   <ul class='material_sub_categories' data-pid='<%= @id %>'>
     <% for category in @categories: %>
     <li>
-      <label><%= category.name %><input type="hidden" name='discounts[material_root_categories][][sub_categories][][id]' value="<%= category.id %>"></label><input name='discounts[material_root_categories][][sub_categories][][rate]' type="number" max=100 min=0>
+      <label>
+        <%= category.name %>
+        <input type="hidden" name='discounts[material_root_categories][<%=@id%>][sub_categories][][id]' value="<%= category.id %>">
+      </label>
+      <input name='discounts[material_root_categories][<%=@id%>][sub_categories][][rate]' type="number" max=100 min=0>
     </li>
     <% end %>
   </ul>
