@@ -20,6 +20,7 @@ gem 'coffee-rails', '4.1.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '2.2.6'
+gem 'yajl-ruby', '~> 1.2', '>= 1.2.1'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '0.4.1', group: :doc
@@ -115,3 +116,5 @@ gem 'qiniu'
 
 # Hash ID, 用来生成加密ID，来保护数据库id, 需保证可逆加密
 gem 'hashids', '~> 1.0', '>= 1.0.2'
+
+gem 'backbone-support', '~> 0.5.1'

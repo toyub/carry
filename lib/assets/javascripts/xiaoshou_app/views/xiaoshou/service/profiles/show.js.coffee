@@ -1,17 +1,12 @@
 class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
   @include Mis.Mixins.Uploadable
+  @include Mis.Views.Concerns.Top
 
   template: JST['xiaoshou/service/profiles/show']
 
-  events:
-    'click #preview_list img': 'previewImage'
-    'click #serviceEdit': 'gotoEdit'
-
-  initialize: ->
-    @model.on('sync', @renderMaterials, @)
-
   render: ->
     @$el.html(@template(service: @model))
+    @renderTop()
     @renderNav()
     @renderUploadTemplate()
     @renderMaterials()
@@ -19,21 +14,11 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
 
   renderNav: ->
     view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model, active: 'service')
-    @$("#masterNav").html view.render().el
-
-  previewImage: (event) ->
-    src = $(event.target).attr('src')
-    image = "<img src='#{src}' />"
-    @$("#material_img_preview").html(image)
-
-  gotoEdit: ->
-    view = new Mis.Views.XiaoshouServiceProfilesEdit(model: @model)
-    @$("div.details_content").html(view.render().el)
+    @renderChildInto(view, @$("#masterNav"))
 
   renderMaterials: =>
-    @$(".materialList").empty()
-    @model.materials.each @addMaterial
+    @model.materials.each @renderMaterial
 
-  addMaterial: (material) =>
+  renderMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'show')
-    @$(".materialList").append view.render().el
+    @appendChildTo(view, @$(".materialList"))

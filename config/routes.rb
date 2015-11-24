@@ -71,20 +71,7 @@ Rails.application.routes.draw do
     end
   end# END of namespace :kucun
 
-  namespace :xiaoshou do
-    namespace :service do
-      resources :profiles, only: [:index, :show, :create]
-      resources :settings, only: [:edit, :show, :update] do
-        member do
-          get :modify
-        end
-        resources :workflows, only: :show
-      end
-      resources :categories, only: [:create]
-    end
-
-    resources :packages, only: [:index]
-  end
+  get "xiaoshou/main", to:  "xiaoshou#main"
 
   namespace :soa do
     resources :staff
@@ -170,12 +157,12 @@ Rails.application.routes.draw do
     resources :store_vehicles, only: [:index]
     resources :store_orders, only: [:index]
     resources :store_subscribe_orders
-    resources :store_packages, only: [:create, :update] do
+    resources :store_packages, only: [:show, :create, :update, :index] do
       member do
         post :save_picture
       end
 
-      resource :store_package_settings, only: [:create, :update]
+      resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
 

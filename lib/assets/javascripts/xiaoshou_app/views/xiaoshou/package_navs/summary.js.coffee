@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageNavsSummary extends Backbone.View
+class Mis.Views.XiaoshouPackageNavsSummary extends Mis.Base.View
   tagName: 'tbody'
 
   template: JST['xiaoshou/package_navs/summary']

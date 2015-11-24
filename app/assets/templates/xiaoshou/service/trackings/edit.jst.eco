@@ -1,0 +1,55 @@
+<div class="details">
+  <div id="masterNav" class="details_nav">
+
+  </div>
+  <div class="details_content">
+    <table id="profileSummary" border="0" class="service_info_abstract">
+
+    </table>
+
+    <div class="lists_in_service_tracking lists_in_tracking">
+      <div class="reminder_list left_list">
+        <h2>实时提醒列表</h2>
+
+        <div class="reminder_new_lists new_lists" style="display: block;">
+          <ul class="list_header">
+            <li>#</li>
+            <li>服务名称</li>
+            <li>提醒触发</li>
+            <li>提醒启用</li>
+            <li>提醒内容</li>
+            <li>提醒方式</li>
+            <li>操作</li>
+          </ul>
+
+          <div id="reminds">
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tracking_list right_list">
+        <h2>售后回访列表
+          <input type="button" class="btn new_btn float-right do_open_list_new_page" value="创建" id="newTracking">
+        </h2>
+        <div class="do_new_lists new_lists" style="display:none;">
+          <ul class="list_header">
+            <li>#</li>
+            <li>内容</li>
+            <li>回访规律</li>
+            <li>时间</li>
+            <li>方式</li>
+          </ul>
+
+          <div class="do_new_lists_content" id="trackingList">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn_group">
+    <input type="submit" class="save_btn btn " id="save" value="保存">
+  </div>
+</div>

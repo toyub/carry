@@ -1,4 +1,5 @@
-class Mis.Views.XiaoshouServiceTrackingsShow extends Backbone.View
+class Mis.Views.XiaoshouServiceTrackingsShow extends Mis.Base.View
+  @include Mis.Views.Concerns.Top
 
   template: JST['xiaoshou/service/trackings/show']
 
@@ -10,6 +11,7 @@ class Mis.Views.XiaoshouServiceTrackingsShow extends Backbone.View
 
   render: ->
     @$el.html(@template())
+    @renderTop()
     @renderNav()
     @renderProfileSummary()
     @renderReminds()
@@ -18,27 +20,28 @@ class Mis.Views.XiaoshouServiceTrackingsShow extends Backbone.View
 
   renderNav: ->
     view = new Mis.Views.XiaoshouServiceNavsMaster(model: @store_service, active: 'tracking')
-    @$("#masterNav").html view.render().el
+    @renderChildInto(view, @$("#masterNav"))
 
   renderProfileSummary: ->
     view = new Mis.Views.XiaoshouServiceProfilesSummary(model: @model)
-    @$("#profileSummary").html view.render().el
+    @renderChildInto(view, @$("#profileSummary"))
 
   renderReminds: ->
     @model.store_service.reminds.each @renderRemind
 
   renderRemind: (remind) =>
     view = new Mis.Views.XiaoshouServiceRemindsItem(model: remind, action: 'show')
-    @$("#reminds").append view.render().el
+    @appendChildTo(view, @$("#reminds"))
 
   renderTracking: (tracking) =>
     view = new Mis.Views.XiaoshouServiceTrackingsItem(model: tracking, action: 'show')
-    @$("#trackingList").append view.render().el
+    @appendChildTo(view, @$("#trackingList"))
     @$("#trackingList").parent().show()
 
   renderTrackings: ->
     @store_service.trackings.each @renderTracking
 
   goToEdit: ->
-    view = new Mis.Views.XiaoshouServiceTrackingsNew(model: @model)
+    @leave()
+    view = new Mis.Views.XiaoshouServiceTrackingsEdit(model: @model)
     $("#bodyContent").html view.render().el

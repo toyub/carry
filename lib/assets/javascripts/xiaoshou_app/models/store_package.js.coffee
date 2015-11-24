@@ -6,6 +6,7 @@ class Mis.Models.StorePackage extends Backbone.Model
 
   initialize: ->
     @on('change:uploads', @parseUploads, @)
+    @on('change:trackings', @parseTrackings, @)
 
     @parseUploads()
     @parseTrackings()
@@ -17,15 +18,13 @@ class Mis.Models.StorePackage extends Backbone.Model
       msg: '请输入名称'
 
   validPeriod: ->
-    @get 'period' + @get 'period_unit'
+    @package_setting.validPeriod()
 
   parseUploads: ->
-    console.log 'uploads'
-    console.log @get('uploads')
     @uploads = new Mis.Collections.Uploads(@get 'uploads')
 
   parseTrackings: ->
-    attrs = @get 'trackings'
+    attrs = @get('trackings')
     @trackings = new Mis.Collections.StorePackageTrackings(attrs, store_package: @)
 
   parsePackageSetting: ->

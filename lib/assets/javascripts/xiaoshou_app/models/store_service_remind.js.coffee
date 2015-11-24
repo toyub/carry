@@ -3,7 +3,7 @@ class Mis.Models.StoreServiceRemind extends Backbone.Model
   modelName: 'store_service_remind'
 
   urlRoot: ->
-    window.StoreServices.get(@get 'store_service_id').url() + '/store_service_reminds'
+    Mis.services.get(@get 'store_service_id').url() + '/store_service_reminds'
 
   defaults:
     notice_required: false
@@ -33,4 +33,4 @@ class Mis.Models.StoreServiceRemind extends Backbone.Model
     String(@get 'notice_required') == 'true'
 
   serviceName: ->
-    window.StoreServices.get(@get 'store_service_id').get 'name'
+    Mis.services.get(@get 'store_service_id').get 'name'
