@@ -102,6 +102,16 @@ Rails.application.routes.draw do
         get :binding_material_count
       end
     end
+
+    resources :material_categories do
+      collection do
+        get :fetch
+      end
+    end
+
+    resource :organizational_structure
+
+    resources :customer_categories
   end
 
   namespace :ajax do
@@ -157,6 +167,14 @@ Rails.application.routes.draw do
         get :upload_token
       end
     end
+
+    resources :store_departments do
+      member do
+        get :children
+      end
+      resources :store_positions
+    end
+
   end
 
   root 'kucun/materials#index'

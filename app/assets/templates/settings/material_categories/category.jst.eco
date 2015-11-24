@@ -1,0 +1,16 @@
+<ul class="abstract">
+  <li><label class="sequence_num bg-color-198FFF"><%= @idx %></label></li>
+  <li class="root"></li>
+  <li>
+    <span class="includes">该分类包含：</span>
+    <label class="show_subcategories"></label>
+  </li>
+  <li>共<label class="count_categories"></label>二级分类</li>
+  <li><i class="show_details lnr-chevron-down lnr cursor-pointer"></i></li>
+</ul>
+
+<div class="category_details" style="display:none">
+  <ul class='subs'>
+    <li class='last'><input class="new_second_category" type="text" value="+新建二级分类" readonly></li>
+  </ul>
+</div>
