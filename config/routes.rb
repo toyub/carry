@@ -179,6 +179,8 @@ Rails.application.routes.draw do
       resources :store_positions
     end
 
+    resources :store_customer_categories
+
   end
 
   root 'kucun/materials#index'
