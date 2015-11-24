@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121022829) do
+ActiveRecord::Schema.define(version: 20151124012900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,50 +173,15 @@ ActiveRecord::Schema.define(version: 20151121022829) do
   end
 
   create_table "store_customers", force: :cascade do |t|
-    t.integer  "store_id",                                                       null: false
-    t.integer  "store_chain_id",                                                 null: false
-    t.integer  "store_staff_id",                                                 null: false
-    t.string   "first_name",                 limit: 45,                          null: false
-    t.string   "last_name",                  limit: 45,                          null: false
-    t.string   "full_name",                  limit: 45,                          null: false
+    t.integer  "store_id",                  null: false
+    t.integer  "store_chain_id",            null: false
+    t.integer  "store_staff_id",            null: false
+    t.string   "first_name",     limit: 45, null: false
+    t.string   "last_name",      limit: 45, null: false
+    t.string   "full_name",      limit: 45, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "phone_number",               limit: 45
-    t.string   "nick"
-    t.integer  "store_customer_category_id"
-    t.string   "contact"
-    t.string   "telephone"
-    t.string   "mobile"
-    t.boolean  "gender"
-    t.string   "address"
-    t.string   "resident_id"
-    t.date     "birthday"
-    t.json     "district"
-    t.integer  "range"
-    t.boolean  "married"
-    t.integer  "education"
-    t.integer  "profession"
-    t.integer  "income"
-    t.string   "hobby"
-    t.boolean  "smoking"
-    t.boolean  "drinking"
-    t.string   "company"
-    t.boolean  "tracking_accepted"
-    t.boolean  "message_accepted"
-    t.integer  "settlement_mode"
-    t.integer  "settlement_interval"
-    t.string   "contract"
-    t.string   "bank"
-    t.string   "bank_account"
-    t.string   "tax"
-    t.integer  "payment_mode"
-    t.integer  "invoice_category"
-    t.string   "invoice_title"
-    t.decimal  "credit_amount",                         precision: 10, scale: 2
-    t.string   "remark"
-    t.decimal  "integrity",                             precision: 4,  scale: 2
-    t.decimal  "satisfaction",                          precision: 4,  scale: 2
-    t.decimal  "loyalty",                               precision: 4,  scale: 2
+    t.string   "phone_number",   limit: 45
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -287,7 +252,6 @@ ActiveRecord::Schema.define(version: 20151121022829) do
     t.string   "img",            limit: 255
     t.integer  "fileable_id",                null: false
     t.string   "fileable_type",  limit: 45,  null: false
-    t.string   "type",           limit: 45
   end
 
   add_index "store_files", ["fileable_id", "fileable_type"], name: "fileable", using: :btree
@@ -856,7 +820,7 @@ ActiveRecord::Schema.define(version: 20151121022829) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing",   default: 1
+    t.integer  "trigger_timing"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
