@@ -5,6 +5,7 @@ class Mis.Views.XiaoshouUploadsTemplate extends Backbone.View
 
   events:
     'click a.add_img': 'openImageForm'
+    'click li img': 'previewImage'
 
   initialize: (options) ->
     @action = options.action if options
@@ -15,6 +16,11 @@ class Mis.Views.XiaoshouUploadsTemplate extends Backbone.View
     @$el.html(@template(view: @))
     @renderImages()
     @
+
+  previewImage: (e) ->
+    img = new Image()
+    img.src = e.target.src
+    @$("#material_img_preview").html(img)
 
   openImageForm: ->
     view = new Mis.Views.XiaoshouUploadsForm()

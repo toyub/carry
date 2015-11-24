@@ -9,7 +9,7 @@ module Api
     end
 
     def create
-      @tracking = @service.trackings.create!(append_store_attrs tracking_params)
+      @tracking = @service.trackings.create(append_store_attrs tracking_params)
       respond_with @tracking, location: nil
     end
 

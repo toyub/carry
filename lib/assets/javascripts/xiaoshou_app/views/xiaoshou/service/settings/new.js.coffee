@@ -3,7 +3,7 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
   template: JST['xiaoshou/service/settings/new']
 
   initialize: ->
-    @store = window.Store
+    @store = Mis.store
 
     @model.workflows.on('add', @renderWorkflow, @)
     @model.on('sync', @handleSuccess, @)
@@ -23,17 +23,12 @@ class Mis.Views.XiaoshouServiceSettingsNew extends Backbone.View
   render: ->
     @$el.html(@template(store: @store, setting: @model))
     @renderNav()
-    @renderSubNav()
     @renderProfileSummary()
     @
 
   renderNav: ->
     view = new Mis.Views.XiaoshouServiceNavsMaster()
     @$("#masterNav").html view.render().el
-
-  renderSubNav: ->
-    view = new Mis.Views.XiaoshouServiceNavsSub()
-    @$("#subNav").html view.render().el
 
   renderProfileSummary: ->
     view = new Mis.Views.XiaoshouServiceProfilesSummary(model: @model)

@@ -1,36 +1,41 @@
-class Mis.Views.XiaoshouPackageSettingsShow extends Backbone.View
+class Mis.Views.XiaoshouPackageSettingsShow extends Mis.Base.View
+  @include Mis.Views.Concerns.Top
 
   template: JST['xiaoshou/package_settings/show']
 
   events:
     'click #goToEdit': 'goToEdit'
 
+  initialize: ->
+    @listenTo(@model, 'change', @render)
+
   render: ->
     @$el.html(@template(setting: @model))
+    @renderTop()
     @renderNav()
     @renderPackage()
     @renderItems()
     @
 
   renderNav: ->
-    view = new Mis.Views.XiaoshouPackageNavsMaster(model: @model.store_package, active: 'setting')
-    @$("#masterNav").html view.render().el
-
-  #renderSubNav: ->
-    #view = new Mis.Views.XiaoshouPackageNavsSub()
-    #@$("#subNav").html view.render().el
+    nav = new Mis.Views.XiaoshouPackageNavsMaster(model: @model.store_package, active: 'setting')
+    @renderChild(nav)
+    @$("#masterNav").html nav.el
 
   renderPackage: ->
     view = new Mis.Views.XiaoshouPackageNavsSummary(package: @model.store_package)
-    @$("#packageSummary").html view.render().el
+    @renderChild(view)
+    @$("#packageSummary").html view.el
 
   renderItems: ->
     @model.items.each @renderItem
 
   renderItem: (item) =>
     view = new Mis.Views.XiaoshouPackageItemsPackageItem(model: item, action: 'show')
-    @$("#itemList").append view.render().el
+    @renderChild(view)
+    @$("#itemList").append view.el
 
   goToEdit: ->
+    @leave()
     view = new Mis.Views.XiaoshouPackageSettingsEdit(model: @model)
     $("#bodyContent").html view.render().el

@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceNavsMaster extends Backbone.View
+class Mis.Views.XiaoshouServiceNavsMaster extends Mis.Base.View
 
   tagName: 'ul'
 
@@ -6,6 +6,7 @@ class Mis.Views.XiaoshouServiceNavsMaster extends Backbone.View
 
   initialize: (options) ->
     @active = options.active
+    @setting = @model.setting
 
   events:
     'click a.setting': 'goToSetting'
@@ -18,15 +19,21 @@ class Mis.Views.XiaoshouServiceNavsMaster extends Backbone.View
 
   goToSetting: ->
     unless @model.isNew()
-      view = new Mis.Views.XiaoshouServiceSettingsEdit(model: @model.setting)
-      $("#bodyContent").html view.render().el
+      self = @
+      @setting.fetch(success: () ->
+        self.parent.leave()
+        view = new Mis.Views.XiaoshouServiceSettingsShow(model: self.setting)
+        $("#bodyContent").html view.render().el
+      )
 
   goToTracking: ->
     unless @model.isNew()
-      view = new Mis.Views.XiaoshouServiceTrackingsNew(model: @model.setting)
+      @parent.leave()
+      view = new Mis.Views.XiaoshouServiceTrackingsShow(model: @setting)
       $("#bodyContent").html view.render().el
 
   goToService: ->
     unless @model.isNew()
+      @parent.leave()
       view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
       $("#bodyContent").html view.render().el

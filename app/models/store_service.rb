@@ -20,7 +20,7 @@ class StoreService < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :retail_price, presence: true
-  validates :store_service_category_id, presence: true
+  #validates :store_service_category_id, presence: true
   validates :store_staff_id, presence: true
 
   accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true

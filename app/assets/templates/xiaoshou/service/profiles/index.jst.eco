@@ -1,0 +1,28 @@
+<div class="details" id="serviceIndex">
+  <div class="list_table">
+    <div id="searchForm" class="search_nav">
+
+    </div>
+    <table cellpadding="0" cellspacing="0" class="index_list service ">
+      <thead>
+        <tr>
+          <th style="border-right:0px;">#</th>
+          <th>服务名称</th>
+          <th>服务代码</th>
+          <th>施工时间</th>
+          <th>单位</th>
+          <th>销售价</th>
+          <th>促销价</th>
+          <th>积分</th>
+          <th>技师</th>
+          <th>已售</th>
+          <th>服务分类</th>
+          <th class="last_td">状态</th>
+        </tr>
+      </thead>
+      <tbody id="serviceList">
+
+      </tbody>
+    </table>
+  </div>
+</div>

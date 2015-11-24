@@ -1,11 +1,11 @@
-class Mis.Views.XiaoshouServiceMaterialsItem extends Backbone.View
+class Mis.Views.XiaoshouServiceMaterialsItem extends Mis.Base.View
   className: "list_content list_tr"
 
   initialize: (options) ->
     @action = options.action
     @service = options.service
 
-    @model.on('remove', @remove, @)
+    @listenTo(@model, 'remove', @leave)
 
   events:
     'click span.delete': 'clear'
@@ -23,11 +23,6 @@ class Mis.Views.XiaoshouServiceMaterialsItem extends Backbone.View
   clear: ->
     @service.materials.remove @model
 
-  remove: ->
-    @model.off()
-    @undelegateEvents()
-    @$el.remove()
-
   showMaterial: ->
     view = new Mis.Views.XiaoshouServiceMaterialsShow(model: @model)
-    view.open()
+    @renderChild(view)
