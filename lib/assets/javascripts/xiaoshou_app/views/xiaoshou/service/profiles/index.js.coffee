@@ -1,14 +1,11 @@
 class Mis.Views.XiaoshouServiceProfilesIndex extends Mis.Base.View
   @include Mis.Views.Concerns.Top
+  @include Mis.Views.Concerns.Searchable
 
   template: JST['xiaoshou/service/profiles/index']
 
   initialize: ->
-    @serviceSearch = new Mis.ServiceSearch(@collection)
-
-    @listenTo(@serviceSearch.filteredCollection, 'add', @renderServices)
-    @listenTo(@serviceSearch.filteredCollection, 'remove', @renderServices)
-    @listenTo(@serviceSearch.filteredCollection, 'reset', @renderServices)
+    @search()
 
   render: ->
     @$el.html(@template())
@@ -17,15 +14,10 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Mis.Base.View
     @renderServices()
     @
 
-  renderSearchForm: ->
-    search = new Mis.Views.XiaoshouServiceProfilesSearchForm(@serviceSearch)
-    @renderChild(search)
-    @$("#searchForm").html search.el
-
   renderServices: ->
     if @collection.length
       @$("#serviceList").removeClass("no_search_result").empty()
-      @serviceSearch.filteredCollection.each @renderService
+      @filteredCollection.each @renderService
     else
       none = new Mis.Views.XiaoshouSharedNone(cols: 12, resource_name: '服务')
       @renderChild(none)

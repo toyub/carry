@@ -161,6 +161,7 @@ Rails.application.routes.draw do
       resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
+    resources :store_customers, only: [:index, :create, :update, :show]
 
     resource :qiniu do
       collection do
