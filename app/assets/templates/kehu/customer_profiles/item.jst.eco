@@ -1,6 +1,6 @@
-<td>1</td>
-<td><span class="span_border_left">李小林</span></td>
-<td>13809178899</td>
+<td><%= @customer.get 'id' %></td>
+<td><span class="span_border_left"><%= @customer.get 'full_name' %></span></td>
+<td><%= @customer.get 'mobile' %></td>
 <td>个人</td>
 <td>3辆</td>
 <td>是</td>

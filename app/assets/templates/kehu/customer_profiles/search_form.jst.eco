@@ -1,29 +1,8 @@
 <div class="item-query">
   <label>查找员工</label>
-  <input type="text" class="width-150" placeholder="输入关键字">
-</div>
-<div class="item-query">
-  <label>按部门</label>
-  <select type="text" class="width-150">
-    <option></option>
-    <option></option>
-  </select>
-</div>
-<div class="item-query">
-  <label>按等级</label>
-  <select type="text" class="width-150">
-    <option></option>
-    <option></option>
-  </select>
-</div>
-<div class="item-query">
-  <label>按入职时间</label>
-  <select type="text" class="width-150">
-    <option></option>
-    <option></option>
-  </select>
-  <a class=" btn query_btn do_search_result">查<nbsp1></nbsp1>询</a>
+  <input type="text" class="width-150" name="q[full_name_cont]" placeholder="输入关键字">
+  <a id="searchCustomers" class="btn query_btn do_search_result">查<nbsp1></nbsp1>询</a>
 </div>
 <div class="query_div">
-  <a href="kehunew.html" class="new_btn btn">新建</a>
+  <a href="#store_customers/new" class="new_btn btn">新建</a>
 </div>

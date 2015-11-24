@@ -12,3 +12,9 @@ class Mis.Views.KehuCustomerProfilesIndex extends Mis.Base.View
     @renderTop()
     @searchResource()
     @
+
+  columns: ->
+    15
+
+  resourceName: ->
+    '客户'
