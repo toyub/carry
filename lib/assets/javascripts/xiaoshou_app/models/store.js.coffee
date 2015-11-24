@@ -9,9 +9,11 @@ class Mis.Models.Store extends Backbone.Model
     @on('change:materials', @parseMaterials, @)
     @on('change:services', @parseServies, @)
     @on('change:packages', @parsePackages, @)
+    @on('change:customers', @parseCustomers, @)
 
     @parseServices()
     @parsePackages()
+    @parseCustomers()
     @parseRootMaterialCategories()
     @parseMaterials()
     @parseWorkstationCategories()
@@ -26,6 +28,9 @@ class Mis.Models.Store extends Backbone.Model
 
   parsePackages: ->
     @packages = new Mis.Collections.StorePackages(@get 'packages')
+
+  parseCustomers: ->
+    @customers = new Mis.Collections.StoreCustomers(@get 'customers')
 
   parseServices: ->
     @services = new Mis.Collections.StoreServices(@get 'services')

@@ -17,8 +17,8 @@ class Mis.Routers.StoreCustomers extends Mis.Base.Router
       self.swap(view)
     )
 
-  edit: (packageId) ->
-    model = @collection.get(packageId)
+  edit: (id) ->
+    model = @collection.get(id)
     view = new Mis.Views.KehuCustomerProfilesEdit(model: model, collection: @collection)
     @swap(view)
 
@@ -26,7 +26,7 @@ class Mis.Routers.StoreCustomers extends Mis.Base.Router
     view = new Mis.Views.KehuCustomerProfilesIndex(collection: @collection)
     @swap(view)
 
-  newPackage: ->
+  newCustomer: ->
     model = new Mis.Models.StoreCustomer()
     view = new Mis.Views.KehuCustomerProfilesNew(model: model, collection: @collection)
     @swap(view)
