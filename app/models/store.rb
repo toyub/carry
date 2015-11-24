@@ -24,6 +24,7 @@ class Store <  ActiveRecord::Base
   has_many :store_deposits, class_name: 'StoreDepositCard'
   has_many :store_departments
   has_many :store_positions
+  has_many :store_customers
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
