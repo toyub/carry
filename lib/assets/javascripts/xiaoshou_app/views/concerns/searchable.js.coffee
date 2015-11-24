@@ -1,8 +1,7 @@
 Mis.Views.Concerns.Searchable =
   search: () ->
     @resource = s.capitalize(s.underscored(@constructor.name).split("_")[1])
-    cons = eval("Mis.#{@resource}Search")
-    @resourceSearch = new cons(@collection)
+    @resourceSearch = new Mis.ResourceSearch(@collection)
     @filteredCollection = @resourceSearch.filteredCollection
 
     renderResources = eval("this.render#{@resource}s")
