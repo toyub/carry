@@ -10,19 +10,11 @@ class Mis.Views.XiaoshouPackageProfilesIndex extends Mis.Base.View
   render: ->
     @$el.html(@template())
     @renderTop()
-    @renderSearchForm()
-    @renderPackages()
+    @searchResource()
     @
 
-  renderPackages: ->
-    if @filteredCollection.length
-      @$("tbody").removeClass("no_search_result").empty()
-      @filteredCollection.each @renderPackage
-    else
-      none = new Mis.Views.XiaoshouSharedNone(cols: 8, resource_name: '套餐')
-      @renderChild(none)
-      @$("tbody").addClass("no_search_result").html none.el
+  columns: ->
+    8
 
-  renderPackage: (p) =>
-    row = new Mis.Views.XiaoshouPackageProfilesItem(model: p)
-    @appendChildTo(row, @$("tbody"))
+  resourceName: ->
+    '套餐'

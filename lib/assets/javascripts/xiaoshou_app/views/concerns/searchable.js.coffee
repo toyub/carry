@@ -4,12 +4,38 @@ Mis.Views.Concerns.Searchable =
     @resourceSearch = new Mis.ResourceSearch(@collection)
     @filteredCollection = @resourceSearch.filteredCollection
 
-    renderResources = eval("this.render#{@resource}s")
-    @listenTo(@filteredCollection, 'add', renderResources)
-    @listenTo(@filteredCollection, 'remove', renderResources)
-    @listenTo(@filteredCollection, 'reset', renderResources)
+    @listenTo(@filteredCollection, 'add', @renderResources)
+    @listenTo(@filteredCollection, 'remove', @renderResources)
+    @listenTo(@filteredCollection, 'reset', @renderResources)
+
+  searchResource: ->
+    @renderSearchForm()
+    @renderResources()
+
+  controllerName: ->
+    "Mis.Views.#{@constructor.name.replace('Index', '')}"
 
   renderSearchForm: ->
-    cons = eval("Mis.Views.#{@constructor.name.replace('Index', 'SearchForm')}")
-    search = new cons(@resourceSearch)
+    action = eval("#{@controllerName()}SearchForm")
+    search = new action(@resourceSearch)
     @prependChildTo(search, @$(".details .list_table"))
+
+  renderResources: ->
+    if @filteredCollection.length
+      @$("tbody").removeClass("no_search_result").empty()
+      @filteredCollection.each @renderResource, @
+    else
+      none = new Mis.Views.XiaoshouSharedNone(cols: @columns(), resource_name: @resourceName())
+      @renderChild(none)
+      @$("tbody").addClass("no_search_result").html none.el
+
+  renderResource: (r) ->
+    action = eval("#{@controllerName()}Item")
+    row = new action(model: r)
+    @appendChildTo(row, @$("tbody"))
+
+  columns: ->
+    8
+
+  resourceName: ->
+    '套餐'

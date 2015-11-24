@@ -10,19 +10,11 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Mis.Base.View
   render: ->
     @$el.html(@template())
     @renderTop()
-    @renderSearchForm()
-    @renderServices()
+    @searchResource()
     @
 
-  renderServices: ->
-    if @filteredCollection.length
-      @$("tbody").removeClass("no_search_result").empty()
-      @filteredCollection.each @renderService
-    else
-      none = new Mis.Views.XiaoshouSharedNone(cols: 12, resource_name: '服务')
-      @renderChild(none)
-      @$("tbody").addClass("no_search_result").html none.el
+  columns: ->
+    12
 
-  renderService: (service) =>
-    view = new Mis.Views.XiaoshouServiceProfilesItem(model: service)
-    @appendChildTo(view, @$("tbody"))
+  resourceName: ->
+    '服务'
