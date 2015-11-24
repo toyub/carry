@@ -3,7 +3,7 @@
 
     <div class="regular_setting">
       <div class="base_info">
-        <input class="customer_category width-300" type="text" value="<%= @name %>" name='name' required>
+        <input class="customer_category width-300" type="text" value="<%= @name %>" name='name' required autocomplete='off'>
         <label class="margin-right-4">类别颜色<input type="color" name='color' value="<%= @color %>"></label>
       </div>
 
@@ -17,22 +17,22 @@
         <ul>
           <li>
             <label class="margin-right-6">消费金额达到：</label>
-            <input type="text" name="conditions[consume_amount]" value="" class="margin-right-15" autocomplete='off'>
+            <input type="number" name="conditions[consume_amount]" value="" class="margin-right-15" autocomplete='off'>
             <label>元</label>
           </li>
           <li>
             <label class="margin-right-6">持卡数量达到：</label>
-            <input type="text" name="conditions[cards_count]" value="" class="margin-right-15" autocomplete='off'>
+            <input type="number" name="conditions[cards_count]" value="" class="margin-right-15" autocomplete='off'>
             <label>张</label>
           </li>
           <li>
             <label class="margin-right-6">消费订单达到：</label>
-            <input type="text" name="conditions[orders_count]" value="" class="margin-right-15" autocomplete='off'>
+            <input type="number" name="conditions[orders_count]" value="" class="margin-right-15" autocomplete='off'>
             <label>单</label>
           </li>
           <li>
             <label class="margin-right-6">信息完整达到：</label>
-            <input type="text" name="conditions[profile_integrity_percentage]" value="" class="margin-right-15" autocomplete='off'>
+            <input type="range" title="使用↑↓调整大小" name="conditions[profile_integrity_percentage]" value="0" min=0 max=100 class="margin-right-15" autocomplete='off'>
             <label>%</label>
           </li>
         </ul>

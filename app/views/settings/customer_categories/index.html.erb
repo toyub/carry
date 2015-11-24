@@ -34,7 +34,8 @@
     jQuery(function(){
       handle = new $$MIS.CustomerCategoriesHandleView({
         material_categories: $('#material_root_categories').data('categories'),
-        service_categories: $('#service_root_categories').data('categories')
+        service_categories: $('#service_root_categories').data('categories'),
+        urlRoot: Routes.api_store_customer_categories_path()
       });
     });
   </script>
