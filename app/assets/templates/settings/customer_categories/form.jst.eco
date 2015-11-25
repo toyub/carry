@@ -17,28 +17,28 @@
         <ul>
           <li>
             <label class="margin-right-6">消费金额达到：</label>
-            <input type="number" name="conditions[consume_amount]" value="" class="margin-right-15" autocomplete='off'>
+            <input type="number" name="conditions[consume_amount]" class="margin-right-15" autocomplete='off' value="<%= @conditions.consume_amount %>">
             <label>元</label>
           </li>
           <li>
             <label class="margin-right-6">持卡数量达到：</label>
-            <input type="number" name="conditions[cards_count]" value="" class="margin-right-15" autocomplete='off'>
+            <input type="number" name="conditions[cards_count]" class="margin-right-15" autocomplete='off' value="<%= @conditions.cards_count %>">
             <label>张</label>
           </li>
           <li>
             <label class="margin-right-6">消费订单达到：</label>
-            <input type="number" name="conditions[orders_count]" value="" class="margin-right-15" autocomplete='off'>
+            <input type="number" name="conditions[orders_count]" class="margin-right-15" autocomplete='off' value="<%= @conditions.orders_count %>">
             <label>单</label>
           </li>
           <li>
             <label class="margin-right-6">信息完整达到：</label>
-            <input type="range" title="使用↑↓调整大小" name="conditions[profile_integrity_percentage]" value="0" min=0 max=100 class="margin-right-15" autocomplete='off'>
-            <label>%</label>
+            <input type="range" title="使用↑↓调整大小" name="conditions[profile_integrity_percentage]" min=0 max=100 class="margin-right-15" autocomplete='off' value="<%= @conditions.profile_integrity_percentage %>">
+            <label><%= @conditions.profile_integrity_percentage %>%</label>
           </li>
         </ul>
 
         <p class="footer">
-          <label>符合类别定义条件自动晋级至相应类别<input type="checkbox" name='auto_promoted_enabled' class="margin-left-10"></label>
+          <label>符合类别定义条件自动晋级至相应类别<input type="checkbox"  name='auto_promoted_enabled' class="margin-left-10" <%= 'checked' if @auto_promoted_enabled %> ></label>
         </p>
       </div>
     </div>
@@ -91,9 +91,9 @@
 
           <div class="clr"></div>
           <div class="privilege_select">
-            <label>预约优先<input type="checkbox" name="privileges[subscribe]"></label>
-            <label>排队优先<input type="checkbox" name="privileges[queue]"></label>
-            <label>允许折上折<input type="checkbox" name="privileges[additional_discount]"></label>
+            <label>预约优先<input type="checkbox" name="privileges[subscribe]" <%= 'checked' if @privileges.subscribe %> ></label>
+            <label>排队优先<input type="checkbox" name="privileges[queue]" <%= 'checked' if @privileges.queue %> ></label>
+            <label>允许折上折<input type="checkbox" name="privileges[additional_discount]" <%= 'checked' if @privileges.additional_discount %> ></label>
           </div>
         </div>
       </div>

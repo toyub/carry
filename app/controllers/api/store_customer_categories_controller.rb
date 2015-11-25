@@ -1,6 +1,6 @@
 class Api::StoreCustomerCategoriesController < Api::BaseController
   def index
-    render json: '{"name":"sdafsdaf","color":"#000000","description":"sdfsdafsdf sadfsdaf","conditions":{"consume_amount":"2323","cards_count":"23","orders_count":"323","profile_integrity_percentage":"43"},"auto_promoted_enabled":"on","discounts":{"material_root_categories":[{"id":"1","forall_enabled":"on","forall_rate":"23","sub_categories":[{"id":"2"}]},{"id":"3","sub_categories":[{"id":"4","rate":"23"}]},{"id":"5","sub_categories":[{"id":"6","rate":"32"},{"id":"12","rate":"32"}]},{"id":"7","forall_enabled":"on","forall_rate":"23","sub_categories":[{"id":"8"},{"id":"9"},{"id":"10"},{"id":"11"}]},{"forall_enabled":false},{"forall_enabled":false}],"service_root_categories":[{"id":"2","services":[{"id":"2","rate":"32"}]},{"id":"1","forall_enabled":"on","forall_rate":"23","services":[{"id":"1"}]},{"forall_enabled":false}]},"privileges":{"subscribe":"on","queue":"on","additional_discount":"on"}}'
+    render json: '[{"name":"Psdfa Cf","color":"#c50f40","description":"sdfsdafsdf sadfsdaf","conditions":{"consume_amount":2323,"cards_count":23,"orders_count":323,"profile_integrity_percentage":43},"auto_promoted_enabled":"on","discounts":{"material_root_categories":{"1":{"id":1,"forall_enabled":"on","forall_rate":23,"sub_categories":{"2":{"id":2,"rate":""}}},"3":{"id":3,"forall_enabled":"on","forall_rate":23,"sub_categories":{"4":{"id":4,"rate":""}}},"5":{"id":5,"sub_categories":{"6":{"id":6,"rate":23},"12":{"id":12,"rate":32}},"forall_enabled":false},"7":{"id":7,"sub_categories":{"8":{"id":8,"rate":32},"9":{"id":9,"rate":23},"10":{"id":10,"rate":34},"11":{"id":11,"rate":34}},"forall_enabled":false}},"service_root_categories":{"1":{"id":1,"forall_enabled":"on","forall_rate":33,"services":{"1":{"id":1}}},"2":{"id":2,"services":{"2":{"id":2,"rate":33}},"forall_enabled":false}}},"privileges":{"subscribe":"on","queue":"on","additional_discount":"on"}}, {"name":"Psdfa Cf","color":"#c50f40","description":"sdfsdafsdf sadfsdaf","conditions":{"consume_amount":2323,"cards_count":23,"orders_count":323,"profile_integrity_percentage":43},"auto_promoted_enabled":"on","discounts":{"material_root_categories":{"1":{"id":1,"forall_enabled":"on","forall_rate":23,"sub_categories":{"2":{"id":2,"rate":""}}},"3":{"id":3,"forall_enabled":"on","forall_rate":23,"sub_categories":{"4":{"id":4,"rate":""}}},"5":{"id":5,"sub_categories":{"6":{"id":6,"rate":23},"12":{"id":12,"rate":32}},"forall_enabled":false},"7":{"id":7,"sub_categories":{"8":{"id":8,"rate":32},"9":{"id":9,"rate":23},"10":{"id":10,"rate":34},"11":{"id":11,"rate":34}},"forall_enabled":false}},"service_root_categories":{"1":{"id":1,"forall_enabled":"on","forall_rate":33,"services":{"1":{"id":1}}},"2":{"id":2,"services":{"2":{"id":2,"rate":33}},"forall_enabled":false}}},"privileges":{"subscribe":"on","queue":"on","additional_discount":"on"}}]'
   end
 
   def create
@@ -8,7 +8,7 @@ class Api::StoreCustomerCategoriesController < Api::BaseController
   end
 
   def update
-
+    render json: category_params
   end
 
   private
