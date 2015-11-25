@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(version: 20151125071049) do
     t.datetime "updated_at"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "info_categories", force: :cascade do |t|
     t.string   "name",       limit: 45, null: false
     t.integer  "parent_id"
