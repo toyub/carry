@@ -10,7 +10,11 @@
   </div>
   <ul class='store_services' data-pid='<%= @id %>'>
     <% for category in @categories: %>
-    <% category_discount = @discounts.services[category.id] %>
+    <% if @discounts.services : %>
+      <% category_discount = @discounts.services[category.id] || {}%>
+    <% else : %>
+      <% category_discount = {} %>
+    <% end %>
     <li>
       <label>
         <%= category.name %>
