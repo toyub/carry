@@ -1,13 +1,18 @@
 Mis.Mixins.Uploadable =
 
   renderUploadTemplate: ->
-    view = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads, action: @action)
-    @$("#uploadTemplate").html view.render().el
+    upload = new Mis.Views.XiaoshouUploadsTemplate(collection: @model.uploads, action: @action)
+    @renderChild(upload)
+    @$("#uploadTemplate").html upload.el
 
   included: ->
     @::action = s.underscored(@::constructor.name).split("_").pop()
 
-  # TODO: 需要引入router来解决上传完跳转的问题
   uploadImages: ->
     url = @model.url() + '/save_picture'
-    uploading($('#preview_list > img'), url) if $('#preview_list > img').length > 0
+    hash = '#' + @model.url().replace('/api', '')
+    route_to = window.location.pathname + hash
+    if $('#preview_list > img').length
+      uploading($('#preview_list > img'), url, route_to)
+    else
+      window.location.hash = hash

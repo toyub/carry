@@ -1,0 +1,39 @@
+<div class="details">
+  <div id="masterNav" class="details_nav">
+
+  </div>
+  <div class="details_content package">
+    <form id="updatePackage" action="" method="post">
+      <div id="uploadTemplate">
+
+      </div>
+
+      <div id="packageForm">
+
+      </div>
+
+      <div class="package_card_list float-right position-relative">
+        <h2><label class="float-left">套餐项目列表</label>
+        </h2>
+        <div class="no_content">
+          <h3>当前没套餐内有内容</h3>
+          <p>请在套餐设置中添加需要组合的内容，点击导航栏中的套餐设置进入，进行套餐内容创建和编辑，来添加套餐内容会影响开单销售</p>
+        </div>
+
+        <div class="created_package_card_lists" id="packageItemList" style="display: none;">
+          <ul class="list_head">
+            <li>#</li>
+            <li>名称</li>
+            <li>类别</li>
+            <li>总价</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="btn_group">
+        <a href="<%= @view.packageUrl() %>" id="goToShow" class="cancel_btn btn">取消</a>
+        <input type="submit" class="save_btn btn" value="保存">
+      </div>
+    </form>
+  </div>
+</div>

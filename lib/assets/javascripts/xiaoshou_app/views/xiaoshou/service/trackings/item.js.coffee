@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
+class Mis.Views.XiaoshouServiceTrackingsItem extends Mis.Base.View
 
   tagName: 'ul'
 
@@ -9,8 +9,8 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
   initialize: (options) ->
     @action = options.action
 
-    @model.on('change', @render, @)
-    @model.on('destroy', @remove, @)
+    @listenTo(@model, 'change', @render)
+    @listenTo(@model, 'destroy', @leave)
 
   events:
     'click label.content': 'editTracking'
@@ -22,15 +22,10 @@ class Mis.Views.XiaoshouServiceTrackingsItem extends Backbone.View
 
   editTracking: ->
     view = new Mis.Views.XiaoshouServiceTrackingsForm(model: @model, action: @action)
-    view.open()
+    @parent.appendChildTo(view, @parent.$(".tracking_list"))
 
   clear: ->
     @model.clear()
-
-  remove: ->
-    @$el.remove()
-    @undelegateEvents()
-    @model.off()
 
   isShow: ->
     @action == 'show'

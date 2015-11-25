@@ -1,5 +1,5 @@
-class Mis.Views.XiaoshouServiceRemindsForm extends Backbone.View
-  el: '#remindForm'
+class Mis.Views.XiaoshouServiceRemindsForm extends Mis.Base.View
+  className: 'new_reminder new_list'
 
   template: JST['xiaoshou/service/reminds/form']
 
@@ -12,15 +12,11 @@ class Mis.Views.XiaoshouServiceRemindsForm extends Backbone.View
 
   render: ->
     @$el.html(@template(remind: @model, view: @))
+    @$el.show()
     @
 
-  open: ->
-    @render()
-    @$el.show()
-
   close: ->
-    @undelegateEvents()
-    @$el.hide()
+    @leave()
 
   updateRemind: ->
     @model.save @$el.find("input,select,textarea").serializeJSON()

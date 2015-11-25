@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceProfilesSummary extends Backbone.View
+class Mis.Views.XiaoshouServiceProfilesSummary extends Mis.Base.View
 
   tagName: 'tbody'
 

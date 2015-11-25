@@ -1,10 +1,10 @@
-class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
-  el: '#add_server'
+class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
+  className: 'add_server do_cancel'
 
   template: JST['xiaoshou/service/materials/form']
 
   initialize: ->
-    @store = window.Store
+    @store = Mis.store
 
   events:
     'change #rootCategory': 'renderSubCategory'
@@ -17,14 +17,8 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
     @$el.html(@template(service: @model, store: @store))
     @
 
-  open: ->
-    @store.materials.clearSelected()
-    @render()
-    @$el.show()
-
   close: =>
-    @undelegateEvents()
-    @$el.hide()
+    @leave()
 
   searchOnClick: ->
     @renderQueryResults()
@@ -38,7 +32,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
     else
       subCategories = new Mis.Collections.StoreMaterialCategories()
     view = new Mis.Views.XiaoshouServiceMaterialsCategory(collection: subCategories)
-    view.render()
+    @renderChild(view)
     @renderQueryResults()
 
   renderQueryResults: =>
@@ -52,9 +46,9 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Backbone.View
     @$("#queryResults").empty()
     _.each materials, @addMaterial
 
-  addMaterial: (material) ->
+  addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsResult(model: material)
-    @$("#queryResults").append view.render().el
+    @appendChildTo(view, @$("#queryResults"))
 
   queryCriterial: (material) =>
     name = $("input[name=materialName]").val()
