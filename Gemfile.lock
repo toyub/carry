@@ -7,13 +7,6 @@ GIT
       puma (>= 2.6)
 
 GIT
-  remote: git@gitlab.icar99.com:issac/naught.git
-  revision: c4253f1cb03ffc7a4b72f1e1d583032cc6b2459f
-  tag: 0.1.2
-  specs:
-    naught (0.1.0)
-
-GIT
   remote: git@gitlab.icar99.com:zc/capistrano-monit.git
   revision: 6caa6023864cc1b56560e7ef3fbac862ae099df8
   tag: v0.0.2
@@ -29,6 +22,13 @@ GIT
     geo (0.1.0)
       activesupport
       nokogiri
+
+GIT
+  remote: git@gitlab.icar99.com:zc/naught.git
+  revision: c4253f1cb03ffc7a4b72f1e1d583032cc6b2459f
+  tag: 0.1.2
+  specs:
+    naught (0.1.0)
 
 GEM
   remote: https://ruby.taobao.org/
