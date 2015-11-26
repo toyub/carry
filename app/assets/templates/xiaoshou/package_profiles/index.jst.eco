@@ -1,0 +1,26 @@
+<div class="details" id="packageIndex">
+  <div class="container_list">
+    <div class="list_table">
+      <div id="searchForm" class="search_nav">
+
+      </div>
+      <table cellpadding="0" cellspacing="0" class="index_list taocan">
+        <thead>
+          <tr>
+            <th style="border-right:0px;">#</th>
+            <th>套餐名称</th>
+            <th>套餐代码</th>
+            <th>有效时间</th>
+            <th>销售价</th>
+            <th>积分</th>
+            <th>摘要</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody id="packageList">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

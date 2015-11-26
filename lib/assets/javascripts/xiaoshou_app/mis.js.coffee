@@ -1,12 +1,17 @@
 window.Mis =
   Models: {}
   Collections: {}
-  Views: {}
+  Views:
+    Concerns: {}
   Routers: {}
   Mixins: {}
   Base: {}
-  initialize: ->
-    console.log 'Hello from Backbone!'
-
-$(document).ready ->
-  Mis.initialize()
+  initialize: (data) ->
+    @store = new Mis.Models.Store(data)
+    @materials = @store.materials
+    @services = @store.services
+    @commissions = @store.commissionTemplates
+    new Mis.Routers.StorePackages(collection: @store.packages)
+    new Mis.Routers.StoreServices(collection: @services)
+    if not Backbone.History.started
+      Backbone.history.start()

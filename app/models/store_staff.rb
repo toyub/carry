@@ -2,6 +2,8 @@ class StoreStaff <  ActiveRecord::Base
   attr_accessor :password, :password_confirmation, :phone_number
   belongs_to :store
   belongs_to :store_chain
+  belongs_to :store_department
+  belongs_to :store_position
 
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
   validates_presence_of :password, :password_confirmation, :login_name

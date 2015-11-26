@@ -1,0 +1,11 @@
+<div class="branch_name slide_up">
+  <i title="收起" class="fa fa-folder-open"></i>
+  <i title="展开" class="fa fa-folder"></i>
+  <span class='name' title="双击修改"><%= @name %></span>
+  <input type="text" name="name" value="<%= @name  || '新建部门' %>" autocomplete='off'>
+  <i title="显示详情" class="fa fa-list"></i>
+  <i title="新建" class="fa fa-plus-circle"></i>
+  <i title="保存" class="fa fa-save"></i>
+  <i title="取消" class="fa fa-undo"></i>
+</div>
+<ul class="branch"></ul>

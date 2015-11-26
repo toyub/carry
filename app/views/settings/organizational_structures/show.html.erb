@@ -1,0 +1,43 @@
+
+<div class="main_top">
+  <h2>组织架构</h2>
+</div>
+
+<div class="details">
+
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="zuzhijiagou.html" class="width-90">组织架构</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content zuzhi">
+    <ul class="company_tree">
+      <li class="tree">
+        <div class="branch_name">
+          <i title="收起" class="fa fa-folder-open"></i>
+          <i title="展开" class="fa fa-folder"></i>
+          <span title="双击修改">公司</span>
+          <input type="text" name="name" value="">
+          <i id='add_root' title="新建" class="fa fa-plus-circle"></i>
+        </div>
+        <ul id='depart_root' class="branch"></ul>
+      </li>
+    </ul>
+
+  </div>
+
+</div>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function(){
+   
+
+  handle = new $$MIS.OrganizationalStructuresHandleView({
+              departments_path: Routes.api_store_departments_path,
+              positions_path: Routes.api_store_department_store_positions_path
+            });
+});
+</script>
+<% end %>

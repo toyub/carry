@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouPackageTrackingsItem extends Backbone.View
+class Mis.Views.XiaoshouPackageTrackingsItem extends Mis.Base.View
   tagName: 'ul'
 
   className: 'list_content'
@@ -8,8 +8,8 @@ class Mis.Views.XiaoshouPackageTrackingsItem extends Backbone.View
   initialize: (options) ->
     @action = options.action if options
 
-    @model.on('change', @render, @)
-    @model.on('destroy', @remove, @)
+    @listenTo(@model, 'change', @render)
+    @listenTo(@model, 'destroy', @leave)
 
   events:
     'click label.content': 'showOrEdit'
@@ -24,16 +24,11 @@ class Mis.Views.XiaoshouPackageTrackingsItem extends Backbone.View
       view = new Mis.Views.XiaoshouPackageTrackingsFormShow(model: @model)
     else
       view = new Mis.Views.XiaoshouPackageTrackingsForm(model: @model)
-    $("#trackingForm").html view.render().el
-    view.open()
+    @renderChild(view)
+    $("#trackingForm").html view.el
 
   clear: ->
     @model.clear()
-
-  remove: ->
-    @undelegateEvents()
-    @model.off()
-    @$el.remove()
 
   isShow: ->
     @action == 'show'

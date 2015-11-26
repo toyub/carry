@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceWorkstationsItem extends Backbone.View
+class Mis.Views.XiaoshouServiceWorkstationsItem extends Mis.Base.View
   tagName: 'li'
 
   template: JST['xiaoshou/service/workstations/item']

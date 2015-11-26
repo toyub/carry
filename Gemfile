@@ -1,5 +1,7 @@
 source 'https://ruby.taobao.org'
 
+ruby "2.2.3"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 
@@ -18,6 +20,7 @@ gem 'coffee-rails', '4.1.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '2.2.6'
+gem 'yajl-ruby', '~> 1.2', '>= 1.2.1'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '0.4.1', group: :doc
@@ -102,7 +105,7 @@ gem "kaminari"
 gem "select2-rails"
 
 # null object
-gem 'naught', git: 'git@gitlab.icar99.com:issac/naught.git', tag: '0.1.2'
+gem 'naught', git: 'git@gitlab.icar99.com:zc/naught.git', tag: '0.1.2'
 #Qiniu Ruby SDK
 #  https://github.com/qiniu/ruby-sdk
 #Qiniu upload image base64 data-url
@@ -113,3 +116,5 @@ gem 'qiniu'
 
 # Hash ID, 用来生成加密ID，来保护数据库id, 需保证可逆加密
 gem 'hashids', '~> 1.0', '>= 1.0.2'
+
+gem 'backbone-support', '~> 0.5.1'

@@ -27,7 +27,7 @@
           <select class="width-106 margin-right-14" disabled="">
             <option></option>
             <% _.each @store.get('engineer_levels'), (value, key) -> :%>
-              <option value="<%= key %>" <%= 'selected' if setting.get('engineer_level') == key %>><%= value %></option>
+              <option value="<%= key %>" <%= 'selected' if setting.get('engineer_level').toString() == key.toString() %>><%= value %></option>
             <% end %>
           </select>
           以上

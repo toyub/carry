@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceRemindsItem extends Backbone.View
+class Mis.Views.XiaoshouServiceRemindsItem extends Mis.Base.View
   className: 'list_content'
 
   tagName: 'ul'
@@ -8,7 +8,7 @@ class Mis.Views.XiaoshouServiceRemindsItem extends Backbone.View
   initialize: (options) ->
     @action = options.action
 
-    @model.on("change", @render, @)
+    @listenTo(@model, 'change', @render)
 
   events:
     'click input.editRemind': 'openRemindForm'
@@ -19,4 +19,4 @@ class Mis.Views.XiaoshouServiceRemindsItem extends Backbone.View
 
   openRemindForm: ->
     view = new Mis.Views.XiaoshouServiceRemindsForm(model: @model, action: @action)
-    view.open()
+    @parent.appendChildTo(view, @parent.$(".reminder_list"))

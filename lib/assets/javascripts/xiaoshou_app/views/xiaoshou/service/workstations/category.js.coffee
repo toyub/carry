@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceWorkstationsCategory extends Backbone.View
+class Mis.Views.XiaoshouServiceWorkstationsCategory extends Mis.Base.View
 
   template: JST['xiaoshou/service/workstations/category']
 
@@ -21,4 +21,5 @@ class Mis.Views.XiaoshouServiceWorkstationsCategory extends Backbone.View
 
   addWorkstation: (workstation) =>
     view = new Mis.Views.XiaoshouServiceWorkstationsItem(model: workstation, setting: @setting)
-    $("#storeWorkstations").append view.render().el
+    @renderChild(view)
+    $("#storeWorkstations").append view.el

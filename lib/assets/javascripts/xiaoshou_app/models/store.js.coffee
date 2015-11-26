@@ -6,11 +6,14 @@ class Mis.Models.Store extends Backbone.Model
 
   initialize: ->
     @on('change:root_material_categories', @parseRootMaterialCategories, @)
-    @on('change:store_materials', @parseMaterials, @)
-    @on('change:service_categories', @parseServiceCategories, @)
+    @on('change:materials', @parseMaterials, @)
+    @on('change:services', @parseServies, @)
+    @on('change:packages', @parsePackages, @)
+
+    @parseServices()
+    @parsePackages()
     @parseRootMaterialCategories()
     @parseMaterials()
-    @parseServiceCategories()
     @parseWorkstationCategories()
     @parseWorkstations()
     @parseCommissionTemplates()
@@ -19,10 +22,13 @@ class Mis.Models.Store extends Backbone.Model
     @rootMaterialCategories = new Mis.Collections.StoreMaterialCategories(@get 'root_material_categories')
 
   parseMaterials: ->
-    @materials = new Mis.Collections.StoreMaterials(@get 'store_materials')
+    @materials = new Mis.Collections.StoreMaterials(@get 'materials')
 
-  parseServiceCategories: ->
-    @serviceCategories = new Mis.Collections.StoreServiceCategories(@get 'service_categories')
+  parsePackages: ->
+    @packages = new Mis.Collections.StorePackages(@get 'packages')
+
+  parseServices: ->
+    @services = new Mis.Collections.StoreServices(@get 'services')
 
   parseWorkstationCategories: ->
     @workstationCategories = new Mis.Collections.StoreWorkstationCategories(@get 'store_workstation_categories')
@@ -31,4 +37,4 @@ class Mis.Models.Store extends Backbone.Model
     @workstations = new Mis.Collections.StoreWorkstations(@get 'workstations')
 
   parseCommissionTemplates: ->
-    @commissionTemplates = new Mis.Collections.StoreCommissionTemplates(@get 'commission_templates')
+    @commissionTemplates = new Mis.Collections.StoreCommissionTemplates(@get 'commissions')

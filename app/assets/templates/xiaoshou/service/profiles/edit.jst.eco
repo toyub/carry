@@ -1,85 +1,78 @@
-<div id="uploadTemplate">
+<div class="details">
+  <div id="masterNav" class="details_nav">
 
+  </div>
+  <div class="details_content">
+    <div class="base_info">
+      <div id="uploadTemplate">
+
+      </div>
+      <form action="" id="editStoreService" method="post">
+        <div class=" server_content">
+          <div class="grid-1-2 float-left">
+            <div class="item_content">
+              <label class="width-75">服务名称</label>
+              <input type="text" class="width-165" name="name" value="<%= @service.get 'name' %>">
+            </div>
+            <div class="item_content">
+              <label class="width-75">销售价</label>
+              <input type="text" class="width-165" name="retail_price" value="<%= @service.get 'retail_price' %>">
+            </div>
+            <div class="item_content">
+              <input type="radio" class="toggleable margin-left-15" data-target="radio_btn" data-checked="">
+              <label class="width-40">
+                优惠价
+              </label>
+              <input type="text" class="width-165" name="bargain_price" value="<%= @service.get 'bargain_price' %>">
+            </div>
+            <div class="item_content">
+              <label class="width-75">服务积分</label>
+              <input type="text" class="width-165" name="point" value="<%= @service.get 'point' %>">
+            </div>
+            <div class="item_textarea ">
+              <label class="width-75">服务介绍</label>
+              <textarea class="server_textarea width-432" name="introduction"><%= @service.get 'introduction' %></textarea>
+            </div>
+            <div class="item_textarea ">
+              <label class="width-75">备注</label>
+              <textarea class="height-120 text-indent-5 width-432" name="remark"><%= @service.get 'remark' %></textarea>
+            </div>
+          </div>
+          <div class="grid-1-2 float-left">
+            <div class="server_list">
+              <div class="top">
+                <h2>关联耗材</h2>
+                <a class="appand_btn btn float-right click_btn" href="javascript:void(0)" id="add_server_btn">添加</a>
+              </div>
+              <div class="none_server_data" style="<%= if @service.materials.length > 0 then 'display:none;' else 'display:block;' %>">
+                <p class="none_server_p">服务没有关联耗材</p>
+                <p class="none_details">如果服务项目没有关联相关的耗材，将会影响服务成本的统计，建议添加关联耗材，点击添加进行操作。获取帮助<a href="#" class="color-73ACD4 text-decoration-underline">点我</a></p>
+              </div>
+              <div class="list" style="<%= if @service.materials.length > 0 then 'display:block;' else 'display:none;' %>">
+                <div class="list_top list_tr">
+                  <ul>
+                    <li>#</li>
+                    <li>耗材</li>
+                    <li>关联方式</li>
+                  </ul>
+                </div>
+                <div class="list_contents materialList">
+
+                </div>
+              </div>
+
+              <div class="show_server" id="show_server" style="display: none;">
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="btn_group">
+          <a href="#store_services/<%= @service.id %>" class="cancel_btn btn">取消</a>
+          <input type="submit" class="save_btn btn" value="保存">
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-<form action="" id="editStoreService" method="post">
-  <div class=" server_content">
-    <div class="grid-1-2 float-left">
-      <div class="item_content">
-        <label class="width-75">服务名称</label>
-        <input type="text" class="width-165" name="name" value="<%= @service.get 'name' %>">
-      </div>
-      <div class="item_content">
-        <label class="width-75">销售价</label>
-        <input type="text" class="width-165" name="retail_price" value="<%= @service.get 'retail_price' %>">
-      </div>
-      <div class="item_content">
-        <input type="radio" class="toggleable margin-left-15" data-target="radio_btn" data-checked="">
-        <label class="width-40">
-          优惠价
-        </label>
-        <input type="text" class="width-165" name="bargain_price" value="<%= @service.get 'bargain_price' %>">
-      </div>
-      <div class="item_content">
-        <label class="width-75">服务积分</label>
-        <input type="text" class="width-165" name="point" value="<%= @service.get 'point' %>">
-      </div>
-      <div class="item_content">
-        <label class="width-75">服务代码</label>
-        <input type="text" class="width-165" name="code" value="<%= @service.get 'code' %>">
-      </div>
-      <div class="item_content">
-        <label class="width-75">服务类别</label>
-        <select type="text" name="service_category_id" class="width-165">
-          <option></option>
-          <% current_category = @service.get('category') %>
-          <% _.each @store.get('service_categories'), (category) ->: %>
-          <option value="<%= category.id %>" <%= 'selected' if category.name == current_category %>><%= category.name %></option>
-        <% end %>
-        </select>
-      </div>
-      <div class="item_textarea ">
-        <label class="width-75">服务介绍</label>
-        <textarea class="server_textarea width-432" name="introduction"><%= @service.get 'introduction' %></textarea>
-      </div>
-      <div class="item_textarea ">
-        <label class="width-75">备注</label>
-        <textarea class="height-120 text-indent-5 width-432" name="remark"><%= @service.get 'remark' %></textarea>
-      </div>
-    </div>
-    <div class="grid-1-2 float-left">
-      <div class="server_list">
-        <div class="top">
-          <h2>关联耗材</h2>
-          <a class="appand_btn btn float-right click_btn" href="javascript:void(0)" id="add_server_btn">添加</a>
-        </div>
-        <div class="none_server_data" style="<%= if @service.materials.length > 0 then 'display:none;' else 'display:block;' %>">
-          <p class="none_server_p">服务没有关联耗材</p>
-          <p class="none_details">如果服务项目没有关联相关的耗材，将会影响服务成本的统计，建议添加关联耗材，点击添加进行操作。获取帮助<a href="#" class="color-73ACD4 text-decoration-underline">点我</a></p>
-        </div>
-        <div class="list" style="<%= if @service.materials.length > 0 then 'display:block;' else 'display:none;' %>">
-          <div class="list_top list_tr">
-            <ul>
-              <li>#</li>
-              <li>耗材</li>
-              <li>关联方式</li>
-            </ul>
-          </div>
-          <div class="list_contents materialList">
-
-          </div>
-        </div>
-
-        <div class="show_server" id="show_server" style="display: none;">
-
-        </div>
-
-        <div class="add_server" id="add_server" style="display: none;">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="btn_group">
-    <a href="javascript:void(0);" id="backToSHow" class="cancel_btn btn">取消</a>
-    <input type="submit" class="save_btn btn" value="保存">
-  </div>
-</form>

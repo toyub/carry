@@ -66,7 +66,7 @@
               <li>
                 <label>提成方案</label>
                 <select name="store_commission_template_id" class="width-190">
-                  <% window.Store.commissionTemplates.each (c) ->: %>
+                  <% Mis.store.commissionTemplates.each (c) ->: %>
                     <option value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
                   <% end %>
                 </select>

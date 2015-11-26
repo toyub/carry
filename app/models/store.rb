@@ -22,6 +22,8 @@ class Store <  ActiveRecord::Base
   has_many :commission_templates, class_name: 'StoreCommissionTemplate'
   has_many :store_packages
   has_many :store_deposits, class_name: 'StoreDepositCard'
+  has_many :store_departments
+  has_many :store_positions
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
@@ -34,4 +36,8 @@ class Store <  ActiveRecord::Base
     '中级' => 2,
     '高级' => 3
   }
+
+  def engineer_levels
+    ENGINEER_LEVEL.invert
+  end
 end

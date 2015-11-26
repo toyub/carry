@@ -1,0 +1,4 @@
+<p><%= @name %></p>
+
+<div class="clr"></div>
+<i title="新建职位" class="fa fa-plus-square"></i>
