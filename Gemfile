@@ -105,7 +105,7 @@ gem "kaminari"
 gem "select2-rails"
 
 # null object
-gem 'naught', git: 'git@gitlab.icar99.com:issac/naught.git', tag: '0.1.2'
+gem 'naught', git: 'git@gitlab.icar99.com:zc/naught.git', tag: '0.1.2'
 #Qiniu Ruby SDK
 #  https://github.com/qiniu/ruby-sdk
 #Qiniu upload image base64 data-url
