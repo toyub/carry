@@ -115,6 +115,10 @@ Rails.application.routes.draw do
       collection do
         get :services
       end
+
+      member do
+        get :customers
+      end
     end
   end
 

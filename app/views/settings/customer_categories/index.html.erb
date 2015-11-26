@@ -29,6 +29,69 @@
 </div>
 <input type="hidden" id='material_root_categories' data-categories='<%= json_for(@material_categories) %>'>
 <input type="hidden" id='service_root_categories' data-categories='<%= json_for(@service_categories) %>'>
+
+<% content_for :scenes do %>
+<div class="prompt_window_wrap" id='youwantdelete'>
+  <div class="prompt_window">
+    <p class="font-16 font-weight-bold">系统提示</p>
+    <div class="prompt_content">
+      <label><i class="fa fa-info-circle font-34 margin-right-8"></i></label>
+      <p class="display-inline-block">
+        删除该类别会导致所属28位客户失去分类属性，您可以尝试修改分类名称，如需删除，请先解除属性关系，点击确定进行批量转换操作，放弃操作点击取消
+      </p>
+    </div>
+    <div class="btns">
+      <input type="button" class="btn cancel_btn" value="取消">
+      <input type="button" class="btn save_btn confirm" value="确定">
+    </div>
+  </div>
+</div>
+
+
+<div class="batch_convert_wrap" id='dothisfirst'>
+<div class="batch_convert">
+  <p class="font-weight-bold">批量转换</p>
+  <ul>
+    <li><input type="checkbox" class="select_all_btn"></li>
+    <li>#</li>
+    <li>名称</li>
+    <li>当前分类</li>
+    <li>目标分类</li>
+    <li>操作</li>
+  </ul>
+
+  <div class="list_content">
+
+    <ul>
+      <li><input type="checkbox"></li>
+      <li>1.</li>
+      <li>李小琳</li>
+      <li>个人</li>
+    </ul>
+
+  </div>
+
+  <div class="operate_content">
+    <select class="width-110">
+      <option>普通个人客户</option>
+      <option>VIP个人客户</option>
+      <option>VIP集团客户</option>
+    </select>
+    <label class="btn batch_convert_btn">批量转换</label>
+  </div>
+
+  <div class="clr"></div>
+
+  <div class="btns">
+    <label>点击取消将不能删除分类，转换完成请点击确定</label>
+    <input type="button" class="btn cancel_btn" value="取消">
+    <input type="button" class="btn save_btn" value="保存">
+  </div>
+</div>
+</div>
+
+<% end %>
+
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
