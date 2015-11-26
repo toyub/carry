@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(version: 20151125085041) do
     t.datetime "updated_at"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "info_categories", force: :cascade do |t|
     t.string   "name",       limit: 45, null: false
     t.integer  "parent_id"
@@ -168,6 +176,21 @@ ActiveRecord::Schema.define(version: 20151125085041) do
     t.integer  "mode_id"
     t.string   "level_weight_hash", limit: 100
     t.integer  "status",                        default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_customer_categories", force: :cascade do |t|
+    t.integer  "store_id",                              null: false
+    t.integer  "store_chain_id",                        null: false
+    t.integer  "store_staff_id",                        null: false
+    t.string   "name",                                  null: false
+    t.string   "description"
+    t.string   "color"
+    t.boolean  "auto_promoted_enabled", default: false
+    t.json     "conditions"
+    t.json     "discounts"
+    t.json     "privileges"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
