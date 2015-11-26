@@ -1,0 +1,222 @@
+<div class="details">
+  <div class="details_nav">
+
+  </div>
+  <div class="details_content">
+    <form id="customerForm" action="" method="post">
+      <div class="base_info">
+        <div class="crm_info_wrap">
+          <div class="crm_info basic_info_wrap">
+            <div class="title">
+              <span>基本信息</span>
+            </div>
+            <div class="basic_info crm_info_content">
+              <div class="item_content">
+                <label class="width-75">姓</label>
+                <input type="text" name="last_name" value="<%= @customer.get 'last_name' %>" class="width-60">
+                <label class="width-45">名</label>
+                <input type="text" name="first_name" value="<%= @customer.get 'first_name' %>" class="width-62">
+              </div>
+
+              <div class="item_content">
+                <label class="width-75">性别</label>
+                <label class="width-78">男<input type="radio" name="gender" <%= 'checked' if @customer.male() %> value="true" class="width-13 margin-left-5"></label>
+                <label class="width-75 margin-right-20">女<input type="radio" name="gender" <%= 'checked' unless @customer.male() %> value="false" class="width-13 margin-left-5"></label>
+              </div>
+
+              <div class="item_content">
+                <label class="width-75">昵称</label>
+                <input type="text" name="nick" value="<%= @customer.get 'nick' %>" class="width-176">
+              </div>
+
+              <div class="item_content">
+                <label class="width-75">客户类别</label>
+                <select class="width-178" name="store_customer_category_id">
+                  <% Mis.store.customerCategories.each (c) ->: %>
+                    <option value="<%= c.id %>" <%= 'selected' if c.id.toString() == @customer.get('store_customer_category_id').toString() %>><%= c.get 'name' %></option>
+                  <% end %>
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-75">固定电话</label>
+                <input type="text" name="telephone" value="<%= @customer.get 'telephone' %>" class="width-176">
+              </div>
+              <div class="item_content">
+                <label class="width-75">移动电话</label>
+                <input type="text" name="mobile" value="<%= @customer.get 'mobile' %>" class="width-176">
+              </div>
+              <div class="item_content">
+                <label class="width-75">QQ</label>
+                <input type="text" name="qq" class="width-176" value="<%= @customer.get 'qq' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">区域</label>
+                <span class="area">
+                  <label>省:</label>
+                  <select class="width-60" name="province">
+                    <option>省份</option>
+                    <option></option>
+                  </select>
+                  <label>市:</label>
+                  <select class="width-60" name="city">
+                    <option>城市</option>
+                    <option></option>
+                  </select>
+                  <label>区/县:</label>
+                  <select class="width-75" name="region">
+                    <option>区县</option>
+                    <option></option>
+                  </select>
+                </span>
+              </div>
+              <div class="item_content">
+                <label class="width-75">联系地址</label>
+                <input type="text" name="address" value="<%= @customer.get 'address' %>" class="width-176">
+              </div>
+            </div>
+          </div>
+          <div class="crm_info adv_info_wrap">
+            <div class="title">
+              <span>进阶信息</span>
+            </div>
+            <div class="adv_info  crm_info_content">
+              <div class="item_content">
+                <label class="width-75">身份证号</label>
+                <input type="text" name="resident_id" class="width-176" value="<%= @customer.get 'resident_id' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">生日</label>
+                <input type="text" class="width-176" value="<%= @customer.get 'birthday' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">车程</label>
+                <input type="text" name="range" class="width-176" value="<%= @customer.get 'range' %>">
+              </div>
+              <div class="item_content">
+                <span class="margin-left-79 martial">
+                  <label class="width-72">未婚<input type="radio" name="married" value="false" class="width-13 margin-left-5" <%= 'checked' unless @customer.married() %>></label>
+                  <label class="width-75">已婚<input type="radio" name="married" value="true" class="width-12 margin-left-5" <%= 'checked' if @customer.married() %>></label>
+                </span>
+              </div>
+              <div class="item_content">
+                <label class="width-75">学历</label>
+                <select class="width-178" name="education">
+                  <option></option>
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-75">职业</label>
+                <select class="width-178" name="profession">
+                  <option></option>
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-75">收入</label>
+                <select class="width-178" name="income" value="<%= @customer.get 'income' %>">
+                  <option></option>
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-75">消费习惯</label>
+                <input type="text" class="width-176">
+              </div>
+              <div class="item_content">
+                <label class="width-75">个人爱好</label>
+                <input type="text" class="width-176" name="hobby" value="<%= @customer.get 'hobby' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-125">不接受回访<input type="checkbox" name="tracking_accepted" <%= 'checked' unless @customer.trackingAccepted() %> value="false" class="width-13 vertical-align-middle margin-left-5"></label>
+                <label class="width-125">不接受短信<input type="checkbox" name="message_accepted" value="false" <%= 'checked' unless @customer.messageAccepted() %> class="width-13 vertical-align-middle margin-left-5 "></label>
+              </div>
+              <div class="item_content">
+                <label class="width-125">是否吸烟<input type="checkbox" name="smoking" value="true" <%= 'checked' if @customer.smoking() %> class="width-13 vertical-align-middle margin-left-5"></label>
+                <label class="width-125">是否饮酒<input type="checkbox" name="drinking" value="true" <%= 'checked' if @customer.drinking() %> class="width-13 vertical-align-middle margin-left-5 "></label>
+              </div>
+              <div class="item_content">
+                <label class="width-75">单位</label>
+                <input type="text" name="company" class="width-461" value="<%= @customer.get 'company' %>">
+              </div>
+            </div>
+          </div>
+          <div class="crm_info billing_info_wrap">
+            <div class="title">
+              <span>结算信息</span>
+            </div>
+            <div class="billing_info crm_info_content">
+              <div class="item_content">
+                <label class="width-75">结算方式</label>
+                <select name="settlement_mode" class="width-178">
+                  <option></option>
+                  <option></option>
+                  <option></option>
+                  <option></option>
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-75">挂账额度</label>
+                <input type="text" name="credit_amount" class="width-176">
+              </div>
+              <div class="item_content">
+                <label class="width-75">结算周期</label>
+                <select class="width-178" name="settlement_interval">
+                  <option>按月</option>
+                  <option>按周</option>
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-75">合同号</label>
+                <input type="text" name="contract" class="width-176" value="<%= @customer.get 'contract' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">开户银行</label>
+                <input type="text" name="bank" class="width-461" value="<%= @customer.get 'bank' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">银行帐号</label>
+                <input type="text" name="bank_account" class="width-463" value="<%= @customer.get 'bank_account' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">税号</label>
+                <input type="text" name="tax" class="width-461" value="<%= @customer.get 'tax' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">收款方式</label>
+                <select class="width-176" name="payment_mode">
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-75">发票种类</label>
+                <select class="width-178" name="invoice_category">
+                  <option></option>
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-75">发票抬头</label>
+                <input type="text" name="invoice_title" class="width-176" value="<%= @customer.get 'invoice_title' %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">联系人</label>
+                <input type="text" name="contact" class="width-176" value="<%= @customer.get 'contact' %>">
+              </div>
+            </div>
+          </div>
+          <div class="crm_info integrity_info">
+            <div class="title">
+              <span></span>
+            </div>
+            <div class="width-646 float-left">
+              <div class="item_content">
+                <label class="width-75 vertical-align-top">备注</label>
+                <textarea name="remark" class="width-539 height-100"><%= @customer.get 'remark' %></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="btn_group">
+            <input type="submit" class="save_btn btn">保存</button>
+            <a class="cancel_btn btn" href="<%= @view.goToUrl() %>">取消</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

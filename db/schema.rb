@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124012900) do
+ActiveRecord::Schema.define(version: 20151125085041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,6 +217,7 @@ ActiveRecord::Schema.define(version: 20151124012900) do
     t.decimal  "integrity",                             precision: 4,  scale: 2
     t.decimal  "satisfaction",                          precision: 4,  scale: 2
     t.decimal  "loyalty",                               precision: 4,  scale: 2
+    t.string   "qq"
   end
 
   create_table "store_departments", force: :cascade do |t|

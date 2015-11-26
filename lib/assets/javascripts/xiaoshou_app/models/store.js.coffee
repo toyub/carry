@@ -10,6 +10,7 @@ class Mis.Models.Store extends Backbone.Model
     @on('change:services', @parseServies, @)
     @on('change:packages', @parsePackages, @)
     @on('change:customers', @parseCustomers, @)
+    @on('change:customer_categories', @parseCustomerCategories, @)
 
     @parseServices()
     @parsePackages()
@@ -19,6 +20,7 @@ class Mis.Models.Store extends Backbone.Model
     @parseWorkstationCategories()
     @parseWorkstations()
     @parseCommissionTemplates()
+    @parseCustomerCategories()
 
   parseRootMaterialCategories: ->
     @rootMaterialCategories = new Mis.Collections.StoreMaterialCategories(@get 'root_material_categories')
@@ -43,3 +45,6 @@ class Mis.Models.Store extends Backbone.Model
 
   parseCommissionTemplates: ->
     @commissionTemplates = new Mis.Collections.StoreCommissionTemplates(@get 'commissions')
+
+  parseCustomerCategories: ->
+    @customerCategories = new Mis.Collections.StoreCustomerCategories(@get 'customer_categories')

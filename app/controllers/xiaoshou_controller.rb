@@ -19,6 +19,7 @@ class XiaoshouController < ApplicationController
           json.point package.package_setting.point
         end
       end
+      json.customer_categories current_store.store_customer_categories, :id, :name
       json.commissions current_store.commission_templates, :id, :name
       json.services current_store.store_services, :id, :name, :code, :bargain_price, :point, :retail_price
       json.customers current_store.store_customers, :id, :full_name, :mobile, :satisfaction, :integrity
