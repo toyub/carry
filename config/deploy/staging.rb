@@ -7,7 +7,7 @@ set :deploy_to, "/var/www/mis_staging"
 set :html_deploy_to, "#{fetch(:deploy_to)}/html"
 
 set :rvm_type, :system
-set :rvm_ruby_version, '2.2.2'
+set :rvm_ruby_version, '2.2.3'
 
 #set :nginx_sites_enabled_path, "#{shared_path}/config"
 #set :nginx_sites_available_path, "#{shared_path}/config"
