@@ -31,24 +31,29 @@
 <input type="hidden" id='service_root_categories' data-categories='<%= json_for(@service_categories) %>'>
 
 <% content_for :scenes do %>
-<div class="prompt_window_wrap" id='youwantdelete'>
-  <div class="prompt_window">
-    <p class="font-16 font-weight-bold">系统提示</p>
-    <div class="prompt_content">
-      <label><i class="fa fa-info-circle font-34 margin-right-8"></i></label>
-      <p class="display-inline-block">
-        删除该类别会导致所属28位客户失去分类属性，您可以尝试修改分类名称，如需删除，请先解除属性关系，点击确定进行批量转换操作，放弃操作点击取消
-      </p>
-    </div>
-    <div class="btns">
-      <input type="button" class="btn cancel_btn" value="取消">
-      <input type="button" class="btn save_btn confirm" value="确定">
-    </div>
+
+
+<template id="prompt_window">
+
+<div class="prompt_window">
+  <p class="font-16 font-weight-bold">系统提示</p>
+  <div class="prompt_content">
+    <label><i class="fa fa-info-circle font-34 margin-right-8"></i></label>
+    <p class="display-inline-block">
+      删除该类别会导致所属28位客户失去分类属性，您可以尝试修改分类名称，如需删除，请先解除属性关系，点击确定进行批量转换操作，放弃操作点击取消
+    </p>
+  </div>
+  <div class="btns">
+    <input type="button" class="btn cancel_btn" value="取消">
+    <input type="button" class="btn save_btn" value="确定">
   </div>
 </div>
 
+</template>
 
-<div class="batch_convert_wrap" id='dothisfirst'>
+
+<template id="batch_convert">
+
 <div class="batch_convert">
   <p class="font-weight-bold">批量转换</p>
   <ul>
@@ -61,14 +66,14 @@
   </ul>
 
   <div class="list_content">
-
+    <% 5.times do %>
     <ul>
       <li><input type="checkbox"></li>
       <li>1.</li>
       <li>李小琳</li>
       <li>个人</li>
     </ul>
-
+    <% end %>
   </div>
 
   <div class="operate_content">
@@ -83,12 +88,12 @@
   <div class="clr"></div>
 
   <div class="btns">
-    <label>点击取消将不能删除分类，转换完成请点击确定</label>
-    <input type="button" class="btn cancel_btn" value="取消">
-    <input type="button" class="btn save_btn" value="保存">
+    <input type="button" class="btn cancel_btn" value="关闭">
   </div>
 </div>
-</div>
+
+</template>
+
 
 <% end %>
 
