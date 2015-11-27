@@ -10,6 +10,6 @@ class Settings::CustomerCategoriesController < Settings::BaseController
 
   def customers
     category = current_store.store_customer_categories.find(params[:id])
-    render json: StoreCustomer.all, root: nil
+    render json: category.store_customers, root: nil
   end
 end
