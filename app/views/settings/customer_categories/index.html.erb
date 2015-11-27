@@ -51,50 +51,6 @@
 
 </template>
 
-
-<template id="batch_convert">
-
-<div class="batch_convert">
-  <p class="font-weight-bold">批量转换</p>
-  <ul>
-    <li><input type="checkbox" class="select_all_btn"></li>
-    <li>#</li>
-    <li>名称</li>
-    <li>当前分类</li>
-    <li>目标分类</li>
-    <li>操作</li>
-  </ul>
-
-  <div class="list_content">
-    <% 5.times do %>
-    <ul>
-      <li><input type="checkbox"></li>
-      <li>1.</li>
-      <li>李小琳</li>
-      <li>个人</li>
-    </ul>
-    <% end %>
-  </div>
-
-  <div class="operate_content">
-    <select class="width-110">
-      <option>普通个人客户</option>
-      <option>VIP个人客户</option>
-      <option>VIP集团客户</option>
-    </select>
-    <label class="btn batch_convert_btn">批量转换</label>
-  </div>
-
-  <div class="clr"></div>
-
-  <div class="btns">
-    <input type="button" class="btn cancel_btn" value="关闭">
-  </div>
-</div>
-
-</template>
-
-
 <% end %>
 
 <% content_for :javascripts do %>
