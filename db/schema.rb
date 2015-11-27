@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126035810) do
+ActiveRecord::Schema.define(version: 20151127082224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,44 +196,17 @@ ActiveRecord::Schema.define(version: 20151126035810) do
   end
 
   create_table "store_customers", force: :cascade do |t|
-    t.integer  "store_id",                                                       null: false
-    t.integer  "store_chain_id",                                                 null: false
-    t.integer  "store_staff_id",                                                 null: false
-    t.string   "first_name",                 limit: 45,                          null: false
-    t.string   "last_name",                  limit: 45,                          null: false
-    t.string   "full_name",                  limit: 45,                          null: false
+    t.integer  "store_id",                              null: false
+    t.integer  "store_chain_id",                        null: false
+    t.integer  "store_staff_id",                        null: false
+    t.string   "first_name",                 limit: 45, null: false
+    t.string   "last_name",                  limit: 45, null: false
+    t.string   "full_name",                  limit: 45, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone_number",               limit: 45
-    t.string   "nick"
-    t.integer  "store_customer_category_id"
-    t.string   "contact"
-    t.string   "telephone"
-    t.string   "mobile"
-    t.boolean  "gender"
-    t.string   "address"
-    t.string   "resident_id"
-    t.date     "birthday"
-    t.json     "district"
-    t.boolean  "married"
-    t.string   "hobby"
-    t.boolean  "smoking"
-    t.boolean  "drinking"
-    t.string   "company"
-    t.boolean  "tracking_accepted"
-    t.boolean  "message_accepted"
-    t.integer  "settlement_interval"
-    t.string   "contract"
-    t.string   "bank"
-    t.string   "bank_account"
-    t.string   "tax"
-    t.string   "invoice_title"
-    t.decimal  "credit_amount",                         precision: 10, scale: 2
-    t.string   "remark"
-    t.decimal  "integrity",                             precision: 4,  scale: 2
-    t.decimal  "satisfaction",                          precision: 4,  scale: 2
-    t.decimal  "loyalty",                               precision: 4,  scale: 2
     t.string   "qq"
+    t.integer  "store_customer_category_id"
   end
 
   create_table "store_departments", force: :cascade do |t|
