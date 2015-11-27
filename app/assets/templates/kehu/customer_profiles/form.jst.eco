@@ -55,17 +55,23 @@
                   <label>省:</label>
                   <select class="width-60" name="province">
                     <option>省份</option>
-                    <option></option>
+                    <% _.each Mis.store.provinces (p) ->: %>
+                      <option value="<%- p.code %>" <%- 'selected' if @customer.get 'province' == p.code %>><%- p.name %></option>
+                    <% end %>
                   </select>
                   <label>市:</label>
                   <select class="width-60" name="city">
                     <option>城市</option>
-                    <option></option>
+                    <% _.each Mis.store.cities (c) ->: %>
+                      <option value="<%- c.code %>" <%- 'selected' if @customer.get 'city' == c.code %>><%- c.name %></option>
+                    <% end %>
                   </select>
                   <label>区/县:</label>
                   <select class="width-75" name="region">
                     <option>区县</option>
-                    <option></option>
+                    <% _.each Mis.store.regions (r) ->: %>
+                      <option value="<%- r.code %>" <%- 'selected' if @customer.get 'region' == r.code %>><%- r.name %></option>
+                    <% end %>
                   </select>
                 </span>
               </div>
@@ -101,19 +107,25 @@
               <div class="item_content">
                 <label class="width-75">学历</label>
                 <select class="width-178" name="education">
-                  <option></option>
+                  <% _.each @customer.education(), (name, code) ->: %>
+                    <option value="<%= code %>" <%= 'selected' if code == @customer.get('education').toString() %>><%= name %></option>
+                  <% end %>
                 </select>
               </div>
               <div class="item_content">
                 <label class="width-75">职业</label>
                 <select class="width-178" name="profession">
-                  <option></option>
+                  <% _.each @customer.profession(), (name, code) ->: %>
+                    <option value="<%= code %>" <%= 'selected' if code == @customer.get('education').toString() %>><%= name %></option>
+                  <% end %>
                 </select>
               </div>
               <div class="item_content">
                 <label class="width-75">收入</label>
                 <select class="width-178" name="income" value="<%= @customer.get 'income' %>">
-                  <option></option>
+                  <% _.each @customer.income(), (name, code) ->: %>
+                    <option value="<%= code %>" <%= 'selected' if code == @customer.get('education').toString() %>><%= name %></option>
+                  <% end %>
                 </select>
               </div>
               <div class="item_content">

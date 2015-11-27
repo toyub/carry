@@ -29,6 +29,8 @@ class XiaoshouController < ApplicationController
           json.(s, :id, :store_id, :parent_id, :name)
         end
       end
+      json.provinces Geo.provinces(1), :name, :code
+      json.cities Geo.cities(1, 11), :name, :code
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125085041) do
+ActiveRecord::Schema.define(version: 20151126035810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,25 +215,25 @@ ActiveRecord::Schema.define(version: 20151125085041) do
     t.string   "resident_id"
     t.date     "birthday"
     t.json     "district"
-    t.integer  "range"
+    t.string   "range"
     t.boolean  "married"
-    t.integer  "education"
-    t.integer  "profession"
-    t.integer  "income"
+    t.string   "education"
+    t.string   "profession"
+    t.string   "income"
     t.string   "hobby"
     t.boolean  "smoking"
     t.boolean  "drinking"
     t.string   "company"
     t.boolean  "tracking_accepted"
     t.boolean  "message_accepted"
-    t.integer  "settlement_mode"
+    t.string   "settlement_mode"
     t.integer  "settlement_interval"
     t.string   "contract"
     t.string   "bank"
     t.string   "bank_account"
     t.string   "tax"
-    t.integer  "payment_mode"
-    t.integer  "invoice_category"
+    t.string   "payment_mode"
+    t.string   "invoice_category"
     t.string   "invoice_title"
     t.decimal  "credit_amount",                         precision: 10, scale: 2
     t.string   "remark"
