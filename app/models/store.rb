@@ -24,6 +24,7 @@ class Store <  ActiveRecord::Base
   has_many :store_deposits, class_name: 'StoreDepositCard'
   has_many :store_departments
   has_many :store_positions
+  has_many :store_customers
   has_many :store_customer_categories
 
   # 一级商品类别

@@ -1,8 +1,8 @@
-class Mis.Views.XiaoshouPackageProfilesIndex extends Mis.Base.View
+class Mis.Views.KehuCustomerProfilesIndex extends Mis.Base.View
   @include Mis.Views.Concerns.Top
   @include Mis.Views.Concerns.Searchable
 
-  template: JST['xiaoshou/package_profiles/index']
+  template: JST['kehu/customer_profiles/index']
 
   initialize: ->
     @search()
@@ -14,7 +14,7 @@ class Mis.Views.XiaoshouPackageProfilesIndex extends Mis.Base.View
     @
 
   columns: ->
-    8
+    15
 
   resourceName: ->
-    '套餐'
+    '客户'
