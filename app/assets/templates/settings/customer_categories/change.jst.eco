@@ -10,8 +10,8 @@
 
   <div class="list_content">
     <% for customer,idx in @customers : %>
-    <ul>
-      <li><input type="checkbox"></li>
+    <ul class='customer' data-id='<%= customer.id %>'>
+      <li><input class='customer_id' type="checkbox" value="<%= customer.id %>"></li>
       <li><%= idx + 1 %></li>
       <li><%= customer.name %></li>
       <li><%= @category.name %></li>
@@ -20,7 +20,7 @@
   </div>
 
   <div class="operate_content">
-    <select class="width-110">
+    <select class="dest width-110">
     <% for category in @categories : %>
       <option value="<%= category.id %>"><%= category.name %></option>
     <% end %>

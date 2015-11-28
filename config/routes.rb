@@ -118,6 +118,7 @@ Rails.application.routes.draw do
 
       member do
         get :customers
+        post :change_category
       end
     end
   end

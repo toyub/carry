@@ -12,4 +12,10 @@ class Settings::CustomerCategoriesController < Settings::BaseController
     category = current_store.store_customer_categories.find(params[:id])
     render json: category.store_customers, root: nil
   end
+
+  def change_category
+    category = current_store.store_customer_categories.find(params[:id])
+    StoreCustomer.where(id: params[:customers_ids]).update_all(store_customer_category_id: category.id)
+    render json: {text: 'ok'}
+  end
 end
