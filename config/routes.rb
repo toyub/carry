@@ -181,6 +181,7 @@ Rails.application.routes.draw do
     namespace :cashier do
       resources :checkouts
     end
+    resources :orders
   end
 
   root 'kucun/materials#index'
