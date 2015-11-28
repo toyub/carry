@@ -4,7 +4,7 @@ class Soa::StaffController < Soa::ControllerBase
     @staffs = @store.store_staff
   end
 
-  def new
+#  def new
     @store = current_store
     @staff = @store.store_staff.new
     @departments = current_store.store_departments
