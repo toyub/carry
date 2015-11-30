@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125071049) do
+ActiveRecord::Schema.define(version: 20151127082224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,15 +196,17 @@ ActiveRecord::Schema.define(version: 20151125071049) do
   end
 
   create_table "store_customers", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
-    t.string   "first_name",     limit: 45, null: false
-    t.string   "last_name",      limit: 45, null: false
-    t.string   "full_name",      limit: 45, null: false
+    t.integer  "store_id",                              null: false
+    t.integer  "store_chain_id",                        null: false
+    t.integer  "store_staff_id",                        null: false
+    t.string   "first_name",                 limit: 45, null: false
+    t.string   "last_name",                  limit: 45, null: false
+    t.string   "full_name",                  limit: 45, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "phone_number",   limit: 45
+    t.string   "phone_number",               limit: 45
+    t.string   "qq"
+    t.integer  "store_customer_category_id"
   end
 
   create_table "store_departments", force: :cascade do |t|

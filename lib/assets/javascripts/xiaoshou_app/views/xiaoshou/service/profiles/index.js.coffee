@@ -1,36 +1,20 @@
 class Mis.Views.XiaoshouServiceProfilesIndex extends Mis.Base.View
   @include Mis.Views.Concerns.Top
+  @include Mis.Views.Concerns.Searchable
 
   template: JST['xiaoshou/service/profiles/index']
 
   initialize: ->
-    @serviceSearch = new Mis.ServiceSearch(@collection)
-
-    @listenTo(@serviceSearch.filteredCollection, 'add', @renderServices)
-    @listenTo(@serviceSearch.filteredCollection, 'remove', @renderServices)
-    @listenTo(@serviceSearch.filteredCollection, 'reset', @renderServices)
+    @search()
 
   render: ->
     @$el.html(@template())
     @renderTop()
-    @renderSearchForm()
-    @renderServices()
+    @searchResource()
     @
 
-  renderSearchForm: ->
-    search = new Mis.Views.XiaoshouServiceProfilesSearchForm(@serviceSearch)
-    @renderChild(search)
-    @$("#searchForm").html search.el
+  columns: ->
+    12
 
-  renderServices: ->
-    if @collection.length
-      @$("#serviceList").removeClass("no_search_result").empty()
-      @serviceSearch.filteredCollection.each @renderService
-    else
-      none = new Mis.Views.XiaoshouSharedNone(cols: 12, resource_name: '服务')
-      @renderChild(none)
-      @$("#serviceList").addClass("no_search_result").html none.el
-
-  renderService: (service) =>
-    view = new Mis.Views.XiaoshouServiceProfilesItem(model: service)
-    @appendChildTo(view, @$("#serviceList"))
+  resourceName: ->
+    '服务'

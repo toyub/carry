@@ -1,0 +1,35 @@
+  <h2>批量转换</h2>
+  <ul>
+    <li><input type="checkbox" class="select_all_btn"></li>
+    <li>#</li>
+    <li>名称</li>
+    <li>当前分类</li>
+    <li>目标分类</li>
+    <li>操作</li>
+  </ul>
+
+  <div class="list_content">
+    <% for customer,idx in @customers : %>
+    <ul class='customer' data-id='<%= customer.id %>'>
+      <li><input class='customer_id' type="checkbox" value="<%= customer.id %>"></li>
+      <li><%= idx + 1 %></li>
+      <li><%= customer.full_name %></li>
+      <li><%= @category.name %></li>
+    </ul>
+    <% end %>
+  </div>
+
+  <div class="operate_content">
+    <select class="dest width-110">
+    <% for category in @categories : %>
+      <option value="<%= category.get('id') %>"><%= category.get('name') %></option>
+    <% end %>
+    </select>
+    <label class="btn batch_convert_btn">批量转换</label>
+  </div>
+
+  <div class="clr"></div>
+
+  <div class="btns">
+    <input type="button" class="btn cancel_btn" value="关闭">
+  </div>
