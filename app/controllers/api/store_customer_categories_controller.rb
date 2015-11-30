@@ -14,6 +14,12 @@ class Api::StoreCustomerCategoriesController < Api::BaseController
     respond_with store_customer_category, location: nil
   end
 
+  def destroy
+    store_customer_category = current_store.store_customer_categories.find(params[:id])
+    store_customer_category.destroy
+    respond_with text: 'ok', location: nil
+  end
+
   private
   def category_params
     params.require(:store_customer_category)
