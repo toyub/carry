@@ -111,7 +111,16 @@ Rails.application.routes.draw do
 
     resource :organizational_structure
 
-    resources :customer_categories
+    resources :customer_categories do
+      collection do
+        get :services
+      end
+
+      member do
+        get :customers
+        post :change_category
+      end
+    end
   end
 
   namespace :ajax do
@@ -161,6 +170,7 @@ Rails.application.routes.draw do
       resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
+    resources :store_customers, only: [:index, :create, :update, :show]
 
     resource :qiniu do
       collection do
@@ -174,6 +184,8 @@ Rails.application.routes.draw do
       end
       resources :store_positions
     end
+
+    resources :store_customer_categories
 
   end
 
