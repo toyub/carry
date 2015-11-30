@@ -1,0 +1,50 @@
+<div class="main_top">
+  <h2>权限设置</h2>
+</div>
+
+<div class="details">
+
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="#" class="width-90">用户配置</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content user_setting">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>用户</th>
+          <th>职务</th>
+          <th>部门</th>
+          <th>角色</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% 5.times do %>
+        <tr>
+          <td class="sequence_num">1.</td>
+          <td>潘国勇</td>
+          <td>门店老板</td>
+          <td>管理部</td>
+          <td class="sel do_sel_role do_role">请选择</td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <ul class="role_opts" style="display:none;">
+      <li>管理员</li>
+      <li><label>管理员</label><input type="checkbox"></li>
+      <li><label>门店经理</label><input type="checkbox"></li>
+      <li><label>收银员</label><input type="checkbox"></li>
+      <li><label>出纳员</label><input type="checkbox"></li>
+      <li><label>库管员</label><input type="checkbox"></li>
+      <li><label>销售员</label><input type="checkbox"></li>
+      <li><label>财务员</label><input type="checkbox"></li>
+      <li>在角色选择时，如果工作需要，可以进行多选</li>
+    </ul>
+  </div>
+
+</div>

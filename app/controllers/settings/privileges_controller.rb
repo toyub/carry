@@ -1,0 +1,2 @@
+class Settings::PrivilegesController
+end
