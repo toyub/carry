@@ -22,7 +22,7 @@
   <div class="operate_content">
     <select class="dest width-110">
     <% for category in @categories : %>
-      <option value="<%= category.id %>"><%= category.name %></option>
+      <option value="<%= category.get('id') %>"><%= category.get('name') %></option>
     <% end %>
     </select>
     <label class="btn batch_convert_btn">批量转换</label>
