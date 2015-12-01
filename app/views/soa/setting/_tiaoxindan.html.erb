@@ -54,7 +54,7 @@
           <%= protocol_fields.text_area :remarks, class: "width-696" %>
         </div>
 
-        <div class="f_maker">
+        <div class="form_maker">
           <%= protocol_fields.hidden_field :created_by, value: @staff.login_name %>
           <%= protocol_fields.hidden_field :record_at, value: Time.now.to_date %>
           <span>制单：</span><label class="maker">王丽丽</label>
@@ -63,8 +63,6 @@
         <div class="btn_groups">
           <%= link_to "取消", "#", class: "btn cancel_btn", data: {from: "salary_adjusting_wrap"} %>
           <%= link_to "保存", "#", remote: true, class: "btn save_btn margin-right-20" %>
-          <!-- <a href="javascript:void(0)" class="btn cancel_btn">取消</a> -->
-          <!-- <a href="javascript:void(0)" class="btn save_btn margin&#45;right&#45;20">保存</a> -->
         </div>
       <% end %>
 

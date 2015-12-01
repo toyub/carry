@@ -47,17 +47,14 @@
 
         <ul>
           <li>
-            <label>试用底薪</label>
-            <input type="text">
+            <%= form.label :trial_salary, "试用底薪" %>
+            <%= form.text_field :trial_salary %>
           </li>
 
           <li>
-            <label>试用周期</label>
-            <input type="text" class="width-100">
-            <select class="width-56">
-              <option>月</option>
-              <option>年</option>
-            </select>
+            <%= form.label :trial_period, "试用周期" %>
+            <%= form.text_field :trial_period, class: "width-100" %>
+            <span class="width-56"> 月 </span>
           </li>
 
           <li class="text-align-right">
@@ -65,8 +62,8 @@
           </li>
 
           <li>
-            <label>正式底薪</label>
-            <input type="text">
+            <%= form.label :regular_salary, "正式底薪" %>
+            <%= form.text_field :regular_salary %>
           </li>
 
           <li class="text-align-right">
