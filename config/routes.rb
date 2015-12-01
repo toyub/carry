@@ -136,7 +136,12 @@ Rails.application.routes.draw do
     resources :store_suppliers, only: [:index]
   end
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy, :edit]
+  resource :passwords do
+    collection do
+      post :send_validate_code
+    end
+  end
 
   namespace :api do
     resources :store_service_categories, only: [:create]
