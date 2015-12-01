@@ -11,6 +11,16 @@ class Mis.Models.StoreCustomerEntity extends Backbone.Model
     @parseStoreCustomer()
     @parseStoreCustomerSettlement()
 
+  defaults:
+    property: 'personal'
+
+  PROPERPTIES:
+    group: '集团客户'
+    personal: '个人客户'
+
+  properties: ->
+    @PROPERPTIES
+
   parseStoreCustomer: ->
     @storeCustomer = new Mis.Models.StoreCustomer(@get 'store_customer')
 

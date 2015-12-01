@@ -32,9 +32,10 @@
 
                 <div class="item_content">
                   <label class="width-75">客户属性</label>
-                  <select class="width-178">
-                    <option>集团客户</option>
-                    <option>个人客户</option>
+                  <select class="width-178" name="property">
+                    <% _.each @entity.properties(), (value, key) ->: %>
+                      <option value="<%= key %>" <%= 'selected' if key.toString() == @entity.get('property').toString() %>><%= value %></option>
+                    <% end %>
                   </select>
                 </div>
 
@@ -264,7 +265,7 @@
               <div class="width-646 float-left">
                 <div class="item_content">
                   <label class="width-75 vertical-align-top">备注</label>
-                  <textarea class="width-539 height-100"></textarea>
+                  <textarea class="width-539 height-100" name="remark"><%= @entity.get 'remark' %></textarea>
                 </div>
               </div>
             </div>
