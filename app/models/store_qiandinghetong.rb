@@ -1,0 +1,3 @@
+class StoreQianDingHeTong < StoreProtocol
+
+end
