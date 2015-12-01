@@ -1,0 +1,262 @@
+<% action_uri = @staff.new_record? ? soa_staff_index_path : soa_staff_path(@staff) %>
+<%= form_for @staff, url: action_uri, html: {id: 'staff_form'} do |form| %>
+
+<div class="main_top">
+  <h2>员工详情</h2>
+</div>
+
+<div class="details">
+
+  <table class="top_info">
+    <tr>
+      <td>员工姓名</td>
+      <td></td>
+      <td>员工编号</td>
+      <td></td>
+      <td>所属部门</td>
+      <td></td>
+      <td>职务</td>
+      <td></td>
+      <td>职称</td>
+      <td></td>
+      <td>职务状态</td>
+      <td></td>
+      <td>岗位状态</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="jibenxinxi.html" class="width-90">基本信息</a></li>
+      <li><%= link_to "设置", soa_setting_path(@staff), class: "width-90" %></li>
+      <li ><a href="#" class="width-90">绩效提成</a></li>
+      <li ><a  href="#" class="width-90">考勤奖惩</a></li>
+      <li ><a  href="#" class="width-90">记录</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content staff_setting">
+
+    <div class="wrap">
+
+      <div class="salary">
+        <span class="width-60">薪资设置</span>
+
+        <ul>
+          <li>
+            <label>试用底薪</label>
+            <input type="text">
+          </li>
+
+          <li>
+            <label>试用周期</label>
+            <input type="text" class="width-100">
+            <select class="width-56">
+              <option>月</option>
+              <option>年</option>
+            </select>
+          </li>
+
+          <li class="text-align-right">
+            <input type="button" value="转正" class="transfer_btn" disabled>
+          </li>
+
+          <li>
+            <label>正式底薪</label>
+            <input type="text">
+          </li>
+
+          <li class="text-align-right">
+            <input type="button" value="调薪" class="adjust_salary_btn" disabled>
+          </li>
+        </ul>
+      </div>
+
+      <div class="allowance">
+        <span class="width-60">福利补贴</span>
+
+        <ul>
+          <li>
+            <label>岗位补贴</label>
+            <input type="text">
+          </li>
+
+          <li>
+            <label>住宿补贴</label>
+            <input type="text">
+          </li>
+
+          <li>
+            <label>餐费补贴</label>
+            <input type="text">
+          </li>
+
+          <li>
+            <label>劳保补贴</label>
+            <input type="text">
+          </li>
+
+          <li>
+            <label>高温补贴</label>
+            <input type="text">
+          </li>
+        </ul>
+      </div>
+
+      <div class="ticheng">
+        <span class="width-60">提成设置</span>
+        <label>试用期结束有提成<input type="checkbox" class="vertical-align-middle margin-left-20"></label>
+      </div>
+    </div>
+
+    <div class="wrap">
+
+      <div class="contract">
+        <span class="width-60">劳动关系</span>
+
+        <ul>
+          <li class="start_time">
+            <label>劳动合同起始</label>
+            <input type="text" class="width-64 year" readonly>
+            <input type="text" class="width-42 margin-right-2 month" readonly>
+            <input type="text" class="width-40 day" readonly>
+          </li>
+
+          <li class="end_time">
+            <label>劳动合同结束</label>
+            <input type="text" class="width-64 year" readonly>
+            <input type="text" class="width-42 margin-right-2 month" readonly>
+            <input type="text" class="width-40 day" readonly>
+          </li>
+
+          <li>
+            <label>劳动合同周期</label>
+            <input type="text">
+          </li>
+
+          <li>
+            <label for="remind">合同到期提醒</label>
+            <input id="remind" type="checkbox" class="vertical-align-middle margin-right-20 toggleable" data-target="deadline_reminding">
+            提前<input type="text" class="width-50 margin-right-6 margin-left-6" data-id="deadline_reminding" disabled>天提醒
+          </li>
+
+          <li class="text-align-right">
+            <input type="button" value="签订合同" class="sign_contract_btn cursor-pointer">
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="social_security">
+        <label for="security" class="width-60">保险金</label>
+
+        <ul>
+          <li>
+            <input type="checkbox" id="security" class="vertical-align-middle toggleable" data-target="security">
+            <label class="width-74">医保费</label>
+            <input type="text" data-id="security" disabled>
+          </li>
+
+          <li>
+            <label>保险金</label>
+            <input type="text" data-id="security" disabled>
+          </li>
+
+          <li>
+            <label>个人承担</label>
+            <input type="text" data-id="security" disabled>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="wrap">
+      <div class="technique">
+        <span class='width-60'>专业技能</span>
+
+        <ul>
+          <li>
+            <label>技能岗位</label>
+            <select>
+              <option></option>
+              <option>美容技师</option>
+            </select>
+          </li>
+
+          <li>
+            <label>理论知识</label>
+            <form oninput='theory.value=parseInt(a.value)'>
+              <input type='range' id="a" value="50">
+              <output name='theory' for='a'>50</output>
+            </form>
+          </li>
+
+          <li>
+            <label>实操能力</label>
+            <form oninput='practice.value=parseInt(b.value)'>
+              <input type='range' id="b" value="50">
+              <output name='practice' for='b'>50</output>
+            </form>
+          </li>
+
+          <li>
+            <label>综合能力</label>
+            <form oninput='integration.value=parseInt(c.value)'>
+              <input type='range' id="c" value="50">
+              <output name='integration' for='c'>50</output>
+            </form>
+          </li>
+
+          <li>
+            <label>技能证书</label>
+            <select>
+              <option>无</option>
+              <option>有</option>
+            </select>
+          </li>
+
+          <li>
+            <label>其他技能</label>
+            <input type="text" class="width-160">
+          </li>
+
+          <li>
+            <label>等级程度</label>
+            <select>
+              <option>中级</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="wrap">
+
+      <div class="others">
+        <span class='width-60'>其他设置</span>
+
+        <ul>
+          <li>
+            <label>系统操作员<input type="checkbox" class="margin-left-46 vertical-align-middle"></label>
+          </li>
+
+          <li>
+            <label>允许使用APP<input type="checkbox" class="margin-left-36 vertical-align-middle"></label>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="btn_group">
+      <a href="jixiaoticheng.html" class="btn save_btn">保存</a>
+    </div>
+  </div>
+
+</div>
+<% end %>

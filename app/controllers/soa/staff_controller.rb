@@ -32,6 +32,8 @@ class Soa::StaffController < Soa::ControllerBase
   def edit
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
+    @departments = current_store.store_departments
+    @positions = @departments[0].store_positions
   end
 
   def update

@@ -75,6 +75,7 @@ Rails.application.routes.draw do
 
   namespace :soa do
     resources :staff
+    resources :setting
   end
 
   namespace :xianchang do
