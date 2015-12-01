@@ -1,0 +1,77 @@
+<div class="transfer_wrap">
+  <div class="transfer_window">
+    <h3>转正单</h3>
+    <div class="content">
+      <table>
+        <tbody>
+          <tr>
+            <td>姓名</td>
+            <td><span class="width-132 show_content"></span></td>
+            <td>员工编号</td>
+            <td><span class="width-132 show_content">YG20110078</span></td>
+            <td>部门</td>
+            <td><span class="width-132 show_content">美容组</span></td>
+            <td>职务</td>
+            <td><span class="width-132 show_content">美容技师</span></td>
+          </tr>
+          <tr>
+            <td>所属门店</td>
+            <td><span class="width-132 show_content">杭州车夫会养车会所</span></td>
+            <td>入职时间</td>
+            <td><span class="width-132 show_content">2011-07-08</span></td>
+            <td>工龄</td>
+            <td><span class="width-132 show_content">4</span></td>
+            <td>职称</td>
+            <td><span class="width-132 show_content">高级技师</span></td>
+          </tr>
+          <tr>
+            <td>试用薪</td>
+            <td><span class="width-132 show_content">3,000.00</span></td>
+            <td>正式薪</td>
+            <td><span class="width-132 show_content">3,500.00</span></td>
+            <td>试用期</td>
+            <td><span class="width-132 show_content">1个月</span></td>
+            <td>状态</td>
+            <td><span class="width-132 show_content">到期</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <%= fields_for :protocols do |protocol_fields| %>
+        <%= protocol_fields.hidden_field :type, value: "StoreZhuanZheng"%>
+
+        <div class="reason">
+          <%= protocol_fields.label :reason_for, "转正原因" %>
+          <%= protocol_fields.text_area :reason_for, class: "width-696" %>
+        </div>
+
+        <div class="start_time">
+          <%= protocol_fields.label :effective_date, "生效日期" %>
+          <%= protocol_fields.date_field :effective_date %>
+        </div>
+        <div class="confirm_person">
+          <%= protocol_fields.label :verifier_id, "审核人" %>
+          <%= protocol_fields.select :verifier_id, ["可使用系统的人1", "可使用系统的人2"].map {|v| [v, 1]}, include_blank: true %>
+        </div>
+        <div class="remark">
+          <%= protocol_fields.label :remarks, "备注" %>
+          <%= protocol_fields.text_area :remarks, class: "width-696" %>
+        </div>
+
+        <div class="f_maker">
+          <%= protocol_fields.hidden_field :created_by, value: @staff.login_name %>
+          <%= protocol_fields.hidden_field :record_at, value: Time.now.to_date %>
+          <span>制单：</span><label class="maker">王丽丽</label>
+          <span>录入日期：</span><label class="date"><%= Time.now.to_date %></label>
+        </div>
+        <div class="btn_groups">
+          <%= link_to "取消", "#", class: "btn cancel_btn", data: {from: "transfer_wrap"} %>
+          <%= link_to "保存", "#", remote: true, class: "btn save_btn margin-right-20" %>
+          <!-- <a href="javascript:void(0)" class="btn cancel_btn">取消</a> -->
+          <!-- <a href="javascript:void(0)" class="btn save_btn margin&#45;right&#45;20">保存</a> -->
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

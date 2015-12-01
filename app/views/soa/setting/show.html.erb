@@ -61,7 +61,7 @@
           </li>
 
           <li class="text-align-right">
-            <input type="button" value="转正" class="transfer_btn" disabled>
+            <input type="button" value="转正" class="transfer_btn">
           </li>
 
           <li>
@@ -70,7 +70,7 @@
           </li>
 
           <li class="text-align-right">
-            <input type="button" value="调薪" class="adjust_salary_btn" disabled>
+            <input type="button" value="调薪" class="adjust_salary_btn">
           </li>
         </ul>
       </div>
@@ -259,4 +259,38 @@
   </div>
 
 </div>
+
+<!-- ## zhuanzhengdan -->
+<%= render "/soa/setting/zhuanzhengdan" %>
+
+<!-- ## tiaoxindan -->
+<%= render "/soa/setting/tiaoxindan" %>
+
+<!-- ## hetongxuqiandan -->
+<%= render "/soa/setting/hetongxuqiandan" %>
+
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+
+    $(".transfer_btn").on("click", function(){
+      $(".transfer_wrap").css("display", "block");
+    })
+
+    $(".adjust_salary_btn").on("click", function(){
+      $(".salary_adjusting_wrap").css("display", "block");
+    })
+
+    $(".sign_contract_btn").on("click", function(){
+      $(".contract_signing_wrap").css("display", "block");
+    })
+
+    $(".cancel_btn").on("click", function(event){
+      event.preventDefault();
+      var closed_class_name = $(this).data("from");
+      $("."+ closed_class_name).css("display", "none");
+    })
+
+  })
+</script>

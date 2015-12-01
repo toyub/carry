@@ -4,7 +4,7 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_chain
   belongs_to :store_department
   belongs_to :store_position
-  has_one :store_protocol
+  has_many :store_protocol
 
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
   validates_presence_of :login_name
