@@ -1,0 +1,61 @@
+
+<div class="main_top">
+  <h2>门店信息</h2>
+</div>
+
+<div class="store_basic_setting">
+  <fieldset>
+    <legend>基本信息</legend>
+  </fieldset>
+
+  <div class="upload_pic">
+    <img src="/mis/images/store.jpg" alt="门店照片"/>
+  </div>
+
+  <div class="store_basic_information">
+    <div>
+      <label for="">门店名称</label>
+      <span class="show_content width-280"><%= current_store.name %></span>
+    </div>
+
+    <div>
+      <label for="">联系人</label>
+      <span class="show_content width-102"><%= current_store.admin.last_name %></span>
+      <span class="show_content width-175"><%= current_store.admin.first_name %></span>
+    </div>
+
+    <div>
+      <label for="">所在地区</label>
+      <span class="show_content width-139"><%= @state.value %></span>
+      <span class="show_content width-139"><%= @city.value %></span>
+    </div>
+
+    <div>
+      <label for="">详细地址</label>
+      <span class="show_content width-280"><%= @address.value %></span>
+    </div>
+
+    <div>
+      <label for="">门店坐标</label>
+
+      <div class="border-all coord bg-color-f7f7f7">
+        <span class="show_content width-243 outline-none"><%= @longi_and_lati.value %></span>
+      </div>
+    </div>
+
+    <div>
+      <label for="">联系电话</label>
+      <span class="show_content width-280"><%= @contact_phone.value %></span>
+    </div>
+
+    <div>
+      <label for="">营业状态</label>
+      <span class="show_content width-280"> <%=  current_store.available ? '正常营业'  : '暂停营业'%> </span>
+    </div>
+
+    <div>
+      <label for="">营业时间</label>
+      <span class="show_content width-61"><%= @open_time.value %></span> -- <span class="show_content width-61"><%= @close_time.value %></span>
+    </div>
+  </div>
+</div>

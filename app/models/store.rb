@@ -26,6 +26,8 @@ class Store <  ActiveRecord::Base
   has_many :store_positions
   has_many :store_customers
   has_many :store_customer_categories
+  belongs_to :admin, class_name: 'StoreStaff'
+  has_many :store_infos
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
