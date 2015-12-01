@@ -61,6 +61,7 @@ gem 'puma'
 group :development do
   gem 'capistrano', '~> 3.3.0'
   gem 'capistrano-rvm'
+  gem 'capistrano-rails-console'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
