@@ -61,6 +61,7 @@ gem 'puma'
 group :development do
   gem 'capistrano', '~> 3.3.0'
   gem 'capistrano-rvm'
+  gem 'capistrano-rails-console'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
@@ -118,3 +119,6 @@ gem 'qiniu'
 gem 'hashids', '~> 1.0', '>= 1.0.2'
 
 gem 'backbone-support', '~> 0.5.1'
+
+# # 发送短信
+gem 'sms_client', git: 'git@gitlab.icar99.com:zc/sms_client.git', tag: 'v0.0.5'
