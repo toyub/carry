@@ -28,8 +28,8 @@ class Store <  ActiveRecord::Base
   has_many :store_customer_categories
   belongs_to :admin, class_name: 'StoreStaff'
   has_many :store_infos
-  
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
+  has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
