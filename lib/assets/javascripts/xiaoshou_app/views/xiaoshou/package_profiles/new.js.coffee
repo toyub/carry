@@ -5,7 +5,7 @@ class Mis.Views.XiaoshouPackageProfilesNew extends Mis.Base.View
   template: JST['xiaoshou/package_profiles/new']
 
   initialize: ->
-    Backbone.Validation.bind(@)
+    @validateBinding()
     @listenTo(@model, 'sync', @handleSuccess)
 
   events:

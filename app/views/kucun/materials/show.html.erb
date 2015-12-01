@@ -11,7 +11,7 @@
           <ul id='material_img_thumbnails' class="goods_small_img">
               <li id='preview_list'>
                 <% @store_material.uploads.each do |image| %>
-                  <img src="<%= image.img_url %>">
+                  <img src="<%= image.file_url %>">
                 <% end %>
               </li>
           </ul>
