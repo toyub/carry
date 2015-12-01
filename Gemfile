@@ -84,7 +84,7 @@ gem "js-routes"
 
 
 #GEO
-gem 'geo', git: 'git@gitlab.icar99.com:zc/geo.git', tag: 'v0.0.3'
+gem 'geo', git: 'git@gitlab.icar99.com:zc/geo.git', tag: 'v0.0.5'
 
 # Object-based searching
 gem 'ransack', '~> 1.6.6'
@@ -119,3 +119,6 @@ gem 'qiniu'
 gem 'hashids', '~> 1.0', '>= 1.0.2'
 
 gem 'backbone-support', '~> 0.5.1'
+
+# # 发送短信
+gem 'sms_client', git: 'git@gitlab.icar99.com:zc/sms_client.git', tag: 'v0.0.5'
