@@ -20,7 +20,7 @@ class Soa::StaffController < Soa::ControllerBase
     staff.login_name = staff.phone_number
     staff.password = staff.password_confirmation = '123456'
     if employee.save && staff.save
-      redirect_to action: 'setting'
+      redirect_to action: 'index'
     else
       render json: {
         staff_errors: staff.errors,
@@ -32,6 +32,10 @@ class Soa::StaffController < Soa::ControllerBase
   def edit
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
+    @departments = current_store.store_departments
+    @positions = @departments[0].store_positions
+    @departments = current_store.birthday
+    @positions = @birthday[0].store_positions
   end
 
   def update
