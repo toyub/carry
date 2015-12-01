@@ -16,8 +16,8 @@ GIT
 
 GIT
   remote: git@gitlab.icar99.com:zc/geo.git
-  revision: 2344fccb4fed65e63af79a6080a73b031695cdc2
-  tag: v0.0.3
+  revision: 81efcb42a0a4c5e5d72f6a2b1ba5f7f7ac128336
+  tag: v0.0.5
   specs:
     geo (0.1.0)
       activesupport

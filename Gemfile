@@ -84,7 +84,7 @@ gem "js-routes"
 
 
 #GEO
-gem 'geo', git: 'git@gitlab.icar99.com:zc/geo.git', tag: 'v0.0.3'
+gem 'geo', git: 'git@gitlab.icar99.com:zc/geo.git', tag: 'v0.0.5'
 
 # Object-based searching
 gem 'ransack', '~> 1.6.6'
