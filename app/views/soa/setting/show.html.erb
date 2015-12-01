@@ -76,34 +76,34 @@
       </div>
 
       <div class="allowance">
+
         <span class="width-60">福利补贴</span>
 
         <ul>
-          <li>
-            <label>岗位补贴</label>
-            <input type="text">
-          </li>
-
-          <li>
-            <label>住宿补贴</label>
-            <input type="text">
-          </li>
-
-          <li>
-            <label>餐费补贴</label>
-            <input type="text">
-          </li>
-
-          <li>
-            <label>劳保补贴</label>
-            <input type="text">
-          </li>
-
-          <li>
-            <label>高温补贴</label>
-            <input type="text">
-          </li>
+          <%= form.fields_for :bonus do |bonus_fields| -%>
+            <li>
+              <%= bonus_fields.label :gangwei, "岗位补贴" %>
+              <%= bonus_fields.text_field :gangwei %>
+            </li>
+            <li>
+              <%= bonus_fields.label :zhusu, "住宿补贴" %>
+              <%= bonus_fields.text_field :zhusu %>
+            </li>
+            <li>
+              <%= bonus_fields.label :canfei, "餐费补贴" %>
+              <%= bonus_fields.text_field :canfei %>
+            </li>
+            <li>
+              <%= bonus_fields.label :laobao, "劳保补贴" %>
+              <%= bonus_fields.text_field :laobao %>
+            </li>
+            <li>
+              <%= bonus_fields.label :gaowen, "高温补贴" %>
+              <%= bonus_fields.text_field :gaowen %>
+            </li>
+          <% end %>
         </ul>
+
       </div>
 
       <div class="ticheng">
@@ -154,21 +154,21 @@
         <label for="security" class="width-60">保险金</label>
 
         <ul>
-          <li>
-            <input type="checkbox" id="security" class="vertical-align-middle toggleable" data-target="security">
-            <label class="width-74">医保费</label>
-            <input type="text" data-id="security" disabled>
-          </li>
-
-          <li>
-            <label>保险金</label>
-            <input type="text" data-id="security" disabled>
-          </li>
-
-          <li>
-            <label>个人承担</label>
-            <input type="text" data-id="security" disabled>
-          </li>
+          <%= form.fields_for :bonus do |bonus_fields| %>
+            <li>
+              <input type="checkbox" id="security" class="vertical-align-middle toggleable" data-target="security">
+              <%= bonus_fields.label :yibaofei, "医保费",  class: "width-74" %>
+              <%= bonus_fields.text_field :yibaofei %>
+            </li>
+            <li>
+              <%= bonus_fields.label :baoxianjing, "保险金" %>
+              <%= bonus_fields.text_field :baoxianjing %>
+            </li>
+            <li>
+              <%= bonus_fields.label :gerendanbao, "个人承担" %>
+              <%= bonus_fields.text_field :gerendanbao %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
@@ -254,7 +254,7 @@
 
 
     <div class="btn_group">
-      <a href="jixiaoticheng.html" class="btn save_btn">保存</a>
+      <%= form.submit "保存", class: "btn save_btn" %>
     </div>
   </div>
 

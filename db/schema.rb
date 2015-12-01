@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124012900) do
+ActiveRecord::Schema.define(version: 20151201020121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(version: 20151124012900) do
     t.integer  "store_chain_id",            null: false
     t.string   "name",           limit: 45
     t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -168,6 +176,21 @@ ActiveRecord::Schema.define(version: 20151124012900) do
     t.integer  "mode_id"
     t.string   "level_weight_hash", limit: 100
     t.integer  "status",                        default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_customer_categories", force: :cascade do |t|
+    t.integer  "store_id",                              null: false
+    t.integer  "store_chain_id",                        null: false
+    t.integer  "store_staff_id",                        null: false
+    t.string   "name",                                  null: false
+    t.string   "description"
+    t.string   "color"
+    t.boolean  "auto_promoted_enabled", default: false
+    t.json     "conditions"
+    t.json     "discounts"
+    t.json     "privileges"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1096,6 +1119,7 @@ ActiveRecord::Schema.define(version: 20151124012900) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus"
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
