@@ -7,14 +7,19 @@ class Soa::StaffController < Soa::ControllerBase
   def new
     @store = current_store
     @staff = @store.store_staff.new
+    @employee = StoreEmployee.new
     @departments = current_store.store_departments
     @positions = @departments[0].store_positions
+
   end
 
   def create
 
     employee = StoreEmployee.new(employee_params)
     staff = StoreStaff.new(staff_params)
+    staff.store_employee = employee
+    employee.save
+    staff.save
     staff.store_id = current_staff.store_id
     staff.store_chain_id = current_staff.store_chain_id
     staff.login_name = staff.phone_number
@@ -34,8 +39,7 @@ class Soa::StaffController < Soa::ControllerBase
     @staff = @store.store_staff.find(params[:id])
     @departments = current_store.store_departments
     @positions = @departments[0].store_positions
-    @departments = current_store.birthday
-    @positions = @birthday[0].store_positions
+    @employee = @staff.store_employee || StoreEmployee.new
   end
 
   def update

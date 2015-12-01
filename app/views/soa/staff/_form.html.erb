@@ -61,7 +61,7 @@
 
       <div class="birth">
         <label for="">出生日期</label>
-        <input type="date" name="employee[birthday]"  value="<%= @employee.birthday%>">
+        <input type="date" name="employee[birthday]"  value="<%= @employee.birthday.strftime("%Y-%m-%d")%>">
       </div>
 
       <div>
@@ -136,9 +136,7 @@
 
       <div>
         <label for="">离职原因</label>
-        <select name="staff[reason_for_leave]">
-          <%= options_from_collection_for_select(StoreStaffLevel.collection, 'id', 'name') %>
-        </select>
+        <input type="text" name="staff[reason_for_leave]" value="<%= @staff.reason_for_leave%>">
       </div>
 
       <div class="height">
@@ -195,7 +193,7 @@
 
       <div class="remark">
         <label for="">备注</label>
-        <textarea  name="employee[remark]"  value="<%= @employee.remark%>"></textarea>
+        <textarea name="employee[remark]"><%= @employee.remark%></textarea>
       </div>
 
     </div>

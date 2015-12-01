@@ -1,0 +1,283 @@
+<div class="details">
+
+  <div class="details_nav">
+    <ul>
+      <li id="kehushow" class="active"><a href="/mis/kehu/kehuliebiao/kehushow.html?kehushow" class="width-90">信息</a></li>
+      <li id="zichanzhanghu"><a href="/mis/kehu/kehuliebiao/zichanzhanghu.html?zichanzhanghu" class="width-90 ">资产账户</a></li>
+      <li id="cheliangxinxishow"><a href="/mis/kehu/kehuliebiao/cheliangdangan/show.html?cheliangxinxishow" class="width-90">车辆档案</a></li>
+      <li id="xiaofeijilu"><a href="/mis/kehu/kehuliebiao/xiaofeijilu.html?xiaofeijilu" class="width-90">消费记录</a></li>
+      <li id="huifangjilu"><a href="/mis/kehu/kehuliebiao/huifangjilu.html?huifangjilu" class="width-90">回访记录</a></li>
+      <li id="yixiang"><a href="javascript:void(0);" class="width-90 ">意向产品</a></li>
+      <li id="tousu"><a href="/mis/kehu/kehuliebiao/tousu.html?tousu" class="width-90">投诉记录</a></li>
+      <li id="manyidu"><a href="/mis/kehu/kehuliebiao/manyidu.html?manyidu" class="width-90">满意度</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content">
+    <div class="base_info">
+      <div class="crm_info_wrap">
+        <div class="crm_info basic_info_wrap">
+          <div class="title">
+            <span>基本信息</span>
+          </div>
+          <div class="basic_info crm_info_content">
+            <div class="item_content">
+              <label class="width-75">姓名</label>
+              <span class="width-176"><%= @customer.get 'full_name' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">性别</label>
+              <label class="width-78">男<input type="radio" name="gender" <%= 'checked' if @customer.male() %> class="width-13 margin-left-5" disabled></label>
+              <label class="width-75 margin-right-20">女<input type="radio" name="gender" <%= 'checked' unless @customer.male() %> class="width-13 margin-left-5" disabled></label>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">年龄</label>
+              <span class="width-176"><%= @customer.age() %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">昵称</label>
+              <span class="width-176"><%= @customer.get 'nick' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">客户类别</label>
+              <span class="width-176">kkkk</span>
+            </div>
+
+
+            <div class="item_content">
+              <label class="width-75">固定电话</label>
+              <span class="width-176"><%= @customer.get 'telephone' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">移动电话</label>
+              <span class="width-176"><%= @customer.get 'mobile' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">QQ</label>
+              <span class="width-176"><%= @customer.get 'qq' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">区域</label>
+              <span class="area">
+                <label>省:</label>
+                <span class="width-60"><%= @customer.province() %></span>
+                <label>市:</label>
+                <span class="width-60"><%= @customer.city() %></span>
+                <label>区/县:</label>
+                <span class="width-75"><%= @customer.region() %></span>
+              </span>
+
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">联系地址</label>
+              <span class="width-176"><%= @customer.get 'address' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">建档日期</label>
+              <span class="width-176"><%= @customer.get 'created_at' %></span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="crm_info adv_info_wrap">
+          <div class="title">
+            <span>进阶信息</span>
+          </div>
+          <div class="adv_info  crm_info_content">
+            <div class="item_content">
+              <label class="width-75">身份证号</label>
+              <span class="width-176"><%= @customer.get 'resident_id' %></span>
+            </div>
+            <div class="item_content">
+              <label class="width-75">生日</label>
+              <span class="width-176"><%= @customer.get 'birthday' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">车程</label>
+              <span class="width-176"><%= @customer.get 'range' %></span>
+            </div>
+            <div class="item_content">
+              <label class="width-145">未婚<input type="radio" name="marital" class="width-13 margin-left-5" <%= 'checked' unless @customer.married() %> disabled></label>
+              <label class="width-93 margin-right-15">已婚<input type="radio" name="marital" class="width-12 margin-left-5" <%= 'checked' if @customer.married() %> disabled></label>
+            </div>
+            <div class="item_content">
+              <label class="width-75">学历</label>
+              <span class="width-176"></span>
+            </div>
+            <div class="item_content">
+              <label class="width-75">职业</label>
+              <span class="width-176"></span>
+            </div>
+            <div class="item_content">
+              <label class="width-75">收入</label>
+              <span class="width-176"></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">消费习惯</label>
+              <span class="width-176"></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75"><%= @customer.get 'hobby' %></label>
+              <span class="width-176"></span>
+            </div>
+
+
+            <div class="item_content">
+              <label class="width-125">是否吸烟<input type="checkbox" class="width-13 vertical-align-middle margin-left-5" <%= 'checked' if @customer.smoking() %> disabled></label>
+              <label class="width-125">是否喝酒<input type="checkbox" class="width-13 vertical-align-middle margin-left-5" <%= 'checked' if @customer.drinking() %> disabled></label>
+            </div>
+
+            <div class="item_content">
+              <label class="width-125">不接受回访<input type="checkbox" class="width-13 vertical-align-middle margin-left-5" <%= 'checked' unless @customer.tracking_accepted()  %> disabled></label>
+              <label class="width-125">不接受短信<input type="checkbox" class="width-13 vertical-align-middle margin-left-5" <%= 'checked' unless @customer.message_accepted() %> disabled=""></label>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">单位</label>
+              <span class="width-458"><%= @customer.get 'company' %></span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="crm_info billing_info_wrap">
+          <div class="title">
+            <span>结算信息</span>
+          </div>
+          <div class="billing_info crm_info_content">
+            <div class="item_content">
+              <label class="width-75">结算方式</label>
+              <span class="width-176"></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">挂账额度</label>
+              <span class="width-176"><%= @customer.get 'credit_amount' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">结算周期</label>
+              <span class="width-176">按月</span>
+
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">合同号</label>
+              <span class="width-176"><%= @customer.get 'contract' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">开户银行</label>
+              <span class="width-458"><%= @customer.get 'bank' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">银行帐号</label>
+              <span class="width-463"><%= @customer.get 'bank_account' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">税号</label>
+              <span class="width-458"><%= @customer.get 'tax' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">收款方式</label>
+              <span class="width-176"></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">发票种类</label>
+              <span class="width-176"></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">发票抬头</label>
+              <span class="width-176"><%= @customer.get 'invoice_title' %></span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">联系人</label>
+              <span class="width-176"></span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="crm_info integrity_info">
+          <div class="title">
+            <span></span>
+          </div>
+          <div class="width-566 float-left">
+            <div class="item_content">
+              <label class="width-75">完整度</label>
+              <span class="display-inline-block margin-left-10 font-14  padding-left-5">
+
+
+                <i class="fa fa-star color-FF7539"></i>
+
+                <i class="fa fa-star color-FF7539"></i>
+
+                <i class="fa fa-star color-FF7539"></i>
+
+                <i class="fa fa-star color-FF7539"></i>
+
+                <i class="fa fa-star-o color-FF7539"></i>
+              </span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">满意度</label>
+              <span class="display-inline-block margin-left-10 font-14 padding-left-5">
+                <i class="fa fa-star color-FF7539"></i>
+                <i class="fa fa-star color-FF7539"></i>
+                <i class="fa fa-star color-FF7539"></i>
+                <i class="fa fa-star color-FF7539"></i>
+                <i class="fa fa-star-o color-FF7539"></i>
+              </span>
+            </div>
+
+            <div class="item_content">
+              <label class="width-75">忠诚度</label>
+              <span class="display-inline-block margin-left-10 font-14 padding-left-5">
+                <i class="fa fa-star color-FF7539"></i>
+                <i class="fa fa-star color-FF7539"></i>
+                <i class="fa fa-star color-FF7539"></i>
+                <i class="fa fa-star color-FF7539"></i>
+                <i class="fa fa-star-o color-FF7539"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="width-646 float-left">
+            <div class="item_content">
+              <label class="width-75 vertical-align-top">备注</label>
+              <textarea class="width-539 height-100"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn_group">
+          <a class="edit_btn btn" href="#store_customers/<%= @customer.id %>/edit">编辑</a>
+          <a class="cancel_btn btn" href="#store_customers/<%= @customer.id %>">取消</a>
+        </div>
+      </div>
+    </div>
+    <div>
+    </div>
+
+  </div>
+</div>

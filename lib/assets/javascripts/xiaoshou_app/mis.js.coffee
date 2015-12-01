@@ -13,5 +13,6 @@ window.Mis =
     @commissions = @store.commissionTemplates
     new Mis.Routers.StorePackages(collection: @store.packages)
     new Mis.Routers.StoreServices(collection: @services)
+    new Mis.Routers.StoreCustomers(collection: @store.customers)
     if not Backbone.History.started
       Backbone.history.start()
