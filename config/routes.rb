@@ -121,6 +121,12 @@ Rails.application.routes.draw do
         post :change_category
       end
     end
+
+    resource :store do
+      collection do
+        post :save_picture
+      end
+    end
   end
 
   namespace :ajax do
