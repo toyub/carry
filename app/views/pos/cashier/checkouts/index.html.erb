@@ -415,7 +415,7 @@
 <% content_for :javascripts do %>
   <script>
      jQuery(function($){
-        handle = new $$MIS.CashierCheckoutsHandleView();
+        handle = new $$MIS.CashierCheckoutsHandleView({urlRoot: '/api/store_orders'});
      });
   </script>
 <% end %>
