@@ -22,18 +22,19 @@
         </tr>
       </thead>
       <tbody>
-        <% 5.times do %>
+        <% @staff.each_with_index do |staffi, idx| %>
         <tr>
-          <td class="sequence_num">1.</td>
-          <td>潘国勇</td>
-          <td>门店老板</td>
-          <td>管理部</td>
-          <td class="sel do_sel_role do_role">请选择</td>
+          <td class="sequence_num"><%= idx + 1%>.</td>
+          <td><%= staffi.screen_name %></td>
+          <td><%= staffi.store_position.name %></td>
+          <td><%= staffi.store_department.name %></td>
+          <td class="sel do_sel_role do_role">
+            请选择
+          </td>
         </tr>
         <% end %>
       </tbody>
     </table>
-
     <ul class="role_opts" style="display:none;">
       <li>管理员</li>
       <li><label>管理员</label><input type="checkbox"></li>
@@ -48,3 +49,12 @@
   </div>
 
 </div>
+
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+
+    });
+  </script>
+<% end %>
