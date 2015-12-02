@@ -11,13 +11,15 @@
     </div>
 
     <div class="management">
-      <form action="/mis/reset_password/success.html" method="get" >
+      <%= form_for @store_staff, url: password_path, method: :put do |f| %>
+        <%= f.hidden_field :id, value: @store_staff.id %>
+        <input type="hidden" name="captcha_id" value=" <%= @captcha.id %> ">
         <ul class="account_info">
-          <li><label>新密码:</label><input type="text"></li>
-          <li><label>确认密码:</label><input type="text"></li>
-          <li><button class="determine">确定</button></li>
+          <li> <%= f.label "新密码:" %> <%= f.password_field :password %>  </li>
+          <li> <%= f.label "确认密码:" %> <%= f.password_field :password_confirmation %>  </li>
+          <li> <%= f.submit '确定', class: 'determine'  %> </li>
         </ul>
-      </form>
+      <% end %>
 
     </div>
   </main>

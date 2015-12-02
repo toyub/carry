@@ -20,8 +20,8 @@ class StoreStaff <  ActiveRecord::Base
     encrypt_password
   end
 
-  def reset_password!(new_password)
-    self.reset_password(new_password)
+  def reset_password!(new_password, pass_confirmation)
+    self.reset_password(new_password, pass_confirmation)
     self.save
   end
 

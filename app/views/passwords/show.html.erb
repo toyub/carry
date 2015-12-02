@@ -11,13 +11,15 @@
     </div>
 
     <div class="management">
-      <form action="/mis/login/index.html" method="get">
         <div class="success">
           <span class="tip_words">你好,密码已修改成功!</span>
           <button class="relanded">重新登陆</button>
         </div>
-      </form>
     </div>
   </main>
 
 </div>
+
+<script type="text/javascript">
+  $("button.relanded").attr("onclick","location.href='/session/new'")
+</script>
