@@ -1,12 +1,19 @@
 (function(win, doc, $){
   var file_reader = new FileReader();
-  function PiccutDialog(callback){
+
+
+  function PiccutDialog(width, heigth, callback){
 
     if($('div.piccut').length > 0){
       var $dialog = $('div.piccut');
     }else{
       var $dialog = $('<div>').addClass('piccut');
-      $dialog.append('<div class="capture"></div>')
+      var $capture = $('<div>').addClass('capture');
+      $capture.css({
+        width: width + 'px',
+        heigth: heigth + 'px'
+      });
+      $dialog.append($capture);
       var $arrange = $('<div>').addClass('arrange');
       $dialog.append($arrange);
 

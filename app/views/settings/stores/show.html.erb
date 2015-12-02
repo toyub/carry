@@ -9,8 +9,11 @@
   </fieldset>
 
   <div id='store_image' class="upload_pic">
-    <img src="/mis/images/store.jpg" alt="门店照片">
-    <a href="#" id="uploadPic"><i class="fa fa-pencil"></i>上传</a>
+      <% img = current_store.uploads.last %>
+      <% if img.present? %>
+      <img src="<%= img.file_url %>" alt="门店照片">
+      <% end %>
+    <a href="javascript:void(0);" id="uploadPic"><i class="fa fa-pencil"></i>上传</a>
   </div>
 
   <div class="store_basic_information">
@@ -64,9 +67,13 @@
 <% content_for :javascripts do %>
 <script type="text/javascript">
   $('#uploadPic').on('click', function(){
-    PiccutDialog(function(){
-        console.log(this)
-      });
+    PiccutDialog(280, 280, function(){
+      uploading($([this]), '/settings/store/save_picture');
+      if($('#store_image > img').length > 0){
+        $('#store_image > img').remove();
+      }
+      $(this).insertBefore('#uploadPic');
+    });
   })
 </script>
 <% end %>

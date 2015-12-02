@@ -122,7 +122,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :store
+    resource :store do
+      collection do
+        post :save_picture
+      end
+    end
   end
 
   namespace :ajax do

@@ -1,4 +1,6 @@
 class Settings::StoresController < Settings::BaseController
+  include Uploadable
+
   def show
     @open_time = current_store.store_infos.joins(:info_category).where('info_categories.name = :name', name: '上班时间').where(using: true).first
     @close_time = current_store.store_infos.joins(:info_category).where('info_categories.name = :name', name: '下班时间').where(using: true).first
@@ -20,6 +22,10 @@ class Settings::StoresController < Settings::BaseController
   end
 
   def update
-    render json: params
+  end
+
+  private
+  def resource
+    @store ||= current_store
   end
 end
