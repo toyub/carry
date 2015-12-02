@@ -121,6 +121,12 @@ Rails.application.routes.draw do
         post :change_category
       end
     end
+
+    resource :store do
+      collection do
+        post :save_picture
+      end
+    end
   end
 
   namespace :ajax do
@@ -145,7 +151,12 @@ Rails.application.routes.draw do
     resources :store_suppliers, only: [:index]
   end
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy, :edit]
+  resource :passwords do
+    collection do
+      post :send_validate_code
+    end
+  end
 
   namespace :api do
     resources :store_service_categories, only: [:create]
