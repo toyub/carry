@@ -16,6 +16,7 @@ Mis.Views.Concerns.Top =
   resourceName:
     service: '服务'
     package: '套餐'
+    customer: '客户'
 
   subResourceName:
     profiles: '信息'

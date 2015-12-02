@@ -16,8 +16,7 @@
       </ul>
     </div>
 
-    <div class="car_content">
-      <div class="pure-u-1-1">
+    <div class="car_content materials_info">
 
         <div class="item_content">
           <label class="width-75">商品名称</label>
@@ -121,7 +120,7 @@
         </div>
 
 
-        <div class="item_content outline item_property text-align-left margin-left-54">
+        <div class="item_content outline property text-align-left">
           <label class="width-49">商品属性</label>
           <input class="margin-left-15" type="checkbox" name="material[permitted_to_internal]" value="1" <%= "checked='checked'" if @store_material.permitted_to_internal %>><label for="">自用</label>
           <input class="margin-left-26" type="checkbox" name="material[permitted_to_saleable]" value="1" <%= "checked='checked'" if @store_material.permitted_to_saleable %>><label for="">销售</label>
@@ -154,7 +153,7 @@
           <label class="width-75 vertical-align-top">备注</label>
           <textarea name='material[remark]' class="height-120 text-indent-5 width-978" placeholder="输入备注"></textarea>
         </div>
-      </div>
+
 
     </div>
   </div>

@@ -196,15 +196,17 @@ ActiveRecord::Schema.define(version: 20151202061332) do
   end
 
   create_table "store_customers", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
-    t.string   "first_name",     limit: 45, null: false
-    t.string   "last_name",      limit: 45, null: false
-    t.string   "full_name",      limit: 45, null: false
+    t.integer  "store_id",                              null: false
+    t.integer  "store_chain_id",                        null: false
+    t.integer  "store_staff_id",                        null: false
+    t.string   "first_name",                 limit: 45, null: false
+    t.string   "last_name",                  limit: 45, null: false
+    t.string   "full_name",                  limit: 45, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "phone_number",   limit: 45
+    t.string   "phone_number",               limit: 45
+    t.string   "qq"
+    t.integer  "store_customer_category_id"
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -280,14 +282,14 @@ ActiveRecord::Schema.define(version: 20151202061332) do
   add_index "store_files", ["fileable_id", "fileable_type"], name: "fileable", using: :btree
 
   create_table "store_infos", force: :cascade do |t|
-    t.integer  "store_id",                     null: false
+    t.integer  "store_id",                                    null: false
     t.integer  "store_chain_id"
-    t.integer  "info_category_id",             null: false
+    t.integer  "info_category_id",                            null: false
     t.string   "value",            limit: 45
     t.string   "remark",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "state"
+    t.boolean  "using",                        default: true
   end
 
   create_table "store_material_brands", force: :cascade do |t|

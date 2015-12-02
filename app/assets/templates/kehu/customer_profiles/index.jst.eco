@@ -1,0 +1,50 @@
+<div class="details">
+
+  <div class="crm_list_table list_table">
+
+    <table cellpadding="0" cellspacing="0" class="crm_table index_list">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>客户姓名</th>
+          <th>手机号码</th>
+          <th>
+            <div class="font-14 sequence">类别<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">车辆<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">优惠特权<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">资产<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">来店次数<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">消费总金额<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">积分<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">信息完整度<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">活跃度<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">满意度<i class="fa fa-sort"></i></div>
+          </th>
+          <th> 维护</th>
+          <th> 操作</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+</div>
