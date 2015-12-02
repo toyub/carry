@@ -33,8 +33,15 @@
 <script type="text/javascript">
   $('a.get_verification_code').click(function(){
     var phone = $("input#phone").val();
-    $.get("/password/send_validate_code",{ phone: phone },function(data){
-
-    })
+    if (phone.length != '11'){
+      alert("请正确输入手机号!");
+    }
+    if (phone.length == '11'){
+      var regPhone = !!phone.match(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/);
+      if (!regPhone){
+        alert("请正确输入手机号!");
+      }
+    }
+    $.get("/password/send_validate_code",{ phone: phone },function(data){ })
   })
 </script>
