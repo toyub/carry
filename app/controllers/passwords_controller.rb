@@ -2,19 +2,21 @@ class PasswordsController < ApplicationController
   layout 'plain'
   before_action :set_captcha, only: [:create, :edit]
   def new
-    @captcha = params[:captcha] if params[:captcha]
   end
 
   def create
-    if  @captcha.validate_with_token(params[:token])
+    if  (@captcha ||= NullObject.new).validate_with_token(params[:token])
       redirect_to edit_password_path(id: @captcha), notice: '恭喜你,验证通过!'
     else
-      render :new
+      redirect_to new_password_path, notice: '请输入正确的验证码！'
     end
   end
 
   def edit
-    @store_staff = StoreStaff.where(login_name: @captcha.phone).last
+    @store_staff = @captcha.store_staff
+    if @store_staff.blank?
+      redirect_to new_password_path, notice: '请确认手机号是否注册！'
+    end
   end
 
   def show
@@ -22,15 +24,11 @@ class PasswordsController < ApplicationController
   end
 
   def send_validate_code
-    if params[:phone].length != 11
-      redirect_to new_passwords_path, notice: '请输入正确的手机号！'
+    @captcha = Captcha.new(token: generate_salt(6), sent_at: Time.now, phone: params[:phone])
+    if @captcha.save
+      @captcha.send_message
     else
-      @captcha = Captcha.new(token: generate_salt(6), sent: Time.now, phone: params[:phone])
-      if @captcha.save
-        SmsClient.publish(@captcha.phone, @captcha.token)
-      else
-        redirect_to new_passwords_path, notice: '发送失败！'
-      end
+      redirect_to new_password_path, notice: '发送失败！'
     end
   end
 
@@ -50,7 +48,7 @@ class PasswordsController < ApplicationController
   end
 
   def set_captcha
-    @captcha = Captcha.find(params[:id])
+    @captcha = Captcha.find(params[:id]) if params[:id].present?
   end
 
   def set_store_staffer_params

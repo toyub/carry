@@ -21,7 +21,7 @@
               <%= link_to '获取验证码', 'javascript:void(0)', class: 'get_verification_code' %>
             </span>
           </li>
-          <li><label>输入验证码:</label><input name="token" type="text"></li>
+          <li><label>输入验证码:</label><input pattern=".{6,6}" name="token" required="true" title="请输入6位数的验证码!" type="text"></li>
           <li><button class="next">下一步</button></li>
         </ul>
      <% end %>
@@ -33,7 +33,7 @@
 <script type="text/javascript">
   $('a.get_verification_code').click(function(){
     var phone = $("input#phone").val();
-    $.post("/password/send_validate_code",{ phone: phone },function(data){
+    $.get("/password/send_validate_code",{ phone: phone },function(data){
 
     })
   })
