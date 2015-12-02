@@ -7,7 +7,7 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_employee
 
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
-  validates_presence_of :password, :password_confirmation, :login_name
+  validates_presence_of :login_name
 
   before_create :encrypt_password
 

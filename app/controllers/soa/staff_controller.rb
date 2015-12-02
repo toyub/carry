@@ -10,7 +10,6 @@ class Soa::StaffController < Soa::ControllerBase
     @employee = StoreEmployee.new
     @departments = current_store.store_departments
     @positions = @departments[0].store_positions
-
   end
 
   def create
