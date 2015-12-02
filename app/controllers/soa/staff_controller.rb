@@ -20,7 +20,7 @@ class Soa::StaffController < Soa::ControllerBase
     staff.login_name = staff.phone_number
     staff.password = staff.password_confirmation = '123456'
     if employee.save && staff.save
-      redirect_to action: 'setting'
+      redirect_to new_soa_setting_path(id: staff.id)
     else
       render json: {
         staff_errors: staff.errors,
