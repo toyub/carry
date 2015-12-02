@@ -41,8 +41,17 @@ class Soa::StaffController < Soa::ControllerBase
     @employee = @staff.store_employee || StoreEmployee.new
   end
 
+  def show
+    @staff = current_store.store_staff.find(params[:id])
+    @employee = @staff.store_employee
+  end
+
   def update
-    render json: params
+    staff = current_store.store_staff.find(params[:id])
+    employee = staff.store_employee
+    staff.update!(staff_params)
+    employee.update!(employee_params)
+    redirect_to action: :show
   end
 
   private

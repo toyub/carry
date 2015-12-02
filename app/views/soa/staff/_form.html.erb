@@ -61,7 +61,7 @@
 
       <div class="birth">
         <label for="">出生日期</label>
-        <input type="date" name="employee[birthday]"  value="<%= @employee.birthday.strftime("%Y-%m-%d")%>">
+        <input type="date" name="employee[birthday]"  value="<%= @employee.birthday.try(:strftime,"%Y-%m-%d")%>">
       </div>
 
       <div>
