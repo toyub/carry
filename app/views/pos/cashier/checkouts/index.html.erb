@@ -411,3 +411,11 @@
   </dl>
 
 </template>
+
+<% content_for :javascripts do %>
+  <script>
+     jQuery(function($){
+        handle = new $$MIS.CashierCheckoutsHandleView();
+     });
+  </script>
+<% end %>

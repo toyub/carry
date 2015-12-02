@@ -1,2 +1,2 @@
 //= require_tree ../templates/pos
-//= require pos/index
+//= require pos_app
