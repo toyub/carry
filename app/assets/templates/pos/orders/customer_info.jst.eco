@@ -1,0 +1,234 @@
+<h2>完善客户信息</h2>
+<div class="constrction_info_tab">
+	<table cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr >
+				<td>
+					<label class="width-55">客户名称</label>
+					<input type="text" class="width-98" value="张雨">
+				</td>
+				<td>
+					<label class="width-55">简称</label>
+					<input type="text" class="width-100" value="张先生">
+				</td>
+				<td>
+					<label class="width-55">客户编码</label>
+					<input type="text" class="width-105" value="KH201207080001">
+				</td>
+				<td>
+					<label class="width-75">客户类别</label>
+					<select class="width-102">
+					  <option>个人</option>
+						<option>单位</option>
+					</select>
+				</td>
+			</tr>
+			<tr >
+				<td>
+					<label class="width-55">联系人</label>
+					<input type="text" class="width-98" value="张雨">
+				</td>
+				<td>
+					<label class="width-55">固定电话</label>
+					<input type="text" class="width-100" value="0571-8887797">
+				</td>
+				<td>
+					<label class="width-55">移动电话</label>
+					<input type="text" class="width-105" value="13805798634">
+				</td>
+				<td>
+					<label class="width-75">其他联系方式</label>
+					<input type="text" class="width-100" value="">
+				</td>
+			</tr>
+			<tr >
+				<td>
+					<label class="width-55">性别</label>
+					<select class="width-100">
+					  <option>男</option>
+						<option>女</option>
+					</select>
+				</td>
+				<td>
+					<label class="width-55">年龄</label>
+					<input type="text" class="width-100" value="35">
+				</td>
+				<td>
+					<label class="width-55">联系地址</label>
+					<input type="text" class="width-105" value="下城区林司后清远巷8号">
+				</td>
+				<td>
+					<label class="width-75">建挡日期</label>
+					<input type="text" class="width-100">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr >
+				<td>
+					<label class="width-55">证件号码</label>
+					<input type="text" class="width-98" value="33170078">
+				</td>
+				<td>
+					<label class="width-55">生日</label>
+					<input type="text" class="width-30">
+					<span>月</span>
+					<input type="text" class="width-30">
+					<span>日</span>
+				</td>
+				<td>
+					<label class="width-55">区域</label>
+					<input type="text" class="width-105" value="下城区">
+				</td>
+				<td>
+					<label class="width-75">车程</label>
+					<input type="text" value="35" class="width-70">
+					<span>分钟</span>
+				</td>
+			</tr>
+			<tr >
+				<td>
+					<label class="width-55"></label>
+					未婚
+					<input type="radio" class="width-15" name="control_marital">
+					已婚
+					<input type="radio" class="width-15" name="control_marital">
+				</td>
+				<td>
+					<label class="width-55">学历</label>
+					<select class="width-100">
+					  <option>大专</option>
+					</select>
+				</td>
+				<td>
+					<label class="width-55">职业</label>
+					<select class="width-107">
+					  <option>销售经理</option>
+					</select>
+				</td>
+				<td>
+					<label class="width-75">收入</label>
+					<select class="width-102">
+					  <option>1000-3000</option>
+						<option>3000-5000</option>
+						<option>5000-8000</option>
+						<option>8000-10000</option>
+						<option>1万以上</option>
+					</select>
+				</td>
+			</tr>
+			<tr >
+				<td>
+					<label class="width-55">个人爱好</label>
+					<input type="text" class="width-98" value="羽毛球,乒乓球">
+				</td>
+				<td>
+					<label class="width-55">消费习惯</label>
+					<input type="text" class="width-100" value="注重保养,不喜欢推销">
+				</td>
+				<td>
+					<label class="width-55">是否吸烟</label>
+					<select  class="width-107">
+						<option>是</option>
+						<option>否</option>
+					</select>
+				</td>
+				<td>
+					<label class="width-75">是否饮酒</label>
+					<select  class="width-102">
+						<option>是</option>
+						<option>否</option>
+					</select>
+				</td>
+			</tr>
+			<tr >
+				<td colspan="2">
+					<label class="width-55">单位</label>
+					<input type="text" class="width-259" value="杭州瑞鲮商务咨询有限公司">
+				</td>
+				<td>
+					<label class="width-55">联系时间</label>
+					<input type="text" class="width-105" value="8-17点">
+				</td>
+				<td>
+					<label class="width-70">不接受回访</label>
+					<input type="radio" class="width-15">
+					<label class="width-70">不接受短信</label>
+					<input type="radio" class="width-15">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table cellspacing="0" cellpadding="0" class="margin-bottom-0">
+		<tbody>
+			<tr >
+				<td>
+					<label class="width-55">结算方式</label>
+          <select class="width-100">
+					  <option>挂账</option>
+					</select>
+				</td>
+				<td>
+					<label class="width-55">挂账额度</label>
+					<input type="text" class="width-100" value="10000">
+				</td>
+				<td>
+					<label class="width-55">结算周期</label>
+					<input type="text" class="width-55" value="1">
+					<select class="width-45">
+            <option>天</option>
+						<option>月</option>
+						<option>年</option>
+					</select>
+				</td>
+				<td>
+					<label class="width-75">合同号</label>
+					<input type="text" value="HT201508090002" class="width-100">
+				</td>
+			</tr>
+			<tr >
+				<td colspan="2">
+					<label class="width-55">开户银行</label>
+					<input type="text" class="width-259" value="建设银行下城支行凤起路分理处">
+				</td>
+				<td colspan="2">
+					<label class="width-55">银行帐号</label>
+					<input type="text"  class="width-293" value="3308987657899987">
+				</td>
+			</tr>
+			<tr >
+				<td colspan="2">
+					<label class="width-55">税号</label>
+					<input type="text" class="width-259" value="39898876678899">
+				</td>
+				<td>
+					<label class="width-55">收款方式</label>
+					<select class="width-100">
+						<option>现金</option>
+						<option>支票</option>
+					</select>
+				</td>
+				<td>
+					<label class="width-75">发票种类</label>
+					<input type="text" class="width-100" value="增值税">
+				</td>
+			</tr>
+			<tr >
+				<td colspan="4">
+					<label class="width-55 vertical-align-top">备注</label>
+					<textarea class="width-623"></textarea>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+<div class="btn_group float-right margin-top-20">
+	<a class="cancel_btn btn">取消</a>
+	<a class="save_btn btn">保存</a>
+</div>
