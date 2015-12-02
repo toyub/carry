@@ -48,7 +48,7 @@ class Soa::StaffController < Soa::ControllerBase
 
   def update
     staff = current_store.store_staff.find(params[:id])
-    employee = staff.store_employee
+    employee = staff.store_employee || staff.build_store_employee(employee_params)
     staff.update!(staff_params)
     employee.update!(employee_params)
     redirect_to action: :show
