@@ -176,57 +176,51 @@
         <span class='width-60'>专业技能</span>
 
         <ul>
+          <%= form.fields_for :skills do |skills_fields| %>
+
           <li>
-            <label>技能岗位</label>
-            <select>
-              <option></option>
-              <option>美容技师</option>
-            </select>
+            <%= skills_fields.label :other_skills, "其他技能" %>
+            <%= skills_fields.select :other_skills, options_from_collection_for_select(@store.store_departments, 'id', 'name'), {}, {multiple: true}  %>
+          </li>
+
+          <br />
+          <li>
+            <%= skills_fields.label :theory, "理论知识" %>
+            <%= skills_fields.range_field :theory, in: 1..100, value: 50, step: '.1' %>
           </li>
 
           <li>
-            <label>理论知识</label>
-            <form oninput='theory.value=parseInt(a.value)'>
-              <input type='range' id="a" value="50">
-              <output name='theory' for='a'>50</output>
-            </form>
+            <%= skills_fields.label :theory, "实操能力" %>
+            <%= skills_fields.range_field :theory, in: 1..100, value: 50, step: '.1' %>
           </li>
 
           <li>
-            <label>实操能力</label>
-            <form oninput='practice.value=parseInt(b.value)'>
-              <input type='range' id="b" value="50">
-              <output name='practice' for='b'>50</output>
-            </form>
+            <%= skills_fields.label :theory, "综合能力" %>
+            <%= skills_fields.range_field :theory, in: 1..100, value: 50, step: '.1' %>
           </li>
 
-          <li>
-            <label>综合能力</label>
-            <form oninput='integration.value=parseInt(c.value)'>
-              <input type='range' id="c" value="50">
-              <output name='integration' for='c'>50</output>
-            </form>
-          </li>
+          <!-- <li> -->
+          <!--   <label></label> -->
+          <!--   <form oninput='practice.value=parseInt(b.value)'> -->
+          <!--     <input type='range' id="b" value="50"> -->
+          <!--     <output name='practice' for='b'>50</output> -->
+          <!--   </form> -->
+          <!-- </li> -->
+          <!--  -->
+          <!-- <li> -->
+          <!--   <label></label> -->
+          <!--   <form oninput='integration.value=parseInt(c.value)'> -->
+          <!--     <input type='range' id="c" value="50"> -->
+          <!--     <output name='integration' for='c'>50</output> -->
+          <!--   </form> -->
+          <!-- </li> -->
 
           <li>
-            <label>技能证书</label>
-            <select>
-              <option>无</option>
-              <option>有</option>
-            </select>
+            <%= skills_fields.label :certificate, "技能证书" %>
+            <%= skills_fields.select :certifiate, [["无", false], ["有", true]] %>
           </li>
+        <% end %>
 
-          <li>
-            <label>其他技能</label>
-            <input type="text" class="width-160">
-          </li>
-
-          <li>
-            <label>等级程度</label>
-            <select>
-              <option>中级</option>
-            </select>
-          </li>
         </ul>
       </div>
     </div>
@@ -288,6 +282,8 @@
       var closed_class_name = $(this).data("from");
       $("."+ closed_class_name).css("display", "none");
     })
+
+    $("#store_staff_skills_other_skills").select2();
 
   })
 </script>
