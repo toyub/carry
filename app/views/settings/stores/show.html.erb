@@ -8,8 +8,9 @@
     <legend>基本信息</legend>
   </fieldset>
 
-  <div class="upload_pic">
-    <img src="/mis/images/store.jpg" alt="门店照片"/>
+  <div id='store_image' class="upload_pic">
+    <img src="/mis/images/store.jpg" alt="门店照片">
+    <a href="#" id="uploadPic"><i class="fa fa-pencil"></i>上传</a>
   </div>
 
   <div class="store_basic_information">
@@ -26,8 +27,8 @@
 
     <div>
       <label for="">所在地区</label>
-      <span class="show_content width-139"><%= @state.value %></span>
-      <span class="show_content width-139"><%= @city.value %></span>
+      <span class="show_content width-139"><%= @location.province.name %></span>
+      <span class="show_content width-139"><%= @location.name %></span>
     </div>
 
     <div>
@@ -59,3 +60,13 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascripts do %>
+<script type="text/javascript">
+  $('#uploadPic').on('click', function(){
+    PiccutDialog(function(){
+        console.log(this)
+      });
+  })
+</script>
+<% end %>
