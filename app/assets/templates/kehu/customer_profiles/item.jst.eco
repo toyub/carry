@@ -1,0 +1,25 @@
+<td><%= @customer.get 'id' %></td>
+<td><span class="span_border_left"><%= @customer.get 'full_name' %></span></td>
+<td><%= @customer.get 'mobile' %></td>
+<td>个人</td>
+<td>3辆</td>
+<td>是</td>
+<td>有</td>
+<td>86</td>
+<td>60,7891.00</td>
+<td>2700</td>
+<td>７0%</td>
+<td>222次/年</td>
+<td>
+  <i class="fa fa-star color-C6676D"></i>
+  <i class="fa fa-star color-C6676D"></i>
+  <i class="fa fa-star color-C6676D"></i>
+  <i class="fa fa-star color-C6676D"></i>
+  <i class="fa fa-star-o color-D5C3C4"></i>
+</td>
+<td>王丽丽</td>
+<td>
+  <a href="<%= @view.customerUrl() %>">详情
+    <i class="fa fa-angle-double-right font-size-16"></i>
+  </a>
+</td>

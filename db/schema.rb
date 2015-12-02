@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124012900) do
+ActiveRecord::Schema.define(version: 20151201025559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(version: 20151124012900) do
     t.integer  "store_chain_id",            null: false
     t.string   "name",           limit: 45
     t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -172,16 +180,33 @@ ActiveRecord::Schema.define(version: 20151124012900) do
     t.datetime "updated_at"
   end
 
-  create_table "store_customers", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
-    t.string   "first_name",     limit: 45, null: false
-    t.string   "last_name",      limit: 45, null: false
-    t.string   "full_name",      limit: 45, null: false
+  create_table "store_customer_categories", force: :cascade do |t|
+    t.integer  "store_id",                              null: false
+    t.integer  "store_chain_id",                        null: false
+    t.integer  "store_staff_id",                        null: false
+    t.string   "name",                                  null: false
+    t.string   "description"
+    t.string   "color"
+    t.boolean  "auto_promoted_enabled", default: false
+    t.json     "conditions"
+    t.json     "discounts"
+    t.json     "privileges"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "phone_number",   limit: 45
+  end
+
+  create_table "store_customers", force: :cascade do |t|
+    t.integer  "store_id",                              null: false
+    t.integer  "store_chain_id",                        null: false
+    t.integer  "store_staff_id",                        null: false
+    t.string   "first_name",                 limit: 45, null: false
+    t.string   "last_name",                  limit: 45, null: false
+    t.string   "full_name",                  limit: 45, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "phone_number",               limit: 45
+    t.string   "qq"
+    t.integer  "store_customer_category_id"
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -257,14 +282,14 @@ ActiveRecord::Schema.define(version: 20151124012900) do
   add_index "store_files", ["fileable_id", "fileable_type"], name: "fileable", using: :btree
 
   create_table "store_infos", force: :cascade do |t|
-    t.integer  "store_id",                     null: false
+    t.integer  "store_id",                                    null: false
     t.integer  "store_chain_id"
-    t.integer  "info_category_id",             null: false
+    t.integer  "info_category_id",                            null: false
     t.string   "value",            limit: 45
     t.string   "remark",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "state"
+    t.boolean  "using",                        default: true
   end
 
   create_table "store_material_brands", force: :cascade do |t|

@@ -28,4 +28,8 @@ class SessionsController < ApplicationController
       return false
     end
   end
+
+  def edit
+
+  end
 end

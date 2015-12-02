@@ -37,6 +37,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def edit
+    @store = current_store
   end
 
   def update
