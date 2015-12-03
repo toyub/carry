@@ -49,6 +49,12 @@ ActiveRecord::Schema.define(version: 20151203120841) do
     t.datetime "updated_at"
   end
 
+  create_table "captchas", force: :cascade do |t|
+    t.string   "phone"
+    t.string   "token"
+    t.datetime "sent_at"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.integer  "parent_id"
