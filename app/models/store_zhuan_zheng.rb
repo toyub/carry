@@ -1,3 +1,2 @@
 class StoreZhuanZheng < StoreProtocol
-
 end

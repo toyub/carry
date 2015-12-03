@@ -75,7 +75,9 @@ Rails.application.routes.draw do
 
   namespace :soa do
     resources :staff
-    resources :setting
+    resources :setting do
+      patch 'adjust', on: :member
+    end
   end
 
   namespace :xianchang do

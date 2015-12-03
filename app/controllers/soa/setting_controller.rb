@@ -38,6 +38,18 @@ class Soa::SettingController < Soa::ControllerBase
     end
   end
 
+  def adjust
+    @store = current_store
+    @staff = @store.store_staff.find(params[:id])
+    @protocol = @staff.store_protocols.build(protocol_param)
+
+    if @protocol.save
+      render plain: @protocol
+    else
+      render plain: params
+    end
+  end
+
   private
   def setting_staff_param
     params.require(:store_staff).permit(:trial_salary, :trial_period, :regular_salary,
@@ -45,5 +57,8 @@ class Soa::SettingController < Soa::ControllerBase
                                        skills: [:theory, :operate, :integrate, :certificate, :other_skills => [] ],
                                        other: [:deduct, :system_operator, :can_use_app]
                                        )
+  end
+  def protocol_param
+    params.require(:protocols).permit(:type, :reason_for, :effective_date, :end_at, :verifier_id, :remarks, :created_by, :record_at)
   end
 end
