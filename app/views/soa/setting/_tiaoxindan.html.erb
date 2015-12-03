@@ -1,4 +1,4 @@
-<%= form_tag("/soa/setting/#{@staff.id}/adjust", method: "patch") do -%>
+<%= form_tag("/soa/setting/#{@staff.id}/adjust", method: "patch", remote: true) do -%>
   <div class="salary_adjusting_wrap">
     <div class="salary_adjusting_window">
       <h3>调薪单</h3>
@@ -39,12 +39,12 @@
 
           <div class="reason">
             <%= protocol_fields.label :reason_for, "调薪原因" %>
-            <%= protocol_fields.text_area :reason_for, class: "width-696" %>
+            <%= protocol_fields.text_area :reason_for, value: @textvalue["StoreTiaoXin"][:reason_for], class: "width-696" %>
           </div>
 
           <div class="start_time">
             <%= protocol_fields.label :effective_date, "生效日期" %>
-            <%= protocol_fields.date_field :effective_date %>
+            <%= protocol_fields.date_field :effective_date, value: @textvalue["StoreTiaoXin"][:effective_date] %>
           </div>
           <div class="confirm_person">
             <%= protocol_fields.label :verifier_id, "审核人" %>
@@ -52,7 +52,7 @@
           </div>
           <div class="remark">
             <%= protocol_fields.label :remarks, "备注" %>
-            <%= protocol_fields.text_area :remarks, class: "width-696" %>
+            <%= protocol_fields.text_area :remarks, value: @textvalue["StoreTiaoXin"][:remarks], class: "width-696" %>
           </div>
 
           <div class="form_maker">

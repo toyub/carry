@@ -14,6 +14,10 @@ class Soa::SettingController < Soa::ControllerBase
     @disable = false
     @action_uri = soa_setting_path
     @method = :patch
+
+    @textvalue = get_second_form_textvalue(@staff, "StoreZhuanZheng")
+    @textvalue.merge! get_second_form_textvalue(@staff, "StoreTiaoXin")
+    @textvalue.merge! get_second_form_textvalue(@staff, "StoreQianDingHeTong")
   end
 
   def new
@@ -39,14 +43,24 @@ class Soa::SettingController < Soa::ControllerBase
   end
 
   def adjust
+
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
-    @protocol = @staff.store_protocols.build(protocol_param)
+    type = params[:protocols][:type]
 
-    if @protocol.save
-      render plain: @protocol
+    if StoreProtocol.is_new_record?(type)
+      @protocol = @staff.store_protocols.create(protocol_param)
     else
-      render plain: params
+      @protocol = @staff.store_protocols.operate_type(type)[0].update(protocol_param)
+    end
+
+    respond_to do |format|
+      if @protocol
+        format.html { render plain: @protocol.reason_for }
+        format.js
+      else
+        render plain: "some errors occur!!!"
+      end
     end
   end
 
