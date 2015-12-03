@@ -54,8 +54,8 @@
       <div class="gender">
         <label>性别</label>
         <span>
-          <label><input type="radio" name="employee[gender]" value="male" checked>男</label>
-          <label class="margin-left-36"><input type="radio" name="employee[gender]"  value="female">女</label>
+          <label><input type="radio" name="employee[gender]" value="male" <%= 'checked' if @employee.gender == 'male' %> >男</label>
+          <label class="margin-left-36"><input type="radio" name="employee[gender]"  value="female" <%= 'checked' if @employee.gender == 'female' %> >女</label>
         </span>
       </div>
 
@@ -94,7 +94,7 @@
 
       <div class="level">
         <label for="">职称</label>
-        <select name="staff[levle_type_id]">
+        <select name="staff[level_type_id]">
           <%= options_from_collection_for_select(StoreStaffLevel.collection, 'id', 'name') %>
         </select>
       </div>
@@ -126,12 +126,12 @@
 
       <div>
         <label for="">入职时间</label>
-        <input type="text" name="staff[employeed_at]" value="<%= @staff.employeed_at%>">
+        <input type="date" name="staff[employeed_at]" value="<%= @staff.employeed_at.try(:strftime, '%Y-%m-%d') %>">
       </div>
 
       <div>
         <label for="">离职时间</label>
-        <input type="text" name="staff[terminated_at]" value="<%= @staff.terminated_at%>">
+        <input type="date" name="staff[terminated_at]" value="<%= @staff.terminated_at.try(:strftime, '%Y-%m-%d')%>">
       </div>
 
       <div>

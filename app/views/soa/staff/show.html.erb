@@ -72,20 +72,20 @@
 
       <div class="department">
         <label for="">所属部门</label>
-        <span class="show_content"><%= @staff.store_department.name%></span>
+        <span class="show_content"><%= @staff.store_department.try :name%></span>
       </div>
 
       <div class="position">
         <label for="" class="width-50">职务属性</label>
-        <span class="show_content"><%= @staff.job_type_id%></span>
+        <span class="show_content"><%= @staff.job_type.try :name %></span>
 
         <label for="">职务</label>
-        <span class="show_content"><%= @staff.store_position.name%></span>
+        <span class="show_content"><%= @staff.store_position.try :name%></span>
       </div>
 
       <div class="level">
         <label for="">职称</label>
-        <span class="show_content"><%= @staff.levle_type_id%></span>
+        <span class="show_content"><%= @staff.level_type.try :name %></span>
       </div>
 
 
