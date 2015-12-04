@@ -1,1 +1,1 @@
-//= require_self
+//= require soa_app/index
