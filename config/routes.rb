@@ -207,6 +207,12 @@ Rails.application.routes.draw do
     resources :orders
   end
 
+  namespace :printer do
+    namespace :pos do
+      resources :orders
+    end
+  end
+
   root 'kucun/materials#index'
 
   mount Sidekiq::Web => '/sidekiq'
