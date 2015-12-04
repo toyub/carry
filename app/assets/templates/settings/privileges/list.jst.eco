@@ -1,0 +1,5 @@
+<td><%= this.index %>.</td>
+<td><%= this.screen_name %></td>
+<td><%= this.position %></td>
+<td><%= this.department %></td>
+<td class="cursor-pointer do_sel"><%= this.roles %></td>

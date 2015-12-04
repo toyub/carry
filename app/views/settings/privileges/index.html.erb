@@ -11,7 +11,7 @@
   </div>
 
   <div class="details_content user_setting">
-    <table>
+    <table id="privileges">
       <thead>
         <tr>
           <th>#</th>
@@ -22,39 +22,137 @@
         </tr>
       </thead>
       <tbody>
-        <% @staff.each_with_index do |staffi, idx| %>
-        <tr>
-          <td class="sequence_num"><%= idx + 1%>.</td>
-          <td><%= staffi.screen_name %></td>
-          <td><%= staffi.store_position.name %></td>
-          <td><%= staffi.store_department.name %></td>
-          <td class="sel do_sel_role do_role">
-            请选择
-          </td>
-        </tr>
-        <% end %>
       </tbody>
     </table>
-    <ul class="role_opts" style="display:none;">
-      <li>管理员</li>
-      <li><label>管理员</label><input type="checkbox"></li>
-      <li><label>门店经理</label><input type="checkbox"></li>
-      <li><label>收银员</label><input type="checkbox"></li>
-      <li><label>出纳员</label><input type="checkbox"></li>
-      <li><label>库管员</label><input type="checkbox"></li>
-      <li><label>销售员</label><input type="checkbox"></li>
-      <li><label>财务员</label><input type="checkbox"></li>
-      <li>在角色选择时，如果工作需要，可以进行多选</li>
-    </ul>
+
+    <div class="roles_options" style="display:none;">
+      <span class="roles_selected">管理员</span>
+
+      <ul class="role_opts">
+        <li><label>管理员</label><input type="checkbox"></li>
+        <li><label>门店经理</label><input type="checkbox"></li>
+        <li><label>收银员</label><input type="checkbox"></li>
+        <li><label>出纳员</label><input type="checkbox"></li>
+        <li><label>库管员</label><input type="checkbox"></li>
+        <li><label>销售员</label><input type="checkbox"></li>
+        <li><label>财务员</label><input type="checkbox"></li>
+      </ul>
+
+      <span class="display-block height-40 line-height-40 text-align-center">请选择角色</span>
+    </div>
+
   </div>
 
 </div>
-
 
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
 
+      var privileges = [
+        {index: 1, screen_name: 'Issac', position: '后端', department: '研发', roles: []},
+
+        {index: 2, screen_name: '陆文丽', position: '前端', department: '研发', roles: []},
+
+        {index: 3, screen_name: '汪盈盈', position: '前端', department: '研发', roles: []}
+      ];
+
+      var roles = ["管理员", "门店经理", "收银员", "出纳员", "库管员", "销售员", "财务员"];
+
+      var Model = Backbone.Model.extend({
+
+      });
+
+      var Collection = Backbone.Collection.extend({
+        model: Model
+      });
+
+      var listView = Backbone.View.extend({
+        tagName: 'tr',
+
+        template: JST['settings/privileges/list'],
+
+        events: {
+          'click .do_sel': 'renderDialog'
+        },
+
+        render: function(){
+          this.$el.html(this.template(this.model.toJSON()));
+          return this;
+        },
+
+        renderDialog: function(){
+          var view = new modalDialogView({model: this.model});
+          console.log(this.model);
+          $(".user_setting").append(view.render().el);
+        }
+      });
+
+      var modalDialogView = Backbone.View.extend({
+        className: 'roles_options',
+        tagName: 'div',
+
+        template: JST['settings/privileges/modaldialog'],
+
+        initialize: function(){
+          this.model.on('change:roles', this.xxx, this);
+        },
+
+        xxx: function(){
+          console.log("dsjfkaaaaafdlksfjvdlsvmkxcvmlkdsmdsajfdksfjdasf");
+        },
+
+        events: {
+          'change input[type="checkbox"]': 'selRoles'
+        },
+
+        render: function(){
+
+          this.$el.html(this.template({staff: this.model, roles: roles}));
+          console.log('xxxjkljijojui')
+          return this;
+        },
+
+        selRoles: function(e){
+          if($(e.target).prop('checked') == true){
+            var xx = this.model.get('roles');
+            this.model.set('roles', xx.push($(e.target).siblings().text()))
+          }else{
+            this.model.get('roles').splice($.inArray($(e.target).siblings().text(),this.model.get('roles')),1);
+          }
+          console.log(this.model.get('roles'));
+        }
+
+      });
+
+
+      var View = Backbone.View.extend({
+        el: 'body',
+
+        initialize: function(){
+
+          this.listenTo(this.collection, 'all', this.render)
+        },
+
+        events: {
+
+        },
+
+        render: function(){
+          this.collection.each(this.renderList,this);
+          return this;
+        },
+
+        renderList: function(staff){
+          var view = new listView({model: staff});
+          this.$el.find("tbody").append(view.render().el);
+        },
+
+
+      });
+
+      var view = new View({collection: new Collection(privileges)});
+      view.render();
     });
   </script>
 <% end %>

@@ -1,0 +1,10 @@
+
+  <span class="roles_selected"><%= @staff.roles %></span>
+
+  <ul class="role_opts">
+    <% for n in @roles : %>
+    <li><label><%= n %></label><input type="checkbox"></li>
+    <% end %>
+  </ul>
+
+  <span class="display-block height-40 line-height-40 text-align-center">请选择角色</span>
