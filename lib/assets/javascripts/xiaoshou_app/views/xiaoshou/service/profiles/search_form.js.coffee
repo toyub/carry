@@ -1,4 +1,5 @@
 class Mis.Views.XiaoshouServiceProfilesSearchForm extends Mis.Base.View
+  className: 'search_nav'
 
   template: JST['xiaoshou/service/profiles/search_form']
 

@@ -9,6 +9,7 @@ require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
+require 'capistrano/rails/console'
 
 require 'capistrano/puma'
 require 'capistrano/puma/workers' # if you want to control the workers (in cluster mode)

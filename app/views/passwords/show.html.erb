@@ -1,0 +1,25 @@
+<div class="reset">
+  <header class="login_header">
+    <span class="chinese">重设密码</span>
+  </header>
+
+  <main class="main">
+    <div class="step">
+      <a href="javascript:void(0)">1.输入验证码</a>
+      <a href="javascript:void(0)">2.设置新密码</a>
+      <a href="javascript:void(0)"  class="active">3.设置成功</a>
+    </div>
+
+    <div class="management">
+        <div class="success">
+          <span class="tip_words">你好,密码已修改成功!</span>
+          <button class="relanded">重新登陆</button>
+        </div>
+    </div>
+  </main>
+
+</div>
+
+<script type="text/javascript">
+  $("button.relanded").attr("onclick","location.href='/session/new'")
+</script>

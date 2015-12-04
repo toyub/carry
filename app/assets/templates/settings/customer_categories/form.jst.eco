@@ -1,0 +1,107 @@
+<form>
+  <div class="customer_setting">
+
+    <div class="regular_setting">
+      <div class="base_info">
+        <input class="customer_category width-300" type="text" value="<%= @name %>" name='name' required autocomplete='off'>
+        <label class="margin-right-4">类别颜色<input type="color" name='color' value="<%= @color %>"></label>
+      </div>
+
+      <p class="descript">
+        <label for="">类别描述：</label>
+        <textarea name='description'><%= @description %></textarea>
+      </p>
+
+      <div class="condition_setting">
+        <p class="font-14 font-weight-bold">类别定义</p>
+        <ul>
+          <li>
+            <label class="margin-right-6">消费金额达到：</label>
+            <input type="number" name="conditions[consume_amount]" class="margin-right-15" autocomplete='off' value="<%= @conditions.consume_amount %>">
+            <label>元</label>
+          </li>
+          <li>
+            <label class="margin-right-6">持卡数量达到：</label>
+            <input type="number" name="conditions[cards_count]" class="margin-right-15" autocomplete='off' value="<%= @conditions.cards_count %>">
+            <label>张</label>
+          </li>
+          <li>
+            <label class="margin-right-6">消费订单达到：</label>
+            <input type="number" name="conditions[orders_count]" class="margin-right-15" autocomplete='off' value="<%= @conditions.orders_count %>">
+            <label>单</label>
+          </li>
+          <li>
+            <label class="margin-right-6">信息完整达到：</label>
+            <input type="range" title="使用↑↓调整大小" name="conditions[profile_integrity_percentage]" min=0 max=100 class="margin-right-15" autocomplete='off' value="<%= @conditions.profile_integrity_percentage %>">
+            <label><%= @conditions.profile_integrity_percentage %>%</label>
+          </li>
+        </ul>
+
+        <p class="footer">
+          <label>符合类别定义条件自动晋级至相应类别<input type="checkbox"  name='auto_promoted_enabled' class="margin-left-10" <%= 'checked' if @auto_promoted_enabled %> ></label>
+        </p>
+      </div>
+    </div>
+
+
+    <div class="professional_setting_wrap">
+      <div class="professional_setting">
+        <div class="privilege_setting" style="display:<%= isShow? 'block':'none' %>">
+          <p class="font-14 font-weight-bold">客户特权</p>
+
+          <div class="check_btns">
+            <label><input type="checkbox" class="vertical-align-middle">只显示打折类别</label>
+          </div>
+
+          <div class="product_category">
+
+            <div class="category_head">
+              <label>商品一级分类</label>
+              <label>二级分类</label>
+              <label>折扣率</label>
+            </div>
+
+            <div class="primary_category">
+              <ul class='material_categories'>
+                <% for category in @material_categories : %>
+                <li data-id='<%= category.id %>'><%= category.name %></li>
+                <% end %>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="service_category">
+
+            <div class="category_head">
+              <label>服务类别</label>
+              <label>项目</label>
+              <label>折扣率</label>
+            </div>
+
+            <div class="primary_category">
+              <ul class='service_categories'>
+                <% for category in @service_categories : %>
+                <li data-id='<%= category.id %>'><%= category.name %></li>
+                <% end %>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="clr"></div>
+          <div class="privilege_select">
+            <label>预约优先<input type="checkbox" name="privileges[subscribe]" <%= 'checked' if @privileges.subscribe %> ></label>
+            <label>排队优先<input type="checkbox" name="privileges[queue]" <%= 'checked' if @privileges.queue %> ></label>
+            <label>允许折上折<input type="checkbox" name="privileges[additional_discount]" <%= 'checked' if @privileges.additional_discount %> ></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="btns">
+    <input type="reset" class="btn edit_btn" value="取消">
+    <input type="submit" class="btn save_btn" value="保存">
+  </div>
+</form>
