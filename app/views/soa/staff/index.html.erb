@@ -7,36 +7,31 @@
 <div class="details">
   <div class="list_table">
     <div class="search_nav">
+      <%= form_tag '/soa/staff/', method: 'GET' do %>
       <div class="item-query">
         <label>查找员工</label>
-        <input type="text" class="width-150" placeholder="输入关键字">
+        <input type="text" class="width-150" placeholder="输入姓名、手机号码查找" name='keyword' value="<%= params[:keyword] %>">
       </div>
       <div class="item-query">
-        <label>按部门</label>
-        <select type="text" class="width-150">
-        <option></option>
-        <option></option>
+        <label>职务属性</label>
+        <select type="text" class="width-150" name='job_type_id'>
+          <option value="">全部</option>
+          <%= options_from_collection_for_select(JobType.collection, 'id', 'name', params[:job_type_id]) %>
         </select>
       </div>
       <div class="item-query">
-        <label>按等级</label>
-        <select type="text" class="width-150">
-        <option></option>
-        <option></option>
+        <label>按职称</label>
+        <select type="text" class="width-150" name="level_type_id">
+          <option value="">全部</option>
+          <%= options_from_collection_for_select(StoreStaffLevel.collection, 'id', 'name', params[:level_type_id]) %>
         </select>
       </div>
       <div class="item-query">
-        <label>按入职时间</label>
-        <select type="text" class="width-150">
-        <option></option>
-        <option></option>
-        </select>
-        <a class=" btn query_btn do_search_result">查<nbsp1></nbsp1>询</a>
+         <input type="submit" class="btn query_btn" value="查  询">
       </div>
+      <% end %>
       <div class="query_div">
         <a href="/soa/staff/new" class="new_btn btn">新建</a>
-        <a href="#" class="export_btn btn">导出</a>
-        <a href="#" class="print_btn btn">打印</a>
       </div>
     </div>
     <table cellpadding="0" cellspacing="0" class="index_list yuangong_index_lists">
@@ -64,7 +59,7 @@
         <% @staffs.each_with_index do |staff, idx|%>
         <tr>
           <td class="number"><%= idx + 1 %></td>
-          <td><a href="<%= edit_soa_staff_path(staff) %>"><%= staff.screen_name %></a></td>
+          <td><a href="<%= soa_staff_path(staff) %>"><%= staff.screen_name %></a></td>
           <td>YG201110090001</td>
           <td>销售</td>
           <td>接待</td>
@@ -78,7 +73,7 @@
           <td>-30.00</td>
           <td>0</td>
           <td></td>
-          <td ></td>
+          <td><%= link_to '详情', soa_staff_path(staff)%></td>
         </tr>
         <% end %>
       </tbody>
