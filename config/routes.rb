@@ -154,9 +154,9 @@ Rails.application.routes.draw do
   end
 
   resource :session, only: [:new, :create, :destroy, :edit]
-  resource :passwords do
+  resource :password do
     collection do
-      post :send_validate_code
+      get :send_validate_code
     end
   end
 
