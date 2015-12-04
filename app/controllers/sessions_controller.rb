@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  layout 'plain'
+  layout 'tiny'
 
   def new
   end

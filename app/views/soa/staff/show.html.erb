@@ -1,0 +1,196 @@
+<div class="main_top">
+  <h2>员工详情</h2>
+</div>
+
+<div class="details">
+
+  <table class="top_info">
+    <tr>
+      <td>员工姓名</td>
+      <td></td>
+      <td>员工编号</td>
+      <td></td>
+      <td>所属部门</td>
+      <td></td>
+      <td>职务</td>
+      <td></td>
+      <td>职称</td>
+      <td></td>
+      <td>职务状态</td>
+      <td></td>
+      <td>岗位状态</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="jibenxinxishow.html" class="width-90">基本信息</a></li>
+      <li ><a href="shezhishow.html" class="width-90">设置</a></li>
+      <li ><a href="jixiaoticheng.html" class="width-90">绩效提成</a></li>
+      <li ><a  href="kaoqinjiangcheng.html" class="width-90">考勤奖惩</a></li>
+      <li ><a  href="jilu/xinzijilu.html" class="width-90">记录</a></li>
+    </ul>
+  </div>
+
+
+  <div class="details_content employee_basic_info">
+    <div class="photo_info width-247 float-left">
+      <div class="photo width-197">
+
+      </div>
+    </div>
+
+    <div class="basic_info float-right width-1050">
+      <div class="name">
+        <label for="" class="width-50">姓</label> <span class="show_content width-52"><%= @staff.last_name%></span>
+        <label for="">名</label> <span class="show_content width-92"><%= @staff.first_name%></span>
+      </div>
+
+      <div class="gender">
+        <label for="">性别</label>
+        <span>
+          <%= @staff.gender == 'male' ? '男':'女' %>
+        </span>
+      </div>
+
+      <div class="birth">
+        <label for="">出生日期</label>
+        <span class="show_content"><%= @employee.birthday.try(:strftime,"%Y-%m-%d")%></span>
+      </div>
+
+      <div>
+        <label for="">文化程度</label>
+        <span class="show_content"><%= @employee.education%></span>
+      </div>
+
+      <div class="no.">
+        <label for="">编号</label> <span class="show_content"><%= @staff.numero%></span>
+      </div>
+
+      <div class="department">
+        <label for="">所属部门</label>
+        <span class="show_content"><%= @staff.store_department.try :name%></span>
+      </div>
+
+      <div class="position">
+        <label for="" class="width-50">职务属性</label>
+        <span class="show_content"><%= @staff.job_type.try :name %></span>
+
+        <label for="">职务</label>
+        <span class="show_content"><%= @staff.store_position.try :name%></span>
+      </div>
+
+      <div class="level">
+        <label for="">职称</label>
+        <span class="show_content"><%= @staff.level_type.try :name %></span>
+      </div>
+
+
+      <div>
+        <label for="">政治面貌</label>
+        <span class="show_content"><%= @employee.polity%></span>
+      </div>
+
+      <div>
+        <label for="">籍贯</label>
+        <span class="show_content"><%= @employee.native_place%></span>
+      </div>
+
+      <div>
+        <label for="">户籍类型</label>
+        <span class="show_content"><%= @employee.census_register%><%= @employee.identity_card%></span>
+      </div>
+
+      <div class="id">
+        <label for="">身份证号</label>
+        <span class="show_content"><%= @employee.identity_card%></span>
+      </div>
+
+      <div>
+        <label for="">婚姻状况</label>
+        <span class="show_content"><%= @employee.marital_status%></span>
+      </div>
+
+      <div>
+        <label for="">入职时间</label>
+        <span class="show_content"><%= @staff.employeed_at.try(:to_s, :date_only)%></span>
+      </div>
+
+      <div>
+        <label for="">离职时间</label>
+        <span class="show_content"><%= @staff.terminated_at.try(:to_s, :date_only)%></span>
+      </div>
+
+      <div>
+        <label for="">离职原因</label>
+        <span class="show_content"><%= @staff.reason_for_leave%></span>
+      </div>
+
+      <div class="height">
+        <label for="">身高</label>
+        <span class="show_content"><%= @employee.height%></span>
+        <label class="height">cm</label>
+      </div>
+
+      <div class="weight">
+        <label for="">体重</label>
+        <span class="show_content"><%= @employee.weight%></span>
+        <label class="weight">kg</label>
+      </div>
+
+      <div>
+        <label for="">手机号</label>
+        <span class="show_content"><%= @employee.phone_number%></span>
+      </div>
+
+      <div>
+        <label for="">邮箱</label>
+        <span class="show_content"><%= @employee.mailbox%></span>
+      </div>
+
+      <div class="address">
+        <label for="">现住址</label>
+        <span class="show_content"><%= @employee.address%></span>
+      </div>
+
+      <div class="address">
+        <label for="">户籍地址</label>
+        <span class="show_content"><%= @employee.census_register_address%></span>
+      </div>
+
+      <div>
+        <label for="">联系人</label>
+        <span class="show_content"><%= @employee.contact_one%></span>
+      </div>
+
+      <div>
+        <label for="">电话</label>
+        <span class="show_content"><%= @employee.contact_one_phone_number%></span>
+      </div>
+
+      <div>
+        <label for="">联系人2</label>
+        <span class="show_content"><%= @employee.contact_two%></span>
+      </div>
+
+      <div>
+        <label for="">电话</label>
+        <span class="show_content"><%= @employee.contact_two_phone_number%></span>
+      </div>
+
+      <div class="remark">
+        <label for="">备注</label>
+        <span class="show_content"><%= @employee.remark%></span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="btn_group ">
+    <a href="<%= edit_soa_staff_path(@staff)%>" class="edit_btn btn margin-none">编辑</a>
+  </div>
+
+</div>

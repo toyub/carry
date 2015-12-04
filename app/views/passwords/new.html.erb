@@ -1,3 +1,6 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/login.css", "/stylesheets/reset_password.css" %>
+<% end %>
 <div class="reset">
   <header class="login_header">
     <span class="chinese">重设密码</span>
@@ -29,19 +32,18 @@
   </main>
 
 </div>
-
+<% content_for :javascripts do %>
 <script type="text/javascript">
-  $('a.get_verification_code').click(function(){
+jQuery(function($){
+  $('a.get_verification_code').on('click',function(){
     var phone = $("input#phone").val();
-    if (phone.length != '11'){
+    var phoneRegexp = (/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/);
+    if (phoneRegexp.test(phone)){
+      $.get("/password/send_validate_code",{ phone: phone },function(data){ })
+    }else{
       alert("请正确输入手机号!");
     }
-    if (phone.length == '11'){
-      var regPhone = !!phone.match(/^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/);
-      if (!regPhone){
-        alert("请正确输入手机号!");
-      }
-    }
-    $.get("/password/send_validate_code",{ phone: phone },function(data){ })
-  })
+  });
+});
 </script>
+<% end  %>

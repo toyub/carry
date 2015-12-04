@@ -26,7 +26,20 @@
         <div class="nav_top_right top_right">
           <ul class="nav_right">
             <li><i class="fa fa-comment"></i></li>
-            <li><i class="fa fa-user"></i></li>
+            <li>
+              <a href="javascript:void(0)">
+                <i class="fa  fa-user"></i>
+                <span></span>
+              </a>
+              <ul class="dropdown_menu list-group">
+                <li>
+                  <%= link_to '修改密码', new_password_path %>
+                </li>
+                <li>
+                  <%= link_to "退出登录", session_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
