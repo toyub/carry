@@ -1,0 +1,176 @@
+
+		<div class="order_details">
+			<div class="dialog_nav">
+				<span class="dialog_title ">单号:20141105001</span>
+				<a href="/mis/shouyin/yewukaidan/kaidan.html" target="_blank">完整订单</a>
+			</div>
+
+			<div class="vehicle_order_details">
+				<div class="vehicle_info">
+					<dl>
+						<dd>
+							<label class="width-50" >车牌号</label>
+							<input type="text" value="浙A16034" class="width-110" readonly>
+						</dd>
+						<dd>
+							<label class="width-50" >客户姓名</label>
+							<input type="text" value="王" class="width-110" readonly>
+						</dd>
+						<dd>
+							<label class="width-50" >手机号</label>
+							<input type="text" value="13335930000" class="width-110" readonly>
+						</dd>
+					</dl>
+				</div>
+
+				<div class="vehicle_order">
+					<span class="vehicle_order_title title doslide">
+						客户账户信息
+					</span>
+					<div class="account_info">
+						<dl>
+							<dd>
+								<label class="width-80 text-align-left">储值卡:</label>
+							</dd>
+							<dd>
+								<label class="width-80" >可用余额:</label>
+								<span>863.00</span>
+							</dd>
+						</dl>
+						<dl>
+							<dd>
+								<label class="width-80 text-align-left">挂账余额:</label>
+							</dd>
+							<dd>
+								<label class="width-80" >可用余额:</label>
+								<span>15,000.00</span>
+							</dd>
+						</dl>
+						<dl>
+							<dd>
+								<label class="width-80 text-align-left">可用积分:</label>
+							</dd>
+							<dd>
+								<label class="width-80" >可用积分:</label>
+								<span>20,000.00</span>
+							</dd>
+						</dl>
+					</div>
+				</div>
+
+				<div class="vehicle_order">
+					<span class="vehicle_order_title title doslide">
+						业务信息
+					</span>
+					<div class="order_info">
+						<h2>商品明细</h2>
+						<table cellpadding="0" cellspacing="0" class="commodity_details">
+							<thead>
+								<tr>
+									<th>名称</th>
+									<th>规格</th>
+									<th>单位</th>
+									<th>数量</th>
+									<th>单价</th>
+									<th>属性</th>
+									<th>优惠</th>
+									<th>小计</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr >
+									<td>米其林</td>
+									<td>195/65/15 XM2 91V</td>
+									<td>条</td>
+									<td>1</td>
+									<td>430.00</td>
+									<td>会员</td>
+									<td>0.00</td>
+									<td>430.00</td>
+								</tr>
+								<tr >
+									<td>摇头公仔</td>
+									<td>斯诺比</td>
+									<td>个</td>
+									<td>1</td>
+									<td>85.00</td>
+									<td>会员</td>
+									<td>5</td>
+									<td>80.00</td>
+								</tr>
+								<tr >
+									<td>飞歌DVD...</td>
+									<td>本田雅阁专用</td>
+									<td>台</td>
+									<td>1</td>
+									<td>8,675.00</td>
+									<td>会员</td>
+									<td class="text-align-right">133.33</td>
+									<td>8,541.70</td>
+								</tr>
+							</tbody>
+							<tfoot>
+							  <tr class="text-align-right">
+								  <td colspan="10">
+										<label class="margin-right-10">商品金额总计:</label><label>9051.70</label>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+
+						<h2>服务明细</h2>
+						<table cellpadding="0" cellspacing="0" class="service_details">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>项目</th>
+									<th>流程</th>
+									<th>属性</th>
+									<th>单价</th>
+									<th>优惠</th>
+									<th>小计</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr >
+									<td>1</td>
+									<td>精致洗车</td>
+									<td><span class="fa-check fa"></span></td>
+									<td>零售</td>
+									<td class="text-align-right">68.00</td>
+									<td class="text-align-right">0.00</td>
+									<td class="text-align-right">68.00</td>
+								</tr>
+								<tr >
+									<td>2</td>
+									<td>澜泰纳米镀晶</td>
+									<td><span >1/3</span></td>
+									<td>零售</td>
+									<td class="text-align-right">868.00</td>
+									<td class="text-align-right">0.00</td>
+									<td class="text-align-right">868.00</td>
+								</tr>
+								<tr >
+									<td>3</td>
+									<td>澜泰纳米镀晶</td>
+									<td><span >1/3</span></td>
+									<td>套餐</td>
+									<td class="text-align-right">868.00</td>
+									<td class="text-align-right">4.00</td>
+									<td class="text-align-right">868.00</td>
+								</tr>
+							</tbody>
+							<tfoot>
+							  <tr class="text-align-right">
+								  <td colspan="8">
+										<label class="margin-right-10">服务金额总计:</label><label>936.00</label>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+						<div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
+					</div>
+				</div>
+
+			</div>
+		</div>
