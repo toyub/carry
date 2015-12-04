@@ -17,6 +17,6 @@ class CreateStoreStaff < ActiveRecord::Migration
      end
 
      add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
-     
+
   end
 end
