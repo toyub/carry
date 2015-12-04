@@ -161,6 +161,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
+    resources :store_staff, only: [:index, :update]
     resources :store_service_categories, only: [:create]
     resources :store_services, only: [:index, :show, :create, :update] do
       resources :store_service_workflows, only: [:create, :destroy, :update]
