@@ -6,6 +6,10 @@ class Soa::SettingController < Soa::ControllerBase
     @disable = true
     @action_uri = edit_soa_setting_path
     @method = :get
+
+    @textvalue = get_second_form_textvalue(@staff, "StoreZhuanZheng")
+    @textvalue.merge! get_second_form_textvalue(@staff, "StoreTiaoXin")
+    @textvalue.merge! get_second_form_textvalue(@staff, "StoreQianDingHeTong")
   end
 
   def edit
@@ -27,8 +31,10 @@ class Soa::SettingController < Soa::ControllerBase
     @staff.bonus ||= {}
     @staff.skills ||= {}
     @staff.other ||= {}
-    @action_uri = soa_setting_path
+    @action_uri = soa_setting_path(id: params[:id])
     @method = :patch
+
+    @textvalue = {"StoreZhuanZheng": {}, "StoreTiaoXin": {}, "StoreQianDingHeTong": {}}
   end
 
   def update
