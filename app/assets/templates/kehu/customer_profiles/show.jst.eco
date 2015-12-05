@@ -125,7 +125,7 @@
 
             <div class="item_content">
               <label class="width-75">单位</label>
-              <span class="width-458"></span>
+              <span class="width-458"><%= @entity.storeCustomer.get 'company' %></span>
             </div>
 
             <div class="impression">
