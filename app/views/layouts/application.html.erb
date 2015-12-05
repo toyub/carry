@@ -33,7 +33,7 @@
               </a>
               <ul class="dropdown_menu list-group">
                 <li>
-                  <a href="javascript:void(0)">个人信息</a>
+                  <%= link_to '修改密码', new_password_path %>
                 </li>
                 <li>
                   <%= link_to "退出登录", session_path, method: :delete %>

@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tags %>
   <title>MIS-<% if content_for?(:title) %><%= yield :title %><% else %><%= I18n.t 'site.name' %><% end %></title>
-  <%= stylesheet_link_tag "/stylesheets/style.css", "/stylesheets/login.css",
-  "/stylesheets/reset_password.css" %>
+  <%= stylesheet_link_tag "/stylesheets/style.css" %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= yield :pre_assets %>
