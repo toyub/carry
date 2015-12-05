@@ -1,5 +1,5 @@
 class PasswordsController < ApplicationController
-  layout 'plain'
+  layout 'tiny'
   before_action :set_captcha, only: [:create, :edit]
   def new
   end
