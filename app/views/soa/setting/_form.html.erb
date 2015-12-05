@@ -74,45 +74,14 @@
     </div>
 
     <div class="wrap">
-
-      <div class="contract">
-        <span class="width-60">劳动关系</span>
-
-        <ul>
-          <li class="start_time">
-            <label>劳动合同起始</label>
-            <input type="text" class="width-64 year" readonly>
-            <input type="text" class="width-42 margin-right-2 month" readonly>
-            <input type="text" class="width-40 day" readonly>
-          </li>
-
-          <li class="end_time">
-            <label>劳动合同结束</label>
-            <input type="text" class="width-64 year" readonly>
-            <input type="text" class="width-42 margin-right-2 month" readonly>
-            <input type="text" class="width-40 day" readonly>
-          </li>
-
-          <li>
-            <label for="remind">合同到期提醒</label>
-            <input id="remind" type="checkbox" class="vertical-align-middle margin-right-20 toggleable" data-target="deadline_reminding">
-            提前<input type="text" class="width-50 margin-right-6 margin-left-6" data-id="deadline_reminding" disabled>天提醒
-          </li>
-
-          <li class="text-align-right">
-            <input type="button" value="签订合同" class="sign_contract_btn">
-          </li>
-        </ul>
-      </div>
-
-
+      <%= render "/soa/setting/contract_relationship" %>
       <div class="social_security">
         <label for="security" class="width-60">保险金</label>
 
-        <ul>
+        <ul class="security-area">
           <%= form.fields_for :bonus do |bonus_fields| %>
             <li>
-              <input type="checkbox" id="security" class="vertical-align-middle toggleable" data-target="security">
+              <input type="checkbox" id="security-checkbox" class="vertical-align-middle toggleable" data-target="security">
               <%= bonus_fields.label :yibaofei, "医保费",  class: "width-74" %>
               <%= bonus_fields.text_field :yibaofei, value: @staff.bonus["yibaofei"] %>
             </li>
@@ -146,16 +115,19 @@
             <li>
               <%= skills_fields.label :theory, "理论知识" %>
               <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1'%>
+              <span id="theory-input-value"><%= @staff.skills["theory"].to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :operate, "实操能力" %>
               <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills["operate"], step: '.1' %>
+              <span id="operate-input-value"><%= @staff.skills["operate"].to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :integrate, "综合能力" %>
               <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills["integrate"] , step: '.1' %>
+              <span id="integrate-input-value"><%= @staff.skills["integrate"].to_i %></span>
             </li>
 
             <li>
@@ -227,6 +199,21 @@
     })
 
     $("#store_staff_skills_other_skills").select2();
+
+    $("#store_staff_skills_theory, #store_staff_skills_operate, #store_staff_skills_integrate").on("input", function(){
+      var value = Math.round($(this).val());
+      $(this).next().text(value)
+    })
+
+    var input_area = $(".security-area li input[type='text']");
+    input_area.attr("disabled", "disabled")
+    $("#security-checkbox").on("click", function(){
+      if (this.checked)
+        input_area.removeAttr("disabled")
+      else {
+        input_area.attr("disabled", "disabled")
+      }
+    });
 
     var period_value = $("#store_staff_trial_period").val()
 

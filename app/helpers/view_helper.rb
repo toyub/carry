@@ -36,4 +36,16 @@ module ViewHelper
     ADJUST_REASON_TYPE[type.to_sym]
   end
 
+  def effected_on(format)
+    obj = @staff.store_protocols.operate_type("StoreQianDingHeTong")[0]
+    return obj.effected_on.strftime(format) if obj
+    0
+  end
+
+  def expired_on(format)
+    obj = @staff.store_protocols.operate_type("StoreQianDingHeTong")[0]
+    return obj.expired_on.strftime(format) if obj
+    0
+  end
+
 end

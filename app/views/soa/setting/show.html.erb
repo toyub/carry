@@ -79,38 +79,7 @@
       </div>
 
       <div class="wrap">
-
-        <div class="contract">
-          <span class="width-60">劳动关系</span>
-
-          <ul>
-            <li class="start_time">
-              <label>劳动合同起始</label>
-              <input type="text" class="width-64 year" readonly>
-              <input type="text" class="width-42 margin-right-2 month" readonly>
-              <input type="text" class="width-40 day" readonly>
-            </li>
-
-            <li class="end_time">
-              <label>劳动合同结束</label>
-              <input type="text" class="width-64 year" readonly>
-              <input type="text" class="width-42 margin-right-2 month" readonly>
-              <input type="text" class="width-40 day" readonly>
-            </li>
-
-            <li>
-              <label for="remind">合同到期提醒</label>
-              <input id="remind" type="checkbox" class="vertical-align-middle margin-right-20 toggleable" data-target="deadline_reminding">
-              提前<input type="text" class="width-50 margin-right-6 margin-left-6" data-id="deadline_reminding" disabled>天提醒
-            </li>
-
-            <li class="text-align-right">
-              <input type="button" value="签订合同" class="sign_contract_btn cursor-pointer">
-            </li>
-          </ul>
-        </div>
-
-
+        <%= render "/soa/setting/contract_relationship" %>
         <div class="social_security">
           <label for="security" class="width-60">保险金</label>
 
@@ -151,16 +120,19 @@
               <li>
                 <%= skills_fields.label :theory, "理论知识" %>
                 <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1' %>
+                <span id="theory-input-value"><%= @staff.skills["theory"].to_i %></span>
               </li>
 
               <li>
                 <%= skills_fields.label :operate, "实操能力" %>
                 <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills["operate"], step: '.1' %>
+                <span id="theory-input-value"><%= @staff.skills["operate"].to_i %></span>
               </li>
 
               <li>
                 <%= skills_fields.label :integrate, "综合能力" %>
                 <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills["integrate"] , step: '.1' %>
+                <span id="theory-input-value"><%= @staff.skills["integrate"].to_i %></span>
               </li>
 
               <li>

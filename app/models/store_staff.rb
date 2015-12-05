@@ -61,11 +61,12 @@ class StoreStaff <  ActiveRecord::Base
   def contract_period
     month = 30
     protocol = store_protocols.operate_type("StoreQianDingHeTong")[0]
-    ((protocol.expired_on - protocol.effected_on) / month).round
+    ((protocol.expired_on - protocol.effected_on) / month).round if protocol
   end
 
   def contract_status
-    contract_period < 0 ? "到期" : "有效"
+    "未签约"
+    contract_period < 0 ? "到期" : "有效" if contract_period
   end
 
   private
