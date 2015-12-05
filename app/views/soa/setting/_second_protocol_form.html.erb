@@ -1,0 +1,28 @@
+<%= form.hidden_field :type, value: type %>
+
+<div class="reason">
+  <%= form.label :reason, "调薪原因" %>
+  <%= form.text_area :reason, class: "width-696" %>
+</div>
+
+<div class="start_time">
+  <%= form.label :effected_on, "生效日期" %>
+  <%= form.date_field :effected_on %>
+</div>
+
+<% if !@varifiers.nil? %>
+  <div class="confirm_person">
+    <%= form.label :verifier_id, "审核人" %>
+    <%= form.select :verifier_id, @verifiers.map {|verifier| [verifier.login_name, verifier.id]} %>
+  </div>
+<% end %>
+
+<div class="remark">
+  <%= form.label :remark, "备注" %>
+  <%= form.text_area :remark, class: "width-696" %>
+</div>
+
+<div class="form_maker">
+  <span>制单：</span><label class="maker"><%= @current_user.login_name %></label>
+  <span>录入日期：</span><label class="date"><%= Time.now.to_date %></label>
+</div>

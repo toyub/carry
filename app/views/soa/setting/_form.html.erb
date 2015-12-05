@@ -1,41 +1,9 @@
-<%= form_for @staff, url: @action_uri, method: @method, html: {id: 'staff_form'} do |form| %>
+<%= render "/soa/shared/top_info" %>
 
-<div class="main_top">
-  <h2>员工详情</h2>
-</div>
+<% action_uri = soa_setting_path(id: params[:id]) if params[:id] %>
+<%= form_for @staff, url: action_uri, method: :patch, html: {id: 'staff_form'} do |form| %>
 
 <div class="details">
-
-  <table class="top_info">
-    <tr>
-      <td>员工姓名</td>
-      <td></td>
-      <td>员工编号</td>
-      <td></td>
-      <td>所属部门</td>
-      <td></td>
-      <td>职务</td>
-      <td></td>
-      <td>职称</td>
-      <td></td>
-      <td>职务状态</td>
-      <td></td>
-      <td>岗位状态</td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </table>
-
-  <div class="details_nav">
-    <ul>
-      <li class="bg-color-fff"><a href="jibenxinxi.html" class="width-90">基本信息</a></li>
-      <li><%= link_to "设置", soa_setting_path(@staff), class: "width-90" %></li>
-      <li ><a href="#" class="width-90">绩效提成</a></li>
-      <li ><a  href="#" class="width-90">考勤奖惩</a></li>
-      <li ><a  href="#" class="width-90">记录</a></li>
-    </ul>
-  </div>
 
   <div class="details_content staff_setting">
 
@@ -47,12 +15,12 @@
         <ul>
           <li>
             <%= form.label :trial_salary, "试用底薪" %>
-            <%= form.text_field :trial_salary, disabled: @disable %>
+            <%= form.text_field :trial_salary %>
           </li>
 
           <li>
             <%= form.label :trial_period, "试用周期" %>
-            <%= form.text_field :trial_period, disabled: @disable, class: "width-100" %>
+            <%= form.text_field :trial_period, class: "width-100" %>
             <span class="width-56"> 月 </span>
           </li>
 
@@ -62,7 +30,7 @@
 
           <li>
             <%= form.label :regular_salary, "正式底薪" %>
-            <%= form.text_field :regular_salary, disabled: @disable %>
+            <%= form.text_field :regular_salary %>
           </li>
 
           <li class="text-align-right">
@@ -79,23 +47,23 @@
           <%= form.fields_for :bonus do |bonus_fields| -%>
             <li>
               <%= bonus_fields.label :gangwei, "岗位补贴" %>
-              <%= bonus_fields.text_field :gangwei, value: @staff.bonus["gangwei"], disabled: @disable %>
+              <%= bonus_fields.text_field :gangwei, value: @staff.bonus["gangwei"] %>
             </li>
             <li>
               <%= bonus_fields.label :zhusu, "住宿补贴" %>
-              <%= bonus_fields.text_field :zhusu, value: @staff.bonus["zhusu"], disabled: @disable %>
+              <%= bonus_fields.text_field :zhusu, value: @staff.bonus["zhusu"] %>
             </li>
             <li>
               <%= bonus_fields.label :canfei, "餐费补贴" %>
-              <%= bonus_fields.text_field :canfei, value: @staff.bonus["canfei"], disabled: @disable %>
+              <%= bonus_fields.text_field :canfei, value: @staff.bonus["canfei"] %>
             </li>
             <li>
               <%= bonus_fields.label :laobao, "劳保补贴" %>
-              <%= bonus_fields.text_field :laobao, value: @staff.bonus["laobao"], disabled: @disable %>
+              <%= bonus_fields.text_field :laobao, value: @staff.bonus["laobao"]%>
             </li>
             <li>
               <%= bonus_fields.label :gaowen, "高温补贴" %>
-              <%= bonus_fields.text_field :gaowen, value: @staff.bonus["gaowen"], disabled: @disable %>
+              <%= bonus_fields.text_field :gaowen, value: @staff.bonus["gaowen"]%>
             </li>
           <% end %>
         </ul>
@@ -104,11 +72,8 @@
 
       <div class="ticheng">
         <span class="width-60">提成设置</span>
-        <%= form.fields_for :other do |other_fields| %>
-          <%= other_fields.label :deduct, "试用期结束有提成" %>
-          <%= other_fields.check_box :deduct, checked: @staff.other["deduct"], disabled: @disable, class: "vertical-align-middle margin-left-20" %>
-        <% end %>
-      </div>
+        <%= form.label :deduct, "试用期结束有提成" %>
+    </div>
     </div>
 
     <div class="wrap">
@@ -152,15 +117,15 @@
             <li>
               <input type="checkbox" id="security" class="vertical-align-middle toggleable" data-target="security">
               <%= bonus_fields.label :yibaofei, "医保费",  class: "width-74" %>
-              <%= bonus_fields.text_field :yibaofei, value: @staff.bonus["yibaofei"], disabled: @disable %>
+              <%= bonus_fields.text_field :yibaofei, value: @staff.bonus["yibaofei"] %>
             </li>
             <li>
               <%= bonus_fields.label :baoxianjing, "保险金" %>
-              <%= bonus_fields.text_field :baoxianjing, value: @staff.bonus["baoxianjing"], disabled: @disable %>
+              <%= bonus_fields.text_field :baoxianjing, value: @staff.bonus["baoxianjing"]%>
             </li>
             <li>
               <%= bonus_fields.label :gerendanbao, "个人承担" %>
-              <%= bonus_fields.text_field :gerendanbao, value: @staff.bonus["gerendanbao"], disabled: @disable %>
+              <%= bonus_fields.text_field :gerendanbao, value: @staff.bonus["gerendanbao"] %>
             </li>
           <% end %>
         </ul>
@@ -183,22 +148,22 @@
           <br />
           <li>
             <%= skills_fields.label :theory, "理论知识" %>
-            <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1', disabled: @disable %>
+            <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1'%>
           </li>
 
           <li>
             <%= skills_fields.label :operate, "实操能力" %>
-            <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills["operate"], step: '.1', disabled: @disable  %>
+            <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills["operate"], step: '.1' %>
           </li>
 
           <li>
             <%= skills_fields.label :integrate, "综合能力" %>
-            <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills["integrate"] , step: '.1', disabled: @disable  %>
+            <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills["integrate"] , step: '.1' %>
           </li>
 
           <li>
             <%= skills_fields.label :certificate, "技能证书" %>
-            <%= skills_fields.select :certificate, [["无", false], ["有", true]], disabled: @disable, selected: @staff.skills["certificate"] %>
+            <%= skills_fields.select :certificate, [["无", false], ["有", true]], selected: @staff.skills["certificate"] %>
           </li>
         <% end %>
 
@@ -214,29 +179,23 @@
 
         <ul>
           <li>
-            <%= form.fields_for :other do |other_fields| %>
-              <%= other_fields.label :system_operator, "系统操作员" %>
-              <%= other_fields.check_box :system_operator, checked: @staff.other["system_operator"], disabled: @disable, class: "vertical-align-middle margin-left-46" %>
-            <% end %>
+            <%= form.label :mis_login_enabled, "系统操作员" %>
+            <%= form.check_box :mis_login_enabled, checked: @staff.mis_login_enabled, class: "vertical-align-middle margin-left-46" %>
           </li>
 
           <li>
-            <%= form.fields_for :other do |other_fields| %>
-              <%= other_fields.label :can_use_app, "允许使用APP" %>
-              <%= other_fields.check_box :can_user_app, checked: @staff.other["can_user_app"], disabled: @disable, class: "vertical-align-middle margin-left-36" %>
-            <% end %>
+            <%= form.label :app_login_enabled, "允许使用APP" %>
+            <%= form.check_box :app_login_enabled, checked: @staff.app_login_enabled, class: "vertical-align-middle margin-left-46" %>
           </li>
+
         </ul>
       </div>
     </div>
 
 
     <div class="btn_group">
-      <% if params[:action] == "show" %>
-        <%= form.submit "编辑", class: "btn edit_btn" %>
-      <% else %>
-        <%= form.submit "保存", class: "btn save_btn" %>
-      <% end %>
+      <%= form.submit "编辑", class: "btn edit_btn" %>
+      <%= form.submit "保存", class: "btn save_btn" %>
     </div>
   </div>
 
@@ -244,13 +203,8 @@
 
 <% end %>
 
-<!-- ## zhuanzhengdan -->
 <%= render "/soa/setting/zhuanzhengdan" %>
-
-<!-- ## tiaoxindan -->
 <%= render "/soa/setting/tiaoxindan" %>
-
-<!-- ## hetongxuqiandan -->
 <%= render "/soa/setting/hetongxuqiandan" %>
 
 
@@ -276,10 +230,5 @@
     })
 
     $("#store_staff_skills_other_skills").select2();
-
-    $(".transfer_btn").attr("disabled", <%= @disable %>);
-    $(".adjust_salary_btn").attr("disabled", <%= @disable %>);
-    $(".sign_contract_btn").attr("disabled", <%= @disable %>);
-
   })
 </script>

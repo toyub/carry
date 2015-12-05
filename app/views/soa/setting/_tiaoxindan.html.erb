@@ -35,32 +35,7 @@
         </table>
 
         <%= fields_for :protocols do |protocol_fields| %>
-          <%= protocol_fields.hidden_field :type, value: "StoreTiaoXin"%>
-
-          <div class="reason">
-            <%= protocol_fields.label :reason_for, "调薪原因" %>
-            <%= protocol_fields.text_area :reason_for, value: @textvalue["StoreTiaoXin"][:reason_for], class: "width-696" %>
-          </div>
-
-          <div class="start_time">
-            <%= protocol_fields.label :effective_date, "生效日期" %>
-            <%= protocol_fields.date_field :effective_date, value: @textvalue["StoreTiaoXin"][:effective_date] %>
-          </div>
-          <div class="confirm_person">
-            <%= protocol_fields.label :verifier_id, "审核人" %>
-            <%= protocol_fields.select :verifier_id, ["可使用系统的人1", "可使用系统的人2"].map {|v| [v, 1]}, include_blank: true %>
-          </div>
-          <div class="remark">
-            <%= protocol_fields.label :remarks, "备注" %>
-            <%= protocol_fields.text_area :remarks, value: @textvalue["StoreTiaoXin"][:remarks], class: "width-696" %>
-          </div>
-
-          <div class="form_maker">
-            <%= protocol_fields.hidden_field :created_by, value: @staff.id %>
-            <%= protocol_fields.hidden_field :record_at, value: Time.now.to_date %>
-            <span>制单：</span><label class="maker">王丽丽</label>
-            <span>录入日期：</span><label class="date"><%= Time.now.to_date %></label>
-          </div>
+          <%= render "second_protocol_form", form: protocol_fields, type: "StoreTiaoXin" %>
         <% end %>
 
         <div class="btn_groups">

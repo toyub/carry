@@ -18,16 +18,18 @@ class Soa::StaffController < Soa::ControllerBase
 
     employee = StoreEmployee.new(employee_params)
     staff = StoreStaff.new(staff_params)
-    staff.store_employee = employee
+    byebug
+
+    staff.build_store_employee employee_params
     staff.store_id = current_staff.store_id
     staff.store_chain_id = current_staff.store_chain_id
     staff.login_name = staff.phone_number
 
-
-    if employee.save && staff.save
+    if staff.save && employee.save
+    byebug
       redirect_to new_soa_setting_path(id: staff.id)
     else
-      render "new"
+      render plain: staff.errors.messages
     end
   end
 
@@ -53,10 +55,10 @@ class Soa::StaffController < Soa::ControllerBase
 
   private
   def staff_params
-    params.require(:staff).permit(:login_name, :gender, :first_name, :last_name, :name_display_type,
+    params.require(:staff).permit(:login_name, :first_name, :last_name, :name_display_type,
                                                         :encrypted_password, :salt, :work_status, :job_type_id, :store_department_id,
                                                         :employeed_at, :terminated_at, :level_type_id, :reason_for_leave,
-                                                        :numero, :store_position_id).merge(params.require(:employee).permit(:last_name, :first_name, :gender, :phone_number))
+                                                        :numero, :store_position_id).merge(params.require(:employee).permit(:last_name, :first_name, :phone_number))
   end
 
   def employee_params

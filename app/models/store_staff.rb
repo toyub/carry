@@ -72,8 +72,10 @@ class StoreStaff <  ActiveRecord::Base
       end
   end
 
-  def  set_default_password
-    self.password = self.password_confirmation = rand
-    encrypt_password
+  def set_default_password
+    if self.password.blank?
+      self.password = self.password_confirmation = rand 
+      encrypt_password
+    end
   end
 end
