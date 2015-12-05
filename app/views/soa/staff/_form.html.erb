@@ -1,10 +1,6 @@
 <% action_uri = @staff.new_record? ? soa_staff_index_path : soa_staff_path(@staff) %>
 <%= form_for @staff, url: action_uri, html: {id: 'staff_form'} do |form| %>
 
-
-<div class="details">
-
-
   <div class="details_content employee_basic_info">
     <div class="photo_info width-247 float-left">
       <div class="photo width-197"></div>
@@ -168,8 +164,4 @@
   <div class="btn_group">
     <input class="save_btn btn" type="submit" value="保存">
   </div>
-
-</div>
-
-
 <% end %>

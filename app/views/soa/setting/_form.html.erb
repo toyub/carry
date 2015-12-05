@@ -2,9 +2,6 @@
 
 <% action_uri = soa_setting_path(id: params[:id]) if params[:id] %>
 <%= form_for @staff, url: action_uri, method: :patch, html: {id: 'staff_form'} do |form| %>
-
-<div class="details">
-
   <div class="details_content staff_setting">
 
     <div class="wrap">
@@ -73,7 +70,7 @@
       <div class="ticheng">
         <span class="width-60">提成设置</span>
         <%= form.label :deduct, "试用期结束有提成" %>
-    </div>
+      </div>
     </div>
 
     <div class="wrap">
@@ -140,32 +137,32 @@
         <ul>
           <%= form.fields_for :skills do |skills_fields| %>
 
-          <li>
-            <%= skills_fields.label :other_skills, "其他技能" %>
-            <%= skills_fields.select :other_skills, options_from_collection_for_select(@store.store_departments, 'id', 'name'), {}, {multiple: true}  %>
-          </li>
+            <li>
+              <%= skills_fields.label :other_skills, "其他技能" %>
+              <%= skills_fields.select :other_skills, options_from_collection_for_select(@store.store_departments, 'id', 'name'), {}, {multiple: true}  %>
+            </li>
 
-          <br />
-          <li>
-            <%= skills_fields.label :theory, "理论知识" %>
-            <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1'%>
-          </li>
+            <br />
+            <li>
+              <%= skills_fields.label :theory, "理论知识" %>
+              <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1'%>
+            </li>
 
-          <li>
-            <%= skills_fields.label :operate, "实操能力" %>
-            <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills["operate"], step: '.1' %>
-          </li>
+            <li>
+              <%= skills_fields.label :operate, "实操能力" %>
+              <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills["operate"], step: '.1' %>
+            </li>
 
-          <li>
-            <%= skills_fields.label :integrate, "综合能力" %>
-            <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills["integrate"] , step: '.1' %>
-          </li>
+            <li>
+              <%= skills_fields.label :integrate, "综合能力" %>
+              <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills["integrate"] , step: '.1' %>
+            </li>
 
-          <li>
-            <%= skills_fields.label :certificate, "技能证书" %>
-            <%= skills_fields.select :certificate, [["无", false], ["有", true]], selected: @staff.skills["certificate"] %>
-          </li>
-        <% end %>
+            <li>
+              <%= skills_fields.label :certificate, "技能证书" %>
+              <%= skills_fields.select :certificate, [["无", false], ["有", true]], selected: @staff.skills["certificate"] %>
+            </li>
+          <% end %>
 
         </ul>
       </div>
@@ -199,7 +196,6 @@
     </div>
   </div>
 
-</div>
 
 <% end %>
 
