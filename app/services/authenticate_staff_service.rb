@@ -1,5 +1,6 @@
 class AuthenticateStaffService
   include Serviceable
+  include StatusObject
 
   delegate :locked?, to: :@user
 
@@ -21,18 +22,5 @@ class AuthenticateStaffService
 
   def validated?
     @user.present? && password_correct?
-  end
-
-  class Status
-    attr_reader :notice
-
-    def initialize(options = {})
-      @success = options[:success]
-      @notice = options[:notice]
-    end
-
-    def success?
-      @success
-    end
   end
 end
