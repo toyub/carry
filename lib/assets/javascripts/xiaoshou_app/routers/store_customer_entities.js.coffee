@@ -1,4 +1,4 @@
-class Mis.Routers.StoreCustomers extends Mis.Base.Router
+class Mis.Routers.StoreCustomerEntities extends Mis.Base.Router
   routes:
     "store_customers": "index"
     "store_customers/new": "newCustomer"
@@ -27,6 +27,6 @@ class Mis.Routers.StoreCustomers extends Mis.Base.Router
     @swap(view)
 
   newCustomer: ->
-    model = new Mis.Models.StoreCustomer()
+    model = new Mis.Models.StoreCustomerEntity()
     view = new Mis.Views.KehuCustomerProfilesNew(model: model, collection: @collection)
     @swap(view)

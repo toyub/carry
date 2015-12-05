@@ -7,6 +7,7 @@ module Api
     end
 
     def create
+      binding.pry
       @entity = current_store.store_customer_entities.create(append_store_attrs entity_params)
       respond_with @entity, location: nil
     end
@@ -16,17 +17,27 @@ module Api
       respond_with @entity, location: nil
     end
 
+    def cities
+      @cities = Geo.cities(1, params[:province])
+      respond_with @cities, location: nil
+    end
+
+    def regions
+      @regions = Geo.regions(1, params[:province], params[:city])
+      respond_with @regions, location: nil
+    end
+
     private
       def entity_params
         params.require(:store_customer_entity).permit(
           :telephone,
           :mobile,
           :qq,
-          :district,
           :address,
           :range,
           :remark,
           :store_customer_category_id,
+          district: [:province, :city, :region],
           store_customer_attributes: [
             :first_name,
             :last_name,
@@ -42,7 +53,7 @@ module Api
             :tracking_accepted,
             :message_accepted
           ],
-          store_customer_settlement: [
+          store_customer_settlement_attributes: [
             :bank,
             :bank_account,
             :credit,

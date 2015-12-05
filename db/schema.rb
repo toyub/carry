@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130025622) do
+ActiveRecord::Schema.define(version: 20151202080603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,9 @@ ActiveRecord::Schema.define(version: 20151130025622) do
     t.string   "remark"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "store_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_chain_id"
   end
 
   create_table "store_customer_settlements", force: :cascade do |t|
@@ -223,8 +226,9 @@ ActiveRecord::Schema.define(version: 20151130025622) do
     t.string   "payment_mode"
     t.string   "invoice_type"
     t.string   "invoice_title"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "store_customer_entity_id"
   end
 
   create_table "store_customers", force: :cascade do |t|
@@ -250,6 +254,7 @@ ActiveRecord::Schema.define(version: 20151130025622) do
     t.string   "company"
     t.boolean  "tracking_accepted"
     t.boolean  "message_accepted"
+    t.integer  "store_customer_entity_id"
   end
 
   create_table "store_departments", force: :cascade do |t|

@@ -6,4 +6,20 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   accepts_nested_attributes_for :store_customer
   accepts_nested_attributes_for :store_customer_settlement
+
+  def province
+    self.district["province"]
+  end
+
+  def city
+    self.district["city"]
+  end
+
+  def region
+    self.district["region"]
+  end
+
+  def filling_date
+    self.created_at.strftime("%Y-%m-%d")
+  end
 end
