@@ -1,3 +1,6 @@
+<% content_for :pre_assets do  %>
+  <%= stylesheet_link_tag "/stylesheets/login.css", "/stylesheets/reset_password.css" %>
+<% end  %>
 <div class="login_main">
   <header class="login_header">
     <div class="header">
@@ -9,7 +12,6 @@
     <div class="login">
       <div class="top">用户登录</div>
       <div class="login_form">
-        <form>
           <div  class="login_form_ipt">
             <span class="ico ico-user"></span>
             <%= text_field_tag :login, nil, placeholder: '请输入用户名', required: true,
@@ -23,12 +25,12 @@
             </div>
             <div class="login_form_check">
               <%= link_to '忘记登录密码?', new_password_path %>
+              <p class="error_tip" > <%= notice %> </p>
             </div>
             <div class="login_form_btn">
               <%= submit_tag '登陆', class: 'login_btn' %>
             </div>
           </div>
-        </form>
       </div>
     </div>
     <% end %>
