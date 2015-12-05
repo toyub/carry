@@ -50,6 +50,10 @@ class StoreStaff <  ActiveRecord::Base
     end
   end
 
+  def locked?
+    !mis_login_enabled
+  end
+
   private
   def encrypt_password()
     self.salt = Digest::MD5.hexdigest("--#{Time.now.to_i}--")
