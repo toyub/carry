@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204073909) do
+ActiveRecord::Schema.define(version: 20151205015043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1142,20 +1142,20 @@ ActiveRecord::Schema.define(version: 20151204073909) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
-    t.json     "bonus"
+    t.json     "bonus",                                                   default: {}
     t.decimal  "trial_salary",                   precision: 10, scale: 2
     t.decimal  "regular_salary",                 precision: 10, scale: 2
     t.decimal  "previous_salary",                precision: 10, scale: 2
     t.integer  "trial_period"
-    t.json     "skills"
-    t.json     "other"
+    t.json     "skills",                                                  default: {}
+    t.json     "other",                                                   default: {}
     t.integer  "store_employee_id"
     t.string   "full_name"
     t.string   "phone_number"
-    t.boolean  "mis_login_enabled",              default: false
-    t.boolean  "app_login_enabled",              default: false
-    t.boolean  "erp_login_enabled",              default: false
-    t.integer  "roles",                                                                array: true
+    t.boolean  "mis_login_enabled",                                       default: false
+    t.boolean  "app_login_enabled",                                       default: false
+    t.boolean  "erp_login_enabled",                                       default: false
+    t.integer  "roles",                                                                                         array: true
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree

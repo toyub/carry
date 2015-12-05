@@ -3,25 +3,18 @@ class Soa::SettingController < Soa::BaseController
   def show
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
-    @staff.bonus ||= {}
-    @staff.skills ||= {}
   end
 
   def edit
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
     @verifiers = StoreStaff.where(mis_login_enabled: true)
-    @staff.bonus ||= {}
-    @staff.skills ||= {}
   end
 
   def new
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
     @verifiers = StoreStaff.where(mis_login_enabled: true)
-
-    @staff.bonus ||= {}
-    @staff.skills ||= {}
   end
 
   def update
