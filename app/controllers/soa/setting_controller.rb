@@ -1,4 +1,4 @@
-class Soa::SettingController < Soa::ControllerBase
+class Soa::SettingController < Soa::BaseController
 
   def show
     @store = current_store
