@@ -100,7 +100,7 @@
           </li>
 
           <li class="text-align-right">
-            <input type="button" value="签订合同" class="sign_contract_btn cursor-pointer">
+            <input type="button" value="签订合同" class="sign_contract_btn">
           </li>
         </ul>
       </div>
@@ -199,24 +199,25 @@
 
 <% end %>
 
-<%= render "/soa/setting/zhuanzhengdan" %>
-<%= render "/soa/setting/tiaoxindan" %>
-<%= render "/soa/setting/hetongxuqiandan" %>
+<% unless params[:action] == "show" %>
+  <%= render "/soa/setting/zhuanzhengdan" %>
+  <%= render "/soa/setting/tiaoxindan" %>
+  <%= render "/soa/setting/hetongxuqiandan" %>
+<% end %>
 
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
 
-    $(".transfer_btn").on("click", function(){
-      $(".transfer_wrap").css("display", "block");
-    })
+    var second_form_wrap = {
+      "transfer_btn":  ".transfer_wrap",
+      "adjust_salary_btn":  ".salary_adjusting_wrap",
+      "sign_contract_btn": ".contract_signing_wrap"
+    };
 
-    $(".adjust_salary_btn").on("click", function(){
-      $(".salary_adjusting_wrap").css("display", "block");
-    })
-
-    $(".sign_contract_btn").on("click", function(){
-      $(".contract_signing_wrap").css("display", "block");
+    $(".transfer_btn, .adjust_salary_btn, .sign_contract_btn").on("click", function(){
+      var btn_key = $(this).attr("class");
+      $(second_form_wrap[btn_key]).css("display", "block");
     })
 
     $(".cancel_btn").on("click", function(event){
@@ -226,5 +227,26 @@
     })
 
     $("#store_staff_skills_other_skills").select2();
+
+    var period_value = $("#store_staff_trial_period").val()
+
+    if (!period_value) {
+        $(".transfer_btn").attr("disabled", "disabled");
+    }
+
+    $("#store_staff_trial_period").on("input", function(){
+
+      period_value = $(this).val();
+      if (period_value) {
+        $(".transfer_btn").removeAttr("disabled");
+      } else {
+        $(".transfer_btn").attr("disabled", "disabled");
+      }
+    })
+
+    <% if params[:action] != "new" %>
+      $("#store_staff_trial_salary, #store_staff_trial_period, #store_staff_regular_salary").attr("disabled", "disabled")
+    <% end %>
+
   })
 </script>

@@ -53,6 +53,21 @@ class StoreStaff <  ActiveRecord::Base
     end
   end
 
+  def trial_status
+    remain_day = ( Date.today - (created_at - trial_period.months).to_date).round if trial_period
+    remain_day < 0 ? "转正" : "试用中"
+  end
+
+  def contract_period
+    month = 30
+    protocol = store_protocols.operate_type("StoreQianDingHeTong")[0]
+    ((protocol.expired_on - protocol.effected_on) / month).round
+  end
+
+  def contract_status
+    contract_period < 0 ? "到期" : "有效"
+  end
+
   private
   def encrypt_password()
     self.salt = Digest::MD5.hexdigest("--#{Time.now.to_i}--")

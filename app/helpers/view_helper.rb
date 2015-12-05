@@ -26,4 +26,14 @@ module ViewHelper
     nav_str = nav_str + "<a class='back_to_list' href='#{redirect_path}'><i class='fa-arrow-circle-left fa'></i>返回列表</a>" if redirect_path
     nav_str.html_safe
   end
+
+  ADJUST_REASON_TYPE = {
+    "StoreZhuanZheng": "转正原因",
+    "StoreTiaoXin": "调薪原因",
+    "StoreQianDingHeTong": "续签原因"
+  }
+  def reason_type_name(type)
+    ADJUST_REASON_TYPE[type.to_sym]
+  end
+
 end

@@ -5,35 +5,16 @@
       <div class="content">
         <table>
           <tbody>
+            <%= render "/soa/setting/second_form_head_info"%>
             <tr>
-              <td>姓名</td>
-              <td><span class="width-132 show_content">王海林</span></td>
-              <td>员工编号</td>
-              <td><span class="width-132 show_content">YG20110078</span></td>
-              <td>部门</td>
-              <td><span class="width-132 show_content">美容组</span></td>
-              <td>职务</td>
-              <td><span class="width-132 show_content">美容技师</span></td>
-            </tr>
-            <tr>
-              <td>所属门店</td>
-              <td><span class="width-132 show_content">杭州车夫会养车会所</span></td>
-              <td>入职时间</td>
-              <td><span class="width-132 show_content">2011-07-08</span></td>
-              <td>工龄</td>
-              <td><span class="width-132 show_content">4</span></td>
-              <td>职称</td>
-              <td><span class="width-132 show_content">高级技师</span></td>
-            </tr>
-            <tr>
-              <td>试用薪</td>
-              <td><span class="width-132 show_content">3,000.00</span></td>
-              <td>正式薪</td>
-              <td><span class="width-132 show_content">3,500.00</span></td>
+              <td>试用薪资</td>
+              <td><span class="width-132 show_content"><%= @staff.trial_salary %></span></td>
+              <td>正式薪薪</td>
+              <td><span class="width-132 show_content"><%= @staff.regular_salary %></span></td>
               <td>合同期</td>
-              <td><span class="width-132 show_content">12个月</span></td>
+              <td><span class="width-132 show_content"><%= @staff.contract_period %>月</span></td>
               <td>状态</td>
-              <td><span class="width-132 show_content">到期</span></td>
+              <td><span class="width-132 show_content"><%= @staff.contract_status %></span></td>
             </tr>
           </tbody>
         </table>

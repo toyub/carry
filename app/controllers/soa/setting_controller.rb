@@ -31,6 +31,7 @@ class Soa::SettingController < Soa::BaseController
   def adjust
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
+    @staff.trial_status == "试用中" ? @staff.update(trial_salary: params[:reset_salary]) : @staff.update(regular_salary: params[:reset_salary]) if params[:reset_salary]
     type = params[:protocols][:type]
 
     if @staff.store_protocols.is_new_record?(type)
