@@ -1,5 +1,5 @@
 class StoreStaff <  ActiveRecord::Base
-  attr_accessor :password, :password_confirmation, :phone_number
+  attr_accessor :password, :password_confirmation
   belongs_to :store
   belongs_to :store_chain
   belongs_to :store_department
@@ -74,7 +74,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def set_default_password
     if self.password.blank?
-      self.password = self.password_confirmation = rand 
+      self.password = self.password_confirmation = rand
       encrypt_password
     end
   end

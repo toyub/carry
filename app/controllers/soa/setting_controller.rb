@@ -14,7 +14,6 @@ class Soa::SettingController < Soa::ControllerBase
   end
 
   def new
-    byebug
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
     @verifiers = StoreStaff.where(mis_login_enabled: true)
@@ -31,17 +30,15 @@ class Soa::SettingController < Soa::ControllerBase
       redirect_to soa_staff_index_path
     else
       render plain: @staff.errors.messages
-      # render :show, notice: "something errors"
     end
   end
 
   def adjust
-
     @store = current_store
     @staff = @store.store_staff.find(params[:id])
     type = params[:protocols][:type]
 
-    if StoreProtocol.is_new_record?(type)
+    if @staff.store_protocols.is_new_record?(type)
       @protocol = @staff.store_protocols.create(protocol_param)
     else
       @protocol = @staff.store_protocols.operate_type(type)[0].update(protocol_param)
