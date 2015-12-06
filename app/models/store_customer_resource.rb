@@ -24,8 +24,8 @@ class StoreCustomerForm
   attr_accessor *FIELDS
   attr_reader :store_customer, :store_customer_settlement
 
-  validtes :first_name, presence: true
-  validtes :last_name, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   def initialize
     @entity = StoreCustomerEntity.new
