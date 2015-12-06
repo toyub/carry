@@ -205,7 +205,7 @@ Rails.application.routes.draw do
     namespace :cashier do
       resources :checkouts
     end
-    resources :orders
+    resources :store_orders
   end
 
   namespace :printer do
