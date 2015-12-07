@@ -74,21 +74,20 @@
 
         <div class="ticheng">
           <span class="width-60">提成设置</span>
-          <%= form.label :deduct, "试用期结束有提成" %>
-          <%= form.check_box :deduction, checked: @staff.deduction, class: "vertical-align-middle margin-left-46" %>
+          <%= form.label :deduct_enabled, "试用期结束有提成" %>
+          <%= form.check_box :deduct_enabled, checked: @staff.deduct_enabled, class: "vertical-align-middle margin-left-46" %>
         </div>
       </div>
 
       <div class="wrap">
-        <%= render "/soa/setting/contract_relationship" %>
+        <%= render "/soa/setting/contract_relationship", form: form %>
         <div class="social_security">
           <label for="security" class="width-60">保险金</label>
 
           <ul>
             <%= form.fields_for :bonus do |bonus_fields| %>
               <li>
-                <input type="checkbox" id="security" class="vertical-align-middle toggleable" data-target="security">
-                <%= bonus_fields.label :yibaofei, "医保费",  class: "width-74" %>
+                <%= bonus_fields.label :yibaofei, "医保费",  class: "width-84" %>
                 <%= bonus_fields.text_field :yibaofei, value: @staff.bonus["yibaofei"] %>
               </li>
               <li>
@@ -111,15 +110,6 @@
 
           <ul>
             <%= form.fields_for :skills do |skills_fields| %>
-
-              <li>
-                <%= skills_fields.label :other_skills, "其他技能" %>
-                  <% @staff.skills["other_skills"].map do |skill| %>
-                    <span> <%= skill %> </span>
-                  <% end %>
-              </li>
-
-              <br />
               <li>
                 <%= skills_fields.label :theory, "理论知识" %>
                 <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1' %>
@@ -141,6 +131,13 @@
               <li>
                 <%= skills_fields.label :certificate, "技能证书" %>
                 <%= skills_fields.select :certificate, [["无", false], ["有", true]], selected: @staff.skills["certificate"] %>
+              </li>
+
+              <li>
+                <%= skills_fields.label :other_skills, "其他技能" %>
+                  <% @staff.skills["other_skills"].map do |skill| %>
+                    <span> <%= skill %> </span>
+                  <% end %>
               </li>
             <% end %>
 
@@ -180,7 +177,6 @@
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
-
     $("input").attr("disabled", "disabled");
     $(".edit_btn").attr("disabled", false);
   })

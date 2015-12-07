@@ -53,8 +53,9 @@ class Soa::SettingController < Soa::BaseController
 
   private
   def setting_staff_param
-    params.require(:store_staff).permit(:trial_salary, :trial_period, :regular_salary, :mis_login_enabled, :app_login_enabled, :deduction,
-                                       bonus: [:gangwei, :zhusu, :canfei, :laobao, :gaowen, :yibaofei, :baoxianjing, :gerendanbao ],
+    params.require(:store_staff).permit(:trial_salary, :trial_period, :regular_salary, :mis_login_enabled, :app_login_enabled, :deduct_enabled,
+                                       :contract_notice_enabled, :deadline_days,
+                                       bonus: [:gangwei, :zhusu, :canfei, :laobao, :gaowen, :yibaofei, :baoxianjing, :gerendanbao, :insurence_enabled ],
                                        skills: [:theory, :operate, :integrate, :certificate, :other_skills => [] ]
                                        )
   end

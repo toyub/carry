@@ -18,8 +18,8 @@
 
     <li>
       <label for="remind">合同到期提醒</label>
-      <input id="remind" type="checkbox" class="vertical-align-middle margin-right-20 toggleable" data-target="deadline_reminding">
-      提前<input type="text" class="width-50 margin-right-6 margin-left-6" data-id="deadline_reminding" disabled>天提醒
+      <%= form.check_box :contract_notice_enabled, checked: @staff.contract_notice_enabled, class: "vertical-align-middle margin-right-20 toggleable", id: "contract-notice-checkbox" %>
+      提前<%= form.text_field :deadline_days, class: "width-50 margin-right-6 margin-left-6", id: "deadline-days", disabled: true %>天提醒
     </li>
 
     <li class="text-align-right">

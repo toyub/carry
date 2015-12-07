@@ -8,7 +8,7 @@
             <%= render "/soa/setting/second_form_head_info"%>
             <tr>
               <td>原薪资</td>
-              <td><span class="width-132 show_content"><%= @staff.regular_salary || @staff.trial_salary %></span></td>
+              <td><span class="width-132 show_content"><%= @staff.trial_status == "转正" ? @staff.regular_salary : @staff.trial_salary %></span></td>
               <td>新薪资</td>
               <td colspan="5"><%= text_field_tag :reset_salary, params[:reset_salary], class: "adjusted_salary" %></td>
             </tr>
