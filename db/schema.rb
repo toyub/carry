@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207054003) do
+ActiveRecord::Schema.define(version: 20151207090155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1146,7 +1146,7 @@ ActiveRecord::Schema.define(version: 20151207054003) do
     t.decimal  "trial_salary",                       precision: 10, scale: 2
     t.decimal  "regular_salary",                     precision: 10, scale: 2
     t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
+    t.integer  "trial_period",                                                default: 1
     t.json     "skills",                                                      default: {}
     t.json     "other",                                                       default: {}
     t.integer  "store_employee_id"

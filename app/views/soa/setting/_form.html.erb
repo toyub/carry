@@ -207,7 +207,7 @@
     })
 
     var input_area = $(".security-area li input[type='text']");
-    if ( <%= @staff.bonus["insurence_enabled"] == "0" %> )
+    if ( <%= @staff.bonus["insurence_enabled"].nil? || @staff.bonus['insurence_enabled'] == "0" %> )
       input_area.attr("disabled", "disabled")
 
     $("#security-checkbox").on("click", function(){
@@ -232,11 +232,11 @@
       }
     })
 
-    var period_value = $("#store_staff_trial_period").val()
+    var period_value = $("#store_staff_trial_salary").val()
     if (!period_value) {
         $(".transfer_btn").attr("disabled", "disabled");
     }
-    $("#store_staff_trial_period").on("input", function(){
+    $("#store_staff_trial_salary").on("input", function(){
       period_value = $(this).val();
       if (period_value) {
         $(".transfer_btn").removeAttr("disabled");
