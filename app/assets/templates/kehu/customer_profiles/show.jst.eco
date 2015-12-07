@@ -257,8 +257,7 @@
         </div>
 
         <div class="btn_group">
-          <a class="edit_btn btn" href="kehuedit.html">编辑</a>
-          <a class="cancel_btn btn" href="javascript:void(0)">取消</a>
+          <a class="edit_btn btn" href="#store_customers/<%= @entity.id %>/edit">编辑</a>
         </div>
 		  </div>
     </div>
