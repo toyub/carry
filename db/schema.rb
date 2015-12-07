@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205015043) do
+ActiveRecord::Schema.define(version: 20151207012551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1156,6 +1156,7 @@ ActiveRecord::Schema.define(version: 20151205015043) do
     t.boolean  "app_login_enabled",                                       default: false
     t.boolean  "erp_login_enabled",                                       default: false
     t.integer  "roles",                                                                                         array: true
+    t.boolean  "deduction",                                               default: false
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree

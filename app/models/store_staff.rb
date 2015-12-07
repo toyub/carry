@@ -67,6 +67,7 @@ class StoreStaff <  ActiveRecord::Base
   def contract_status
     "未签约"
     contract_period < 0 ? "到期" : "有效" if contract_period
+  end
 
   def locked?
     !mis_login_enabled

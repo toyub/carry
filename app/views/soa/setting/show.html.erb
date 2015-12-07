@@ -75,6 +75,7 @@
         <div class="ticheng">
           <span class="width-60">提成设置</span>
           <%= form.label :deduct, "试用期结束有提成" %>
+          <%= form.check_box :deduction, checked: @staff.deduction, class: "vertical-align-middle margin-left-46" %>
         </div>
       </div>
 
@@ -113,7 +114,9 @@
 
               <li>
                 <%= skills_fields.label :other_skills, "其他技能" %>
-                <%= skills_fields.select :other_skills, options_from_collection_for_select(@store.store_departments, 'id', 'name'), {}, {multiple: true}  %>
+                  <% @staff.skills["other_skills"].map do |skill| %>
+                    <span> <%= skill %> </span>
+                  <% end %>
               </li>
 
               <br />

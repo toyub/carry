@@ -69,7 +69,9 @@
 
       <div class="ticheng">
         <span class="width-60">提成设置</span>
-        <%= form.label :deduct, "试用期结束有提成" %>
+        <%= form.label :deduction, "试用期结束有提成" %>
+        <%= form.check_box :deduction, checked: @staff.deduction, class: "vertical-align-middle margin-left-46" %>
+
       </div>
     </div>
 
@@ -108,7 +110,7 @@
 
             <li>
               <%= skills_fields.label :other_skills, "其他技能" %>
-              <%= skills_fields.select :other_skills, options_from_collection_for_select(@store.store_departments, 'id', 'name'), {}, {multiple: true}  %>
+              <%= skills_fields.select :other_skills, options_from_collection_for_select(@store.store_departments, "name", 'name'), {}, {multiple: true}  %>
             </li>
 
             <br />
@@ -163,7 +165,7 @@
 
 
     <div class="btn_group">
-      <%= form.submit "编辑", class: "btn edit_btn" %>
+      <%= link_to "返回", soa_setting_path(@staff), class: "btn edit_btn" %>
       <%= form.submit "保存", class: "btn save_btn" %>
     </div>
   </div>
@@ -198,7 +200,8 @@
       $("."+ closed_class_name).css("display", "none");
     })
 
-    $("#store_staff_skills_other_skills").select2();
+    initial_skills = <%= raw @staff.skills['other_skills'] %>
+    $("#store_staff_skills_other_skills").select2().select2('val', initial_skills );
 
     $("#store_staff_skills_theory, #store_staff_skills_operate, #store_staff_skills_integrate").on("input", function(){
       var value = Math.round($(this).val());
