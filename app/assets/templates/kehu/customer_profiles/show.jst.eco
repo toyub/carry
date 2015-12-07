@@ -61,11 +61,11 @@
 							<label class="width-75">区域</label>
               <span class="area">
                 <label>省:</label>
-                <span class="width-60"></span>
+                <span class="width-60"><%= @entity.province() %></span>
                 <label>市:</label>
-                <span class="width-60"></span>
+                <span class="width-60"><%= @entity.city() %></span>
                 <label>区/县:</label>
-                <span class="width-75"></span>
+                <span class="width-75"><%= @entity.region() %></span>
               </span>
 
 						</div>
@@ -119,8 +119,8 @@
 						</div>
 
             <div class="item_content">
-              <label class="width-125">不接受回访<input type="checkbox" <%= 'checked' unless entity.storeCustomer.trackingAccepted() %> class="width-13 vertical-align-middle margin-left-5" disabled=""></label>
-              <label class="width-125">不接受短信<input type="checkbox" <%= 'checked' unless entity.storeCustomer.messageAccepted() %> class="width-13 vertical-align-middle margin-left-5 " disabled=""></label>
+              <label class="width-125">不接受回访<input type="checkbox" <%= 'checked' unless @entity.storeCustomer.trackingAccepted() %> class="width-13 vertical-align-middle margin-left-5" disabled=""></label>
+              <label class="width-125">不接受短信<input type="checkbox" <%= 'checked' unless @entity.storeCustomer.messageAccepted() %> class="width-13 vertical-align-middle margin-left-5 " disabled=""></label>
             </div>
 
             <div class="item_content">
@@ -155,48 +155,48 @@
 
             <div class="item_content">
               <label class="width-75">挂账额度</label>
-							<span class="width-176">自定义金额</span>
-              <span class="width-176">1000</span>
+							<span class="width-176"><%= @entity.storeCustomerSettlement.credit() %></span>
+              <span class="width-176"><%= @entity.storeCustomerSettlement.get 'credit_amount' %></span>
             </div>
 
             <div class="item_content">
               <label class="width-75">结算提醒</label>
-							<span class="width-176">月底前3天</span>
+							<span class="width-176"><%= @entity.storeCustomerSettlement.noticePeriod() %></span>
             </div>
 
             <div class="item_content">
               <label class="width-75">合同号</label>
-							<span class="width-176"></span>
+							<span class="width-176"><%= @entity.storeCustomerSettlement.get 'contract' %></span>
             </div>
 
             <div class="item_content">
               <label class="width-75">开户银行</label>
-							<span class="width-458"></span>
+							<span class="width-458"><%= @entity.storeCustomerSettlement.get 'bank' %></span>
             </div>
 
             <div class="item_content">
               <label class="width-75">银行帐号</label>
-							<span class="width-463"></span>
+							<span class="width-463"><%= @entity.storeCustomerSettlement.get 'bank_account' %></span>
             </div>
 
             <div class="item_content">
               <label class="width-75">税号</label>
-							<span class="width-458"></span>
+							<span class="width-458"><%= @entity.storeCustomerSettlement.get 'tax' %></span>
             </div>
 
             <div class="item_content">
               <label class="width-75">收款方式</label>
-							<span class="width-176"></span>
+							<span class="width-176"><%= @entity.storeCustomerSettlement.paymentMode() %></span>
             </div>
 
             <div class="item_content">
               <label class="width-75">发票种类</label>
-							<span class="width-176"></span>
+							<span class="width-176"><%= @entity.storeCustomerSettlement.invoice() %></span>
             </div>
 
             <div class="item_content">
               <label class="width-75">发票抬头</label>
-              <span class="width-176"></span>
+              <span class="width-176"><%= @entity.storeCustomerSettlement.get 'invoice_title' %></span>
             </div>
 
             <div class="item_content">
