@@ -3,7 +3,7 @@
 
   <ul class="role_opts">
     <% for n in @roles : %>
-    <li><label><%= n %></label><input type="checkbox"></li>
+    <li><label><%= n.name %></label><input type="checkbox"></li>
     <% end %>
   </ul>
 
