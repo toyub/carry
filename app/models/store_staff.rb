@@ -4,8 +4,9 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_chain
   belongs_to :store_department
   belongs_to :store_position
-  has_many :store_protocols
   belongs_to :store_employee
+  has_many :store_protocols, dependent: :destroy
+  has_many :store_events, dependent: :destroy
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}

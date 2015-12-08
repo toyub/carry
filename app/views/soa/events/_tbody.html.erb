@@ -1,0 +1,24 @@
+<tbody>
+  <% @staffs.each do |staff| %>
+  <tr>
+    <td class="sequence_num">1</td>
+    <td><%= staff.screen_name %></td>
+    <td><%= staff.numero %></td>
+    <td><%= staff.store_department.try(:name) %></td>
+    <td><%= staff.store_position.try(:name) %></td>
+    <td>-50.00</td>
+    <td>-50.00</td>
+    <td>1</td>
+    <td>-150.00</td>
+    <td>2</td>
+    <td>200.00</td>
+    <td class="operation">
+      <a href="../yuangongliebiao/jilu/kaoqinjilu.html">考</a>
+      <a href="../yuangongliebiao/jilu/jianglijilu.html">奖</a>
+      <a href="../yuangongliebiao/jilu/chengjiejilu.html">惩</a>
+    </td>
+    <td><%= link_to raw("<i class='ico ico-edit font-14'></i>"), soa_event_path(staff) %></td>
+  </tr>
+<% end %>
+</tbody>
+

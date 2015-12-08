@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207090155) do
+ActiveRecord::Schema.define(version: 20151208074154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,20 @@ ActiveRecord::Schema.define(version: 20151207090155) do
     t.string   "remark",                   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "store_events", force: :cascade do |t|
+    t.integer  "store_staff_id"
+    t.string   "type"
+    t.string   "sort"
+    t.text     "description"
+    t.json     "operate",        default: {}
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.datetime "occur_on"
+    t.datetime "start_on"
+    t.datetime "end_on"
+    t.string   "occur_at"
   end
 
   create_table "store_files", force: :cascade do |t|

@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>百世威盛ERP</title>
+  <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+  <link rel="stylesheet" type="text/css"  href="/mis/stylesheets/style.css">
+  <link rel="stylesheet" href="/mis/stylesheets/main.css">
+  <script type="text/javascript" src="/mis/js/base/jquery-2.1.3.min.js"></script>
+  <script type="text/javascript" src="/mis/js/chart/echarts-all.js"></script>
+  <script type="text/javascript" src="/mis/js/backbone/underscore-min.js"></script>
+  <script type="text/javascript" src="/mis/js/backbone/backbone-min.js"></script>
+  <script type="text/javascript" src="/mis/js/backbone/backbone.localStorage.js"></script>
+
+</head>
+
+  <link rel="stylesheet" href="/mis/stylesheets/soa.css">
+
+  <body >
+
+    <header class="header">
+<nav class="nav">
+  <div class="top">
+    <div  class=' nav_top_left  top_left'>
+      <i class="fa fa-list cursor-pointer" id="menu_click"></i>
+    </div>
+
+    <div class="nav_top_right top_right">
+      <ul class="nav_right">
+        <li>
+          <a href="javascript:void(0)">
+            <i class="fa fa-comment "></i>
+            <span class="message_tip"></span>
+          </a>
+
+          <ul class="dropdown_menu list-group">
+          	<li>
+          		<a href="javascript:void(0)">系统消息(<span>6</span>)</a>
+          	</li>
+          	<li>
+              <a href="javascript:void(0)">库存消息(<span>3</span>)</a>
+          	</li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="javascript:void(0)">
+            <i class="fa  fa-user"></i>
+            <span></span>
+          </a>
+          <ul class="dropdown_menu list-group">
+            <li>
+              <a href="javascript:void(0)">个人信息</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)">退出</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
+    
+  <menu  class="sidemenu" id="sidemenu">
+      <div class="first_menu ">
+        <ul id="menu" class="menu">
+          <li ><a href="#"   class="xianchang" ><i class="fa fa-clock-o"></i></a></li>
+          <li ><a href="#"  class="shouyin"><i class="fa fa-calculator"></i></a></li>
+          <li ><a href="#"  class="kehu" ><i class="fa fa-user"></i></a></li>
+          <li ><a href="#"   class="xiaoshou" ><i class="fa fa-shopping-cart"></i></a></li>
+          <li ><a href="#"   class="yuangong"><i class="fa fa-users"></i></a></li>
+          <li ><a href="#" class="kucun"  ><i class="fa fa-cubes"></i></a></li>
+          <li ><a href="#" class="caiwu"  ><i class="fa fa-jpy"></i></a></li>
+          <li ><a href="#"  class="tongji"><i class="fa fa-line-chart"></i></a></li>
+          <li ><a href="#"  class="shezhi"><i class="fa fa-cog"></i></a></li>
+        </ul>
+      </div>
+      <div  id="second_menu">
+    <div  class='float-left sec_menu xianchang' id="xianchang"  style="display:none;">
+      <div class="  menulist">
+        <h4>现场管理</h4>
+        <ul class="second_menu">
+          <li ><a href="/mis/xianchang/shigongxianchang/jianjie_gongwei.html">施工现场</a></li>
+          <li><a href="/mis/xianchang/yuyuepaidan/index.html" >预约排单</a></li>
+          <li><a href="/mis/xianchang/renyuandiaodu/index.html">人员调度</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  class='float-left sec_menu shouyin' id="shouyin"  style="display:none;">
+      <div class="  menulist">
+        <h4>收银POS</h4>
+        <ul class="second_menu">
+          <li ><a href="/mis/shouyin/shouyin/index.html" >收银</a></li>
+          <li><a href="/mis/shouyin/yewukaidan/kaidan.html" >业务开单</a></li>
+          <li><a href="/mis/shouyin/yixiangkaidan/yixiangkaidan.html" >意向开单</a></li>
+          <li><a href="/mis/shouyin/yewutuidan/index.html" >业务退单</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  class='float-left sec_menu kehu' id="kehu" style="display:none;">
+      <div class="  menulist">
+        <h4>客户管理</h4>
+        <ul class="second_menu">
+          <li ><a href="/mis/kehu/kehuliebiao/index.html">客户列表</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  class='float-left sec_menu xiaoshou' id="xiaoshou" style="display:none;">
+      <div class="  menulist">
+        <h4>销售管理</h4>
+        <ul class="second_menu">
+          <li><a href="/mis/xiaoshou/shangpin/index.html">商品</a></li>
+          <li ><a href="/mis/xiaoshou/fuwu/index.html">服务</a></li>
+          <li><a href="/mis/xiaoshou/taocan/index.html">套餐</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  class='float-left sec_menu yuangong' id="yuangong"  style="display:none;">
+      <div class="  menulist">
+        <h4>员工管理</h4>
+        <ul class="second_menu">
+          <li ><a href="/mis/soa/yuangongliebiao/index.html">员工列表</a></li>
+          <li><a href="/mis/soa/xinzi/index.html">薪资管理</a></li>
+          <li><a href="/mis/soa/jixiao/index.html">绩效提成</a></li>
+          <li><a href="/mis/soa/kaoqin/index.html">考勤奖惩</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  class='float-left sec_menu kucun' id="kucun" style="display:none;">
+      <div class="menulist">
+        <h4>库存管理</h4>
+        <ul class="second_menu">
+          <li ><a href="/mis/kucun/kucunliebiao/index.html">库存列表</a></li>
+          <li><a href="/mis/kucun/ruku/index.html">入库</a></li>
+          <li><a href="/mis/kucun/chuku/index.html">出库</a></li>
+          <li><a href="/mis/kucun/dinghuo/index.html">批量订货</a></li>
+          <li><a href="/mis/kucun/jit/index.html">临时订货</a></li>
+          <li><a href="/mis/kucun/pandian/index.html">盘点</a></li>
+          <li><a href="/mis/kucun/baosun/index.html">报损</a></li>
+          <li><a href="/mis/kucun/tuihuo/index.html">退货</a></li>
+          <li><a href="/mis/kucun/shouhou/index.html">售后</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  class='float-left sec_menu caiwu' id="caiwu"  style="display:none;">
+      <div class=" menulist">
+      <h4>财务管理</h4>
+        <ul class="second_menu">
+          <li><a href="/mis/ais/income/index.html">收入</a></li>
+          <li ><a href="/mis/ais/cost/index.html">成本</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  class='float-left sec_menu tongji' id="tongji"  style="display:none;">
+      <div class="  menulist">
+      <h4>统计分析</h4>
+        <ul class="second_menu">
+          <li><a href="/mis/sas/xiaoshou/graph.html">销售</a></li>
+          <li><a href="/mis/sas/kehu/graph.html">客户</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  class='float-left sec_menu shezhi' id="shezhi"  style="display:none;">
+      <div class="  menulist">
+      <h4>系统设置内容</h4>
+        <ul class="second_menu">
+          <li><a href="/mis/settings/mendian/index.html">门店信息</a></li>
+          <li ><a href="/mis/settings/duanxin/feecharge.html">短信设置</a></li>
+          <li><a href="/mis/settings/tichengfangan.html">提成方案</a></li>
+          <li><a href="/mis/settings/zuzhijiagou.html">组织架构</a></li>
+          <li><a href="/mis/settings/quanxian/yonghupeizhi.html">权限设置</a></li>
+          <li><a href="/mis/settings/leibie/shangpin.html">类别设置</a></li>
+          <li><a href="/mis/settings/account/index.html">结算信息</a></li>
+          <li><a href="/mis/settings/cangku/cangku.html">仓库管理</a></li>
+        </ul>
+      </div>
+    </div>
+  </menu>
+  <script type="text/javascript"  src="/mis/js/showsecondMenu.js"></script>
+
+
+    <main id='main' >
+      <div class="content"  id="content">
+        <div class="main_top">
+  <h2>员工详情</h2>
+  <a class="back_to_list" href="index.html">
+  <i class="fa-arrow-circle-left  fa" ></i>
+  返回列表
+</a>
+
+</div>
+
+<div class="details">
+
+  <table class="top_info">
+    <tr>
+      <td>员工姓名</td>
+      <td>王海林</td>
+      <td>员工编号</td>
+      <td>YG20110078</td>
+      <td>所属部门</td>
+      <td>美容组</td>
+      <td>职务</td>
+      <td>美容技师</td>
+      <td>职称</td>
+      <td>高级技师</td>
+      <td>职务状态</td>
+      <td>正式</td>
+      <td>岗位状态</td>
+      <td>到岗</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <div class="details_nav">
+    <ul>
+      <li ><a href="jibenxinxishow.html" class="width-90">基本信息</a></li>
+      <li ><a href="shezhishow.html" class="width-90">设置</a></li>
+      <li ><a href="jixiaoticheng.html" class="width-90">绩效提成</a></li>
+      <li class="bg-color-fff"><a  href="kaoqinjiangli.html" class="width-90">考勤奖惩</a></li>
+      <li ><a  href="jilu/xinzijilu.html" class="width-90">记录</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content attendance_reward_punishment">
+    <ul class="option_nav">
+      <li><label>考勤<input type="radio" name="options" checked></label></li>
+      <li><label>奖励<input type="radio" name="options"></label></li>
+      <li><label>惩戒<input type="radio" name="options"></label></li>
+    </ul>
+
+    <div class="forms">
+      <p>考勤单</p>
+      <p style="display:none;">奖励单</p>
+      <p style="display:none;">惩戒单</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>王海林</th>
+            <th>部门</th>
+            <th>美容组</th>
+            <th>职务</th>
+            <th>美容技师</th>
+          </tr>
+        </thead>
+        <tbody class="attendance">
+          <tr>
+            <th rowspan="2">考勤科目</th>
+            <td colspan="5">
+              <label>调休 <input type="radio" name="attendance_option" checked></label>
+              <label>事假 <input type="radio" name="attendance_option"></label>
+              <label>病假 <input type="radio" name="attendance_option"></label>
+              <label>婚假 <input type="radio" name="attendance_option"></label>
+              <label>丧假 <input type="radio" name="attendance_option"></label>
+              <label>公休假 <input type="radio" name="attendance_option"></label>
+              <label>迟到 <input type="radio" name="attendance_option"></label>
+              <label>早退 <input type="radio" name="attendance_option"></label>
+              <label>矿工 <input type="radio" name="attendance_option"></label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-align-center">
+              <label>起</label> <input type="date" class="width-122 margin-right-10">
+              <label>止</label>  <input type="date" class="width-122 margin-right-30">
+              <label>共计</label> <input type="text" class="width-50"><nbsp1></nbsp1>天
+            </td>
+          </tr>
+          <tr>
+            <th>描述</th>
+            <td colspan="5">
+              <textarea rows="10"></textarea>
+              <div class="text-align-right">
+                <label>制表：</label><span class="margin-right-20">李可</span>
+                <label>日期：</label><span class="margin-right-20">2015/7/1</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>处理</th>
+            <td colspan="5">
+              <ul>
+                <li><span>扣款</span> <input type="text"> 元</li>
+                <li>
+                  <span class="vertical-align-top">其他</span>
+                  <textarea cols="60" rows="6"></textarea>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody class="reward">
+          <tr>
+            <th>时间</th>
+            <td colspan="2" class="text-indent-20">2015-6-11</td>
+            <th class="address">地点</th>
+            <td colspan="2" class="text-indent-20">美容1号工位</td>
+          </tr>
+          <tr>
+            <th>性质</th>
+            <td colspan="5" class="text-indent-20">
+              <label>工作优异 <input type="radio" name="reward_reason"></label>
+              <label>拾金不昧 <input type="radio" name="reward_reason"></label>
+              <label>助人为乐 <input type="radio" name="reward_reason" checked></label>
+              <label>力挽狂澜 <input type="radio" name="reward_reason"></label>
+            </td>
+          </tr>
+          <tr>
+            <th>描述</th>
+            <td colspan="5">
+              <textarea rows="10">当天同组员工因天气炎热，中暑晕倒，王海林积极帮助，将同事及时送往医院并帮助其完成后续未完成的工作，因此给予嘉奖！</textarea>
+              <div class="text-align-right">
+                <label>制表：</label><span class="margin-right-20">李可</span>
+                <label>日期：</label><span class="margin-right-20">2015/7/1</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="6" class="dealing">处理</th>
+          </tr>
+          <tr class="reward">
+            <th class="border-right-fff" rowspan="2">奖励</th>
+            <td colspan="5">
+              <ul>
+                <li><span>奖励</span> <input type="text">元</li>
+                <li>
+                  <span class="vertical-align-top">其他</span>
+                  <textarea cols="60" rows="6"></textarea>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody class="punishment">
+          <tr>
+            <th>时间</th>
+            <td colspan="2" class="text-indent-20">2015-6-11</td>
+            <th>地点</th>
+            <td colspan="2" class="text-indent-20">美容1号工位</td>
+          </tr>
+          <tr>
+            <th>性质</th>
+            <td colspan="5">
+              <label>违纪 <input type="radio" name="punish_reason"></label>
+              <label>责任过失 <input type="radio" name="punish_reason" checked></label>
+            </td>
+          </tr>
+          <tr>
+            <th>描述</th>
+            <td colspan="5">
+              <textarea rows="10">当天工作不认真，疏忽大意，将客户车辆抛穿，构成责任事故</textarea>
+              <div class="text-align-right">
+                <label>制表：</label><span class="margin-right-20">李可</span>
+                <label>日期：</label><span class="margin-right-20">2015/7/1</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="6" class="dealing">处理</th>
+          </tr>
+          <tr class="punish">
+            <th class="border-right-fff ">惩罚</th>
+            <td colspan="5" >
+              <ul>
+                <li><span>扣款</span> <input type="text">元</li>
+                <li>
+                  <span class="vertical-align-top">其他</span>
+                  <textarea cols="60" rows="6"></textarea>
+                </li>
+              </ul>
+            </td>
+          </tr>          
+        </tbody>
+      </table>
+
+      <div class="btn_group">
+        <input type="button" class="btn save_btn" value="保存">
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="/mis/js/yuangong/yuangong/kaoqinjiangcheng.js"></script>
+
+      </div>
+    </main>
+
+    
+<div class="salary_adjusting_record_wrap">
+  <div class="salary_adjusting_record">
+    <h3>调薪单 <a href="javascript:void(0)" class="font-18">×</a></h3>
+    <div class="content">
+      <table>
+        <tbody>
+          <tr>
+            <td>姓名</td>
+            <td><span class="width-132 show_content">王海林</span></td>
+            <td>员工编号</td>
+            <td><span class="width-132 show_content">YG20110078</span></td>
+            <td>部门</td>
+            <td><span class="width-132 show_content">美容组</span></td>
+            <td>职务</td>
+            <td><span class="width-132 show_content">美容技师</span></td>
+          </tr>
+          <tr>
+            <td>所属门店</td>
+            <td><span class="width-132 show_content">杭州车夫会养车会所</span></td>
+            <td>入职时间</td>
+            <td><span class="width-132 show_content">2011-07-08</span></td>
+            <td>工龄</td>
+            <td><span class="width-132 show_content">4</span></td>
+            <td>职称</td>
+            <td><span class="width-132 show_content">高级技师</span></td>
+          </tr>
+          <tr>
+            <td>原薪资</td>
+            <td><span class="width-132 show_content">3,000.00</span></td>
+            <td>新薪资</td>
+            <td colspan="5"><span class="width-132 show_content">3,500.00</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="reason">
+        <label>调薪原因</label>
+        <textarea disabled>工作能力强</textarea>
+      </div>
+
+      <div class="start_time">
+        <label>生效日期</label>
+        <span class="show_content">2015-10-3</span>
+      </div>
+
+      <div class="confirm_person">
+        <label>审核人</label>
+        <span class="show_content">可使用系统的人1</span>
+      </div>
+
+      <div class="remark">
+        <label>备注</label>
+        <textarea disabled></textarea>
+      </div>
+
+      <div class="form_maker">
+        <span>制单：</span><label class="maker">王丽丽</label>
+        <span>录入日期：</span><label class="date">2015-6-29</label>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+    
+<div class="salary_payment_record_wrap">
+  <div class="salary_payment_record">
+    <a href="#" class="delete delete_list">×</a>
+
+    <table class="abstract">
+      <thead>
+        <tr>
+          <td>姓名</td>
+          <td>员工编号</td>
+          <td>部门</td>
+          <td>职务</td>
+          <td>底薪</td>
+          <td>提成</td>
+          <td>福利补贴</td>
+          <td>奖金</td>
+          <td>保险金</td>
+          <td>加班费</td>
+          <td>应扣费用</td>
+          <td>实发金额</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>王海林</th>
+          <th>JS201309120001</th>
+          <th>美容组</th>
+          <th>美容技师</th>
+          <th>3,500</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>3,500</th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="salary_checkout">
+      <div class="salary">
+        <ul class="total_salary">
+          <li class="font-weight-bold font-14">应发工资</li>
+          <li>
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">提成</label>
+                <label class="width-70">施工提成</label>
+                <span class="show_content margin-left-14">0.00</span>
+              </li>
+              <li>
+                <label>商品提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>售卡提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>其他提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label class="font-weight-bold">提成合计</label>
+                <span class="show_content">0.00</span>
+              </li>
+            </ol>
+
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">福利补贴</label>
+                <label class="width-70">岗位补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>住宿补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>餐费补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>劳保补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>高温补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label class="font-weight-bold">补贴合计</label>
+                <span class="show_content total">0.00</span>
+              </li>
+            </ol>
+          </li>
+
+          <li>
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">加班费</label>
+                <label class="width-70 font-weight-bold">加班合计</label>
+                <span class="show_content margin-left-14">0.00</span>
+              </li>
+              <li class="bonus">
+                <label class="font-weight-bold width-50">奖金</label>
+                <label class="width-70 font-weight-bold">奖金合计</label>
+                <span class="show_content total">0.00</span>
+              </li>
+            </ol>
+
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">保险金</label>
+                <label class="width-70">医保费</label>
+                <span class="show_content margin-left-14">0.00</span>
+              </li>
+              <li>
+                <label>保险金</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label class="font-weight-bold">保险合计</label>
+                <span class="show_content total">0.00</span>
+              </li>
+            </ol>
+          </li>
+
+          <li class="total text-align-right">
+            <label class="color-7391C4 font-weight-bold">应发工资合计：</label>
+            <span class="show_content">3,500.00</span>
+          </li>
+        </ul>
+
+
+        <ul class="deducted_salary">
+          <li class="font-weight-bold font-14">应扣费用</li>
+
+          <li>
+            <ol>
+              <li><label>违纪扣款</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label>考勤扣款</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label>损坏赔款</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label>借贷扣除</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label>其他扣款</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label class="font-weight-bold">扣款合计</label> <span class="show_content margin-left-15 total ">0.00</span></li>
+            </ol>
+          </li>
+
+          <li class="total">
+            <label class="font-weight-bold color-C8625C">应扣费用合计：</label> <span class="show_content margin-left-15">0.00</span>
+          </li>
+        </ul>
+
+        <ul class="balance_salary">
+          <li class="font-weight-bold font-14">实发金额</li>
+          <li class="text-align-center">
+            <label class="display-block">薪资总额</label>
+            <span class="show_content text-align-left">3,500.00</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    
+<div class="construction_record_details_wrap" style="display:none;">
+  <div class="construction_record_details">
+  <p class="order">
+    <span class="font-14">单号： YW201411070010</span>
+    <a href="javascript:void(0)">×</a>
+  </p>
+
+  <ul>
+    <li>
+      <label>车牌号</label>
+      <input type="text" value="浙A16034" readonly>
+    </li>
+    <li>
+      <label>客户姓名</label>
+      <input type="text" value="王" readonly>
+    </li>
+    <li>
+      <label>手机号</label>
+      <input type="text" value="13335930000" readonly>
+    </li>
+  </ul>
+
+  <div class="detail_info">
+    <p>
+      详细信息
+      <i class="fa-angle-double-up fa cursor-pointer font-14"></i>
+    </p>
+
+    <ul>
+      <li>
+        <label>车辆品牌</label>
+        <input type="text" value="宝马" readonly>
+      </li>
+      <li>
+        <label>车型</label>
+        <input type="text" value="宝马5系" readonly>
+      </li>
+      <li>
+        <label>车系</label>
+        <input type="text" value="宝马新5系" readonly>
+      </li>
+      <li>
+        <label>客户属性</label>
+        <input type="text" value="男" readonly>
+      </li>
+      <li>
+        <label>客户类别</label>
+        <input type="text" value="个人" readonly>
+      </li>
+      <li>
+        <label>结算方式</label>
+        <input type="text" value="现结" readonly>
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="vehicle_record">
+    <p>
+      车辆状态
+      <i class="fa-angle-double-up fa cursor-pointer font-14"></i>
+    </p>
+
+    <div class="vehicle float-left">
+      <div class="image">
+        <img src="/mis/images/car_status.png">
+        <input type="checkbox" class="part1" disabled>
+        <input type="checkbox" class="part2" disabled>
+        <input type="checkbox" class="part3" disabled>
+        <input type="checkbox" class="part4" disabled>
+        <input type="checkbox" class="part5" disabled>
+        <input type="checkbox" class="part6" disabled>
+        <input type="checkbox" class="part7" disabled>
+        <input type="checkbox" class="part8" disabled>
+        <input type="checkbox" class="part9" disabled>
+        <input type="checkbox" class="part10" disabled>
+        <input type="checkbox" class="part11" disabled>
+        <input type="checkbox" class="part12" disabled>
+      </div>
+
+      <div class="parts">
+        <img src="/mis/images/car_parts.png">
+        <ul>
+          <li><input type="checkbox" disabled></li>
+          <li><input type="checkbox" disabled></li>
+          <li><input type="checkbox" disabled></li>
+          <li><input type="checkbox" disabled></li>
+          <li><input type="checkbox" disabled></li>
+          <li><input type="checkbox" disabled></li>
+          <li><input type="checkbox" disabled></li>
+          <li><input type="checkbox" disabled></li>
+          <li><input type="checkbox" disabled></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="records float-left">
+      <p>车况检查记录</p>
+    </div>
+  </div>
+
+
+  <div class="business_info">
+    <p>
+      业务信息
+      <i class="fa-angle-double-up fa cursor-pointer font-14"></i>
+    </p>
+
+    <div class="detail">
+      <table class="material">
+        <caption>商品明细</caption>
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>数量</th>
+            <th>单价</th>
+            <th>属性</th>
+            <th>优惠</th>
+            <th>小计</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>米其林</td>
+            <td>195/65/15 XM2 91V</td>
+            <td>条</td>
+            <td>1</td>
+            <td>430.00</td>
+            <td>会员</td>
+            <td>0.00</td>
+            <td>430.00</td>
+          </tr>
+
+          <tr>
+            <td>摇头公仔</td>
+            <td>斯诺比</td>
+            <td>个</td>
+            <td>1</td>
+            <td>85.00</td>
+            <td>会员</td>
+            <td>5.00</td>
+            <td>80.00</td>
+          </tr>
+
+          <tr>
+            <td>飞歌DVD...</td>
+            <td>本田雅阁专用</td>
+            <td>台</td>
+            <td>1</td>
+            <td>8,675.00</td>
+            <td>会员</td>
+            <td>133.3</td>
+            <td>8,541.70</td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td colspan="8" class="text-align-right">
+              <label class="margin-right-10">商品金额总计:</label>
+              <label>9051.70</label>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <table class="service">
+        <caption>服务明细</caption>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>项目</th>
+            <th>流程</th>
+            <th>属性</th>
+            <th>单价</th>
+            <th>优惠</th>
+            <th>小计</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>精致洗车</td>
+            <td><i class="fa fa-check"></i></td>
+            <td>零售</td>
+            <td>68.00</td>
+            <td>0</td>
+            <td>68.00</td>
+          </tr>
+          
+          <tr>
+            <td>2</td>
+            <td>澜泰纳米镀晶</td>
+            <td>个</td>
+            <td>1/3</td>
+            <td>868.00</td>
+            <td>0</td>
+            <td>868.00</td>
+          </tr>
+          
+          <tr>
+            <td>2</td>
+            <td>澜泰纳米镀晶</td>
+            <td>个</td>
+            <td>1/3</td>
+            <td>868.00</td>
+            <td>0</td>
+            <td>868.00</td>
+          </tr>
+          
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td colspan="7" class="text-align-right">
+              <label class="margin-right-10">消费金额总计:</label>
+              <label>936.00</label>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <p class="text-align-right">
+        <label class="margin-right-10">消费金额总计:</label>
+        <label>9,987.70</label>
+      </p>
+    </div>
+  </div>
+
+
+  <div class="construction_info">
+    <p>
+      施工信息
+      <i class="fa-angle-double-up fa cursor-pointer font-14"></i>
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>工位</th>
+          <th>用时</th>
+          <th>技师</th>
+          <th>检验</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>精致洗车</td>
+          <td>洗车1号工位</td>
+          <td>48:55</td>
+          <td>
+            <span>李小龙</span>
+            <span>王小斌</span>
+          </td>
+          <td>李克勤</td>
+        </tr>
+
+        <tr>
+          <td>澜泰纳米镀晶</td>
+          <td>洗车1号工位</td>
+          <td>48:55</td>
+          <td>
+            <span>李小龙</span>
+            <span>王小斌</span>
+          </td>
+          <td>李克勤</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="other_info">
+    <p>
+      其他信息
+      <i class="fa-angle-double-up fa cursor-pointer font-14"></i>
+    </p>
+
+    <div class="dealing">
+      <span>旧件处理</span>
+      <label>带走旧件<input type="checkbox" disabled></label>
+      <label>不带走旧件<input type="checkbox" disabled></label>
+    </div>
+
+    <div class="dealing">
+      <span>贵重物品</span>
+      <label>已提醒<input type="checkbox" disabled></label>
+      <label>无贵重物品<input type="checkbox" disabled></label>
+      <label class="customer_signing">客户签字:</label><input type="text" value="xxx" readonly>
+    </div>
+
+    <div class="remark">
+      <label>备注</label>
+      <textarea readonly>备注备注备注备注</textarea>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div class="construction_record_pop_wrap">
+  <div class="construction_record_pop">
+    <p>
+      <span>单号： YW201411070010</span>
+      <a class="show_details" href="javascript:void(0)">查看详细订单</a></p>
+
+    <div class="basic_info">
+      <ul>
+        <li>
+          <span>车牌号</span> <span class="underline">浙A16034</span>
+        </li>
+        <li>
+          <span>客户姓名</span> <span class="underline">王</span>
+        </li>
+        <li>
+          <span>手机号</span> <span class="underline">13335930000</span>
+        </li>
+        <li>
+          <span>车辆品牌</span> <span class="underline">宝马</span>
+        </li>
+        <li>
+          <span>车型</span> <span class="underline">宝马5系</span>
+        </li>
+        <li>
+          <span>车系</span> <span class="underline">宝马新5系</span>
+        </li>
+        <li>
+          <span>客户属性</span> <span class="underline"></span>
+        </li>
+        <li>
+          <span>客户类别</span> <span class="underline">个人</span>
+        </li>
+        <li>
+          <span>结算方式</span> <span class="underline">现结</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="material_info">
+      <p>商品明细</p>
+
+      <div class="lists">
+        <ul class="head">
+          <li>#</li>
+          <li>名称</li>
+          <li>规格</li>
+          <li>单位</li>
+          <li>数量</li>
+          <li>单价</li>
+          <li>优惠</li>
+          <li>属性</li>
+          <li>小计</li>
+        </ul>
+
+        <div class="contents">
+          <ul>
+            <li>1</li>
+            <li>米其林</li>
+            <li>195/65/12 XM2 91V</li>
+            <li>条</li>
+            <li>1</li>
+            <li>430.00</li>
+            <li>0.00</li>
+            <li>会员</li>
+            <li>430.00</li>
+          </ul>
+
+          <ul>
+            <li>2</li>
+            <li>摇头公仔</li>
+            <li>斯诺比</li>
+            <li>个</li>
+            <li>1</li>
+            <li>85.00</li>
+            <li>5.00</li>
+            <li>会员</li>
+            <li>80.00</li>
+          </ul>
+
+          <ul>
+            <li>3</li>
+            <li>飞鸽DVD</li>
+            <li>本田雅阁专用</li>
+            <li>台</li>
+            <li>1</li>
+            <li>8,675.00</li>
+            <li>133.33</li>
+            <li>会员</li>
+            <li>8,541.70</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="total">
+        <span>退货金额总计：</span><span>9051.70</span>
+      </div>
+    </div>
+
+    <div class="construction_info">
+      <p>施工信息</p>
+
+      <div class="lists">
+        <ul class="head">
+          <li>项目</li>
+          <li>流程</li>
+          <li>工位</li>
+          <li>用时</li>
+          <li>技师</li>
+          <li>质检</li>
+        </ul>
+
+        <div class="contents">
+          <ul>
+            <li>
+              精致洗车
+            </li>
+            <li>
+              <ol>
+                <li>冲洗</li>
+                <li>洗车2号工位</li>
+                <li>15：00</li>
+                <li>
+                  <span>李小龙</span> <span>王小兵</span> <span>胡彦斌</span>
+                </li>
+                <li></li>
+              </ol>
+              <ol>
+                <li>擦干</li>
+                <li>洗车2号工位</li>
+                <li>10：00</li>
+                <li>
+                  <span>李小龙</span> <span>王小兵</span>
+                </li>
+                <li></li>
+              </ol>
+              <ol>
+                <li>检验</li>
+                <li>洗车2号工位</li>
+                <li>2：00</li>
+                <li>
+                  <span>李小龙</span>
+                </li>
+                <li></li>
+              </ol>
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              精致洗车
+            </li>
+            <li>
+              <ol>
+                <li>冲洗</li>
+                <li>洗车2号工位</li>
+                <li>15：00</li>
+                <li>
+                  <span>张学友</span> <span>陈冠希</span>
+                </li>
+                <li>李克勤</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn_group">
+      <a href="#" class="close_btn btn">关闭</a>
+    </div>
+  </div>
+</div>
+
+    <div class="reward_pop_wrap">
+  <div class="reward_pop">
+    <p>
+      奖励单
+      <a href="#">×</a>
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>王海林</th>
+          <th>部门</th>
+          <th>美容组</th>
+          <th>职务</th>
+          <th>美容技师</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>时间</th>
+          <td colspan="2" class="text-indent-20">2015-6-11</td>
+          <th class="address">地点</th>
+          <td colspan="2" class="text-indent-20">美容1号工位</td>
+        </tr>
+        <tr>
+          <th>性质</th>
+          <td colspan="5" class="text-indent-20">
+            <label>工作优异 <input type="checkbox" disabled></label>
+            <label>拾金不昧 <input type="checkbox" disabled></label>
+            <label>助人为乐 <input type="checkbox" checked disabled></label>
+            <label>力挽狂澜 <input type="checkbox" disabled></label>
+          </td>
+        </tr>
+        <tr>
+          <th>描述</th>
+          <td colspan="5">
+            <textarea rows="10" readonly>当天同组员工因天气炎热，中暑晕倒，王海林积极帮助，将同事及时送往医院并帮助其完成后续未完成的工作，因此给予嘉奖！</textarea>
+            <div class="text-align-right">
+              <label>制表：</label><span class="margin-right-20">李可</span>
+              <label>日期：</label><span class="margin-right-20">2015/7/1</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="6" class="dealing">处理</th>
+        </tr>
+        <tr class="reward">
+          <th class="border-right-fff" rowspan="2">奖励</th>
+          <td colspan="5">
+            <ul>
+              <li><span>奖励</span> <span class="width-130">150</span> 元</li>
+              <li>
+                <span class="vertical-align-top">其他</span>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    
+<div class="punishment_pop_wrap">
+  <div class="punishment_pop">
+    <p>
+      惩戒单
+      <a href="#">×</a>
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>王海林</th>
+          <th>部门</th>
+          <th>美容组</th>
+          <th>职务</th>
+          <th>美容技师</th>
+        </tr>
+      </thead>
+      <tbody class="punishment">
+        <tr>
+          <th>时间</th>
+          <td colspan="2" class="text-indent-20">2015-6-11</td>
+          <th>地点</th>
+          <td colspan="2" class="text-indent-20">美容1号工位</td>
+        </tr>
+        <tr>
+          <th>性质</th>
+          <td colspan="5">
+            <label>违纪 <input type="checkbox" disabled></label>
+            <label>责任过失 <input type="checkbox" checked disabled></label>
+          </td>
+        </tr>
+        <tr>
+          <th>描述</th>
+          <td colspan="5">
+            <textarea rows="10" readonly>当天工作不认真，疏忽大意，将客户车辆抛穿，构成责任事故</textarea>
+            <div class="text-align-right">
+              <label>制表：</label><span class="margin-right-20">李可</span>
+              <label>日期：</label><span class="margin-right-20">2015/7/1</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="6" class="dealing">处理</th>
+        </tr>
+        <tr class="punish">
+          <th class="border-right-fff border-bottom-fff">惩罚</th>
+          <td colspan="5" class="border-bottom-fff">
+            <ul>
+              <li><span>扣款</span> <span>150</span>元</li>
+              <li>
+                <span class="vertical-align-top">其他</span>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th class="border-right-fff">行政</th>
+          <td colspan="5">
+            <ul>
+              <li><label>警告 <input type="checkbox" disabled></label></li>
+              <li><label>记过 <input type="checkbox" disabled></label></li>
+              <li><label>记大过 <input type="checkbox" disabled></label></li>
+              <li><label>辞退 <input type="checkbox" disabled></label></li>
+              <li><label>开除 <input type="checkbox" disabled></label></li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    
+
+<div class="loan_pop_wrap">
+  <div class="loan_pop">
+    <h3>
+      借款记录
+      <a href="javascript:void(0)" class="font-18">×</a>
+    </h3>
+
+    <div class="record">
+
+      <ul>
+        <li>
+          <label for="">姓名</label>
+          <span class="width-132 show_content">王海林</span>
+        </li>
+
+        <li>
+          <label for="">员工编号</label>
+          <span class="width-132 show_content">YG20110078</span>
+        </li>
+
+        <li>
+          <label for="">所属门店</label>
+          <span class="width-132 show_content">杭州车夫会养车会所</span>
+        </li>
+      </ul>
+
+      <ul>
+        <li>
+          <label for="">借款时间</label>
+          <span class="width-132 show_content">2015-05-06</span>
+        </li>
+
+        <li>
+          <label for="">借贷金额</label>
+          <span class="width-132 show_content">5000</span>
+        </li>
+
+        <li>
+          <label for="">支付方式</label>
+          <span class="width-132 show_content">现金</span>
+        </li>
+      </ul>
+
+      <div>
+        <label for="">借款事由</label>
+        <span class="reason show_content">支付培训费</span>
+      </div>
+
+      <div>
+        <label for="">部门核准</label>
+        <span class="width-132 show_content">林东海</span>
+      </div>
+
+      <div>
+        <label for="">财务核准</label>
+        <span class="width-132 show_content">范冰冰</span>
+      </div>
+
+      <div class="form_maker">
+        <span>制单：</span><label class="maker">王丽丽</label>
+        <span>录入日期：</span><label class="date">2015-6-29</label>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+    
+
+<div class="contract_signing_wrap">
+  <div class="contract_signing_window">
+    <h3>合同续签单</h3>
+    <div class="content">
+      <table>
+        <tbody>
+          <tr>
+            <td>姓名</td>
+            <td><span class="width-132 show_content">王海林</span></td>
+            <td>员工编号</td>
+            <td><span class="width-132 show_content">YG20110078</span></td>
+            <td>部门</td>
+            <td><span class="width-132 show_content">美容组</span></td>
+            <td>职务</td>
+            <td><span class="width-132 show_content">美容技师</span></td>
+          </tr>
+          <tr>
+            <td>所属门店</td>
+            <td><span class="width-132 show_content">杭州车夫会养车会所</span></td>
+            <td>入职时间</td>
+            <td><span class="width-132 show_content">2011-07-08</span></td>
+            <td>工龄</td>
+            <td><span class="width-132 show_content">4</span></td>
+            <td>职称</td>
+            <td><span class="width-132 show_content">高级技师</span></td>
+          </tr>
+          <tr>
+            <td>试用薪</td>
+            <td><span class="width-132 show_content">3,000.00</span></td>
+            <td>正式薪</td>
+            <td><span class="width-132 show_content">3,500.00</span></td>
+            <td>合同期</td>
+            <td><span class="width-132 show_content">12个月</span></td>
+            <td>状态</td>
+            <td><span class="width-132 show_content">到期</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="reason">
+        <label>续签原因</label>
+        <textarea class="width-696"></textarea>
+      </div>
+
+      <div class="valid_period">
+        <label>生效日期</label>
+        <input type="date" class="start_time">
+          -
+        <input type="date" class="end_time">
+      </div>
+
+      <div class="confirm_person">
+        <label>审核人</label>
+        <select>
+          <option>可使用系统的人1</option>
+          <option>可使用系统的人2</option>
+        </select>
+      </div>
+
+      <div class="remark">
+        <label>备注</label>
+        <textarea class="width-696"></textarea>
+      </div>
+
+      <div class="form_maker">
+        <span>制单：</span><label class="maker">王丽丽</label>
+        <span>录入日期：</span><label class="date">2015-6-29</label>
+      </div>
+
+      <div class="btn_groups">
+        <a href="javascript:void(0)" class="btn cancel_btn">取消</a>
+        <a href="javascript:void(0)" class="btn save_btn margin-right-20">保存</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+<div class="salary_adjusting_wrap">
+  <div class="salary_adjusting_window">
+    <h3>调薪单</h3>
+    <div class="content">
+      <table>
+        <tbody>
+          <tr>
+            <td>姓名</td>
+            <td><span class="width-132 show_content">王海林</span></td>
+            <td>员工编号</td>
+            <td><span class="width-132 show_content">YG20110078</span></td>
+            <td>部门</td>
+            <td><span class="width-132 show_content">美容组</span></td>
+            <td>职务</td>
+            <td><span class="width-132 show_content">美容技师</span></td>
+          </tr>
+          <tr>
+            <td>所属门店</td>
+            <td><span class="width-132 show_content">杭州车夫会养车会所</span></td>
+            <td>入职时间</td>
+            <td><span class="width-132 show_content">2011-07-08</span></td>
+            <td>工龄</td>
+            <td><span class="width-132 show_content">4</span></td>
+            <td>职称</td>
+            <td><span class="width-132 show_content">高级技师</span></td>
+          </tr>
+          <tr>
+            <td>原薪资</td>
+            <td><span class="width-132 show_content">3,000.00</span></td>
+            <td>新薪资</td>
+            <td colspan="5"><input type="text" value="" class="adjusted_salary"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="reason">
+        <label>调薪原因</label>
+        <textarea></textarea>
+      </div>
+
+      <div class="start_time">
+        <label>生效日期</label>
+        <input type="date">
+      </div>
+
+      <div class="confirm_person">
+        <label>审核人</label>
+        <select>
+          <option>可使用系统的人1</option>
+          <option>可使用系统的人2</option>
+        </select>
+      </div>
+
+      <div class="remark">
+        <label>备注</label>
+        <textarea></textarea>
+      </div>
+
+      <div class="form_maker">
+        <span>制单：</span><label class="maker">王丽丽</label>
+        <span>录入日期：</span><label class="date">2015-6-29</label>
+      </div>
+
+      <div class="btn_groups">
+        <a href="javascript:void(0)" class="btn cancel_btn">取消</a>
+        <a href="javascript:void(0)" class="btn save_btn margin-right-20">保存</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+<div class="transfer_wrap">
+  <div class="transfer_window">
+    <h3>转正单</h3>
+    <div class="content">
+      <table>
+        <tbody>
+          <tr>
+            <td>姓名</td>
+            <td><span class="width-132 show_content">王海林</span></td>
+            <td>员工编号</td>
+            <td><span class="width-132 show_content">YG20110078</span></td>
+            <td>部门</td>
+            <td><span class="width-132 show_content">美容组</span></td>
+            <td>职务</td>
+            <td><span class="width-132 show_content">美容技师</span></td>
+          </tr>
+          <tr>
+            <td>所属门店</td>
+            <td><span class="width-132 show_content">杭州车夫会养车会所</span></td>
+            <td>入职时间</td>
+            <td><span class="width-132 show_content">2011-07-08</span></td>
+            <td>工龄</td>
+            <td><span class="width-132 show_content">4</span></td>
+            <td>职称</td>
+            <td><span class="width-132 show_content">高级技师</span></td>
+          </tr>
+          <tr>
+            <td>试用薪</td>
+            <td><span class="width-132 show_content">3,000.00</span></td>
+            <td>正式薪</td>
+            <td><span class="width-132 show_content">3,500.00</span></td>
+            <td>试用期</td>
+            <td><span class="width-132 show_content">1个月</span></td>
+            <td>状态</td>
+            <td><span class="width-132 show_content">到期</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="reason">
+        <label>转正原因</label>
+        <textarea class="width-696"></textarea>
+      </div>
+
+      <div class="start_time">
+        <label>生效日期</label>
+        <input type="date">
+      </div>
+
+      <div class="confirm_person">
+        <label>审核人</label>
+        <select>
+          <option>可使用系统的人1</option>
+          <option>可使用系统的人2</option>
+        </select>
+      </div>
+
+      <div class="remark">
+        <label>备注</label>
+        <textarea class="width-696"></textarea>
+      </div>
+
+      <div class="form_maker">
+        <span>制单：</span><label class="maker">王丽丽</label>
+        <span>录入日期：</span><label class="date">2015-6-29</label>
+      </div>
+
+      <div class="btn_groups">
+        <a href="javascript:void(0)" class="btn cancel_btn">取消</a>
+        <a href="javascript:void(0)" class="btn save_btn margin-right-20">保存</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    <script type="text/javascript" src="/mis/js/click_menu.js"></script>
+    <script type="text/javascript" src="/mis/js/alert.js"></script>
+    <script type="text/javascript" src="/mis/js/order_number.js"></script>
+    <script type="text/javascript" src="/mis/js/continue.js"></script>
+    <script type="text/javascript" src="/mis/js/yuangong/yuangong.js"></script>
+  </body>
+
+</html>

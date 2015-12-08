@@ -1,0 +1,53 @@
+<div class="main_top">
+  <h2>员工详情</h2>
+  <a class="back_to_list" href="index.html">
+    <i class="fa-arrow-circle-left  fa" ></i>
+    返回列表
+  </a>
+
+</div>
+
+<div class="details">
+  <%= render "/soa/shared/top_info" %>
+
+  <div class="details_content attendance_record">
+    <%= render "/soa/events/record_search" %>
+
+    <table class="record">
+      <thead>
+        <tr>
+          <th>
+            <label class="cursor-pointer date width-180">日期 <i class="fa fa-sort-down"></i></label>
+          </th>
+          <th>考勤事由</th>
+          <th>描述</th>
+          <th>
+            <label class="cursor-pointer reward_money width-180">扣款 <i class="fa fa-sort-down"></i></label>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @events.each do |event| %>
+          <tr>
+            <td>
+              <label class="width-120"><%= event.created_at.strftime("%Y/%m/%d") %></label>
+              <label><%= event.created_at.strftime("at %I:%M%p") %></label>
+            </td>
+            <td><%= event.sort %></td>
+            <td>
+              <%= event.description %>
+            </td>
+            <td><%= event.operate["amount"] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
