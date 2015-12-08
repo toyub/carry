@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204073909) do
+ActiveRecord::Schema.define(version: 20151208013001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20151204073909) do
     t.text     "remark"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
   end
 
   create_table "ca_stations", force: :cascade do |t|
@@ -1281,6 +1282,7 @@ ActiveRecord::Schema.define(version: 20151204073909) do
     t.datetime "expired_at"
     t.decimal  "balance"
     t.boolean  "available",                  default: true
+    t.integer  "creator_id"
   end
 
 end
