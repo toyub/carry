@@ -1,9 +1,11 @@
 
-  <span class="roles_selected"><%= @staff.roles %></span>
+  <span class="roles_selected"><%= @staff.roleNames() %></span>
 
   <ul class="role_opts">
-    <% for n in @roles : %>
-    <li><label><%= n.name %></label><input type="checkbox"></li>
+    <% for role in @roles : %>
+    <li><label><%= role.name %></label>
+      <input type="checkbox" <%= 'checked' if _.contains(@staff.get('roles'), role.code) %> >
+    </li>
     <% end %>
   </ul>
 

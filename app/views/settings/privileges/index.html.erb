@@ -24,23 +24,6 @@
       <tbody>
       </tbody>
     </table>
-
-    <div class="roles_options" style="display:none;">
-      <span class="roles_selected">管理员</span>
-
-      <ul class="role_opts">
-        <li><label>管理员</label><input type="checkbox"></li>
-        <li><label>门店经理</label><input type="checkbox"></li>
-        <li><label>收银员</label><input type="checkbox"></li>
-        <li><label>出纳员</label><input type="checkbox"></li>
-        <li><label>库管员</label><input type="checkbox"></li>
-        <li><label>销售员</label><input type="checkbox"></li>
-        <li><label>财务员</label><input type="checkbox"></li>
-      </ul>
-
-      <span class="display-block height-40 line-height-40 text-align-center">请选择角色</span>
-    </div>
-
   </div>
 
 </div>
@@ -49,7 +32,7 @@
   <script>
     jQuery(function($){
 
-      var roles = [
+      var allRoles = [
         {code: 0, name: '管理员'},
         {code: 1, name: '门店经理'},
         {code: 2, name: '收银员'},
@@ -61,24 +44,20 @@
 
       var Model = Backbone.Model.extend({
         toJSON: function(){
-          res = {}
+          hashWithRoot = {};
           json = _.clone(this.attributes);
-          res['store_staff'] = json;
-          return res;
-        }
-      });
-
-      var rolesCollection = Backbone.Collection.extend({
-        model: roleModel
-      });
-
-      var roleModel = Backbone.Model.extend({
-        initialize: function(){
-          this.parseRoles();
+          hashWithRoot['store_staff'] = json;
+          return hashWithRoot;
         },
 
-        parseRoels: function(){
-          this.roles = new rolesCollection(this.get('roles'));
+        roleNames: function(){
+          var self = this;
+
+          return allRoles.filter(function(role){
+            return _.contains(self.get('roles'), role.code);
+          }).map(function(role){
+            return role.name;
+          }).join(" ");
         }
       });
 
@@ -93,6 +72,10 @@
       var listView = Backbone.View.extend({
         tagName: 'tr',
 
+        initialize: function(){
+          this.listenTo(this.model, 'change:roles', this.render);
+        },
+
         template: JST['settings/privileges/list'],
 
         events: {
@@ -100,13 +83,12 @@
         },
 
         render: function(){
-          console.log(JSON.stringify(this.model));
-          this.$el.html(this.template(this.model.attributes));
+          this.$el.html(this.template({model: this.model}));
           return this;
         },
 
         renderDialog: function(){
-          console.log(roles);
+
           var view = new modalDialogView({model: this.model});
           $(".user_setting").append(view.render().el);
         }
@@ -119,11 +101,7 @@
         template: JST['settings/privileges/modaldialog'],
 
         initialize: function(){
-          this.model.on('change', this.changeAlert, this);
-        },
-
-        changeAlert: function(){
-          console.log("change roles");
+          this.listenTo(this.model, 'change:roles', this.render);
         },
 
         events: {
@@ -132,21 +110,35 @@
 
         render: function(){
 
-          this.$el.html(this.template({staff: this.model, roles: roles}));
-          console.log('render modalDialogView');
+          this.$el.html(this.template({staff: this.model, roles: allRoles}));
+
           return this;
         },
 
         selRoles: function(e){
-          var roles_arr = this.model.get('roles') || [];
-          if($(e.target).prop('checked') == true){
-            roles_arr.push($(e.target).siblings().text());
+          var roles_arr = _.clone(this.model.get('roles')) || [];
+          var ev = $(e.target);
+
+          var role_code = this.getRoleCode(ev);
+
+          if(ev.prop('checked') == true){
+            roles_arr.push(role_code);
           }else{
-            roles_arr.splice($.inArray($(e.target).siblings().text(),roles_arr),1);
+            roles_arr.splice($.inArray(role_code, roles_arr),1);
           }
-          this.$el.find('.roles_selected').html(roles_arr.join(' '));
-          this.model.save('roles', roles_arr);
-        }
+         this.model.save({roles: roles_arr});
+       },
+
+       getRoleCode: function(ev){
+         var name = ev.siblings().text();
+         var role_code = parseInt(allRoles.filter(function(role){
+           return name == role.name;
+         }).map(function(role){
+           return role.code;
+         }).join());
+
+         return role_code;
+       }
 
       });
 
@@ -154,8 +146,8 @@
       var View = Backbone.View.extend({
         el: 'body',
 
-        initialize: function(){
-
+        events: {
+          'mouseleave .roles_options': 'hideModalDialog'
         },
 
         render: function(){
@@ -168,6 +160,9 @@
           this.$el.find("tbody").append(view.render().el);
         },
 
+        hideModalDialog: function(){
+          $('.roles_options').hide();
+        }
 
       });
 
