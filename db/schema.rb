@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209041328) do
+ActiveRecord::Schema.define(version: 20151209075530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1204,7 +1204,7 @@ ActiveRecord::Schema.define(version: 20151209041328) do
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
     t.integer  "switchable_id"
-    t.integer  "switchable_type"
+    t.string   "switchable_type"
     t.boolean  "enabled",         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
