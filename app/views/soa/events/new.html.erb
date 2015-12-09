@@ -12,10 +12,10 @@
 
   <div class="details_content attendance_reward_punishment">
     <ul class="option_nav">
-      <li><label>考勤<input type="radio" data-operate="扣款" data-sort=".attendence-sort" data-head="attendence" checked></label></li>
-      <li><label>奖励<input type="radio" data-operate="奖励" data-sort=".reward-sort" data-head="reward"></label></li>
-      <li><label>惩戒<input type="radio" data-operate="扣款" data-sort=".penalty-sort" data-head="penalty"></label></li>
-      <li><label>加班<input type="radio" data-operate="奖励" data-sort=".overtime-sort" data-head="overtime"></label></li>
+      <li><label>考勤<input type="radio" data-type="StoreAttendence" data-operate="扣款" data-sort=".attendence-sort" data-head="attendence" checked></label></li>
+      <li><label>奖励<input type="radio" data-type="StoreReward" data-operate="奖励" data-sort=".reward-sort" data-head="reward"></label></li>
+      <li><label>惩戒<input type="radio" data-type="StorePenalty" data-operate="扣款" data-sort=".penalty-sort" data-head="penalty"></label></li>
+      <li><label>加班<input type="radio" data-type="StoreOvertime" data-operate="奖励" data-sort=".overtime-sort" data-head="overtime"></label></li>
     </ul>
 
     <div class="forms">
@@ -39,7 +39,7 @@
             </tr>
           </thead>
           <tbody class="attendance share-tbody">
-            <%= form.hidden_field :type, value: type %>
+            <%= form.hidden_field :type, value: type, id: "type-hidden" %>
 
             <tr class="attendence-sort text-indent-10">
               <th rowspan="2">考勤科目</th>
@@ -54,8 +54,8 @@
                 <%= form.label :start_on, "起" %>
                 <%= form.date_field :start_on, class: "width-122 margin-right-10" %>
                 <%= form.label :end_on, "止" %>
-                <%= form.date_field :end_on, class: "width-122 margin-right-30" %>
-                <label>共计</label> <input type="text" class="width-50"><nbsp1></nbsp1>天
+                <%= form.date_field :end_on, class: "width-122 margin-right-30 a-end" %>
+                <label>共计</label> <input type="text" class="width-50 calculate-days"><nbsp1></nbsp1>天
               </td>
             </tr>
 
@@ -102,8 +102,8 @@
                 <%= form.label :start_on, "起" %>
                 <%= form.date_field :start_on, class: "width-122 margin-right-10" %>
                 <%= form.label :end_on, "止" %>
-                <%= form.date_field :end_on, class: "width-122 margin-right-30" %>
-                <label>共计</label> <input type="text" class="width-50"><nbsp1></nbsp1>天
+                <%= form.date_field :end_on, class: "width-122 margin-right-30 o-end" %>
+                <label>共计</label> <input type="text" class="width-50 calculate-days"><nbsp1></nbsp1>天
               </td>
             </tr>
             </tbody>
@@ -149,8 +149,8 @@
     $(".reward-sort, .penalty-sort, .overtime-sort").hide();
     var head = "";
     var tr_sort = "";
-    var operate_type
     var span_operate_type = $("span#operate-type")
+    var span_hidden_field = $("#type-hidden");
     $(".option_nav input[type=radio]").on("click", function(){
       $(this).parents("li").siblings("li").find("input[type=radio]").removeAttr("checked");
       head = "#" + $(this).data("head");
@@ -162,6 +162,17 @@
       $(tr_sort).siblings().hide();
       $(tr_sort).show();
       span_operate_type.text(operate_type);
+      span_hidden_field.val($(this).data("type"));
     })
+
+    var diff = new Date();
+    var days = 0;
+    var day_base = 1000*60*60*24;
+    $(".a-end, .o-end").on("change", function(){
+      diff = (new Date($(this).val())) - (new Date($(this).siblings("input[type=date]").val()));
+      days = diff/day_base;
+      $(".calculate-days").val(days);
+    })
+
   })
 </script>

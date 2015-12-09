@@ -1,0 +1,2 @@
+class StoreOvertime < StoreEvent
+end
