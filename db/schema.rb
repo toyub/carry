@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208035939) do
+ActiveRecord::Schema.define(version: 20151209041328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1195,6 +1195,17 @@ ActiveRecord::Schema.define(version: 20151208035939) do
     t.integer  "clearing_payment_method_id"
     t.string   "remark"
     t.integer  "status",                                     default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_switches", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "switchable_id"
+    t.integer  "switchable_type"
+    t.boolean  "enabled",         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
