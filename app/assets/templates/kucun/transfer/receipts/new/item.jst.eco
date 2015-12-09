@@ -1,0 +1,13 @@
+<tr>
+  <td class="number"><%= @idx %></td>
+  <td><%= @store_material.name %><input type="hidden" name="receipt[items_attributes][<%= @id %>][store_material_picking_item_id]" value="<%= @id %>"></td>
+  <td><%= @store_material.barcode %></td>
+  <td><%= @store_material.speci %></td>
+  <td><%= @store_material.unit %></td>
+  <td><%= @store_material.root_category %></td>
+  <td><%= @store_material.category %></td>
+  <td><%= @origin_depot_name %></td>
+  <td><%= @quantity %></td>
+  <td><%= @dest_depot_name %></td>
+  <td><input type="text" class='width-250' name="receipt[items_attributes][<%= @id %>][remark]" value=""></td>
+</tr>

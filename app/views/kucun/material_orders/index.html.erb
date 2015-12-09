@@ -1,0 +1,155 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '订货', '订货记录']) %>
+</div>
+<div class="details">
+
+<%= render partial: 'kucun/store_suppliers/nav' -%>
+<div class="details_content">
+  <div class="ordernotes_list" id="ordernotes_list">
+    <div class="list">
+      <div class="list_tr list_top">
+        <ul>
+          <li>#</li>
+          <li>单据日期</li>
+          <li>订单号</li>
+          <li>数量</li>
+          <li>金额</li>
+          <li>付款</li>
+          <li>欠款</li>
+          <li>收货</li>
+          <li>制单人</li>
+        </ul>
+      </div>
+
+      <% @store_material_orders.each_with_index do |order, idx| %>
+      <div class="list_tr list_content">
+        <ul>
+          <li><%= idx + 1 %>.</li>
+          <li><%= order.created_at.to_s(:date_only) %></li>
+          <li><%= order.numero %></li>
+          <li><%= order.quantity %></li>
+          <li><%= order.amount %></li>
+          <li><%= order.paid_amount %></li>
+          <li><%= order.balance %></li>
+          <li><%= order.process %>%</li>
+          <li class="cursor detailsbtn"> <%= order.creator.screen_name %> <i class="cursor-pointer detailsbtn fa fa-chevron-down"></i></li>
+        </ul>
+      </div>
+      <div class="common_storage_content ordergoods_details" style="display:none;">
+        <div class="ordergoods_query">
+          <div class="nav-item-query">
+            <label>供应商：</label>
+            <input type="text" class="width-200" readonly value="<%= order.store_supplier.name %>">
+          </div>
+          <div class="nav-item-query ">
+            <label>时间：</label>
+            <input type="text" class="width-135" readonly value="<%= order.created_at.to_s(:date_only) %>">
+          </div>
+          <div class="nav-item-query">
+            <label>单号：</label>
+            <input type="text" class="width-135" readonly value="<%= order.numero %>">
+          </div>
+          <div class="ordergoods_print">
+            <a href="#" class="print_btn">打<nbsp1></nbsp1>印</a>
+          </div>
+        </div>
+        <div class="common_storage_tab supplier_single_tab">
+          <table cellpadding="0" cellspacing="0" class="storage_tab">
+            <thead>
+              <tr class="bg-color-e0e2cf color-282726">
+                <th>#</th>
+                <th>商品名称</th>
+                <th>条码</th>
+                <th>规格</th>
+                <th>单位</th>
+                <th>一级分类</th>
+                <th>二级分类</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tfoot>
+      				<tr>
+      					<td></td>
+      					<td class="text-align-left ">合计:</td>
+      					<td></td>
+      					<td></td>
+      					<td></td>
+      					<td></td>
+      					<td></td>
+      					<td></td>
+      					<td><%= order.quantity %></td>
+      					<td><%= order.amount %></td>
+      					<td></td>
+      				</tr>
+      			</tfoot>
+            <tbody>
+              <% order.items.each_with_index do |item, ydx| %>
+              <tr>
+                <td class="number"><%= ydx + 1 %></td>
+                <td><%= item.store_material.name %></td>
+                <td><%= item.store_material.barcode %></td>
+                <td><%= item.store_material.speci %></td>
+                <td><%= item.store_material.store_material_unit.name %></td>
+                <td><%= item.store_material.store_material_root_category.name %></td>
+                <td><%= item.store_material.store_material_category.name %></td>
+                <td><%= item.price %></td>
+                <td><%= item.quantity %></td>
+                <td><%= item.amount %></td>
+                <td><%= item.remark %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="order_goods_account">
+          <div class="item_content margin-left-10">
+            <label class="width-75 margin-top-10 ">备注：</label>
+            <textarea class="remarks_textarea width-1242" disabled="disabled"><%= order.remark %></textarea>
+          </div>
+          <% order.payments.each do |payment| %>
+            <div class="item_content margin-top-10  margin-left-10 float-left">
+              <label class="width-75">本次付款：</label>
+              <input type="text" class="width-253 " readonly="true" value="<%= payment.amount %>">
+            </div>
+            <div class="item_content margin-top-10 float-left  margin-left-20">
+              <label class="width-75 ">结算账户：</label>
+              <input type="text" class="width-253 " readonly="true" value="<%= payment.store_settlement_account.name %>">
+            </div>
+            <div class="item_content margin-top-10  margin-left-20">
+              <label  class="width-75">本次欠款：</label>
+              <input type="text" class="width-253" readonly="true" value="<%= payment.order_balance %>">
+            </div>
+          <% end %>
+          <div class="item_content  margin-left-10">
+            <label class="width-75">制单人：</label>
+            <label class="width-253"><%= order.creator.screen_name %></label>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function($) {
+    $('#ordernotes_list').on('click', 'i.detailsbtn', function(){
+      var $this = $(this);
+      if(this.classList.contains('fa-chevron-down')){
+        this.classList.remove('fa-chevron-down');
+        this.classList.add('fa-chevron-up');
+      }else{
+        this.classList.remove('fa-chevron-up');
+        this.classList.add('fa-chevron-down');
+      }
+      $(this).parents('.list_tr').next().toggle();
+    });
+  });
+  </script>
+<% end %>

@@ -1,0 +1,158 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '出库', '新建出库单']) %>
+</div>
+<div class="details">
+  <div class="list_table out_storage_list">
+    <div class="search_nav">
+      <%= render partial: 'kucun/partials/inventory_search' %>
+      <div class="query_div">
+        <a href="#" class="returnstorage_btn btn">出库</a>
+        <a href="/kucun/outings/" class="notes_btn btn">记录</a>
+      </div>
+    </div>
+
+    <div class="out_storage common_storage">
+      <div class="list">
+        <div class="list_top list_tr">
+          <ul>
+            <li>#</li>
+            <li>产品名称</li>
+            <li>条码</li>
+            <li>规格</li>
+            <li>单位</li>
+            <li>一级分类</li>
+            <li>二级分类</li>
+            <li>单价</li>
+            <li>仓库数</li>
+            <li>仓库位</li>
+            <li>备注</li>
+            <li class="twelfth_td">操作</li>
+          </ul>
+        </div>
+        <div id='choices' class="list_contents">  </div>
+      </div>
+    </div>
+  </div>
+  <%= form_tag kucun_outings_path, id: 'outing_form' do %>
+  <div class="out_storage_content  margin-bottom-20 common_storage_content float-left">
+    <div class="out_storage_query">
+      <div class="nav-item-query">
+        <div class="font-20 font-borderradius text-align-center">出</div>
+      </div>
+      <div class="nav-item-query">
+        <label>单号：</label>
+        <input type="text" class="width-135" readonly value="<%= make_numero('OUT') %>">
+      </div>
+      <div class="nav-item-query">
+        <label>时间：</label>
+        <input type="text" class="width-135" readonly value="<%= Time.now.to_s(:date_only) %>">
+      </div>
+      <div class="nav-item-query">
+        <label>操作人：</label>
+        <input type="text" class="widtn-135" readonly value="<%= current_user.screen_name %>">
+      </div>
+      <div class="nav-item-query">
+        <label>领用人：</label>
+        <select class="width-135" name='outing[requester_id]'>
+          <option></option>
+          <% @store.store_staff.each do |staff| %>
+            <option value="<%= staff.id %>"><%= staff.screen_name %></option>
+          <% end%>
+        </select>
+      </div>
+      <div class="nav-item-query">
+        <label>出库类型</label>
+        <input type="hidden" name="outing[outing_type_id]" value="<%= @outing_type.id %>">
+        <span class="in_stock_type_span click_btn as_select" data-select='#outing_type_select' data-target='input[name="outing_type_id"]'><%= @outing_type.name %></span>
+        <div id='outing_type_select' class="select width-165">
+          <ol class="width-165">
+            <% OutingType.collection.each do |tipe| %>
+              <% if tipe.name == '转移出库' %>
+                <li data-value="<%= tipe.id %>"><a href="/kucun/transfer/pickings/new"><%= tipe.name %></a></li>
+              <% else %>
+                <li data-value="<%= tipe.id %>"><a href="javascript:void(0);"><%= tipe.name %></a></li>
+              <% end %>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+      <div class="out_storage_print">
+        <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
+      </div>
+    </div>
+    <div class="out_storage_tab common_storage_tab">
+      <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order storage_tab">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>商品名称</th>
+            <th>条码</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>一级分类</th>
+            <th>二级分类</th>
+            <th>单价</th>
+            <th>库存数</th>
+            <th>出库数</th>
+            <th>仓库</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <div class="common_storage_account">
+        <div class="item_content margin-left-10" >
+          <label class="width-75">备注：</label>
+          <textarea name='outing[remark]' class="remarks_textarea"></textarea>
+        </div>
+        <div class="item_content  margin-left-10">
+          <label class="width-75">制单人：</label>
+          <label class="width-253"><%= current_user.screen_name %></label>
+        </div>
+      </div>
+    </div>
+    <div class="btn_group margin-right-40">
+      <a class="edit_btn btn" href="#">取消</a>
+      <input type="submit" value="确定" class="save_btn btn" />
+    </div>
+  </div>
+  <% end %>
+</div>
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function(){
+     choice_tmpl = JST['kucun/outings/new/choice'];
+     chosen_tmpl = JST['kucun/outings/new/chosen'];
+     materials = [];
+
+     $('.query_btn').on('click', function(){
+        $('#choices').html('');
+        InventorySearch.search(InventorySearch.query_data(), choice_tmpl, function(html, data){
+          $('#choices').html(html);
+          materials = data.slice();
+        });
+     });
+
+     $('#choices').on('change', 'input:checkbox', function(){
+        if(this.checked){
+          material_id = this.dataset.id;
+          material = materials.filter(function(m){return m.store_material.id == material_id})[0];
+          $('#storage_tab > tbody').append(chosen_tmpl(material.store_material));
+        }else{
+          material_id = this.dataset.id;
+          $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
+        }
+     });
+     $("#outing_form").on('submit', function(){
+       if($('#storage_tab > tbody > tr').length < 1 ){
+        ZhanchuangAlert('请选择出库的商品');
+        return false;
+      }else{
+        return true;
+      }
+     });
+  });
+  </script>
+<% end %>

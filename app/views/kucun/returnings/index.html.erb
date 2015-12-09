@@ -1,0 +1,166 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '退货', '退货记录']) %>
+</div>
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <%= form_tag '/kucun/returnings/', method: 'GET' do %>
+      <div class="item-query">
+        <label>日期从</label>
+        <input type="date" name="created_from" value="<%= params[:created_from] %>" class="width-140">
+      </div>
+      <div class="item-query">
+        <label>至</label>
+        <input type="date" name="created_end" value="<%= params[:created_end] %>" class="width-140">
+      </div>
+      <div class="item-query">
+        <label>操作人</label>
+        <select type="text" class="width-140" name="store_staff_id">
+          <option value="">全部</option>
+          <%=options_from_collection_for_select(@store.store_staff, :id, :screen_name, params[:store_staff_id]) %>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>商品名称</label>
+        <input type="text" name='keyword' class="width-140" placeholder="输入产品关键字" value="<%= params[:keyword] %>">
+      </div>
+      <div class="item-query">
+        <label>供应商</label>
+        <select type="text" class="width-140" name="store_supplier_id">
+          <option value="">全部</option>
+          <%= options_from_collection_for_select(@store.store_suppliers, :id, :name, params[:store_supplier_id]) %>
+        </select>
+      </div>
+      <div class="item-query">
+        <input type="submit" class="query_btn btn" value="查  询">
+      </div>
+      <% end %>
+      <div class="query_div">
+        <a  href="/kucun/returnings/new" class="returnstorage_btn btn">退货</a>
+        <a  href="#" class="notes_btn">记录</a>
+      </div>
+    </div>
+    <div class="returnnotes_list" id="returnnotes_list">
+      <div class="list">
+        <div class="list_tr list_top">
+          <ul>
+            <li>#</li>
+            <li>退货时间</li>
+            <li>退货单号</li>
+            <li>商品</li>
+            <li>商品类别</li>
+            <li>退货金额</li>
+            <li>供应商</li>
+            <li>备注</li>
+            <li>操作</li>
+          </ul>
+        </div>
+        <div class="list_contents">
+          <% @returnings.each_with_index do |returning, idx|%>
+          <% item = returning.items.first %>
+          <div class="list_tr list_content">
+            <ul>
+              <li><%= idx + 1%>.</li>
+              <li><%= returning.created_at.to_s(:date_only) %></li>
+              <li><%= returning.numero %></li>
+              <li>包含"<%= item.store_material.name %>"等多样商品</li>
+              <li>包含"<%= item.store_material.store_material_root_category.name %>"等多个类别</li>
+              <li><%= returning.total_amount %></li>
+              <li><%= returning.store_supplier.name %></li>
+              <li><label><%= returning.remark %></label></li>
+              <li class="cursor-pointer click_btn">
+                <i class="fa fa-angle-down font-20 detailsbtn"></i>
+              </li>
+            </ul>
+          </div>
+          <div class="common_storage_content float-left return_storage_content" style="display:none">
+            <div class="return_storage_query">
+              <div class="nav-item-query">
+                <div class="font-20 font-borderradius text-align-center">退</div>
+              </div>
+              <div class="nav-item-query">
+                <label>单号</label>
+                <input type="text" class="width-200" value="<%= returning.numero %>" readonly>
+              </div>
+              <div class="nav-item-query ">
+                <label>时间：</label>
+                <input type="text" class="width-135" value="<%= returning.created_at.to_s(:date_only) %>" readonly>
+              </div>
+              <div class="nav-item-query">
+                <label>数量</label>
+                <input type="text" class="width-135" value="<%= returning.total_quantity%>" readonly>
+              </div>
+              <div class="nav-item-query">
+                <label>金额</label>
+                <input type="text" class="width-135" value="<%= returning.total_amount %>" readonly>
+              </div>
+              <div class="nav-item-query">
+                <label>供应商</label>
+                <input type="text" class="width-135" value="<%= returning.store_supplier.name %>" readonly>
+              </div>
+            </div>
+            <div class="return_storage_tab common_storage_tab margin-bottom-10">
+              <table cellpadding="0" cellspacing="0" class="storage_tab">
+                <thead>
+                  <tr class=" bg-color-797877  ">
+                    <th>#</th>
+                    <th>产品名称</th>
+                    <th>条码</th>
+                    <th>规格</th>
+                    <th>单位</th>
+                    <th>一级分类</th>
+                    <th>二级分类</th>
+                    <th>单价</th>
+                    <th>仓库</th>
+                    <th>退货数</th>
+                    <th>备注</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% returning.items.each do |item| %>
+                  <tr>
+                    <td>1</td>
+                    <td><%= item.store_material.name %></td>
+                    <td><%= item.store_material.barcode %></td>
+                    <td><%= item.store_material.speci %></td>
+                    <td><%= item.store_material.store_material_unit.name %></td>
+                    <td><%= item.store_material.store_material_root_category.name %></td>
+                    <td><%= item.store_material.store_material_category.name %></td>
+                    <td><%= item.price %></td>
+                    <td><%= item.store_depot.name %></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= item.remark %></td>
+                  </tr>
+                  <% end %>
+
+                </tbody>
+              </table>
+              <div class="return_storage_account">
+                <div class="item_content ">
+                  <label class="width-75">备注：</label>
+                  <textarea class="remarks_textarea" disabled="true"><%= returning.remark %></textarea>
+                </div>
+                <div class="item_content">
+                  <label class="width-75">制单人：</label>
+                  <span class="width-253"><%= returning.store_staff.screen_name %></span>
+                </div>
+              </div>
+              <div class="btn_group">
+                <a class="save_btn cancel margin-right-20" href="javascript:void(0);">打印</a>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+<script>
+  $("#returnnotes_list").on('click', 'li.click_btn', function(){
+    $(this.parentElement.parentElement.nextElementSibling).toggle();
+  });
+</script>
+<% end %>

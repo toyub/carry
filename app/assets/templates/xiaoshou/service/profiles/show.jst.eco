@@ -1,0 +1,83 @@
+<div class="details">
+  <div id="masterNav" class="details_nav">
+
+  </div>
+  <div class="details_content">
+    <div class="base_info">
+      <div id="uploadTemplate">
+
+      </div>
+      <div class="server_content">
+        <div class="grid-1-2 float-left">
+          <div class="item_content">
+            <label class="width-75">服务名称</label>
+            <input type="text" class="width-165" value="<%= @service.get 'name' %>" readonly="">
+          </div>
+          <div class="item_content">
+            <label class="width-75">销售价</label>
+            <input type="text" class="width-165" value="<%= @service.get 'retail_price' %>" readonly="">
+          </div>
+          <div class="item_content">
+            <input type="radio" disabled class="toggleable margin-left-15" >
+            <label class="width-40">
+              优惠价
+            </label>
+            <input type="text" class="width-165" disabled="" value="<%= @service.get 'bargain_price' %>" readonly="">
+          </div>
+          <div class="item_content">
+            <label class="width-75">服务积分</label>
+            <input type="text" class="width-165" readonly="true" value="<%= @service.get 'point' %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">服务代码</label>
+            <input type="text" class="width-165" value="<%= @service.get 'code' %>" readonly="">
+          </div>
+          <div class="item_content">
+            <label class="width-75">服务类别</label>
+            <select type="text" class="width-165" disabled="">
+              <option selected><%= @service.get 'category' %></option>
+            </select>
+          </div>
+          <div class="item_textarea ">
+            <label class="width-75">服务介绍</label>
+            <textarea class="server_textarea width-432" disabled=""><%= @service.get 'introduction' %></textarea>
+          </div>
+          <div class="item_textarea ">
+            <label class="width-75">备注</label>
+            <textarea disabled="" class="height-120 text-indent-5 width-432"><%= @service.get 'remark' %></textarea>
+          </div>
+        </div>
+        <div class="grid-1-2 float-left">
+          <div class="server_list">
+            <div class="top">
+              <h2>关联耗材</h2>
+            </div>
+            <div class="list" style="display:block;">
+              <div class="list_top list_tr">
+                <ul>
+                  <li>#</li>
+                  <li>商品</li>
+                  <li>关联方式</li>
+                </ul>
+              </div>
+
+              <div class="list_contents materialList">
+
+              </div>
+            </div>
+
+            <div class="show_server" id="show_server" style="display: none;">
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="btn_group">
+          <a href="#store_services/<%= @service.id %>/edit" id="serviceEdit" class="edit_btn btn margin-none">编辑</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<% item = @item %>
+<li>
+  <label>服务项目：</label>
+  <select name="package_itemable_id" id="store_service_id" class="width-132">
+    <option>请选择</option>
+    <% Mis.services.each (service) ->: %>
+    <option value="<%= service.get 'id' %>" <%= 'selected' if (String(item.get('package_itemable_id')) == String(service.get('id')) && item.isStoreService()) %>><%= service.get 'name' %></option>
+  <% end %>
+  </select>
+</li>
+<li>
+  <label>名称：</label>
+  <span id="serviceName"><%= item.name('StoreService') %></span>
+</li>
+<li>
+  <label>零售价：</label>
+  <span id="servicePrice"><%= item.retail_price('StoreService') %></span>
+</li>
+<li>
+  <label>次数：</label>
+  <input type="text" name="quantity" value="<%= item.quantity('StoreService') %>"> 次
+</li>
+<li>
+  <label>套餐价：</label>
+  <input type="text" name="price" value="<%= item.price('StoreService') %>"> 元
+</li>

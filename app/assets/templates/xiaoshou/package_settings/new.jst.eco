@@ -1,0 +1,109 @@
+<div id="masterNav" class="details_nav">
+
+</div>
+<form id="newPackageSetting" action="" method="post">
+  <div class="details_content package">
+    <table border="0" id="packageSummary" class="abstract">
+
+    </table>
+
+    <div class="setting_content">
+
+      <div class="rules_setting">
+        <h2>规则设置</h2>
+
+        <ul class="rules_content">
+          <li>
+          <label class="title">适用门店</label>
+          <label class="width-85"><input type="radio" name="apply_range" value="0" checked=""> 限本店</label>
+          <label><input type="radio" name="apply_range" value="1"> 所有门店</label>
+          </li>
+
+          <li>
+            <label class="title">使用设置</label>
+            <ol>
+              <li>
+                <label><input type="radio" name="payment_mode" checked="" value="0"> 密码支付</label>
+              </li>
+              <li>
+                <label><input type="radio" name="payment_mode" value="1"> 短信验证支付</label>
+              </li>
+            </ol>
+          </li>
+
+          <li>
+            <label class="title">有效期</label>
+            <ol>
+              <li>
+                <input type="radio" checked="" value="true" id="periodEnable" name="period_enable"> <input type="text" name="period" class="width-80 period">
+                <select name="period_unit" class="width-80 period">
+                  <option value="0">年</option>
+                  <option value="1">月</option>
+                  <option value="2">天</option>
+                </select>
+              </li>
+              <li>
+                <label class="margin-right-20">
+                  <input type="radio" class="toggleable" value="true" name="expired_notice_required" id="noticeRequired"> 逾期前提醒
+                </label>
+                <input type="text" class="width-80" name="before_expired" disabled="" id="beforeExpiredDays"> 天
+              </li>
+            </ol>
+          </li>
+
+          <li>
+            <label class="title">套餐积分</label>
+            <ol>
+              <li>
+              <input type="text" name="point">
+              </li>
+            </ol>
+          </li>
+
+          <li>
+            <label class="title">售卡提成</label>
+            <ol>
+              <li>
+                <label>提成方案</label>
+                <select name="store_commission_template_id" class="width-190">
+                  <% Mis.store.commissionTemplates.each (c) ->: %>
+                    <option value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
+                  <% end %>
+                </select>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <div class="items_setting">
+        <h2>
+          <label>项目设置</label>
+          <input type="button" id="openPackageItemForm" class="btn new_btn do_open_list_new_page" value="创建">
+        </h2>
+
+        <div class="created_package_items do_new_lists" style="">
+          <ul class="items_head">
+            <li class="border-none">#</li>
+            <li>项目名称</li>
+            <li>类别</li>
+            <li>正常售价</li>
+            <li>套餐价</li>
+            <li>数量</li>
+            <li>小计</li>
+          </ul>
+
+          <div id="itemList" class="do_new_lists_content">
+          </div>
+        </div>
+
+        <div id="newPackageItem">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn_group">
+    <input type="submit" class="save_btn btn" id="createPackageSetting" value="保存">
+  </div>
+</form>

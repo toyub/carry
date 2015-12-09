@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <title>MIS-<% if content_for?(:title) %><%= yield :title %><% else %><%= I18n.t 'site.name' %><% end %></title>
+  <%= stylesheet_link_tag "/stylesheets/style.css" %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= yield :pre_assets %>
+</head>
+<body>
+
+<%if flash[:notice].present? %><div id="notice"><%= flash[:notice] %></div><% end %>
+<%if flash[:error].present? %><div id="error_explanation"><%= flash[:error] %></div><% end %>
+<main>
+  <%= yield %>
+</main>
+</body>
+</html>

@@ -1,0 +1,156 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '盘点', '新建盘点单']) %>
+</div>
+<div class="details">
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="javascript:void(0);" class="width-90">系统库存</a></li>
+      <li><a href="/kucun/physical_inventories/review?store_depot_id=<%=params[:store_depot_id]%>" class="width-90">盘点单据</a></li>
+      <li><a href="/kucun/physical_inventories" class="width-90">历史记录</a></li>
+    </ul>
+  </div>
+  <div class="details_nav_second border-none padding-top-10">
+    <%= form_tag '/kucun/physical_inventories/new', method: 'GET', id: 'query_form' do %>
+    <div class="item-query float-left margin-left-20">
+      <select required=true name='store_depot_id' class="width-90">
+        <option value="">选择仓库</option>
+        <%= options_from_collection_for_select(@store.store_depots, :id, :name, params[:store_depot_id]) %>
+      </select>
+    </div>
+    <div class="item-query float-left margin-left-20 zero_inventory">
+      <label><input name='nz' <%= 'checked' if params[:nz] %> type="checkbox">不显示零库存</label>
+    </div>
+    <% end %>
+    <div class="item-query float-left margin-left-20">
+      <input type="submit" class='btn query_btn' form="query_form" value="查询"/>
+      <a href="javascript:void(0)" class="generated_tab_btn btn">生成盘点单据</a>
+    </div>
+  </div>
+  <div class="container_list">
+    <div class="top_content check_content">
+      <div class="list_table">
+        <%= form_tag '/kucun/physical_inventories', id: 'new_physical' do %>
+        <input type="hidden" name="store_physical_inventories[store_depot_id]" value="<%= params[:store_depot_id] %>">
+        <table cellpadding="0" cellspacing="0" class="index_list check_list_table" id='physical_inventories'>
+          <thead>
+            <tr>
+              <th style="border-right:0px;">#</th>
+              <th>商品名称</th>
+              <th>商品条码</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>库存数</th>
+              <th>盘点数</th>
+              <th>盘盈盘亏</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if params[:store_depot_id].blank? %>
+              <tr>
+                <td colspan="11">
+                  请选择仓库进行盘点。
+                </td>
+              </tr>
+            <% elsif @ids.length > 0 && @inventories.length == 0 %>
+              <tr>
+                <td colspan="11">
+                  此仓库所有商品已经盘点过了。
+                </td>
+              </tr>
+            <% elsif @ids.length >= 0 %>
+              <tr>
+                <td colspan="11">
+                  此仓库部分商品<%= @ids.length %>已经盘点，未予显示。
+                </td>
+              </tr>
+            <% elsif @inventories.length == 0 %>
+            <tr>
+              <td colspan="11">
+                此仓库没有商品
+              </td>
+            </tr>
+            <% end %>
+
+            <% @inventories.each_with_index do |inventory, idx| %>
+            <tr>
+              <td class="number">
+                <%= idx + 1 %>
+                <input type="hidden" class='material' value="<%= inventory.store_material_id %>">
+                <input type="hidden" class='depot' value="<%= inventory.store_depot_id %>">
+                <input type="hidden" class='inventory' value="<%= inventory.id %>">
+                <input type="hidden" class='inventory_cost_price' value="<%= inventory.cost_price %>">
+                <input type="hidden" class='cost_price' value="<%= inventory.store_material.cost_price %>">
+              </td>
+              <td title="<%= inventory.store_material.name %>"><%= inventory.store_material.name.truncate(11) %></td>
+              <td><%= inventory.store_material.barcode %></td>
+              <td><%= inventory.store_material.store_material_root_category.name %></td>
+              <td><%= inventory.store_material.store_material_category.name %></td>
+              <td><%= inventory.store_material.speci %></td>
+              <td><%= inventory.store_material.store_material_unit.name %></td>
+              <td><%= inventory.quantity %> <input data-uid='<%= inventory.id %>' type="hidden" value="<%= inventory.quantity %>"></td>
+              <td class="padding-0"><input num int un data-id='<%= inventory.id %>' type="text" min=0 class="physical width-110"></td>
+              <td><span class="diff"></span></td>
+              <td class="warehouse"><input type="text" class='remark' value=""></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :javascripts do%>
+  <script>
+    jQuery(function($){
+      $('a.generated_tab_btn').on('click', function(){
+        var $form = $("#new_physical");
+        var m = $('[name="store_physical_inventories[items_attributes][][physical]"]').length;
+        if(m==0){
+          alert('没有盘点数据，请盘点后操作。');
+          return false;
+        }
+        if(confirm("是否生成单据?")){
+          $form.submit();
+        }else{
+        }
+      });
+
+      $('#physical_inventories').on("change", 'input.physical', function(){
+        var thistr = this.parentElement.parentElement;
+        var inventory = thistr.querySelector('[data-uid="' + this.dataset.id+'"]');
+        var diff = thistr.querySelector('.diff');
+        var remark = thistr.querySelector('.remark');
+        if(this.value === ''){
+          diff.innerHTML = '';
+          remark.value='';
+          $(thistr).find('[name]').removeAttr('name');
+          return false;
+        }
+        var _diff = this.value - inventory.value;
+        diff.innerHTML = _diff.toString();
+        if(_diff == 0){
+          remark.value='相符';
+        }else{
+          if(_diff > 0){
+            remark.value='盘盈';
+          }else{
+            remark.value='盘亏';
+          }
+        }
+        this.setAttribute('name', 'store_physical_inventories[items_attributes][][physical]');
+        inventory.setAttribute('name', 'store_physical_inventories[items_attributes][][inventory]');
+        remark.setAttribute('name', 'store_physical_inventories[items_attributes][][remark]');
+        thistr.querySelector('.material').setAttribute('name', 'store_physical_inventories[items_attributes][][store_material_id]');
+        thistr.querySelector('.depot').setAttribute('name', 'store_physical_inventories[items_attributes][][store_depot_id]');
+        thistr.querySelector('.inventory').setAttribute('name', 'store_physical_inventories[items_attributes][][store_inventory_id]');
+        thistr.querySelector('.inventory_cost_price').setAttribute('name', 'store_physical_inventories[items_attributes][][inventory_cost_price]');
+        thistr.querySelector('.cost_price').setAttribute('name', 'store_physical_inventories[items_attributes][][cost_price]');
+      });
+    });
+  </script>
+<% end %>

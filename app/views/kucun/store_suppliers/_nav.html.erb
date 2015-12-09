@@ -1,0 +1,13 @@
+<div class="details_nav">
+  <ul>
+    <li class="<%= is_hover('kucun/store_suppliers', dom_class: 'bg-color-fff') %>">
+      <a href="<%= kucun_store_supplier_path(@store_supplier) %>" class="width-90">供应商信息</a>
+    </li>
+    <li class="<%= is_hover('kucun/material_orders', action_name: 'new', dom_class: 'bg-color-fff') %>">
+      <a href="<%= new_kucun_store_supplier_material_order_path(@store_supplier) %>" class="width-90">订货</a>
+    </li>
+    <li class="<%= is_hover('kucun/material_orders', action_name: 'index', dom_class: 'bg-color-fff') %>">
+      <a href="<%= kucun_store_supplier_material_orders_path(@store_supplier) %>"  class="width-90">记录</a>
+    </li>
+  </ul>
+</div>

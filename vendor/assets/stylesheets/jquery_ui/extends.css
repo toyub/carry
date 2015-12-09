@@ -1,0 +1,8 @@
+.ui-widget-content{
+  background: #D5DDF2;
+  color: #372654;
+}
+
+.ui-widget-overlay{
+  background: rgba(16, 16, 16, 0.15);
+}

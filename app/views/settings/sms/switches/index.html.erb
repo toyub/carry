@@ -1,0 +1,59 @@
+<div class="main_top">
+  <h2>短信设置</h2>
+</div>
+
+<div class="details">
+  <%= render partial: 'settings/sms/partials/top' %>
+  <%= render partial: 'settings/sms/partials/nav' %>
+
+  <div class="details_content">
+    <div class="toggle">
+      <div class="reminder">
+        <div class="top">
+          <i class="fa fa-bell-o margin-right-8"></i>提醒
+        </div>
+
+        <% SmsNotifySwitchType.collection.each do |opt| %>
+        <div class="remind">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= opt.name %></span>
+          <input type="checkbox" name="notify_switchs[<%=opt.id%>][trigger]">
+        </div>
+        <% end %>
+      </div>
+
+      <div class="reminder">
+        <div class="top">
+          <i class="fa fa-phone margin-right-8"></i>回访
+        </div>
+        <% SmsTrackingSwitchType.collection.each do |opt| %>
+        <div class="remind">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= opt.name %></span>
+          <input type="checkbox" name="tracking_switchs[<%=opt.id%>][trigger]">
+        </div>
+        <% end %>
+      </div>
+
+      <div class="reminder">
+        <div class="top">
+          <i class="fa fa-lock margin-right-8"></i>验证
+        </div>
+        <% SmsCaptchaSwitchType.collection.each do |opt| %>
+        <div class="remind">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= opt.name %></span>
+          <input type="checkbox" name="captcha_switchs[<%=opt.id%>][trigger]">
+        </div>
+        <% end %>
+      </div>
+
+      </div>
+    </div>
+  </div>
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    $('.toggle').on('change', 'input[type=checkbox]', function(){
+      console.log(this.name)
+    });
+  });
+</script>
+<% end %>

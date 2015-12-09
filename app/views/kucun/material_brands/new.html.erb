@@ -1,0 +1,21 @@
+<div style="width:220px;margin:auto;">
+  <%= form_for(@material_brand, url: kucun_material_brands_path) do |form|%>
+    <%= form.text_field :name, placeholder: '请输入品牌名称', required: true %>
+    <%= form.submit value: '保存' %>
+  <% end %>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function($){
+    $('#new_store_material_brand').on('submit', function(){
+      $(this).ajaxSubmit(function(data, status, xhr){
+        if(window.top != window.self){
+          window.top.$$MIS.methods.get('add_brand_callback').apply(data)
+        }
+      });
+      return false;
+    })
+  });
+  </script>
+<% end %>

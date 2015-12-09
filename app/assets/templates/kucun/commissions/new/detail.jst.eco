@@ -1,0 +1,75 @@
+
+<div class="list_new_page">
+  <h3>
+    <label class="font-14">提成方案</label>
+    <span class="font-18 do_cancel">✕</span>
+  </h3>
+
+  <div class="float-left plan">
+    <span class="num">1</span>
+
+    <div class="plan_name plan_info">
+      <label>方案名称</label>
+      <span><%= @name %></span>
+    </div>
+
+    <div class="object plan_info">
+      <label>适用对象</label>
+      <span><%= @aim_type %></span>
+    </div>
+
+    <div class="commission_coverage plan_info">
+      <label>提成范围</label>
+      <span><%= @confined_type %></span>
+    </div>
+
+    <div class="modulus">
+      <p>提成系数设置</p>
+      <span>多人合作提成多用于多个技师合同对一个项目施工的情况。设置提成系数后将会按比例进行分配提成金额。</span>
+
+      <ul>
+        <li>
+          <label>专家：</label>
+          <span><%= @level_weight['3'] %><nbsp1></nbsp1></span>
+        </li>
+        <li>
+          <label>高级：</label>
+          <span><%= @level_weight['2'] %><nbsp1></nbsp1></span>
+        </li>
+        <li>
+          <label>中级：</label>
+          <span><%= @level_weight['1'] %><nbsp1></nbsp1></span>
+        </li>
+        <li>
+          <label>初级：</label>
+          <span><%= @level_weight['0'] %><nbsp1></nbsp1></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="ticheng float-left" >
+    <span class="num">2</span>
+    <div class="ticheng_sel">
+      <label class="<%= 'unable' unless @mode_id.toString() == '0' %>">标准提成 <% if @mode_id.toString() == '0' : %><input type="radio" checked><% end %> </label>
+      <label class="<%= 'unable' unless @mode_id.toString() == '1' %>">阶梯提成 <% if @mode_id.toString() == '1' : %><input type="radio" checked><% end %> </label>
+      <label class="<%= 'unable' unless @mode_id.toString() == '2' %>">分段提成 <% if @mode_id.toString() == '2' : %><input type="radio" checked><% end %> </label>
+    </div>
+
+    <% if @mode_id.toString() == '0' : %>
+      <%- JST["kucun/commissions/sections/mode0"](@mode0_section) %>
+    <% else if @mode_id.toString() == '1' : %>
+      <%- JST["kucun/commissions/sections/mode1"]({sections: @mode1_sections}) %>
+    <% else if @mode_id.toString() == '2' : %>
+      <%- JST["kucun/commissions/sections/mode2"]({sections: @mode2_sections}) %>
+    <% else : %>
+      'Wrong type!'
+    <% end %>
+
+  </div>
+
+  <div class="btn_group text-align-right">
+    <input type="button" class="btn cancel_btn do_save_new_list_btn" value="关闭">
+  </div>
+</div>

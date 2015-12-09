@@ -1,0 +1,18 @@
+<div class="list_content list_tr border_left ">
+  <ul>
+    <li><%= @idx %></li>
+    <li><%= @name %></li>
+    <li><%= @barcode %></li>
+    <li><%= @speci %></li>
+    <li><%= @unit %></li>
+    <li><%= @root_category %></li>
+    <li><%= @category %></li>
+    <li><%= @cost_price %></li>
+    <li><%= @quantity %></li>
+    <li><%= @depot_name %></li>
+    <li><%= @remark %><nbsp1></nbsp1></li>
+    <li>
+      <input data-id='<%=@id%>' type="checkbox" value="<%= @id %>">
+    </li>
+  </ul>
+</div>

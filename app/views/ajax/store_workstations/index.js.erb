@@ -1,0 +1,5 @@
+$("div#j_workstations ul").empty();
+<% @workstations.each do |w| %>
+  $("div#j_workstations ul").append("<li data-id='<%= w.id %>'><%= w.name %><input type='checkbox' name='store_service[store_service_workflows_attributes][0][workstations][]' value='<%= w.id %>'/></li>");
+<% end %>
+$("div#j_workstations ul").show();

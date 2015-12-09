@@ -1,0 +1,10 @@
+
+  <ul class=" list_tr_hover">
+    <li><%= @idx %>.</li>
+    <li><label data-id='<%= @id %>' data-viewid="<%=  @viewid %>" class="do_edit click_btn cursor"><%=  @name %></label></li>
+    <li><%=  @quantity %></li>
+    <li><%=  @work_time_h %></li>
+    <li><%=  @mechanic_level_type %>
+     <span data-modelid='<%=@cid%>' class="delete close"> <i class="lnr lnr-cross color-fff"></i> </span>
+    </li>
+  </ul>

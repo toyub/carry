@@ -1,0 +1,19 @@
+<div class="details">
+  <div id="masterNav" class="details_nav">
+
+  </div>
+  <div class="details_content">
+    <table border="0" class="service_info_abstract" id="profileSummary">
+
+    </table>
+
+    <div id="settings" class="settings_in_service settings_in_sales">
+
+    </div>
+
+    <div class="btn_group">
+      <a href="javascript:void(0);" class="edit_btn btn margin-right-2" id="editSetting">编辑</a>
+    </div>
+
+  </div>
+</div>

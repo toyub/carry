@@ -1,0 +1,4 @@
+<td class="font-16" colspan="<%= @cols %>">
+  <i class="fa fa-info-circle font-34 margin-right-8"></i>
+  很抱歉，没有找到与此相关联的<%= @resource_name %>，或者没有该<%= @resource_name %>，请核实后再进行操作
+</td>

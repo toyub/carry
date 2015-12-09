@@ -1,0 +1,57 @@
+<div class="details">
+  <div id="masterNav" class="details_nav">
+
+  </div>
+  <div class="details_content package">
+    <div id="uploadTemplate">
+
+    </div>
+
+    <div class="package_descript float-left">
+      <div class="name">
+        <label for="">套餐名称</label>
+        <span class="show_content"><%= @package.get 'name' %></span>
+      </div>
+
+      <div class="code">
+        <label for="">套餐代码</label>
+        <span class="show_content"><%= @package.get 'code' %></span>
+      </div>
+
+      <div class="abstract">
+        <label for="">摘要</label>
+        <textarea class="card_digest text-indent-5" disabled=""><%= @package.get 'abstract' %></textarea>
+      </div>
+
+      <div class="descript">
+        <label for="">套餐介绍</label>
+        <textarea class="text-indent-5" disabled=""><%= @package.get 'remark' %></textarea>
+      </div>
+    </div>
+
+
+    <div class="package_card_list float-right position-relative">
+      <h2><label class="float-left">套餐列表</label>
+      </h2>
+      <div class="no_content">
+        <h3>当前没套餐内有内容</h3>
+        <p>请在套餐设置中添加需要组合的内容，点击导航栏中的套餐设置进入，进行套餐内容创建和编辑，来添加套餐内容会影响开单销售</p>
+      </div>
+
+      <div class="created_package_card_lists" id="packageItemList" style="display: none;">
+        <ul class="list_head">
+          <li>#</li>
+          <li>名称</li>
+          <li>类别</li>
+          <li>总价</li>
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="btn_group">
+      <a href="<%= @view.packageEditUrl() %>" class="edit_btn btn margin-right-2" id="editPackage">编辑</a>
+    </div>
+
+  </div>
+</div>

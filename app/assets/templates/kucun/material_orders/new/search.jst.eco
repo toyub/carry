@@ -1,0 +1,11 @@
+
+<ul>
+  <li class="first_td"><%= @name %></li>
+  <li class="second_td"><%= @barcode %></li>
+  <li class="third_td"> <%= @speci %> </li>
+  <li class="forth_td"><%= @category %></li>
+  <li class="fifth_td border-none">
+    <input name='order[materials][][id]' value="<%= @id %>" <%= 'checked' if @chosen %> type="checkbox" class="checkbox">
+  </li>
+</ul>
+

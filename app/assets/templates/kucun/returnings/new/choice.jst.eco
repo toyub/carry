@@ -1,0 +1,18 @@
+<tr>
+  <td class="number"><%= @idx %></td>
+  <td><span class="click_btn cursor-pointer click_underline"><%= @name %></span></td>
+  <td><%= @barcode %></td>
+  <td><%= @root_category %></td>
+  <td><%= @category %></td>
+  <td><%= @speci %></td>
+  <td><%= @unit %></td>
+  <td><%= @cost_price %></td>
+  <td><%= @quantity %></td>
+  <td><%= @remark %></td>
+  <td>
+    <div class="edit_hover ">
+      <i class="fa fa-file-text-o cursor-pointer click_btn font-16"></i>
+    </div>
+  </td>
+  <td><input data-id='<%= @id %>'  type="checkbox" name="sub_check"></td>
+</tr>

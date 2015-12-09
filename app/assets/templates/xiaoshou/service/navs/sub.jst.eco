@@ -1,0 +1,3 @@
+<li><a href="javascript:void(0);" class="width-90">▲上一次服务</a></li>
+<li><a href="javascript:void(0);" class="width-90 tracking">▼下一次服务</a></li>
+<li><a href="<%= Routes.xiaoshou_service_profiles_path() %>" class="width-90">返回列表</a></li>

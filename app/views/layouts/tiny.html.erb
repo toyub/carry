@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <title>MIS-<% if content_for?(:title) %><%= yield :title %><% else %><%= I18n.t 'site.name' %><% end %></title>
+  <%= javascript_include_tag 'tiny' %>
+  <%= yield :pre_assets %>
+</head>
+<body>
+<main>
+  <%= yield %>
+  <%= yield :javascripts %>
+</main>
+</body>
+</html>

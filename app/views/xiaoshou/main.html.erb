@@ -1,0 +1,21 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/xiaoshou.css" %>
+  <%= javascript_include_tag 'xiaoshou' %>
+<% end %>
+
+<div id="bodyContent">
+
+</div>
+
+<div id='piccut'>
+
+</div>
+<%= content_tag :div, '', id: 'bootstrap', data: {store: @data} %>
+
+<% content_for :javascripts do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      Mis.initialize($("#bootstrap").data('store'));
+    })
+  </script>
+<% end %>

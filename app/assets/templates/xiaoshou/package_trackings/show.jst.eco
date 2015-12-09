@@ -1,0 +1,49 @@
+<div class="details">
+  <div id="masterNav" class="details_nav">
+
+  </div>
+  <div class="details_content package">
+    <table border="0" id="packageSummary" class="abstract">
+
+    </table>
+
+    <div class="lists_in_tracking">
+      <div class="left_list package_card_lists">
+        <h2>套餐项目列表</h2>
+        <ul class="list_header list_header" style="display: block;">
+          <li>#</li>
+          <li>项目</li>
+          <li>类别</li>
+          <li>数量</li>
+        </ul>
+        <div style="display: block;" id="itemList">
+
+        </div>
+      </div>
+
+      <div class="right_list package_card_tracking">
+        <h2>售后回访列表</h2>
+
+        <div class="do_new_lists created_tracking_lists new_lists" style="display: block;">
+          <ul class="list_header">
+            <li>#</li>
+            <li>内容</li>
+            <li>回访规律</li>
+            <li>时间</li>
+            <li>方式</li>
+          </ul>
+
+          <div class="do_new_lists_content" id="trackingList">
+          </div>
+        </div>
+
+        <div id="trackingForm">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn_group">
+    <input type="button" class="cancel_btn btn" value="编辑" id="goToEdit">
+  </div>
+</div>

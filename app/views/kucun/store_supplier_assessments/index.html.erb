@@ -1,0 +1,238 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '供应商', '评估']) %>
+</div>
+      <div class="details">
+      <%= render partial: 'kucun/store_suppliers/nav' -%>
+      <div class="details_content">
+        <div  class="choose float-left  choose_supplier" >
+            <div class="title">
+              <span class="font-20 float-left first_title">供应商信息</span>
+            </div>
+            <div class="supplier_content" >
+              <div class="item_content">
+                <label class="width-75">供应商名称</label>
+                <input type="text" class="width-300" readonly value="<%= @store_supplier.name %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">联系人</label>
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.contact_name %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">手机号码</label>
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.contact_phone_number %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">固定电话</label>
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.contact_tel_number %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">传真</label>
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.contact_fax_number %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">一级分类</label>
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_root_category.try(:name) %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">二级分类</label>
+                <input type="text" class="width-110" readonly value="<%= @store_supplier.store_material_category.try(:name) %>">
+              </div>
+              <div class="item_content">
+                <label class="width-75">备注</label>
+                <textarea class="textarea_describe" disabled><%= @store_supplier.remark %></textarea>
+              </div>
+            </div>
+          </div>
+          <div   class="choose float-left assess_notes" >
+            <div class="title">
+              <span class="font-18 float-left  first_title">评估记录</span>
+            </div>
+            <div class="assessnotes_tab_div" >
+              <table cellpadding="0" cellspacing="0" class="content assessnotes_tab">
+                <thead>
+                  <tr>
+                    <th >
+                     <select class="width-75">
+                       <option>本周</option>
+                       <option></option>
+                     </select>
+                     <select class="width-75">
+                       <option>综评</option>
+                       <option></option>
+                     </select>
+                    </th>
+                    <th >订单信息</th>
+                    <th >商品信息</th>
+                    <th >简评</th>
+                    <th>综评</th>
+                    <th>评估人</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2015-01-19</td>
+                    <td><a href="#" >DH2015011910008</a></td>
+                    <td>飞歌导航一体机</td>
+                    <td>好</td>
+                    <td>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star-o color-CB666D"></i>
+                    </td>
+                    <td>王晓丽</td>
+                    <td><a href="#" class="edit_btn btn click_btn">编辑</a></td>
+                  </tr>
+                  <tr>
+                     <td>2015-01-19</td>
+                    <td><a href="#" >DH2015011910008</a></td>
+                    <td>飞歌导航一体机</td>
+                    <td>好</td>
+                    <td>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star-o color-CB666D"></i>
+                    </td>
+                    <td>王晓丽</td>
+                    <td><a href="#" class="edit_btn btn">编辑</a></td>
+                  </tr>
+                  <tr >
+                    <td>2015-01-19</td>
+                    <td><a href="#" >DH2015011910008</a></td>
+                    <td>飞歌导航一体机</td>
+                    <td>好</td>
+                    <td>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star-o color-CB666D"></i>
+                    </td>
+                    <td>王晓丽</td>
+                    <td><a href="#" class="edit_btn btn">编辑</a></td>
+                  </tr>
+                  <tr>
+                     <td>2015-01-19</td>
+                    <td><a href="#" >DH2015011910008</a></td>
+                    <td>飞歌导航一体机</td>
+                    <td>好</td>
+                    <td>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star-o color-CB666D"></i>
+                    </td>
+                    <td>王晓丽</td>
+                    <td><a href="#" class="edit_btn btn">编辑</a></td>
+                  </tr>
+                  <tr>
+                     <td>2015-01-19</td>
+                    <td><a href="#" >DH2015011910008</a></td>
+                    <td>飞歌导航一体机</td>
+                    <td>好</td>
+                    <td>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star-o color-CB666D"></i>
+                    </td>
+                    <td>王晓丽</td>
+                    <td><a href="#" class="edit_btn btn">编辑</a></td>
+                  </tr>
+                  <tr>
+                     <td>2015-01-19</td>
+                    <td><a href="#">DH2015011910008</a></td>
+                    <td>飞歌导航一体机</td>
+                    <td>好</td>
+                    <td>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star color-CB666D"></i>
+                      <i class=" fa fa-star-o color-CB666D"></i>
+                    </td>
+                    <td>王晓丽</td>
+                    <td><a href="#" class="edit_btn btn">编辑</a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div  class="assess_edit" style="display:none;" id="assess_edit">
+
+                <form action="pinggu.html" method="get">
+                  <h2 class="text-indent-10">评估编辑</h2>
+                  <table cellpadding="0" cellspacing="0" class="assess_edit_tab float-left">
+                    <tbody>
+                      <tr>
+                        <td class="text-align-right">商品品质</td>
+                        <td class="text-align-center">
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star-o color-CB666D"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-align-right">送发货及时性</td>
+                        <td class="text-align-center">
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star-o color-CB666D"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-align-right">价格合理性</td>
+                        <td class="text-align-center">
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star-o color-CB666D"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-align-right">往来发票及时</td>
+                        <td class="text-align-center">
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star-o color-CB666D"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-align-right">售后服务</td>
+                        <td class="text-align-center">
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star color-CB666D"></i>
+                            <i class=" fa fa-star-o color-CB666D"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+                  <div class="item_content">
+                   <label>文字简评</label>
+                   <textarea class="assess_textarea margin-top-10"></textarea>
+                  </div>
+                  <div class=" float-left btn_group" >
+                    <a class="cancel_btn btn cancel" href="#">取消</a>、
+                    <input type="button"  value="保存" class="save_btn btn cancel" >
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

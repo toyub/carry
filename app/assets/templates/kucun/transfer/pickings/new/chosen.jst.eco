@@ -1,0 +1,14 @@
+<tr data-id='<%= @id %>'>
+  <td class="number"></td>
+  <td><%=@name%><input type="hidden" name="picking[items_attributes][][store_material_inventory_id]" value="<%= @inventory_id %>"></td>
+  <td><%= @barcode %><input type="hidden" name="picking[items_attributes][][store_material_id]" value="<%= @id %>"></td>
+  <td><%= @speci %></td>
+  <td><%= @unit %></td>
+  <td><%= @root_category %></td>
+  <td><%= @category %></td>
+  <td><%= @cost_price %></td>
+  <td><%= @quantity %></td>
+  <td><input required name="picking[items_attributes][][quantity]" type="text" num int un class="width-50 td_input" data-price="<%= @cost_price %>" min=1 max=<%= @quantity %> value="1"></td>
+  <td><%= @depot_name %><input type="hidden" name="picking[items_attributes][][store_depot_id]" value="<%= @depot_id %>"></td>
+  <td><input class='width-250' type="text" name="picking[items_attributes][][remark]" value=""></td>
+</tr>

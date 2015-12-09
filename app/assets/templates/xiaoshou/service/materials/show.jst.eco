@@ -1,0 +1,16 @@
+<div class="item_content text-align-left float-left ">
+  <label class="width-75">耗材名称</label>
+  <span class="width-130"><%= @material.get 'name' %></span>
+</div>
+<div class="item_content text-align-left float-left ">
+  <label class="width-75">一级分类</label>
+  <span class="width-130"><%= @material.get 'root_category' %></span>
+</div>
+<div class="item_content text-align-left float-left ">
+  <label class="width-75">二级分类</label>
+  <span class="width-130"><%= @material.get 'category' %></span>
+</div>
+
+<div class="btn_group">
+  <a href="javascript:void(0);" class="cancel_btn btn cancel">取消</a>
+</div>

@@ -1,0 +1,28 @@
+
+  <td class="sequence_num"><%= @idx %></td>
+  <td class="warehouse_name"><%= @name %></td>
+  <td class="warehouse_descript"><%= @description %></td>
+  <td class="time"><%=  @created_on %></td>
+  <td class="operator"><%= @creator %></td>
+  <td class="admin"><%= @admins %></td>
+  <td>
+    <% if @useable : %>
+      <a class="cursor-pointer status useable available"></a>
+    <% else : %>
+      <a class="cursor-pointer status useable not_avail"></a>
+    <% end %>
+  </td>
+  <td>
+    <% if @preferred : %>
+      <a class="preferred default"></a>
+    <% else: %>
+      <a href="javascript:void(0)" class="preferred not_default"></a>
+    <% end %>
+  </td>
+  <td data-modelid='<%= @modelid %>' data-viewid='<%= @viewid %>'>
+    <i class="edit_warehouse fa fa-pencil margin-right-8 cursor-pointer font-14"></i>
+    <% unless @useable : %>
+      <i class="delete_warehouse fa fa-trash-o cursor-pointer font-14"></i>
+    <% end %>
+  </td>
+

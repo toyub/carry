@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <title>MIS-<% if content_for?(:title) %><%= yield :title %><% else %><%= I18n.t 'site.name' %><% end %></title>
+  <%= stylesheet_link_tag "/stylesheets/style.css", "/stylesheets/main.css" %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <% if controller_namespace(params).present? %>
+    <%= stylesheet_link_tag "/stylesheets/#{controller_namespace(params)}.css" %>
+  <% end %>
+  <%= javascript_include_tag 'application' %>
+
+  <%= include_javascript_by_namespace %>
+  <%= yield :pre_assets %>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <div class="top">
+        <div class='nav_top_left top_left'>
+          <i id='menutoggle' class="fa fa-list curcor_hand"></i>
+        </div>
+
+        <div class="nav_top_right top_right">
+          <ul class="nav_right">
+            <li><i class="fa fa-comment"></i></li>
+            <li>
+              <a href="javascript:void(0)">
+                <i class="fa  fa-user"></i>
+                <span></span>
+              </a>
+              <ul class="dropdown_menu list-group">
+                <li>
+                  <%= link_to '修改密码', new_password_path %>
+                </li>
+                <li>
+                  <%= link_to "退出登录", session_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <menu class="sidemenu" id="sidemenu">
+      <div class="first_menu ">
+        <ul id="menu" class="menu">
+          <li><a href="#" class="xianchang"><i class="fa fa-clock-o"></i></a></li>
+          <li><a href="#" class="shouyin"><i class="fa fa-calculator"></i></a></li>
+          <li><a href="#" class="kehu"><i class="fa fa-user"></i></a></li>
+          <li><a href="#" class="xiaoshou"><i class="fa fa-shopping-cart"></i></a></li>
+          <li><a href="#" class="kucun"><i class="fa fa-cubes"></i></a></li>
+          <li><a href="#" class="yuangong"><i class="fa fa-users"></i></a></li>
+          <li><a href="#" class="caiwu"><i class="fa fa-jpy"></i></a></li>
+          <li><a href="#" class="tongji"><i class="fa fa-line-chart"></i></a></li>
+          <li><a href="#" class="shezhi"><i class="fa fa-cog"></i></a></li>
+        </ul>
+      </div>
+      <div id="second_menu">
+        <div class='float-left sec_menu xianchang' id="xianchang" style="display:block;">
+          <div class=" menulist">
+            <h4>现场管理</h4>
+            <ul class="second_menu">
+              <li>
+                <%= link_to "施工现场", xianchang_field_constructions_path %>
+              </li>
+              <li>
+                <%= link_to "预约排单", xianchang_pre_orders_path %>
+              </li>
+              <li><a href="#">人员调度</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class='float-left sec_menu shouyin' id="shouyin" style="display:block;">
+          <div class=" menulist">
+            <h4>收银POS</h4>
+            <ul class="second_menu">
+              <li><a href="#">收银</a></li>
+              <li><a href="#">业务开单</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class='float-left sec_menu kehu' id="kehu" style="display:block;">
+          <div class=" menulist">
+            <h4>客户管理</h4>
+            <ul class="second_menu">
+              <li><a href="#store_customers">客户列表</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class='float-left sec_menu xiaoshou' id="xiaoshou" style="display:block;">
+          <div class=" menulist">
+            <h4>销售管理</h4>
+            <ul class="second_menu">
+              <li><a href="<%= kucun_path %>">商品</a></li>
+              <li><%= link_to "服务", "#{xiaoshou_main_path}#store_services"%></li>
+              <li><%= link_to "套餐", "#{xiaoshou_main_path}#store_packages" %></li>
+            </ul>
+          </div>
+        </div>
+        <div class='float-left sec_menu yuangong' id="yuangong" style="display:block;">
+          <div class=" menulist">
+            <h4>员工管理</h4>
+            <ul class="second_menu">
+              <li><a href="/soa/staff">员工列表</a></li>
+              <li><a href="/mis/yuangongguanli/xinziguanli/index.html">薪资管理</a></li>
+              <li><a href="/mis/yuangongguanli/jixiaoticheng/index.html">绩效提成</a></li>
+              <li><a href="/mis/yuangongguanli/kaoqinjiangli/index.html">考勤奖励</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class='float-left sec_menu kucun' id="kucun" style="display:block;">
+          <div class=" menulist">
+            <h4>库存管理</h4>
+            <ul class="second_menu">
+              <li><a href="<%= kucun_path %>">库存列表</a></li>
+              <li><a href="/kucun/material_inventories/new">入库</a></li>
+              <li><a href="/kucun/outings/new">出库</a></li>
+              <li><a href="/kucun/store_suppliers">订货</a></li>
+              <li><a href="/kucun/physical_inventories/new">盘点</a></li>
+              <li><a href="/kucun/shrinkages/new">报损</a></li>
+              <li><a href="/kucun/returnings/new">退货</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class='float-left sec_menu caiwu' id="caiwu" style="display:block;">
+          <div class=" menulist">
+          <h4>财务管理</h4>
+            <ul class="second_menu">
+              <li><a href="#">收入</a></li>
+              <li><a href="#">费用</a></li>
+              <li><a href="#">往来</a></li>
+              <li><a href="#">成本</a></li>
+              <li><a href="#">资产</a></li>
+              <li><a href="#">报表</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class='float-left sec_menu tongji' id="tongji" style="display:block;">
+          <div class=" menulist">
+          <h4>统计分析</h4>
+            <ul class="second_menu">
+              <li><a href="#">客户</a></li>
+              <li><a href="#">营销</a></li>
+              <li><a href="#">库存</a></li>
+              <li><a href="#">员工</a></li>
+              <li><a href="#">运营</a></li>
+              <li><a href="#">报告</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class='float-left sec_menu shezhi' id="shezhi" style="display:block;">
+          <div class=" menulist">
+          <h4>系统设置内容</h4>
+            <ul class="second_menu">
+              <li><a href="/settings/store">门店信息</a></li>
+              <li><a href="/settings/settlements/accounts">结算信息</a></li>
+              <li><a href="/settings/organizational_structure">组织架构</a></li>
+              <li><a href="/settings/privileges">权限设置</a></li>
+              <li><a href="/settings/commission_templates">提成方案</a></li>
+              <li><a href="/settings/depots">仓库管理</a></li>
+              <li><a href="/settings/material_categories">类别设置</a></li>
+              <li><a href="/settings/sms/topups">短信设置</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  </menu>
+
+  <main id="main">
+    <div class="content" id="content">
+      <%= yield %>
+    </div>
+  </main>
+
+  <%= yield :scenes %>
+  <%= yield :javascripts %>
+</body>
+</html>

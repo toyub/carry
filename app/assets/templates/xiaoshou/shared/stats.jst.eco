@@ -1,0 +1,110 @@
+<td class="border-right">
+  <table cellpadding="0" cellspacing="0" class="in_tab">
+    <tbody>
+    <tr>
+      <td class="text-align-left">
+        <a href="#"><%= @resource_name %>项目总数</a>
+        <span class="num_color font-24  tab_span "><%= @count %></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</td>
+<td class="border-right">
+  <table cellpadding="0" cellspacing="0" class="in_tab">
+    <tbody>
+    <tr>
+      <td class=" text-align-left">
+        <a href="#">数量最多商品</a>
+        <span class="num_color  tab_span font-14 float-right">74位</span>
+      </td>
+    </tr>
+    <tr>
+      <td class=" text-align-left">
+        <a href="#">金额最大商品</a>
+        <span class="num_color  tab_span font-14 float-right">12位</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</td>
+<td class="border-right">
+  <table cellpadding="0" cellspacing="0" class="in_tab">
+    <tbody>
+    <tr>
+      <td class=" text-align-left"><a href="#">出库量最多</a>
+        <span class="num_color  tab_span font-14 float-right">74位</span></td>
+    </tr>
+    <tr>
+      <td class=" text-align-left"><a href="#">出库量最少</a>
+        <span class="num_color  tab_span font-14 float-right">12位</span></td>
+    </tr>
+    </tbody>
+  </table>
+</td>
+<td class="border-right">
+  <table cellpadding="0" cellspacing="0" class="in_tab">
+    <tbody>
+    <tr>
+      <td class=" text-align-left">
+        <a href="#">库龄最短</a>
+        <span class="num_color  tab_span font-14 float-right">74位</span>
+      </td>
+    </tr>
+    <tr>
+      <td class=" text-align-left">
+        <a href="#">库龄最长</a>
+        <span class="num_color  tab_span font-14 float-right">12位</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</td>
+<td class="border-right">
+  <table cellpadding="0" cellspacing="0" class="in_tab">
+    <tbody>
+    <tr>
+      <td class=" text-align-left">
+        <a href="#">销售最多</a>
+        <span class="num_color  tab_span font-14 float-right">74位</span>
+      </td>
+    </tr>
+    <tr>
+      <td class=" text-align-left">
+        <a href="#">领用最多</a>
+        <span class="num_color  tab_span font-14 float-right">12位</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</td>
+<td class="border-right">
+  <table cellpadding="0" cellspacing="0" class="in_tab">
+    <tbody>
+    <tr>
+      <td class="text-align-left">
+        <a href="#">需回访客户</a>
+        <span class="num_color  tab_span font-14 float-right">74位</span>
+      </td>
+    </tr>
+    <tr>
+      <td class=" text-align-left">
+        <a href="#">已回访客户</a>
+        <span class="num_color  tab_span font-14 float-right">12位</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</td>
+<td>
+  <table cellpadding="0" cellspacing="0" class="in_tab">
+    <tbody>
+    <tr>
+      <td class=" text-align-right">
+        <a href="#">商品总金额</a>
+        <span class="num_color text-align-right font-24 tab_span">22,8677</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</td>

@@ -1,0 +1,10 @@
+<%= form_for(@category, url: kucun_material_categories_path, html:{style: "width:70%;margin:auto;"}) do |form| %>
+  <% if @category.has_parent? %>
+    <p style="font-size:12px;">一级分类：
+    <%= form.select "parent_id", options_from_collection_for_select([@parent], "id", "name") %>
+    </p>
+  <% end %>
+  <%= form.text_field :name, required: true, placeholder:'请输入分类名称'%>
+
+  <%= form.submit value: '新建'%>
+<% end %>

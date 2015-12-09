@@ -1,0 +1,2 @@
+<%= @name %>
+<input type="checkbox" name="checked" class="checked" <%= 'checked' if @checked %>>

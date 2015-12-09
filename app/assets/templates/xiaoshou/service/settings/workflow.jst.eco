@@ -1,0 +1,159 @@
+<div class="regular_setting setting_left float-left">
+  <h2>按常规设置
+    <input type="radio" name="service_setting_select" class="margin-left-8 " disabled="">
+  </h2>
+  <table>
+    <tbody>
+      <tr>
+        <td>技师设置</td>
+        <td></td>
+        <td><input type="radio" name="mechanic_quantity" disabled=""></td>
+        <td>数量不限</td>
+        <td>
+          <input type="radio" name="mechanic_quantity" disabled="">
+        </td>
+        <td>精确数量
+          <input type="text" name="quantity" class="width-83 margin-left-5" disabled="">
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <input type="radio" name="mechanic_level" disabled="">
+        </td>
+        <td colspan="3">技师级别限定
+          <select class="width-106 margin-right-14" disabled="">
+            <option></option>
+            <option>1级</option>
+            <option>2级</option>
+          </select>
+          以上
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><input type="radio" name="sign_method" disabled=""></td>
+        <td>自动上岗</td>
+        <td><input type="radio" name="sign_method" disabled=""></td>
+        <td>APP上岗</td>
+      </tr>
+      <tr>
+        <td>施工时间</td>
+        <td></td>
+        <td><input type="radio" name="time" disabled=""></td>
+        <td colspan="3">
+          标准时间
+          <input type="text" class=" width-35 margin-right-10 margin-left-3" readonly="">分钟
+          正负
+          <input type="text" class="width-35 margin-left-3 margin-right-10" readonly="">分钟
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><input type="radio" name="time" disabled=""></td>
+        <td colspan="3">
+          缓冲时间
+          <input type="text" class="width-64 margin-left-2 margin-right-10" disabled="">分钟
+        </td>
+      </tr>
+      <tr>
+        <td>工位设置</td>
+        <td></td>
+        <td><input type="radio" name="station_setting_in_regular" disabled=""></td>
+        <td colspan="3">
+          系统自动分配
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><input type="radio" name="station_setting_in_regular" value="指定工位" disabled=""></td>
+        <td>
+          指定工位
+        </td>
+        <td colspan="2" class="text-align-left">
+          <span class="bg-color-f7f7f7"></span>
+          <ul>
+            <li>
+            清洗服务
+            </li>
+            <li>
+            美容服务
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="3" rowspan="4" class="padding-0">
+          <div id="stations_to_sel">
+            <ul id="stations_of_cleaning" style="display:none;">
+            </ul>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>技师提成</td>
+        <td></td>
+        <td colspan="4" style="text-align:left;">
+          提成方案
+          <select style="width:190px;" disabled="">
+            <option></option>
+            <option>方案1</option>
+            <option>方案2</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="process_setting setting_right float-right j_workflow_setting">
+  <h2>
+    <label>按流程设置</label>
+    <input type="radio" name="service_setting_select" id="service_process_setting_sel" class="margin-left-8 margin-top-0 " checked="" disabled="">
+  </h2>
+  <p class="no_process">
+  您可以根据需要施工流程进行拆分管理，流程拆分后，施工时间会根据您设定的流程步骤单独计算，
+  技师也会根据流程不同进行更换，更换时需要用APP进行上岗确认。
+  </p>
+
+  <div class="new_process setting_right float-right" style="display:block;">
+    <ul class="items_head">
+      <li>#</li>
+      <li>流程名称</li>
+      <li>技师数量</li>
+      <li>技师级别</li>
+      <li>施工时间</li>
+      <li>工位设置</li>
+      <li>提成</li>
+    </ul>
+    <div class="do_new_lists_content" id="workflow_list">
+
+    </div>
+  </div>
+</div>
