@@ -78,7 +78,9 @@ Rails.application.routes.draw do
     resources :setting do
       patch 'adjust', on: :member
     end
-    resources :events
+    resources :events  do
+      get 'detail', on: :member
+    end
   end
 
   namespace :xianchang do

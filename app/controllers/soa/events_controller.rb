@@ -12,7 +12,6 @@ class Soa::EventsController < Soa::BaseController
   end
 
   def show
-    # byebug
     @staff = current_store.store_staff.find(params[:id])
     @events = @staff.store_events.by_type(params[:type])
                                  .by_date(params[:from], params[:to])
@@ -26,6 +25,14 @@ class Soa::EventsController < Soa::BaseController
       redirect_to soa_events_path
     else
       render plain: @event.errors.messages
+    end
+  end
+
+  def detail
+    @event = StoreEvent.find(params[:id])
+    @staff = @event.store_staff
+    respond_to do |format|
+      format.js
     end
   end
 
