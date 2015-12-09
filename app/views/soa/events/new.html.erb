@@ -12,37 +12,41 @@
 
   <div class="details_content attendance_reward_punishment">
     <ul class="option_nav">
-      <li><label>考勤<input type="radio" name="options" checked></label></li>
-      <li><label>奖励<input type="radio" name="options"></label></li>
-      <li><label>惩戒<input type="radio" name="options"></label></li>
+      <li><label>考勤<input type="radio" data-operate="扣款" data-sort=".attendence-sort" data-head="attendence" checked></label></li>
+      <li><label>奖励<input type="radio" data-operate="奖励" data-sort=".reward-sort" data-head="reward"></label></li>
+      <li><label>惩戒<input type="radio" data-operate="扣款" data-sort=".penalty-sort" data-head="penalty"></label></li>
     </ul>
 
     <div class="forms">
-      <p>考勤单</p>
-      <p style="display:none;">奖励单</p>
-      <p style="display:none;">惩戒单</p>
+      <div class="type-select">
+        <p id="attendence">考勤单</p>
+        <p id="reward" style="display:none;">奖励单</p>
+        <p id="penalty" style="display:none;">惩戒单</p>
+      </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>姓名</th>
-            <th><%= @staff.screen_name %></th>
-            <th>部门</th>
-            <th><%= @staff.store_department.try(:name) %></th>
-            <th>职务</th>
-            <th><%= @staff.store_position.try(:name) %></th>
-          </tr>
-        </thead>
-        <tbody class="attendance">
-          <%= form_for @event, url: soa_events_path(staff_id: params[:id])  do |form| %>
-            <%= form.hidden_field :type, value: type %>
+      <%= form_for @event, url: soa_events_path(staff_id: params[:id])  do |form| %>
+        <table>
+          <thead>
             <tr>
+              <th>姓名</th>
+              <th><%= @staff.screen_name %></th>
+              <th>部门</th>
+              <th><%= @staff.store_department.try(:name) %></th>
+              <th>职务</th>
+              <th><%= @staff.store_position.try(:name) %></th>
+            </tr>
+          </thead>
+          <tbody class="attendance share-tbody">
+            <%= form.hidden_field :type, value: type %>
+            <tr class="attendence-sort text-indent-10">
               <th rowspan="2">考勤科目</th>
               <td colspan="5">
-                <%= form.collection_radio_buttons :sort, StoreEvent::SORT[type.to_sym], :first, :first %>
+                <%= form.collection_radio_buttons :sort, StoreEvent::SORT[:StoreAttendence], :first, :first do |b| %>
+                  <%= b.label { raw(b.text + b.radio_button) } %>
+                <% end %>
               </td>
             </tr>
-            <tr>
+            <tr class="attendence-sort">
               <td colspan="5" class="text-align-center">
                 <%= form.label :start_on, "起" %>
                 <%= form.date_field :start_on, class: "width-122 margin-right-10" %>
@@ -51,18 +55,36 @@
                 <label>共计</label> <input type="text" class="width-50"><nbsp1></nbsp1>天
               </td>
             </tr>
-            <tr class="reward-penalty-sort">
-              <th >时间2</th>
+            <tr class="reward-sort">
+              <th >时间</th>
               <td colspan="2" class="text-indent-20"><%= form.date_field :occur_on %></td>
               <th class="address">地点</th>
               <td colspan="2" class="text-indent-20"><%= form.text_field :occur_at %></td>
             </tr>
-            <tr class="reward-penalty-sort">
+            <tr class="reward-sort">
               <th>性质</th>
               <td colspan="5" class="text-indent-20">
-                <%= form.collection_radio_buttons :sort, StoreEvent::SORT[type.to_sym], :first, :first %>
+                <%= form.collection_radio_buttons :sort, StoreEvent::SORT[:StoreReward], :first, :first do |b| %>
+                  <%= b.label { raw(b.text + b.radio_button) } %>
+                <% end %>
               </td>
             </tr>
+            <tr class="penalty-sort">
+              <th >时间</th>
+              <td colspan="2" class="text-indent-20"><%= form.date_field :occur_on %></td>
+              <th class="address">地点</th>
+              <td colspan="2" class="text-indent-20"><%= form.text_field :occur_at %></td>
+            </tr>
+            <tr class="penalty-sort">
+              <th>性质</th>
+              <td colspan="5" class="text-indent-20">
+                <%= form.collection_radio_buttons :sort, StoreEvent::SORT[:StorePenalty], :first, :first do |b| %>
+                  <%= b.label { raw(b.text + b.radio_button) } %>
+                <% end %>
+              </td>
+            </tr>
+            </tbody>
+            <tbody class="attendance">
             <tr>
               <th>描述</th>
               <td colspan="5">
@@ -79,7 +101,7 @@
               <td colspan="5">
                 <ul>
                   <%= form.fields_for :operate do |operate_fields| %>
-                    <li><span><%= type == "StoreReward" ? "奖励" : "扣款" %></span> <%= operate_fields.text_field :amount %> 元</li>
+                    <li><span id="operate-type"><%= type == "StoreReward" ? "奖励" : "扣款" %></span> <%= operate_fields.text_field :amount %> 元</li>
                     <li>
                       <span class="vertical-align-top">其他</span>
                       <%= operate_fields.text_area :other, rows: 6, cols: 60%>
@@ -88,18 +110,34 @@
                 </ul>
               </td>
             </tr>
-            <div class="btn_group">
-              <%= form.submit "保存", class: "btn save_btn"%>
-            </div>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+        <div class="btn_group">
+          <%= form.submit "保存", class: "btn save_btn"%>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
-    $(".reward-penalty-sort").hide();
+    $(".reward-sort, .penalty-sort").hide();
+    var head = "";
+    var tr_sort = "";
+    var operate_type
+    var span_operate_type = $("span#operate-type")
+    $(".option_nav input[type=radio]").on("click", function(){
+      $(this).parents("li").siblings("li").find("input[type=radio]").removeAttr("checked");
+      head = "#" + $(this).data("head");
+      tr_sort = $(this).data("sort");
+      operate_type = $(this).data("operate")
+      $(head).show()
+             .siblings().hide();
+
+      $(tr_sort).siblings().hide();
+      $(tr_sort).show();
+      span_operate_type.text(operate_type);
+    })
   })
 </script>
