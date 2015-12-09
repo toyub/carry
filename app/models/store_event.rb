@@ -24,6 +24,11 @@ class StoreEvent < ActiveRecord::Base
     StorePenalty: [
       ["违纪"],
       ["责任过失"],
+    ],
+
+    StoreOvertime: [
+      ["项目加班"],
+      ["调休加班"],
     ]
   }
 
