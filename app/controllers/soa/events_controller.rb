@@ -12,8 +12,10 @@ class Soa::EventsController < Soa::BaseController
   end
 
   def show
+    # byebug
     @staff = current_store.store_staff.find(params[:id])
-    @events = @staff.store_events
+    @events = @staff.store_events.by_type(params[:type])
+                                 .by_date(params[:from], params[:to])
   end
 
   def create

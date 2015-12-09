@@ -1,23 +1,25 @@
 <table class="search">
-  <tbody>
-    <tr>
-      <td>日期</td>
-      <td><input type="date" class="width-122"></td>
-      <td>-</td>
-      <td><input type="date" class="width-122"></td>
-      <td><label class="width-100 text-align-right">记录类型</label></td>
-      <td>
-        <select class="width-110" onchange="self.location.pathname=options[selectedIndex].value">
-          <option value="/mis/soa/yuangongliebiao/jilu/xinzijilu.html">薪资发放记录</option>
-          <option value="/mis/soa/yuangongliebiao/jilu/tiaoxinjilu.html">调薪记录</option>
-          <option value="/mis/soa/yuangongliebiao/jilu/shigongjilu.html">施工记录</option>
-          <option value="/mis/soa/yuangongliebiao/jilu/jianglijilu.html">奖励记录</option>
-          <option value="/mis/soa/yuangongliebiao/jilu/chengjiejilu.html">惩戒记录</option>
-          <option value="/mis/soa/yuangongliebiao/jilu/kaoqinjilu.html" selected>考勤记录</option>
-          <option value="/mis/soa/yuangongliebiao/jilu/jiekuanjilu.html">借款记录</option>
-        </select>
-      </td>
-      <td><input type="button" class="query_btn btn width-60" value="查询"></td>
-    </tr>
-  </tbody>
+  <%= form_tag("/soa/events/#{@staff.id}", method: :get) do -%>
+    <tbody>
+      <tr>
+        <td>日期</td>
+        <td><%= date_field_tag :from, params[:from], class: "width-122" %></td>
+        <td>-</td>
+        <td><%= date_field_tag :to, params[:to], class: "width-122" %></td>
+        <td><label class="width-100 text-align-right">记录类型</label></td>
+        <% option_array = [
+          ["全部", "0"],
+          ["考勤记录", "StoreAttendence"],
+          ["薪资发放记录", 1],
+          ["调薪记录", 2],
+          ["施工记录", 3],
+          ["奖励记录", "StoreReward"],
+          ["惩戒记录", "StorePenalty"],
+          ["借款记录", 7]
+        ]%>
+        <td><%= select_tag :type, options_for_select(option_array, params[:type]) %></td>
+        <td><%= submit_tag "search"%> </td>
+      </tr>
+    </tbody>
+  <% end %>
 </table>

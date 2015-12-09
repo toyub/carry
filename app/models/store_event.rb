@@ -1,6 +1,10 @@
 class StoreEvent < ActiveRecord::Base
   belongs_to :store_staff
 
+  scope :by_type, ->(type) { where("type = ?", type) if type.present? && type != "0"}
+  scope :by_date, ->(from, to) { where("created_at >= :start_date AND created_at <= :end_date",
+                                       {:start_date => from, :end_date => to}) if from.present? && to.present? }
+
   SORT = {
     StoreAttendence: [
       ["调休"],
