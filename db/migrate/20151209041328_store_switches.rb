@@ -6,7 +6,7 @@ class StoreSwitches < ActiveRecord::Migration
       t.integer   :store_staff_id
       t.integer   :switchable_id
       t.integer   :switchable_type
-      t.boolean      :enabled,           default: false
+      t.boolean   :enabled,           default: false
 
       t.datetime  :created_at
       t.datetime  :updated_at
