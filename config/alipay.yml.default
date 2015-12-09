@@ -3,4 +3,4 @@ partner:
   secret: ''
   email: ''
 service:
-  gatway: ''
+  gateway: ''
