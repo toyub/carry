@@ -5,6 +5,10 @@ class StoreEvent < ActiveRecord::Base
   scope :by_date, ->(from, to) { where("created_at >= :start_date AND created_at <= :end_date",
                                        {:start_date => from, :end_date => to}) if from.present? && to.present? }
 
+  def recorder
+    StoreStaff.find(recorder_id).screen_name
+  end
+
   SORT = {
     StoreAttendence: [
       ["调休"],

@@ -40,7 +40,7 @@ class Soa::EventsController < Soa::BaseController
 
   def event_params
     params.require(:store_event).permit(:type, :sort, :start_on, :end_on, :occur_on,
-                                        :occur_at, :description,
+                                        :occur_at, :description, :recorder_id,
                                         operate: [:amount, :other]
                                        )
   end

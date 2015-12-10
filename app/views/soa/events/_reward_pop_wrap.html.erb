@@ -22,18 +22,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th>时间</th>
-          <td colspan="2" class="text-indent-20"><%= @event.created_at.strftime("%Y-%m-%d") %></td>
-          <th class="address">地点</th>
-          <td colspan="2" class="text-indent-20"><%= @event.occur_at %></td>
-        </tr>
+        <% if @event.type != "StoreAttendence" && @event.type != "StoreOvertime" %>
+          <tr>
+            <th>时间</th>
+            <td colspan="2" class="text-indent-20"><%= @event.occur_on.strftime("%Y-%m-%d") %></td>
+            <th class="address">地点</th>
+            <td colspan="2" class="text-indent-20"><%= @event.occur_at %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <th>从</th>
+            <td colspan="2" class="text-indent-20"><%= @event.start_on.strftime("%Y-%m-%d") %></td>
+            <th class="address">至</th>
+            <td colspan="2" class="text-indent-20"><%= @event.end_on.strftime("%Y-%m-%d") %></td>
+          </tr>
+        <% end %>
         <tr>
           <th>性质</th>
           <td colspan="5" class="text-indent-20 check-check">
             <% StoreEvent::SORT[@event.type.to_sym].each do |sort| %>
               <label><%= sort.first %><input type="checkbox" disabled> </label>
-          <% end %>
+            <% end %>
           </td>
         </tr>
         <tr>
@@ -41,7 +50,7 @@
           <td colspan="5">
             <textarea rows="10" readonly><%= @event.description %></textarea>
             <div class="text-align-right">
-              <label>制表：</label><span class="margin-right-20">李可</span>
+              <label>制表：</label><span class="margin-right-20"><%= @event.recorder %></span>
               <label>日期：</label><span class="margin-right-20"><%= @event.created_at.strftime("%Y/%m/%d") %></span>
             </div>
           </td>

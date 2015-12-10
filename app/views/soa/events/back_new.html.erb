@@ -27,6 +27,7 @@
       </div>
 
       <%= form_for @event, url: soa_events_path(staff_id: params[:id])  do |form| %>
+        <%= form.hidden_field :occur_at, value: "just test occur_at" %>
 
         <table>
           <thead>
@@ -101,9 +102,9 @@
             <tr class="overtime-sort">
               <td colspan="5" class="text-align-center">
                 <%= form.label :start_on, "起" %>
-                <%= form.date_field :start_on, class: "width-122 margin-right-10", disabled: true %>
+                <%= form.date_field :start_on, class: "width-122 margin-right-10" %>
                 <%= form.label :end_on, "止" %>
-                <%= form.date_field :end_on, class: "width-122 margin-right-30 o-end", disabled: true  %>
+                <%= form.date_field :end_on, class: "width-122 margin-right-30 o-end" %>
                 <label>共计</label> <input type="text" class="width-50 calculate-days"><nbsp1></nbsp1>天
               </td>
             </tr>
@@ -116,7 +117,6 @@
                 <!-- <textarea rows="10"></textarea> -->
                 <%= form.text_area :description, rows: 10 %>
                 <div class="text-align-right">
-                  <%= form.hidden_field :recorder_id, value: current_staff.id %>
                   <label>制表：</label><span class="margin-right-20"><%= current_staff.screen_name %></span>
                   <label>日期：</label><span class="margin-right-20"><%= Date.today.strftime("%Y/%m/%d") %></span>
                 </div>
@@ -161,12 +161,8 @@
       $(head_class).show()
              .siblings().hide();
 
-      $(tr_sort).siblings().hide()
-                           .find("input").attr("disabled", "disabled");
-
-      $(tr_sort).show()
-                .find("input").removeAttr("disabled");
-
+      $(tr_sort).siblings().hide();
+      $(tr_sort).show();
       span_operate_type.text(operate_type);
       span_hidden_field.val($(this).data("type"));
     })
