@@ -1,57 +1,12 @@
 <div class="main_top">
   <h2>绩效提成</h2>
-  <%= @staffs.count %>
 </div>
 
 <div class="details">
 
   <div class="list_table">
 
-    <div class="search_nav">
-      <%= form_tag("/soa/performance/search", method: :get) do -%>
-        <div class="date">
-          <span>日期</span>
-          <%= date_select(
-            "", :date,
-            { start_year: 2000, use_short_month: true, discard_day: true, :default => @search_date},
-            {:include_blank => @search_date.nil?, class: "width-100" }
-          )
-          %>
-        </div>
-
-        <div class="department">
-          <span>部门</span>
-          <select name="store_department_id" class="width-100">
-            <%= options_from_collection_for_select(@departments, 'id', 'name', params[:store_department_id]) %>
-          </select>
-        </div>
-
-        <div class="position">
-          <span>职务</span>
-          <select name="store_position_id" class="width-100">
-            <%= options_from_collection_for_select(@positions, 'id', 'name', params[:store_position_id]) %>
-          </select>
-        </div>
-
-        <div class="keywords margin-right-50">
-          <span>关键字</span>
-          <%= text_field_tag :keyword, params[:keyword], class: "width-150" %>
-          <%= submit_tag "查询", class: "btn query_btn"%>
-        </div>
-
-
-      <div class="float-right">
-        <a href="#" class="btn print_btn">打印</a>
-        <a href="#" class="btn export_btn">导出</a>
-
-        <select class="width-100 margin-left-10">
-          <option>显示5行</option>
-          <option>全部显示</option>
-        </select>
-      <% end %>
-      </div>
-    </div>
-
+    <%= render "/soa/performance/search" %>
 
     <table class="commission_list">
       <thead>
@@ -87,7 +42,7 @@
           <td>220.00</td>
           <td>0.00</td>
           <td>180.00</td>
-          <td><a href="../yuangongliebiao/jixiaoticheng.html"><i class="ico ico-edit font-14"></i></a></td>
+          <td><a href="/soa/performance/<%= staff.id %>"><i class="ico ico-edit font-14"></i></a></td>
         </tr>
       <% end %>
       </tbody>
