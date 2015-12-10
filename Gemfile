@@ -118,3 +118,4 @@ gem 'qiniu'
 gem 'hashids', '~> 1.0', '>= 1.0.2'
 
 gem 'backbone-support', '~> 0.5.1'
+gem 'migration_comments', '~> 0.3.2'
