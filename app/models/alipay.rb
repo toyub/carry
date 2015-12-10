@@ -10,7 +10,8 @@ class Alipay
       seller_email: @@partner[:email], 
       partner: @@partner[:key],
       _input_charset:"utf-8",
-      return_url: alipay_config[:callback][:return_url]
+      return_url: alipay_config[:callback][:return_url],
+      notify_url: alipay_config[:callback][:notify_url]
     }
   rescue Exception => e
     puts e.message

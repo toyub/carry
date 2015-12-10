@@ -6,3 +6,4 @@ service:
   gateway: ''
 callback:
   return_url: ''
+  notify_url: ''

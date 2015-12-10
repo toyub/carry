@@ -213,7 +213,12 @@ Rails.application.routes.draw do
 
   namespace :open do
     namespace :topups do
-      resources :alipays
+      resource :alipay do
+        collection do
+          post :notify_url
+          get :return_url
+        end
+      end
     end
   end
 
