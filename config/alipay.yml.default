@@ -4,3 +4,5 @@ partner:
   email: ''
 service:
   gateway: ''
+callback:
+  return_url: ''

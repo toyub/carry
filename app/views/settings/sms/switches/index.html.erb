@@ -10,37 +10,37 @@
     <div class="toggle">
       <div class="reminder">
         <div class="top">
-          <i class="fa fa-bell-o margin-right-8"></i>提醒
+          <i class="fa fa-bell-o margin-right-8"></i>提醒 <sub>关闭后将不再发送此类提醒</sub>
         </div>
 
-        <% SmsNotifySwitchType.collection.each do |opt| %>
+        <% @notify_switchs.each do |switch| %>
         <div class="remind">
-          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= opt.name %></span>
-          <input type="checkbox" name="notify_switchs[<%=opt.id%>][trigger]">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= switch.switchable.name %></span>
+          <input type="checkbox" data-id='<%=switch.id%>' name="notify_switchs[<%=switch.id%>][enabled]" <%= 'checked' if switch.enabled %> >
         </div>
         <% end %>
       </div>
 
       <div class="reminder">
         <div class="top">
-          <i class="fa fa-phone margin-right-8"></i>回访
+          <i class="fa fa-phone margin-right-8"></i>回访 <sub>关闭后将不再发送此类提醒</sub>
         </div>
-        <% SmsTrackingSwitchType.collection.each do |opt| %>
+        <% @tracking_switchs.each do |switch| %>
         <div class="remind">
-          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= opt.name %></span>
-          <input type="checkbox" name="tracking_switchs[<%=opt.id%>][trigger]">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= switch.switchable.name %></span>
+          <input type="checkbox" data-id='<%=switch.id%>' name="tracking_switchs[<%=switch.id%>][enabled]" <%= 'checked' if switch.enabled %> >
         </div>
         <% end %>
       </div>
 
       <div class="reminder">
         <div class="top">
-          <i class="fa fa-lock margin-right-8"></i>验证
+          <i class="fa fa-lock margin-right-8"></i>验证 <sub>关闭后将不再发送此类提醒</sub>
         </div>
-        <% SmsCaptchaSwitchType.collection.each do |opt| %>
+        <% @captcha_switchs.each do |switch| %>
         <div class="remind">
-          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= opt.name %></span>
-          <input type="checkbox" name="captcha_switchs[<%=opt.id%>][trigger]">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= switch.switchable.name %></span>
+          <input type="checkbox" data-id='<%=switch.id%>' name="captcha_switchs[<%=switch.id%>][enabled]" <%= 'checked' if switch.enabled %> >
         </div>
         <% end %>
       </div>
@@ -52,7 +52,16 @@
 <script>
   jQuery(function($){
     $('.toggle').on('change', 'input[type=checkbox]', function(){
-      console.log(this.name)
+      $.ajax({
+        type: 'PUT',
+        url: '/settings/sms/switches/' + this.dataset.id,
+        success: function(data){
+          
+        },
+        error: function(data){
+          ZhanchuangAlert('与服务器通信失败，请刷新重试');
+        }
+      });
     });
   });
 </script>

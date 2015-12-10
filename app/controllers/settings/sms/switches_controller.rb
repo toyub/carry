@@ -1,13 +1,15 @@
 module Settings
   class Sms::SwitchesController < BaseController
     def index
-      SmsNotifySwitchType.collection.map{|opt| current_store.sms_notify_switches.find_or_create_by(switch_type_id: opt.id)}
-      SmsTrackingSwitchType.collection.map{|opt| current_store.sms_tracking_switches.find_or_create_by(switch_type_id: opt.id)}
-      SmsCaptchaSwitchType.collection.map{|opt| current_store.sms_captcha_switches.find_or_create_by(switch_type_id: opt.id)}
+      @notify_switchs = SmsNotifySwitchType.collection.map{|opt| current_store.store_switches.fetch_with_switch_and_operator(opt, current_staff)}
+      @tracking_switchs = SmsTrackingSwitchType.collection.map{|opt| current_store.store_switches.fetch_with_switch_and_operator(opt, current_staff)}
+      @captcha_switchs = SmsCaptchaSwitchType.collection.map{|opt| current_store.store_switches.fetch_with_switch_and_operator(opt, current_staff)}
     end
 
     def update
-
+      switch = current_store.store_switches.find(params[:id])
+      switch.update(enabled: !switch.enabled)
+      render json: switch
     end
   end
 end

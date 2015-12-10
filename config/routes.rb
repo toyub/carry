@@ -211,6 +211,12 @@ Rails.application.routes.draw do
 
   end
 
+  namespace :open do
+    namespace :topups do
+      resources :alipays
+    end
+  end
+
   root 'kucun/materials#index'
 
   mount Sidekiq::Web => '/sidekiq'

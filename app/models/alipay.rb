@@ -9,7 +9,8 @@ class Alipay
       payment_type: 1,
       seller_email: @@partner[:email], 
       partner: @@partner[:key],
-      _input_charset:"utf-8"
+      _input_charset:"utf-8",
+      return_url: alipay_config[:callback][:return_url]
     }
   rescue Exception => e
     puts e.message
