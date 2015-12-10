@@ -81,6 +81,9 @@ Rails.application.routes.draw do
     resources :events  do
       get 'detail', on: :member
     end
+    resources :performance do
+      get 'search', on: :collection
+    end
   end
 
   namespace :xianchang do

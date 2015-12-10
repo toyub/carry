@@ -19,8 +19,8 @@
 
 <div class="details_nav">
   <ul>
-    <li><%= link_to "基本信", soa_staff_path(@staff), class: "width-90" %></li>
-    <li><%= link_to "设置", soa_setting_path(@staff), class: "width-90" %></li>
+    <li><%= link_to "基本信", params[:action] == "new" ? "#" : soa_staff_path(@staff), class: "width-90" %></li>
+    <li><%= link_to "设置", params[:action] == "new" ? "#" : soa_staff_path(@staff), class: "width-90" %></li>
     <li ><a href="#" class="width-90">绩效提成</a></li>
     <li><%= link_to "考勤奖惩", new_soa_event_path(id: @staff.id), class: "width-90" %></li>
     <li ><a  href="#" class="width-90">记录</a></li>
