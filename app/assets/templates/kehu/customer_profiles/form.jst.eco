@@ -77,6 +77,9 @@
                     <label>市:</label>
                     <select class="width-75 js-cities" name="city">
                       <option value="">请选择</option>
+                      <% _.each entity., (p) ->: %>
+                        <option value="<%= p.code %>" <%= 'selected' if p.code.toString() == String(entity.get('province')) %>><%= p.name %></option>
+                      <% end %>
                     </select>
                     <label>区/县:</label>
                     <select class="width-75 js-regions" name="region">
