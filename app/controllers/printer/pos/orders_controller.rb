@@ -1,7 +1,8 @@
 module Printer
-  class Pos::OrdersController < BaseController
-      def show
-        
-      end
+  module Pos
+    class OrdersController < BaseController
+        def show
+        end
+    end
   end
 end

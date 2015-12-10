@@ -1,8 +1,8 @@
 
 		<div class="order_details">
 			<div class="dialog_nav">
-				<span class="dialog_title ">单号:20141105001</span>
-				<a href="/mis/shouyin/yewukaidan/kaidan.html" target="_blank">完整订单</a>
+				<span class="dialog_title ">单号:<%= @numero %></span>
+				<a href="/pos/store_orders/<%= @id %>" target="_blank">完整订单</a>
 			</div>
 
 			<div class="vehicle_order_details">
@@ -10,15 +10,15 @@
 					<dl>
 						<dd>
 							<label class="width-50" >车牌号</label>
-							<input type="text" value="浙A16034" class="width-110" readonly>
+							<input type="text" value="<%= @customer_vehicle_num %>" class="width-110" readonly>
 						</dd>
 						<dd>
 							<label class="width-50" >客户姓名</label>
-							<input type="text" value="王" class="width-110" readonly>
+							<input type="text" value="<% @customer_screen_name%>" class="width-110" readonly>
 						</dd>
 						<dd>
 							<label class="width-50" >手机号</label>
-							<input type="text" value="13335930000" class="width-110" readonly>
+							<input type="text" value="<%= @customer_phone_number %>" class="width-110" readonly>
 						</dd>
 					</dl>
 				</div>
@@ -34,7 +34,7 @@
 							</dd>
 							<dd>
 								<label class="width-80" >可用余额:</label>
-								<span>863.00</span>
+								<span><%= @customer_balance %></span>
 							</dd>
 						</dl>
 						<dl>
@@ -43,7 +43,7 @@
 							</dd>
 							<dd>
 								<label class="width-80" >可用余额:</label>
-								<span>15,000.00</span>
+								<span><%= @customer_credit_balance %></span>
 							</dd>
 						</dl>
 						<dl>
@@ -52,16 +52,14 @@
 							</dd>
 							<dd>
 								<label class="width-80" >可用积分:</label>
-								<span>20,000.00</span>
+								<span><%= @customer_points %></span>
 							</dd>
 						</dl>
 					</div>
 				</div>
 
 				<div class="vehicle_order">
-					<span class="vehicle_order_title title doslide">
-						业务信息
-					</span>
+					<span class="vehicle_order_title title doslide">业务信息</span>
 					<div class="order_info">
 						<h2>商品明细</h2>
 						<table cellpadding="0" cellspacing="0" class="commodity_details">
@@ -78,7 +76,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr >
+								<tr title="米其林 195/65/15 XM2 91V">
 									<td>米其林</td>
 									<td>195/65/15 XM2 91V</td>
 									<td>条</td>
@@ -87,26 +85,6 @@
 									<td>会员</td>
 									<td>0.00</td>
 									<td>430.00</td>
-								</tr>
-								<tr >
-									<td>摇头公仔</td>
-									<td>斯诺比</td>
-									<td>个</td>
-									<td>1</td>
-									<td>85.00</td>
-									<td>会员</td>
-									<td>5</td>
-									<td>80.00</td>
-								</tr>
-								<tr >
-									<td>飞歌DVD...</td>
-									<td>本田雅阁专用</td>
-									<td>台</td>
-									<td>1</td>
-									<td>8,675.00</td>
-									<td>会员</td>
-									<td class="text-align-right">133.33</td>
-									<td>8,541.70</td>
 								</tr>
 							</tbody>
 							<tfoot>
