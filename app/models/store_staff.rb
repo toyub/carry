@@ -1,5 +1,5 @@
 class StoreStaff <  ActiveRecord::Base
-  attr_accessor :password, :password_confirmation, :phone_number
+  attr_accessor :password, :password_confirmation
   belongs_to :store
   belongs_to :store_chain
   belongs_to :store_department
@@ -48,6 +48,10 @@ class StoreStaff <  ActiveRecord::Base
     else
       "#{self.first_name} #{self.last_name}"
     end
+  end
+
+  def locked?
+    !mis_login_enabled
   end
 
   private

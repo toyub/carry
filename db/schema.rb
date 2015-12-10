@@ -1343,6 +1343,7 @@ ActiveRecord::Schema.define(version: 20151209075530) do
     t.decimal  "balance"
     t.boolean  "available",                  default: true
     t.integer  "creator_id"
+<<<<<<< HEAD
   end
 
   create_table "taggings", force: :cascade do |t|

@@ -127,6 +127,8 @@ Rails.application.routes.draw do
         post :save_picture
       end
     end
+
+    resources :privileges
   end
 
   namespace :ajax do

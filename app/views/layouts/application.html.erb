@@ -33,7 +33,7 @@
               </a>
               <ul class="dropdown_menu list-group">
                 <li>
-                  <a href="javascript:void(0)">个人信息</a>
+                  <%= link_to '修改密码', new_password_path %>
                 </li>
                 <li>
                   <%= link_to "退出登录", session_path, method: :delete %>
@@ -162,7 +162,7 @@
               <li><a href="/settings/store">门店信息</a></li>
               <li><a href="/settings/settlements/accounts">结算信息</a></li>
               <li><a href="/settings/organizational_structure">组织架构</a></li>
-              <li><a href="#">权限设置</a></li>
+              <li><a href="/settings/privileges">权限设置</a></li>
               <li><a href="/settings/commission_templates">提成方案</a></li>
               <li><a href="/settings/depots">仓库管理</a></li>
               <li><a href="/settings/material_categories">类别设置</a></li>

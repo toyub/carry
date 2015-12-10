@@ -1,20 +1,21 @@
 class SessionsController < ApplicationController
-  layout 'plain'
+  layout 'tiny'
+
+  before_action :set_staff, only: [:create]
 
   def new
   end
 
   def create
-    user = StoreStaff.where(login_name: params[:login]).first
-    if user.blank? || user.encrypted_password != StoreStaff.encrypt_with_salt(params[:password], user.salt)
-      flash[:error] = 'User login or password wrong!'
-      redirect_to new_session_path
-      return false
+    @status = AuthenticateStaffService.call(@staff, params[:password])
+    if @status.success?
+      session[:user_id] = @staff.id
+      redirect_to root_path
+    else
+      redirect_to new_session_path, notice: @status.notice
     end
-
-    session[:user_id] = user.id
-    redirect_to root_path ## should be user request url
   end
+
 
   def destroy
     reset_session
@@ -32,4 +33,9 @@ class SessionsController < ApplicationController
   def edit
 
   end
+
+  private
+    def set_staff
+      @staff = StoreStaff.find_by(login_name: params[:login])
+    end
 end

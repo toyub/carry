@@ -12,6 +12,7 @@
 config/config.yml
 config/redis.yml
 config/qiniu.yml
+config/alipay.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3

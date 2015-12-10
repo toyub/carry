@@ -35,7 +35,6 @@
 //= require dialogs/upload
 //= require dialogs/piccut
 //= require jquery_ext/jquery.datetimepicker
-//= require layout_application
 
 
 function ZhanchuangAlert(msg) {

@@ -1,3 +1,6 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/login.css", "/stylesheets/reset_password.css" %>
+<% end %>
 <div class="reset">
   <header class="login_header">
     <span class="chinese">重设密码</span>
@@ -17,7 +20,10 @@
         <ul class="account_info">
           <li> <%= f.label "新密码:" %> <%= f.password_field :password, required: 'required' %>  </li>
           <li> <%= f.label "确认密码:" %> <%= f.password_field :password_confirmation, required: 'required' %>  </li>
-          <li> <%= f.submit '确定', class: 'determine'  %> </li>
+          <li>
+            <p class="error_tip" > <%= notice %> </p>
+            <%= f.submit '确定', class: 'determine'  %>
+          </li>
         </ul>
       <% end %>
 
