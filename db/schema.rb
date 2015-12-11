@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209075530) do
+ActiveRecord::Schema.define(version: 20151210074701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +274,18 @@ ActiveRecord::Schema.define(version: 20151209075530) do
     t.string   "remark",                   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "store_envelopes", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "receiver_type"
+    t.integer  "receiver_id"
+    t.boolean  "opened"
+    t.boolean  "deleted"
+    t.datetime "created_at"
+    t.datetime "update_at"
   end
 
   create_table "store_files", force: :cascade do |t|
@@ -774,6 +786,21 @@ ActiveRecord::Schema.define(version: 20151209075530) do
     t.boolean  "permitted_to_internal",                                                default: true,  null: false
     t.boolean  "permitted_to_saleable",                                                default: false, null: false
     t.text     "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_messages", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "type"
+    t.string   "sender_type"
+    t.integer  "sender_id"
+    t.text     "content",                             null: false
+    t.integer  "store_envelopes_counter", default: 0
+    t.integer  "content_length"
+    t.boolean  "deleted"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
