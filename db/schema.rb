@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210074701) do
+ActiveRecord::Schema.define(version: 20151211030027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,24 @@ ActiveRecord::Schema.define(version: 20151210074701) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "code"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id"
+    t.string  "orderable_type"
+    t.integer "orderable_id"
+    t.integer "quantity",                               null: false
+    t.decimal "price",          precision: 6, scale: 2, null: false
+    t.decimal "amount",         precision: 8, scale: 2, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string  "numero"
+    t.string  "party_type"
+    t.integer "party_id"
+    t.string  "subject"
+    t.decimal "amount",     precision: 10, scale: 2
+    t.integer "staffer_id"
   end
 
   create_table "renewal_records", force: :cascade do |t|
@@ -277,13 +295,14 @@ ActiveRecord::Schema.define(version: 20151210074701) do
   end
 
   create_table "store_envelopes", force: :cascade do |t|
+    t.integer  "store_message_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
     t.string   "receiver_type"
     t.integer  "receiver_id"
-    t.boolean  "opened"
-    t.boolean  "deleted"
+    t.boolean  "opened",           default: false
+    t.boolean  "deleted",          default: false
     t.datetime "created_at"
     t.datetime "update_at"
   end
@@ -795,12 +814,14 @@ ActiveRecord::Schema.define(version: 20151210074701) do
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
     t.string   "type"
+    t.integer  "channel_type_id"
     t.string   "sender_type"
     t.integer  "sender_id"
-    t.text     "content",                             null: false
+    t.text     "content",                                 null: false
     t.integer  "store_envelopes_counter", default: 0
     t.integer  "content_length"
-    t.boolean  "deleted"
+    t.boolean  "deleted",                 default: false
+    t.boolean  "automatic",               default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
