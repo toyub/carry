@@ -1,18 +1,12 @@
-class Order
-  def initialize(topup, subject)
-    @amount = topup.amount
-    @subject = subject
-  end
-
-  def amount
-    @amount
-  end
-
-  def subject
-    @subject
-  end
+class Order < ActiveRecord::Base
+  has_many :order_items
 
   def numero
-    "#{Time.now.strftime('%Y%m%d')}#{rand(1000).to_s.rjust(6, '0')}"
+    self.id
+  end
+
+  def set_party(party)
+    self.party_type = party.class.name
+    self.party_id = party.id
   end
 end

@@ -1,18 +1,26 @@
 module Settings
   class Sms::TopupsController < BaseController
     def index
-      p params
-      @topups = 6.times.map{
-        SmsTopup.new(100 + rand(7)*100)
-        }.sort{|x, y| x.created_at.to_i <=>  y.created_at.to_i}
+      @topups = OrderItem.joins(:order)
+                         .where(orderable_type: SmsTopup.name)
+                         .where('orders.party_type': Store.name, 'orders.party_id': current_store.id, 'orders.paid': true)
+                         .order('created_at desc')
     end
 
     def new
-      if params[:quantity].to_i < 200
+      if params[:quantity].to_i < 1
         render text: '参数错误'
         return false
       end
-      alipay = Alipay.new(Order.new(SmsTopup.new(params[:quantity].to_i), '短信充值费用'))
+      order = Order.new(party_type: Store.name, party_id:current_store.id)
+      order_item = order.order_items.new(SmsTopup.new(params[:quantity].to_i).to_h)
+      order_item.amount = order_item.price * order_item.quantity
+
+      order.subject = "短信充值费用#{order_item.amount}元"
+      order.amount = order.order_items.map(&->(item){item.amount}).sum
+      order.save
+      order_item.save
+      alipay = Alipay.new(order)
       redirect_to alipay.url
     end
   end

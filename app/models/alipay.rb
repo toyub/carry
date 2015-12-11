@@ -21,14 +21,10 @@ class Alipay
     unless (@@partner && @@service)
       raise 
     end
-    total_fee = order.amount
-    subject = order.subject
-    out_trade_no = order.numero
-    
-    options =@@options.merge({
-          total_fee: total_fee,
-          subject: "#{subject}#{total_fee}元",
-          out_trade_no: out_trade_no
+    options = @@options.merge({
+          total_fee: order.amount,
+          subject: order.subject,
+          out_trade_no: order.numero
      })
     options[:sign] = Digest::MD5.hexdigest(URI.decode(options.sort.to_h.to_param)+@@partner[:secret])
     options[:sign_type] = "MD5"
