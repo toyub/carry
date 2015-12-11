@@ -7,7 +7,7 @@
 
 <div class="details_content salary_related">
 
-  <%= form_for([@staff, @staff.store_salaries.build]) do |form| %>
+  <%= form_for soa_salaries_path(staff_id: @staff.id) do |form| %>
     <div class="checkout_nav">
       <div class="date width-240">
         <span class="width-70 text-align-center">当前月份</span> <span class="show_content width-80"><%= Time.now.strftime("%Y-%m") %></span>

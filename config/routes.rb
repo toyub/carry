@@ -84,7 +84,7 @@ Rails.application.routes.draw do
     resources :performance do
       get 'search', on: :collection
     end
-    resources :salary do
+    resources :salaries do
       get "jilu", on: :collection
       get 'search', on: :collection
       get 'check', on: :member
