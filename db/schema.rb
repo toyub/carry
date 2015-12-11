@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211073757) do
+ActiveRecord::Schema.define(version: 20151211084414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,12 +64,37 @@ ActiveRecord::Schema.define(version: 20151211073757) do
     t.datetime "updated_at"
   end
 
+  create_table "credits", force: :cascade do |t|
+    t.integer  "journal_entry_id"
+    t.decimal  "amount",           precision: 10, scale: 2
+    t.string   "subject"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "debits", force: :cascade do |t|
+    t.integer  "journal_entry_id"
+    t.decimal  "amount",           precision: 10, scale: 2
+    t.string   "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "info_categories", force: :cascade do |t|
     t.string   "name",       limit: 45, null: false
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "code"
+  end
+
+  create_table "journal_entries", force: :cascade do |t|
+    t.string   "party_type"
+    t.integer  "party_id"
+    t.decimal  "balance",    precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -105,6 +130,7 @@ ActiveRecord::Schema.define(version: 20151211073757) do
     t.json     "third_party_params"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "debit_id"
   end
 
   create_table "renewal_records", force: :cascade do |t|
