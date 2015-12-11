@@ -83,8 +83,11 @@ ActiveRecord::Schema.define(version: 20151211030027) do
 
   create_table "orders", force: :cascade do |t|
     t.string  "numero"
+    t.string  "party_type"
+    t.integer "party_id"
     t.string  "subject"
-    t.decimal "amount",  precision: 10, scale: 2
+    t.decimal "amount",     precision: 10, scale: 2
+    t.integer "staffer_id"
   end
 
   create_table "renewal_records", force: :cascade do |t|
@@ -292,13 +295,14 @@ ActiveRecord::Schema.define(version: 20151211030027) do
   end
 
   create_table "store_envelopes", force: :cascade do |t|
+    t.integer  "store_message_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
     t.string   "receiver_type"
     t.integer  "receiver_id"
-    t.boolean  "opened"
-    t.boolean  "deleted"
+    t.boolean  "opened",           default: false
+    t.boolean  "deleted",          default: false
     t.datetime "created_at"
     t.datetime "update_at"
   end
@@ -810,12 +814,14 @@ ActiveRecord::Schema.define(version: 20151211030027) do
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
     t.string   "type"
+    t.integer  "channel_type_id"
     t.string   "sender_type"
     t.integer  "sender_id"
-    t.text     "content",                             null: false
+    t.text     "content",                                 null: false
     t.integer  "store_envelopes_counter", default: 0
     t.integer  "content_length"
-    t.boolean  "deleted"
+    t.boolean  "deleted",                 default: false
+    t.boolean  "automatic",               default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
