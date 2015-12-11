@@ -10,6 +10,7 @@ class StoreStaff <  ActiveRecord::Base
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
 
   before_validation :set_full_name
+  before_create     :encrypt_password
 
   scope :by_keyword, ->(keyword){ where('full_name like :name or phone_number like :phone_number',
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
