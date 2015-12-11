@@ -38,25 +38,29 @@
       <div class="department">
         <label for="">所属部门</label>
         <select name="staff[store_department_id]">
-          <%= options_from_collection_for_select(@departments, 'id', 'name') %>
+          <option disabled selected> -- select an department -- </option>
+          <%= options_from_collection_for_select(@departments, 'id', 'name', @staff.store_department_id) %>
         </select>
       </div>
 
       <div class="position">
         <label for="" class="width-50">职务属性</label>
         <select name="staff[job_type_id]">
+          <option disabled selected> -- select an department -- </option>
           <%= options_from_collection_for_select(JobType.collection, 'id', 'name') %>
         </select>
 
         <label for="">职务</label>
         <select name="staff[store_position_id]">
-          <%= options_from_collection_for_select(@positions, 'id', 'name') %>
+          <option disabled selected> -- select an position -- </option>
+          <%= options_from_collection_for_select(@positions, 'id', 'name', @staff.store_position_id ) %>
         </select>
       </div>
 
       <div class="level">
         <label for="">职称</label>
         <select name="staff[level_type_id]">
+          <option disabled selected> -- select an department -- </option>
           <%= options_from_collection_for_select(StoreStaffLevel.collection, 'id', 'name') %>
         </select>
       </div>

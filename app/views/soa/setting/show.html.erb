@@ -1,9 +1,9 @@
 <div class="details">
   <div class="main_top">
     <h2>员工详情</h2>
+    <%= render '/soa/shared/reture' %>
   </div>
   <%= render "/soa/shared/top_info" %>
-
 
   <%= form_for @staff, url: edit_soa_setting_path, method: :get, html: {id: 'staff_form'} do |form| %>
 
@@ -135,9 +135,11 @@
 
               <li>
                 <%= skills_fields.label :other_skills, "其他技能" %>
+                <% if @staff.skills.present? %>
                   <% @staff.skills["other_skills"].map do |skill| %>
                     <span> <%= skill %> </span>
                   <% end %>
+                <% end %>
               </li>
             <% end %>
 

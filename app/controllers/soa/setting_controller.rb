@@ -23,7 +23,7 @@ class Soa::SettingController < Soa::BaseController
     params[:store_staff][:skills][:other_skills].reject!(&:empty?)
 
     if @staff.update(setting_staff_param)
-      redirect_to soa_staff_index_path
+      redirect_to soa_setting_path(@staff)
     else
       render plain: @staff.errors.messages
     end

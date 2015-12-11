@@ -4,17 +4,17 @@
   <td>员工编号</td>
   <td><span class="width-132 show_content"><%= @staff.numero %></span></td>
   <td>部门</td>
-  <td><span class="width-132 show_content"><%= @staff.store_department.name %></span></td>
+  <td><span class="width-132 show_content"><%= @staff.store_department.try(:name) %></span></td>
   <td>职务</td>
-  <td><span class="width-132 show_content"><%= @staff.store_position.name %></span></td>
+  <td><span class="width-132 show_content"><%= @staff.store_position.try(:name) %></span></td>
 </tr>
 <tr>
   <td>所属门店</td>
-  <td><span class="width-132 show_content"><%= @staff.store.name %></span></td>
+  <td><span class="width-132 show_content"><%= @staff.store.try(:name) %></span></td>
   <td>入职时间</td>
   <td><span class="width-132 show_content"><%= @staff.created_at.strftime("%Y-%m-%d") %></span></td>
   <td>工龄</td>
   <td><span class="width-132 show_content"><%= "无此字段" %></span></td>
   <td>职称</td>
-  <td><span class="width-132 show_content"><%= @staff.level_type.name %></span></td>
+  <td><span class="width-132 show_content"><%= @staff.level_type.try(:name) %></span></td>
 </tr>

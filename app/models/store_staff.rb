@@ -66,6 +66,10 @@ class StoreStaff <  ActiveRecord::Base
     status
   end
 
+  def current_salary
+    trial_status == "转正" ? regular_salary : trial_salary
+  end
+
   def contract_period
     month = 30
     protocol = store_protocols.operate_type("StoreQianDingHeTong")[0]
@@ -75,6 +79,21 @@ class StoreStaff <  ActiveRecord::Base
   def contract_status
     "未签约"
     contract_period < 0 ? "到期" : "有效" if contract_period
+  end
+
+  def bonus_amount
+    bonus["gangwei"].to_i + bonus["canfei"].to_i + bonus["laobao"].to_i +
+      bonus["gaowen"].to_i + bonus["zhusu"].to_i
+  end
+
+  def insurence_amount
+   bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_i + bonus["baoxianjing"].to_i + bonus["gerendanbao"].to_i : 0
+  end
+
+  def take_home_pay
+    sum = 0
+    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay
+    sum
   end
 
   def locked?

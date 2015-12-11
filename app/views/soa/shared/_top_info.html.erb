@@ -17,12 +17,14 @@
   </tr>
 </table>
 
+<% unless params[:controller] == "soa/staff" && params[:action] == "new"%>
 <div class="details_nav">
   <ul>
-    <li><%= link_to "基本信", params[:action] == "new" ? "#" : soa_staff_path(@staff), class: "width-90" %></li>
-    <li><%= link_to "设置", params[:action] == "new" ? "#" : soa_staff_path(@staff), class: "width-90" %></li>
-    <li><%= link_to "绩效提成", params[:action] == "new" ? "#" : soa_performance_path(@staff), class: "width-90" %></li>
-    <li><%= link_to "考勤奖惩", new_soa_event_path(id: @staff.id), class: "width-90" %></li>
+    <li><%= link_to "基本信", soa_staff_path(@staff), class: "width-90" %></li>
+    <li><%= link_to "设置", soa_setting_path(@staff), class: "width-90" %></li>
+    <li><%= link_to "绩效提成", soa_performance_path(@staff), class: "width-90" %></li>
+    <li><%= link_to "考勤奖惩", soa_event_path(id: @staff.id), class: "width-90" %></li>
     <li ><a  href="#" class="width-90">记录</a></li>
   </ul>
 </div>
+<% end %>

@@ -34,7 +34,7 @@ class Soa::StaffController < Soa::BaseController
   def edit
     @staff = current_store.store_staff.find(params[:id])
     @departments = current_store.store_departments
-    @positions = @departments[0].store_positions
+    @positions = @staff.store_department.present? ? @staff.store_department.store_positions : @departments[0].store_positions
     @employee = @staff.store_employee || @staff.build_store_employee
   end
 
