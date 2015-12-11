@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210024753) do
+ActiveRecord::Schema.define(version: 20151211092725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -950,6 +950,24 @@ ActiveRecord::Schema.define(version: 20151210024753) do
     t.integer  "store_chain_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "store_salaries", force: :cascade do |t|
+    t.integer  "store_staff_id"
+    t.decimal  "amount_deduction",     precision: 8, scale: 2
+    t.json     "deduction",                                    default: {}
+    t.decimal  "amount_overtime",      precision: 8, scale: 2
+    t.decimal  "amount_reward",        precision: 8, scale: 2
+    t.decimal  "amount_bonus",         precision: 8, scale: 2
+    t.json     "bonus",                                        default: {}
+    t.decimal  "amount_insurence",     precision: 8, scale: 2
+    t.json     "insurence"
+    t.decimal  "amount_cutfee",        precision: 8, scale: 2
+    t.decimal  "amount_should_cutfee", precision: 8, scale: 2
+    t.json     "cutfee",                                       default: {}
+    t.boolean  "status",                                       default: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
   end
 
   create_table "store_service_categories", force: :cascade do |t|
