@@ -7,7 +7,6 @@ module Api
     end
 
     def create
-      binding.pry
       @entity = current_store.store_customer_entities.create(append_store_attrs entity_params)
       respond_with @entity, location: nil
     end

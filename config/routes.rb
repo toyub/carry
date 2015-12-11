@@ -183,6 +183,10 @@ Rails.application.routes.draw do
 
   end
 
+  namespace :customer do
+    resources :store_vehicle_files 
+  end
+
   root 'kucun/materials#index'
 
   mount Sidekiq::Web => '/sidekiq'

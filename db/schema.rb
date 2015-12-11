@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210081330) do
+ActiveRecord::Schema.define(version: 20151211064049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20151210081330) do
     t.text     "remark"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
   end
 
   create_table "ca_stations", force: :cascade do |t|
@@ -155,6 +156,7 @@ ActiveRecord::Schema.define(version: 20151210081330) do
     t.boolean  "chain_enabled",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
   end
 
   create_table "store_commission_template_sections", force: :cascade do |t|
@@ -899,7 +901,7 @@ ActiveRecord::Schema.define(version: 20151210081330) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing",   default: 1
+    t.integer  "trigger_timing"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1245,6 +1247,17 @@ ActiveRecord::Schema.define(version: 20151210081330) do
     t.datetime "updated_at"
   end
 
+  create_table "store_switches", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "switchable_id"
+    t.string   "switchable_type"
+    t.boolean  "enabled",         default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "store_vehicle_engines", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1289,6 +1302,7 @@ ActiveRecord::Schema.define(version: 20151210081330) do
     t.integer  "vehicle_model_id"
     t.integer  "vehicle_series_id"
     t.json     "detail"
+    t.string   "numero"
   end
 
   create_table "store_workstation_categories", force: :cascade do |t|
@@ -1321,6 +1335,7 @@ ActiveRecord::Schema.define(version: 20151210081330) do
     t.datetime "expired_at"
     t.decimal  "balance"
     t.boolean  "available",                  default: true
+    t.integer  "creator_id"
   end
 
   create_table "taggings", force: :cascade do |t|

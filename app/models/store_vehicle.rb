@@ -19,4 +19,9 @@ class StoreVehicle < ActiveRecord::Base
   has_many :orders, class_name: "StoreOrder"
 
   delegate :license_number, to: :registration_plate
+
+  accepts_nested_attributes_for :vehicle_plates
+  # accepts_nested_attributes_for :store_vehicle_registration_plates
+  accepts_nested_attributes_for :vehicle_brand
+  accepts_nested_attributes_for :vehicle_engines
 end
