@@ -1,0 +1,183 @@
+<div class="details_nav" style="display:none;">
+  <ul>
+    <li class="bg-color-fff"><a href="#" class="width-90">薪资核算</a></li>
+  </ul>
+</div>
+
+
+<div class="details_content salary_related">
+
+  <%= form_for([@staff, @staff.store_salaries.build]) do |form| %>
+    <div class="checkout_nav">
+      <div class="date width-240">
+        <span class="width-70 text-align-center">当前月份</span> <span class="show_content width-80"><%= Time.now.strftime("%Y-%m") %></span>
+      </div>
+
+      <div class="staff_select">
+        <% if !@prev_staff.nil? %>
+          <%= link_to "<span class='width-50 font-weight-bold'>上一位</span><span>#{@prev_staff.screen_name}</span>".html_safe, check_soa_salary_path(@prev_staff), remote: true, class: "width-150 prev_staff" %>
+        <% end %>
+        <% if !@next_staff.nil? %>
+          <%= link_to "<span class='width-50 font-weight-bold'>下一位</span><span>#{@next_staff.screen_name}</span>".html_safe, check_soa_salary_path(@next_staff), remote: true, class: "width-100 next_staff" %>
+        <% end %>
+      </div>
+
+      <div class="operation float-right">
+        <input type="button" class="save_btn" value="核准">
+      </div>
+    </div>
+
+
+    <table class="abstract">
+      <thead>
+        <tr>
+          <td>姓名</td>
+          <td>员工编号</td>
+          <td>部门</td>
+          <td>职务</td>
+          <td>底薪</td>
+          <td>提成</td>
+          <td>福利补贴</td>
+          <td>奖金</td>
+          <td>保险金</td>
+          <td>加班费</td>
+          <td>应扣费用</td>
+          <td>实发金额</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><%= @staff.screen_name %></th>
+          <th><%= @staff.numero %></th>
+          <th><%= @staff.store_department.try(:name) %></th>
+          <th><%= @staff.store_position.try(:name) %></th>
+          <th><%= @staff.current_salary.to_f %></th>
+          <th>未设置</th>
+          <th><%= @staff.bonus_amount.to_f %></th>
+          <th><%= @staff.store_events.get_per_month_pay("StoreReward").to_f %></th>
+          <th><%= @staff.insurence_amount.to_f %></th>
+          <th><%= @staff.store_events.get_per_month_pay("StoreOvertime").to_f %></th>
+          <th><%= @staff.store_events.get_per_month_pay("StorePenalty").to_f +
+            @staff.store_events.get_per_month_pay("StoreAttendence").to_f +
+            @staff.bonus["gerendanbao"].to_f %></th>
+          <th><%= @staff.take_home_pay %></th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="salary_checkout">
+      <div class="salary">
+        <ul class="total_salary">
+          <li class="font-weight-bold font-14">应发工资</li>
+          <li>
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">提成</label>
+                <label class="width-70">施工提成</label> <input type="text" value="0.00" >
+              </li>
+              <li>
+                <label>商品提成</label> <input type="text" value="0.00" >
+              </li>
+              <li>
+                <label>售卡提成</label> <input type="text" value="0.00" >
+              </li>
+              <li>
+                <label>其他提成</label> <input type="text" value="0.00" >
+              </li>
+              <li>
+                <label class="font-weight-bold">提成合计</label> <input type="text" class="total" value="0.00" >
+              </li>
+            </ol>
+
+            <ol>
+              <%= form.fields_for :bonus do |bonus_fields|%>
+                <li>
+                  <label class="font-weight-bold width-50">福利补贴</label>
+                  <label class="width-70">岗位补贴</label><%= bonus_fields.text_field :wangwei, value: @staff.bonus["gangwei"].to_f %>
+              </li>
+              <li>
+                <label>住宿补贴</label> <%= bonus_fields.text_field :zhusu, value: @staff.bonus["zhusu"].to_f %>
+            </li>
+            <li>
+              <label>餐费补贴</label> <%= bonus_fields.text_field :canfei, value: @staff.bonus["canfei"].to_f %>
+          </li>
+          <li>
+            <label>劳保补贴</label> <%= bonus_fields.text_field :laobao, value: @staff.bonus["laobao"].to_f %>
+        </li>
+        <li>
+          <label>高温补贴</label> <%= bonus_fields.text_field :gaowen, value: @staff.bonus["gaowen"].to_f %>
+      </li>
+    <% end %>
+    <li>
+      <label class="font-weight-bold">补贴合计</label> <input type="text" class="total" value="<%= @staff.bonus_amount.to_f %>">
+    </li>
+  </ol>
+</li>
+
+<li>
+  <ol>
+    <li>
+      <label class="font-weight-bold width-50">加班费</label>
+      <label class="width-70 font-weight-bold">加班合计</label> <input type="text" class="total" value="<%= @staff.store_events.get_per_month_pay("StoreOvertime").to_f %>" >
+    </li>
+    <li class="bonus">
+      <label class="font-weight-bold width-50">奖金</label>
+      <label class="width-70 font-weight-bold">奖金合计</label> <input type="text" class="total" value="<%= @staff.store_events.get_per_month_pay("StoreReward").to_f %>" >
+    </li>
+  </ol>
+
+  <ol>
+    <%= form.fields_for :bonus do |insurence_fields|%>
+      <li>
+        <label class="font-weight-bold width-50">保险金</label> 
+        <label class="width-70">医保费</label> <%= insurence_fields.text_field :yibaofei, value: @staff.bonus["yibaofei"].to_f %>
+    </li>
+    <li>
+      <label>保险金</label> <%= insurence_fields.text_field :baoxianjing, value: @staff.bonus["baoxianjing"].to_f %>
+  </li>
+  <li>
+    <label class="font-weight-bold">保险合计</label> <input type="text" class="total" value="<%= @staff.insurence_amount %>" >
+  </li>
+<% end %>
+            </ol>
+          </li>
+
+          <li class="total text-align-right">
+            <label class="color-7391C4 font-weight-bold">应发工资合计：</label> <input type="text" value="<%= @staff.take_home_pay %>" >
+          </li>
+        </ul>
+
+
+        <ul class="deducted_salary">
+          <li class="font-weight-bold font-14">应扣费用</li>
+
+          <li>
+            <ol>
+              <li><label>违纪扣款</label> <input type="text" value="<%= @staff.store_events.get_per_month_pay("StorePenalty").to_f %>" ></li>
+              <li><label>考勤扣款</label> <input type="text" value="<%= @staff.store_events.get_per_month_pay("StoreAttendence").to_f %>" ></li>
+              <li><label>损坏赔款</label> <input type="text" value="0.00" ></li>
+              <li><label>借贷扣除</label> <input type="text" value="0.00" ></li>
+              <li><label>其他扣款</label> <input type="text" value="0.00" ></li>
+              <li><label>个人担保</label> <input type="text" value="<%= @staff.bonus["gerendanbao"].to_f %>" ></li>
+              <li><label class="font-weight-bold">扣款合计</label> <input type="text" class="total" value="<%= @staff.cut_pay %>" ></li>
+            </ol>
+          </li>
+
+          <li class="total">
+            <label class="font-weight-bold color-C8625C">应扣费用合计：</label>
+            <input type="text" value="<%= @staff.cut_pay %>" >
+          </li>
+        </ul>
+
+        <ul class="balance_salary">
+          <li class="font-weight-bold font-14">实发金额</li>
+          <li class="text-align-center">
+            <label class="display-block">薪资总额</label>
+            <input type="text" value="3,500" >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  <% end %>
+</div>

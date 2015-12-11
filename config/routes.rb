@@ -86,6 +86,9 @@ Rails.application.routes.draw do
     end
     resources :salary do
       get "jilu", on: :collection
+      get 'search', on: :collection
+      get 'check', on: :member
+      get 'revise', on: :member
     end
   end
 

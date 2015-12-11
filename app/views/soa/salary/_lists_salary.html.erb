@@ -30,11 +30,11 @@
         <td><%= staff.current_salary %></td>
         <td>未设置</td>
         <td><%= staff.bonus_amount %></td>
-        <td><%= staff.store_events.sum_by_type("StoreReward") %></td>
+        <td><%= staff.store_events.get_per_month_pay("StoreReward") %></td>
         <td><%= staff.insurence_amount %></td>
-        <td><%= staff.store_events.sum_by_type("StoreOvertime") %></td>
-        <td><%= staff.store_events.sum_by_type("StorePenalty") +
-          staff.store_events.sum_by_type("StoreAttendence") %></td>
+        <td><%= staff.store_events.get_per_month_pay("StoreOvertime") %></td>
+        <td><%= staff.store_events.get_per_month_pay("StorePenalty") +
+          staff.store_events.get_per_month_pay("StoreAttendence") %></td>
         <td><%= staff.take_home_pay %></td>
         <% if params[:action] == "jilu"%>
           <td><i class="ico ico-edit font-14"></i></td>

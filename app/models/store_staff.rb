@@ -20,6 +20,14 @@ class StoreStaff <  ActiveRecord::Base
   scope :by_job_type, ->(job_type_id){ where(job_type_id: job_type_id) if job_type_id.present?}
 
 
+  def next
+    StoreStaff.where("id > ?", id).limit(2).first
+  end
+
+  def prev
+    StoreStaff.where("id < ?", id).limit(2).last
+  end
+
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end
@@ -82,17 +90,21 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def bonus_amount
-    bonus["gangwei"].to_i + bonus["canfei"].to_i + bonus["laobao"].to_i +
-      bonus["gaowen"].to_i + bonus["zhusu"].to_i
+    bonus["gangwei"].to_f + bonus["canfei"].to_f + bonus["laobao"].to_f +
+      bonus["gaowen"].to_f + bonus["zhusu"].to_f
   end
 
   def insurence_amount
-   bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_i + bonus["baoxianjing"].to_i + bonus["gerendanbao"].to_i : 0
+   bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
+  end
+
+  def cut_pay
+    bonus["gerendanbao"].to_f + store_events.get_per_month_pay("StoreAttendence").to_f + store_events.get_per_month_pay("StorePenalty").to_f
   end
 
   def take_home_pay
     sum = 0
-    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay
+    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay - bonus["gerendanbao"].to_f
     sum
   end
 
@@ -102,7 +114,7 @@ class StoreStaff <  ActiveRecord::Base
 
   private
   def encrypt_password()
-    self.salt = Digest::MD5.hexdigest("--#{Time.now.to_i}--")
+    self.salt = Digest::MD5.hexdigest("--#{Time.now.to_f}--")
     self.encrypted_password = self.class.encrypt_with_salt(self.password, self.salt)
   end
 

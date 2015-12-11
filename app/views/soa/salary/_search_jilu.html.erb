@@ -1,5 +1,5 @@
 <div class="search_nav">
-  <%= form_tag("/soa/performance/search", method: :get) do -%>
+  <%= form_tag("/soa/salary/search", method: :get) do -%>
     <div class="date">
       <span>日期</span>
       <%= date_select(
@@ -8,11 +8,12 @@
         {:include_blank => @search_date.nil?, class: "width-100" }
       )
     %>
-  </div>
+    </div>
 
   <div class="department">
     <span>部门</span>
     <select name="store_department_id" class="width-100">
+      <option disabled selected> 全部 </option>
       <%= options_from_collection_for_select(@departments, 'id', 'name', params[:store_department_id]) %>
     </select>
   </div>
@@ -20,6 +21,7 @@
   <div class="position">
     <span>职务</span>
     <select name="store_position_id" class="width-100">
+      <option disabled selected> 全部 </option>
       <%= options_from_collection_for_select(@positions, 'id', 'name', params[:store_position_id]) %>
     </select>
   </div>
@@ -32,6 +34,7 @@
 
 
   <div class="float-right">
+    <a href="/soa/salary" class="btn management_btn">管理</a>
     <a href="#" class="btn print_btn">打印</a>
     <a href="#" class="btn export_btn">导出</a>
 
@@ -39,6 +42,6 @@
       <option>显示5行</option>
       <option>全部显示</option>
     </select>
-  <% end %>
   </div>
+  <% end %>
 </div>

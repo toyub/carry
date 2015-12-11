@@ -1,21 +1,28 @@
 <div class="search_nav">
-  <div class="date">
-    <span class="margin-right-10">日期</span>
-    <span class="width-80 show_content text-align-left">2015</span>
-    <span class="show_content text-align-left margin-left-10">7</span>
-  </div>
+  <%= form_tag("/soa/salary/search", method: :get) do -%>
+    <div class="date">
+      <span>日期</span>
+      <%= date_select(
+        "", :date,
+        { start_year: 2000, use_short_month: true, discard_day: true, :default => Date.today},
+        {:include_blank => @search_date.nil?, class: "width-100", disabled: true }
+      )
+    %>
+    </div>
+
 
   <div class="keywords margin-right-50">
-    <span class="width-80">关键字</span>
-    <input type="text" class="width-150">
-    <a href="#" class="btn query_btn">查询</a>
+    <span>关键字</span>
+    <%= text_field_tag :keyword, params[:keyword], class: "width-150" %>
+    <%= submit_tag "查询", class: "btn query_btn"%>
   </div>
 
   <div class="float-right">
     <%= link_to "记 录", jilu_soa_salary_index_path, class: "btn record_btn width-60" %>
     <a href="#" class="btn print_btn">打印</a>
     <a href="#" class="btn export_btn">发放并导出</a>
-    <a href="#" class="btn change_view_btn checkout">核准</a>
+    <%= link_to "核准", check_soa_salary_path(StoreStaff.first), remote: true, class: "btn change_view_btn checkout" %>
     <a href="#" class="btn change_view_btn show_lists_only" style="display:none;">只显示列表</a>
   </div>
+  <% end %>
 </div>
