@@ -84,7 +84,9 @@ Rails.application.routes.draw do
     resources :performance do
       get 'search', on: :collection
     end
-    resources :salary
+    resources :salary do
+      get "jilu", on: :collection
+    end
   end
 
   namespace :xianchang do

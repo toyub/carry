@@ -20,6 +20,7 @@
         ]%>
         <td><%= select_tag :type, options_for_select(option_array, params[:type]) %></td>
         <td><%= submit_tag "search"%> </td>
+        <%= link_to "新考勤纪录", new_soa_event_path(id: @staff.id), class: "text-align-center btn new_btn float-right width-80" %> 
       </tr>
     </tbody>
   <% end %>

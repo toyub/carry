@@ -12,6 +12,9 @@
   <li>加班费</li>
   <li>应扣费用</li>
   <li>实发金额</li>
+  <%  if params[:action] == "jilu"%>
+    <li>查看</li>
+  <% end %>
 </ul>
 
 <div class="list_wrap">
@@ -33,6 +36,9 @@
         <td><%= staff.store_events.sum_by_type("StorePenalty") +
           staff.store_events.sum_by_type("StoreAttendence") %></td>
         <td><%= staff.take_home_pay %></td>
+        <% if params[:action] == "jilu"%>
+          <td><i class="ico ico-edit font-14"></i></td>
+        <% end %>
       </tr>
     <% end %>
     </tbody>
