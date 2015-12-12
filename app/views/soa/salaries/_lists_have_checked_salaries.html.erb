@@ -12,9 +12,7 @@
   <li>加班费</li>
   <li>应扣费用</li>
   <li>实发金额</li>
-  <%  if params[:action] == "jilu"%>
-    <li>查看</li>
-  <% end %>
+  <li>查看</li>
 </ul>
 
 <div class="list_wrap">
@@ -29,16 +27,13 @@
         <td><%= staff.store_position.try(:name) %></td>
         <td><%= staff.current_salary %></td>
         <td>未设置</td>
-        <td><%= staff.bonus_amount %></td>
-        <td><%= staff.store_events.get_per_month_pay("StoreReward") %></td>
-        <td><%= staff.insurence_amount %></td>
-        <td><%= staff.store_events.get_per_month_pay("StoreOvertime") %></td>
-        <td><%= staff.store_events.get_per_month_pay("StorePenalty") +
-          staff.store_events.get_per_month_pay("StoreAttendence") %></td>
-        <td><%= staff.take_home_pay %></td>
-        <% if params[:action] == "jilu"%>
-          <td><i class="ico ico-edit font-14"></i></td>
-        <% end %>
+        <td><%= staff.store_salaries.last.amount_bonus %></td>
+        <td><%= staff.store_salaries.last.amount_reward %></td>
+        <td><%= staff.store_salaries.last.amount_insurence %></td>
+        <td><%= staff.store_salaries.last.amount_overtime %></td>
+        <td><%= staff.store_salaries.last.amount_cutfee %></td>
+        <td><%= staff.store_salaries.last.salary_actual_pay %></td>
+        <td><i class="ico ico-edit font-14"></i></td>
       </tr>
     <% end %>
     </tbody>

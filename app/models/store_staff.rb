@@ -7,6 +7,7 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_employee
   has_many :store_protocols, dependent: :destroy
   has_many :store_events, dependent: :destroy
+  has_many :store_salaries, dependent: :destroy
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
@@ -19,6 +20,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :by_level, ->(level_type_id){ where(level_type_id: level_type_id) if level_type_id.present?}
   scope :by_job_type, ->(job_type_id){ where(job_type_id: job_type_id) if job_type_id.present?}
 
+  scope :salary_has_been_checked, ->(date = Time.now) { includes("store_salaries").where( store_salaries: { status: "true" }).where('store_salaries.created_at between ? and ?', date.beginning_of_month, date.end_of_month) }
 
   def next
     StoreStaff.where("id > ?", id).limit(2).first
@@ -98,11 +100,11 @@ class StoreStaff <  ActiveRecord::Base
    bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
   end
 
-  def cut_pay
+  def cutfee
     bonus["gerendanbao"].to_f + store_events.get_per_month_pay("StoreAttendence").to_f + store_events.get_per_month_pay("StorePenalty").to_f
   end
 
-  def take_home_pay
+  def actual_pay
     sum = 0
     sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay - bonus["gerendanbao"].to_f
     sum

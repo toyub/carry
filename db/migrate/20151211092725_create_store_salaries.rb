@@ -13,6 +13,8 @@ class CreateStoreSalaries < ActiveRecord::Migration
       t.decimal :amount_cutfee, precision: 8, scale: 2
       t.decimal :amount_should_cutfee, precision: 8, scale: 2
       t.json :cutfee, default: {}
+      t.decimal :salary_should_pay, precision: 8, scale: 2
+      t.decimal :salary_actual_pay, precision: 8, scale: 2
       t.boolean :status, default: false
 
       t.timestamps null: false
