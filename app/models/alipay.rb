@@ -31,7 +31,7 @@ class Alipay
     options = @@options.merge({
           total_fee: order.amount,
           subject: order.subject,
-          out_trade_no: order.numero
+          out_trade_no: order.pretty_id
      })
     options[:sign] = Mis::Utils::AlipaySign.sign(options, @@partner[:secret])
     options[:sign_type] = "MD5"
