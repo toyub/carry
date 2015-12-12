@@ -4,7 +4,7 @@ class Soa::SalariesController < Soa::BaseController
   end
 
   def record
-    @staffs = current_store.store_staff.salary_has_been_checked
+    @staffs = current_store.store_staff.salary_has_been_confirmed
     @departments = current_store.store_departments
     @positions = @departments[0].store_positions
   end
@@ -19,11 +19,19 @@ class Soa::SalariesController < Soa::BaseController
     @search_date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
   end
 
-  def check
+  def confirm
     @staff = current_store.store_staff.find(params[:id])
     @prev_staff = @staff.prev
     @next_staff = @staff.next
 
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def check
+    @staff = current_store.store_staff.find(params[:id])
+    @salary = @staff.salary_of_month
     respond_to do |format|
       format.js
     end

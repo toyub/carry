@@ -15,10 +15,10 @@
 
       <div class="staff_select">
         <% if !@prev_staff.nil? %>
-          <%= link_to "<span class='width-50 font-weight-bold'>上一位</span><span>#{@prev_staff.screen_name}</span>".html_safe, check_soa_salary_path(@prev_staff), remote: true, class: "width-150 prev_staff" %>
+          <%= link_to "<span class='width-50 font-weight-bold'>上一位</span><span>#{@prev_staff.screen_name}</span>".html_safe, confirm_soa_salary_path(@prev_staff), remote: true, class: "width-150 prev_staff" %>
         <% end %>
         <% if !@next_staff.nil? %>
-          <%= link_to "<span class='width-50 font-weight-bold'>下一位</span><span>#{@next_staff.screen_name}</span>".html_safe, check_soa_salary_path(@next_staff), remote: true, class: "width-100 next_staff" %>
+          <%= link_to "<span class='width-50 font-weight-bold'>下一位</span><span>#{@next_staff.screen_name}</span>".html_safe, confirm_soa_salary_path(@next_staff), remote: true, class: "width-100 next_staff" %>
         <% end %>
       </div>
 

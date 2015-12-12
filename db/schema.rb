@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211092725) do
+ActiveRecord::Schema.define(version: 20151212085338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -961,7 +961,7 @@ ActiveRecord::Schema.define(version: 20151211092725) do
     t.decimal  "amount_bonus",         precision: 8, scale: 2
     t.json     "bonus",                                        default: {}
     t.decimal  "amount_insurence",     precision: 8, scale: 2
-    t.json     "insurence"
+    t.json     "insurence",                                    default: {}
     t.decimal  "amount_cutfee",        precision: 8, scale: 2
     t.decimal  "amount_should_cutfee", precision: 8, scale: 2
     t.json     "cutfee",                                       default: {}
@@ -970,6 +970,7 @@ ActiveRecord::Schema.define(version: 20151211092725) do
     t.boolean  "status",                                       default: false
     t.datetime "created_at",                                                   null: false
     t.datetime "updated_at",                                                   null: false
+    t.decimal  "basic_salary",         precision: 8, scale: 2, default: 0.0
   end
 
   create_table "store_service_categories", force: :cascade do |t|

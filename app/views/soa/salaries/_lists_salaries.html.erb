@@ -18,8 +18,8 @@
   <table class="salary_list">
     <tbody>
       <% @staffs.each do |staff| %>
-      <tr>
-        <td class="sequence_num"><%= staff.id %></td>
+      <tr data-id="<%= staff.id %>">
+        <td class='sequence_num'><%= staff.id %></td>
         <td><%= staff.screen_name %></td>
         <td><%= staff.numero %></td>
         <td><%= staff.store_department.try(:name) %></td>
@@ -27,12 +27,12 @@
         <td><%= staff.current_salary %></td>
         <td>未设置</td>
         <td><%= staff.bonus_amount %></td>
-        <td><%= staff.store_events.get_per_month_pay("StoreReward") %></td>
+        <td><%= staff.store_events.get_per_month_pay('StoreReward') %></td>
         <td><%= staff.insurence_amount %></td>
-        <td><%= staff.store_events.get_per_month_pay("StoreOvertime") %></td>
+        <td><%= staff.store_events.get_per_month_pay('StoreOvertime') %></td>
         <td><%= staff.cutfee %></td>
         <td><%= staff.actual_pay %></td>
-      </tr>
+        </tr>
     <% end %>
     </tbody>
   </table>

@@ -87,6 +87,7 @@ Rails.application.routes.draw do
     resources :salaries do
       get "record", on: :collection
       get 'search', on: :collection
+      get 'confirm', on: :member
       get 'check', on: :member
     end
   end

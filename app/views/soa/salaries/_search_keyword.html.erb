@@ -21,7 +21,7 @@
     <%= link_to "记 录", record_soa_salaries_path, class: "btn record_btn width-60" %>
     <a href="#" class="btn print_btn">打印</a>
     <a href="#" class="btn export_btn">发放并导出</a>
-    <%= link_to "核准", check_soa_salary_path(StoreStaff.first), remote: true, class: "btn change_view_btn checkout" %>
+    <%= link_to "核准", confirm_soa_salary_path(StoreStaff.first), remote: true, class: "btn change_view_btn checkout" %>
     <a href="#" class="btn change_view_btn show_lists_only" style="display:none;">只显示列表</a>
   </div>
   <% end %>

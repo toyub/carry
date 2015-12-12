@@ -1,2 +1,5 @@
-$(".check-account-area").html("<%= j render "/soa/salaries/check_account" %>");
-$(".details_nav, .details_content").show();
+$("body").append("<%= j render "/soa/salaries/display_record_detail" %>");
+$(".salary_record_wrap").show();
+$(".delete").on("click", function(){
+  $(".salary_record_wrap").hide();
+})
