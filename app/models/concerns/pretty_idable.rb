@@ -20,7 +20,13 @@ module PrettyIdable
     def find_by_pretty_id(pretty_id)
       obj_id = Mis::Utils::Encryption.decode_pretty_id(pretty_id)
       return if obj_id.blank?
-      find(obj_id)
+      find(obj_id.first)
+    end
+
+    def find_by_pretty_ids(pretty_code)
+      obj_ids = Mis::Utils::Encryption.decode_pretty_id(pretty_code)
+      return [] if obj_ids.blank?
+      find(obj_ids)
     end
 
   end
