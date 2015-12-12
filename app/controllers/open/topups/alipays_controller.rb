@@ -17,8 +17,9 @@ module Open
     def notify_url
       if Alipay.valid_alipay_param?(pure_params.except(:sign, :sign_type), pure_params[:sign], pure_params[:sign_type])
         result = deal_order(pure_params)
-        render json: result
-        return 
+        puts "\n"*8
+        result
+        puts "\n"
       end
       render text: 'success'
     end
