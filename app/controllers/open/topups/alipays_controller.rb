@@ -19,6 +19,9 @@ module Open
       if Alipay.valid_alipay_param?(pure_params.except(:sign, :sign_type), pure_params[:sign], pure_params[:sign_type])
         order = Order.find_by_pretty_id(pure_params[:out_trade_no])
         payment = save_notify_url(order, pure_params)
+        create_debit(payment)
+        create_credit(order)
+
         puts "\n"*8
         p ({order: order, payment: payment})
         puts "\n"
@@ -53,6 +56,18 @@ module Open
         payment.save
       end
       payment
+    end
+
+    def create_credit(order) #Credit has nothing share with payment
+      credit = Credit.create(party: order.party, amout: order.amount, subject: order.subject)
+      journal_entry = JournalEntry.create(party)
+      journal_entry.party.decrease_balance_cache(credit.amount)
+    end
+
+    def create_debit(payment) #Debit has nothing share with order
+      debit = Debit.create(party: payment.party, amout: payment.amout, subject: payment.payment_method.name)
+      journal_entry =  JournalEntry.create(party)
+      journal_entry.party.increase_balance_cache(debit.amout)
     end
   end
 end
