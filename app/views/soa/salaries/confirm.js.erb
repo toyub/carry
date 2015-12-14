@@ -1,3 +1,9 @@
 $(".check-account-area").html("<%= j render "/soa/salaries/check_account" %>");
 $(".details_nav, .details_content").show();
-$(".list_wrap").addClass("height-145");
+$(".list_wrap").addClass("height-145 highlight");
+$(".highlight").on("click", "tr", function(){
+  console.log("hello");
+  var staffId = $(this).data("id");
+  $.get("/soa/salaries/" + staffId + "/confirm", function(data) {
+  })
+})

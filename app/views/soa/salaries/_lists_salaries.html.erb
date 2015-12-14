@@ -25,13 +25,13 @@
         <td><%= staff.store_department.try(:name) %></td>
         <td><%= staff.store_position.try(:name) %></td>
         <td><%= staff.current_salary %></td>
-        <td>未设置</td>
-        <td><%= staff.bonus_amount %></td>
-        <td><%= staff.store_events.get_per_month_pay('StoreReward') %></td>
-        <td><%= staff.insurence_amount %></td>
-        <td><%= staff.store_events.get_per_month_pay('StoreOvertime') %></td>
-        <td><%= staff.cutfee %></td>
-        <td><%= staff.actual_pay %></td>
+        <td><%= staff.get_this_month_salary.amount_deduction %></td>
+        <td><%= staff.get_this_month_salary.amount_bonus %></td>
+        <td><%= staff.get_this_month_salary.amount_reward %></td>
+        <td><%= staff.get_this_month_salary.amount_insurence %></td>
+        <td><%= staff.get_this_month_salary.amount_overtime %></td>
+        <td><%= staff.get_this_month_salary.amount_should_cutfee %></td>
+        <td><%= staff.get_this_month_salary.salary_actual_pay %></td>
         </tr>
     <% end %>
     </tbody>

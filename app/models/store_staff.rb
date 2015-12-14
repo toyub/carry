@@ -21,6 +21,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :by_job_type, ->(job_type_id){ where(job_type_id: job_type_id) if job_type_id.present?}
 
   scope :salary_has_been_confirmed, ->(date = Time.now) { includes("store_salaries").where( store_salaries: { status: "true" }).where('store_salaries.created_at between ? and ?', date.beginning_of_month, date.end_of_month) }
+  scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
 
   def next
     StoreStaff.where("id > ?", id).limit(2).first
@@ -115,7 +116,13 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def salary_of_month(month = current_month)
-    store_salaries.where('extract(month from created_at) = ?', month).where(status: true).last
+    store_salaries.where('extract(month from created_at) = ?', month).where("status = true").last
+  end
+
+  def get_this_month_salary
+    salary = store_salaries.without_confirm_salary_of_this_month.first
+    salary = store_salaries.build(set_default_salary_params) if salary.nil?
+    salary
   end
 
   def locked?
@@ -146,5 +153,27 @@ class StoreStaff <  ActiveRecord::Base
       self.password = self.password_confirmation = rand
       encrypt_password
     end
+  end
+
+  def set_default_salary_params
+    {
+      amount_deduction: 5,
+      deduction: {},
+      amount_overtime: self.store_events.get_per_month_pay('StoreOvertime'),
+      amount_reward: self.store_events.get_per_month_pay('StoreReward'),
+      bonus: {gangwei: bonus["gangwei"], zhusu: bonus["zhusu"], canfei: bonus["canfei"], laobao: bonus["laobao"], gaowen: bonus["gaowen"] },
+      amount_bonus: self.bonus_amount,
+      insurence: {yibaofei: bonus["yibaofei"], baoxianjing: bonus["baoxianjing"]},
+      amount_insurence: self.insurence_amount,
+      cutfee: {weiji: store_events.get_per_month_pay("StorePenalty"),
+               kaoqin: store_events.get_per_month_pay("StoreAttendence"),
+               jiedai: "",
+               qita: "",
+               gerendanbao: bonus["gerendanbao"] },
+      amount_should_cutfee: cutfee,
+      amount_cutfee: cutfee,
+      salary_should_pay: actual_pay,
+      salary_actual_pay: actual_pay
+    }
   end
 end

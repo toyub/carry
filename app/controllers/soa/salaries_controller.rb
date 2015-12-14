@@ -1,6 +1,6 @@
 class Soa::SalariesController < Soa::BaseController
   def index
-    @staffs = current_store.store_staff.by_keyword(params[:keyword])
+    @staffs = current_store.store_staff.salary_has_been_not_confirmed.by_keyword(params[:keyword])
   end
 
   def record
@@ -21,6 +21,7 @@ class Soa::SalariesController < Soa::BaseController
 
   def confirm
     @staff = current_store.store_staff.find(params[:id])
+    @salary = @staff.get_this_month_salary
     @prev_staff = @staff.prev
     @next_staff = @staff.next
 
@@ -31,7 +32,7 @@ class Soa::SalariesController < Soa::BaseController
 
   def check
     @staff = current_store.store_staff.find(params[:id])
-    @salary = @staff.salary_of_month
+    @salary = @staff.get_this_month_salary
     respond_to do |format|
       format.js
     end
@@ -40,10 +41,15 @@ class Soa::SalariesController < Soa::BaseController
   def create
     @staff = current_store.store_staff.find(params[:staff_id])
     @salary = @staff.store_salaries.build(salary_param)
-    @salary.status = true if params[:commit] == "核准"
+    if params[:commit] == "核准"
+      @salary.status = true
+      dest_url =  record_soa_salaries_path
+    else
+      dest_url =  soa_salaries_path
+    end
 
     if @salary.save
-      redirect_to record_soa_salaries_path, notice: "save successfully"
+      redirect_to dest_url, notice: "save successfully"
     else
       render plain: @salary.errors.messages
     end
