@@ -1,11 +1,21 @@
 class StoreVehicle < ActiveRecord::Base
   include BaseModel
 
-  belongs_to :brand, class_name: "StoreVehicleBrand", foreign_key: :store_vehicle_brand_id
+  belongs_to :vehicle_brand
+  belongs_to :vehicle_model
+  belongs_to :vehicle_series
 
-  has_one :engine, class_name: "StoreVehicleEngine"
+  # 车牌
+  has_many :vehicle_plates
+  has_many :plates, through: :vehicle_plates
+
+  # 发动机
+  has_many :vehicle_engines
+  has_many :engines, through: :vehicle_engines
+
+  # 车架
   has_one :frame, class_name: "StoreVehicleFrame"
-  has_one :registration_plate, class_name: "StoreVehicleRegistrationPlate"
+
   has_many :orders, class_name: "StoreOrder"
 
   delegate :license_number, to: :registration_plate

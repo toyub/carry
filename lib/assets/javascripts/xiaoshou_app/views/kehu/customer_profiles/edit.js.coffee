@@ -12,7 +12,7 @@ class Mis.Views.KehuCustomerProfilesEdit extends Mis.Base.View
     'submit #customerForm': 'updateCustomer'
 
   render: ->
-    @$el.html(@template(customer: @model, view: @))
+    @$el.html(@template(entity: @model, view: @))
     @renderTop()
     @renderNav()
     @
