@@ -11,6 +11,13 @@ module Open
       if Alipay.valid_alipay_param?(pure_params.except(:sign, :sign_type), pure_params[:sign], pure_params[:sign_type])
         order = Order.find_by_pretty_id(pure_params[:out_trade_no])
         payment = save_return_url(order, pure_params)
+        unless order.paid
+          create_debit(payment)
+          create_credit(order)
+          order.paid = true
+          order.save
+        end
+
         render json: {order: order,payment: payment}
       end
     end
@@ -19,9 +26,10 @@ module Open
       if Alipay.valid_alipay_param?(pure_params.except(:sign, :sign_type), pure_params[:sign], pure_params[:sign_type])
         order = Order.find_by_pretty_id(pure_params[:out_trade_no])
         payment = save_notify_url(order, pure_params)
-        create_debit(payment)
-        create_credit(order)
-
+        unless order.paid
+          create_debit(payment)
+          create_credit(order)
+        end
         puts "\n"*8
         p ({order: order, payment: payment})
         puts "\n"
