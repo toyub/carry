@@ -25,9 +25,9 @@
           <th><%= @staff.numero %></th>
           <th><%= @staff.store_department.try(:name) %></th>
           <th><%= @staff.store_position.try(:name) %></th>
-          <th><%= @salary.basic_salary %></th>
+          <th><%= @staff.current_salary %></th>
           <th><%= @salary.amount_deduction %></th>
-          <th><%= @salary.amount_bonus %></th>
+          <th><%= @salary.amount_bonus %> </th>
           <th><%= @salary.amount_reward %></th>
           <th><%= @salary.amount_insurence %></th>
           <th><%= @salary.amount_overtime %></th>

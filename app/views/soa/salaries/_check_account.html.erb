@@ -7,7 +7,8 @@
 
 <div class="details_content salary_related">
 
-  <%= form_for @staff.store_salaries.new, as: :salary, url: soa_salaries_path(staff_id: @staff.id) do |form| %>
+  <% @salary.new_record? ? (url = soa_salaries_path(staff_id: @staff.id)) : (url = soa_salary_path(id: @salary.id, staff_id: @staff.id)) %>
+  <%= form_for @salary, as: :salary, url: url do |form| %>
     <div class="checkout_nav">
       <div class="date width-240">
         <span class="width-70 text-align-center">当前月份</span> <span class="show_content width-80"><%= Time.now.strftime("%Y-%m") %></span>

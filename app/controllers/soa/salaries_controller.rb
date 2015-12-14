@@ -32,7 +32,7 @@ class Soa::SalariesController < Soa::BaseController
 
   def check
     @staff = current_store.store_staff.find(params[:id])
-    @salary = @staff.get_this_month_salary
+    @salary = @staff.salary_of_month
     respond_to do |format|
       format.js
     end
@@ -49,7 +49,25 @@ class Soa::SalariesController < Soa::BaseController
     end
 
     if @salary.save
+      @salary.update(created_month: @salary.created_at.strftime("%Y%m"))
       redirect_to dest_url, notice: "save successfully"
+    else
+      render plain: @salary.errors.messages
+    end
+  end
+
+  def update
+    @staff = current_store.store_staff.find(params[:staff_id])
+    @salary = @staff.store_salaries.find(params[:id])
+    if params[:commit] == "核准"
+      @salary.status = true
+      dest_url =  record_soa_salaries_path
+    else
+      dest_url =  soa_salaries_path
+    end
+
+    if @salary.update(salary_param)
+      redirect_to dest_url
     else
       render plain: @salary.errors.messages
     end

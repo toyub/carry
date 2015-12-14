@@ -20,7 +20,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :by_level, ->(level_type_id){ where(level_type_id: level_type_id) if level_type_id.present?}
   scope :by_job_type, ->(job_type_id){ where(job_type_id: job_type_id) if job_type_id.present?}
 
-  scope :salary_has_been_confirmed, ->(date = Time.now) { includes("store_salaries").where( store_salaries: { status: "true" }).where('store_salaries.created_at between ? and ?', date.beginning_of_month, date.end_of_month) }
+  scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
 
   def next
@@ -123,6 +123,10 @@ class StoreStaff <  ActiveRecord::Base
     salary = store_salaries.without_confirm_salary_of_this_month.first
     salary = store_salaries.build(set_default_salary_params) if salary.nil?
     salary
+  end
+
+  def salary_of_month(month = Time.now.beginning_of_month.strftime("%Y%m") )
+    store_salaries.where(created_month: month, status: true).last
   end
 
   def locked?
