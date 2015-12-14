@@ -6,9 +6,15 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
   end
 
   def new
+    # @vehicle_file = StoreVehicle.new(plates: StoreVehicleRegistrationPlate.new,
+    #                                  vehicle_brand: VehicleBrand.new,
+    #                                  frame: StoreVehicleFrame.new
+    #                                 )
     @vehicle = StoreVehicle.new
+    @vehicle.plates.build
     @vehicle.build_frame
-    # @vehicle.detail ||= {}
+    @vehicle.engines.build
+
   end
 
   def create
@@ -31,7 +37,6 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
   end
 
   def update
-    # binding.pry
     @vehicle.update(append_store_attrs vehicle_params)
     redirect_to crm_store_customer_store_vehicle_archive_path
   end

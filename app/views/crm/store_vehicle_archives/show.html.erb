@@ -12,7 +12,7 @@
   	<ul>
   		<li id="kehushow" class="active"><a href="/mis/kehu/kehuliebiao/kehushow.html?kehushow" class="width-90">信息</a></li>
   		<li id="zichanzhanghu"><a href="/mis/kehu/kehuliebiao/zichanzhanghu.html?zichanzhanghu" class="width-90 ">资产账户</a></li>
-  		<li id="cheliangdangan"><a href="/crm/store_customers/1/store_vehicle_archives/2/information" class="width-90">车辆档案</a></li>
+  		<li id="cheliangdangan"><a href="/mis/kehu/kehuliebiao/cheliangdangan/show.html?cheliangdangan" class="width-90">车辆档案</a></li>
   		<li id="xiaofeijilu"><a href="/mis/kehu/kehuliebiao/xiaofeijilu.html?xiaofeijilu" class="width-90">消费记录</a></li>
   		<li id="huifangjilu"><a href="/mis/kehu/kehuliebiao/huifangjilu.html?huifangjilu" class="width-90">回访记录</a></li>
   		<li id="yixiang"><a href="/mis/kehu/kehuliebiao/yixiangchanpin.html?yixiang" class="width-90 ">意向产品</a></li>
@@ -20,7 +20,6 @@
   		<li id="manyidu"><a href="/mis/kehu/kehuliebiao/manyidu.html?manyidu" class="width-90">满意度</a></li>
   	</ul>
   </div>
-<script type="text/javascript"  src="/mis/js/common/details_nav.js"></script>
 <ul class="page_card">
   <li class="active" data-id="1" >
     <a href="javascript:void(0)">01</a>
@@ -43,9 +42,8 @@
   <div class="car_details float-right">
     <div class="details_nav_second">
       <ul class="goods_nav">
-        <li class="bg-color-5e3aa9"><a href="/crm/store_customers/1/store_vehicle_archives/2/information" class="width-90 color-fff">车辆信息</a></li>
+        <li class="bg-color-5e3aa9"><a href="show.html?cheliangdangan" class="width-90 color-fff">车辆信息</a></li>
         <li> <%= link_to '车辆状况', information_crm_store_customer_store_vehicle_archive_path(@customer.id, 4), class: 'width-90' %> </li>
-        <li><a href="" class="width-90  ">车辆状况</a></li>
         <li><a href="fuwujilu.html?cheliangdangan" class="width-90">服务记录</a></li>
         <li><a href="baodanlishi.html?cheliangdangan" class="width-90">保单历史</a></li>
       </ul>
@@ -61,160 +59,10 @@
           <img src="/images/car_01.png">
         </div>
         <div class="car_info">
-          <div class="section">
-            <div class="item_content">
-              <label class="width-75">车牌号码</label>
-            <span name="license_plate" class="width-165 border"><%= @vehicle.plates.last.license_number %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">品牌</label>
-              <span name="brand" class="width-165 border"><%= VehicleBrand.find(@vehicle.vehicle_brand_id).name %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">VIN号码</label>
-              <span class="width-165 border" name="vin"><%= @vehicle.frame.vin %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">发动机号码</label>
-              <span name="engine_number" class="width-165 border"><%= @vehicle.engines.last.identification_number %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">档案编号</label>
-              <span name="file_number" class="width-165 border"><%= @vehicle.numero %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">车辆性质</label>
-              <span name="vehicle_character" class="width-165 border"><%= @vehicle.detail["organization_type"] %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">购买日期</label>
-              <span name="purchase_date" class="width-165 border"><%= @vehicle.detail["bought_on"] %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">出厂日期</label>
-              <span name="factory_date" class="width-165 border"><%= @vehicle.detail["ex_factory_date"] %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">最近保养时间</label>
-              <span name="recent_maintenance_time" class="width-165 border"><%= @vehicle.detail["maintained_at"] %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">最近保养里程</label>
-              <span name="recent_maintenance_km" class="width-165 border"><%= @vehicle.detail["maintained_mileage"] %></span>
-            </div>
-
-            <div class="bg-color-efeae5 float-left margin-top-10">
-              <div class="item_content">
-                <label class="width-75">保养间隔时间</label>
-                <span name="maintenance_interval" class="width-165 border"><%= @vehicle.detail["maintain_interval_time"] %></span>
-              </div>
-              <div class="item_content">
-                <label class="width-75">保养间隔里程</label>
-                <span name="maintenance_interval_mileage" class="width-165 border"><%= @vehicle.detail["maintain_interval_mileage"] %></span>
-              </div>
-              <div class="item_content">
-                <label class="width-75">自动提醒</label>
-                <span class="width-80 text-align-right">
-                  <label>客户</label>
-                  <input type="checkbox" <%= 'checked' if @vehicle.detail['next_maintain_customer_alermify'] %> >
-                </span>
-                <span class=" width-77 text-align-right padding-right-7">
-                  <label>系统</label>
-                  <input type="checkbox" <%= 'checked' if @vehicle.detail['next_maintain_store_alermify'] %> >
-                </span>
-              </div>
-              <div class="item_content">
-                <label class="width-75">下次保养里程</label>
-                <span name="nex_maintenance_mileage" class="width-165 border"><%= @vehicle.detail["next_maintain_mileage"] %></span>
-              </div>
-              <div class="item_content next_maintenance_time">
-                <label class="width-75">下次保养时间</label>
-                <span name="nex_maintenance_time" class="width-165 border"><%= @vehicle.detail["next_maintain_at"] %></span>
-              </div>
-            </div>
+          <div class="items">
+            <%= render 'form' %>
           </div>
-
-          <div class="section">
-            <div class="item_content">
-              <label class="width-75">车型</label>
-              <span name="model" class="width-165 border"><%= VehicleModel.find(@vehicle.vehicle_model_id).name %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">车系</label>
-              <span name="cars" class="width-165 border"><%= VehicleSeries.find(@vehicle.vehicle_series_id).name %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">颜色</label>
-              <span name="cars" class="width-165 border"><%= @vehicle.detail["color"] %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">座位数</label>
-              <span name="seating" class="width-165 border"><%= @vehicle.detail["capacity"] %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">建档人</label>
-              <span name="bulid_block" class="width-165 border"><%= StoreStaff.find(@vehicle.store_staff_id).full_name %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">建档日期</label>
-              <span name="bulid_block_date" class="width-165 border"><%= @vehicle.created_at %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">上牌时间</label>
-              <span name="license_plate_time" class="width-165 border"><%= @vehicle.detail["registered_on"] %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">公里数</label>
-              <span name="km_number" class="width-165 border"><%= @vehicle.detail["mileage"] %></span>
-            </div>
-            <div class="item_content">
-              <label class="width-75">完整度</label>
-              <span class="stars width-165">
-                <i class="fa fa-star color-FF7539"></i>
-                <i class="fa fa-star-o color-FF7539"></i>
-              </span>
-            </div>
-            <div class="bg-color-efeae5 float-left margin-top-10">
-              <div class="item_content">
-                <label class="width-75">年检时间</label>
-                <span name="inspection_time" class="width-165 border"><%= @vehicle.detail["annual_check_at"] %></span>
-              </div>
-              <div class="item_content">
-                <label class="width-75">自动提醒</label>
-                <span class="width-80 text-align-right">
-                  <label>客户</label>
-                  <input type="checkbox" <%= 'checked' if @vehicle.detail['annual_check_customer_alermify'] %> >
-                </span>
-                <span class="width-70 text-align-right padding-right-7">
-                  <label>系统</label>
-                  <input type="checkbox" <%= 'checked' if @vehicle.detail['annual_check_store_alermify'] %> >
-                </span>
-              </div>
-              <div class="item_content margin-right-150">
-                <label class="width-75">保险公司</label>
-                <span name="insurers" class="width-165 border"><%= @vehicle.detail["insurance_compnay"] %></span>
-              </div>
-              <div class="item_content">
-                <label class="width-75">保险截至</label>
-                <span name="Insurance_deadline" class="width-165 border"><%= @vehicle.detail["insurance_expire_at"] %></span>
-              </div>
-              <div class="item_content">
-                <label class="width-75">自动提醒</label>
-                <span class="display-inline-block width-80 text-align-right ">
-                  <label>客户</label>
-                  <input type="checkbox" <%= 'checked' if @vehicle.detail['insurance_customer_alermify'] %> >
-                </span>
-                <span class="display-inline-block width-70 text-align-right padding-right-7">
-                  <label>系统</label>
-                  <input type="checkbox" <%= 'checked' if @vehicle.detail['insurance_store_alermify'] %> >
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="btn_group">
-            <%= link_to '编辑', edit_crm_store_customer_store_vehicle_archive_path(@customer, @vehicle), class: 'edit_btn btn' %>
-          </div>
+        </div>
         </div>
       </div>
     </div>
