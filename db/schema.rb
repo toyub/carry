@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211064049) do
+ActiveRecord::Schema.define(version: 20151211084414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1338,10 +1338,6 @@ ActiveRecord::Schema.define(version: 20151211064049) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> customer
   create_table "store_switches", force: :cascade do |t|
     t.integer  "store_id"
     t.integer  "store_chain_id"
@@ -1349,23 +1345,10 @@ ActiveRecord::Schema.define(version: 20151211064049) do
     t.integer  "switchable_id"
     t.string   "switchable_type"
     t.boolean  "enabled",         default: false
-<<<<<<< HEAD
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "store_vehicle_brands", force: :cascade do |t|
-=======
->>>>>>> e0d3dbe9a384882b518a4765d751fdc79a5d6f87
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 18e12170d2b87678a391301c7f56fbef75e9a163
->>>>>>> customer
   create_table "store_vehicle_engines", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1460,8 +1443,6 @@ ActiveRecord::Schema.define(version: 20151211064049) do
     t.integer  "store_staff_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-<<<<<<< HEAD
-=======
   end
 
   create_table "vehicle_brands", force: :cascade do |t|
@@ -1496,7 +1477,6 @@ ActiveRecord::Schema.define(version: 20151211064049) do
     t.integer  "vehicle_brand_id",              comment: "所属品牌"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
->>>>>>> e0d3dbe9a384882b518a4765d751fdc79a5d6f87
   end
 
 end

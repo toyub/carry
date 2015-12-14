@@ -228,7 +228,7 @@ Rails.application.routes.draw do
   end
 
   namespace :crm do
-    resources :store_customer do
+    resources :store_customers do
       resources :store_vehicle_archives do
         member do
           get :information

@@ -23,4 +23,5 @@ class StoreVehicle < ActiveRecord::Base
   accepts_nested_attributes_for :plates
   accepts_nested_attributes_for :frame
   accepts_nested_attributes_for :engines
+
 end

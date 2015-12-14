@@ -6,15 +6,9 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
   end
 
   def new
-    # @vehicle_file = StoreVehicle.new(plates: StoreVehicleRegistrationPlate.new,
-    #                                  vehicle_brand: VehicleBrand.new,
-    #                                  frame: StoreVehicleFrame.new
-    #                                 )
     @vehicle = StoreVehicle.new
-    @vehicle.plates.build
     @vehicle.build_frame
-    @vehicle.engines.build
-
+    # @vehicle.detail ||= {}
   end
 
   def create
