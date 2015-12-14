@@ -1338,6 +1338,10 @@ ActiveRecord::Schema.define(version: 20151211064049) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> customer
   create_table "store_switches", force: :cascade do |t|
     t.integer  "store_id"
     t.integer  "store_chain_id"
@@ -1357,6 +1361,11 @@ ActiveRecord::Schema.define(version: 20151211064049) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 18e12170d2b87678a391301c7f56fbef75e9a163
+>>>>>>> customer
   create_table "store_vehicle_engines", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
