@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211084414) do
+ActiveRecord::Schema.define(version: 20151214035802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,20 +65,22 @@ ActiveRecord::Schema.define(version: 20151211084414) do
   end
 
   create_table "credits", force: :cascade do |t|
-    t.integer  "journal_entry_id"
-    t.decimal  "amount",           precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2
     t.string   "subject"
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "party_type"
+    t.integer  "party_id"
   end
 
   create_table "debits", force: :cascade do |t|
-    t.integer  "journal_entry_id"
-    t.decimal  "amount",           precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2
     t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "party_type"
+    t.integer  "party_id"
   end
 
   create_table "info_categories", force: :cascade do |t|
@@ -92,9 +94,11 @@ ActiveRecord::Schema.define(version: 20151211084414) do
   create_table "journal_entries", force: :cascade do |t|
     t.string   "party_type"
     t.integer  "party_id"
-    t.decimal  "balance",    precision: 10, scale: 2
+    t.decimal  "balance",          precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "journalable_type"
+    t.integer  "journalable_id"
   end
 
   create_table "order_items", force: :cascade do |t|
