@@ -31,6 +31,14 @@ class StoreStaff <  ActiveRecord::Base
     StoreStaff.where("id < ?", id).limit(2).last
   end
 
+  def self.record_search(params, month)
+    staffs = salary_has_been_confirmed
+    staffs = staffs.where(store_department_id: params[:store_department_id]) if params[:store_department_id].present?
+    staffs = staffs.where(store_position_id: params[:store_position_id]) if params[:store_position_id].present?
+    staffs = staffs.joins(:store_salaries).where(store_salaries: {created_month: month} )
+    staffs
+  end
+
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end

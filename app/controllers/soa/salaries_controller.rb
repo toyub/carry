@@ -10,13 +10,15 @@ class Soa::SalariesController < Soa::BaseController
   end
 
   def search
-    @staffs = current_store.store_staff
-                                              .by_keyword(params[:keyword])
-                                              .by_level(params[:level_type_id])
-                                              .by_job_type(params[:job_type_id])
+    @date = Date.today
+    if params["date(1i)"] && params["date(2i)"]
+      @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
+    end
+    month = @date.strftime("%Y%m")
+    @staffs = current_store.store_staff.record_search(params, month)
     @departments = current_store.store_departments
-    @positions = @departments.find(params[:store_department_id]).store_positions
-    @search_date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
+    @positions = @departments[0].store_positions
+    render 'record'
   end
 
   def confirm

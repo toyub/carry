@@ -12,7 +12,12 @@
 
     <%= render "soa/salaries/search_record" %>
 
-    <%= render "soa/salaries/lists_have_checked_salaries" %>
+    <% unless @staffs.nil? %>
+      <%= render "soa/salaries/lists_have_checked_salaries"  %>
+    <% else %>
+      <h1>未查找到数据信息，请重新查找!</h1>
+    <% end %>
 
   </div>
 </div>
+

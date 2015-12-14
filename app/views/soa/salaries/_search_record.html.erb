@@ -1,11 +1,11 @@
 <div class="search_nav">
-  <%= form_tag("/soa/salary/search", method: :get) do -%>
+  <%= form_tag("/soa/salaries/search", method: :get) do -%>
     <div class="date">
       <span>日期</span>
       <%= date_select(
         "", :date,
-        { start_year: 2000, use_short_month: true, discard_day: true, :default => @search_date},
-        {:include_blank => @search_date.nil?, class: "width-100" }
+        { start_year: 2000, use_short_month: true, discard_day: true, :default => @date},
+        {:include_blank => @date.nil?, class: "width-100" }
       )
     %>
     </div>
@@ -13,7 +13,7 @@
   <div class="department">
     <span>部门</span>
     <select name="store_department_id" class="width-100">
-      <option disabled selected> 全部 </option>
+      <option value="" selected> 全部 </option>
       <%= options_from_collection_for_select(@departments, 'id', 'name', params[:store_department_id]) %>
     </select>
   </div>
@@ -21,7 +21,7 @@
   <div class="position">
     <span>职务</span>
     <select name="store_position_id" class="width-100">
-      <option disabled selected> 全部 </option>
+      <option value="" selected> 全部 </option>
       <%= options_from_collection_for_select(@positions, 'id', 'name', params[:store_position_id]) %>
     </select>
   </div>
@@ -45,3 +45,16 @@
   </div>
   <% end %>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $('#content').on('change', '[name="store_department_id"]', function(){
+      $.get('/api/store_departments/'+this.value+'/store_positions.json', function(positions){
+        var options = positions.map(function(position){
+          return '<option value="'+ position.id +'">'+ position.name +'</option>'
+        });
+        $('[name="store_position_id"]').html(options.join(''));
+      });
+    })
+  });
+</script>
