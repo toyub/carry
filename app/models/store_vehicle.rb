@@ -20,8 +20,7 @@ class StoreVehicle < ActiveRecord::Base
 
   delegate :license_number, to: :registration_plate
 
-  accepts_nested_attributes_for :vehicle_plates
-  # accepts_nested_attributes_for :store_vehicle_registration_plates
-  accepts_nested_attributes_for :vehicle_brand
-  accepts_nested_attributes_for :vehicle_engines
+  accepts_nested_attributes_for :plates
+  accepts_nested_attributes_for :frame
+  accepts_nested_attributes_for :engines
 end

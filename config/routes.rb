@@ -183,8 +183,14 @@ Rails.application.routes.draw do
 
   end
 
-  namespace :customer do
-    resources :store_vehicle_files 
+  namespace :crm do
+    resources :store_customer do
+      resources :store_vehicle_archives do
+        member do
+          get :information
+        end
+      end
+    end
   end
 
   root 'kucun/materials#index'
