@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211084414) do
+ActiveRecord::Schema.define(version: 20151214035802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,20 +65,22 @@ ActiveRecord::Schema.define(version: 20151211084414) do
   end
 
   create_table "credits", force: :cascade do |t|
-    t.integer  "journal_entry_id"
-    t.decimal  "amount",           precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2
     t.string   "subject"
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "party_type"
+    t.integer  "party_id"
   end
 
   create_table "debits", force: :cascade do |t|
-    t.integer  "journal_entry_id"
-    t.decimal  "amount",           precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2
     t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "party_type"
+    t.integer  "party_id"
   end
 
   create_table "info_categories", force: :cascade do |t|
@@ -92,9 +94,11 @@ ActiveRecord::Schema.define(version: 20151211084414) do
   create_table "journal_entries", force: :cascade do |t|
     t.string   "party_type"
     t.integer  "party_id"
-    t.decimal  "balance",    precision: 10, scale: 2
+    t.decimal  "balance",          precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "journalable_type"
+    t.integer  "journalable_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -264,42 +268,6 @@ ActiveRecord::Schema.define(version: 20151211084414) do
     t.datetime "updated_at"
   end
 
-  create_table "store_customer_entities", force: :cascade do |t|
-    t.integer  "store_customer_category_id"
-    t.string   "telephone"
-    t.string   "mobile"
-    t.string   "qq"
-    t.json     "district"
-    t.string   "address"
-    t.float    "range"
-    t.string   "property"
-    t.string   "remark"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "store_id"
-    t.integer  "store_staff_id"
-    t.integer  "store_chain_id"
-  end
-
-  create_table "store_customer_settlements", force: :cascade do |t|
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_staff_id"
-    t.string   "bank"
-    t.string   "bank_account"
-    t.string   "credit"
-    t.string   "credit_amount"
-    t.string   "notice_period"
-    t.string   "contract"
-    t.string   "tax"
-    t.string   "payment_mode"
-    t.string   "invoice_type"
-    t.string   "invoice_title"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "store_customer_entity_id"
-  end
-
   create_table "store_customers", force: :cascade do |t|
     t.integer  "store_id",                              null: false
     t.integer  "store_chain_id",                        null: false
@@ -312,18 +280,6 @@ ActiveRecord::Schema.define(version: 20151211084414) do
     t.string   "phone_number",               limit: 45
     t.string   "qq"
     t.integer  "store_customer_category_id"
-    t.boolean  "gender"
-    t.string   "nick"
-    t.string   "resident_id"
-    t.date     "birthday"
-    t.boolean  "married"
-    t.string   "education"
-    t.string   "profession"
-    t.string   "income"
-    t.string   "company"
-    t.boolean  "tracking_accepted"
-    t.boolean  "message_accepted"
-    t.integer  "store_customer_entity_id"
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -1434,22 +1390,6 @@ ActiveRecord::Schema.define(version: 20151211084414) do
     t.decimal  "balance"
     t.boolean  "available",                  default: true
     t.integer  "creator_id"
-  end
-
-  create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.string   "taggable_type"
-    t.integer  "taggable_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string   "name"
-    t.string   "type"
-    t.integer  "store_staff_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
   end
 
 end
