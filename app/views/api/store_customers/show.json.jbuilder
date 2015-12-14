@@ -34,5 +34,6 @@ json.(@customer,
     :invoice_title,
     :credit_amount,
     :remark,
-    :qq
+    :qq,
+    :age
 )

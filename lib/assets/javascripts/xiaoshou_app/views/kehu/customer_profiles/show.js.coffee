@@ -6,6 +6,11 @@ class Mis.Views.KehuCustomerProfilesShow extends Mis.Base.View
   initialize: ->
 
   render: ->
-    @$el.html(@template())
+    @$el.html(@template(entity: @model))
     @renderTop()
+    @renderNav()
     @
+
+  renderNav: ->
+    nav = new Mis.Views.KehuCustomerNavsMaster()
+    @appendChildTo(nav, @$(".details .details_nav"))

@@ -22,7 +22,7 @@ class XiaoshouController < ApplicationController
       json.customer_categories current_store.store_customer_categories, :id, :name
       json.commissions current_store.commission_templates, :id, :name
       json.services current_store.store_services, :id, :name, :code, :bargain_price, :point, :retail_price
-      json.customers current_store.store_customers, :id, :full_name, :mobile, :satisfaction, :integrity
+      json.customers current_store.store_customer_entities, :id
       json.root_material_categories current_store.root_material_categories do |c|
         json.(c, :id, :store_id, :parent_id, :name)
         json.sub_categories c.sub_categories do |s|
@@ -30,7 +30,6 @@ class XiaoshouController < ApplicationController
         end
       end
       json.provinces Geo.provinces(1), :name, :code
-      json.cities Geo.cities(1, 11), :name, :code
     end
   end
 end

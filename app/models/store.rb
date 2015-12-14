@@ -34,6 +34,7 @@ class Store <  ActiveRecord::Base
   has_many :store_payments
 
   has_many :store_switches
+  has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },

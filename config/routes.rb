@@ -192,7 +192,12 @@ Rails.application.routes.draw do
       resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
-    resources :store_customers, only: [:index, :create, :update, :show]
+    resources :store_customer_entities, only: [:index, :create, :update, :show] do
+      collection do
+        get :cities
+        get :regions
+      end
+    end
 
     resource :qiniu do
       collection do
@@ -217,6 +222,16 @@ Rails.application.routes.draw do
         collection do
           post :notify_url
           get :return_url
+        end
+      end
+    end
+  end
+
+  namespace :crm do
+    resources :store_customer do
+      resources :store_vehicle_archives do
+        member do
+          get :information
         end
       end
     end
