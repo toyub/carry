@@ -1,14 +1,12 @@
 class Order < ActiveRecord::Base
   include PrettyIdable
 
+  belongs_to :party, polymorphic: true
   has_many :order_items
 
-  before_create :set_numero
+  validates :party_type, :party_id, presence: true
 
-  def set_party(party)
-    self.party_type = party.class.name
-    self.party_id = party.id
-  end
+  before_create :set_numero
 
   private
   def set_numero

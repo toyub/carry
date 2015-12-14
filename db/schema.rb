@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214035802) do
+ActiveRecord::Schema.define(version: 20151214080810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20151214035802) do
     t.datetime "updated_at"
     t.string   "party_type"
     t.integer  "party_id"
+    t.integer  "payment_id"
   end
 
   create_table "info_categories", force: :cascade do |t|
@@ -135,6 +136,7 @@ ActiveRecord::Schema.define(version: 20151214035802) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "debit_id"
+    t.string   "subject"
   end
 
   create_table "renewal_records", force: :cascade do |t|

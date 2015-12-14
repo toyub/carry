@@ -8,37 +8,34 @@ module Open
     # end
 
     def return_url
-      if Alipay.valid_alipay_param?(pure_params.except(:sign, :sign_type), pure_params[:sign], pure_params[:sign_type])
+      if Alipay.valid_alipay_param?(alipay_params.except(:sign, :sign_type), alipay_params[:sign], alipay_params[:sign_type])
+        topup_transaction!(alipay_params)
+      end
+    end
+
+    def notify_url
+      if Alipay.valid_alipay_param?(alipay_params.except(:sign, :sign_type), alipay_params[:sign], alipay_params[:sign_type])
+        topup_transaction!(alipay_params)
+      end
+      render text: 'success'
+    end
+
+    private
+
+    def topup_transaction!(pure_params)
+      ActiveRecord::Base.transaction do
         order = Order.find_by_pretty_id(pure_params[:out_trade_no])
-        payment = save_return_url(order, pure_params)
+        payment = save_notify_url(order, pure_params)
         unless order.paid
           create_debit(payment)
           create_credit(order)
           order.paid = true
           order.save
         end
-
-        render json: {order: order,payment: payment}
       end
     end
 
-    def notify_url
-      if Alipay.valid_alipay_param?(pure_params.except(:sign, :sign_type), pure_params[:sign], pure_params[:sign_type])
-        order = Order.find_by_pretty_id(pure_params[:out_trade_no])
-        payment = save_notify_url(order, pure_params)
-        unless order.paid
-          create_debit(payment)
-          create_credit(order)
-        end
-        puts "\n"*8
-        p ({order: order, payment: payment})
-        puts "\n"
-      end
-      render text: 'success'
-    end
-
-    private
-    def pure_params
+    def alipay_params
       params.except(:action, :controller)
     end
 
@@ -49,33 +46,27 @@ module Open
     end
 
     def save_return_url(order, options)
-      payment = Payment.find_or_create_by(payment_method: Alipay.name, order_id: order.id)
-      if payment.third_party_params.blank? || !payment.third_party_params.has_key?(:return_url)
-        payment.third_party_params = ({return_url: options, return_at: Time.now}).merge(payment.third_party_params || {})
-        payment.save
-      end
-      payment
+      save_third_party_params(order, {return_url: options, return_at: Time.now})
     end
 
     def save_notify_url(order, options)
-      payment = Payment.find_or_create_by(payment_method: Alipay.name, order_id: order.id)
-      if payment.third_party_params.blank? || !payment.third_party_params.has_key?(:notify_url)
-        payment.third_party_params = ({notify_url: options, notify_at: Time.now}).merge(payment.third_party_params || {})
-        payment.save
-      end
+      save_third_party_params(order, {notify_url: options, notify_at: Time.now})
+    end
+
+    def save_third_party_params(order, options)
+      payment = Payment.find_or_create_by(payment_method: Alipay.name, order_id: order.id, party: order.party)
+      payment.third_party_params = (options).merge(payment.third_party_params || {})
+      payment.subject = '使用支付宝付款'
+      payment.save
       payment
     end
 
     def create_credit(order) #Credit has nothing share with payment
-      credit = Credit.create(party: order.party, amout: order.amount, subject: order.subject)
-      journal_entry = JournalEntry.create(party)
-      journal_entry.party.decrease_balance_cache(credit.amount)
+      Journalable.create_credit!(order)
     end
 
     def create_debit(payment) #Debit has nothing share with order
-      debit = Debit.create(party: payment.party, amout: payment.amout, subject: payment.payment_method.name)
-      journal_entry =  JournalEntry.create(party)
-      journal_entry.party.increase_balance_cache(debit.amout)
+      Journalable.create_debit!(payment)
     end
   end
 end

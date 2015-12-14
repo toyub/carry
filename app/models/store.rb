@@ -50,4 +50,12 @@ class Store <  ActiveRecord::Base
   def engineer_levels
     ENGINEER_LEVEL.invert
   end
+
+  def increase_balance!(amount)
+    self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) + #{balance.to_f.abs}")
+  end
+
+  def decrease_balance!(amount)
+    self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) - #{balance.to_f.abs}")
+  end
 end
