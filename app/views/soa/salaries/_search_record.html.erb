@@ -49,10 +49,12 @@
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
     $('#content').on('change', '[name="store_department_id"]', function(){
+      if (this.value == "") { this.value = 1};
       $.get('/api/store_departments/'+this.value+'/store_positions.json', function(positions){
         var options = positions.map(function(position){
           return '<option value="'+ position.id +'">'+ position.name +'</option>'
         });
+        options.splice(0, 0, '{<option value="" selected>全部</option>}')
         $('[name="store_position_id"]').html(options.join(''));
       });
     })

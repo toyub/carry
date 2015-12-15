@@ -15,7 +15,12 @@ class Soa::SalariesController < Soa::BaseController
       @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
     end
     month = @date.strftime("%Y%m")
-    @staffs = current_store.store_staff.record_search(params, month)
+    @staffs = current_store.store_staff.salary_has_been_confirmed
+                                       .by_keyword(params[:keyword])
+                                       .by_created_month_in_salary(month)
+                                       .by_department_id(params[:store_department_id])
+                                       .by_position_id(params[:store_position_id])
+
     @departments = current_store.store_departments
     @positions = @departments[0].store_positions
     render 'record'

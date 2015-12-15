@@ -9,7 +9,11 @@
 
     <%= render "/soa/salaries/search_keyword" %>
 
-    <%= render "/soa/salaries/lists_salaries" %>
+    <% if !@staffs.empty? %>
+      <%= render "/soa/salaries/lists_salaries" %>
+    <% else %>
+      <h1>未查到相关数据，请从新查询!</h1>
+    <% end %>
 
   </div>
 

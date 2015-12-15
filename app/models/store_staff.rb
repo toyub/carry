@@ -19,6 +19,9 @@ class StoreStaff <  ActiveRecord::Base
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
   scope :by_level, ->(level_type_id){ where(level_type_id: level_type_id) if level_type_id.present?}
   scope :by_job_type, ->(job_type_id){ where(job_type_id: job_type_id) if job_type_id.present?}
+  scope :by_department_id, ->(store_department_id) { where(store_department_id: store_department_id) if store_department_id.present? }
+  scope :by_position_id, ->(store_position_id) { where(store_position_id: store_position_id) if store_position_id.present? }
+  scope :by_created_month_in_salary, ->(month) { joins(:store_salaries).where(store_salaries: {created_month: month} ) if month.present? }
 
   scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
@@ -29,14 +32,6 @@ class StoreStaff <  ActiveRecord::Base
 
   def prev
     StoreStaff.where("id < ?", id).limit(2).last
-  end
-
-  def self.record_search(params, month)
-    staffs = salary_has_been_confirmed
-    staffs = staffs.where(store_department_id: params[:store_department_id]) if params[:store_department_id].present?
-    staffs = staffs.where(store_position_id: params[:store_position_id]) if params[:store_position_id].present?
-    staffs = staffs.joins(:store_salaries).where(store_salaries: {created_month: month} )
-    staffs
   end
 
   def self.encrypt_with_salt(txt, salt)
@@ -117,14 +112,6 @@ class StoreStaff <  ActiveRecord::Base
     sum = 0
     sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay - bonus["gerendanbao"].to_f
     sum
-  end
-
-  def current_month
-    Time.now.beginning_of_month.strftime("%m")
-  end
-
-  def salary_of_month(month = current_month)
-    store_salaries.where('extract(month from created_at) = ?', month).where("status = true").last
   end
 
   def get_this_month_salary
