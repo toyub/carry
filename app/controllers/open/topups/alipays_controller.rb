@@ -10,8 +10,8 @@ module Open
 
     def return_url
       order = Order.find_by_pretty_id(alipay_params[:out_trade_no])
-      payment = save_third_party_params(order, {return_url: alipay_params, return_at: Time.now})
-      topup_transaction!(order, payment)
+      @payment = save_third_party_params(order, {return_url: alipay_params, return_at: Time.now})
+      topup_transaction!(order, @payment)
     end
 
     def notify_url

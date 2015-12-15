@@ -8,6 +8,12 @@ class Order < ActiveRecord::Base
 
   before_create :set_numero
 
+  has_many :payments
+
+  def payments_methods
+    self.payments.map { |payment| payment.payment_method.cn_name }
+  end
+
   private
   def set_numero
     sequence = Order.where('created_at between ? and ?', Time.now.beginning_of_day, Time.now.end_of_day).count + 1
