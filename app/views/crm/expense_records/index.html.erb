@@ -1,0 +1,378 @@
+<%= content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+<div class="content" id="content">
+        <div class="main_top margin-left-0">
+  <h2>客户列表</h2>
+  <span class="margin-left-20 font-16 main_top_span">客户详情</span>
+  <a class="back_to_list" href="index.html">
+  <i class="fa-arrow-circle-left  fa"></i>
+  返回列表
+</a>
+
+</div>
+<div class="details">
+
+
+<div class="details_nav">
+	<ul>
+		<li id="kehushow" class=""><a href="/mis/kehu/kehuliebiao/kehushow.html?kehushow" class="width-90">信息</a></li>
+		<li id="zichanzhanghu"><a href="/mis/kehu/kehuliebiao/zichanzhanghu.html?zichanzhanghu" class="width-90 ">资产账户</a></li>
+		<li id="cheliangdangan"><a href="/mis/kehu/kehuliebiao/cheliangdangan/show.html?cheliangdangan" class="width-90">车辆档案</a></li>
+		<li id="xiaofeijilu" class="active"><a href="/mis/kehu/kehuliebiao/xiaofeijilu.html?xiaofeijilu" class="width-90">消费记录</a></li>
+		<li id="huifangjilu"><a href="/mis/kehu/kehuliebiao/huifangjilu.html?huifangjilu" class="width-90">回访记录</a></li>
+		<li id="yixiang"><a href="/mis/kehu/kehuliebiao/yixiangchanpin.html?yixiang" class="width-90 ">意向产品</a></li>
+		<li id="tousu"><a href="/mis/kehu/kehuliebiao/tousu.html?tousu" class="width-90">投诉记录</a></li>
+		<li id="manyidu"><a href="/mis/kehu/kehuliebiao/manyidu.html?manyidu" class="width-90">满意度</a></li>
+	</ul>
+</div>
+
+<%= search_form_for @q, url: @search_url, class: 'search navbar-form' do |f| -%>
+  <div class="nav_query_wrap">
+    <div class="nav-item-query">
+      <label>选择车辆</label>
+      <select class="width-120">
+        <option>浙A-N209A</option>
+        <option>全部车辆</option>
+        <option>浙A-16034</option>
+        <option>浙A-22776</option>
+      </select>
+    </div>
+
+    <div class="nav-item-query">
+      <label>选择时间</label>
+      <input type="date" class="width-120">
+      <input type="date" class="width-120">
+    </div>
+
+    <div class="nav-item-query">
+      <a href="javascript:void(0)" class="btn query_btn">查<nbsp1></nbsp1>询</a>
+    </div>
+  </div>
+<% end -%>
+
+
+
+
+
+  <div class="details_content car_content">
+    <div class="base_info">
+      <div class="car_list">
+        <dl>
+          <dt>#</dt>
+          <dt>时间</dt>
+          <dt>业务单号</dt>
+          <dt>开单</dt>
+          <dt>施工</dt>
+          <dt>项目&amp;产品</dt>
+          <dt>单价</dt>
+          <dt>数量</dt>
+          <dt>优惠</dt>
+          <dt>小计</dt>
+          <dt>操作</dt>
+        </dl>
+        <div class="car_sercice_record">
+
+          <div class="item_car_service_record_wrapper">
+            <div class="items_car_service_records">
+              <div class="item_car_service_record ">
+                <label class="label_td ">1</label>
+                <label class="label_td">2014-8-07</label>
+                <label class="label_td">20140807100001</label>
+                <label class="label_td">黄丽丽</label>
+                <div class="item_construction">
+                  <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td><label>王晓勇</label><label>李明亮</label></td>
+                        <td>
+                          <ul>
+                            <li>常规保养</li>
+                            <li>60.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>60.00</li>
+                          </ul>
+                          <ul>
+                            <li>实多磁护机油OW-40</li>
+                            <li>285.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>285.00</li>
+                          </ul>
+                          <ul>
+                            <li>宝马5系原厂机滤</li>
+                            <li>85.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>85.00</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="item_construction">
+                  <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td><label>冷造</label><label>陶冬易</label></td>
+                        <td>
+                          <ul>
+                            <li>3M水晶蜡</li>
+                            <li>160.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>160.00</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+              <dl class="total">
+                <dd>合计:</dd>
+                <dd>750.00</dd>
+              </dl>
+            </div>
+            <dl class="get_order text-align-center ">
+              <dd><a href="/mis/xiaoshou/fuwu/jilu.html" target="_blank" class="order_btn">查看单据</a></dd>
+              <dd><a href="javascript:void(0)" class="complaints_btn btn do_complaints">投诉</a></dd>
+            </dl>
+          </div>
+
+
+          <div class="item_car_service_record_wrapper">
+            <div class="items_car_service_records">
+              <div class="item_car_service_record ">
+                <label class="label_td">2</label>
+                <label class="label_td">2014-8-11</label>
+                <label class="label_td">20140811100289</label>
+                <label class="label_td">李丽</label>
+                <div class="item_construction">
+                  <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td><label>雷洪</label> <label>太太郎</label></td>
+                        <td>
+                          <ul>
+                            <li>精致洗车</li>
+                            <li>80.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>80.00</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <dl class="total">
+                <dd>合计:</dd>
+                <dd>750.00</dd>
+              </dl>
+            </div>
+            <dl class="get_order text-align-center ">
+              <dd><a href="/mis/xiaoshou/fuwu/jilu.html" target="_blank" class="order_btn">查看单据</a></dd>
+              <dd><a href="javascript:void(0)" class="complaints_btn btn do_complaints">投诉</a></dd>
+            </dl>
+          </div>
+
+          <div class="item_car_service_record_wrapper">
+            <div class="items_car_service_records">
+              <div class="item_car_service_record ">
+                <label class="label_td">3</label>
+                <label class="label_td">2014-8-07</label>
+                <label class="label_td">20140807100001</label>
+                <label class="label_td">黄丽丽</label>
+                <div class="item_construction">
+                  <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td><label>王晓勇</label><label>李明亮</label></td>
+                        <td>
+                          <ul>
+                            <li>常规保养</li>
+                            <li>60.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>60.00</li>
+                          </ul>
+                          <ul>
+                            <li>实多磁护机油OW-40</li>
+                            <li>285.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>285.00</li>
+                          </ul>
+                          <ul>
+                            <li>宝马5系原厂机滤</li>
+                            <li>85.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>85.00</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="item_construction">
+                  <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td><label>冷造</label><label>陶冬易</label></td>
+                        <td>
+                          <ul>
+                            <li>3M水晶蜡</li>
+                            <li>160.00</li>
+                            <li>1</li>
+                            <li>0</li>
+                            <li>160.00</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <dl class="total">
+                <dd>合计:</dd>
+                <dd>750.00</dd>
+              </dl>
+            </div>
+            <dl class="get_order text-align-center ">
+              <dd><a href="/mis/xiaoshou/fuwu/jilu.html" target="_blank" class="order_btn">查看单据</a></dd>
+              <dd><a href="javascript:void(0)" class="complaints_btn btn do_complaints">投诉</a></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="window_wrap" style="display: none;">
+
+  <div class="complaints_records_wrap">
+	<h2>投诉事件记录</h2>
+	<ul class="top">
+		<li>
+			<label>日期:</label>
+			<span>2015-11-12</span>
+		</li>
+		<li>
+			<label>编号:</label>
+			<span>Ts20151011001</span>
+		</li>
+	</ul>
+	<div class="complaints_records">
+		<dl class="client_base_info">
+	    <dd>客户名称</dd>
+			<dd>程晓林</dd>
+			<dd>联系方式</dd>
+			<dd>13897910234</dd>
+			<dd>车牌号</dd>
+			<dd>浙A-N209A</dd>
+			<dd>订单号</dd>
+			<dd>YW201510090008</dd>
+		</dl>
+		<dl class="client_type">
+	    <dd>投诉类别</dd>
+			<dd>
+	      <label>服务<input type="checkbox"></label>
+				<label>质量<input type="checkbox"></label>
+				<label>环境<input type="checkbox"></label>
+				<label>其他<input type="checkbox"></label>
+			</dd>
+			<dd>投诉渠道</dd>
+			<dd>
+				<label>电话<input type="checkbox"></label>
+				<label>现场<input type="checkbox"></label>
+				<label>微信<input type="checkbox"></label>
+				<label>短信<input type="checkbox"></label>
+			</dd>
+		</dl>
+		<dl class="opinion">
+	    <dd>客诉内容</dd>
+			<dd>
+			  <textarea></textarea>
+			</dd>
+		</dl>
+		<dl class="opinion">
+	    <dd>调查结果</dd>
+			<dd><textarea></textarea></dd>
+		</dl>
+
+		<dl class="opinion">
+	    <dd>责任人</dd>
+			<dd>
+			  <div class="liable_person">
+					<h2>销售接待</h2>
+					<ul>
+						<li><label>王丽丽<input type="checkbox"></label></li>
+						<li><label>张燕<input type="checkbox"></label></li>
+						<li><label>王丽丽<input type="checkbox"></label></li>
+					</ul>
+				</div>
+				<div class="liable_person">
+					<h2>施工技师</h2>
+					<ul>
+						<li><label>王丽丽<input type="checkbox"></label></li>
+						<li><label>张燕<input type="checkbox"></label></li>
+						<li><label>王丽丽<input type="checkbox"></label></li>
+					</ul>
+				</div>
+			</dd>
+		</dl>
+
+		<dl class="opinion">
+	    <dd>处理结果</dd>
+			<dd>
+				<dl class="result">
+          <dd>客户</dd>
+					<dd>责任人</dd>
+				</dl>
+				<dl class="result">
+          <dd><textarea>将问题商品退回，同时为客户修好关联的关系，补偿客户10次洗车</textarea></dd>
+					<dd><textarea>退回供应商商品，要求供应商赔偿</textarea></dd>
+				</dl>
+
+			</dd>
+		</dl>
+
+		<dl class="opinion">
+			<dd>反馈</dd>
+			<dd>
+				<div class="liable_person">
+					客户对处理方式满意
+				</div>
+				<div class="liable_person text-align-right">
+					<ul>
+						<li><label>满意<input type="checkbox"></label></li>
+						<li><label>不满意<input type="checkbox"></label></li>
+					</ul>
+				</div>
+			</dd>
+		</dl>
+  </div>
+
+	<div class="btn_group">
+    <a href="javascript:void(0)" class="btn cancel_btn">取消</a>
+		<a href="javascript:void(0)" class="btn save_btn">确定</a>
+
+	</div>
+</div>
+
+
+</div>
+
+
+  <script type="text/javascript" src="/mis/js/kehu/consumption_visit.js"></script>
+
+      </div>

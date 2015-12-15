@@ -234,6 +234,9 @@ Rails.application.routes.draw do
           get :information
         end
       end
+
+      resources :expense_records
+      
     end
   end
 

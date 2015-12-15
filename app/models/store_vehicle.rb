@@ -4,6 +4,8 @@ class StoreVehicle < ActiveRecord::Base
   belongs_to :vehicle_brand
   belongs_to :vehicle_model
   belongs_to :vehicle_series
+  
+  belongs_to :store_customer
 
   # 车牌
   has_many :vehicle_plates
