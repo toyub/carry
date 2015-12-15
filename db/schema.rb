@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215010254) do
+ActiveRecord::Schema.define(version: 20151215021033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,16 @@ ActiveRecord::Schema.define(version: 20151215010254) do
 
   add_index "roles", ["abbrev"], name: "abbrev_UNIQUE", unique: true, using: :btree
   add_index "roles", ["name"], name: "name_UNIQUE", unique: true, using: :btree
+
+  create_table "sms_balances", force: :cascade do |t|
+    t.string   "party_type"
+    t.integer  "party_id"
+    t.integer  "total",         default: 0
+    t.decimal  "total_fee",     default: 0.0
+    t.integer  "sent_quantity", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
     t.integer  "resource_id"
