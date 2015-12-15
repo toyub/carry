@@ -12,7 +12,7 @@ module Settings
     end
 
     def new
-      if params[:quantity].to_i < 1
+      if params[:quantity].to_i < 200
         render text: '参数错误'
         return false
       end
