@@ -11,7 +11,7 @@ class Order < ActiveRecord::Base
   has_many :payments
 
   def payments_methods
-    self.payments.map { |payment| payment.payment_method.cn_name }
+    self.payments.map(&->(payment){ payment.payment_method.cn_name }).join(', ')
   end
 
   private

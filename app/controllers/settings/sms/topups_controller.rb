@@ -1,11 +1,14 @@
 module Settings
   class Sms::TopupsController < BaseController
     def index
+      from, to = query_date
       @topups = OrderItem.joins(:order)
                          .where(orderable_type: SmsTopup.name)
                          .where(party: current_store)
                          .where(orders:{paid: true})
-                         .order('created_at desc')
+                         .where('orders.created_at between ? and ?', "#{from.to_s(:db)} 00:00:00", "#{to.to_s(:db)} 23:59:59")
+                         .order('orders.created_at desc')
+      @sms_balance = current_store.sms_balance
     end
 
     def new
@@ -21,5 +24,6 @@ module Settings
       alipay = PaymentMethods::Alipay.new(order)
       redirect_to alipay.url
     end
+
   end
 end

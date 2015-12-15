@@ -9,12 +9,15 @@
   <div class="details_content feecharge">
 
     <div class="functional_bar">
+
       <div class="search_bar float-left">
-        <span>日期</span>
-        <input type="date">
-        <span>至</span>
-        <input type="date">
-        <input type="button" class="btn query_btn" value="查询">
+        <form action="" method="GET">
+          <span>日期</span>
+          <input type="date" name='from' value="<%= params[:from] %>">
+          <span>至</span>
+          <input type="date" name='to' value="<%= params[:to] %>">
+          <input type="submit" class="btn query_btn" value="查询">
+        </form>
       </div>
 
       <div class="btn_group float-right width-100 margin-none">
