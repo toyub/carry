@@ -1,5 +1,5 @@
 class Mis.Views.KehuCustomerNavsMaster extends Mis.Base.View
-  className: 'ul'
+  tagName: 'ul'
 
   template: JST['kehu/customer_navs/master']
 

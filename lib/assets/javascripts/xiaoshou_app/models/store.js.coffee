@@ -25,8 +25,6 @@ class Mis.Models.Store extends Backbone.Model
     @parseCommissionTemplates()
     @parseCustomerCategories()
     @parseProvinces()
-    @parseCities()
-    @parseRegions()
 
   parseRootMaterialCategories: ->
     @rootMaterialCategories = new Mis.Collections.StoreMaterialCategories(@get 'root_material_categories')
@@ -38,7 +36,7 @@ class Mis.Models.Store extends Backbone.Model
     @packages = new Mis.Collections.StorePackages(@get 'packages')
 
   parseCustomers: ->
-    @customers = new Mis.Collections.StoreCustomers(@get 'customers')
+    @customerEntities = new Mis.Collections.StoreCustomerEntities(@get 'customers')
 
   parseServices: ->
     @services = new Mis.Collections.StoreServices(@get 'services')
@@ -57,9 +55,3 @@ class Mis.Models.Store extends Backbone.Model
 
   parseProvinces: ->
     @provinces = @get 'provinces'
-
-  parseCities: ->
-    @cities = @get 'cities'
-
-  parseRegions: ->
-    @regions = @get 'regions'

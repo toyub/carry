@@ -1305,15 +1305,6 @@ ActiveRecord::Schema.define(version: 20151214035802) do
     t.datetime "updated_at"
   end
 
-  create_table "store_vehicle_brands", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
-    t.string   "name",           limit: 45
-  end
-
   create_table "store_vehicle_engines", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1350,13 +1341,15 @@ ActiveRecord::Schema.define(version: 20151214035802) do
   create_table "store_vehicles", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                          null: false
-    t.integer  "store_chain_id",                    null: false
-    t.integer  "store_staff_id",                    null: false
-    t.string   "model",                  limit: 45
-    t.string   "series",                 limit: 45
-    t.integer  "store_vehicle_brand_id"
+    t.integer  "store_id",          null: false
+    t.integer  "store_chain_id",    null: false
+    t.integer  "store_staff_id",    null: false
     t.integer  "store_customer_id"
+    t.integer  "vehicle_brand_id"
+    t.integer  "vehicle_model_id"
+    t.integer  "vehicle_series_id"
+    t.json     "detail"
+    t.string   "numero"
   end
 
   create_table "store_workstation_categories", force: :cascade do |t|
@@ -1390,6 +1383,56 @@ ActiveRecord::Schema.define(version: 20151214035802) do
     t.decimal  "balance"
     t.boolean  "available",                  default: true
     t.integer  "creator_id"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.string   "taggable_type"
+    t.integer  "taggable_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
+    t.integer  "store_staff_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "vehicle_brands", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vehicle_engines", force: :cascade do |t|
+    t.integer  "store_vehicle_id"
+    t.integer  "store_vehicle_engine_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "vehicle_models", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "vehicle_series_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "vehicle_plates", force: :cascade do |t|
+    t.integer  "store_vehicle_id"
+    t.integer  "store_vehicle_registration_plate_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "vehicle_series", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "vehicle_brand_id",              comment: "所属品牌"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
 end

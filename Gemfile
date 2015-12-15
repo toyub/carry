@@ -122,3 +122,5 @@ gem 'backbone-support', '~> 0.5.1'
 
 # # 发送短信
 gem 'sms_client', git: 'git@gitlab.icar99.com:zc/sms_client.git', tag: 'v0.0.5'
+
+gem 'migration_comments', '~> 0.3.2'
