@@ -36,6 +36,7 @@
 //= require dialogs/piccut
 //= require dialogs/form
 //= require jquery_ext/jquery.datetimepicker
+//= require datetime_select_limit
 
 
 function ZhanchuangAlert(msg) {

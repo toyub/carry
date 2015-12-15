@@ -23,38 +23,15 @@
     	</ul>
     </div>
 
-    <ul class="page_card">
-      <li class="active" data-id="1" >
-        <a href="javascript:void(0)">01</a>
-        <span class="border-color-F76250"></span>
-      </li>
-      <li data-id="2">
-        <a href="javascript:void(0)">02</a>
-        <span class="border-color-9ADB51"></span>
-      </li>
-      <li data-id="3">
-        <a href="javascript:void(0)">03</a>
-        <span class="border-color-89CDED"></span>
-      </li data-id="4">
-      <li class="add_carinfo" id="new">
-        <a href="new.html">+</a>
-        <span class="border-color-94A1A6"></span>
-      </li>
-    </ul>
     <div class="car_details float-right">
 
       <div class="details_nav_second">
         <ul class="goods_nav">
           <li class="bg-color-5e3aa9"><a href="/crm/store_customers/1/store_vehicle_archives/2/information" class="width-90 color-fff">车辆信息</a></li>
-          <li  ><a href="cheliangzhuangkuang.html?cheliangdangan" class="width-90  ">车辆状况</a></li>
-          <li ><a href="fuwujilu.html?cheliangdangan" class="width-90">服务记录</a></li>
-          <li ><a href="baodanlishi.html?cheliangdangan" class="width-90">保单历史</a></li>
+          <li><a href="cheliangzhuangkuang.html?cheliangdangan" class="width-90  ">车辆状况</a></li>
+          <li><a href="fuwujilu.html?cheliangdangan" class="width-90">服务记录</a></li>
+          <li><a href="baodanlishi.html?cheliangdangan" class="width-90">保单历史</a></li>
         </ul>
-         <ul class="handle_nav">
-           <li><i class="fa fa-arrow-up cursor-pointer up"></i></li>
-           <li><i class="fa  fa-arrow-down cursor-pointer down"></i></li>
-           <li><i class="fa fa-times delete_car cursor-pointer">删除车辆</i></li>
-         </ul>
       </div>
       <div class="details_content car_content">
           <div class="base_info car_{{ i.id }}">
@@ -63,8 +40,16 @@
             </div>
             <div class="car_info">
               <div class="items">
-                <%= render 'form' %>
+                <%= form_for @vehicle, url: crm_store_customer_store_vehicle_archive_path do |f| %>
+                  <%= render 'show_attrs', f: f %>
+                  <%= render 'form', f: f %>
+                  <div class="btn_group">
+                    <%= f.submit '保存', class: 'save_btn btn' %>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>
       </div>
+    </div>
+  </div>
