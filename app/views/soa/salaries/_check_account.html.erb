@@ -71,114 +71,158 @@
           <li class="font-weight-bold font-14">应发工资</li>
           <li>
             <ol>
-              <%= form.fields_for :deduction do |deduct_fields| %>
-                <li>
-                  <label class="font-weight-bold width-50">提成</label>
-                  <label class="width-70">施工提成</label> <%= deduct_fields.text_field :shigong, value: "1.1" %>
+              <div class="duduction-form-field">
+                <%= form.fields_for :deduction do |deduct_fields| %>
+                  <li>
+                    <label class="font-weight-bold width-50">提成</label>
+                    <label class="width-70">施工提成</label> <%= deduct_fields.text_field :shigong, value: "1.1" %>
+                  </li>
+                  <li>
+                    <label>商品提成</label> <%= deduct_fields.text_field :shangpin, value: "1.2" %>
+                  </li>
+                  <li>
+                    <label>售卡提成</label> <%= deduct_fields.text_field :shouka, value: "1.3" %>
+                  </li>
+                  <li>
+                    <label>其他提成</label> <%= deduct_fields.text_field :qita, value: "1.4" %>
+                  </li>
+                <% end %>
+              </div>
+              <li id="total_deduction">
+                <label class="font-weight-bold">提成合计</label><%= form.text_field :amount_deduction, value: "5.0", class: "total" %>
               </li>
-              <li>
-                <label>商品提成</label> <%= deduct_fields.text_field :shangpin, value: "1.2" %>
-            </li>
-            <li>
-              <label>售卡提成</label> <%= deduct_fields.text_field :shouka, value: "1.3" %>
-          </li>
-          <li>
-            <label>其他提成</label> <%= deduct_fields.text_field :qita, value: "1.4" %>
-        </li>
-      <% end %>
-      <li>
-        <label class="font-weight-bold">提成合计</label><%= form.text_field :amount_deduction, value: "5.0", class: "total" %>
-    </li>
-  </ol>
+            </ol>
 
-  <ol>
-    <%= form.fields_for :bonus do |bonus_fields|%>
-      <li>
-        <label class="font-weight-bold width-50">福利补贴</label>
-        <label class="width-70">岗位补贴</label><%= bonus_fields.text_field :gangwei, value: @salary.bonus["gangwei"].to_f %>
-    </li>
-    <li>
-      <label>住宿补贴</label> <%= bonus_fields.text_field :zhusu, value: @salary.bonus["zhusu"].to_f %>
-  </li>
-  <li>
-    <label>餐费补贴</label> <%= bonus_fields.text_field :canfei, value: @salary.bonus["canfei"].to_f %>
-</li>
-<li>
-  <label>劳保补贴</label> <%= bonus_fields.text_field :laobao, value: @salary.bonus["laobao"].to_f %>
+            <ol>
+              <div class="bonus-form-field">
+                <%= form.fields_for :bonus do |bonus_fields|%>
+                  <li>
+                    <label class="font-weight-bold width-50">福利补贴</label>
+                    <label class="width-70">岗位补贴</label><%= bonus_fields.text_field :gangwei, value: @salary.bonus["gangwei"].to_f %>
+                  </li>
+                  <li>
+                    <label>住宿补贴</label> <%= bonus_fields.text_field :zhusu, value: @salary.bonus["zhusu"].to_f %>
+                  </li>
+                  <li>
+                    <label>餐费补贴</label> <%= bonus_fields.text_field :canfei, value: @salary.bonus["canfei"].to_f %>
+                  </li>
+                  <li>
+                    <label>劳保补贴</label> <%= bonus_fields.text_field :laobao, value: @salary.bonus["laobao"].to_f %>
+                  </li>
+                  <li>
+                    <label>高温补贴</label> <%= bonus_fields.text_field :gaowen, value: @salary.bonus["gaowen"].to_f %>
+                  </li>
+               <% end %>
+              </div>
+             <li id="total_bonus">
+               <label class="font-weight-bold">补贴合计</label> <%= form.text_field :amount_bonus, value: @salary.amount_bonus.to_f, class: "total" %>
+             </li>
+          </ol>
         </li>
+
         <li>
-          <label>高温补贴</label> <%= bonus_fields.text_field :gaowen, value: @salary.bonus["gaowen"].to_f %>
-      </li>
-    <% end %>
-    <li>
-      <label class="font-weight-bold">补贴合计</label> <%= form.text_field :amount_bonus, value: @salary.amount_bonus.to_f, class: "total" %>
-  </li>
-</ol>
-</li>
+          <ol>
+            <li>
+              <label class="font-weight-bold width-50">加班费</label>
+              <label class="width-70 font-weight-bold">加班合计</label> <%= form.text_field :amount_overtime, value: @salary.amount_overtime, class: "total" %>
+            </li>
+            <li class="bonus">
+              <label class="font-weight-bold width-50">奖金</label>
+              <label class="width-70 font-weight-bold">奖金合计</label> <%= form.text_field :amount_reward, value: @salary.amount_reward, class: "total" %>
+            </li>
+          </ol>
 
-<li>
-  <ol>
-    <li>
-      <label class="font-weight-bold width-50">加班费</label>
-      <label class="width-70 font-weight-bold">加班合计</label> <%= form.text_field :amount_overtime, value: @salary.amount_overtime, class: "total" %>
-  </li>
-  <li class="bonus">
-    <label class="font-weight-bold width-50">奖金</label>
-    <label class="width-70 font-weight-bold">奖金合计</label> <%= form.text_field :amount_reward, value: @salary.amount_reward, class: "total" %>
-</li>
-  </ol>
+          <ol>
+            <div class="insurence-form-field">
+              <%= form.fields_for :insurence do |insurence_fields|%>
+                <li>
+                  <label class="font-weight-bold width-50">保险金</label> 
+                  <label class="width-70">医保费</label> <%= insurence_fields.text_field :yibaofei, value: @salary.bonus["yibaofei"].to_f %>
+                </li>
+                <li>
+                  <label>保险金</label> <%= insurence_fields.text_field :baoxianjing, value: @salary.bonus["baoxianjing"].to_f %>
+                </li>
+              <% end %>
+            </div>
+            <li id="total_insurence">
+              <label class="font-weight-bold">保险合计</label> <%= form.text_field :amount_insurence, value: @salary.amount_insurence, class: "total"%>
+            </li>
+          </ol>
+        </li>
 
-  <ol>
-    <%= form.fields_for :insurence do |insurence_fields|%>
-      <li>
-        <label class="font-weight-bold width-50">保险金</label> 
-        <label class="width-70">医保费</label> <%= insurence_fields.text_field :yibaofei, value: @salary.bonus["yibaofei"] %>
-    </li>
-    <li>
-      <label>保险金</label> <%= insurence_fields.text_field :baoxianjing, value: @salary.bonus["baoxianjing"] %>
-  </li>
-<% end %>
-<li>
-  <label class="font-weight-bold">保险合计</label> <%= form.text_field :amount_insurence, value: @salary.amount_insurence, class: "total"%>
-    </li>
-  </ol>
-</li>
+        <li class="total text-align-right total-salary-should-pay">
+          <label class="color-7391C4 font-weight-bold">应发工资合计：</label> <%= form.text_field :salary_should_pay, value: @salary.salary_actual_pay %>
+        </li>
+      </ul>
 
-<li class="total text-align-right">
-  <label class="color-7391C4 font-weight-bold">应发工资合计：</label> <%= form.text_field :salary_should_pay, value: @salary.salary_actual_pay %>
-</li>
-</ul>
+      <ul class="deducted_salary">
+        <li class="font-weight-bold font-14">应扣费用</li>
+        <li>
+          <ol>
+            <div class="cutfee-form-field">
+              <%= form.fields_for :cutfee do |cutfee_fields| %>
+                <li><label>违纪扣款</label> <%= cutfee_fields.text_field :weiji, value: @salary.cutfee["weiji"].to_f %> </li>
+                <li><label>考勤扣款</label> <%= cutfee_fields.text_field :kaoqin, value: @salary.cutfee["kaoqin"].to_f %> </li>
+                <li><label>借贷扣除</label> <%= cutfee_fields.text_field :jiedai, value: @salary.cutfee["jiedai"].to_f %> </li>
+                <li><label>其他扣款</label> <%= cutfee_fields.text_field :qita, value: @salary.cutfee["qita"].to_f %> </li>
+                <li><label>个人担保</label> <%= cutfee_fields.text_field :gerendanbao, value: @staff.bonus["gerendanbao"].to_f %> </li>
+              <% end %>
+            </div>
+            <li id="total_cutfee">
+              <label class="font-weight-bold">扣款合计</label> <%= form.text_field :amount_should_cutfee, value: @salary.amount_should_cutfee, class: "total" %> 
+            </li>
+          </ol>
+        </li>
 
-<ul class="deducted_salary">
-  <li class="font-weight-bold font-14">应扣费用</li>
-  <li>
-    <ol>
-      <%= form.fields_for :cutfee do |cutfee_fields| %>
-        <li><label>违纪扣款</label> <%= cutfee_fields.text_field :weiji, value: @salary.cutfee["weiji"].to_f %> </li>
-        <li><label>考勤扣款</label> <%= cutfee_fields.text_field :kaoqin, value: @salary.cutfee["kaoqin"].to_f %> </li>
-        <li><label>借贷扣除</label> <%= cutfee_fields.text_field :jiedai, value: @salary.cutfee["jiedai"].to_f %> </li>
-        <li><label>其他扣款</label> <%= cutfee_fields.text_field :qita, value: @salary.cutfee["qita"] %> </li>
-        <li><label>个人担保</label> <%= cutfee_fields.text_field :gerendanbao, value: @staff.bonus["gerendanbao"].to_f %> </li>
-      <% end %>
-      <li><label class="font-weight-bold">扣款合计</label> <%= form.text_field :amount_should_cutfee, value: @salary.amount_should_cutfee, class: "total" %> </li>
-    </ol>
-  </li>
+        <li class="total">
+          <label class="font-weight-bold color-C8625C">应扣费用合计：</label>
+          <%= form.text_field :amount_cutfee, value: @salary.amount_cutfee %>
+        </li>
+      </ul>
 
-  <li class="total">
-    <label class="font-weight-bold color-C8625C">应扣费用合计：</label>
-    <%= form.text_field :amount_cutfee, value: @salary.amount_cutfee %>
-  </li>
-</ul>
-
-<ul class="balance_salary">
-  <li class="font-weight-bold font-14">实发金额</li>
-  <li class="text-align-center">
-    <label class="display-block">薪资总额</label>
-    <%= form.text_field :salary_actual_pay, value: @salary.salary_actual_pay %>
-  </li>
-</ul>
-      </div>
+      <ul class="balance_salary">
+        <li class="font-weight-bold font-14">实发金额</li>
+        <li class="text-align-center">
+          <label class="display-block">薪资总额</label>
+          <%= form.text_field :salary_actual_pay, value: @salary.salary_actual_pay %>
+        </li>
+      </ul>
     </div>
-
-  <% end %>
+  </div>
+<% end %>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    var total_input = $(".total-salary-should-pay input"),
+        total_pay = parseFloat(total_input.val());
+
+    $("#total_deduction, #total_bonus, #total_insurence, #total_cutfee").on("change", function(){
+      console.log($(this).find("input").val());
+    })
+    var accounting = function(input_area, total_area) {
+      $(input_area).on("change", function(){
+        var current_total_input = $(total_area),
+            current_total_pay = parseFloat(current_total_input.val());
+
+        total_pay -= current_total_pay;
+
+        var sum = parseFloat($(this).val()),
+            sum_of_rest = 0;
+
+        var other_inputs = $(this).parent("li").siblings().children("input");
+        other_inputs.each(function(){
+          sum_of_rest += parseFloat($(this).val());
+        })
+        sum = sum + sum_of_rest;
+        current_total_input.val(sum.toFixed(2));
+        total_pay += sum
+        total_input.val(total_pay.toFixed(2));
+      })
+   }
+   accounting(".duduction-form-field input", "#total_deduction input");
+   accounting(".bonus-form-field input", "#total_bonus input");
+   accounting(".insurence-form-field input", "#total_insurence input");
+   accounting(".cutfee-form-field input", "#total_cutfee input");
+  })
+</script>
