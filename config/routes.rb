@@ -80,6 +80,7 @@ Rails.application.routes.draw do
     end
     resources :events  do
       get 'detail', on: :member
+      get 'search', on: :collection
     end
     resources :performance do
       get 'search', on: :collection

@@ -1,9 +1,27 @@
 class Soa::EventsController < Soa::BaseController
   def index
     @staffs = current_store.store_staff
-                                              # .by_keyword(params[:keyword])
-                                              # .by_level(params[:level_type_id])
-                                              # .by_job_type(params[:job_type_id])
+    @departments = current_store.store_departments
+    @positions = @departments[0].store_positions
+  end
+
+  def search
+    @date = Date.today
+    if params["date(1i)"] && params["date(2i)"]
+      @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
+    end
+    @staffs = current_store.store_staff
+                                       .by_keyword(params[:keyword])
+                                       .by_department_id(params[:store_department_id])
+                                       .by_position_id(params[:store_position_id])
+
+    @departments = current_store.store_departments
+    if params[:store_department_id].present?
+      @positions = @departments.find(params[:store_department_id]).store_positions
+    else
+      @positions = @departments[0].store_positions
+    end
+    render 'index'
   end
 
   def new

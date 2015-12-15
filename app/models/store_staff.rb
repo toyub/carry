@@ -105,7 +105,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def cutfee
-    bonus["gerendanbao"].to_f + store_events.get_per_month_pay("StoreAttendence").to_f + store_events.get_per_month_pay("StorePenalty").to_f
+    bonus["gerendanbao"].to_f + store_events.total_pay_of_type_per_month("StoreAttendence").to_f + store_events.total_pay_of_type_per_month("StorePenalty").to_f
   end
 
   def actual_pay
@@ -158,14 +158,14 @@ class StoreStaff <  ActiveRecord::Base
     {
       amount_deduction: 5,
       deduction: {},
-      amount_overtime: self.store_events.get_per_month_pay('StoreOvertime'),
-      amount_reward: self.store_events.get_per_month_pay('StoreReward'),
+      amount_overtime: self.store_events.total_pay_of_type_per_month('StoreOvertime'),
+      amount_reward: self.store_events.total_pay_of_type_per_month('StoreReward'),
       bonus: {gangwei: bonus["gangwei"], zhusu: bonus["zhusu"], canfei: bonus["canfei"], laobao: bonus["laobao"], gaowen: bonus["gaowen"] },
       amount_bonus: self.bonus_amount,
       insurence: {yibaofei: bonus["yibaofei"], baoxianjing: bonus["baoxianjing"]},
       amount_insurence: self.insurence_amount,
-      cutfee: {weiji: store_events.get_per_month_pay("StorePenalty"),
-               kaoqin: store_events.get_per_month_pay("StoreAttendence"),
+      cutfee: {weiji: store_events.total_pay_of_type_per_month("StorePenalty"),
+               kaoqin: store_events.total_pay_of_type_per_month("StoreAttendence"),
                jiedai: "",
                qita: "",
                gerendanbao: bonus["gerendanbao"] },
