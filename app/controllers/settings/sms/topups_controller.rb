@@ -18,7 +18,7 @@ module Settings
       order.amount = order.order_items.map(&->(item){item.amount}).sum
       order.subject = "短信充值费用#{order.amount}元"
       order.save
-      alipay = Alipay.new(order)
+      alipay = PaymentMethods::Alipay.new(order)
       redirect_to alipay.url
     end
   end

@@ -36,7 +36,7 @@ module Open
     end
 
     def save_third_party_params(order, options)
-      payment = Payment.find_or_create_by(payment_method: Alipay.name, order_id: order.id, party: order.party)
+      payment = Payment.find_or_create_by(payment_method: PaymentMethods::Alipay.name, order_id: order.id, party: order.party)
       payment.third_party_params = (options).merge(payment.third_party_params || {})
       payment.amount = order.amount
       payment.subject = '使用支付宝付款'
@@ -67,7 +67,7 @@ module Open
         return false
       end
 
-      unless Alipay.valid_alipay_param?(alipay_params.except(:sign, :sign_type), alipay_params[:sign], alipay_params[:sign_type])
+      unless PaymentMethods::Alipay.valid_alipay_param?(alipay_params.except(:sign, :sign_type), alipay_params[:sign], alipay_params[:sign_type])
         render text: 'Some arguments has worg opinion!'
         return false
       end
