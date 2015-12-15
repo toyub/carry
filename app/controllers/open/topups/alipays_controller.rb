@@ -38,6 +38,7 @@ module Open
     def save_third_party_params(order, options)
       payment = Payment.find_or_create_by(payment_method: Alipay.name, order_id: order.id, party: order.party)
       payment.third_party_params = (options).merge(payment.third_party_params || {})
+      payment.amount = order.amount
       payment.subject = '使用支付宝付款'
       payment.save
       payment

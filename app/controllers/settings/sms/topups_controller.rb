@@ -14,14 +14,10 @@ module Settings
         return false
       end
       order = Order.new(party: current_store)
-      order_item = order.order_items.new(SmsTopup.new(params[:quantity].to_i).to_h)
-      order_item.party = order.party
-      order_item.amount = order_item.price * order_item.quantity
-
-      order.subject = "短信充值费用#{order_item.amount}元"
+      order_item = order.order_items.create(SmsTopup.new(params[:quantity].to_i).to_h.merge(party: order.party))
       order.amount = order.order_items.map(&->(item){item.amount}).sum
+      order.subject = "短信充值费用#{order_item.amount}元"
       order.save
-      order_item.save
       alipay = Alipay.new(order)
       redirect_to alipay.url
     end
