@@ -13,10 +13,10 @@ module Settings
         render text: '参数错误'
         return false
       end
-      order = Order.new(party: current_store)
+      order = Order.create(party: current_store)
       order_item = order.order_items.create(SmsTopup.new(params[:quantity].to_i).to_h.merge(party: order.party))
       order.amount = order.order_items.map(&->(item){item.amount}).sum
-      order.subject = "短信充值费用#{order_item.amount}元"
+      order.subject = "短信充值费用#{order.amount}元"
       order.save
       alipay = Alipay.new(order)
       redirect_to alipay.url
