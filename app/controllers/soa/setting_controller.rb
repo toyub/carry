@@ -34,12 +34,9 @@ class Soa::SettingController < Soa::BaseController
     @staff = @store.store_staff.find(params[:id])
     @staff.trial_status == "试用中" ? @staff.update(trial_salary: params[:reset_salary]) : @staff.update(regular_salary: params[:reset_salary]) if params[:reset_salary]
     type = params[:protocols][:type]
+    params[:protocols][:new_salary] = params[:reset_salary]
 
-    if @staff.store_protocols.is_new_record?(type)
-      @protocol = @staff.store_protocols.create(protocol_param)
-    else
-      @protocol = @staff.store_protocols.operate_type(type)[0].update(protocol_param)
-    end
+    @protocol = @staff.store_protocols.create(protocol_param)
 
     respond_to do |format|
       if @protocol
@@ -60,6 +57,6 @@ class Soa::SettingController < Soa::BaseController
                                        )
   end
   def protocol_param
-    params.require(:protocols).permit(:type, :reason, :effected_on, :expired_on, :verifier_id, :remark, :created_by, :record_at)
+    params.require(:protocols).permit(:type, :reason, :previous_salary, :new_salary, :effected_on, :expired_on, :verifier_id, :remark, :created_by, :record_at)
   end
 end

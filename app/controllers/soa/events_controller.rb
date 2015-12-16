@@ -40,7 +40,7 @@ class Soa::EventsController < Soa::BaseController
     @event = @staff.store_events.build(event_params)
 
     if @event.save
-      redirect_to soa_event_path(id: @staff)
+      redirect_to soa_record_path(id: @staff)
     else
       render plain: @event.errors.messages
     end
