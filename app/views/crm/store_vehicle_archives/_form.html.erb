@@ -11,13 +11,14 @@
     <%= f.label '档案编号', class: 'width-75' %>
     <%= f.text_field :numero, class: 'width-165', autoComplete: 'off' %>
   </div>
+
   <div class="item_content">
     <%= ff.label '车辆性质', class: 'width-75' %>
-    <%= ff.select :organization_type, StoreVehicle::ORGANIZATION_TYPE.invert, {}, {class: 'width-165'} %>
+    <%= ff.select :organization_type, options_for_select(StoreVehicle::ORGANIZATION_TYPE.invert, (@vehicle.detail['organization_type'] if @vehicle.id.present?)), {}, {class: 'width-165'} %>
   </div>
   <div class="item_content">
-    <%= ff.label '上牌时间', class: 'width-75' %>
-    <%= ff.text_field :registered_on, class: 'width-165 datetimepicker', readonly: 'true' %>
+    <%= ff.label '上牌日期', class: 'width-75' %>
+    <%= ff.text_field :registered_on, class: 'width-165 datepicker', readonly: 'true' %>
   </div>
   <div class="item_content">
     <%= ff.label '公里数', class: 'width-75' %>
@@ -32,8 +33,8 @@
     <%= ff.text_field :ex_factory_date, class: 'width-165 datepicker', readonly: 'true' %>
   </div>
   <div class="item_content">
-    <%= ff.label '最近保养时间', class: 'width-75' %>
-    <%= ff.text_field :maintained_at, class: 'width-165 datetimepicker', readonly: 'true' %>
+    <%= ff.label '最近保养日期', class: 'width-75' %>
+    <%= ff.text_field :maintained_at, class: 'width-165 datepicker', readonly: 'true' %>
   </div>
   <div class="item_content">
     <%= ff.label '最近保养里程', class: 'width-75' %>
@@ -50,8 +51,8 @@
 <div class="float-left">
   <div class="bg-color-efeae5 float-left margin-top-10 section">
     <div class="item_content">
-      <%= ff.label '年检时间', class: 'width-75' %>
-      <%= ff.text_field :annual_check_at, class: 'width-165 datetimepicker', readonly: 'true' %>
+      <%= ff.label '年检日期', class: 'width-75' %>
+      <%= ff.text_field :annual_check_at, class: 'width-165 datepicker', readonly: 'true' %>
     </div>
     <div class="item_content">
       <span class="display-inline-block width-120 text-align-right">
@@ -106,8 +107,8 @@
       <%= ff.text_field :next_maintain_mileage, class: 'width-165', autoComplete: 'off' %>
     </div>
     <div class="item_content next_maintenance_time">
-      <%= ff.label '下次保养时间', class: 'width-75' %>
-      <%= ff.text_field :next_maintain_at, class: 'width-165 datetimepicker', readonly: 'true' %>
+      <%= ff.label '下次保养日期', class: 'width-75' %>
+      <%= ff.text_field :next_maintain_at, class: 'width-165 datepicker', readonly: 'true' %>
     </div>
   </div>
   </div>

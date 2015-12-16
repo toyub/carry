@@ -31,4 +31,8 @@ class StoreVehicle < ActiveRecord::Base
     2 => '商务车'
   }
 
+  def organization_type_name
+    ORGANIZATION_TYPE[self.detail['organization_type'].to_i]
+  end
+
 end

@@ -24,7 +24,7 @@
 </div>
 <div class="item_content">
   <label class="width-75">颜色</label>
-  <span class="width-165 border"><%= @vehicle.detail["color"] %></span>
+  <input type='color' class="width-165 border" disabled='true' value= <%= @vehicle.detail["color"] %> />
 </div>
 <div class="item_content">
   <label class="width-75">座位数</label>
@@ -36,10 +36,10 @@
  </div>
  <div class="item_content">
    <label class="width-75">车辆性质</label>
-   <span class="width-165 border"><%= @vehicle.detail["organization_type"] %></span>
+   <span class="width-165 border"><%= @vehicle.organization_type_name %></span>
  </div>
  <div class="item_content">
-   <label class="width-75">上牌时间</label>
+   <label class="width-75">上牌日期</label>
    <span class="width-165 border"><%= @vehicle.detail["registered_on"] %></span>
  </div>
  <div class="item_content">
@@ -55,7 +55,7 @@
    <span class="width-165 border"><%= @vehicle.detail["ex_factory_date"] %></span>
  </div>
  <div class="item_content">
-   <label class="width-75">最近保养时间</label>
+   <label class="width-75">最近保养日期</label>
    <span class="width-165 border"><%= @vehicle.detail["maintained_at"] %></span>
  </div>
  <div class="item_content">
@@ -80,7 +80,7 @@
 <div class="float-left">
   <div class="bg-color-efeae5 float-left margin-top-10 section">
     <div class="item_content">
-      <label class="width-75">年检时间</label>
+      <label class="width-75">年检日期</label>
       <span class="width-165 border"><%= @vehicle.detail["annual_check_at"] %></span>
     </div>
     <div class="item_content">
@@ -136,7 +136,7 @@
       <span class="width-165 border"><%= @vehicle.detail["next_maintain_mileage"] %></span>
     </div>
     <div class="item_content next_maintenance_time">
-      <label class="width-75">下次保养时间</label>
+      <label class="width-75">下次保养日期</label>
       <span class="width-165 border"><%= @vehicle.detail["next_maintain_at"] %></span>
     </div>
   </div>

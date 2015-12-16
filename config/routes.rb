@@ -229,7 +229,7 @@ Rails.application.routes.draw do
 
   namespace :crm do
     resources :store_customers do
-      resources :store_vehicle_archives do
+      resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update] do
       end
     end
   end
