@@ -182,7 +182,11 @@ Rails.application.routes.draw do
       resources :store_service_trackings, only: [:create, :update, :destroy]
     end
     resources :store_vehicles, only: [:index]
-    resources :store_orders, only: [:index]
+    resources :store_orders, only: [:index] do
+      collection do
+        get :mocked_orders
+      end
+    end
     resources :store_subscribe_orders
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do

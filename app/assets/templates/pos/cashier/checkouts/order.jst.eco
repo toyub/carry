@@ -1,5 +1,5 @@
 
-		<div class="order_details">
+		
 			<div class="dialog_nav">
 				<span class="dialog_title ">单号:<%= @numero %></span>
 				<a href="/pos/store_orders/<%= @id %>" target="_blank">完整订单</a>
@@ -151,4 +151,3 @@
 				</div>
 
 			</div>
-		</div>

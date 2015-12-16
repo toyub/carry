@@ -1,9 +1,9 @@
 
   <div>
-    <span class="width-90">浙A62034</span>
+    <span class="width-90"><%= @customer.vehicle.plate_number %></span>
     <img src="/images/small_car.png" class="width-80"></img>
   </div>
   <div>
     <span >订单金额:</span>
-    <span class="margin-left-5"><i class="fa fa-jpy"></i>939996.00</span>
+    <span class="margin-left-5"><i class="fa fa-jpy"></i><%= @amount %></span>
   </div>
