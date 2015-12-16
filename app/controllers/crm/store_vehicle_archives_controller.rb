@@ -11,10 +11,13 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
   end
 
   def create
-    vehicle = StoreVehicle.new(append_store_attrs vehicle_params)
-    if vehicle.save
-      redirect_to crm_store_customer_store_vehicle_archive_path(@customer.id, vehicle.id)
+    license_number = vehicle_params[:license_number]
+    identification_number = vehicle_params[:identification_number]
+    vehicle = StoreVehicle.new(append_store_attrs vehicle_params.except(:license_number, :identification_number))
+    if CreateStoreVehicleService.call(vehicle, license_number, identification_number)
+      redirect_to crm_store_customer_store_vehicle_archive_path(@customer, vehicle)
     else
+      @vehicles = StoreVehicle.all
       @vehicle = StoreVehicle.new
       @vehicle.build_frame
       render :new
@@ -28,7 +31,7 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
   end
 
   def update
-    @vehicle.update(append_store_attrs vehicle_params)
+    @vehicle.update(vehicle_params)
     redirect_to crm_store_customer_store_vehicle_archive_path
   end
 
@@ -37,6 +40,8 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
     def vehicle_params
       params.require(:store_vehicle).permit(
         :numero,
+        :license_number,
+        :identification_number,
         :vehicle_brand_id,
         :vehicle_series_id,
         :vehicle_model_id,
@@ -63,9 +68,7 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
                  :insurance_customer_alermify,
                  :insurance_store_alermify
                ],
-        plates_attributes: [:license_number],
-        frame_attributes:[:vin],
-        engines_attributes:[:identification_number])
+        frame_attributes:[:vin])
     end
 
     def set_customer

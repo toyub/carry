@@ -1,38 +1,16 @@
 <% content_for :pre_assets do %>
   <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
 <% end %>
-  <div class="main_top margin-left-0">
-    <h2>客户列表</h2>
-    <span class="margin-left-20 font-16 main_top_span">客户详情</span>
-    <a class="back_to_list" href="index.html">
-      <i class="fa-arrow-circle-left  fa" ></i>
-      返回列表
-    </a>
-  </div>
+
+<%= render 'page_head' %>
+
   <div class="details">
-    <div class="details_nav">
-    	<ul>
-    		<li id="kehushow" class="active"><a href="/mis/kehu/kehuliebiao/kehushow.html?kehushow" class="width-90">信息</a></li>
-    		<li id="zichanzhanghu"><a href="/mis/kehu/kehuliebiao/zichanzhanghu.html?zichanzhanghu" class="width-90 ">资产账户</a></li>
-    		<li id="cheliangdangan"><%= link_to '车辆档案', new_crm_store_customer_store_vehicle_archive_path, class: 'width-90' %></li>
-    		<li id="xiaofeijilu"><a href="/mis/kehu/kehuliebiao/xiaofeijilu.html?xiaofeijilu" class="width-90">消费记录</a></li>
-    		<li id="huifangjilu"><a href="/mis/kehu/kehuliebiao/huifangjilu.html?huifangjilu" class="width-90">回访记录</a></li>
-    		<li id="yixiang"><a href="/mis/kehu/kehuliebiao/yixiangchanpin.html?yixiang" class="width-90 ">意向产品</a></li>
-    		<li id="tousu"><a href="/mis/kehu/kehuliebiao/tousu.html?tousu" class="width-90">投诉记录</a></li>
-    		<li id="manyidu"><a href="/mis/kehu/kehuliebiao/manyidu.html?manyidu" class="width-90">满意度</a></li>
-    	</ul>
-    </div>
+    <%= render 'customer_nav' %>
 
     <div class="car_details float-right">
 
-      <div class="details_nav_second">
-        <ul class="goods_nav">
-          <li class="bg-color-5e3aa9"><a href="/crm/store_customers/1/store_vehicle_archives/2/information" class="width-90 color-fff">车辆信息</a></li>
-          <li><a href="cheliangzhuangkuang.html?cheliangdangan" class="width-90  ">车辆状况</a></li>
-          <li><a href="fuwujilu.html?cheliangdangan" class="width-90">服务记录</a></li>
-          <li><a href="baodanlishi.html?cheliangdangan" class="width-90">保单历史</a></li>
-        </ul>
-      </div>
+      <%= render 'sub_nav' %>
+
       <div class="details_content car_content">
           <div class="base_info">
             <div class="car_main_img border-none float-left">
@@ -41,7 +19,7 @@
             <div class="car_info">
               <div class="items">
                 <%= form_for @vehicle, url: crm_store_customer_store_vehicle_archive_path do |f| %>
-                  <%= render 'show_attrs' %>
+                  <%= render 'show_form' %>
                   <%= render 'form', f: f %>
                   <div class="btn_group">
                     <%= f.submit '保存', class: 'save_btn btn' %>

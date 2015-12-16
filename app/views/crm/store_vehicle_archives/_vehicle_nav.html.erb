@@ -4,7 +4,7 @@
   </li>
   <% @vehicles.each_with_index do |vehicle, index| %>
     <li <%= 'class=active' if @vehicle == vehicle %> >
-      <%= link_to index, crm_store_customer_store_vehicle_archive_path(@customer, vehicle) %>
+      <%= link_to (index+1), crm_store_customer_store_vehicle_archive_path(@customer, vehicle) %>
     </li>
   <% end %>
 </ul>

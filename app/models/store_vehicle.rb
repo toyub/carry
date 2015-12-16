@@ -21,9 +21,7 @@ class StoreVehicle < ActiveRecord::Base
 
   delegate :license_number, to: :registration_plate
 
-  accepts_nested_attributes_for :plates
   accepts_nested_attributes_for :frame
-  accepts_nested_attributes_for :engines
 
   ORGANIZATION_TYPE = {
     0 => '私家车',
