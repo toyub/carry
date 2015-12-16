@@ -27,6 +27,7 @@
       </div>
 
       <%= form_for @event, url: soa_events_path(staff_id: params[:id])  do |form| %>
+        <%= form.hidden_field :type, value: type, id: "type-hidden" %>
 
         <table>
           <thead>
@@ -39,8 +40,7 @@
               <th><%= @staff.store_position.try(:name) %></th>
             </tr>
           </thead>
-          <tbody class="attendance share-tbody">
-            <%= form.hidden_field :type, value: type, id: "type-hidden" %>
+          <tbody class="attendance share-tbody", id="tbody-class-swift">
 
             <tr class="attendence-sort text-indent-10">
               <th rowspan="2">考勤科目</th>
@@ -151,6 +151,7 @@
     $(".reward-sort, .penalty-sort, .overtime-sort").hide();
     var head_class = "";
     var tr_sort = "";
+    var class_name = "";
     var span_operate_type = $("span#operate-type")
     var span_hidden_field = $("#type-hidden");
     $(".option_nav input[type=radio]").on("click", function(){
@@ -158,6 +159,15 @@
       head_class = "#" + $(this).data("head");
       tr_sort = $(this).data("sort");
       operate_type = $(this).data("operate")
+
+      switch ($(this).data("head")) {
+        case "attendence": class_name = "attendance"; break;
+        case "reward": class_name = "reward"; break;
+        case "penalty": class_name = "punishment"; break;
+        case "overtime": class_name = "reward"; break;
+      }
+      $("tbody#tbody-class-swift").attr("class", class_name).show();
+
       $(head_class).show()
              .siblings().hide();
 

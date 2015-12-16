@@ -40,8 +40,8 @@
         <tr>
           <th>性质</th>
           <td colspan="5" class="text-indent-20 check-check">
-            <% StoreEvent::SORT[@event.type.to_sym].each do |sort| %>
-              <label><%= sort.first %><input type="checkbox" disabled> </label>
+            <% EventType.collection(@event.type.to_sym).each do |sort| %>
+              <label><%= sort.name %><input type="checkbox" disabled> </label>
             <% end %>
           </td>
         </tr>
