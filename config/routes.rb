@@ -91,6 +91,11 @@ Rails.application.routes.draw do
       get 'confirm', on: :member
       get 'check', on: :member
     end
+
+    controller :record do
+      get "/record/index" => "record#index", as: :record
+      get "search/:id" => "record#search", as: :search_record
+    end
   end
 
   namespace :xianchang do

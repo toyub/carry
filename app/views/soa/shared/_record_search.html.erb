@@ -1,5 +1,5 @@
 <table class="search">
-  <%= form_tag("/soa/events/#{@staff.id}", method: :get) do -%>
+  <%= form_tag("/soa/search/#{@staff.id}", method: :get, remote: true ) do -%>
     <tbody>
       <tr>
         <td>日期</td>
@@ -8,10 +8,9 @@
         <td><%= date_field_tag :to, params[:to], class: "width-122" %></td>
         <td><label class="width-100 text-align-right">记录类型</label></td>
         <% option_array = [
-          ["全部", "0"],
+          ["薪资发放记录", "StoreSalary"],
           ["考勤记录", "StoreAttendence"],
-          ["薪资发放记录", 1],
-          ["调薪记录", 2],
+          ["调薪记录", "StoreAdjustSalary"],
           ["施工记录", 3],
           ["奖励记录", "StoreReward"],
           ["惩戒记录", "StorePenalty"],
@@ -20,7 +19,6 @@
         ]%>
         <td><%= select_tag :type, options_for_select(option_array, params[:type]) %></td>
         <td><%= submit_tag "search"%> </td>
-        <%= link_to "新考勤纪录", new_soa_event_path(id: @staff.id), class: "text-align-center btn new_btn float-right width-80" %> 
       </tr>
     </tbody>
   <% end %>

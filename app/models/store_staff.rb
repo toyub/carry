@@ -26,14 +26,6 @@ class StoreStaff <  ActiveRecord::Base
   scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
 
-  def next
-    StoreStaff.where("id > ?", id).limit(2).first
-  end
-
-  def prev
-    StoreStaff.where("id < ?", id).limit(2).last
-  end
-
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end
@@ -114,6 +106,14 @@ class StoreStaff <  ActiveRecord::Base
     sum
   end
 
+  def next
+    StoreStaff.where("id > ?", id).limit(2).first
+  end
+
+  def prev
+    StoreStaff.where("id < ?", id).limit(2).last
+  end
+
   def get_this_month_salary
     salary = store_salaries.without_confirm_salary_of_this_month.first
     salary = store_salaries.build(set_default_salary_params) if salary.nil?
@@ -122,6 +122,25 @@ class StoreStaff <  ActiveRecord::Base
 
   def salary_of_month(month = Time.now.beginning_of_month.strftime("%Y%m") )
     store_salaries.where(created_month: month, status: true).last
+  end
+
+  def by_search_type(type)
+    record = ""
+    partial = ""
+    case type
+    when "StoreReward", "StoreAttendence", "StorePenalty", "StoreOvertime"
+        record = store_events.by_type(type)
+        partial = "event_record"
+    when "StoreSalary"
+      record = store_salaries.all
+      partial = "salary_record"
+    when "StoreAdjustSalary"
+      record = store_protocols.where(type: "StoreTiaoXin")
+      partial = "adjust_salary_record"
+    else
+      record = "nothing could search!"
+    end
+    return partial, record
   end
 
   def locked?
