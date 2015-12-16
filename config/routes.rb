@@ -235,8 +235,12 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :expense_records
-      
+      resources :expense_records do
+        collection do
+          get :complaint
+        end
+      end
+
     end
   end
 
