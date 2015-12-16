@@ -4,6 +4,7 @@ module Mocks
     def self.mock
       @@sequence = @@sequence + 1
       {
+        id: @@sequence,
         numero: "#{Time.now.strftime('%Y%m%d')}#{@@sequence.to_s.rjust(7, '0')}",
         status: rand(4),
         customer: Mocks::Customer.mock,

@@ -216,7 +216,7 @@
             <span class="invoice">开发票<input type="checkbox"></span>
           </dd>
           <dd class="margin-left-60">
-            <a href="javascript:void(0)" class="save_btn btn">确定</a>
+            <a href="javascript:void(0)" class="save_btn btn js-checkout">确定</a>
           </dd>
         </dl>
       </div>
