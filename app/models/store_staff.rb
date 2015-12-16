@@ -108,9 +108,9 @@ class StoreStaff <  ActiveRecord::Base
     bonus["gerendanbao"].to_f + store_events.total_pay_of_type_per_month("StoreAttendence").to_f + store_events.total_pay_of_type_per_month("StorePenalty").to_f
   end
 
-  def actual_pay
+  def should_pay
     sum = 0
-    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay - bonus["gerendanbao"].to_f
+    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay
     sum
   end
 
@@ -171,8 +171,8 @@ class StoreStaff <  ActiveRecord::Base
                gerendanbao: bonus["gerendanbao"] },
       amount_should_cutfee: cutfee,
       amount_cutfee: cutfee,
-      salary_should_pay: actual_pay,
-      salary_actual_pay: actual_pay - cutfee
+      salary_should_pay: should_pay,
+      salary_actual_pay: should_pay - cutfee
     }
   end
 end

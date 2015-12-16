@@ -6,7 +6,6 @@ class StoreEvent < ActiveRecord::Base
   scope :by_date, ->(from, to) { where("created_at >= :start_date AND created_at <= :end_date",
                                        {:start_date => from, :end_date => to}) if from.present? && to.present? }
 
-
   DefaultType = "StoreAttendence"
   CurrentMonth = Time.now.beginning_of_month.strftime("%m")
   class << self
@@ -25,8 +24,8 @@ class StoreEvent < ActiveRecord::Base
 
     def total_pay(month = CurrentMonth)
       sum = 0
-      sum = total_pay_of_type_per_month("StoreReward", month) + total_pay_of_type_per_month("StoreOvertime") -
-        total_pay_of_type_per_month("StorePenalty") - total_pay_of_type_per_month("StoreAttendence")
+      sum = total_pay_of_type_per_month("StoreReward", month) + total_pay_of_type_per_month("StoreOvertime")
+        # total_pay_of_type_per_month("StorePenalty") - total_pay_of_type_per_month("StoreAttendence")
       sum
     end
 
@@ -35,36 +34,5 @@ class StoreEvent < ActiveRecord::Base
   def recorder
     StoreStaff.find(recorder_id).screen_name
   end
-
-  SORT = {
-    StoreAttendence: [
-      ["调休"],
-      ["事假"],
-      ["病假"],
-      ["婚假"],
-      ["丧假"],
-      ["公休假"],
-      ["迟到"],
-      ["早退"],
-      ["矿工"],
-    ],
-
-    StoreReward: [
-      ["工作优异"],
-      ["拾金不昧"],
-      ["助人为乐"],
-      ["力挽狂澜"],
-    ],
-
-    StorePenalty: [
-      ["违纪"],
-      ["责任过失"],
-    ],
-
-    StoreOvertime: [
-      ["项目加班"],
-      ["调休加班"],
-    ]
-  }
 
 end
