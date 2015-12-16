@@ -172,7 +172,7 @@ class StoreStaff <  ActiveRecord::Base
       amount_should_cutfee: cutfee,
       amount_cutfee: cutfee,
       salary_should_pay: actual_pay,
-      salary_actual_pay: actual_pay
+      salary_actual_pay: actual_pay - cutfee
     }
   end
 end

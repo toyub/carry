@@ -88,7 +88,7 @@
                   </li>
                 <% end %>
               </div>
-              <li id="total_deduction">
+              <li id="total_deduction" class="total_unit">
                 <label class="font-weight-bold">提成合计</label><%= form.text_field :amount_deduction, value: "5.0", class: "total" %>
               </li>
             </ol>
@@ -114,7 +114,7 @@
                   </li>
                <% end %>
               </div>
-             <li id="total_bonus">
+             <li id="total_bonus" class="total_unit">
                <label class="font-weight-bold">补贴合计</label> <%= form.text_field :amount_bonus, value: @salary.amount_bonus.to_f, class: "total" %>
              </li>
           </ol>
@@ -122,11 +122,11 @@
 
         <li>
           <ol>
-            <li>
+            <li class="total_unit">
               <label class="font-weight-bold width-50">加班费</label>
               <label class="width-70 font-weight-bold">加班合计</label> <%= form.text_field :amount_overtime, value: @salary.amount_overtime, class: "total" %>
             </li>
-            <li class="bonus">
+            <li class="bonus total_unit">
               <label class="font-weight-bold width-50">奖金</label>
               <label class="width-70 font-weight-bold">奖金合计</label> <%= form.text_field :amount_reward, value: @salary.amount_reward, class: "total" %>
             </li>
@@ -144,14 +144,14 @@
                 </li>
               <% end %>
             </div>
-            <li id="total_insurence">
+            <li id="total_insurence" class="total_unit">
               <label class="font-weight-bold">保险合计</label> <%= form.text_field :amount_insurence, value: @salary.amount_insurence, class: "total"%>
             </li>
           </ol>
         </li>
 
         <li class="total text-align-right total-salary-should-pay">
-          <label class="color-7391C4 font-weight-bold">应发工资合计：</label> <%= form.text_field :salary_should_pay, value: @salary.salary_actual_pay %>
+          <label class="color-7391C4 font-weight-bold">应发工资合计：</label> <%= form.text_field :salary_should_pay, value: @salary.salary_should_pay %>
         </li>
       </ul>
 
@@ -168,13 +168,13 @@
                 <li><label>个人担保</label> <%= cutfee_fields.text_field :gerendanbao, value: @staff.bonus["gerendanbao"].to_f %> </li>
               <% end %>
             </div>
-            <li id="total_cutfee">
+            <li id="total_cutfee" class="total-cut-unit">
               <label class="font-weight-bold">扣款合计</label> <%= form.text_field :amount_should_cutfee, value: @salary.amount_should_cutfee, class: "total" %> 
             </li>
           </ol>
         </li>
 
-        <li class="total">
+        <li class="total total-cut-unit">
           <label class="font-weight-bold color-C8625C">应扣费用合计：</label>
           <%= form.text_field :amount_cutfee, value: @salary.amount_cutfee %>
         </li>
@@ -182,7 +182,7 @@
 
       <ul class="balance_salary">
         <li class="font-weight-bold font-14">实发金额</li>
-        <li class="text-align-center">
+        <li class="text-align-center total-actual-pay">
           <label class="display-block">薪资总额</label>
           <%= form.text_field :salary_actual_pay, value: @salary.salary_actual_pay %>
         </li>
@@ -194,18 +194,49 @@
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
-    var total_input = $(".total-salary-should-pay input"),
-        total_pay = parseFloat(total_input.val());
+    var total_should_pay_input = $(".total-salary-should-pay input"),
+        total_should_pay = parseFloat(total_should_pay_input.val()),
+        total_actual_pay_input = $(".total-actual-pay input"),
+        total_actual_pay = parseFloat(total_actual_pay_input.val())
 
-    $("#total_deduction, #total_bonus, #total_insurence, #total_cutfee").on("change", function(){
-      console.log($(this).find("input").val());
+    var basic_pay = <%= @staff.current_salary %>;
+
+    var total_units = $(".total_unit input"),
+        total_cut_unit = $(".total-cut-unit input");
+
+    var sum = function() {
+      total = basic_pay;
+      total_units.each(function() {
+        total += parseFloat($(this).val());
+      })
+      return total;
+    }
+    total_units.on("change", function(){
+      total_should_pay = sum();
+      total_should_pay_input.val(total_should_pay.toFixed(2));
+      total_actual_pay = total_should_pay - parseFloat(total_cut_unit.val())
+      total_actual_pay_input.val(total_actual_pay.toFixed(2));
     })
-    var accounting = function(input_area, total_area) {
-      $(input_area).on("change", function(){
-        var current_total_input = $(total_area),
-            current_total_pay = parseFloat(current_total_input.val());
 
-        total_pay -= current_total_pay;
+    total_cut_unit.on("change", function() {
+      total_cut_unit.val($(this).val());
+      total_actual_pay = total_should_pay - parseFloat($(this).val());
+      total_actual_pay_input.val(total_actual_pay.toFixed(2));
+    })
+
+    var accounting = function(input_area, total_area, operator) {
+      $(input_area).on("change", function(){
+        var current_total_should_pay_input = $(total_area),
+            current_total_should_pay = parseFloat(current_total_should_pay_input.val());
+
+        console.log(current_total_should_pay_input.length);
+        if (operator == "+") {
+          total_should_pay -= current_total_should_pay;
+        } else if (operator == "-") {
+          total_actual_pay += current_total_should_pay;
+        }else {
+          return 0;
+        }
 
         var sum = parseFloat($(this).val()),
             sum_of_rest = 0;
@@ -215,14 +246,21 @@
           sum_of_rest += parseFloat($(this).val());
         })
         sum = sum + sum_of_rest;
-        current_total_input.val(sum.toFixed(2));
-        total_pay += sum
-        total_input.val(total_pay.toFixed(2));
+        current_total_should_pay_input.val(sum.toFixed(2));
+        if (operator == "+") {
+          total_should_pay += sum;
+          total_should_pay_input.val(total_should_pay.toFixed(2));
+        } else if (operator == "-") {
+          total_actual_pay -= sum;
+          total_actual_pay_input.val(total_actual_pay.toFixed(2));
+        }
+        total_actual_pay = total_should_pay - parseFloat(total_cut_unit.val())
+        total_actual_pay_input.val(total_actual_pay.toFixed(2));
       })
    }
-   accounting(".duduction-form-field input", "#total_deduction input");
-   accounting(".bonus-form-field input", "#total_bonus input");
-   accounting(".insurence-form-field input", "#total_insurence input");
-   accounting(".cutfee-form-field input", "#total_cutfee input");
+   accounting(".duduction-form-field input", "#total_deduction input", "+");
+   accounting(".bonus-form-field input", "#total_bonus input", "+");
+   accounting(".insurence-form-field input", "#total_insurence input", "+");
+   accounting(".cutfee-form-field input", ".total-cut-unit input", "-");
   })
 </script>
