@@ -128,7 +128,15 @@ Rails.application.routes.draw do
       end
     end
 
+
+    namespace :sms do
+      resources :topups
+      resources :switches
+      resources :messages
+    end
+
     resources :privileges
+
   end
 
   namespace :ajax do
@@ -200,7 +208,6 @@ Rails.application.routes.draw do
     end
 
     resources :store_customer_categories
-
   end
 
   namespace :pos do
@@ -216,6 +223,16 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :open do
+    namespace :topups do
+      resource :alipay do
+        collection do
+          post :notify_url
+          get :return_url
+        end
+      end
+    end
+  end
   root 'kucun/materials#index'
 
   mount Sidekiq::Web => '/sidekiq'
