@@ -13,9 +13,9 @@
 
       <div class="details_content car_content">
           <div class="base_info">
-            <div class="car_main_img border-none float-left">
-              <%= image_tag  "car_01.png" %>
-            </div>
+
+            <%= render 'vehicle_image' %>
+
             <div class="car_info">
               <div class="items">
                 <%= form_for @vehicle, url: crm_store_customer_store_vehicle_archive_path do |f| %>
