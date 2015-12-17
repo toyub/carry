@@ -1,7 +1,7 @@
 class Crm::StoreVehicleArchivesController < Crm::BaseController
-  before_action :set_customer
+  before_action :set_customer, except: [:index, :destroy]
   before_action :set_vehicle, only:[:show, :edit, :update]
-  before_action :set_vehicles, only: [:new, :show]
+  before_action :set_vehicle_ids, only: [:new, :show]
 
   def new
     @vehicle = StoreVehicle.new
@@ -72,10 +72,10 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
     end
 
     def set_vehicle
-      @vehicle = StoreVehicle.find(params[:id])
+      @vehicle = @customer.store_vehicles.find(params[:id])
     end
 
-    def set_vehicles
-      @vehicle_ids = @customer.store_vehicles.ids
+    def set_vehicle_ids
+      @vehicle_ids = @customer.store_vehicles.ids.sort
     end
 end

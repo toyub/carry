@@ -1,0 +1,55 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+
+<%= render '/crm/common/page_head' %>
+
+<div class="details">
+
+  <%= render '/crm/common/customer_nav' %>
+
+  <div class="car_details float-right">
+
+    <%= render '/crm/common/vehicle_nav' %>
+
+    <%= render '/crm/common/sub_nav' %>
+
+    <div class="details_content car_content">
+      <div class="base_info">
+
+        <%= render '/crm/common/vehicle_image' %>
+
+        <div class="car_info float-left">
+          <div class="items">
+            <%= render '/crm/common/vehicle_basic' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="car_list">
+        <div class="list">
+          <div class="list_top">
+              <ul>
+                <li>#</li>
+                <li>时间</li>
+                <li>订单号</li>
+                <li >状况</li>
+                <li >状态</li>
+              </ul>
+          </div>
+          <div class="list_content  list_tr border_left" >
+            <% @orders.each_with_index do |order, idx| %>
+              <ul class="list_tr_hover">
+                <li><%= idx + 1 %></li>
+                <li><%= order.created_at.strftime('%Y-%m-%d') %></li>
+                <li><%= order.id %></li>
+                <li><%= order.remark %></li>
+                <li><%= order.state.present? ? '是' : '否'%></li>
+              </ul>
+            <% end %>
+          </div>
+        <div class="get_order text-align-center float-right"> <a href="#">生成订单</a> </div>
+      </div>
+    </div>
+  </div>
+</div>

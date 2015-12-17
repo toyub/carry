@@ -2,9 +2,9 @@
   <li class="add_carinfo">
     <%= link_to '+', new_crm_store_customer_store_vehicle_archive_path %>
   </li>
-  <% @vehicle_ids.each_with_index do |vehicle_id, index| %>
+  <% @vehicle_ids.each_with_index do |vehicle_id, idx| %>
     <li class='<%= "active" if @vehicle.id == vehicle_id %>' >
-      <%= link_to (index+1), crm_store_customer_store_vehicle_archive_path(@customer, vehicle_id) %>
+      <a href="/crm/store_customers/<%= @customer.id %>/<%= params[:controller].split('/').last %>/<%= vehicle_id %>"><%= idx+1 %></a>
     </li>
   <% end %>
 </ul>
