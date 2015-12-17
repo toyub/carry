@@ -1,12 +1,7 @@
 class JournalEntry < ActiveRecord::Base
-  validates :journalable_id, presence: true
-  validates :journalable_type, presence: true
 
   belongs_to :journalable, polymorphic: true
+  belongs_to :party, polymorphic: true
 
-  def self.credit
-  end
-
-  def self.debit
-  end
+  validates :journalable_id, :journalable_type, :party_type, :party_id, presence: true
 end

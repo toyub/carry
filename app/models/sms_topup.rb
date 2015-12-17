@@ -14,7 +14,8 @@ class SmsTopup
       orderable_id: self.orderable_id,
       orderable_type: self.orderable_type,
       quantity: self.quantity,
-      price: self.price
+      price: self.price,
+      amount: self.quantity * self.price
     }
   end
 

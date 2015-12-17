@@ -45,7 +45,7 @@ ActiveRecord::Base.transaction do
   customer = StoreCustomer.create!(store: store, creator: admin, first_name: '靖', last_name: "郭", full_name: "郭靖", phone_number: "15000002923")
 
 
-  ## 车辆信息
+  ## vehicle_nav
   car_brand = StoreVehicleBrand.create!(store: store, creator: admin, name: "宝马")
   car = StoreVehicle.create!(store: store, creator: admin, model: "宝马5系", series: "宝马新5系", brand: car_brand)
   car.create_engine!(store: store, creator: admin, identification_number: "88971285987612")

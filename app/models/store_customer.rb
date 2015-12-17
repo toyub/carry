@@ -6,6 +6,8 @@ class StoreCustomer < ActiveRecord::Base
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
   has_many :orders, class_name: "StoreOrder"
 
+  has_many :store_vehicles
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 

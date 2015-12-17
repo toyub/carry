@@ -10,4 +10,6 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
   has_many :vehicle_plates
   has_many :store_vehicles, through: :vehicle_plates
 
+  validates :license_number, presence: true
+
 end

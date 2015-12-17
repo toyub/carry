@@ -239,7 +239,7 @@
       $("div.window_wrap").show();
       var customer = $(this).data("customer");
       var order = $(this).data("order");
-      $.get("/crm/store_customers/"+ customer +"/expense_records/complaint",{ order_id: order }, function(data){
+      $.get("/api/store_orders/"+ order +"/complaints/new", function(data){
         $("dd.dd-vehicle").text(data.vehicle);
         $("dd.dd-order-numero").text(data.numero);
         $("ul#creator").append("<li><label>"+ data.creator +"<input name='complaint[detail][creator]' type='checkbox'></label></li>");

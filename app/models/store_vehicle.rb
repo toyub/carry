@@ -4,8 +4,8 @@ class StoreVehicle < ActiveRecord::Base
   belongs_to :vehicle_brand
   belongs_to :vehicle_model
   belongs_to :vehicle_series
-  
   belongs_to :store_customer
+  belongs_to :store_staff
 
   # 车牌
   has_many :vehicle_plates
@@ -22,8 +22,16 @@ class StoreVehicle < ActiveRecord::Base
 
   delegate :license_number, to: :registration_plate
 
-  accepts_nested_attributes_for :plates
   accepts_nested_attributes_for :frame
-  accepts_nested_attributes_for :engines
+
+  ORGANIZATION_TYPE = {
+    0 => '私家车',
+    1 => '公务车',
+    2 => '商务车'
+  }
+
+  def organization_type_name
+    ORGANIZATION_TYPE[self.detail['organization_type'].to_i]
+  end
 
 end
