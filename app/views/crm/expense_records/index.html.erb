@@ -128,7 +128,8 @@
 </div>
 
 <div class="window_wrap" style="display: none;">
-
+  <form class="" action="index.html" method="post">
+     <input type="hidden" name="complaint[store_customer_id]" value="">
     <div class="complaints_records_wrap">
   	<h2>投诉事件记录</h2>
   	<ul class="top">
@@ -228,6 +229,8 @@
         <%= link_to '确定', 'javascript:void(0)', class: 'btn save_btn', id: 'tousu_save' %>
     	</div>
   </div>
+
+</form>
 </div>
 
 </div>
@@ -243,7 +246,6 @@
         $("dd.dd-vehicle").text(data.vehicle);
         $("dd.dd-order-numero").text(data.numero);
         $("ul#creator").append("<li><label>"+ data.creator +"<input name='complaint[detail][creator]' type='checkbox'></label></li>");
-        console.log(data.creator);
         data.mechanic.forEach(function(item){
           $("ul#mechanic").append("<li><label>"+ item +"<input name='complaint[detail][creator]' type='checkbox'></label></li>");
         });
