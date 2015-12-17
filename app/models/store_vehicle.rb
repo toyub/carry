@@ -19,6 +19,7 @@ class StoreVehicle < ActiveRecord::Base
   has_one :frame, class_name: "StoreVehicleFrame"
 
   has_many :orders, class_name: "StoreOrder"
+  has_many :complaints, as: :creator
 
   delegate :license_number, to: :registration_plate
 

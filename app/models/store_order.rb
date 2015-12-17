@@ -7,7 +7,8 @@ class StoreOrder < ActiveRecord::Base
   belongs_to :plate, class_name: 'StoreVehicleRegistrationPlate'
 
   has_many :items, class_name: 'StoreOrderItem'
-  
+  has_many :complaints, as: :creator
+
   enum state: %i[pending processing waiting_pay paid]
 
   before_create :set_numero
