@@ -183,7 +183,7 @@ Rails.application.routes.draw do
     end
     resources :store_vehicles, only: [:index]
     resources :store_orders, only: [:index] do
-      resources :complaints, only:[:new]
+      resources :complaints, only:[:new, :create]
     end
     resources :store_subscribe_orders
     resources :store_packages, only: [:show, :create, :update, :index] do
@@ -234,12 +234,7 @@ Rails.application.routes.draw do
       resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update] do
       end
 
-      resources :expense_records do
-        collection do
-          get :complaint
-        end
-      end
-
+      resources :expense_records, only: [:index]
     end
   end
 

@@ -7,7 +7,13 @@ module Api
       numero = @store_order.numero
       creator = @store_order.creator.full_name
       mechanic = @store_order.items.map{ |item| item.creator.full_name }
-      render json: {vehicle: vehicle, numero: numero, creator: creator, mechanic: mechanic}
+      vehicle_id = @store_order.store_vehicle.id
+      render json: {vehicle: vehicle, numero: numero, creator: creator,
+                    mechanic: mechanic, vehicle_id: vehicle_id}
+    end
+
+    def create
+      # binding.pry
     end
 
   end

@@ -5,11 +5,6 @@ class Crm::ExpenseRecordsController < Crm::BaseController
     @orders = @q.result.includes(:store_vehicle)
   end
 
-  def complaint
-
-  end
-
-
   private
   def set_customer
     @customer = StoreCustomer.find(params[:store_customer_id])
