@@ -227,6 +227,13 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :crm do
+    resources :store_customers do
+      resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update] do
+      end
+    end
+  end
+
   root 'kucun/materials#index'
 
   mount Sidekiq::Web => '/sidekiq'

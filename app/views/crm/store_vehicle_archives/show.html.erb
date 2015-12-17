@@ -1,0 +1,32 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+
+<div class="main_top margin-left-0">
+  <h2>客户列表</h2>
+  <span class="margin-left-20 font-16 main_top_span">客户详情</span>
+</div>
+<div class="details">
+
+  <%= render 'customer_nav' %>
+
+  <div class="car_details float-right">
+
+    <%= render 'vehicle_nav' %>
+
+    <%= render 'sub_nav' %>
+
+    <div class="details_content car_content">
+      <div class="base_info">
+
+        <%= render 'vehicle_image' %>
+
+        <div class="car_info">
+          <div class="items">
+            <%= render 'vehicle' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

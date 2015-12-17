@@ -3,6 +3,8 @@ class StoreCustomer < ActiveRecord::Base
 
   belongs_to :store_customer_entity
 
+  has_many :store_vehicles
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
