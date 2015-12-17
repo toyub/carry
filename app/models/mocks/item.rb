@@ -1,14 +1,16 @@
 module Mocks
   class Item
     def self.mock
+      
       {
-              name: 'Kdds Dsdfn DLjk dsljik LKJK',
-              speci: 'sdfsdfds sd sdfsdfsdf',
-              unit: 'dsfdsfsdfsd',
+              name: '3M Beat Oil',
+              speci: '1500ml',
+              unit: 'Bottle',
               quantity: '1',
-              price: '3333',
-              cut: '22',
-              amount: '3311'
+              price: '350',
+              huiyuan_price: ['320','-'].sample,
+              cut: '2',
+              amount: '298'
             }
     end
   end
