@@ -5,19 +5,15 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
 
   def new
     @vehicle = StoreVehicle.new
-    @vehicle.plates.build
     @vehicle.build_frame
-    @vehicle.engines.build
   end
 
   def create
-    license_number = vehicle_params[:license_number]
-    identification_number = vehicle_params[:identification_number]
     vehicle = StoreVehicle.new(append_store_attrs vehicle_params.except(:license_number, :identification_number))
-    if CreateStoreVehicleService.call(vehicle, license_number, identification_number)
+    if CreateStoreVehicleService.call(vehicle, vehicle_params)
       redirect_to crm_store_customer_store_vehicle_archive_path(@customer, vehicle)
     else
-      @vehicles = StoreVehicle.all
+      @vehicle_ids = @customer.store_vehicles.ids
       @vehicle = StoreVehicle.new
       @vehicle.build_frame
       render :new
@@ -80,6 +76,6 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
     end
 
     def set_vehicles
-      @vehicles = StoreVehicle.where(store_customer_id: @customer.id).order('id asc')
+      @vehicle_ids = @customer.store_vehicles.ids
     end
 end

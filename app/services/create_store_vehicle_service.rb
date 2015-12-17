@@ -1,10 +1,10 @@
 class CreateStoreVehicleService
   include Serviceable
 
-  def initialize(vehicle, license_number, identification_number)
+  def initialize(vehicle, vehicle_params)
     @vehicle = vehicle
-    @license_number = license_number
-    @identification_number = identification_number
+    @license_number = vehicle_params[:license_number]
+    @identification_number = vehicle_params[:identification_number]
     @plate = StoreVehicleRegistrationPlate.find_by(license_number: @license_number)
     @engine = StoreVehicleEngine.find_by(identification_number: @identification_number)
   end
