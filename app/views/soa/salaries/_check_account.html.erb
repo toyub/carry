@@ -151,6 +151,7 @@
         </li>
 
         <li class="total text-align-right total-salary-should-pay">
+          <label class="font-weight-bold">员工底薪：</label> <%= form.text_field :salary_should_pay, value: @salary.store_staff.current_salary, disabled: true, class: "margin-right-82" %>
           <label class="color-7391C4 font-weight-bold">应发工资合计：</label> <%= form.text_field :salary_should_pay, value: @salary.salary_should_pay %>
         </li>
       </ul>

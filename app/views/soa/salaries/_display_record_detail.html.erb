@@ -127,8 +127,10 @@
           </li>
 
           <li class="total text-align-right">
+            <label class="font-weight-bold">员工底薪：</label>
+            <span class="show_content margin-right-82"><%= @salary.store_staff.current_salary %></span>
             <label class="color-7391C4 font-weight-bold">应发工资合计：</label>
-            <span class="show_content"><%= @salary.salary_actual_pay %></span>
+            <span class="show_content"><%= @salary.salary_should_pay %></span>
           </li>
         </ul>
 
@@ -139,7 +141,7 @@
           <li>
             <ol>
               <li><label>违纪扣款</label> <span class="show_content margin-left-15"><%= @salary.cutfee["weiji"] %></span></li>
-              <li><label>考勤扣款</label> <span class="show_content margin-left-15"><%= @salary.cutfee["kaoqin"] %>0.00</span></li>
+              <li><label>考勤扣款</label> <span class="show_content margin-left-15"><%= @salary.cutfee["kaoqin"] %></span></li>
               <li><label>个人担保</label> <span class="show_content margin-left-15"><%= @salary.cutfee["gerendanbao"] %></span></li>
               <li><label>借贷扣除</label> <span class="show_content margin-left-15"><%= @salary.cutfee["jiedai"] %></span></li>
               <li><label>其他扣款</label> <span class="show_content margin-left-15"><%= @salary.cutfee["qita"] %></span></li>

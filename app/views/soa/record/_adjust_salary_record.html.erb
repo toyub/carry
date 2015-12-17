@@ -16,15 +16,15 @@
     </thead>
 
     <tbody>
-      <% @record.each do |adjust| %>
+      <% @record.each do |event| %>
         <tr>
-          <td><%= adjust.created_at.strftime("%Y/%m/%d") %></td>
-          <td>调薪</td>
-          <td><%= adjust.previous_salary %></td>
-          <td><%= adjust.new_salary - (adjust.previous_salary || 0) %>元</td>
-          <td><%= adjust.reason %></td>
-          <td><%= adjust.new_salary %></td>
-          <td><a href="#">详情</a></td>
+          <td><%= event.created_at.strftime("%Y/%m/%d") %></td>
+          <td>调薪<%= event.id %></td>
+          <td><%= event.previous_salary %></td>
+          <td><%= event.new_salary - (event.previous_salary || 0) %>元</td>
+          <td><%= event.reason %></td>
+          <td><%= event.new_salary %></td>
+          <td><%= link_to "详情", record_soa_protocol_path(id: event.id), remote: true %></td>
         </tr>
       <% end %>
     </tbody>
@@ -34,4 +34,8 @@
       </tr>
     </tfoot>
   </table>
+</div>
+
+<div class="pop-detail-area">
+  <h2>hello 333</h2>
 </div>

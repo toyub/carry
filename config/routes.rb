@@ -82,6 +82,9 @@ Rails.application.routes.draw do
       get 'detail', on: :member
       get 'search', on: :collection
     end
+    resources :protocols do
+      get 'record', on: :member
+    end
     resources :performance do
       get 'search', on: :collection
     end
