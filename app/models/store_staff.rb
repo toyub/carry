@@ -73,12 +73,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def insurence_enabled?
-    if bonus.nil? || other.nil? || skills.nil?
-      update(bonus: {}, other: {}, skills: {})
-      return "否"
-    else
-      return (bonus["insurence_enabled"].nil? || bonus["insurence_enabled"] == "0") ? "否" : "是"
-    end
+    return (bonus.try(:[], "insurence_enabled").nil? || bonus.try(:[], "insurence_enabled") == "0") ? "否" : "是"
   end
 
   def current_salary

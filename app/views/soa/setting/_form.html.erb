@@ -44,23 +44,23 @@
           <%= form.fields_for :bonus do |bonus_fields| -%>
             <li>
               <%= bonus_fields.label :gangwei, "岗位补贴" %>
-              <%= bonus_fields.text_field :gangwei, value: @staff.bonus["gangwei"] %>
+              <%= bonus_fields.text_field :gangwei, value: @staff.bonus.try(:[], "gangwei") %>
             </li>
             <li>
               <%= bonus_fields.label :zhusu, "住宿补贴" %>
-              <%= bonus_fields.text_field :zhusu, value: @staff.bonus["zhusu"] %>
+              <%= bonus_fields.text_field :zhusu, value: @staff.bonus.try(:[], "zhusu") %>
             </li>
             <li>
               <%= bonus_fields.label :canfei, "餐费补贴" %>
-              <%= bonus_fields.text_field :canfei, value: @staff.bonus["canfei"] %>
+              <%= bonus_fields.text_field :canfei, value: @staff.bonus.try(:[], "canfei") %>
             </li>
             <li>
               <%= bonus_fields.label :laobao, "劳保补贴" %>
-              <%= bonus_fields.text_field :laobao, value: @staff.bonus["laobao"]%>
+              <%= bonus_fields.text_field :laobao, value: @staff.bonus.try(:[], "laobao")%>
             </li>
             <li>
               <%= bonus_fields.label :gaowen, "高温补贴" %>
-              <%= bonus_fields.text_field :gaowen, value: @staff.bonus["gaowen"]%>
+              <%= bonus_fields.text_field :gaowen, value: @staff.bonus.try(:[], "gaowen")%>
             </li>
           <% end %>
         </ul>
@@ -84,17 +84,17 @@
         <ul class="security-area">
           <%= form.fields_for :bonus do |bonus_fields| %>
             <li>
-              <%= bonus_fields.check_box :insurence_enabled, checked: @staff.bonus["insurence_enabled"] == "1", class: "vertical-align-middle toggleable", id: "security-checkbox" %>
+              <%= bonus_fields.check_box :insurence_enabled, checked: @staff.bonus.try(:[], "insurence_enabled") == "1", class: "vertical-align-middle toggleable", id: "security-checkbox" %>
               <%= bonus_fields.label :yibaofei, "医保费",  class: "width-74" %>
-              <%= bonus_fields.text_field :yibaofei, value: @staff.bonus["yibaofei"] %>
+              <%= bonus_fields.text_field :yibaofei, value: @staff.bonus.try(:[], "yibaofei") %>
             </li>
             <li>
               <%= bonus_fields.label :baoxianjing, "保险金" %>
-              <%= bonus_fields.text_field :baoxianjing, value: @staff.bonus["baoxianjing"]%>
+              <%= bonus_fields.text_field :baoxianjing, value: @staff.bonus.try(:[], "baoxianjing")%>
             </li>
             <li>
               <%= bonus_fields.label :gerendanbao, "个人承担" %>
-              <%= bonus_fields.text_field :gerendanbao, value: @staff.bonus["gerendanbao"] %>
+              <%= bonus_fields.text_field :gerendanbao, value: @staff.bonus.try(:[],"gerendanbao") %>
             </li>
           <% end %>
         </ul>
@@ -111,24 +111,24 @@
             <li>
               <%= skills_fields.label :theory, "理论知识" %>
               <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1'%>
-              <span id="theory-input-value"><%= @staff.skills["theory"].to_i %></span>
+              <span id="theory-input-value"><%= @staff.skills.try(:[], "theory").to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :operate, "实操能力" %>
-              <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills["operate"], step: '.1' %>
-              <span id="operate-input-value"><%= @staff.skills["operate"].to_i %></span>
+              <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills.try(:[], "operate"), step: '.1' %>
+              <span id="operate-input-value"><%= @staff.skills.try(:[], "operate").to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :integrate, "综合能力" %>
               <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills["integrate"] , step: '.1' %>
-              <span id="integrate-input-value"><%= @staff.skills["integrate"].to_i %></span>
+              <span id="integrate-input-value"><%= @staff.skills.try(:[], "integrate").to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :certificate, "技能证书" %>
-              <%= skills_fields.select :certificate, [["无", false], ["有", true]], selected: @staff.skills["certificate"] %>
+              <%= skills_fields.select :certificate, [["无", false], ["有", true]], selected: @staff.skills.try(:[], "certificate") %>
             </li>
 
             <li>
@@ -207,7 +207,7 @@
     })
 
     var input_area = $(".security-area li input[type='text']");
-    if ( <%= @staff.bonus["insurence_enabled"].nil? || @staff.bonus['insurence_enabled'] == "0" %> )
+    if ( <%= @staff.bonus.try(:[], "insurence_enabled").nil? || @staff.bonus.try(:[], 'insurence_enabled') == "0" %> )
       input_area.attr("disabled", "disabled")
 
     $("#security-checkbox").on("click", function(){
