@@ -9,12 +9,14 @@ class Crm::ExpenseRecordsController < Crm::BaseController
     @store_order = StoreOrder.find(params[:order_id])
     vehicle = @store_order.store_vehicle.plates.last.license_number
     numero = @store_order.numero
-    render json: {vehicle: vehicle, numero: numero}
+    creator = @store_order.creator.full_name
+    mechanic = @store_order.items.map{ |item| item.creator.full_name }
+    render json: {vehicle: vehicle, numero: numero, creator: creator, mechanic: mechanic}
   end
 
 
   private
   def set_customer
-    @customer = StoreCustomer.find(1)
+    @customer = StoreCustomer.find(params[:store_customer_id])
   end
 end

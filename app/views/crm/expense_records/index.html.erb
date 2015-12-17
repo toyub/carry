@@ -87,7 +87,7 @@
                         <tbody>
                           <% order.items.each do |item|  %>
                           <tr>
-                            <td><label> <%= item.creator %> </label></td>
+                            <td><label> <%= item.creator.full_name %> </label></td>
                             <td> <%= item.orderable.name %> </td>
                             <td> <%= item.price %> </td>
                             <td> <%= item.quantity %> </td>
@@ -144,9 +144,9 @@
   			<dd>联系方式</dd>
   			<dd> <%= @customer.phone_number %> </dd>
   			<dd>车牌号</dd>
-  			<dd class="dd-vehicle">浙A-N209A</dd>
+  			<dd class="dd-vehicle"></dd>
   			<dd>订单号</dd>
-  			<dd class="dd-order-numero">YW201510090008</dd>
+  			<dd class="dd-order-numero"></dd>
   		</dl>
   		<dl class="client_type">
   	    <dd>投诉类别</dd>
@@ -180,18 +180,13 @@
   			<dd>
   			  <div class="liable_person">
   					<h2>销售接待</h2>
-  					<ul>
-  						<li><label>王丽丽<input type="checkbox"></label></li>
-  						<li><label>张燕<input type="checkbox"></label></li>
-  						<li><label>王丽丽<input type="checkbox"></label></li>
+  					<ul id="creator">
   					</ul>
   				</div>
   				<div class="liable_person">
   					<h2>施工技师</h2>
-  					<ul>
-  						<li><label>王丽丽<input type="checkbox"></label></li>
-  						<li><label>张燕<input type="checkbox"></label></li>
-  						<li><label>王丽丽<input type="checkbox"></label></li>
+  					<ul id="mechanic">
+  						<!-- <li><label>王丽丽<input type="checkbox"></label></li> -->
   					</ul>
   				</div>
   			</dd>
@@ -244,12 +239,15 @@
       $("div.window_wrap").show();
       var customer = $(this).data("customer");
       var order = $(this).data("order");
-
       $.get("/crm/store_customers/"+ customer +"/expense_records/complaint",{ order_id: order }, function(data){
         $("dd.dd-vehicle").text(data.vehicle);
         $("dd.dd-order-numero").text(data.numero);
-      })
-
+        $("ul#creator").append("<li><label>"+ data.creator +"<input name='complaint[detail][creator]' type='checkbox'></label></li>");
+        console.log(data.creator);
+        data.mechanic.forEach(function(item){
+          $("ul#mechanic").append("<li><label>"+ item +"<input name='complaint[detail][creator]' type='checkbox'></label></li>");
+        });
+      });
     });
 
     $("a#tousu_cancel").on("click", function(){
