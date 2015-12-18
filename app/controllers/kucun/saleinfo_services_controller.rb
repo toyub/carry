@@ -1,4 +1,4 @@
-class Kucun::SaleinfoServicesController < Kucun::ControllerBase
+class Kucun::SaleinfoServicesController < Kucun::BaseController
   def index
     store_material = StoreMaterial.find(params[:material_id])
     if store_material.store_material_saleinfo.present?

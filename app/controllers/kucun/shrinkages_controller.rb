@@ -1,4 +1,4 @@
-class Kucun::ShrinkagesController < Kucun::ControllerBase
+class Kucun::ShrinkagesController < Kucun::BaseController
   def index
     @store = current_store
     @shrinkages = StoreMaterialShrinkage.where(store_id: @store.id)

@@ -1,4 +1,4 @@
-class Kucun::TrackingsController < Kucun::ControllerBase
+class Kucun::TrackingsController < Kucun::BaseController
   def create
     store = current_store
     store_material = store.store_materials.find(params[:material_id])
