@@ -25,27 +25,29 @@
       	</ul>
       </div>
 
+  <%= search_form_for @q, url: crm_store_customer_complaints_path(@customer), class: 'search navbar-form' do |f| -%>
       <div class="nav_query_wrap">
         <div class="nav-item-query">
           <label>选择车辆</label>
-          <select class="width-120">
-            <option>浙A-N209A</option>
-            <option>全部车辆</option>
-            <option>浙A-16034</option>
-            <option>浙A-22776</option>
+          <select class="width-120" name="q[store_vehicle_id_eq]">
+            <option value="">全部车辆</option>
+            <% @customer.plates.each do |plate| %>
+              <option value="<%= plate.id%>" > <%= plate.license_number %> </option>
+            <% end %>
           </select>
         </div>
 
         <div class="nav-item-query">
-          <label class="width-70">选择时间</label>
-          <input type="date" class="width-120">
-          <input type="date" class="width-120">
+          <label>选择时间</label>
+          <input type="date" class="width-120" name="q[created_at_gt]">
+          <input type="date" class="width-120" name="q[created_at_lt]">
         </div>
 
         <div class="nav-item-query">
-          <a href="javascript:void(0)" class="btn query_btn">查<nbsp1></nbsp1>询</a>
+          <%= f.submit '查  询', class: 'btn query_btn' %>
         </div>
       </div>
+    <% end -%>
 
       <div class="details_content">
         <table cellspacing="0" cellpadding="0" class="complaints">
@@ -68,14 +70,26 @@
               <tr>
                 <td class="number"> <%= i+1 %> </td>
                 <td> <%= complaint.created_at.strftime("%Y-%m-%d") %> </td>
-                <td>YX2015071900001</td>
-                <td>米其林轮胎 2015/55/16 3ST 91V</td>
-                <td>1,160.00</td>
-                <td>王丽丽</td>
-                <td><span>李小龙</span><span>刘斌</span></td>
+                <td> <%= complaint.order.try(:numero) %> </td>
+                <td> <%= complaint.detail.try(:[], 'content') %> </td>
+                <td> <%= complaint.order.items.inject(0){ |total, item| total+ item.amount  } if complaint.order %> </td>
+                <% saler = complaint.detail.try(:[],'principal').try(:[], 'saler')  %>
+                <td> <%= StoreStaff.find(saler).full_name if saler %>  </td>
+                <%= mechanics = complaint.detail.try(:[], 'principal').try(:[], 'mechanic')||[] %>
                 <td>
+                  <% mechanics.each do |mechanic|  %>
+                    <span> <%= StoreStaff.find(mechanic).full_name %> </span>
+                  <% end %>
                 </td>
-                <td></td>
+                <td>
+                  <% categories = complaint.detail['category']|| [] %>
+                    <% categories.each do |k, v|  %>
+                        <%= complaint.category(k) %>
+                    <% end %>
+                </td>
+                <td>
+                  <%= complaint.detail['response']['customer'] %>
+                </td>
                 <td><i class="ico ico-edit do_complaints"></i></td>
               </tr>
             <% end %>

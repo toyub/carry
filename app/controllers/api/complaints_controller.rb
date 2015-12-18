@@ -13,8 +13,7 @@ module Api
     end
 
     def create
-      binding.pry
-      complaint = current_staff.complaints.new(complaint_params)
+      complaint = current_staff.creator_complaints.new(complaint_params)
       if complaint.save
         redirect_to crm_store_customer_expense_records_path(complaint.store_customer), notice: '投诉成功！'
       else
