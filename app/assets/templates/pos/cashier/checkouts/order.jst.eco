@@ -68,7 +68,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% for item in @items : %>
+                    <% for item in @items.materials : %>
                     <tr>
                       <td><%= item.name %></td>
                       <td><%= item.speci %></td>
@@ -82,7 +82,7 @@
                     <% end %>
                   </tbody>
                   <tfoot>
-                    <tr class="text-align-right">
+                    <tr>
                       <td colspan="10">
                         <label class="margin-right-10">小结:</label><label>60.00</label>
                       </td>
@@ -104,20 +104,20 @@
                     </tr>
                   </thead>
                   <tbody>
-
+                    <% for item in @items.services : %>
                     <tr>
                       <td>精致洗车</td>
                       <td>1</td>
-                      <td class="text-align-right">68.00</td>
-                      <td class="text-align-right">65.00</td>
-                      <td class="text-align-right">5.00</td>
+                      <td>68.00</td>
+                      <td>65.00</td>
+                      <td>5.00</td>
                       <td>折上折</td>
                       <td>60.00</td>
                     </tr>
-
+                    <% end %>
                   </tbody>
                   <tfoot>
-                    <tr class="text-align-right">
+                    <tr>
                       <td colspan="8">
                         <label class="margin-right-10">小结:</label><label>260.00</label>
                       </td>
@@ -137,17 +137,18 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <% for item in @items.packages : %>
                     <tr>
-                      <td>充1000送200</td>
-                      <td>1</td>
-                      <td class="text-align-right">1200.00</td>
-                      <td>1000.00</td>
-                      <td>1000</td>
+                      <td><%= item.name %></td>
+                      <td><%= item.quantity %></td>
+                      <td><%= item.denomination %></td>
+                      <td><%= item.price %></td>
+                      <td><%= item.amount %></td>
                     </tr>
-
+                    <% end %>
                   </tbody>
                   <tfoot>
-                    <tr class="text-align-right">
+                    <tr>
                       <td colspan="8">
                         <label class="margin-right-10">小结:</label><label>260.00</label>
                       </td>
