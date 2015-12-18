@@ -29,36 +29,29 @@
               <div class="account_info">
                 <dl>
                   <dd>
-
-                  </dd>
-                  <dd>
                     <label class="width-80" >储值余额:</label>
-                    <span><%= @customer.balance %></span>
+                    <span>863.00</span>
                   </dd>
                 </dl>
-                <dl>
-                  <dd>
 
-                  </dd>
+                <dl>
                   <dd>
                     <label class="width-80" >挂账额度:</label>
-                    <span><%= @customer.credit_limit %></span>
+                    <span>15,000.00</span>
                   </dd>
                 </dl>
+
                 <dl>
                   <dd>
-
-                  </dd>
-                  <dd>
                     <label class="width-80" >可用积分:</label>
-                    <span><%= @customer.points %></span>
+                    <span>20,000.00</span>
                   </dd>
                 </dl>
               </div>
             </div>
 
             <div class="vehicle_order">
-              <span class="vehicle_order_title title doslide">业务信息</span>
+              <span class="vehicle_order_title title doslide">消费明细</span>
               <div class="order_info">
                 <h2>商品明细</h2>
                 <table cellpadding="0" cellspacing="0" class="commodity_details">
@@ -66,7 +59,6 @@
                     <tr>
                       <th>名称</th>
                       <th>规格</th>
-                      <th>单位</th>
                       <th>数量</th>
                       <th>单价</th>
                       <th>会员/套餐价</th>
@@ -80,7 +72,6 @@
                     <tr>
                       <td><%= item.name %></td>
                       <td><%= item.speci %></td>
-                      <td><%= item.unit %></td>
                       <td><%= item.quantity %></td>
                       <td><%= item.price %></td>
                       <td><%= item.huiyuan_price %></td>
@@ -93,7 +84,7 @@
                   <tfoot>
                     <tr class="text-align-right">
                       <td colspan="10">
-                        <label class="margin-right-10">应收:</label><label>60.00</label>
+                        <label class="margin-right-10">小结:</label><label>60.00</label>
                       </td>
                     </tr>
                   </tfoot>
@@ -103,9 +94,7 @@
                 <table cellpadding="0" cellspacing="0" class="service_details">
                   <thead>
                     <tr>
-
                       <th>项目</th>
-
                       <th>数量</th>
                       <th>单价</th>
                       <th>会员/套餐价</th>
@@ -115,9 +104,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr >
-                      <td>精致洗车</td>
 
+                    <tr>
+                      <td>精致洗车</td>
                       <td>1</td>
                       <td class="text-align-right">68.00</td>
                       <td class="text-align-right">65.00</td>
@@ -126,47 +115,20 @@
                       <td>60.00</td>
                     </tr>
 
-                    <tr >
-                      <td>打蜡*</td>
-
-                      <td>1</td>
-                      <td class="text-align-right">68.00</td>
-                      <td class="text-align-right">55</td>
-                      <td class="text-align-right">-</td>
-                      <td>-</td>
-                      <td style="text-decoration: line-through;">55.00</td>
-                    </tr>
-
-                    <tr >
-                      <td>美容</td>
-
-                      <td>1</td>
-                      <td class="text-align-right">200.00</td>
-                      <td class="text-align-right">-</td>
-                      <td class="text-align-right">-</td>
-                      <td>-</td>
-                      <td>200.00</td>
-                    </tr>
-
                   </tbody>
                   <tfoot>
                     <tr class="text-align-right">
                       <td colspan="8">
-                        <label class="margin-right-10">应收:</label><label>260.00</label>
+                        <label class="margin-right-10">小结:</label><label>260.00</label>
                       </td>
                     </tr>
                   </tfoot>
                 </table>
-                <div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
-
-
-
 
                 <h2>套餐/储值明细</h2>
-                <table cellpadding="0" cellspacing="0" class="service_details">
+                <table cellpadding="0" cellspacing="0" class="packages">
                   <thead>
                     <tr>
-
                       <th>项目</th>
                       <th>数量</th>
                       <th>正常累计价</th>
@@ -187,17 +149,13 @@
                   <tfoot>
                     <tr class="text-align-right">
                       <td colspan="8">
-                        <label class="margin-right-10">应收:</label><label>260.00</label>
+                        <label class="margin-right-10">小结:</label><label>260.00</label>
                       </td>
                     </tr>
                   </tfoot>
                 </table>
-                <div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
 
-
-
-
-
+                <div class="total_spending ">总计:<label>9,987.70</label></div>
 
               </div>
             </div>
@@ -261,7 +219,7 @@
           <dl>
             <dd>
               <a class="receipt_btn bg-color-CBE19B" href="javascript:void(0)">小票</a>
-              <a class="receipt_btn bg-color-E4BE7F" href="print_order.html">单据</a>
+              <a class="receipt_btn bg-color-E4BE7F" href="/printer/pos/orders/<%= @id %>" target="_blank">单据</a>
               <span class="invoice">开发票<input type="checkbox"></span>
             </dd>
             <dd class="margin-left-60">
