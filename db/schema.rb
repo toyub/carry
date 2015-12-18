@@ -355,7 +355,6 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
   create_table "store_envelopes", force: :cascade do |t|
     t.integer  "store_message_id"
     t.integer  "store_id"
