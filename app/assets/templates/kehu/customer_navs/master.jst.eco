@@ -3,7 +3,7 @@
 
 <li id="cheliangxinxishow"><%= link_to '保养间隔时间(天)', new_crm_store_customer_store_vehicle_archive_path, class: 'width-90' %></li>
 
-<li id="xiaofeijilu"><a href="/mis/kehu/kehuliebiao/xiaofeijilu.html?xiaofeijilu" class="width-90">消费记录</a></li>
+<li id="xiaofeijilu"><a href="/crm/store_customers/1/expense_records" class="width-90">消费记录</a></li>
 <li id="huifangjilu"><a href="/mis/kehu/kehuliebiao/huifangjilu.html?huifangjilu" class="width-90">回访记录</a></li>
 <li id="yixiang"><a href="javascript:void(0);" class="width-90 ">意向产品</a></li>
 <li id="tousu"><a href="/mis/kehu/kehuliebiao/tousu.html?tousu" class="width-90">投诉记录</a></li>

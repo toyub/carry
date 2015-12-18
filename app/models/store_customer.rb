@@ -2,8 +2,12 @@ class StoreCustomer < ActiveRecord::Base
   include BaseModel
 
   belongs_to :store_customer_entity
+  has_many :store_vehicles
+  has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
+  has_many :orders, class_name: "StoreOrder"
 
   has_many :store_vehicles
+  has_many :complaints, as: :creator
 
   validates :first_name, presence: true
   validates :last_name, presence: true
