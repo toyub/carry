@@ -1,4 +1,6 @@
 class Soa::StaffController < Soa::BaseController
+  before_action :check_bonus, only: :index
+
   def index
     @staffs = current_store.store_staff
                                               .by_keyword(params[:keyword])

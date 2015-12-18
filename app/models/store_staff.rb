@@ -62,6 +62,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def trial_status
     status = "转正"
+    remain_day = 0
     if store_protocols.operate_type("StoreZhuanZheng").size == 0
       remain_day = ( Date.today - (created_at - trial_period.months).to_date).round if trial_period
       status = remain_day < 0 ? "转正" : "试用中"
@@ -77,7 +78,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def current_salary
-    trial_status == "转正" ? regular_salary : trial_salary
+    trial_status == "转正" ? regular_salary.to_f : trial_salary.to_f
   end
 
   def contract_period

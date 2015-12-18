@@ -1,4 +1,6 @@
 class Soa::SalariesController < Soa::BaseController
+  before_action :check_bonus, only: :index
+
   def index
     @staffs = current_store.store_staff.salary_has_been_not_confirmed.by_keyword(params[:keyword])
   end
