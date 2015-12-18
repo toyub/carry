@@ -1,4 +1,4 @@
-class Kucun::TrackingSectionsController < Kucun::ControllerBase
+class Kucun::TrackingSectionsController < Kucun::BaseController
   def index
     store = current_store
     store_material = store.store_materials.find(params[:material_id])

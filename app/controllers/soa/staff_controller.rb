@@ -1,4 +1,4 @@
-class Soa::StaffController < Soa::ControllerBase
+class Soa::StaffController < Soa::BaseController
   def index
     @staffs = current_store.store_staff
                                               .by_keyword(params[:keyword])

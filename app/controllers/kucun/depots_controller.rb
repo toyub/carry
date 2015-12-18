@@ -1,4 +1,4 @@
-class Kucun::DepotsController < Kucun::ControllerBase
+class Kucun::DepotsController < Kucun::BaseController
   def materials
     @store=current_store
     @store_depot = @store.store_depots.find(params[:id])

@@ -1,4 +1,4 @@
-class Kucun::PhysicalInventoriesController < Kucun::ControllerBase
+class Kucun::PhysicalInventoriesController < Kucun::BaseController
   before_action :set_store
 
   def index
