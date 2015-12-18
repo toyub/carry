@@ -21,5 +21,9 @@ module Erp
     def authenticate_user
       render json: {errors: ["not logined"]}, status: 402 and return unless current_user.present?
     end
+
+    def current_store_chain
+      current_user.store_chain
+    end
   end
 end
