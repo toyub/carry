@@ -1,0 +1,136 @@
+
+<div class="main_top">
+  <h2>短信设置</h2>
+</div>
+
+  <%= render partial: 'settings/sms/partials/top' %>
+  <%= render partial: 'settings/sms/partials/nav' %>
+
+  <div class="details_content feecharge">
+
+    <div class="functional_bar">
+
+      <div class="search_bar float-left">
+        <form action="" method="GET">
+          <span>日期</span>
+          <input type="date" name='from' value="<%= params[:from] %>">
+          <span>至</span>
+          <input type="date" name='to' value="<%= params[:to] %>">
+          <input type="submit" class="btn query_btn" value="查询">
+        </form>
+      </div>
+
+      <div class="btn_group float-right width-100 margin-none">
+        <a href="javascript:void(0)" class="btn feecharge_btn">充值</a>
+      </div>
+    </div>
+
+    <div class="lists">
+      <ul class="head">
+        <li>#</li>
+        <li>日期</li>
+        <li>单价</li>
+        <li>数量</li>
+        <li>金额</li>
+        <li>付款方式</li>
+      </ul>
+
+      <div class="content">
+        <% @topups.each_with_index do |topup, idx| %>
+        <ul>
+          <li><%= idx + 1 %>.</li>
+          <li><%= topup.created_at.to_s(:date_only) %></li>
+          <li><%= topup.price%>元/条</li>
+          <li><%= topup.quantity %></li>
+          <li><%= topup.amount %></li>
+          <li><%= topup.order.payments_methods %></li>
+        </ul>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+
+  <template id="feecharge_option">
+    <h2>短信费用充值</h2>
+    <div class="feecharge_option">
+      <form>
+      <div class="align-center width-260 margin-bottom-15">
+        <p class="quantity">
+          <label>输入购买条数：<input type="number" data-price='<%=SmsTopup::PRICE%>' min=200 title='至少要购买200条。' value=200 class="width-150" name='quantity' required></label>
+        </p>
+        <p class="price">
+          <label>单价：<span><%=SmsTopup::PRICE%>元/条</span></label>
+        </p>
+        <p class="amount">
+          <label>金额总计：<span class='total'>12</span>元</label>
+        </p>
+      </div>
+
+      <div class="align-center width-260 display-flex align-items-center">
+        <label class="width-80 inline-block text-align-right">付款方式</label>
+        <input type="image" src="http://7xou4p.com2.z0.glb.qiniucdn.com/T1HHFgXXVeXXXXXXXX.png" title="使用支付宝付款" class="pay">
+      </div>
+      </form>
+    </div>
+  </template>
+
+
+  <template id="feecharge_notice">
+    <h2>短信费用充值</h2>
+    <div class="feecharge_notice">
+      <h3 class="height-30">请在支付宝页面完成充值</h3>
+      <p class="height-28">
+        充值完成前请不要关闭此窗口
+      </p>
+      <p class="height-28">
+        充值成功后请点击<span class="color-8A97DA">已完成充值</span>
+      </p>
+      <p class="height-28">
+        充值失败确定原因后点击<span class='color-F18E8D'>重新充值</span>
+      </p>
+    </div>
+    <div class="btn_group">
+      <a href="javascript:void(0)" class="btn finish_charge_btn">已完成充值</a>
+      <a href="javascript:void(0)" class="btn recharge_btn">重新充值</a>
+    </div>
+  </template>
+
+  <% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      function topup(){
+        var content = $('#feecharge_option').html();
+        var dialog = form_dialog(content);
+        dialog.dialog.on('submit', 'form', function(evt){
+          evt.preventDefault();
+          var form = this;
+          var quantity = form.elements.namedItem('quantity').value;
+          dialog.hide();
+
+          var content = $('#feecharge_notice').html();
+          var waiting_dialog = form_dialog(content, {
+            confirm: {
+              btn: '.finish_charge_btn',
+              callback: function(){
+                window.location.reload();
+              }
+            },
+            cancel: {
+              btn: '.recharge_btn',
+              callback: function(){
+                topup();
+              }
+            }
+          })
+          window.open('/settings/sms/topups/new?quantity='+quantity);
+        });
+      }
+      $('.feecharge_btn').on('click', topup);
+      $(document).on('input', "input[name='quantity']", function(){
+        this.parentElement.parentElement.parentElement.querySelector('.total').innerHTML = (this.value * this.dataset.price).toFixed(2);
+      });
+    });
+  </script>
+  <% end %>

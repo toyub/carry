@@ -1,0 +1,176 @@
+<div class="main_top">
+  <h2>权限设置</h2>
+</div>
+
+<div class="details">
+
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="#" class="width-90">用户配置</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content user_setting">
+    <table id="privileges">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>用户</th>
+          <th>职务</th>
+          <th>部门</th>
+          <th>角色</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+
+      var allRoles = [
+        {code: 0, name: '管理员'},
+        {code: 1, name: '门店经理'},
+        {code: 2, name: '收银员'},
+        {code: 3, name: '出纳员'},
+        {code: 4, name: '库管员'},
+        {code: 5, name: '销售员'},
+        {code: 6, name: '财务员'}
+      ]
+
+      var Model = Backbone.Model.extend({
+        toJSON: function(){
+          hashWithRoot = {};
+          json = _.clone(this.attributes);
+          hashWithRoot['store_staff'] = json;
+          return hashWithRoot;
+        },
+
+        roleNames: function(){
+          var self = this;
+
+          return allRoles.filter(function(role){
+            return _.contains(self.get('roles'), role.code);
+          }).map(function(role){
+            return role.name;
+          }).join(" ");
+        }
+      });
+
+      var Collection = Backbone.Collection.extend({
+        url: '/api/store_staff',
+
+        model: Model,
+
+        comparator: 'id'
+      });
+
+      var listView = Backbone.View.extend({
+        tagName: 'tr',
+
+        initialize: function(){
+          this.listenTo(this.model, 'change:roles', this.render);
+        },
+
+        template: JST['settings/privileges/list'],
+
+        events: {
+          'click .do_sel': 'renderDialog'
+        },
+
+        render: function(){
+          this.$el.html(this.template({model: this.model}));
+          return this;
+        },
+
+        renderDialog: function(){
+
+          var view = new modalDialogView({model: this.model});
+          $(".user_setting").append(view.render().el);
+        }
+      });
+
+      var modalDialogView = Backbone.View.extend({
+        className: 'roles_options',
+        tagName: 'div',
+
+        template: JST['settings/privileges/modaldialog'],
+
+        initialize: function(){
+          this.listenTo(this.model, 'change:roles', this.render);
+        },
+
+        events: {
+          'change input[type="checkbox"]': 'selRoles'
+        },
+
+        render: function(){
+
+          this.$el.html(this.template({staff: this.model, roles: allRoles}));
+
+          return this;
+        },
+
+        selRoles: function(e){
+          var roles_arr = _.clone(this.model.get('roles')) || [];
+          var ev = $(e.target);
+
+          var role_code = this.getRoleCode(ev);
+
+          if(ev.prop('checked') == true){
+            roles_arr.push(role_code);
+          }else{
+            roles_arr.splice($.inArray(role_code, roles_arr),1);
+          }
+         this.model.save({roles: roles_arr});
+       },
+
+       getRoleCode: function(ev){
+         var name = ev.siblings().text();
+         var role_code = parseInt(allRoles.filter(function(role){
+           return name == role.name;
+         }).map(function(role){
+           return role.code;
+         }).join());
+
+         return role_code;
+       }
+
+      });
+
+
+      var View = Backbone.View.extend({
+        el: 'body',
+
+        events: {
+          'mouseleave .roles_options': 'hideModalDialog'
+        },
+
+        render: function(){
+          this.collection.each(this.renderList, this);
+          return this;
+        },
+
+        renderList: function(staff){
+          var view = new listView({model: staff});
+          this.$el.find("tbody").append(view.render().el);
+        },
+
+        hideModalDialog: function(){
+          $('.roles_options').hide();
+        }
+
+      });
+
+      var staffers = new Collection();
+      staffers.fetch({success: function(){
+        var view = new View({collection: staffers});
+        view.render();
+      }});
+    });
+  </script>
+<% end %>

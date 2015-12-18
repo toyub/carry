@@ -1,0 +1,12 @@
+
+  <span class="roles_selected"><%= @staff.roleNames() %></span>
+
+  <ul class="role_opts">
+    <% for role in @roles : %>
+    <li><label><%= role.name %></label>
+      <input type="checkbox" <%= 'checked' if _.contains(@staff.get('roles'), role.code) %> >
+    </li>
+    <% end %>
+  </ul>
+
+  <span class="display-block height-40 line-height-40 text-align-center">请选择角色</span>

@@ -1,0 +1,14 @@
+<% content_for :pre_assets do %>
+<meta http-equiv="refresh" content="7;url=/settings/sms/topups">
+<% end %>
+
+<section class="text-align-center margin-top-195">
+  <h1 class="font-30 color-666 font-weight-normal">恭喜，您已成功付款<span class="color-3498db font-30"><%= @payment.amount %></span>元</h1>
+  <p class="font-14 color-888 margin-top-21">
+    <span class="color-70ca63" id='totalSecond'>6秒</span>之后页面自动跳转，请稍后......
+  </p>
+</section>
+
+<% content_for :javascripts do %>
+  <script>var second = 7;setInterval(function(){if(second < 0){window.location.replace('/settings/sms/topups');}else{second = second - 1;document.getElementById('totalSecond').innerHTML = second + '秒';}}, 1000);</script>
+<% end %>

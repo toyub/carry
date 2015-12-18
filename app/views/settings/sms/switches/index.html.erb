@@ -1,0 +1,68 @@
+<div class="main_top">
+  <h2>短信设置</h2>
+</div>
+
+<div class="details">
+  <%= render partial: 'settings/sms/partials/top' %>
+  <%= render partial: 'settings/sms/partials/nav' %>
+
+  <div class="details_content">
+    <div class="toggle">
+      <div class="reminder">
+        <div class="top">
+          <i class="fa fa-bell-o margin-right-8"></i>提醒 <sub>关闭后将不再发送此类提醒</sub>
+        </div>
+
+        <% @notify_switchs.each do |switch| %>
+        <div class="remind">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= switch.switchable.name %></span>
+          <input type="checkbox" data-id='<%=switch.id%>' name="notify_switchs[<%=switch.id%>][enabled]" <%= 'checked' if switch.enabled %> >
+        </div>
+        <% end %>
+      </div>
+
+      <div class="reminder">
+        <div class="top">
+          <i class="fa fa-phone margin-right-8"></i>回访 <sub>关闭后将不再发送此类提醒</sub>
+        </div>
+        <% @tracking_switchs.each do |switch| %>
+        <div class="remind">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= switch.switchable.name %></span>
+          <input type="checkbox" data-id='<%=switch.id%>' name="tracking_switchs[<%=switch.id%>][enabled]" <%= 'checked' if switch.enabled %> >
+        </div>
+        <% end %>
+      </div>
+
+      <div class="reminder">
+        <div class="top">
+          <i class="fa fa-lock margin-right-8"></i>验证 <sub>关闭后将不再发送此类提醒</sub>
+        </div>
+        <% @captcha_switchs.each do |switch| %>
+        <div class="remind">
+          <span class="inline-block border-all width-200 padding-hsides-8 text-indent-20"><%= switch.switchable.name %></span>
+          <input type="checkbox" data-id='<%=switch.id%>' name="captcha_switchs[<%=switch.id%>][enabled]" <%= 'checked' if switch.enabled %> >
+        </div>
+        <% end %>
+      </div>
+
+      </div>
+    </div>
+  </div>
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    $('.toggle').on('change', 'input[type=checkbox]', function(){
+      $.ajax({
+        type: 'PUT',
+        url: '/settings/sms/switches/' + this.dataset.id,
+        success: function(data){
+          
+        },
+        error: function(data){
+          ZhanchuangAlert('与服务器通信失败，请刷新重试');
+        }
+      });
+    });
+  });
+</script>
+<% end %>

@@ -1,0 +1,15 @@
+<div class="details">
+  <table class="top_info">
+  <tbody>
+    <tr>
+      <td>短信条数</td>
+      <td><%= @sms_balance.total %></td>
+      <td>已发送条数</td>
+      <td><%= @sms_balance.sent_quantity %></td>
+      <td>剩余条数</td>
+      <td><%= @sms_balance.remaining %></td>
+      <td>短信费用</td>
+      <td><%= @sms_balance.total_fee %></td>
+    </tr>
+  </tbody>
+</table>

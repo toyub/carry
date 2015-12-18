@@ -34,6 +34,7 @@
 //= require uploader/image
 //= require dialogs/upload
 //= require dialogs/piccut
+//= require dialogs/form
 //= require jquery_ext/jquery.datetimepicker
 
 
