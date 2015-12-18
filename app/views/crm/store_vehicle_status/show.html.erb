@@ -33,22 +33,13 @@
                 <li>#</li>
                 <li>时间</li>
                 <li>订单号</li>
-                <li >状况</li>
-                <li >状态</li>
+                <li>部位</li>
+                <li>状况</li>
               </ul>
           </div>
           <div class="list_content  list_tr border_left" >
-            <% @orders.each_with_index do |order, idx| %>
-              <ul class="list_tr_hover">
-                <li><%= idx + 1 %></li>
-                <li><%= order.created_at.strftime('%Y-%m-%d') %></li>
-                <li><%= order.id %></li>
-                <li><%= order.remark %></li>
-                <li><%= order.state.present? ? '是' : '否'%></li>
-              </ul>
-            <% end %>
+            <%= render partial: 'order', collection: @orders %>
           </div>
-        <div class="get_order text-align-center float-right"> <a href="#">生成订单</a> </div>
       </div>
     </div>
   </div>

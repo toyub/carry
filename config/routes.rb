@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :crm do
-  get 'store_vehicle_status/index'
-  end
-
   require 'sidekiq/web'
 
   namespace :kucun do
@@ -235,6 +231,7 @@ Rails.application.routes.draw do
     resources :store_customers do
       resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update]
       resources :store_vehicle_status, only: [:show]
+      resources :store_vehicle_service_records, only: [:show]
     end
   end
 
