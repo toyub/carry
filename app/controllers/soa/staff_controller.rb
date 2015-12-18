@@ -1,11 +1,8 @@
 class Soa::StaffController < Soa::BaseController
-  before_action :check_bonus, only: :index
-
   def index
-    @staffs = current_store.store_staff
-                                              .by_keyword(params[:keyword])
-                                              .by_level(params[:level_type_id])
-                                              .by_job_type(params[:job_type_id])
+    @staffs = current_store.store_staff.by_keyword(params[:keyword])
+                                       .by_level(params[:level_type_id])
+                                       .by_job_type(params[:job_type_id])
   end
 
   def new

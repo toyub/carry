@@ -31,6 +31,18 @@ class StoreStaff <  ActiveRecord::Base
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end
 
+  def bonus
+    @bonus || {}
+  end
+
+  def skills
+    @skills || {}
+  end
+
+  def other
+    @other || {}
+  end
+
   def job_type
     JobType.find(self.job_type_id)
   end
