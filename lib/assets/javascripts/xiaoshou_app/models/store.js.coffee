@@ -6,23 +6,42 @@ class Mis.Models.Store extends Backbone.Model
 
   initialize: ->
     @on('change:root_material_categories', @parseRootMaterialCategories, @)
-    @on('change:store_materials', @parseMaterials, @)
-    @on('change:service_categories', @parseServiceCategories, @)
+    @on('change:materials', @parseMaterials, @)
+    @on('change:services', @parseServies, @)
+    @on('change:packages', @parsePackages, @)
+    @on('change:customers', @parseCustomers, @)
+    @on('change:customer_categories', @parseCustomerCategories, @)
+    @on('change:provinces', @parseProvinces, @)
+    @on('change:cities', @parseCities, @)
+    @on('change:regions', @parseRegions, @)
+
+    @parseServices()
+    @parsePackages()
+    @parseCustomers()
     @parseRootMaterialCategories()
     @parseMaterials()
-    @parseServiceCategories()
     @parseWorkstationCategories()
     @parseWorkstations()
     @parseCommissionTemplates()
+    @parseCustomerCategories()
+    @parseProvinces()
+    @parseCities()
+    @parseRegions()
 
   parseRootMaterialCategories: ->
     @rootMaterialCategories = new Mis.Collections.StoreMaterialCategories(@get 'root_material_categories')
 
   parseMaterials: ->
-    @materials = new Mis.Collections.StoreMaterials(@get 'store_materials')
+    @materials = new Mis.Collections.StoreMaterials(@get 'materials')
 
-  parseServiceCategories: ->
-    @serviceCategories = new Mis.Collections.StoreServiceCategories(@get 'service_categories')
+  parsePackages: ->
+    @packages = new Mis.Collections.StorePackages(@get 'packages')
+
+  parseCustomers: ->
+    @customers = new Mis.Collections.StoreCustomers(@get 'customers')
+
+  parseServices: ->
+    @services = new Mis.Collections.StoreServices(@get 'services')
 
   parseWorkstationCategories: ->
     @workstationCategories = new Mis.Collections.StoreWorkstationCategories(@get 'store_workstation_categories')
@@ -31,4 +50,16 @@ class Mis.Models.Store extends Backbone.Model
     @workstations = new Mis.Collections.StoreWorkstations(@get 'workstations')
 
   parseCommissionTemplates: ->
-    @commissionTemplates = new Mis.Collections.StoreCommissionTemplates(@get 'commission_templates')
+    @commissionTemplates = new Mis.Collections.StoreCommissionTemplates(@get 'commissions')
+
+  parseCustomerCategories: ->
+    @customerCategories = new Mis.Collections.StoreCustomerCategories(@get 'customer_categories')
+
+  parseProvinces: ->
+    @provinces = @get 'provinces'
+
+  parseCities: ->
+    @cities = @get 'cities'
+
+  parseRegions: ->
+    @regions = @get 'regions'

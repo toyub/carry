@@ -1,17 +1,24 @@
 class Mis.Views.ErrorView extends Backbone.View
   initialize: (options) ->
-    @attrsWithErrors = options.attrsWithErrors
+    @errors = options.errors
 
   render: ->
-    @clearOldErrors()
-    @renderErrors()
+    $.alert(text: @errorMsg())
+
+  errorMsg: ->
+    res = []
+    @errors.each((errors, attr) ->
+      errorString = if typeof errors == 'string' then errors else errors.join(", ")
+      res.push errorString
+    )
+    res.join(", ")
 
   clearOldErrors: =>
     @$("span.error_tip").remove()
     @$(".err").removeClass("err")
 
   renderErrors: =>
-    _.each(@attrsWithErrors, @renderError)
+    @errors.each @renderError
 
   renderError: (errors, attr) =>
     errorString = if typeof errors == 'string' then errors else errors.join(", ")

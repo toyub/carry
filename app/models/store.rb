@@ -22,6 +22,20 @@ class Store <  ActiveRecord::Base
   has_many :commission_templates, class_name: 'StoreCommissionTemplate'
   has_many :store_packages
   has_many :store_deposits, class_name: 'StoreDepositCard'
+  has_many :store_departments
+  has_many :store_positions
+  has_many :store_customers
+  has_many :store_customer_categories
+  belongs_to :admin, class_name: 'StoreStaff'
+  has_many :store_infos
+
+  has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
+
+  has_many :store_payments
+
+  has_many :store_switches
+
+  has_one :sms_balance, as: :party
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
@@ -34,4 +48,16 @@ class Store <  ActiveRecord::Base
     '中级' => 2,
     '高级' => 3
   }
+
+  def engineer_levels
+    ENGINEER_LEVEL.invert
+  end
+
+  def increase_balance!(amount)
+    self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) + #{balance.to_f.abs}")
+  end
+
+  def decrease_balance!(amount)
+    self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) - #{balance.to_f.abs}")
+  end
 end

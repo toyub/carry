@@ -26,7 +26,20 @@
         <div class="nav_top_right top_right">
           <ul class="nav_right">
             <li><i class="fa fa-comment"></i></li>
-            <li><i class="fa fa-user"></i></li>
+            <li>
+              <a href="javascript:void(0)">
+                <i class="fa  fa-user"></i>
+                <span></span>
+              </a>
+              <ul class="dropdown_menu list-group">
+                <li>
+                  <%= link_to '修改密码', new_password_path %>
+                </li>
+                <li>
+                  <%= link_to "退出登录", session_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -40,8 +53,8 @@
           <li><a href="#" class="shouyin"><i class="fa fa-calculator"></i></a></li>
           <li><a href="#" class="kehu"><i class="fa fa-user"></i></a></li>
           <li><a href="#" class="xiaoshou"><i class="fa fa-shopping-cart"></i></a></li>
-          <li><a href="#" class="yuangong"><i class="fa fa-users"></i></a></li>
           <li><a href="#" class="kucun"><i class="fa fa-cubes"></i></a></li>
+          <li><a href="#" class="yuangong"><i class="fa fa-users"></i></a></li>
           <li><a href="#" class="caiwu"><i class="fa fa-jpy"></i></a></li>
           <li><a href="#" class="tongji"><i class="fa fa-line-chart"></i></a></li>
           <li><a href="#" class="shezhi"><i class="fa fa-cog"></i></a></li>
@@ -77,11 +90,7 @@
           <div class=" menulist">
             <h4>客户管理</h4>
             <ul class="second_menu">
-              <li><a href="/mis/kehu/kehuliebiao/index.html">客户列表</a></li>
-              <li><a href="#">短信群发</a></li>
-              <li><a href="#">提醒</a></li>
-              <li><a href="#">分析</a></li>
-
+              <li><a href="#store_customers">客户列表</a></li>
             </ul>
           </div>
         </div>
@@ -90,10 +99,8 @@
             <h4>销售管理</h4>
             <ul class="second_menu">
               <li><a href="<%= kucun_path %>">商品</a></li>
-              <li><%= link_to "服务", ['xiaoshou', 'service', 'profiles'] %></li>
-              <li><%= link_to "套餐", ['xiaoshou', 'packages'] %></li>
-              <li><a href="/mis/xiaoshou/huodong/index.html">活动</a></li>
-              <li><a href="/mis/xiaoshou/tuiguang/index.html">推广</a></li>
+              <li><%= link_to "服务", "#{xiaoshou_main_path}#store_services"%></li>
+              <li><%= link_to "套餐", "#{xiaoshou_main_path}#store_packages" %></li>
             </ul>
           </div>
         </div>
@@ -105,7 +112,6 @@
               <li><a href="/mis/yuangongguanli/xinziguanli/index.html">薪资管理</a></li>
               <li><a href="/mis/yuangongguanli/jixiaoticheng/index.html">绩效提成</a></li>
               <li><a href="/mis/yuangongguanli/kaoqinjiangli/index.html">考勤奖励</a></li>
-              <li><a href="/mis/yuangongguanli/peixun/index.html">培训</a></li>
             </ul>
           </div>
         </div>
@@ -153,14 +159,14 @@
           <div class=" menulist">
           <h4>系统设置内容</h4>
             <ul class="second_menu">
-              <li><a href="/mis/xitongshezhi/mendian/index.html">门店信息</a></li>
-              <li><a href="/mis/xitongshezhi/duanxin/feecharge.html">短信设置</a></li>
-              <li><a href="#">工位设置</a></li>
-              <li><a href="/settings/commission_templates">规则设置</a></li>
-              <li><a href="#">权限设置</a></li>
-              <li><a href="#">类别设置</a></li>
+              <li><a href="/settings/store">门店信息</a></li>
               <li><a href="/settings/settlements/accounts">结算信息</a></li>
+              <li><a href="/settings/organizational_structure">组织架构</a></li>
+              <li><a href="/settings/privileges">权限设置</a></li>
+              <li><a href="/settings/commission_templates">提成方案</a></li>
               <li><a href="/settings/depots">仓库管理</a></li>
+              <li><a href="/settings/material_categories">类别设置</a></li>
+              <li><a href="/settings/sms/topups">短信设置</a></li>
             </ul>
           </div>
         </div>

@@ -1,4 +1,4 @@
-class Mis.Views.XiaoshouServiceMaterialsShow extends Backbone.View
+class Mis.Views.XiaoshouServiceMaterialsShow extends Mis.Base.View
   el: "#show_server"
 
   template: JST['xiaoshou/service/materials/show']
@@ -8,12 +8,8 @@ class Mis.Views.XiaoshouServiceMaterialsShow extends Backbone.View
 
   render: ->
     @$el.html(@template(material: @model))
+    @$el.show()
     @
 
-  open: ->
-    @render()
-    @$el.show()
-
   close: ->
-    @undelegateEvents()
-    @$el.hide()
+    @leave()

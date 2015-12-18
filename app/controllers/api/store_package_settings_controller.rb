@@ -1,7 +1,7 @@
 module Api
   class StorePackageSettingsController < BaseController
     before_action :set_package
-    before_action :set_setting, only: [:update]
+    before_action :set_setting, except: [:create]
 
     def create
       @setting = @package.create_package_setting(append_store_attrs setting_params)
@@ -12,6 +12,9 @@ module Api
       @setting.items.clear
       @setting.update(append_store_attrs setting_params)
       respond_with @setting, location: nil
+    end
+
+    def show
     end
 
     private

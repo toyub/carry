@@ -11,14 +11,17 @@ ActiveRecord::Base.transaction do
   ## 门店信息
   chain = StoreChain.create!
   store = Store.create!(name: '门店', store_chain: chain)
-  admin = StoreStaff.create!(store: store, store_chain: chain, login_name: '小明', first_name: 'issac', last_name: 'lau', password: '88888888', password_confirmation: "88888888")
+  admin = StoreStaff.create! store: store, store_chain: chain, phone_number: "13356568989",
+                            login_name: '13356568989', first_name: 'issac', last_name: 'lau',
+                            password: '88888888', password_confirmation: "88888888"
+
   store.update!(admin_id: admin.id)
   chain.update!(admin_id: admin.id, head_office: store)
 
 
   ## 职员信息
-  engineer_li = StoreStaff.create!(store: store, store_chain: chain, login_name: "李小龙", password: "88888888", password_confirmation: "88888888")
-  engineer_wang = StoreStaff.create!(store: store, store_chain: chain, login_name: "王小斌", password: "88888888", password_confirmation: "88888888")
+  engineer_li = StoreStaff.create!(store: store, store_chain: chain, login_name: "1331234567", phone_number: '1331234567', last_name: '李', first_name: '丰')
+  engineer_wang = StoreStaff.create!(store: store, store_chain: chain, login_name: "1331234568", phone_number: '1331234568', last_name: '王', first_name: '洋洋')
 
 
   ## 商品信息

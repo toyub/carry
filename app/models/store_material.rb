@@ -15,7 +15,7 @@ class StoreMaterial < ActiveRecord::Base
   has_many :snapshots, class_name: "StoreMaterialSnapshot", foreign_key: :store_material_id
 
   #has_many :store_material_images, foreign_key: 'host_id'
-  has_many :uploads, class_name: '::Upload::StoreMaterial', as: :fileable
+  has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_package_items, as: :package_itemable
 
   scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}%")}
@@ -31,6 +31,17 @@ class StoreMaterial < ActiveRecord::Base
     count_scope.sum(:quantity)
   end
 
+  def price
+    self.cost_price
+  end
+
+  def root_category
+    self.store_material_root_category.try(:name)
+  end
+
+  def category
+    self.store_material_category.try(:name)
+  end
   private
   def generate_barcode!
     unless self.barcode.present?

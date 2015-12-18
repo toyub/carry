@@ -1,0 +1,35 @@
+<div class="main_top">
+  <%= breadcrumb_navigation ['系统设置', '类别', '商品类别'] %>
+</div>
+
+<div class="details">
+
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="javascript:void(0);" class="width-90">商品类别</a></li>
+      <li><a href="/settings/customer_categories" class="width-90">客户类别</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content">
+    <div class="new_category">
+      <ul class="abstract">
+        <li><label class="new_category_btn">+</label></li>
+        <li>新建一级分类</li>
+        <li class="color-9C9A9A">新建一级分类后，展开菜单，可以新建二级分类</li>
+      </ul>
+    </div>
+
+    <div class="categories"></div>
+
+  </div>
+
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function(){
+      handle = new $$MIS.MaterialCategoriesHandleView({urlRoot: '/settings/material_categories'});
+    });
+  </script>
+<% end %>

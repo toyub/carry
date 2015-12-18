@@ -1,9 +1,9 @@
-class Mis.Views.XiaoshouServiceSettingsRegular extends Backbone.View
+class Mis.Views.XiaoshouServiceSettingsRegular extends Mis.Base.View
 
   template: JST['xiaoshou/service/settings/regular']
 
   render: ->
-    @$el.html(@template(setting: @model, store: window.Store))
+    @$el.html(@template(setting: @model, store: Mis.store))
     @
 
 

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       end
       resource :tracking, only: [:show, :create, :update] do
         get :sections, on: :collection
+        resources :tracking_sections
       end
     end
 
@@ -70,20 +71,7 @@ Rails.application.routes.draw do
     end
   end# END of namespace :kucun
 
-  namespace :xiaoshou do
-    namespace :service do
-      resources :profiles, only: [:index, :show, :create]
-      resources :settings, only: [:edit, :show, :update] do
-        member do
-          get :modify
-        end
-        resources :workflows, only: :show
-      end
-      resources :categories, only: [:create]
-    end
-
-    resources :packages, only: [:index]
-  end
+  get "xiaoshou/main", to:  "xiaoshou#main"
 
   namespace :soa do
     resources :staff
@@ -115,6 +103,41 @@ Rails.application.routes.draw do
         get :binding_material_count
       end
     end
+
+    resources :material_categories do
+      collection do
+        get :fetch
+      end
+    end
+
+    resource :organizational_structure
+
+    resources :customer_categories do
+      collection do
+        get :services
+      end
+
+      member do
+        get :customers
+        post :change_category
+      end
+    end
+
+    resource :store do
+      collection do
+        post :save_picture
+      end
+    end
+
+
+    namespace :sms do
+      resources :topups
+      resources :switches
+      resources :messages
+    end
+
+    resources :privileges
+
   end
 
   namespace :ajax do
@@ -139,9 +162,15 @@ Rails.application.routes.draw do
     resources :store_suppliers, only: [:index]
   end
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy, :edit]
+  resource :password do
+    collection do
+      get :send_validate_code
+    end
+  end
 
   namespace :api do
+    resources :store_staff, only: [:index, :update]
     resources :store_service_categories, only: [:create]
     resources :store_services, only: [:index, :show, :create, :update] do
       resources :store_service_workflows, only: [:create, :destroy, :update]
@@ -156,19 +185,40 @@ Rails.application.routes.draw do
     resources :store_vehicles, only: [:index]
     resources :store_orders, only: [:index]
     resources :store_subscribe_orders
-    resources :store_packages, only: [:create, :update] do
+    resources :store_packages, only: [:show, :create, :update, :index] do
       member do
         post :save_picture
       end
 
-      resource :store_package_settings, only: [:create, :update]
+      resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
+    resources :store_customers, only: [:index, :create, :update, :show]
 
     resource :qiniu do
       collection do
         get :upload_token
-        post :post_img_src
+      end
+    end
+
+    resources :store_departments do
+      member do
+        get :children
+      end
+      resources :store_positions
+    end
+
+    resources :store_customer_categories
+
+  end
+
+  namespace :open do
+    namespace :topups do
+      resource :alipay do
+        collection do
+          post :notify_url
+          get :return_url
+        end
       end
     end
   end

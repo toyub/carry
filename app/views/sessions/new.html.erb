@@ -1,5 +1,38 @@
-<%= form_tag session_path, method: 'POST' do %>
-  <p><%= text_field_tag :login, nil, placeholder: 'login name', required: true, title: 'Please input your signed phone number as login name' %></p>
-  <p><%= password_field_tag :password, nil, placeholder: 'password', required: true, title: 'Please enter your password' %></p>
-  <p><%= submit_tag 'sign in' %> <i class="fa fa-cog fa-spin fa-2x fa-fw margin-bottom"></i> </p>
-<% end %>
+<% content_for :pre_assets do  %>
+  <%= stylesheet_link_tag "/stylesheets/login.css", "/stylesheets/reset_password.css" %>
+<% end  %>
+<div class="login_main">
+  <header class="login_header">
+    <div class="header">
+      <span class="chinese">欢迎登陆我的门店</span>
+    </div>
+  </header>
+  <div class="login_content">
+    <%= form_tag session_path, method: 'POST' do %>
+    <div class="login">
+      <div class="top">用户登录</div>
+      <div class="login_form">
+          <div  class="login_form_ipt">
+            <span class="ico ico-user"></span>
+            <%= text_field_tag :login, nil, placeholder: '请输入用户名', required: true,
+            title: 'Please input your signed phone number as login name' %>
+          </div>
+          <div class="login_form_pw">
+            <div class="login_form_ipt">
+              <span class="ico ico-password"></span>
+              <%= password_field_tag :password, nil, placeholder: '请输入密码',
+              required: true, title: 'Please enter your password' %>
+            </div>
+            <div class="login_form_check">
+              <%= link_to '忘记登录密码?', new_password_path %>
+              <p class="error_tip" > <%= notice %> </p>
+            </div>
+            <div class="login_form_btn">
+              <%= submit_tag '登陆', class: 'login_btn' %>
+            </div>
+          </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

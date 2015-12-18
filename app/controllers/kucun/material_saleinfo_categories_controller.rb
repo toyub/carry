@@ -1,4 +1,4 @@
-class Kucun::MaterialSaleinfoCategoriesController < Kucun::ControllerBase
+class Kucun::MaterialSaleinfoCategoriesController < Kucun::BaseController
   def index
   end
 

@@ -1,0 +1,11 @@
+<h2>系统提示</h2>
+<div class="prompt">
+  <h4 class="width-400 align-center line-height-25">您正要对客户类别 「<span class='color-d20c1e'><%= @name %></span>」 进行删除操作！</h4>
+  <p class="font-14 width-400 align-center line-height-25">
+    删除该类别会导致所属<span class='color-d20c1e'><%= @count %></span>位客户失去分类属性，您可以尝试修改分类名称，如需删除，请先解除属性关系，点击确定进行批量转换操作，放弃操作点击取消。
+  </p>
+</div>
+<div class="btn_group">
+  <input type="button" class="button cancel_btn" value="取消">
+  <input type="button" class="button save_btn" value="确认">
+</div>

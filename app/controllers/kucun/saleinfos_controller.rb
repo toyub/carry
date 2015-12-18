@@ -1,27 +1,4 @@
-class Kucun::SaleinfosController < Kucun::ControllerBase
-
-  def new
-    @store = current_user.store
-    @store_material = StoreMaterial.find(params[:material_id])
-    @saleinfo = @store_material.store_material_saleinfo
-    if @saleinfo.present?
-      redirect_to edit_kucun_material_saleinfo_path(@store_material)
-      return
-    end
-    @saleinfo = StoreMaterialSaleinfo.new
-    @store_material_saleinfo_category = if @saleinfo.store_material_saleinfo_category_id.present?
-                                          @saleinfo.store_material_saleinfo_category
-                                        else
-                                          StoreMaterialSaleinfoCategory.where(store_material_category_id: @store_material.store_material_category.id).first ||
-                                          StoreMaterialSaleinfoCategory.create(store_material_category_id: @store_material.store_material_category.id,
-                                                                             name: @store_material.store_material_category.name,
-                                                                             store_id: current_user.store_id,
-                                                                             store_chain_id: current_user.store_chain_id,
-                                                                             store_staff_id: current_user.id)
-                                       end
-    @store_material_saleinfo_categories = StoreMaterialSaleinfoCategory.all
-    @store_commission_templates = StoreCommissionTemplate.where(status: 0)
-  end
+class Kucun::SaleinfosController < Kucun::BaseController
 
   def create
     @store = current_user.store
@@ -47,28 +24,6 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
       saleinfo: saleinfo,
       services_attributes: saleinfo.services
     }
-  end
-
-  def edit
-    @store = current_user.store
-    @store_material = @store.store_materials.find(params[:material_id])
-    @saleinfo = @store_material.store_material_saleinfo
-    if @saleinfo.blank?
-      redirect_to action: "new"
-      return
-    end
-    @store_material_saleinfo_category = if @saleinfo.store_material_saleinfo_category_id.present?
-                                          @saleinfo.store_material_saleinfo_category
-                                        else
-                                          StoreMaterialSaleinfoCategory.where(store_material_category_id: @store_material.store_material_category.id).first ||
-                                          StoreMaterialSaleinfoCategory.create(store_material_category_id: @store_material.store_material_category.id,
-                                                                             name: @store_material.store_material_category.name,
-                                                                             store_id: current_user.store_id,
-                                                                             store_chain_id: current_user.store_chain_id,
-                                                                             store_staff_id: current_user.id)
-                                       end
-    @store_material_saleinfo_categories = StoreMaterialSaleinfoCategory.all
-    @store_commission_templates = StoreCommissionTemplate.where(status: 0)
   end
 
   def update
@@ -97,13 +52,26 @@ class Kucun::SaleinfosController < Kucun::ControllerBase
   end
 
   def show
-
-     @store = current_user.store
-     @store_material = @store.store_materials.find(params[:material_id])
-     @saleinfo = @store_material.store_material_saleinfo
-     if @saleinfo.blank?
-       redirect_to action: "new"
-     end
+    @store = current_user.store
+    @store_material = @store.store_materials.find(params[:material_id])
+    @saleinfo = @store_material.store_material_saleinfo
+     
+    if @saleinfo.blank?
+      @saleinfo = StoreMaterialSaleinfo.new  
+    end
+    
+    @store_material_saleinfo_category = if @saleinfo.store_material_saleinfo_category_id.present?
+                                          @saleinfo.store_material_saleinfo_category
+                                        else
+                                          StoreMaterialSaleinfoCategory.where(store_material_category_id: @store_material.store_material_category.id).first ||
+                                          StoreMaterialSaleinfoCategory.create(store_material_category_id: @store_material.store_material_category.id,
+                                                                             name: @store_material.store_material_category.name,
+                                                                             store_id: current_user.store_id,
+                                                                             store_chain_id: current_user.store_chain_id,
+                                                                             store_staff_id: current_user.id)
+                                       end
+    @store_material_saleinfo_categories = StoreMaterialSaleinfoCategory.all
+    @store_commission_templates = StoreCommissionTemplate.where(status: 0)
   end
 
   private

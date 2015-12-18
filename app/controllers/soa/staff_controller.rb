@@ -1,46 +1,73 @@
-class Soa::StaffController < Soa::ControllerBase
+class Soa::StaffController < Soa::BaseController
   def index
-    @store = current_store
-    @staffs = @store.store_staff
+    @staffs = current_store.store_staff
+                                              .by_keyword(params[:keyword])
+                                              .by_level(params[:level_type_id])
+                                              .by_job_type(params[:job_type_id])
   end
 
   def new
     @store = current_store
     @staff = @store.store_staff.new
+    @employee = StoreEmployee.new
+    @departments = current_store.store_departments
+    @positions = @departments[0].store_positions
   end
 
   def create
-    @store = current_store
-    x = @store.store_staff.where(login_name: staff_params[:phone_number]).count
-    if x > 0
-      render text: 'Error login name dup!'
-      return false
-    end
 
-    x = @store.store_staff.where(last_name: staff_params[:last_name], first_name: staff_params[:first_name]).count
-    if x > 0
-      render text: 'Warning same name ><'
-      return false
-    end
-    staff = @store.store_staff.new(staff_params)
-    staff.store_chain_id = @store.store_chain_id
-    staff.login_name = staff.phone_number
-    staff.password = staff.password_confirmation = staff.phone_number
+    employee = StoreEmployee.new(employee_params)
+    staff = StoreStaff.new(staff_params)
+    staff.store_employee = employee
+    employee.save
     staff.save
-    render json: staff
+    staff.store_id = current_staff.store_id
+    staff.store_chain_id = current_staff.store_chain_id
+    staff.login_name = staff.phone_number
+    staff.password = staff.password_confirmation = '123456'
+    if employee.save && staff.save
+      redirect_to action: 'index'
+    else
+      render json: {
+        staff_errors: staff.errors,
+        employee_errors: employee.errors
+      }
+    end
   end
 
   def edit
-    @store = current_store
-    @staff = @store.store_staff.find(params[:id])
+    @staff = current_store.store_staff.find(params[:id])
+    @departments = current_store.store_departments
+    @positions = @departments[0].store_positions
+    @employee = @staff.store_employee || @staff.build_store_employee
+  end
+
+  def show
+    @staff = current_store.store_staff.find(params[:id])
+    @employee = @staff.store_employee || @staff.build_store_employee
   end
 
   def update
-    render json: params
+    staff = current_store.store_staff.find(params[:id])
+    employee = staff.store_employee || staff.build_store_employee(employee_params)
+    staff.update!(staff_params)
+    employee.update!(employee_params)
+    redirect_to action: :show
   end
 
   private
   def staff_params
-    params.require(:store_staff).permit(:first_name, :last_name, :gender, :phone_number)
+    params.require(:staff).permit(:login_name, :gender, :first_name, :last_name, :name_display_type,
+                                                        :encrypted_password, :salt, :work_status, :job_type_id, :store_department_id,
+                                                        :employeed_at, :terminated_at, :level_type_id, :reason_for_leave,
+                                                        :numero, :store_position_id).merge(params.require(:employee).permit(:last_name, :first_name, :gender, :phone_number))
+  end
+
+  def employee_params
+    params.require(:employee).permit(:last_name, :first_name, :gender, :birthday, :education,
+                                                                  :polity, :native_place, :census_register, :identity_card,
+                                                                  :marital_status, :height, :weight, :phone_number, :mailbox,
+                                                                  :address, :census_register_address, :contact_one, :contact_one_phone_number,
+                                                                  :contact_two, :contact_two_phone_number, :remark, :created_at, :updated_at)
   end
 end

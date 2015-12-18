@@ -1,4 +1,4 @@
-class Kucun::StoreSuppliersController < Kucun::ControllerBase
+class Kucun::StoreSuppliersController < Kucun::BaseController
   def index
     @store = current_user.store
     @store_suppliers = @store.store_suppliers

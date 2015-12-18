@@ -1,194 +1,26 @@
+
 <div class="main_top">
   <%= breadcrumb_navigation(['库存', '商品', '销售设置']) %>
 </div>
 <div class="details">
-  <div class="container_list">
-    <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
-    <div class="details_content">
-      <div class="base_info">
-        <div class="goods_img">
-          <div id='material_img_preview' class="goods_main_img"></div>
-          <ul id='material_img_thumbnails' class="goods_small_img">
-              <li id='preview_list'></li>
-          </ul>
-        </div>
-        <div class=" car_content">
-          <div class="grid-1-2 float-left">
-            <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
-              <colgroup>
-                <col width="50%">
-                <col width="50%">
-              </colgroup>
-              <tbody>
-                <tr>
-                  <td>
-                    <label class="width-75">商品名称</label>
-                    <input type="text" class="width-165" value="<%= @store_material.name %>" readonly />
-                  </td>
-                  <td>
-                    <label class="width-75">规格</label>
-                    <input type="text" class="width-165" value="<%= @store_material.speci %>" readonly="true"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="width-75">最低售价</label>
-                    <input type="text" class="width-165" value="<%= @store_material.min_price %>" readonly />
-                  </td>
-                  <td>
-                    <label class="width-75">零售价</label>
-                    <input type="text" class="width-165" value="<%= @saleinfo.retail_price %>"  readonly />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="width-75 display-inline-block text-align-right">
-                      <input type="radio"  class="width-13" <%= 'checked' if @saleinfo.bargainable %> disabled>
-                      优惠价
-                    </span>
-                    <input type="text" class="width-165" value="<%= @saleinfo.bargain_price %>" readonly>
-                  </td>
-                  <td>
-                    <label class="width-75">批发价</label>
-                    <input type="text" class="width-165" value="<%= @saleinfo.trade_price %>" readonly>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="width-75">商品积分</label>
-                    <input type="text" class="width-165" value="<%= @saleinfo.reward_points %>" readonly>
-                  </td>
-                  <td>
-                    <label class="width-75">销售分类</label>
-                    <input class="width-167" type="text" value="<%= @saleinfo.store_material_saleinfo_category.try(:name) %>" readonly>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <fieldset class="width-490 margin-left-26">
-                      <legend class="margin-left-10">
-                        <input type="checkbox" <%= 'checked' if @saleinfo.divide_to_retail %> disabled>
-                        <label>此商品拆分销售</label>
-                      </legend>
-                      <div>
-                        <label class="width-75">计量单位</label>
-                        <input class="width-80" type="text" value="<%= @saleinfo.divide_unit_type %>" readonly />
-                      </div>
-                      <div>
-                        <label class="width-75">总量</label>
-                        <input type="text" class="width-165" value="<%= @saleinfo.volume %>" readonly>
-                      </div>
-                      <div>
-                        <label class="width-75">拆分成本</label>
-                        <input type="text" class="width-160" readonly=true value="<%= @saleinfo.cost_price_per_unit %> 元/<%= @saleinfo.divide_unit_type %>">
-                      </div>
-                    </fieldset>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <fieldset class="width-490 margin-left-26">
-                      <legend class="margin-left-10">
-                        <input type="checkbox" <%= 'checked' if @saleinfo.service_needed %> disabled>
-                        <label>需要施工</label>
-                      </legend>
-
-                      <div class="float-left margin-left-20">
-                        <label class="width-75 text-align-left margin-left-10">
-                          <input type="radio" class="width-15" <%= 'checked' unless @saleinfo.service_fee_needed %> disabled>包含施工费
-                        </label>
-                      </div>
-                      <div class="float-left">
-                        <label class="width-75  margin-left-26">
-                          <input type="radio" class="width-15" <%= 'checked' if @saleinfo.service_fee_needed %> disabled>另计施工费
-                        </label>
-                        <input type="text" class="width-165" value='<%= @saleinfo.service_fee %>' readonly>
-                      </div>
-                    </fieldset>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td colspan="2">
-                    <fieldset class="width-490 margin-left-26">
-                      <legend class="margin-left-10">
-                        <label>销售提成</label>
-                      </legend>
-                      <div class="commission_scheme">
-                        <label class="width-100">提成方案：</label>
-                        <input type="text" class="width-235" value="<%= @saleinfo.saleman_commission_template.try(:name) %>" readonly>
-                        <% if @saleinfo.saleman_commission_template.present? %>
-                        <a data-template='<%= json_for(@saleinfo.saleman_commission_template, root:false) %>' class="commission_detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
-                        <% end %>
-                      </div>
-                    </fieldset>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-
-          </div>
-          <div  class="grid-1-2 float-left">
-            <div class="server_list" >
-              <div class="top">
-                <h2>服务项目列表</h2>
-              </div>
-              <div class="none_server_data">
-                <p class="none_server_p">当前没有配套服务</p>
-                <p class="none_details">你可以先选择"需要施工"来激活服务列表，然后点击创建来添加配套的服务项目</p>
-              </div>
-              <div class="list" style="display:block;">
-                <div class="list_top">
-                  <ul>
-                    <li class="first_td" >#</li>
-                    <li class="second_td" >名称</li>
-                    <li class="third_td" >数量</li>
-                    <li class="forth_td">施工时间</li>
-                    <li class="fifth_td border-none">技师</li>
-                  </ul>
-                </div>
-                <div class="list_contents"  id="lists"></div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="btn_group">
-          <a href="<%= edit_kucun_material_saleinfo_path(@store_material) %>"  class="edit_btn btn" >编辑</a>
-        </div>
-      </div>
-    </div>
+  <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
+  <div class="details_content">
+    <div class="base_info"><%= render 'form' %></div>
   </div>
 </div>
 <% content_for :scenes do %>
   <div class="list_new_page_wrap do_create_ticheng_window" style='display:none;' id="commission_tempalte_detail"></div>
 <% end %>
-
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      var detail_tmpl = JST['kucun/commissions/new/detail'];
-      var collection = new $$MIS.SaleinfoServiceCollection();
-      collection.url = "/kucun/materials/<%= @store_material.id %>/saleinfo/saleinfo_services";
-      collection.fetch().success(function(){
-        collection.each(function(model, idx, models, undef){
-          var sview = new $$MIS.SaleinfoServiceSummaryView({model: model});
-          sview.idx = idx + 1;
-          $("#lists").append(sview.render())
-        });
-      });
-
-      $('#content').on('click', '.commission_detail', function(){
-        var template = $(this).data('template');
-        $("#commission_tempalte_detail").html(detail_tmpl(template)).show();
-      });
+      var urlRoot = "/kucun/materials/<%= @store_material.id %>/saleinfo";
+      var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
+      handle = new $$MIS.SaleinfoHandleView({urlRoot: urlRoot});
+      handle.store_commission_templates = store_commission_templates;
       $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
         $('#commission_tempalte_detail').hide();
       });
-      $('#content').on('click', '.server_details .cancel_btn', function(){
-        $(this).parents('.server_details').hide();
-      });
     });
   </script>
-<% end %>
+<% end -%>

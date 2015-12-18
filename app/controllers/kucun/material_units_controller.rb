@@ -1,4 +1,4 @@
-class Kucun::MaterialUnitsController < Kucun::ControllerBase
+class Kucun::MaterialUnitsController < Kucun::BaseController
   def index
 
   end

@@ -1,4 +1,4 @@
-class Kucun::TrackingsController < Kucun::ControllerBase
+class Kucun::TrackingsController < Kucun::BaseController
   def create
     store = current_store
     store_material = store.store_materials.find(params[:material_id])
@@ -31,17 +31,6 @@ class Kucun::TrackingsController < Kucun::ControllerBase
       render json: tracking, root: nil
     else
       render json: {msg: 'store material tracking not found, use create!'}
-    end
-  end
-
-  def sections
-    store = current_store
-    store_material = store.store_materials.find(params[:material_id])
-    stracking = store_material.store_material_tracking
-    if stracking.present?
-      render json: stracking.sections, root: nil
-    else
-      render json: [], root: nil
     end
   end
 

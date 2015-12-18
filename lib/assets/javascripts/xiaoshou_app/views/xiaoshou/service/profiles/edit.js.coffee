@@ -1,35 +1,43 @@
-class Mis.Views.XiaoshouServiceProfilesEdit extends Backbone.View
-  className: "base_info"
+class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
+  @include Mis.Mixins.Uploadable
+  @include Mis.Views.Concerns.Top
+  @include Mis.Views.Concerns.Validateable
 
   template: JST['xiaoshou/service/profiles/edit']
 
   initialize: ->
-    @model.materials.on('add', @addMaterial, @)
+    @validateBinding()
+    @listenTo(@model, 'sync', @handleSuccess)
+    @listenTo(@model.materials, 'add', @addMaterial)
 
   events:
-    'click #backToSHow': 'goToShow'
     'submit #editStoreService': 'updateOnSubmit'
     'click #add_server_btn': 'openMaterialForm'
 
   render: ->
-    @$el.html(@template(service: @model, store: window.Store))
+    @$el.html(@template(service: @model))
+    @renderTop()
+    @renderNav()
+    @renderUploadTemplate()
     @model.materials.each @addMaterial
     @
 
+  renderNav: ->
+    view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model, active: 'service')
+    @renderChildInto(view, @$("#masterNav"))
+
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model)
-    @$(".materialList").append view.render().el
+    @appendChildTo(view, @$(".materialList"))
 
   updateOnSubmit: ->
     event.preventDefault()
-    @model.save $("#editStoreService").serializeJSON()
-    @goToShow()
-
-  goToShow: ->
-    view = new Mis.Views.XiaoshouServiceProfilesShow(model: @model)
-    $("#bodyContent").html(view.render().el)
-    @model.fetch()
+    @model.set $("#editStoreService").serializeJSON()
+    @model.save() if @model.isValid(true)
 
   openMaterialForm: ->
     view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
-    view.open()
+    @appendChildTo(view, @$(".server_list"))
+
+  handleSuccess: ->
+    @uploadImages()

@@ -15,11 +15,12 @@ set :html_deploy_to, "#{fetch(:deploy_to)}/html"
 
 set :scm, :git
 
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/redis.yml', 'config/config.yml', 'config/initializers/secret_token.rb', '.ruby-version')
-set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/uploads')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/redis.yml', 'config/config.yml', 'config/initializers/secret_token.rb', '.ruby-version', 'config/alipay.yml')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/uploads')
 set :keep_releases, 5
 set :deploy_via, :remote_cache
 set :pty, true
+#set :bundle_binstubs, nil
 
 namespace :deploy do
   desc "Make sure local git is in sync with remote."

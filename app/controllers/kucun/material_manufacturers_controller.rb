@@ -1,4 +1,4 @@
-class Kucun::MaterialManufacturersController < Kucun::ControllerBase
+class Kucun::MaterialManufacturersController < Kucun::BaseController
   def new
     @material_manufacturer = StoreMaterialManufacturer.new
     render layout: 'tiny'

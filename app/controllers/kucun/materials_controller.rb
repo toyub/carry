@@ -1,4 +1,5 @@
-class Kucun::MaterialsController < Kucun::ControllerBase
+class Kucun::MaterialsController < Kucun::BaseController
+  include Uploadable
 
   before_filter :set_material, only: [:show, :edit]
 
@@ -36,6 +37,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
   end
 
   def edit
+    @store = current_store
   end
 
   def update
@@ -53,16 +55,11 @@ class Kucun::MaterialsController < Kucun::ControllerBase
     render text: "#{params[:callback]}(#{result.to_json})"
   end
 
-  def save_picture
-    @material = StoreMaterial.find(params[:id])
-    Upload::Base.create(params[:results].map{|qiniu_key|
-      {fileable: @material,img: qiniu_key,store_staff_id: current_staff.id}
-    })
-
-    render text: 'ok'
+  private
+  def resource
+    @store_material ||= set_material
   end
 
-  private
   def material_params
     params.require(:material).permit(:store_material_root_category_id, :store_material_category_id, :store_material_unit_id,
                                      :store_material_manufacturer_id, :store_material_brand_id,
@@ -73,12 +70,7 @@ class Kucun::MaterialsController < Kucun::ControllerBase
                                      :permitted_to_saleable, :remark)
   end
 
-  def img_params
-    params.permit(:img).merge(store_staff_id: current_staff.id, store_id: current_store.id)
-  end
-
   def set_material
-    @store = current_user.store
-    @store_material = @store.store_materials.find(params[:id])
+    @store_material = current_store.store_materials.find(params[:id])
   end
 end

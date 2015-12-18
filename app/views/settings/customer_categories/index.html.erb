@@ -1,0 +1,43 @@
+<div class="main_top">
+  <%= breadcrumb_navigation ['系统设置', '类别', '客户类别'] %>
+</div>
+
+
+<div class="details">
+
+  <div class="details_nav">
+    <ul>
+      <li><a href="/settings/material_categories" class="width-90">商品类别</a></li>
+      <li class="bg-color-fff"><a href="javascript:void(0);" class="width-90">客户类别</a></li>
+    </ul>
+  </div>
+
+  <div class="details_content customer_content">
+    <div class="head">
+      <a href="javascript:void(0)" class="button add">新建客户类别</a>
+      <a href="javascript:void(0)" class="button delete disabled">删除</a>
+    </div>
+
+    <div id='categories' class="content">
+      <div class="customer_categories_nav">
+        <ul id='categories_names' class=""></ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<input type="hidden" id='material_root_categories' data-categories='<%= json_for(@material_categories) %>'>
+<input type="hidden" id='service_root_categories' data-categories='<%= json_for(@service_categories) %>'>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function(){
+      handle = new $$MIS.CustomerCategoriesHandleView({
+        material_categories: $('#material_root_categories').data('categories'),
+        service_categories: $('#service_root_categories').data('categories'),
+        urlRoot: Routes.api_store_customer_categories_path()
+      });
+    });
+  </script>
+<% end %>

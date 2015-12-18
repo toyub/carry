@@ -1,0 +1,73 @@
+<form class="store_service_search" id="search" action="/xiaoshou/service/profiles" accept-charset="UTF-8" method="get">
+  <input name="utf8" type="hidden" value="✓">
+  <div class="item-query">
+    <label for="q_name_cont">查找服务</label>
+    <input class="width-150" placeholder="输入产品关键字" type="text" name="q[name_cont]" id="q_name_cont">
+  </div>
+  <div class="item-query">
+    <input type="submit" name="commit" value="查询" class="btn query_btn">
+  </div>
+</form>
+<div class="item-query c_price">
+  <div class="link" id="priceSortTitle">
+    <span class="float-left margin-right-10" title="价格从高到低">价格</span>
+    <span><i class="fa fa-angle-down"></i></span>
+  </div>
+  <ul class="drop_list" id="priceSortList">
+    <input type="hidden" name="q[s]" value="" />
+    <li class="sort">
+      <a href="javascript:void(0)" data-direction="retail_price asc" class="">价格从低到高</a>
+    </li>
+    <li class="sort">
+      <a href="javascript:void(0)" data-direction="retail_price desc" class="">价格从高到低</a>
+    </li>
+  </ul>
+</div>
+<div class="prices">
+  <div class="inputs">
+    <div class="inner">
+      <ul class="items">
+        <li class="item j_active">
+          <input type="text" name="q[retail_price_gteq]" class="j_sortbar_price_input input" placeholder="¥">
+        </li>
+        <li class="sep">-</li>
+        <li class="item j_active">
+          <input type="text" name="q[retail_price_lteq]" class="j_sortbar_price_input input" placeholder="¥">
+        </li>
+        <li class="submit"><button class="btn j_sortbar_price_submit">确定</button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="item-query screen">
+  <div class="link">
+    <span class="float-left margin-right-10" title="价格从高到低">筛选</span>
+    <span><i class="fa fa-angle-down"></i></span>
+  </div>
+  <ul class="drop_list">
+    <input type="hidden" name="q[favorable_eq]" id="filterFavorable" value="" />
+    <li data-favorable="false" class="sort">
+      <a href="javascript:void(0)" class="favorable">正常价格商品</a>
+    </li>
+    <li data-favorable="true" class="sort">
+      <a href="javascript:void(0)" class="favorable">优惠价格商品</a>
+    </li>
+    <input type="hidden" name="q[created_at_gteq]" id="filterDate" value="" />
+    <li class="sort">
+      <a href="javascript:void(0)" data-date="<%= Mis.Time.now().beginningOfDay() %>" class="filterByDate p_link">今天上架商品</a>
+    </li>
+    <li class="sort">
+      <a href="javascript:void(0)" data-date="<%= Mis.Time.now().beginningOfWeek() %>" class="filterByDate">本周上架商品</a>
+    </li>
+    <li class="sort">
+      <a href="javascript:void(0)" data-date="<%= Mis.Time.now().beginningOfMonth() %>" class="filterByDate">本月上架商品</a>
+    </li>
+  </ul>
+</div>
+<div class="operats">
+  <ul class="items">
+    <li class="item_add">
+      <a class="btn add_btn" id="newService" href="#store_services/new">新建</a>
+    </li>
+  </ul>
+</div>

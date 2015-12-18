@@ -28,10 +28,13 @@
 //= require backbone_validation/0.11.5
 //= require backbone_ext/model.tojson
 //= require 'piccut/1.0.0'
+//= require 'piccut/1.0.1'
 //= require 'select2'
 //= require number_input
 //= require uploader/image
 //= require dialogs/upload
+//= require dialogs/piccut
+//= require dialogs/form
 //= require jquery_ext/jquery.datetimepicker
 
 

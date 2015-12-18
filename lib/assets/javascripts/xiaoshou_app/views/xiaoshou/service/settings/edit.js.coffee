@@ -1,12 +1,13 @@
-class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
+class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
+  @include Mis.Views.Concerns.Top
 
   template: JST['xiaoshou/service/settings/edit']
 
   initialize: ->
-    @store = window.Store
+    @store = Mis.store
 
-    @model.workflows.on('add', @renderWorkflow, @)
-    @model.on('sync', @handleSuccess, @)
+    @listenTo(@model.workflows, 'add', @renderWorkflow)
+    @listenTo(@model, 'sync', @handleSuccess)
 
   events:
     'click #updateSetting': 'updateOnClick'
@@ -19,10 +20,11 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
     'click #unnominated_workstation': 'unnominatedWorkstation'
     'click #workflow_setting': 'enableWorkflowSetting'
     'click #create_workflow': 'openWorkflowForm'
-    'click #closeWithoutSave': 'goTOShow'
+    'click #closeWithoutSave': 'goToShow'
 
   render: ->
     @$el.html(@template(store: @store, setting: @model))
+    @renderTop()
     @renderNav()
     @renderProfileSummary()
     @renderWorkflows() if !@model.isRegular()
@@ -30,15 +32,15 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
 
   renderNav: ->
     view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model.store_service, active: 'setting')
-    @$("#masterNav").html view.render().el
+    @renderChildInto(view, @$("#masterNav"))
 
   renderProfileSummary: ->
     view = new Mis.Views.XiaoshouServiceProfilesSummary(model: @model)
-    @$("#profileSummary").html view.render().el
+    @renderChildInto(view, @$("#profileSummary"))
 
   renderWorkflow: (workflow) =>
     view = new Mis.Views.XiaoshouServiceWorkflowsItem(model: workflow, setting: @model, action: 'edit')
-    @$("#workflow_list").append view.render().el
+    @appendChildTo(view, @$("#workflow_list"))
     @$("#workflow_list").parent().show()
 
   unnominatedWorkstation: ->
@@ -95,7 +97,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
 
   addWorkstationCategory: (category) =>
     view = new Mis.Views.XiaoshouServiceWorkstationsCategory(model: category, setting: @model)
-    @$("#workstationCategories").append view.render().el
+    @appendChildTo(view, @$("#workstationCategories"))
 
   enableWorkflowSetting: ->
     @$("#create_workflow").attr('disabled', false)
@@ -103,16 +105,15 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Backbone.View
   openWorkflowForm: ->
     model = new Mis.Models.StoreServiceWorkflow()
     view = new Mis.Views.XiaoshouServiceWorkflowsForm(model: model, setting: @model)
-    view.open()
+    @appendChildTo(view, @$(".j_workflow_setting"))
 
   handleSuccess: ->
-    view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
-    $("#bodyContent").html(view.render().el)
+    @goToShow()
 
   renderWorkflows: ->
     @model.workflows.each @renderWorkflow
 
-  goTOShow: ->
+  goToShow: ->
+    @leave()
     view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
     $("#bodyContent").html(view.render().el)
-    @model.fetch()

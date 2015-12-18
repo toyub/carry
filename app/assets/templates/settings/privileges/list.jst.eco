@@ -1,0 +1,5 @@
+<td><%= this.model.id %>.</td>
+<td><%= this.model.get('screen_name') %></td>
+<td><%= this.model.get('position') %></td>
+<td><%= this.model.get('department') %></td>
+<td class="cursor-pointer do_sel"><%= this.model.roleNames() %></td>

@@ -1,5 +1,5 @@
-class Mis.Views.XiaoshouServiceTrackingsForm extends Backbone.View
-  el: '#trackingForm'
+class Mis.Views.XiaoshouServiceTrackingsForm extends Mis.Base.View
+  className: 'service_tracking_create tracking_create do_list_new_page'
 
   template: JST['xiaoshou/service/trackings/form']
 
@@ -7,7 +7,7 @@ class Mis.Views.XiaoshouServiceTrackingsForm extends Backbone.View
     @store_service = @model.store_service
     @action = options.action
 
-    @model.on('change', @addTracking, @)
+    @listenTo(@model, 'change', @addTracking)
 
   events:
     'click .closeWithoutSave': 'close'
@@ -15,15 +15,11 @@ class Mis.Views.XiaoshouServiceTrackingsForm extends Backbone.View
 
   render: ->
     @$el.html(@template(tracking: @model, view: @))
+    @$el.show()
     @
 
-  open: ->
-    @render()
-    @$el.show()
-
   close: ->
-    @undelegateEvents()
-    @$el.hide()
+    @leave()
 
   saveTracking: ->
     @model.save @$el.find("input,select,textarea").serializeJSON()

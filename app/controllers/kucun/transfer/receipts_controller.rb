@@ -3,7 +3,7 @@
 #Receive Material and Note
 module Kucun
   module Transfer
-    class ReceiptsController < Kucun::ControllerBase
+    class ReceiptsController < Kucun::BaseController
       def index
         @store = current_store
         @trans_receipt_items = StoreMaterialTransReceiptItem.where(store_id: @store.id)
