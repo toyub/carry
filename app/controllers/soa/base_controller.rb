@@ -10,7 +10,7 @@ module Soa
         .by_job_type(params[:job_type_id])
       @staffs = @staffs.map do |staff|
         if staff.bonus.nil? || staff.skills.nil? || staff.other.nil?
-          staff.update( bonus: {}, skills: {}, other: {} )
+          staff.update!( bonus: {}, skills: {}, other: {} )
         end
       end
     end
