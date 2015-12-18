@@ -31,8 +31,6 @@ class Soa::SalariesController < Soa::BaseController
   def confirm
     @staff = current_store.store_staff.find(params[:id])
     @salary = @staff.get_this_month_salary
-    @prev_staff = @staff.prev
-    @next_staff = @staff.next
 
     respond_to do |format|
       format.js

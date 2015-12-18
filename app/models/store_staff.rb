@@ -111,14 +111,6 @@ class StoreStaff <  ActiveRecord::Base
     sum
   end
 
-  def next
-    StoreStaff.where("id > ?", id).limit(2).first
-  end
-
-  def prev
-    StoreStaff.where("id < ?", id).limit(2).last
-  end
-
   def get_this_month_salary
     salary = store_salaries.without_confirm_salary_of_this_month.first
     salary = store_salaries.build(set_default_salary_params) if salary.nil?

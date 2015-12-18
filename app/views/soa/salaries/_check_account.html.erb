@@ -14,15 +14,6 @@
         <span class="width-70 text-align-center">当前月份</span> <span class="show_content width-80"><%= Time.now.strftime("%Y-%m") %></span>
       </div>
 
-      <div class="staff_select">
-        <% if !@prev_staff.nil? %>
-          <%= link_to "<span class='width-50 font-weight-bold'>上一位</span><span>#{@prev_staff.screen_name}</span>".html_safe, confirm_soa_salary_path(@prev_staff), remote: true, class: "width-150 prev_staff" %>
-        <% end %>
-        <% if !@next_staff.nil? %>
-          <%= link_to "<span class='width-50 font-weight-bold'>下一位</span><span>#{@next_staff.screen_name}</span>".html_safe, confirm_soa_salary_path(@next_staff), remote: true, class: "width-100 next_staff" %>
-        <% end %>
-      </div>
-
       <div class="operation float-right">
         <%= form.submit  "保存", class: "btn save_btn" %>
         <%= form.submit  "核准", data: {confirm: "you can't change these statistic anymore once click this button!!"}, class: "btn change_view_btn checkout" %>
