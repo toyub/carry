@@ -128,10 +128,10 @@
 </div>
 
 <div class="window_wrap" style="display: none;">
-  <form action="" method="post" id="complaint_form" >
-     <!-- <input type="hidden" name="complaint[store_customer_id]" value="">
-     <input type="hidden" name="complaint[store_order_id]" value="">
-     <input type="hidden" name="complaint[store_vehicle_id]" value=""> -->
+  <form action="" method="post" id="complaint_form" name="complain" >
+     <input type="hidden" name="complaint[store_customer_id]" value="">
+     <!-- <input type="hidden" name="complaint[store_order_id]" value=""> -->
+     <input type="hidden" name="complaint[store_vehicle_id]" value="">
     <div class="complaints_records_wrap">
   	<h2>投诉事件记录</h2>
   	<ul class="top">
@@ -154,28 +154,28 @@
   		<dl class="client_type">
   	    <dd>投诉类别</dd>
   			<dd>
-  	      <!-- <label>服务<input name="complaint[detail][category]" type="checkbox" value="1"></label>
-  				<label>质量<input name="complaint[detail][category]" type="checkbox" value="2"></label>
-  				<label>环境<input name="complaint[detail][category]" type="checkbox" value="3"></label>
-  				<label>其他<input name="complaint[detail][category]" type="checkbox" value="4"></label> -->
+  	      <label>服务<input name="complaint[detail][category][]" type="checkbox" value="1" ></label>
+  				<label>质量<input name="complaint[detail][category][]" type="checkbox" value="2" ></label>
+  				<label>环境<input name="complaint[detail][category][]" type="checkbox" value="3" ></label>
+  				<label>其他<input name="complaint[detail][category][]" type="checkbox" value="4" ></label>
   			</dd>
   			<dd>投诉渠道</dd>
   			<dd>
-  				<!-- <label>电话<input name="complaint[detail][manner]" type="checkbox"></label>
-  				<label>现场<input name="complaint[detail][manner]" type="checkbox"></label>
-  				<label>微信<input name="complaint[detail][manner]" type="checkbox"></label>
-  				<label>短信<input name="complaint[detail][manner]" type="checkbox"></label> -->
+  				<label>电话<input name="complaint[detail][way][]" type="checkbox" value="1" ></label>
+  				<label>现场<input name="complaint[detail][way][]" type="checkbox" value="2" ></label>
+  				<label>微信<input name="complaint[detail][way][]" type="checkbox" value="3" ></label>
+  				<label>短信<input name="complaint[detail][way][]" type="checkbox" value="4" ></label>
   			</dd>
   		</dl>
   		<dl class="opinion">
   	    <dd>客诉内容</dd>
   			<dd>
-  			  <!-- <textarea name="complaint[detail][content]"></textarea> -->
+  			  <textarea name="complaint[detail][content]"></textarea>
   			</dd>
   		</dl>
   		<dl class="opinion">
   	    <dd>调查结果</dd>
-  			<!-- <dd><textarea name="complaint[detail][survey]"></textarea></dd> -->
+  			<dd><textarea name="complaint[detail][inquire]"></textarea></dd>
   		</dl>
 
   		<dl class="opinion">
@@ -203,8 +203,8 @@
   					<dd>责任人</dd>
   				</dl>
   				<dl class="result">
-            <dd><textarea>将问题商品退回，同时为客户修好关联的关系，补偿客户10次洗车</textarea></dd>
-  					<dd><textarea>退回供应商商品，要求供应商赔偿</textarea></dd>
+            <dd><textarea name="complaint[detail][response][customer]" >将问题商品退回，同时为客户修好关联的关系，补偿客户10次洗车</textarea></dd>
+  					<dd><textarea name="complaint[detail][response][principal]" >退回供应商商品，要求供应商赔偿</textarea></dd>
   				</dl>
 
   			</dd>
@@ -218,8 +218,8 @@
   				</div>
   				<div class="liable_person text-align-right">
   					<ul>
-  						<li><label>满意<input type="checkbox"></label></li>
-  						<li><label>不满意<input type="checkbox"></label></li>
+  						<li><label>满意<input name="complaint[satisfaction]" type="checkbox" value="1" ></label></li>
+  						<li><label>不满意<input name="complaint[satisfaction]" type="checkbox" value="2" ></label></li>
   					</ul>
   				</div>
   			</dd>
@@ -228,14 +228,13 @@
     </div>
 
     	<div class="btn_group">
-        <%= link_to '取消', 'javascript:void(0)', class: 'btn cancel_btn', id: 'tousu_cancel' %>
+        <%= link_to '取消', 'javascript:void(0)', class: "btn cancel_btn", id: 'tousu_cancel' %>
         <input type="submit" value="确定", class="btn save_btn">
     	</div>
   </div>
 
 </form>
 </div>
-
 </div>
 
 <% content_for :javascripts do %>
@@ -247,20 +246,21 @@
       $("div.window_wrap").show();
       $('#complaint_form').attr('action', "/api/store_orders/"+ order +"/complaints");
       $("input[name='complaint[store_customer_id]']").val(customer);
-      $("input[name='complaint[store_order_id]']").val(order);
       $.get("/api/store_orders/"+ order +"/complaints/new", function(data){
         $("input[name='complaint[store_vehicle_id]']").val(data.vehicle_id);
         $("dd.dd-vehicle").text(data.vehicle);
         $("dd.dd-order-numero").text(data.numero);
-        $("ul#creator").append("<li><label>"+ data.creator +"<input name='complaint[detail][creator]' type='checkbox'></label></li>");
-        // data.mechanic.forEach(function(item){
-        //   $("ul#mechanic").append("<li><label>"+ item +"<input name='complaint[detail][creator]' type='checkbox'></label></li>");
-        // });
+        $("ul#creator").append("<li><label>"+ data.creator +"<input name='complaint[detail][principal][saler]' type='checkbox'></label></li>");
+        data.mechanic.forEach(function(item){
+          $("ul#mechanic").append("<li><label>"+ item.name +"<input name='complaint[detail][principal][mechanic]' type='checkbox' value=" + item.id + "></label></li>");
+        });
       });
     });
 
     $("a#tousu_cancel").on("click", function(){
       $("div.window_wrap").hide();
+      $("ul#creator").html("");
+      $("ul#mechanic").html("");
     });
   });
 </script>
