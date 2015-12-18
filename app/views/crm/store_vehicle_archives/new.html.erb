@@ -2,21 +2,21 @@
   <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
 <% end %>
 
-<%= render 'page_head' %>
+<%= render '/crm/common/page_head' %>
 
   <div class="details">
-    <%= render 'customer_nav' %>
+    <%= render '/crm/common/customer_nav' %>
 
     <div class="car_details float-right">
 
-      <%= render 'vehicle_nav' %>
+      <%= render '/crm/common/vehicle_nav' %>
 
-      <%= render 'sub_nav' %>
+      <%= render '/crm/common/sub_nav' %>
 
       <div class="details_content car_content">
           <div class="base_info">
 
-            <%= render 'vehicle_image' %>
+            <%= render '/crm/common/vehicle_image' %>
 
             <div class="car_info">
               <div class="items">
