@@ -17,6 +17,14 @@ class StoreOrder < ActiveRecord::Base
     where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
   end
 
+  def position_name
+    '前保险杠右侧'
+  end
+
+  def condition_name
+    '前保险杠右侧擦伤，油漆见底'
+  end
+
   private
 
     def set_numero
