@@ -130,7 +130,7 @@
 <div class="window_wrap" style="display: none;">
   <form action="" method="post" id="complaint_form" name="complain" >
      <input type="hidden" name="complaint[store_customer_id]" value="">
-     <!-- <input type="hidden" name="complaint[store_order_id]" value=""> -->
+     <input type="hidden" name="complaint[store_order_id]" value="">
      <input type="hidden" name="complaint[store_vehicle_id]" value="">
     <div class="complaints_records_wrap">
   	<h2>投诉事件记录</h2>
@@ -245,14 +245,15 @@
       var order = $(this).data("order");
       $("div.window_wrap").show();
       $('#complaint_form').attr('action', "/api/store_orders/"+ order +"/complaints");
+      $("input[name='complaint[store_order_id]']").val(order);
       $("input[name='complaint[store_customer_id]']").val(customer);
       $.get("/api/store_orders/"+ order +"/complaints/new", function(data){
         $("input[name='complaint[store_vehicle_id]']").val(data.vehicle_id);
         $("dd.dd-vehicle").text(data.vehicle);
         $("dd.dd-order-numero").text(data.numero);
-        $("ul#creator").append("<li><label>"+ data.creator +"<input name='complaint[detail][principal][saler]' type='checkbox'></label></li>");
+        $("ul#creator").append("<li><label>"+ data.creator[0].name +"<input name='complaint[detail][principal][saler]' type='checkbox' value="+ data.creator[0].id +" ></label></li>");
         data.mechanic.forEach(function(item){
-          $("ul#mechanic").append("<li><label>"+ item.name +"<input name='complaint[detail][principal][mechanic]' type='checkbox' value=" + item.id + "></label></li>");
+          $("ul#mechanic").append("<li><label>"+ item.name +"<input name='complaint[detail][principal][mechanic][]' type='checkbox' value=" + item.id + "></label></li>");
         });
       });
     });

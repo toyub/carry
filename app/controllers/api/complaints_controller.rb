@@ -5,7 +5,7 @@ module Api
       @store_order = StoreOrder.find(params[:store_order_id])
       vehicle = @store_order.store_vehicle.plates.last.license_number
       numero = @store_order.numero
-      creator = @store_order.creator.full_name
+      creator = [name: @store_order.creator.full_name, id: @store_order.creator.id]
       mechanic = @store_order.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }
       vehicle_id = @store_order.store_vehicle.id
       render json: {vehicle: vehicle, numero: numero, creator: creator,
@@ -14,9 +14,9 @@ module Api
 
     def create
       binding.pry
-      complaint = Complaint.new(complaint_params)
+      complaint = current_staff.complaints.new(complaint_params)
       if complaint.save
-        redirect_to 'baidu.com'
+        redirect_to crm_store_customer_expense_records_path(complaint.store_customer), notice: '投诉成功！'
       else
         render :new, notice: '失败了！'
       end
@@ -25,18 +25,20 @@ module Api
     private
     def complaint_params
       params.require(:complaint).permit(
-                        :store_customer_id,
-                        :store_vehicle_id,
-                        :satisfaction,
-                        :store_order_id,
-                              detail: [
-                                        :category,
-                                        :way,
-                                        :content,
-                                        :inquire,
-                                        principal: [:saler, :mechanic],
-                                        response:  [:principal, :customer]
-                                      ])
+        :store_customer_id,
+        :store_vehicle_id,
+        :satisfaction,
+        :store_order_id,
+        :creator_id,
+        :creator_type,
+        :updator_id,
+        detail: [
+                  :content,
+                  :inquire,
+                  {:category => [], :way => []},
+                  principal: [:saler, {:mechanic => []}],
+                  response:  [:principal, :customer]
+                ])
     end
 
   end

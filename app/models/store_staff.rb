@@ -5,6 +5,7 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_department
   belongs_to :store_position
   belongs_to :store_employee
+  has_many :complaints, as: :creator
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
