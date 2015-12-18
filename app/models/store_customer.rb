@@ -7,7 +7,8 @@ class StoreCustomer < ActiveRecord::Base
   has_many :orders, class_name: "StoreOrder"
 
   has_many :store_vehicles
-  has_many :complaints, as: :creator
+  has_many :creator_complaints, class_name: 'Complaint', as: :creator
+  has_many :complaints
 
   validates :first_name, presence: true
   validates :last_name, presence: true

@@ -19,10 +19,11 @@
 		<li id="kehushow" class=""><a href="/mis/kehu/kehuliebiao/kehushow.html?kehushow" class="width-90">信息</a></li>
 		<li id="zichanzhanghu"><a href="/mis/kehu/kehuliebiao/zichanzhanghu.html?zichanzhanghu" class="width-90 ">资产账户</a></li>
 		<li id="cheliangdangan"><a href="/mis/kehu/kehuliebiao/cheliangdangan/show.html?cheliangdangan" class="width-90">车辆档案</a></li>
-		<li id="xiaofeijilu" class="active"><a href="/mis/kehu/kehuliebiao/xiaofeijilu.html?xiaofeijilu" class="width-90">消费记录</a></li>
+		<li id="xiaofeijilu" class="active"><a href="javascript:void(0)" class="width-90">消费记录</a></li>
 		<li id="huifangjilu"><a href="/mis/kehu/kehuliebiao/huifangjilu.html?huifangjilu" class="width-90">回访记录</a></li>
 		<li id="yixiang"><a href="/mis/kehu/kehuliebiao/yixiangchanpin.html?yixiang" class="width-90 ">意向产品</a></li>
-		<li id="tousu"><a href="/mis/kehu/kehuliebiao/tousu.html?tousu" class="width-90">投诉记录</a></li>
+		<li id="tousu"> <%= link_to '投诉记录', crm_store_customer_complaints_path(@customer), class: "width-90" %></li>
+      <!-- <a href="crm_store_customer_complaints" class="width-90">投诉记录</a> -->
 		<li id="manyidu"><a href="/mis/kehu/kehuliebiao/manyidu.html?manyidu" class="width-90">满意度</a></li>
 	</ul>
 </div>
@@ -112,7 +113,7 @@
               </table>
             </div>
             <dl class="get_order text-align-center ">
-              <dd><a href="/mis/xiaoshou/fuwu/jilu.html" target="_blank" class="order_btn">查看单据</a></dd>
+              <dd><a href="#" target="_blank" class="order_btn">查看单据</a></dd>
               <dd> <%= link_to '投诉', 'javascript:void(0)', class: 'complaints_btn btn do_complaints',id: 'tousu',
               data: { order: order.id, customer: @customer.id } %> </dd>
             </dl>

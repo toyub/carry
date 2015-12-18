@@ -235,6 +235,7 @@ Rails.application.routes.draw do
       end
 
       resources :expense_records, only: [:index]
+      resources :complaints, only: [:index]
     end
   end
 
