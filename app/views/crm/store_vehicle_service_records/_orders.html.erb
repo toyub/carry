@@ -14,16 +14,7 @@
   </dl>
   <div class="car_sercice_record">
     <div class="item_car_service_record_wrapper">
-      <div class="items_car_service_records">
-        <table class="item_car_service_record  ">
-          <tbody>
-            <%= render partial: 'order', collection: @orders %>
-          </tbody>
-        </table>
-      </div>
-      <div class="get_order text-align-center ">
-        <a href="/mis/xiaoshou/fuwu/jilu.html" class="order_btn">查看单据</a>
-      </div>
+      <%= render partial: 'order', collection: @orders %>
     </div>
   </div>
 </div>

@@ -1,9 +1,18 @@
-<tr>
-  <td><%= order_counter + 1 %></td>
-  <td><%= order.created_at.strftime('%Y-%m-%d') %></td>
-  <td><%= order.numero %></td>
-  <td><%= order.creator.full_name %></td>
-  <td>
-    <%= render 'items', order: order %>
-  </td>
-</tr>
+<div class="items_car_service_records">
+  <table class="item_car_service_record  ">
+    <tbody>
+      <tr>
+        <td><%= order_counter + 1 %></td>
+        <td><%= order.created_at.strftime('%Y-%m-%d') %></td>
+        <td><%= order.numero %></td>
+        <td><%= order.creator.full_name %></td>
+        <td>
+          <%= render 'items', order: order %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="get_order text-align-center ">
+  <a href="#" class="order_btn">查看单据</a>
+</div>
