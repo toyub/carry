@@ -17,9 +17,9 @@
 <div class="list_wrap">
   <table class="salary_list">
     <tbody>
-      <% @staffs.each do |staff| %>
+      <% @staffs.each.with_index(1) do |staff, index| %>
       <tr data-id="<%= staff.id %>">
-        <td class='sequence_num'><%= staff.id %></td>
+        <td class='sequence_num'><%= index %></td>
         <td><%= staff.screen_name %></td>
         <td><%= staff.numero %></td>
         <td><%= staff.store_department.try(:name) %></td>
