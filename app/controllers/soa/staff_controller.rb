@@ -1,4 +1,6 @@
-class Soa::StaffController < Soa::ControllerBase
+class Soa::StaffController < Soa::BaseController
+  before_action :check_bonus, only: :index
+
   def index
     @staffs = current_store.store_staff
                                               .by_keyword(params[:keyword])
@@ -18,27 +20,23 @@ class Soa::StaffController < Soa::ControllerBase
 
     employee = StoreEmployee.new(employee_params)
     staff = StoreStaff.new(staff_params)
-    staff.store_employee = employee
-    employee.save
-    staff.save
+
+    staff.build_store_employee employee_params
     staff.store_id = current_staff.store_id
     staff.store_chain_id = current_staff.store_chain_id
     staff.login_name = staff.phone_number
-    staff.password = staff.password_confirmation = '123456'
-    if employee.save && staff.save
-      redirect_to action: 'index'
+
+    if staff.save && employee.save
+      redirect_to new_soa_setting_path(id: staff.id)
     else
-      render json: {
-        staff_errors: staff.errors,
-        employee_errors: employee.errors
-      }
+      render plain: staff.errors.messages
     end
   end
 
   def edit
     @staff = current_store.store_staff.find(params[:id])
     @departments = current_store.store_departments
-    @positions = @departments[0].store_positions
+    @positions = @staff.store_department.present? ? @staff.store_department.store_positions : @departments[0].store_positions
     @employee = @staff.store_employee || @staff.build_store_employee
   end
 

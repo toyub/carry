@@ -355,6 +355,7 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
   create_table "store_envelopes", force: :cascade do |t|
     t.integer  "store_message_id"
     t.integer  "store_id"
@@ -366,6 +367,21 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.boolean  "deleted",          default: false
     t.datetime "created_at"
     t.datetime "update_at"
+  end
+
+  create_table "store_events", force: :cascade do |t|
+    t.integer  "store_staff_id"
+    t.string   "type"
+    t.string   "sort"
+    t.text     "description"
+    t.json     "operate",        default: {}
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.datetime "occur_on"
+    t.datetime "start_on"
+    t.datetime "end_on"
+    t.string   "occur_at"
+    t.integer  "recorder_id"
   end
 
   create_table "store_files", force: :cascade do |t|
@@ -1044,8 +1060,33 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.integer  "store_staff_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.decimal  "previous_salary", precision: 10, scale: 2
+    t.decimal  "new_salary",      precision: 10, scale: 2
+  end
+
+  create_table "store_salaries", force: :cascade do |t|
+    t.integer  "store_staff_id"
+    t.decimal  "amount_deduction",     precision: 8, scale: 2
+    t.json     "deduction",                                    default: {}
+    t.decimal  "amount_overtime",      precision: 8, scale: 2
+    t.decimal  "amount_reward",        precision: 8, scale: 2
+    t.decimal  "amount_bonus",         precision: 8, scale: 2
+    t.json     "bonus",                                        default: {}
+    t.decimal  "amount_insurence",     precision: 8, scale: 2
+    t.json     "insurence",                                    default: {}
+    t.decimal  "amount_cutfee",        precision: 8, scale: 2
+    t.decimal  "amount_should_cutfee", precision: 8, scale: 2
+    t.json     "cutfee",                                       default: {}
+    t.decimal  "salary_should_pay",    precision: 8, scale: 2
+    t.decimal  "salary_actual_pay",    precision: 8, scale: 2
+    t.boolean  "status",                                       default: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.decimal  "basic_salary",         precision: 8, scale: 2, default: 0.0
+    t.string   "created_month"
+>>>>>>> staff-dev
   end
 
   create_table "store_service_categories", force: :cascade do |t|
@@ -1253,6 +1294,13 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period",                                                default: 1
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.integer  "store_employee_id"
     t.string   "full_name"
     t.string   "phone_number"

@@ -1,0 +1,51 @@
+<ul class="salary_list_head">
+  <li>#</li>
+  <li>姓名</li>
+  <li>员工编号</li>
+  <li>部门</li>
+  <li>职务</li>
+  <li>底薪</li>
+  <li>提成</li>
+  <li>福利补贴</li>
+  <li>奖金</li>
+  <li>保险金</li>
+  <li>加班费</li>
+  <li>应扣费用</li>
+  <li>实发金额</li>
+  <li>查看</li>
+</ul>
+
+<div class="list_wrap">
+  <table class="salary_list">
+    <tbody>
+      <% @staffs.each do |staff| %>
+      <tr>
+        <td class="sequence_num"><%= staff.id %></td>
+        <td><%= staff.screen_name %></td>
+        <td><%= staff.numero %></td>
+        <td><%= staff.store_department.try(:name) %></td>
+        <td><%= staff.store_position.try(:name) %></td>
+        <td><%= staff.current_salary %></td>
+        <td>未设置</td>
+        <td><%= staff.salary_of_month.amount_bonus %></td>
+        <td><%= staff.salary_of_month.amount_reward %></td>
+        <td><%= staff.salary_of_month.amount_insurence %></td>
+        <td><%= staff.salary_of_month.amount_overtime %></td>
+        <td><%= staff.salary_of_month.amount_cutfee %></td>
+        <td><%= staff.salary_of_month.salary_actual_pay %></td>
+        <td><%= link_to "<i class='ico ico-edit font-14'></i>".html_safe, check_soa_salary_path(id: staff.id), remote: true %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<table class="salary_list">
+  <tfoot>
+    <tr>
+      <td colspan="13" class="text-align-right">
+        <span class="width-90">实发金额合计：</span> <span class="width-80">22,750.00</span>
+      </td>
+    </tr>
+  </tfoot>
+</table>

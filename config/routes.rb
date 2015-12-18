@@ -75,6 +75,30 @@ Rails.application.routes.draw do
 
   namespace :soa do
     resources :staff
+    resources :setting do
+      patch 'adjust', on: :member
+    end
+    resources :events  do
+      get 'detail', on: :member
+      get 'search', on: :collection
+    end
+    resources :protocols do
+      get 'record', on: :member
+    end
+    resources :performance do
+      get 'search', on: :collection
+    end
+    resources :salaries do
+      get "record", on: :collection
+      get 'search', on: :collection
+      get 'confirm', on: :member
+      get 'check', on: :member
+    end
+
+    controller :record do
+      get "/record/index" => "record#index", as: :record
+      get "search/:id" => "record#search", as: :search_record
+    end
   end
 
   namespace :xianchang do

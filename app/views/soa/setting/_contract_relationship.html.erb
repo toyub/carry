@@ -1,0 +1,31 @@
+<div class="contract">
+  <span class="width-60">劳动关系</span>
+
+  <ul>
+    <li class="start_time">
+      <label>劳动合同起始</label>
+      <input type="text" class="width-64 year" value="<%= effected_on("%Y") %>" readonly>
+      <input type="text" class="width-42 margin-right-2 month" value="<%= effected_on("%m") %>" readonly>
+      <input type="text" class="width-40 day" value="<%= effected_on("%d") %>" readonly>
+    </li>
+
+    <li class="end_time">
+      <label>劳动合同结束</label>
+      <input type="text" class="width-64 year" value="<%= expired_on("%Y") %>" readonly>
+      <input type="text" class="width-42 margin-right-2 month" value="<%= expired_on("%m") %>" readonly>
+      <input type="text" class="width-40 day" value="<%= expired_on("%d") %>" readonly>
+    </li>
+
+    <li>
+      <label for="remind">合同到期提醒</label>
+      <%= form.check_box :contract_notice_enabled, checked: @staff.contract_notice_enabled, class: "vertical-align-middle margin-right-20 toggleable", id: "contract-notice-checkbox" %>
+      提前<%= form.text_field :deadline_days, class: "width-50 margin-right-6 margin-left-6", id: "deadline-days", disabled: true %>天提醒
+    </li>
+
+    <li class="text-align-right">
+      <input type="button" value="签订合同" class="sign_contract_btn">
+    </li>
+  </ul>
+</div>
+
+

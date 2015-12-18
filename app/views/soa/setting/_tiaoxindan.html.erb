@@ -1,0 +1,30 @@
+<%= form_tag("/soa/setting/#{@staff.id}/adjust", method: "patch", remote: true) do -%>
+  <div class="salary_adjusting_wrap">
+    <div class="salary_adjusting_window">
+      <h3> 调薪单-- <span class="width-132"><%= @staff.trial_period ? @staff.trial_status : "未设置" %></span> </h3>
+      <div class="content">
+        <table>
+          <tbody>
+            <%= render "/soa/setting/second_form_head_info"%>
+            <tr>
+              <td>原薪资</td>
+              <td><span class="width-132 show_content"><%= @staff.trial_status == "转正" ? @staff.regular_salary : @staff.trial_salary %></span></td>
+              <td>新薪资</td>
+              <td colspan="5"><%= text_field_tag :reset_salary, params[:reset_salary], class: "adjusted_salary" %></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <%= fields_for :protocols do |protocol_fields| %>
+          <%= render "second_protocol_form", form: protocol_fields, type: "StoreTiaoXin" %>
+        <% end %>
+
+        <div class="btn_groups">
+          <%= link_to "取消", "#", class: "btn cancel_btn", data: {from: "salary_adjusting_wrap"} %>
+          <%= submit_tag "保存", class: "btn save_btn margin-right-20" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>

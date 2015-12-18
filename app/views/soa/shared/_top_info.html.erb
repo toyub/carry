@@ -1,0 +1,30 @@
+<table class="top_info">
+  <tr>
+    <td>员工姓名</td>
+    <td><%= @staff.screen_name %></td>
+    <td>员工编号</td>
+    <td><%= @staff.numero %></td>
+    <td>所属部门</td>
+    <td><%= @staff.store_department.try(:name) %></td>
+    <td>职务</td>
+    <td><%= @staff.store_position.try(:name) %></td>
+    <td>职称</td>
+    <td><%= @staff.store_position.try(:level_type_id) %></td>
+    <td>职务状态</td>
+    <td></td>
+    <td>岗位状态</td>
+    <td><%= @staff.store_position.try(:work_status) %></td>
+  </tr>
+</table>
+
+<% unless params[:controller] == "soa/staff" && params[:action] == "new"%>
+<div class="details_nav">
+  <ul>
+    <li><%= link_to "基本信", soa_staff_path(@staff), class: "width-90" %></li>
+    <li><%= link_to "设置", soa_setting_path(@staff), class: "width-90" %></li>
+    <li><%= link_to "绩效提成", soa_performance_path(@staff), class: "width-90" %></li>
+    <li><%= link_to "考勤奖惩", new_soa_event_path(id: @staff.id), class: "width-90" %></li>
+    <li><%= link_to "纪录", soa_record_path(id: @staff.id), class: "width-90" %></li>
+  </ul>
+</div>
+<% end %>
