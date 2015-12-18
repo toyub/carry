@@ -24,6 +24,16 @@ GIT
       nokogiri
 
 GIT
+  remote: git@gitlab.icar99.com:zc/http_client.git
+  revision: 608190f7b91b0ab8bffb9afc3d444d4837b0ed6c
+  tag: 0.0.4
+  specs:
+    http_client (0.1.1)
+      activesupport
+      faraday
+      typhoeus
+
+GIT
   remote: git@gitlab.icar99.com:zc/naught.git
   revision: c4253f1cb03ffc7a4b72f1e1d583032cc6b2459f
   tag: 0.1.2
@@ -39,14 +49,6 @@ GIT
       activesupport
       bunny (~> 1.7.0)
       settingslogic (~> 2.0.9)
-
-PATH
-  remote: ~/workspace/rails/gems/http_client
-  specs:
-    http_client (0.1.1)
-      activesupport
-      faraday
-      typhoeus
 
 GEM
   remote: https://ruby.taobao.org/
