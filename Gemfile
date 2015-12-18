@@ -46,6 +46,7 @@ gem "hiredis", "~> 0.6.0"
 gem 'redis-namespace','~> 1.5.1'
 # 将一些数据存放入 Redis
 gem 'redis-objects', '1.1.0'
+gem 'redis-rails'
 
 # YAML 配置信息
 gem 'settingslogic', '~> 2.0.9'
