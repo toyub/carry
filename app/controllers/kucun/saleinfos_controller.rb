@@ -1,4 +1,4 @@
-class Kucun::SaleinfosController < Kucun::ControllerBase
+class Kucun::SaleinfosController < Kucun::BaseController
 
   def create
     @store = current_user.store

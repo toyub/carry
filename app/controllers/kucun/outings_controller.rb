@@ -1,4 +1,4 @@
-class Kucun::OutingsController < Kucun::ControllerBase
+class Kucun::OutingsController < Kucun::BaseController
   def index
     @store = current_store
     @outing_items = StoreMaterialOutingItem.where(store_id: @store.id)
