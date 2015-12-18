@@ -4,6 +4,7 @@ class StoreVehicle < ActiveRecord::Base
   belongs_to :vehicle_brand
   belongs_to :vehicle_model
   belongs_to :vehicle_series
+  belongs_to :store_customer
   belongs_to :store_staff
 
   # 车牌
@@ -18,6 +19,7 @@ class StoreVehicle < ActiveRecord::Base
   has_one :frame, class_name: "StoreVehicleFrame"
 
   has_many :orders, class_name: "StoreOrder"
+  has_many :complaints, as: :creator
 
   delegate :license_number, to: :registration_plate
 

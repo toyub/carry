@@ -35,6 +35,7 @@ class Store <  ActiveRecord::Base
 
   has_many :store_switches
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
+  has_many :store_orders
 
   has_one :sms_balance, as: :party
 
