@@ -1,5 +1,5 @@
 module Kucun
-  class ControllerBase < ApplicationController
+  class BaseController < ApplicationController
     before_filter :login_required
   end
 end

@@ -1,4 +1,4 @@
-class Kucun::MaterialsController < Kucun::ControllerBase
+class Kucun::MaterialsController < Kucun::BaseController
   include Uploadable
 
   before_filter :set_material, only: [:show, :edit]

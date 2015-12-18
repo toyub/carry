@@ -1,4 +1,4 @@
-class Kucun::ReturningsController < Kucun::ControllerBase
+class Kucun::ReturningsController < Kucun::BaseController
   def index
     @store = current_store
     query_scope = @store.store_material_returnings
