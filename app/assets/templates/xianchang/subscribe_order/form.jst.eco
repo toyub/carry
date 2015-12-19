@@ -13,8 +13,8 @@
   	  			<div class="vehicle_info">
   	  				<dl>
   	  					<dd>
-  	  						<label class="width-50 store-vehicle-license-number-input">车牌号</label>
-                  <input type="text" class="width-110" value="" name="store_vehicle['license_number']">
+  	  						<label class="width-50">车牌号</label>
+                  <select class="width-110 js-store-vehicle-license-number-input" name="store_vehicle['license_number']"></select>
   	  					</dd>
   	  					<dd>
   	  						<label class="width-50">客户姓名</label>
@@ -95,11 +95,11 @@
 		      </div>
 	      </div>
       </div>
-</di  v>
+</div>
       <div class="wrap_project" style="display: none;">
         <div class="project_items">
 <div   class="order_items float-left">
-	<d  iv class="order_items_category">
+	<div class="order_items_category">
 		  <ul>
 		  	<li class="bg-color-8E81B8 color-fff" data-target="commodity">商品</li>
 		  	<li data-target="service" class="">服务</li>
