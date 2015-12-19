@@ -86,15 +86,15 @@ class StoreStaff <  ActiveRecord::Base
     regular? ? update!(regular_salary: new_salary) : update!(trial_salary: new_salary)
   end
 
-  def contract_period
-    month = 30
-    protocol = store_protocols.operate_type("StoreQianDingHeTong")[0]
-    ((protocol.expired_on - protocol.effected_on) / month).round if protocol
+  def contract_life
+    year = 12
+    protocol = self.store_protocols.operate_type("StoreQianDingHeTong").last
+    (protocol.expired_on.year - protocol.effected_on.year) * year + (protocol.effected_on.month - protocol.expired_on.month) if protocol.present?
   end
 
-  def contract_status
-    "未签约"
-    contract_period < 0 ? "到期" : "有效" if contract_period
+  def contract_valid?
+    protocol = store_protocols.operate_type("StoreQianDingHeTong").last
+    protocol.expired_on > protocol.effected_on if protocol
   end
 
   def bonus_amount

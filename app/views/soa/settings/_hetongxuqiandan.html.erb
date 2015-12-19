@@ -12,9 +12,9 @@
               <td>正式薪薪</td>
               <td><span class="width-132 show_content"><%= @staff.regular_salary %></span></td>
               <td>合同期</td>
-              <td><span class="width-132 show_content"><%= @staff.contract_period %>月</span></td>
+              <td><span class="width-132 show_content"><%= @staff.contract_life %>月</span></td>
               <td>状态</td>
-              <td><span class="width-132 show_content"><%= @staff.contract_status %></span></td>
+              <td><span class="width-132 show_content"><%= @staff.contract_valid? ? "有效" : "到期" %></span></td>
             </tr>
           </tbody>
         </table>
