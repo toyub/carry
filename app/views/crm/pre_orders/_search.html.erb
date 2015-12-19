@@ -1,6 +1,5 @@
 <div class="nav_query_wrap">
   <form id='queryForm' action='/crm/store_customers/<%= @customer.id %>/pre_orders' accept-charset='UTF-8' method='get'>
-    <input name="utf8" type="hidden" value="✓">
     <div class="nav-item-query">
       <label>选择车辆</label>
       <%= select_tag 'q[store_vehicle_registration_plate_id_eq]', options_for_select(@customer.plates.pluck(:license_number, :id)), class: 'width-120' %>
