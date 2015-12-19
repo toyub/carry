@@ -109,19 +109,19 @@
           <%= form.fields_for :skills do |skills_fields| %>
             <li>
               <%= skills_fields.label :theory, "理论知识" %>
-              <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills.try(:[], "theory") || 0%>
+              <%= skills_fields.range_field :theory, in: 0..100, value: @staff.skills.try(:[], "theory") || 0%>
               <span id="theory-input-value"><%= @staff.skills.try(:[], "theory").to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :operate, "实操能力" %>
-              <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills.try(:[], "operate") || 0 %>
+              <%= skills_fields.range_field :operate, in: 0..100, value: @staff.skills.try(:[], "operate") || 0 %>
               <span id="operate-input-value"><%= @staff.skills.try(:[], "operate").to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :integrate, "综合能力" %>
-              <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills.try(:[], "integrate") || 0%>
+              <%= skills_fields.range_field :integrate, in: 0..100, value: @staff.skills.try(:[], "integrate") || 0%>
               <span id="integrate-input-value"><%= @staff.skills.try(:[], "integrate").to_i %></span>
             </li>
 
@@ -244,9 +244,9 @@
       }
     })
 
-    <% if params[:action] != "new" %>
-      $("#store_staff_trial_salary, #store_staff_trial_period, #store_staff_regular_salary").attr("disabled", "disabled")
-    <% end %>
+    if ($("#store_staff_trial_salary").val()) {
+      $("#store_staff_trial_salary").attr("disabled", "disabled")
+    }
 
   })
 </script>

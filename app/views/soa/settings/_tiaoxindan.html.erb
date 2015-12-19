@@ -1,16 +1,16 @@
-<%= form_tag("/soa/setting/#{@staff.id}/adjust", method: "patch", remote: true) do -%>
+<%= form_tag("/soa/staff/#{@staff.id}/setting/adjust", method: "patch", remote: true) do -%>
   <div class="salary_adjusting_wrap">
     <div class="salary_adjusting_window">
-      <h3> 调薪单-- <span class="width-132"><%= @staff.trial_period ? @staff.trial_status : "未设置" %></span> </h3>
+      <h3> 调薪单-- <span class="width-132"><%= @staff.full_number? ? "转正" : "试用" %></span> </h3>
       <div class="content">
         <table>
           <tbody>
             <%= render "/soa/settings/second_form_head_info"%>
             <tr>
               <td>原薪资</td>
-              <td><span class="width-132 show_content"><%= @staff.trial_status == "转正" ? @staff.regular_salary : @staff.trial_salary %></span></td>
+              <td><span class="width-132 show_content"><%= @staff.current_salary %></span></td>
               <td>新薪资</td>
-              <td colspan="5"><%= text_field_tag :reset_salary, params[:reset_salary], class: "adjusted_salary" %></td>
+              <td colspan="5"><%= number_field_tag :reset_salary, params[:reset_salary], required: true, class: "adjusted_salary" %></td>
             </tr>
           </tbody>
         </table>

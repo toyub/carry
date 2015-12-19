@@ -1,16 +1,16 @@
 <%= form.hidden_field :type, value: type %>
-<%= form.hidden_field :previous_salary, value: @staff.trial_status == "转正" ? @staff.regular_salary : @staff.trial_salary %>
+<%= form.hidden_field :previous_salary, value: @staff.current_salary %>
 
 <div class="reason">
   <%= form.label :reason, reason_type_name(type) %>
-  <%= form.text_area :reason, class: "width-696" %>
+  <%= form.text_area :reason, required: true, class: "width-696" %>
 </div>
 
 <div class="start_time">
   <%= form.label :effected_on, "生效日期" %>
-  <%= form.date_field :effected_on %>
+  <%= form.date_field :effected_on, required: true %>
   <% if type == "StoreQianDingHeTong" %>
-    至 <%= form.date_field :expired_on %>
+    至 <%= form.date_field :expired_on, required: true %>
   <% end %>
 
 </div>

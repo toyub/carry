@@ -1,4 +1,4 @@
-<%= form_tag("/soa/setting/#{@staff.id}/adjust", method: "patch", remote: true) do -%>
+<%= form_tag("/soa/staff/#{@staff.id}/setting/adjust", method: "patch", remote: true) do -%>
   <div class="transfer_wrap">
     <div class="transfer_window">
       <h3>转正单</h3>
@@ -14,7 +14,7 @@
               <td>试用期</td>
               <td><span class="width-132 show_content"><%= @staff.trial_period %>月</span></td>
               <td>状态</td>
-              <td><span class="width-132 show_content"><%= @staff.trial_period ? @staff.trial_status : "未设置" %></span></td>
+              <td><span class="width-132 show_content"><%= @staff.full_number? ? "转正" : "试用" %></span></td>
             </tr>
           </tbody>
         </table>

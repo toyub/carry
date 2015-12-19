@@ -14,7 +14,7 @@
   <td>入职时间</td>
   <td><span class="width-132 show_content"><%= @staff.created_at.strftime("%Y-%m-%d") %></span></td>
   <td>工龄</td>
-  <td><span class="width-132 show_content"><%= "无此字段" %></span></td>
+  <td><span class="width-132 show_content"><%= Time.now.year - @staff.created_at.year %>年</span></td>
   <td>职称</td>
   <td><span class="width-132 show_content"><%= @staff.level_type.try(:name) %></span></td>
 </tr>

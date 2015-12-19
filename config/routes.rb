@@ -75,11 +75,10 @@ Rails.application.routes.draw do
 
   namespace :soa do
     resources :staff do
-      resource :setting
+      resource :setting do
+       patch 'adjust', on: :member
+      end
     end
-    # resources :setting do
-    #   patch 'adjust', on: :member
-    # end
     resources :events  do
       get 'detail', on: :member
       get 'search', on: :collection
