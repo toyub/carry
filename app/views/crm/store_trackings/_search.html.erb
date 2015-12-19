@@ -1,29 +1,19 @@
 <div class="nav_query_wrap">
-  <form action="/crm/store_customers/<%= @customer.id %>/store_trackings" accept-charset='UTF-8' method="get">
+  <form id="queryForm" action="/crm/store_customers/<%= @customer.id %>/store_trackings" accept-charset='UTF-8' method="get">
     <div class="nav-item-query">
       <label>选择车辆</label>
-      <!-- <%= select_tag 'q[]' %> -->
-      <select class="width-120">
-        <option>浙A-N209A</option>
-        <option>全部车辆</option>
-        <option>浙A-16034</option>
-        <option>浙A-22776</option>
-      </select>
+      <%= select_tag 'q[store_order_plate_id_eq]', options_for_select(@customer.plates.pluck(:license_number, :id), @search[:plate]), include_blank: '全部车辆', class: 'width-120' %>
     </div>
 
     <div class="nav-item-query">
       <label class="width-70">选择时间</label>
-      <input type="date" class="width-120">
-      <input type="date" class="width-120">
+      <input type="text" name="q[created_at_gt]" value='<%= @search[:startDate] %>' class="width-120 datepicker" readonly="true">
+      <input type="text" name="q[created_at_lt]" value='<%= @search[:endDate] %>' class="width-120 datepicker" readonly="true">
     </div>
 
     <div class="nav-item-query">
       <label class="width-70">回访方式</label>
-      <select class="width-120">
-        <option>短信</option>
-        <option>全部</option>
-        <option>电话</option>
-      </select>
+      <%= select_tag 'q[contact_way_id_eq]', options_for_select(StoreTracking::CONTACT_WAY.invert, @search[:contact_way]), include_blank: '所有方式', class: 'width-120' %>
     </div>
 
     <div class="nav-item-query">
