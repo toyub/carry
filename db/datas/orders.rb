@@ -1,6 +1,7 @@
 puts "Now creating StoreSubscribeOrder..."
 
 StoreSubscribeOrder.delete_all
+StoreSubscribeOrderItem.delete_all
 
 StoreSubscribeOrder.create([
   {
@@ -12,6 +13,10 @@ StoreSubscribeOrder.create([
     subscribe_date: Time.now.end_of_month,
     order_type: :auto,
     state: :pending,
+    items_attributes: [
+      { quantity: 10, itemable: StoreMaterial.first },
+      { quantity: 10, itemable: StoreService.first }
+    ]
   },
   {
     store_chain_id: StoreChain.first.try(:id),

@@ -1,7 +1,7 @@
 module Api
   class StoreSubscribeOrdersController < BaseController
 
-    before_action :set_order, only: [:destroy, :update]
+    before_action :set_order, only: [:destroy, :update, :show]
     protect_from_forgery except: :destroy
 
     def index
@@ -30,6 +30,10 @@ module Api
       else
         render json: {success: false}
       end
+    end
+
+    def show
+      render json: @order
     end
 
     private

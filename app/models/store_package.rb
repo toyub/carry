@@ -7,6 +7,7 @@ class StorePackage < ActiveRecord::Base
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_one :package_setting, class_name: 'StorePackageSetting', dependent: :destroy
   has_many :trackings, class_name: 'StorePackageTracking', dependent: :destroy
+  has_many :store_subscribe_order_items, as: :itemable
 
   after_create :create_one_setting
 
