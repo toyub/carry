@@ -7,9 +7,19 @@ class Mis.Models.StoreCustomerEntity extends Backbone.Model
   initialize: ->
     @on("change:store_customer", @parseStoreCustomer)
     @on("change:store_customer_settlement", @parseStoreCustomerSettlement)
+    @on("change:cities", @parseCities)
+    @on("change:regions", @parseRegions)
 
+    @parseCities()
+    @parseRegions()
     @parseStoreCustomer()
     @parseStoreCustomerSettlement()
+
+  parseCities: ->
+    @cities = @get 'cities'
+
+  parseRegions: ->
+    @regions = @get 'regions'
 
   parseStoreCustomer: ->
     @storeCustomer = new Mis.Models.StoreCustomer(@get 'store_customer')
@@ -46,6 +56,7 @@ class Mis.Models.StoreCustomerEntity extends Backbone.Model
     hashWithRoot = {}
     json = _.clone(@attributes)
     json.district = {province: @get('province'), city: @get('city'), region: @get('region')}
+    console.log @storeCustomer.attributes
     json.store_customer_attributes = @storeCustomer.attributes
     json.store_customer_settlement_attributes = @storeCustomerSettlement.attributes
     hashWithRoot[@modelName] = json

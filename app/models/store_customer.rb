@@ -23,6 +23,10 @@ class StoreCustomer < ActiveRecord::Base
     self.store_vehicles.ids.sort.first
   end
 
+  def operator
+    self.creator.screen_name
+  end
+
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"
