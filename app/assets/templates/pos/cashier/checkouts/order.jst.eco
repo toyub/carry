@@ -202,7 +202,7 @@
               </dd>
               <dd>
                 <label class="width-70">收款金额</label>
-                <input type="text" class="width-135" placeholder="0.00">
+                <input type="number" min=0 class="width-135">
               </dd>
             </dl>
           </div>

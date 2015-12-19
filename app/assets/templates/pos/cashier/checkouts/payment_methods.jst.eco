@@ -1,0 +1,17 @@
+<dl>
+  <dd>
+    <label class="width-70">收款方式</label>
+    <select class="width-147">
+      <option>现金</option>
+      <option>挂账</option>
+      <option>银行卡</option>
+      <option>支付宝</option>
+      <option>微信</option>
+      <option>储值卡余额</option>
+    </select>
+  </dd>
+  <dd>
+    <label class="width-70">收款金额</label>
+    <input type="number" min=0 class="width-135">
+  </dd>
+</dl>
