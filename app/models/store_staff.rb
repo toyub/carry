@@ -62,24 +62,16 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def regular?
-    status = "转正"
-    remain_day = 0
-    if store_protocols.operate_type("StoreZhuanZheng").size == 0
-      remain_day = ( Date.today - (created_at - trial_period.months).to_date).round if trial_period
-      status = remain_day < 0 ? "转正" : "试用中"
+    protocol = store_protocols.operate_type("StoreZhuanZheng").last
+    if protocol.present?
+      Date.today > protocol.effected_on
     else
-      remain_day = ( Date.today - store_protocols.operate_type("StoreZhuanZheng")[0].effected_on ).round if trial_period
-      status = remain_day > 0 ? "转正" : "试用中"
+      Date.today > self.trial_period.months.since(self.created_at)
     end
-    status == "转正"
   end
 
   def working_age
-    if employeed_at.nil?
-      Time.now.year - created_at.try(:year)
-    else
-      Time.now.year - employeed_at.try(:year)
-    end
+    Time.now.year - (employeed_at.try(:year) || created_at.try(:year)).to_i
   end
 
   def insurence_enabled?
