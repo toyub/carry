@@ -20,12 +20,15 @@ class Soa::SettingsController < Soa::BaseController
   def update
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
-    params[:store_staff][:skills][:other_skills].reject!(&:empty?)
+    params[:store_staff]["skills"]["other_skills"].reject!(&:empty?) unless params[:store_staff][:password]
 
-    if @staff.update!(setting_staff_param)
-      redirect_to soa_staff_setting_path(@staff)
-    else
-      render plain: @staff.errors.messages
+    respond_to do |format|
+      if @staff.update!(setting_staff_param)
+        format.html { redirect_to soa_staff_setting_path(@staff) }
+        format.js
+      else
+        render plain: @staff.errors.messages
+      end
     end
   end
 
@@ -51,6 +54,7 @@ class Soa::SettingsController < Soa::BaseController
   def setting_staff_param
     params.require(:store_staff).permit(:trial_salary, :trial_period, :regular_salary, :mis_login_enabled, :app_login_enabled, :deduct_enabled,
                                        :contract_notice_enabled, :deadline_days,
+                                       :password, :password_confirmation,
                                        bonus: [:gangwei, :zhusu, :canfei, :laobao, :gaowen, :yibaofei, :baoxianjing, :gerendanbao, :insurence_enabled ],
                                        skills: [:theory, :operate, :integrate, :certificate, :other_skills => [] ]
                                        )
