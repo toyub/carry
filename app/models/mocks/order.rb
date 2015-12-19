@@ -9,20 +9,28 @@ module Mocks
         status: rand(4),
         customer: Mocks::Customer.mock,
         amount: (rand * 100000).round(2),
-        items: {
-          materials: 5.times.map{
-            Mocks::Item.mock
-          },
-          
-          services: 5.times.map{
-            Mocks::Item.mock
-          },
+        materials: {
+          count: 23,
+          amount: 333.33,
+          items: self.items
+        },
+        
+        services: {
+          count: 23,
+          amount: 333.33,
+          items: self.items
+        },
 
-          packages: 5.times.map{
-            Mocks::Item.mock
-          }
+        packages: {
+          count: 33,
+          amount: 333.33,
+          items: self.items
         }
       }
+    end
+
+    def self.items
+      rand(8).times.map{Mocks::Item.mock}
     end
   end
 end
