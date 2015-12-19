@@ -1,12 +1,12 @@
 <div class="list_content list_tr">
   <ul>
-    <li class="number"><%= tracking_counter + 1 %></li>
-    <li><%= tracking.created_at.strftime('%Y-%m-%d') %></li>
-    <li><%= tracking.category_name %></li>
-    <li><%= tracking.store_order.try(:numero) || '无关联信息' %></li>
-    <li><%= tracking.contact_way %></li>
-    <li><%= tracking.automatic ? '系统' : tracking.executant %></li>
-    <li><%= tracking.content %></li>
+    <li class="number"><%= store_tracking_counter + 1 %></li>
+    <li><%= store_tracking.created_at.strftime('%Y-%m-%d') %></li>
+    <li><%= store_tracking.category_name %></li>
+    <li><%= store_tracking.store_order.try(:numero) || '无关联信息' %></li>
+    <li><%= store_tracking.contact_way %></li>
+    <li><%= store_tracking.automatic ? '系统' : store_tracking.executant %></li>
+    <li><%= store_tracking.content %></li>
     <li>成功</li>
   </ul>
 </div>

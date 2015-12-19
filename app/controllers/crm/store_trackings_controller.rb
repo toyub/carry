@@ -4,7 +4,7 @@ class Crm::StoreTrackingsController < Crm::BaseController
   def index
     params[:q] ||= {}
     q = StoreTracking.ransack(params[:q])
-    @trackings = q.result(distinct: true)
+    @store_trackings = q.result(distinct: true)
     @tracking = StoreTracking.new
     @search = {
       plate: params[:q][:store_order_plate_id_eq],
