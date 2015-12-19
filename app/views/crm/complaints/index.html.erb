@@ -69,28 +69,26 @@
             <% @complaints.each_with_index do |complaint, i| %>
               <tr>
                 <td class="number"> <%= i+1 %> </td>
-                <td> <%= complaint.created_at.strftime("%Y-%m-%d") %> </td>
-                <td> <%= complaint.order.try(:numero) %> </td>
-                <td> <%= complaint.detail.try(:[], 'content') %> </td>
-                <td> <%= complaint.order.items.inject(0){ |total, item| total+ item.amount  } if complaint.order %> </td>
-                <% saler = complaint.detail.try(:[],'principal').try(:[], 'saler')  %>
+                <td> <%= complaint.created_at_format %> </td>
+                <td> <%= complaint.numero %> </td>
+                <td> <%= complaint.content %> </td>
+                <td> <%= complaint.amounts %> </td>
+                <% saler = complaint.saler  %>
                 <td> <%= StoreStaff.find(saler).full_name if saler %>  </td>
-                <%= mechanics = complaint.detail.try(:[], 'principal').try(:[], 'mechanic')||[] %>
                 <td>
-                  <% mechanics.each do |mechanic|  %>
-                    <span> <%= StoreStaff.find(mechanic).full_name %> </span>
+                  <% complaint.mechanic.each do |m|  %>
+                    <span> <%= StoreStaff.find(m).full_name %> </span>
                   <% end %>
                 </td>
                 <td>
-                  <% categories = complaint.detail['category']|| [] %>
-                    <% categories.each do |k, v|  %>
+                    <% complaint.categoried.each do |k, v|  %>
                         <%= complaint.category(k) %>
                     <% end %>
                 </td>
                 <td>
-                  <%= complaint.detail['response']['customer'] %>
+                  <%= complaint.customer %>
                 </td>
-                <td><i class="ico ico-edit do_complaints"></i></td>
+                <td><i class="ico ico-edit do_complaints" data-customer="<%= @customer.id%>" data-complaint="<%= complaint.id%>" ></i></td>
               </tr>
             <% end %>
           </tbody>
@@ -111,115 +109,158 @@
     </div>
 
 <div class="window_wrap" style="display:none;">
-  <div class="complaints_records_wrap">
-	<h2>投诉事件记录</h2>
-	<ul class="top">
-		<li>
-			<label>日期:</label>
-			<span>2015-11-12</span>
-		</li>
-		<li>
-			<label>编号:</label>
-			<span>Ts20151011001</span>
-		</li>
-	</ul>
-	<div class="complaints_records">
-		<dl class="client_base_info">
-	    <dd>客户名称</dd>
-			<dd>程晓林</dd>
-			<dd>联系方式</dd>
-			<dd>13897910234</dd>
-			<dd>车牌号</dd>
-			<dd>浙A-N209A</dd>
-			<dd>订单号</dd>
-			<dd>YW201510090008</dd>
-		</dl>
-		<dl class="client_type">
-	    <dd>投诉类别</dd>
-			<dd>
-	      <label>服务<input type="checkbox"></label>
-				<label>质量<input type="checkbox"></label>
-				<label>环境<input type="checkbox"></label>
-				<label>其他<input type="checkbox"></label>
-			</dd>
-			<dd>投诉渠道</dd>
-			<dd>
-				<label>电话<input type="checkbox"></label>
-				<label>现场<input type="checkbox"></label>
-				<label>微信<input type="checkbox"></label>
-				<label>短信<input type="checkbox"></label>
-			</dd>
-		</dl>
-		<dl class="opinion">
-	    <dd>客诉内容</dd>
-			<dd>
-			  <textarea></textarea>
-			</dd>
-		</dl>
-		<dl class="opinion">
-	    <dd>调查结果</dd>
-			<dd><textarea></textarea></dd>
-		</dl>
+  <form  action="" method="post" id="complain_form" name="complain" >
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="complaint[id]" value="">
+    <input type="hidden" name="complaint[store_customer_id]" value="">
+    <input type="hidden" name="complaint[updator_id]" value="<%= current_staff.id%>">
+    <div class="complaints_records_wrap">
+  	<h2>投诉事件记录</h2>
+  	<ul class="top">
+  		<li>
+  			<label>日期:</label>
+  			<span id="created_at" ></span>
+  		</li>
+  	</ul>
+  	<div class="complaints_records">
+  		<dl class="client_base_info">
+  	    <dd>客户名称</dd>
+  			<dd> <%= @customer.full_name %> </dd>
+  			<dd>联系方式</dd>
+  			<dd> <%= @customer.phone_number %> </dd>
+  			<dd>车牌号</dd>
+  			<dd class="dd-vehicle" ></dd>
+  			<dd>订单号</dd>
+  			<dd class="dd-order-numero" ></dd>
+  		</dl>
+  		<dl class="client_type">
+  	    <dd>投诉类别</dd>
+  			<dd class="dd-category">
+  	      <label>服务<input type="checkbox" value="1" name="complaint[detail][category][]" class="category-checkbox-1" ></label>
+  				<label>质量<input type="checkbox" value="2" name="complaint[detail][category][]" class="category-checkbox-2" ></label>
+  				<label>环境<input type="checkbox" value="3" name="complaint[detail][category][]" class="category-checkbox-3" ></label>
+  				<label>其他<input type="checkbox" value="4" name="complaint[detail][category][]" class="category-checkbox-4" ></label>
+  			</dd>
+  			<dd>投诉渠道</dd>
+  			<dd class="dd-way">
+  				<label>电话<input type="checkbox" name="complaint[detail][way][]" value="1" class="way-checkbox-1" ></label>
+  				<label>现场<input type="checkbox" name="complaint[detail][way][]" value="2" class="way-checkbox-2" ></label>
+  				<label>微信<input type="checkbox" name="complaint[detail][way][]" value="3" class="way-checkbox-3" ></label>
+  				<label>短信<input type="checkbox" name="complaint[detail][way][]" value="4" class="way-checkbox-4" ></label>
+  			</dd>
+  		</dl>
+  		<dl class="opinion">
+  	    <dd>客诉内容</dd>
+  			<dd>
+  			  <textarea id="complaint-content" name="complaint[detail][content]" ></textarea>
+  			</dd>
+  		</dl>
+  		<dl class="opinion">
+  	    <dd>调查结果</dd>
+  			<dd><textarea id="complaint-inquire" name="complaint[detail][inquire]" ></textarea></dd>
+  		</dl>
 
-		<dl class="opinion">
-	    <dd>责任人</dd>
-			<dd>
-			  <div class="liable_person">
-					<h2>销售接待</h2>
-					<ul>
-						<li><label>王丽丽<input type="checkbox"></label></li>
-						<li><label>张燕<input type="checkbox"></label></li>
-						<li><label>王丽丽<input type="checkbox"></label></li>
-					</ul>
-				</div>
-				<div class="liable_person">
-					<h2>施工技师</h2>
-					<ul>
-						<li><label>王丽丽<input type="checkbox"></label></li>
-						<li><label>张燕<input type="checkbox"></label></li>
-						<li><label>王丽丽<input type="checkbox"></label></li>
-					</ul>
-				</div>
-			</dd>
-		</dl>
+  		<dl class="opinion">
+  	    <dd>责任人</dd>
+  			<dd>
+  			  <div class="liable_person">
+  					<h2>销售接待</h2>
+  					<ul id="complaint-saler">
+  					</ul>
+  				</div>
+  				<div class="liable_person">
+  					<h2>施工技师</h2>
+  					<ul id="complaint-mechanic">
+  					</ul>
+  				</div>
+  			</dd>
+  		</dl>
 
-		<dl class="opinion">
-	    <dd>处理结果</dd>
-			<dd>
-				<dl class="result">
-          <dd>客户</dd>
-					<dd>责任人</dd>
-				</dl>
-				<dl class="result">
-          <dd><textarea>将问题商品退回，同时为客户修好关联的关系，补偿客户10次洗车</textarea></dd>
-					<dd><textarea>退回供应商商品，要求供应商赔偿</textarea></dd>
-				</dl>
+  		<dl class="opinion">
+  	    <dd>处理结果</dd>
+  			<dd>
+  				<dl class="result">
+            <dd>客户</dd>
+  					<dd>责任人</dd>
+  				</dl>
+  				<dl class="result">
+            <dd><textarea id="response-customer" name="complaint[detail][response][customer]" ></textarea></dd>
+  					<dd><textarea id="response-principal" name="complaint[detail][response][principal]" ></textarea></dd>
+  				</dl>
 
-			</dd>
-		</dl>
+  			</dd>
+  		</dl>
 
-		<dl class="opinion">
-			<dd>反馈</dd>
-			<dd>
-				<div class="liable_person">
-					客户对处理方式满意
-				</div>
-				<div class="liable_person text-align-right">
-					<ul>
-						<li><label>满意<input type="checkbox"></label></li>
-						<li><label>不满意<input type="checkbox"></label></li>
-					</ul>
-				</div>
-			</dd>
-		</dl>
+  		<dl class="opinion">
+  			<dd>反馈</dd>
+  			<dd>
+  				<div class="liable_person">
+  					客户对处理方式满意
+  				</div>
+  				<div class="liable_person text-align-right">
+  					<ul>
+  						<li><label>满意<input type="checkbox" name="complaint[satisfaction]" class="satisfaction-1" value="1"></label></li>
+  						<li><label>不满意<input type="checkbox" name="complaint[satisfaction]" class="satisfaction-2" value="2"></label></li>
+  					</ul>
+  				</div>
+  			</dd>
+  		</dl>
+    </div>
+
+  	<div class="btn_group">
+      <a href="javascript:void(0)" class="btn cancel_btn">取消</a>
+      <input type="submit" name="name" value="确定" class="btn save_btn">
+  	</div>
   </div>
-
-	<div class="btn_group">
-    <a href="javascript:void(0)" class="btn cancel_btn">取消</a>
-		<a href="javascript:void(0)" class="btn save_btn">确定</a>
-
-	</div>
-</div>
-
+</form>
 </div>
 </div>
+
+<% content_for :javascripts do %>
+<script type="text/javascript">
+jQuery(function($){
+  $(document).on("click", "i.ico.ico-edit.do_complaints", function(){
+    $("input:checkbox").prop("checked", false);
+    $("div.window_wrap").show();
+    var customer = $(this).data("customer");
+    var complaint = $(this).data("complaint");
+    $("input[name='complaint[id]']").val(complaint);
+    $("input[name='complaint[store_customer_id]']").val(customer);
+    $('form#complain_form').attr('action', "/crm/store_customers/"+ customer +"/complaints/"+ complaint +"");
+    $.get("/crm/store_customers/"+ customer +"/complaints/"+ complaint +"/edit", function(data){
+      $("dd.dd-vehicle").text(data.license_number);
+      $("dd.dd-order-numero").text(data.numero);
+      data.categoried.forEach(function(item){
+        $("input.category-checkbox-" + item).prop("checked",'true')
+      });
+      data.way.forEach(function(item){
+        $("input.way-checkbox-" + item).prop("checked",'true')
+      });
+      $("textarea#complaint-content").text(data.content);
+      $("textarea#complaint-inquire").text(data.inquire);
+      $("ul#complaint-saler").append("<li><label>"+ data.salers[0].name +"<input name='complaint[detail][principal][saler]' type='checkbox' value="+ data.salers[0].id +" ></label></li>")
+      if(data.salers[0].select == data.salers[0].id){
+        $("input[name='complaint[detail][principal][saler]']").prop("checked","true")
+      };
+      data.mechanics.forEach(function(item){
+        $("ul#complaint-mechanic").append("<li><label>"+ item.name +"<input name='complaint[detail][principal][mechanic][]' type='checkbox' class='mechanic-"+ item.id +"' value=" + item.id + "></label></li>");
+      });
+      data.mechanic.forEach(function(item){
+        $("input.mechanic-"+ item).prop("checked",'true');
+      });
+      $("textarea#response-customer").text(data.responses[0].customer);
+      $("textarea#response-principal").text(data.responses[0].principal);
+      $("input.satisfaction-"+data.satisfaction).prop("checked",'true');
+      $("span#created_at").text(data.created_at);
+    });
+  });
+
+  $("a.btn.cancel_btn").on("click", function(){
+    $("div.window_wrap").hide();
+    $("ul#complaint-saler").html("");
+    $("ul#complaint-mechanic").html("");
+  });
+
+});
+</script>
+<% end %>
