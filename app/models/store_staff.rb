@@ -31,18 +31,6 @@ class StoreStaff <  ActiveRecord::Base
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end
 
-  def staff_bonus
-    @bonus || {}
-  end
-
-  def staff_skills
-    @skills || {}
-  end
-
-  def staff_other
-    @other || {}
-  end
-
   def job_type
     JobType.find(self.job_type_id)
   end
@@ -86,6 +74,10 @@ class StoreStaff <  ActiveRecord::Base
     status == "转正"
   end
 
+  def working_age
+    Time.now.year - @staff.employeed_at.try(:year)
+  end
+
   def insurence_enabled?
     return (bonus.try(:[], "insurence_enabled").nil? || bonus.try(:[], "insurence_enabled") == "0") ? "否" : "是"
   end
@@ -110,15 +102,18 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def bonus_amount
+    bonus || {}
     bonus["gangwei"].to_f + bonus["canfei"].to_f + bonus["laobao"].to_f +
       bonus["gaowen"].to_f + bonus["zhusu"].to_f
   end
 
   def insurence_amount
-   bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
+    bonus || {}
+    bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
   end
 
   def cutfee
+    bonus || {}
     bonus["gerendanbao"].to_f + store_events.total_pay_of_type_per_month("StoreAttendence").to_f + store_events.total_pay_of_type_per_month("StorePenalty").to_f
   end
 

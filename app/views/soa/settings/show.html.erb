@@ -112,19 +112,19 @@
             <%= form.fields_for :skills do |skills_fields| %>
               <li>
                 <%= skills_fields.label :theory, "理论知识" %>
-                <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills.try(:[], "theory"), step: '.1' %>
+                <%= skills_fields.range_field :theory, in: 0..100, value: @staff.skills.try(:[], "theory") || 0 %>
                 <span id="theory-input-value"><%= @staff.skills.try(:[], "theory").to_i %></span>
               </li>
 
               <li>
                 <%= skills_fields.label :operate, "实操能力" %>
-                <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills.try(:[], "operate"), step: '.1' %>
+                <%= skills_fields.range_field :operate, in: 0..100, value: @staff.skills.try(:[], "operate") || 0 %>
                 <span id="theory-input-value"><%= @staff.skills.try(:[], "operate").to_i %></span>
               </li>
 
               <li>
                 <%= skills_fields.label :integrate, "综合能力" %>
-                <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills.try(:[], "integrate") , step: '.1' %>
+                <%= skills_fields.range_field :integrate, in: 0..100, value: @staff.skills.try(:[], "integrate") || 0 %>
                 <span id="theory-input-value"><%= @staff.skills.try(:[], "integrate").to_i %></span>
               </li>
 
@@ -135,7 +135,7 @@
 
               <li>
                 <%= skills_fields.label :other_skills, "其他技能" %>
-                <% @staff.skills.try(:[], "other_skills").each do |id| %>
+                <% @staff.skills.try(:[], "other_skills").try(:each) do |id| %>
                   <span> <%= SkillType.find(id.to_i).try :name %> </span>
                 <% end %>
               </li>

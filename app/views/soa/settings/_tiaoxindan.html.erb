@@ -10,7 +10,7 @@
               <td>原薪资</td>
               <td><span class="width-132 show_content"><%= @staff.current_salary %></span></td>
               <td>新薪资</td>
-              <td colspan="5"><%= number_field_tag :reset_salary, params[:reset_salary], required: true, class: "adjusted_salary" %></td>
+              <td colspan="5"><%= number_field_tag :reset_salary, params[:reset_salary], required: true, min: 1, class: "adjusted_salary" %></td>
             </tr>
           </tbody>
         </table>

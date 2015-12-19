@@ -12,12 +12,12 @@
         <ul>
           <li>
             <%= form.label :trial_salary, "试用底薪" %>
-            <%= form.number_field :trial_salary %>
+            <%= form.number_field :trial_salary, min: 1 %>
           </li>
 
           <li>
             <%= form.label :trial_period, "试用周期" %>
-            <%= form.number_field :trial_period, required: true, class: "width-100" %>
+            <%= form.number_field :trial_period, required: true, min: 1, class: "width-100" %>
             <span class="width-56"> 月 </span>
           </li>
 
@@ -27,7 +27,7 @@
 
           <li>
             <%= form.label :regular_salary, "正式底薪" %>
-            <%= form.number_field :regular_salary %>
+            <%= form.number_field :regular_salary, min: 1 %>
           </li>
 
           <li class="text-align-right">
@@ -44,23 +44,23 @@
           <%= form.fields_for :bonus do |bonus_fields| -%>
             <li>
               <%= bonus_fields.label :gangwei, "岗位补贴" %>
-              <%= bonus_fields.number_field :gangwei, value: @staff.bonus.try(:[], "gangwei") %>
+              <%= bonus_fields.number_field :gangwei, value: @staff.bonus.try(:[], "gangwei"), min: 1 %>
             </li>
             <li>
               <%= bonus_fields.label :zhusu, "住宿补贴" %>
-              <%= bonus_fields.number_field :zhusu, value: @staff.bonus.try(:[], "zhusu") %>
+              <%= bonus_fields.number_field :zhusu, value: @staff.bonus.try(:[], "zhusu"), min: 1 %>
             </li>
             <li>
               <%= bonus_fields.label :canfei, "餐费补贴" %>
-              <%= bonus_fields.number_field :canfei, value: @staff.bonus.try(:[], "canfei") %>
+              <%= bonus_fields.number_field :canfei, value: @staff.bonus.try(:[], "canfei"), min: 1 %>
             </li>
             <li>
               <%= bonus_fields.label :laobao, "劳保补贴" %>
-              <%= bonus_fields.number_field :laobao, value: @staff.bonus.try(:[], "laobao")%>
+              <%= bonus_fields.number_field :laobao, value: @staff.bonus.try(:[], "laobao"), min: 1 %>
             </li>
             <li>
               <%= bonus_fields.label :gaowen, "高温补贴" %>
-              <%= bonus_fields.number_field :gaowen, value: @staff.bonus.try(:[], "gaowen")%>
+              <%= bonus_fields.number_field :gaowen, value: @staff.bonus.try(:[], "gaowen"), min: 1 %>
             </li>
           <% end %>
         </ul>
@@ -85,15 +85,15 @@
             <li>
               <%= bonus_fields.check_box :insurence_enabled, checked: @staff.bonus.try(:[], "insurence_enabled") == "1", class: "vertical-align-middle toggleable", id: "security-checkbox" %>
               <%= bonus_fields.label :yibaofei, "医保费",  class: "width-74" %>
-              <%= bonus_fields.number_field :yibaofei, value: @staff.bonus.try(:[], "yibaofei") %>
+              <%= bonus_fields.number_field :yibaofei, value: @staff.bonus.try(:[], "yibaofei"), min: 1 %>
             </li>
             <li>
               <%= bonus_fields.label :baoxianjing, "保险金" %>
-              <%= bonus_fields.number_field :baoxianjing, value: @staff.bonus.try(:[], "baoxianjing")%>
+              <%= bonus_fields.number_field :baoxianjing, value: @staff.bonus.try(:[], "baoxianjing"), min: 1 %>
             </li>
             <li>
               <%= bonus_fields.label :gerendanbao, "个人承担" %>
-              <%= bonus_fields.number_field :gerendanbao, value: @staff.bonus.try(:[],"gerendanbao") %>
+              <%= bonus_fields.number_field :gerendanbao, value: @staff.bonus.try(:[],"gerendanbao"), min: 1 %>
             </li>
           <% end %>
         </ul>
