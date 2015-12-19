@@ -1,19 +1,16 @@
 module Mocks
   class Item
-    def self.mock(type=nil)
-      
-      
-
+    def self.mock
       {
-        name: 'JKDLSJ KDKDK JJ',
+        name: '3M Gas Bam',
         speci: 'V3 56L 44I',
+        retail_price: 370,
+        vip_price: 350,
+        discount: 20,
+        discount_reason: 'YLD',
+        price: 330,
         quantity: 1,
-        price: 350,
-        huiyuan_price: ['320','-'].sample,
-        discount: 2,
-        discount_reason: 'sfdsf',
-        amount: 298,
-        denomination: 223
+        amount: 330
       }
     end
   end

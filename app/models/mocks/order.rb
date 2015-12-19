@@ -3,6 +3,10 @@ module Mocks
     @@sequence = 0
     def self.mock
       @@sequence = @@sequence + 1
+      services = self.items
+      materials = self.items
+      packages = self.items
+      
       {
         id: @@sequence,
         numero: "#{Time.now.strftime('%Y%m%d')}#{@@sequence.to_s.rjust(7, '0')}",
@@ -10,21 +14,18 @@ module Mocks
         customer: Mocks::Customer.mock,
         amount: (rand * 100000).round(2),
         materials: {
-          count: 23,
-          amount: 333.33,
-          items: self.items
+          amount: materials.map(&->(itemi){itemi[:price]}).sum,
+          items: materials
         },
         
         services: {
-          count: 23,
-          amount: 333.33,
-          items: self.items
+          amount: services.map(&->(itemi){itemi[:price]}).sum,
+          items: services
         },
 
         packages: {
-          count: 33,
-          amount: 333.33,
-          items: self.items
+          amount: packages.map(&->(itemi){itemi[:price]}).sum,
+          items: packages
         }
       }
     end
