@@ -4,16 +4,16 @@
   <ul>
     <li class="start_time">
       <label>劳动合同起始</label>
-      <input type="text" class="width-64 year" value="<%= effected_on("%Y") %>" readonly>
-      <input type="text" class="width-42 margin-right-2 month" value="<%= effected_on("%m") %>" readonly>
-      <input type="text" class="width-40 day" value="<%= effected_on("%d") %>" readonly>
+      <input type="text" class="width-64 year" value="<%= @staff.contract.try(:effected_on).try(:strftime, "%Y") %>" readonly>
+      <input type="text" class="width-42 margin-right-2 month" value="<%= @staff.contract.try(:effected_on).try(:strftime, "%m") %>" readonly>
+      <input type="text" class="width-40 day" value="<%= @staff.contract.try(:effected_on).try(:strftime, "%d") %>" readonly>
     </li>
 
     <li class="end_time">
       <label>劳动合同结束</label>
-      <input type="text" class="width-64 year" value="<%= expired_on("%Y") %>" readonly>
-      <input type="text" class="width-42 margin-right-2 month" value="<%= expired_on("%m") %>" readonly>
-      <input type="text" class="width-40 day" value="<%= expired_on("%d") %>" readonly>
+      <input type="text" class="width-64 year" value="<%= @staff.contract.try(:expired_on).try(:strftime, "%Y") %>" readonly>
+      <input type="text" class="width-42 margin-right-2 month" value="<%= @staff.contract.try(:expired_on).try(:strftime, "%m") %>" readonly>
+      <input type="text" class="width-40 day" value="<%= @staff.contract.try(:expired_on).try(:strftime, "%d") %>" readonly>
     </li>
 
     <li>

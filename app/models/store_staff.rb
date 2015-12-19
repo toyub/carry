@@ -6,6 +6,7 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_position
   belongs_to :store_employee
   has_many :store_protocols, dependent: :destroy
+  has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
   has_many :store_events, dependent: :destroy
   has_many :store_salaries, dependent: :destroy
 
@@ -86,15 +87,17 @@ class StoreStaff <  ActiveRecord::Base
     regular? ? update!(regular_salary: new_salary) : update!(trial_salary: new_salary)
   end
 
+  def contract
+    store_contracts.last
+  end
+
   def contract_life
     year = 12
-    protocol = self.store_protocols.operate_type("StoreQianDingHeTong").last
-    (protocol.expired_on.year - protocol.effected_on.year) * year + (protocol.effected_on.month - protocol.expired_on.month) if protocol.present?
+    (contract.expired_on.year - contract.effected_on.year) * year + (contract.effected_on.month - contract.expired_on.month) if contract.present?
   end
 
   def contract_valid?
-    protocol = store_protocols.operate_type("StoreQianDingHeTong").last
-    protocol.expired_on > protocol.effected_on if protocol
+    contract.expired_on > contract.effected_on if contract
   end
 
   def bonus_amount
