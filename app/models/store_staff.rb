@@ -75,7 +75,11 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def working_age
-    Time.now.year - @staff.employeed_at.try(:year)
+    if employeed_at.nil?
+      Time.now.year - created_at.try(:year)
+    else
+      Time.now.year - employeed_at.try(:year)
+    end
   end
 
   def insurence_enabled?
