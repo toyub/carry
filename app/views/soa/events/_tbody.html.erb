@@ -1,0 +1,32 @@
+<% current_month = Time.now.beginning_of_month.strftime("%m") %>
+<tbody>
+  <% @staffs.each.with_index(1) do |staff, index| %>
+  <tr>
+    <td class="sequence_num"><%= index %></td>
+    <td><%= staff.screen_name %></td>
+    <td><%= staff.numero %></td>
+    <td><%= staff.store_department.try(:name) %></td>
+    <td><%= staff.store_position.try(:name) %></td>
+    <td><%= staff.store_events.quantity_of_type_per_month("StoreAttendence", params["date(2i)"] || current_month) %></td>
+    <td name="currency">-<%= staff.store_events.total_pay_of_type_per_month("StoreAttendence", params["date(2i)"] || current_month) %></td>
+    <td><%= staff.store_events.quantity_of_type_per_month("StorePenalty", params["date(2i)"] || current_month) %></td>
+    <td name="currency">-<%= staff.store_events.total_pay_of_type_per_month("StorePenalty", params["date(2i)"] || current_month) %></td>
+    <td><%= staff.store_events.quantity_of_type_per_month("StoreReward", params["date(2i)"] || current_month) + staff.store_events.quantity_of_type_per_month("StoreOvertime", params["date(2i)"] || current_month)%></td>
+    <td><%= staff.store_events.total_pay_of_type_per_month("StoreReward", params["date(2i)"] || current_month) + staff.store_events.total_pay_of_type_per_month("StoreOvertime", params["date(2i)"] || current_month)%></td>
+    <td class="operation">
+      <a href="/soa/events/<%= staff.id %>?type=StoreAttendence">考</a>
+      <a href="/soa/events/<%= staff.id %>?type=StoreReward">奖</a>
+      <a href="/soa/events/<%= staff.id %>?type=StorePenalty">惩</a>
+    </td>
+    <td><%= link_to raw("<i class='ico ico-edit font-14'></i>"), soa_event_path(staff) %></td>
+  </tr>
+<% end %>
+</tbody>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $("[name=currency]").each(function(){
+      if ($(this).text() == '-0') { $(this).text(0) }
+    })
+  })
+</script>

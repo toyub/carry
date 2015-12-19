@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :current_staff, :current_store
 
+  include ApplicationHelper
+
   def current_user
     @current_user ||= StoreStaff.find_by(id: session[:user_id])
   end

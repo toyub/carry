@@ -1,0 +1,73 @@
+<div class="salary_adjusting_record_wrap">
+  <div class="salary_adjusting_record">
+    <h3>调薪单 <a href="javascript:void(0)" class="font-18 close-flag">×</a></h3>
+    <div class="content">
+      <table>
+        <tbody>
+          <tr>
+            <td>姓名</td>
+            <td><span class="width-132 show_content"><%= @staff.screen_name %></span></td>
+            <td>员工编号</td>
+            <td><span class="width-132 show_content"><%= @staff.numero %></span></td>
+            <td>部门</td>
+            <td><span class="width-132 show_content"><%= @staff.store_department.try(:name) %></span></td>
+            <td>职务</td>
+            <td><span class="width-132 show_content"><%= @staff.store_position.try(:name) %></span></td>
+          </tr>
+          <tr>
+            <td>所属门店</td>
+            <td><span class="width-132 show_content"><%= @staff.store.try(:name) %></span></td>
+            <td>入职时间</td>
+            <td><span class="width-132 show_content"><%= @staff.created_at.strftime("%Y-%m-%d") %></span></td>
+            <td>工龄</td>
+            <td><span class="width-132 show_content"></span></td>
+            <td>职称</td>
+            <td><span class="width-132 show_content"><%= @staff.job_type.try(:name) %></span></td>
+          </tr>
+          <tr>
+            <td>原薪资</td>
+            <td><span class="width-132 show_content"><%= @protocol.previous_salary %></span></td>
+            <td>新薪资</td>
+            <td colspan="5"><span class="width-132 show_content"><%= @protocol.new_salary %></span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="reason">
+        <label>调薪原因</label>
+        <textarea disabled><%= @protocol.reason %></textarea>
+      </div>
+
+      <div class="start_time">
+        <label>生效日期</label>
+        <span class="show_content"><%= @protocol.effected_on %></span>
+      </div>
+
+      <div class="confirm_person">
+        <label>审核人</label>
+        <span class="show_content"><%= @protocol.verifier_id %></span>
+      </div>
+
+      <div class="remark">
+        <label>备注</label>
+        <textarea disabled><%= @protocol.remark %></textarea>
+      </div>
+
+      <div class="form_maker">
+        <span>制单：</span><label class="maker"><%= current_staff.screen_name %></label>
+        <span>录入日期：</span><label class="date"><%= @protocol.created_at.strftime("%Y-%m-%d") %></label>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    // $(".salary_adjusting_record_wrap").css("display", "block");
+    $(".salary_adjusting_record_wrap").show();
+    $(".close-flag").on("click", function(){
+      $(".salary_adjusting_record_wrap").hide();
+    })
+  })
+</script>

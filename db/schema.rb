@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215073314) do
+ActiveRecord::Schema.define(version: 20151216093911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,6 +282,42 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.datetime "updated_at"
   end
 
+  create_table "store_customer_entities", force: :cascade do |t|
+    t.integer  "store_customer_category_id"
+    t.string   "telephone"
+    t.string   "mobile"
+    t.string   "qq"
+    t.json     "district"
+    t.string   "address"
+    t.float    "range"
+    t.string   "property"
+    t.string   "remark"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "store_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_chain_id"
+  end
+
+  create_table "store_customer_settlements", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "bank"
+    t.string   "bank_account"
+    t.string   "credit"
+    t.string   "credit_amount"
+    t.string   "notice_period"
+    t.string   "contract"
+    t.string   "tax"
+    t.string   "payment_mode"
+    t.string   "invoice_type"
+    t.string   "invoice_title"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "store_customer_entity_id"
+  end
+
   create_table "store_customers", force: :cascade do |t|
     t.integer  "store_id",                              null: false
     t.integer  "store_chain_id",                        null: false
@@ -294,6 +330,18 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.string   "phone_number",               limit: 45
     t.string   "qq"
     t.integer  "store_customer_category_id"
+    t.boolean  "gender"
+    t.string   "nick"
+    t.string   "resident_id"
+    t.date     "birthday"
+    t.boolean  "married"
+    t.string   "education"
+    t.string   "profession"
+    t.string   "income"
+    t.string   "company"
+    t.boolean  "tracking_accepted"
+    t.boolean  "message_accepted"
+    t.integer  "store_customer_entity_id"
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -366,6 +414,21 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.boolean  "deleted",          default: false
     t.datetime "created_at"
     t.datetime "update_at"
+  end
+
+  create_table "store_events", force: :cascade do |t|
+    t.integer  "store_staff_id"
+    t.string   "type"
+    t.string   "sort"
+    t.text     "description"
+    t.json     "operate",        default: {}
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.datetime "occur_on"
+    t.datetime "start_on"
+    t.datetime "end_on"
+    t.string   "occur_at"
+    t.integer  "recorder_id"
   end
 
   create_table "store_files", force: :cascade do |t|
@@ -916,6 +979,7 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
+    t.string   "numero"
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1044,8 +1108,32 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.integer  "store_staff_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.decimal  "previous_salary", precision: 10, scale: 2
+    t.decimal  "new_salary",      precision: 10, scale: 2
+  end
+
+  create_table "store_salaries", force: :cascade do |t|
+    t.integer  "store_staff_id"
+    t.decimal  "amount_deduction",     precision: 8, scale: 2
+    t.json     "deduction",                                    default: {}
+    t.decimal  "amount_overtime",      precision: 8, scale: 2
+    t.decimal  "amount_reward",        precision: 8, scale: 2
+    t.decimal  "amount_bonus",         precision: 8, scale: 2
+    t.json     "bonus",                                        default: {}
+    t.decimal  "amount_insurence",     precision: 8, scale: 2
+    t.json     "insurence",                                    default: {}
+    t.decimal  "amount_cutfee",        precision: 8, scale: 2
+    t.decimal  "amount_should_cutfee", precision: 8, scale: 2
+    t.json     "cutfee",                                       default: {}
+    t.decimal  "salary_should_pay",    precision: 8, scale: 2
+    t.decimal  "salary_actual_pay",    precision: 8, scale: 2
+    t.boolean  "status",                                       default: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.decimal  "basic_salary",         precision: 8, scale: 2, default: 0.0
+    t.string   "created_month"
   end
 
   create_table "store_service_categories", force: :cascade do |t|
@@ -1429,6 +1517,22 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.decimal  "balance"
     t.boolean  "available",                  default: true
     t.integer  "creator_id"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.string   "taggable_type"
+    t.integer  "taggable_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
+    t.integer  "store_staff_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
 end
