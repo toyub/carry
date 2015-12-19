@@ -14,7 +14,7 @@ StoreSubscribeOrder.create([
     order_type: :auto,
     state: :pending,
     items_attributes: [
-      { quantity: 10, itemable: StoreMaterial.first },
+      { quantity: 10, itemable: StoreMaterialSaleinfo.first },
       { quantity: 10, itemable: StoreService.first }
     ]
   },

@@ -17,7 +17,6 @@ class StoreMaterial < ActiveRecord::Base
   #has_many :store_material_images, foreign_key: 'host_id'
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_package_items, as: :package_itemable
-  has_many :store_subscribe_order_items, as: :itemable
 
   scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}%")}
   scope :by_sub_category, -> (category) {where(store_material_category_id: category) if category.present?}

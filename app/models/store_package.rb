@@ -11,6 +11,8 @@ class StorePackage < ActiveRecord::Base
 
   after_create :create_one_setting
 
+  alias_attribute :retial, :price
+
   def create_one_setting
     self.create_package_setting(creator: self.creator)
   end
