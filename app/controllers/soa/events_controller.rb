@@ -25,7 +25,7 @@ class Soa::EventsController < Soa::BaseController
   end
 
   def new
-    @staff = current_store.store_staff.find(params[:id])
+    @staff = current_store.store_staff.find(params[:staff_id])
     @event = @staff.store_events.build
   end
 
@@ -40,7 +40,7 @@ class Soa::EventsController < Soa::BaseController
     @event = @staff.store_events.build(event_params)
 
     if @event.save
-      redirect_to soa_record_path(id: @staff)
+      redirect_to soa_staff_record_path(staff_id: @staff, type: @event.type)
     else
       render plain: @event.errors.messages
     end
@@ -57,7 +57,7 @@ class Soa::EventsController < Soa::BaseController
   private
 
   def event_params
-    params.require(:store_event).permit(:type, :sort, :start_on, :end_on, :occur_on,
+    params.require(:store_event).permit(:type, :sort, :period, :start_on, :end_on, :occur_on,
                                         :occur_at, :description, :recorder_id,
                                         operate: [:amount, :other]
                                        )

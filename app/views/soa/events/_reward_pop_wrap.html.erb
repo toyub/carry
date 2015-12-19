@@ -25,16 +25,16 @@
         <% if @event.type != "StoreAttendence" && @event.type != "StoreOvertime" %>
           <tr>
             <th>时间</th>
-            <td colspan="2" class="text-indent-20"><%= @event.occur_on.strftime("%Y-%m-%d") %></td>
+            <td colspan="2" class="text-indent-20"><%= @event.occur_on.strftime("%Y-%m-%d") if @event.occur_on.present?  %></td>
             <th class="address">地点</th>
             <td colspan="2" class="text-indent-20"><%= @event.occur_at %></td>
           </tr>
         <% else %>
           <tr>
             <th>从</th>
-            <td colspan="2" class="text-indent-20"><%= @event.start_on.strftime("%Y-%m-%d") %></td>
+            <td colspan="2" class="text-indent-20"><%= @event.start_on.strftime("%Y-%m-%d") if @event.start_on.present? %></td>
             <th class="address">至</th>
-            <td colspan="2" class="text-indent-20"><%= @event.end_on.strftime("%Y-%m-%d") %></td>
+            <td colspan="2" class="text-indent-20"><%= @event.end_on.strftime("%Y-%m-%d") if @event.end_on.present? %></td>
           </tr>
         <% end %>
         <tr>

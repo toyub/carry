@@ -14,11 +14,11 @@
     <td><%= staff.store_events.quantity_of_type_per_month("StoreReward", params["date(2i)"] || current_month) + staff.store_events.quantity_of_type_per_month("StoreOvertime", params["date(2i)"] || current_month)%></td>
     <td><%= staff.store_events.total_pay_of_type_per_month("StoreReward", params["date(2i)"] || current_month) + staff.store_events.total_pay_of_type_per_month("StoreOvertime", params["date(2i)"] || current_month)%></td>
     <td class="operation">
-      <a href="/soa/events/<%= staff.id %>?type=StoreAttendence">考</a>
-      <a href="/soa/events/<%= staff.id %>?type=StoreReward">奖</a>
-      <a href="/soa/events/<%= staff.id %>?type=StorePenalty">惩</a>
+      <a href="/soa/staff/<%= staff.id %>/record?type=StoreAttendence">考</a>
+      <a href="/soa/staff/<%= staff.id %>/record?type=StoreReward">奖</a>
+      <a href="/soa/staff/<%= staff.id %>/record?type=StorePenalty">惩</a>
     </td>
-    <td><%= link_to raw("<i class='ico ico-edit font-14'></i>"), soa_event_path(staff) %></td>
+    <td><%= link_to raw("<i class='ico ico-edit font-14'></i>"), soa_staff_record_path(staff_id: staff.id) %></td>
   </tr>
 <% end %>
 </tbody>

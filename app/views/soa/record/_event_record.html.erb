@@ -30,7 +30,7 @@
             <label> <%= event.operate["other"] %> </label>
           </td>
           <td><%= event.operate["amount"] %></td>
-          <td><%= link_to "详情", detail_soa_event_path(event), remote: true, class: "record_details" %></td>
+          <td><%= link_to "详情", detail_soa_staff_event_path(staff_id: event.store_staff.id, id: event.id), remote: true, class: "record_details" %></td>
         </tr>
       <% end %>
     </tbody>

@@ -26,7 +26,7 @@
         <p id="overtime" style="display:none;">加班单</p>
       </div>
 
-      <%= form_for @event, url: soa_events_path(staff_id: params[:id])  do |form| %>
+      <%= form_for @event, url: soa_staff_events_path(staff_id: params[:staff_id])  do |form| %>
         <%= form.hidden_field :type, value: type, id: "type-hidden" %>
 
         <table>
@@ -56,7 +56,7 @@
                 <%= form.date_field :start_on, class: "width-122 margin-right-10" %>
                 <%= form.label :end_on, "止" %>
                 <%= form.date_field :end_on, class: "width-122 margin-right-30 a-end" %>
-                <label>共计</label> <input type="text" class="width-50 calculate-days"><nbsp1></nbsp1>天
+                <label>共计</label> <input type="number" name="store_event[period]" class="width-50 calculate-days"><nbsp1></nbsp1>天
               </td>
             </tr>
 
@@ -127,7 +127,7 @@
               <td colspan="5">
                 <ul>
                   <%= form.fields_for :operate do |operate_fields| %>
-                    <li><span id="operate-type"><%= type == "StoreReward" ? "奖励" : "扣款" %></span> <%= operate_fields.text_field :amount %> 元</li>
+                    <li><span id="operate-type"><%= type == "StoreReward" ? "奖励" : "扣款" %></span> <%= operate_fields.number_field :amount %> 元</li>
                     <li>
                       <span class="vertical-align-top">其他</span>
                       <%= operate_fields.text_area :other, rows: 6, cols: 60%>
@@ -179,15 +179,6 @@
 
       span_operate_type.text(operate_type);
       span_hidden_field.val($(this).data("type"));
-    })
-
-    var diff = new Date();
-    var days = 0;
-    var day_base = 1000*60*60*24;
-    $(".a-end, .o-end").on("change", function(){
-      diff = (new Date($(this).val())) - (new Date($(this).siblings("input[type=date]").val()));
-      days = diff/day_base;
-      $(".calculate-days").val(days);
     })
 
   })

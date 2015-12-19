@@ -78,11 +78,16 @@ Rails.application.routes.draw do
       resource :setting do
        patch 'adjust', on: :member
       end
+      resources :events  do
+        get 'detail', on: :member
+        get 'search', on: :collection
+      end
+      controller :record do
+        get "/record/index" => "record#index", as: :record
+        get "search" => "record#search", as: :search_record
+      end
     end
-    resources :events  do
-      get 'detail', on: :member
-      get 'search', on: :collection
-    end
+    resources :events, only: :index
     resources :protocols do
       get 'record', on: :member
     end
@@ -94,10 +99,6 @@ Rails.application.routes.draw do
       get 'search', on: :collection
       get 'confirm', on: :member
       get 'check', on: :member
-    end
-    controller :record do
-      get "/record/index" => "record#index", as: :record
-      get "search/:id" => "record#search", as: :search_record
     end
   end
 
