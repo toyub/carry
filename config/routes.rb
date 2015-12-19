@@ -182,7 +182,7 @@ Rails.application.routes.draw do
       resources :store_service_reminds, only: [:update]
       resources :store_service_trackings, only: [:create, :update, :destroy]
     end
-    resources :store_vehicles, only: [:index] do
+    resources :store_vehicles, only: [:index, :show] do
       collection do
         get :search
       end

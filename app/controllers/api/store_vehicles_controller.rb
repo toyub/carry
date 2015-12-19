@@ -7,6 +7,11 @@ module Api
       render json: @store_vehicles
     end
 
+    def show
+      @store_vehicle = StoreVehicle.find(params[:id])
+      render json: @store_vehicle
+    end
+
     def search
       if params[:q]
         @store_vehicle_registration_plates = StoreVehicleRegistrationPlate.where("license_number like ?", "%#{params[:q]}%")

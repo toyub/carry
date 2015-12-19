@@ -7,36 +7,35 @@
     <form>
   	  <div class="float-left">
   	  	<div class="order_details">
-
   	  		<div class="vehicle_order_details">
-
   	  			<div class="vehicle_info">
   	  				<dl>
   	  					<dd>
   	  						<label class="width-50">车牌号</label>
-                  <select class="width-110 js-store-vehicle-license-number-input" name="license_number"></select>
+                  <select class="width-110 js-store-vehicle-license-number-input" name="license_number">
+                  </select>
   	  					</dd>
   	  					<dd>
   	  						<label class="width-50">客户姓名</label>
-		  					  <input type="text" class="width-110" name="store_customer['full_name']" disabled>
+                  <input type="text" class="width-110 js-customer-name" name="store_customer['full_name']" disabled>
   	  					</dd>
   	  					<dd>
   	  						<label class="width-50">手机号</label>
-		  					  <input type="text" class="width-110" name="" disabled>
+		  					  <input type="text" class="width-110 js-mobile" name="" disabled>
   	  					</dd>
   	  				</dl>
   	  				<dl>
   	  					<dd>
   	  						<label class="width-50">车辆品牌</label>
-		  					  <input type="text" class="width-110" disabled>
+		  					  <input type="text" class="width-110 js-brand-name" disabled>
   	  					</dd>
   	  					<dd>
   	  						<label class="width-50">车型</label>
-		  					  <input type="text" class="width-110" disabled>
+                  <input type="text" class="width-110 js-model" disabled>
   	  					</dd>
   	  					<dd>
   	  						<label class="width-50">车系</label>
-		  					  <input type="text" class="width-110" disabled>
+		  					  <input type="text" class="width-110 js-series" disabled>
   	  					</dd>
   	  				</dl>
   	  			</div>
