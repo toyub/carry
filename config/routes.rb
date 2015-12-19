@@ -74,10 +74,12 @@ Rails.application.routes.draw do
   get "xiaoshou/main", to:  "xiaoshou#main"
 
   namespace :soa do
-    resources :staff
-    resources :setting do
-      patch 'adjust', on: :member
+    resources :staff do
+      resource :setting
     end
+    # resources :setting do
+    #   patch 'adjust', on: :member
+    # end
     resources :events  do
       get 'detail', on: :member
       get 'search', on: :collection

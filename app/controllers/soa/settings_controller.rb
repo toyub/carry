@@ -1,29 +1,29 @@
-class Soa::SettingController < Soa::BaseController
+class Soa::SettingsController < Soa::BaseController
 
   def show
     @store = current_store
-    @staff = @store.store_staff.find(params[:id])
+    @staff = @store.store_staff.find(params[:staff_id])
   end
 
   def edit
     @store = current_store
-    @staff = @store.store_staff.find(params[:id])
+    @staff = @store.store_staff.find(params[:staff_id])
     @verifiers = StoreStaff.where(mis_login_enabled: true)
   end
 
   def new
     @store = current_store
-    @staff = @store.store_staff.find(params[:id])
+    @staff = @store.store_staff.find(params[:staff_id])
     @verifiers = StoreStaff.where(mis_login_enabled: true)
   end
 
   def update
     @store = current_store
-    @staff = @store.store_staff.find(params[:id])
+    @staff = @store.store_staff.find(params[:staff_id])
     params[:store_staff][:skills][:other_skills].reject!(&:empty?)
 
-    if @staff.update(setting_staff_param)
-      redirect_to soa_setting_path(@staff)
+    if @staff.update!(setting_staff_param)
+      redirect_to soa_staff_setting_path(@staff)
     else
       render plain: @staff.errors.messages
     end

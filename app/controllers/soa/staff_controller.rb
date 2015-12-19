@@ -24,7 +24,7 @@ class Soa::StaffController < Soa::BaseController
     staff.login_name = staff.phone_number
 
     if staff.save && employee.save
-      redirect_to new_soa_setting_path(id: staff.id)
+      redirect_to new_soa_staff_setting_path(staff_id: staff.id)
     else
       render plain: staff.errors.messages
     end

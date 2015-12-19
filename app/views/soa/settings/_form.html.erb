@@ -1,6 +1,6 @@
 <%= render "/soa/shared/top_info" %>
 
-<% action_uri = soa_setting_path(id: params[:id]) if params[:id] %>
+<% action_uri = soa_staff_setting_path(staff_id: params[:staff_id]) if params[:staff_id] %>
 <%= form_for @staff, url: action_uri, method: :patch, html: {id: 'staff_form'} do |form| %>
   <div class="details_content staff_setting">
 
@@ -12,12 +12,12 @@
         <ul>
           <li>
             <%= form.label :trial_salary, "试用底薪" %>
-            <%= form.text_field :trial_salary %>
+            <%= form.number_field :trial_salary %>
           </li>
 
           <li>
             <%= form.label :trial_period, "试用周期" %>
-            <%= form.text_field :trial_period, class: "width-100" %>
+            <%= form.number_field :trial_period, required: true, class: "width-100" %>
             <span class="width-56"> 月 </span>
           </li>
 
@@ -27,7 +27,7 @@
 
           <li>
             <%= form.label :regular_salary, "正式底薪" %>
-            <%= form.text_field :regular_salary %>
+            <%= form.number_field :regular_salary %>
           </li>
 
           <li class="text-align-right">
@@ -44,23 +44,23 @@
           <%= form.fields_for :bonus do |bonus_fields| -%>
             <li>
               <%= bonus_fields.label :gangwei, "岗位补贴" %>
-              <%= bonus_fields.text_field :gangwei, value: @staff.bonus.try(:[], "gangwei") %>
+              <%= bonus_fields.number_field :gangwei, value: @staff.bonus.try(:[], "gangwei") %>
             </li>
             <li>
               <%= bonus_fields.label :zhusu, "住宿补贴" %>
-              <%= bonus_fields.text_field :zhusu, value: @staff.bonus.try(:[], "zhusu") %>
+              <%= bonus_fields.number_field :zhusu, value: @staff.bonus.try(:[], "zhusu") %>
             </li>
             <li>
               <%= bonus_fields.label :canfei, "餐费补贴" %>
-              <%= bonus_fields.text_field :canfei, value: @staff.bonus.try(:[], "canfei") %>
+              <%= bonus_fields.number_field :canfei, value: @staff.bonus.try(:[], "canfei") %>
             </li>
             <li>
               <%= bonus_fields.label :laobao, "劳保补贴" %>
-              <%= bonus_fields.text_field :laobao, value: @staff.bonus.try(:[], "laobao")%>
+              <%= bonus_fields.number_field :laobao, value: @staff.bonus.try(:[], "laobao")%>
             </li>
             <li>
               <%= bonus_fields.label :gaowen, "高温补贴" %>
-              <%= bonus_fields.text_field :gaowen, value: @staff.bonus.try(:[], "gaowen")%>
+              <%= bonus_fields.number_field :gaowen, value: @staff.bonus.try(:[], "gaowen")%>
             </li>
           <% end %>
         </ul>
@@ -71,12 +71,11 @@
         <span class="width-60">提成设置</span>
         <%= form.label :deduct_enabled, "试用期结束有提成" %>
         <%= form.check_box :deduct_enabled, checked: @staff.deduct_enabled, class: "vertical-align-middle margin-left-46" %>
-
       </div>
     </div>
 
     <div class="wrap">
-      <%= render "/soa/setting/contract_relationship", form: form %>
+      <%= render "/soa/settings/contract_relationship", form: form %>
 
       <div class="social_security">
         <label for="security" class="width-60">保险金</label>
@@ -86,15 +85,15 @@
             <li>
               <%= bonus_fields.check_box :insurence_enabled, checked: @staff.bonus.try(:[], "insurence_enabled") == "1", class: "vertical-align-middle toggleable", id: "security-checkbox" %>
               <%= bonus_fields.label :yibaofei, "医保费",  class: "width-74" %>
-              <%= bonus_fields.text_field :yibaofei, value: @staff.bonus.try(:[], "yibaofei") %>
+              <%= bonus_fields.number_field :yibaofei, value: @staff.bonus.try(:[], "yibaofei") %>
             </li>
             <li>
               <%= bonus_fields.label :baoxianjing, "保险金" %>
-              <%= bonus_fields.text_field :baoxianjing, value: @staff.bonus.try(:[], "baoxianjing")%>
+              <%= bonus_fields.number_field :baoxianjing, value: @staff.bonus.try(:[], "baoxianjing")%>
             </li>
             <li>
               <%= bonus_fields.label :gerendanbao, "个人承担" %>
-              <%= bonus_fields.text_field :gerendanbao, value: @staff.bonus.try(:[],"gerendanbao") %>
+              <%= bonus_fields.number_field :gerendanbao, value: @staff.bonus.try(:[],"gerendanbao") %>
             </li>
           <% end %>
         </ul>
@@ -110,19 +109,19 @@
           <%= form.fields_for :skills do |skills_fields| %>
             <li>
               <%= skills_fields.label :theory, "理论知识" %>
-              <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills["theory"], step: '.1'%>
+              <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills.try(:[], "theory") || 0%>
               <span id="theory-input-value"><%= @staff.skills.try(:[], "theory").to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :operate, "实操能力" %>
-              <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills.try(:[], "operate"), step: '.1' %>
+              <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills.try(:[], "operate") || 0 %>
               <span id="operate-input-value"><%= @staff.skills.try(:[], "operate").to_i %></span>
             </li>
 
             <li>
               <%= skills_fields.label :integrate, "综合能力" %>
-              <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills["integrate"] , step: '.1' %>
+              <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills.try(:[], "integrate") || 0%>
               <span id="integrate-input-value"><%= @staff.skills.try(:[], "integrate").to_i %></span>
             </li>
 
@@ -164,7 +163,7 @@
 
 
     <div class="btn_group">
-      <%= link_to "返回", soa_setting_path(@staff), class: "btn edit_btn" %>
+      <%= link_to "返回", soa_staff_setting_path(@staff), class: "btn edit_btn" %>
       <%= form.submit "保存", class: "btn save_btn" %>
     </div>
   </div>
@@ -173,9 +172,9 @@
 <% end %>
 
 <% unless params[:action] == "show" %>
-  <%= render "/soa/setting/zhuanzhengdan" %>
-  <%= render "/soa/setting/tiaoxindan" %>
-  <%= render "/soa/setting/hetongxuqiandan" %>
+  <%= render "/soa/settings/zhuanzhengdan" %>
+  <%= render "/soa/settings/tiaoxindan" %>
+  <%= render "/soa/settings/hetongxuqiandan" %>
 <% end %>
 
 <script type="text/javascript" charset="utf-8">

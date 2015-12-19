@@ -31,15 +31,15 @@ class StoreStaff <  ActiveRecord::Base
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end
 
-  def bonus
+  def staff_bonus
     @bonus || {}
   end
 
-  def skills
+  def staff_skills
     @skills || {}
   end
 
-  def other
+  def staff_other
     @other || {}
   end
 
