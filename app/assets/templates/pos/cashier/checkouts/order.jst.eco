@@ -1,4 +1,4 @@
-<div class="float-left">
+
       <div class="cashiering_vehicle_order">
         <div class="order_details">
           <div class="dialog_nav">
@@ -229,5 +229,3 @@
           </dl>
         </div>
       </div>
-
-    </div>
