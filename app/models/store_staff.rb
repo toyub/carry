@@ -71,7 +71,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def working_age
-    Time.now.year - (employeed_at.year || created_at.year)
+    Time.now.year - (employeed_at.try(:year) || created_at.try(:year))
   end
 
   def insurence_enabled?
