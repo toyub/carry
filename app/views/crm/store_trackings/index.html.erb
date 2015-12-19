@@ -1,0 +1,105 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+
+<%= render '/crm/common/page_head' %>
+
+<div class="details">
+
+  <%= render '/crm/common/customer_nav' %>
+
+  <%= render 'search' %>
+
+  <div class="details_content car_content">
+    <div class="base_info">
+			<div class="returning_records">
+				<div class="list">
+					<div class="list_top list_tr">
+		        <ul>
+							<li>#</li>
+		          <li>时间</li>
+							<li>属性</li>
+							<li>关联信息</li>
+							<li>方式</li>
+							<li>执行</li>
+							<li>内容</li>
+							<li>状态</li>
+						</ul>
+			  	</div>
+					<div class="list_contents">
+						<div class="list_content list_tr">
+							<ul>
+							  <li class="number">1</li>
+								<li>2014-8-11</li>
+								<li>消费提醒</li>
+								<li>YW2014081100082</li>
+								<li>短信</li>
+								<li>系统</li>
+								<li>尊敬的客户,您本次消费金额为238.00,包括ADA毛绒控件等3件商品,感谢您的支持和信任,购买后如有问题..</li>
+								<li>成功</li>
+							</ul>
+				  	</div>
+					</div>
+				</div>
+		  </div>
+
+    </div>
+  </div>
+</div>
+<div class="window_wrap"  style="display: none;" id="new_return_info">
+	<div class="new_return_info">
+		<div class="top">
+		  <span>新建回访</span>
+		</div>
+
+		<dl>
+		  <dd>
+			  <div class="item_content">
+          <label class="width-50">标题</label>
+					<input type='text' value="提醒客户美容保养到期" class="width-200">
+				</div>
+				<div class="item_content">
+          <label class="width-70">属性</label>
+					<select class="width-120">
+					  <option>业务提醒</option>
+						<option>业务回访</option>
+						<option>投诉回访</option>
+						<option>其他</option>
+					</select>
+				</div>
+				<div class="item_content">
+          <label class="width-70">方式</label>
+					<select class="width-120">
+					  <option>电话</option>
+					</select>
+				</div>
+        <div class="item_content">
+          <label class="width-70">执行</label>
+          <input type='text' value="王丽丽" class="width-120">
+        </div>
+			</dd>
+		</dl>
+
+		<dl>
+      <dd>
+        <div class="item_content">
+          <label class="width-50 vertical-align-top">内容</label>
+          <textarea></textarea>
+        </div>
+      </dd>
+    </dl>
+
+    <dl>
+      <dd>
+        <div class="item_content">
+          <label class="width-50 vertical-align-top">客户反馈</label>
+          <textarea></textarea>
+        </div>
+      </dd>
+    </dl>
+    <div class="btn_group text-align-right">
+      <a href="javascript:void(0)" class="cancel_btn btn">取消</a>
+      <a href="javascript:void(0)" class="save_btn btn">保存</a>
+    </div>
+	</div>
+</div>
