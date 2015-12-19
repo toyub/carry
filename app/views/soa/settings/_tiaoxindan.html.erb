@@ -1,7 +1,7 @@
 <%= form_tag("/soa/staff/#{@staff.id}/setting/adjust", method: "patch", remote: true) do -%>
   <div class="salary_adjusting_wrap">
     <div class="salary_adjusting_window">
-      <h3> 调薪单-- <span class="width-132"><%= @staff.full_number? ? "转正" : "试用" %></span> </h3>
+      <h3> 调薪单-- <span class="width-132"><%= @staff.regular? ? "转正" : "试用" %></span> </h3>
       <div class="content">
         <table>
           <tbody>

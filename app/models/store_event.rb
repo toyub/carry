@@ -31,6 +31,10 @@ class StoreEvent < ActiveRecord::Base
 
   end
 
+  def increment
+    new_salary.to_f - event.previous_salary.to_f
+  end
+
   def recorder
     StoreStaff.find(recorder_id).screen_name
   end

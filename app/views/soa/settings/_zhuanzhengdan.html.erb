@@ -14,7 +14,7 @@
               <td>试用期</td>
               <td><span class="width-132 show_content"><%= @staff.trial_period %>月</span></td>
               <td>状态</td>
-              <td><span class="width-132 show_content"><%= @staff.full_number? ? "转正" : "试用" %></span></td>
+              <td><span class="width-132 show_content"><%= @staff.regular? ? "转正" : "试用" %></span></td>
             </tr>
           </tbody>
         </table>

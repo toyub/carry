@@ -135,10 +135,8 @@
 
               <li>
                 <%= skills_fields.label :other_skills, "其他技能" %>
-                <% if @staff.skills.present? %>
-                  <% @staff.skills.try(:[], "other_skills").map do |skill| %>
-                    <span> <%= skill %> </span>
-                  <% end %>
+                <% @staff.skills.try(:[], "other_skills").each do |id| %>
+                  <span> <%= SkillType.find(id.to_i).try :name %> </span>
                 <% end %>
               </li>
             <% end %>

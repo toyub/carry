@@ -73,7 +73,7 @@ class StoreStaff <  ActiveRecord::Base
     end
   end
 
-  def full_number?
+  def regular?
     status = "转正"
     remain_day = 0
     if store_protocols.operate_type("StoreZhuanZheng").size == 0
@@ -91,7 +91,11 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def current_salary
-    full_number? ? regular_salary.to_f : trial_salary.to_f
+    regular? ? regular_salary.to_f : trial_salary.to_f
+  end
+
+  def reset_salary(new_salary)
+    regular? ? update!(regular_salary: new_salary) : update!(trial_salary: new_salary)
   end
 
   def contract_period
@@ -122,6 +126,9 @@ class StoreStaff <  ActiveRecord::Base
     sum = 0
     sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay
     sum
+  end
+
+  def total_actual_salary
   end
 
   def get_this_month_salary

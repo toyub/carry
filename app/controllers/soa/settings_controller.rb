@@ -32,12 +32,11 @@ class Soa::SettingsController < Soa::BaseController
   def adjust
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
-    @staff.trial_status == "试用中" ? @staff.update(trial_salary: params[:reset_salary]) : @staff.update(regular_salary: params[:reset_salary]) if params[:reset_salary]
-    type = params[:protocols][:type]
-    params[:protocols][:new_salary] = params[:reset_salary]
-
-    @protocol = @staff.store_protocols.create(protocol_param)
-
+    @staff.transaction {
+      @staff.reset_salary(params[:reset_salary]) if params[:reset_salary]
+      params[:protocols][:new_salary] = params[:reset_salary]
+      @protocol = @staff.store_protocols.create(protocol_param)
+    }
     respond_to do |format|
       if @protocol
         format.html { render plain: @protocol.reason_for }

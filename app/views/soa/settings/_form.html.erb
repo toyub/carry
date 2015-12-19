@@ -132,7 +132,7 @@
 
             <li>
               <%= skills_fields.label :other_skills, "其他技能" %>
-              <%= skills_fields.select :other_skills, options_from_collection_for_select(@store.store_departments, "name", 'name'), {}, {multiple: true}  %>
+              <%= skills_fields.select :other_skills, options_from_collection_for_select(SkillType.collection, 'id', 'name'), {}, {multiple: true}  %>
             </li>
           <% end %>
 
