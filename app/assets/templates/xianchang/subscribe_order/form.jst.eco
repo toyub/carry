@@ -14,7 +14,7 @@
   	  				<dl>
   	  					<dd>
   	  						<label class="width-50">车牌号</label>
-                  <select class="width-110 js-store-vehicle-license-number-input" name="store_vehicle['license_number']"></select>
+                  <select class="width-110 js-store-vehicle-license-number-input" name="license_number"></select>
   	  					</dd>
   	  					<dd>
   	  						<label class="width-50">客户姓名</label>
