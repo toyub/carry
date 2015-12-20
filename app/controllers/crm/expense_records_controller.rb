@@ -1,7 +1,6 @@
 class Crm::ExpenseRecordsController < Crm::BaseController
-  before_action :set_customer
+  before_action :set_customer, :emu, only: [:index]
   def index
-    emu
     @q = @customer.orders.ransack(params[:q])
     @orders = @q.result.includes(:store_vehicle)
   end

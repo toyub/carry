@@ -38,6 +38,10 @@ class StoreOrder < ActiveRecord::Base
     self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }
   end
 
+  def amount_total
+    self.items.inject(0){|total,item| total+ item.amount }
+  end
+
   private
 
     def set_numero
