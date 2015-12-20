@@ -1,4 +1,5 @@
 <% entity = @entity %>
+<% console.log entity %>
 <div class="details">
   <div class="details_nav">
 
@@ -51,17 +52,17 @@
 
                 <div class="item_content">
                   <label class="width-75">固定电话</label>
-                  <input type="text" class="width-176" name="telephone" value="<%= entity.get 'telephone' %>">
+                  <input type="text" class="width-176" name="store_customer[telephone]" value="<%= entity.storeCustomer.get 'telephone' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">移动电话</label>
-                  <input type="text" class="width-176" name="mobile" value="<%= entity.get 'mobile' %>">
+                  <input type="text" class="width-176" name="store_customer[phone_number]" value="<%= entity.storeCustomer.get 'phone_number' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">QQ</label>
-                  <input type="text" class="width-176" name="qq" value="<%= entity.get 'qq' %>">
+                  <input type="text" class="width-176" name="store_customer[qq]" value="<%= entity.storeCustomer.get 'qq' %>">
                 </div>
 
                 <div class="item_content">
@@ -78,12 +79,15 @@
                     <select class="width-75 js-cities" name="city">
                       <option value="">请选择</option>
                       <% _.each entity.cities, (p) ->: %>
-                        <option value="<%= p.code %>" <%= 'selected' if p.code.toString() == String(entity.get('province')) %>><%= p.name %></option>
+                        <option value="<%= p.code %>" <%= 'selected' if p.code.toString() == String(entity.get('city')) %>><%= p.name %></option>
                       <% end %>
                     </select>
                     <label>区/县:</label>
                     <select class="width-75 js-regions" name="region">
                       <option value="">请选择</option>
+                      <% _.each entity.regions, (p) ->: %>
+                        <option value="<%= p.code %>" <%= 'selected' if p.code.toString() == String(entity.get('region')) %>><%= p.name %></option>
+                      <% end %>
                     </select>
                   </span>
                 </div>
@@ -110,17 +114,17 @@
               <div class="adv_info  crm_info_content">
                 <div class="item_content">
                   <label class="width-75">身份证号</label>
-                  <input type="text" class="width-176" name="store_customer_settlement[resident_id]" value="<%= entity.storeCustomerSettlement.get 'resident_id' %>">
+                  <input type="text" class="width-176" name="store_customer[resident_id]" value="<%= entity.storeCustomer.get 'resident_id' %>">
                 </div>
                 <div class="item_content">
                   <label class="width-75">生日</label>
-                  <input type="text" class="width-176" name="store_customer_settlement[birthday]" value="<%= entity.storeCustomerSettlement.get 'birthday' %>">
+                  <input type="text" class="width-176" name="store_customer[birthday]" value="<%= entity.storeCustomer.get 'birthday' %>">
                 </div>
 
                 <div class="item_content">
                   <div class="margin-left-79 martial">
-                    <label class="width-72">未婚<input type="radio" name="store_customer_settlement[married]" class="width-13 margin-left-5" value="false" <%= 'checked' unless entity.storeCustomer.married() %>></label>
-                    <label class="width-75">已婚<input type="radio" name="store_customer_settlement[married]" class="width-12 margin-left-5" value="true" <%= 'checked' if entity.storeCustomer.married() %>></label>
+                    <label class="width-72">未婚<input type="radio" name="store_customer[married]" class="width-13 margin-left-5" value="false" <%= 'checked' unless entity.storeCustomer.married() %>></label>
+                    <label class="width-75">已婚<input type="radio" name="store_customer[married]" class="width-12 margin-left-5" value="true" <%= 'checked' if entity.storeCustomer.married() %>></label>
                   </div>
                 </div>
 
@@ -284,7 +288,9 @@
 
             <div class="btn_group">
               <input type="submit" name="submit" id="" value="保存" class="save_btn btn" />
-              <a class="cancel_btn btn" href="javascript:void(0)">取消</a>
+              <% unless entity.isNew(): %>
+                <a class="cancel_btn btn" href="<%= @view.goToUrl() %>">取消</a>
+              <% end %>
             </div>
           </div>
         </div>
