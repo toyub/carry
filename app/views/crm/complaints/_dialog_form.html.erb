@@ -23,17 +23,15 @@
     <dl class="client_type">
       <dd>投诉类别</dd>
       <dd class="dd-category">
-        <label>服务<input type="checkbox" value="1" name="complaint[detail][category][]" class="category-checkbox-1" ></label>
-        <label>质量<input type="checkbox" value="2" name="complaint[detail][category][]" class="category-checkbox-2" ></label>
-        <label>环境<input type="checkbox" value="3" name="complaint[detail][category][]" class="category-checkbox-3" ></label>
-        <label>其他<input type="checkbox" value="4" name="complaint[detail][category][]" class="category-checkbox-4" ></label>
+        <% @complaint_categories.each do |key, value|  %>
+          <label><%= value %><input type="checkbox" value="<%= key%>" name="complaint[detail][category][]" class="category-checkbox-<%= key%>" ></label>
+        <% end %>
       </dd>
       <dd>投诉渠道</dd>
       <dd class="dd-way">
-        <label>电话<input type="checkbox" name="complaint[detail][way][]" value="1" class="way-checkbox-1" ></label>
-        <label>现场<input type="checkbox" name="complaint[detail][way][]" value="2" class="way-checkbox-2" ></label>
-        <label>微信<input type="checkbox" name="complaint[detail][way][]" value="3" class="way-checkbox-3" ></label>
-        <label>短信<input type="checkbox" name="complaint[detail][way][]" value="4" class="way-checkbox-4" ></label>
+        <% @complaint_ways.each do |key, value|  %>
+          <label> <%= value %> <input type="checkbox" name="complaint[detail][way][]" value="<%= key%>" class="way-checkbox-<%= key%>" ></label>
+        <% end %>
       </dd>
     </dl>
     <dl class="opinion">
