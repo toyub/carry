@@ -101,6 +101,10 @@ class Complaint < ActiveRecord::Base
   end
 
   def order_creator
-    StoreStaff.find(self.saler).full_name
+    StoreStaff.find(self.saler).full_name if self.saler
+  end
+
+  def construction(p)
+    StoreStaff.find(p).full_name
   end
 end

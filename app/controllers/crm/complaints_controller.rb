@@ -30,17 +30,24 @@ class Crm::ComplaintsController < Crm::BaseController
   end
 
   def complaint_params
-    params.require(:complaint).permit(:satisfaction,
-    :id,
-    :updator_id,
-    detail:[
-      :content,
-      :inquire,
-      category: [],
-      way: [],
-      principal: [:saler, mechanic: []],
-      response: [:customer, :principal]
-      ])
+    params.require(:complaint).permit(
+      :satisfaction,
+      :updator_id,
+      detail: [
+        :content,
+        :inquire,
+        category: [],
+        way: [],
+        principal: [
+          :saler,
+          mechanic: []
+        ],
+        response: [
+          :customer,
+          :principal
+        ]
+      ]
+    )
   end
 
 end

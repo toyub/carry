@@ -25,6 +25,18 @@ class StoreOrder < ActiveRecord::Base
     '前保险杠右侧擦伤，油漆见底'
   end
 
+  def creators
+    [name: self.creator.full_name, id: self.creator.id]
+  end
+
+  def current_vehicle
+    self.store_vehicle.plates.last.license_number
+  end
+
+  def mechanic
+    self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }
+  end
+
   private
 
     def set_numero
