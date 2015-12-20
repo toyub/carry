@@ -328,6 +328,7 @@ Rails.application.routes.draw do
     end
     resources :store_orders
     resources :pre_orders, only: [:index]
+    resources :recommended_orders
   end
 
   namespace :printer do
