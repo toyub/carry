@@ -4,16 +4,18 @@
 			<span>请设置<%= @staff.screen_name %>登陆密码</span>
 			<i class="close_window  lnr-cross lnr"></i>
 		</div>
-    <form class="form_content" id="new_store_service_category" action="/soa/staff/<%= @staff.id %>/setting" accept-charset="UTF-8" data-remote="true" method="patch">
+    <form class="form_content" id="new_store_service_category" action="/soa/staff/<%= @staff.id %>/setting/password" accept-charset="UTF-8" data-remote="true" method="patch">
 			<input name="utf8" type="hidden" value="✓">
 			<input name="store_staff[mis_login_enabled]" type="hidden" value="1">
 			<div class="form_item ">
 				<label for="store_staff_password" >密码</label>
-				<input type="password" name="store_staff[password]" id="store_staff_password">
+        <input type="password" name="store_staff[password]" id="store_staff_password" required>
+        <span class="error_tip"></span>
 			</div>
 			<div class="form_item">
 				<label for="store_staff_password_confirmation" >确认</label>
-				<input type="password" name="store_staff[password_confirmation]" id="store_staff_password_confirmation">
+				<input type="password" name="store_staff[password_confirmation]" id="store_staff_password_confirmation" required>
+        <span class="error_tip"></span>
 			</div>
 			<div class="form_item">
 			</div>
@@ -34,6 +36,32 @@
     $("i.close_window, .cancel_btn").on("click", function(){
       $("#FloatWindow").hide();
       $("#system-operator").attr("checked", false);
+    })
+
+    var password = $("#store_staff_password"),
+      confirmation = $("#store_staff_password_confirmation");
+
+    password.on("change", function(){
+      var len = password.val().length
+      if (len < 6) {
+        $(this).addClass("err").next("span").text("密码至少6位");
+      } else {
+        $(this).removeClass("err").next("span").text("");
+      }
+    })
+    confirmation.on("keyup", function(){
+      if (password.val() != confirmation.val()) {
+        $(this).addClass("err").next("span").text("密码设置不一致");
+      } else {
+        $(this).removeClass("err").next("span").text("");
+      }
+    })
+
+    $(".confirm_btn").on("click", function(event){
+      if (password.val() == confirmation.val())
+          $(".form_content").submit()
+      else
+        event.preventDefault();
     })
   }
 </script>

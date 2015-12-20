@@ -77,6 +77,7 @@ Rails.application.routes.draw do
     resources :staff do
       resource :setting do
        patch 'adjust', on: :member
+       patch 'password', on: :member
       end
       resources :events  do
         get 'detail', on: :member
