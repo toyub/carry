@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215073314) do
+ActiveRecord::Schema.define(version: 20151219031252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,34 @@ ActiveRecord::Schema.define(version: 20151215073314) do
     t.datetime "updated_at"
     t.integer  "debit_id"
     t.string   "subject"
+  end
+
+  create_table "recommended_order_items", force: :cascade do |t|
+    t.integer  "recommended_order_id"
+    t.integer  "quantity"
+    t.decimal  "price"
+    t.decimal  "amount"
+    t.integer  "itemable_id"
+    t.string   "itemable_type"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "recommended_orders", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.decimal  "amount"
+    t.text     "remark"
+    t.integer  "store_customer_id"
+    t.integer  "store_vehicle_id"
+    t.integer  "state"
+    t.string   "numero"
+    t.string   "recommended_reason"
+    t.string   "refuse_reason"
+    t.datetime "recommended_date"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "renewal_records", force: :cascade do |t|
@@ -1297,6 +1325,15 @@ ActiveRecord::Schema.define(version: 20151215073314) do
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
+
+  create_table "store_subscribe_order_items", force: :cascade do |t|
+    t.integer  "store_subscribe_order_id"
+    t.integer  "quantity"
+    t.integer  "itemable_id"
+    t.string   "itemable_type"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "store_subscribe_orders", force: :cascade do |t|
     t.integer  "store_id"

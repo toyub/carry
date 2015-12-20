@@ -80,6 +80,7 @@ Rails.application.routes.draw do
   namespace :xianchang do
     resources :field_constructions, only: [:index]
     resources :pre_orders, only: [:index]
+    resources :schedule_personals, only: [:index]
   end
 
   namespace :settings do
@@ -181,8 +182,12 @@ Rails.application.routes.draw do
       resources :store_service_reminds, only: [:update]
       resources :store_service_trackings, only: [:create, :update, :destroy]
     end
-    resources :store_vehicles, only: [:index]
-    resources :store_orders do
+    resources :store_vehicles, only: [:index, :show] do
+      collection do
+        get :search
+      end
+    end
+    resources :store_orders, only: [:index] do
       collection do
         get :mocked_orders
       end
