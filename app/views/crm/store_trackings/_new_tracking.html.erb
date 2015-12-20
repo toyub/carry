@@ -1,0 +1,52 @@
+<div class="window_wrap"  style="display: none;">
+	<div class="new_return_info">
+		<div class="top">
+		  <span>新建回访</span>
+		</div>
+    <%= form_for @tracking, url: crm_store_customer_store_trackings_path(@customer), remote: true do |f| %>
+			<%= f.hidden_field :creator_id, value: current_user.id %>
+			<dl>
+			  <dd>
+				  <div class="item_content">
+			      <%= f.label '标题', class: 'width-50' %>
+			      <%= f.text_field :title, class: 'width-200' %>
+					</div>
+					<div class="item_content">
+			      <%= f.label '类别', class: 'width-70' %>
+			      <%= f.select :category_id, StoreTracking::CATEGORY.invert, {}, {class: 'width-120'} %>
+					</div>
+					<div class="item_content">
+			      <%= f.label '方式', class: 'width-70' %>
+			      <%= f.select :contact_way_id, StoreTracking::CONTACT_WAY.invert, {}, {class: 'width-120'} %>
+					</div>
+			    <div class="item_content">
+			      <%= f.label '执行', class: 'width-70' %>
+			      <%= f.select :executant_id, StoreStaff.mis_login_enabled, {}, class: 'width-120' %>
+			    </div>
+				</dd>
+			</dl>
+
+  		<dl>
+        <dd>
+          <div class="item_content">
+            <%= f.label '内容', class: 'width-50 vertical-align-top' %>
+            <%= f.text_area :content %>
+          </div>
+        </dd>
+      </dl>
+
+      <dl>
+        <dd>
+          <div class="item_content">
+            <%= f.label '客户反馈', class: 'width-50 vertical-align-top' %>
+            <%= f.text_area :feedback %>
+          </div>
+        </dd>
+      </dl>
+      <div class="btn_group text-align-right">
+        <%= button_tag '取消', type: :reset, class: 'cancel_btn btn' %>
+        <%= f.submit '保存', class: 'save_btn btn' %>
+      </div>
+    <% end %>
+	</div>
+</div>

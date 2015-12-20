@@ -1,0 +1,55 @@
+<table cellspacing="0" cellpadding="0" class="complaints">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>日期</th>
+      <th>订单号</th>
+      <th>内容</th>
+      <th>金额</th>
+      <th>开单</th>
+      <th>施工</th>
+      <th>投诉类别</th>
+      <th>处理反馈</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @complaints.each_with_index do |complaint, i| %>
+      <tr>
+        <td class="number"> <%= i+1 %> </td>
+        <td> <%= complaint.created_at_format %> </td>
+        <td> <%= complaint.numero %> </td>
+        <td> <%= complaint.content %> </td>
+        <td> <%= complaint.amounts %> </td>
+        <% saler = complaint.saler  %>
+        <td> <%= complaint.order_creator %>  </td>
+        <td>
+          <% complaint.mechanic.each do |m|  %>
+            <span> <%= complaint.construction(m) %> </span>
+          <% end %>
+        </td>
+        <td>
+          <% complaint.categoried.each do |k, v|  %>
+              <%= complaint.category(k) %>
+          <% end %>
+        </td>
+        <td>
+          <%= complaint.customer %>
+        </td>
+        <td><i class="ico ico-edit do_complaints" data-customer="<%= @customer.id%>" data-complaint="<%= complaint.id%>" ></i></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="12">
+          <label class="width-70">满意度:</label>
+          <span class="width-70"></span>
+          <label class="width-60">投诉:</label>
+          <span class="width-60"></span>
+          <label class="width-60">未处理:</label>
+          <span class="width-70"></span>
+      </td>
+    </tr>
+  </tfoot>
+</table>

@@ -20,12 +20,13 @@ class Mis.Views.KehuCustomerProfilesNew extends Mis.Base.View
     @
 
   renderNav: ->
-    nav = new Mis.Views.KehuCustomerNavsMaster()
+    nav = new Mis.Views.KehuCustomerNavsMaster(model: @model.storeCustomer)
     @appendChildTo(nav, @$(".details .details_nav"))
 
   createCustomer: (e) ->
     e.preventDefault()
-    @model.set @$("#customerForm").serializeJSON()
+    attrs = @$("#customerForm").find("input, select, textarea").filter( -> $.trim(this.value).length > 0).serializeJSON()
+    @model.set attrs
     console.log @model
     console.log @model.toJSON()
     @model.save() if @model.isValid(true)
