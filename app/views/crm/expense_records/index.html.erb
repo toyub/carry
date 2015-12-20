@@ -5,9 +5,7 @@
 <div class="content" id="content">
   <%= render "crm/common/page_head" %>
   <div class="details">
-    <div class="details_nav">
-      <%= render 'title_nav' %>
-    </div>
+    <%= render '/crm/common/customer_nav' %>
 
     <%= search_form_for @q, url: crm_store_customer_expense_records_path, class: 'search navbar-form' do |f| -%>
       <%= render 'search_form' %>
