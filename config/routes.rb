@@ -235,6 +235,7 @@ Rails.application.routes.draw do
       resources :store_vehicle_status, only: [:show]
       resources :store_vehicle_service_records, only: [:show]
       resources :expense_records, only: [:index]
+      resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
     end
   end

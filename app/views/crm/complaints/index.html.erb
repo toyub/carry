@@ -1,0 +1,24 @@
+<%= content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+<div class="content" id="content">
+  <%= render 'crm/common/page_head' %>
+    <div class="details">
+      <div class="details_nav">
+        <%= render 'crm/expense_records/title_nav' %>
+      </div>
+      <%= search_form_for @q, url: crm_store_customer_complaints_path(@customer), class: 'search navbar-form' do |f| -%>
+        <%= render 'crm/expense_records/search_form' %>
+      <% end -%>
+      <div class="details_content">
+        <%= render 'list' %>
+      </div>
+    </div>
+<div class="window_wrap" style="display:none;">
+  <%= render 'dialog_form' %>
+</div>
+</div>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'crm' %>
+<% end %>
