@@ -1,0 +1,39 @@
+<div id="FloatWindow">
+	<div class="FloatContent">
+		<div class="fheader">
+			<span>请设置<%= @staff.screen_name %>登陆密码</span>
+			<i class="close_window  lnr-cross lnr"></i>
+		</div>
+    <form class="form_content" id="new_store_service_category" action="/soa/staff/<%= @staff.id %>/setting" accept-charset="UTF-8" data-remote="true" method="patch">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="store_staff[mis_login_enabled]" type="hidden" value="1">
+			<div class="form_item ">
+				<label for="store_staff_password" >密码</label>
+				<input type="password" name="store_staff[password]" id="store_staff_password">
+			</div>
+			<div class="form_item">
+				<label for="store_staff_password_confirmation" >确认</label>
+				<input type="password" name="store_staff[password_confirmation]" id="store_staff_password_confirmation">
+			</div>
+			<div class="form_item">
+			</div>
+			<div class="ffooter">
+				<input type="submit" name="commit" value="保存" class="confirm_btn">
+				<input type="reset" name="commit" value="取消" class="cancel_btn">
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  var set_staff_passowrd = function(){
+    $("#FloatWindow").hide();
+    $("#system-operator").on("click", function(){
+      this.checked ?  $("#FloatWindow").show() : $("#FloatWindow").hide();
+    })
+    $("i.close_window, .cancel_btn").on("click", function(){
+      $("#FloatWindow").hide();
+      $("#system-operator").attr("checked", false);
+    })
+  }
+</script>

@@ -169,23 +169,7 @@
   </div>
 <% end %>
 
-<div class="set-staff-password-field">
-  <h2>请给改员工设置密码:</h2>
-  <%= form_for @staff, url: action_uri, remote: true do |f| %>
-    <%= f.hidden_field :mis_login_enabled, value: "1" %>
-    <div class="field">
-    <%= f.label :password, "输入密码" %>
-    <%= f.password_field :password, required: true, min: 6 %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation, "再次确认" %>
-    <%= f.password_field :password_confirmation, required: true, min: 6 %>
-  </div>
-  <div class="submit">
-    <%= f.submit "保存", class: "btn" %>
-  </div>
-<% end %>
-</div>
+<%= render "soa/settings/set_staff_passowrd" %>
 
 <% unless params[:action] == "show" %>
   <%= render "/soa/settings/zhuanzhengdan" %>
@@ -264,10 +248,7 @@
       $("#store_staff_trial_salary").attr("disabled", "disabled")
     }
 
-    $(".set-staff-password-field").hide();
-    $("#system-operator").on("click", function(){
-      this.checked ?  $(".set-staff-password-field").show() : $(".set-staff-password-field").hide();
-    })
+    set_staff_passowrd();
 
   })
 </script>
