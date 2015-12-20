@@ -4,5 +4,5 @@ class Mis.Views.KehuCustomerNavsMaster extends Mis.Base.View
   template: JST['kehu/customer_navs/master']
 
   render: ->
-    @$el.html(@template())
+    @$el.html(@template(customer: @model))
     @

@@ -12,5 +12,5 @@ class Mis.Views.KehuCustomerProfilesShow extends Mis.Base.View
     @
 
   renderNav: ->
-    nav = new Mis.Views.KehuCustomerNavsMaster()
+    nav = new Mis.Views.KehuCustomerNavsMaster(model: @model.storeCustomer)
     @appendChildTo(nav, @$(".details .details_nav"))

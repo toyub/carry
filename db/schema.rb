@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151219015144) do
+ActiveRecord::Schema.define(version: 20151219064615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1341,14 +1341,14 @@ ActiveRecord::Schema.define(version: 20151219015144) do
   create_table "store_staff", force: :cascade do |t|
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.string   "login_name",          limit: 45,                          null: false
-    t.string   "gender",              limit: 6,  default: "male",         null: false
-    t.string   "first_name",          limit: 45
-    t.string   "last_name",           limit: 45
-    t.string   "name_display_type",   limit: 13, default: "lastname_pre", null: false
-    t.text     "encrypted_password",                                      null: false
-    t.text     "salt",                                                    null: false
-    t.integer  "work_status",                    default: 0,              null: false
+    t.string   "login_name",              limit: 45,                                                   null: false
+    t.string   "gender",                  limit: 6,                           default: "male",         null: false
+    t.string   "first_name",              limit: 45
+    t.string   "last_name",               limit: 45
+    t.string   "name_display_type",       limit: 13,                          default: "lastname_pre", null: false
+    t.text     "encrypted_password",                                                                   null: false
+    t.text     "salt",                                                                                 null: false
+    t.integer  "work_status",                                                 default: 0,              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "job_type_id"
@@ -1362,10 +1362,20 @@ ActiveRecord::Schema.define(version: 20151219015144) do
     t.integer  "store_employee_id"
     t.string   "full_name"
     t.string   "phone_number"
-    t.boolean  "mis_login_enabled",              default: false
-    t.boolean  "app_login_enabled",              default: false
-    t.boolean  "erp_login_enabled",              default: false
-    t.integer  "roles",                                                                array: true
+    t.boolean  "mis_login_enabled",                                           default: false
+    t.boolean  "app_login_enabled",                                           default: false
+    t.boolean  "erp_login_enabled",                                           default: false
+    t.integer  "roles",                                                                                             array: true
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period",                                                default: 1
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
+    t.boolean  "deduct_enabled",                                              default: false
+    t.integer  "deadline_days"
+    t.boolean  "contract_notice_enabled",                                     default: false
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
