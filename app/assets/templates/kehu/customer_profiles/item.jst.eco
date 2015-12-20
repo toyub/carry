@@ -1,7 +1,7 @@
-<td><%= @customer.get 'id' %></td>
-<td><span class="span_border_left"><%= @customer.get 'full_name' %></span></td>
-<td><%= @customer.get 'mobile' %></td>
-<td>个人</td>
+<td><%= @entity.get 'id' %></td>
+<td><span class="span_border_left"><%= @entity.storeCustomer.get 'full_name' %></span></td>
+<td><%= @entity.storeCustomer.get 'phone_number' %></td>
+<td><%= @entity.propertyName() %></td>
 <td>3辆</td>
 <td>是</td>
 <td>有</td>
@@ -17,7 +17,7 @@
   <i class="fa fa-star color-C6676D"></i>
   <i class="fa fa-star-o color-D5C3C4"></i>
 </td>
-<td>王丽丽</td>
+<td><%= @entity.storeCustomer.get 'operator' %></td>
 <td>
   <a href="<%= @view.customerUrl() %>">详情
     <i class="fa fa-angle-double-right font-size-16"></i>

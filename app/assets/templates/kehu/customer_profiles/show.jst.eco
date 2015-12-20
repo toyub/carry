@@ -44,17 +44,17 @@
 
 						<div class="item_content">
 							<label class="width-75">固定电话</label>
-							<span class="width-176"><%= @entity.get 'telephone' %></span>
+							<span class="width-176"><%= @entity.storeCustomer.get 'telephone' %></span>
 						</div>
 
 						<div class="item_content">
 							<label class="width-75">移动电话</label>
-							<span class="width-176"><%= @entity.get 'mobile' %></span>
+							<span class="width-176"><%= @entity.storeCustomer.get 'phone_number' %></span>
 						</div>
 
 						<div class="item_content">
 							<label class="width-75">QQ</label>
-							<span class="width-176"><%= @entity.get 'qq' %></span>
+							<span class="width-176"><%= @entity.storeCustomer.get 'qq' %></span>
 						</div>
 
             <div class="item_content">

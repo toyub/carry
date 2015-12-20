@@ -7,7 +7,9 @@
       class: 'width-90' %>
     </li>
     <li><a href="#" class="width-90">消费记录</a></li>
-    <li><a href="#" class="width-90">回访记录</a></li>
+    <li>
+      <%= link_to '回访记录', crm_store_customer_store_trackings_path(@customer), class: 'width-90' %>
+    </li>
     <li><a href="#" class="width-90">意向产品</a></li>
     <li><a href="#" class="width-90">投诉记录</a></li>
     <li><a href="#" class="width-90">满意度</a></li>

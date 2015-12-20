@@ -11,6 +11,12 @@ module Api
       respond_with @entity, location: nil
     end
 
+    def update
+      @entity = current_store.store_customer_entities.find(params[:id])
+      @entity.update(append_store_attrs entity_params)
+      respond_with @entity, location: nil
+    end
+
     def show
       @entity = current_store.store_customer_entities.find(params[:id])
       respond_with @entity, location: nil
@@ -29,15 +35,16 @@ module Api
     private
       def entity_params
         params.require(:store_customer_entity).permit(
-          :telephone,
-          :mobile,
-          :qq,
           :address,
           :range,
           :remark,
           :store_customer_category_id,
           district: [:province, :city, :region],
           store_customer_attributes: [
+            :id,
+            :telephone,
+            :phone_number,
+            :qq,
             :first_name,
             :last_name,
             :gender,
@@ -53,6 +60,7 @@ module Api
             :message_accepted
           ],
           store_customer_settlement_attributes: [
+            :id,
             :bank,
             :bank_account,
             :credit,
