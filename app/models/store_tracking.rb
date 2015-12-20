@@ -1,6 +1,9 @@
 class StoreTracking < ActiveRecord::Base
   belongs_to :store_order
 
+  validates :title, presence: true
+  validates :content, presence: true
+
   CONTACT_WAY = {
     0 => '电话'
   }
