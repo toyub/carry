@@ -6,7 +6,7 @@ module Mocks
       services = self.items
       materials = self.items
       packages = self.items
-      
+
       {
         id: @@sequence,
         numero: "#{Time.now.strftime('%Y%m%d')}#{@@sequence.to_s.rjust(7, '0')}",
@@ -17,12 +17,10 @@ module Mocks
           amount: materials.map(&->(itemi){itemi[:price]}).sum,
           items: materials
         },
-        
         services: {
           amount: services.map(&->(itemi){itemi[:price]}).sum,
           items: services
         },
-
         packages: {
           amount: packages.map(&->(itemi){itemi[:price]}).sum,
           items: packages

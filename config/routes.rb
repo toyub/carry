@@ -187,7 +187,7 @@ Rails.application.routes.draw do
         get :search
       end
     end
-    resources :store_orders do
+    resources :store_orders, only: [:index,:show] do
       collection do
         get :mocked_orders
       end
