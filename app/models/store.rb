@@ -35,6 +35,7 @@ class Store <  ActiveRecord::Base
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
   has_many :store_orders
+  has_many :recommended_orders
 
   has_many :store_payments
 

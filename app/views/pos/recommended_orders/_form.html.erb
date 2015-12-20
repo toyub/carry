@@ -1,0 +1,784 @@
+<div class="content" id="content">
+  <div class="main_top">
+	<h2>意向开单</h2>
+	<a class="back_to_list" href="index.html">
+    <i class="fa-arrow-circle-left  fa"></i>
+    返回列表
+  </a>
+</div>
+
+<div class="details">
+	<div class="search_nav">
+		<div class="item-query">
+			<label>查找车辆</label>
+			<input type="text" class="width-180" placeholder="输入车牌或项目模糊查询">
+			<a href="#" class="query_btn btn">查&nbsp;询</a>
+		</div>
+		<div class="query_div page_card">
+			<a href="javascript:void(0)" class="active">新建</a>
+			<a href="index.html">列表</a>
+		</div>
+	</div>
+
+	<div class="intention_billing">
+    <div class="intention_billing_order float-left">
+			<div class="order_details">
+				<div class="dialog_nav">
+          <% if @order.numero.present? %>
+					  <span class="dialog_title ">单号:20141105001</span>
+          <% end %>
+				</div>
+				<div class="vehicle_order_details">
+					<div class="vehicle_info">
+						<dl>
+							<dd>
+								<label class="width-50">车牌号</label>
+								<input type="text" value="浙A16034" class="width-110" readonly="">
+							</dd>
+							<dd>
+								<label class="width-50">客户姓名</label>
+								<input type="text" value="王" class="width-110" readonly="">
+							</dd>
+							<dd>
+								<label class="width-50">手机号</label>
+								<input type="text" value="13335930000" class="width-110" readonly="">
+							</dd>
+						</dl>
+						<div class="vehicle_order_title title doslide">详细信息</div>
+
+						<div class="vehicle_details_info">
+							<div class="item_content">
+								<label class="width-50">车辆品牌</label><input type="text" value="宝马" class="width-110" readonly="">
+							</div>
+							<div class="item_content">
+								<label class="width-50">车型</label><input type="text" value="宝马5系" class="width-110" readonly="">
+							</div>
+							<div class="item_content">
+								<label class="width-50">车系</label><input type="text" value="宝马新5系" class="width-110" readonly="">
+							</div>
+							<div class="item_content">
+								<label class="width-50">客户属性</label><input type="text" value="男" class="width-110" readonly="">
+							</div>
+							<div class="item_content">
+								<label class="width-50">客户类别</label><input type="text" value="个人" class="width-110" readonly="">
+							</div>
+							<div class="item_content">
+								<label class="width-50">结算方式</label><input type="text" value="现结" class="width-110" readonly="">
+							</div>
+						</div>
+
+					</div>
+
+					<div class="vehicle_order">
+						<span class="vehicle_order_title title doslide">
+							意向内容
+						</span>
+						<div class="order_info">
+							<table cellpadding="0" cellspacing="0" class="intention_content">
+								<thead>
+									<tr>
+										<th>名称</th>
+										<th>规格</th>
+										<th>零售价</th>
+										<th>意向价</th>
+										<th>数量</th>
+										<th>小计</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-id="list_content_01">
+										<td>米其林轮胎</td>
+										<td>195/65/15 XM2 91V</td>
+										<td>630.00</td>
+										<td><input type="text" value="580.00" class="width-60 text-align-center"></td>
+										<td><input type="text" value="2" class="width-40"></td>
+										<td>1160.00
+											<span class="delete close" data-target="list_content_01">
+												<i class="lnr lnr-cross color-fff"></i>
+											</span>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot>
+								  <tr class="text-align-right">
+									  <td colspan="10">
+											<label class="margin-right-10">商品金额总计:</label><label>1160.00</label>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+
+					<div class="intention_info_wrap">
+						<span class="vehicle_order_title title doslide">
+							意向信息
+						</span>
+						<div class="intention_info">
+							<dl>
+							  <dd>
+                  <label class="width-60">意向原因:</label>
+									<select class="width-200">
+                    <option>喜欢该商品或项目</option>
+									</select>
+								</dd>
+								<dd>
+                  <label class="width-115">暂时不购买原因:</label>
+									<select class="width-200">
+                    <option>还要考虑一下</option>
+									</select>
+								</dd>
+							</dl>
+
+							<dl>
+							  <dd>
+                  <label class="width-60">预期时间:</label>
+									<input type="date" class="width-200">
+								</dd>
+								<dd>
+                  <label>大约3周以后</label>
+								</dd>
+							</dl>
+
+							<dl>
+                <dd>
+                  <label class="width-60 vertical-align-top">备注:</label>
+									<textarea></textarea>
+								</dd>
+							</dl>
+							<dl class="float-right margin-right-5">
+                <dd>
+                  <label class="width-60 vertical-align-top">开单:</label>
+									<label>王丽丽</label>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+
+				<div class="construction_status">
+					<div class="btn_group margin-right-5">
+						<a class="conserve_btn btn" href="javascript:void(0)">保存</a>
+						<a class="change_order_btn btn" href="javascript:void(0)">转正单</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="right_information">
+			<div class="order_items float-left" data-id="order_items">
+				<div class="order_items_category">
+					<ul>
+					  <li class="bg-color-8E81B8 color-fff" data-target="commodity">商品</li>
+						<li data-target="service">服务</li>
+						<li data-target="package">套餐</li>
+						<li data-target="vip">会员</li>
+						<li data-target="custom">自定义</li>
+					</ul>
+				</div>
+
+				<div class="order_item  order_commodity" data-id="commodity">
+					<table cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>名称</th>
+								<th>规格</th>
+								<th>销售类别</th>
+								<th>积分</th>
+								<th>库存</th>
+								<th>零售价</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td class="number">1</td>
+								<td><span class="struct">施</span>米其林轮胎</td>
+								<td>195/65/15XM2 91V</td>
+								<td>汽配</td>
+								<td>50</td>
+								<td>4</td>
+								<td class="text-align-right">
+									<span class="text-decoration-linethrough display-block">480.00</span>
+									<span class="color-08BD48">380.00</span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">2</td>
+								<td><span class="struct">施</span>米其林轮胎</td>
+								<td>195/65/15XM2 91V</td>
+								<td>汽配</td>
+								<td>50</td>
+								<td>4</td>
+								<td class="text-align-right">
+									<span class="text-decoration-linethrough display-block">480.00</span>
+									<span class="color-08BD48">380.00</span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">3</td>
+								<td><span class="struct">施</span>米其林轮胎</td>
+								<td>195/65/15XM2 91V</td>
+								<td>汽配</td>
+								<td>50</td>
+								<td>4</td>
+								<td class="text-align-right">
+									<span class="text-decoration-linethrough display-block">480.00</span>
+									<span class="color-08BD48">380.00</span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">4</td>
+								<td><span class="struct">施</span>米其林轮胎</td>
+								<td>195/65/15XM2 91V</td>
+								<td>汽配</td>
+								<td>50</td>
+								<td>4</td>
+								<td class="text-align-right">
+									<span class="text-decoration-linethrough display-block">480.00</span>
+									<span class="color-08BD48">380.00</span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">5</td>
+								<td><span class="struct">施</span>米其林轮胎</td>
+								<td>195/65/15XM2 91V</td>
+								<td>汽配</td>
+								<td>50</td>
+								<td>4</td>
+								<td class="text-align-right">
+									<span class="text-decoration-linethrough display-block">480.00</span>
+									<span class="color-08BD48">380.00</span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+						</tbody>
+					</table>
+					<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
+				</div>
+
+				<div class="order_item  order_service" data-id="service">
+					<table cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>名称</th>
+								<th>施工时间</th>
+								<th>服务分类</th>
+								<th>积分</th>
+								<th>零售价</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td class="number">1</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">2</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">3</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">4</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">5</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+
+				<div class="order_item  order_service" data-id="service">
+					<table cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>名称</th>
+								<th>施工时间</th>
+								<th>服务分类</th>
+								<th>积分</th>
+								<th>零售价</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td class="number">1</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">2</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">3</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">4</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">5</td>
+								<td>极致洗车</td>
+								<td>120分钟</td>
+								<td>清洗服务</td>
+								<td>50</td>
+								<td class="text-align-right">
+									<span class=" display-block">180.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+						</tbody>
+					</table>
+					<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
+				</div>
+
+				<div class="order_item order_package" data-id="package">
+					<table cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>名称</th>
+								<th>套餐类别</th>
+								<th>项目</th>
+								<th>有效期</th>
+								<th>积分</th>
+								<th>零售价</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<td class="number">1</td>
+								<td>普通洗车</td>
+								<td>组合类</td>
+								<td>2</td>
+								<td>12个月</td>
+								<td>0</td>
+								<td class="text-align-right">
+									<span class="display-block text-decoration-linethrough ">480.00</span>
+									<span class="color-08BD48">380.00</span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">2</td>
+								<td>普通洗车</td>
+								<td>组合类</td>
+								<td>2</td>
+								<td>12个月</td>
+								<td>0</td>
+								<td class="text-align-right">
+									<span class="display-block text-decoration-linethrough ">480.00</span>
+									<span class="color-08BD48">380.00</span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							
+							<tr>
+								<td class="number">3</td>
+								<td>充10000送2000</td>
+								<td>充值类</td>
+								<td>6</td>
+								<td>不限</td>
+								<td>2000</td>
+								<td class="text-align-right">
+									<span class="">10,000.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+							<tr>
+								<td class="number">4</td>
+								<td>充10000送2000</td>
+								<td>充值类</td>
+								<td>6</td>
+								<td>不限</td>
+								<td>2000</td>
+								<td class="text-align-right">
+									<span class="">10,000.00</span>
+									<span class="color-08BD48"></span>
+								</td>
+								<td><input type="checkbox"></td>
+							</tr>
+							
+						</tbody>
+					</table>
+					<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
+				</div>
+
+				<div class="order_item order_vip" data-id="vip">
+					<div class="card_item">
+						<ul>
+						  <li>#</li>
+							<li>名称</li>
+							<li>套餐类别</li>
+							<li>卡内项目</li>
+							<li>剩余项目</li>
+							<li>有效期</li>
+							<li>详情</li>
+						</ul>
+						<ul class="doslide">
+						  <li>1</li>
+							<li>普通洗车20次卡</li>
+							<li>组合类</li>
+							<li>21</li>
+							<li>18</li>
+							<li>179天</li>
+							<li><i class="fa-angle-double-down fa cursor-pointer font-16"></i></li>
+						</ul>
+						<div class="card_item_info">
+						  <table>
+							  <thead>
+								  <tr>
+									  <th>项目</th>
+										<th>套餐次数</th>
+										<th>使用次数</th>
+										<th>剩余</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+									  <td>普通洗车</td>
+										<td>20</td>
+										<td>1</td>
+										<td>19</td>
+										<td><input type="checkbox"></td>
+									</tr>
+									<tr>
+									  <td>3M水晶蜡</td>
+										<td>1</td>
+										<td>0</td>
+										<td>1</td>
+										<td><input type="checkbox"></td>
+									</tr>
+									<tr>
+									  <td colspan="5"></td>
+									</tr>
+								</tbody>
+								<tfoot>
+								  <tr>
+									  <td colspan="3">摘要:此卡只能使用于限定项目,且使用时有效</td>
+									  <td colspan="2" class="text-align-center"><input type="button" value="选中" class="save_btn btn"></td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+
+					</div>
+
+					<div class="card_item">
+						<ul>
+							<li>#</li>
+							<li>名称</li>
+							<li>套餐类别</li>
+							<li>卡面值</li>
+							<li>剩余金额</li>
+							<li>有效期</li>
+							<li>详情</li>
+						</ul>
+						<ul class="doslide">
+							<li>1</li>
+							<li>充10000送2000</li>
+							<li>充值类</li>
+							<li>12,000.00</li>
+							<li>8,000.00</li>
+							<li>不限</li>
+							<li><i class="fa-angle-double-down fa cursor-pointer font-16"></i></li>
+						</ul>
+						<div class="card_item_info">
+							<table>
+								<thead>
+									<tr>
+										<th>项目</th>
+										<th>卡面值</th>
+										<th>使用金额</th>
+										<th>余额</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>充10000送2000</td>
+										<td>12000.00</td>
+										<td>2,100.00</td>
+										<td>9,9000.00</td>
+										<td><input type="checkbox"></td>
+									</tr>
+									<tr>
+										<td colspan="5"></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="3">
+											<span class="display-block"><label>使用范围:</label>美容服务,清洗服务,钣喷服务,汽车用品</span>
+											<span class="display-block"><label>摘要:</label>此卡只能本人消费</span>
+									  </td>
+										<td colspan="2" class="text-align-center"><input type="button" value="选中" class="save_btn btn"></td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="order_item order_custom" data-id="custom">
+					<table>
+					  <thead>
+						  <tr>
+							  <th>#</th>
+								<th>名称</th>
+								<th>规格</th>
+								<th>单位</th>
+								<th>销售类别</th>
+								<th>数量</th>
+								<th>零售价</th>
+								<th>小计</th>
+							</tr>
+							</thead><tbody>
+								
+							  <tr>
+                  <td class="number">1</td>
+									<td><span>气门油封</span></td>
+									<td><span>EA888发动机专用</span></td>
+									<td><span>套</span></td>
+									<td>
+										<select>
+										  <option>汽车配件</option>
+											<option></option>
+										</select>
+									</td>
+									<td><span>1</span></td>
+									<td><span>230.00</span></td>
+									<td><span>230.00</span></td>
+								</tr>
+								
+							  <tr>
+                  <td class="number">2</td>
+									<td><span>气门油封</span></td>
+									<td><span>EA888发动机专用</span></td>
+									<td><span>套</span></td>
+									<td>
+										<select>
+										  <option>汽车配件</option>
+											<option></option>
+										</select>
+									</td>
+									<td><span>1</span></td>
+									<td><span>230.00</span></td>
+									<td><span>230.00</span></td>
+								</tr>
+								
+							  <tr>
+                  <td class="number">3</td>
+									<td><span>气门油封</span></td>
+									<td><span>EA888发动机专用</span></td>
+									<td><span>套</span></td>
+									<td>
+										<select>
+										  <option>汽车配件</option>
+											<option></option>
+										</select>
+									</td>
+									<td><span>1</span></td>
+									<td><span>230.00</span></td>
+									<td><span>230.00</span></td>
+								</tr>
+								
+							  <tr>
+                  <td class="number">4</td>
+									<td><span>气门油封</span></td>
+									<td><span>EA888发动机专用</span></td>
+									<td><span>套</span></td>
+									<td>
+										<select>
+										  <option>汽车配件</option>
+											<option></option>
+										</select>
+									</td>
+									<td><span>1</span></td>
+									<td><span>230.00</span></td>
+									<td><span>230.00</span></td>
+								</tr>
+								
+							  <tr>
+                  <td class="number">5</td>
+									<td><span>气门油封</span></td>
+									<td><span>EA888发动机专用</span></td>
+									<td><span>套</span></td>
+									<td>
+										<select>
+										  <option>汽车配件</option>
+											<option></option>
+										</select>
+									</td>
+									<td><span>1</span></td>
+									<td><span>230.00</span></td>
+									<td><span>230.00</span></td>
+								</tr>
+								
+
+							</tbody>
+							<tfoot>
+							  <tr>
+                  <td></td>
+									<td><i class="fa fa-plus"></i></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+                  <td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>数量合计:</td>
+									<td><span>8</span></td>
+									<td>金额合计:</td>
+									<td><span>2979.00</span></td>
+								</tr>
+							</tfoot>
+						
+					</table>
+
+					<div class="btn_group margin-right-20">
+            <a class="save_btn btn" href="javascript:void(0)">提交</a>
+
+					</div>
+				</div>
+			</div>
+    </div>
+	</div>
+</div>
+  <template id="add_product">
+  	<tr>
+  		<td class="number">1</td>
+  		<td><input type="text" class="width-150"></td>
+  		<td><input type="text" class="width-140"></td>
+  		<td><input type="text" class="width-35"></td>
+  		<td>
+  			<select>
+  				<option>汽车配件</option>
+  				<option></option>
+  			</select>
+  		</td>
+  		<td><input type="text" class="width-35"></td>
+  		<td><input type="text" class="width-50"></td>
+  		<td><input type="text" class="width-50"></td>
+  	</tr>
+  </template>
+</div>
