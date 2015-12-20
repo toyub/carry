@@ -16,6 +16,7 @@ class StoreStaff <  ActiveRecord::Base
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
   scope :by_level, ->(level_type_id){ where(level_type_id: level_type_id) if level_type_id.present?}
   scope :by_job_type, ->(job_type_id){ where(job_type_id: job_type_id) if job_type_id.present?}
+  scope :mis_login_enabled, ->{ where(mis_login_enabled: true).pluck(:full_name, :id) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
