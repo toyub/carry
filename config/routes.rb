@@ -217,6 +217,7 @@ Rails.application.routes.draw do
     end
 
     resources :store_customer_categories
+    resources :store_checkouts
   end
 
   namespace :pos do

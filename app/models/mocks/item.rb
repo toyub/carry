@@ -1,6 +1,8 @@
 module Mocks
   class Item
     def self.mock
+      quantity = 2
+      price = 330
       {
         name: '3M Gas Bam',
         speci: 'V3 56L 44I',
@@ -8,9 +10,9 @@ module Mocks
         vip_price: 350,
         discount: 20,
         discount_reason: 'YLD',
-        price: 330,
-        quantity: 1,
-        amount: 330
+        price: price,
+        quantity: quantity,
+        amount: quantity * price
       }
     end
   end
