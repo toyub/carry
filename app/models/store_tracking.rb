@@ -2,7 +2,7 @@ class StoreTracking < ActiveRecord::Base
   belongs_to :store_order
 
   CONTACT_WAY = {
-    0 => '电话',
+    0 => '电话'
   }
 
   CATEGORY = {
