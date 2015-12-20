@@ -8,6 +8,10 @@ class StoreOrderItem < ActiveRecord::Base
   before_save :cal_amount
   before_create :set_store_info
 
+  scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
+  scope :packages, -> { where(orderable_type: "StorePackage") }
+  scope :services, -> { where(orderable_type: "StoreService") }
+
   private
 
     def cal_amount
