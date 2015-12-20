@@ -40,13 +40,5 @@
     $(document).on('click', '.cancel_btn', hide_dialog);
     $(document).on('click', '.new_return_record', show_dialog);
 
-    $('#new_store_tracking').on('ajax:success', function(){
-      ZhanchuangAlert('创建成功!');
-      location.reload();
-    }).on('ajax:error', function(e, data){
-      console.log(data.responseText);
-      ZhanchuangAlert('创建失败, 请刷新页面后重试!');
-    });
-
   });
 </script>
