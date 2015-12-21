@@ -6,7 +6,7 @@ module Mocks
       services = self.items
       materials = self.items
       packages = self.items
-      
+
       order = {
         id: @@sequence,
         numero: "#{Time.now.strftime('%Y%m%d')}#{@@sequence.to_s.rjust(7, '0')}",
@@ -33,6 +33,14 @@ module Mocks
 
     def self.find_by_id(id)
       $redis.get("order-#{id}")
+    end
+
+    def self.checked!(id)
+      order = JSON.parse $redis.get("order-#{id}")
+      order[:status] = 3
+      $redis.set("order-#{id}", order.to_json)
+      p order
+      order
     end
   end
 end
