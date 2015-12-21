@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151219054314) do
+ActiveRecord::Schema.define(version: 20151221062031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -374,14 +374,15 @@ ActiveRecord::Schema.define(version: 20151219054314) do
     t.string   "sort"
     t.text     "description"
     t.json     "operate",        default: {}
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.datetime "occur_on"
     t.datetime "start_on"
     t.datetime "end_on"
     t.string   "occur_at"
     t.integer  "recorder_id"
     t.integer  "period"
+    t.string   "created_month",  default: "201512"
   end
 
   create_table "store_files", force: :cascade do |t|

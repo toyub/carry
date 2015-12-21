@@ -18,6 +18,7 @@
   <table class="salary_list">
     <tbody>
       <% @staffs.each.with_index(1) do |staff, index| %>
+        <% salary = StoreSalaryReview.new(staff).salary %>
       <tr data-id="<%= staff.id %>">
         <td class='sequence_num'><%= index %></td>
         <td><%= staff.screen_name %></td>
@@ -25,13 +26,13 @@
         <td><%= staff.store_department.try(:name) %></td>
         <td><%= staff.store_position.try(:name) %></td>
         <td><%= staff.current_salary %></td>
-        <td><%= staff.get_this_month_salary.amount_deduction %></td>
-        <td><%= staff.get_this_month_salary.amount_bonus %></td>
-        <td><%= staff.get_this_month_salary.amount_reward %></td>
-        <td><%= staff.get_this_month_salary.amount_insurence %></td>
-        <td><%= staff.get_this_month_salary.amount_overtime %></td>
-        <td><%= staff.get_this_month_salary.amount_should_cutfee %></td>
-        <td><%= staff.get_this_month_salary.salary_actual_pay %></td>
+        <td><%= salary.amount_deduction %></td>
+        <td><%= salary.amount_bonus %></td>
+        <td><%= salary.amount_reward %></td>
+        <td><%= salary.amount_insurence %></td>
+        <td><%= salary.amount_overtime %></td>
+        <td><%= salary.amount_should_cutfee %></td>
+        <td><%= salary.salary_actual_pay %></td>
         </tr>
     <% end %>
     </tbody>
