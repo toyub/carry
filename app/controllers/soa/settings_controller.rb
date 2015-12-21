@@ -20,7 +20,7 @@ class Soa::SettingsController < Soa::BaseController
   def update
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
-    params[:store_staff][:skills][:other_skills].reject!(&:empty?)
+    params[:store_staff]["skills"]["other_skills"].reject!(&:empty?)
 
     if @staff.update!(setting_staff_param)
       redirect_to soa_staff_setting_path(@staff)
@@ -47,6 +47,20 @@ class Soa::SettingsController < Soa::BaseController
     end
   end
 
+
+  def password
+    @store = current_store
+    @staff = @store.store_staff.find(params[:staff_id])
+
+    respond_to do |format|
+      if @staff.update!(staff_password_param)
+        format.js
+      else
+        format.js { render plain: "some errors occur!!!" }
+      end
+    end
+  end
+
   private
   def setting_staff_param
     params.require(:store_staff).permit(:trial_salary, :trial_period, :regular_salary, :mis_login_enabled, :app_login_enabled, :deduct_enabled,
@@ -55,7 +69,13 @@ class Soa::SettingsController < Soa::BaseController
                                        skills: [:theory, :operate, :integrate, :certificate, :other_skills => [] ]
                                        )
   end
+
   def protocol_param
     params.require(:protocols).permit(:type, :reason, :previous_salary, :new_salary, :effected_on, :expired_on, :verifier_id, :remark, :created_by, :record_at)
   end
+
+  def staff_password_param
+    params.require(:store_staff).permit(:password, :password_confirmation, :mis_login_enabled, :app_login_enabled)
+  end
+
 end

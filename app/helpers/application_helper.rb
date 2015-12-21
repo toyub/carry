@@ -23,17 +23,4 @@ module ApplicationHelper
       end
     end
   end
-
-  def get_second_form_textvalue(staff, type)
-    valueof = staff.store_protocols.operate_type(type)[0] || {}
-    {
-      type => {
-              reason:     valueof.reason,
-         effected_on:     valueof.effected_on,
-          expired_on:     valueof.expired_on,
-         verifier_id:     valueof.verifier_id,
-              remark:     valueof.remark
-      }
-    }
-  end
 end

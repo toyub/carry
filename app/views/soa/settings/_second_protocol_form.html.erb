@@ -1,8 +1,15 @@
+<% reason_type = {
+  StoreZhuanZheng: "转正原因",
+  StoreTiaoXin: "调薪原因",
+  StoreQianDingHeTong: "续签原因"
+  }
+%>
+
 <%= form.hidden_field :type, value: type %>
 <%= form.hidden_field :previous_salary, value: @staff.current_salary %>
 
 <div class="reason">
-  <%= form.label :reason, reason_type_name(type) %>
+  <%= form.label :reason, reason_type[type.to_sym] %>
   <%= form.text_area :reason, required: true, class: "width-696" %>
 </div>
 

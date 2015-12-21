@@ -1,0 +1,100 @@
+<div id="FloatWindow" style="display:none">
+	<div class="FloatContent">
+		<div class="fheader">
+			<span>请设置<%= @staff.screen_name %>登陆密码</span>
+			<i class="close_window  lnr-cross lnr"></i>
+		</div>
+    <form class="form_content" id="new_store_service_category" action="/soa/staff/<%= @staff.id %>/setting/password" accept-charset="UTF-8" data-remote="true" method="patch">
+			<input name="utf8" type="hidden" value="✓">
+			<input name="staff_staff" type="hidden" value="1" id="login_enabled_hidden">
+			<div class="form_item">
+				<label for="store_staff_login_name" >登陆名</label>
+        <input type="text" name="store_staff[login_name]" id="store_staff_login_name" value="<%= @staff.login_name %>" disabled>
+			</div>
+			<div class="form_item ">
+				<label for="store_staff_password" >密码</label>
+        <input type="password" name="store_staff[password]" id="store_staff_password" required>
+        <span class="error_tip"></span>
+			</div>
+			<div class="form_item">
+				<label for="store_staff_password_confirmation" >确认</label>
+				<input type="password" name="store_staff[password_confirmation]" id="store_staff_password_confirmation" required>
+        <span class="error_tip"></span>
+			</div>
+			<div class="form_item">
+			</div>
+			<div class="ffooter">
+				<input type="submit" name="commit" value="保存" class="confirm_btn">
+				<input type="reset" name="commit" value="取消" class="cancel_btn">
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  var set_staff_passowrd = function(){
+    var app = $("input#allowable-app"),
+      operator = $("input#system-operator");
+
+    var need_set_password = function() {
+      return !(operator.attr("checked") || app.attr("checked"))
+    }
+
+    var show_set_password_form = function(attr_name){
+      $("#FloatWindow").show();
+      $("#login_enabled_hidden").attr("name", attr_name)
+    }
+
+    var cancel_operate = function() {
+      $("i.close_window, .cancel_btn").on("click", function(){
+        $("#FloatWindow").hide();
+        if (app.attr("name") == $("#login_enabled_hidden").attr("name"))
+          app.attr("checked", false);
+        else
+          operator.attr("checked", false)
+      })
+    }
+
+    var validation = function(checkbox) {
+      var password = $("#store_staff_password"),
+        confirmation = $("#store_staff_password_confirmation");
+
+      password.on("change", function(){
+        var len = password.val().length
+        if (len < 6) {
+          $(this).addClass("err").next("span").text("密码至少6位");
+        } else {
+          $(this).removeClass("err").next("span").text("");
+        }
+      })
+      confirmation.on("keyup", function(){
+        if (password.val() != confirmation.val()) {
+          $(this).addClass("err").next("span").text("密码设置不一致");
+        } else {
+          $(this).removeClass("err").next("span").text("");
+        }
+      })
+
+      $(".confirm_btn").on("click", function(event){
+        if (password.val() == confirmation.val()) {
+          checkbox.attr("checked", true);
+          $(".form_content").submit()
+        }
+        else
+          event.preventDefault();
+      })
+    }
+
+    $("#system-operator, #allowable-app").on("click", function(){
+      var attr_name = $(this).attr("name"),
+          checkbox = $(this);
+
+      if (need_set_password()) {
+        show_set_password_form(attr_name);
+        cancel_operate();
+        validation(checkbox);
+      }
+    })
+
+  }
+</script>
