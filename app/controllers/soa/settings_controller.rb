@@ -23,7 +23,7 @@ class Soa::SettingsController < Soa::BaseController
     params[:store_staff]["skills"]["other_skills"].reject!(&:empty?)
 
     if @staff.update!(setting_staff_param)
-      format.html { redirect_to soa_staff_setting_path(@staff) }
+      redirect_to soa_staff_setting_path(@staff)
     else
       render plain: @staff.errors.messages
     end
@@ -65,7 +65,6 @@ class Soa::SettingsController < Soa::BaseController
   def setting_staff_param
     params.require(:store_staff).permit(:trial_salary, :trial_period, :regular_salary, :mis_login_enabled, :app_login_enabled, :deduct_enabled,
                                        :contract_notice_enabled, :deadline_days,
-                                       :password, :password_confirmation,
                                        bonus: [:gangwei, :zhusu, :canfei, :laobao, :gaowen, :yibaofei, :baoxianjing, :gerendanbao, :insurence_enabled ],
                                        skills: [:theory, :operate, :integrate, :certificate, :other_skills => [] ]
                                        )
@@ -76,7 +75,7 @@ class Soa::SettingsController < Soa::BaseController
   end
 
   def staff_password_param
-    params.require(:store_staff).permit(:password, :password_confirmation, :mis_login_enabled)
+    params.require(:store_staff).permit(:password, :password_confirmation, :mis_login_enabled, :app_login_enabled)
   end
 
 end
