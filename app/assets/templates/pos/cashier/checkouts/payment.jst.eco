@@ -1,13 +1,10 @@
 
   <dd>
     <label class="width-70">收款方式</label>
-    <select class="width-147">
-      <option>现金</option>
-      <option>挂账</option>
-      <option>银行卡</option>
-      <option>支付宝</option>
-      <option>微信</option>
-      <option>储值卡余额</option>
+    <select class="width-147" name='payment_method'>
+      <% for method in @payment_methods : %>
+        <option value="<%= method.id %>"><%= method.name %></option>
+      <% end %>
     </select>
   </dd>
   <dd>
