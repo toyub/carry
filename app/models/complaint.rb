@@ -36,7 +36,7 @@ class Complaint < ActiveRecord::Base
     principal["mechanic"] || []
   end
 
-  def saler
+  def saler_id
     principal["saler"]
   end
 
@@ -80,28 +80,28 @@ class Complaint < ActiveRecord::Base
     self.order.numero
   end
 
-  def salers
-    [select: saler, name: order_creator_name, id: order_creator_id]
+  def saler
+    {selected: saler_id.to_i == order_creator_id, name: order_creator_name, id: order_creator_id}
   end
 
   def mechanics
-    self.order.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }
+    self.order.store_items
   end
 
   def responses
-    [customer: self.customer, principal: response["principal"]]
+    {customer: self.customer, principal: response["principal"]}
+  end
+
+  def response_principal
+    response['principal']
   end
 
   def created_at_format
     self.created_at.strftime("%Y-%m-%d")
   end
 
-  def amounts
-    self.order.items.inject(0){ |total, item| total+ item.amount  } if self.order
-  end
-
   def order_creator
-    StoreStaff.find(self.saler).full_name if self.saler
+    StoreStaff.find(self.saler_id).full_name if self.saler_id
   end
 
   def construction(p)

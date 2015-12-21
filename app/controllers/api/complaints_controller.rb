@@ -25,6 +25,8 @@ module Api
         :creator_id,
         :creator_type,
         :updator_id,
+        :store_chain_id,
+        :store_id,
         detail: [
                   :content,
                   :inquire,

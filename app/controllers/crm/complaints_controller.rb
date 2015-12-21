@@ -3,8 +3,9 @@ class Crm::ComplaintsController < Crm::BaseController
   before_action :set_complaint, only: [:edit, :update]
   skip_before_action :verify_authenticity_token, only: [:update]
   def index
+    emu
     @q = @customer.complaints.ransack(params[:q])
-    @complaints = @q.result.includes(:store_vehicle)
+    @complaints = @q.result.order(id: :desc).includes(:store_vehicle)
   end
 
   def edit
@@ -21,6 +22,11 @@ class Crm::ComplaintsController < Crm::BaseController
   end
 
   private
+  def emu
+    @complaint_categories = Complaint::CATEGORY
+    @complaint_ways = Complaint::WAY
+  end
+
   def set_customer
     @customer = StoreCustomer.find(params[:store_customer_id])
   end

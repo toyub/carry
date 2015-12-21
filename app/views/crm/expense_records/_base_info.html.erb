@@ -47,7 +47,7 @@
               <tr>
                 <td colspan="6">
                   <label class="width-50">合计:</label>
-                  <label class="width-100"> <%= order.items.inject(0){|total,item| total+ item.amount }%> </label>
+                  <label class="width-100"> <%= order.amount_total %> </label>
                 </td>
               </tr>
             </tfoot>

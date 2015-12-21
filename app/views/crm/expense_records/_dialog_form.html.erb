@@ -1,9 +1,5 @@
 <form action="" method="post" id="complaint_form" name="complain" >
-   <input type="hidden" name="complaint[store_customer_id]" value="<%= @customer.id%>">
-   <input type="hidden" name="complaint[store_order_id]" value="">
-   <input type="hidden" name="complaint[store_vehicle_id]" value="">
-   <input type="hidden" name="complaint[store_id]" value="<%= @customer.store_id%>">
-   <input type="hidden" name="complaint[store_chain_id]" value="<%= @customer.store_chain_id%>">
+   <%= render 'hidden_value' %>
   <div class="complaints_records_wrap">
   <h2>投诉事件记录</h2>
   <ul class="top">
@@ -26,17 +22,15 @@
     <dl class="client_type">
       <dd>投诉类别</dd>
       <dd>
-        <label>服务<input name="complaint[detail][category][]" type="checkbox" value="1" ></label>
-        <label>质量<input name="complaint[detail][category][]" type="checkbox" value="2" ></label>
-        <label>环境<input name="complaint[detail][category][]" type="checkbox" value="3" ></label>
-        <label>其他<input name="complaint[detail][category][]" type="checkbox" value="4" ></label>
+        <% @complaint_categories.each do |key, value|  %>
+          <label> <%= value %> <input name="complaint[detail][category][]" type="checkbox" value="<%= key%>" ></label>
+        <% end %>
       </dd>
       <dd>投诉渠道</dd>
       <dd>
-        <label>电话<input name="complaint[detail][way][]" type="checkbox" value="1" ></label>
-        <label>现场<input name="complaint[detail][way][]" type="checkbox" value="2" ></label>
-        <label>微信<input name="complaint[detail][way][]" type="checkbox" value="3" ></label>
-        <label>短信<input name="complaint[detail][way][]" type="checkbox" value="4" ></label>
+        <% @complaint_ways.each do |key, value|  %>
+          <label> <%= value %> <input name="complaint[detail][way][]" type="checkbox" value="<%= key%>" ></label>
+        <% end %>
       </dd>
     </dl>
     <dl class="opinion">
