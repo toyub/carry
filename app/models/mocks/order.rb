@@ -39,7 +39,6 @@ module Mocks
       order = JSON.parse $redis.get("order-#{id}")
       order[:status] = 3
       $redis.set("order-#{id}", order.to_json)
-      p order
       order
     end
   end
