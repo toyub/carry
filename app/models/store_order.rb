@@ -27,7 +27,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def creators
-    [name: self.creator.full_name, id: self.creator.id]
+    { name: self.creator.full_name, id: self.creator.id }
   end
 
   def current_vehicle
@@ -35,11 +35,15 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def mechanic
-    self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }
+    store_items
   end
 
   def amount_total
-    self.items.inject(0){|total,item| total+ item.amount }
+    self.items.pluck(:amount).reduce(0.0,:+)
+  end
+
+  def store_items
+    self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
   end
 
   private

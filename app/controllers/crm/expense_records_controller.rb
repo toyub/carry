@@ -2,7 +2,7 @@ class Crm::ExpenseRecordsController < Crm::BaseController
   before_action :set_customer, :emu, only: [:index]
   def index
     @q = @customer.orders.ransack(params[:q])
-    @orders = @q.result.includes(:store_vehicle)
+    @orders = @q.result.order(id: 'desc').includes(:store_vehicle)
   end
 
   private

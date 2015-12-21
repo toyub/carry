@@ -20,7 +20,7 @@
         <td> <%= complaint.created_at_format %> </td>
         <td> <%= complaint.numero %> </td>
         <td> <%= complaint.content %> </td>
-        <td> <%= complaint.amounts %> </td>
+        <td> <%= complaint.order.amount_total %> </td>
         <td> <%= complaint.order_creator %>  </td>
         <td>
           <% complaint.mechanic.each do |m|  %>

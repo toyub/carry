@@ -5,7 +5,7 @@ class Crm::ComplaintsController < Crm::BaseController
   def index
     emu
     @q = @customer.complaints.ransack(params[:q])
-    @complaints = @q.result.includes(:store_vehicle)
+    @complaints = @q.result.order(id: :desc).includes(:store_vehicle)
   end
 
   def edit

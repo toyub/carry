@@ -85,7 +85,7 @@ class Complaint < ActiveRecord::Base
   end
 
   def mechanics
-    self.order.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }
+    self.order.store_items
   end
 
   def responses
@@ -96,14 +96,8 @@ class Complaint < ActiveRecord::Base
     response['principal']
   end
 
-
-
   def created_at_format
     self.created_at.strftime("%Y-%m-%d")
-  end
-
-  def amounts
-    self.order.items.inject(0){ |total, item| total+ item.amount  } if self.order
   end
 
   def order_creator
