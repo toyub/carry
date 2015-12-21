@@ -1,15 +1,14 @@
 module Api
   class StoreOrdersController < BaseController
-    #before_action :set_order, only: [:show]
+    before_action :set_order, only: [:show]
 
     def index
-      orders = 18.times.map{Mocks::Order.mock}
+      orders = StoreOrder.all
       render json: orders
     end
 
     def show
-      order = Mocks::Order.find_by_id(params[:id])
-      render json: order
+      render json: @order
     end
 
     private

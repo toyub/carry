@@ -2,10 +2,10 @@ module Api
   class StoreCheckoutsController < BaseController
 
     def create
-      order = JSON.parse Mocks::Order.find_by_id(params[:order_id])
+      order = StoreOrder.find(params[:order_id])
+      customer = order.store_customer
       if params[:payments].present?
-        save_payments(params[:payments], order)
-        Mocks::Order.checked!(params[:order_id])
+        save_payments(params[:payments], order)        
         render json: {checked:true, msg: 'Checked!'}
       else
         render json: {checked:true, msg: 'Payments required!'}
@@ -14,7 +14,7 @@ module Api
 
     def save_payments(payments, order)
       amount = payments.map { |payment| payment[:amount] }.sum
-      if order["amount"].to_f == amount
+      if order.amount.to_f == amount
          #payments = StoreCustomerPayment.new(payments)
          p payments
       else

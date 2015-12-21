@@ -1,11 +1,25 @@
 class StoreCustomer < ActiveRecord::Base
   include BaseModel
 
+  has_many :store_customer_payments
+
   belongs_to :store_customer_entity
   before_save :set_full_name
 
   def province
     self.district[:province]
+  end
+
+  def mobile
+    @phone_number
+  end
+
+  def satisfaction
+    0
+  end
+
+  def integrity
+    99
   end
 
   def city
