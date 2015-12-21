@@ -16,5 +16,9 @@ module Api
 
     end
 
+    def order_worker(order)
+
+    end
+
   end
 end
