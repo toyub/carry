@@ -1,17 +1,17 @@
 class Crm::StoreTrackingsController < Crm::BaseController
   before_action :set_customer
+  respond_to :js
 
   def index
-    params[:q] ||= {}
-    q = StoreTracking.ransack(params[:q])
+    q = StoreTracking.ransack(params[:q] ||= {})
     @store_trackings = q.result(distinct: true).order('id asc')
-    @tracking = StoreTracking.new
     @search = {
       plate: params[:q][:store_order_plate_id_eq],
       startDate: params[:q][:created_at_gt],
       endDate: params[:q][:created_at_lt],
       contact_way: params[:q][:contact_way_id_eq]
     }
+    @tracking = StoreTracking.new
   end
 
   def create
@@ -33,7 +33,7 @@ class Crm::StoreTrackingsController < Crm::BaseController
           :contact_way_id,
           :executant_id,
           :content,
-          :feedback,
-          )
+          :feedback
+        )
     end
 end

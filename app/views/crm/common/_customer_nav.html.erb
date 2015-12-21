@@ -1,17 +1,22 @@
 <div class="details_nav">
   <ul>
-    <li><a href="#" class="width-90">信息</a></li>
+    <li><a href="/xiaoshou/main/#store_customers/<%= @customer.id %>" class="width-90">信息</a></li>
     <li><a href="#" class="width-90">资产账户</a></li>
     <li class='active'>
       <%= link_to '车辆档案', @customer.first_vehicle_id.present? ? crm_store_customer_store_vehicle_archive_path(@customer.id, @customer.first_vehicle_id) : new_crm_store_customer_store_vehicle_archive_path,
       class: 'width-90' %>
     </li>
-    <li><a href="#" class="width-90">消费记录</a></li>
+    <li>
+      <%= link_to '消费记录', crm_store_customer_expense_records_path(@customer), class: 'width-90' %>
+    </li>
     <li>
       <%= link_to '回访记录', crm_store_customer_store_trackings_path(@customer), class: 'width-90' %>
     </li>
-    <li><a href="#" class="width-90">意向产品</a></li>
-    <li><a href="#" class="width-90">投诉记录</a></li>
-    <li><a href="#" class="width-90">满意度</a></li>
+    <li>
+      <%= link_to '意向产品', crm_store_customer_pre_orders_path(@customer), class: 'width-90' %>
+    </li>
+    <li>
+      <%= link_to '投诉记录', crm_store_customer_complaints_path(@customer), class: "width-90" %>
+    </li>
   </ul>
 </div>

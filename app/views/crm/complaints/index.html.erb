@@ -1,12 +1,11 @@
 <%= content_for :pre_assets do %>
   <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+  <%= javascript_include_tag 'crm' %>
 <% end %>
 <div class="content" id="content">
   <%= render 'crm/common/page_head' %>
     <div class="details">
-      <div class="details_nav">
-        <%= render 'crm/expense_records/title_nav' %>
-      </div>
+      <%= render '/crm/common/customer_nav' %>
       <%= search_form_for @q, url: crm_store_customer_complaints_path(@customer), class: 'search navbar-form' do |f| -%>
         <%= render 'crm/expense_records/search_form' %>
       <% end -%>
@@ -18,7 +17,3 @@
   <%= render 'dialog_form' %>
 </div>
 </div>
-
-<% content_for :javascripts do %>
-  <%= javascript_include_tag 'crm' %>
-<% end %>
