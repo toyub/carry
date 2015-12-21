@@ -1,0 +1,137 @@
+<div class="main_top">
+  <h2>绩效提成</h2>
+  <%= render '/soa/shared/return' %>
+</div>
+
+<div class="details">
+
+  <%= render "/soa/shared/top_info" %>
+
+  <div class="details_content staff_commission">
+    <table class="search">
+      <tr>
+        <td>日期</td>
+        <td><input type="date" class="width-122"></td>
+        <td>-</td>
+        <td><input type="date" class="width-122"></td>
+        <td>项目类别</td>
+        <td>
+          <select class="width-100">
+            <option>全部</option>
+            <option></option>
+          </select>
+        </td>
+        <td><input type="button" class="query_btn btn width-60" value="查询"></td>
+      </tr>
+    </table>
+
+    <table class="head">
+      <thead>
+        <tr>
+          <th><label class="cursor-pointer date">日期<i class="fa fa-sort-down"></i></label></th>
+          <th>订单号</th>
+          <th>项目</th>
+          <th>流程</th>
+          <th><label class="cursor-pointer">项目金额<i class="fa fa-sort-down"></i></label></th>
+          <th><label class="cursor-pointer">提成金额<i class="fa fa-sort-down"></i></label></th>
+        </tr>
+      </thead>
+    </table>
+
+    <table class="content">
+      <tbody>
+        <tr>
+          <td><label class="width-90">2015/6/18</label><label>12:11</label></td>
+          <td>YW2015061800078</td>
+          <td>澜泰纳米镀晶</td>
+          <td>
+            <div>
+              <label>洗车</label><span>5.00</span>
+            </div>
+            <div>
+              <label>去污</label><span>20.00</span>
+            </div>
+            <div>
+              <label>抛光</label><span>10.00</span>
+            </div>
+            <div>
+              <label>镀晶</label><span>15.00</span>
+            </div>
+          </td>
+          <td>998.00</td>
+          <td>60.00</td>
+        </tr>
+        <tr>
+          <td><label class="width-90">2015/6/18</label><label>12:11</label></td>
+          <td>YW2015061800079</td>
+          <td>抛光</td>
+          <td>
+            <div>
+              <label>洗车</label><span>5.00</span>
+            </div>
+            <div>
+              <label>抛光</label><span>10.00</span>
+            </div>
+            <div>
+              <label>打蜡</label><span>15.00</span>
+            </div>
+          </td>
+          <td>488.00</td>
+          <td>30.00</td>
+        </tr>
+        <tr>
+          <td><label class="width-90">2015/6/18</label><label>12:11</label></td>
+          <td>YW2015061800079</td>
+          <td>钣喷</td>
+          <td>
+            <div>
+              <label>打磨</label><span>20.00</span>
+            </div>
+          </td>
+          <td>488.00</td>
+          <td>20.00</td>
+        </tr>
+        <tr>
+          <td><label class="width-90">2015/6/18</label><label>12:11</label></td>
+          <td>YW2015061800079</td>
+          <td>钣喷</td>
+          <td>
+            <div>
+              <label>打磨</label><span>20.00</span>
+            </div>
+          </td>
+          <td>488.00</td>
+          <td>20.00</td>
+        </tr>
+        <tr>
+          <td><label class="width-90">2015/6/18</label><label>12:11</label></td>
+          <td>YW2015061800079</td>
+          <td>内饰清洗</td>
+          <td>
+            <div>
+              <label>清洗</label><span>5.00</span>
+            </div>
+            <div>
+              <label>擦干</label><span>5.00</span>
+            </div>
+          </td>
+          <td>388.00</td>
+          <td>10.00</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"></td>
+          <td class="text-align-right">
+            <label>订单数：</label><span class="width-90 text-align-left">5</span>
+            <label class="width-100">项目总金额：</label>
+          </td>
+          <td colspan="2">
+            <span class="width-80">2,85000.00</span>
+            <label>提成总金额：</label><span>140.00</span>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

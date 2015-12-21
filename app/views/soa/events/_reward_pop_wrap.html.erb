@@ -1,0 +1,87 @@
+<% head_type = {
+  StoreAttendence: "考勤",
+  StoreReward: "奖励",
+  StorePenalty: "惩戒",
+  StoreOvertime: "加班",
+}%>
+<div class="reward_pop_wrap">
+  <div class="reward_pop">
+    <p>
+      <%= head_type[@event.type.to_sym] %>单
+      <a href="#" id="close">×</a>
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th><%= @staff.screen_name %></th>
+          <th>部门</th>
+          <th><%= @staff.store_department.try(:name) %></th>
+          <th>职务</th>
+          <th><%= @staff.store_position.try(:name) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @event.type != "StoreAttendence" && @event.type != "StoreOvertime" %>
+          <tr>
+            <th>时间</th>
+            <td colspan="2" class="text-indent-20"><%= @event.occur_on.try(:strftime, "%Y-%m-%d")  %></td>
+            <th class="address">地点</th>
+            <td colspan="2" class="text-indent-20"><%= @event.occur_at %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <th>从</th>
+            <td colspan="2" class="text-indent-20"><%= @event.start_on.try(:strftime, "%Y-%m-%d") %></td>
+            <th class="address">至</th>
+            <td colspan="2" class="text-indent-20"><%= @event.end_on.try(:strftime, "%Y-%m-%d") %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <th>性质</th>
+          <td colspan="5" class="text-indent-20 check-check">
+            <% EventType.collection(@event.type.to_sym).each do |sort| %>
+              <label><%= sort.name %><input type="checkbox" disabled> </label>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>描述</th>
+          <td colspan="5">
+            <textarea rows="10" readonly><%= @event.description %></textarea>
+            <div class="text-align-right">
+              <label>制表：</label><span class="margin-right-20"><%= @event.recorder %></span>
+              <label>日期：</label><span class="margin-right-20"><%= @event.created_at.strftime("%Y/%m/%d") %></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="6" class="dealing">处理</th>
+        </tr>
+        <tr class="reward">
+          <th class="border-right-fff" rowspan="2"><%= head_type[@event.type.to_sym] %></th>
+          <td colspan="5">
+            <ul>
+              <li>
+                <span><%= head_type[@event.type.to_sym] == "奖励" ||  head_type[@event.type.to_sym] == "加班" ? "奖励" : " 扣款"%></span> 
+                <span class="width-130"><%= @event.operate["amount"] %></span> 元
+              </li>
+              <li>
+                <span class="vertical-align-top">其他</span>
+                <span class="width-130"><%= @event.operate["other"] %></span>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(".check-check label").each(function(){
+    if ($(this).text().trim() == "<%= @event.sort %>") {
+      $(this).children("input").attr("checked", "checked");
+    }
+  });
+</script>

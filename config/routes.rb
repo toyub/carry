@@ -74,7 +74,33 @@ Rails.application.routes.draw do
   get "xiaoshou/main", to:  "xiaoshou#main"
 
   namespace :soa do
-    resources :staff
+    resources :staff do
+      resource :setting do
+       patch 'adjust', on: :member
+       patch 'password', on: :member
+      end
+      resources :events  do
+        get 'detail', on: :member
+        get 'search', on: :collection
+      end
+      controller :record do
+        get "/record/index" => "record#index", as: :record
+        get "search" => "record#search", as: :search_record
+      end
+    end
+    resources :events, only: :index
+    resources :protocols do
+      get 'record', on: :member
+    end
+    resources :performance do
+      get 'search', on: :collection
+    end
+    resources :salaries do
+      get "record", on: :collection
+      get 'search', on: :collection
+      get 'confirm', on: :member
+      get 'check', on: :member
+    end
   end
 
   namespace :xianchang do

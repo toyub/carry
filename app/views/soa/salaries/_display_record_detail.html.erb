@@ -1,0 +1,168 @@
+<div class="salary_record_wrap">
+  <div class="salary_record">
+    <a href="#" class="delete delete_list">×</a>
+
+    <table class="abstract">
+      <thead>
+        <tr>
+          <td>姓名</td>
+          <td>员工编号</td>
+          <td>部门</td>
+          <td>职务</td>
+          <td>底薪</td>
+          <td>提成</td>
+          <td>福利补贴</td>
+          <td>奖金</td>
+          <td>保险金</td>
+          <td>加班费</td>
+          <td>应扣费用</td>
+          <td>实发金额</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><%= @staff.screen_name %></th>
+          <th><%= @staff.numero %></th>
+          <th><%= @staff.store_department.try(:name) %></th>
+          <th><%= @staff.store_position.try(:name) %></th>
+          <th><%= @staff.current_salary %></th>
+          <th><%= @salary.amount_deduction %></th>
+          <th><%= @salary.amount_bonus %> </th>
+          <th><%= @salary.amount_reward %></th>
+          <th><%= @salary.amount_insurence %></th>
+          <th><%= @salary.amount_overtime %></th>
+          <th><%= @salary.amount_cutfee %></th>
+          <th><%= @salary.salary_actual_pay %></th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="salary_checkout">
+      <div class="salary">
+        <ul class="total_salary">
+          <li class="font-weight-bold font-14">应发工资</li>
+          <li>
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">提成</label>
+                <label class="width-70">施工提成</label>
+                <span class="show_content margin-left-14">0.00</span>
+              </li>
+              <li>
+                <label>商品提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>售卡提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>其他提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label class="font-weight-bold">提成合计</label>
+                <span class="show_content"><%= @salary.amount_deduction %></span>
+              </li>
+            </ol>
+
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">福利补贴</label>
+                <label class="width-70">岗位补贴</label>
+                <span class="show_content"><%= @salary.bonus["gangwei"] %></span>
+              </li>
+              <li>
+                <label>住宿补贴</label>
+                <span class="show_content"><%= @salary.bonus["zhusu"] %></span>
+              </li>
+              <li>
+                <label>餐费补贴</label>
+                <span class="show_content"><%= @salary.bonus["canfei"] %></span>
+              </li>
+              <li>
+                <label>劳保补贴</label>
+                <span class="show_content"><%= @salary.bonus["laobao"] %></span>
+              </li>
+              <li>
+                <label>高温补贴</label>
+                <span class="show_content"><%= @salary.bonus["gaowen"] %></span>
+              </li>
+              <li>
+                <label class="font-weight-bold">补贴合计</label>
+                <span class="show_content total"><%= @salary.amount_bonus %></span>
+              </li>
+            </ol>
+          </li>
+
+          <li>
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">加班费</label>
+                <label class="width-70 font-weight-bold">加班合计</label>
+                <span class="show_content margin-left-14"><%= @salary.amount_overtime %></span>
+              </li>
+              <li class="bonus">
+                <label class="font-weight-bold width-50">奖金</label>
+                <label class="width-70 font-weight-bold">奖金合计</label>
+                <span class="show_content total"><%= @salary.amount_reward %></span>
+              </li>
+            </ol>
+
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">保险金</label>
+                <label class="width-70">医保费</label>
+                <span class="show_content margin-left-14"><%= @salary.insurence["yibaofei"] %></span>
+              </li>
+              <li>
+                <label>保险金</label>
+                <span class="show_content margin-left-15"><%= @salary.insurence["baoxianjing"] %></span>
+              </li>
+              <li>
+                <label class="font-weight-bold">保险合计</label>
+                <span class="show_content total"><%= @salary.amount_insurence %></span>
+              </li>
+            </ol>
+          </li>
+
+          <li class="total text-align-right">
+            <label class="font-weight-bold">员工底薪：</label>
+            <span class="show_content margin-right-82"><%= @salary.store_staff.current_salary %></span>
+            <label class="color-7391C4 font-weight-bold">应发工资合计：</label>
+            <span class="show_content"><%= @salary.salary_should_pay %></span>
+          </li>
+        </ul>
+
+
+        <ul class="deducted_salary">
+          <li class="font-weight-bold font-14">应扣费用</li>
+
+          <li>
+            <ol>
+              <li><label>违纪扣款</label> <span class="show_content margin-left-15"><%= @salary.cutfee["weiji"] %></span></li>
+              <li><label>考勤扣款</label> <span class="show_content margin-left-15"><%= @salary.cutfee["kaoqin"] %></span></li>
+              <li><label>个人担保</label> <span class="show_content margin-left-15"><%= @salary.cutfee["gerendanbao"] %></span></li>
+              <li><label>借贷扣除</label> <span class="show_content margin-left-15"><%= @salary.cutfee["jiedai"] %></span></li>
+              <li><label>其他扣款</label> <span class="show_content margin-left-15"><%= @salary.cutfee["qita"] %></span></li>
+              <li><label class="font-weight-bold">扣款合计</label> <span class="show_content margin-left-15 total "><%= @salary.amount_cutfee %></span></li>
+            </ol>
+          </li>
+
+          <li class="total">
+            <label class="font-weight-bold color-C8625C">应扣费用合计：</label> <span class="show_content margin-left-15"><%= @salary.amount_cutfee %></span>
+          </li>
+        </ul>
+
+        <ul class="balance_salary">
+          <li class="font-weight-bold font-14">实发金额</li>
+          <li class="text-align-center">
+            <label class="display-block">薪资总额</label>
+            <span class="show_content text-align-left"><%= @salary.salary_actual_pay %></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

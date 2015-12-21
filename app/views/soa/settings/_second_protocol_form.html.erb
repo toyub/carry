@@ -1,0 +1,40 @@
+<% reason_type = {
+  StoreZhuanZheng: "转正原因",
+  StoreTiaoXin: "调薪原因",
+  StoreQianDingHeTong: "续签原因"
+  }
+%>
+
+<%= form.hidden_field :type, value: type %>
+<%= form.hidden_field :previous_salary, value: @staff.current_salary %>
+
+<div class="reason">
+  <%= form.label :reason, reason_type[type.to_sym] %>
+  <%= form.text_area :reason, required: true, class: "width-696" %>
+</div>
+
+<div class="start_time">
+  <%= form.label :effected_on, "生效日期" %>
+  <%= form.date_field :effected_on, required: true %>
+  <% if type == "StoreQianDingHeTong" %>
+    至 <%= form.date_field :expired_on, required: true %>
+  <% end %>
+
+</div>
+
+<% if !@varifiers.nil? %>
+  <div class="confirm_person">
+    <%= form.label :verifier_id, "审核人" %>
+    <%= form.select :verifier_id, @verifiers.map {|verifier| [verifier.login_name, verifier.id]} %>
+  </div>
+<% end %>
+
+<div class="remark">
+  <%= form.label :remark, "备注" %>
+  <%= form.text_area :remark, class: "width-696" %>
+</div>
+
+<div class="form_maker">
+  <span>制单：</span><label class="maker"><%= @current_user.screen_name %></label>
+  <span>录入日期：</span><label class="date"><%= Time.now.to_date %></label>
+</div>

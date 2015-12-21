@@ -1,0 +1,2 @@
+class StoreReward < StoreEvent
+end

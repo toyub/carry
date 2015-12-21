@@ -1,0 +1,49 @@
+<ul class="salary_list_head">
+  <li>#</li>
+  <li>姓名</li>
+  <li>员工编号</li>
+  <li>部门</li>
+  <li>职务</li>
+  <li>底薪</li>
+  <li>提成</li>
+  <li>福利补贴</li>
+  <li>奖金</li>
+  <li>保险金</li>
+  <li>加班费</li>
+  <li>应扣费用</li>
+  <li>实发金额</li>
+</ul>
+
+<div class="list_wrap">
+  <table class="salary_list">
+    <tbody>
+      <% @staffs.each.with_index(1) do |staff, index| %>
+      <tr data-id="<%= staff.id %>">
+        <td class='sequence_num'><%= index %></td>
+        <td><%= staff.screen_name %></td>
+        <td><%= staff.numero %></td>
+        <td><%= staff.store_department.try(:name) %></td>
+        <td><%= staff.store_position.try(:name) %></td>
+        <td><%= staff.current_salary %></td>
+        <td><%= staff.get_this_month_salary.amount_deduction %></td>
+        <td><%= staff.get_this_month_salary.amount_bonus %></td>
+        <td><%= staff.get_this_month_salary.amount_reward %></td>
+        <td><%= staff.get_this_month_salary.amount_insurence %></td>
+        <td><%= staff.get_this_month_salary.amount_overtime %></td>
+        <td><%= staff.get_this_month_salary.amount_should_cutfee %></td>
+        <td><%= staff.get_this_month_salary.salary_actual_pay %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<table class="salary_list">
+  <tfoot>
+    <tr>
+      <td colspan="13" class="text-align-right">
+        <span class="width-90">实发金额合计：</span> <span class="width-80">22,750.00</span>
+      </td>
+    </tr>
+  </tfoot>
+</table>
