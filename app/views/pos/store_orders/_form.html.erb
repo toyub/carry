@@ -1,0 +1,134 @@
+  <div class="content pos-orders-index"  id="content">
+    <div class="main_top"><h2>业务开单</h2></div>
+  <div class="details">
+    <div class="search_nav">
+       <div class="item-query">
+        <label>查找车辆</label>
+        <input type="text" class="width-180 query-license-number" placeholder="输入车牌">
+        <a href="#" class="query_btn btn">查&nbsp;询</a>
+      </div>
+      <div class="query_div page_card">
+      <a href="javascript:void(0)"  class="active">开单</a>
+      <a  href="index.html">列表</a>
+      </div>
+    </div>
+
+    <div class="billing">
+      <div class="billing_order float-left">
+        <div class="order_details">
+          <div class="dialog_nav">
+            <span class="dialog_title ">单号:20141105001</span>
+          </div>
+          <div class="vehicle_order_details">
+            <%= render partial: 'vehicle' %>
+            <%= render partial: 'vehicle_condition' %>
+    
+              <div class="vehicle_order">
+                <span class="vehicle_order_title title doslide">
+                  业务信息
+                  <i class="fa-angle-double-up fa cursor-pointer"></i>
+                  <a href="javascript:void(0)" data-target="order_items" class="do_show">选择</a>
+                </span>
+                <%= render partial: 'items' %>
+              </div>
+    
+    
+              <div class="construction">
+                <div class="vehicle_order_title title doslide">施工信息
+                  <i class="fa-angle-double-up fa cursor-pointer"></i>
+                  <a href="javascript:void(0)" class="do_show" data-target="edit_construction">编辑施工信息</a>
+                </div>
+                <div class="construction_info">
+                  <table cellspacing="0" cellpadding="0">
+                    <thead>
+                      <tr>
+                        <th>项目</th>
+                        <th>工位</th>
+                        <th>用时</th>
+                        <th>技师</th>
+                        <th>检验</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>精致洗车</td>
+                        <td>洗车1号工位</td>
+                        <td>48:55</td>
+                        <td><span >李小龙</span> <span class="margin-left-10">王小斌</span></td>
+                        <td>李克勤</td>
+                      </tr>
+                      <tr>
+                        <td>澜泰纳米镀晶</td>
+                        <td>洗车1号工位</td>
+                        <td>48:55</td>
+                        <td><span >李小龙</span> <span class="margin-left-10">王小斌</span></td>
+                        <td>李克勤</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+    
+    
+              <div class="others">
+                <div class="vehicle_order_title title doslide">
+                其他信息<i class="fa-angle-double-up fa cursor-pointer"></i>
+                </div>
+                <div  class="others_info">
+                  <dl>
+                    <dt>旧件处理</dt>
+                    <dd><label class="width-50">带走旧件</label><input type="checkbox"></dd>
+                    <dd><label class="width-60">不带走旧件</label><input type="checkbox"></dd>
+                  </dl>
+                  <dl>
+                    <dt>贵重物品</dt>
+                    <dd><label class="width-50">已提醒</label><input type="checkbox"></dd>
+                    <dd><label class="width-60">无贵重物品</label><input type="checkbox"></dd>
+                    <dd>客户签字:<input type="text" class="width-150"></dd>
+                  </dl>
+                  <div class="order_remark">
+                    <label class="vertical-align-top width-30">备注</label>
+                    <textarea ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="construction_status">
+              <div class="btn_group">
+                <a class="end_construction_btn">保存草稿</a>
+                <a class="go_payment_btn">生成订单</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <div class="right_information">
+             <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
+            <%= render partial: 'construction' %>
+            <div class="improve_crm_wrap float-left"></div>
+            <%= render partial: 'vehicle_more' %>   
+         </div>
+      </div>
+    
+    </div>
+    
+    </div>
+
+
+   <template id="add_product">
+      <tr>
+        <td class="number">1</td>
+        <td><input type="text" class="width-150"></td>
+        <td><input type="text" class="width-140"></td>
+        <td><input type="text" class="width-35"></td>
+        <td>
+          <select>
+            <option>汽车配件</option>
+            <option></option>
+          </select>
+        </td>
+        <td><input type="text" class="width-35"></td>
+        <td><input type="text" class="width-50"></td>
+        <td><input type="text" class="width-50"></td>
+      </tr>
+  </template>
