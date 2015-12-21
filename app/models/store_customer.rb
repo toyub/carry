@@ -9,8 +9,14 @@ class StoreCustomer < ActiveRecord::Base
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
   has_many :complaints
 
+  # tags 客户印象
+  has_many :taggings, class_name: 'Tagging', as: :taggable
+  has_many :tags, class_name: 'Tag::StoreCustomer', through: :taggings
+
   validates :first_name, presence: true
   validates :last_name, presence: true
+
+  accepts_nested_attributes_for :taggings
 
   before_save :set_full_name
 

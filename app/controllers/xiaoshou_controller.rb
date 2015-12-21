@@ -32,6 +32,7 @@ class XiaoshouController < ApplicationController
           json.(s, :id, :store_id, :parent_id, :name)
         end
       end
+      json.tags current_store.tags, :id, :name
       json.provinces Geo.provinces(1), :name, :code
     end
   end

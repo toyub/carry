@@ -25,6 +25,10 @@ class Mis.Models.Store extends Backbone.Model
     @parseCommissionTemplates()
     @parseCustomerCategories()
     @parseProvinces()
+    @parseTags()
+
+  parseTags: ->
+    @tags = new Mis.Collections.Tags(@get 'tags')
 
   parseRootMaterialCategories: ->
     @rootMaterialCategories = new Mis.Collections.StoreMaterialCategories(@get 'root_material_categories')

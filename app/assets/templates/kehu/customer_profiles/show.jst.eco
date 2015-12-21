@@ -131,11 +131,9 @@
             <div class="impression">
               <h3>客户印象</h3>
               <div class="taglinks">
-                <label><span>吸烟</span></label>
-                <label><span>喝酒</span></label>
-                <label><span>吸烟</span></label>
-                <label><span>吸烟</span></label>
-                <label><span>吸烟</span></label>
+                <% @entity.storeCustomer.tags.each (tag) ->: %>
+                  <label><span><%= tag.get 'name' %></span></label>
+                <% end %>
               </div>
             </div>
 

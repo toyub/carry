@@ -8,6 +8,10 @@ class Mis.Models.StoreCustomer extends Backbone.Model
     tracking_accepted: true
     message_accepted: true
 
+  initialize: ->
+    @tags = new Mis.Collections.Tags(@get 'tags')
+    @tempTags = new Mis.Collections.Tags(@get 'tags')
+
   male: -> String(@get 'gender') == 'true'
 
   married: -> String(@get 'married') == 'true'
@@ -23,3 +27,11 @@ class Mis.Models.StoreCustomer extends Backbone.Model
   profession: -> Mis.Settings.Entity.profession[@get 'profession']
 
   income: -> Mis.Settings.Entity.income[@get 'income']
+
+  toJSON: ->
+    json = _.clone(@attributes)
+    json.taggings_attributes = @tags.map(
+      (tag) ->
+        {tag_id: tag.id}
+    )
+    json

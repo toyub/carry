@@ -7,17 +7,27 @@ class Mis.Views.KehuCustomerProfilesNew extends Mis.Base.View
   initialize: ->
     @validateBinding()
     @listenTo(@model, 'sync', @handleSuccess)
+    @listenTo(@model.storeCustomer.tags, 'reset', @renderTags)
 
   events:
     'submit #customerForm': 'createCustomer'
     'change .js-provinces': 'getCities'
     'change .js-cities': 'getRegions'
+    'click .js-add-tag': 'showTagForm'
 
   render: ->
     @$el.html(@template(entity: @model, view: @))
     @renderTop()
     @renderNav()
     @
+
+  renderTags: ->
+    @$(".js-tags label.js-tag").remove()
+    @model.storeCustomer.tags.each @renderTag
+
+  renderTag: (tag) =>
+    view = new Mis.Views.KehuCustomerTagsShow(model: tag)
+    @prependChildTo(view, @$(".js-tags"))
 
   renderNav: ->
     nav = new Mis.Views.KehuCustomerNavsMaster(model: @model.storeCustomer)
@@ -26,7 +36,11 @@ class Mis.Views.KehuCustomerProfilesNew extends Mis.Base.View
   createCustomer: (e) ->
     e.preventDefault()
     attrs = @$("#customerForm").find("input, select, textarea").filter( -> $.trim(this.value).length > 0).serializeJSON()
-    @model.set attrs
+    customerAttrs = attrs.store_customer
+    settlementAttrs = attrs.store_customer_settlement
+    @model.storeCustomer.set customerAttrs
+    @model.storeCustomerSettlement.set settlementAttrs
+    @model.set _.omit(attrs, "store_customer", "store_customer_settlement")
     console.log @model
     console.log @model.toJSON()
     @model.save() if @model.isValid(true)
@@ -55,3 +69,9 @@ class Mis.Views.KehuCustomerProfilesNew extends Mis.Base.View
       _.each data, (region) ->
         $(".js-regions").append "<option value='#{region.code}'>#{region.name}</option>"
     )
+
+  showTagForm: (e) ->
+    e.preventDefault()
+
+    view = new Mis.Views.KehuCustomerTagsForm(customer: @model.storeCustomer)
+    @prependChild view

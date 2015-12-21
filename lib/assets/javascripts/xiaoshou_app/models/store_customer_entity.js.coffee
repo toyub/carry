@@ -56,7 +56,7 @@ class Mis.Models.StoreCustomerEntity extends Backbone.Model
     hashWithRoot = {}
     json = _.clone(@attributes)
     json.district = {province: @get('province'), city: @get('city'), region: @get('region')}
-    json.store_customer_attributes = @storeCustomer.attributes
+    json.store_customer_attributes = @storeCustomer.toJSON()
     json.store_customer_settlement_attributes = @storeCustomerSettlement.attributes
     hashWithRoot[@modelName] = json
     hashWithRoot

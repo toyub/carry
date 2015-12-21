@@ -201,6 +201,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :tags, only: [:create]
+
     resource :qiniu do
       collection do
         get :upload_token

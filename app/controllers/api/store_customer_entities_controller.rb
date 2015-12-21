@@ -7,12 +7,17 @@ module Api
     end
 
     def create
-      @entity = current_store.store_customer_entities.create(append_store_attrs entity_params)
+      attrs = append_store_attrs entity_params
+      taggings = attrs[:store_customer_attributes].fetch(:taggings_attributes, [])
+      attrs[:store_customer_attributes][:taggings_attributes] = []
+      @entity = current_store.store_customer_entities.create(attrs)
+      @entity.store_customer.update(taggings_attributes: taggings)
       respond_with @entity, location: nil
     end
 
     def update
       @entity = current_store.store_customer_entities.find(params[:id])
+      @entity.store_customer.taggings.clear
       @entity.update(append_store_attrs entity_params)
       respond_with @entity, location: nil
     end
@@ -57,7 +62,10 @@ module Api
             :income,
             :company,
             :tracking_accepted,
-            :message_accepted
+            :message_accepted,
+            taggings_attributes: [
+              :tag_id
+            ]
           ],
           store_customer_settlement_attributes: [
             :id,
