@@ -7,7 +7,7 @@ class StoreOrder < ActiveRecord::Base
 
   has_many :items, class_name: "StoreOrderItem"
 
-  has_many :store_payments
+  has_many :store_customer_payments
 
   enum state: %i[pending queueing processing paying paid finished]
 
