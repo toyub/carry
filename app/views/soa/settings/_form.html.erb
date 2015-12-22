@@ -221,43 +221,26 @@
       $("#deadline-days").removeAttr("disabled");
 
     $("#contract-notice-checkbox").on("click", function(){
-      console.log(this.checked);
       if (this.checked) {
         $("#deadline-days").removeAttr("disabled");
       } else {
         $("#deadline-days").attr("disabled", "disabled");
         $("#deadline-days").val("");
-        console.log($("#deadline-days").val());
       }
     })
 
-    // var period_value = $("#store_staff_trial_salary").val()
-    // if (!period_value) {
-    //     $(".transfer_btn").attr("disabled", "disabled");
-    // }
-    // $("#store_staff_trial_salary").on("input", function(){
-    //   period_value = $(this).val();
-    //   if (period_value) {
-    //     $(".transfer_btn").removeAttr("disabled");
-    //   } else {
-    //     $(".transfer_btn").attr("disabled", "disabled");
-    //   }
-    // })
+    var check_trial = function(){
+      var trial_salary = $("#store_staff_trial_salary"),
+          period = $("#store_staff_trial_period");
 
-    var trial_salary = $("#store_staff_trial_salary"),
-        value = trial_salary.val(),
-        period = $("#store_staff_trial_period");
+      trial_salary.on("keyup", function(){
+        $(this).val() ? period.removeAttr("disabled").attr("required", true) : period.val("").attr("required", false).attr("disabled", "disabled");
+      })
 
-    trial_salary.on("keyup", function(){
-      console.log($(this).val());
-       value ? period.removeAttr("disabled") : period.attr("disabled", "disabled");
-    })
-
-    if (value) {
-      trial_salary.attr("disabled", "disabled")
-      $(".transfer_btn").attr("disabled", "disabled");
+      trial_salary.val() ? trial_salary.attr("disabled", "disabled") : $(".transfer_btn").attr("disabled", "disabled");
     }
 
+    check_trial();
     set_staff_passowrd();
 
   })

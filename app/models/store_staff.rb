@@ -70,6 +70,10 @@ class StoreStaff <  ActiveRecord::Base
     regular
   end
 
+  def unregular
+    update!(regular: false)
+  end
+
   def working_age
     Time.now.year - (employeed_at.try(:year) || created_at.try(:year))
   end
