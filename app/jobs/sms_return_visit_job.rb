@@ -1,23 +1,17 @@
 class SmsReturnVisitJob < ActiveJob::Base
   queue_as :default
 
-  # SmsReturnVisitJob.perform_later(option)
-  # option = {
-  #   customer_id: 72
-  #   content: "what do you wanna say"
-  #   type_id: "1"
-  #   type: "notify"
-  # }
-  def perform(option)
-    customer = StoreCustomer.find(option[:customer_id])
-    SmsClient.publish(customer.phone_number, option[:content])
+  def perform(options)
+    customer = StoreCustomer.find(options[:customer_id])
+    SmsClient.publish(customer.phone_number, options[:content])
     SmsRecord.create!({
-      phone: customer.phone_number,
-      customer_name: customer.name,
-      content: option[:content]
-      type: option[:type]
-      type_id: option[:type_id]
-      quantity: (option[:content].size / 70).ceil
+      phone_number: customer.phone_number,
+      customer_name: customer.full_name,
+      customer_id: customer.id,
+      content: options[:content],
+      switch_type: options[:switch_type],
+      switch_type_index: options[:switch_type_index],
+      quantity: (options[:content].size / 70).ceil + 1
     })
   end
 end

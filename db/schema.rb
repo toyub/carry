@@ -177,14 +177,15 @@ ActiveRecord::Schema.define(version: 20151221084942) do
   end
 
   create_table "sms_records", force: :cascade do |t|
-    t.string   "phone"
+    t.string   "phone_number"
     t.string   "customer_name"
-    t.string   "type"
-    t.integer  "type_id"
+    t.integer  "customer_id"
+    t.string   "switch_type"
+    t.integer  "switch_type_index"
     t.text     "content"
-    t.integer  "quantity",      default: 1
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "quantity",          default: 1
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
