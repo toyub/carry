@@ -1,4 +1,4 @@
-class Mis.Routers.StoreCustomers extends Mis.Base.Router
+class Mis.Routers.StoreCustomerEntities extends Mis.Base.Router
   routes:
     "store_customers": "index"
     "store_customers/new": "newCustomer"
@@ -14,19 +14,23 @@ class Mis.Routers.StoreCustomers extends Mis.Base.Router
     self = this
     model.fetch(success: () ->
       view = new Mis.Views.KehuCustomerProfilesShow(model: model, collection: self.collection)
+      console.log model.toJSON()
       self.swap(view)
     )
 
   edit: (id) ->
     model = @collection.get(id)
-    view = new Mis.Views.KehuCustomerProfilesEdit(model: model, collection: @collection)
-    @swap(view)
+    self = this
+    model.fetch(success: () ->
+      view = new Mis.Views.KehuCustomerProfilesEdit(model: model, collection: self.collection)
+      self.swap(view)
+    )
 
   index: ->
     view = new Mis.Views.KehuCustomerProfilesIndex(collection: @collection)
     @swap(view)
 
   newCustomer: ->
-    model = new Mis.Models.StoreCustomer()
+    model = new Mis.Models.StoreCustomerEntity()
     view = new Mis.Views.KehuCustomerProfilesNew(model: model, collection: @collection)
     @swap(view)

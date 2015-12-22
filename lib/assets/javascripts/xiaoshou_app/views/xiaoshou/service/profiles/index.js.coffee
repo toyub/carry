@@ -18,3 +18,9 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Mis.Base.View
 
   resourceName: ->
     '服务'
+
+  searchFormAction: (resource) ->
+    new Mis.Views.XiaoshouServiceProfilesSearchForm(resource)
+
+  resourceItem: (options) ->
+    new Mis.Views.XiaoshouServiceProfilesItem(options)

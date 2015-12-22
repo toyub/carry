@@ -1,50 +1,37 @@
 class Mis.Models.StoreCustomer extends Backbone.Model
 
-  urlRoot: '/api/store_customers'
+  urlRoot: '/api/store_customer'
 
   modelName: 'store_customer'
 
   defaults:
-    gender: true
+    tracking_accepted: true
+    message_accepted: true
 
-  EDUCATION:
-    middle: '初中及以下'
-    high: '高中(中专)'
-    junior_college: '大专'
-    graduate: '本科'
-    postgraduate: '硕士及以上'
+  initialize: ->
+    @tags = new Mis.Collections.Tags(@get 'tags')
+    @tempTags = new Mis.Collections.Tags(@get 'tags')
 
-  PROFESSION:
-    it: 'IT/互联网/通信/电子'
-    energy: '能源/竣工'
+  male: -> String(@get 'gender') == 'true'
 
-  INCOME:
-    low: '3000以下'
-    middle: '3000 - 6000'
-    high: '6000 - 10000'
+  married: -> String(@get 'married') == 'true'
 
-  SETTLEMENT_MODE:
-    cash: '现结'
-    cash: ''
+  trackingAccepted: -> String(@get 'tracking_accepted') == 'true'
 
-  income: ->
-    @INCOME
+  messageAccepted: -> String(@get 'message_accepted') == 'true'
 
-  education: ->
-    @EDUCATION
+  education: -> Mis.Settings.Entity.education[@get 'education']
 
-  profession: ->
-    @PROFESSION
+  age: -> @get('age')
 
-  male: ->
-    String(@get 'gender') == 'true'
+  profession: -> Mis.Settings.Entity.profession[@get 'profession']
 
-  married: ->
-    String(@get 'married') == 'true'
+  income: -> Mis.Settings.Entity.income[@get 'income']
 
   toJSON: ->
-    hashWithRoot = {}
     json = _.clone(@attributes)
-    json.district = {province: @get 'province', city: @get 'city', region: @get 'region'}
-    hashWithRoot[@modelName] = json
-    hashWithRoot
+    json.taggings_attributes = @tags.map(
+      (tag) ->
+        {tag_id: tag.id}
+    )
+    json

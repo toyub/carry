@@ -18,3 +18,9 @@ class Mis.Views.KehuCustomerProfilesIndex extends Mis.Base.View
 
   resourceName: ->
     '客户'
+
+  searchFormAction: (resource) ->
+    new Mis.Views.KehuCustomerProfilesSearchForm(resource)
+
+  resourceItem: (options) ->
+    new Mis.Views.KehuCustomerProfilesItem(options)

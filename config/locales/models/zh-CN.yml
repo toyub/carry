@@ -5,6 +5,9 @@ zh-CN:
     attributes:
       store_service_store_material:
         store_material_id: id
+      store_tracking:
+        title: 标题
+        content: 内容
     errors:
       models:
         store_service_store_material:

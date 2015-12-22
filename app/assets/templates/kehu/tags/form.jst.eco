@@ -1,0 +1,17 @@
+<% customer = @customer %>
+<div class="overlay"></div>
+<div class="modalDialog" style="left: 710px; top: 434.5px;">
+  <a href="javascript:void(0)" class="close">x</a>
+	<h2>客户印象</h2>
+	<div class="impression_dialog">
+    <div class="new_label"><input type="text" name="name" class="input_box">
+      <button class="new_btn js-new-tag">新建</button>
+    </div>
+		<div class="links">
+
+		</div>
+		<div class="btn_group">
+		  <a class="btn save_btn js-save">保存</a>
+		</div>
+	</div>
+</div>

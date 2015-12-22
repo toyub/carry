@@ -5,6 +5,8 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_department
   belongs_to :store_position
   belongs_to :store_employee
+  has_many :creator_complaints, class_name: 'Complaint', as: :creator
+  has_many :complaints
   has_many :store_protocols, dependent: :destroy
   has_many :store_events, dependent: :destroy
   has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
@@ -25,6 +27,7 @@ class StoreStaff <  ActiveRecord::Base
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
   scope :by_level, ->(level_type_id){ where(level_type_id: level_type_id) if level_type_id.present?}
   scope :by_job_type, ->(job_type_id){ where(job_type_id: job_type_id) if job_type_id.present?}
+  scope :mis_login_enabled, ->{ where(mis_login_enabled: true).pluck(:full_name, :id) }
   scope :by_department_id, ->(store_department_id) { where(store_department_id: store_department_id) if store_department_id.present? }
   scope :by_position_id, ->(store_position_id) { where(store_position_id: store_position_id) if store_position_id.present? }
   scope :by_created_month_in_salary, ->(month) { joins(:store_salaries).where(store_salaries: {created_month: month} ) if month.present? }
