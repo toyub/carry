@@ -4,7 +4,6 @@ class StoreSalaryReview
     if @salary.try(:created_month) != Time.now.strftime("%Y%m") || @salary.try(:checked?)
       @salary = staff.store_salaries.build(default_salary_params(staff))
     end
-    return @salary
   end
 
   def salary
