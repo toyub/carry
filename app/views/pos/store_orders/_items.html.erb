@@ -1,133 +1,141 @@
-<div class="order_info">
-    <h2>商品明细</h2>
-    <table cellpadding="0" cellspacing="0" class="commodity_details">
-      <thead>
-        <tr>
-          <th>名称</th>
-          <th>规格</th>
-          <th>单位</th>
-          <th>数量</th>
-          <th>单价</th>
-          <th>属性</th>
-          <th>优惠</th>
-          <th>小计</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-id="list_content_01">
-          <td>米其林</td>
-          <td>195/65/15 XM2 91V</td>
-          <td>条</td>
-          <td><input type="text" value="1" class="width-40 text-align-center"></td>
-          <td>430.00</td>
-          <td>会员</td>
-          <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
-          <td>430.00
-            <span class="delete close" data-target="list_content_01">
-              <i class="lnr lnr-cross color-fff"></i>
-            </span>
-          </td>
-        </tr>
-        <tr data-id="list_content_02">
-          <td>摇头公仔</td>
-          <td>斯诺比</td>
-          <td>个</td>
-          <td><input type="text" value="1" class="width-40 text-align-center"></td>
-          <td>85.00</td>
-          <td>会员</td>
-          <td><input type="text" value="5.00" class="width-60 text-align-right"></td>
-          <td>80.00
-            <span class="delete close" data-target="list_content_02">
-              <i class="lnr lnr-cross color-fff"></i>
-            </span>
-          </td>
-        </tr>
-        <tr data-id="list_content_03">
-          <td>飞歌DVD...</td>
-          <td>本田雅阁专用</td>
-          <td>台</td>
-          <td><input type="text" value="1" class="width-40 text-align-center"></td>
-          <td>8,675.00</td>
-          <td>会员</td>
-          <td><input type="text" value="133.3" class="width-60 text-align-right"></td>
-          <td>8,541.70
-            <span class="delete close" data-target="list_content_03">
-              <i class="lnr lnr-cross color-fff"></i>
-            </span>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr class="text-align-right">
-          <td colspan="10">
-            <label class="margin-right-10">商品金额总计:</label><label>9051.70</label>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+<div class="vehicle_order">
+  <span class="vehicle_order_title title doslide">
+    业务信息
+    <i class="fa-angle-double-up fa cursor-pointer"></i>
+    <a href="javascript:void(0)" data-target="order_items" class="do_show">选择</a>
+  </span>
 
-    <h2>服务明细</h2>
-    <table cellpadding="0" cellspacing="0" class="service_details">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>项目</th>
-          <th>流程</th>
-          <th>属性</th>
-          <th>单价</th>
-          <th>优惠</th>
-          <th>小计</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-id="list_content_01">
-          <td class="number">1</td>
-          <td>精致洗车</td>
-          <td><span class="fa-check fa"></span></td>
-          <td>零售</td>
-          <td class="text-align-right">68.00</td>
-          <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
-          <td class="text-align-right">68.00
-            <span class="delete close" data-target="list_content_01">
-              <i class="lnr lnr-cross color-fff"></i>
-            </span>
-          </td>
-        </tr>
-        <tr data-id="list_content_02">
-          <td class="number">2</td>
-          <td>澜泰纳米镀晶</td>
-          <td><span >1/3</span></td>
-          <td>零售</td>
-          <td class="text-align-right">868.00</td>
-          <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
-          <td class="text-align-right">868.00
-            <span class="delete close" data-target="list_content_02">
-              <i class="lnr lnr-cross color-fff"></i>
-            </span>
-          </td>
-        </tr>
-        <tr data-id="list_content_03">
-          <td class="number">3</td>
-          <td>澜泰纳米镀晶</td>
-          <td><span >1/3</span></td>
-          <td>套餐</td>
-          <td class="text-align-right">868.00</td>
-          <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
-          <td class="text-align-right">868.00
-            <span class="delete close" data-target="list_content_03">
-              <i class="lnr lnr-cross color-fff"></i>
-            </span>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr class="text-align-right">
-          <td colspan="8">
-            <label class="margin-right-10">服务金额总计:</label><label>936.00</label>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+  <div class="order_info">
+      <h2>商品明细</h2>
+      <table cellpadding="0" cellspacing="0" class="commodity_details">
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>数量</th>
+            <th>单价</th>
+            <th>属性</th>
+            <th>优惠</th>
+            <th>小计</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-id="list_content_01">
+            <td>米其林</td>
+            <td>195/65/15 XM2 91V</td>
+            <td>条</td>
+            <td><input type="text" value="1" class="width-40 text-align-center"></td>
+            <td>430.00</td>
+            <td>会员</td>
+            <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
+            <td>430.00
+              <span class="delete close" data-target="list_content_01">
+                <i class="lnr lnr-cross color-fff"></i>
+              </span>
+            </td>
+          </tr>
+          <tr data-id="list_content_02">
+            <td>摇头公仔</td>
+            <td>斯诺比</td>
+            <td>个</td>
+            <td><input type="text" value="1" class="width-40 text-align-center"></td>
+            <td>85.00</td>
+            <td>会员</td>
+            <td><input type="text" value="5.00" class="width-60 text-align-right"></td>
+            <td>80.00
+              <span class="delete close" data-target="list_content_02">
+                <i class="lnr lnr-cross color-fff"></i>
+              </span>
+            </td>
+          </tr>
+          <tr data-id="list_content_03">
+            <td>飞歌DVD...</td>
+            <td>本田雅阁专用</td>
+            <td>台</td>
+            <td><input type="text" value="1" class="width-40 text-align-center"></td>
+            <td>8,675.00</td>
+            <td>会员</td>
+            <td><input type="text" value="133.3" class="width-60 text-align-right"></td>
+            <td>8,541.70
+              <span class="delete close" data-target="list_content_03">
+                <i class="lnr lnr-cross color-fff"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="text-align-right">
+            <td colspan="10">
+              <label class="margin-right-10">商品金额总计:</label><label>9051.70</label>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
 
-    <div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
+      <h2>服务明细</h2>
+      <table cellpadding="0" cellspacing="0" class="service_details">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>项目</th>
+            <th>流程</th>
+            <th>属性</th>
+            <th>单价</th>
+            <th>优惠</th>
+            <th>小计</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-id="list_content_01">
+            <td class="number">1</td>
+            <td>精致洗车</td>
+            <td><span class="fa-check fa"></span></td>
+            <td>零售</td>
+            <td class="text-align-right">68.00</td>
+            <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
+            <td class="text-align-right">68.00
+              <span class="delete close" data-target="list_content_01">
+                <i class="lnr lnr-cross color-fff"></i>
+              </span>
+            </td>
+          </tr>
+          <tr data-id="list_content_02">
+            <td class="number">2</td>
+            <td>澜泰纳米镀晶</td>
+            <td><span >1/3</span></td>
+            <td>零售</td>
+            <td class="text-align-right">868.00</td>
+            <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
+            <td class="text-align-right">868.00
+              <span class="delete close" data-target="list_content_02">
+                <i class="lnr lnr-cross color-fff"></i>
+              </span>
+            </td>
+          </tr>
+          <tr data-id="list_content_03">
+            <td class="number">3</td>
+            <td>澜泰纳米镀晶</td>
+            <td><span >1/3</span></td>
+            <td>套餐</td>
+            <td class="text-align-right">868.00</td>
+            <td><input type="text" value="0.00" class="width-60 text-align-right"></td>
+            <td class="text-align-right">868.00
+              <span class="delete close" data-target="list_content_03">
+                <i class="lnr lnr-cross color-fff"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="text-align-right">
+            <td colspan="8">
+              <label class="margin-right-10">服务金额总计:</label><label>936.00</label>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
+    </div>
   </div>

@@ -1,5 +1,5 @@
-  <div class="content pos-orders-index"  id="content">
-    <div class="main_top"><h2>业务开单</h2></div>
+<div class="content pos-orders-index"  id="content">
+  <div class="main_top"><h2>业务开单</h2></div>
   <div class="details">
     <div class="search_nav">
        <div class="item-query">
@@ -24,55 +24,26 @@
           <div class="vehicle_order_details">
             <%= render partial: 'vehicle' %>
             <%= render partial: 'vehicle_condition' %>
-
-              <div class="vehicle_order">
-                <span class="vehicle_order_title title doslide">
-                  业务信息
-                  <i class="fa-angle-double-up fa cursor-pointer"></i>
-                  <a href="javascript:void(0)" data-target="order_items" class="do_show">选择</a>
-                </span>
-                <%= render partial: 'items' %>
-              </div>
-
-              <%= render partial: 'shigong' %>
-              <%= render partial: 'others' %>
-            </div>
-            <div class="construction_status">
-              <div class="btn_group">
-                <a class="end_construction_btn">保存草稿</a>
-                <a class="go_payment_btn">生成订单</a>
-              </div>
+            <%= render partial: 'items' %>
+            <%= render partial: 'shigong' %>
+            <%= render partial: 'others' %>
+          </div>
+          <div class="construction_status">
+            <div class="btn_group">
+              <a class="end_construction_btn">保存草稿</a>
+              <a class="go_payment_btn">生成订单</a>
             </div>
           </div>
         </div>
-
-         <div class="right_information">
-             <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
-            <%= render partial: 'construction' %>
-            <div class="improve_crm_wrap float-left"></div>
-            <%= render partial: 'vehicle_more' %>
-         </div>
       </div>
 
+      <div class="right_information">
+         <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
+        <%= render partial: 'construction' %>
+        <div class="improve_crm_wrap float-left"></div>
+        <%= render partial: 'vehicle_more' %>
+      </div>
     </div>
 
+  </div>
 </div>
-
-
-   <template id="add_product">
-      <tr>
-        <td class="number">1</td>
-        <td><input type="text" class="width-150"></td>
-        <td><input type="text" class="width-140"></td>
-        <td><input type="text" class="width-35"></td>
-        <td>
-          <select>
-            <option>汽车配件</option>
-            <option></option>
-          </select>
-        </td>
-        <td><input type="text" class="width-35"></td>
-        <td><input type="text" class="width-50"></td>
-        <td><input type="text" class="width-50"></td>
-      </tr>
-  </template>
