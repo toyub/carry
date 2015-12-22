@@ -29,7 +29,7 @@ module Api
     def order_worker(order)
       p order.revenue_ables
       p order.deposits_cards
-      p order.taozhuang
+      p order.taozhuangs
     end
 
     def create_credit(order)
