@@ -7,6 +7,8 @@ class StoreOrder < ActiveRecord::Base
 
   has_many :items, class_name: "StoreOrderItem"
 
+  has_many :store_payments
+
   enum state: %i[pending queueing processing paying paid finished]
 
   before_create :set_numero

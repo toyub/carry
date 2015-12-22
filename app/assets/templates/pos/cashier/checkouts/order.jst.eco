@@ -11,15 +11,15 @@
               <dl>
                 <dd>
                   <label class="width-50" >车牌号</label>
-                  <input type="text" value="<%= @store_vehicle.plate_number %>" class="width-110" readonly>
+                  <input type="text" value="<%= @store_vehicle.license_number %>" class="width-110" readonly>
                 </dd>
                 <dd>
                   <label class="width-50" >客户姓名</label>
-                  <input type="text" value="<%= @customer.screen_name %>" class="width-110" readonly>
+                  <input type="text" value="<%= @store_customer.full_name %>" class="width-110" readonly>
                 </dd>
                 <dd>
                   <label class="width-50" >手机号</label>
-                  <input type="text" value="<%= @customer.phone_number %>" class="width-110" readonly>
+                  <input type="text" value="<%= @store_customer.phone_number %>" class="width-110" readonly>
                 </dd>
               </dl>
             </div>
@@ -30,21 +30,21 @@
                 <dl>
                   <dd>
                     <label class="width-80" >储值余额:</label>
-                    <span><%= @customer.balance %></span>
+                    <span><%= @store_customer.balance %></span>
                   </dd>
                 </dl>
 
                 <dl>
                   <dd>
                     <label class="width-80" >挂账额度:</label>
-                    <span><%= @customer.credit_limit %></span>
+                    <span><%= @store_customer.credit_limit %></span>
                   </dd>
                 </dl>
 
                 <dl>
                   <dd>
                     <label class="width-80" >可用积分:</label>
-                    <span><%= @customer.points %></span>
+                    <span><%= @store_customer.points %></span>
                   </dd>
                 </dl>
               </div>
