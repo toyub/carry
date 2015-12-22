@@ -37,7 +37,6 @@
 //= require dialogs/form
 //= require jquery_ext/jquery.datetimepicker
 
-
 function ZhanchuangAlert(msg) {
   $.alert({text: msg})
 }

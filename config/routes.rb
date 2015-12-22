@@ -208,7 +208,9 @@ Rails.application.routes.draw do
       resources :store_service_trackings, only: [:create, :update, :destroy]
     end
     resources :store_vehicles, only: [:index]
-    resources :store_orders, only: [:index]
+    resources :store_orders, only: [:index] do
+      resources :complaints, only:[:new, :create]
+    end
     resources :store_subscribe_orders
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do
@@ -218,7 +220,14 @@ Rails.application.routes.draw do
       resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
-    resources :store_customers, only: [:index, :create, :update, :show]
+    resources :store_customer_entities, only: [:index, :create, :update, :show] do
+      collection do
+        get :cities
+        get :regions
+      end
+    end
+
+    resources :tags, only: [:create]
 
     resource :qiniu do
       collection do
@@ -245,6 +254,18 @@ Rails.application.routes.draw do
           get :return_url
         end
       end
+    end
+  end
+
+  namespace :crm do
+    resources :store_customers do
+      resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update]
+      resources :store_vehicle_status, only: [:show]
+      resources :store_vehicle_service_records, only: [:show]
+      resources :expense_records, only: [:index]
+      resources :pre_orders, only: [:index]
+      resources :complaints, only: [:index, :edit, :update]
+      resources :store_trackings, only: [:index, :create]
     end
   end
 
