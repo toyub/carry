@@ -45,7 +45,7 @@
             <tr class="attendence-sort text-indent-10">
               <th rowspan="2">考勤科目</th>
               <td colspan="5">
-                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreAttendence), "name", "name" do |b| %>
+                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreAttendence), "id", "name" do |b| %>
                   <%= b.label { raw(b.text + b.radio_button) } %>
                 <% end %>
               </td>
@@ -69,7 +69,7 @@
             <tr class="reward-sort">
               <th>性质</th>
               <td colspan="5" class="text-indent-20">
-                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreReward), "name", "name" do |b| %>
+                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreReward), "id", "name" do |b| %>
                   <%= b.label { raw(b.text + b.radio_button) } %>
                 <% end %>
               </td>
@@ -84,7 +84,7 @@
             <tr class="penalty-sort">
               <th>性质</th>
               <td colspan="5" class="text-indent-20">
-                <%= form.collection_radio_buttons :sort, EventType.collection(:StorePenalty), "name", "name" do |b| %>
+                <%= form.collection_radio_buttons :sort, EventType.collection(:StorePenalty), "id", "name" do |b| %>
                   <%= b.label { raw(b.text + b.radio_button) } %>
                 <% end %>
               </td>
@@ -93,7 +93,7 @@
             <tr class="overtime-sort text-indent-10">
               <th rowspan="2">加班事项</th>
               <td colspan="5">
-                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreOvertime), "name", "name" do |b| %>
+                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreOvertime), "id", "name" do |b| %>
                   <%= b.label { raw(b.text + b.radio_button) } %>
                 <% end %>
               </td>
