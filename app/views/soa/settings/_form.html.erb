@@ -17,7 +17,7 @@
 
           <li>
             <%= form.label :trial_period, "试用周期" %>
-            <%= form.number_field :trial_period, required: true, min: 1, class: "width-100" %>
+            <%= form.number_field :trial_period, class: "width-100", disabled: true %>
             <span class="width-56"> 月 </span>
           </li>
 
@@ -231,21 +231,31 @@
       }
     })
 
-    var period_value = $("#store_staff_trial_salary").val()
-    if (!period_value) {
-        $(".transfer_btn").attr("disabled", "disabled");
-    }
-    $("#store_staff_trial_salary").on("input", function(){
-      period_value = $(this).val();
-      if (period_value) {
-        $(".transfer_btn").removeAttr("disabled");
-      } else {
-        $(".transfer_btn").attr("disabled", "disabled");
-      }
+    // var period_value = $("#store_staff_trial_salary").val()
+    // if (!period_value) {
+    //     $(".transfer_btn").attr("disabled", "disabled");
+    // }
+    // $("#store_staff_trial_salary").on("input", function(){
+    //   period_value = $(this).val();
+    //   if (period_value) {
+    //     $(".transfer_btn").removeAttr("disabled");
+    //   } else {
+    //     $(".transfer_btn").attr("disabled", "disabled");
+    //   }
+    // })
+
+    var trial_salary = $("#store_staff_trial_salary"),
+        value = trial_salary.val(),
+        period = $("#store_staff_trial_period");
+
+    trial_salary.on("keyup", function(){
+      console.log($(this).val());
+       value ? period.removeAttr("disabled") : period.attr("disabled", "disabled");
     })
 
-    if ($("#store_staff_trial_salary").val()) {
-      $("#store_staff_trial_salary").attr("disabled", "disabled")
+    if (value) {
+      trial_salary.attr("disabled", "disabled")
+      $(".transfer_btn").attr("disabled", "disabled");
     }
 
     set_staff_passowrd();

@@ -67,12 +67,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def regular?
-    protocol = store_protocols.operate_type("StoreZhuanZheng").last
-    if protocol.present?
-      Date.today > protocol.effected_on
-    else
-      Date.today > self.trial_period.months.since(self.created_at)
-    end
+    regular
   end
 
   def working_age
