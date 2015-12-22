@@ -6,8 +6,12 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_position
   belongs_to :store_employee
   has_many :store_protocols, dependent: :destroy
-  has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
   has_many :store_events, dependent: :destroy
+  has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
+  has_many :store_attendence, class_name: "StoreAttendence", dependent: :destroy
+  has_many :store_rewords, class_name: "StoreReward", dependent: :destroy
+  has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
+  has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy
 
   validates_presence_of :phone_number
@@ -113,7 +117,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def cutfee
     bonus || {}
-    bonus["gerendanbao"].to_f + store_events.total_pay_of_type_per_month("StoreAttendence").to_f + store_events.total_pay_of_type_per_month("StorePenalty").to_f
+    bonus["gerendanbao"].to_f + store_attendence.total + store_penalties.total
   end
 
   def should_pay
@@ -123,12 +127,6 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def total_actual_salary
-  end
-
-  def get_this_month_salary
-    salary = store_salaries.without_confirm_salary_of_this_month.first
-    salary = store_salaries.build(set_default_salary_params) if salary.nil?
-    salary
   end
 
   def salary_of_month(month = Time.now.beginning_of_month.strftime("%Y%m") )
@@ -182,27 +180,5 @@ class StoreStaff <  ActiveRecord::Base
       self.password = self.password_confirmation = rand
       encrypt_password
     end
-  end
-
-  def set_default_salary_params
-    {
-      amount_deduction: 5,
-      deduction: {},
-      amount_overtime: self.store_events.total_pay_of_type_per_month('StoreOvertime'),
-      amount_reward: self.store_events.total_pay_of_type_per_month('StoreReward'),
-      bonus: {gangwei: bonus["gangwei"], zhusu: bonus["zhusu"], canfei: bonus["canfei"], laobao: bonus["laobao"], gaowen: bonus["gaowen"] },
-      amount_bonus: self.bonus_amount,
-      insurence: {yibaofei: bonus["yibaofei"], baoxianjing: bonus["baoxianjing"]},
-      amount_insurence: self.insurence_amount,
-      cutfee: {weiji: store_events.total_pay_of_type_per_month("StorePenalty"),
-               kaoqin: store_events.total_pay_of_type_per_month("StoreAttendence"),
-               jiedai: "",
-               qita: "",
-               gerendanbao: bonus["gerendanbao"] },
-      amount_should_cutfee: cutfee,
-      amount_cutfee: cutfee,
-      salary_should_pay: should_pay,
-      salary_actual_pay: should_pay - cutfee
-    }
   end
 end
