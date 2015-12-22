@@ -17,12 +17,14 @@
       <div class="billing_order float-left">
         <div class="order_details">
           <div class="dialog_nav">
-            <span class="dialog_title ">单号:20141105001</span>
+            <% if @order.numero.present? %>
+            <span class="dialog_title ">单号:<%= @order.numero %></span>
+            <% end %>
           </div>
           <div class="vehicle_order_details">
             <%= render partial: 'vehicle' %>
             <%= render partial: 'vehicle_condition' %>
-    
+
               <div class="vehicle_order">
                 <span class="vehicle_order_title title doslide">
                   业务信息
@@ -31,7 +33,7 @@
                 </span>
                 <%= render partial: 'items' %>
               </div>
-    
+
               <%= render partial: 'shigong' %>
               <%= render partial: 'others' %>
             </div>
@@ -48,10 +50,10 @@
              <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
             <%= render partial: 'construction' %>
             <div class="improve_crm_wrap float-left"></div>
-            <%= render partial: 'vehicle_more' %>   
+            <%= render partial: 'vehicle_more' %>
          </div>
       </div>
-    
+
     </div>
 
 </div>

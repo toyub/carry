@@ -11,7 +11,7 @@
               <dl>
                 <dd>
                   <label class="width-50" >车牌号</label>
-                  <input type="text" value="<%= @customer.vehicle.plate_number %>" class="width-110" readonly>
+                  <input type="text" value="<%= @store_vehicle.plate_number %>" class="width-110" readonly>
                 </dd>
                 <dd>
                   <label class="width-50" >客户姓名</label>
