@@ -1,7 +1,7 @@
 <div class="details_nav">
   <ul>
     <li class='<%= "active" if params[:controller] == "xiaoshou" %>'>
-      <a href="/xiaoshou/main/#store_customers/<%= @customer.id %>" class="width-90">信息</a>
+      <a href="/xiaoshou/main#store_customers/<%= @customer.store_customer_entity_id %>" class="width-90">信息</a>
     </li>
     <li><a href="#" class="width-90">资产账户</a></li>
     <li class='<%= "active" if params[:controller] == "crm/store_vehicle_archives" %>'>
