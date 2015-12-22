@@ -25,6 +25,14 @@ class StoreOrder < ActiveRecord::Base
     items.collect { |oi| oi.quantity * oi.price }.sum
   end
 
+  def revenue_amount
+    self.items.revenue_ables.collect { |oi| oi.quantity * oi.price }.sum
+  end
+
+  def deposits_cards
+    self.items.packages.map{|item| item.orderable.store_package_items.deposits_cards.to_a}.flatten
+  end
+
   private
 
     def set_numero

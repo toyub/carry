@@ -11,6 +11,7 @@ class StoreOrderItem < ActiveRecord::Base
   scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
   scope :packages, -> { where(orderable_type: "StorePackage") }
   scope :services, -> { where(orderable_type: "StoreService") }
+  scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
 
   private
 

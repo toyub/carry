@@ -5,7 +5,8 @@ module Api
       order = StoreOrder.find(params[:order_id])
       customer = order.store_customer
       if params[:payments].present?
-        save_payments(payment_params[:payments], order,customer)        
+        save_payments(payment_params[:payments], order,customer)
+
         render json: {checked:true, msg: 'Checked!'}
       else
         render json: {checked:true, msg: 'Payments required!'}
@@ -20,7 +21,7 @@ module Api
       payments.each do |payment|
         payment.store_customer = customer
       end
-      payment
+      payments
     end
 
     def order_worker(order)
@@ -28,11 +29,10 @@ module Api
     end
 
     def create_credit(order)
-      StoreCustomerCredit(store_id: integer,
-                          store_chain_id: integer,
-                          store_customer_id: integer,
-                          store_order_id: integer,
-                          subject: string,
+      StoreCustomerCredit(store_id: order.store_id,
+                          store_chain_id: order.store_chain_id,
+                          store_customer_id: order.store_customer_id,
+                          store_order_id: order.id,
                           amount: decimal,
                           created_at: datetime,
                           updated_at: datetime)
