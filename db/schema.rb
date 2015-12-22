@@ -1011,6 +1011,8 @@ ActiveRecord::Schema.define(version: 20151221084942) do
     t.integer  "store_staff_id",                                                       null: false
     t.integer  "store_order_id"
     t.integer  "store_customer_id"
+    t.decimal  "discount"
+    t.string   "discount_reason"
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
@@ -1018,14 +1020,16 @@ ActiveRecord::Schema.define(version: 20151221084942) do
   create_table "store_orders", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                                             null: false
-    t.integer  "store_chain_id",                                                       null: false
-    t.integer  "store_staff_id",                                                       null: false
+    t.integer  "store_id",                                                               null: false
+    t.integer  "store_chain_id",                                                         null: false
+    t.integer  "store_staff_id",                                                         null: false
     t.decimal  "amount",                        precision: 12, scale: 4, default: 0.0
     t.string   "remark",            limit: 255
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
+    t.string   "numero"
+    t.boolean  "hanging",                                                default: false
   end
 
   create_table "store_package_items", force: :cascade do |t|

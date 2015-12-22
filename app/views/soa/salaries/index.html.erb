@@ -4,22 +4,12 @@
 </div>
 
 <div class="details">
-
   <div class="list_table salary_list_table">
-
     <%= render "/soa/salaries/search_keyword" %>
-
-    <% if !@staffs.empty? %>
-      <%= render "/soa/salaries/lists_salaries" %>
-    <% else %>
-      <h1>未查到相关数据，请从新查询!</h1>
-    <% end %>
-
+    <%= render "/soa/salaries/lists_salaries" %>
   </div>
-
   <div class="check-account-area">
   </div>
-
 </div>
 
 <script type="text/javascript" charset="utf-8">
