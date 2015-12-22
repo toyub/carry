@@ -39,6 +39,10 @@ module Mis
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += %W(#{config.root}/lib)
 
+    # 使用redis作为默认缓存
+    redis_conf = YAML.load_file(Rails.root.join('config', 'redis.yml'))[Rails.env]
+    config.cache_store = :redis_store, "redis://#{redis_conf['host']}:#{redis_conf['port']}/0/#{Rails.env}_cache"
+
     # 替换默认解析器 jbuilder activesupport底层都使用multi_json
     MultiJson.use :yajl
   end

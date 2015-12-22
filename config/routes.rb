@@ -194,6 +194,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # 总部平台api调用
+  namespace :erp do
+    resources :customers, only: [:index]
+  end
+
   namespace :api do
     resources :store_staff, only: [:index, :update]
     resources :store_service_categories, only: [:create]

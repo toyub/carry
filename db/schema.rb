@@ -1158,7 +1158,7 @@ ActiveRecord::Schema.define(version: 20151221062031) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing"
+    t.integer  "trigger_timing",   default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
