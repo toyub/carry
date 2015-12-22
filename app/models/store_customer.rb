@@ -2,6 +2,7 @@ class StoreCustomer < ActiveRecord::Base
   include BaseModel
 
   belongs_to :store_customer_entity
+  belongs_to :store_staff
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
   has_many :orders, class_name: "StoreOrder"
 
@@ -31,6 +32,26 @@ class StoreCustomer < ActiveRecord::Base
 
   def operator
     self.creator.screen_name
+  end
+
+  def vehicle_count
+    self.store_vehicles.count
+  end
+
+  def store_name
+    self.store.name
+  end
+
+  def store_staff_name
+    self.store_staff.full_name
+  end
+
+  def property_name
+    self.store_customer_entity.property
+  end
+
+  def category_name
+    self.store_customer_entity.store_customer_category.try(:name)
   end
 
   private

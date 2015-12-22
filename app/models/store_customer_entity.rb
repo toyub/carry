@@ -3,6 +3,7 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   has_one :store_customer
   has_one :store_customer_settlement
+  belongs_to :store_customer_category
 
   accepts_nested_attributes_for :store_customer
   accepts_nested_attributes_for :store_customer_settlement
