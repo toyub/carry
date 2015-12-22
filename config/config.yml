@@ -10,3 +10,7 @@ test:
 
 production:
   <<: *defaults
+
+staging:
+  <<: *defaults
+  auth_host: "http://staging.open.icar99.com"
