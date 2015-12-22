@@ -195,12 +195,12 @@ ActiveRecord::Schema.define(version: 20151222060655) do
     t.string   "phone_number"
     t.string   "customer_name"
     t.integer  "customer_id"
-    t.string   "switch_type"
-    t.integer  "switch_type_index"
+    t.string   "first_category"
+    t.integer  "second_category"
     t.text     "content"
-    t.integer  "quantity",          default: 1
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "quantity",        default: 1
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
@@ -1094,6 +1094,7 @@ ActiveRecord::Schema.define(version: 20151222060655) do
     t.boolean  "hanging",                                                                  default: false
     t.string   "numero"
     t.integer  "store_vehicle_registration_plate_id"
+    t.boolean  "hanging",                                                default: false
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1140,7 +1141,7 @@ ActiveRecord::Schema.define(version: 20151222060655) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing"
+    t.integer  "trigger_timing",   default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1437,14 +1438,14 @@ ActiveRecord::Schema.define(version: 20151222060655) do
   create_table "store_staff", force: :cascade do |t|
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.string   "login_name",              limit: 45,                                                   null: false
-    t.string   "gender",                  limit: 6,                           default: "male",         null: false
-    t.string   "first_name",              limit: 45
-    t.string   "last_name",               limit: 45
-    t.string   "name_display_type",       limit: 13,                          default: "lastname_pre", null: false
-    t.text     "encrypted_password",                                                                   null: false
-    t.text     "salt",                                                                                 null: false
-    t.integer  "work_status",                                                 default: 0,              null: false
+    t.string   "login_name",          limit: 45,                          null: false
+    t.string   "gender",              limit: 6,  default: "male",         null: false
+    t.string   "first_name",          limit: 45
+    t.string   "last_name",           limit: 45
+    t.string   "name_display_type",   limit: 13, default: "lastname_pre", null: false
+    t.text     "encrypted_password",                                      null: false
+    t.text     "salt",                                                    null: false
+    t.integer  "work_status",                    default: 0,              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "job_type_id"
@@ -1690,7 +1691,7 @@ ActiveRecord::Schema.define(version: 20151222060655) do
 
   create_table "vehicle_series", force: :cascade do |t|
     t.string   "name"
-    t.integer  "vehicle_brand_id"
+    t.integer  "vehicle_brand_id",              comment: "所属品牌"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

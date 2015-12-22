@@ -1,5 +1,6 @@
 defaults: &defaults
   app_name: "MIS"
+  auth_host: "http://localhost:3002"
 
 development:
   <<: *defaults
@@ -7,8 +8,9 @@ development:
 test:
   <<: *defaults
 
-staging:
-  <<: *defaults
-
 production:
   <<: *defaults
+
+staging:
+  <<: *defaults
+  auth_host: "http://staging.open.icar99.com"

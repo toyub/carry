@@ -18,3 +18,9 @@ class Mis.Views.XiaoshouPackageProfilesIndex extends Mis.Base.View
 
   resourceName: ->
     '套餐'
+
+  searchFormAction: (resource) ->
+    new Mis.Views.XiaoshouPackageProfilesSearchForm(resource)
+
+  resourceItem: (options) ->
+    new Mis.Views.XiaoshouPackageProfilesItem(options)

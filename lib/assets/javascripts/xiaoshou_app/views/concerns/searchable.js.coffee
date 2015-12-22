@@ -16,8 +16,7 @@ Mis.Views.Concerns.Searchable =
     "Mis.Views.#{@constructor.name.replace('Index', '')}"
 
   renderSearchForm: ->
-    action = eval("#{@controllerName()}SearchForm")
-    search = new action(@resourceSearch)
+    search = @searchFormAction(@resourceSearch)
     @prependChildTo(search, @$(".details .list_table"))
 
   renderResources: ->
@@ -30,8 +29,7 @@ Mis.Views.Concerns.Searchable =
       @$("tbody").addClass("no_search_result").html none.el
 
   renderResource: (r) ->
-    action = eval("#{@controllerName()}Item")
-    row = new action(model: r)
+    row = @resourceItem(model: r)
     @appendChildTo(row, @$("tbody"))
 
   columns: ->

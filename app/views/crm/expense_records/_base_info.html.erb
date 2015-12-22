@@ -1,0 +1,68 @@
+<div class="base_info">
+  <div class="car_list">
+    <dl>
+      <dt>#</dt>
+      <dt>时间</dt>
+      <dt>业务单号</dt>
+      <dt>开单</dt>
+      <dt>施工</dt>
+      <dt>项目&amp;产品</dt>
+      <dt>单价</dt>
+      <dt>数量</dt>
+      <dt>优惠</dt>
+      <dt>小计</dt>
+      <dt>操作</dt>
+    </dl>
+    <div class="car_sercice_record">
+      <% @orders.each_with_index do |order,i|  %>
+      <div class="item_car_service_record_wrapper">
+        <div class="items_car_service_records">
+          <table class="item_car_service_record ">
+            <tbody>
+              <tr>
+                <td> <%= i+1 %> </td>
+                <td> <%= order.created_at.strftime("%Y-%m-%d") %> </td>
+                <td> <%= order.numero %> </td>
+                <td> <%= order.creator.full_name %> </td>
+                <td>
+                  <table cellpadding="0" cellspacing="0" class="item_construction">
+                    <tbody>
+                      <% order.items.each do |item|  %>
+                      <tr>
+                        <td><label> <%= item.creator.full_name %> </label></td>
+                        <td> <%= item.orderable.name %> </td>
+                        <td> <%= item.price %> </td>
+                        <td> <%= item.quantity %> </td>
+                        <td>0</td>
+                        <td> <%= item.amount %> </td>
+                      </tr>
+                      <% end %>
+
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <label class="width-50">合计:</label>
+                  <label class="width-100"> <%= order.amount_total %> </label>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <dl class="get_order text-align-center ">
+          <dd><a href="#" target="_blank" class="order_btn">查看单据</a></dd>
+          <dd> <%= link_to '投诉', 'javascript:void(0)', class: 'complaints_btn btn do_complaints',id: 'tousu',
+          data: { order: order.id, customer: @customer.id } %> </dd>
+        </dl>
+      </div>
+
+      <% end %>
+
+    </div>
+  </div>
+
+</div>

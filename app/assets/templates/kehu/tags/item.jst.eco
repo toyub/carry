@@ -1,0 +1,3 @@
+<% tag = @tag %>
+<input type="checkbox" class="js-tag" <%= 'checked' if @customer.tags.find((c) -> c.id == tag.id) %>>
+<span><%= tag.get 'name' %></span>

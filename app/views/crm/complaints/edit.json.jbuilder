@@ -1,0 +1,16 @@
+json.(@complaint,
+  :license_number,
+  :created_at_format,
+  :numero,
+  :content,
+  :inquire,
+  :categoried,
+  :way,
+  :saler,
+  :mechanic,
+  :mechanics,
+  :responses,
+  :satisfaction,
+  :customer,
+  :response_principal
+)
