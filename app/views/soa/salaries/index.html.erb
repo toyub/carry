@@ -14,10 +14,20 @@
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
-    $(".list_wrap .salary_list").on("click", "tr", function(){
-      var staffId = $(this).data("id");
-      $.get("/soa/salaries/" + staffId + "/confirm", function(data) {
+    var list_salaries = $(".list_wrap .salary_list");
+
+    var check_salary = function() {
+      list_salaries.on("click", "tr", function(){
+        var staffId = $(this).data("id");
+        $.get("/soa/salaries/" + staffId + "/confirm", function(data) {
+        })
       })
-    })
+    }
+    var when_click_check = function(){
+      $(".checkout").on("click", function(){
+        check_salary();
+      })
+    }
+    when_click_check();
   })
 </script>

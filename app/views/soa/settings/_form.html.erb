@@ -205,7 +205,7 @@
       $(this).next().text(value)
     })
 
-    var input_area = $(".security-area li input[type='text']");
+    var input_area = $(".security-area li input[type=number]");
     if ( <%= @staff.bonus.try(:[], "insurence_enabled").nil? || @staff.bonus.try(:[], 'insurence_enabled') == "0" %> )
       input_area.attr("disabled", "disabled")
 
