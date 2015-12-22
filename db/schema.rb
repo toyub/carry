@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20151221025923) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
+    t.decimal  "amount",         precision: 8, scale: 2, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20151221025923) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
+    t.decimal  "amount",     precision: 10, scale: 2
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1287,14 +1287,14 @@ ActiveRecord::Schema.define(version: 20151221025923) do
   create_table "store_staff", force: :cascade do |t|
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.string   "login_name",              limit: 45,                                                   null: false
-    t.string   "gender",                  limit: 6,                           default: "male",         null: false
-    t.string   "first_name",              limit: 45
-    t.string   "last_name",               limit: 45
-    t.string   "name_display_type",       limit: 13,                          default: "lastname_pre", null: false
-    t.text     "encrypted_password",                                                                   null: false
-    t.text     "salt",                                                                                 null: false
-    t.integer  "work_status",                                                 default: 0,              null: false
+    t.string   "login_name",          limit: 45,                          null: false
+    t.string   "gender",              limit: 6,  default: "male",         null: false
+    t.string   "first_name",          limit: 45
+    t.string   "last_name",           limit: 45
+    t.string   "name_display_type",   limit: 13, default: "lastname_pre", null: false
+    t.text     "encrypted_password",                                      null: false
+    t.text     "salt",                                                    null: false
+    t.integer  "work_status",                    default: 0,              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "job_type_id"
@@ -1308,20 +1308,10 @@ ActiveRecord::Schema.define(version: 20151221025923) do
     t.integer  "store_employee_id"
     t.string   "full_name"
     t.string   "phone_number"
-    t.boolean  "mis_login_enabled",                                           default: false
-    t.boolean  "app_login_enabled",                                           default: false
-    t.boolean  "erp_login_enabled",                                           default: false
-    t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period",                                                default: 1
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
-    t.boolean  "deduct_enabled",                                              default: false
-    t.integer  "deadline_days"
-    t.boolean  "contract_notice_enabled",                                     default: false
+    t.boolean  "mis_login_enabled",              default: false
+    t.boolean  "app_login_enabled",              default: false
+    t.boolean  "erp_login_enabled",              default: false
+    t.integer  "roles",                                                                array: true
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
