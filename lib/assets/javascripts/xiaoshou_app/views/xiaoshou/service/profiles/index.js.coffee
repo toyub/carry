@@ -24,3 +24,12 @@ class Mis.Views.XiaoshouServiceProfilesIndex extends Mis.Base.View
 
   resourceItem: (options) ->
     new Mis.Views.XiaoshouServiceProfilesItem(options)
+
+  rootResource: ->
+    "service"
+
+  subResource: ->
+    "profiles"
+
+  action: ->
+    "index"

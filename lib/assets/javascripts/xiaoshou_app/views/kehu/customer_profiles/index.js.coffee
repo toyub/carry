@@ -24,3 +24,12 @@ class Mis.Views.KehuCustomerProfilesIndex extends Mis.Base.View
 
   resourceItem: (options) ->
     new Mis.Views.KehuCustomerProfilesItem(options)
+
+  rootResource: ->
+    "customer"
+
+  subResource: ->
+    "profiles"
+
+  action: ->
+    "index"
