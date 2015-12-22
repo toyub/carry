@@ -1,0 +1,30 @@
+<%= form_tag("/soa/staff/#{@staff.id}/setting/adjust", method: "patch", remote: true) do -%>
+  <div class="salary_adjusting_wrap">
+    <div class="salary_adjusting_window">
+      <h3> 调薪单-- <span class="width-132"><%= @staff.regular? ? "转正" : "试用" %></span> </h3>
+      <div class="content">
+        <table>
+          <tbody>
+            <%= render "/soa/settings/second_form_head_info"%>
+            <tr>
+              <td>原薪资</td>
+              <td><span class="width-132 show_content"><%= @staff.current_salary %></span></td>
+              <td>新薪资</td>
+              <td colspan="5"><%= number_field_tag :reset_salary, params[:reset_salary], required: true, min: 1, class: "adjusted_salary" %></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <%= fields_for :protocols do |protocol_fields| %>
+          <%= render "second_protocol_form", form: protocol_fields, type: "StoreTiaoXin" %>
+        <% end %>
+
+        <div class="btn_groups">
+          <%= link_to "取消", "#", class: "btn cancel_btn", data: {from: "salary_adjusting_wrap"} %>
+          <%= submit_tag "保存", class: "btn save_btn margin-right-20" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>

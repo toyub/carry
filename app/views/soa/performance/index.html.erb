@@ -1,0 +1,74 @@
+<div class="main_top">
+  <h2>绩效提成</h2>
+</div>
+
+<div class="details">
+
+  <div class="list_table">
+
+    <%= render "/soa/performance/search" %>
+
+    <table class="commission_list">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>姓名</th>
+          <th>员工编号</th>
+          <th>部门</th>
+          <th>职务</th>
+          <th>订单数量</th>
+          <th>商品数量</th>
+          <th>商品金额</th>
+          <th>项目数量</th>
+          <th>项目金额</th>
+          <th>成交金额</th>
+          <th>提成金额</th>
+          <th>查看</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @staffs.each do |staff| %>
+        <tr>
+          <td class="sequence_num"><%= staff.id %></td>
+          <td><%= staff.screen_name %></td>
+          <td><%= staff.numero %></td>
+          <td><%= staff.store_department.try(:name) %></td>
+          <td><%= staff.store_position.try(:name) %></td>
+          <td>3,500</td>
+          <td>1,300</td>
+          <td>0.00</td>
+          <td>150.00</td>
+          <td>220.00</td>
+          <td>0.00</td>
+          <td>180.00</td>
+          <td><a href="/soa/performance/<%= staff.id %>"><i class="ico ico-edit font-14"></i></a></td>
+        </tr>
+      <% end %>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="13" class="text-align-right">
+            <span class="width-80">成交总金额：</span> <span class="width-110">123.366.00</span>
+            <span class="width-80">提成总金额：</span> <span class="width-110">2,765.00</span>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(function($){
+    $('.department').on('change', '[name="store_department_id"]', function(){
+      $.get('/api/store_departments/'+this.value+'/store_positions.json', function(positions){
+        var options = positions.map(function(position){
+          return '<option value="'+ position.id +'">'+ position.name +'</option>'
+        });
+        $('[name="store_position_id"]').html(options.join(''));
+      });
+    })
+  });
+</script>

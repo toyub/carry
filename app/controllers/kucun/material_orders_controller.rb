@@ -1,4 +1,4 @@
-class Kucun::MaterialOrdersController < Kucun::ControllerBase
+class Kucun::MaterialOrdersController < Kucun::BaseController
 
   def index
     @store = current_user.store

@@ -1,0 +1,185 @@
+<div class="details">
+  <div class="main_top">
+    <h2>员工详情</h2>
+    <%= render '/soa/shared/return' %>
+  </div>
+  <%= render "/soa/shared/top_info" %>
+
+  <%= form_for @staff, url: edit_soa_setting_path, method: :get, html: {id: 'staff_form'} do |form| %>
+
+    <div class="details_content staff_setting">
+
+      <div class="wrap">
+
+        <div class="salary">
+          <span class="width-60">薪资设置</span>
+
+          <ul>
+            <li>
+              <%= form.label :trial_salary, "试用底薪" %>
+              <%= form.text_field :trial_salary %>
+            </li>
+
+            <li>
+              <%= form.label :trial_period, "试用周期" %>
+              <%= form.text_field :trial_period, class: "width-100" %>
+              <span class="width-56"> 月 </span>
+            </li>
+
+            <li class="text-align-right">
+              <input type="button" value="转正" class="transfer_btn">
+            </li>
+
+            <li>
+              <%= form.label :regular_salary, "正式底薪" %>
+              <%= form.text_field :regular_salary%>
+            </li>
+
+            <li class="text-align-right">
+              <input type="button" value="调薪" class="adjust_salary_btn">
+            </li>
+          </ul>
+        </div>
+
+        <div class="allowance">
+
+          <span class="width-60">福利补贴</span>
+
+          <ul>
+            <%= form.fields_for :bonus do |bonus_fields| -%>
+              <li>
+                <%= bonus_fields.label :gangwei, "岗位补贴" %>
+                <%= bonus_fields.text_field :gangwei, value: @staff.bonus.try(:[], "gangwei") %>
+              </li>
+              <li>
+                <%= bonus_fields.label :zhusu, "住宿补贴" %>
+                <%= bonus_fields.text_field :zhusu, value: @staff.bonus.try(:[], "zhusu") %>
+              </li>
+              <li>
+                <%= bonus_fields.label :canfei, "餐费补贴" %>
+                <%= bonus_fields.text_field :canfei, value: @staff.bonus.try(:[], "canfei") %>
+              </li>
+              <li>
+                <%= bonus_fields.label :laobao, "劳保补贴" %>
+                <%= bonus_fields.text_field :laobao, value: @staff.bonus.try(:[], "laobao") %>
+              </li>
+              <li>
+                <%= bonus_fields.label :gaowen, "高温补贴" %>
+                <%= bonus_fields.text_field :gaowen, value: @staff.bonus.try(:[], "gaowen") %>
+              </li>
+            <% end %>
+          </ul>
+
+        </div>
+
+        <div class="ticheng">
+          <span class="width-60">提成设置</span>
+          <%= form.label :deduct_enabled, "试用期结束有提成" %>
+          <%= form.check_box :deduct_enabled, checked: @staff.deduct_enabled, class: "vertical-align-middle margin-left-46" %>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <%= render "/soa/setting/contract_relationship", form: form %>
+        <div class="social_security">
+          <label for="security" class="width-60">保险金</label>
+
+          <ul>
+            <%= form.fields_for :bonus do |bonus_fields| %>
+              <li>
+                <%= bonus_fields.label :yibaofei, "医保费",  class: "width-84" %>
+                <%= bonus_fields.text_field :yibaofei, value: @staff.bonus.try(:[], "yibaofei") %>
+              </li>
+              <li>
+                <%= bonus_fields.label :baoxianjing, "保险金" %>
+                <%= bonus_fields.text_field :baoxianjing, value: @staff.bonus.try(:[], "baoxianjing") %>
+              </li>
+              <li>
+                <%= bonus_fields.label :gerendanbao, "个人承担" %>
+                <%= bonus_fields.text_field :gerendanbao, value: @staff.bonus.try(:[], "gerendanbao") %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="wrap">
+        <div class="technique">
+          <span class='width-60'>专业技能</span>
+
+          <ul>
+            <%= form.fields_for :skills do |skills_fields| %>
+              <li>
+                <%= skills_fields.label :theory, "理论知识" %>
+                <%= skills_fields.range_field :theory, in: 1..100, value: @staff.skills.try(:[], "theory"), step: '.1' %>
+                <span id="theory-input-value"><%= @staff.skills.try(:[], "theory").to_i %></span>
+              </li>
+
+              <li>
+                <%= skills_fields.label :operate, "实操能力" %>
+                <%= skills_fields.range_field :operate, in: 1..100, value: @staff.skills.try(:[], "operate"), step: '.1' %>
+                <span id="theory-input-value"><%= @staff.skills.try(:[], "operate").to_i %></span>
+              </li>
+
+              <li>
+                <%= skills_fields.label :integrate, "综合能力" %>
+                <%= skills_fields.range_field :integrate, in: 1..100, value: @staff.skills.try(:[], "integrate") , step: '.1' %>
+                <span id="theory-input-value"><%= @staff.skills.try(:[], "integrate").to_i %></span>
+              </li>
+
+              <li>
+                <%= skills_fields.label :certificate, "技能证书" %>
+                <%= skills_fields.select :certificate, [["无", false], ["有", true]], selected: @staff.skills.try(:[], "certificate") %>
+              </li>
+
+              <li>
+                <%= skills_fields.label :other_skills, "其他技能" %>
+                <% if @staff.skills.present? %>
+                  <% @staff.skills.try(:[], "other_skills").map do |skill| %>
+                    <span> <%= skill %> </span>
+                  <% end %>
+                <% end %>
+              </li>
+            <% end %>
+
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="wrap">
+
+        <div class="others">
+          <span class='width-60'>其他设置</span>
+
+          <ul>
+            <li>
+              <%= form.label :mis_login_enabled, "系统操作员" %>
+              <%= form.check_box :mis_login_enabled, checked: @staff.mis_login_enabled, class: "vertical-align-middle margin-left-46" %>
+            </li>
+
+            <li>
+              <%= form.label :app_login_enabled, "允许使用APP" %>
+              <%= form.check_box :app_login_enabled, checked: @staff.app_login_enabled, class: "vertical-align-middle margin-left-46" %>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="btn_group">
+        <%= form.submit "编辑", class: "btn edit_btn" %>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $("input").attr("disabled", "disabled");
+    $(".edit_btn").attr("disabled", false);
+  })
+</script>

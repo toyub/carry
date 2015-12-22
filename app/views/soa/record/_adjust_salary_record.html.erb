@@ -1,0 +1,40 @@
+<div class="details_content salary_adjusting_record">
+
+  <table class="record">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>事件性质</th>
+        <th>原底薪</th>
+        <th>调薪幅度</th>
+        <th>摘要</th>
+        <th>
+          <label class="cursor-pointer width-100">正式底薪<i class="fa fa-sort-down"></i></label>
+        </th>
+        <th>查看</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @record.each do |event| %>
+        <tr>
+          <td><%= event.created_at.strftime("%Y/%m/%d") %></td>
+          <td>调薪</td>
+          <td><%= event.previous_salary %></td>
+          <td><%= event.increment %>元</td>
+          <td><%= event.reason %></td>
+          <td><%= event.new_salary %></td>
+          <td><%= link_to "详情", record_soa_protocol_path(id: event.id), remote: true %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="7"></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="pop-detail-area">
+</div>

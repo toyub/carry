@@ -1,5 +1,5 @@
 #Just In Time
-class Kucun::CheckinsController < Kucun::ControllerBase
+class Kucun::CheckinsController < Kucun::BaseController
   def index
   end
 

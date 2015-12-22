@@ -1,0 +1,23 @@
+<div class="main_top">
+  <h2>薪资管理</h2>
+  <%= render '/soa/shared/return' %>
+</div>
+
+<div class="details">
+  <div class="list_table salary_list_table">
+    <%= render "/soa/salaries/search_keyword" %>
+    <%= render "/soa/salaries/lists_salaries" %>
+  </div>
+  <div class="check-account-area">
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $(".list_wrap .salary_list").on("click", "tr", function(){
+      var staffId = $(this).data("id");
+      $.get("/soa/salaries/" + staffId + "/confirm", function(data) {
+      })
+    })
+  })
+</script>
