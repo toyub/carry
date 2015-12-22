@@ -1,0 +1,6 @@
+<% if @tracking.errors.present? %>
+  ZhanchuangAlert('<%= @tracking.errors.full_messages.to_sentence %>');
+<% else %>
+  ZhanchuangAlert('创建成功!');
+  location.reload();
+<% end %>

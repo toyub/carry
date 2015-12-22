@@ -1,0 +1,296 @@
+---
+layout: yuangong
+---
+
+<div class="main_top">
+  <h2>薪资管理</h2>
+  {% include common/back_to_list.html%}
+</div>
+
+<div class="details">
+
+  <div class="list_table salary_record_list_table">
+
+    <div class="search_nav">
+      <div class="date">
+        <span class="margin-right-10">日期</span>
+        <select class="width-80">
+          <option>2014</option>
+          <option>2015</option>
+          <option>2016</option>
+        </select>
+        <select class="width-60">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+        </select>
+      </div>
+
+      <div class="department">
+        <span>部门</span>
+        <select class="width-100">
+          <option>全部</option>
+          <option>美容组</option>
+        </select>
+      </div>
+
+      <div class="position">
+        <span>职务</span>
+        <select class="width-100">
+          <option>全部</option>
+          <option>美容技师</option>
+        </select>
+      </div>
+
+      <div class="keywords margin-right-50">
+        <span class="width-80">关键字</span>
+        <input type="text" class="width-150">
+        <a href="#" class="btn query_btn">查询</a>
+      </div>
+
+      <div class="float-right">
+        <a href="index.html" class="btn management_btn">管理</a>
+        <a href="#" class="btn print_btn">打印</a>
+        <a href="#" class="btn export_btn">导出</a>
+        <select class="width-100 margin-left-10">
+          <option>全部显示</option>
+          <option>显示5行</option>
+        </select>
+      </div>
+    </div>
+
+    <ul class="salary_list_head">
+      <li>#</li>
+      <li>姓名</li>
+      <li>员工编号</li>
+      <li>部门</li>
+      <li>职务</li>
+      <li>底薪</li>
+      <li>提成</li>
+      <li>福利补贴</li>
+      <li>奖金</li>
+      <li>保险金</li>
+      <li>加班费</li>
+      <li>应扣费用</li>
+      <li>实发金额</li>
+      <li>查看</li>
+    </ul>
+
+    <div class="list_wrap">
+      <table class="salary_list">
+        <tbody>
+          {% for i in (1..25) %}
+          <tr>
+            <td class="sequence_num">1</td>
+            <td>王海林</td>
+            <td>JS201309120001</td>
+            <td>美容组</td>
+            <td>美容技师</td>
+            <td>3,500</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>3,500.00</td>
+            <td><i class="ico ico-edit font-14"></i></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <table class="salary_list">
+      <tfoot>
+        <tr>
+          <td colspan="13" class="text-align-right">
+            <span class="width-90">实发金额合计：</span> <span class="width-80">22,750.00</span>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+  </div>
+
+</div>
+
+
+<div class="salary_record_wrap">
+  <div class="salary_record">
+    <a href="#" class="delete delete_list">×</a>
+
+    <table class="abstract">
+      <thead>
+        <tr>
+          <td>姓名</td>
+          <td>员工编号</td>
+          <td>部门</td>
+          <td>职务</td>
+          <td>底薪</td>
+          <td>提成</td>
+          <td>福利补贴</td>
+          <td>奖金</td>
+          <td>保险金</td>
+          <td>加班费</td>
+          <td>应扣费用</td>
+          <td>实发金额</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>王海林</th>
+          <th>JS201309120001</th>
+          <th>美容组</th>
+          <th>美容技师</th>
+          <th>3,500</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>0.00</th>
+          <th>3,500</th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="salary_checkout">
+      <div class="salary">
+        <ul class="total_salary">
+          <li class="font-weight-bold font-14">应发工资</li>
+          <li>
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">提成</label>
+                <label class="width-70">施工提成</label>
+                <span class="show_content margin-left-14">0.00</span>
+              </li>
+              <li>
+                <label>商品提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>售卡提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>其他提成</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label class="font-weight-bold">提成合计</label>
+                <span class="show_content">0.00</span>
+              </li>
+            </ol>
+
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">福利补贴</label>
+                <label class="width-70">岗位补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>住宿补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>餐费补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>劳保补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label>高温补贴</label>
+                <span class="show_content">0.00</span>
+              </li>
+              <li>
+                <label class="font-weight-bold">补贴合计</label>
+                <span class="show_content total">0.00</span>
+              </li>
+            </ol>
+          </li>
+
+          <li>
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">加班费</label>
+                <label class="width-70 font-weight-bold">加班合计</label>
+                <span class="show_content margin-left-14">0.00</span>
+              </li>
+              <li class="bonus">
+                <label class="font-weight-bold width-50">奖金</label>
+                <label class="width-70 font-weight-bold">奖金合计</label>
+                <span class="show_content total">0.00</span>
+              </li>
+            </ol>
+
+            <ol>
+              <li>
+                <label class="font-weight-bold width-50">保险金</label>
+                <label class="width-70">医保费</label>
+                <span class="show_content margin-left-14">0.00</span>
+              </li>
+              <li>
+                <label>保险金</label>
+                <span class="show_content margin-left-15">0.00</span>
+              </li>
+              <li>
+                <label class="font-weight-bold">保险合计</label>
+                <span class="show_content total">0.00</span>
+              </li>
+            </ol>
+          </li>
+
+          <li class="total text-align-right">
+            <label class="color-7391C4 font-weight-bold">应发工资合计：</label>
+            <span class="show_content">3,500.00</span>
+          </li>
+        </ul>
+
+
+        <ul class="deducted_salary">
+          <li class="font-weight-bold font-14">应扣费用</li>
+
+          <li>
+            <ol>
+              <li><label>违纪扣款</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label>考勤扣款</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label>损坏赔款</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label>借贷扣除</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label>其他扣款</label> <span class="show_content margin-left-15">0.00</span></li>
+              <li><label class="font-weight-bold">扣款合计</label> <span class="show_content margin-left-15 total ">0.00</span></li>
+            </ol>
+          </li>
+
+          <li class="total">
+            <label class="font-weight-bold color-C8625C">应扣费用合计：</label> <span class="show_content margin-left-15">0.00</span>
+          </li>
+        </ul>
+
+        <ul class="balance_salary">
+          <li class="font-weight-bold font-14">实发金额</li>
+          <li class="text-align-center">
+            <label class="display-block">薪资总额</label>
+            <span class="show_content text-align-left">3,500.00</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script src="/mis/js/yuangong/xinzi/jilu.js"></script>

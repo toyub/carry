@@ -1,0 +1,254 @@
+<%= render "/soa/shared/top_info" %>
+
+<% action_uri = soa_staff_setting_path(staff_id: params[:staff_id]) if params[:staff_id] %>
+<%= form_for @staff, url: action_uri, method: :patch, html: {id: 'staff_form'} do |form| %>
+  <div class="details_content staff_setting">
+
+    <div class="wrap">
+
+      <div class="salary">
+        <span class="width-60">薪资设置</span>
+
+        <ul>
+          <li>
+            <%= form.label :trial_salary, "试用底薪" %>
+            <%= form.number_field :trial_salary, min: 1 %>
+          </li>
+
+          <li>
+            <%= form.label :trial_period, "试用周期" %>
+            <%= form.number_field :trial_period, required: true, min: 1, class: "width-100" %>
+            <span class="width-56"> 月 </span>
+          </li>
+
+          <li class="text-align-right">
+            <input type="button" value="转正" class="transfer_btn">
+          </li>
+
+          <li>
+            <%= form.label :regular_salary, "正式底薪" %>
+            <%= form.number_field :regular_salary, min: 1 %>
+          </li>
+
+          <li class="text-align-right">
+            <input type="button" value="调薪" class="adjust_salary_btn">
+          </li>
+        </ul>
+      </div>
+
+      <div class="allowance">
+
+        <span class="width-60">福利补贴</span>
+
+        <ul>
+          <%= form.fields_for :bonus do |bonus_fields| -%>
+            <li>
+              <%= bonus_fields.label :gangwei, "岗位补贴" %>
+              <%= bonus_fields.number_field :gangwei, value: @staff.bonus.try(:[], "gangwei"), min: 1 %>
+            </li>
+            <li>
+              <%= bonus_fields.label :zhusu, "住宿补贴" %>
+              <%= bonus_fields.number_field :zhusu, value: @staff.bonus.try(:[], "zhusu"), min: 1 %>
+            </li>
+            <li>
+              <%= bonus_fields.label :canfei, "餐费补贴" %>
+              <%= bonus_fields.number_field :canfei, value: @staff.bonus.try(:[], "canfei"), min: 1 %>
+            </li>
+            <li>
+              <%= bonus_fields.label :laobao, "劳保补贴" %>
+              <%= bonus_fields.number_field :laobao, value: @staff.bonus.try(:[], "laobao"), min: 1 %>
+            </li>
+            <li>
+              <%= bonus_fields.label :gaowen, "高温补贴" %>
+              <%= bonus_fields.number_field :gaowen, value: @staff.bonus.try(:[], "gaowen"), min: 1 %>
+            </li>
+          <% end %>
+        </ul>
+
+      </div>
+
+      <div class="ticheng">
+        <span class="width-60">提成设置</span>
+        <%= form.label :deduct_enabled, "试用期结束有提成" %>
+        <%= form.check_box :deduct_enabled, checked: @staff.deduct_enabled, class: "vertical-align-middle margin-left-46" %>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <%= render "/soa/settings/contract_relationship", form: form %>
+
+      <div class="social_security">
+        <label for="security" class="width-60">保险金</label>
+
+        <ul class="security-area">
+          <%= form.fields_for :bonus do |bonus_fields| %>
+            <li>
+              <%= bonus_fields.check_box :insurence_enabled, checked: @staff.bonus.try(:[], "insurence_enabled") == "1", class: "vertical-align-middle toggleable", id: "security-checkbox" %>
+              <%= bonus_fields.label :yibaofei, "医保费",  class: "width-74" %>
+              <%= bonus_fields.number_field :yibaofei, value: @staff.bonus.try(:[], "yibaofei"), min: 1 %>
+            </li>
+            <li>
+              <%= bonus_fields.label :baoxianjing, "保险金" %>
+              <%= bonus_fields.number_field :baoxianjing, value: @staff.bonus.try(:[], "baoxianjing"), min: 1 %>
+            </li>
+            <li>
+              <%= bonus_fields.label :gerendanbao, "个人承担" %>
+              <%= bonus_fields.number_field :gerendanbao, value: @staff.bonus.try(:[],"gerendanbao"), min: 1 %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="wrap">
+      <div class="technique">
+        <span class='width-60'>专业技能</span>
+
+        <ul>
+          <%= form.fields_for :skills do |skills_fields| %>
+            <li>
+              <%= skills_fields.label :theory, "理论知识" %>
+              <%= skills_fields.range_field :theory, in: 0..100, value: @staff.skills.try(:[], "theory") || 0%>
+              <span id="theory-input-value"><%= @staff.skills.try(:[], "theory").to_i %></span>
+            </li>
+
+            <li>
+              <%= skills_fields.label :operate, "实操能力" %>
+              <%= skills_fields.range_field :operate, in: 0..100, value: @staff.skills.try(:[], "operate") || 0 %>
+              <span id="operate-input-value"><%= @staff.skills.try(:[], "operate").to_i %></span>
+            </li>
+
+            <li>
+              <%= skills_fields.label :integrate, "综合能力" %>
+              <%= skills_fields.range_field :integrate, in: 0..100, value: @staff.skills.try(:[], "integrate") || 0%>
+              <span id="integrate-input-value"><%= @staff.skills.try(:[], "integrate").to_i %></span>
+            </li>
+
+            <li>
+              <%= skills_fields.label :certificate, "技能证书" %>
+              <%= skills_fields.select :certificate, [["无", false], ["有", true]], selected: @staff.skills.try(:[], "certificate") %>
+            </li>
+
+            <li>
+              <%= skills_fields.label :other_skills, "其他技能" %>
+              <%= skills_fields.select :other_skills, options_from_collection_for_select(SkillType.collection, 'id', 'name'), {}, {multiple: true}  %>
+            </li>
+          <% end %>
+
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="wrap">
+
+      <div class="others">
+        <span class='width-60'>其他设置</span>
+
+        <ul>
+          <li>
+            <%= form.label :mis_login_enabled, "系统操作员" %>
+            <%= form.check_box :mis_login_enabled, checked: @staff.mis_login_enabled, class: "vertical-align-middle margin-left-46", id: "system-operator" %>
+          </li>
+
+          <li>
+            <%= form.label :app_login_enabled, "允许使用APP" %>
+            <%= form.check_box :app_login_enabled, checked: @staff.app_login_enabled, class: "vertical-align-middle margin-left-46", id: "allowable-app" %>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="btn_group">
+      <%= link_to "返回", soa_staff_setting_path(@staff), class: "btn edit_btn" %>
+      <%= form.submit "保存", class: "btn save_btn" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "soa/settings/set_staff_passowrd" %>
+
+<% unless params[:action] == "show" %>
+  <%= render "/soa/settings/zhuanzhengdan" %>
+  <%= render "/soa/settings/tiaoxindan" %>
+  <%= render "/soa/settings/hetongxuqiandan" %>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+
+    var second_form_wrap = {
+      "transfer_btn":  ".transfer_wrap",
+      "adjust_salary_btn":  ".salary_adjusting_wrap",
+      "sign_contract_btn": ".contract_signing_wrap"
+    };
+
+    $(".transfer_btn, .adjust_salary_btn, .sign_contract_btn").on("click", function(){
+      var btn_key = $(this).attr("class");
+      $(second_form_wrap[btn_key]).css("display", "block");
+    })
+
+    $(".cancel_btn").on("click", function(event){
+      event.preventDefault();
+      var closed_class_name = $(this).data("from");
+      $("."+ closed_class_name).css("display", "none");
+    })
+
+    initial_skills = <%= raw @staff.skills['other_skills'] || [] %>
+    $("#store_staff_skills_other_skills").select2().select2('val', initial_skills );
+
+    $("#store_staff_skills_theory, #store_staff_skills_operate, #store_staff_skills_integrate").on("input", function(){
+      var value = Math.round($(this).val());
+      $(this).next().text(value)
+    })
+
+    var input_area = $(".security-area li input[type='text']");
+    if ( <%= @staff.bonus.try(:[], "insurence_enabled").nil? || @staff.bonus.try(:[], 'insurence_enabled') == "0" %> )
+      input_area.attr("disabled", "disabled")
+
+    $("#security-checkbox").on("click", function(){
+      if (this.checked)
+        input_area.removeAttr("disabled")
+      else {
+        input_area.attr("disabled", "disabled")
+      }
+    });
+
+    if ( <%= @staff.contract_notice_enabled %> )
+      $("#deadline-days").removeAttr("disabled");
+
+    $("#contract-notice-checkbox").on("click", function(){
+      console.log(this.checked);
+      if (this.checked) {
+        $("#deadline-days").removeAttr("disabled");
+      } else {
+        $("#deadline-days").attr("disabled", "disabled");
+        $("#deadline-days").val("");
+        console.log($("#deadline-days").val());
+      }
+    })
+
+    var period_value = $("#store_staff_trial_salary").val()
+    if (!period_value) {
+        $(".transfer_btn").attr("disabled", "disabled");
+    }
+    $("#store_staff_trial_salary").on("input", function(){
+      period_value = $(this).val();
+      if (period_value) {
+        $(".transfer_btn").removeAttr("disabled");
+      } else {
+        $(".transfer_btn").attr("disabled", "disabled");
+      }
+    })
+
+    if ($("#store_staff_trial_salary").val()) {
+      $("#store_staff_trial_salary").attr("disabled", "disabled")
+    }
+
+    set_staff_passowrd();
+
+  })
+</script>

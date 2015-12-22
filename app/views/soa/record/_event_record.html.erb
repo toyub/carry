@@ -1,0 +1,45 @@
+<div class="details_content reward_record">
+
+  <table class="record">
+    <thead>
+      <tr>
+        <th>
+          <label class="cursor-pointer date width-200">日期 <i class="fa fa-sort-down"></i></label>
+        </th>
+        <th>考勤事由</th>
+        <th>描述</th>
+        <th>处理</th>
+        <th>
+          <label class="cursor-pointer reward_money width-100">金额 <i class="fa fa-sort-down"></i></label>
+        </th>
+        <th>查看</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @record.each do |event| %>
+        <tr>
+          <td>
+            <label class="width-120"><%= event.created_at.strftime("%Y/%m/%d") %></label>
+            <label><%= event.created_at.strftime("%I:%M%p") %></label>
+          </td>
+          <td><%= event.sort %></td>
+          <td class="descript"> <%= event.description %> </td>
+          <td class="dealing"> 
+            <label class='width-80 text-align-left'><%= event.operate[event.type.to_sym]  %> </label>
+            <label> <%= event.operate["other"] %> </label>
+          </td>
+          <td><%= event.operate["amount"] %></td>
+          <td><%= link_to "详情", detail_soa_staff_event_path(staff_id: event.store_staff.id, id: event.id), remote: true, class: "record_details" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4"></td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="for-render-detail-pop-area">
+  </div>
+</div>

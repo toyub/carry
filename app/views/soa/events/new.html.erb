@@ -1,0 +1,185 @@
+<% type = "StoreAttendence" %>
+<div class="main_top">
+  <h2>考勤奖惩</h2>
+  <a class="back_to_list" href="index.html">
+    <i class="fa-arrow-circle-left  fa" ></i>
+    返回列表
+  </a>
+</div>
+
+<div class="details">
+  <%= render "/soa/shared/top_info" %>
+
+  <div class="details_content attendance_reward_punishment">
+    <ul class="option_nav">
+      <li><label>考勤<input type="radio" data-type="StoreAttendence" data-operate="扣款" data-sort=".attendence-sort" data-head="attendence" checked></label></li>
+      <li><label>奖励<input type="radio" data-type="StoreReward" data-operate="奖励" data-sort=".reward-sort" data-head="reward"></label></li>
+      <li><label>惩戒<input type="radio" data-type="StorePenalty" data-operate="扣款" data-sort=".penalty-sort" data-head="penalty"></label></li>
+      <li><label>加班<input type="radio" data-type="StoreOvertime" data-operate="奖励" data-sort=".overtime-sort" data-head="overtime"></label></li>
+    </ul>
+
+    <div class="forms">
+      <div class="type-select">
+        <p id="attendence">考勤单</p>
+        <p id="reward" style="display:none;">奖励单</p>
+        <p id="penalty" style="display:none;">惩戒单</p>
+        <p id="overtime" style="display:none;">加班单</p>
+      </div>
+
+      <%= form_for @event, url: soa_staff_events_path(staff_id: params[:staff_id])  do |form| %>
+        <%= form.hidden_field :type, value: type, id: "type-hidden" %>
+
+        <table>
+          <thead>
+            <tr>
+              <th>姓名</th>
+              <th><%= @staff.screen_name %></th>
+              <th>部门</th>
+              <th><%= @staff.store_department.try(:name) %></th>
+              <th>职务</th>
+              <th><%= @staff.store_position.try(:name) %></th>
+            </tr>
+          </thead>
+          <tbody class="attendance share-tbody", id="tbody-class-swift">
+
+            <tr class="attendence-sort text-indent-10">
+              <th rowspan="2">考勤科目</th>
+              <td colspan="5">
+                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreAttendence), "id", "name" do |b| %>
+                  <%= b.label { raw(b.text + b.radio_button) } %>
+                <% end %>
+              </td>
+            </tr>
+            <tr class="attendence-sort">
+              <td colspan="5" class="text-align-center">
+                <%= form.label :start_on, "起" %>
+                <%= form.date_field :start_on, class: "width-122 margin-right-10" %>
+                <%= form.label :end_on, "止" %>
+                <%= form.date_field :end_on, class: "width-122 margin-right-30 a-end" %>
+                <label>共计</label> <input type="number" name="store_event[period]" class="width-50 calculate-days"><nbsp1></nbsp1>天
+              </td>
+            </tr>
+
+            <tr class="reward-sort">
+              <th >时间</th>
+              <td colspan="2" class="text-indent-20"><%= form.date_field :occur_on %></td>
+              <th class="address">地点</th>
+              <td colspan="2" class="text-indent-20"><%= form.text_field :occur_at %></td>
+            </tr>
+            <tr class="reward-sort">
+              <th>性质</th>
+              <td colspan="5" class="text-indent-20">
+                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreReward), "id", "name" do |b| %>
+                  <%= b.label { raw(b.text + b.radio_button) } %>
+                <% end %>
+              </td>
+            </tr>
+
+            <tr class="penalty-sort">
+              <th >时间</th>
+              <td colspan="2" class="text-indent-20"><%= form.date_field :occur_on %></td>
+              <th class="address">地点</th>
+              <td colspan="2" class="text-indent-20"><%= form.text_field :occur_at %></td>
+            </tr>
+            <tr class="penalty-sort">
+              <th>性质</th>
+              <td colspan="5" class="text-indent-20">
+                <%= form.collection_radio_buttons :sort, EventType.collection(:StorePenalty), "id", "name" do |b| %>
+                  <%= b.label { raw(b.text + b.radio_button) } %>
+                <% end %>
+              </td>
+            </tr>
+
+            <tr class="overtime-sort text-indent-10">
+              <th rowspan="2">加班事项</th>
+              <td colspan="5">
+                <%= form.collection_radio_buttons :sort, EventType.collection(:StoreOvertime), "id", "name" do |b| %>
+                  <%= b.label { raw(b.text + b.radio_button) } %>
+                <% end %>
+              </td>
+            </tr>
+            <tr class="overtime-sort">
+              <td colspan="5" class="text-align-center">
+                <%= form.label :start_on, "起" %>
+                <%= form.date_field :start_on, class: "width-122 margin-right-10", disabled: true %>
+                <%= form.label :end_on, "止" %>
+                <%= form.date_field :end_on, class: "width-122 margin-right-30 o-end", disabled: true  %>
+                <label>共计</label> <input type="text" class="width-50 calculate-days"><nbsp1></nbsp1>天
+              </td>
+            </tr>
+            </tbody>
+
+            <tbody class="attendance">
+            <tr>
+              <th>描述</th>
+              <td colspan="5">
+                <!-- <textarea rows="10"></textarea> -->
+                <%= form.text_area :description, rows: 10 %>
+                <div class="text-align-right">
+                  <%= form.hidden_field :recorder_id, value: current_staff.id %>
+                  <label>制表：</label><span class="margin-right-20"><%= current_staff.screen_name %></span>
+                  <label>日期：</label><span class="margin-right-20"><%= Date.today.strftime("%Y/%m/%d") %></span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>处理</th>
+              <td colspan="5">
+                <ul>
+                  <%= form.fields_for :operate do |operate_fields| %>
+                    <li><span id="operate-type"><%= type == "StoreReward" ? "奖励" : "扣款" %></span> <%= operate_fields.number_field :amount %> 元</li>
+                    <li>
+                      <span class="vertical-align-top">其他</span>
+                      <%= operate_fields.text_area :other, rows: 6, cols: 60%>
+                    </li>
+                  <% end %>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="btn_group">
+          <%= form.submit "保存", class: "btn save_btn"%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $(".reward-sort, .penalty-sort, .overtime-sort").hide();
+    var head_class = "";
+    var tr_sort = "";
+    var class_name = "";
+    var span_operate_type = $("span#operate-type")
+    var span_hidden_field = $("#type-hidden");
+    $(".option_nav input[type=radio]").on("click", function(){
+      $(this).parents("li").siblings("li").find("input[type=radio]").removeAttr("checked");
+      head_class = "#" + $(this).data("head");
+      tr_sort = $(this).data("sort");
+      operate_type = $(this).data("operate")
+
+      switch ($(this).data("head")) {
+        case "attendence": class_name = "attendance"; break;
+        case "reward": class_name = "reward"; break;
+        case "penalty": class_name = "punishment"; break;
+        case "overtime": class_name = "reward"; break;
+      }
+      $("tbody#tbody-class-swift").attr("class", class_name).show();
+
+      $(head_class).show()
+             .siblings().hide();
+
+      $(tr_sort).siblings().hide()
+                           .find("input").attr("disabled", "disabled");
+
+      $(tr_sort).show()
+                .find("input").removeAttr("disabled");
+
+      span_operate_type.text(operate_type);
+      span_hidden_field.val($(this).data("type"));
+    })
+
+  })
+</script>

@@ -1,0 +1,13 @@
+<div class="main_top">
+  <h2>纪录查询</h2>
+  <%= render '/soa/shared/return' %>
+</div>
+
+<div class="details">
+  <%= render "/soa/shared/top_info" %>
+  <%= render "/soa/shared/record_search" %>
+
+  <div class="search-result-content">
+    <%= render @partial %>
+  </div>
+</div>

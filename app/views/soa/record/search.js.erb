@@ -1,0 +1,5 @@
+<% if @record.blank? %>
+    $(".search-result-content").html("<h2>无任何查询结果，请重试</h2>");
+<% else %>
+    $(".search-result-content").html("<%= j render @partial %>");
+<% end %>

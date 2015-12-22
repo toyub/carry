@@ -1,0 +1,14 @@
+<div class="main_top">
+  <h2>考勤奖惩</h2>
+</div>
+
+<div class="details">
+  <div class="list_table">
+    <%= render '/soa/events/search' %>
+    <table class="attendance_list">
+      <%= render "/soa/events/thead" %>
+      <%= render "/soa/events/tbody" %>
+      <%= render "/soa/events/tfoot" %>
+    </table>
+  </div>
+</div>

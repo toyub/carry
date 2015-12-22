@@ -2,7 +2,7 @@
 #Picking
 module Kucun
   module Transfer
-    class PickingsController < Kucun::ControllerBase
+    class PickingsController < Kucun::BaseController
       def index
         @store = current_store
 

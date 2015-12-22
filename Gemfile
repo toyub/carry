@@ -126,3 +126,6 @@ gem 'sms_client', git: 'git@gitlab.icar99.com:zc/sms_client.git', tag: 'v0.0.5'
 
 # http调用
 gem "http_client", git: 'git@gitlab.icar99.com:zc/http_client.git', tag: '0.0.4'
+
+# add comments to migration
+gem 'migration_comments', '~> 0.3.2'

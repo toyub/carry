@@ -1,0 +1,20 @@
+<div class="car_list">
+  <dl>
+    <dt>#</dt>
+    <dt>时间</dt>
+    <dt>业务单号</dt>
+    <dt>开单</dt>
+    <dt>施工</dt>
+    <dt>项目</dt>
+    <dt>单价</dt>
+    <dt>数量</dt>
+    <dt>优惠</dt>
+    <dt>小计</dt>
+    <dt>操作</dt>
+  </dl>
+  <div class="car_sercice_record">
+    <div class="item_car_service_record_wrapper">
+      <%= render partial: 'order', collection: @orders %>
+    </div>
+  </div>
+</div>
