@@ -132,3 +132,14 @@
   </div>
 
 </div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      bar_chart_section();
+      pie_char_section();
+      line_char_section();
+    });
+  </script>
+<% end %>
+

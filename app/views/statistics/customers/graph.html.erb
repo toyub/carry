@@ -1,0 +1,192 @@
+<div class="page_head main_top">
+  <span class="font-18 margin-right-15">客户分析</span>
+
+  <a class="back_to_list" href="index.html">
+    <i class="fa-arrow-circle-left  fa" ></i>
+    返回列表
+  </a>
+
+</div>
+
+
+<div class="details_content customer_analysis">
+  <div class="customers do_graph">
+    <ul class="white">
+      <li>
+        <label>客户性别结构</label>
+        <input type="text">
+      </li>
+
+      <li>
+        <i class="fa fa-times"></i>
+        <i class="fa fa-pencil edit_name js_edit_name"></i>
+        <i class="fa fa-floppy-o save_name js_save_name"></i>
+        <i class="lnr lnr-drop"></i>
+        <i class="fa fa-floppy-o save_color  js_save_color"></i>
+        <i class="fa fa-minus"></i>
+        <i class="fa fa-plus"></i>
+      </li>
+    </ul>
+
+    <div class="colors_picker">
+      <span class="white"></span>
+      <span class="blue"></span>
+      <span class="light_blue"></span>
+      <span class="green"></span>
+      <span class="orange"></span>
+      <span class="red"></span>
+      <span class="purple"></span>
+      <span class="dark_green"></span>
+      <span class="black"></span>
+    </div>
+
+    <div id="customers_barchart" class="customers_barchart do_chart" style="width:780px; height:300px;"></div>
+  </div>
+
+
+  <div class="consuming_percent do_graph">
+    <ul class="white">
+      <li>
+        <label>客户消费贡献值</label>
+        <input type="text">
+      </li>
+
+      <li>
+        <i class="fa fa-times"></i>
+        <i class="fa fa-pencil edit_name js_edit_name"></i>
+        <i class="fa fa-floppy-o save_name js_save_name"></i>
+        <i class="lnr lnr-drop"></i>
+        <i class="fa fa-floppy-o save_color js_save_color"></i>
+        <i class="fa fa-minus"></i>
+        <i class="fa fa-plus"></i>
+      </li>
+    </ul>
+
+    <div class="colors_picker">
+      <span class="white"></span>
+      <span class="blue"></span>
+      <span class="light_blue"></span>
+      <span class="green"></span>
+      <span class="orange"></span>
+      <span class="red"></span>
+      <span class="purple"></span>
+      <span class="dark_green"></span>
+      <span class="black"></span>
+    </div>
+
+    <div id="consuming_piecharts" class="consuming_piecharts do_chart" style="height:300px;"></div>
+  </div>
+
+  <div class="vehicle do_graph">
+    <ul class="white">
+      <li>
+        <label>车辆品牌价值与消费</label>
+        <input type="text">
+      </li>
+
+      <li>
+        <i class="fa fa-times"></i>
+        <i class="fa fa-pencil edit_name js_edit_name"></i>
+        <i class="fa fa-floppy-o save_name js_save_name"></i>
+        <i class="lnr lnr-drop"></i>
+        <i class="fa fa-floppy-o save_color js_save_color"></i>
+        <i class="fa fa-minus"></i>
+        <i class="fa fa-plus"></i>
+      </li>
+    </ul>
+
+    <div class="colors_picker">
+      <span class="white"></span>
+      <span class="blue"></span>
+      <span class="light_blue"></span>
+      <span class="green"></span>
+      <span class="orange"></span>
+      <span class="red"></span>
+      <span class="purple"></span>
+      <span class="dark_green"></span>
+      <span class="black"></span>
+    </div>
+
+    <div class="vehicle_graph do_chart">
+      <div class="price_chart_wrap">
+        <div id="price" style="height:350px;"></div>
+      </div>
+
+      <div class="rank_chart_wrap">
+        <div id="rank"style="height:350px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loyalty_activity_consuming do_graph">
+    <ul class="white">
+      <li>
+        <div class="loyalty">
+          <label for="loyalty">忠诚度</label>
+          <input type="text" id="loyalty">
+        </div>
+
+        <div class="activity">
+          <label for="activity">活跃度</label>
+          <input type="text" id="activity">
+        </div>
+
+        <div class="consuming active">
+          <label for="consuming">消费构成</label>
+          <input type="text" id="consuming">
+        </div>
+      </li>
+
+      <li>
+        <i class="fa fa-times"></i>
+        <i class="fa fa-pencil edit_name do_edit_name"></i>
+        <i class="fa fa-floppy-o save_name do_save_name"></i>
+        <i class="lnr lnr-drop"></i>
+        <i class="fa fa-floppy-o save_color js_save_color"></i>
+        <i class="fa fa-minus"></i>
+        <i class="fa fa-plus"></i>
+      </li>
+    </ul>
+
+    <div class="colors_picker">
+      <span class="white"></span>
+      <span class="blue"></span>
+      <span class="light_blue"></span>
+      <span class="green"></span>
+      <span class="orange"></span>
+      <span class="red"></span>
+      <span class="purple"></span>
+      <span class="dark_green"></span>
+      <span class="black"></span>
+    </div>
+
+    <div class="consuming_distribution do_chart">
+      <div class="pie_wrap">
+        <div id="consuming_distribution_pie" style="height:300px;"></div>
+      </div>
+
+      <div class="bar_wrap">
+        <div id="consuming_distribution_bar" style="height:300px;"></div>
+
+        <ol>
+          <li>会员</li>
+          <li>非会员</li>
+          <li>集团</li>
+          <li>全部</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      consuming_pie_chart();
+      customer_bar_chart();
+      vehicle_price_bar_chart();
+      vehicle_rank_bar_chart();
+      consuming_distribution();
+    });
+  </script>
+<% end %>
