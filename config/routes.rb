@@ -105,7 +105,6 @@ Rails.application.routes.draw do
 
   namespace :xianchang do
     resources :field_constructions, only: [:index]
-    resources :pre_orders, only: [:index]
     resources :schedule_personals, only: [:index]
   end
 
@@ -251,6 +250,7 @@ Rails.application.routes.draw do
       resources :checkouts
     end
     resources :store_orders
+    resources :pre_orders, only: [:index]
   end
 
   namespace :printer do

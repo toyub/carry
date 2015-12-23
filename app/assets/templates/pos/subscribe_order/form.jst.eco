@@ -1,7 +1,7 @@
 <div class="wrap_order_details">
   <div class="wrap_order margin-top-0">
   	<div class="dialog_nav">
-      <span class="dialog_title ">订单详情</span>
+      <span class="dialog_title">订单详情</span>
   		<a href="#" class="dialog_close  lnr-cross lnr do_close"></a>
   	</div>
     <form>
@@ -9,35 +9,32 @@
   	  	<div class="order_details">
   	  		<div class="vehicle_order_details">
   	  			<div class="vehicle_info">
-  	  				<dl>
-  	  					<dd>
-  	  						<label class="width-50">车牌号</label>
-                  <select class="width-110 js-store-vehicle-license-number-input" name="license_number">
+                <div class="item_content">
+                  <label class="width-50 form_label" >车牌号</label>
+                  <select class="width-110 form_control js-store-vehicle-license-number-input">
                   </select>
-  	  					</dd>
-  	  					<dd>
-  	  						<label class="width-50">客户姓名</label>
-                  <input type="text" class="width-110 js-customer-name" name="store_customer['full_name']" disabled>
-  	  					</dd>
-  	  					<dd>
-  	  						<label class="width-50">手机号</label>
-		  					  <input type="text" class="width-110 js-mobile" name="" disabled>
-  	  					</dd>
-  	  				</dl>
-  	  				<dl>
-  	  					<dd>
-  	  						<label class="width-50">车辆品牌</label>
-		  					  <input type="text" class="width-110 js-brand-name" disabled>
-  	  					</dd>
-  	  					<dd>
-  	  						<label class="width-50">车型</label>
-                  <input type="text" class="width-110 js-model" disabled>
-  	  					</dd>
-  	  					<dd>
-  	  						<label class="width-50">车系</label>
-		  					  <input type="text" class="width-110 js-series" disabled>
-  	  					</dd>
-  	  				</dl>
+                </div>
+                <div class="item_content">
+                  <label class="width-50 form_label" >客户姓名</label>
+                  <input type="text" name="name" class="width-110 form_control js-customer-name" disabled>
+                </div>
+                <div class="item_content">
+                  <label class="width-50 form_label" >手机号</label>
+                  <input type="text" name="name" class="width-110 form_control js-mobile" disabled>
+                </div>
+                <div class="item_content">
+                  <label class="width-50 form_label" >车辆品牌</label>
+                  <input type="text" name="name" class="width-110 form_control js-brand-name" disabled>
+                </div>
+                <div class="item_content">
+                  <label class="width-50 form_label" >车型</label>
+                  <input type="text" name="name" class="width-110 form_control js-model" disabled>
+                </div>
+                <div class="item_content">
+                  <label class="width-50 form_label" >车系</label>
+                  <input type="text" name="name" class="width-110 form_control js-series" disabled>
+                </div>
+              </div>
   	  			</div>
             <div class="committed_info">
 		  			  <h2>约定信息</h2>
@@ -56,15 +53,14 @@
                 <i class="fa-angle-double-right fa font-18 color-BAB7A3 cursor-pointer" id="choose_project"></i>
               </div>
               <dl>
-                <dd>#</dd>
+                <dd></dd>
                 <dd>项目</dd>
                 <dd>数量</dd>
                 <dd>单价</dd>
-                <dd>属性</dd>
               </dl>
               <div class="committed_project_items">
                 <dl>
-                  <dd class="number">1</dd>
+                  <dd class="number"></dd>
                   <dd>精致洗车</dd>
                   <dd>
                     <input type="number" class="width-100 number-box-input">
