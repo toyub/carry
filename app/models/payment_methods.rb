@@ -1,13 +1,13 @@
 module PaymentMethods
   def self.available_methods
      [
-        PaymentMethods::Alipay.hashable,
-        PaymentMethods::Bankcard.hashable,
         PaymentMethods::Cash.hashable,
+        PaymentMethods::Bankcard.hashable,
         PaymentMethods::Cheque.hashable,
+        PaymentMethods::Alipay.hashable,
+        PaymentMethods::Wechatpay.hashable,        
         PaymentMethods::Deposit.hashable,
-        PaymentMethods::Internalcredit.hashable,
-        PaymentMethods::Wechatpay.hashable
+        PaymentMethods::Internalcredit.hashable
       ]
   end
 
