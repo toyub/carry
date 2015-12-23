@@ -1,8 +1,8 @@
 module PaymentMethods
-  class Cheque
+  class Bankcard
     include PaymentMethods::Base
     def self.cn_name
-      '支票'
+      '银行卡'
     end
   end
 end

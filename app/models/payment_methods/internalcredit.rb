@@ -1,8 +1,8 @@
 module PaymentMethods
-  class Cheque
+  class Internalcredit
     include PaymentMethods::Base
     def self.cn_name
-      '支票'
+      '挂账'
     end
   end
 end

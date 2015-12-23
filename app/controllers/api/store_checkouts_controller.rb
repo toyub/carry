@@ -1,50 +1,26 @@
 module Api
   class StoreCheckoutsController < BaseController
+    before_action :check_params
 
     def create
       order = StoreOrder.find(params[:order_id])
-      customer = order.store_customer
-      if params[:payments].present?
-        puts "\n"*8
-        save_payments(payment_params[:payments], order,customer)
-        order_worker(order)
-        puts "\n"*8
-        render json: {checked:true, msg: 'Checked!'}
+      paid_amount = payment_params[:payments].map { |payment| payment[:amount]  }.sum
+      if(order.amount != paid_amount)
+        render json: {checked: false, msg: 'Payments amount is not equal!'}
+        return
+      end
+
+      if(StoreOrderArchive.new(fill_payments_with_order(payment_params[:payments], order), order).reform)
+        render json: {checked: true, msg: 'Checked!'}
       else
-        render json: {checked:true, msg: 'Payments required!'}
+        render json: {checked: false, msg: 'System error!'}
       end
-    end
-
-    def save_payments(payments, order, customer)
-      amount = payments.map { |payment| payment[:amount] }.sum
-      raise ActiveRecord::Rollback unless order.amount.to_f == amount
-      
-      payments = order.store_customer_payments.new(payments)
-      payments.each do |payment|
-        payment.store_customer = customer
-      end
-      payments
-    end
-
-    def order_worker(order)
-      p order.revenue_ables
-      p order.deposits_cards
-      p order.taozhuangs
-    end
-
-    def create_credit(order)
-      StoreCustomerCredit(store_id: order.store_id,
-                          store_chain_id: order.store_chain_id,
-                          store_customer_id: order.store_customer_id,
-                          store_order_id: order.id,
-                          amount: decimal,
-                          created_at: datetime,
-                          updated_at: datetime)
     end
 
     private
     def payment_params
       safe_params = params.permit(:order_id, payments: [:payment_method_id, :amount])
+      
       safe_params[:payments].each do |payment_hash|
         payment_hash.merge! store_id: current_staff.store_id,
                             store_chain_id: current_staff.store_chain_id,
@@ -52,6 +28,23 @@ module Api
       end
 
       safe_params
+    end
+
+    def fill_payments_with_order(safe_params, order)
+
+      safe_params.each do |payment_hash|
+        payment_hash.merge! store_order_id: order.id,
+                            store_customer_id: order.store_customer_id
+      end
+
+      safe_params
+    end
+
+    def check_params
+      if params[:payments].blank?
+        render json: {checked: false, msg: 'Payments required!'}
+        return false
+      end
     end
 
   end

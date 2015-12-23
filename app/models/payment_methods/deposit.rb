@@ -1,8 +1,8 @@
 module PaymentMethods
-  class Cheque
+  class Deposit
     include PaymentMethods::Base
     def self.cn_name
-      '支票'
+      '储值余额'
     end
   end
 end

@@ -1,0 +1,19 @@
+(function(win){
+
+  var available_methods = function(){
+    return <%= PaymentMethods.available_methods.to_json %>;
+  }
+
+  Object.defineProperty(window, 'PaymentMethods', {
+    enumerable: false,
+    configurable: false,
+    writable: false,
+    value: {}
+  });
+  Object.defineProperty(PaymentMethods, 'available_methods', {
+    enumerable: false,
+    configurable: false,
+    writable: false,
+    value: available_methods
+  });
+})(window);

@@ -1,8 +1,8 @@
 module PaymentMethods
-  class Cheque
+  class Wechatpay
     include PaymentMethods::Base
     def self.cn_name
-      '支票'
+      '微信支付'
     end
   end
 end
