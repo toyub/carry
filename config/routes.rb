@@ -108,6 +108,16 @@ Rails.application.routes.draw do
     resources :pre_orders, only: [:index]
   end
 
+  namespace :statistics do
+    controller :sells do
+      get '/sells/graph'
+      get '/sells/report'
+    end
+    controller :customers do
+      get "/customers/graph"
+    end
+  end
+
   namespace :settings do
     namespace :settlements do
       resources :accounts do
