@@ -1,6 +1,6 @@
 
   <div>
-    <span class="width-90"><%= @store_vehicle.plate_number %></span>
+    <span class="width-90"><%= @store_vehicle.license_number %></span>
     <img src="/images/small_car.png" class="width-80"></img>
   </div>
   <div>

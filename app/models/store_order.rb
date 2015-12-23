@@ -9,7 +9,9 @@ class StoreOrder < ActiveRecord::Base
 
   has_many :store_customer_payments
 
-  enum state: %i[pending queueing processing paying paid finished]
+  enum state: %i[pending queuing processing paying finished]
+  enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
+  enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]
 
   before_create :set_numero
   before_create :init_state

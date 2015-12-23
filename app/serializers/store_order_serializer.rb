@@ -1,12 +1,8 @@
 class StoreOrderSerializer < ActiveModel::Serializer
-  attributes :id, :numero, :status, :amount, :packages, :services, :materials
+  attributes :id, :numero, :state, :amount, :packages, :services, :materials
 
   has_one :store_vehicle
   has_one :store_customer
-
-  def status
-    object.state
-  end
 
   def materials
     {
