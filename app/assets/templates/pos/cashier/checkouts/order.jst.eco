@@ -197,30 +197,34 @@
               <a href="javascript:void(0)" class="width-60 code">获取验证码</a>
             </dd>
           </dl>
+          <% if  @pay_status== 'pay_pending' : %>
+            <div class="prompt">
+              <%if @can_add : %>
+                <a href="javascript:void(0)" class="fa fa-plus add_method"></a>
+                <a href="javascript:void(0)" style='display: none;' class="js-tip">最多只能添加两个付款方式</a>
+              <% else : %>
+                <a href="javascript:void(0)" style='display: none;' class="fa fa-plus add_method"></a>
+                <a href="javascript:void(0)" class="js-tip">最多只能添加两个付款方式</a>
+              <% end %>
+            </div>
+          <% end %>
 
-          <div class="prompt">
-            <%if @can_add : %>
-              <a href="javascript:void(0)" class="fa fa-plus add_method"></a>
-              <a href="javascript:void(0)" style='display: none;' class="js-tip">最多只能添加两个付款方式</a>
-            <% else : %>
-              <a href="javascript:void(0)" style='display: none;' class="fa fa-plus add_method"></a>
-              <a href="javascript:void(0)" class="js-tip">最多只能添加两个付款方式</a>
-            <% end %>
+        </div>
+        <% if @pay_status == 'pay_pending' : %>
+          <div class="payment_btn">
+            <dl>
+              <dd>
+                <a class="receipt_btn bg-color-CBE19B" href="javascript:void(0)">小票</a>
+                <a class="receipt_btn bg-color-E4BE7F" href="/printer/pos/orders/<%= @id %>" target="_blank">单据</a>
+                <span class="invoice"><label>开发票<input <%= 'checked' if @invoice_required %> class='js-invoice-required' type="checkbox"></label></span>
+              </dd>
+              <dd class="margin-left-60">
+                <input type="submit" class="save_btn btn" value="确定">
+              </dd>
+            </dl>
           </div>
-
-        </div>
-
-        <div class="payment_btn">
-          <dl>
-            <dd>
-              <a class="receipt_btn bg-color-CBE19B" href="javascript:void(0)">小票</a>
-              <a class="receipt_btn bg-color-E4BE7F" href="/printer/pos/orders/<%= @id %>" target="_blank">单据</a>
-              <span class="invoice"><label>开发票<input <%= 'checked' if @invoice_required %> class='js-invoice-required' type="checkbox"></label></span>
-            </dd>
-            <dd class="margin-left-60">
-              <input type="submit" class="save_btn btn" value="确定">
-            </dd>
-          </dl>
-        </div>
+        <% else : %>
+        <div class="payment_btn">已经付款</div>
+        <% end %>
         </form>
       </div>

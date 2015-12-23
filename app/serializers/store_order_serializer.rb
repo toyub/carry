@@ -1,5 +1,5 @@
 class StoreOrderSerializer < ActiveModel::Serializer
-  attributes :id, :numero, :state, :amount, :packages, :services, :materials
+  attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status
 
   has_one :store_vehicle
   has_one :store_customer

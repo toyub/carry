@@ -11,6 +11,7 @@ module Api
       end
 
       if(StoreOrderArchive.new(fill_payments_with_order(payment_params[:payments], order), order).reform)
+        order.pay_finished!
         render json: {checked: true, msg: 'Checked!'}
       else
         render json: {checked: false, msg: 'System error!'}
