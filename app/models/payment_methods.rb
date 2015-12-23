@@ -1,22 +1,20 @@
 module PaymentMethods
   def self.available_methods
-
-  [
-    PaymentMethods::Alipay.hashable,
-    PaymentMethods::Bankcard.hashable,
-    PaymentMethods::Cash.hashable,
-    PaymentMethods::Cheque.hashable,
-    PaymentMethods::Deposit.hashable,
-    PaymentMethods::Internalcredit.hashable,
-    PaymentMethods::Wechatpay.hashable
-  ].to_h
-
+     [
+        PaymentMethods::Alipay.hashable,
+        PaymentMethods::Bankcard.hashable,
+        PaymentMethods::Cash.hashable,
+        PaymentMethods::Cheque.hashable,
+        PaymentMethods::Deposit.hashable,
+        PaymentMethods::Internalcredit.hashable,
+        PaymentMethods::Wechatpay.hashable
+      ]
   end
 
   module Base
     module ClassMethods
       def hashable
-        [self.name, self.cn_name]
+        {name: self.name, cn_name: self.cn_name}
       end
     end
 

@@ -4,16 +4,41 @@
     return <%= PaymentMethods.available_methods.to_json %>;
   }
 
+  var except = function(name){
+      var methods = available_methods();
+      return methods.filter(function(m){return m.name != name});
+    }
+
+    var excepts = function(name_arr){
+      var methods = available_methods();
+      return methods.filter(function(m){return name_arr.indexOf(m.name) != -1 });
+    }
+
   Object.defineProperty(window, 'PaymentMethods', {
     enumerable: false,
     configurable: false,
     writable: false,
     value: {}
   });
+
   Object.defineProperty(PaymentMethods, 'available_methods', {
     enumerable: false,
     configurable: false,
     writable: false,
     value: available_methods
+  });
+
+  Object.defineProperty(PaymentMethods, 'except', {
+    enumerable: false,
+    configurable: false,
+    writable: false,
+    value: except
+  });
+
+  Object.defineProperty(PaymentMethods, 'excepts', {
+    enumerable: false,
+    configurable: false,
+    writable: false,
+    value: excepts
   });
 })(window);

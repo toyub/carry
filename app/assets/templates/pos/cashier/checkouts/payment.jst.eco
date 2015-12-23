@@ -3,7 +3,7 @@
     <label class="width-70">收款方式</label>
     <select class="width-147" name='payment_method'>
       <% for method in @payment_methods : %>
-        <option value="<%= method.id %>"><%= method.name %></option>
+        <option value="<%= method.name %>"><%= method.cn_name %></option>
       <% end %>
     </select>
   </dd>
