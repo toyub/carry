@@ -11,7 +11,6 @@ module Api
       end
 
       if(StoreOrderArchive.new(fill_payments_with_order(payment_params[:payments], order), order).reform)
-        order.pay_finished!
         render json: {checked: true, msg: 'Checked!'}
       else
         render json: {checked: false, msg: 'System error!'}
@@ -20,8 +19,8 @@ module Api
 
     private
     def payment_params
-      safe_params = params.permit(:order_id, payments: [:payment_method_id, :amount])
-      
+      safe_params = params.permit(:order_id, payments: [:payment_method_id, :amount, :payment_method_type])
+      safe_params[:payments].reject!(&->(payment){payment[:amount].to_f <= 0})
       safe_params[:payments].each do |payment_hash|
         payment_hash.merge! store_id: current_staff.store_id,
                             store_chain_id: current_staff.store_chain_id,
@@ -32,7 +31,6 @@ module Api
     end
 
     def fill_payments_with_order(safe_params, order)
-
       safe_params.each do |payment_hash|
         payment_hash.merge! store_order_id: order.id,
                             store_customer_id: order.store_customer_id

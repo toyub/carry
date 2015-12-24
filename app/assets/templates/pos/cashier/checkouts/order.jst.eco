@@ -188,16 +188,17 @@
         </div>
 
         <div class="payment_method_wrap">
+
           <div class="payment_method"></div>
 
-          <dl style="display:none;">
+          <dl style="display:none;" class='js-authentication'>
             <dd>
               <label class="width-70">验证码</label>
               <input type="text" class="width-75">
               <a href="javascript:void(0)" class="width-60 code">获取验证码</a>
             </dd>
           </dl>
-          <% if  @pay_status== 'pay_pending' : %>
+          <% if @pay_status == 'pay_pending' : %>
             <div class="prompt">
               <%if @can_add : %>
                 <a href="javascript:void(0)" class="fa fa-plus add_method"></a>
@@ -210,6 +211,7 @@
           <% end %>
 
         </div>
+
         <% if @pay_status == 'pay_pending' : %>
           <div class="payment_btn">
             <dl>
@@ -224,7 +226,7 @@
             </dl>
           </div>
         <% else : %>
-        <div class="payment_btn">已经付款</div>
+          <div class="payment_btn">已经付款</div>
         <% end %>
         </form>
       </div>

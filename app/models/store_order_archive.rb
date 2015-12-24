@@ -9,6 +9,7 @@ class StoreOrderArchive
 
     ActiveRecord::Base.transaction do
       save_payments
+      pay_finish
       create_debit
     end
 
@@ -18,6 +19,10 @@ class StoreOrderArchive
     amount = @payments_hash.map { |payment| payment[:amount] }.sum
     raise ActiveRecord::Rollback unless @order.amount.to_f == amount
     @payments = @order.store_customer_payments.create!(@payments_hash)
+  end
+
+  def pay_finish
+    
   end
 
   def create_debit
