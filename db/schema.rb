@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221084731) do
+ActiveRecord::Schema.define(version: 20151222070313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,18 @@ ActiveRecord::Schema.define(version: 20151221084731) do
     t.integer  "sent_quantity", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "sms_records", force: :cascade do |t|
+    t.string   "phone_number"
+    t.string   "customer_name"
+    t.integer  "customer_id"
+    t.string   "first_category"
+    t.integer  "second_category"
+    t.text     "content"
+    t.integer  "quantity",        default: 1
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
@@ -393,6 +405,9 @@ ActiveRecord::Schema.define(version: 20151221084731) do
     t.decimal  "amount",                  precision: 10, scale: 2, default: 0.0
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
+    t.integer  "payment_method_id",                                default: 0,   null: false
+    t.integer  "store_order_id"
+    t.integer  "store_staff_id"
   end
 
   create_table "store_customer_settlements", force: :cascade do |t|
@@ -1080,8 +1095,8 @@ ActiveRecord::Schema.define(version: 20151221084731) do
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
-    t.integer  "store_vehicle_registration_plate_id"
     t.boolean  "hanging",                                                                  default: false
+    t.integer  "store_vehicle_registration_plate_id"
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1128,7 +1143,7 @@ ActiveRecord::Schema.define(version: 20151221084731) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing",   default: 1
+    t.integer  "trigger_timing"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end

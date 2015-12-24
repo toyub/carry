@@ -45,5 +45,8 @@ module Mis
 
     # 替换默认解析器 jbuilder activesupport底层都使用multi_json
     MultiJson.use :yajl
+
+    # 设置后台任务连接器为sidekiq
+    config.active_job.queue_adapter = :sidekiq
   end
 end
