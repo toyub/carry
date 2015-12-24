@@ -11,7 +11,7 @@
   	  			<div class="vehicle_info">
                 <div class="item_content">
                   <label class="width-50 form_label" >车牌号</label>
-                  <select class="width-110 form_control js-store-vehicle-license-number-input">
+                  <select class="width-110 form_control js-store-vehicle-license-number-input" name="license_number">
                   </select>
                 </div>
                 <div class="item_content">
