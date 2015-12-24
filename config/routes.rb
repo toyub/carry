@@ -199,9 +199,9 @@ Rails.application.routes.draw do
     resources :customers, only: [:index]
     resources :store_trackings, only: [:index]
     resources :expense_records, only: [:index]
-    resources :store_vehicle_archives, only: [:index]
-    resources :store_vehicle_status, only: [:index]
-    resources :store_vehicle_service_records, only: [:index]
+    resources :store_vehicles, only: [:index, :show]
+    resources :stores, only: [:index]
+    resources :customer_categories, only: [:index]
   end
 
   namespace :api do

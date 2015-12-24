@@ -1,8 +1,7 @@
 json.array! @customers do |customer|
-  json.full_name customer.full_name
-  json.store_name customer.store_name
-  json.telephone customer.telephone
-  json.property customer.property_name
+  json.(customer, :id, :full_name, :telephone)
+  json.store_name customer.store.name
+  json.property customer.store_customer_entity.property
   json.category customer.category_name
   json.vehicle_count customer.vehicle_count
   json.consume_times customer.try(:consume_times)
@@ -11,5 +10,5 @@ json.array! @customers do |customer|
   json.integrity customer.try(:integrity)
   json.activeness customer.try(:activeness)
   json.satisfaction customer.try(:satisfaction)
-  json.operator customer.store_staff_name
+  json.operator customer.store_staff.full_name
 end

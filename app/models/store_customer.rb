@@ -38,18 +38,6 @@ class StoreCustomer < ActiveRecord::Base
     self.store_vehicles.count
   end
 
-  def store_name
-    self.store.name
-  end
-
-  def store_staff_name
-    self.store_staff.full_name
-  end
-
-  def property_name
-    self.store_customer_entity.property
-  end
-
   def category_name
     self.store_customer_entity.store_customer_category.try(:name)
   end
