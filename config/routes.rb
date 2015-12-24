@@ -259,6 +259,12 @@ Rails.application.routes.draw do
 
     resources :store_customer_categories
 
+    controller :store_statistics do
+      get 'statistic/sells/annual_sales' => "store_statistics#annual_sales"
+      get 'statistic/sells/payment_ways'
+      get 'statistic/sells/month_sales'
+    end
+
   end
 
   namespace :open do
