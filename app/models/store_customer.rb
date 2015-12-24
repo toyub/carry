@@ -30,6 +30,10 @@ class StoreCustomer < ActiveRecord::Base
     self.district[:region]
   end
 
+  def update_balance!(amount)
+    raise ActiveRecord::Rollback, 'Nothing to do, nothing to do'
+  end
+
   private
 
     def set_full_name

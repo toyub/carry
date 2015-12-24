@@ -22,14 +22,22 @@ class StoreOrderArchive
   end
 
   def pay_finish
-    
+    #@order.pay_finished!
   end
 
   def create_debit
-    puts "\n"*8
-    p @order.deposits_cards
-    puts "---------------------------------------------------------------"
-    puts "\n" * 8
+    @order.deposits_cards.each do |card|
+          StoreCustomerDepositCard.create! store_id: @order.store_id,
+                                                                         store_customer_id: @order.store_customer_id,
+                                                                         store_vehicle_id: @order.store_vehicle_id,
+                                                                         items_attributes: [{store_id: @order.store_id,
+                                                                                                     store_chain_id: @order.store_chain_id,
+                                                                                                     store_customer_id: @order.store_customer_id,
+                                                                                                     assetable: card,
+                                                                                                     total_quantity: 1,
+                                                                                                     used_quantity: 1}]
+         @customer.update_balance!(card.denomination)
+    end
   end
 
   def create_credit(order)
