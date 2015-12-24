@@ -20,7 +20,7 @@ module Api
     private
     def payment_params
       safe_params = params.permit(:order_id, payments: [:payment_method_id, :amount, :payment_method_type])
-      safe_params[:payments].reject!(&->(payment){payment[:amount].to_f <= 0})
+      safe_params[:payments].reject!(&->(payment){ payment[:payment_method_type].blank? || payment[:amount].to_f <= 0})
       safe_params[:payments].each do |payment_hash|
         payment_hash.merge! store_id: current_staff.store_id,
                             store_chain_id: current_staff.store_chain_id,

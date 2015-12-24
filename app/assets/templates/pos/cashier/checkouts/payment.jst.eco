@@ -16,6 +16,10 @@
     <% if @paid : %>
       <span class="width-135"><%= @amount %></span>
     <% else : %>
-      <input type="number" min=0 step='any' class="width-135" value='<%= @amount %>'>
+      <% if @payment_method.name == 'PaymentMethods::Internalcredit' : %>
+        <span><%= @amount %></span>
+      <% else : %>
+        <input type="number" min=0 step='any' class="width-135" value='<%= @amount %>'>
+      <% end %>
     <% end %>
   </dd>
