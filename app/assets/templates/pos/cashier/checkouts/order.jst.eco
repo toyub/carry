@@ -194,7 +194,7 @@
           <dl style="display:none;" class='js-authentication'>
             <dd>
               <label class="width-70">验证客户</label>
-              <input type="text" class="width-75">
+              <input type="text" name='authentication_code' class="width-75">
               <a href="javascript:void(0)" class="width-60 code">发送验证码</a>
             </dd>
           </dl>
