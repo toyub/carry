@@ -1,7 +1,7 @@
 json.array! @customers do |customer|
   json.(customer, :id, :full_name, :telephone)
+  json.(customer.store_customer_entity, :property)
   json.store_name customer.store.name
-  json.property customer.store_customer_entity.property
   json.category customer.category_name
   json.vehicle_count customer.vehicle_count
   json.consume_times customer.try(:consume_times)

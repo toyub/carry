@@ -5,6 +5,5 @@ module Erp
       @customers = @q.result(distinct: true)
       respond_with @customers, location: nil
     end
-
   end
 end
