@@ -52,3 +52,12 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
   handleSuccess: ->
     @collection.add @model
     @uploadImages()
+
+  rootResource: ->
+    "service"
+
+  subResource: ->
+    "profiles"
+
+  action: ->
+    "new"
