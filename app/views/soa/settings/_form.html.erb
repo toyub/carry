@@ -170,32 +170,43 @@
 <% end %>
 
 <%= render "soa/settings/set_staff_passowrd" %>
-
-<% unless params[:action] == "show" %>
-  <%= render "/soa/settings/zhuanzhengdan" %>
-  <%= render "/soa/settings/tiaoxindan" %>
-  <%= render "/soa/settings/hetongxuqiandan" %>
-<% end %>
+<div class="protocol-form">
+</div>
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
 
-    var second_form_wrap = {
-      "transfer_btn":  ".transfer_wrap",
-      "adjust_salary_btn":  ".salary_adjusting_wrap",
-      "sign_contract_btn": ".contract_signing_wrap"
-    };
+    var protocol_form_operation = function(){
 
-    $(".transfer_btn, .adjust_salary_btn, .sign_contract_btn").on("click", function(){
-      var btn_key = $(this).attr("class");
-      $(second_form_wrap[btn_key]).css("display", "block");
-    })
+      var protocol_form_wrap = {
+        "transfer_btn":  ".transfer_wrap",
+        "adjust_salary_btn":  ".salary_adjusting_wrap",
+        "sign_contract_btn": ".contract_signing_wrap"
+      };
 
-    $(".cancel_btn").on("click", function(event){
-      event.preventDefault();
-      var closed_class_name = $(this).data("from");
-      $("."+ closed_class_name).css("display", "none");
-    })
+      $(".transfer_btn, .adjust_salary_btn, .sign_contract_btn").on("click", function(){
+        var btn_key = $(this).attr("class");
+        switch(btn_key) {
+          case 'transfer_btn':
+            $(".protocol-form").html('<%= j render "/soa/settings/zhuanzhengdan" %>')
+            break;
+          case 'adjust_salary_btn':
+            $(".protocol-form").html('<%= j render "/soa/settings/tiaoxindan" %>')
+            break;
+          case 'sign_contract_btn':
+            $(".protocol-form").html('<%= j render "/soa/settings/hetongxuqiandan" %>')
+            break;
+          default:
+            alert("something goes wrong");
+        }
+        $(protocol_form_wrap[btn_key]).css("display", "block");
+        $(".cancel_btn").on("click", function(event){
+          event.preventDefault();
+          var closed_class_name = $(this).data("from");
+          $("."+ closed_class_name).css("display", "none");
+        })
+      })
+    }
 
     initial_skills = <%= raw @staff.skills['other_skills'] || [] %>
     $("#store_staff_skills_other_skills").select2().select2('val', initial_skills );
@@ -241,6 +252,7 @@
     }
 
     check_trial();
+    protocol_form_operation();
     set_staff_passowrd();
 
   })
