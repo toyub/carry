@@ -2,8 +2,8 @@
   <span class="font-18 margin-right-15">销售分析</span>
 
   <select class="width-90" onchange="self.location.pathname=options[selectedIndex].value">
-    <option value="/mis/sas/xiaoshou/index.html">报表</option>
-    <option value="/mis/sas/xiaoshou/graph.html">图形分析</option>
+    <option value="<%= statistics_sells_report_path %>">报表</option>
+    <option value="<%= statistics_sells_graph_path %>" >图形分析</option>
   </select>
 </div>
 

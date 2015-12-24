@@ -2,8 +2,8 @@
   <span class="font-18 margin-right-15">销售分析</span>
 
   <select class="width-90" onchange="self.location.pathname=options[selectedIndex].value">
-    <option value="/mis/sas/xiaoshou/index.html">报表</option>
-    <option value="/mis/sas/xiaoshou/graph.html" selected>图形分析</option>
+    <option value="<%= statistics_sells_graph_path %>">图形分析</option>
+    <option value="<%= statistics_sells_report_path %>">报表</option>
   </select>
   <a class="back_to_list" href="index.html">
     <i class="fa-arrow-circle-left  fa" ></i>
@@ -14,61 +14,7 @@
 
 <div class="details sales_analysis">
 
-  <div class="abstrct">
-    <div class="material_sales">
-      <div class="image">
-        <i class="fa fa-shopping-cart"></i>
-      </div>
-
-      <ul>
-        <li>商品销售</li>
-        <li>23,789.00</li>
-        <li>本月</li>
-        <li class="position-relative">
-          <span>35%</span>
-          <i class="fa fa-long-arrow-down"></i>
-        </li>
-      </ul>
-    </div>
-
-
-    <div class="service_sales">
-      <div class="image">
-        <i class="fa fa-car"></i>
-      </div>
-
-      <ul>
-        <li>服务销售</li>
-        <li>23,789.00</li>
-        <li>本月</li>
-        <li class="position-relative">
-          <span>35%</span>
-          <i class="fa fa-long-arrow-down"></i>
-        </li>
-      </ul>
-    </div>
-
-
-    <div class="package_sales">
-      <div class="image">
-        <i class="fa fa-credit-card"></i>
-      </div>
-
-      <ul>
-        <li>套餐销售</li>
-        <li>23,789.00</li>
-        <li>本月</li>
-        <li class="position-relative">
-          <span>35%</span>
-          <i class="fa fa-long-arrow-down"></i>
-        </li>
-      </ul>
-    </div>
-
-  </div>
-
-
-
+  <%= render "sells_summarize_month" %>
   <div class="details_content">
 
     <div class="graphs">
@@ -89,45 +35,7 @@
       </div>
     </div>
 
-    <div class="personal_achivement">
-      <div class="left">
-        <select class="width-100">
-          <option>全部</option>
-        </select>
-
-        <ul class="achives_top">
-          <li>业绩 TOP</li>
-          <li>李莉莉</li>
-          <li>233单</li>
-          <li>9,786.00</li>
-        </ul>
-
-        <ul class="material_top">
-          <li>商品 TOP</li>
-          <li>御马房脚垫</li>
-          <li>23件</li>
-          <li>2,786.00</li>
-        </ul>
-
-        <ul class="service_top">
-          <li>服务 TOP</li>
-          <li>普通洗车</li>
-          <li>488件</li>
-          <li>1,786.00</li>
-        </ul>
-
-        <ul class="package_top">
-          <li>套餐 TOP</li>
-          <li>养车无忧套餐</li>
-          <li>28件</li>
-          <li>1,786.00</li>
-        </ul>
-      </div>
-
-      <div class="line_chart">
-        <div id="linchart" class="linechart" style="height:300px;"></div>
-      </div>
-    </div>
+    <%= render "achievement_rank" %>
 
   </div>
 
