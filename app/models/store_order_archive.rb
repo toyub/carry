@@ -5,13 +5,14 @@ class StoreOrderArchive
     @customer = order.store_customer
   end
 
-  def reform()
+  def reform
 
-    ActiveRecord::Base.transaction do
+    
       save_payments
       pay_finish
+      save_deposit_cards
       create_debit
-    end
+    
 
   end
 
@@ -25,41 +26,43 @@ class StoreOrderArchive
     #@order.pay_finished!
   end
 
-  def create_debit
-    @order.deposits_cards.each do |card|
-      StoreCustomerDepositCard.create! store_id: @order.store_id,
-                                       store_customer_id: @order.store_customer_id,
-                                       store_vehicle_id: @order.store_vehicle_id,
-                                       items_attributes: [{store_id: @order.store_id,
-                                                           store_chain_id: @order.store_chain_id,
-                                                           store_customer_id: @order.store_customer_id,
-                                                           assetable: card,
-                                                           total_quantity: 1,
-                                                           used_quantity: 1}]
-
-      o = StoreCustomerDepositIncome.create! store_id: @order.store_id,
-                                         store_chain_id: @order.store_chain_id,
+  def save_deposit_cards
+     @order.deposits_cards.each do |card|
+        StoreCustomerDepositCard.create! store_id: @order.store_id,
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,
-                                         store_order_id: @order.id,
-                                         latest: @customer.store_customer_entity.balance.to_f,
-                                         amount: card.denomination.to_f
+                                         items_attributes: [{store_id: @order.store_id,
+                                                             store_chain_id: @order.store_chain_id,
+                                                             store_customer_id: @order.store_customer_id,
+                                                             assetable: card,
+                                                             total_quantity: 1,
+                                                             used_quantity: 1}]
 
-        puts "\n" * 10
-        p o.to_json, o.errors
-        puts "\n" * 8
-      @customer.store_customer_entity.increase_balance!(card.denomination)
-    end
+        StoreCustomerDepositIncome.create! store_id: @order.store_id,
+                                           store_chain_id: @order.store_chain_id,
+                                           store_customer_id: @order.store_customer_id,
+                                           store_vehicle_id: @order.store_vehicle_id,
+                                           store_order_id: @order.id,
+                                           latest: @customer.store_customer_entity.balance.to_f,
+                                           amount: card.denomination.to_f
+
+        @customer.store_customer_entity.increase_balance!(card.denomination)
+     end
   end
 
-  def create_credit(order)
-    StoreCustomerCredit(store_id: order.store_id,
-                        store_chain_id: order.store_chain_id,
-                        store_customer_id: order.store_customer_id,
-                        store_order_id: order.id,
-                        amount: decimal,
-                        created_at: datetime,
-                        updated_at: datetime)
+  def save_package_items
+  end
+
+  def create_credit
+    StoreCustomerCredit(store_id: @order.store_id,
+                        store_chain_id: @order.store_chain_id,
+                        store_customer_id: @order.store_customer_id,
+                        store_order_id: @order.id,
+                        amount: @order.amount)
+  end
+
+  def create_debit
+    true
   end
 
   def recombine
