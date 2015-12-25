@@ -27,16 +27,25 @@ class StoreOrderArchive
 
   def create_debit
     @order.deposits_cards.each do |card|
-          StoreCustomerDepositCard.create! store_id: @order.store_id,
-                                                                         store_customer_id: @order.store_customer_id,
-                                                                         store_vehicle_id: @order.store_vehicle_id,
-                                                                         items_attributes: [{store_id: @order.store_id,
-                                                                                                     store_chain_id: @order.store_chain_id,
-                                                                                                     store_customer_id: @order.store_customer_id,
-                                                                                                     assetable: card,
-                                                                                                     total_quantity: 1,
-                                                                                                     used_quantity: 1}]
-         @customer.update_balance!(card.denomination)
+      StoreCustomerDepositCard.create! store_id: @order.store_id,
+                                       store_customer_id: @order.store_customer_id,
+                                       store_vehicle_id: @order.store_vehicle_id,
+                                       items_attributes: [{store_id: @order.store_id,
+                                                           store_chain_id: @order.store_chain_id,
+                                                           store_customer_id: @order.store_customer_id,
+                                                           assetable: card,
+                                                           total_quantity: 1,
+                                                           used_quantity: 1}]
+      StoreSustomerDepositIncome.create! store_id: @order.store_id,
+                                         store_chain_id: @order.store_chain_id,
+                                         store_customer_id: @order.store_customer_id,
+                                         store_vehicle_id: @order.store_vehicle_id,
+                                         store_order_id: @order.id,
+                                         amount: card.denomination.to_f,
+                                         latest: @customer.store_customer_entity.balance.to_f,
+                                         balance: card.denomination.to_f + @customer.store_customer_entity.balance.to_f
+
+      @customer.store_customer_entity.increase_balance!(card.denomination)
     end
   end
 

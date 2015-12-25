@@ -1,0 +1,3 @@
+class StoreSustomerDepositIncome < StoreCustomerDepositLog
+
+end
