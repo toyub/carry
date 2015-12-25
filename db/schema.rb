@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225040258) do
+ActiveRecord::Schema.define(version: 20151225063447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -406,11 +406,12 @@ ActiveRecord::Schema.define(version: 20151225040258) do
     t.float    "range"
     t.string   "property"
     t.string   "remark"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "store_id"
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
+    t.decimal  "balance",                    default: 0.0, null: false
   end
 
   create_table "store_customer_journal_entries", force: :cascade do |t|
@@ -1139,7 +1140,7 @@ ActiveRecord::Schema.define(version: 20151225040258) do
     t.boolean  "hanging",                                                                  default: false
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
-    t.decimal  "remaining",                                       precision: 8,  scale: 2, default: 0.0
+    t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
   end
 
   create_table "store_package_items", force: :cascade do |t|
