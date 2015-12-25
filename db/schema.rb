@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224151413) do
+ActiveRecord::Schema.define(version: 20151225035202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -411,6 +411,7 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.integer  "store_id"
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
+    t.decimal  "balance"
   end
 
   create_table "store_customer_journal_entries", force: :cascade do |t|
@@ -1126,8 +1127,8 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
-    t.boolean  "hanging",                                                                  default: false
     t.integer  "store_vehicle_registration_plate_id"
+    t.boolean  "hanging",                                                                  default: false
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
   end
@@ -1502,12 +1503,13 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.decimal  "trial_salary",                       precision: 10, scale: 2
     t.decimal  "regular_salary",                     precision: 10, scale: 2
     t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period",                                                default: 1
+    t.integer  "trial_period"
     t.json     "skills",                                                      default: {}
     t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
+    t.boolean  "regular",                                                     default: true
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
