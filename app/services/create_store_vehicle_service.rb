@@ -14,6 +14,8 @@ class CreateStoreVehicleService
       @vehicle.save!
       @plate ||= StoreVehicleRegistrationPlate.create! plate_attr
       @engine ||= StoreVehicleEngine.create! engine_attr
+      @plate.update!(store_customer_id: @vehicle.store_customer_id) if @plate.store_customer_id != @vehicle.store_customer_id
+      @engine.update!(store_customer_id: @vehicle.store_customer_id) if @engine.store_customer_id != @vehicle.store_customer_id
       @vehicle.plates << @plate
       @vehicle.engines << @engine
     end
