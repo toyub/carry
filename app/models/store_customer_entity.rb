@@ -69,4 +69,5 @@ class StoreCustomerEntity < ActiveRecord::Base
   def filling_date
     self.created_at.strftime("%Y-%m-%d")
   end
+
 end

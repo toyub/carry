@@ -117,3 +117,12 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @leave()
     view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
     $("#bodyContent").html(view.render().el)
+
+  rootResource: ->
+    "service"
+
+  subResource: ->
+    "settings"
+
+  action: ->
+    "edit"

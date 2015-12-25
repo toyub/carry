@@ -11,3 +11,4 @@ class Mis.Models.StoreCustomerSettlement extends Backbone.Model
   paymentMode: -> Mis.Settings.Entity.payment[@get 'payment_mode']
 
   invoice: -> Mis.Settings.Entity.invoice[@get 'invoice_type']
+

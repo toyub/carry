@@ -220,6 +220,7 @@ zh-CN:
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
       date_only: '%Y年%b%d日'
+      date_with_short_time: ! '%Y-%m-%d %H:%M'
     pm: 下午
   site:
     name: '百世威盛门店运营平台'

@@ -48,3 +48,12 @@ class Mis.Views.XiaoshouPackageProfilesEdit extends Mis.Base.View
     item = new Mis.Views.XiaoshouPackageItemsItem(model: item)
     @renderChild(item)
     @$("#packageItemList").append item.el
+
+  rootResource: ->
+    "package"
+
+  subResource: ->
+    "profiles"
+
+  action: ->
+    "edit"

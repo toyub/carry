@@ -1,0 +1,25 @@
+
+  <dd>
+    <label class="width-70">收款方式</label>
+    <% if @paid : %>
+      <span class='width-147'><%= @payment_method.cn_name %></span>
+    <% else : %>
+      <select class="width-147" name='payment_method'>
+        <% for method in @payment_methods : %>
+          <option value="<%= method.name %>" <%= 'selected' if @payment_method.name == method.name %> ><%= method.cn_name %></option>
+        <% end %>
+      </select>
+    <% end %>
+  </dd>
+  <dd>
+    <label class="width-70">收款金额</label>
+    <% if @paid : %>
+      <span class="width-135"><%= @amount %></span>
+    <% else : %>
+      <% if @payment_method.name == 'PaymentMethods::Internalcredit' : %>
+        <span><%= @amount %></span>
+      <% else : %>
+        <input type="number" min=0 step='any' class="width-135" value='<%= @amount %>'>
+      <% end %>
+    <% end %>
+  </dd>

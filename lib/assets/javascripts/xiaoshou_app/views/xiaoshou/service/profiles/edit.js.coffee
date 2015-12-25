@@ -41,3 +41,12 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
 
   handleSuccess: ->
     @uploadImages()
+
+  rootResource: ->
+    "service"
+
+  subResource: ->
+    "profiles"
+
+  action: ->
+    "edit"
