@@ -266,6 +266,15 @@ Rails.application.routes.draw do
       get 'statistic/sells/month_sales_line'  => "store_statistics#month_sales_line"
     end
 
+    controller :store_statistics do
+      get 'statistic/customers/gender_proportion' => "store_statistics#gender_proportion"
+      get 'statistic/customers/category_proportion' => "store_statistics#category_proportion"
+      get 'statistic/customers/vehicle_price_consuming_proportion'  => "store_statistics#vehicle_price_proportion"
+      get 'statistic/customers/vehicle_consuming_rank'  => "store_statistics#vehicle_consuming_rank"
+      get 'statistic/customers/consuming_distribution'  => "store_statistics#consuming_distribution"
+      get 'statistic/customers/consuming_week'  => "store_statistics#consuming_week"
+    end
+
   end
 
   namespace :open do

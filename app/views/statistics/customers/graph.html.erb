@@ -182,11 +182,12 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      customer_category_chart();
-      consuming_contribution_chart();
-      vehicle_price_chart();
-      vehicle_rank_chart();
-      consuming_distribution_chart()
+      Customer.display_customer_gender_bar();
+      Customer.display_customer_category_pie();
+      Customer.display_vehicle_price_consuming_bar();
+      Customer.display_vehicle_consuming_rank_bar();
+      Customer.display_consuming_distribution_pie();
+      Customer.display_consuming_week_bar();
     });
   </script>
 <% end %>

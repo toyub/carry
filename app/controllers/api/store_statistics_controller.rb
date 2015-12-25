@@ -1,5 +1,8 @@
 class Api::StoreStatisticsController < Api::BaseController
 
+  ##################
+  # api for sells  #
+  ##################
   def annual_sales
     @data = {
       months: ["3月份","4月份","5月份","6月份","7月份","18月份","9月份"],
@@ -40,6 +43,66 @@ class Api::StoreStatisticsController < Api::BaseController
       package: { figures: [520,500,510,520,530,540,580,600,700,800,1000,1250,1140,1100,
                             800,600,550,580,680,880,1080,1180,1240]
                }
+    }
+    render json: @data
+  end
+
+  ######################
+  # api for customers  #
+  ######################
+  def gender_proportion
+    @data = {
+      title: ['女性','男性'],
+      content: { category: ['会员客户','非会员客户','集团客户'],
+                 female: [120, 132, 101],
+                 male: [220, 182, 191],
+               }
+    }
+    render json: @data
+  end
+
+  def category_proportion
+    @data = {
+      title: ["集团消费","会员消费","非会员消费"],
+    }
+    render json: @data
+  end
+
+  def vehicle_price_proportion
+    @data = {
+      xAxis: {
+        name: "车辆价值",
+        type: "category",
+        data: ["8-10万","10-15万","15-20万","20-35万","30-40万","40-50万",
+               "50-60万","60-70万","70-80万","80-90万","90-150万","150万以上"],
+        splitLine: {show: false},
+      },
+    }
+    render json: @data
+  end
+
+  def vehicle_consuming_rank
+    @data = {
+      yAxis: { value: ["其他","奥迪","马自达","日产","本田","奔驰","宝马","丰田","大众"] },
+    }
+    render json: @data
+  end
+
+  def consuming_distribution
+    @data = {
+      legend: { orient: "vertical",
+                     x: "left",
+                  data: ["18000-10000元","5000-8000元","3000-5000元","1000-3000元","0-1000元"]
+              }
+    }
+    render json: @data
+  end
+
+  def consuming_week
+    @data = {
+      legend: { data: ["0-1K元","1-3K元","3-5K元","5-8K元","8-10K元"],
+                     x: 180,
+              }
     }
     render json: @data
   end
