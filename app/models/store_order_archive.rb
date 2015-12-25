@@ -36,7 +36,8 @@ class StoreOrderArchive
                                                            assetable: card,
                                                            total_quantity: 1,
                                                            used_quantity: 1}]
-      StoreCustomerDepositIncome.create! store_id: @order.store_id,
+
+      o = StoreCustomerDepositIncome.create! store_id: @order.store_id,
                                          store_chain_id: @order.store_chain_id,
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,
@@ -44,7 +45,9 @@ class StoreOrderArchive
                                          latest: @customer.store_customer_entity.balance.to_f,
                                          amount: card.denomination.to_f
 
-
+        puts "\n" * 10
+        p o.to_json, o.errors
+        puts "\n" * 8
       @customer.store_customer_entity.increase_balance!(card.denomination)
     end
   end
