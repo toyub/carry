@@ -266,9 +266,10 @@ Rails.application.routes.draw do
 
     resources :store_customer_categories
     resources :store_checkouts
+
+    resources :store_material_saleinfos, only: [:index]
   end
 
-  
   namespace :pos do
     namespace :cashier do
       resources :checkouts
