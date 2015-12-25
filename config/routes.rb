@@ -107,6 +107,7 @@ Rails.application.routes.draw do
     resources :field_constructions, only: [:index]
     resources :pre_orders, only: [:index]
     resources :schedule_personals, only: [:index]
+    resources :workstations, only: [:index]
   end
 
   namespace :settings do
