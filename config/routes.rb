@@ -273,12 +273,17 @@ Rails.application.routes.draw do
     end
 
     resources :store_customer_categories
-    resources :store_customer_gender, only: [:index]
-    resources :store_sales, only: [:index]
     resources :store_checkouts
+
+    namespace :sas do
+      resources :stores do
+        resources :customer_gender, only: [:index]
+        resources :sales, only: [:index]
+        resources :vehicles, only: [:index]
+      end
+    end
   end
 
-  
   namespace :pos do
     namespace :cashier do
       resources :checkouts

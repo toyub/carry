@@ -1,8 +1,8 @@
-class Api::StoreSalesController < Api::BaseController
+class Api::Sas::SalesController < Api::BaseController
   def index
     @data = {
       title: ["集团消费","会员消费","非会员消费"],
     }
-    respond_with @data, location: nil
+    render json: @data
   end
 end
