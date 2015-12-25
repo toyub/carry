@@ -201,7 +201,7 @@ Rails.application.routes.draw do
     resources :consume, only: [:index]
     resources :vehicles, only: [:index, :show]
     resources :stores, only: [:index]
-    resources :customer_categories, only: [:index]
+    resources :customer_properties, only: [:index]
   end
 
   namespace :api do
