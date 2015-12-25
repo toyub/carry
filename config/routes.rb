@@ -259,21 +259,22 @@ Rails.application.routes.draw do
 
     resources :store_customer_categories
 
-    controller :store_statistics do
-      get 'statistic/sells/annual_sales' => "store_statistics#annual_sales"
-      get 'statistic/sells/payment_ways' => "store_statistics#payment_ways"
-      get 'statistic/sells/month_sales_pie'  => "store_statistics#month_sales_pie"
-      get 'statistic/sells/month_sales_line'  => "store_statistics#month_sales_line"
-    end
-
-    controller :store_statistics do
-      get 'statistic/customers/gender_proportion' => "store_statistics#gender_proportion"
-      get 'statistic/customers/category_proportion' => "store_statistics#category_proportion"
-      get 'statistic/customers/vehicle_price_consuming_proportion'  => "store_statistics#vehicle_price_proportion"
-      get 'statistic/customers/vehicle_consuming_rank'  => "store_statistics#vehicle_consuming_rank"
-      get 'statistic/customers/consuming_distribution'  => "store_statistics#consuming_distribution"
-      get 'statistic/customers/consuming_week'  => "store_statistics#consuming_week"
-    end
+    resources :store_customer_gender, only: [:index]
+    # controller :store_statistics do
+    #   get 'statistic/sells/annual_sales' => "store_statistics#annual_sales"
+    #   get 'statistic/sells/payment_ways' => "store_statistics#payment_ways"
+    #   get 'statistic/sells/month_sales_pie'  => "store_statistics#month_sales_pie"
+    #   get 'statistic/sells/month_sales_line'  => "store_statistics#month_sales_line"
+    # end
+    #
+    # controller :store_statistics do
+    #   get 'statistic/customers/gender_proportion' => "store_statistics#gender_proportion"
+    #   get 'statistic/customers/category_proportion' => "store_statistics#category_proportion"
+    #   get 'statistic/customers/vehicle_price_consuming_proportion'  => "store_statistics#vehicle_price_proportion"
+    #   get 'statistic/customers/vehicle_consuming_rank'  => "store_statistics#vehicle_consuming_rank"
+    #   get 'statistic/customers/consuming_distribution'  => "store_statistics#consuming_distribution"
+    #   get 'statistic/customers/consuming_week'  => "store_statistics#consuming_week"
+    # end
 
   end
 
