@@ -1,3 +1,3 @@
-class StoreSustomerDepositIncome < StoreCustomerDepositLog
+class StoreCustomerDepositIncome < StoreCustomerDepositLog
 
 end
