@@ -2,13 +2,13 @@ class StoreVehicle < ActiveRecord::Base
   include BaseModel
 
 
-  belongs_to :brand, class_name: "StoreVehicleBrand", foreign_key: :store_vehicle_brand_id
-  belongs_to :store_customer
-
-  belongs_to :vehicle_model
-  belongs_to :vehicle_series
+  
   belongs_to :store_customer
   belongs_to :store_staff
+  
+  belongs_to :vehicle_brand
+  belongs_to :vehicle_model
+  belongs_to :vehicle_series
 
   # 车牌
   has_many :vehicle_plates
@@ -24,7 +24,9 @@ class StoreVehicle < ActiveRecord::Base
   has_many :orders, class_name: "StoreOrder"
   has_many :complaints, as: :creator
 
-  delegate :license_number, to: :registration_plate
+  def license_number
+    self.plates.last.license_number
+  end
 
   accepts_nested_attributes_for :frame
 
