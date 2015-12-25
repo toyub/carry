@@ -1,7 +1,10 @@
 class StoreVehicle < ActiveRecord::Base
   include BaseModel
 
-  belongs_to :vehicle_brand
+
+  belongs_to :brand, class_name: "StoreVehicleBrand", foreign_key: :store_vehicle_brand_id
+  belongs_to :store_customer
+
   belongs_to :vehicle_model
   belongs_to :vehicle_series
   belongs_to :store_customer

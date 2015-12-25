@@ -1,0 +1,57 @@
+<div class="details subscribe-order-view">
+  <table cellspacing="0" cellpadding="0" class="on_site_top subscribe-order-top-detail">
+  </table>
+	<div class="search_nav margin-top-20">
+		<div class="item-query">
+      <label class="width-85" >信息查询</label>
+      <input type="text" class="width-150 phone-number-or-license-number" placeholder="输入车牌或电话">
+		</div>
+		<div class="item-query">
+      <label class="width-65">预约时间</label>
+      <input type="text" class="width-150 subscribe-date datetimepicker" placeholder="选择预约时间">
+		</div>
+		<div class="item-query">
+      <a class="btn query_btn">查询</a>
+		</div>
+		<div class="item-query">
+			<label class="width-65">状态筛选</label>
+			<select type="text" class="width-150" class="subscribe-order-state-select" name="order-state">
+        <option value="all">全部</option>
+        <option value="0">未执行</option>
+        <option value="2">已执行</option>
+			</select>
+		</div>
+		<div class="item-query float-right">
+      <a class="new_btn btn margin-left-5"  id="new_committed_btn">新建</a>
+		</div>
+	</div>
+ 	<div class="list_table reserve margin-top-0">
+    <table cellspacing="0" cellspadding="0" class="index_list_top">
+			<thead>
+			  <tr>
+				  <th>#</th>
+					<th>预约人</th>
+					<th>车牌</th>
+					<th>联系电话</th>
+          <th>
+            <div class="font-14 reserve_time">约定时间<i class="fa fa-sort"></i></div>
+          </th>
+					<th>约定项目</th>
+          <%#暂时保留这项，不确定是否还需要%>
+          <th>制单</th>
+          <th>状态</th>
+          <th>备注</th>
+          <th>操作</th>
+				</tr>
+			</thead>
+		</table>
+		<div class="reserve_list">
+			<table cellspacing="0" cellspadding="0" class="index_list">
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="window_wrap" id="new_commited_order" style="display:none;"></div>

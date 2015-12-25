@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   require 'sidekiq/web'
 
+  #Kucun
   namespace :kucun do
     get '/', to: 'materials#index'
     resources :materials do
@@ -105,7 +106,7 @@ Rails.application.routes.draw do
 
   namespace :xianchang do
     resources :field_constructions, only: [:index]
-    resources :pre_orders, only: [:index]
+    resources :schedule_personals, only: [:index]
   end
 
   namespace :sas do
@@ -118,6 +119,7 @@ Rails.application.routes.draw do
     end
   end
 
+  #Settings
   namespace :settings do
     namespace :settlements do
       resources :accounts do
@@ -126,7 +128,9 @@ Rails.application.routes.draw do
         end
       end
     end
+
     resources :commission_templates
+
     resources :depots do
       collection do
         get :fetch
@@ -173,8 +177,9 @@ Rails.application.routes.draw do
 
     resources :privileges
 
-  end
+  end #End of namespace :settings
 
+  #Ajax
   namespace :ajax do
     resources :store_material_categories, only: [] do
       member do
@@ -202,13 +207,14 @@ Rails.application.routes.draw do
     collection do
       get :send_validate_code
     end
-  end
+  end # End of Ajax
 
   # 总部平台api调用
   namespace :erp do
     resources :customers, only: [:index]
-  end
+  end #End of erp
 
+  #Api
   namespace :api do
     resources :store_staff, only: [:index, :update]
     resources :store_service_categories, only: [:create]
@@ -222,11 +228,19 @@ Rails.application.routes.draw do
       resources :store_service_reminds, only: [:update]
       resources :store_service_trackings, only: [:create, :update, :destroy]
     end
-    resources :store_vehicles, only: [:index, :show]
-    resources :store_orders, only: [:index] do
+
+    resources :store_vehicles, only: [:index, :show] do
+      collection do
+        get :search
+      end
+    end
+
+    resources :store_orders, only: [:index, :show] do
       resources :complaints, only:[:new, :create]
     end
+    
     resources :store_subscribe_orders
+    
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do
         post :save_picture
@@ -235,6 +249,7 @@ Rails.application.routes.draw do
       resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
+
     resources :store_customer_entities, only: [:index, :create, :update, :show] do
       collection do
         get :cities
@@ -258,27 +273,26 @@ Rails.application.routes.draw do
     end
 
     resources :store_customer_categories
-
     resources :store_customer_gender, only: [:index]
     resources :store_sales, only: [:index]
-    # controller :store_statistics do
-    #   get 'statistic/sells/annual_sales' => "store_statistics#annual_sales"
-    #   get 'statistic/sells/payment_ways' => "store_statistics#payment_ways"
-    #   get 'statistic/sells/month_sales_pie'  => "store_statistics#month_sales_pie"
-    #   get 'statistic/sells/month_sales_line'  => "store_statistics#month_sales_line"
-    # end
-    #
-    # controller :store_statistics do
-    #   get 'statistic/customers/gender_proportion' => "store_statistics#gender_proportion"
-    #   get 'statistic/customers/category_proportion' => "store_statistics#category_proportion"
-    #   get 'statistic/customers/vehicle_price_consuming_proportion'  => "store_statistics#vehicle_price_proportion"
-    #   get 'statistic/customers/vehicle_consuming_rank'  => "store_statistics#vehicle_consuming_rank"
-    #   get 'statistic/customers/consuming_distribution'  => "store_statistics#consuming_distribution"
-    #   get 'statistic/customers/consuming_week'  => "store_statistics#consuming_week"
-    # end
-
+    resources :store_checkouts
   end
 
+  
+  namespace :pos do
+    namespace :cashier do
+      resources :checkouts
+    end
+    resources :store_orders
+    resources :pre_orders, only: [:index]
+  end
+  
+  namespace :printer do
+    namespace :pos do
+      resources :orders
+    end
+  end
+  
   namespace :open do
     namespace :topups do
       resource :alipay do
@@ -290,6 +304,7 @@ Rails.application.routes.draw do
     end
   end
 
+
   namespace :crm do
     resources :store_customers do
       resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update]
@@ -299,8 +314,10 @@ Rails.application.routes.draw do
       resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
+      resources :store_repayments
     end
   end
+
 
   root 'kucun/materials#index'
 

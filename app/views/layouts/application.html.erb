@@ -69,9 +69,8 @@
                 <%= link_to "施工现场", xianchang_field_constructions_path %>
               </li>
               <li>
-                <%= link_to "预约排单", xianchang_pre_orders_path %>
+                <%= link_to "人员调度", xianchang_schedule_personals_path %>
               </li>
-              <li><a href="#">人员调度</a></li>
             </ul>
           </div>
         </div>
@@ -79,8 +78,14 @@
           <div class=" menulist">
             <h4>收银POS</h4>
             <ul class="second_menu">
-              <li><a href="#">收银</a></li>
-              <li><a href="#">业务开单</a></li>
+              <li><a href="/pos/cashier/checkouts">收银</a></li>
+              <li>
+                <%= link_to "业务开单", new_pos_store_order_path %>
+              </li>
+              <li>
+                <%= link_to "预约单", pos_pre_orders_path %>
+              </li>
+              <li><a href="#">意向开单</a></li>
             </ul>
           </div>
         </div>

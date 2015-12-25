@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222064738) do
+ActiveRecord::Schema.define(version: 20151225063447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false
+    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -154,6 +154,34 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.datetime "updated_at"
     t.integer  "debit_id"
     t.string   "subject"
+  end
+
+  create_table "recommended_order_items", force: :cascade do |t|
+    t.integer  "recommended_order_id"
+    t.integer  "quantity"
+    t.decimal  "price"
+    t.decimal  "amount"
+    t.integer  "itemable_id"
+    t.string   "itemable_type"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "recommended_orders", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.decimal  "amount"
+    t.text     "remark"
+    t.integer  "store_customer_id"
+    t.integer  "store_vehicle_id"
+    t.integer  "state"
+    t.string   "numero"
+    t.string   "recommended_reason"
+    t.string   "refuse_reason"
+    t.datetime "recommended_date"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "renewal_records", force: :cascade do |t|
@@ -300,10 +328,11 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.integer  "store_customer_id"
     t.string   "assetable_type"
     t.integer  "assetable_id"
-    t.integer  "total_quantity",    default: 0
-    t.integer  "used_quantity",     default: 0
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "total_quantity",          default: 0
+    t.integer  "used_quantity",           default: 0
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "store_customer_asset_id"
   end
 
   create_table "store_customer_asset_logs", force: :cascade do |t|
@@ -377,11 +406,12 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.float    "range"
     t.string   "property"
     t.string   "remark"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "store_id"
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
+    t.decimal  "balance",                    default: 0.0, null: false
   end
 
   create_table "store_customer_journal_entries", force: :cascade do |t|
@@ -405,6 +435,9 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.decimal  "amount",                  precision: 10, scale: 2, default: 0.0
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
+    t.integer  "payment_method_id",                                default: 0,   null: false
+    t.integer  "store_order_id"
+    t.integer  "store_staff_id"
   end
 
   create_table "store_customer_settlements", force: :cascade do |t|
@@ -1076,9 +1109,20 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.integer  "store_staff_id",                                                       null: false
     t.integer  "store_order_id"
     t.integer  "store_customer_id"
+    t.decimal  "discount"
+    t.string   "discount_reason"
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
+
+  create_table "store_order_repayments", force: :cascade do |t|
+    t.decimal  "filled"
+    t.decimal  "remaining"
+    t.integer  "store_order_id"
+    t.integer  "store_repayment_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
   create_table "store_orders", force: :cascade do |t|
     t.datetime "created_at"
@@ -1091,10 +1135,12 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
-    t.boolean  "hanging",                                                                  default: false
     t.string   "numero"
     t.integer  "store_vehicle_registration_plate_id"
-    t.boolean  "hanging",                                                default: false
+    t.boolean  "hanging",                                                                  default: false
+    t.integer  "pay_status",                                                               default: 0
+    t.integer  "task_status",                                                              default: 0
+    t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1141,7 +1187,7 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing",   default: 1
+    t.integer  "trigger_timing"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1227,6 +1273,16 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.datetime "updated_at",                               null: false
     t.decimal  "previous_salary", precision: 10, scale: 2
     t.decimal  "new_salary",      precision: 10, scale: 2
+  end
+
+  create_table "store_repayments", force: :cascade do |t|
+    t.decimal  "amount"
+    t.integer  "store_customer_id"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "store_salaries", force: :cascade do |t|
@@ -1438,14 +1494,14 @@ ActiveRecord::Schema.define(version: 20151222064738) do
   create_table "store_staff", force: :cascade do |t|
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.string   "login_name",          limit: 45,                          null: false
-    t.string   "gender",              limit: 6,  default: "male",         null: false
-    t.string   "first_name",          limit: 45
-    t.string   "last_name",           limit: 45
-    t.string   "name_display_type",   limit: 13, default: "lastname_pre", null: false
-    t.text     "encrypted_password",                                      null: false
-    t.text     "salt",                                                    null: false
-    t.integer  "work_status",                    default: 0,              null: false
+    t.string   "login_name",              limit: 45,                                                   null: false
+    t.string   "gender",                  limit: 6,                           default: "male",         null: false
+    t.string   "first_name",              limit: 45
+    t.string   "last_name",               limit: 45
+    t.string   "name_display_type",       limit: 13,                          default: "lastname_pre", null: false
+    t.text     "encrypted_password",                                                                   null: false
+    t.text     "salt",                                                                                 null: false
+    t.integer  "work_status",                                                 default: 0,              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "job_type_id"
@@ -1456,13 +1512,6 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.integer  "store_employee_id"
     t.string   "full_name"
     t.string   "phone_number"
@@ -1470,13 +1519,28 @@ ActiveRecord::Schema.define(version: 20151222064738) do
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period",                                                default: 1
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
-    t.boolean  "regular",                                                     default: true
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
+
+  create_table "store_subscribe_order_items", force: :cascade do |t|
+    t.integer  "store_subscribe_order_id"
+    t.integer  "quantity"
+    t.integer  "itemable_id"
+    t.string   "itemable_type"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "store_subscribe_orders", force: :cascade do |t|
     t.integer  "store_id"

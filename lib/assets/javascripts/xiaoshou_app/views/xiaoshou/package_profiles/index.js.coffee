@@ -24,3 +24,12 @@ class Mis.Views.XiaoshouPackageProfilesIndex extends Mis.Base.View
 
   resourceItem: (options) ->
     new Mis.Views.XiaoshouPackageProfilesItem(options)
+
+  rootResource: ->
+    "package"
+
+  subResource: ->
+    "profiles"
+
+  action: ->
+    "index"
