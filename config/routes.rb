@@ -108,7 +108,7 @@ Rails.application.routes.draw do
     resources :pre_orders, only: [:index]
   end
 
-  namespace :statistics do
+  namespace :sas do
     controller :sells do
       get '/sells/graph'
       get '/sells/report'
