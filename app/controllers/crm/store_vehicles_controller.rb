@@ -1,4 +1,4 @@
-class Crm::StoreVehicleArchivesController < Crm::BaseController
+class Crm::StoreVehiclesController < Crm::BaseController
   before_action :set_customer, except: [:index, :destroy]
   before_action :set_vehicle, only:[:show, :edit, :update]
   before_action :set_vehicle_ids, only: [:new, :show]
@@ -10,7 +10,7 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
   def create
     vehicle = StoreVehicle.new(append_store_attrs vehicle_params)
     if vehicle.save
-      redirect_to crm_store_customer_store_vehicle_archive_path(@customer, vehicle)
+      redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
       @vehicle_ids = @customer.store_vehicles.ids
       @vehicle = StoreVehicle.new
@@ -26,7 +26,7 @@ class Crm::StoreVehicleArchivesController < Crm::BaseController
 
   def update
     @vehicle.update(vehicle_params)
-    redirect_to crm_store_customer_store_vehicle_archive_path
+    redirect_to crm_store_customer_store_vehicle_path
   end
 
   private

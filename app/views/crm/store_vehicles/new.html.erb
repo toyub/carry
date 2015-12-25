@@ -9,18 +9,18 @@
 
     <div class="car_details float-right">
 
-      <%= render '/crm/common/vehicle_nav' %>
+      <%= render '/crm/vehicle_common/vehicle_nav' %>
 
       <%= render '/crm/common/sub_nav' %>
 
       <div class="details_content car_content">
           <div class="base_info">
 
-            <%= render '/crm/common/vehicle_image' %>
+            <%= render '/crm/vehicle_common/vehicle_image' %>
 
             <div class="car_info">
               <div class="items">
-                <%= form_for @vehicle, url: crm_store_customer_store_vehicle_archives_path do |f| %>
+                <%= form_for @vehicle, url: crm_store_customer_store_vehicles_path do |f| %>
                   <%= render 'edit_form', f: f %>
                   <%= render 'form', f: f %>
                   <div class="btn_group">
