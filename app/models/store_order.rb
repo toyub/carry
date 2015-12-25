@@ -4,9 +4,11 @@ class StoreOrder < ActiveRecord::Base
   belongs_to :store_customer
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
   belongs_to :store_vehicle
+  belongs_to :plate, class_name: 'StoreVehicleRegistrationPlate', foreign_key: 'store_vehicle_registration_plate_id'
 
-  has_many :items, class_name: "StoreOrderItem"
-
+  has_one :store_tracking
+  has_many :items, class_name: 'StoreOrderItem'
+  has_many :complaints
   has_many :store_customer_payments
 
   enum state: %i[pending queuing processing paying finished]
@@ -43,6 +45,35 @@ class StoreOrder < ActiveRecord::Base
     orderables_ids = self.items.where(orderable_type: StoreMaterialSaleinfo.name).map{|saleinfo| saleinfo.orderable_id}
     orderables_ids.map { |id|  StoreMaterialSaleinfo.where(service_needed: true).where(id: id)}
   end
+
+  def position_name
+    '前保险杠右侧'
+  end
+
+  def condition_name
+    '前保险杠右侧擦伤，油漆见底'
+  end
+
+  def creators
+    { name: self.creator.full_name, id: self.creator.id }
+  end
+
+  def current_vehicle
+    self.store_vehicle.plates.last.license_number
+  end
+
+  def mechanic
+    store_items
+  end
+
+  def amount_total
+    self.items.pluck(:amount).reduce(0.0,:+)
+  end
+
+  def store_items
+    self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
+  end
+
 
   private
 

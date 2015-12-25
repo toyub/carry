@@ -1,3 +1,5 @@
+<% entity = @entity %>
+<% console.log entity %>
 <div class="details">
   <div class="details_nav">
 
@@ -14,85 +16,90 @@
               <div class="basic_info crm_info_content">
                 <div class="item_content">
                   <label class="width-75">姓</label>
-                  <input type="text" name="store_customer[last_name]" class="width-60" value="<%= @customer.storeCustomer.get 'last_name' %>">
+                  <input type="text" name="store_customer[last_name]" class="width-60" value="<%= entity.storeCustomer.get 'last_name' %>">
                   <label class="width-45">名</label>
-                  <input type="text" name="store_customer[first_name]" class="width-62" value="<%= @customer.storeCustomer.get 'first_name' %>">
+                  <input type="text" name="store_customer[first_name]" class="width-62" value="<%= entity.storeCustomer.get 'first_name' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">性别</label>
-                  <label class="width-77">男<input type="radio" name="store_customer[gender]" <%= 'checked' if @entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
-                  <label class="width-77 margin-right-20">女<input type="radio" name="store_customer[gender]" <%= 'checked' unless @entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
+                  <label class="width-77">男<input type="radio" name="store_customer[gender]" <%= 'checked' if entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
+                  <label class="width-77 margin-right-20">女<input type="radio" name="store_customer[gender]" <%= 'checked' unless entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">昵称</label>
-                  <input type="text" class="width-176" name="store_customer[nick]" value="<%= @entity.storeCustomer.get 'nick' %>">
+                  <input type="text" class="width-176" name="store_customer[nick]" value="<%= entity.storeCustomer.get 'nick' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">客户属性</label>
                   <select class="width-178" name="property">
-                    <% _.each @entity.properties(), (value, key) ->: %>
-                      <option value="<%= key %>" <%= 'selected' if key.toString() == @entity.get('property').toString() %>><%= value %></option>
+                    <% _.each Mis.Settings.Entity.properties, (name, property) ->: %>
+                      <option value="<%= property %>" <%= 'selected' if property.toString() == String(entity.get('property')) %>><%= name %></option>
                     <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">客户类别</label>
-                  <select class="width-178">
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                    <option></option>
+                  <select class="width-178" name="store_customer_category_id">
+                    <% Mis.store.customerCategories.each (c) ->: %>
+                      <option value="<%= c.id %>" <%= 'selected' if c.id.toString() == String(entity.get('store_customer_category_id')) %>><%= c.name %></option>
+                    <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">固定电话</label>
-                  <input type="text" class="width-176" name="telephone" value="<%= @entity.get 'telephone' %>">
+                  <input type="text" class="width-176" name="store_customer[telephone]" value="<%= entity.storeCustomer.get 'telephone' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">移动电话</label>
-                  <input type="text" class="width-176" name="mobile" value="<%= @entity.get 'mobile' %>">
+                  <input type="text" class="width-176" name="store_customer[phone_number]" value="<%= entity.storeCustomer.get 'phone_number' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">QQ</label>
-                  <input type="text" class="width-176" name="qq" value="<%= @entity.get 'qq' %>">
+                  <input type="text" class="width-176" name="store_customer[qq]" value="<%= entity.storeCustomer.get 'qq' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">区域</label>
                   <span class="area">
                     <label>省:</label>
-                    <select class="width-60">
-                      <option>省份</option>
-                      <option></option>
+                    <select class="width-75 js-provinces" name="province">
+                      <option value="">请选择</option>
+                      <% _.each Mis.store.provinces, (p) ->: %>
+                        <option value="<%= p.code %>" <%= 'selected' if p.code.toString() == String(entity.get('province')) %>><%= p.name %></option>
+                      <% end %>
                     </select>
                     <label>市:</label>
-                    <select class="width-60">
-                      <option>城市</option>
-                      <option></option>
+                    <select class="width-75 js-cities" name="city">
+                      <option value="">请选择</option>
+                      <% _.each entity.cities, (p) ->: %>
+                        <option value="<%= p.code %>" <%= 'selected' if p.code.toString() == String(entity.get('city')) %>><%= p.name %></option>
+                      <% end %>
                     </select>
                     <label>区/县:</label>
-                    <select class="width-75">
-                      <option>区县</option>
-                      <option></option>
+                    <select class="width-75 js-regions" name="region">
+                      <option value="">请选择</option>
+                      <% _.each entity.regions, (p) ->: %>
+                        <option value="<%= p.code %>" <%= 'selected' if p.code.toString() == String(entity.get('region')) %>><%= p.name %></option>
+                      <% end %>
                     </select>
                   </span>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">联系地址</label>
-                  <input type="text" class="width-176" name="address" value="<%= @entity.get 'address' %>">
+                  <input type="text" class="width-176" name="address" value="<%= entity.get 'address' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">车程</label>
-                  <input type="text" class="width-176" name="range" value="<%= @entity.get 'range' %>">
+                  <input type="text" class="width-176" name="range" value="<%= entity.get 'range' %>">
                 </div>
 
               </div>
@@ -107,60 +114,62 @@
               <div class="adv_info  crm_info_content">
                 <div class="item_content">
                   <label class="width-75">身份证号</label>
-                  <input type="text" class="width-176" name="store_customer_settlement[resident_id]" value="<%= @entity.storeCustomerSettlement.get 'resident_id' %>">
+                  <input type="text" class="width-176" name="store_customer[resident_id]" value="<%= entity.storeCustomer.get 'resident_id' %>">
                 </div>
                 <div class="item_content">
                   <label class="width-75">生日</label>
-                  <input type="text" class="width-176" name="store_customer_settlement[birthday]" value="<%= @entity.storeCustomerSettlement.get 'birthday' %>">
+                  <input type="text" class="width-176" name="store_customer[birthday]" value="<%= entity.storeCustomer.get 'birthday' %>">
                 </div>
 
                 <div class="item_content">
                   <div class="margin-left-79 martial">
-                    <label class="width-72">未婚<input type="radio" name="store_customer_settlement[married]" class="width-13 margin-left-5" value="false" <%= 'checked' unless @entity.storeCustomerSettlement.married() %>></label>
-                    <label class="width-75">已婚<input type="radio" name="store_customer_settlement[married]" class="width-12 margin-left-5" value="true" <%= 'checked' if @entity.storeCustomerSettlement.married() %>></label>
+                    <label class="width-72">未婚<input type="radio" name="store_customer[married]" class="width-13 margin-left-5" value="false" <%= 'checked' unless entity.storeCustomer.married() %>></label>
+                    <label class="width-75">已婚<input type="radio" name="store_customer[married]" class="width-12 margin-left-5" value="true" <%= 'checked' if entity.storeCustomer.married() %>></label>
                   </div>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">学历</label>
-                  <select class="width-178">
-                    <option></option>
+                  <select class="width-178" name="store_customer[education]">
+                    <% _.each Mis.Settings.Entity.education, (name, code) ->: %>
+                      <option value="<%= code %>"><%= name %></option>
+                    <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">职业</label>
-                  <select class="width-178">
-                    <option></option>
+                  <select class="width-178" name="store_customer[profession]">
+                    <% _.each Mis.Settings.Entity.profession, (name, code) ->: %>
+                      <option value="<%= code %>"><%= name %></option>
+                    <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">收入</label>
-                  <select class="width-178">
-                    <option></option>
+                  <select class="width-178" name="store_customer[income]">
+                    <% _.each Mis.Settings.Entity.income, (name, code) ->: %>
+                      <option value="<%= code %>"><%= name %></option>
+                    <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
-                  <label class="width-125">不接受回访<input type="checkbox" class="width-13 vertical-align-middle margin-left-5" value="false" name="store_customer[tracking_accepted]" <%= 'checked' unless @entity.storeCustomer.trackingAccepted() %>></label>
-                  <label class="width-125">不接受短信<input type="checkbox" class="width-13 vertical-align-middle margin-left-5" value="false" name="store_customer[message_accepted]" <%= 'checked' unless @entity.storeCustomer.messageAccepted() %>></label>
+                  <label class="width-125">不接受回访<input type="checkbox" class="width-13 vertical-align-middle margin-left-5" value="false" name="store_customer[tracking_accepted]" <%= 'checked' unless entity.storeCustomer.trackingAccepted() %>></label>
+                  <label class="width-125">不接受短信<input type="checkbox" class="width-13 vertical-align-middle margin-left-5" value="false" name="store_customer[message_accepted]" <%= 'checked' unless entity.storeCustomer.messageAccepted() %>></label>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">单位</label>
-                  <input type="text" class="width-461" name="store_customer[company]" value="<%= @entity.storeCustomer.get 'company' %>">
+                  <input type="text" class="width-461" name="store_customer[company]" value="<%= entity.storeCustomer.get 'company' %>">
                 </div>
 
                 <div class="impression">
                   <h3>客户印象</h3>
-                  <div class="taglinks">
-                    <label><span>吸烟</span></label>
-                    <label><span>喝酒</span></label>
-                    <label><span>吸烟</span></label>
-                    <label><span>吸烟</span></label>
-                    <label><span>吸烟</span></label>
-                    <label><button class="append">添加</button></label>
+                  <div class="taglinks js-tags">
+
+                    <label><button class="append js-add-tag">添加</button></label>
                   </div>
                 </div>
               </div>
@@ -174,62 +183,65 @@
               <div class="billing_info crm_info_content">
                 <div class="item_content">
                   <label class="width-75">挂账额度</label>
-                  <select class="width-178">
-                    <option>不限金额</option>
-                    <option>自定义金额</option>
-                    <option>不允许挂账</option>
+                  <select class="width-178" name="store_customer_settlement[credit]">
+                    <% _.each Mis.Settings.Entity.credit, (name, code) ->: %>
+                      <option value="<%= code %>"><%= name %></option>
+                    <% end %>
                   </select>
 
-                  <input type="text" class="width-176 margin-left-103" name="store_customer_settlement[credit_amount]">
+                  <input type="text" class="width-176 margin-left-103" value="<%= entity.storeCustomerSettlement.get 'credit_amount' %>" name="store_customer_settlement[credit_amount]">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">结算提醒</label>
-                  <select class="width-178">
-                    <option>月底前3天</option>
-                    <option>月底前5天</option>
-                    <option>月底前7天</option>
+                  <select class="width-178" name="store_customer_settlement[notice_period]">
+                    <% _.each Mis.Settings.Entity.settlement, (name, code) ->: %>
+                      <option value="<%= code %>"><%= name %></option>
+                    <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">合同号</label>
-                  <input type="text" class="width-176" name="store_customer_settlement[contract]" value="<%= @entity.storeCustomerSettlement.get 'contract' %>">
+                  <input type="text" class="width-176" name="store_customer_settlement[contract]" value="<%= entity.storeCustomerSettlement.get 'contract' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">开户银行</label>
-                  <input type="text" class="width-461" name="store_customer_settlement[bank]" value="<%= @entity.storeCustomerSettlement.get 'bank' %>">
+                  <input type="text" class="width-461" name="store_customer_settlement[bank]" value="<%= entity.storeCustomerSettlement.get 'bank' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">银行帐号</label>
-                  <input type="text" class="width-461" name="store_customer_settlement[bank_account]" value="<%= @entity.storeCustomerSettlement.get 'bank_account' %>">
+                  <input type="text" class="width-461" name="store_customer_settlement[bank_account]" value="<%= entity.storeCustomerSettlement.get 'bank_account' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">税号</label>
-                  <input type="text" class="width-461" name="store_customer_settlement[tax]" value="<%= @entity.storeCustomerSettlement.get 'tax' %>">
+                  <input type="text" class="width-461" name="store_customer_settlement[tax]" value="<%= entity.storeCustomerSettlement.get 'tax' %>">
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">收款方式</label>
-                  <select class="width-178">
-
+                  <select class="width-178" name="store_customer_settlement[payment]">
+                    <% _.each Mis.Settings.Entity.payment, (name, code) ->: %>
+                      <option value="<%= code %>"><%= name %></option>
+                    <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">发票种类</label>
-                  <select class="width-178">
-                    <option></option>
+                  <select class="width-178" name="store_customer_settlement[invoice]">
+                    <% _.each Mis.Settings.Entity.invoice, (name, code) ->: %>
+                      <option value="<%= code %>"><%= name %></option>
+                    <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">发票抬头</label>
-                  <input type="text" class="width-176" name="store_customer_settlement[invoice_title]" value="<%= @entity.storeCustomerSettlement.get 'invoice_title' %>">
-
+                  <input type="text" class="width-176" name="store_customer_settlement[invoice_title]" value="<%= entity.storeCustomerSettlement.get 'invoice_title' %>">
                 </div>
               </div>
             </div>
@@ -265,14 +277,16 @@
               <div class="width-646 float-left">
                 <div class="item_content">
                   <label class="width-75 vertical-align-top">备注</label>
-                  <textarea class="width-539 height-100" name="remark"><%= @entity.get 'remark' %></textarea>
+                  <textarea class="width-539 height-100" name="remark"><%= entity.get 'remark' %></textarea>
                 </div>
               </div>
             </div>
 
             <div class="btn_group">
-              <a class="save_btn btn" href="javascript:void(0)">保存</a>
-              <a class="cancel_btn btn" href="javascript:void(0)">取消</a>
+              <input type="submit" name="submit" id="" value="保存" class="save_btn btn" />
+              <% unless entity.isNew(): %>
+                <a class="cancel_btn btn" href="<%= @view.goToUrl() %>">取消</a>
+              <% end %>
             </div>
           </div>
         </div>

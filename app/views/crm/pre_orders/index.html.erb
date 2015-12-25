@@ -1,0 +1,51 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+
+<%= render '/crm/common/page_head' %>
+
+<div class="details">
+
+  <%= render '/crm/common/customer_nav' %>
+
+  <%= render 'search' %>
+
+  <div class="details_content">
+    <table cellspacing="0" cellpadding="0" class="intention_product">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>日期</th>
+          <th>意向单号</th>
+          <th>商品或项目</th>
+          <th>规格或分类</th>
+          <th>金额</th>
+          <th>意向原因</th>
+					<th>不买原因</th>
+					<th>预期时间</th>
+					<th>备注</th>
+					<th>制单</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render 'order' %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script type="text/javascript">
+  function submit_form(){
+    $('#queryForm').submit();
+  }
+
+  $(function(){
+    $('.datepicker').datetimepicker({
+      format: 'Y-m-d',
+      lang: 'ch',
+      timepicker: false
+    });
+  });
+
+  $(document).on('click', '.query_btn', submit_form);
+</script>

@@ -7,7 +7,18 @@ module Api
     end
 
     def create
-      @entity = current_store.store_customer_entities.create(append_store_attrs entity_params)
+      attrs = append_store_attrs entity_params
+      taggings = attrs[:store_customer_attributes].fetch(:taggings_attributes, [])
+      attrs[:store_customer_attributes][:taggings_attributes] = []
+      @entity = current_store.store_customer_entities.create(attrs)
+      @entity.store_customer.update(taggings_attributes: taggings)
+      respond_with @entity, location: nil
+    end
+
+    def update
+      @entity = current_store.store_customer_entities.find(params[:id])
+      @entity.store_customer.taggings.clear
+      @entity.update(append_store_attrs entity_params)
       respond_with @entity, location: nil
     end
 
@@ -16,18 +27,29 @@ module Api
       respond_with @entity, location: nil
     end
 
+    def cities
+      @cities = Geo.cities(1, params[:province])
+      respond_with @cities, location: nil
+    end
+
+    def regions
+      @regions = Geo.regions(1, params[:province], params[:city])
+      respond_with @regions, location: nil
+    end
+
     private
       def entity_params
         params.require(:store_customer_entity).permit(
-          :telephone,
-          :mobile,
-          :qq,
-          :district,
           :address,
           :range,
           :remark,
           :store_customer_category_id,
+          district: [:province, :city, :region],
           store_customer_attributes: [
+            :id,
+            :telephone,
+            :phone_number,
+            :qq,
             :first_name,
             :last_name,
             :gender,
@@ -40,9 +62,13 @@ module Api
             :income,
             :company,
             :tracking_accepted,
-            :message_accepted
+            :message_accepted,
+            taggings_attributes: [
+              :tag_id
+            ]
           ],
-          store_customer_settlement: [
+          store_customer_settlement_attributes: [
+            :id,
             :bank,
             :bank_account,
             :credit,

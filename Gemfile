@@ -46,6 +46,7 @@ gem "hiredis", "~> 0.6.0"
 gem 'redis-namespace','~> 1.5.1'
 # 将一些数据存放入 Redis
 gem 'redis-objects', '1.1.0'
+gem 'redis-rails'
 
 # YAML 配置信息
 gem 'settingslogic', '~> 2.0.9'
@@ -122,3 +123,9 @@ gem 'backbone-support', '~> 0.5.1'
 
 # # 发送短信
 gem 'sms_client', git: 'git@gitlab.icar99.com:zc/sms_client.git', tag: 'v0.0.5'
+
+# http调用
+gem "http_client", git: 'git@gitlab.icar99.com:zc/http_client.git', tag: '0.0.4'
+
+# add comments to migration
+gem 'migration_comments', '~> 0.3.2'

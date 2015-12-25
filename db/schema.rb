@@ -64,6 +64,21 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.datetime "updated_at"
   end
 
+  create_table "complaints", force: :cascade do |t|
+    t.integer  "store_customer_id"
+    t.integer  "store_vehicle_id"
+    t.integer  "store_order_id"
+    t.integer  "updator_id"
+    t.json     "detail"
+    t.integer  "satisfaction"
+    t.integer  "creator_id"
+    t.string   "creator_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+  end
+
   create_table "credits", force: :cascade do |t|
     t.decimal  "amount",     precision: 10, scale: 2
     t.string   "subject"
@@ -202,6 +217,18 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.integer  "sent_quantity", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "sms_records", force: :cascade do |t|
+    t.string   "phone_number"
+    t.string   "customer_name"
+    t.integer  "customer_id"
+    t.string   "first_category"
+    t.integer  "second_category"
+    t.text     "content"
+    t.integer  "quantity",        default: 1
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
@@ -455,6 +482,8 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.boolean  "tracking_accepted"
     t.boolean  "message_accepted"
     t.integer  "store_customer_entity_id"
+    t.string   "telephone"
+    t.string   "remark"
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -535,14 +564,15 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.string   "sort"
     t.text     "description"
     t.json     "operate",        default: {}
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.datetime "occur_on"
     t.datetime "start_on"
     t.datetime "end_on"
     t.string   "occur_at"
     t.integer  "recorder_id"
     t.integer  "period"
+    t.string   "created_month",  default: "201512"
   end
 
   create_table "store_files", force: :cascade do |t|
@@ -1087,18 +1117,19 @@ ActiveRecord::Schema.define(version: 20151224151413) do
   create_table "store_orders", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                                               null: false
-    t.integer  "store_chain_id",                                                         null: false
-    t.integer  "store_staff_id",                                                         null: false
-    t.decimal  "amount",                        precision: 12, scale: 4, default: 0.0
-    t.string   "remark",            limit: 255
+    t.integer  "store_id",                                                                                 null: false
+    t.integer  "store_chain_id",                                                                           null: false
+    t.integer  "store_staff_id",                                                                           null: false
+    t.decimal  "amount",                                          precision: 12, scale: 4, default: 0.0
+    t.string   "remark",                              limit: 255
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
-    t.boolean  "hanging",                                                default: false
-    t.integer  "pay_status",                                             default: 0
-    t.integer  "task_status",                                            default: 0
+    t.boolean  "hanging",                                                                  default: false
+    t.integer  "store_vehicle_registration_plate_id"
+    t.integer  "pay_status",                                                               default: 0
+    t.integer  "task_status",                                                              default: 0
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1560,13 +1591,20 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.datetime "updated_at"
   end
 
-  create_table "store_vehicle_brands", force: :cascade do |t|
+  create_table "store_trackings", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "category_id"
+    t.integer  "contact_way_id"
+    t.text     "content"
+    t.text     "feedback"
+    t.integer  "creator_id"
+    t.integer  "executant_id"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "store_order_id"
+    t.boolean  "automatic",      default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
-    t.string   "name",           limit: 45
   end
 
   create_table "store_vehicle_engines", force: :cascade do |t|
@@ -1605,13 +1643,15 @@ ActiveRecord::Schema.define(version: 20151224151413) do
   create_table "store_vehicles", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                          null: false
-    t.integer  "store_chain_id",                    null: false
-    t.integer  "store_staff_id",                    null: false
-    t.string   "model",                  limit: 45
-    t.string   "series",                 limit: 45
-    t.integer  "store_vehicle_brand_id"
+    t.integer  "store_id",          null: false
+    t.integer  "store_chain_id",    null: false
+    t.integer  "store_staff_id",    null: false
     t.integer  "store_customer_id"
+    t.integer  "vehicle_brand_id"
+    t.integer  "vehicle_model_id"
+    t.integer  "vehicle_series_id"
+    t.json     "detail"
+    t.string   "numero"
   end
 
   create_table "store_workstation_categories", force: :cascade do |t|
@@ -1661,6 +1701,42 @@ ActiveRecord::Schema.define(version: 20151224151413) do
     t.integer  "store_staff_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+  end
+
+  create_table "vehicle_brands", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vehicle_engines", force: :cascade do |t|
+    t.integer  "store_vehicle_id"
+    t.integer  "store_vehicle_engine_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "vehicle_models", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "vehicle_series_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "vehicle_plates", force: :cascade do |t|
+    t.integer  "store_vehicle_id"
+    t.integer  "store_vehicle_registration_plate_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "vehicle_series", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "vehicle_brand_id",              comment: "所属品牌"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
 end

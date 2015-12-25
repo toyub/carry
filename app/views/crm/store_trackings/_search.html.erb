@@ -1,0 +1,24 @@
+<div class="nav_query_wrap">
+  <form id="queryForm" action="/crm/store_customers/<%= @customer.id %>/store_trackings" accept-charset='UTF-8' method="get">
+    <div class="nav-item-query">
+      <label>选择车辆</label>
+      <%= select_tag 'q[store_order_plate_id_eq]', options_for_select(@customer.plates.pluck(:license_number, :id), @search[:plate]), include_blank: '全部车辆', class: 'width-120' %>
+    </div>
+
+    <div class="nav-item-query">
+      <label class="width-70">选择时间</label>
+      <input type="text" name="q[created_at_gt]" value='<%= @search[:startDate] %>' class="width-120 datepicker" readonly="true">
+      <input type="text" name="q[created_at_lt]" value='<%= @search[:endDate] %>' class="width-120 datepicker" readonly="true">
+    </div>
+
+    <div class="nav-item-query">
+      <label class="width-70">回访方式</label>
+      <%= select_tag 'q[contact_way_id_eq]', options_for_select(StoreTracking::CONTACT_WAY.invert, @search[:contact_way]), include_blank: '所有方式', class: 'width-120' %>
+    </div>
+
+    <div class="nav-item-query">
+      <a href="javascript:void(0)" class="btn query_btn">查<nbsp1></nbsp1>询</a>
+      <a href="javascript:void(0)" class="btn new_btn new_return_record">新<nbsp1></nbsp1>建</a>
+    </div>
+  </form>
+</div>

@@ -53,3 +53,12 @@ class Mis.Views.XiaoshouServiceTrackingsEdit extends Mis.Base.View
     @leave()
     view = new Mis.Views.XiaoshouServiceTrackingsShow(model: @model)
     $("#bodyContent").html view.render().el
+
+  rootResource: ->
+    "service"
+
+  subResource: ->
+    "trackings"
+
+  action: ->
+    "edit"

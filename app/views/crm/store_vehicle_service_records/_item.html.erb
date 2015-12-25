@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <% item.mechanics.each do |mechanic| %>
+      <label><%= mechanic %></label>
+    <% end %>
+  </td>
+  <td><%= item.orderable.name %></td>
+  <td><%= item.price %></td>
+  <td><%= item.quantity %></td>
+  <td><%= item.youhui %></td>
+  <td><%= item.amount %></td>
+</tr>
