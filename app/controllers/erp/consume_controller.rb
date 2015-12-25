@@ -1,5 +1,5 @@
 module Erp
-  class ExpenseRecordsController < BaseController
+  class ConsumeController < BaseController
     def index
       @orders = StoreOrder.all
       respond_with @orders, location: nil

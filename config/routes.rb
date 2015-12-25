@@ -198,8 +198,8 @@ Rails.application.routes.draw do
   namespace :erp do
     resources :customers, only: [:index]
     resources :store_trackings, only: [:index]
-    resources :expense_records, only: [:index]
-    resources :store_vehicles, only: [:index, :show]
+    resources :consume, only: [:index]
+    resources :vehicles, only: [:index, :show]
     resources :stores, only: [:index]
     resources :customer_categories, only: [:index]
   end

@@ -9,7 +9,7 @@ class StoreOrderItem < ActiveRecord::Base
     ['王晓勇', '李明亮']
   end
 
-  def youhui
+  def discount
     rand(10)
   end
 end

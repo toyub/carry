@@ -4,11 +4,11 @@ json.array! @customers do |customer|
   json.store_name customer.store.name
   json.category customer.category_name
   json.vehicle_count customer.vehicle_count
-  json.consume_times customer.try(:consume_times)
-  json.consume_total customer.try(:consume_total)
-  json.credits customer.try(:credits)
-  json.integrity customer.try(:integrity)
-  json.activeness customer.try(:activeness)
-  json.satisfaction customer.try(:satisfaction)
+  json.consume_times customer.consume_times
+  json.consume_total customer.consume_total
+  json.credits customer.credits
+  json.integrity customer.integrity
+  json.activeness customer.activeness
+  json.satisfaction customer.satisfaction
   json.operator customer.store_staff.full_name
 end

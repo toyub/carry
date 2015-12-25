@@ -1,5 +1,5 @@
 module Erp
-  class StoreVehiclesController < BaseController
+  class VehiclesController < BaseController
     before_action :set_customer, :set_vehicle, only: [:show]
 
     def index

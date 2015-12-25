@@ -42,6 +42,31 @@ class StoreCustomer < ActiveRecord::Base
     self.store_customer_entity.store_customer_category.try(:name)
   end
 
+  def consume_times
+    222
+  end
+
+  def consume_total
+    1_0000
+  end
+
+  def credits
+    300
+  end
+
+  def integrity
+
+  end
+
+  def activeness
+
+  end
+
+  def satisfaction
+
+  end
+
+
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"
