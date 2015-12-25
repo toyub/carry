@@ -406,12 +406,12 @@ ActiveRecord::Schema.define(version: 20151225035202) do
     t.float    "range"
     t.string   "property"
     t.string   "remark"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "store_id"
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
-    t.decimal  "balance"
+    t.decimal  "balance",                    default: 0.0, null: false
   end
 
   create_table "store_customer_journal_entries", force: :cascade do |t|
