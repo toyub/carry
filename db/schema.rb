@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225040258) do
+ActiveRecord::Schema.define(version: 20151225062442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1140,7 +1140,7 @@ ActiveRecord::Schema.define(version: 20151225040258) do
     t.boolean  "hanging",                                                                  default: false
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
-    t.decimal  "remaining",                                       precision: 8,  scale: 2, default: 0.0
+    t.decimal  "filled",                                          precision: 8,  scale: 2, default: 0.0
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1523,13 +1523,12 @@ ActiveRecord::Schema.define(version: 20151225040258) do
     t.decimal  "trial_salary",                       precision: 10, scale: 2
     t.decimal  "regular_salary",                     precision: 10, scale: 2
     t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
+    t.integer  "trial_period",                                                default: 1
     t.json     "skills",                                                      default: {}
     t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
-    t.boolean  "regular",                                                     default: true
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
