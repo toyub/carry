@@ -59,7 +59,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def activeness
-
+    self.orders.this_year.count
   end
 
   def satisfaction
