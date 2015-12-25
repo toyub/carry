@@ -1,11 +1,11 @@
 Mis.Views.Concerns.Top =
-  included: ->
-    res = s.underscored(@::constructor.name).split("_")
-    resource = res[1]
-    subResource = res[2]
-    action = res[3]
-    @::redirect_url = "#store_#{resource}s" unless subResource == 'profiles' && action == 'index'
-    @::topTitle = "#{@::resourceName[resource]}#{@::subResourceName[subResource]}#{@::actionName[action]}"
+  #included: ->
+    #res = s.underscored(@::constructor.name).split("_")
+    #resource = res[1]
+    #subResource = res[2]
+    #action = res[3]
+    #@::redirect_url = "#store_#{resource}s" unless subResource == 'profiles' && action == 'index'
+    #@::topTitle = "#{@::rootResourceName[resource]}#{@::subResourceName[subResource]}#{@::actionName[action]}"
 
   actionName:
     index: '列表'
@@ -13,7 +13,7 @@ Mis.Views.Concerns.Top =
     edit: '编辑'
     show: '详情'
 
-  resourceName:
+  rootResourceName:
     service: '服务'
     package: '套餐'
     customer: '客户'
@@ -25,5 +25,11 @@ Mis.Views.Concerns.Top =
 
 
   renderTop: ->
-    top = new Mis.Views.XiaoshouSharedTop(title: @topTitle, redirect_url: @redirect_url)
+    top = new Mis.Views.XiaoshouSharedTop(title: @topTitle(), redirect_url: @redirectUrl())
     @prependChild(top)
+
+  topTitle: ->
+    "#{@rootResourceName[@rootResource()]}#{@subResourceName[@subResource()]}#{@actionName[@action()]}"
+
+  redirectUrl: ->
+    "#store_#{@rootResource()}s" unless @subResource() == 'profiles' && @action() == 'index'

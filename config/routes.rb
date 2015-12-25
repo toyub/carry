@@ -74,7 +74,33 @@ Rails.application.routes.draw do
   get "xiaoshou/main", to:  "xiaoshou#main"
 
   namespace :soa do
-    resources :staff
+    resources :staff do
+      resource :setting do
+       patch 'adjust', on: :member
+       patch 'password', on: :member
+      end
+      resources :events  do
+        get 'detail', on: :member
+        get 'search', on: :collection
+      end
+      controller :record do
+        get "/record/index" => "record#index", as: :record
+        get "search" => "record#search", as: :search_record
+      end
+    end
+    resources :events, only: :index
+    resources :protocols do
+      get 'record', on: :member
+    end
+    resources :performance do
+      get 'search', on: :collection
+    end
+    resources :salaries do
+      get "record", on: :collection
+      get 'search', on: :collection
+      get 'confirm', on: :member
+      get 'check', on: :member
+    end
   end
 
   namespace :xianchang do
@@ -169,6 +195,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # 总部平台api调用
+  namespace :erp do
+    resources :customers, only: [:index]
+  end
+
   namespace :api do
     resources :store_staff, only: [:index, :update]
     resources :store_service_categories, only: [:create]
@@ -187,7 +218,9 @@ Rails.application.routes.draw do
         get :search
       end
     end
-    resources :store_orders, only: [:index]
+    resources :store_orders, only: [:index] do
+      resources :complaints, only:[:new, :create]
+    end
     resources :store_subscribe_orders
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do
@@ -197,7 +230,14 @@ Rails.application.routes.draw do
       resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
-    resources :store_customers, only: [:index, :create, :update, :show]
+    resources :store_customer_entities, only: [:index, :create, :update, :show] do
+      collection do
+        get :cities
+        get :regions
+      end
+    end
+
+    resources :tags, only: [:create]
 
     resource :qiniu do
       collection do
@@ -224,6 +264,18 @@ Rails.application.routes.draw do
           get :return_url
         end
       end
+    end
+  end
+
+  namespace :crm do
+    resources :store_customers do
+      resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update]
+      resources :store_vehicle_status, only: [:show]
+      resources :store_vehicle_service_records, only: [:show]
+      resources :expense_records, only: [:index]
+      resources :pre_orders, only: [:index]
+      resources :complaints, only: [:index, :edit, :update]
+      resources :store_trackings, only: [:index, :create]
     end
   end
 

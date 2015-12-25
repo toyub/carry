@@ -9,7 +9,6 @@
 
 /config/database.yml
 /config/sms_client.yml
-config/config.yml
 config/redis.yml
 config/qiniu.yml
 config/alipay.yml

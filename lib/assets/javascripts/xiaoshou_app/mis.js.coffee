@@ -6,6 +6,7 @@ window.Mis =
   Routers: {}
   Mixins: {}
   Base: {}
+  Settings: {}
   initialize: (data) ->
     @store = new Mis.Models.Store(data)
     @materials = @store.materials
@@ -13,6 +14,6 @@ window.Mis =
     @commissions = @store.commissionTemplates
     new Mis.Routers.StorePackages(collection: @store.packages)
     new Mis.Routers.StoreServices(collection: @services)
-    new Mis.Routers.StoreCustomers(collection: @store.customers)
+    new Mis.Routers.StoreCustomerEntities(collection: @store.customerEntities)
     if not Backbone.History.started
       Backbone.history.start()

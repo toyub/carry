@@ -5,17 +5,35 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_department
   belongs_to :store_position
   belongs_to :store_employee
+  has_many :creator_complaints, class_name: 'Complaint', as: :creator
+  has_many :complaints
+  has_many :store_protocols, dependent: :destroy
+  has_many :store_events, dependent: :destroy
+  has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
+  has_many :store_attendence, class_name: "StoreAttendence", dependent: :destroy
+  has_many :store_rewords, class_name: "StoreReward", dependent: :destroy
+  has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
+  has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
+  has_many :store_salaries, dependent: :destroy
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
 
   before_validation :set_full_name
   before_create     :encrypt_password
+  before_create :set_default_password
 
   scope :by_keyword, ->(keyword){ where('full_name like :name or phone_number like :phone_number',
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
   scope :by_level, ->(level_type_id){ where(level_type_id: level_type_id) if level_type_id.present?}
   scope :by_job_type, ->(job_type_id){ where(job_type_id: job_type_id) if job_type_id.present?}
+  scope :mis_login_enabled, ->{ where(mis_login_enabled: true).pluck(:full_name, :id) }
+  scope :by_department_id, ->(store_department_id) { where(store_department_id: store_department_id) if store_department_id.present? }
+  scope :by_position_id, ->(store_position_id) { where(store_position_id: store_position_id) if store_position_id.present? }
+  scope :by_created_month_in_salary, ->(month) { joins(:store_salaries).where(store_salaries: {created_month: month} ) if month.present? }
+
+  scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
+  scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -51,13 +69,99 @@ class StoreStaff <  ActiveRecord::Base
     end
   end
 
+  def regular?
+    protocol = store_protocols.operate_type("StoreZhuanZheng").last
+    if protocol.present?
+      Date.today > protocol.effected_on
+    else
+      Date.today > self.trial_period.months.since(self.created_at)
+    end
+  end
+
+  def working_age
+    Time.now.year - (employeed_at.try(:year) || created_at.try(:year))
+  end
+
+  def insurence_enabled?
+    return (bonus.try(:[], "insurence_enabled").nil? || bonus.try(:[], "insurence_enabled") == "0") ? "否" : "是"
+  end
+
+  def current_salary
+    regular? ? regular_salary.to_f : trial_salary.to_f
+  end
+
+  def reset_salary(new_salary)
+    regular? ? update!(regular_salary: new_salary) : update!(trial_salary: new_salary)
+  end
+
+  def contract
+    store_contracts.last
+  end
+
+  def contract_life
+    year = 12
+    (contract.expired_on.year - contract.effected_on.year) * year + (contract.effected_on.month - contract.expired_on.month) if contract.present?
+  end
+
+  def contract_valid?
+    contract.expired_on > contract.effected_on if contract
+  end
+
+  def bonus_amount
+    bonus || {}
+    bonus["gangwei"].to_f + bonus["canfei"].to_f + bonus["laobao"].to_f +
+      bonus["gaowen"].to_f + bonus["zhusu"].to_f
+  end
+
+  def insurence_amount
+    bonus || {}
+    bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
+  end
+
+  def cutfee
+    bonus || {}
+    bonus["gerendanbao"].to_f + store_attendence.total + store_penalties.total
+  end
+
+  def should_pay
+    sum = 0
+    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay
+    sum
+  end
+
+  def total_actual_salary
+  end
+
+  def salary_of_month(month = Time.now.beginning_of_month.strftime("%Y%m") )
+    store_salaries.where(created_month: month, status: true).last
+  end
+
+  def by_search_type(type)
+    record = ""
+    partial = ""
+    case type
+    when "StoreReward", "StoreAttendence", "StorePenalty", "StoreOvertime"
+        record = store_events.by_type(type)
+        partial = "event_record"
+    when "StoreSalary"
+      record = store_salaries.all
+      partial = "salary_record"
+    when "StoreAdjustSalary"
+      record = store_protocols.where(type: "StoreTiaoXin")
+      partial = "adjust_salary_record"
+    else
+      record = "nothing could search!"
+    end
+    return partial, record
+  end
+
   def locked?
     !mis_login_enabled
   end
 
   private
   def encrypt_password()
-    self.salt = Digest::MD5.hexdigest("--#{Time.now.to_i}--")
+    self.salt = Digest::MD5.hexdigest("--#{Time.now.to_f}--")
     self.encrypted_password = self.class.encrypt_with_salt(self.password, self.salt)
   end
 
@@ -72,5 +176,12 @@ class StoreStaff <  ActiveRecord::Base
             "#{self.first_name}#{self.last_name}"
           end
       end
+  end
+
+  def set_default_password
+    if self.password.blank?
+      self.password = self.password_confirmation = rand
+      encrypt_password
+    end
   end
 end

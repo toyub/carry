@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :current_staff, :current_store
 
+  include ApplicationHelper
+
   def current_user
     @current_user ||= StoreStaff.find_by(id: session[:user_id])
   end
@@ -39,7 +41,14 @@ class ApplicationController < ActionController::Base
     end
 
     def nested_transformer
-      -> (v) { v.is_a?(Array) ? v.map { |x| x.merge(store_options) } : v.merge(store_options) }
+      -> (v) do
+        case v
+        when Array
+          v.map { |x| x.merge(store_options) }
+        when Hash
+          v.values.first.is_a?(Hash) ? v.values.map { |x| x.merge(store_options) } : v.merge(store_options)
+        end
+      end
     end
 
     def nested_selector

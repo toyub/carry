@@ -1,0 +1,44 @@
+<div class="details_content salary_payment_record">
+<table class="record">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>日期</th>
+      <th>底薪</th>
+      <th>提成</th>
+      <th>福利补贴</th>
+      <th>奖金</th>
+      <th>保险金</th>
+      <th>加班费</th>
+      <th>应扣费用</th>
+      <th>实发金额</th>
+      <th>详情</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @record.each.with_index(1) do |salary, index| %>
+      <tr>
+        <td><%= index %></td>
+        <td><%= salary.created_at.strftime("%Y-%m") %></td>
+        <td><%= salary.store_staff.current_salary %></td>
+        <td><%= salary.amount_deduction %></td>
+        <td><%= salary.amount_bonus %></td>
+        <td><%= salary.amount_reward %></td>
+        <td><%= salary.amount_insurence %></td>
+        <td><%= salary.amount_overtime %></td>
+        <td><%= salary.amount_cutfee %></td>
+        <td><%= salary.salary_actual_pay %></td>
+        <td><%= link_to "<i class='ico ico-edit font-14'></i>".html_safe, check_soa_salary_path(id: salary.store_staff.id), remote: true %></td>
+        <!-- <td><a href="#">查看</a></td> -->
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="11">
+        <label class="width-100">实发金额合计：</label> <label class="width-100 text-align-left"><%= @staff.total_actual_salary %></label>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>

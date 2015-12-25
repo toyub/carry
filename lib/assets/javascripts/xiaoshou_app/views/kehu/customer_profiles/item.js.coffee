@@ -7,7 +7,7 @@ class Mis.Views.KehuCustomerProfilesItem extends Mis.Base.View
     @listenTo(@model, 'remove', @leave)
 
   render: ->
-    @$el.html(@template(customer: @model, view: @))
+    @$el.html(@template(entity: @model, view: @))
     @
 
   customerUrl: ->

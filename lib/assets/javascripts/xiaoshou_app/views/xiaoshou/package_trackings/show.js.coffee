@@ -45,3 +45,12 @@ class Mis.Views.XiaoshouPackageTrackingsShow extends Mis.Base.View
     @leave()
     view = new Mis.Views.XiaoshouPackageTrackingsEdit(model: @model)
     $("#bodyContent").html view.render().el
+
+  rootResource: ->
+    "package"
+
+  subResource: ->
+    "trackings"
+
+  action: ->
+    "show"

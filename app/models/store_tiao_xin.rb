@@ -1,0 +1,3 @@
+class StoreTiaoXin < StoreProtocol
+
+end

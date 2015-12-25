@@ -1,6 +1,7 @@
 class Mis.Views.XiaoshouPackageProfilesNew extends Mis.Base.View
   @include Mis.Mixins.Uploadable
   @include Mis.Views.Concerns.Top
+  @include Mis.Views.Concerns.Validateable
 
   template: JST['xiaoshou/package_profiles/new']
 
@@ -31,3 +32,12 @@ class Mis.Views.XiaoshouPackageProfilesNew extends Mis.Base.View
   handleSuccess: ->
     @collection.add @model
     @uploadImages()
+
+  rootResource: ->
+    "package"
+
+  subResource: ->
+    "profiles"
+
+  action: ->
+    "new"

@@ -24,6 +24,16 @@ GIT
       nokogiri
 
 GIT
+  remote: git@gitlab.icar99.com:zc/http_client.git
+  revision: 608190f7b91b0ab8bffb9afc3d444d4837b0ed6c
+  tag: 0.0.4
+  specs:
+    http_client (0.1.1)
+      activesupport
+      faraday
+      typhoeus
+
+GIT
   remote: git@gitlab.icar99.com:zc/naught.git
   revision: c4253f1cb03ffc7a4b72f1e1d583032cc6b2459f
   tag: 0.1.2
@@ -156,7 +166,12 @@ GEM
     eco-source (1.1.0.rc.1)
     ejs (1.1.1)
     erubis (2.7.0)
+    ethon (0.8.0)
+      ffi (>= 1.3.0)
     execjs (2.6.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    ffi (1.9.10)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashids (1.0.2)
@@ -182,10 +197,13 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
+    migration_comments (0.3.2)
+      activerecord (>= 2.3.2)
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.8.2)
     multi_json (1.11.2)
+    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
@@ -247,10 +265,26 @@ GEM
       polyamorous (~> 1.2)
     rdoc (4.2.0)
     redis (3.2.1)
+    redis-actionpack (4.0.0)
+      actionpack (~> 4)
+      redis-rack (~> 1.5.0)
+      redis-store (~> 1.1.0)
+    redis-activesupport (4.0.0)
+      activesupport (~> 4)
+      redis-store (~> 1.1.0)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     redis-objects (1.1.0)
       redis (>= 3.0.2)
+    redis-rack (1.5.0)
+      rack (~> 1.5)
+      redis-store (~> 1.1.0)
+    redis-rails (4.0.0)
+      redis-actionpack (~> 4)
+      redis-activesupport (~> 4)
+      redis-store (~> 1.1.0)
+    redis-store (1.1.4)
+      redis (>= 2.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.7.3)
@@ -303,6 +337,8 @@ GEM
     tilt (2.0.1)
     timers (4.1.1)
       hitimes
+    typhoeus (0.8.0)
+      ethon (>= 0.8.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.0)
@@ -337,9 +373,11 @@ DEPENDENCIES
   geo!
   hashids (~> 1.0, >= 1.0.2)
   hiredis (~> 0.6.0)
+  http_client!
   jbuilder (= 2.2.6)
   js-routes
   kaminari
+  migration_comments (~> 0.3.2)
   naught!
   pg (~> 0.18.3)
   pry (~> 0.9.12)
@@ -352,6 +390,7 @@ DEPENDENCIES
   redis (~> 3.2.1)
   redis-namespace (~> 1.5.1)
   redis-objects (= 1.1.0)
+  redis-rails
   responders (~> 2.0)
   sass (= 3.4.10)
   sass-rails (~> 5.0.1)
