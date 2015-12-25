@@ -44,7 +44,10 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      Sells.show_year_consume();
+      Sells.display_year_sales_bar();
+      Sells.display_payment_ways_pie();
+      Sells.display_month_sales_pie();
+      Sells.display_month_sales_line();
     });
   </script>
 <% end %>

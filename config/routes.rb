@@ -261,8 +261,9 @@ Rails.application.routes.draw do
 
     controller :store_statistics do
       get 'statistic/sells/annual_sales' => "store_statistics#annual_sales"
-      get 'statistic/sells/payment_ways'
-      get 'statistic/sells/month_sales'
+      get 'statistic/sells/payment_ways' => "store_statistics#payment_ways"
+      get 'statistic/sells/month_sales_pie'  => "store_statistics#month_sales_pie"
+      get 'statistic/sells/month_sales_line'  => "store_statistics#month_sales_line"
     end
 
   end
