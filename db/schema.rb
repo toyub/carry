@@ -1239,11 +1239,12 @@ ActiveRecord::Schema.define(version: 20151224042355) do
 
   create_table "store_repayments", force: :cascade do |t|
     t.decimal  "amount"
+    t.integer  "store_customer_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "store_salaries", force: :cascade do |t|
