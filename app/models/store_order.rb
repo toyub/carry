@@ -41,6 +41,10 @@ class StoreOrder < ActiveRecord::Base
     self.items.packages.map{|item| item.orderable.package_setting.items.deposits_cards.to_a}.flatten
   end
 
+  def packages
+    self.items.packages
+  end
+
   def taozhuangs
     orderables_ids = self.items.where(orderable_type: StoreMaterialSaleinfo.name).map{|saleinfo| saleinfo.orderable_id}
     orderables_ids.map { |id|  StoreMaterialSaleinfo.where(service_needed: true).where(id: id)}

@@ -6,14 +6,10 @@ class StoreOrderArchive
   end
 
   def reform
-
-    
       save_payments
       pay_finish
       save_deposit_cards
-      create_debit
-    
-
+      save_package_services
   end
 
   def save_payments
@@ -29,6 +25,7 @@ class StoreOrderArchive
   def save_deposit_cards
      @order.deposits_cards.each do |card|
         StoreCustomerDepositCard.create! store_id: @order.store_id,
+                                         store_chain_id: @order.store_chain_id,
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,
                                          items_attributes: [{store_id: @order.store_id,
@@ -50,7 +47,27 @@ class StoreOrderArchive
      end
   end
 
-  def save_package_items
+  def save_package_services
+    @order.packages.each do |package_item|
+      if package_item.orderable.contain_service?
+        items_attributes = package_item.orderable
+                                                                 .package_setting
+                                                                 .items
+                                                                 .packaged_services.map do |package_item|
+                                                                                                                          {store_id: @order.store_id,
+                                                                                                                           store_chain_id: @order.store_chain_id,
+                                                                                                                           store_customer_id: @order.store_customer_id,
+                                                                                                                           assetable: package_item,
+                                                                                                                           total_quantity: package_item.quantity
+                                                                                                                         }
+                                                                                                            end
+        StoreCustomerPackagedService.create! store_id: @order.store_id,
+                                         store_chain_id: @order.store_chain_id,
+                                         store_customer_id: @order.store_customer_id,
+                                         store_vehicle_id: @order.store_vehicle_id,
+                                         items_attributes: items_attributes
+       end
+    end
   end
 
   def create_credit

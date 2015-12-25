@@ -10,7 +10,8 @@ class StorePackageItem < ActiveRecord::Base
   before_validation :create_deposit_card, if: :without_itemable_id?
   
   scope :deposits_cards, ->{where(package_itemable_type: StoreDepositCard.name)}
-
+  scope :packaged_services, ->{where(package_itemable_type: StoreService.name)}
+  
   private
     def create_deposit_card
       package_itemable = StoreDepositCard.create(self.attributes.slice(:price, :denomination, :name))
