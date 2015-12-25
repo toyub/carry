@@ -222,7 +222,7 @@ Rails.application.routes.draw do
       resources :store_service_reminds, only: [:update]
       resources :store_service_trackings, only: [:create, :update, :destroy]
     end
-    resources :store_vehicles, only: [:index]
+    resources :store_vehicles, only: [:index, :show]
     resources :store_orders, only: [:index] do
       resources :complaints, only:[:new, :create]
     end
@@ -260,6 +260,7 @@ Rails.application.routes.draw do
     resources :store_customer_categories
 
     resources :store_customer_gender, only: [:index]
+    resources :store_sales, only: [:index]
     # controller :store_statistics do
     #   get 'statistic/sells/annual_sales' => "store_statistics#annual_sales"
     #   get 'statistic/sells/payment_ways' => "store_statistics#payment_ways"

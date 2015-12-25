@@ -7,6 +7,6 @@ class Api::StoreCustomerGenderController < Api::BaseController
                  male: [220, 182, 191],
                }
     }
-    respond_with @data, location: nil
+    render json: @data
   end
 end
