@@ -5,11 +5,33 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :store_order
   belongs_to :store_customer
 
-  def mechanics
-    ['王晓勇', '李明亮']
-  end
+
+  before_save :cal_amount
+  before_create :set_store_info
+
+  scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
+  scope :packages, -> { where(orderable_type: "StorePackage") }
+  scope :services, -> { where(orderable_type: "StoreService") }
+  scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
 
   def youhui
     rand(10)
   end
+
+  def mechanics
+    ['王晓勇', '李明亮']
+  end
+  
+  private
+
+    def cal_amount
+      self.amount = price * quantity
+    end
+
+    def set_store_info
+      self.store_id = store_order.id
+      self.store_chain_id = store_order.store_chain.id
+      self.store_staff_id = store_order.creator.id
+    end
+
 end

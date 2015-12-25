@@ -1,0 +1,14 @@
+<td class="number"><%= @id %></td>
+<td><%= @store_customer.full_name %></td>
+<td><%= @store_vehicle.license_number %></td>
+<td><%= @store_customer.phone_number %></td>
+<td><%= @subscribe_date %></td>
+<td>精致洗车</td>
+<td><%= @order_type %></td>
+<td><%= @state %></td>
+<td><%= @remark %></td>
+<td data-id='<%= @id %>'>
+  <i class="lnr lnr-edit cursor-pointer show_committed_btn" ></i>
+	<i class="lnr lnr-file-empty cursor-pointer" ></i>
+  <i class="lnr lnr-trash cursor-pointer delete_committed_btn"></i>
+</td>
