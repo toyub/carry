@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225035202) do
+ActiveRecord::Schema.define(version: 20151225063447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -394,6 +394,21 @@ ActiveRecord::Schema.define(version: 20151225035202) do
     t.decimal  "amount",            precision: 10, scale: 2, default: 0.0
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
+  end
+
+  create_table "store_customer_deposit_logs", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_customer_id"
+    t.integer  "store_vehicle_id"
+    t.integer  "store_order_id"
+    t.string   "subject"
+    t.decimal  "latest"
+    t.decimal  "amount"
+    t.decimal  "balance"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "store_customer_entities", force: :cascade do |t|
@@ -1115,6 +1130,15 @@ ActiveRecord::Schema.define(version: 20151225035202) do
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
 
+  create_table "store_order_repayments", force: :cascade do |t|
+    t.decimal  "filled"
+    t.decimal  "remaining"
+    t.integer  "store_order_id"
+    t.integer  "store_repayment_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "store_orders", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1127,10 +1151,11 @@ ActiveRecord::Schema.define(version: 20151225035202) do
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
-    t.integer  "store_vehicle_registration_plate_id"
     t.boolean  "hanging",                                                                  default: false
+    t.integer  "store_vehicle_registration_plate_id"
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
+    t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1263,6 +1288,16 @@ ActiveRecord::Schema.define(version: 20151225035202) do
     t.datetime "updated_at",                               null: false
     t.decimal  "previous_salary", precision: 10, scale: 2
     t.decimal  "new_salary",      precision: 10, scale: 2
+  end
+
+  create_table "store_repayments", force: :cascade do |t|
+    t.decimal  "amount"
+    t.integer  "store_customer_id"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "store_salaries", force: :cascade do |t|
@@ -1503,13 +1538,12 @@ ActiveRecord::Schema.define(version: 20151225035202) do
     t.decimal  "trial_salary",                       precision: 10, scale: 2
     t.decimal  "regular_salary",                     precision: 10, scale: 2
     t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
+    t.integer  "trial_period",                                                default: 1
     t.json     "skills",                                                      default: {}
     t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
-    t.boolean  "regular",                                                     default: true
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree

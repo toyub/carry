@@ -13,6 +13,8 @@ class StoreCustomer < ActiveRecord::Base
   has_many :taggings, class_name: 'Tagging', as: :taggable
   has_many :tags, class_name: 'Tag::StoreCustomer', through: :taggings
 
+  has_many :store_repayments
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
