@@ -41,9 +41,9 @@ class StoreOrderArchive
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,
                                          store_order_id: @order.id,
-                                         amount: card.denomination.to_f,
                                          latest: @customer.store_customer_entity.balance.to_f,
-                                         balance: card.denomination.to_f + @customer.store_customer_entity.balance.to_f
+                                         amount: card.denomination.to_f
+
 
       @customer.store_customer_entity.increase_balance!(card.denomination)
     end
