@@ -36,7 +36,7 @@ class StoreOrderArchive
                                                            assetable: card,
                                                            total_quantity: 1,
                                                            used_quantity: 1}]
-      StoreSustomerDepositIncome.create! store_id: @order.store_id,
+      StoreCustomerDepositIncome.create! store_id: @order.store_id,
                                          store_chain_id: @order.store_chain_id,
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,

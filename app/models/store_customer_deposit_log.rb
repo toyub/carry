@@ -6,7 +6,7 @@ class StoreCustomerDepositLog < ActiveRecord::Base
   private
   def set_balance
     case self.class
-    when StoreSustomerDepositIncome
+    when StoreCustomerDepositIncome
       self.balance = self.latest.to_f + card.amount.to_f.abs
     when StoreCustomerDepositExpense
       self.balance = self.latest.to_f - card.amount.to_f.abs
