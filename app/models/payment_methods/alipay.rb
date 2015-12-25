@@ -1,5 +1,6 @@
 module PaymentMethods
   class Alipay
+    include PaymentMethods::Base
     begin
       alipay_config = YAML.load_file("#{Rails.root}/config/alipay.yml").with_indifferent_access
       @@partner = alipay_config[:partner]

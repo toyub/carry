@@ -19,6 +19,6 @@
 # }
 
 Time::DATE_FORMATS.merge!(
-  date_only: lambda {|time| I18n.l time, format: :date_only}
-  
+  date_only: lambda {|time| I18n.l time, format: :date_only},
+  date_with_short_time: lambda {|time| I18n.l time, format: :date_with_short_time}
 )

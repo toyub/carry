@@ -7,6 +7,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   belongs_to :saleman_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'saleman_commission_template_id'
   has_many :services, class_name:'StoreMaterialSaleinfoService'
   has_many :store_subscribe_order_items, as: :itemable
+  has_many :store_order_items, as: :orderable
 
   accepts_nested_attributes_for :services
 
