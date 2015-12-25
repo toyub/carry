@@ -305,6 +305,7 @@ Rails.application.routes.draw do
       resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
+      resources :store_repayments
     end
   end
 

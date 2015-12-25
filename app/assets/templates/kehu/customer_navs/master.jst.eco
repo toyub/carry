@@ -1,6 +1,8 @@
 <li id="kehushow" class="active"><a href="javascript:void(0)" class="width-90">信息</a></li>
 <li id="zichanzhanghu"><a href="/mis/kehu/kehuliebiao/zichanzhanghu.html?zichanzhanghu" class="width-90 ">资产账户</a></li>
 
+<li id="zichan"><a href="/crm/store_customers/<%= @customer.id %>/store_repayments" class="width-90 ">账户</a></li>
+
 <li id="cheliangxinxishow"><a href="/crm/store_customers/<%= @customer.id %>/store_vehicle_archives/new" class="width-90">车辆档案</a></li>
 
 <li id="xiaofeijilu"><a href="/crm/store_customers/<%= @customer.id %>/expense_records" class="width-90">消费记录</a></li>
