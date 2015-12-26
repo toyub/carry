@@ -10,22 +10,23 @@
 
   <div class="car_details float-right">
 
-    <%= render '/crm/common/vehicle_nav' %>
+    <%= render '/crm/vehicle_common/vehicle_nav' %>
 
-    <%= render '/crm/common/sub_nav' %>
+    <%= render '/crm/vehicle_common/sub_nav' %>
 
     <div class="details_content car_content">
       <div class="base_info">
 
-        <%= render '/crm/common/vehicle_image' %>
+        <%= render '/crm/vehicle_common/vehicle_image' %>
 
-        <div class="car_info">
+        <div class="car_info float-left">
           <div class="items">
-            <%= render '/crm/common/vehicle_basic' %>
-            <%= render '/crm/common/vehicle_alermify' %>
+            <%= render '/crm/vehicle_common/vehicle_basic' %>
           </div>
         </div>
       </div>
+
+      <%= render 'orders' %>
     </div>
   </div>
 </div>

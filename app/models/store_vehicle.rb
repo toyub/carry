@@ -1,10 +1,9 @@
 class StoreVehicle < ActiveRecord::Base
   include BaseModel
 
-
-  belongs_to :brand, class_name: "StoreVehicleBrand", foreign_key: :store_vehicle_brand_id
   belongs_to :store_customer
 
+  belongs_to :vehicle_brand
   belongs_to :vehicle_model
   belongs_to :vehicle_series
   belongs_to :store_customer
@@ -27,6 +26,8 @@ class StoreVehicle < ActiveRecord::Base
   delegate :license_number, to: :registration_plate
 
   accepts_nested_attributes_for :frame
+  accepts_nested_attributes_for :plates
+  accepts_nested_attributes_for :engines
 
   ORGANIZATION_TYPE = {
     0 => '私家车',
@@ -36,6 +37,18 @@ class StoreVehicle < ActiveRecord::Base
 
   def organization_type_name
     ORGANIZATION_TYPE[self.detail['organization_type'].to_i]
+  end
+
+  def current_license_number
+    self.plates.last.license_number
+  end
+
+  def current_identification_number
+    self.engines.last.identification_number
+  end
+
+  def detail_by(name)
+    self.detail && self.detail[name]
   end
 
 end

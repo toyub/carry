@@ -1,0 +1,34 @@
+<%= form_tag("/soa/staff/#{@staff.id}/setting/adjust", method: "patch", remote: true) do -%>
+  <div class="transfer_wrap">
+    <div class="transfer_window">
+      <h3>转正单</h3>
+      <div class="content">
+        <table>
+          <tbody>
+            <%= render "/soa/settings/second_form_head_info"%>
+            <tr>
+              <td>试用薪</td>
+              <td><span class="width-132 show_content"><%= @staff.trial_salary %></span></td>
+              <td>正式薪</td>
+              <td><span class="width-132 show_content"><%= @staff.regular_salary %></span></td>
+              <td>试用期</td>
+              <td><span class="width-132 show_content"><%= @staff.trial_period %>月</span></td>
+              <td>状态</td>
+              <td><span class="width-132 show_content"><%= @staff.regular? ? "转正" : "试用" %></span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <%= fields_for :protocols do |protocol_fields| %>
+          <%= render "second_protocol_form", form: protocol_fields, type: "StoreZhuanZheng" %>
+        <% end %>
+
+        <div class="btn_groups">
+          <%= link_to "取消", "#", class: "btn cancel_btn", data: {from: "transfer_wrap"} %>
+          <%= submit_tag "保存", class: "btn save_btn margin-right-20" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>

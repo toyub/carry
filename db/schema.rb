@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
+    t.decimal  "amount",         precision: 8, scale: 2, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
+    t.decimal  "amount",     precision: 10, scale: 2
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1523,12 +1523,13 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.decimal  "trial_salary",                       precision: 10, scale: 2
     t.decimal  "regular_salary",                     precision: 10, scale: 2
     t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period",                                                default: 1
+    t.integer  "trial_period"
     t.json     "skills",                                                      default: {}
     t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
+    t.boolean  "regular",                                                     default: true
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
