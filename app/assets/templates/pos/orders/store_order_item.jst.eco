@@ -1,92 +1,47 @@
 <div class="order_items_category">
-	<ul>
-	  	<li class="bg-color-8E81B8 color-fff" data-target="commodity">商品</li>
-		<li data-target='service'>服务</li>
-		<li data-target="package">套餐</li>
-		<li data-target="vip">会员</li>
-	</ul>
+  <ul>
+    <li class="bg-color-8E81B8 color-fff" data-target="commodity">商品</li>
+    <li data-target='service'>服务</li>
+    <li data-target="package">套餐</li>
+    <li data-target="vip">会员</li>
+  </ul>
 </div>
 
 <div class="order_item  order_commodity" data-id="commodity">
 	<table cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>名称</th>
-				<th>规格</th>
-				<th>销售类别</th>
-				<th>积分</th>
-				<th>库存</th>
-				<th>零售价</th>
-				<th></th>
+        <th>#</th>
+        <th>名称</th>
+        <th>规格</th>
+        <th>销售类别</th>
+        <th>积分</th>
+        <th>库存</th>
+        <th>零售价</th>
+        <th></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td class="number">1.</td>
-				<td><span class="struct">施</span>米其林轮胎</td>
-				<td>195/65/15XM2 91V</td>
-				<td>汽配</td>
-				<td>50</td>
-				<td>4</td>
-				<td class="text-align-right">
-					<span class="text-decoration-linethrough display-block">480.00</span>
-					<span class="color-08BD48">380.00</span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td><span class="struct">施</span>米其林轮胎</td>
-				<td>195/65/15XM2 91V</td>
-				<td>汽配</td>
-				<td>50</td>
-				<td>4</td>
-				<td class="text-align-right">
-					<span class="text-decoration-linethrough display-block">480.00</span>
-					<span class="color-08BD48">380.00</span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td><span class="struct">施</span>米其林轮胎</td>
-				<td>195/65/15XM2 91V</td>
-				<td>汽配</td>
-				<td>50</td>
-				<td>4</td>
-				<td class="text-align-right">
-					<span class="text-decoration-linethrough display-block">480.00</span>
-					<span class="color-08BD48">380.00</span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td><span class="struct">施</span>米其林轮胎</td>
-				<td>195/65/15XM2 91V</td>
-				<td>汽配</td>
-				<td>50</td>
-				<td>4</td>
-				<td class="text-align-right">
-					<span class="text-decoration-linethrough display-block">480.00</span>
-					<span class="color-08BD48">380.00</span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td><span class="struct">施</span>米其林轮胎</td>
-				<td>195/65/15XM2 91V</td>
-				<td>汽配</td>
-				<td>50</td>
-				<td>4</td>
-				<td class="text-align-right">
-					<span class="text-decoration-linethrough display-block">480.00</span>
-					<span class="color-08BD48">380.00</span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
+      <% for item, index in @materials : %>
+			  <tr>
+          <td><%= index+1 %></td>
+          <td>
+            <% if item.service_needed: %>
+            <span class="struct">施</span>
+            <% end %>
+            <%= item.name %>
+          </td>
+          <td><%= item.speci %></td>
+			  	<td><%= item.category_name %></td>
+			  	<td><%= item.reward_points %></td>
+			  	<td><%= item.inventory_quantity %></td>
+			  	<td class="text-align-right">
+			  		<span class="text-decoration-linethrough display-block"><%= item.retail_price + item.service_fee_price %></span>
+			  		<span class="color-08BD48"><%= item.vip_price + item.service_fee_price %></span>
+			  	</td>
+			  	<td><input type="checkbox"></td>
+			  </tr>
+      <% end %>
 		</tbody>
 	</table>
 	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
