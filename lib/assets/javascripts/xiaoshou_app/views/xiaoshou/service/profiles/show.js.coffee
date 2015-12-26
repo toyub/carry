@@ -17,7 +17,6 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
     @renderChildInto(view, @$("#masterNav"))
 
   renderMaterials: =>
-    console.log @model.materials
     @model.materials.each @renderMaterial
 
   renderMaterial: (material) =>
