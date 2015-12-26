@@ -5,9 +5,6 @@ module Api
     def create
       order = StoreOrder.find(params[:order_id])
       paid_amount = payment_params[:payments].map { |payment| payment[:amount].to_f  }.sum
-      puts "\n" * 12
-      p paid_amount
-      puts "\n"*9
       if(order.amount != paid_amount)
         render json: {checked: false, msg: 'Payments amount is not equal!'}
         return
