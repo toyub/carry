@@ -57,7 +57,7 @@ class Store <  ActiveRecord::Base
   }
 
   def engineer_levels
-    ENGINEER_LEVEL.invert
+    StoreStaffLevel::ID_TYPES
   end
 
   def increase_balance!(amount)
