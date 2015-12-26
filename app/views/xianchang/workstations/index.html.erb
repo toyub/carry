@@ -1,0 +1,766 @@
+<div class="content" id="content">
+  <div class="main_top">
+    <h2>施工现场</h2>
+  </div>
+
+
+  <div class="details">
+
+    <table cellspacing="0" cellpadding="0" class="on_site_top">
+      <tbody>
+      <tr>
+        <td class="border-bottom-none">正在施工车辆</td>
+        <td class="border-bottom-none">正在排队车辆</td>
+        <td class="border-bottom-none">等待付款车辆</td>
+        <td class="border-bottom-none">离场车辆</td>
+        <td>
+          <label class="width-70">技师人数</label>
+          <label class="width-80 text-align-center">18</label>
+        </td>
+        <td>
+          <label class="width-70">技师忙碌</label>
+          <label class="width-80 text-align-center">16</label>
+        </td>
+        <td>
+          <label class="width-70">工位总数</label>
+          <label class="width-80 text-align-center">8</label>
+        </td>
+        <td>
+          <label class="width-70">工位使用</label>
+          <label class="width-80 text-align-center">8</label>
+        </td>
+        <td class="border-bottom-none">今天施工总台次</td>
+      </tr>
+      <tr>
+        <td class="font-18 text-align-center"><%= @processing_count %><label class="margin-left-5 font-18">台</label></td>
+        <td class="font-18 text-align-center"><%= @queuing_count %><label class="margin-left-5 font-18">台</label></td>
+        <td class="font-18 text-align-center"><%= @paying_count %><label class="margin-left-5 font-18">台</label></td>
+        <td class="font-18 text-align-center"><%= @finished_count %><label class="margin-left-5 font-18">台</label></td>
+        <td>
+          <label class="width-70">技师到岗</label>
+          <label class="width-80 text-align-center">18</label>
+        </td>
+        <td>
+          <label class="width-70">技师空闲</label>
+          <label class="width-80 text-align-center">2</label>
+        </td>
+        <td>
+          <label class="width-70">工位正常</label>
+          <label class="width-80 text-align-center">8</label>
+        </td>
+        <td>
+          <label class="width-70">预约等待</label>
+          <label class="width-80 text-align-center">0</label>
+        </td>
+        <td class="font-18 text-align-center">48<label class="margin-left-5 font-18">台</label></td>
+      </tr>
+
+      </tbody>
+    </table>
+
+    <div class="search_nav margin-top-5">
+      <div class="item-query">
+        <label class="width-85">查找项目或车辆</label>
+        <input type="text" class="width-150" placeholder="车牌或项目关键字">
+        <a class=" btn query_btn">查询</a>
+      </div>
+
+      <div class="item-query float-right">
+        <a href="javascript:void(0)" class="new_btn btn margin-left-5" id="new_station_btn">新建</a>
+      </div>
+      <div class="item-query margin-left-78">
+        <a href="zhuanye_gongwei.html">专业界面</a>
+        <a href="jianjie_gongwei.html" class="margin-left-30">简洁界面</a>
+      </div>
+    </div>
+
+    <div class="construction_site margin-top-36 do_wrap">
+      <div class="title bg-color-fb962d waiting">
+        <span>等候</span>
+        <span><i class="fa fa-chevron-left font-28 color-fff"></i></span>
+      </div>
+      <ul class="waiting">
+        <%= render partial: "queuing_order", collection: @queuing_orders, as: :order %>
+      </ul>
+    </div>
+
+
+    <div class="operating_station margin-top-36 do_wrap">
+      <ul class="work_staion" id="work_station">
+        <%= render partial: "workstation", collection: @workstations, as: :workstation %>
+        <li class="item_station">
+          <div class="station_info " style="border-color:#7658cf">
+            <span class="do_dbclick width-120">洗车1号工位</span>
+            <a href="#" class="edit_button">编辑</a>
+          </div>
+
+
+          <ul class="vehicle_info">
+            <li class="float-left construction_info">
+            <span>普通洗车</span>
+            <span class="do_dbclick times">180</span>
+            <a href="#" class="add_time js-add-time">加时</a>
+            </li>
+            <li class="float-left license_plate">
+            <span>浙A7300z </span>
+            <img src="/images/car_front.png">
+            </li>
+          </ul>
+
+        </li>
+          <li class="item_station">
+        <div class="station_info " style="border-color:#4449BE">
+          <span class="do_dbclick width-120">洗车2号工位</span>
+          <a href="#" class="edit_button">编辑</a>
+        </div>
+
+
+        <ul class="vehicle_info">
+          <li class="float-left construction_info">
+          <span>普通洗车</span>
+          <span class="do_dbclick times">180</span>
+          <a href="#" class="add_time js-add-time">加时</a>
+          </li>
+          <li class="float-left license_plate">
+          <span>浙A7300z </span>
+          <img src="/images/car_front.png">
+          </li>
+        </ul>
+
+        </li><li class="item_station">
+        <div class="station_info " style="border-color:#b17e39">
+          <span class="do_dbclick width-120">洗车3号工位</span>
+          <a href="#" class="edit_button">编辑</a>
+        </div>
+
+
+        <div class="disable_station">
+          <span>停用</span>
+        </div>
+
+        </li><li class="item_station">
+        <div class="station_info " style="border-color:#4449BE">
+          <span class="do_dbclick width-120">洗车4号工位</span>
+          <a href="#" class="edit_button">编辑</a>
+        </div>
+
+
+        <ul class="vehicle_info">
+          <li class="float-left construction_info">
+          <span>普通洗车</span>
+          <span class="do_dbclick times">180</span>
+          <a href="#" class="add_time js-add-time">加时</a>
+          </li>
+          <li class="float-left license_plate">
+          <span>浙A7300z </span>
+          <img src="/images/car_front.png">
+          </li>
+        </ul>
+
+        </li><li class="item_station">
+        <div class="station_info " style="border-color:#4449BE">
+          <span class="do_dbclick width-120">洗车5号工位</span>
+          <a href="#" class="edit_button">编辑</a>
+        </div>
+
+
+        <div class="disable_station">
+          <span>停用</span>
+        </div>
+
+        </li><li class="item_station">
+        <div class="station_info " style="border-color:#4449BE">
+          <span class="do_dbclick width-120">美容1号工位</span>
+          <a href="#" class="edit_button">编辑</a>
+        </div>
+
+
+        <ul class="vehicle_info">
+          <li class="float-left construction_info">
+          <span>普通洗车</span>
+          <span class="do_dbclick times">180</span>
+          <a href="#" class="add_time js-add-time">加时</a>
+          </li>
+          <li class="float-left license_plate">
+          <span>浙A7300z </span>
+          <img src="/images/car_front.png">
+          </li>
+        </ul>
+
+        </li><li class="item_station">
+        <div class="station_info " style="border-color:#4449BE">
+          <span class="do_dbclick width-120">美容2号工位</span>
+          <a href="#" class="edit_button">编辑</a>
+        </div>
+
+
+        <ul class="vehicle_info">
+          <li class="float-left construction_info">
+          <span>普通洗车</span>
+          <span class="do_dbclick times">180</span>
+          <a href="#" class="add_time js-add-time">加时</a>
+          </li>
+          <li class="float-left license_plate">
+          <span>浙A7300z </span>
+          <img src="/images/car_front.png">
+          </li>
+        </ul>
+
+      </li></ul>
+    </div>
+
+
+    <div class="construction_site margin-top-50 do_wrap">
+      <div class="title bg-color-36a54a ">
+        <span>完工</span>
+        <span><i class="fa fa-ban font-28"></i></span>
+      </div>
+      <ul class="completion">
+        <li>
+        <span>浙A62034</span>
+        <img src="/images/small_car.png">
+        </li>
+        <li>
+        <span>浙A51034</span>
+        <img src="/images/small_car.png">
+        </li>
+        <li>
+        <span>浙A51048</span>
+        <img src="/images/small_car.png">
+        </li>
+        <li>
+        <span>浙A66485</span>
+        <img src="/images/small_car.png">
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="window_wrap" id="vehicle_order_details" style="display:none">
+    <div class="wrap_order">
+      <div class="dialog_nav">
+        <span class="dialog_title ">单号:20141105001</span>
+        <a href="#" class="dialog_close  lnr-cross lnr do_close"></a>
+
+      </div>
+      <div class="float-left workplace_order">
+        <div class="order_details">
+          <div class="vehicle_order_details">
+            <div class="vehicle_info">
+              <dl>
+                <dd>
+                <label class="width-50">车牌号</label><input type="text" value="浙A16034" class="width-110" readonly="">
+                </dd>
+                <dd>
+                <label class="width-50">客户姓名</label><input type="text" value="王" class="width-110" readonly="">
+                </dd>
+                <dd>
+                <label class="width-50">手机号</label><input type="text" value="13335930000" class="width-110" readonly="">
+                </dd>
+              </dl>
+              <div class="vehicle_order_title title doslide">详细信息
+                <i class="fa-angle-double-up fa"></i>
+                <a href="/mis/kehu/kehuliebiao/kehuedit.html" target="_blank">完善客户信息</a>
+              </div>
+
+
+              <div class="vehicle_details_info">
+                <div class="item_content">
+                  <label class="width-50">车辆品牌</label><input type="text" value="宝马" class="width-110" readonly="">
+                </div>
+                <div class="item_content">
+                  <label class="width-50">车型</label><input type="text" value="宝马5系" class="width-110" readonly="">
+                </div>
+                <div class="item_content">
+                  <label class="width-50">车系</label><input type="text" value="宝马新5系" class="width-110" readonly="">
+                </div>
+                <div class="item_content">
+                  <label class="width-50">客户属性</label><input type="text" value="男" class="width-110" readonly="">
+                </div>
+                <div class="item_content">
+                  <label class="width-50">客户类别</label><input type="text" value="个人" class="width-110" readonly="">
+                </div>
+                <div class="item_content">
+                  <label class="width-50">结算方式</label><input type="text" value="现结" class="width-110" readonly="">
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="vehicle_condition">
+              <span class="vehicle_order_title title doslide">
+                车辆状态
+                <i class="fa-angle-double-up fa cursor-pointer"></i>
+                <a href="/mis/kehu/kehuliebiao/cheliangdangan/show.html?cheliangdangan" target="_blank">完善车辆信息</a>
+              </span>
+              <div class="vehicle_condition_info">
+
+                <div class="vehicle_check_point">
+                  <div class="status">
+                    <dl><dd><label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E</dd></dl>
+                    <dl><dd><label>行驶公里</label><span class="mileage"></span></dd></dl>
+                  </div>
+                  <div class="check_point">
+                    <img src="/images/car_status.png">
+                    <input type="checkbox" class="check_point_01 checktoggle" data-targetnode="check_point_01">
+                    <input type="checkbox" class="check_point_02 checktoggle" data-targetnode="check_point_02">
+                    <input type="checkbox" class="check_point_03 checktoggle" data-targetnode="check_point_03">
+                    <input type="checkbox" class="check_point_04 checktoggle" data-targetnode="check_point_04">
+                    <input type="checkbox" class="check_point_05 checktoggle" data-targetnode="check_point_05">
+                    <input type="checkbox" class="check_point_06 checktoggle" data-targetnode="check_point_06">
+                    <input type="checkbox" class="check_point_07 checktoggle" data-targetnode="check_point_07">
+                    <input type="checkbox" class="check_point_08 checktoggle" data-targetnode="check_point_08">
+                    <input type="checkbox" class="check_point_09 checktoggle" data-targetnode="check_point_09">
+                    <input type="checkbox" class="check_point_10 checktoggle" data-targetnode="check_point_10">
+                    <input type="checkbox" class="check_point_11 checktoggle" data-targetnode="check_point_11">
+                    <input type="checkbox" class="check_point_12 checktoggle" data-targetnode="check_point_12">
+                  </div>
+                </div>
+                <div class="vehicle_check_info">
+                  <label>车况检查记录</label>
+                  <ul>
+                    <li>1:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_01"></li>
+                    <li>2:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_02"></li>
+                    <li>3:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_03"></li>
+                    <li>4:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_04"></li>
+                    <li>5:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_05"></li>
+                    <li>6:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_06"></li>
+                    <li>7:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_07"></li>
+                    <li>8:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_08"></li>
+                    <li>9:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_09"></li>
+                    <li>10:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_10"></li>
+                    <li>11:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_11"></li>
+                    <li>12:<input type="text" class="width-150" placeholder="车辆损坏情况" data-id="check_point_12"></li>
+                  </ul>
+                </div>
+
+                <div class="car_parts">
+                  <img src="/images/car_parts.png">
+                  <ul>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                    <li>
+                    <input type="checkbox" class=" checktoggle">
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+
+
+            </div>
+
+
+            <div class="vehicle_order">
+              <span class="vehicle_order_title title doslide">
+                业务信息
+                <i class="fa-angle-double-up fa cursor-pointer"></i>
+                <a href="/mis/shouyin/yewukaidan/kaidan.html" target="_blank">添加项目</a>
+              </span>
+              <div class="order_info">
+                <h2>商品明细</h2>
+                <table cellpadding="0" cellspacing="0" class="commodity_details">
+                  <thead>
+                    <tr>
+                      <th>名称</th>
+                      <th>规格</th>
+                      <th>数量</th>
+                      <th>单价</th>
+                      <th>会员/套餐价</th>
+                      <th>优惠</th>
+                      <th>原因</th>
+                      <th>小计</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr data-id="list_commodity_01">
+                    <td>3MBeast Oil</td>
+                    <td>150ml</td>
+                    <td>1</td>
+                    <td>350.00</td>
+                    <td>-</td>
+                    <td>20.00</td>
+                    <td>折上折</td>
+                    <td>300.00</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="text-align-right">
+                      <td colspan="10">
+                        <label class="margin-right-10">小结：</label><label>9051.70</label>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <h2>服务明细</h2>
+                <table cellpadding="0" cellspacing="0" class="service_details">
+                  <thead>
+                    <tr>
+                      <th>项目</th>
+                      <th>数量</th>
+                      <th>单价</th>
+                      <th>会员/套餐价</th>
+                      <th>优惠</th>
+                      <th>原因</th>
+                      <th>小计</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr data-id="list_service_01">
+                    <td>精致洗车</td>
+                    <td>1</td>
+                    <td>12000.00</td>
+                    <td>零售</td>
+                    <td>10.00</td>
+                    <td>5.00</td>
+                    <td>60.00</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="text-align-right">
+                      <td colspan="8">
+                        <label class="margin-right-10">小结：</label><label>936.00</label>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <h2>套餐/储值明细</h2>
+                <table cellpadding="0" cellspacing="0" class="packages">
+                  <thead>
+                    <tr>
+                      <th>项目</th>
+                      <th>数量</th>
+                      <th>单价</th>
+                      <th>小计</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr data-id="list_package_01">
+                    <td>3M Gas Bam</td>
+                    <td>2</td>
+                    <td>330</td>
+                    <td>660</td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="8">
+                        <label class="margin-right-10">小结：</label><label>5280</label>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
+              </div>
+            </div>
+
+
+            <div class="construction">
+              <div class="vehicle_order_title title doslide">施工信息
+                <i class="fa-angle-double-up fa"></i>
+                <a href="javascript:void(0)" class="edit_construction_info_btn" target="_blank">编辑施工信息</a>
+              </div>
+              <div class="construction_info">
+                <table cellspacing="0" cellpadding="0">
+                  <thead>
+                    <tr>
+                      <th>项目</th>
+                      <th>工位</th>
+                      <th>用时</th>
+                      <th>技师</th>
+                      <th>检验</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>精致洗车</td>
+                    <td>洗车1号工位</td>
+                    <td>48:55</td>
+                    <td><span>李小龙</span> <span class="margin-left-10">王小斌</span></td>
+                    <td>李克勤</td>
+                  </tr>
+                  <tr>
+                    <td>澜泰纳米镀晶</td>
+                    <td>洗车1号工位</td>
+                    <td>48:55</td>
+                    <td><span>李小龙</span> <span class="margin-left-10">王小斌</span></td>
+                    <td>李克勤</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="others">
+              <div class="others_info">
+                <div class="order_remark">
+                  <label class="vertical-align-top  width-30">备注</label>
+                  <textarea></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="construction_status">
+            <div class="btn_group">
+              <a class="end_construction_btn" href="javascript:void(0)">更新订单</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="float-left">
+
+
+        <div class="edit_construction_info float-left" data-id="edit_construction">
+          <h2>编辑施工信息</h2>
+          <div class="constrction_info_tab">
+            <table cellspacing="0" cellpadding="0">
+              <thead>
+                <tr>
+                  <th>项目</th>
+                  <th>流程</th>
+                  <th>工位</th>
+                  <th>用时</th>
+                  <th>技师</th>
+                  <th>检验</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr class="construction_process">
+                <td>精致洗车</td>
+                <td colspan="5">
+
+                  <ul class="item_project">
+                    <li><span class="number">1</span>-冲洗</li>
+                    <li>
+                    <select class="width-100">
+                      <option>洗车2号工位</option>
+                      <option>洗车1号工位</option>
+                    </select>
+                    </li>
+                    <li><input type="text" value="15:00" class="width-60"></li>
+                    <li>
+                    <div class=" assign_technician ">
+                      <ul>
+                        <li class="do_coise_close">  <span>李小龙<i class="coise_close lnr-cross lnr"></i></span></li>
+                        <li class="do_coise_close">  <span>王小斌<i class="coise_close lnr-cross lnr"></i></span></li>
+                      </ul>
+                      <i class="action_button fa-plus fa"></i>
+                    </div>
+                    <ul class="technician" style="display:none;">
+                      <li>王强</li>
+                      <li>张凯</li>
+                      <li>李全瑶</li>
+                      <li>刘力兵</li>
+                      <li>魏权</li>
+                    </ul>
+                    </li>
+                    <li><label></label></li>
+                  </ul>
+
+                  <ul class="item_project">
+                    <li><span class="number">2</span>-冲洗</li>
+                    <li>
+                    <select class="width-100">
+                      <option>洗车2号工位</option>
+                      <option>洗车1号工位</option>
+                    </select>
+                    </li>
+                    <li><input type="text" value="15:00" class="width-60"></li>
+                    <li>
+                    <div class=" assign_technician ">
+                      <ul>
+                        <li class="do_coise_close">  <span>李小龙<i class="coise_close lnr-cross lnr"></i></span></li>
+                        <li class="do_coise_close">  <span>王小斌<i class="coise_close lnr-cross lnr"></i></span></li>
+                      </ul>
+                      <i class="action_button fa-plus fa"></i>
+                    </div>
+                    <ul class="technician" style="display:none;">
+                      <li>王强</li>
+                      <li>张凯</li>
+                      <li>李全瑶</li>
+                      <li>刘力兵</li>
+                      <li>魏权</li>
+                    </ul>
+                    </li>
+                    <li><label></label></li>
+                  </ul>
+
+                  <ul class="item_project">
+                    <li><span class="number">3</span>-冲洗</li>
+                    <li>
+                    <select class="width-100">
+                      <option>洗车2号工位</option>
+                      <option>洗车1号工位</option>
+                    </select>
+                    </li>
+                    <li><input type="text" value="15:00" class="width-60"></li>
+                    <li>
+                    <div class=" assign_technician ">
+                      <ul>
+                        <li class="do_coise_close">  <span>李小龙<i class="coise_close lnr-cross lnr"></i></span></li>
+                        <li class="do_coise_close">  <span>王小斌<i class="coise_close lnr-cross lnr"></i></span></li>
+                      </ul>
+                      <i class="action_button fa-plus fa"></i>
+                    </div>
+                    <ul class="technician" style="display:none;">
+                      <li>王强</li>
+                      <li>张凯</li>
+                      <li>李全瑶</li>
+                      <li>刘力兵</li>
+                      <li>魏权</li>
+                    </ul>
+                    </li>
+                    <li><label></label></li>
+                  </ul>
+
+                </td>
+
+              </tr>
+              <tr class="construction_process">
+                <td>澜泰纳米镀晶</td>
+                <td colspan="5">
+
+                  <ul class="item_project">
+                    <li><span class="number">1</span>-漆面去污</li>
+                    <li>
+                    <select class="width-100">
+                      <option>洗车2号工位</option>
+                      <option>洗车1号工位</option>
+                    </select>
+                    </li>
+                    <li><input type="text" value="15:00" class="width-60"></li>
+                    <li>
+                    <div class=" assign_technician ">
+                      <ul>
+                        <li class="do_coise_close">  <span>李小龙<i class="coise_close lnr-cross lnr"></i></span></li>
+                        <li class="do_coise_close">  <span>王小斌<i class="coise_close lnr-cross lnr"></i></span></li>
+                      </ul>
+                      <i class="action_button fa-plus fa"></i>
+                    </div>
+                    <ul class="technician" style="display:none;">
+                      <li>王强</li>
+                      <li>张凯</li>
+                      <li>李全瑶</li>
+                      <li>刘力兵</li>
+                      <li>魏权</li>
+                    </ul>
+                    </li>
+                    <li><label></label></li>
+                  </ul>
+
+                  <ul class="item_project">
+                    <li><span class="number">2</span>-漆面去污</li>
+                    <li>
+                    <select class="width-100">
+                      <option>洗车2号工位</option>
+                      <option>洗车1号工位</option>
+                    </select>
+                    </li>
+                    <li><input type="text" value="15:00" class="width-60"></li>
+                    <li>
+                    <div class=" assign_technician ">
+                      <ul>
+                        <li class="do_coise_close">  <span>李小龙<i class="coise_close lnr-cross lnr"></i></span></li>
+                        <li class="do_coise_close">  <span>王小斌<i class="coise_close lnr-cross lnr"></i></span></li>
+                      </ul>
+                      <i class="action_button fa-plus fa"></i>
+                    </div>
+                    <ul class="technician" style="display:none;">
+                      <li>王强</li>
+                      <li>张凯</li>
+                      <li>李全瑶</li>
+                      <li>刘力兵</li>
+                      <li>魏权</li>
+                    </ul>
+                    </li>
+                    <li><label></label></li>
+                  </ul>
+
+                  <ul class="item_project">
+                    <li><span class="number">3</span>-漆面去污</li>
+                    <li>
+                    <select class="width-100">
+                      <option>洗车2号工位</option>
+                      <option>洗车1号工位</option>
+                    </select>
+                    </li>
+                    <li><input type="text" value="15:00" class="width-60"></li>
+                    <li>
+                    <div class=" assign_technician ">
+                      <ul>
+                        <li class="do_coise_close">  <span>李小龙<i class="coise_close lnr-cross lnr"></i></span></li>
+                        <li class="do_coise_close">  <span>王小斌<i class="coise_close lnr-cross lnr"></i></span></li>
+                      </ul>
+                      <i class="action_button fa-plus fa"></i>
+                    </div>
+                    <ul class="technician" style="display:none;">
+                      <li>王强</li>
+                      <li>张凯</li>
+                      <li>李全瑶</li>
+                      <li>刘力兵</li>
+                      <li>魏权</li>
+                    </ul>
+                    </li>
+                    <li><label></label></li>
+                  </ul>
+
+
+                </td>
+
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="btn_group float-right margin-top-20">
+            <a class="cancel_btn btn">取消</a>
+            <a class="save_btn btn">保存</a>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
