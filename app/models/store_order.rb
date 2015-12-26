@@ -11,6 +11,9 @@ class StoreOrder < ActiveRecord::Base
   has_many :complaints
   has_many :store_customer_payments
 
+  has_many :store_order_repayments
+  has_many :store_repayments, through: :store_order_repayments
+
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
   enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]
@@ -74,6 +77,13 @@ class StoreOrder < ActiveRecord::Base
     self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
   end
 
+  def repayment_finished!
+    self.update(pay_status: 3, filled: self.amount_total)
+  end
+
+  def repayment_remaining
+    self.amount_total - self.filled
+  end
 
   private
 
