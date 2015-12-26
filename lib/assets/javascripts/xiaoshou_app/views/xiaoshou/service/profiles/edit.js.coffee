@@ -27,6 +27,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
     @renderChildInto(view, @$("#masterNav"))
 
   addMaterial: (material) =>
+    @$(".materialList").parent().show()
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model)
     @appendChildTo(view, @$(".materialList"))
 

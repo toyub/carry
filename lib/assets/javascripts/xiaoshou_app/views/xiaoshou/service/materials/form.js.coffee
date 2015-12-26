@@ -41,7 +41,6 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     if _.isEmpty(@categoryCriterial())
       materials = materials.models
     else
-      conole.log @categoryCriterial()
       materials = materials.where(@categoryCriterial())
       console.log materials
     materials = _.filter(materials, @queryCriterial)

@@ -69,7 +69,7 @@
           </div>
         </div>
         <div class="btn_group">
-          <a href="#store_services/<%= @service.id %>" class="cancel_btn btn">取消</a>
+          <a href="#store_services/<%= @service.id %>" class="cancel_btn btn js-cancel">取消</a>
           <input type="submit" class="save_btn btn" value="保存">
         </div>
       </form>
