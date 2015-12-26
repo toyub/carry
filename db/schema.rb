@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225063447) do
+ActiveRecord::Schema.define(version: 20151226125442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -330,9 +330,10 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.integer  "assetable_id"
     t.integer  "total_quantity",          default: 0
     t.integer  "used_quantity",           default: 0
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "store_customer_asset_id"
+    t.json     "workflowable_hash",       default: {}
   end
 
   create_table "store_customer_asset_logs", force: :cascade do |t|
@@ -450,7 +451,6 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.decimal  "amount",                  precision: 10, scale: 2, default: 0.0
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
-    t.integer  "payment_method_id",                                default: 0,   null: false
     t.integer  "store_order_id"
     t.integer  "store_staff_id"
   end

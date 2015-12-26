@@ -1,5 +1,5 @@
 class StoreOrderSerializer < ActiveModel::Serializer
-  attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status
+  attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status, :payments
 
   has_one :store_vehicle
   has_one :store_customer
@@ -23,5 +23,9 @@ class StoreOrderSerializer < ActiveModel::Serializer
       amount: object.items.services.collect { |service| service.amount }.sum,
       items: object.items.services.map { |service| StoreOrderItemSerializer.new(service).as_json(root: nil) }
     }
+  end
+
+  def payments
+    object.store_customer_payments
   end
 end

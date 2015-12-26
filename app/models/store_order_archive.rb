@@ -6,8 +6,6 @@ class StoreOrderArchive
   end
 
   def reform
-      puts "\n"*8
-      puts "\e[0;35m ---------------------save_payments-------------------- \e[0m\n"
       save_payments
       save_deposit_cards
       save_package_services
@@ -16,7 +14,7 @@ class StoreOrderArchive
   end
 
   def save_payments
-    amount = @payments_hash.map { |payment| payment[:amount] }.sum
+    amount = @payments_hash.map { |payment| payment[:amount].to_f }.sum
     raise ActiveRecord::Rollback unless @order.amount.to_f == amount
     @payments = @order.store_customer_payments.create!(@payments_hash)
   end
@@ -58,7 +56,8 @@ class StoreOrderArchive
                                                                  store_chain_id: @order.store_chain_id,
                                                                  store_customer_id: @order.store_customer_id,
                                                                  assetable: package_item,
-                                                                 total_quantity: package_item.quantity
+                                                                 total_quantity: package_item.quantity,
+                                                                 workflowable_hash: package_item.package_itemable.to_workflowable_hash
                                                                }
                                                   end
           StoreCustomerPackagedService.create! store_id: @order.store_id,
@@ -80,7 +79,8 @@ class StoreOrderArchive
                                                          store_chain_id: @order.store_chain_id,
                                                          store_customer_id: @order.store_customer_id,
                                                          assetable: taozhuang_item,
-                                                         total_quantity: taozhuang_item.quantity
+                                                         total_quantity: taozhuang_item.quantity,
+                                                         workflowable_hash: taozhuang_item.as_json
                                                        }
                                                   end
           StoreCustomerTaozhuang.create! store_id: @order.store_id,
@@ -93,21 +93,16 @@ class StoreOrderArchive
     end
   end
 
-  def create_credit
-    StoreCustomerCredit(store_id: @order.store_id,
-                        store_chain_id: @order.store_chain_id,
-                        store_customer_id: @order.store_customer_id,
-                        store_order_id: @order.id,
-                        amount: @order.amount)
-  end
+  def pay_finish
+    if @order.store_customer_payments.any?(&->(pi){pi.hanging?})
+      @order.pay_hanging!
+    else
+      @order.pay_finished!
+    end
 
-  def create_debit
-    true
+    if @order.task_finished?
+      @order.finished!
+    end
   end
-
-  def recombine
-    p @order.revenue_ables
-    p @order.deposits_cards
-    p @order.taozhuangs
-  end
+  
 end
