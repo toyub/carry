@@ -1,6 +1,6 @@
 <div class="item_content">
   <label class='width-75'>车牌号码</label>
-  <input type='text' class='width-165' disabled='true' value='<%= @vehicle.plates.last.license_number %>' >
+  <input type='text' class='width-165' disabled='true' value='<%= @vehicle.current_license_number %>' >
 </div>
 <div class="item_content">
   <label class='width-75'>品牌</label>
@@ -20,5 +20,5 @@
 </div>
 <div class="item_content">
   <label class='width-75'>发动机号码</label>
-  <input type='text' class='width-165' disabled='true' value='<%= @vehicle.engines.last.identification_number %>' >
+  <input type='text' class='width-165' disabled='true' value='<%= @vehicle.current_identification_number %>' >
 </div>
