@@ -46,8 +46,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def taozhuangs
-    orderables_ids = self.items.where(orderable_type: StoreMaterialSaleinfo.name).map{|saleinfo| saleinfo.orderable_id}
-    orderables_ids.map { |id|  StoreMaterialSaleinfo.where(service_needed: true).where(id: id)}
+    items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
   end
 
   def position_name
