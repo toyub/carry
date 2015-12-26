@@ -104,8 +104,12 @@ Rails.application.routes.draw do
   end
 
   namespace :ais do
-    resources :incomes, only: [:index]
-    resources :costs, only: [:index]
+    resources :incomes, only: [:index] do
+      get 'search', on: :collection
+    end
+    resources :costs, only: [:index] do
+      get 'search', on: :collection
+    end
   end
 
   namespace :xianchang do
