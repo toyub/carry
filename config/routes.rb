@@ -103,6 +103,11 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :ais do
+    resources :incomes, only: [:index]
+    resources :costs, only: [:index]
+  end
+
   namespace :xianchang do
     resources :field_constructions, only: [:index]
     resources :schedule_personals, only: [:index]
