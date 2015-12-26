@@ -212,6 +212,9 @@ Rails.application.routes.draw do
       member do
         post :save_picture
       end
+      collection do
+        get :search
+      end
 
       resource :store_service_settings, only: [:show, :create, :update]
       resources :store_service_reminds, only: [:update]
