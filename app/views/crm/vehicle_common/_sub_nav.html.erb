@@ -4,13 +4,13 @@
       <%= link_to '车辆信息', @customer.first_vehicle_id.present? ? crm_store_customer_store_vehicle_path(@customer.id, @customer.first_vehicle_id) : new_crm_store_customer_store_vehicle_path(@customer),
       class: "width-90 #{'color-fff' if params[:controller] == "crm/store_vehicles"}" %>
     </li>
-    <li class='<%= "bg-color-5e3aa9" if params[:controller] == "crm/vehicle_condition" %>' >
+    <li class='<%= "bg-color-5e3aa9" if params[:controller] == "crm/vehicle_conditions" %>' >
       <%= link_to '车辆状况', @customer.first_vehicle_id.present? ? crm_store_customer_vehicle_condition_path(@customer.id, @customer.first_vehicle_id) : new_crm_store_customer_store_vehicle_path(@customer),
-      class: "width-90 #{'color-fff' if params[:controller] == "crm/vehicle_condition"}" %>
+      class: "width-90 #{'color-fff' if params[:controller] == "crm/vehicle_conditions"}" %>
     </li>
-    <li class='<%= "bg-color-5e3aa9" if params[:controller] == "crm/vehicle_service" %>' >
+    <li class='<%= "bg-color-5e3aa9" if params[:controller] == "crm/vehicle_services" %>' >
       <%= link_to '服务记录', @customer.first_vehicle_id.present? ? crm_store_customer_vehicle_service_path(@customer.id, @customer.first_vehicle_id) : new_crm_store_customer_store_vehicle_path(@customer),
-      class: "width-90 #{'color-fff' if params[:controller] == "crm/vehicle_service"}" %>
+      class: "width-90 #{'color-fff' if params[:controller] == "crm/vehicle_services"}" %>
     </li>
   </ul>
 </div>
