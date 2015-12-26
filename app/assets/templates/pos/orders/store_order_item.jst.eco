@@ -39,12 +39,14 @@
 			  		<span class="text-decoration-linethrough display-block"><%= item.retail_price + item.service_fee_price %></span>
 			  		<span class="color-08BD48"><%= item.vip_price + item.service_fee_price %></span>
 			  	</td>
-			  	<td><input type="checkbox"></td>
+          <td><input type="checkbox" data-material-saleinfo-id="<%=item.id%>" class="material-saleinfo-checkbox"></td>
 			  </tr>
       <% end %>
 		</tbody>
 	</table>
-	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
+  <div class="btn_group margin-right-20">
+    <a href="javascript:void(0)" class="selected_btn btn js-material-saleinfo-checkbox">选中</a>
+  </div>
 </div>
 
 <div class="order_item  order_service" data-id="service">
