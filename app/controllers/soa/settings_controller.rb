@@ -21,6 +21,7 @@ class Soa::SettingsController < Soa::BaseController
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
     params[:store_staff]["skills"]["other_skills"].reject!(&:empty?)
+    @staff.unregular if params[:store_staff][:trial_salary].present?
 
     if @staff.update!(setting_staff_param)
       redirect_to soa_staff_setting_path(@staff)

@@ -1,6 +1,8 @@
 class StoreVehicle < ActiveRecord::Base
   include BaseModel
 
+  belongs_to :store_customer
+
   belongs_to :vehicle_brand
   belongs_to :vehicle_model
   belongs_to :vehicle_series

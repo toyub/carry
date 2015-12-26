@@ -3,6 +3,7 @@ class StoreSubscribeOrderSerializer < ActiveModel::Serializer
 
   has_one :store_vehicle
   has_one :store_customer
+  has_many :items
 
   def subscribe_date
     object.subscribe_date.try(:strftime, "%Y-%m-%d %H:%M:%S")

@@ -128,10 +128,10 @@
               <%= form.fields_for :insurence do |insurence_fields|%>
                 <li>
                   <label class="font-weight-bold width-50">保险金</label> 
-                  <label class="width-70">医保费</label> <%= insurence_fields.text_field :yibaofei, value: @salary.bonus["yibaofei"].to_f %>
+                  <label class="width-70">医保费</label> <%= insurence_fields.text_field :yibaofei, value: @salary.insurence["yibaofei"].to_f %>
                 </li>
                 <li>
-                  <label>保险金</label> <%= insurence_fields.text_field :baoxianjing, value: @salary.bonus["baoxianjing"].to_f %>
+                  <label>保险金</label> <%= insurence_fields.text_field :baoxianjing, value: @salary.insurence["baoxianjing"].to_f %>
                 </li>
               <% end %>
             </div>
