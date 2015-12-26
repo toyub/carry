@@ -1,6 +1,6 @@
 <div class="item_content">
   <label class="width-75">车牌号码</label>
-  <span class="width-165 border"><%= @vehicle.plates.last.license_number %></span>
+  <span class="width-165 border"><%= @vehicle.current_plate %></span>
 </div>
 <div class="item_content">
   <label class="width-75">品牌</label>
@@ -20,7 +20,7 @@
 </div>
 <div class="item_content">
   <label class="width-75">发动机号码</label>
-  <span class="width-165 border"><%= @vehicle.engines.last.identification_number %></span>
+  <span class="width-165 border"><%= @vehicle.current_engine %></span>
 </div>
 <div class="item_content">
   <label class="width-75">颜色</label>

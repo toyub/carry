@@ -1,4 +1,4 @@
-class Crm::StoreVehicleStatusController < ApplicationController
+class Crm::VehicleConditionController < ApplicationController
   before_action :set_customer, :set_vehicle, :set_vehicle_ids
 
   def show

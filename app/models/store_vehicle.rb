@@ -37,4 +37,12 @@ class StoreVehicle < ActiveRecord::Base
     ORGANIZATION_TYPE[self.detail['organization_type'].to_i]
   end
 
+  def current_plate
+    self.plates.last.license_number
+  end
+
+  def current_engine
+    self.engines.last.identification_number
+  end
+
 end
