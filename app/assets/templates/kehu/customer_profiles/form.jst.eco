@@ -118,7 +118,7 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">生日</label>
-                  <input type="text" class="width-176" name="store_customer[birthday]" value="<%= entity.storeCustomer.get 'birthday' %>">
+                  <input type="date" class="width-176" name="store_customer[birthday]" value="<%= entity.storeCustomer.get 'birthday' %>">
                 </div>
 
                 <div class="item_content">
