@@ -23,7 +23,7 @@ class XiaoshouController < ApplicationController
       json.commissions current_store.commission_templates, :id, :name
       json.services current_store.store_services, :id, :name, :code, :bargain_price, :point, :retail_price
       json.customers current_store.store_customer_entities do |entity|
-        json.(entity, :id, :region, :address, :remark, :property)
+        json.(entity, :id, :region, :address, :remark, :property, :store_customer_category_id)
         json.store_customer entity.store_customer, :phone_number, :full_name, :operator
       end
       json.customer_categories current_store.store_customer_categories, :id, :name
