@@ -1,11 +1,11 @@
 <li id="kehushow" class="active"><a href="javascript:void(0)" class="width-90">信息</a></li>
-<li id="zichanzhanghu"><a href="/mis/kehu/kehuliebiao/zichanzhanghu.html?zichanzhanghu" class="width-90 ">资产账户</a></li>
+<li id="zichanzhanghu"><a href="<%= @customer.assetsUrl() %>" class="width-90 ">资产账户</a></li>
 
-<li id="zichan"><a href="/crm/store_customers/<%= @customer.id %>/store_repayments" class="width-90 ">账户</a></li>
+<li id="zichan"><a href="<%= @customer.repaymentsUrl() %>" class="width-90 ">账户</a></li>
 
-<li id="cheliangxinxishow"><a href="/crm/store_customers/<%= @customer.id %>/store_vehicle_archives/new" class="width-90">车辆档案</a></li>
+<li id="cheliangxinxishow"><a href="<%= @customer.vehicleArchivesUrl() %>" class="width-90">车辆档案</a></li>
 
-<li id="xiaofeijilu"><a href="/crm/store_customers/<%= @customer.id %>/expense_records" class="width-90">消费记录</a></li>
-<li id="huifangjilu"><a href="/crm/store_customers/<%= @customer.id %>/store_trackings" class="width-90">回访记录</a></li>
-<li id="yixiang"><a href="/crm/store_customers/<%= @customer.id %>/pre_orders" class="width-90 ">意向产品</a></li>
-<li id="tousu"><a href="/crm/store_customers/<%= @customer.id %>/complaints" class="width-90">投诉记录</a></li>
+<li id="xiaofeijilu"><a href="<%= @customer.ordersUrl() %>" class="width-90">消费记录</a></li>
+<li id="huifangjilu"><a href="<%= @customer.trackingsUrl() %>" class="width-90">回访记录</a></li>
+<li id="yixiang"><a href="<%= @customer.preOrdersUrl() %>" class="width-90 ">意向产品</a></li>
+<li id="tousu"><a href="<%= @customer.complaintsUrl() %>" class="width-90">投诉记录</a></li>
