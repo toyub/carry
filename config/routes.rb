@@ -84,9 +84,8 @@ Rails.application.routes.draw do
         get 'detail', on: :member
         get 'search', on: :collection
       end
-      controller :record do
-        get "/record/index" => "record#index", as: :record
-        get "search" => "record#search", as: :search_record
+      resources :record, only: :index do
+        get "search", on: :collection
       end
     end
     resources :events, only: :index
