@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222060655) do
+ActiveRecord::Schema.define(version: 20151225063447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1531,7 +1531,7 @@ ActiveRecord::Schema.define(version: 20151222060655) do
     t.decimal  "trial_salary",                       precision: 10, scale: 2
     t.decimal  "regular_salary",                     precision: 10, scale: 2
     t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period",                                                default: 1
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
     t.json     "skills",                                                      default: {}
     t.json     "other",                                                       default: {}
@@ -1544,6 +1544,7 @@ ActiveRecord::Schema.define(version: 20151222060655) do
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
+    t.boolean  "regular",                                                     default: true
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
