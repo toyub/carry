@@ -23,8 +23,8 @@
 
                 <div class="item_content">
                   <label class="width-75">性别</label>
-                  <label class="width-77">男<input type="radio" name="store_customer[gender]" <%= 'checked' if entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
-                  <label class="width-77 margin-right-20">女<input type="radio" name="store_customer[gender]" <%= 'checked' unless entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
+                  <label class="width-77">男<input type="radio" name="store_customer[gender]" value="true" <%= 'checked' if entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
+                  <label class="width-77 margin-right-20">女<input type="radio" name="store_customer[gender]" value="false" <%= 'checked' unless entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
                 </div>
 
                 <div class="item_content">

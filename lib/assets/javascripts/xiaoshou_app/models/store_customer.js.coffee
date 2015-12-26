@@ -7,6 +7,7 @@ class Mis.Models.StoreCustomer extends Backbone.Model
   defaults:
     tracking_accepted: true
     message_accepted: true
+    gender: true
 
   initialize: ->
     @tags = new Mis.Collections.Tags(@get 'tags')
