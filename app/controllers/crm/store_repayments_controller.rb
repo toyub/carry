@@ -16,21 +16,13 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   end
 
   def create
-    total = form_params[:total].to_i
-    repayment = StoreRepayment.create(append_store_attrs({amount: total}))
-    @customer.orders.where(id: form_params[:orders]).each do |order|
-      remaining = total - order.repayment_remaining
-      if remaining >= 0
-        total = remaining
-        order.repayment_finished!
-        order.store_order_repayments.create(filled: order.repayment_remainning, remaining: 0.0, store_repayment: repayment)
-      else
-        order.update(filled: order.filled + total)
-        order.store_order_repayments.create(filled: total, remaining: order.repayment_remaining, store_repayment: repayment  )
-        break
-      end
+    repayment = StoreRepayment.create(append_store_attrs({amount: @total}))
+    creator = CreateRepaymentService.new(form_params, @customer, repayment)
+    if creator.call
+      redirect_to crm_store_customer_store_repayments_path(@customer), notice: "回款成功!"
+    else
+      render :index, notice: '回款失败!'
     end
-    redirect_to crm_store_customer_store_repayments_path(@customer), notice: "回款成功!"
   end
 
 
@@ -55,9 +47,4 @@ class Crm::StoreRepaymentsController < Crm::BaseController
     def repayment_params
       params.require(:repayment).permit(:store_id, :store_chain_id, :store_staff_id)
     end
-
-    def repayment_order(id)
-      StoreOrder.find(id)
-    end
-
 end
