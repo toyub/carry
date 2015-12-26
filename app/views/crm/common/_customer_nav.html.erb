@@ -4,9 +4,8 @@
       <a href="/xiaoshou/main#store_customers/<%= @customer.store_customer_entity_id %>" class="width-90">信息</a>
     </li>
     <li><a href="#" class="width-90">资产账户</a></li>
-    <li class='<%= "active" if params[:controller] == "crm/store_vehicle_archives" %>'>
-      <%= link_to '车辆档案', @customer.first_vehicle_id.present? ? crm_store_customer_store_vehicle_path(@customer.id, @customer.first_vehicle_id) : new_crm_store_customer_store_vehicle_path,
-      class: 'width-90' %>
+    <li class='<%= "active" if params[:controller] == "crm/store_vehicles" %>'>
+      <%= link_to '车辆档案', new_crm_store_customer_store_vehicle_path(@customer), class: 'width-90' %>
     </li>
     <li class='<%= "active" if params[:controller] == "crm/expense_records" %>'>
       <%= link_to '消费记录', crm_store_customer_expense_records_path(@customer), class: 'width-90' %>
