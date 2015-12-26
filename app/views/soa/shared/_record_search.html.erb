@@ -11,13 +11,12 @@
           ["薪资发放记录", "StoreSalary"],
           ["考勤记录", "StoreAttendence"],
           ["调薪记录", "StoreAdjustSalary"],
-          ["施工记录", 3],
           ["奖励记录", "StoreReward"],
           ["惩戒记录", "StorePenalty"],
           ["加班记录", "StoreOvertime"],
         ]%>
         <td><%= select_tag :type, options_for_select(option_array, params[:type]) %></td>
-        <td><%= submit_tag "search"%> </td>
+        <td><%= submit_tag "查询", class: "btn query_btn" %> </td>
       </tr>
     </tbody>
   <% end %>
