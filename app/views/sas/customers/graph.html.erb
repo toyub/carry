@@ -121,16 +121,6 @@
   <div class="loyalty_activity_consuming do_graph">
     <ul class="white">
       <li>
-        <div class="loyalty">
-          <label for="loyalty">忠诚度</label>
-          <input type="text" id="loyalty">
-        </div>
-
-        <div class="activity">
-          <label for="activity">活跃度</label>
-          <input type="text" id="activity">
-        </div>
-
         <div class="consuming active">
           <label for="consuming">消费构成</label>
           <input type="text" id="consuming">
@@ -181,6 +171,7 @@
       Customer.display_vehicle_consuming_rank_bar();
       Customer.display_consuming_distribution_pie();
       Customer.display_consuming_week_bar();
+      Customer.display_top_editors();
     });
   </script>
 <% end %>
