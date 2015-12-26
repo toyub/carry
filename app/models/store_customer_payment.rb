@@ -4,4 +4,8 @@ class StoreCustomerPayment < ActiveRecord::Base
   def hanging?
     self.payment_method_type == PaymentMethods::Internalcredit.name
   end
+
+  def payment_method
+    self.payment_method_type.constantize.as_json
+  end
 end

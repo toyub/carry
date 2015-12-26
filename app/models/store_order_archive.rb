@@ -16,7 +16,7 @@ class StoreOrderArchive
   def save_payments
     amount = @payments_hash.map { |payment| payment[:amount].to_f }.sum
     raise ActiveRecord::Rollback unless @order.amount.to_f == amount
-    @payments = @order.store_customer_payments.create!(@payments_hash)
+    @payments = @order.payments.create!(@payments_hash)
   end
 
   def save_deposit_cards
@@ -94,7 +94,7 @@ class StoreOrderArchive
   end
 
   def pay_finish
-    if @order.store_customer_payments.any?(&->(pi){pi.hanging?})
+    if @order.payments.any?(&->(pi){pi.hanging?})
       @order.pay_hanging!
     else
       @order.pay_finished!

@@ -198,7 +198,7 @@
               <a href="javascript:void(0)" class="width-60 code">发送验证码</a>
             </dd>
           </dl>
-          <% if @pay_status == 'pay_pending' : %>
+          <% if @can_pay : %>
             <div class="prompt">
               <%if @can_add : %>
                 <a href="javascript:void(0)" class="fa fa-plus add_method"></a>
@@ -212,7 +212,7 @@
 
         </div>
 
-        <% if @pay_status == 'pay_pending' : %>
+        <% if @can_pay : %>
           <div class="payment_btn">
             <dl>
               <dd>

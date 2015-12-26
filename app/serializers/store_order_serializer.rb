@@ -1,5 +1,6 @@
 class StoreOrderSerializer < ActiveModel::Serializer
-  attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status, :payments
+  attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status
+  has_many :payments
 
   has_one :store_vehicle
   has_one :store_customer
@@ -25,7 +26,4 @@ class StoreOrderSerializer < ActiveModel::Serializer
     }
   end
 
-  def payments
-    object.store_customer_payments
-  end
 end
