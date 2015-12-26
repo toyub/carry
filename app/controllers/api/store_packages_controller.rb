@@ -6,7 +6,7 @@ module Api
 
     def index
       @q = current_store.store_packages.ransack(params[:q])
-      @packages = @q.result(distinct: true)
+      @packages = @q.result(distinct: true).order("id asc")
     end
 
     def create

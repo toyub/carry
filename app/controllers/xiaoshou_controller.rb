@@ -10,7 +10,7 @@ class XiaoshouController < ApplicationController
     Jbuilder.encode do |json|
       json.(current_store, :id, :name, :engineer_levels)
       json.materials current_store.store_materials, :id, :name, :price, :category_id, :root_category_id
-      json.packages current_store.store_packages do |package|
+      json.packages current_store.store_packages.order("id asc") do |package|
         json.(package, :id, :name, :code, :abstract, :remark, :price)
         json.package_setting do
           json.id package.package_setting.id
