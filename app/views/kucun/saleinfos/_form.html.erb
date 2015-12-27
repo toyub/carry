@@ -40,7 +40,7 @@
                 <tr>
                   <td>
                     <span class="width-75 display-inline-block text-align-right">
-                      <input type="radio" name='saleinfo[bargainable]' <%= 'checked' if @saleinfo.bargainable %>  class="toggleable width-13" data-target="bargain" data-checked='<%="checked" if @saleinfo.bargainable %>'>
+                      <input type="checkbox" name='saleinfo[bargainable]' <%= 'checked' if @saleinfo.bargainable %>  class="toggleable width-13" data-target="bargain" data-checked='<%="checked" if @saleinfo.bargainable %>'>
                       优惠价
                     </span>
                     <input type="text" num un class="width-165" data-id="bargain" name='saleinfo[bargain_price]' <%= 'disabled="disabled"' unless @saleinfo.bargainable %> required="true" autocomplete="off" value='<%= @saleinfo.bargain_price unless @saleinfo.bargain_price == 0 %>'>
@@ -52,22 +52,24 @@
                 </tr>
                 <tr>
                   <td>
+                    <span class="width-75 display-inline-block text-align-right">
+                      <input type="checkbox" name='saleinfo[vip_price_enabled]' <%= 'checked' if @saleinfo.vip_price_enabled %>  class="toggleable width-13" data-target="vip_price" data-checked='<%="checked" if @saleinfo.vip_price_enabled %>'>
+                      会员价
+                    </span>
+                    <input type="text" num un class="width-165" data-id="vip_price" name='saleinfo[vip_price]' <%= 'disabled="disabled"' unless @saleinfo.vip_price_enabled %> required="true" autocomplete="off" value='<%= @saleinfo.vip_price unless @saleinfo.vip_price == 0 %>'>
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
                     <label class="width-75">商品积分</label>
                     <input num int un type="text" class="width-165" name="saleinfo[reward_points]" autocomplete="off" value="<%= @saleinfo.reward_points %>">
                   </td>
                   <td>
                     <label class="width-75">销售分类</label>
-                    <input type="hidden" name='saleinfo[store_material_saleinfo_category_id]' value="<%= @store_material_saleinfo_category.id %>">
-                    <span id='store_material_saleinfo_category_id' class="width-157 as_select" data-select='#saleinfo_category_select'
-                    data-target='input[name="saleinfo[store_material_saleinfo_category_id]"]'><%= @store_material_saleinfo_category.name %></span>
-                    <div id='saleinfo_category_select' class="select width-165">
-                      <ol class="width-165">
-                        <% @store_material_saleinfo_categories.each do |category| %>
-                        <li data-value='<%= category.id %>'><%= category.name %></li>
-                        <% end %>
-                      </ol>
-                      <a class='add_btn width-158' data-method='add_saleinfo_category' href="javascript:void(0);">新增</a>
-                    </div>
+                    <select name="saleinfo[sale_category_id]">
+                      <%= options_from_collection_for_select(@sale_categories, :id, :name, @saleinfo.sale_category_id) %>
+                    </select>
                   </td>
                 </tr>
                 <tr>
