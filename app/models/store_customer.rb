@@ -37,6 +37,10 @@ class StoreCustomer < ActiveRecord::Base
     self.creator.screen_name
   end
 
+  def account
+    StoreCustomerAccount.new(self)
+  end
+
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"

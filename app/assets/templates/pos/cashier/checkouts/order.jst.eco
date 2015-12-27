@@ -3,7 +3,7 @@
         <div class="order_details">
           <div class="dialog_nav">
             <span class="dialog_title ">单号:<%= @numero %></span>
-            <a href="/pos/store_orders" target="_blank">完整订单</a>
+            <a href="/pos/store_orders/<%= @id %>/edit" target="_blank">完整订单</a>
           </div>
 
           <div class="vehicle_order_details">
@@ -30,21 +30,21 @@
                 <dl>
                   <dd>
                     <label class="width-80" >储值余额:</label>
-                    <span><%= @store_customer.balance %></span>
+                    <span><%= @store_customer.account.balance %></span>
                   </dd>
                 </dl>
 
                 <dl>
                   <dd>
                     <label class="width-80" >挂账额度:</label>
-                    <span><%= @store_customer.credit_limit %></span>
+                    <span><%= @store_customer.account.credit_limit %></span>
                   </dd>
                 </dl>
 
                 <dl>
                   <dd>
-                    <label class="width-80" >可用积分:</label>
-                    <span><%= @store_customer.points %></span>
+                    <label class="width-80" >用户积分:</label>
+                    <span><%= @store_customer.account.reward_points %></span>
                   </dd>
                 </dl>
               </div>

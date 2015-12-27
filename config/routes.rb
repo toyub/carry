@@ -275,7 +275,9 @@ Rails.application.routes.draw do
         get :search
       end
     end
-  end
+
+    resources :store_customer_accounts
+  end#End of api
 
   namespace :pos do
     namespace :cashier do
