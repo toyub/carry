@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   namespace :xianchang do
     resources :field_constructions, only: [:index]
     resources :schedule_personals, only: [:index]
-    resources :workstations, only: [:index]
+    resources :store_workstations, only: [:index, :new, :create, :edit, :update]
   end
 
   #Settings
