@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227091345) do
+ActiveRecord::Schema.define(version: 20151227132318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -437,9 +437,10 @@ ActiveRecord::Schema.define(version: 20151227091345) do
     t.string   "payment_mode"
     t.string   "invoice_type"
     t.string   "invoice_title"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "store_customer_entity_id"
+    t.decimal  "credit_bill_amount",       default: 0.0, null: false
   end
 
   create_table "store_customers", force: :cascade do |t|
@@ -913,6 +914,7 @@ ActiveRecord::Schema.define(version: 20151227091345) do
     t.datetime "updated_at"
     t.integer  "saleman_commission_template_id"
     t.integer  "store_material_saleinfo_category_id"
+    t.decimal  "vip_price",                           precision: 10, scale: 2
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|
