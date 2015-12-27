@@ -103,6 +103,7 @@ class StoreOrderArchive
     if @order.task_finished?
       @order.finished!
     end
+    true
   end
-  
+
 end
