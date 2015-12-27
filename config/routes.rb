@@ -84,9 +84,8 @@ Rails.application.routes.draw do
         get 'detail', on: :member
         get 'search', on: :collection
       end
-      controller :record do
-        get "/record/index" => "record#index", as: :record
-        get "search" => "record#search", as: :search_record
+      resources :record, only: :index do
+        get "search", on: :collection
       end
     end
     resources :events, only: :index
@@ -265,7 +264,7 @@ Rails.application.routes.draw do
     resources :store_checkouts
   end
 
-  
+
   namespace :pos do
     namespace :cashier do
       resources :checkouts
@@ -273,13 +272,13 @@ Rails.application.routes.draw do
     resources :store_orders
     resources :pre_orders, only: [:index]
   end
-  
+
   namespace :printer do
     namespace :pos do
       resources :orders
     end
   end
-  
+
   namespace :open do
     namespace :topups do
       resource :alipay do
@@ -294,9 +293,9 @@ Rails.application.routes.draw do
 
   namespace :crm do
     resources :store_customers do
-      resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update]
-      resources :store_vehicle_status, only: [:show]
-      resources :store_vehicle_service_records, only: [:show]
+      resources :store_vehicles, only: [:new, :create, :show, :edit, :update]
+      resources :vehicle_conditions, only: [:show]
+      resources :vehicle_services, only: [:show]
       resources :expense_records, only: [:index]
       resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]

@@ -79,8 +79,9 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+  var protocol_property = "<%= EventType::TYPES_ARRAY[@event.type.to_sym][@event.sort.to_i] %>";
   $(".check-check label").each(function(){
-    if ($(this).text().trim() == "<%= @event.sort %>") {
+    if ($(this).text().trim() == protocol_property) {
       $(this).children("input").attr("checked", "checked");
     }
   });

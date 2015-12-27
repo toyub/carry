@@ -28,11 +28,6 @@ class StoreEvent < ActiveRecord::Base
         # total_pay_of_type_per_month("StorePenalty") - total_pay_of_type_per_month("StoreAttendence")
       sum
     end
-
-  end
-
-  def increment
-    new_salary.to_f - event.previous_salary.to_f
   end
 
   def recorder
