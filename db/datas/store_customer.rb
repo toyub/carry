@@ -3,7 +3,11 @@ puts "Now creating StoreCustomer..."
 StoreCustomer.delete_all
 StoreCustomerEntity.delete_all
 
-store_customer_entity = StoreCustomerEntity.create
+store_customer_entity = StoreCustomerEntity.create(
+  store: Store.first,
+  store_chain: StoreChain.first,
+  store_staff_id: StoreStaff.first.id,
+)
 
 store_customer = StoreCustomer.new(
   store_id: Store.first.try(:id),
