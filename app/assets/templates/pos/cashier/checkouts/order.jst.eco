@@ -194,8 +194,8 @@
           <dl style="display:none;" class='js-authentication'>
             <dd>
               <label class="width-70">验证客户</label>
-              <input type="text" name='authentication_code' class="width-75">
-              <a href="javascript:void(0)" class="width-60 code">发送验证码</a>
+              <input type="text" name='authentication_code' class="width-75" placeholder='请输入验证码'>
+              <a href="javascript:void(0)" class="width-60 new_btn btn js-send-code">发送验证码</a>
             </dd>
           </dl>
           <% if @can_pay : %>
