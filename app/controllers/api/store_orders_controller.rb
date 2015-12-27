@@ -28,8 +28,10 @@ module Api
         end
       end
 
+      state = params[:state].present? ? params[:state] : "pending"
+
       store_order = StoreOrder.new({
-        state: params[:state],
+        state: state,
         creator: current_staff,
         store_vehicle_id: params[:vehicle_id],
         situation: params[:situation],
