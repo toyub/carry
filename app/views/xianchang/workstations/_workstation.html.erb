@@ -6,12 +6,12 @@
 
   <ul class="vehicle_info">
     <li class="float-left construction_info">
-      <span><%= workstation %></span>
+      <span><%= workstation.current_workflow.try(:name) %></span>
       <span class="do_dbclick times">180</span>
       <a href="#" class="add_time js-add-time">加时</a>
     </li>
     <li class="float-left license_plate">
-      <span>浙A7300z </span>
+      <span><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number )%> </span>
       <img src="/images/car_front.png">
     </li>
   </ul>

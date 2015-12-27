@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225063447) do
+ActiveRecord::Schema.define(version: 20151227024529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1365,6 +1365,8 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.boolean  "favorable",                                                     default: false
     t.integer  "setting_type",                                                  default: 0
     t.integer  "store_service_id"
+    t.integer  "store_vehicle_id"
+    t.integer  "store_order_id"
   end
 
   add_index "store_service_snapshots", ["store_service_category_id"], name: "store_service_snapshots_store_service_category_id", using: :btree
@@ -1422,6 +1424,11 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.boolean  "finished"
+    t.integer  "used_time"
+    t.json     "mechanics"
+    t.integer  "store_vehicle_id"
+    t.integer  "store_order_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1693,6 +1700,7 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.integer  "store_staff_id",                           null: false
     t.string   "name",                          limit: 45, null: false
     t.integer  "store_workstation_category_id"
+    t.integer  "workflow_id"
   end
 
   create_table "stores", force: :cascade do |t|

@@ -88,125 +88,7 @@
     <div class="operating_station margin-top-36 do_wrap">
       <ul class="work_staion" id="work_station">
         <%= render partial: "workstation", collection: @workstations, as: :workstation %>
-        <li class="item_station">
-          <div class="station_info " style="border-color:#7658cf">
-            <span class="do_dbclick width-120">洗车1号工位</span>
-            <a href="#" class="edit_button">编辑</a>
-          </div>
-
-
-          <ul class="vehicle_info">
-            <li class="float-left construction_info">
-            <span>普通洗车</span>
-            <span class="do_dbclick times">180</span>
-            <a href="#" class="add_time js-add-time">加时</a>
-            </li>
-            <li class="float-left license_plate">
-            <span>浙A7300z </span>
-            <img src="/images/car_front.png">
-            </li>
-          </ul>
-
-        </li>
-          <li class="item_station">
-        <div class="station_info " style="border-color:#4449BE">
-          <span class="do_dbclick width-120">洗车2号工位</span>
-          <a href="#" class="edit_button">编辑</a>
-        </div>
-
-
-        <ul class="vehicle_info">
-          <li class="float-left construction_info">
-          <span>普通洗车</span>
-          <span class="do_dbclick times">180</span>
-          <a href="#" class="add_time js-add-time">加时</a>
-          </li>
-          <li class="float-left license_plate">
-          <span>浙A7300z </span>
-          <img src="/images/car_front.png">
-          </li>
-        </ul>
-
-        </li><li class="item_station">
-        <div class="station_info " style="border-color:#b17e39">
-          <span class="do_dbclick width-120">洗车3号工位</span>
-          <a href="#" class="edit_button">编辑</a>
-        </div>
-
-
-        <div class="disable_station">
-          <span>停用</span>
-        </div>
-
-        </li><li class="item_station">
-        <div class="station_info " style="border-color:#4449BE">
-          <span class="do_dbclick width-120">洗车4号工位</span>
-          <a href="#" class="edit_button">编辑</a>
-        </div>
-
-
-        <ul class="vehicle_info">
-          <li class="float-left construction_info">
-          <span>普通洗车</span>
-          <span class="do_dbclick times">180</span>
-          <a href="#" class="add_time js-add-time">加时</a>
-          </li>
-          <li class="float-left license_plate">
-          <span>浙A7300z </span>
-          <img src="/images/car_front.png">
-          </li>
-        </ul>
-
-        </li><li class="item_station">
-        <div class="station_info " style="border-color:#4449BE">
-          <span class="do_dbclick width-120">洗车5号工位</span>
-          <a href="#" class="edit_button">编辑</a>
-        </div>
-
-
-        <div class="disable_station">
-          <span>停用</span>
-        </div>
-
-        </li><li class="item_station">
-        <div class="station_info " style="border-color:#4449BE">
-          <span class="do_dbclick width-120">美容1号工位</span>
-          <a href="#" class="edit_button">编辑</a>
-        </div>
-
-
-        <ul class="vehicle_info">
-          <li class="float-left construction_info">
-          <span>普通洗车</span>
-          <span class="do_dbclick times">180</span>
-          <a href="#" class="add_time js-add-time">加时</a>
-          </li>
-          <li class="float-left license_plate">
-          <span>浙A7300z </span>
-          <img src="/images/car_front.png">
-          </li>
-        </ul>
-
-        </li><li class="item_station">
-        <div class="station_info " style="border-color:#4449BE">
-          <span class="do_dbclick width-120">美容2号工位</span>
-          <a href="#" class="edit_button">编辑</a>
-        </div>
-
-
-        <ul class="vehicle_info">
-          <li class="float-left construction_info">
-          <span>普通洗车</span>
-          <span class="do_dbclick times">180</span>
-          <a href="#" class="add_time js-add-time">加时</a>
-          </li>
-          <li class="float-left license_plate">
-          <span>浙A7300z </span>
-          <img src="/images/car_front.png">
-          </li>
-        </ul>
-
-      </li></ul>
+      </ul>
     </div>
 
 
@@ -216,26 +98,7 @@
         <span><i class="fa fa-ban font-28"></i></span>
       </div>
       <ul class="completion">
-        <li>
-        <span>浙A62034</span>
-        <img src="/images/small_car.png">
-        </li>
-        <li>
-        <span>浙A51034</span>
-        <img src="/images/small_car.png">
-        </li>
-        <li>
-        <span>浙A51048</span>
-        <img src="/images/small_car.png">
-        </li>
-        <li>
-        <span>浙A66485</span>
-        <img src="/images/small_car.png">
-        </li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <%= render partial: "order", collection: @finished_orders, as: :order %>
       </ul>
     </div>
   </div>
