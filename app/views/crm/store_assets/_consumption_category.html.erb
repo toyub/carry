@@ -69,3 +69,12 @@
 
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(function(){
+    $("dd > a, li > a").on("click", function(){
+      var captical = $(this).parents(".captical");
+      captical.addClass("captival_active").siblings(".captical").removeClass("captival_active");
+    })
+  })
+</script>
