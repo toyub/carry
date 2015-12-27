@@ -25,7 +25,7 @@
           <td>{{ item.name }}</td>
           <td>{{ item.speci }}</td>
           <td>
-            <input></input>
+            <input v-model="item.quantity" placeholder="输入数量"></input>
           </td>
           <td>{{ item.retail_price }}</td>
           <td>-</td>
@@ -35,10 +35,10 @@
           </td>
           <td></td>
           <td>
-            <span class="js-material-saleinfo-item-price"></span>
-        		<span class="delete close" data-target="list_commodity_01">
-        			<i class="lnr lnr-cross color-fff"></i>
-        		</span>
+            <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
+            <span class="delete close">
+              <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
+            </span>
         	</td>
         </tr>
       </tbody>

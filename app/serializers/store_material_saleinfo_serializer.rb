@@ -1,6 +1,6 @@
 class StoreMaterialSaleinfoSerializer < ActiveModel::Serializer
   attributes :name, :id, :speci, :retail_price, :vip_price, :category_name,
-    :reward_points, :inventory_quantity, :service_needed, :service_fee_price
+    :reward_points, :inventory_quantity, :service_needed, :service_fee_price, :quantity
 
   def speci
     object.store_material.speci
@@ -29,5 +29,9 @@ class StoreMaterialSaleinfoSerializer < ActiveModel::Serializer
     else
       0
     end
+  end
+
+  def quantity
+    0
   end
 end
