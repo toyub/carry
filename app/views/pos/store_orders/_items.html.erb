@@ -13,7 +13,7 @@
       		<th>规格</th>
       		<th>数量</th>
       		<th>单价</th>
-      		<th>会员/套餐价</th>
+      		<th>会员价</th>
       		<th>优惠</th>
           <th>原因</th>
       		<th>小计</th>
@@ -25,13 +25,12 @@
           <td>{{ item.name }}</td>
           <td>{{ item.speci }}</td>
           <td>
-            <input v-model="item.quantity" placeholder="输入数量"></input>
+            <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
           </td>
           <td>{{ item.retail_price }}</td>
-          <td>-</td>
+          <td>{{ item.vip_price }}</td>
           <td>
-            {{ item.vip_price }}
-            <a href="javascript:void(0)" class="js_discount discount"></a>
+            <a href="javascript:void(0)" class="js_discount discount">优惠</a>
           </td>
           <td></td>
           <td>

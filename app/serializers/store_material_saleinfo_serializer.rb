@@ -11,7 +11,7 @@ class StoreMaterialSaleinfoSerializer < ActiveModel::Serializer
   end
 
   def vip_price
-    nil
+    5
   end
 
   def service_fee_price
@@ -32,6 +32,6 @@ class StoreMaterialSaleinfoSerializer < ActiveModel::Serializer
   end
 
   def quantity
-    0
+    1
   end
 end
