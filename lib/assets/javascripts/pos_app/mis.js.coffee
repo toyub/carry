@@ -4,6 +4,7 @@ window.Mis =
   Views: {}
   Routers: {}
   Helpers: {}
+  Vues: {}
   initialize: ->
 
 $(document).ready ->

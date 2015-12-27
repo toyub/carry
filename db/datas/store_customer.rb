@@ -1,6 +1,9 @@
 puts "Now creating StoreCustomer..."
 
 StoreCustomer.delete_all
+StoreCustomerEntity.delete_all
+
+store_customer_entity = StoreCustomerEntity.create
 
 store_customer = StoreCustomer.new(
   store_id: Store.first.try(:id),
@@ -9,7 +12,7 @@ store_customer = StoreCustomer.new(
   first_name: "我是",
   last_name: "测试",
   phone_number: "15000002923",
-
+  store_customer_entity: store_customer_entity
 )
 
 if store_customer.save
