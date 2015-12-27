@@ -1,0 +1,94 @@
+<div class="page_head main_top">
+  <span class="font-18 margin-right-15">客户分析</span>
+
+  <a class="back_to_list" href="index.html">
+    <i class="fa-arrow-circle-left  fa" ></i>
+    返回列表
+  </a>
+
+</div>
+
+
+<div class="details_content customer_analysis">
+  <div class="customers do_graph">
+    <ul class="white">
+      <li>
+        <label>客户性别结构</label>
+        <input type="text">
+      </li>
+      <%= render 'top_editors' %>
+    </ul>
+
+
+    <div id="customers_barchart" class="customers_barchart do_chart" style="width:780px; height:300px;"></div>
+  </div>
+
+
+  <div class="consuming_percent do_graph">
+    <ul class="white">
+      <li>
+        <label>客户消费贡献值</label>
+        <input type="text">
+      </li>
+      <%= render 'top_editors' %>
+    </ul>
+
+    <div id="consuming_piecharts" class="consuming_piecharts do_chart" style="height:300px;"></div>
+  </div>
+
+  <div class="vehicle do_graph">
+    <ul class="white">
+      <li>
+        <label>车辆品牌价值与消费</label>
+        <input type="text">
+      </li>
+      <%= render 'top_editors' %>
+    </ul>
+
+    <div class="vehicle_graph do_chart">
+      <div class="price_chart_wrap">
+        <div id="price" style="height:350px;"></div>
+      </div>
+
+      <div class="rank_chart_wrap">
+        <div id="rank"style="height:350px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loyalty_activity_consuming do_graph">
+    <ul class="white">
+      <li>
+        <div class="consuming active">
+          <label for="consuming">消费构成</label>
+          <input type="text" id="consuming">
+        </div>
+      </li>
+      <%= render 'top_editors' %>
+    </ul>
+
+    <div class="consuming_distribution do_chart">
+      <div class="pie_wrap">
+        <div id="consuming_distribution_pie" style="height:300px;"></div>
+      </div>
+
+      <div class="bar_wrap">
+        <div id="consuming_distribution_bar" style="height:300px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      Customer.display_customer_gender_bar();
+      Customer.display_customer_category_pie();
+      Customer.display_vehicle_price_consuming_bar();
+      Customer.display_vehicle_consuming_rank_bar();
+      Customer.display_consuming_distribution_pie();
+      Customer.display_consuming_week_bar();
+      Customer.display_top_editors();
+    });
+  </script>
+<% end %>

@@ -108,6 +108,16 @@ Rails.application.routes.draw do
     resources :schedule_personals, only: [:index]
   end
 
+  namespace :sas do
+    controller :sells do
+      get '/sells/graph'
+      get '/sells/report'
+    end
+    controller :customers do
+      get "/customers/graph"
+    end
+  end
+
   #Settings
   namespace :settings do
     namespace :settlements do
@@ -224,10 +234,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_orders, only: [:index,:show]
-
-    resources :store_vehicles, only: [:index]
-    resources :store_orders, only: [:index] do
+    resources :store_orders, only: [:index, :show] do
       resources :complaints, only:[:new, :create]
     end
 
@@ -266,8 +273,15 @@ Rails.application.routes.draw do
 
     resources :store_customer_categories
     resources :store_checkouts
-  end
 
+    namespace :sas do
+      resources :stores do
+        resources :customer_gender, only: [:index]
+        resources :sales, only: [:index]
+        resources :vehicles, only: [:index]
+      end
+    end
+  end
 
   namespace :pos do
     namespace :cashier do
