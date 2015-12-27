@@ -14,6 +14,8 @@ class StoreOrderItem < ActiveRecord::Base
   scope :services, -> { where(orderable_type: "StoreService") }
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
 
+  validates_presence_of :orderable
+
   def youhui
     rand(10)
   end
@@ -21,7 +23,7 @@ class StoreOrderItem < ActiveRecord::Base
   def mechanics
     ['王晓勇', '李明亮']
   end
-  
+
   private
 
     def cal_amount

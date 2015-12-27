@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151226125442) do
+ActiveRecord::Schema.define(version: 20151227080924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1126,6 +1126,7 @@ ActiveRecord::Schema.define(version: 20151226125442) do
     t.integer  "store_customer_id"
     t.decimal  "discount"
     t.string   "discount_reason"
+    t.decimal  "vip_price"
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
@@ -1156,6 +1157,7 @@ ActiveRecord::Schema.define(version: 20151226125442) do
     t.integer  "task_status",                                                              default: 0
     t.integer  "store_vehicle_registration_plate_id"
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
+    t.json     "situation"
   end
 
   create_table "store_package_items", force: :cascade do |t|
