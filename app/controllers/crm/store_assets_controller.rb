@@ -1,6 +1,7 @@
 class Crm::StoreAssetsController < Crm::BaseController
   def index
     @customer = StoreCustomer.find(params[:store_customer_id])
+    items = @customer.store_deposit_cards
   end
 
   def show

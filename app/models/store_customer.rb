@@ -4,6 +4,8 @@ class StoreCustomer < ActiveRecord::Base
   belongs_to :store_customer_entity
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
   has_many :orders, class_name: "StoreOrder"
+  has_many :store_deposit_cards, class_name: 'StoreCustomerDepositCard'
+  has_many :store_deposit_asset_items, through: :store_deposit_cards
 
   has_many :store_vehicles
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
