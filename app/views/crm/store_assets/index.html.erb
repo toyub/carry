@@ -1,0 +1,24 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+
+<%= render '/crm/common/page_head' %>
+
+<div class="details">
+
+  <%= render '/crm/common/customer_nav' %>
+
+  <div class="details_content">
+    <div class="base_info">
+
+      <%= render "consumption_category" %>
+
+      <%= render "prepaid_card_consume_history" %>
+
+      <%= render "packages_consume_history" %>
+
+      <%= render "materials_consume_history" %>
+
+    </div>
+  </div>
+</div>
