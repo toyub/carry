@@ -231,6 +231,9 @@ Rails.application.routes.draw do
       member do
         post :save_picture
       end
+      collection do
+        get :search
+      end
 
       resource :store_service_settings, only: [:show, :create, :update]
       resources :store_service_reminds, only: [:update]
@@ -283,6 +286,14 @@ Rails.application.routes.draw do
     resources :store_customer_categories
     resources :store_checkouts
 
+    resources :store_material_saleinfos, only: [:index] do
+      collection do
+        get :search
+      end
+    end
+
+    resources :store_customer_accounts
+
     namespace :sas do
       resources :stores do
         resources :customer_gender, only: [:index]
@@ -290,7 +301,7 @@ Rails.application.routes.draw do
         resources :vehicles, only: [:index]
       end
     end
-  end
+  end#End of api
 
   namespace :pos do
     namespace :cashier do

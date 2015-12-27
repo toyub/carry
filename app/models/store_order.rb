@@ -9,7 +9,7 @@ class StoreOrder < ActiveRecord::Base
   has_one :store_tracking
   has_many :items, class_name: 'StoreOrderItem'
   has_many :complaints
-  has_many :store_customer_payments
+  has_many :payments, class_name: 'StoreCustomerPayment'
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
@@ -41,9 +41,12 @@ class StoreOrder < ActiveRecord::Base
     self.items.packages.map{|item| item.orderable.package_setting.items.deposits_cards.to_a}.flatten
   end
 
+  def packages
+    self.items.packages
+  end
+
   def taozhuangs
-    orderables_ids = self.items.where(orderable_type: StoreMaterialSaleinfo.name).map{|saleinfo| saleinfo.orderable_id}
-    orderables_ids.map { |id|  StoreMaterialSaleinfo.where(service_needed: true).where(id: id)}
+    items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
   end
 
   def position_name

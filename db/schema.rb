@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225063447) do
+ActiveRecord::Schema.define(version: 20151226125442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false
+    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -330,9 +330,10 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.integer  "assetable_id"
     t.integer  "total_quantity",          default: 0
     t.integer  "used_quantity",           default: 0
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "store_customer_asset_id"
+    t.json     "workflowable_hash",       default: {}
   end
 
   create_table "store_customer_asset_logs", force: :cascade do |t|
@@ -396,6 +397,21 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.datetime "updated_at",                                               null: false
   end
 
+  create_table "store_customer_deposit_logs", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_customer_id"
+    t.integer  "store_vehicle_id"
+    t.integer  "store_order_id"
+    t.string   "subject"
+    t.decimal  "latest"
+    t.decimal  "amount"
+    t.decimal  "balance"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "store_customer_entities", force: :cascade do |t|
     t.integer  "store_customer_category_id"
     t.string   "telephone"
@@ -435,7 +451,6 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.decimal  "amount",                  precision: 10, scale: 2, default: 0.0
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
-    t.integer  "payment_method_id",                                default: 0,   null: false
     t.integer  "store_order_id"
     t.integer  "store_staff_id"
   end
@@ -1512,20 +1527,20 @@ ActiveRecord::Schema.define(version: 20151225063447) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
