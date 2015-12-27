@@ -35,6 +35,8 @@ class StoreVehicle < ActiveRecord::Base
   end
 
   accepts_nested_attributes_for :frame
+  accepts_nested_attributes_for :plates
+  accepts_nested_attributes_for :engines
 
   ORGANIZATION_TYPE = {
     0 => '私家车',
@@ -44,6 +46,18 @@ class StoreVehicle < ActiveRecord::Base
 
   def organization_type_name
     ORGANIZATION_TYPE[self.detail['organization_type'].to_i]
+  end
+
+  def current_license_number
+    self.plates.last.license_number
+  end
+
+  def current_identification_number
+    self.engines.last.identification_number
+  end
+
+  def detail_by(name)
+    self.detail && self.detail[name]
   end
 
 end

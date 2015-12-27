@@ -233,9 +233,9 @@ Rails.application.routes.draw do
     resources :store_orders, only: [:index] do
       resources :complaints, only:[:new, :create]
     end
-    
+
     resources :store_subscribe_orders
-    
+
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do
         post :save_picture
@@ -284,13 +284,13 @@ Rails.application.routes.draw do
     resources :store_orders
     resources :pre_orders, only: [:index]
   end
-  
+
   namespace :printer do
     namespace :pos do
       resources :orders
     end
   end
-  
+
   namespace :open do
     namespace :topups do
       resource :alipay do
@@ -305,9 +305,9 @@ Rails.application.routes.draw do
 
   namespace :crm do
     resources :store_customers do
-      resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update]
-      resources :store_vehicle_status, only: [:show]
-      resources :store_vehicle_service_records, only: [:show]
+      resources :store_vehicles, only: [:new, :create, :show, :edit, :update]
+      resources :vehicle_conditions, only: [:show]
+      resources :vehicle_services, only: [:show]
       resources :expense_records, only: [:index]
       resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]
