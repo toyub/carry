@@ -208,14 +208,12 @@ Rails.application.routes.draw do
       get "/:country_code/states/:state_code/cities", to: "geos#cities", as: :country_state_cities
     end
     resources :store_suppliers, only: [:index]
-  end
-
-  resource :session, only: [:new, :create, :destroy, :edit]
-  resource :password do
-    collection do
-      get :send_validate_code
+    resources :sms_captchas do
+      collection do
+        post :validate
+      end
     end
-  end # End of Ajax
+  end# End of Ajax
 
   # 总部平台api调用
   namespace :erp do
@@ -292,7 +290,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_customer_accounts
+    resources :store_customer_accounts do
+      member do
+        post :expense
+      end
+    end
 
     namespace :sas do
       resources :stores do
@@ -342,7 +344,12 @@ Rails.application.routes.draw do
     end
   end
 
-
+  resource :session, only: [:new, :create, :destroy, :edit]
+  resource :password do
+    collection do
+      get :send_validate_code
+    end
+  end
   root 'kucun/materials#index'
 
   mount Sidekiq::Web => '/sidekiq'

@@ -25,6 +25,10 @@ class StoreOrder < ActiveRecord::Base
     where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
   end
 
+  def paid?
+    self.pay_hanging? || self.pay_finished?
+  end
+
   def cal_amount
     items.collect { |oi| oi.quantity * oi.price }.sum
   end
