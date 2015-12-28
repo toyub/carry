@@ -1,14 +1,10 @@
 class Crm::StoreRepaymentsController < Crm::BaseController
   before_action :set_customer
-  before_action :set_created_date, only: [:index]
+  before_action :set_created_date, only: [:index, :finished, :all]
 
   def index
-    @q = @customer.orders.where(pay_status: 0).ransack(params[:q])
+    @q = @customer.orders.where(pay_status: 2).ransack(params[:q])
     @orders = @q.result(distinct: true).order("id asc")
-    # respond_with @repayments, location: nil
-    # StoreOrder.all.each do |order|
-    #   order.update(pay_status: 0, filled: 0)
-    # end
   end
 
   def show
@@ -23,6 +19,16 @@ class Crm::StoreRepaymentsController < Crm::BaseController
     else
       render :index, notice: '回款失败!'
     end
+  end
+
+  def finished
+    @q = @customer.orders.where(pay_status: 3, hanging: true).ransack(params[:q])
+    @orders = @q.result(distinct: true).order("id asc")
+  end
+
+  def all
+    @q = @customer.orders.where(hanging: true).ransack(params[:q])
+    @orders = @q.result(distinct: true).order("id asc")
   end
 
 

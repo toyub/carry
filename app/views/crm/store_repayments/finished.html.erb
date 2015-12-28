@@ -1,0 +1,41 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+  <%= javascript_include_tag 'crm' %>
+<% end %>
+<%= render '/crm/common/page_head' %>
+<div class="details">
+<%= render 'crm/common/customer_nav' %>
+  <div class="details_content">
+    <div class="panel_tab">
+      <ul class="tab_items">
+        <li> <%= link_to '未清账单', crm_store_customer_store_repayments_path(@customer), class: 'width-90 tab_item' %> </li>
+        <li> <%= link_to '已清挂账', finished_crm_store_customer_store_repayments_path(@customer), class: 'active width-90 tab_item' %> </li>
+        <li> <%= link_to '所有挂账', all_crm_store_customer_store_repayments_path(@customer), class: 'width-90 tab_item' %> </li>
+        <li><%= notice %></li>
+      </ul>
+    </div>
+
+    <div class="content customer_account">
+      <div class="panel_query">
+        <%= search_form_for @q , url: finished_crm_store_customer_store_repayments_path(@customer), class: 'float-left' do  -%>
+          <%= render 'search_form' %>
+        <% end %>
+      </div>
+      <div class="orders">
+        <% @orders.each do |order| %>
+          <div class="order_item slide_up" id="js-order-<%= order.id%>" >
+            <%= render 'basic_info', order: order %>
+            <table class="detail" id="js-detail-<%= order.id%>" >
+              <%= render 'dialog_info', order:order %>
+            </table>
+          </div>
+        <% end %>
+      </div>
+
+      <p class="btn_group text-align-center">
+        <a href="javascript:void(0)" class="font-14 fa fa-arrow-down show_more">点击加载更多</a>
+      </p>
+    </div>
+    
+  </div>
+</div>
