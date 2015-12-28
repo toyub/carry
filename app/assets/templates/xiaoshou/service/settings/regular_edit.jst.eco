@@ -25,7 +25,7 @@
         </td>
         <td colspan="3">技师级别限定
           <select class="width-106 margin-right-14" >
-            <option></option>
+            <option value="">请选择</option>
             <% _.each @store.get('engineer_levels'), (value, key) -> :%>
               <option value="<%= key %>" <%= 'selected' if setting.get('engineer_level') == key %>><%= value %></option>
             <% end %>

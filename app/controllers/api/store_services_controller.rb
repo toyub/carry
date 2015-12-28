@@ -21,7 +21,7 @@ module Api
 
     def index
       @q = current_store.store_services.ransack(params[:q])
-      @services = @q.result(distinct: true)
+      @services = @q.result(distinct: true).order("id asc")
     end
 
     def search
