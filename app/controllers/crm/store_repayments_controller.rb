@@ -3,8 +3,16 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   before_action :set_created_date, only: [:index, :finished, :all]
 
   def index
-    @q = @customer.orders.where(pay_status: 2).ransack(params[:q])
-    @orders = @q.result(distinct: true).order("id asc")
+    @page = 3
+    if params[:page]
+      @page = params[:page].to_i + 3
+      @q = @customer.orders.where(pay_status: 2).ransack(params[:q])
+      @orders = @q.result(distinct: true).order("id asc").limit(@page)
+    else
+      puts "indexindex"
+      @q = @customer.orders.where(pay_status: 2).ransack(params[:q])
+      @orders = @q.result(distinct: true).order("id asc").limit(@page)
+    end
   end
 
   def show

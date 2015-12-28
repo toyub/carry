@@ -20,6 +20,7 @@
     </div>
 
     <div class="content customer_account">
+      <input type="hidden" id="page" value="<%= @page%>">
       <div class="panel_query">
         <%= search_form_for @q , url: crm_store_customer_store_repayments_path(@customer), class: 'float-left' do  -%>
           <%= render 'search_form' %>
@@ -54,10 +55,21 @@
 
 <script type="text/javascript">
   jQuery(function($){
+    // $("a.font-14.fa.fa-arrow-down.show_more").on("click", function(){
+    //   $.get("/crm/store_customers/"+$(this).data("customer")+"/store_repayments", function(data){
+    //
+    //   });
+    // });
+
     $("a.font-14.fa.fa-arrow-down.show_more").on("click", function(){
-      $.get("/crm/store_customers/"+$(this).data("customer")+"/store_repayments", function(data){
-        
+      $.ajax({
+        type: "get",
+        url: "/crm/store_customers/"+$(this).data("customer")+"/store_repayments",
+        data: { page: $("input#page").val() },
+        dataType: "script",
+        success: function () {console.log("pppppp");}
       });
     });
+
   });
 </script>
