@@ -10,10 +10,7 @@ class StoreCustomer < ActiveRecord::Base
   has_many :store_deposit_cards_used_logs, class_name: 'StoreCustomerDepositLog'
 
   has_many :store_packaged_services, class_name: 'StoreCustomerPackagedService'
-  has_many :store_packaged_service_items, through: :store_packaged_services, source: :items
-
   has_many :store_taozhuangs, class_name: 'StoreCustomerTaozhuang'
-  has_many :store_taozhuang_items, through: :store_taozhuangs, source: :items
 
   has_many :store_vehicles
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
