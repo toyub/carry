@@ -66,6 +66,10 @@ class StoreCustomerEntity < ActiveRecord::Base
     self.district["region"]
   end
 
+  def creditable?
+    self.store_customer_settlement.creditable?
+  end
+
   def filling_date
     self.created_at.strftime("%Y-%m-%d")
   end

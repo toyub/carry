@@ -7,10 +7,10 @@ class StoreCustomerAccount
 
   def as_json(*args)
     {
-      credit_able: false,
       balance: @entity.balance,
-      credit_limit: nil,
-      points: @entity.points
+      points: @entity.points,
+      credit_able: @settlement.creditable?,
+      credit_line: @settlement.credit_line
     }
   end
 

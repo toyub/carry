@@ -37,7 +37,7 @@
                 <dl>
                   <dd>
                     <label class="width-80" >挂账额度:</label>
-                    <span><%= @store_customer.account.credit_limit %></span>
+                    <span><%= @store_customer.account.credit_line %></span>
                   </dd>
                 </dl>
 
