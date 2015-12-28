@@ -1,0 +1,79 @@
+<div class="item_content">
+  <label class="width-75">车牌号码</label>
+  <span class="width-165 border"><%= @vehicle.current_license_number %></span>
+</div>
+<div class="item_content">
+  <label class="width-75">品牌</label>
+  <span class="width-165 border"><%= @vehicle.vehicle_brand.name %></span>
+</div>
+<div class="item_content">
+  <label class="width-75">车型</label>
+  <span class="width-165 border"><%= @vehicle.vehicle_model.name %></span>
+</div>
+<div class="item_content">
+  <label class="width-75">车系</label>
+  <span class="width-165 border"><%= @vehicle.vehicle_series.name %></span>
+</div>
+<div class="item_content">
+  <label class="width-75">VIN号码</label>
+  <span class="width-165 border"><%= @vehicle.frame.vin %></span>
+</div>
+<div class="item_content">
+  <label class="width-75">发动机号码</label>
+  <span class="width-165 border"><%= @vehicle.current_identification_number %></span>
+</div>
+<div class="item_content">
+  <label class="width-75">颜色</label>
+  <input type='color' class="width-165 border" disabled='true' value= <%= @vehicle.detail["color"] %> />
+</div>
+<div class="item_content">
+  <label class="width-75">座位数</label>
+  <span class="width-165 border"><%= @vehicle.detail["capacity"] %></span>
+</div>
+<div class="item_content">
+   <label class="width-75">档案编号</label>
+   <span class="width-165 border"><%= @vehicle.numero %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">车辆性质</label>
+   <span class="width-165 border"><%= @vehicle.organization_type_name %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">上牌日期</label>
+   <span class="width-165 border"><%= @vehicle.detail["registered_on"] %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">公里数</label>
+   <span class="width-165 border"><%= @vehicle.detail["mileage"] %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">购买日期</label>
+   <span class="width-165 border"><%= @vehicle.detail["bought_on"] %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">出厂日期</label>
+   <span class="width-165 border"><%= @vehicle.detail["ex_factory_date"] %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">最近保养日期</label>
+   <span class="width-165 border"><%= @vehicle.detail["maintained_at"] %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">最近保养里程</label>
+   <span class="width-165 border"><%= @vehicle.detail["maintained_mileage"] %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">建档人</label>
+   <span class="width-165 border"><%= @vehicle.store_staff.full_name %></span>
+ </div>
+ <div class="item_content">
+   <label class="width-75">建档日期</label>
+   <span class="width-165 border"><%= @vehicle.created_at.strftime("%Y-%m-%d") %></span>
+ </div>
+<div class="item_content">
+  <label class="width-75">完整度</label>
+  <span class="stars width-165">
+    <i class="fa fa-star color-FF7539"></i>
+    <i class="fa fa-star-o color-FF7539"></i>
+  </span>
+</div>

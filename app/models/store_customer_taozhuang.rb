@@ -1,0 +1,2 @@
+class StoreCustomerTaozhuang < StoreCustomerAsset
+end

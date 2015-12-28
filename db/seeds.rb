@@ -52,7 +52,6 @@ ActiveRecord::Base.transaction do
   car.create_frame!(store: store, creator: admin, vin: "88971285987612")
   car.create_registration_plate!(store_customer: customer, store: store, creator: admin, license_number: "88971285987612")
 
-
   ## 订单信息
   store_service_snapshot = store_service.snapshots.create!(store_service.attributes)
   workflow1.snapshots.create!(workflow1.attributes.merge(store_service: store_service_snapshot, store_workstation: workstation1, store_engineer_ids: engineer_li.id))
