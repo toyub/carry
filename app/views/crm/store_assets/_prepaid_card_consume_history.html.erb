@@ -22,7 +22,6 @@
     </li>
     <li>
       <label>操作</label>
-      <span><a href="javascript:void(0)" class="edit_btn btn">编辑</a></span>
     </li>
   </ul>
 
@@ -34,63 +33,21 @@
       <dt>余额</dt>
     </dl>
     <div class="captical_content">
-      <dl>
-        <dd>2015-6-11</dd>
-        <dd><span  class="profit">2,000.00</span></dd>
-        <dd>YW2015061100010</dd>
-        <dd><span>2,500.00</span></dd>
-      </dl>
-
-      <dl>
-        <dd>2015-6-15</dd>
-        <dd ><span class="loss">200.00</span></dd>
-        <dd>YW2015061100009</dd>
-        <dd><span>2,300.00</span></dd>
-      </dl>
-
-      <dl>
-        <dd>2015-6-15</dd>
-        <dd ><span class="loss">200.00</span></dd>
-        <dd>YW2015061100009</dd>
-        <dd><span>2,300.00</span></dd>
-      </dl>
-
-      <dl>
-        <dd>2015-6-15</dd>
-        <dd ><span class="loss">200.00</span></dd>
-        <dd>YW2015061100009</dd>
-        <dd><span>2,300.00</span></dd>
-      </dl>
-
-      <dl>
-        <dd>2015-6-15</dd>
-        <dd ><span class="loss">200.00</span></dd>
-        <dd>YW2015061100009</dd>
-        <dd><span>2,300.00</span></dd>
-      </dl>
-
-      <dl>
-        <dd>2015-6-15</dd>
-        <dd ><span class="loss">200.00</span></dd>
-        <dd>YW2015061100009</dd>
-        <dd><span>2,300.00</span></dd>
-      </dl>
-
-      <dl>
-        <dd>2015-6-15</dd>
-        <dd ><span class="loss">200.00</span></dd>
-        <dd>YW2015061100009</dd>
-        <dd><span>2,300.00</span></dd>
-      </dl>
-
+      <% @logs.each do |log| %>
+        <dl>
+          <dd><%= log.created_at.strftime("%Y-%m-%d") %></dd>
+          <dd><span  class="<%= log.profit? ? 'profit' : 'loss' %>"><%= log.amount %></span></dd>
+          <dd><%= log.store_order.numero %></dd>
+          <dd><span><%= log.balance %></span></dd>
+        </dl>
+      <% end %>
     </div>
 
     <div class="captical_foot">
       <ul>
-        <li><label>扣卡次数</label><span>9</span></li>
-        <li><label>充值次数</label><span>1</span></li>
-        <li><label>可用余额</label><span class="width-100">2,818.00</span></li>
-        <li><a href="javascript:void(0)" class="rechange_btn btn">充值</a></li>
+        <li><label>扣卡次数</label><span><%= @logs.income_times %></span></li>
+        <li><label>充值次数</label><span><%= @logs.expense_times %></span></li>
+        <li><label>可用余额</label><span class="width-100"><%= @logs.last.balance %></span></li>
       </ul>
     </div>
   </div>

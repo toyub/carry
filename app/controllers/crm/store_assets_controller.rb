@@ -1,7 +1,8 @@
 class Crm::StoreAssetsController < Crm::BaseController
   def index
     @customer = StoreCustomer.find(params[:store_customer_id])
-    items = @customer.store_deposit_cards
+    @deposit_card_items = @customer.store_deposit_cards_items
+    @logs = @customer.store_deposit_cards_used_logs
   end
 
   def show
