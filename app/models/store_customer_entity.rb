@@ -3,6 +3,7 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   has_one :store_customer
   has_one :store_customer_settlement
+  belongs_to :store_customer_category
 
   accepts_nested_attributes_for :store_customer
   accepts_nested_attributes_for :store_customer_settlement
@@ -68,6 +69,18 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   def filling_date
     self.created_at.strftime("%Y-%m-%d")
+  end
+
+  def property_name
+    PROPERTIES[self.property]
+  end
+
+  def category
+    self.store_customer_category.name
+  end
+
+  def settlement
+    PAYMENTS[self.store_customer_settlement.payment_mode]
   end
 
 end

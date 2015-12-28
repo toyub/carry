@@ -35,6 +35,18 @@ class StoreCustomer < ActiveRecord::Base
     self.creator.screen_name
   end
 
+  def property
+    self.store_customer_entity.property_name
+  end
+
+  def category
+    self.store_customer_entity.category
+  end
+
+  def settlement
+    self.store_customer_entity.settlement
+  end
+
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"

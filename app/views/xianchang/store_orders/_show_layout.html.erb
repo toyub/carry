@@ -1,0 +1,71 @@
+<div class="window_wrap" id="vehicle_order_details" style="display: flex;">
+  <div class="wrap_order">
+    <div class="dialog_nav">
+      <span class="dialog_title "><%= order.numero %></span>
+      <a href="javascript:void(0);" class="dialog_close  lnr-cross lnr do_close"></a>
+    </div>
+    <div class="float-left workplace_order">
+      <div class="order_details">
+        <div class="vehicle_order_details">
+          <div class="vehicle_info">
+            <%= render partial: 'vehicle', locals: {order: order} %>
+            <div class="vehicle_order_title title doslide">详细信息
+              <i class="fa fa-angle-double-down"></i>
+              <a href="/mis/kehu/kehuliebiao/kehuedit.html" target="_blank">完善客户信息</a>
+            </div>
+            <div class="vehicle_details_info" style="display: none;">
+              <%= render :vehicle_detail, order: order %>
+            </div>
+          </div>
+          <div class="vehicle_condition">
+            <span class="vehicle_order_title title doslide">
+              车辆状态
+              <i class="fa cursor-pointer fa-angle-double-down"></i>
+              <a href="/mis/kehu/kehuliebiao/cheliangdangan/show.html?cheliangdangan" target="_blank">完善车辆信息</a>
+            </span>
+            <div class="vehicle_condition_info" style="display: none;">
+              <%= render :condition, order: order %>
+            </div>
+          </div>
+          <div class="vehicle_order">
+            <span class="vehicle_order_title title doslide">
+              业务信息
+              <i class="fa cursor-pointer fa-angle-double-down"></i>
+              <a href="/mis/shouyin/yewukaidan/kaidan.html" target="_blank">添加项目</a>
+            </span>
+            <div class="order_info" style="display: none;">
+              <%= render :order, order: order %>
+            </div>
+          </div>
+          <div class="construction">
+            <div class="vehicle_order_title title doslide">施工信息
+              <i class="fa fa-angle-double-down"></i>
+              <a href="javascript:void(0)" class="edit_construction_info_btn" target="_blank">编辑施工信息</a>
+            </div>
+            <div class="construction_info" style="display: none;">
+              <%= render :construction, order: order %>
+            </div>
+          </div>
+          <div class="others">
+            <div class="others_info">
+              <div class="order_remark">
+                <label class="vertical-align-top  width-30">备注</label>
+                <textarea></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="construction_status">
+          <div class="btn_group">
+            <a class="end_construction_btn" href="javascript:void(0)">更新订单</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="float-left">
+      <div class="edit_construction_info float-left" data-id="edit_construction" style="display: none;">
+        <%= render :construction_form, order: order %>
+      </div>
+    </div>
+  </div>
+</div>
