@@ -1,13 +1,13 @@
 <div class="order_items_category">
   <ul>
-    <li class="bg-color-8E81B8 color-fff" data-target="commodity">商品</li>
-    <li data-target='service'>服务</li>
-    <li data-target="package">套餐</li>
-    <li data-target="vip">会员</li>
+    <li class="bg-color-8E81B8 color-fff js-material-item-li" data-table-class="js-material-items-table">商品</li>
+    <li>服务</li>
+    <li class="js-package-item-li" data-table-class="js-package-items-table">套餐</li>
+    <li>会员</li>
   </ul>
 </div>
 
-<div class="order_item  order_commodity" data-id="commodity">
+<div class="order_item  order_commodity js-material-items-table" data-id="commodity">
 	<table cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
@@ -75,54 +75,6 @@
 				</td>
 				<td><input type="checkbox" ></td>
 			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
 		</tbody>
 	</table>
 </div>
@@ -153,60 +105,12 @@
 				</td>
 				<td><input type="checkbox" ></td>
 			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
 		</tbody>
 	</table>
 	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
 </div>
 
-<div class="order_item order_package" data-id="package">
+<div class="order_item order_package js-package-items-table" data-id="package">
 	<table cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
@@ -221,58 +125,21 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td class="number"></td>
-				<td>普通洗车</td>
-				<td>组合类</td>
-				<td>2</td>
-				<td>12个月</td>
-				<td>0</td>
-				<td class="text-align-right">
-					<span class="display-block text-decoration-linethrough ">480.00</span>
-					<span class="color-08BD48">380.00</span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number"></td>
-				<td>普通洗车</td>
-				<td>组合类</td>
-				<td>2</td>
-				<td>12个月</td>
-				<td>0</td>
-				<td class="text-align-right">
-					<span class="display-block text-decoration-linethrough ">480.00</span>
-					<span class="color-08BD48">380.00</span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number"></td>
-				<td>充10000送2000</td>
-				<td>充值类</td>
-				<td>6</td>
-				<td>不限</td>
-				<td>2000</td>
-				<td class="text-align-right">
-					<span class="">10,000.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
-			<tr>
-				<td class="number"></td>
-				<td>充10000送2000</td>
-				<td>充值类</td>
-				<td>6</td>
-				<td>不限</td>
-				<td>2000</td>
-				<td class="text-align-right">
-					<span class="">10,000.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
+      <% for item, index in @packages : %>
+			  <tr>
+          <td class="number"><%= index+1 %></td>
+			  	<td><%= item.name %></td>
+			  	<td>充值类</td>
+			  	<td>6</td>
+			  	<td>不限</td>
+			  	<td>2000</td>
+			  	<td class="text-align-right">
+			  		<span class="text-decoration-linethrough display-block"><%= item.retail_price %></span>
+			  		<span class="color-08BD48"><%= item.vip_price %></span>
+			  	</td>
+			  	<td><input type="checkbox" ></td>
+			  </tr>
+      <% end %>
 		</tbody>
 	</table>
 	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
