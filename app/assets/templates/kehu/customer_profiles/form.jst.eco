@@ -189,7 +189,7 @@
                     <% end %>
                   </select>
 
-                  <input type="text" class="width-176 margin-left-103" value="<%= entity.storeCustomerSettlement.get 'credit_amount' %>" name="store_customer_settlement[credit_amount]">
+                  <input type="text" class="width-176 margin-left-103" value="<%= entity.storeCustomerSettlement.get 'credit_limit' %>" name="store_customer_settlement[credit_limit]">
                 </div>
 
                 <div class="item_content">
