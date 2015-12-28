@@ -11,6 +11,9 @@ class Crm::StoreAssetsController < Crm::BaseController
   def show
     @customer = StoreCustomer.find(params[:store_customer_id])
     @partial = params[:partial] + "_records_wrap"
+    @compose = params[:class_name].classify.constantize.find(params[:id])
+    @items = @compose.items
+    @current_item = @items.first
 
     respond_to do |format|
       format.js
