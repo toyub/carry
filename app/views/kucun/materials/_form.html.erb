@@ -122,8 +122,8 @@
 
         <div class="item_content outline property text-align-left">
           <label class="width-49">商品属性</label>
-          <input class="margin-left-15" type="checkbox" name="material[permitted_to_internal]" value="1" <%= "checked='checked'" if @store_material.permitted_to_internal %>><label for="">自用</label>
-          <input class="margin-left-26" type="checkbox" name="material[permitted_to_saleable]" value="1" <%= "checked='checked'" if @store_material.permitted_to_saleable %>><label for="">销售</label>
+          <input class="margin-left-15" type="checkbox" value='true' name="material[permitted_to_internal]" <%= "checked='checked'" if @store_material.permitted_to_internal %>><label for="">自用</label>
+          <input class="margin-left-26" type="checkbox" value='true' name="material[permitted_to_saleable]" <%= "checked='checked'" if @store_material.permitted_to_saleable %>><label for="">销售</label>
         </div>
 
 
