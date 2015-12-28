@@ -6,11 +6,13 @@ class StoreOrderArchive
   end
 
   def reform
+    ActiveRecord::Base.transaction do
       save_payments
       save_deposit_cards
       save_package_services
       save_taozhuang
       pay_finish
+    end
   end
 
   def save_payments
@@ -96,6 +98,9 @@ class StoreOrderArchive
   def pay_finish
     if @order.payments.any?(&->(pi){pi.hanging?})
       @order.pay_hanging!
+      settlement = @customer.store_customer_entity.store_customer_settlement
+      settlement.credit_bill_amount += @order.amount
+      settlement.save!
     else
       @order.pay_finished!
     end

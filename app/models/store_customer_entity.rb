@@ -66,8 +66,8 @@ class StoreCustomerEntity < ActiveRecord::Base
     self.district["region"]
   end
 
-  def creditable
-    self.store_customer_settlement.credit.to_s == "unpermitted"
+  def creditable?
+    self.store_customer_settlement.creditable?
   end
 
   def filling_date
