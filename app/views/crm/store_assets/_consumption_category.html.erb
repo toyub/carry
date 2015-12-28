@@ -6,7 +6,6 @@
         <%= link_to "查看", crm_store_customer_store_asset_path(store_customer_id: @customer.id, id: 0, partial: "deposit_account"), remote: true, class: "show_btn btn"%>
       </li>
     </ul>
-
     <% @deposit_card_items.each do |item| %>
       <dl>
         <dd><span>充</span></dd>
@@ -18,51 +17,33 @@
   <div class="captical package" data-target="package">
     <ul>
       <li>套餐组合</li>
-      <li>2</li>
+      <li><%= @packaged_service_items.count %></li>
     </ul>
-
-    <dl>
-      <dd><span>套</span></dd>
-      <dd>普通洗车20次卡</dd>
-      <dd>
-        <%= link_to "查看", crm_store_customer_store_asset_path(store_customer_id: @customer.id, id: 2), remote: true, class: "show_btn btn" %>
-      </dd>
-    </dl>
-
-    <dl>
-      <dd><span>套</span></dd>
-      <dd>普通洗车20次卡</dd>
-      <dd><a href="javascript:void(0)" class="show_btn btn">查看</a></dd>
-    </dl>
-
+    <% @packaged_service_items.each do |item| %>
+      <dl>
+        <dd><span>套</span></dd>
+        <dd><%= item.assetable.name %></dd>
+        <dd>
+          <%= link_to "查看", crm_store_customer_store_asset_path(store_customer_id: @customer.id, id: 2), remote: true, class: "show_btn btn" %>
+        </dd>
+      </dl>
+    <% end %>
   </div>
 
   <div class="captical commodity" data-target="commodity">
     <ul>
       <li>商品组合</li>
-      <li>3</li>
+      <li><%= @taozhuang_items.count %></li>
     </ul>
-
-    <dl>
-      <dd><span>套</span></dd>
-      <dd>途乐养车包</dd>
-      <dd>
-        <%= link_to "查看", crm_store_customer_store_asset_path(store_customer_id: @customer.id, id: 3), remote: true, class: "show_btn btn" %>
-      </dd>
-    </dl>
-
-    <dl>
-      <dd><span>套</span></dd>
-      <dd>途乐养车包</dd>
-      <dd><a href="javascript:void(0)" class="show_btn btn">查看</a></dd>
-    </dl>
-
-    <dl>
-      <dd><span>套</span></dd>
-      <dd>途乐养车包</dd>
-      <dd><a href="javascript:void(0)" class="show_btn btn">查看</a></dd>
-    </dl>
-
+    <% @taozhuang_items.each do |item| %>
+      <dl>
+        <dd><span>套</span></dd>
+        <dd><%= item.assetable.name %></dd>
+        <dd>
+          <%= link_to "查看", crm_store_customer_store_asset_path(store_customer_id: @customer.id, id: 3), remote: true, class: "show_btn btn" %>
+        </dd>
+      </dl>
+    <% end %>
   </div>
 </div>
 
