@@ -16,9 +16,7 @@
         <li> <%= link_to '所有挂账', all_crm_store_customer_store_repayments_path(@customer), class: 'active width-90 tab_item' %> </li>
         <li><%= notice %></li>
       </ul>
-
     </div>
-
     <div class="content customer_account">
       <input type="hidden" id="action" value="<%= @action%>">
       <div class="panel_query">
@@ -26,15 +24,12 @@
           <%= render 'search_form' %>
         <% end %>
       </div>
-
       <div class="orders">
         <input type="hidden" id="count" value="<%= @count%>">
         <%= render 'all_info' %>
       </div>
-
-      <p class="btn_group text-align-center">
-        <%= link_to "点击加载更多", 'javascript:void(0)',class: 'font-14 fa fa-arrow-down show_more', data:{customer: @customer.id} %>
-      </p>
+      <%= render 'link_more_info' %>
     </div>
   </div>
+
 </div>

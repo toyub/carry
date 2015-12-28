@@ -5,7 +5,6 @@
 <%= render '/crm/common/page_head' %>
 
 <div class="details">
-
 <%= render 'crm/common/customer_nav' %>
 
   <div class="details_content">
@@ -16,7 +15,6 @@
         <li> <%= link_to '所有挂账', all_crm_store_customer_store_repayments_path(@customer), class: 'width-90 tab_item' %> </li>
         <li><%= notice %></li>
       </ul>
-
     </div>
 
     <div class="content customer_account">
@@ -25,7 +23,7 @@
         <%= search_form_for @q , url: crm_store_customer_store_repayments_path(@customer), class: 'float-left' do  -%>
           <%= render 'search_form' %>
         <% end %>
-    <%= form_tag url: crm_store_customer_store_repayments_path(@customer), method: 'POST', class: 'float-right' do %>
+        <%= form_tag url: crm_store_customer_store_repayments_path(@customer), method: 'POST', class: 'float-right' do %>
         <div class="query_item float-right">
           <label class="margin-right-10">回款合计</label>
           <input type="text" class="height-29 margin-right-10" name="repayment[total]" value="">
@@ -34,22 +32,10 @@
       </div>
 
       <div class="orders">
-        <input type="hidden" id="count" value="<%= @count%>">
-        <% @orders.each do |order| %>
-        <div class="order_item slide_up" id="js-order-<%= order.id%>" >
-          <%= render 'basic_info', order: order %>
-
-          <table class="detail" id="js-detail-<%= order.id%>" >
-            <%= render 'dialog_info', order:order %>
-          </table>
-        </div>
-        <% end %>
+        <%= render 'order_info' %>
       </div>
-
-      <p class="btn_group text-align-center">
-        <%= link_to "点击加载更多", 'javascript:void(0)',class: 'font-14 fa fa-arrow-down show_more', data:{customer: @customer.id} %>
-      </p>
-    <% end %>
+      <%= render 'link_more_info' %>
+      <% end %>
     </div>
   </div>
 </div>
