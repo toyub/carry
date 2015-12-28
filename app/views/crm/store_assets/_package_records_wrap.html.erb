@@ -47,7 +47,7 @@
       <div class="table-content-wrap">
         <% @items.each do |i| %>
           <dl class="table-content">
-            <dd><%= i.workflowable_hash['name'] %></dd>
+            <dd><%= i.workflowable_hash['name'] %>- <%= i.id %></dd>
             <dd><%= i.total_quantity - i.used_quantity %></dd>
           </dl>
         <% end %>
