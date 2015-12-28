@@ -33,6 +33,7 @@ class StoreDepot  < ActiveRecord::Base
                                                                  outingable: order)
     order.items.materials.each do |order_item|
       material = order_item.orderable.store_material
+      next if order_item.orderable.divide_to_retail
       inventory = self.store_material_inventories
                                 .find_or_initialize_by(store_id: store_id,
                                                                     store_chain_id: store_chain_id,
