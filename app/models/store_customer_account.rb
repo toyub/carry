@@ -10,7 +10,8 @@ class StoreCustomerAccount
       balance: @entity.balance,
       points: @entity.points,
       credit_able: @settlement.creditable?,
-      credit_line: @settlement.credit_line
+      credit_line: @settlement.credit_line,
+      human_readable_credit_line: @settlement.human_readable_credit_line
     }
   end
 
