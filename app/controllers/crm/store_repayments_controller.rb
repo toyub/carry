@@ -1,22 +1,10 @@
 class Crm::StoreRepaymentsController < Crm::BaseController
   before_action :set_customer
-  before_action :set_created_date, only: [:index, :finished, :all]
+  before_action :set_created_date, :set_limit, only: [:index, :finished, :all]
 
   def index
-    @page = 3
-    if params[:page]
-      @page = params[:page].to_i + 3
-      @q = @customer.orders.where(pay_status: 2).ransack(params[:q])
-      @orders = @q.result(distinct: true).order("id asc").limit(@page)
-    else
-      puts "indexindex"
-      @q = @customer.orders.where(pay_status: 2).ransack(params[:q])
-      @orders = @q.result(distinct: true).order("id asc").limit(@page)
-    end
-  end
-
-  def show
-    @repayment = @customer.store_repayments.find(params[:id])
+    @q = @customer.orders.where(pay_status: 2).ransack(params[:q])
+    set_show
   end
 
   def create
@@ -31,12 +19,12 @@ class Crm::StoreRepaymentsController < Crm::BaseController
 
   def finished
     @q = @customer.orders.where(pay_status: 3, hanging: true).ransack(params[:q])
-    @orders = @q.result(distinct: true).order("id asc")
+    set_show
   end
 
   def all
     @q = @customer.orders.where(hanging: true).ransack(params[:q])
-    @orders = @q.result(distinct: true).order("id asc")
+    set_show
   end
 
 
@@ -53,12 +41,21 @@ class Crm::StoreRepaymentsController < Crm::BaseController
     end
 
     def form_params
-      params.require(:repayment).permit(:total,
-          orders: []
-          )
+      params.require(:repayment).permit(:total, orders: [])
     end
 
     def repayment_params
       params.require(:repayment).permit(:store_id, :store_chain_id, :store_staff_id)
+    end
+
+    def set_limit
+      @count = 10
+    end
+
+    def set_show
+      if params[:count]
+        @count = params[:count].to_i + 10
+      end
+      @orders = @q.result(distinct: true).order("id asc").limit(@count)
     end
 end

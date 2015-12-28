@@ -1,9 +1,1 @@
-<% @orders.each do |order| %>
-<div class="order_item slide_up" id="js-order-<%= order.id%>" >
-  <%= render 'basic_info', order: order %>
-
-  <table class="detail" id="js-detail-<%= order.id%>" >
-    <%= render 'dialog_info', order:order %>
-  </table>
-</div>
-<% end %>
+$("div.orders").html("<%= j render('click_more_info_in_index')%>")
