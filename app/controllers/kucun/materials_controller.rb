@@ -19,6 +19,8 @@ class Kucun::MaterialsController < Kucun::BaseController
         render json: @store_materials.to_json
       }
 
+      format.csv {}
+
       format.html {}
     end
   end
