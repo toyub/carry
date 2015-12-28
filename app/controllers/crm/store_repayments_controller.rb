@@ -1,6 +1,6 @@
 class Crm::StoreRepaymentsController < Crm::BaseController
   before_action :set_customer
-  before_action :set_created_date, :set_limit, only: [:index, :finished, :all]
+  before_action :set_created_date, :set_limit, :action_params, only: [:index, :finished, :all]
 
   def index
     @q = @customer.orders.pay_hanging.ransack(params[:q])
@@ -49,12 +49,16 @@ class Crm::StoreRepaymentsController < Crm::BaseController
     end
 
     def set_limit
-      @count = 10
+      @count = 1
+    end
+
+    def action_params
+      @action = params[:action].gsub("index","")
     end
 
     def set_show
       if params[:count]
-        @count = params[:count].to_i + 10
+        @count = params[:count].to_i + 1
       end
       @orders = @q.result.order("id asc").limit(@count)
     end
