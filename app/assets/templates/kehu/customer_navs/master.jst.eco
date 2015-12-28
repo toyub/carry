@@ -1,5 +1,5 @@
 <li id="kehushow" class="active"><a href="javascript:void(0)" class="width-90">信息</a></li>
-<li id="zichanzhanghu"><a href="<%= @customer.assetsUrl() %>" class="width-90 ">资产账户</a></li>
+<li id="zichanzhanghu"><a href="<%= @customer.assetsUrl() %>" class="width-90 ">资产</a></li>
 
 <li id="zichan"><a href="<%= @customer.repaymentsUrl() %>" class="width-90 ">账户</a></li>
 
