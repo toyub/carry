@@ -13,6 +13,7 @@ class Kucun::MaterialsController < Kucun::BaseController
     if params[:root_category_id].present?
       @root_category = @store.store_material_categories.find(params[:root_category_id])
     end
+    p params.methods
 
     respond_to do |format|
       format.json {
