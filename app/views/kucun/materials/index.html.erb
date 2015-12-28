@@ -9,8 +9,7 @@
       <%= render partial: 'kucun/partials/material_search' %>
       <div class="query_div">
         <a class="new_btn btn" href="<%= new_kucun_material_path %>">新建商品</a>
-        <a class="export_btn btn" href="#">导出</a>
-        <a class="print_btn btn" href="#">打印</a>
+        <a class="export_btn btn" href="/exports/csv/materials" target="_blank">导出</a>
       </div>
     </div>
     <table id='materials' cellpadding="0" cellspacing="0" class="index_list materials">
