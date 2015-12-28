@@ -14,7 +14,7 @@
               <a href="/mis/kehu/kehuliebiao/kehuedit.html" target="_blank">完善客户信息</a>
             </div>
             <div class="vehicle_details_info" style="display: none;">
-              <%= render :vehicle_detail, order: order %>
+              <%= render partial: 'vehicle_detail', locals: {order: order} %>
             </div>
           </div>
           <div class="vehicle_condition">
@@ -24,7 +24,7 @@
               <a href="/mis/kehu/kehuliebiao/cheliangdangan/show.html?cheliangdangan" target="_blank">完善车辆信息</a>
             </span>
             <div class="vehicle_condition_info" style="display: none;">
-              <%= render :condition, order: order %>
+              <%= render partial: 'condition', locals: {order: order} %>
             </div>
           </div>
           <div class="vehicle_order">
@@ -34,7 +34,7 @@
               <a href="/mis/shouyin/yewukaidan/kaidan.html" target="_blank">添加项目</a>
             </span>
             <div class="order_info" style="display: none;">
-              <%= render :order, order: order %>
+              <%= render partial: 'order', locals: {order: order} %>
             </div>
           </div>
           <div class="construction">
@@ -43,7 +43,7 @@
               <a href="javascript:void(0)" class="edit_construction_info_btn" target="_blank">编辑施工信息</a>
             </div>
             <div class="construction_info" style="display: none;">
-              <%= render :construction, order: order %>
+              <%= render partial: 'construction', locals: {order: order} %>
             </div>
           </div>
           <div class="others">
@@ -64,7 +64,7 @@
     </div>
     <div class="float-left">
       <div class="edit_construction_info float-left" data-id="edit_construction" style="display: none;">
-        <%= render :construction_form, order: order %>
+        <%= render partial: 'construction_form', locals: {order: order} %>
       </div>
     </div>
   </div>
