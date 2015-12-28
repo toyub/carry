@@ -24,4 +24,8 @@ class StoreCustomerSettlement < ActiveRecord::Base
       self.credit_limit.to_f - self.credit_bill_amount.to_f
     end
   end
+
+  def increase_credit_bill_amount!(amount)
+    self.class.unscoped.where(id: self.id).update_all("credit_bill_amount=COALESCE(credit_bill_amount, 0) + #{amount.to_f.abs}")
+  end
 end
