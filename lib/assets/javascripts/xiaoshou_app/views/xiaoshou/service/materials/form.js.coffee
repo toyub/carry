@@ -37,10 +37,12 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
 
   renderQueryResults: =>
     materials = @store.materials
+    console.log materials
     if _.isEmpty(@categoryCriterial())
       materials = materials.models
     else
       materials = materials.where(@categoryCriterial())
+      console.log materials
     materials = _.filter(materials, @queryCriterial)
 
     @$("#queryResults").empty()
