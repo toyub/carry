@@ -33,6 +33,7 @@
       </div>
 
       <div class="orders">
+        <input type="hidden" id="count" value="<%= @count%>">
         <% @orders.each do |order| %>
         <div class="order_item slide_up" id="js-order-<%= order.id%>" >
           <%= render 'basic_info', order: order %>
@@ -55,9 +56,14 @@
 <script type="text/javascript">
   jQuery(function($){
     $("a.font-14.fa.fa-arrow-down.show_more").on("click", function(){
-      $.get("/crm/store_customers/"+$(this).data("customer")+"/store_repayments", function(data){
-        
+      $.ajax({
+        type: "get",
+        url: "/crm/store_customers/"+$(this).data("customer")+"/store_repayments",
+        data: { count: $("input#count").val() },
+        dataType: "script",
+        success: function () {}
       });
     });
+
   });
 </script>

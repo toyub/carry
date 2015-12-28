@@ -27,12 +27,28 @@
       </div>
 
       <div class="orders">
+        <input type="hidden" id="count" value="<%= @count%>">
         <%= render 'all_info' %>
       </div>
 
       <p class="btn_group text-align-center">
-        <a href="javascript:void(0)" class="font-14 fa fa-arrow-down show_more">点击加载更多</a>
+        <%= link_to "点击加载更多", 'javascript:void(0)',class: 'font-14 fa fa-arrow-down show_more', data:{customer: @customer.id} %>
       </p>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+jQuery(function($){
+  $("a.font-14.fa.fa-arrow-down.show_more").on("click", function(){
+    $.ajax({
+      type: "get",
+      url: "/crm/store_customers/"+$(this).data("customer")+"/store_repayments/all",
+      data: { count: $("input#count").val() },
+      dataType: "script",
+      success: function () {}
+    });
+  });
+
+});
+</script>

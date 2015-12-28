@@ -7,7 +7,7 @@
       <span class="item_control width-200">下单人：<%= order.creator.full_name %></span>
       <span class="item_control width-200">订单金额：<%= order.amount_total %>0</span>
       <span class="item_control width-200">挂账余额： <%= order.repayment_remaining %> </span>
-      <span class="item_control width-120">状态： <%= order.pay_status == "pay_finished" ? "<strong class='status color-0ab149'>已清</strong>".html_safe : "<strong class='status color-ee4225'>未清</strong>".html_safe  %> </span>
+      <span class="item_control width-120">状态： <%= order.pay_finished? ? "<strong class='status color-0ab149'>已清</strong>".html_safe : "<strong class='status color-ee4225'>未清</strong>".html_safe  %> </span>
       <i class="fa fa-chevron-down cursor-pointer js-slide-down" data-id="<%= order.id%>" ></i>
       <i class="fa fa-chevron-up cursor-pointer js-slide-up" data-id="<%= order.id%>" ></i>
     </div>
