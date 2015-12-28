@@ -4,6 +4,7 @@ class StoreMaterialOuting < ActiveRecord::Base
   belongs_to :requester, class_name: 'StoreStaff'
 
   has_many :items, class_name: 'StoreMaterialOutingItem'
+  belongs_to :outingable, polymorphic: true
 
   accepts_nested_attributes_for :items
 
