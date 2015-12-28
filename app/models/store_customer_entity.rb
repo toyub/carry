@@ -82,4 +82,8 @@ class StoreCustomerEntity < ActiveRecord::Base
     self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) - #{amount.to_f.abs}")
   end
 
+  def increase_points!(quantity)
+    self.class.unscoped.where(id: self.id).update_all("points=COALESCE(points, 0) + #{quantity.to_i.abs}")
+  end
+
 end

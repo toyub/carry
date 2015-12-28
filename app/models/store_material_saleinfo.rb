@@ -26,4 +26,8 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
       '-'
     end
   end
+
+  def point
+    self.reward_points
+  end
 end

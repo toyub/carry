@@ -11,6 +11,7 @@ class StoreOrderArchive
       save_deposit_cards
       save_package_services
       save_taozhuang
+      reward_points
       pay_finish
     end
   end
@@ -95,12 +96,15 @@ class StoreOrderArchive
     end
   end
 
+  def reward_points
+    points = @order.items.map{|item| item.orderable.try(:point).to_i}.sum
+    @customer.store_customer_entity.increase_points!(points)
+  end
+
   def pay_finish
     if @order.payments.any?(&->(pi){pi.hanging?})
       @order.pay_hanging!
-      settlement = @customer.store_customer_entity.store_customer_settlement
-      settlement.credit_bill_amount += @order.amount
-      settlement.save!
+      @customer.store_customer_entity.store_customer_settlement.increase_credit_bill_amount!(@order.amount)
     else
       @order.pay_finished!
     end
