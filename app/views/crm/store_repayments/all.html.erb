@@ -11,12 +11,11 @@
   <div class="details_content">
     <div class="panel_tab">
       <ul class="tab_items">
-        <li> <%= link_to '未清账单', crm_store_customer_store_repayments_path(@customer), class: 'width-90 tab_item' %> </li>
-        <li> <%= link_to '已清挂账', finished_crm_store_customer_store_repayments_path(@customer), class: 'width-90 tab_item' %> </li>
-        <li> <%= link_to '所有挂账', all_crm_store_customer_store_repayments_path(@customer), class: 'active width-90 tab_item' %> </li>
-        <li><%= notice %></li>
+        <%= render 'repayment_nav' %>
       </ul>
     </div>
+    <%= notice %>
+
     <div class="content customer_account">
       <input type="hidden" id="action" value="<%= @action%>">
       <div class="panel_query">

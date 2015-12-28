@@ -49,7 +49,7 @@ class Crm::StoreRepaymentsController < Crm::BaseController
     end
 
     def set_limit
-      @count = 1
+      @count = 10
     end
 
     def action_params
@@ -58,7 +58,7 @@ class Crm::StoreRepaymentsController < Crm::BaseController
 
     def set_show
       if params[:count]
-        @count = params[:count].to_i + 1
+        @count = params[:count].to_i + 10
       end
       @orders = @q.result.order("id asc").limit(@count)
     end
