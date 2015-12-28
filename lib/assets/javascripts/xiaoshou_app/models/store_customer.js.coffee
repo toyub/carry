@@ -7,6 +7,7 @@ class Mis.Models.StoreCustomer extends Backbone.Model
   defaults:
     tracking_accepted: true
     message_accepted: true
+    gender: true
 
   initialize: ->
     @tags = new Mis.Collections.Tags(@get 'tags')
@@ -27,6 +28,45 @@ class Mis.Models.StoreCustomer extends Backbone.Model
   profession: -> Mis.Settings.Entity.profession[@get 'profession']
 
   income: -> Mis.Settings.Entity.income[@get 'income']
+
+  assetsUrl: ->
+    "javascript:void(0)"
+
+  repaymentsUrl: ->
+    if @id
+      "/crm/store_customers/#{@id}/store_repayments"
+    else
+      "javascript:void(0)"
+
+  vehicleArchivesUrl: ->
+    if @id
+      "/crm/store_customers/#{@id}/store_vehicle_archives/new"
+    else
+      "javascript:void(0)"
+
+  ordersUrl: ->
+    if @id
+      "/crm/store_customers/#{@id}/expense_records"
+    else
+      "javascript:void(0)"
+
+  trackingsUrl: ->
+    if @id
+      "/crm/store_customers/#{@id}/store_trackings"
+    else
+      "javascript:void(0)"
+
+  preOrdersUrl: ->
+    if @id
+      "/crm/store_customers/#{@id}/pre_orders"
+    else
+      "javascript:void(0)"
+
+  complaintsUrl: ->
+    if @id
+      "/crm/store_customers/#{@id}/compalints"
+    else
+      "javascript:void(0)"
 
   toJSON: ->
     json = _.clone(@attributes)

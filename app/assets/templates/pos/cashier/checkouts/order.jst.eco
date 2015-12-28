@@ -3,7 +3,7 @@
         <div class="order_details">
           <div class="dialog_nav">
             <span class="dialog_title ">单号:<%= @numero %></span>
-            <a href="/pos/store_orders" target="_blank">完整订单</a>
+            <a href="/pos/store_orders/<%= @id %>/edit" target="_blank">完整订单</a>
           </div>
 
           <div class="vehicle_order_details">
@@ -30,21 +30,25 @@
                 <dl>
                   <dd>
                     <label class="width-80" >储值余额:</label>
-                    <span><%= @store_customer.balance %></span>
+                    <span><%= @store_customer.account.balance %></span>
                   </dd>
                 </dl>
 
                 <dl>
                   <dd>
                     <label class="width-80" >挂账额度:</label>
-                    <span><%= @store_customer.credit_limit %></span>
+                    <% if @store_customer.account.credit_able : %>
+                      <span><%= @store_customer.account.human_readable_credit_line %></span>
+                    <% else : %>
+                      <span>不能挂账</span>
+                    <% end %>
                   </dd>
                 </dl>
 
                 <dl>
                   <dd>
-                    <label class="width-80" >可用积分:</label>
-                    <span><%= @store_customer.points %></span>
+                    <label class="width-80" >用户积分:</label>
+                    <span><%= @store_customer.account.points %></span>
                   </dd>
                 </dl>
               </div>
@@ -79,7 +83,7 @@
                       <td><%= item.vip_price %></td>
                       <td><%= item.discount %></td>
                       <td><%= item.discount_reason %></td>
-                      <td><%= item.price %></td>
+                      <td><%= item.amount %></td>
                     </tr>
                     <% end %>
                   </tbody>
@@ -194,11 +198,11 @@
           <dl style="display:none;" class='js-authentication'>
             <dd>
               <label class="width-70">验证客户</label>
-              <input type="text" name='authentication_code' class="width-75">
-              <a href="javascript:void(0)" class="width-60 code">发送验证码</a>
+              <input type="text" name='authentication_code' class="width-75" placeholder='请输入验证码'>
+              <a href="javascript:void(0)" class="width-60 new_btn btn js-send-code">发送验证码</a>
             </dd>
           </dl>
-          <% if @pay_status == 'pay_pending' : %>
+          <% if @can_pay : %>
             <div class="prompt">
               <%if @can_add : %>
                 <a href="javascript:void(0)" class="fa fa-plus add_method"></a>
@@ -212,7 +216,7 @@
 
         </div>
 
-        <% if @pay_status == 'pay_pending' : %>
+        <% if @can_pay : %>
           <div class="payment_btn">
             <dl>
               <dd>

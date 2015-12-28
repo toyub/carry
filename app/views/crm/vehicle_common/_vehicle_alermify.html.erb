@@ -1,0 +1,67 @@
+<div class="float-left">
+  <div class="bg-color-efeae5 float-left margin-top-10 section">
+    <div class="item_content">
+      <label class="width-75">年检日期</label>
+      <span class="width-165 border"><%= @vehicle.detail["annual_check_at"] %></span>
+    </div>
+    <div class="item_content">
+      <span class="display-inline-block width-120 text-align-right">
+        <label>提醒客户</label>
+        <input type="checkbox" disabled='true' <%= 'checked=checked' if @vehicle.detail['annual_check_customer_alermify'] == '1' %> >
+      </span>
+      <span class="display-inline-block width-120 text-align-right">
+        <label>提醒门店</label>
+        <input type="checkbox" disabled='true' <%= 'checked=checked' if @vehicle.detail['annual_check_store_alermify'] == '1' %> >
+      </span>
+    </div>
+    <div class="item_content margin-right-150">
+      <label class="width-75">保险公司</label>
+      <span class="width-165 border"><%= @vehicle.detail["insurance_compnay"] %></span>
+    </div>
+    <div class="item_content">
+      <label class="width-75">保险截至</label>
+      <span class="width-165 border"><%= @vehicle.detail["insurance_expire_at"] %></span>
+    </div>
+    <div class="item_content">
+      <span class="display-inline-block width-120 text-align-right">
+        <label>提醒客户</label>
+        <input type="checkbox" disabled='true' <%= 'checked=checked' if @vehicle.detail['insurance_customer_alermify'] == '1' %> >
+      </span>
+      <span class="display-inline-block width-120 text-align-right">
+        <label>提醒门店</label>
+        <input type="checkbox" disabled='true' <%= 'checked=checked' if @vehicle.detail['insurance_store_alermify'] == '1' %> >
+      </span>
+    </div>
+  </div>
+  <div class="bg-color-efeae5 float-left margin-top-10 section">
+    <div class="item_content">
+      <label class="width-75">保养间隔天数</label>
+      <span class="width-165 border"><%= @vehicle.detail["maintain_interval_time"] %></span>
+    </div>
+    <div class="item_content">
+      <label class="width-75">保养间隔里程</label>
+      <span class="width-165 border"><%= @vehicle.detail["maintain_interval_mileage"] %></span>
+    </div>
+    <div class="item_content">
+      <span class="display-inline-block width-120 text-align-right">
+        <label>提醒客户</label>
+        <input type="checkbox" disabled='true' <%= 'checked=checked' if @vehicle.detail['next_maintain_customer_alermify'] == '1' %> >
+      </span>
+      <span class="display-inline-block width-120 text-align-right">
+        <label>提醒门店</label>
+        <input type="checkbox" disabled='true' <%= 'checked=checked' if @vehicle.detail['next_maintain_store_alermify'] == '1' %> >
+      </span>
+    </div>
+    <div class="item_content">
+      <label class="width-75">下次保养里程</label>
+      <span class="width-165 border"><%= @vehicle.detail["next_maintain_mileage"] %></span>
+    </div>
+    <div class="item_content next_maintenance_time">
+      <label class="width-75">下次保养日期</label>
+      <span class="width-165 border"><%= @vehicle.detail["next_maintain_at"] %></span>
+    </div>
+  </div>
+</div>
+<div class="btn_group">
+  <%= link_to '编辑', edit_crm_store_customer_store_vehicle_path(@customer, @vehicle), class: 'edit_btn btn' %>
+</div>

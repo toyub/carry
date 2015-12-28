@@ -20,4 +20,12 @@ class StorePackage < ActiveRecord::Base
     self.create_package_setting(creator: self.creator)
   end
 
+  def contain_service?
+    self.package_setting.items.where(package_itemable_type: "StoreService").count > 0
+  end
+
+  def point
+    self.package_setting.point
+  end
+
 end

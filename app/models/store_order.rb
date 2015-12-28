@@ -9,7 +9,7 @@ class StoreOrder < ActiveRecord::Base
   has_one :store_tracking
   has_many :items, class_name: 'StoreOrderItem'
   has_many :complaints
-  has_many :store_customer_payments
+  has_many :payments, class_name: 'StoreCustomerPayment'
 
   has_many :store_order_repayments
   has_many :store_repayments, through: :store_order_repayments
@@ -28,6 +28,10 @@ class StoreOrder < ActiveRecord::Base
     where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
   end
 
+  def paid?
+    self.pay_hanging? || self.pay_finished?
+  end
+
   def cal_amount
     items.collect { |oi| oi.quantity * oi.price }.sum
   end
@@ -44,9 +48,12 @@ class StoreOrder < ActiveRecord::Base
     self.items.packages.map{|item| item.orderable.package_setting.items.deposits_cards.to_a}.flatten
   end
 
+  def packages
+    self.items.packages
+  end
+
   def taozhuangs
-    orderables_ids = self.items.where(orderable_type: StoreMaterialSaleinfo.name).map{|saleinfo| saleinfo.orderable_id}
-    orderables_ids.map { |id|  StoreMaterialSaleinfo.where(service_needed: true).where(id: id)}
+    items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
   end
 
   def position_name

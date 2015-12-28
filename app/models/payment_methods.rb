@@ -16,6 +16,10 @@ module PaymentMethods
       def hashable
         {name: self.name, cn_name: self.cn_name}
       end
+
+      def as_json(*args)
+        {name: self.name, cn_name: self.cn_name}
+      end
     end
 
     module InstanceMethods
