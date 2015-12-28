@@ -3,7 +3,7 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   before_action :set_created_date, :set_limit, only: [:index, :finished, :all]
 
   def index
-    @q = @customer.orders.where(pay_status: 2).ransack(params[:q])
+    @q = @customer.orders.pay_hanging.ransack(params[:q])
     set_show
   end
 
@@ -18,7 +18,7 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   end
 
   def finished
-    @q = @customer.orders.where(pay_status: 3, hanging: true).ransack(params[:q])
+    @q = @customer.orders.pay_finished.where(hanging: true).ransack(params[:q])
     set_show
   end
 
@@ -56,6 +56,6 @@ class Crm::StoreRepaymentsController < Crm::BaseController
       if params[:count]
         @count = params[:count].to_i + 10
       end
-      @orders = @q.result(distinct: true).order("id asc").limit(@count)
+      @orders = @q.result.order("id asc").limit(@count)
     end
 end
