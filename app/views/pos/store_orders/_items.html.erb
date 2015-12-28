@@ -75,7 +75,7 @@
 		</table>
 
     <h2>套餐/储值明细</h2>
-    <table cellpadding="0" cellspacing="0" class="packages">
+    <table cellpadding="0" cellspacing="0" class="packages vue-package-table-items">
         <thead>
           <tr>
             <th>项目</th>
@@ -84,11 +84,25 @@
             <th>小计</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr v-for="item in packageItems">
+            <td>{{ item.name }}</td>
+            <td>
+              <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
+            </td>
+            <td>{{ item.retail_price }}</td>
+            <td>
+              <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
+              <span class="delete close">
+                <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
+              </span>
+        	  </td>
+          </tr>
+        </tbody>
         <tfoot>
           <tr>
             <td colspan="8">
-              <label class="margin-right-10">小结：</label><label>5280</label>
+              <label class="js-materil-saleinfo-item-total-price">小结：{{totalPrice}}</label>
             </td>
           </tr>
         </tfoot>

@@ -137,12 +137,12 @@
 			  		<span class="text-decoration-linethrough display-block"><%= item.retail_price %></span>
 			  		<span class="color-08BD48"><%= item.vip_price %></span>
 			  	</td>
-			  	<td><input type="checkbox" ></td>
+          <td><input type="checkbox" data-package-id="<%=item.id%>" class="package-checkbox"></td>
 			  </tr>
       <% end %>
 		</tbody>
 	</table>
-	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
+	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn js-package-checkbox">选中</a></div>
 </div>
 
 <div class="order_item order_vip" data-id="vip" >
