@@ -78,7 +78,10 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def store_items
-    self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
+    self.items.each do |item|
+      return  item.workflow_mechanics.map{ |snapshot| {name: snapshot.engineer, id: snapshot.engineer} }.uniq
+    end
+    # self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
   end
 
 

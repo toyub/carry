@@ -12,7 +12,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   validates :store_service_id, presence: true
 
   def engineer
-    self.mechanic["name"]
+    # self.mechanic["name"]
+     1
   end
 
 end
