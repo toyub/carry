@@ -343,6 +343,9 @@ Rails.application.routes.draw do
       resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
       resources :store_repayments
+      resources :store_assets, only: [:index, :show] do
+        resources :store_asset_items, only: [:show]
+      end
     end
   end
 
