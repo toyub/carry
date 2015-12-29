@@ -6,15 +6,15 @@
 </div>
 <div class="item_content">
   <%= f.label "品牌", class: 'width-75' %>
-  <%= f.select :vehicle_brand_id, VehicleBrand.all.pluck(:name, :id), {include_blank: ''}, {class: "width-165", required: true} %>
+  <%= f.select :vehicle_brand_id, VehicleBrand.all.pluck(:name, :id), {include_blank: ''}, {id: 'brand', class: "width-165", required: true} %>
 </div>
 <div class="item_content">
   <%= f.label "车型", class: 'width-75' %>
-  <%= f.select :vehicle_model_id, VehicleModel.all.pluck(:name, :id), {include_blank: ''}, {class: "width-165", required: true} %>
+  <%= f.select :vehicle_model_id, VehicleModel.all.pluck(:name, :id), {include_blank: ''}, {id: 'model', class: "width-165", required: true} %>
 </div>
 <div class="item_content">
   <%= f.label "车系", class: 'width-75' %>
-  <%= f.select :vehicle_series_id, VehicleSeries.all.pluck(:name, :id), {include_blank: ''}, {class: "width-165", required: true} %>
+  <%= f.select :vehicle_series_id, VehicleSeries.all.pluck(:name, :id), {include_blank: ''}, {id: 'series', class: "width-165", required: true} %>
 </div>
 <%= f.fields_for :frame, @vehicle.build_frame do |ff| %>
   <div class="item_content">
