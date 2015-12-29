@@ -199,7 +199,7 @@ Rails.application.routes.draw do
     resources :customers, only: [:index] do
       member do
         resources :customer_trackings, only: [:index]
-        resources :consumes, only: [:index]
+        resources :orders, only: [:index]
         resources :vehicles, only: [:index, :show]
         resources :license_numbers, only: [:index]
       end

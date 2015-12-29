@@ -1,5 +1,5 @@
 module Erp
-  class ConsumesController < BaseController
+  class OrdersController < BaseController
     before_action :set_customer
 
     def index
