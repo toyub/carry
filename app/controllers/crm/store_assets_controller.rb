@@ -11,9 +11,14 @@ class Crm::StoreAssetsController < Crm::BaseController
   def show
     @customer = StoreCustomer.find(params[:store_customer_id])
     @partial = params[:partial] + "_records_wrap"
-    @compose = params[:class_name].classify.constantize.find(params[:id])
-    @items = @compose.items
-    @current_item = @items.first
+    if params[:class_name].present?
+      @composition = params[:class_name].classify.constantize.find(params[:id]) 
+      @items = @composition.items
+      @current_item = @items.first
+    else
+      @deposit_card_items = @customer.store_deposit_cards_items
+      @deposit_card_items_logs = @customer.store_deposit_cards_used_logs
+    end
 
     respond_to do |format|
       format.js

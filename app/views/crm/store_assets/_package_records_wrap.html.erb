@@ -2,15 +2,15 @@
   <ul class="captical_info package_info">
     <li>
       <label>名称</label>
-      <span><%= @compose.id %></span>
+      <span><%= @composition.id %></span>
     </li>
     <li>
       <label>购卡日期</label>
-      <span><%= @compose.created_at.strftime("%Y-%m-%d") %></span>
+      <span><%= @composition.created_at.strftime("%Y-%m-%d") %></span>
     </li>
     <li>
       <label>有效期</label>
-      <span>no</span>
+      <span></span>
     </li>
     <li>
       <label>类别</label>
@@ -19,8 +19,10 @@
     <li>
       <label>包含项目</label>
       <dl>
-        <dd>普通洗车</dd>
-        <dd>......</dd>
+        <dd><%= @items.first.workflowable_hash['name']%></dd>
+        <% if @items.count > 2 %>
+          <dd>等<%= @items.count %>个项目</dd>
+        <% end %>
       </dl>
     </li>
     <li>
@@ -45,10 +47,10 @@
       </dl>
 
       <div class="table-content-wrap">
-        <% @items.each do |i| %>
-          <dl class="table-content", data-itemid="<%= i.id %>">
-            <dd><%= i.workflowable_hash['name'] %>- <%= i.id %></dd>
-            <dd><%= i.total_quantity - i.used_quantity %></dd>
+        <% @items.each do |item| %>
+          <dl class="table-content", data-itemid="<%= item.id %>">
+            <dd><%= item.workflowable_hash['name'] %></dd>
+            <dd><%= item.total_quantity - item.used_quantity %></dd>
           </dl>
         <% end %>
       </div>
@@ -66,7 +68,7 @@
   jQuery(function(){
     $('.table-content-wrap').on('click', 'dl.table-content', function(){
       var url = "/crm/store_customers/" + "<%= @customer.id %>" + "/store_assets/" + $(this).data('itemid') + "/detail/"
-      console.log(url);
+      $(this).addClass("action").siblings().removeClass("action");
       $.get(url, function(){
         return;
       })
