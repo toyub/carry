@@ -84,9 +84,12 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def execute!
-    self.items.services.each do |item|
-      service = item.orderable
-      service.to_snapshot!(item)
+    ActiveRecord::Base.transaction do
+      self.items.revenue_ables.each do |item|
+        product = item.orderable
+        next unless product.service_needed?
+        product.to_snapshot!(item)
+      end
     end
   end
 

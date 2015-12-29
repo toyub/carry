@@ -30,4 +30,10 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   def point
     self.reward_points
   end
+
+  def to_snapshot!(order_item)
+    self.services.each do |service|
+      service.to_snapshot!(order_item)
+    end
+  end
 end

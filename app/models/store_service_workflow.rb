@@ -38,7 +38,11 @@ class StoreServiceWorkflow < ActiveRecord::Base
   end
 
   def snapshot_attrs(options = {})
-    self.attributes.symbolize_keys.except(:id, :created_at, :updated_at).merge(options)
+    self.attributes.symbolize_keys.except(except_attrs).merge(options)
+  end
+
+  def except_attrs
+    %w[:id :created_at, :updated_at, :store_service_id]
   end
 
 end

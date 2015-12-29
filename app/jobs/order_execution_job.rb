@@ -2,7 +2,9 @@ class OrderExecutionJob < ActiveJob::Base
   queue_as :default
 
   def perform(order_id)
-    order = StoreOrder.find(order_id)
-    order.execute!
+    order = StoreOrder.find_by(id: order_id)
+    order.execute! if order
+  rescue => e
+    p e.backtrace.join("/n")
   end
 end

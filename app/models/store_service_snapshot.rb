@@ -11,6 +11,8 @@ class StoreServiceSnapshot < ActiveRecord::Base
   belongs_to :store_order
   belongs_to :store_vehicle
 
+  belongs_to :templateable, polymorphic: true
+
   validates :name, presence: true
   validates :code, presence: true
   validates :retail_price, presence: true
