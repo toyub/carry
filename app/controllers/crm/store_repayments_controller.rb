@@ -44,10 +44,6 @@ class Crm::StoreRepaymentsController < Crm::BaseController
       params.require(:repayment).permit(:total, orders: [])
     end
 
-    def repayment_params
-      params.require(:repayment).permit(:store_id, :store_chain_id, :store_staff_id)
-    end
-
     def set_limit
       @count = 10
     end
