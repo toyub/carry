@@ -68,6 +68,8 @@ class StoreOrderArchive
                                            store_chain_id: @order.store_chain_id,
                                            store_customer_id: @order.store_customer_id,
                                            store_vehicle_id: @order.store_vehicle_id,
+                                           package: order_item.orderable,
+                                           package_name: order_item.orderable.name,
                                            items_attributes: items_attributes
         end
        end
@@ -88,10 +90,12 @@ class StoreOrderArchive
                                                        }
                                                   end
           StoreCustomerTaozhuang.create! store_id: @order.store_id,
-                                           store_chain_id: @order.store_chain_id,
-                                           store_customer_id: @order.store_customer_id,
-                                           store_vehicle_id: @order.store_vehicle_id,
-                                           items_attributes: items_attributes
+                                         store_chain_id: @order.store_chain_id,
+                                         store_customer_id: @order.store_customer_id,
+                                         store_vehicle_id: @order.store_vehicle_id,
+                                         package: order_item.orderable,
+                                         package_name: order_item.orderable.name,
+                                         items_attributes: items_attributes
         end
       end
     end
