@@ -1,0 +1,33 @@
+<tr>
+  <td>
+    <label class="width-75">最低售价</label>
+    <input type="text" num un class="width-165" value="<%= @store_material.min_price  %>" readonly />
+  </td>
+  <td>
+    <label class="width-75">零售价</label>
+    <input type="text" num un class="width-165 normal-price" name="saleinfo[retail_price]" required="true" autocomplete="off" value="<%= @saleinfo.retail_price unless @saleinfo.retail_price == 0 %>" />
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="width-75 display-inline-block text-align-right">
+      <input type="checkbox" name='saleinfo[bargainable]' <%= 'checked' if @saleinfo.bargainable %>  class="toggleable width-13 normal-price" data-target="bargain" data-checked='<%="checked" if @saleinfo.bargainable %>'>
+      优惠价
+    </span>
+    <input type="text" num un class="width-165 normal-price" data-id="bargain" name='saleinfo[bargain_price]' <%= 'disabled="disabled"' unless @saleinfo.bargainable %> required="true" autocomplete="off" value='<%= @saleinfo.bargain_price unless @saleinfo.bargain_price == 0 %>'>
+  </td>
+  <td>
+    <label class="width-75">批发价</label>
+    <input type="text" num un class="width-165 normal-price" name="saleinfo[trade_price]" autocomplete="off" value="<%= @saleinfo.trade_price unless @saleinfo.trade_price == 0 %>">
+  </td>
+</tr>
+<tr>
+  <td>
+    <span class="width-75 display-inline-block text-align-right">
+      <input type="checkbox" name='saleinfo[vip_price_enabled]' <%= 'checked' if @saleinfo.vip_price_enabled %>  class="toggleable width-13 normal-price" data-target="vip_price" data-checked='<%="checked" if @saleinfo.vip_price_enabled %>'>
+      会员价
+    </span>
+    <input type="text" num un class="width-165 normal-price" data-id="vip_price" name='saleinfo[vip_price]' <%= 'disabled="disabled"' unless @saleinfo.vip_price_enabled %> required="true" autocomplete="off" value='<%= @saleinfo.vip_price unless @saleinfo.vip_price == 0 %>'>
+  </td>
+  <td></td>
+</tr>
