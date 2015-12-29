@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false
+    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -359,6 +359,9 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "store_vehicle_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.string   "package_type"
+    t.integer  "package_id"
+    t.string   "package_name"
   end
 
   create_table "store_customer_categories", force: :cascade do |t|
@@ -407,6 +410,7 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
     t.decimal  "balance",                    default: 0.0, null: false
+    t.integer  "points"
   end
 
   create_table "store_customer_payments", force: :cascade do |t|
@@ -430,16 +434,17 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.string   "bank"
     t.string   "bank_account"
     t.string   "credit"
-    t.string   "credit_amount"
     t.string   "notice_period"
     t.string   "contract"
     t.string   "tax"
     t.string   "payment_mode"
     t.string   "invoice_type"
     t.string   "invoice_title"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "store_customer_entity_id"
+    t.decimal  "credit_bill_amount",       precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "credit_limit",             precision: 12, scale: 2, default: 0.0
   end
 
   create_table "store_customers", force: :cascade do |t|
@@ -770,18 +775,20 @@ ActiveRecord::Schema.define(version: 20151229074936) do
   end
 
   create_table "store_material_outings", force: :cascade do |t|
-    t.integer  "store_id",                                            null: false
-    t.integer  "store_chain_id",                                      null: false
-    t.integer  "store_staff_id",                                      null: false
+    t.integer  "store_id",                                             null: false
+    t.integer  "store_chain_id",                                       null: false
+    t.integer  "store_staff_id",                                       null: false
     t.integer  "requester_id"
     t.integer  "outing_type_id"
-    t.string   "numero",         limit: 45
+    t.string   "numero",          limit: 45
     t.integer  "total_quantity"
-    t.decimal  "total_amount",               precision: 10, scale: 2
-    t.string   "remark",         limit: 45
-    t.string   "search_keys",    limit: 255
+    t.decimal  "total_amount",                precision: 10, scale: 2
+    t.string   "remark",          limit: 45
+    t.string   "search_keys",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "outingable_type"
+    t.integer  "outingable_id"
   end
 
   create_table "store_material_picking_items", force: :cascade do |t|
@@ -894,25 +901,27 @@ ActiveRecord::Schema.define(version: 20151229074936) do
   end
 
   create_table "store_material_saleinfos", force: :cascade do |t|
-    t.integer  "store_id",                                                                     null: false
-    t.integer  "store_chain_id",                                                               null: false
-    t.integer  "store_staff_id",                                                               null: false
-    t.integer  "store_material_id",                                                            null: false
-    t.boolean  "bargainable",                                                  default: false
-    t.decimal  "bargain_price",                       precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "retail_price",                        precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",                         precision: 10, scale: 2, default: 0.0,   null: false
-    t.integer  "reward_points",                                                default: 0
-    t.boolean  "divide_to_retail",                                             default: false
+    t.integer  "store_id",                                                                null: false
+    t.integer  "store_chain_id",                                                          null: false
+    t.integer  "store_staff_id",                                                          null: false
+    t.integer  "store_material_id",                                                       null: false
+    t.boolean  "bargainable",                                             default: false
+    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0,   null: false
+    t.integer  "reward_points",                                           default: 0
+    t.boolean  "divide_to_retail",                                        default: false
     t.integer  "unit"
-    t.decimal  "volume",                              precision: 10, scale: 2
-    t.boolean  "service_needed",                                               default: false
-    t.boolean  "service_fee_needed",                                           default: false
-    t.decimal  "service_fee",                         precision: 10, scale: 2
+    t.decimal  "volume",                         precision: 10, scale: 2
+    t.boolean  "service_needed",                                          default: false
+    t.boolean  "service_fee_needed",                                      default: false
+    t.decimal  "service_fee",                    precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "saleman_commission_template_id"
-    t.integer  "store_material_saleinfo_category_id"
+    t.integer  "sale_category_id"
+    t.decimal  "vip_price",                      precision: 10, scale: 2
+    t.boolean  "vip_price_enabled",                                       default: false
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|
@@ -1122,10 +1131,10 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
+    t.integer  "store_vehicle_registration_plate_id"
     t.boolean  "hanging",                                                                  default: false
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
-    t.integer  "store_vehicle_registration_plate_id"
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
     t.json     "situation"
   end
@@ -1499,20 +1508,20 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
