@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229074936) do
+ActiveRecord::Schema.define(version: 20151229083143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -906,13 +906,13 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "store_staff_id",                                                          null: false
     t.integer  "store_material_id",                                                       null: false
     t.boolean  "bargainable",                                             default: false
-    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0
+    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0
+    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0
     t.integer  "reward_points",                                           default: 0
     t.boolean  "divide_to_retail",                                        default: false
-    t.integer  "unit"
-    t.decimal  "volume",                         precision: 10, scale: 2
+    t.integer  "divide_unit_type_id"
+    t.decimal  "divide_total_volume",            precision: 10, scale: 2
     t.boolean  "service_needed",                                          default: false
     t.boolean  "service_fee_needed",                                      default: false
     t.decimal  "service_fee",                    precision: 10, scale: 2
@@ -922,6 +922,7 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "sale_category_id"
     t.decimal  "vip_price",                      precision: 10, scale: 2
     t.boolean  "vip_price_enabled",                                       default: false
+    t.decimal  "divide_volume_per_bill",         precision: 10, scale: 2
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|

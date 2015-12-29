@@ -76,25 +76,53 @@
                   <td colspan="2">
                     <fieldset class="width-490 margin-left-26">
                       <legend class="margin-left-10">
-                        <label>
-                        <input type="checkbox" class="toggleable" <%= 'checked' if @saleinfo.divide_to_retail %> name='saleinfo[divide_to_retail]' data-target="divide_to_retail" data-checked='<%= "checked" if @saleinfo.divide_to_retail %>'>
-                        此商品拆分销售</label>
+                        <input type="checkbox" class="toggleable" data-target="split_merchandise_sales" data-checked>
+                        <label>此商品拆分销售</label>
                       </legend>
-                      <div>
-                        <label class="width-75">计量单位</label>
-                        <select class="width-160" name='saleinfo[unit]' data-id="divide_to_retail" <%='disabled="disabled"' unless @saleinfo.divide_to_retail %> required="true">
-                          <option value="0">米</option>
-                          <option value="1">平方米</option>
-                          <option value="2">升</option>
+
+                      <div class="float-left">
+                        <label class="width-75">总量</label>
+                        <input type="text" class="width-160" data-id="split_merchandise_sales" required="true">
+                      </div>
+                      <div class="float-left">
+                        <label class="width-75">拆分单位</label>
+                        <select class="width-160" data-id="split_merchandise_sales" required="true">
+                          <option>请选择</option>
+                          <option>米</option>
+                          <option>平方米</option>
+                          <option>升</option>
                         </select>
                       </div>
                       <div class="float-left">
-                        <label class="width-75">总量</label>
-                        <input type="text" num un int min=1 name='saleinfo[volume]' data-costprice='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" <%='disabled="disabled"' unless @saleinfo.divide_to_retail %> required="true" value='<%= @saleinfo.volume %>'>
+                        <label class="width-75">单次用量</label>
+                        <input type="text" class="width-100" data-id="split_merchandise_sales" required="true">
+                        <span class="display-inline-block width-57">平方米</span>
                       </div>
+
                       <div class="float-left">
-                        <label class="width-75">拆分成本</label>
-                        <input id='divided_cost' type="text" class="width-160" readonly=true>
+                        <label class="width-75">零售价</label>
+                        <input type="text" class="width-160" data-id="split_merchandise_sales" required="true">
+                      </div>
+
+                      <div class="float-left">
+                        <span class="width-75 display-inline-block text-align-right">
+                          <input type="checkbox"  class="toggleable width-13" data-target="bargain" data-checked>
+                          优惠价
+                        </span>
+                        <input type="text" class="width-160" data-id="bargain"  required="true">
+                      </div>
+
+                      <div class="float-left">
+                        <span class="width-75 display-inline-block text-align-right">
+                          <input type="checkbox"  class="toggleable width-13" data-target="bargain" data-checked>
+                          会员价
+                        </span>
+                        <input type="text" class="width-160" data-id="bargain"  required="true">
+                      </div>
+
+                      <div class="float-left">
+                        <label class="width-75">批发价</label>
+                        <input type="text" class="width-160" data-id="split_merchandise_sales" required="true">
                       </div>
                     </fieldset>
                   </td>
