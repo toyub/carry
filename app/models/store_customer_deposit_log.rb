@@ -1,7 +1,20 @@
 class StoreCustomerDepositLog < ActiveRecord::Base
   belongs_to :store_customer
+  belongs_to :store_order
 
   before_create :set_balance
+
+  def profit?
+    type == "StoreCustomerDepositIncome"
+  end
+
+  def self.income_times
+    where(type: "StoreCustomerDepositIncome").count
+  end
+
+  def self.expense_times
+    where(type: "StoreCustomerDepositExpense").count
+  end
 
   private
   def set_balance
