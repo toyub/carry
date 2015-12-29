@@ -85,7 +85,7 @@
             <li>1000</li>
             <li class=" color-FF2929">未核实</li>
             <li class="color-FF2929">未核实</li>
-            <li ><a href="#" class="color-73ACD4 cost_btn">核实成本</a></li>
+            <li><a href="javascript:void(0);" class="color-73ACD4 cost_btn js-heshi">核实成本</a></li>
           </ul>
         </div>
 
@@ -95,47 +95,36 @@
   </div>
 </div>
 
-<div class="pop_box2 pop_box" id="pop_box2" style="display:none;">
-  <div class="cost_accounting">
-    <div class="title">
-      <h2>成本核算单</h2>
-    </div>
-    <dl class="top">
-      <dd><label>日期</label><span>2014-12-19</span></dd>
-      <dd><label>业务单号</label><span>YW2014122900019</span></dd>
-      <dd><label>技师</label><span>周晓牛</span> <span>刘国龙</span></dd>
-    </dl>
-    <table cellpadding="0" cellspacing="0" class="cost_accounting_tab">
-      <colgroup>
-        <col width="20%">
-        <col width="40%">
-        <col width="40%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th class="goods">商品</th>
-          <th>用量<i class="fa fa-plus-square-o font-16 margin-left-10"></i></th>
-          <th>成本</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="font-16 font-weight  goods" rowspan="2" ><span>悦声高级电源线</span></td>
-          <td><input type="text" class="width-125"><label>米</label></td>
-          <td><input type="text" class="width-125"><label>元</label></td>
-        </tr>
-        <tr class="null">
-          <td  colspan="2"></td>
-        </tr>
-        <tr class="total">
-          <td class="goods"></td>
-          <td  colspan="3"><label>成本合计:</label><span>6,000.00</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="group_btn float-right">
-      <a href="#" class="cancel_btn btn cancel">取消</a>
-      <a href="#" class="save_btn btn cancel">保存</a>
-    </div>
-  </div>
-</div>
+<% content_for :scenes do %>
+<div class="pop_box2 pop_box" id="pop_box2" style="display:none;"></div>
+<% end %>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    var tmpl = JST["kucun/material_sales/heshi/new"];
+    $('#salesnotes_list').on('click', '.js-heshi', function(){
+      var cost_price_per_unit = 23.43;
+      var actual_volume = 12;
+      var item = {name: '3M太阳膜', created_on: '2015-12-22',
+                          standard_volume: 12, actual_volume: actual_volume,
+                          numero: '20151222000001', mechanics: ['周晓牛', '刘国龙'],
+                          cost_price_per_unit: cost_price_per_unit, total_cost: cost_price_per_unit * actual_volume};
+       $("#pop_box2").html(tmpl(item)).show();
+    });
+
+    $('#pop_box2').on('input', '.actual_volume', function(){
+      $('#pop_box2 .total_cost').html(this.value * this.dataset.cost);
+    });
+
+    $('#pop_box2').on('click', '.js-cancel', function(){
+      $('#pop_box2').hide();
+    });
+
+    $('#pop_box2').on('click', '.js-check', function(){
+      $('#pop_box2').hide();
+    });
+
+  })
+</script>
+<% end %>

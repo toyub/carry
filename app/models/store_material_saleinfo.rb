@@ -23,7 +23,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     if self.volume.to_f > 0
       (self.store_material.cost_price.to_f / self.volume.to_f).round(2)
     else
-      '-'
+      self.store_material.cost_price.to_f
     end
   end
 
