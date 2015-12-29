@@ -30,11 +30,11 @@
                       <% order.items.each do |item|  %>
                       <tr>
                         <td>
-                          <% item.workflow_mechain.each do |workflow| %>
-                            <label> <%= workflow.name %> </label>
+                          <% item.workflow_mechanics.each do |mechanic| %>
+                            <label> <%= mechanic.engineer %> </label>
                           <% end %>
                         </td>
-                        <td> <%= item.orderable.name %> </td>
+                        <td> <%= item.store_service_snapshot.name %> </td>
                         <td> <%= item.price %> </td>
                         <td> <%= item.quantity %> </td>
                         <td>0</td>

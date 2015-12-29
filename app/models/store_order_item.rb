@@ -26,15 +26,10 @@ class StoreOrderItem < ActiveRecord::Base
     ['王晓勇', '李明亮']
   end
 
-  def workflow_mechain
-    if self.orderable_type == "StoreMaterialSnapshot"
-      return {}
-    elsif self.orderable_type == "StoreServiceSnapshot"
-      self.orderable.workflow_snapshots
-    else
-      return {}
-    end
+  def workflow_mechanics
+    self.store_service_snapshot.workflow_snapshots
   end
+
 
   private
 
