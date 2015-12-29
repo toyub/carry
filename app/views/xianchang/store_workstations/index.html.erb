@@ -86,7 +86,6 @@
     </ul>
   </div>
 
-
   <div class="construction_site margin-top-50 do_wrap">
     <div class="title bg-color-36a54a ">
       <span>完工</span>
@@ -100,10 +99,50 @@
 
 <script type="text/javascript" charset="utf-8">
 $(document).on("click", ".js-close", function(){
-    $(this).parents("#FloatWindow").remove();
-    })
+    $(this).parents(".js-dialog").remove();
+})
 $(document).on("click", ".js-vehicle", function(){
     var orderId = $(this).data("order-id");
     $.get("/xianchang/store_orders/" + orderId, function(){})
-    })
+})
+$(document).on("click", ".js-edit-construction-form", function(){
+    $(".js-construction-form").show();
+})
+$(document).on("click", ".js-close-construction-form", function(){
+    $(".js-construction-form").hide();
+})
+$(document).on("click", ".js-show-mechanics", function(){
+    var workflow = $(this).data("id");
+    $("#workflow-" + workflow).toggle();
+})
+$(document).on("click", ".js-mechanics li", function(){
+    var workflowId = $(this).parent().data("id");
+    var mechanic = "workflow-" + workflowId + "-mechanics-" + $(this).data("id");
+    var item = "<li class='do_coise_close js-mechanic' id='";
+    item += mechanic;
+    item += "'><span>";
+    item += $(this).data("name");
+    item += "<i class='coise_close lnr-cross lnr js-mechanic-close'></i></span>";
+    item += "<input type='hidden' name='workflow[";
+    item += workflowId;
+    item += "][mechanics]["
+    item += $(this).data("id");
+    item += "][id]' value='";
+    item += $(this).data("id");
+    item += "'/>";
+    item += "<input type='hidden' name='workflow[";
+    item += workflowId;
+    item += "][mechanics][";
+    item += $(this).data("id");
+    item += "][name]' value='";
+    item += $(this).data("name");
+    item += "'/></li>";
+    console.log(item);
+    if($("#" + mechanic).length == 0) {
+      $("#workflow-" + workflowId + "-mechanics").append(item);
+    }
+})
+$(document).on("click", ".js-mechanic-close", function(){
+    $(this).closest(".js-mechanic").remove();
+})
 </script>

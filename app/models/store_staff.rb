@@ -34,6 +34,7 @@ class StoreStaff <  ActiveRecord::Base
 
   scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
+  scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")

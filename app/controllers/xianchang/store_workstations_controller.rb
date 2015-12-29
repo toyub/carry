@@ -26,13 +26,21 @@ module Xianchang
       @workstation.update(append_store_attrs workstation_params)
     end
 
+    def construction
+      @status = UpdateWorkflowService.call(construction_params)
+    end
+
     private
     def workstation_params
-      params.require(:store_workstation).permit(:color, :name, :store_workstation_category_id, :available)
+      params.require(:store_workstation).permit(:color, :name, :store_workstation_category_id, :status)
     end
 
     def set_workstation
       @workstation = current_store.workstations.find(params[:id])
+    end
+
+    def construction_params
+      params.permit(workflow: [:store_workstation_id, :used_time, mechanics: [:id, :name]])
     end
 
   end

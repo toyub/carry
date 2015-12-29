@@ -1,4 +1,4 @@
-<div id="FloatWindow" style="display: flex;">
+<div id="FloatWindow" class="js-dialog" style="display: flex;">
   <div class="FloatContent ">
     <header class="bg-color-395C61"></header>
     <div class="fheader">
@@ -23,10 +23,10 @@
         <div class="form_item">
           <label for="">工位状态</label>
           <label for="">
-            <input type="radio" name="store_workstation[available]" value="false">停用
+            <input type="radio" name="store_workstation[status]" value="unavailable" <%= 'checked' if @workstation.unavailable? %>>停用
           </label>
           <label for="">
-            <input type="radio" name="store_workstation[available]" value="true" checked>启用
+            <input type="radio" name="store_workstation[status]" value="idle" <%= 'checked' if @workstation.idle?  %>>启用
           </label>
         </div>
       </div>

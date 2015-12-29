@@ -10,6 +10,7 @@ class StoreOrder < ActiveRecord::Base
   has_many :items, class_name: 'StoreOrderItem'
   has_many :complaints
   has_many :store_customer_payments
+  has_many :store_service_snapshots
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]

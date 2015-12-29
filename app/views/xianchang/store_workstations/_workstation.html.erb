@@ -3,7 +3,7 @@
     <span class="do_dbclick width-120"><%= workstation.name %></span>
     <%= link_to "编辑", edit_xianchang_store_workstation_path(workstation), remote: true, class: 'edit_button' %>
   </div>
-  <% unless workstation.available? %>
+  <% if workstation.unavailable? %>
     <div class="disable_station">
       <span>停用</span>
     </div>
@@ -11,7 +11,7 @@
     <ul class="vehicle_info">
       <li class="float-left construction_info">
         <span><%= workstation.current_workflow.try(:name) %></span>
-        <span class="do_dbclick times">180</span>
+        <span class="do_dbclick times"><%= workstation.current_workflow.try(:used_time) %></span>
         <a href="#" class="add_time js-add-time">加时</a>
       </li>
       <li class="float-left license_plate">

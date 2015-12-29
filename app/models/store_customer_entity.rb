@@ -76,7 +76,7 @@ class StoreCustomerEntity < ActiveRecord::Base
   end
 
   def category
-    self.store_customer_category.name
+    self.store_customer_category.try(:name)
   end
 
   def settlement

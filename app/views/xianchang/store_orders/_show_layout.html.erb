@@ -1,8 +1,8 @@
-<div class="window_wrap" id="vehicle_order_details" style="display: flex;">
+<div class="window_wrap js-dialog" id="vehicle_order_details" style="display: flex;">
   <div class="wrap_order">
     <div class="dialog_nav">
       <span class="dialog_title "><%= order.numero %></span>
-      <a href="javascript:void(0);" class="dialog_close  lnr-cross lnr do_close"></a>
+      <a href="javascript:void(0);" class="dialog_close  lnr-cross lnr do_close js-close"></a>
     </div>
     <div class="float-left workplace_order">
       <div class="order_details">
@@ -40,9 +40,9 @@
           <div class="construction">
             <div class="vehicle_order_title title doslide">施工信息
               <i class="fa fa-angle-double-down"></i>
-              <a href="javascript:void(0)" class="edit_construction_info_btn" target="_blank">编辑施工信息</a>
+              <a href="javascript:void(0)" class="edit_construction_info_btn js-edit-construction-form">编辑施工信息</a>
             </div>
-            <div class="construction_info" style="display: none;">
+            <div class="construction_info js-construction" style="display: none;">
               <%= render partial: 'construction', locals: {order: order} %>
             </div>
           </div>
@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="float-left">
-      <div class="edit_construction_info float-left" data-id="edit_construction" style="display: none;">
+      <div class="edit_construction_info float-left js-construction-form" data-id="edit_construction" style="display: none;">
         <%= render partial: 'construction_form', locals: {order: order} %>
       </div>
     </div>
