@@ -9,21 +9,8 @@
       <span><%= @composition.created_at.strftime("%Y-%m-%d") %></span>
     </li>
     <li>
-      <label>有效期</label>
-      <span></span>
-    </li>
-    <li>
       <label>类别</label>
       <span>套餐</span>
-    </li>
-    <li>
-      <label>包含项目</label>
-      <dl>
-        <dd><%= @items.first.workflowable_hash['name']%></dd>
-        <% if @items.count > 2 %>
-          <dd>等<%= @items.count %>个项目</dd>
-        <% end %>
-      </dl>
     </li>
     <li>
       <label>使用门店</label>
@@ -31,10 +18,7 @@
     </li>
     <li>
       <label>状态</label>
-      <span>使用中</span>
-    </li>
-    <li>
-      <label>操作</label>
+      <span><%= @composition.left? ? "使用中" : "已使用完" %></span>
     </li>
   </ul>
 
@@ -50,7 +34,7 @@
         <% @items.each do |item| %>
           <dl class="table-content", data-itemid="<%= item.id %>">
             <dd><%= item.workflowable_hash['name'] %></dd>
-            <dd><%= item.total_quantity - item.used_quantity %></dd>
+            <dd><%= item.left_quantity %></dd>
           </dl>
         <% end %>
       </div>
