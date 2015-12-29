@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227091345) do
+ActiveRecord::Schema.define(version: 20151229074936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1095,6 +1095,8 @@ ActiveRecord::Schema.define(version: 20151227091345) do
     t.decimal  "discount"
     t.string   "discount_reason"
     t.decimal  "vip_price"
+    t.decimal  "cost_price"
+    t.decimal  "retail_price"
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
