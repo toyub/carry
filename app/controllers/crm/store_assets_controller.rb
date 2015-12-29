@@ -19,4 +19,12 @@ class Crm::StoreAssetsController < Crm::BaseController
       format.js
     end
   end
+
+  def detail
+    @current_item = StoreCustomerAssetItem.find(params[:id])
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end
