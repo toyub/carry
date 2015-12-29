@@ -14,9 +14,7 @@ class StoreServiceSnapshot < ActiveRecord::Base
   belongs_to :templateable, polymorphic: true
 
   validates :name, presence: true
-  validates :code, presence: true
   validates :retail_price, presence: true
-  validates :store_service_category_id, presence: true
   validates :store_staff_id, presence: true
 
 end

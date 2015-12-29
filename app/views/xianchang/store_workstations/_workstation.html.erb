@@ -7,7 +7,7 @@
     <div class="disable_station">
       <span>停用</span>
     </div>
-  <% else %>
+  <% elsif workstation.busy? %>
     <ul class="vehicle_info">
       <li class="float-left construction_info">
         <span><%= workstation.current_workflow.try(:name) %></span>
@@ -19,5 +19,9 @@
         <img src="/images/car_front.png">
       </li>
     </ul>
+  <% else %>
+    <div class="disable_station">
+      <span>空闲</span>
+    </div>
   <% end %>
 </li>

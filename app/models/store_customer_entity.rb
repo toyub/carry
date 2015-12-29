@@ -1,8 +1,8 @@
 class StoreCustomerEntity < ActiveRecord::Base
   include BaseModel
 
-  has_one :store_customer
-  has_one :store_customer_settlement
+  has_one :store_customer, dependent: :destroy
+  has_one :store_customer_settlement, dependent: :destroy
   belongs_to :store_customer_category
 
   accepts_nested_attributes_for :store_customer

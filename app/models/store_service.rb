@@ -57,18 +57,18 @@ class StoreService < ActiveRecord::Base
       :id,
       :created_at,
       :updated_at
-    ).merge(templateable: self).merge self.base_attrs
+    ).merge(templateable: self).merge self.base_attrs(order_item)
     service = StoreServiceSnapshot.create! attrs
     self.store_service_workflows.each do |w|
       options = {
         store_service_id: service.id,
         store_service_workflow_id: w.id
       }
-      StoreServiceWorkflowSnapshot.create! w.snapshot_attrs(self.base_attrs.merge options)
+      StoreServiceWorkflowSnapshot.create! w.snapshot_attrs(self.base_attrs(order_item).merge options)
     end
   end
 
-  def base_attrs
+  def base_attrs(order_item)
     {
       store_vehicle_id: order_item.store_order.store_vehicle_id,
       store_order_item_id: order_item.id,

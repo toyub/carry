@@ -32,7 +32,26 @@ StoreMaterialSaleinfo.create(
   store: Store.first,
   store_chain: StoreChain.first,
   store_staff_id: StoreStaff.first.id,
-  store_material: StoreMaterial.first
+  store_material: StoreMaterial.first,
+  service_needed: true,
+  services_attributes: [
+    {
+      store_id: Store.first.try(:id),
+      store_chain_id: StoreChain.first.try(:id),
+      store_staff_id: StoreStaff.first.try(:id),
+      store_material_id: StoreMaterial.first.id,
+      name: 'xxx',
+      work_time_in_seconds: 600
+    },
+    {
+      store_id: Store.first.try(:id),
+      store_chain_id: StoreChain.first.try(:id),
+      store_staff_id: StoreStaff.first.try(:id),
+      store_material_id: StoreMaterial.first.id,
+      name: 'yyy',
+      work_time_in_seconds: 1200
+    }
+  ]
 )
 
 StoreMaterialSaleinfo.create(

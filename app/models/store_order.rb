@@ -90,6 +90,8 @@ class StoreOrder < ActiveRecord::Base
         next unless product.service_needed?
         product.to_snapshot!(item)
       end
+      self.task_queuing!
+      self.queuing!
     end
   end
 

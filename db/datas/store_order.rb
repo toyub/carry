@@ -22,5 +22,7 @@ StoreOrder.create(
     { orderable: StoreMaterialSaleinfo.first, price: 120, quantity: 20 },
     { orderable: StorePackage.first, price: 130, quantity: 30 },
     { orderable: StorePackage.first, price: 140, quantity: 30 },
+    { orderable: StoreService.first, price: 260, quantity: 30 },
+    { orderable: StoreService.last, price: 100, quantity: 30 },
   ]
 )

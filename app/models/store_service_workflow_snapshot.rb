@@ -36,13 +36,18 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def executable?
-    self.big_brothers_finished?
+    self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
   end
 
   def execute!(workstation)
-    self.update(store_workstation_id: workstation.id, started_time: Time.now, used_time: self.total_time)
-    workstation.update(current_workflow: self)
-    self.processing!
+    ActiveRecord::Base.transaction do
+      self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: self.total_time)
+      workstation.update!(current_workflow: self)
+      workstation.busy!
+      self.processing!
+      self.store_order.task_processing!
+      self.store_order.processing!
+    end
   end
 
   def count_down
@@ -55,11 +60,11 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   private
   def big_brothers_finished?
-    self.big_brothers.all? { |w| w.finished? }
+    big_brothers.all? { |w| w.finished? }
   end
 
   def big_brothers
-    self.store_service.workflow_snapshots.order("id asc").to_a.select do |w|
+    store_service.workflow_snapshots.order("id asc").to_a.select do |w|
       w.id < self.id
     end
   end

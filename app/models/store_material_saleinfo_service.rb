@@ -13,12 +13,12 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
   end
 
   def to_snapshot!(order_item)
-    service = StoreServiceSnapshot.create! self.base_attrs.merge(templateable: self)
-    StoreServiceWorkflowSnapshot.create! self.base_attrs.merge(store_service_id: service.id, standard_time: self.standard_time)
+    service = StoreServiceSnapshot.create! self.base_attrs(order_item).merge(templateable: self, retail_price: 0)
+    StoreServiceWorkflowSnapshot.create! self.base_attrs(order_item).merge(store_service_id: service.id, standard_time: self.standard_time)
   end
 
-  def base_attrs
-    self.attributes.slice(
+  def base_attrs(order_item)
+    self.attributes.symbolize_keys.slice(
       :store_id,
       :store_chain_id,
       :store_staff_id,
