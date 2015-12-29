@@ -63,21 +63,25 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td class="number">1.</td>
-				<td>极致洗车</td>
-				<td>120分钟</td>
-				<td>清洗服务</td>
-				<td>50</td>
-				<td class="text-align-right">
-					<span class=" display-block">180.00</span>
-					<span class="color-08BD48"></span>
-				</td>
-				<td><input type="checkbox" ></td>
-			</tr>
+      <% for item, index in @services : %>
+			  <tr>
+          <td class="number"><%= index + 1 %></td>
+          <td><%= item.name %></td>
+          <td><%= item.standard_time %>分钟</td>
+			  	<td>清洗服务</td>
+          <td><%=item.point%></td>
+			  	<td class="text-align-right">
+			  	  <span class="text-decoration-linethrough display-block"><%= item.retail_price %></span>
+            <span class="color-08BD48"><%=item.retail_price%></span>
+			  	</td>
+          <td><input type="checkbox" data-service-id="<%=item.id%>" class="service-checkbox"></td>
+			  </tr>
+      <% end %>
 		</tbody>
 	</table>
-	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn">选中</a></div>
+  <div class="btn_group margin-right-20">
+    <a href="javascript:void(0)" class="selected_btn btn js-service-checkbox">选中</a>
+  </div>
 </div>
 
 <div class="order_item order_package js-package-items-table" data-id="package">
