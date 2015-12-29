@@ -5,7 +5,13 @@ class StoreMaterialOutingItem < ActiveRecord::Base
   belongs_to :store_material_inventory
   belongs_to :store_material
 
+  before_save :calc_amount
+
   def outing_type
     OutingType.find(self.outing_type_id)
+  end
+
+  def calc_amount
+    self.amount = self.quantity * self.cost_price
   end
 end

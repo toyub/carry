@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         get :sections, on: :collection
         resources :tracking_sections
       end
+
+      resources :material_sales
     end
 
     resources :material_units
@@ -244,7 +246,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_orders, only: [:index, :show] do
+    resources :store_orders, only: [:index, :show, :create] do
       resources :complaints, only:[:new, :create]
     end
 

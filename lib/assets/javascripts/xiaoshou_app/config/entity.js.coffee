@@ -20,9 +20,9 @@ Mis.Settings.Entity =
     it: 'IT'
 
   credit:
+    unpermitted: '不允许挂账'
     unlimited: '不限金额'
     custom: '自定义'
-    unpermitted: '不允许挂账'
 
   settlement:
     low: '月底前3天'

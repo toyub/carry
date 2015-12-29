@@ -7,7 +7,7 @@
       <ul id='material_img_thumbnails' class="goods_small_img">
         <li id='preview_list'>
           <% @store_material.uploads.each do |image| %>
-            <img src="<%= image.img_url %>">
+            <img class='cached' src="<%= image.file_url %>">
           <% end %>
         </li>
         <% if @store_material.uploads.length < 5 %>
@@ -122,14 +122,14 @@
 
         <div class="item_content outline property text-align-left">
           <label class="width-49">商品属性</label>
-          <input class="margin-left-15" type="checkbox" name="material[permitted_to_internal]" value="1" <%= "checked='checked'" if @store_material.permitted_to_internal %>><label for="">自用</label>
-          <input class="margin-left-26" type="checkbox" name="material[permitted_to_saleable]" value="1" <%= "checked='checked'" if @store_material.permitted_to_saleable %>><label for="">销售</label>
+          <input class="margin-left-15" type="checkbox" value='true' name="material[permitted_to_internal]" <%= "checked='checked'" if @store_material.permitted_to_internal %>><label for="">自用</label>
+          <input class="margin-left-26" type="checkbox" value='true' name="material[permitted_to_saleable]" <%= "checked='checked'" if @store_material.permitted_to_saleable %>><label for="">销售</label>
         </div>
 
 
 
         <div class="item_content outline item_inventory margin-left-106">
-          <label class="width-80 font-weight-bold"><input name='material[inventory_alarmify]' <%= "checked data-checked='checked'" if @store_material.inventory_alarmify %> type="radio" class='toggleable width-13' data-target='inventory'>库存预警：</label>
+          <label class="width-80 font-weight-bold"><input name='material[inventory_alarmify]' <%= "checked data-checked='checked'" if @store_material.inventory_alarmify %> type="checkbox" class='toggleable width-13' data-target='inventory'>库存预警：</label>
           <div class='display-inline-block width-155 text-align-center'>
             <label class="width-75">数量上限</label>
             <input data-id='inventory' name='material[max_inventory]' <%= "disabled=true" unless @store_material.inventory_alarmify %> type="text" class="width-53" required=true min=0.0 step='any' value='<%= @store_material.max_inventory %>'>
@@ -142,7 +142,7 @@
         </div>
 
         <div class="item_content outline shelf_life margin-left-50">
-          <label class="width-75"><input type="radio" name='material[expiry_alarmify]' <%= "checked data-checked='checked'" if @store_material.expiry_alarmify %> data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
+          <label class="width-75"><input type="checkbox" name='material[expiry_alarmify]' <%= "checked data-checked='checked'" if @store_material.expiry_alarmify %> data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
           <div class="input_div">
             <input type="text" data-id='shelf_life' name='material[shelf_life]' <%= "disabled=true" unless @store_material.expiry_alarmify %> class="width-50 border-none " style="border:0px;" required=true value='<%= @store_material.shelf_life %>'>
             <span>天</span>

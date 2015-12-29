@@ -72,7 +72,7 @@ module Api
             :bank,
             :bank_account,
             :credit,
-            :credit_amount,
+            :credit_limit,
             :notice_required,
             :contract,
             :tax,

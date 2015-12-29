@@ -2,9 +2,11 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   include BaseModel
 
-  belongs_to :store_material_saleinfo_category
+  belongs_to :sale_category
   belongs_to :store_material
-  belongs_to :saleman_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'saleman_commission_template_id'
+  belongs_to :saleman_commission_template,
+                          class_name: 'StoreCommissionTemplate', foreign_key: 'saleman_commission_template_id'
+
   has_many :services, class_name:'StoreMaterialSaleinfoService'
   has_many :store_subscribe_order_items, as: :itemable
   has_many :store_order_items, as: :orderable
@@ -23,5 +25,9 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     else
       '-'
     end
+  end
+
+  def point
+    self.reward_points
   end
 end

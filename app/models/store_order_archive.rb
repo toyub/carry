@@ -6,11 +6,15 @@ class StoreOrderArchive
   end
 
   def reform
+    ActiveRecord::Base.transaction do
       save_payments
       save_deposit_cards
       save_package_services
       save_taozhuang
+      reward_points
       pay_finish
+      auto_outing
+    end
   end
 
   def save_payments
@@ -93,9 +97,15 @@ class StoreOrderArchive
     end
   end
 
+  def reward_points
+    points = @order.items.map{|item| item.orderable.try(:point).to_i}.sum
+    @customer.store_customer_entity.increase_points!(points)
+  end
+
   def pay_finish
     if @order.payments.any?(&->(pi){pi.hanging?})
       @order.pay_hanging!
+      @customer.store_customer_entity.store_customer_settlement.increase_credit_bill_amount!(@order.amount)
     else
       @order.pay_finished!
     end
@@ -104,6 +114,11 @@ class StoreOrderArchive
       @order.finished!
     end
     true
+  end
+
+  def auto_outing
+    depot = @order.store.store_depots.current_preferred
+    depot.outing_order_materials!(@order)
   end
 
 end

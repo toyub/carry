@@ -37,14 +37,18 @@
                 <dl>
                   <dd>
                     <label class="width-80" >挂账额度:</label>
-                    <span><%= @store_customer.account.credit_limit %></span>
+                    <% if @store_customer.account.credit_able : %>
+                      <span><%= @store_customer.account.human_readable_credit_line %></span>
+                    <% else : %>
+                      <span>不能挂账</span>
+                    <% end %>
                   </dd>
                 </dl>
 
                 <dl>
                   <dd>
                     <label class="width-80" >用户积分:</label>
-                    <span><%= @store_customer.account.reward_points %></span>
+                    <span><%= @store_customer.account.points %></span>
                   </dd>
                 </dl>
               </div>
