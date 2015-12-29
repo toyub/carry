@@ -1,6 +1,7 @@
 class StoreServiceSnapshot < ActiveRecord::Base
   include BaseModel
 
+  belongs_to :store_order_item
   belongs_to :store_service_category
   has_many :store_service_store_materials
   has_many :store_materials, through: :store_service_store_materials
