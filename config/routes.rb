@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         get :sections, on: :collection
         resources :tracking_sections
       end
+
+      resources :material_sales
     end
 
     resources :material_units

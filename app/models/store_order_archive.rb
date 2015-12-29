@@ -13,6 +13,7 @@ class StoreOrderArchive
       save_taozhuang
       reward_points
       pay_finish
+      auto_outing
     end
   end
 
@@ -113,6 +114,11 @@ class StoreOrderArchive
       @order.finished!
     end
     true
+  end
+
+  def auto_outing
+    depot = @order.store.store_depots.current_preferred
+    depot.outing_order_materials!(@order)
   end
 
 end
