@@ -44,6 +44,14 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.processing!
   end
 
+  def count_down
+    self.used_time - self.elapsed_time
+  end
+
+  def elapsed_time
+    ((Time.now - self.started_time)/60).ceil
+  end
+
   private
   def big_brothers_finished?
     self.big_brothers.all? { |w| w.finished? }

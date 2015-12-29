@@ -75,6 +75,9 @@ class StoreOrder < ActiveRecord::Base
     self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
   end
 
+  def execute!
+  end
+
 
   private
 

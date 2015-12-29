@@ -11,10 +11,14 @@ class StoreWorkstation < ActiveRecord::Base
   enum status: [:idle, :busy, :unavailable]
 
   def assign_workflow!
+    pending_workflows.each do |w|
+      w.execute!(self) and break if w.executable?
+    end
+  end
+
+  def pending_workflows
     StoreServiceWorkflowSnapshot.of_store(store_id).pending.order("created_at asc").to_a.select do |w|
       w.store_workstation_id == self.id || w.workstations.map(&:id).include?(self.id)
-    end.each do |w|
-      w.execute!(self.id) and break if w.executable?
     end
   end
 end
