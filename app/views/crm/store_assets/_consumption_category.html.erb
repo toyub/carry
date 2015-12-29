@@ -2,18 +2,15 @@
   <div class="captical deposit captival_active" data-target="deposit">
     <ul>
       <li>储值账户</li>
-      <li><%= @deposit_card_items.count %>
-      <%= link_to "查看", crm_store_customer_store_asset_path(
-        store_customer_id: @customer.id,
-        id: 0,
-        partial: "deposit"),
-        remote: true, class: "show_btn btn"%>
+      <li>
+        <%= @deposit_card_assets.count %>
+        <%= link_to "查看", crm_store_customer_store_assets_path, class: "show_btn btn" %>
       </li>
     </ul>
-    <% @deposit_card_items.each do |item| %>
+    <% @deposit_card_assets.each do |asset| %>
       <dl>
         <dd><span>充</span></dd>
-        <dd><%= item.assetable.name %></dd>
+        <dd><%= asset.items.first.assetable.name %></dd>
       </dl>
     <% end %>
   </div>
@@ -21,18 +18,16 @@
   <div class="captical package" data-target="package">
     <ul>
       <li>套餐组合</li>
-      <li><%= @packaged_services.count %></li>
+      <li><%= @packaged_assets.count %></li>
     </ul>
-    <% @packaged_services.each do |package| %>
+    <% @packaged_assets.each do |package| %>
       <dl>
         <dd><span>套</span></dd>
         <dd><%= package.package_name %></dd>
         <dd>
           <%= link_to "查看", crm_store_customer_store_asset_path(
             store_customer_id: @customer.id,
-            id: package.id,
-            class_name: "StoreCustomerPackagedService",
-            partial: 'package'),
+            id: package.id),
             remote: true, class: "show_btn btn" %>
         </dd>
       </dl>
@@ -42,18 +37,16 @@
   <div class="captical commodity" data-target="commodity">
     <ul>
       <li>商品组合</li>
-      <li><%= @taozhuangs.count %></li>
+      <li><%= @taozhuang_assets.count %></li>
     </ul>
-    <% @taozhuangs.each do |taozhuang| %>
+    <% @taozhuang_assets.each do |taozhuang| %>
       <dl>
         <dd><span>套</span></dd>
         <dd><%= taozhuang.package_name %></dd>
         <dd>
           <%= link_to "查看", crm_store_customer_store_asset_path(
             store_customer_id: @customer.id,
-            id: taozhuang.id,
-            class_name: 'StoreCustomerTaozhuang',
-            partial: "package"),
+            id: taozhuang.id),
             remote: true, class: "show_btn btn" %>
         </dd>
       </dl>

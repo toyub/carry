@@ -1,35 +1,17 @@
 class Crm::StoreAssetsController < Crm::BaseController
   def index
     @customer = StoreCustomer.find(params[:store_customer_id])
-    @deposit_card_items = @customer.store_deposit_cards_items
-    @deposit_card_items_logs = @customer.store_deposit_cards_used_logs
-    @packaged_services = @customer.store_packaged_services
-    @taozhuangs = @customer.store_taozhuangs
-    @patial = 'deposit_records_wrap'
+    @deposit_card_assets = @customer.deposit_cards_assets
+    @deposit_card_items_logs = @customer.deposit_logs
+    @packaged_assets = @customer.packaged_assets
+    @taozhuang_assets = @customer.taozhuang_assets
   end
 
   def show
     @customer = StoreCustomer.find(params[:store_customer_id])
-    @partial = params[:partial] + "_records_wrap"
-    if params[:class_name].present?
-      @composition = params[:class_name].classify.constantize.find(params[:id]) 
-      @items = @composition.items
-      @current_item = @items.first
-    else
-      @deposit_card_items = @customer.store_deposit_cards_items
-      @deposit_card_items_logs = @customer.store_deposit_cards_used_logs
-    end
-
-    respond_to do |format|
-      format.js
-    end
+    @composition = @customer.assets.find(params[:id]) 
+    @items = @composition.items
+    @logs = @items.first.logs
   end
 
-  def detail
-    @current_item = StoreCustomerAssetItem.find(params[:id])
-
-    respond_to do |format|
-      format.js
-    end
-  end
 end

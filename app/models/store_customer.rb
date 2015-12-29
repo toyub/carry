@@ -5,13 +5,6 @@ class StoreCustomer < ActiveRecord::Base
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
   has_many :orders, class_name: "StoreOrder"
 
-  has_many :store_deposit_cards, class_name: 'StoreCustomerDepositCard'
-  has_many :store_deposit_cards_items, through: :store_deposit_cards, source: :items
-  has_many :store_deposit_cards_used_logs, class_name: 'StoreCustomerDepositLog'
-
-  has_many :store_packaged_services, class_name: 'StoreCustomerPackagedService'
-  has_many :store_taozhuangs, class_name: 'StoreCustomerTaozhuang'
-
   has_many :store_vehicles
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
   has_many :complaints
@@ -22,6 +15,9 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :store_repayments
 
+  has_many :assets, class_name: 'StoreCustomerAsset'
+  has_many :deposit_logs, class_name: "StoreCustomerDepositLog"
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -29,7 +25,17 @@ class StoreCustomer < ActiveRecord::Base
 
   before_save :set_full_name
 
-  has_many :assets, class_name: 'StoreCustomerAsset'
+  def deposit_cards_assets
+    assets.where(type: "StoreCustomerDepositCard")
+  end
+
+  def packaged_assets
+    assets.where(type: "StoreCustomerPackagedService")
+  end
+
+  def taozhuang_assets
+    assets.where(type: "StoreCustomerTaozhuang")
+  end
 
   def age
     now = Time.now.to_date

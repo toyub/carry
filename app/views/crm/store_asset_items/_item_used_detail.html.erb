@@ -13,8 +13,8 @@
   <table class="table-content">
     <tbody>
 
-      <% if @current_item.logs.present? %>
-        <% @current_item.logs.each do |log| %>
+      <% if @logs.present? %>
+        <% @logs.each do |log| %>
           <tr>
             <td><%= log.created_at.strftime("%y-%m-%d") %></td>
             <td><%= log.store_order.numero %></td>
