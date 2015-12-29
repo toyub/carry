@@ -11,6 +11,7 @@ class StoreOrder < ActiveRecord::Base
   has_many :complaints
   has_many :store_customer_payments
   has_many :store_service_snapshots
+  has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_order_id
   has_many :payments, class_name: 'StoreCustomerPayment'
 
   enum state: %i[pending queuing processing paying finished]

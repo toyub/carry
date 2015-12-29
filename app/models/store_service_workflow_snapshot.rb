@@ -1,5 +1,6 @@
 class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   include BaseModel
+  attr_reader :overtime_interval, :overtime_reason
 
   belongs_to :store_order_item
   belongs_to :store_service, class_name: "StoreServiceSnapshot", foreign_key: :store_service_id

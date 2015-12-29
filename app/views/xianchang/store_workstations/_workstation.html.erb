@@ -12,7 +12,7 @@
       <li class="float-left construction_info">
         <span><%= workstation.current_workflow.try(:name) %></span>
         <span class="do_dbclick times"><%= workstation.current_workflow.try(:count_down) %></span>
-        <a href="#" class="add_time js-add-time">加时</a>
+        <%= link_to "加时", edit_xianchang_store_workflow_path(workstation.current_workflow), class: "add_time js-add-time", remote: true %>
       </li>
       <li class="float-left license_plate">
         <span><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number )%> </span>

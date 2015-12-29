@@ -121,6 +121,7 @@ Rails.application.routes.draw do
       post :construction, on: :collection
     end
     resources :store_orders, only: [:show]
+    resources :store_workflows, only: [:edit, :update]
   end
 
   namespace :sas do

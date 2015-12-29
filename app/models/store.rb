@@ -45,6 +45,7 @@ class Store <  ActiveRecord::Base
   has_one :sms_balance, as: :party
 
   has_many :tags, class_name: 'Tag::StoreCustomer'
+  has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot'
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
