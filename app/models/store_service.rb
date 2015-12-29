@@ -52,6 +52,14 @@ class StoreService < ActiveRecord::Base
     self.setting_type == SETTING_TYPE[:workflow]
   end
 
+  def to_snapshot!(order_item)
+    attrs = self.attributes.symbolize_keys.except(:id, :created_at, :updated_at)
+    service = StoreServiceSnapshot.create attrs.merge(store_service_id: self.id, store_vehicle_id: order_item.store_order.store_vehicle_id, store_order_id: order_item.store_order.id)
+    self.store_service_workflows.each do |w|
+      StoreServiceWorkflowSnapshot.create w.snapshot_attrs(options)
+    end
+  end
+
   def to_workflowable_hash
     self.as_json.merge(workflows: self.store_service_workflows.unscoped.as_json)
   end

@@ -29,24 +29,16 @@ class StoreServiceWorkflow < ActiveRecord::Base
     self.store_workstation_ids || ''
   end
 
-  #def workstations=(workstations)
-    #self.store_workstation_ids = workstations.join(',')
-  #end
-
-  #def auto_position?
-    #self.position_mode == POSITION_MODE['自动上岗']
-  #end
-
-  #def position_with_app?
-    #self.position_mode == POSITION_MODE['APP上岗']
-  #end
-
   def junior_engineer?
    self.engineer_level == ENGINEER_LEVEL['初级']
   end
 
   def engineer_level_name
     ENGINEER_LEVEL.invert[self.engineer_level]
+  end
+
+  def snapshot_attrs(options = {})
+    self.attributes.symbolize_keys.except(:id, :created_at, :updated_at).merge(options)
   end
 
 end
