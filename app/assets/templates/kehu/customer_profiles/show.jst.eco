@@ -147,14 +147,9 @@
 					</div>
 					<div class="billing_info crm_info_content">
             <div class="item_content">
-              <label class="width-75">结算方式</label>
-							<span class="width-176"></span>
-            </div>
-
-            <div class="item_content">
               <label class="width-75">挂账额度</label>
 							<span class="width-176"><%= @entity.storeCustomerSettlement.credit() %></span>
-              <span class="width-176"><%= @entity.storeCustomerSettlement.get 'credit_amount' %></span>
+              <span class="width-176"><%= @entity.storeCustomerSettlement.get 'credit_limit' %></span>
             </div>
 
             <div class="item_content">

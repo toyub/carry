@@ -52,4 +52,7 @@ class StoreService < ActiveRecord::Base
     self.setting_type == SETTING_TYPE[:workflow]
   end
 
+  def to_workflowable_hash
+    self.as_json.merge(workflows: self.store_service_workflows.unscoped.as_json)
+  end
 end

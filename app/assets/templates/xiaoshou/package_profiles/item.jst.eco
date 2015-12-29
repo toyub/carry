@@ -6,7 +6,4 @@
 <td><%= @package.package_setting.get 'point' %></td>
 <td><%= @package.get 'abstract' %></td>
 <td>
-  <a href="#" class="link_i"><i class="fa fa-wrench"></i></a>
-  <a href="#" class="link_i"><i class="fa fa-bullhorn"></i></a>
-  <a href="#" class="link_i"><i class="fa fa-tty"></i></a>
 </td>

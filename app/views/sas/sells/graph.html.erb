@@ -1,0 +1,54 @@
+<div class="page_head main_top">
+  <span class="font-18 margin-right-15">销售分析</span>
+
+  <select class="width-90" onchange="self.location.pathname=options[selectedIndex].value">
+    <option value="<%= sas_sells_graph_path %>">图形分析</option>
+    <option value="<%= sas_sells_report_path %>">报表</option>
+  </select>
+  <a class="back_to_list" href="index.html">
+    <i class="fa-arrow-circle-left  fa" ></i>
+    返回列表
+  </a>
+
+</div>
+
+<div class="details sales_analysis">
+
+  <%= render "sells_summarize_month" %>
+  <div class="details_content">
+
+    <div class="graphs">
+
+      <div class="bar_chart">
+        <select class="width-90">
+          <option value="half_year">半年图</option>
+          <option value="year_on_year">同比图</option>
+        </select>
+
+        <div id="half_year_barchart" class="half_year_barchart"  style="height:320px;width:720px;"></div>
+        <div id="year_on_year_barchart" class="year_on_year_barchart"  style="height:320px;width:720px;"></div>
+      </div>
+
+      <div class="pie_chart">
+        <div id="payment_piechart" class="payment_piechart"  style="height:300px;width:320px;"></div>
+        <div id="sales_piechart" class="sales_piechart"  style="height:300px;width:320px;"></div>
+      </div>
+    </div>
+
+    <%= render "achievement_rank" %>
+
+  </div>
+
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      Sells.display_year_sales_bar();
+      Sells.display_payment_ways_pie();
+      Sells.display_month_sales_pie();
+      Sells.display_month_sales_line();
+    });
+  </script>
+<% end %>
+

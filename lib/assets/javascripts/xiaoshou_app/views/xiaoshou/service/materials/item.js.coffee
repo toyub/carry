@@ -25,4 +25,5 @@ class Mis.Views.XiaoshouServiceMaterialsItem extends Mis.Base.View
 
   showMaterial: ->
     view = new Mis.Views.XiaoshouServiceMaterialsShow(model: @model)
-    @renderChild(view)
+    $("#show_server").html view.render().el
+    $("#show_server").show()

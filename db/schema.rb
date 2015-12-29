@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229012224) do
+ActiveRecord::Schema.define(version: 20151229023442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20151229012224) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false
+    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20151229012224) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -359,6 +359,9 @@ ActiveRecord::Schema.define(version: 20151229012224) do
     t.integer  "store_vehicle_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.string   "package_type"
+    t.integer  "package_id"
+    t.string   "package_name"
   end
 
   create_table "store_customer_categories", force: :cascade do |t|
@@ -772,18 +775,20 @@ ActiveRecord::Schema.define(version: 20151229012224) do
   end
 
   create_table "store_material_outings", force: :cascade do |t|
-    t.integer  "store_id",                                            null: false
-    t.integer  "store_chain_id",                                      null: false
-    t.integer  "store_staff_id",                                      null: false
+    t.integer  "store_id",                                             null: false
+    t.integer  "store_chain_id",                                       null: false
+    t.integer  "store_staff_id",                                       null: false
     t.integer  "requester_id"
     t.integer  "outing_type_id"
-    t.string   "numero",         limit: 45
+    t.string   "numero",          limit: 45
     t.integer  "total_quantity"
-    t.decimal  "total_amount",               precision: 10, scale: 2
-    t.string   "remark",         limit: 45
-    t.string   "search_keys",    limit: 255
+    t.decimal  "total_amount",                precision: 10, scale: 2
+    t.string   "remark",          limit: 45
+    t.string   "search_keys",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "outingable_type"
+    t.integer  "outingable_id"
   end
 
   create_table "store_material_picking_items", force: :cascade do |t|
@@ -1512,20 +1517,20 @@ ActiveRecord::Schema.define(version: 20151229012224) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false

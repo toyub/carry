@@ -11,6 +11,7 @@ class StoreOrder < ActiveRecord::Base
   has_many :complaints
   has_many :store_customer_payments
   has_many :store_service_snapshots
+  has_many :payments, class_name: 'StoreCustomerPayment'
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
@@ -24,6 +25,10 @@ class StoreOrder < ActiveRecord::Base
 
   def self.today
     where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
+  end
+
+  def paid?
+    self.pay_hanging? || self.pay_finished?
   end
 
   def cal_amount
@@ -42,9 +47,12 @@ class StoreOrder < ActiveRecord::Base
     self.items.packages.map{|item| item.orderable.package_setting.items.deposits_cards.to_a}.flatten
   end
 
+  def packages
+    self.items.packages
+  end
+
   def taozhuangs
-    orderables_ids = self.items.where(orderable_type: StoreMaterialSaleinfo.name).map{|saleinfo| saleinfo.orderable_id}
-    orderables_ids.map { |id|  StoreMaterialSaleinfo.where(service_needed: true).where(id: id)}
+    items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
   end
 
   def position_name

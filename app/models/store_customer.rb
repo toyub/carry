@@ -22,6 +22,8 @@ class StoreCustomer < ActiveRecord::Base
 
   before_save :set_full_name
 
+  has_many :assets, class_name: 'StoreCustomerAsset'
+
   def age
     now = Time.now.to_date
     now.year - birthday.year - (birthday.to_date.change(year: now.year) > now ? 1 : 0)
@@ -45,6 +47,10 @@ class StoreCustomer < ActiveRecord::Base
 
   def settlement
     self.store_customer_entity.settlement
+  end
+
+  def account
+    StoreCustomerAccount.new(self)
   end
 
   private

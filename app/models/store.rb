@@ -28,6 +28,8 @@ class Store <  ActiveRecord::Base
   has_many :store_customer_categories
   belongs_to :admin, class_name: 'StoreStaff'
   has_many :store_infos
+  has_many :store_material_saleinfos
+  has_many :store_vehicle_registration_plates
 
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
@@ -38,6 +40,7 @@ class Store <  ActiveRecord::Base
   has_many :store_switches
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
   has_many :store_orders
+  has_many :store_customer_categories
 
   has_one :sms_balance, as: :party
 
@@ -56,7 +59,7 @@ class Store <  ActiveRecord::Base
   }
 
   def engineer_levels
-    ENGINEER_LEVEL.invert
+    StoreStaffLevel::ID_TYPES
   end
 
   def increase_balance!(amount)

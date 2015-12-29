@@ -2,7 +2,7 @@ module Api
   class StoreServicesController < BaseController
     include Uploadable
 
-    before_action :set_service, except: [:create, :index]
+    before_action :set_service, except: [:create, :index, :search]
 
     def create
       @service = current_store.store_services.create(service_params.merge(store_staff_id: current_staff.id))
@@ -21,7 +21,12 @@ module Api
 
     def index
       @q = current_store.store_services.ransack(params[:q])
-      @services = @q.result(distinct: true)
+      @services = @q.result(distinct: true).order("id asc")
+    end
+
+    def search
+      store_services = current_store.store_services.where("name like ?", "%#{params[:term]}%").page(params[:page])
+      render json: store_services
     end
 
     private

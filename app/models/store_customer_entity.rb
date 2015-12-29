@@ -67,6 +67,10 @@ class StoreCustomerEntity < ActiveRecord::Base
     self.district["region"]
   end
 
+  def creditable?
+    self.store_customer_settlement.creditable?
+  end
+
   def filling_date
     self.created_at.strftime("%Y-%m-%d")
   end
@@ -81,6 +85,18 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   def settlement
     PAYMENTS[self.store_customer_settlement.payment_mode]
+  end
+
+  def increase_balance!(amount)
+    self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) + #{amount.to_f.abs}")
+  end
+
+  def decrease_balance!(amount)
+    self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) - #{amount.to_f.abs}")
+  end
+
+  def increase_points!(quantity)
+    self.class.unscoped.where(id: self.id).update_all("points=COALESCE(points, 0) + #{quantity.to_i.abs}")
   end
 
 end

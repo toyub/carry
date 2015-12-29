@@ -29,7 +29,7 @@ class Kucun::SaleinfosController < Kucun::BaseController
   def update
     @store = current_user.store
     @store_material = StoreMaterial.find(params[:material_id])
-    unless @store_material.store_material_saleinfo.present?
+    if @store_material.store_material_saleinfo.blank?
       render json: {msg: 'No saleinfo found, use create'}
       return false
     end
@@ -59,26 +59,15 @@ class Kucun::SaleinfosController < Kucun::BaseController
     if @saleinfo.blank?
       @saleinfo = StoreMaterialSaleinfo.new  
     end
-    
-    @store_material_saleinfo_category = if @saleinfo.store_material_saleinfo_category_id.present?
-                                          @saleinfo.store_material_saleinfo_category
-                                        else
-                                          StoreMaterialSaleinfoCategory.where(store_material_category_id: @store_material.store_material_category.id).first ||
-                                          StoreMaterialSaleinfoCategory.create(store_material_category_id: @store_material.store_material_category.id,
-                                                                             name: @store_material.store_material_category.name,
-                                                                             store_id: current_user.store_id,
-                                                                             store_chain_id: current_user.store_chain_id,
-                                                                             store_staff_id: current_user.id)
-                                       end
-    @store_material_saleinfo_categories = StoreMaterialSaleinfoCategory.all
+    @sale_categories = SaleCategory.all
     @store_commission_templates = StoreCommissionTemplate.where(status: 0)
   end
 
   private
   def saleinfo_params
     params.require(:saleinfo).permit :id, :bargainable, :bargain_price, :retail_price, :trade_price, :reward_points,
-                                     :divide_to_retail, :unit, :volume, :service_needed, :service_fee_needed,
-                                     :service_fee,:saleman_commission_template_id,
+                                     :divide_to_retail, :unit, :volume, :service_needed, :service_fee_needed, :sale_category_id,
+                                     :service_fee,:saleman_commission_template_id, :vip_price_enabled, :vip_price,
                                      services_attributes: [:id, :store_commission_template_id, :name, :mechanic_level, :work_time,
                                                            :work_time_unit, :work_time_in_seconds, :tracking_needed, :tracking_delay,
                                                            :tracking_delay_unit, :tracking_delay_in_seconds, :tracking_contact_way,

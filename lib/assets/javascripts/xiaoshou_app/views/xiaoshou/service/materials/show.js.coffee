@@ -1,6 +1,4 @@
 class Mis.Views.XiaoshouServiceMaterialsShow extends Mis.Base.View
-  el: "#show_server"
-
   template: JST['xiaoshou/service/materials/show']
 
   events:
@@ -8,8 +6,8 @@ class Mis.Views.XiaoshouServiceMaterialsShow extends Mis.Base.View
 
   render: ->
     @$el.html(@template(material: @model))
-    @$el.show()
     @
 
   close: ->
+    $("#show_server").hide()
     @leave()

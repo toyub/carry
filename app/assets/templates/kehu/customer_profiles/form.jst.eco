@@ -23,8 +23,8 @@
 
                 <div class="item_content">
                   <label class="width-75">性别</label>
-                  <label class="width-77">男<input type="radio" name="store_customer[gender]" <%= 'checked' if entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
-                  <label class="width-77 margin-right-20">女<input type="radio" name="store_customer[gender]" <%= 'checked' unless entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
+                  <label class="width-77">男<input type="radio" name="store_customer[gender]" value="true" <%= 'checked' if entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
+                  <label class="width-77 margin-right-20">女<input type="radio" name="store_customer[gender]" value="false" <%= 'checked' unless entity.storeCustomer.male() %> class="width-13 margin-left-5"></label>
                 </div>
 
                 <div class="item_content">
@@ -45,7 +45,8 @@
                   <label class="width-75">客户类别</label>
                   <select class="width-178" name="store_customer_category_id">
                     <% Mis.store.customerCategories.each (c) ->: %>
-                      <option value="<%= c.id %>" <%= 'selected' if c.id.toString() == String(entity.get('store_customer_category_id')) %>><%= c.name %></option>
+                      <option value="">请选择</option>
+                      <option value="<%= c.id %>" <%= 'selected' if c.id.toString() == String(entity.get('store_customer_category_id')) %>><%= c.get 'name' %></option>
                     <% end %>
                   </select>
                 </div>
@@ -118,7 +119,7 @@
                 </div>
                 <div class="item_content">
                   <label class="width-75">生日</label>
-                  <input type="text" class="width-176" name="store_customer[birthday]" value="<%= entity.storeCustomer.get 'birthday' %>">
+                  <input type="date" class="width-176" name="store_customer[birthday]" value="<%= entity.storeCustomer.get 'birthday' %>">
                 </div>
 
                 <div class="item_content">
@@ -189,7 +190,7 @@
                     <% end %>
                   </select>
 
-                  <input type="text" class="width-176 margin-left-103" value="<%= entity.storeCustomerSettlement.get 'credit_amount' %>" name="store_customer_settlement[credit_amount]">
+                  <input type="text" class="width-176 margin-left-103" value="<%= entity.storeCustomerSettlement.get 'credit_limit' %>" name="store_customer_settlement[credit_limit]">
                 </div>
 
                 <div class="item_content">
