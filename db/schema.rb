@@ -1128,9 +1128,9 @@ ActiveRecord::Schema.define(version: 20151229023442) do
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
-    t.boolean  "hanging",                                                                  default: false
     t.string   "numero"
     t.integer  "store_vehicle_registration_plate_id"
+    t.boolean  "hanging",                                                                  default: false
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0

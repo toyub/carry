@@ -1,29 +1,11 @@
 <div class="captical_records_wrap deposit_records_wrap" data-id="deposit">
-  <ul class="captical_info deposit_info">
-    <li>
-      <label>名称</label>
-      <span>储值卡</span>
-    </li>
-    <li>
-      <label>购卡日期</label>
-      <span>2015-4-30</span>
-    </li>
-    <li>
-      <label>有效期</label>
-      <span>2017-4-30止</span>
-    </li>
-    <li>
-      <label>使用门店</label>
-      <span>所有门店</span>
-    </li>
-    <li>
-      <label>状态</label>
-      <span>使用中</span>
-    </li>
-    <li>
-      <label>操作</label>
-    </li>
-  </ul>
+  <div class="summary">
+    <ul>
+      <li><label>扣卡次数</label><span><%= @deposit_card_items_logs.income_times %></span></li>
+      <li><label>充值次数</label><span><%= @deposit_card_items_logs.expense_times %></span></li>
+      <li><label>可用余额</label><span class="width-100"><%= @deposit_card_items_logs.last.balance %></span></li>
+    </ul>
+  </div>
 
   <div class="captical_records deposit_records">
     <dl class="title">
@@ -43,12 +25,5 @@
       <% end %>
     </div>
 
-    <div class="captical_foot">
-      <ul>
-        <li><label>扣卡次数</label><span><%= @deposit_card_items_logs.income_times %></span></li>
-        <li><label>充值次数</label><span><%= @deposit_card_items_logs.expense_times %></span></li>
-        <li><label>可用余额</label><span class="width-100"><%= @deposit_card_items_logs.last.balance %></span></li>
-      </ul>
-    </div>
   </div>
 </div>

@@ -26,7 +26,7 @@
     <% @packaged_services.each do |package| %>
       <dl>
         <dd><span>套</span></dd>
-        <dd><%= package.id %></dd>
+        <dd><%= package.package_name %></dd>
         <dd>
           <%= link_to "查看", crm_store_customer_store_asset_path(
             store_customer_id: @customer.id,
@@ -47,7 +47,7 @@
     <% @taozhuangs.each do |taozhuang| %>
       <dl>
         <dd><span>套</span></dd>
-        <dd><%= taozhuang.id %></dd>
+        <dd><%= taozhuang.package_name %></dd>
         <dd>
           <%= link_to "查看", crm_store_customer_store_asset_path(
             store_customer_id: @customer.id,

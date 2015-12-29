@@ -1,26 +1,30 @@
 <div class="captical_records_wrap package_records_wrap " data-id="package" style="display:none;">
-  <ul class="captical_info package_info">
-    <li>
-      <label>名称</label>
-      <span><%= @composition.id %></span>
-    </li>
-    <li>
-      <label>购卡日期</label>
-      <span><%= @composition.created_at.strftime("%Y-%m-%d") %></span>
-    </li>
-    <li>
-      <label>类别</label>
-      <span>套餐</span>
-    </li>
-    <li>
-      <label>使用门店</label>
-      <span>所有门店</span>
-    </li>
-    <li>
-      <label>状态</label>
-      <span><%= @composition.left? ? "使用中" : "已使用完" %></span>
-    </li>
-  </ul>
+  <table class="brief">
+    <thead>
+      <tr>
+        <th><i class="fa fa-circle"></i>名称</th>
+        <th><i class="fa fa-circle"></i>购卡日期</th>
+        <th><i class="fa fa-circle"></i>购买门店</th>
+        <th><i class="fa fa-circle"></i>包含项目</th>
+        <th><i class="fa fa-circle"></i>适用门店</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @composition.package_name %></td>
+        <td><%= @composition.created_at.strftime("%Y-%m-%d") %></td>
+        <td><%= @composition.store.name %></td>
+        <%= @items.first.workflowable_hash['name'] %>
+        <td>
+          <em><%= @items.first.workflowable_hash['name'] %></em>
+          <% if @items.count > 1 %>
+            等<%= @items.count %>个项目
+          <% end %>
+        </td>
+        <td><em><%= @composition.store.name  %></em>等等</td>
+      </tr>
+    </tbody>
+  </table>
 
   <div class="detail">
     <div class="items">
