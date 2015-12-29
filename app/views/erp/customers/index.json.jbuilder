@@ -10,5 +10,5 @@ json.array! @customers do |customer|
   json.integrity customer.integrity
   json.activeness customer.activeness
   json.satisfaction customer.satisfaction
-  json.operator customer.store_staff.full_name
+  json.creator customer.creator.full_name
 end
