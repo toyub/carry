@@ -7,6 +7,7 @@ class StoreServiceSnapshot < ActiveRecord::Base
   belongs_to :unit, foreign_key: 'store_service_unit_id'
   has_one :store_order_item, as: :orderable
   has_many :store_service_workflows
+  has_many :workflow_snapshots, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_service_id
 
   validates :name, presence: true
   validates :code, presence: true

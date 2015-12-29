@@ -29,7 +29,11 @@
                     <tbody>
                       <% order.items.each do |item|  %>
                       <tr>
-                        <td><label> <%= item.creator.full_name %> </label></td>
+                        <td>
+                          <% item.workflow_mechain.each do |workflow| %>
+                            <label> <%= workflow.name %> </label>
+                          <% end %>
+                        </td>
                         <td> <%= item.orderable.name %> </td>
                         <td> <%= item.price %> </td>
                         <td> <%= item.quantity %> </td>
