@@ -4,10 +4,8 @@ json.array! @orders do |order|
   json.store_name order.store.name
   json.creator order.creator.full_name
   json.items order.items do |item|
-    json.(item, :price, :quantity, :amount)
-    # json.creator item.creator.full_name
-    json.mechanics item.mechanics
+    json.(item, :price, :quantity, :discount, :amount)
+    json.creator item.creator.full_name
     json.orderable_name item.orderable.name
-    json.discount item.discount
   end
 end
