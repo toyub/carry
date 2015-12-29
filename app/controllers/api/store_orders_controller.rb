@@ -44,6 +44,8 @@ module Api
         end
       end
 
+      items_attributes += gen_service_params(params[:services]) if params[:services]
+
       state = params[:state].present? ? params[:state] : "pending"
 
       store_order = StoreOrder.new({
@@ -56,7 +58,7 @@ module Api
       if store_order.save
         render json: {success: true}
       else
-        render json: {error: store_order.errors}, status: 422
+        render json: {error: store_order.errors.full_messages}, status: 422
       end
     end
 
@@ -64,6 +66,20 @@ module Api
 
       def set_order
         @order = StoreOrder.find(params[:id])
+      end
+
+      def gen_service_params services
+        return services.values.map do |info|
+          {
+            orderable_id: info["id"],
+            orderable_type: "StoreService",
+            vip_price: info["vip_price"],
+            quantity: info["quantity"],
+            price: info["retail_price"],
+            amount: info["quantity"].to_f * info["retail_price"].to_f,
+            creator: current_staff,
+          }
+        end
       end
   end
 end

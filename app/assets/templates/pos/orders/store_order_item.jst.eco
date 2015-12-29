@@ -70,7 +70,7 @@
           <td><%= item.standard_time %>分钟</td>
 			  	<td>清洗服务</td>
           <td><%=item.point%></td>
-			  	<td class="text-align-right">
+			 	  <td class="text-align-right">
 			  	  <span class="text-decoration-linethrough display-block"><%= item.retail_price %></span>
             <span class="color-08BD48"><%=item.retail_price%></span>
 			  	</td>

@@ -55,4 +55,14 @@ class StoreService < ActiveRecord::Base
   def to_workflowable_hash
     self.as_json.merge(workflows: self.store_service_workflows.unscoped.as_json)
   end
+
+  # jbuilder used
+  #
+  def quantity
+    1
+  end
+
+  def vip_price
+    0
+  end
 end
