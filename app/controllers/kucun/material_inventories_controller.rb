@@ -1,6 +1,6 @@
 class Kucun::MaterialInventoriesController < Kucun::BaseController
   def index
-    
+    @record_items = StoreMaterialInventoryRecord.where(store_id: current_store.id)
   end
 
   def new
