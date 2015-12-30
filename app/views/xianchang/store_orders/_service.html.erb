@@ -5,13 +5,13 @@
       <ul class="item_project">
         <li><span class="number"><%= i + 1 %></span>-<%= workflow.name %></li>
         <li>
-          <select class="width-100" name="workflow[<%= workflow.id %>][store_workstation_id]" <%= 'disabled' if workflow.finished? %>>
+          <select class="width-100" name="workflow[<%= workflow.id %>][store_workstation_id]" <%= 'disabled' unless workflow.pending? %>>
             <% workflow.workstations.each do |w| %>
               <option value="<%= w.id %>" <%= 'selected' if w.id == workflow.store_workstation_id %>><%= w.name %></option>
             <% end %>
           </select>
         </li>
-        <li><input type="text" name="workflow[<%= workflow.id %>][used_time]" <%= 'disabled' if workflow.finished? %> value="<%= workflow.used_time || workflow.work_time_in_minutes %>" class="width-60"></li>
+        <li><input type="text" name="workflow[<%= workflow.id %>][used_time]" <%= 'disabled' unless workflow.pending? %> value="<%= workflow.used_time || workflow.work_time_in_minutes %>" class="width-60"></li>
         <li>
         <div class="assign_technician">
           <ul id="workflow-<%= workflow.id %>-mechanics">
@@ -21,9 +21,9 @@
               <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m["id"] %>][name]" value="<%= m["name"] %>" /></li>
             <% end %>
           </ul>
-          <i class="action_button fa-plus fa <%= 'js-show-mechanics' unless workflow.finished? %>" data-id="<%= workflow.id %>"></i>
+          <i class="action_button fa-plus fa <%= 'js-show-mechanics' if workflow.pending? %>" data-id="<%= workflow.id %>"></i>
         </div>
-        <ul class="technician <%= 'js-mechanics' unless workflow.finished? %>" id="workflow-<%= workflow.id %>" data-id="<%= workflow.id %>" style="display:none;">
+        <ul class="technician <%= 'js-mechanics' unless workflow.pending? %>" id="workflow-<%= workflow.id %>" data-id="<%= workflow.id %>" style="display:none;">
           <% StoreStaff.mechanics.each do |m| %>
             <li data-id="<%= m.id %>" data-name="<%= m.full_name %>"><%= m.full_name %></li>
           <% end %>

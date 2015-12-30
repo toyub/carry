@@ -42,13 +42,17 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def execute!(workstation)
     ActiveRecord::Base.transaction do
-      self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
-      workstation.update!(current_workflow: self)
-      workstation.busy!
-      self.processing!
-      self.store_order.task_processing!
-      self.store_order.processing!
+      self.execute(workstation)
     end
+  end
+
+  def execute(workstation)
+    self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
+    workstation.update!(current_workflow: self)
+    workstation.busy!
+    self.processing!
+    self.store_order.task_processing!
+    self.store_order.processing!
   end
 
   def count_down
@@ -64,6 +68,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def finish!
+    self.store_workstation.idle!
     self.finished!
     self.update!(elapsed: actual_time_in_minutes)
     self.store_order.finish!

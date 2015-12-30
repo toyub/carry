@@ -1,6 +1,8 @@
 puts "Now creating StoreOrder..."
 
 StoreOrder.delete_all
+StoreServiceSnapshot.delete_all
+StoreServiceWorkflowSnapshot.delete_all
 
 # creating store package
 StorePackage.create(

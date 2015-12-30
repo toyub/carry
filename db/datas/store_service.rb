@@ -1,6 +1,8 @@
 puts "Now creating StoreService..."
 
 StoreService.delete_all
+StoreServiceSnapshot.delete_all
+StoreServiceWorkflowSnapshot.delete_all
 
 # creating store service
 StoreService.create(

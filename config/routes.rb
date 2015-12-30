@@ -120,6 +120,7 @@ Rails.application.routes.draw do
     resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
       post :construction, on: :collection
       put :finish, on: :member
+      put :perform, on: :member
     end
     resources :store_orders, only: [:show]
     resources :store_workflows, only: [:edit, :update]

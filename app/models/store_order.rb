@@ -94,15 +94,19 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def execute!
+    return if self.executed?
     ActiveRecord::Base.transaction do
-      self.items.revenue_ables.each do |item|
-        product = item.orderable
-        next unless product.service_needed?
-        product.to_snapshot!(item)
+      self.items.services.each do |item|
+        service = item.orderable
+        service.to_snapshot!(item)
       end
       self.task_queuing!
       self.queuing!
     end
+  end
+
+  def executed?
+    self.workflows.present?
   end
 
 

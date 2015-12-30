@@ -1,6 +1,6 @@
 module Xianchang
   class StoreWorkstationsController < BaseController
-    before_action :set_workstation, only: [:edit, :update, :finish]
+    before_action :set_workstation, only: [:edit, :update, :finish, :perform]
 
     def index
       @queuing_orders = current_store.store_orders.queuing
@@ -32,6 +32,13 @@ module Xianchang
 
     def finish
       @workstation.finish!
+    end
+
+    def perform
+      @store_order = current_store.store_orders.find(params[:order_id])
+      @idle_workstation = @store_order.workflows.processing.first.store_workstation
+      @workstation.perform!(@store_order)
+      @store_order.reload
     end
 
     private

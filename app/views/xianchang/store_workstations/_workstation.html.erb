@@ -1,4 +1,4 @@
-<li class="item_station" id="workstation-<%= workstation.id %>">
+<li class="item_station js-station" id="workstation-<%= workstation.id %>" data-id="<%= workstation.id %>">
   <div class="station_info" style="border-color:#7658cf">
     <span class="do_dbclick width-120"><%= workstation.name %></span>
     <%= link_to "编辑", edit_xianchang_store_workstation_path(workstation), remote: true, class: 'edit_button' %>
@@ -14,7 +14,7 @@
         <span class="do_dbclick times"><%= workstation.current_workflow.try(:count_down) %></span>
         <%= link_to "加时", edit_xianchang_store_workflow_path(workstation.current_workflow), class: "add_time js-add-time", remote: true %>
       </li>
-      <li class="float-left license_plate js-vehicle" data-order-id="<%= workstation.current_workflow.store_order_id %>">
+      <li class="float-left license_plate js-vehicle" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order-id="<%= workstation.current_workflow.store_order_id %>">
         <span><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number )%> </span>
         <img src="/images/car_front.png">
       </li>

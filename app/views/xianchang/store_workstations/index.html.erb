@@ -89,7 +89,7 @@
       <span>完工</span>
       <span><i class="fa fa-ban font-28"></i></span>
     </div>
-    <ul class="completion">
+    <ul class="completion js-finished-orders">
       <%= render partial: "order", collection: @finished_orders, as: :order %>
     </ul>
   </div>
@@ -160,5 +160,33 @@ $(document).on("click", ".js-mechanics li", function(){
 })
 $(document).on("click", ".js-mechanic-close", function(){
     $(this).closest(".js-mechanic").remove();
+})
+
+$(document).on("dragstart", "li.js-vehicle", function(e){
+    e.originalEvent.dataTransfer.setData("text",$(e.target.parentNode).data("order-id"));
+    console.log($(e.target.parentNode).prop("id"));
+})
+$(document).on("dragover", "li.js-station", function(e){
+    if (e.preventDefault) e.preventDefault();
+    return false;
+})
+$(document).on("drop", "li.js-station", function(e){
+    if (e.stopPropagation) e.stopPropagation();
+    var orderId = e.originalEvent.dataTransfer.getData("text");
+    var target = $(e.target).closest("li.js-station");
+    if($(target).find(".disable_station").length > 0){
+      $.confirm({
+        text: "是否确定结束该流程？",
+        confirm: function(){
+          console.log("xxxx");
+          $.ajax({
+            url: "/xianchang/store_workstations/" + $(target).data("id") + "/perform",
+            method: "PUT",
+            data: {order_id: orderId}
+          })
+        }
+      })
+    }
+    return false;
 })
 </script>
