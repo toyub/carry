@@ -24,8 +24,8 @@
           <td class="border-bottom-d1d1d1"><label class="float-left">商品积分</label> <span><%= @material_saleinfo.point %></span></td>
           <td class="border-bottom-d1d1d1"><label class="float-left">销售分类</label><span><%= @material_saleinfo.sale_category.try(:name) %></span></td>
           <td class="border-bottom-d1d1d1"><label class="float-left">计量单位</label><span><%= @material_saleinfo.divide_unit_type %></span></td>
-          <td class="border-bottom-d1d1d1"><label class="float-left">已销售</label><span></span></td>
-          <td><label class="float-left">销售收入</label><span></span></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left"></label><span></span></td>
+          <td><label class="float-left"></label><span></span></td>
         </tr>
         <tr>
           <td><span class="font-18 "><%= @store_material.name %></span></td>
@@ -33,9 +33,9 @@
           <td><span class="float-left"></span></td>
           <td><label class="float-left"></label><span></span></td>
           <td><label class="float-left">销售方式</label><% if @material_saleinfo.divide_to_retail %><span>拆分销售</span><% else %> <span>整件销售</span> <% end %></td>
-          <td><label class="float-left">商品总量</label><span></span></td>
-          <td><label class="float-left">剩余</label><span></span></td>
-          <td><label class="float-left">毛利</label><span></span></td>
+          <td><label class="float-left"></label><span></span></td>
+          <td><label class="float-left"></label><span></span></td>
+          <td><label class="float-left"></label><span></span></td>
         </tr>
       </tbody>
     </table>
@@ -97,12 +97,14 @@
 <script>
   jQuery(function($){
     var tmpl = JST["kucun/material_sales/heshi/new"];
+    var $item_dom = null;
     $('#salesnotes_list').on('click', '.js-heshi', function(){
       var cost_price_per_unit = 23.43;
       var actual_volume = 12;
       var item = $(this).data('checkdata')
       item.action_url = $(this).data('url');
-       $("#pop_box2").html(tmpl(item)).show();
+      $item_dom = $(this.parentElement.parentElement);
+      $("#pop_box2").html(tmpl(item)).show();
     });
 
     $('#pop_box2').on('input', '.actual_volume', function(){
@@ -118,8 +120,14 @@
       $('#pop_box2').hide();
       var form_data = $(this).serializeJSON();
       $.post(this.action, form_data, function(response, status_str, xhr){
-        console.log(response)
-      })
+        var total_cost = (response.actual_volume_per_bill * response.cost_price);
+        var gross_profit = response.amount - total_cost;
+        $item_dom.find('.eightth_td').html(total_cost).removeClass('color-FF2929');
+        $item_dom.find('.ninth_td').html(gross_profit).removeClass('color-FF2929');
+        $item_dom.find('.js-heshi').remove();
+      }).error(function(){
+        ZhanchuangAlert('网络错误，请重试');
+      });
     });
 
   })
