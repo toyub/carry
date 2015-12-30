@@ -220,12 +220,10 @@ Rails.application.routes.draw do
   # 总部平台api调用
   namespace :erp do
     resources :customers, only: [:index] do
-      member do
-        resources :customer_trackings, only: [:index]
-        resources :orders, only: [:index]
-        resources :vehicles, only: [:index, :show]
-        resources :license_numbers, only: [:index]
-      end
+      resources :customer_trackings, only: [:index]
+      resources :orders, only: [:index]
+      resources :vehicles, only: [:index, :show]
+      resources :license_numbers, only: [:index]
     end
     resources :contact_ways, only: [:index]
     resources :stores, only: [:index]
