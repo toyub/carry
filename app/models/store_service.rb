@@ -40,6 +40,14 @@ class StoreService < ActiveRecord::Base
     end
   end
 
+  def items_total_quantity
+    store_order_items.inject(0) {|sum, item| sum += item.quantity }
+  end
+
+  def items_total_amount
+    store_order_items.inject(0) {|sum, item| sum += item.amount }
+  end
+
   def create_one_setting
     self.create_setting(creator: self.creator)
   end

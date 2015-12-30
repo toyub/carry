@@ -8,11 +8,13 @@
   </thead>
 
   <tbody>
+    <% @services.each do |service| %>
     <tr>
-      <td>清洗服务</td>
-      <td>44</td>
-      <td>6,280.00</td>
+      <td><%= service.name %></td>
+      <td><%= service.items_total_quantity %></td>
+      <td><%= service.items_total_amount %></td>
     </tr>
+  <% end %>
 
   </tbody>
 </table>
