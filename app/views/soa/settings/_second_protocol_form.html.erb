@@ -38,3 +38,23 @@
   <span>制单：</span><label class="maker"><%= @current_user.screen_name %></label>
   <span>录入日期：</span><label class="date"><%= Time.now.to_date %></label>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(function($){
+
+    var set_expired_date = function(){
+      var expired_date = $('.contract_signing_wrap #protocols_expired_on'),
+        effected_date = $('.contract_signing_wrap #protocols_effected_on');
+
+      effected_date.on('change', function(){
+        var date = $(this).val().split('-');
+        var year = parseInt(date[0]) + 1,
+          month = date[1],
+          day = date[2],
+          next_year = year + '-' + month + '-' + day;
+        expired_date.val(next_year);
+      })
+    }
+    set_expired_date();
+  })
+</script>

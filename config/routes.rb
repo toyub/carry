@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   require 'sidekiq/web'
 
+  #Kucun
   namespace :kucun do
     get '/', to: 'materials#index'
     resources :materials do
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
         get :sections, on: :collection
         resources :tracking_sections
       end
+
+      resources :material_sales
     end
 
     resources :material_units
@@ -83,9 +86,8 @@ Rails.application.routes.draw do
         get 'detail', on: :member
         get 'search', on: :collection
       end
-      controller :record do
-        get "/record/index" => "record#index", as: :record
-        get "search" => "record#search", as: :search_record
+      resources :record, only: :index do
+        get "search", on: :collection
       end
     end
     resources :events, only: :index
@@ -103,11 +105,31 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :xianchang do
-    resources :field_constructions, only: [:index]
-    resources :pre_orders, only: [:index]
+  namespace :ais do
+    resources :incomes, only: [:index] do
+      get 'search', on: :collection
+    end
+    resources :costs, only: [:index] do
+      get 'search', on: :collection
+    end
   end
 
+  namespace :xianchang do
+    resources :field_constructions, only: [:index]
+    resources :schedule_personals, only: [:index]
+  end
+
+  namespace :sas do
+    controller :sells do
+      get '/sells/graph'
+      get '/sells/report'
+    end
+    controller :customers do
+      get "/customers/graph"
+    end
+  end
+
+  #Settings
   namespace :settings do
     namespace :settlements do
       resources :accounts do
@@ -116,7 +138,9 @@ Rails.application.routes.draw do
         end
       end
     end
+
     resources :commission_templates
+
     resources :depots do
       collection do
         get :fetch
@@ -163,8 +187,9 @@ Rails.application.routes.draw do
 
     resources :privileges
 
-  end
+  end #End of namespace :settings
 
+  #Ajax
   namespace :ajax do
     resources :store_material_categories, only: [] do
       member do
@@ -185,14 +210,12 @@ Rails.application.routes.draw do
       get "/:country_code/states/:state_code/cities", to: "geos#cities", as: :country_state_cities
     end
     resources :store_suppliers, only: [:index]
-  end
-
-  resource :session, only: [:new, :create, :destroy, :edit]
-  resource :password do
-    collection do
-      get :send_validate_code
+    resources :sms_captchas do
+      collection do
+        post :validate
+      end
     end
-  end
+  end# End of Ajax
 
   # 总部平台api调用
   namespace :erp do
@@ -207,8 +230,9 @@ Rails.application.routes.draw do
     resources :contact_ways, only: [:index]
     resources :stores, only: [:index]
     resources :customer_properties, only: [:index]
-  end
+  end #End of erp
 
+  #Api
   namespace :api do
     resources :store_staff, only: [:index, :update]
     resources :store_service_categories, only: [:create]
@@ -217,16 +241,27 @@ Rails.application.routes.draw do
       member do
         post :save_picture
       end
+      collection do
+        get :search
+      end
 
       resource :store_service_settings, only: [:show, :create, :update]
       resources :store_service_reminds, only: [:update]
       resources :store_service_trackings, only: [:create, :update, :destroy]
     end
-    resources :store_vehicles, only: [:index]
-    resources :store_orders, only: [:index] do
+
+    resources :store_vehicles, only: [:index, :show] do
+      collection do
+        get :search
+      end
+    end
+
+    resources :store_orders, only: [:index, :show, :create] do
       resources :complaints, only:[:new, :create]
     end
+
     resources :store_subscribe_orders
+
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do
         post :save_picture
@@ -235,6 +270,7 @@ Rails.application.routes.draw do
       resource :store_package_settings, only: [:show, :create, :update]
       resources :store_package_trackings, only: [:create, :update, :destroy]
     end
+
     resources :store_customer_entities, only: [:index, :create, :update, :show] do
       collection do
         get :cities
@@ -258,7 +294,41 @@ Rails.application.routes.draw do
     end
 
     resources :store_customer_categories
+    resources :store_checkouts
 
+    resources :store_material_saleinfos, only: [:index] do
+      collection do
+        get :search
+      end
+    end
+
+    resources :store_customer_accounts do
+      member do
+        post :expense
+      end
+    end
+
+    namespace :sas do
+      resources :stores do
+        resources :customer_gender, only: [:index]
+        resources :sales, only: [:index]
+        resources :vehicles, only: [:index]
+      end
+    end
+  end#End of api
+
+  namespace :pos do
+    namespace :cashier do
+      resources :checkouts
+    end
+    resources :store_orders
+    resources :pre_orders, only: [:index]
+  end
+
+  namespace :printer do
+    namespace :pos do
+      resources :orders
+    end
   end
 
   namespace :open do
@@ -272,18 +342,35 @@ Rails.application.routes.draw do
     end
   end
 
+
   namespace :crm do
     resources :store_customers do
-      resources :store_vehicle_archives, only: [:new, :create, :show, :edit, :update]
-      resources :store_vehicle_status, only: [:show]
-      resources :store_vehicle_service_records, only: [:show]
+      resources :store_vehicles, only: [:new, :create, :show, :edit, :update]
+      resources :vehicle_conditions, only: [:show]
+      resources :vehicle_services, only: [:show]
       resources :expense_records, only: [:index]
       resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
+      resources :store_repayments, only: [:index, :create] do
+        collection do
+          get :finished, :all
+        end
+      end
+      resources :store_assets, only: [:index, :show] do
+        resources :store_asset_items, only: [:show]
+      end
     end
+    resources :vehicle_series, only: [:index]
+    resources :vehicle_models, only: [:index]
   end
 
+  resource :session, only: [:new, :create, :destroy, :edit]
+  resource :password do
+    collection do
+      get :send_validate_code
+    end
+  end
   root 'kucun/materials#index'
 
   mount Sidekiq::Web => '/sidekiq'

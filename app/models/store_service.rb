@@ -17,6 +17,7 @@ class StoreService < ActiveRecord::Base
   has_many :reminds, class_name: 'StoreServiceRemind', dependent: :destroy
   has_many :trackings, class_name: 'StoreServiceTracking', dependent: :destroy
   has_many :store_package_items, as: :package_itemable
+  has_many :store_subscribe_order_items, as: :itemable
 
   validates :name, presence: true, uniqueness: true
   validates :retail_price, presence: true
@@ -51,4 +52,7 @@ class StoreService < ActiveRecord::Base
     self.setting_type == SETTING_TYPE[:workflow]
   end
 
+  def to_workflowable_hash
+    self.as_json.merge(workflows: self.store_service_workflows.unscoped.as_json)
+  end
 end

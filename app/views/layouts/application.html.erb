@@ -69,9 +69,8 @@
                 <%= link_to "施工现场", xianchang_field_constructions_path %>
               </li>
               <li>
-                <%= link_to "预约排单", xianchang_pre_orders_path %>
+                <%= link_to "人员调度", xianchang_schedule_personals_path %>
               </li>
-              <li><a href="#">人员调度</a></li>
             </ul>
           </div>
         </div>
@@ -79,8 +78,14 @@
           <div class=" menulist">
             <h4>收银POS</h4>
             <ul class="second_menu">
-              <li><a href="#">收银</a></li>
-              <li><a href="#">业务开单</a></li>
+              <li><a href="/pos/cashier/checkouts">收银</a></li>
+              <li>
+                <%= link_to "业务开单", new_pos_store_order_path %>
+              </li>
+              <li>
+                <%= link_to "预约排单", pos_pre_orders_path %>
+              </li>
+              <li><a href="#">意向开单</a></li>
             </ul>
           </div>
         </div>
@@ -131,12 +136,8 @@
           <div class=" menulist">
           <h4>财务管理</h4>
             <ul class="second_menu">
-              <li><a href="#">收入</a></li>
-              <li><a href="#">费用</a></li>
-              <li><a href="#">往来</a></li>
-              <li><a href="#">成本</a></li>
-              <li><a href="#">资产</a></li>
-              <li><a href="#">报表</a></li>
+              <li><a href="/ais/incomes">收入</a></li>
+              <li><a href="/ais/costs">成本</a></li>
             </ul>
           </div>
         </div>
@@ -144,12 +145,8 @@
           <div class=" menulist">
           <h4>统计分析</h4>
             <ul class="second_menu">
-              <li><a href="#">客户</a></li>
-              <li><a href="#">营销</a></li>
-              <li><a href="#">库存</a></li>
-              <li><a href="#">员工</a></li>
-              <li><a href="#">运营</a></li>
-              <li><a href="#">报告</a></li>
+              <li><%= link_to "销售", sas_sells_graph_path %></li>
+              <li><%= link_to "客户", sas_customers_graph_path %></li>
             </ul>
           </div>
         </div>

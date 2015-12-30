@@ -1,0 +1,30 @@
+<div class="item_content">
+  <%= f.label "车牌号码", class: 'width-75' %>
+  <%= f.fields_for :plates, @vehicle.plates.build do |ff| %>
+    <%= ff.text_field :license_number, class: 'width-165', pattern: '^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$', required: 'true', autoComplete: 'off' %>
+  <% end %>
+</div>
+<div class="item_content">
+  <%= f.label "品牌", class: 'width-75' %>
+  <%= f.select :vehicle_brand_id, VehicleBrand.all.pluck(:name, :id), {include_blank: ''}, {id: 'brand', class: "width-165", required: true} %>
+</div>
+<div class="item_content">
+  <%= f.label "车型", class: 'width-75' %>
+  <%= f.select :vehicle_model_id, [], {include_blank: ''}, {id: 'model', class: "width-165", required: true} %>
+</div>
+<div class="item_content">
+  <%= f.label "车系", class: 'width-75' %>
+  <%= f.select :vehicle_series_id, [], {include_blank: ''}, {id: 'series', class: "width-165", required: true} %>
+</div>
+<%= f.fields_for :frame, @vehicle.build_frame do |ff| %>
+  <div class="item_content">
+    <%= ff.label 'VIN号码', class: 'width-75' %>
+    <%= ff.text_field :vin, class: 'width-165', required: 'true', autoComplete: 'off' %>
+  </div>
+<% end %>
+<div class="item_content">
+  <%= f.label '发动机号码', class: 'width-75' %>
+  <%= f.fields_for :engines, @vehicle.engines.build do |ff| %>
+    <%= ff.text_field :identification_number, class: 'width-165', required: 'true', autoComplete: 'off' %>
+  <% end %>
+</div>

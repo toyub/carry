@@ -1,0 +1,376 @@
+<div class="wrap_order_details">
+  <div class="wrap_order margin-top-0">
+
+  	<div class="dialog_nav">
+      <span class="dialog_title">订单详情</span>
+  		<a href="#" class="dialog_close  lnr-cross lnr do_close"></a>
+  	</div>
+
+    <form>
+  	  <div class="float-left">
+  	  	<div class="order_details">
+  	  		<div class="vehicle_order_details">
+
+  	  			<div class="vehicle_info">
+              <div class="item_content">
+                <label class="width-50 form_label" >车牌号</label>
+                <select class="width-110 form_control js-store-vehicle-license-number-input" name="license_number">
+                </select>
+              </div>
+              <div class="item_content">
+                <label class="width-50 form_label" >客户姓名</label>
+                <input type="text" name="name" class="width-110 form_control js-customer-name" disabled>
+              </div>
+              <div class="item_content">
+                <label class="width-50 form_label" >手机号</label>
+                <input type="text" name="name" class="width-110 form_control js-mobile" disabled>
+              </div>
+              <div class="item_content">
+                <label class="width-50 form_label" >车辆品牌</label>
+                <input type="text" name="name" class="width-110 form_control js-brand-name" disabled>
+              </div>
+              <div class="item_content">
+                <label class="width-50 form_label" >车型</label>
+                <input type="text" name="name" class="width-110 form_control js-model" disabled>
+              </div>
+              <div class="item_content">
+                <label class="width-50 form_label" >车系</label>
+                <input type="text" name="name" class="width-110 form_control js-series" disabled>
+              </div>
+            </div>
+
+            <div class="committed_info">
+		  			  <h2>约定信息</h2>
+              <dl>
+		  			    <dd>
+		  			  	  <label class="width-40">日期:</label>
+		  			  		<div class="date">
+		  			  			<input type="text" class="width-200 committed_date datetimepicker">
+		  			  	  </div>
+		  			  	</dd>
+		  			  </dl>
+		  		  </div>
+            <div class="committed_project">
+              <div class="committed_project_title">
+                <label>约定项目</label>
+                <i class="fa-angle-double-right fa font-18 color-BAB7A3 cursor-pointer" id="choose_project"></i>
+              </div>
+              <dl>
+                <dd></dd>
+                <dd>项目</dd>
+                <dd>数量</dd>
+                <dd>单价</dd>
+              </dl>
+              <div class="committed_project_items">
+                <dl>
+                  <dd class="number"></dd>
+                  <dd>精致洗车</dd>
+                  <dd>
+                    <input type="number" class="width-100 number-box-input">
+                  </dd>
+                  <dd>68.00</dd>
+                  <dd></dd>
+                </dl>
+              </div>
+              <dl>
+                <dd></dd>
+                <dd></dd>
+                <dd></dd>
+                <dd>总价:68.00</dd>
+                <dd></dd>
+              </dl>
+		        </div>
+            <div class="committed_remark">
+              <h2>约定备注</h2>
+              <textarea class="remark"></textarea>
+            </div>
+		  		  <div class="construction_status">
+		  		  	<div class="btn_group">
+		  		  		<a class="cancel_btn btn">取消</a>
+		  		  		<a class="btn save_btn">确定</a>
+		  		  	</div>
+		  		  </div>
+		      </div>
+	      </div>
+      </div>
+    </div>
+
+    <div class="wrap_project">
+      <div class="project_items">
+        <div class="order_items float-left">
+        	<div class="order_items_category">
+        		  <ul>
+        		  	<li class="bg-color-8E81B8 color-fff" data-target="commodity">商品</li>
+        		  	<li data-target="service" class="">服务</li>
+        		  	<li data-target="package" class="">套餐</li>
+        		  	<li data-target="vip" class="">会员</li>
+        		  </ul>
+        		  <div class="search_bubble bubble_up width-250" style="margin-left:30px;">
+        		  	<input type="text" class="width-200 height-20" placeholder="输入关键字进行模糊查询">
+        		  	<input type="button" value="查询" class="queries_btn">
+        		  </div>
+        	</div>
+        	<div class="order_item  order_commodity" data-id="commodity" style="display: block;">
+	        </div>
+
+      <div class="order_item  order_service" data-id="service" style="display: none;">
+		  <ul>
+		  	<li>#</li>
+		  	<li>名称</li>
+		  	<li>服务分类</li>
+		  	<li>施工时间</li>
+		  	<li>零售价</li>
+		  	<li><label></label></li>
+		  </ul>
+		  <div class="order_service_tab">
+		  	<table cellpadding="0" cellspacing="0">
+		  		<tbody>
+		  			
+		  			<tr>
+		  				<td class="number">1</td>
+		  				<td>极致洗车</td>
+		  				<td>清洗服务</td>
+		  				<td>120分钟</td>
+		  				<td class="text-align-right">
+		  					<span class=" display-block">180.00</span>
+		  					<span class="color-08BD48"></span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  			<tr>
+		  				<td class="number">2</td>
+		  				<td>极致洗车</td>
+		  				<td>清洗服务</td>
+		  				<td>120分钟</td>
+		  				<td class="text-align-right">
+		  					<span class=" display-block">180.00</span>
+		  					<span class="color-08BD48"></span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  			<tr>
+		  				<td class="number">3</td>
+		  				<td>极致洗车</td>
+		  				<td>清洗服务</td>
+		  				<td>120分钟</td>
+		  				<td class="text-align-right">
+		  					<span class=" display-block">180.00</span>
+		  					<span class="color-08BD48"></span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  			<tr>
+		  				<td class="number">4</td>
+		  				<td>极致洗车</td>
+		  				<td>清洗服务</td>
+		  				<td>120分钟</td>
+		  				<td class="text-align-right">
+		  					<span class=" display-block">180.00</span>
+		  					<span class="color-08BD48"></span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  			<tr>
+		  				<td class="number">5</td>
+		  				<td>极致洗车</td>
+		  				<td>清洗服务</td>
+		  				<td>120分钟</td>
+		  				<td class="text-align-right">
+		  					<span class=" display-block">180.00</span>
+		  					<span class="color-08BD48"></span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  		</tbody>
+		  	</table>
+		  </div>
+	</  div>
+
+	<d  iv class="order_item order_package" data-id="package" style="display: none;">
+		  <ul>
+		  	<li>#</li>
+		  	<li>名称</li>
+		  	<li>套餐类别</li>
+		  	<li>有效期</li>
+		  	<li>零售价</li>
+		  	<li><label></label></li>
+		  </ul>
+		  <div class="order_package_tab">
+		  	<table cellpadding="0" cellspacing="0">
+		  		<tbody>
+		  			
+		  			<tr>
+		  				<td class="number">1</td>
+		  				<td>普通洗车20次卡</td>
+		  				<td>组合类</td>
+		  				<td>365天</td>
+		  				<td class="text-align-right">
+		  					<span class="display-block text-decoration-linethrough ">480.00</span>
+		  					<span class="color-08BD48">250.00</span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  			<tr>
+		  				<td class="number">2</td>
+		  				<td>普通洗车20次卡</td>
+		  				<td>组合类</td>
+		  				<td>365天</td>
+		  				<td class="text-align-right">
+		  					<span class="display-block text-decoration-linethrough ">480.00</span>
+		  					<span class="color-08BD48">250.00</span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  			
+		  			<tr>
+		  				<td class="number">3</td>
+		  				<td>充10000送2000</td>
+		  				<td>充值类</td>
+		  				<td>不限</td>
+		  				<td class="text-align-right">
+		  					<span class="">10,000.00</span>
+		  					<span class="color-08BD48"></span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  			<tr>
+		  				<td class="number">4</td>
+		  				<td>充10000送2000</td>
+		  				<td>充值类</td>
+		  				<td>不限</td>
+		  				<td class="text-align-right">
+		  					<span class="">10,000.00</span>
+		  					<span class="color-08BD48"></span>
+		  				</td>
+		  				<td><input type="checkbox"></td>
+		  			</tr>
+		  			
+		  		</tbody>
+		  	</table>
+		  </div>
+	</  div>
+
+	<d  iv class="order_item order_vip" data-id="vip" style="display: none;">
+		  <div class="card_items">
+		  	<ul>
+		  		<li>#</li>
+		  		<li>名称</li>
+		  		<li>套餐类别</li>
+		  		<li>有效期</li>
+		  		<li>详情</li>
+		  	</ul>
+		  	<div class="card_item">
+		  		<ul class="doslide">
+		  			<li>1</li>
+		  			<li>普通洗车20次卡</li>
+		  			<li>组合类</li>
+		  			<li>179天</li>
+		  			<li><i class="fa-angle-double-down fa cursor-pointer font-16"></i></li>
+		  		</ul>
+		  		<div class="card_item_info">
+		  			<ul>
+		  				<li>项目</li>
+		  				<li>卡面值</li>
+		  				<li>使用金额</li>
+		  				<li>余额</li>
+		  				<li><label></label></li>
+		  			</ul>
+		  			<div class="card_item_info_tab">
+		  				<table cellspacing="0" cellpadding="0">
+		  					<tbody>
+		  						<tr>
+		  							<td>普通洗车</td>
+		  							<td>20</td>
+		  							<td>1</td>
+		  							<td>19</td>
+		  							<td><input type="checkbox"></td>
+		  						</tr>
+		  						<tr>
+		  							<td>3M水晶蜡</td>
+		  							<td>1</td>
+		  							<td>0</td>
+		  							<td>1</td>
+		  							<td><input type="checkbox"></td>
+		  						</tr>
+		  					</tbody>
+		  				</table>
+		  			</div>
+		  			<div class="card_foot">
+		  				<p>摘要:此卡只能使用于限定项目,且使用时有效</p>
+		  			</div>
+		  		</div>
+		  	</div>
+
+		  	<div class="card_item">
+		  		<ul class="doslide">
+		  			<li>1</li>
+		  			<li>充10000送2000</li>
+		  			<li>充值类</li>
+		  			<li>不限</li>
+		  			<li><i class="fa-angle-double-down fa cursor-pointer font-16"></i></li>
+		  		</ul>
+		  		<div class="card_item_info">
+		  			<ul>
+		  				<li>项目</li>
+		  				<li>卡面值</li>
+		  				<li>使用金额</li>
+		  				<li>余额</li>
+		  				<li><label></label></li>
+		  			</ul>
+		  			<div class="card_item_info_tab">
+		  				<table cellspacing="0" cellpadding="0">
+		  					<tbody>
+		  						
+		  						<tr>
+		  							<td>充10000送2000</td>
+		  							<td>12000.00</td>
+		  							<td>2,100.00</td>
+		  							<td>9,9000.00</td>
+		  							<td><input type="checkbox"></td>
+		  						</tr>
+		  						
+		  						<tr>
+		  							<td>充10000送2000</td>
+		  							<td>12000.00</td>
+		  							<td>2,100.00</td>
+		  							<td>9,9000.00</td>
+		  							<td><input type="checkbox"></td>
+		  						</tr>
+		  						
+		  						<tr>
+		  							<td>充10000送2000</td>
+		  							<td>12000.00</td>
+		  							<td>2,100.00</td>
+		  							<td>9,9000.00</td>
+		  							<td><input type="checkbox"></td>
+		  						</tr>
+		  						
+		  					</tbody>
+		  				</table>
+		  			</div>
+		  			<div class="card_foot">
+		  				<p><label>使用范围:</label>美容服务,清洗服务,钣喷服务,汽车用品</p>
+		  				<p><label>摘要:</label>此卡只能本人消费</p>
+		  			</div>
+		  		</div>
+		  	</div>
+		  </div>
+    </form>
+
+	</div>
+</div>
+      <div class="btn_group float-right">
+        <a href="#" class="save_btn btn">选中</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

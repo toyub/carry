@@ -1,0 +1,10 @@
+<ul class="page_card">
+  <li class="add_carinfo <%= 'active' if params[:action] == 'new' %>">
+    <%= link_to '+', new_crm_store_customer_store_vehicle_path %>
+  </li>
+  <% @vehicle_ids.each_with_index do |vehicle_id, idx| %>
+    <li class='<%= "active" if @vehicle.id == vehicle_id %>' >
+      <a href="/crm/store_customers/<%= @customer.id %>/<%= params[:controller].split('/').last %>/<%= vehicle_id %>"><%= idx+1 %></a>
+    </li>
+  <% end %>
+</ul>

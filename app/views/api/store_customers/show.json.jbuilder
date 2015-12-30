@@ -32,7 +32,7 @@ json.(@customer,
     :payment_mode,
     :invoice_category,
     :invoice_title,
-    :credit_amount,
+    :credit_limit,
     :remark,
     :qq,
     :age

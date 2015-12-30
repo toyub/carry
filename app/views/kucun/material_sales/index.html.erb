@@ -1,0 +1,130 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '商品', '记录'], "/kucun/materials/") %>
+</div>
+
+<div class="details">
+  <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
+  <div class="details_content">
+    <table cellpadding="0" cellspacing="0" class="sales_notes_top_tab">
+      <colgroup>
+        <col width="19%">
+        <col width="9%">
+        <col width="9%">
+        <col width="12.5%">
+        <col width="13%">
+        <col width="12.5%">
+        <col width="10%">
+        <col width="15%">
+      </colgroup>
+      <tbody>
+        <tr>
+          <td><label class="float-left">商品名称</label></td>
+          <td><label class="float-left">零售价</label></td>
+          <td><label class="float-left">会员价</label></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left">商品积分</label> <span><%= @material_saleinfo.point %></span></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left">销售分类</label><span><%= @material_saleinfo.sale_category.try(:name) %></span></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left">计量单位</label><span><%= @material_saleinfo.divide_unit_type %></span></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left">已销售</label><span><%= 2 %></span></td>
+          <td><label class="float-left">销售收入</label><span><%= 10 %></span></td>
+        </tr>
+        <tr>
+          <td><span class="font-18 "><%= @store_material.name %></span></td>
+          <td><span class="float-left"><%= @material_saleinfo.retail_price %></span></td>
+          <td><span class="float-left"></span></td>
+          <td><label class="float-left">销售规格</label><span>车</span></td>
+          <td><label class="float-left">出库方式</label><% if @material_saleinfo.divide_to_retail %><span>拆分销售</span><% else %> <span>整件出库</span> <% end %></td>
+          <td><label class="float-left">商品总量</label><span><%=23%></span></td>
+          <td><label class="float-left">剩余</label><span><%= 3243 %></span></td>
+          <td><label class="float-left">毛利</label><span><%= 233 %></span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="salesnotes_list" id="salesnotes_list">
+      <div class="list">
+        <div class="list_tr list_top">
+          <ul>
+            <li>#</li>
+            <li>销售日期</li>
+            <li>订单号</li>
+            <li>零售价</li>
+            <li>销售价</li>
+            <li>数量</li>
+            <li>小计</li>
+            <li class="eightth_td">成本价</li>
+            <li class="ninth_td">毛利</li>
+            <li class="tenth_td">操作</li>
+          </ul>
+        </div>
+
+        <% @order_items.each_with_index do |item, idx|%>
+          <div class="list_tr list_content">
+            <ul>
+              <li><%= idx + 1 %>.</li>
+              <li><%= item.store_order.created_at.to_s(:date_with_short_time) %></li>
+              <li><%= item.store_order.numero  %></li>
+              <li><%= item.retail_price %></li>
+              <li><%= item.price %></li>
+              <li><%= item.quantity %></li>
+              <li><%= item.amount %></li>
+              <li class="eightth_td"><%= item.cost_price %></li>
+              <li class="ninth_td"><%= item.gross_profit %></li>
+              <li><a href="<%= pos_store_order_path(item.store_order) %>" class="detailsbtn cursor">详情</a></li>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="list_tr list_content">
+          <ul>
+            <li>2.</li>
+            <li>2014-12-29 10:11</li>
+            <li>YW2014122900019</li>
+            <li>1,000.00</li>
+            <li>1,000.00</li>
+            <li>1</li>
+            <li>1000</li>
+            <li class=" color-FF2929">未核实</li>
+            <li class="color-FF2929">未核实</li>
+            <li><a href="javascript:void(0);" class="color-73ACD4 cost_btn js-heshi">核实成本</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<% content_for :scenes do %>
+<div class="pop_box2 pop_box" id="pop_box2" style="display:none;"></div>
+<% end %>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    var tmpl = JST["kucun/material_sales/heshi/new"];
+    $('#salesnotes_list').on('click', '.js-heshi', function(){
+      var cost_price_per_unit = 23.43;
+      var actual_volume = 12;
+      var item = {name: '3M太阳膜', created_on: '2015-12-22',
+                          standard_volume: 12, actual_volume: actual_volume,
+                          numero: '20151222000001', mechanics: ['周晓牛', '刘国龙'],
+                          cost_price_per_unit: cost_price_per_unit, total_cost: cost_price_per_unit * actual_volume};
+       $("#pop_box2").html(tmpl(item)).show();
+    });
+
+    $('#pop_box2').on('input', '.actual_volume', function(){
+      $('#pop_box2 .total_cost').html(this.value * this.dataset.cost);
+    });
+
+    $('#pop_box2').on('click', '.js-cancel', function(){
+      $('#pop_box2').hide();
+    });
+
+    $('#pop_box2').on('click', '.js-check', function(){
+      $('#pop_box2').hide();
+    });
+
+  })
+</script>
+<% end %>

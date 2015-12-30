@@ -1,0 +1,32 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+
+<%= render '/crm/common/page_head' %>
+
+<div class="details">
+
+  <%= render '/crm/common/customer_nav' %>
+
+  <div class="car_details float-right">
+
+    <%= render '/crm/vehicle_common/vehicle_nav' %>
+
+    <%= render '/crm/vehicle_common/sub_nav' %>
+
+    <div class="details_content car_content">
+      <div class="base_info">
+
+        <%= render '/crm/vehicle_common/vehicle_image' %>
+
+        <div class="car_info float-left">
+          <div class="items">
+            <%= render '/crm/vehicle_common/vehicle_basic' %>
+          </div>
+        </div>
+      </div>
+
+      <%= render 'orders' %>
+
+  </div>
+</div>

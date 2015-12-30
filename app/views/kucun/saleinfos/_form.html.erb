@@ -8,7 +8,7 @@
           <ul id='material_img_thumbnails' class="goods_small_img">
             <li id='preview_list'>
               <% @store_material.uploads.each do |image| %>
-                <img src="<%= image.img_url %>">
+                <img src="<%= image.file_url %>">
               <% end %>
             </li>
           </ul>
@@ -29,74 +29,18 @@
                 </tr>
                 <tr>
                   <td>
-                    <label class="width-75">最低售价</label>
-                    <input type="text" num un class="width-165" value="<%= @store_material.min_price  %>" readonly />
-                  </td>
-                  <td>
-                    <label class="width-75">零售价</label>
-                    <input type="text" num un class="width-165" name="saleinfo[retail_price]" required="true" autocomplete="off" value="<%= @saleinfo.retail_price unless @saleinfo.retail_price == 0 %>" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="width-75 display-inline-block text-align-right">
-                      <input type="radio" name='saleinfo[bargainable]' <%= 'checked' if @saleinfo.bargainable %>  class="toggleable width-13" data-target="bargain" data-checked='<%="checked" if @saleinfo.bargainable %>'>
-                      优惠价
-                    </span>
-                    <input type="text" num un class="width-165" data-id="bargain" name='saleinfo[bargain_price]' <%= 'disabled="disabled"' unless @saleinfo.bargainable %> required="true" autocomplete="off" value='<%= @saleinfo.bargain_price unless @saleinfo.bargain_price == 0 %>'>
-                  </td>
-                  <td>
-                    <label class="width-75">批发价</label>
-                    <input type="text" num un class="width-165" name="saleinfo[trade_price]" autocomplete="off" value="<%= @saleinfo.trade_price unless @saleinfo.trade_price == 0 %>">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
                     <label class="width-75">商品积分</label>
                     <input num int un type="text" class="width-165" name="saleinfo[reward_points]" autocomplete="off" value="<%= @saleinfo.reward_points %>">
                   </td>
                   <td>
                     <label class="width-75">销售分类</label>
-                    <input type="hidden" name='saleinfo[store_material_saleinfo_category_id]' value="<%= @store_material_saleinfo_category.id %>">
-                    <span id='store_material_saleinfo_category_id' class="width-157 as_select" data-select='#saleinfo_category_select'
-                    data-target='input[name="saleinfo[store_material_saleinfo_category_id]"]'><%= @store_material_saleinfo_category.name %></span>
-                    <div id='saleinfo_category_select' class="select width-165">
-                      <ol class="width-165">
-                        <% @store_material_saleinfo_categories.each do |category| %>
-                        <li data-value='<%= category.id %>'><%= category.name %></li>
-                        <% end %>
-                      </ol>
-                      <a class='add_btn width-158' data-method='add_saleinfo_category' href="javascript:void(0);">新增</a>
-                    </div>
+                    <select name="saleinfo[sale_category_id]" class="width-165">
+                      <%= options_from_collection_for_select(@sale_categories, :id, :name, @saleinfo.sale_category_id) %>
+                    </select>
                   </td>
                 </tr>
-                <tr>
-                  <td colspan="2">
-                    <fieldset class="width-490 margin-left-26">
-                      <legend class="margin-left-10">
-                        <label>
-                        <input type="checkbox" class="toggleable" <%= 'checked' if @saleinfo.divide_to_retail %> name='saleinfo[divide_to_retail]' data-target="divide_to_retail" data-checked='<%= "checked" if @saleinfo.divide_to_retail %>'>
-                        此商品拆分销售</label>
-                      </legend>
-                      <div>
-                        <label class="width-75">计量单位</label>
-                        <select class="width-160" name='saleinfo[unit]' data-id="divide_to_retail" <%='disabled="disabled"' unless @saleinfo.divide_to_retail %> required="true">
-                          <option value="0">米</option>
-                          <option value="1">平方米</option>
-                          <option value="2">升</option>
-                        </select>
-                      </div>
-                      <div class="float-left">
-                        <label class="width-75">总量</label>
-                        <input type="text" num un int min=1 name='saleinfo[volume]' data-costprice='<%= @store_material.cost_price %>' class="width-160" data-id="divide_to_retail" <%='disabled="disabled"' unless @saleinfo.divide_to_retail %> required="true" value='<%= @saleinfo.volume %>'>
-                      </div>
-                      <div class="float-left">
-                        <label class="width-75">拆分成本</label>
-                        <input id='divided_cost' type="text" class="width-160" readonly=true>
-                      </div>
-                    </fieldset>
-                  </td>
-                </tr>
+                <%= render 'normal_setting' %>
+                <%= render 'divide_setting' %>
                 <tr>
                   <td colspan="2">
                     <fieldset class="width-490 margin-left-26">

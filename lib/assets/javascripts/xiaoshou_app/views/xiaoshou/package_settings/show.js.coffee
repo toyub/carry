@@ -39,3 +39,12 @@ class Mis.Views.XiaoshouPackageSettingsShow extends Mis.Base.View
     @leave()
     view = new Mis.Views.XiaoshouPackageSettingsEdit(model: @model)
     $("#bodyContent").html view.render().el
+
+  rootResource: ->
+    "package"
+
+  subResource: ->
+    "settings"
+
+  action: ->
+    "show"

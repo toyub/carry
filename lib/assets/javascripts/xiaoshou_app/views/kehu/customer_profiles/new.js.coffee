@@ -75,3 +75,12 @@ class Mis.Views.KehuCustomerProfilesNew extends Mis.Base.View
 
     view = new Mis.Views.KehuCustomerTagsForm(customer: @model.storeCustomer)
     @prependChild view
+
+  rootResource: ->
+    "customer"
+
+  subResource: ->
+    "profiles"
+
+  action: ->
+    "new"
