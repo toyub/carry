@@ -119,6 +119,7 @@ Rails.application.routes.draw do
     resources :schedule_personals, only: [:index]
     resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
       post :construction, on: :collection
+      put :finish, on: :member
     end
     resources :store_orders, only: [:show]
     resources :store_workflows, only: [:edit, :update]

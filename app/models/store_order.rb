@@ -84,6 +84,15 @@ class StoreOrder < ActiveRecord::Base
     self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
   end
 
+  def finish!
+    self.task_finished! if workflows_finished?
+    self.finished! if self.task_finished? && self.pay_finished?
+  end
+
+  def workflows_finished?
+    workflows.all? { |w| w.finished? }
+  end
+
   def execute!
     ActiveRecord::Base.transaction do
       self.items.revenue_ables.each do |item|

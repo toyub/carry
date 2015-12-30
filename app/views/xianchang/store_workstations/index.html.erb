@@ -98,6 +98,24 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+$(function(){
+    setInterval(function(){
+      <% @workstations.each do |w| -%>
+        if($("#workstation-<%= w.id %> .times").length > 0){
+          var interval = parseInt($("#workstation-<%= w.id %> .times").text()) - 1;
+          if(interval <= 0){
+            $.ajax({
+              url: "/xianchang/store_workstations/<%= w.id %>/finish",
+              method: "PUT"
+              }
+            );
+          }else{
+            $("#workstation-<%= w.id %> .times").text(interval);
+          }
+        }
+      <% end -%>
+    }, 60000)
+})
 $(document).on("click", ".js-close", function(){
     $(this).parents(".js-dialog").remove();
 })

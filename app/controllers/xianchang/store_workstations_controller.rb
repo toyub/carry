@@ -1,6 +1,6 @@
 module Xianchang
   class StoreWorkstationsController < BaseController
-    before_action :set_workstation, only: [:edit, :update]
+    before_action :set_workstation, only: [:edit, :update, :finish]
 
     def index
       @queuing_orders = current_store.store_orders.queuing
@@ -28,6 +28,10 @@ module Xianchang
 
     def construction
       @status = UpdateWorkflowService.call(construction_params)
+    end
+
+    def finish
+      @workstation.finish!
     end
 
     private

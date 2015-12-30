@@ -28,7 +28,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store_workstation_ids.to_s.split(",").map(&:to_i)
   end
 
-  def total_time
+  def work_time_in_minutes
     self.standard_time.to_i + self.buffering_time.to_i + self.factor_time.to_i
   end
 
@@ -42,7 +42,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def execute!(workstation)
     ActiveRecord::Base.transaction do
-      self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: self.total_time)
+      self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
       workstation.update!(current_workflow: self)
       workstation.busy!
       self.processing!
@@ -57,6 +57,16 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def elapsed_time
     ((Time.now - self.started_time)/60).ceil
+  end
+
+  def actual_time_in_minutes
+    elapsed_time
+  end
+
+  def finish!
+    self.finished!
+    self.update!(elapsed: actual_time_in_minutes)
+    self.store_order.finish!
   end
 
   private

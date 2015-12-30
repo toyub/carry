@@ -21,4 +21,13 @@ class StoreWorkstation < ActiveRecord::Base
       w.store_workstation_id == self.id || w.workstations.map(&:id).include?(self.id)
     end
   end
+
+  def finish!
+    ActiveRecord::Base.transaction do
+      current_workflow.finish!
+      self.update!(workflow_id: nil)
+      self.idle!
+      SpotDispatchJob.perform_later(self.store_id)
+    end
+  end
 end
