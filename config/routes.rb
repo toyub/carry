@@ -347,6 +347,9 @@ Rails.application.routes.draw do
           get :finished, :all
         end
       end
+      resources :store_assets, only: [:index, :show] do
+        resources :store_asset_items, only: [:show]
+      end
     end
   end
 

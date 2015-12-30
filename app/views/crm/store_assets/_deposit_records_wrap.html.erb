@@ -1,0 +1,29 @@
+<div class="captical_records_wrap deposit_records_wrap" data-id="deposit">
+  <div class="summary">
+    <ul>
+      <li><label>充值次数</label><span><%= @deposit_card_items_logs.income_times %></span></li>
+      <li><label>扣卡次数</label><span><%= @deposit_card_items_logs.expense_times %></span></li>
+      <li><label>可用余额</label><span class="width-100"><%= @deposit_card_items_logs.last.balance %></span></li>
+    </ul>
+  </div>
+
+  <div class="captical_records deposit_records">
+    <dl class="title">
+      <dt>发生时间</dt>
+      <dt>发生金额</dt>
+      <dt>订单</dt>
+      <dt>余额</dt>
+    </dl>
+    <div class="captical_content">
+      <% @deposit_card_items_logs.each do |log| %>
+        <dl>
+          <dd><%= log.created_at.strftime("%Y-%m-%d") %></dd>
+          <dd><span  class="<%= log.profit? ? 'profit' : 'loss' %>"><%= log.amount %></span></dd>
+          <dd><%= log.store_order.numero %></dd>
+          <dd><span><%= log.balance %></span></dd>
+        </dl>
+      <% end %>
+    </div>
+
+  </div>
+</div>

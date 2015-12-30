@@ -1,0 +1,67 @@
+<div class="captical_records_wrap package_records_wrap " data-id="package" style="display:none;">
+  <table class="brief">
+    <thead>
+      <tr>
+        <th><i class="fa fa-circle"></i>名称</th>
+        <th><i class="fa fa-circle"></i>购卡日期</th>
+        <th><i class="fa fa-circle"></i>购买门店</th>
+        <th><i class="fa fa-circle"></i>包含项目</th>
+        <th><i class="fa fa-circle"></i>适用门店</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @composition.package_name %></td>
+        <td><%= @composition.created_at.strftime("%Y-%m-%d") %></td>
+        <td><%= @composition.store.name %></td>
+        <%= @items.first.workflowable_hash['name'] %>
+        <td>
+          <em><%= @items.first.workflowable_hash['name'] %></em>
+          <% if @items.count > 1 %>
+            等<%= @items.count %>个项目
+          <% end %>
+        </td>
+        <td><em><%= @composition.store.name  %></em>等等</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="detail">
+    <div class="items">
+      <h3>包含项目</h3>
+      <dl class="table-head">
+        <dt>项目</dt>
+        <dt>剩余次数</dt>
+      </dl>
+
+      <div class="table-content-wrap">
+        <% @items.each do |item| %>
+          <dl class="table-content", data-item-id="<%= item.id %>">
+            <dd><%= item.workflowable_hash['name'] %></dd>
+            <dd><%= item.left_quantity %></dd>
+          </dl>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="orders" id="order-detail">
+      <%= render '/crm/store_asset_items/item_used_detail' %>
+    </div>
+
+  </div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(function(){
+    $('dl.table-content').eq(0).addClass("action");
+    $('.table-content-wrap').on('click', 'dl.table-content', function(){
+      var url = "/crm/store_customers/" + "<%= @customer.id %>" + "/store_assets/" + "<%= @composition.id %>" + "/store_asset_items/" + $(this).data('item-id');
+      $(this).addClass("action").siblings().removeClass("action");
+      $.get(url, function(){
+        return;
+      })
+    })
+  });
+</script>
+
