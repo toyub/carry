@@ -1,5 +1,6 @@
 class Kucun::MaterialInventoriesController < Kucun::BaseController
   def index
+    
   end
 
   def new
