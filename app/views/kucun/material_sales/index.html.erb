@@ -24,18 +24,18 @@
           <td class="border-bottom-d1d1d1"><label class="float-left">商品积分</label> <span><%= @material_saleinfo.point %></span></td>
           <td class="border-bottom-d1d1d1"><label class="float-left">销售分类</label><span><%= @material_saleinfo.sale_category.try(:name) %></span></td>
           <td class="border-bottom-d1d1d1"><label class="float-left">计量单位</label><span><%= @material_saleinfo.divide_unit_type %></span></td>
-          <td class="border-bottom-d1d1d1"><label class="float-left">已销售</label><span><%= 2 %></span></td>
-          <td><label class="float-left">销售收入</label><span><%= 10 %></span></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left">已销售</label><span></span></td>
+          <td><label class="float-left">销售收入</label><span></span></td>
         </tr>
         <tr>
           <td><span class="font-18 "><%= @store_material.name %></span></td>
           <td><span class="float-left"><%= @material_saleinfo.retail_price %></span></td>
           <td><span class="float-left"></span></td>
-          <td><label class="float-left">销售规格</label><span>车</span></td>
-          <td><label class="float-left">出库方式</label><% if @material_saleinfo.divide_to_retail %><span>拆分销售</span><% else %> <span>整件出库</span> <% end %></td>
-          <td><label class="float-left">商品总量</label><span><%=23%></span></td>
-          <td><label class="float-left">剩余</label><span><%= 3243 %></span></td>
-          <td><label class="float-left">毛利</label><span><%= 233 %></span></td>
+          <td><label class="float-left"></label><span></span></td>
+          <td><label class="float-left">销售方式</label><% if @material_saleinfo.divide_to_retail %><span>拆分销售</span><% else %> <span>整件销售</span> <% end %></td>
+          <td><label class="float-left">商品总量</label><span></span></td>
+          <td><label class="float-left">剩余</label><span></span></td>
+          <td><label class="float-left">毛利</label><span></span></td>
         </tr>
       </tbody>
     </table>
@@ -48,16 +48,17 @@
             <li>销售日期</li>
             <li>订单号</li>
             <li>零售价</li>
-            <li>销售价</li>
+            <li>成交价</li>
             <li>数量</li>
             <li>小计</li>
-            <li class="eightth_td">成本价</li>
+            <li class="eightth_td">成本</li>
             <li class="ninth_td">毛利</li>
             <li class="tenth_td">操作</li>
           </ul>
         </div>
 
         <% @order_items.each_with_index do |item, idx|%>
+         <% need_check = item.divide_to_retail && !item.divide_cost_checked %>
           <div class="list_tr list_content">
             <ul>
               <li><%= idx + 1 %>.</li>
@@ -67,28 +68,21 @@
               <li><%= item.price %></li>
               <li><%= item.quantity %></li>
               <li><%= item.amount %></li>
-              <li class="eightth_td"><%= item.cost_price %></li>
-              <li class="ninth_td"><%= item.gross_profit %></li>
-              <li><a href="<%= pos_store_order_path(item.store_order) %>" class="detailsbtn cursor">详情</a></li>
+              <li class="eightth_td <%='color-FF2929' if need_check %>">
+                <%= item.cost_price %><% if need_check %>(待核实)<% end %>
+              </li>
+              <li class="ninth_td <%='color-FF2929' if need_check %>">
+                <%= item.gross_profit %><% if need_check %>(待核实)<% end %>
+              </li>
+              <li>
+                <a href="<%= pos_store_order_path(item.store_order) %>" class="detailsbtn cursor">详情</a>
+                <% if need_check %>
+                <a href="javascript:void(0);" data-url='/kucun/materials/<%= @store_material.id %>/material_sales' data-checkdata='<%= item.to_cost_check_json.to_json %>' class="color-73ACD4 cost_btn js-heshi">核实成本</a>
+                <% end %>
+              </li>
             </ul>
           </div>
         <% end %>
-
-        <div class="list_tr list_content">
-          <ul>
-            <li>2.</li>
-            <li>2014-12-29 10:11</li>
-            <li>YW2014122900019</li>
-            <li>1,000.00</li>
-            <li>1,000.00</li>
-            <li>1</li>
-            <li>1000</li>
-            <li class=" color-FF2929">未核实</li>
-            <li class="color-FF2929">未核实</li>
-            <li><a href="javascript:void(0);" class="color-73ACD4 cost_btn js-heshi">核实成本</a></li>
-          </ul>
-        </div>
-
       </div>
     </div>
 
@@ -106,10 +100,8 @@
     $('#salesnotes_list').on('click', '.js-heshi', function(){
       var cost_price_per_unit = 23.43;
       var actual_volume = 12;
-      var item = {name: '3M太阳膜', created_on: '2015-12-22',
-                          standard_volume: 12, actual_volume: actual_volume,
-                          numero: '20151222000001', mechanics: ['周晓牛', '刘国龙'],
-                          cost_price_per_unit: cost_price_per_unit, total_cost: cost_price_per_unit * actual_volume};
+      var item = $(this).data('checkdata')
+      item.action_url = $(this).data('url');
        $("#pop_box2").html(tmpl(item)).show();
     });
 
@@ -121,8 +113,13 @@
       $('#pop_box2').hide();
     });
 
-    $('#pop_box2').on('click', '.js-check', function(){
+    $('#pop_box2').on('submit', 'form', function(evt){
+      evt.preventDefault()
       $('#pop_box2').hide();
+      var form_data = $(this).serializeJSON();
+      $.post(this.action, form_data, function(response, status_str, xhr){
+        console.log(response)
+      })
     });
 
   })
