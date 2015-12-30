@@ -1,0 +1,10 @@
+<div class="abstract">
+  <input type="checkbox" name="repayment[orders][]" value="<%= order.id%>" >
+  <span class="item_control width-260  margin-left-19">订单号： <%= order.numero %> </span>
+  <span class="item_control width-200">下单时间：<%= order.created_at.strftime("%Y.%m.%d") %></span>
+  <span class="item_control width-200">下单人：<%= order.creator.full_name %></span>
+  <span class="item_control width-200">订单金额：<%= order.amount_total %>0</span>
+  <span class="item_control width-320">挂账余额： <%= order.repayment_remaining %> </span>
+  <i class="fa fa-chevron-down cursor-pointer js-slide-down" data-id="<%= order.id%>" ></i>
+  <i class="fa fa-chevron-up cursor-pointer js-slide-up" data-id="<%= order.id%>" ></i>
+</div>

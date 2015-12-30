@@ -5,6 +5,7 @@
 <%= render '/crm/common/page_head' %>
 
 <div class="details">
+
 <%= render 'crm/common/customer_nav' %>
 
   <div class="details_content">
@@ -18,22 +19,16 @@
     <div class="content customer_account">
       <input type="hidden" id="action" value="<%= @action%>">
       <div class="panel_query">
-        <%= search_form_for @q , url: crm_store_customer_store_repayments_path(@customer), class: 'float-left' do  -%>
+        <%= search_form_for @q , url: all_crm_store_customer_store_repayments_path(@customer), class: 'float-left' do  -%>
           <%= render 'search_form' %>
         <% end %>
-        <%= form_tag url: crm_store_customer_store_repayments_path(@customer), method: 'POST', class: 'float-right' do %>
-        <div class="query_item float-right">
-          <label class="margin-right-10">回款合计</label>
-          <input type="text" class="height-29 margin-right-10" name="repayment[total]" value="">
-          <input type="submit" class="btn button_confirm width-86 height-29" id="submit" value="确认回款">
-        </div>
       </div>
-
       <div class="orders">
-        <%= render 'order_info' %>
+        <input type="hidden" id="count" value="<%= @count%>">
+        <%= render 'all_info' %>
       </div>
       <%= render 'link_more_info' %>
-      <% end %>
     </div>
   </div>
+
 </div>
