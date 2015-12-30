@@ -8,4 +8,5 @@ json.array! @orders do |order|
     json.mechanics ['王小勇', '李明亮']
     json.service_name "澜泰纳米镀晶"
   end
+  json.total_amount (order.items.sum(:amount) - order.items.sum(:discount))
 end

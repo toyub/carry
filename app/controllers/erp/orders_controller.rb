@@ -4,7 +4,7 @@ module Erp
 
     def index
       q = @customer.orders.ransack(params[:q])
-      @orders = q.result(distinct: true).order('id asc')
+      @orders = q.result.order('id asc')
       respond_with @orders, location: nil
     end
 
