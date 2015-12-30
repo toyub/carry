@@ -48,10 +48,12 @@ module Api
 
       state = params[:state].present? ? params[:state] : "pending"
 
+      store_vehicle, store_customer = get_vehicle_and_customer(params[:vehicle_id])
       store_order = StoreOrder.new({
         state: state,
         creator: current_staff,
-        store_vehicle_id: params[:vehicle_id],
+        store_vehicle: store_vehicle,
+        store_customer: store_customer,
         situation: params[:situation],
         items_attributes: items_attributes
       })
@@ -80,6 +82,11 @@ module Api
             creator: current_staff,
           }
         end
+      end
+
+      def get_vehicle_and_customer vehicle_id
+        store_vehicle = StoreVehicle.find(vehicle_id)
+        return store_vehicle, store_vehicle.store_customer
       end
   end
 end

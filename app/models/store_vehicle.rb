@@ -22,6 +22,8 @@ class StoreVehicle < ActiveRecord::Base
   has_many :orders, class_name: "StoreOrder"
   has_many :complaints, as: :creator
 
+  validates_presence_of :store_customer
+
   def license_number
     if current_plate.present?
       current_plate.license_number

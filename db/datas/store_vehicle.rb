@@ -28,6 +28,7 @@ StoreVehicle.create!(
   vehicle_brand: store_brand,
   vehicle_model: store_model,
   vehicle_series: store_series,
+  store_customer: StoreCustomer.first
 )
 
 VehiclePlate.create!(
