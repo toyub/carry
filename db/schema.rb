@@ -156,6 +156,34 @@ ActiveRecord::Schema.define(version: 20151229083143) do
     t.string   "subject"
   end
 
+  create_table "recommended_order_items", force: :cascade do |t|
+    t.integer  "recommended_order_id"
+    t.integer  "quantity"
+    t.decimal  "price"
+    t.decimal  "amount"
+    t.integer  "itemable_id"
+    t.string   "itemable_type"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "recommended_orders", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.decimal  "amount"
+    t.text     "remark"
+    t.integer  "store_customer_id"
+    t.integer  "store_vehicle_id"
+    t.integer  "state"
+    t.string   "numero"
+    t.string   "recommended_reason"
+    t.string   "refuse_reason"
+    t.datetime "recommended_date"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "renewal_records", force: :cascade do |t|
     t.datetime "pay_date",                                            null: false
     t.integer  "renewal_days",                                        null: false
@@ -1503,6 +1531,15 @@ ActiveRecord::Schema.define(version: 20151229083143) do
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
+
+  create_table "store_subscribe_order_items", force: :cascade do |t|
+    t.integer  "store_subscribe_order_id"
+    t.integer  "quantity"
+    t.integer  "itemable_id"
+    t.string   "itemable_type"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "store_subscribe_orders", force: :cascade do |t|
     t.integer  "store_id"

@@ -30,14 +30,9 @@ class StoreOrderItem < ActiveRecord::Base
     self.quantity * (self.price - self.cost_price)
   end
 
-  def mechanics
-    ['王晓勇', '李明亮']
-  end
-
   def workflow_mechanics
     self.store_service_snapshot.workflow_snapshots
   end
-
 
   private
 
