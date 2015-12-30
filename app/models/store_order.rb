@@ -96,6 +96,6 @@ class StoreOrder < ActiveRecord::Base
     end
 
     def init_state
-      self.state = :pending
+      self.state = :pending unless self.state.present?
     end
 end
