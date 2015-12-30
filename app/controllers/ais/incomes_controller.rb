@@ -1,6 +1,6 @@
 class Ais::IncomesController < Ais::BaseController
   def index
-    @services = StoreService.all
+    @service_categories = StoreServiceCategory.all
   end
 
   def search

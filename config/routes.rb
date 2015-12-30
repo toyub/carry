@@ -112,6 +112,9 @@ Rails.application.routes.draw do
     resources :costs, only: [:index] do
       get 'search', on: :collection
     end
+    resources :categories, only: [:show] do
+      resources :order_items, only: [:index]
+    end
   end
 
   namespace :xianchang do

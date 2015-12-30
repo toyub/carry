@@ -95,6 +95,10 @@ class StoreOrder < ActiveRecord::Base
     self.amount_total - self.filled
   end
 
+  def payment_methods
+    payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
+  end
+
   private
 
     def set_numero
