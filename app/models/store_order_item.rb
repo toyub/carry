@@ -32,6 +32,7 @@ class StoreOrderItem < ActiveRecord::Base
 
   def to_cost_check_json
     {
+     id: self.id,
      name: self.orderable.name,
      created_on: self.store_order.created_at.to_s(:date_with_short_time),
      standard_volume: self.standard_volume_per_bill,

@@ -77,7 +77,7 @@
               <li>
                 <a href="<%= pos_store_order_path(item.store_order) %>" class="detailsbtn cursor">详情</a>
                 <% if need_check %>
-                <a href="javascript:void(0);" data-checkdata='<%= item.to_cost_check_json.to_json %>' class="color-73ACD4 cost_btn js-heshi">核实成本</a>
+                <a href="javascript:void(0);" data-url='/kucun/materials/<%= @store_material.id %>/material_sales' data-checkdata='<%= item.to_cost_check_json.to_json %>' class="color-73ACD4 cost_btn js-heshi">核实成本</a>
                 <% end %>
               </li>
             </ul>
@@ -101,7 +101,7 @@
       var cost_price_per_unit = 23.43;
       var actual_volume = 12;
       var item = $(this).data('checkdata')
-
+      item.action_url = $(this).data('url');
        $("#pop_box2").html(tmpl(item)).show();
     });
 
@@ -113,8 +113,13 @@
       $('#pop_box2').hide();
     });
 
-    $('#pop_box2').on('click', '.js-check', function(){
+    $('#pop_box2').on('submit', 'form', function(evt){
+      evt.preventDefault()
       $('#pop_box2').hide();
+      var form_data = $(this).serializeJSON();
+      $.post(this.action, form_data, function(response, status_str, xhr){
+        console.log(response)
+      })
     });
 
   })
