@@ -17,22 +17,7 @@
             </ol>
           </div>
         </div>
-        <div class="item-query">
-          <label>查找订货单</label>
-          <select type="text" class="width-150">
-            <option></option>
-            <option></option>
-          </select>
-        </div>
-        <div class="item-query">
-          <label>供应商</label>
-          <select id='store_supplier_id' name='store_supplier_id' type="text" class="width-150">
-            <%= options_from_collection_for_select(@store.store_suppliers, :id, :name, params[:store_supplier_id]) %>
-          </select>
-        </div>
-        <div class="item-query">
-         <a href="#" class="query_btn btn">查<nbsp2></nbsp2>询</a>
-        </div>
+
         <div class="query_div">
          <a  href="#" class="in_stg_btn btn">入库</a>
          <a  href="/kucun/material_inventories/" class="notes_btn btn">记录</a>
@@ -253,7 +238,6 @@
         $(this).parents('.list_content').next().toggle();
       });
 
-      $("#store_supplier_id").select2();
     });
   </script>
 <% end %>

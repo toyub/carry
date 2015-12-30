@@ -1,6 +1,7 @@
 #Just In Time
 class Kucun::CheckinsController < Kucun::BaseController
   def index
+    @items = StoreMaterialCheckinItem.where(store_id: current_store.id)
   end
 
   def new
@@ -54,7 +55,8 @@ class Kucun::CheckinsController < Kucun::BaseController
       end
       @checkin.save!
     end
-    render json: @checkin.as_json.merge(items: @checkin.items.as_json)
+    
+    redirect_to action: 'index'
   end
 
   private
