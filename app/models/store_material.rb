@@ -61,7 +61,7 @@ class StoreMaterial < ActiveRecord::Base
   private
   def generate_barcode!
     unless self.barcode.present?
-      self.barcode = format('N%s%s', self.store_id.to_s(36).upcase.rjust(5, '0'), self.id.to_s(36).upcase.rjust(5, '0'))
+      self.barcode = "N#{self.id.to_s(36).upcase.rjust(12, '0')}"
       self.save
     end
   end
