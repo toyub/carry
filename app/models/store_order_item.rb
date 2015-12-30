@@ -4,6 +4,8 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :orderable, polymorphic: true
   belongs_to :store_order
   belongs_to :store_customer
+  has_one :store_service_snapshot
+  has_many :store_service_workflow_snapshots
 
 
   before_save :cal_amount
@@ -35,6 +37,11 @@ class StoreOrderItem < ActiveRecord::Base
   def mechanics
     ['王晓勇', '李明亮']
   end
+
+  def workflow_mechanics
+    self.store_service_snapshot.workflow_snapshots
+  end
+
 
   private
 
