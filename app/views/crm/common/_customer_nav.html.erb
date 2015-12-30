@@ -3,6 +3,7 @@
     <li class='<%= "active" if params[:controller] == "xiaoshou" %>'>
       <a href="/xiaoshou/main#store_customers/<%= @customer.store_customer_entity_id %>" class="width-90">信息</a>
     </li>
+
     <li class='<%= "active" if params[:controller] == "crm/store_assets" %>'>
       <%= link_to '资产', crm_store_customer_store_assets_path(@customer), class: 'width-90' %>
     </li>

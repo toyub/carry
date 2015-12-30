@@ -4,6 +4,8 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :orderable, polymorphic: true
   belongs_to :store_order
   belongs_to :store_customer
+  has_one :store_service_snapshot
+  has_many :store_service_workflow_snapshots
 
 
   before_save :cal_amount
@@ -20,9 +22,26 @@ class StoreOrderItem < ActiveRecord::Base
     rand(10)
   end
 
+  def cost_price
+    23
+  end
+
+  def retail_price
+    50
+  end
+
+  def gross_profit
+    self.quantity * (self.price - self.cost_price)
+  end
+
   def mechanics
     ['王晓勇', '李明亮']
   end
+
+  def workflow_mechanics
+    self.store_service_snapshot.workflow_snapshots
+  end
+
 
   private
 
