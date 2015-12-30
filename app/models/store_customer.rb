@@ -18,6 +18,8 @@ class StoreCustomer < ActiveRecord::Base
   has_many :assets, class_name: 'StoreCustomerAsset'
   has_many :deposit_logs, class_name: "StoreCustomerDepositLog"
 
+  has_many :store_customer_deposit_cards
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -52,6 +54,10 @@ class StoreCustomer < ActiveRecord::Base
 
   def account
     StoreCustomerAccount.new(self)
+  end
+
+  def vip?
+    @vip ||= self.store_customer_deposit_cards.count(:id) > 0
   end
 
   private
