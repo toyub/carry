@@ -77,7 +77,7 @@
               <li>
                 <a href="<%= pos_store_order_path(item.store_order) %>" class="detailsbtn cursor">详情</a>
                 <% if need_check %>
-                <a href="javascript:void(0);" class="color-73ACD4 cost_btn js-heshi">核实成本</a>
+                <a href="javascript:void(0);" data-checkdata='<%= item.to_cost_check_json.to_json %>' class="color-73ACD4 cost_btn js-heshi">核实成本</a>
                 <% end %>
               </li>
             </ul>
@@ -100,14 +100,7 @@
     $('#salesnotes_list').on('click', '.js-heshi', function(){
       var cost_price_per_unit = 23.43;
       var actual_volume = 12;
-      var item = {name: '3M太阳膜',
-                  created_on: '2015-12-22',
-                  standard_volume: 12,
-                  actual_volume: actual_volume,
-                  numero: '20151222000001',
-                  mechanics: ['周晓牛', '刘国龙'],
-                  cost_price_per_unit: cost_price_per_unit,
-                  total_cost: cost_price_per_unit * actual_volume};
+      var item = $(this).data('checkdata')
 
        $("#pop_box2").html(tmpl(item)).show();
     });

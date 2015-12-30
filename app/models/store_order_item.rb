@@ -18,20 +18,8 @@ class StoreOrderItem < ActiveRecord::Base
 
   validates_presence_of :orderable
 
-  def youhui
-    rand(10)
-  end
-
-  def cost_price
-    23
-  end
-
-  def retail_price
-    50
-  end
-
   def gross_profit
-    self.quantity * (self.price - self.cost_price)
+    self.amount - self.total_cost
   end
 
   def mechanics
@@ -40,6 +28,27 @@ class StoreOrderItem < ActiveRecord::Base
 
   def workflow_mechanics
     self.store_service_snapshot.workflow_snapshots
+  end
+
+  def to_cost_check_json
+    {
+     name: self.orderable.name,
+     created_on: self.store_order.created_at.to_s(:date_with_short_time),
+     standard_volume: self.standard_volume_per_bill,
+     actual_volume: self.actual_volume_per_bill,
+     numero: self.store_order.numero,
+     mechanics: self.mechanics,
+     cost_price_per_unit: self.cost_price,
+     total_cost: self.total_cost
+    }
+  end
+
+  def total_cost
+    if self.divide_to_retail
+      self.cost_price.to_f * self.actual_volume_per_bill.to_f
+    else
+      self.cost_price.to_f * self.quantity.to_f
+    end
   end
 
 
