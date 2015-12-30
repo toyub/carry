@@ -4,8 +4,8 @@
   <span class="do_dbclick times"><%= workstation.current_workflow.try(:count_down) %></span>
   <%= link_to "加时", edit_xianchang_store_workflow_path(workstation.current_workflow), class: "add_time js-add-time", remote: true %>
   </li>
-  <li class="float-left license_plate js-vehicle" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order-id="<%= workstation.current_workflow.store_order_id %>">
-  <span><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number )%> </span>
+  <li class="float-left license_plate js-vehicle js-draggable" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order='{"id": <%= workstation.current_workflow.store_order_id %>, "state": "processing"}'>
+  <span><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number)%> </span>
   <img src="/images/car_front.png">
   </li>
 </ul>

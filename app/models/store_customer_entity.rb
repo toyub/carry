@@ -55,6 +55,10 @@ class StoreCustomerEntity < ActiveRecord::Base
     extra: '增值税发票'
   }
 
+  def district
+    read_attribute(:district) || {}
+  end
+
   def province
     self.district["province"]
   end

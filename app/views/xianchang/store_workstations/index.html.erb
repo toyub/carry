@@ -118,7 +118,7 @@ $(document).on("click", ".js-close", function(){
     $(this).parents(".js-dialog").remove();
 })
 $(document).on("click", ".js-vehicle", function(){
-    var orderId = $(this).data("order-id");
+    var orderId = $(this).data("order").id;
     $.get("/xianchang/store_orders/" + orderId, function(){})
 })
 $(document).on("click", ".js-edit-construction-form", function(){
@@ -163,8 +163,9 @@ $(document).on("click", ".js-mechanic-close", function(){
 })
 
 $(document).on("dragstart", "li.js-draggable", function(e){
-    e.originalEvent.dataTransfer.setData("text",$(e.target.parentNode).data("order-id"));
-    console.log($(e.target.parentNode).prop("id"));
+    var data = JSON.stringify($(e.target.parentNode).data("order"));
+    e.originalEvent.dataTransfer.setData("application/json", data);
+    console.log($(e.target.parentNode).data("order"));
 })
 $(document).on("dragover", "li.js-station", function(e){
     if (e.preventDefault) e.preventDefault();
@@ -172,18 +173,21 @@ $(document).on("dragover", "li.js-station", function(e){
 })
 $(document).on("drop", "li.js-station", function(e){
     if (e.stopPropagation) e.stopPropagation();
-    var orderId = e.originalEvent.dataTransfer.getData("text");
-    if(orderId){
+    var data = e.originalEvent.dataTransfer.getData("application/json");
+    if(data){
+      var order = JSON.parse(data);
+      var tip = order.state == 'queuing' ? '确认开始此流程？' : '是否确定结束该流程？';
+      console.log(order);
       var target = $(e.target).closest("li.js-station");
       if($(target).find(".disable_station").length > 0){
         $.confirm({
-          text: "是否确定结束该流程？",
+          text: tip,
           confirm: function(){
             console.log("xxxx");
             $.ajax({
               url: "/xianchang/store_workstations/" + $(target).data("id") + "/perform",
               method: "PUT",
-              data: {order_id: orderId}
+              data: {order_id: order.id}
             })
           }
         })
