@@ -4,4 +4,6 @@ class StoreServiceCategory < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: { scope: :store_id }
 
+  has_many :store_services
+
 end
