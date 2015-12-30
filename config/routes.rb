@@ -354,6 +354,8 @@ Rails.application.routes.draw do
         resources :store_asset_items, only: [:show]
       end
     end
+    resources :vehicle_series, only: [:index]
+    resources :vehicle_models, only: [:index]
   end
 
   resource :session, only: [:new, :create, :destroy, :edit]
