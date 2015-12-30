@@ -21,7 +21,7 @@ class StoreOrder < ActiveRecord::Base
 
   accepts_nested_attributes_for :items
 
-  validates_presence_of :items
+  validates_presence_of :items, :store_customer, :store_vehicle
 
   def self.today
     where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
