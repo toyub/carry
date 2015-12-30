@@ -59,7 +59,7 @@ class StoreDepot  < ActiveRecord::Base
       }
 
       outing.items << StoreMaterialOutingItem.new(items_attributes)
-
+      @log = InventoryService.new(inventory, order.creator).outgo!(order_item.quantity).loggable!(order_item)
       inventory.outing!(order_item.quantity)
     end
     outing.total_quantity = outing.items.sum(:quantity)

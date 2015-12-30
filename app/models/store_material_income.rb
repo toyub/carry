@@ -1,0 +1,2 @@
+class StoreMaterialIncome < StoreMaterialLog
+end
