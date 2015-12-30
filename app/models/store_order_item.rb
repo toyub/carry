@@ -22,6 +22,18 @@ class StoreOrderItem < ActiveRecord::Base
     rand(10)
   end
 
+  def cost_price
+    23
+  end
+
+  def retail_price
+    50
+  end
+
+  def gross_profit
+    self.quantity * (self.price - self.cost_price)
+  end
+
   def mechanics
     ['王晓勇', '李明亮']
   end
