@@ -3,6 +3,8 @@ class StorePhysicalInventory < ActiveRecord::Base
   has_many :items, class_name: 'StorePhysicalInventoryItem'
   belongs_to :store_depot
 
+  enum status: %i[ pending checked ]
+
   before_save :set_created_month
 
   accepts_nested_attributes_for :items
