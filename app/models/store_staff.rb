@@ -160,12 +160,24 @@ class StoreStaff <  ActiveRecord::Base
     !mis_login_enabled
   end
 
+  def materials_amount_total
+    store_order_items.materials.inject(0) {|sum, item| sum += item.amount }
+  end
+
+  def services_amount_total
+    store_order_items.services.inject(0) {|sum, item| sum += item.amount }
+  end
+
   def items_amount_total
     store_order_items.inject(0) {|sum, item| sum += item.amount }
   end
 
   def commission_amount_total
     store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission }
+  end
+
+  def self.commission_amount_total
+    all.inject(0) {|sum, staff| sum += staff.commission_amount_total }
   end
 
   private
