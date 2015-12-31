@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230021052) do
+ActiveRecord::Schema.define(version: 20151230121557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -686,15 +686,21 @@ ActiveRecord::Schema.define(version: 20151230021052) do
   end
 
   create_table "store_material_logs", force: :cascade do |t|
-    t.integer  "store_id",                     null: false
-    t.integer  "store_chain_id",               null: false
-    t.integer  "store_staff_id",               null: false
-    t.string   "store_material_id", limit: 45, null: false
-    t.string   "log_type",          limit: 45
-    t.text     "prior_value"
-    t.text     "value"
+    t.integer  "store_id",                                            null: false
+    t.integer  "store_chain_id",                                      null: false
+    t.integer  "store_staff_id",                                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
+    t.string   "logged_item_type"
+    t.integer  "logged_item_id"
+    t.integer  "store_depot_id"
+    t.integer  "store_material_id"
+    t.integer  "store_material_inventory_id"
+    t.json     "openings",                               default: {}
+    t.json     "closings",                               default: {}
+    t.json     "accruals",                               default: {}
+    t.string   "created_month",               limit: 20
   end
 
   create_table "store_material_manufacturers", force: :cascade do |t|
