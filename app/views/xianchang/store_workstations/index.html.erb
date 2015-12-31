@@ -179,7 +179,7 @@ $(document).on("drop", "li.js-station", function(e){
       var tip = order.state == 'queuing' ? '确认开始此流程？' : '是否确定结束该流程？';
       console.log(order);
       var target = $(e.target).closest("li.js-station");
-      if($(target).find(".disable_station").length > 0){
+      if($(target).find(".idle_station").length > 0){
         $.confirm({
           text: tip,
           confirm: function(){

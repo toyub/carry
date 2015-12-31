@@ -4,14 +4,10 @@
     <%= link_to "编辑", edit_xianchang_store_workstation_path(workstation), remote: true, class: 'edit_button' %>
   </div>
   <% if workstation.unavailable? %>
-    <div class="disable_station">
-      <span>停用</span>
-    </div>
+    <%= render partial: 'unavailable_workstation' %>
   <% elsif workstation.busy? %>
     <%= render partial: 'busy_workstation', locals: {workstation: workstation} %>
   <% else %>
-    <div class="disable_station">
-      <span>空闲</span>
-    </div>
+    <%= render partial: 'idle_workstation' %>
   <% end %>
 </li>
