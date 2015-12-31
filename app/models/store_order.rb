@@ -106,23 +106,27 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def execute!
-    return if self.executed?
+    return if !executeable?
     ActiveRecord::Base.transaction do
-      self.items.services.each do |item|
+      construction_items.each do |item|
         service = item.orderable
         service.to_snapshot!(item)
       end
-      self.task_queuing!
-      self.queuing!
+      if self.task_finished? || self.task_pending?
+        self.task_queuing!
+        self.queuing!
+      end
     end
   end
 
-  def executed?
-    self.workflows.present?
-  end
-
-
   private
+    def construction_items
+      self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
+    end
+
+    def executeable?
+      construction_items.present?
+    end
 
     def set_numero
       today_order_count = store.store_orders.today.count + 1
