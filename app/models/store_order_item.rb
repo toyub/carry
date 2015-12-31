@@ -53,6 +53,9 @@ class StoreOrderItem < ActiveRecord::Base
     end
   end
 
+  def commission
+    orderable.commission(self)
+  end
 
   private
 

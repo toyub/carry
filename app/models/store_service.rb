@@ -65,4 +65,31 @@ class StoreService < ActiveRecord::Base
   def vip_price
     0
   end
+
+  def commission(order_item)
+    sum = 0
+    if setting.workflows.present?
+      setting.workflows.each do |flow|
+        template = flow.engineer_commission
+        amount = 0
+        if template.present?
+          case template.mode_id
+          when 0 #"标准提成"
+            section = template.sections.where(mode_id: template.mode_id).last
+            amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.amount
+          when 1, 2 #"阶梯提成" #"分段提成"
+            section = template.sections.where(mode_id: template.mode_id).where("min < ?", order_item.quantity).last
+            amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.amount
+          end
+        else
+          0.0
+        end
+        sum += amount
+      end
+    else
+      0.0
+    end
+    sum
+  end
+
 end

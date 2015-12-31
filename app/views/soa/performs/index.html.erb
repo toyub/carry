@@ -23,24 +23,26 @@
     <table class="content">
       <tbody>
         <% @order_items.each do |item| %>
-        <tr>
-          <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
-          <td><%= item.store_order.numero %></td>
-          <td><%= item.orderable.name %></td>
-          <% if item.orderable_type == "StoreService" %>
-          <td>
-            <% item.orderable.setting.workflows.each do |workflow| %>
-              <div>
-                <label><%= workflow.name %></label><span></span>
-              </div>
-            <% end %>
-          </td>
-          <% else %>
-            <td>卖出<em><%= item.quantity %></em>件</td>
+          <% unless item.orderable_type == 'StorePackage' %>
+            <tr>
+              <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
+              <td><%= item.store_order.numero %></td>
+              <td><%= item.orderable.name %></td>
+              <% if item.orderable_type == "StoreService" %>
+                <td>
+                  <% item.orderable.setting.workflows.each do |workflow| %>
+                    <div>
+                      <label><%= workflow.name %></label><span></span>
+                    </div>
+                  <% end %>
+                </td>
+              <% else %>
+                <td>卖出<em><%= item.quantity %></em>件</td>
+              <% end %>
+              <td><%= item.amount %></td>
+              <td> <%= item.commission %> </td>
+            </tr>
           <% end %>
-          <td><%= item.amount %></td>
-          <td><%= item.commission %></td>
-        </tr>
         <% end %>
       <tfoot>
         <tr>
