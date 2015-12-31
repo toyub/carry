@@ -49,69 +49,45 @@
 
         <div class="vehicle_check_point">
           <div class="status">
-            <dl><dd><label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E</dd></dl>
-            <dl><dd><label>行驶公里</label><span class="mileage"></span></dd></dl>
+            <dl><dd><label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E<input type="range" value="34" disabled style="width: 35.76mm;"> <%=33%>%</dd></dl>
+            <dl><dd><label>行驶公里</label><span class="mileage"><%= @store_order.situation[:km] %></span></dd></dl>
           </div>
           <div class="check_point">
             <img src="/images/car_status.png"></td>
-            <input type="checkbox" class="check_point_01 checktoggle"  data-targetnode='check_point_01'>
-            <input type="checkbox" class="check_point_02 checktoggle" data-targetnode='check_point_02'>
-            <input type="checkbox" class="check_point_03 checktoggle" data-targetnode='check_point_03'>
-            <input type="checkbox" class="check_point_04 checktoggle" data-targetnode='check_point_04'>
-            <input type="checkbox" class="check_point_05 checktoggle" data-targetnode='check_point_05'>
-            <input type="checkbox" class="check_point_06 checktoggle" data-targetnode='check_point_06'>
-            <input type="checkbox" class="check_point_07 checktoggle" data-targetnode='check_point_07'>
-            <input type="checkbox" class="check_point_08 checktoggle" data-targetnode='check_point_08'>
-            <input type="checkbox" class="check_point_09 checktoggle" data-targetnode='check_point_09'>
-            <input type="checkbox" class="check_point_10 checktoggle" data-targetnode='check_point_10'>
-            <input type="checkbox" class="check_point_11 checktoggle" data-targetnode='check_point_11'>
-            <input type="checkbox" class="check_point_12 checktoggle" data-targetnode='check_point_12'>
+            <input type="checkbox" class="check_point_01" disabled>
+            <input type="checkbox" class="check_point_02" disabled>
+            <input type="checkbox" class="check_point_03" disabled>
+            <input type="checkbox" class="check_point_04" disabled>
+            <input type="checkbox" class="check_point_05" disabled>
+            <input type="checkbox" class="check_point_06" disabled>
+            <input type="checkbox" class="check_point_07" disabled>
+            <input type="checkbox" class="check_point_08" disabled>
+            <input type="checkbox" class="check_point_09" disabled>
+            <input type="checkbox" class="check_point_10" disabled>
+            <input type="checkbox" class="check_point_11" disabled>
+            <input type="checkbox" class="check_point_12" disabled>
           </div>
           <div class="car_parts">
             <img src="/images/car_parts.png">
             <ul>
-
-              <li>
-                <input title='发动机' type="checkbox" class=" checktoggle" >
-              </li>
-              <li>
-                <input title='' type="checkbox" class=" checktoggle" >
-              </li>
-              <li>
-                <input title='ABS' type="checkbox" class=" checktoggle" >
-              </li>
-              <li>
-                <input title='机油油压' type="checkbox" class=" checktoggle" >
-              </li>
-              <li>
-                <input title='安全气囊' type="checkbox" class=" checktoggle" >
-              </li>
-              <li>
-                <input title='冷却液' type="checkbox" class=" checktoggle" >
-              </li>
-              <li>
-                <input title='辅助制动器(手刹)' type="checkbox" class=" checktoggle" >
-              </li>
-              <li>
-                <input title='燃油' type="checkbox" class=" checktoggle" >
-              </li>
-              <li>
-                <input title='EBD' type="checkbox" class=" checktoggle" >
-              </li>
-
+              <li><input type="checkbox" disabled></li>
+              <li><input type="checkbox" disabled></li>
+              <li><input type="checkbox" disabled></li>
+              <li><input type="checkbox" disabled></li>
+              <li><input type="checkbox" disabled></li>
+              <li><input type="checkbox" disabled></li>
+              <li><input type="checkbox" disabled></li>
+              <li><input type="checkbox" disabled></li>
+              <li><input type="checkbox" disabled></li>
             </ul>
           </div>
         </div>
         <div class="vehicle_check_info">
           <label>车况检查记录</label>
           <ul>
-            <li>1:<span>机盖划伤</span></li>
-            <li>2:<span>机盖划伤</span></li>
-            <li>3:<span>左前大灯裂纹</span></li>
-            <li>4:<span>左前大灯裂纹</span></li>
-            <li>5:<span>左前大灯裂纹</span></li>
-            <li>6:<span>左前大灯裂纹</span></li>
-            <li>7:<span>左前大灯裂纹</span></li>
+            <% @store_order.situation.each_with_index do |situation, idx| %>
+            <li><%= idx + 1 %>:<span><%=situation[1] %></span></li>
+            <% end %>
           </ul>
         </div>
 
