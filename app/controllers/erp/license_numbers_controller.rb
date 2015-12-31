@@ -11,7 +11,7 @@ module Erp
     private
 
       def set_customer
-        @customer = current_store_chain.store_customers.find(params[:id])
+        @customer = current_store_chain.store_customers.find(params[:customer_id])
       end
   end
 end
