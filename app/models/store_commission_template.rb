@@ -30,4 +30,16 @@ class StoreCommissionTemplate < ActiveRecord::Base
   def aim_type
     CommissionAimType.find(self.aim_to).name
   end
+
+  def commission(order_item)
+    amount = 0.0
+    case mode_id
+    when 0 #"标准提成"
+      section = sections.where(mode_id: mode_id).last
+      amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.amount
+    when 1, 2 #"阶梯提成" #"分段提成"
+      section = sections.where(mode_id: mode_id).where("min < ?", order_item.quantity).last
+      amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.amount
+    end
+  end
 end

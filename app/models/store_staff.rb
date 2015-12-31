@@ -5,6 +5,7 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_department
   belongs_to :store_position
   belongs_to :store_employee
+  has_many :store_orders
   has_many :store_order_items
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
   has_many :complaints
@@ -157,6 +158,14 @@ class StoreStaff <  ActiveRecord::Base
 
   def locked?
     !mis_login_enabled
+  end
+
+  def items_amount_total
+    store_order_items.inject(0) {|sum, item| sum += item.amount }
+  end
+
+  def commission_amount_total
+    store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission }
   end
 
   private

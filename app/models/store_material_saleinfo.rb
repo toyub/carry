@@ -40,19 +40,6 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   end
 
   def commission(order_item)
-    if saleman_commission_template_id.present?
-      template = saleman_commission_template
-      amount = 0
-      case template.mode_id
-      when 0 #"标准提成"
-        section = template.sections.where(mode_id: template.mode_id).last
-        amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.amount
-      when 1, 2 #"阶梯提成" #"分段提成"
-        section = template.sections.where(mode_id: template.mode_id).where("min < ?", order_item.quantity).last
-        amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.amount
-      end
-    else
-      0.0
-    end
+    saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
   end
 end

@@ -48,12 +48,12 @@
         <tr>
           <td colspan="3"></td>
           <td class="text-align-right">
-            <label>订单数：</label><span class="width-90 text-align-left">5</span>
+            <label>订单数：</label><span class="width-90 text-align-left"><%= @staff.store_orders.count %></span>
             <label class="width-100">项目总金额：</label>
           </td>
           <td colspan="2">
-            <span class="width-80">2,85000.00</span>
-            <label>提成总金额：</label><span>140.00</span>
+            <span class="width-80"><%= @staff.items_amount_total %></span>
+            <label>提成总金额：</label><span><%= @staff.commission_amount_total %></span>
           </td>
         </tr>
       </tfoot>
