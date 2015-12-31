@@ -5,6 +5,7 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_department
   belongs_to :store_position
   belongs_to :store_employee
+  has_many :store_order_items
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
   has_many :complaints
   has_many :store_protocols, dependent: :destroy
