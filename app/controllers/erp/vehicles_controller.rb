@@ -8,8 +8,8 @@ module Erp
     end
 
     def show
-      @conditions = @vehicle.orders
-      @service = @vehicle.orders
+      @orders = @vehicle.orders
+      respond_with @vehicle, @orders, location: nil
     end
 
     private

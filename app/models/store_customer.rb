@@ -59,6 +59,10 @@ class StoreCustomer < ActiveRecord::Base
     self.store_customer_entity.store_customer_category.try(:name)
   end
 
+  def property_name
+    StoreCustomerEntity::PROPERTIES[self.store_customer_entity.property]
+  end
+
   def consume_times
     222
   end
@@ -76,7 +80,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def activeness
-    
+
   end
 
   def satisfaction
@@ -85,6 +89,17 @@ class StoreCustomer < ActiveRecord::Base
 
   def account
     StoreCustomerAccount.new(self)
+  end
+
+  def district
+    province_code = self.store_customer_entity.district['province']
+    city_code = self.store_customer_entity.district['city']
+    region_code = self.store_customer_entity.district['region']
+    {
+      'province' => Geo.state(1, province_code).name,
+      'city' => Geo.city(1, province_code, city_code).name,
+      'region' => Geo.regions(1, province_code, city_code).where(code: region_code).first.name
+    }
   end
 
   private

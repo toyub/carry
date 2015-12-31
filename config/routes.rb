@@ -219,15 +219,16 @@ Rails.application.routes.draw do
 
   # 总部平台api调用
   namespace :erp do
-    resources :customers, only: [:index] do
+    resources :customers, only: [:index, :show] do
       resources :customer_trackings, only: [:index]
       resources :orders, only: [:index]
-      resources :vehicles, only: [:index, :show]
       resources :license_numbers, only: [:index]
+      resources :vehicles, only: [:index, :show]
     end
     resources :contact_ways, only: [:index]
     resources :stores, only: [:index]
     resources :customer_properties, only: [:index]
+    resources :store_staff, only: [:index]
   end #End of erp
 
   #Api
