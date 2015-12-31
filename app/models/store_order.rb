@@ -86,7 +86,19 @@ class StoreOrder < ActiveRecord::Base
 
   def finish!
     self.task_finished! if workflows_finished?
-    self.finished! if self.task_finished? && self.pay_finished?
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def terminate!
+    self.task_finished!
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def terminate
+    ActiveRecord::Base.transaction do
+      self.terminate!
+      self.workflows.map(&:terminate!)
+    end
   end
 
   def workflows_finished?

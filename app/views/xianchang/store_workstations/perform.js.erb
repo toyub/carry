@@ -6,5 +6,5 @@
   $("#workstation-<%= @workstation.id %> .idle_station").remove();
   $("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation} %>");
 <% else %>
-    $(".js-finished-orders").prepend("<%= j render partial: 'order', locals: {order: @store_order} %>")
+  $(".js-finished").prepend("<%= j render partial: 'order', locals: {order: @store_order} %>")
 <% end -%>

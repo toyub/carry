@@ -84,12 +84,12 @@
     </ul>
   </div>
 
-  <div class="construction_site margin-top-50 do_wrap">
+  <div class="construction_site margin-top-50 do_wrap js-finished-orders">
     <div class="title bg-color-36a54a ">
       <span>完工</span>
       <span><i class="fa fa-ban font-28"></i></span>
     </div>
-    <ul class="completion js-finished-orders">
+    <ul class="completion js-finished">
       <%= render partial: "order", collection: @finished_orders, as: :order %>
     </ul>
   </div>
@@ -188,6 +188,34 @@ $(document).on("drop", "li.js-station", function(e){
               url: "/xianchang/store_workstations/" + $(target).data("id") + "/perform",
               method: "PUT",
               data: {order_id: order.id}
+            })
+          }
+        })
+      }
+    }
+    return false;
+})
+
+$(document).on("dragover", "div.js-finished-orders", function(e){
+    if (e.preventDefault) e.preventDefault();
+    return false;
+})
+
+$(document).on("drop", "div.js-finished-orders", function(e){
+    if (e.stopPropagation) e.stopPropagation();
+    var data = e.originalEvent.dataTransfer.getData("application/json");
+    if(data){
+      var order = JSON.parse(data);
+      var tip = "结束订单后，将不能返回，确认？";
+      var target = $(e.target);
+      if($(target).find(".js-finished").length > 0){
+        $.confirm({
+          text: tip,
+          confirm: function(){
+            $.ajax({
+              url: "/xianchang/store_orders/" + order.id + "/terminate",
+              method: "PUT",
+              data: {from: order.state}
             })
           }
         })

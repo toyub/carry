@@ -122,7 +122,9 @@ Rails.application.routes.draw do
       put :finish, on: :member
       put :perform, on: :member
     end
-    resources :store_orders, only: [:show]
+    resources :store_orders, only: [:show] do
+      put :terminate, on: :member
+    end
     resources :store_workflows, only: [:edit, :update]
   end
 

@@ -60,6 +60,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def elapsed_time
+    return 0 unless self.started_time
     ((Time.now - self.started_time)/60).ceil
   end
 
@@ -68,10 +69,14 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def finish!
-    self.store_workstation.idle!
+    self.terminate!
+    self.store_order.finish!
+  end
+
+  def terminate!
+    self.store_workstation.try(:idle!)
     self.finished!
     self.update!(elapsed: actual_time_in_minutes)
-    self.store_order.finish!
   end
 
   private
