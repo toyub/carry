@@ -132,9 +132,14 @@ class Kucun::PhysicalInventoriesController < Kucun::BaseController
 
         outing.total_quantity += item.quantity
         outing.total_amount += item.amount
-        inventory.outing!(item.quantity)
       end
       outing.save!
+      outing.items.each do |item|
+        inventory = item.store_material_inventory
+        @log = InventoryService.new(inventory, current_user).outgo!(item.quantity).loggable!(item)
+        inventory.outing!(item.quantity)
+      end
+
       StorePhysicalInventoryItem.where(id: params[:physical_items]).update_all(status: 1)
     end
     redirect_to review_kucun_physical_inventories_path(store_depot_id: @physical.store_depot_id)
@@ -155,9 +160,15 @@ class Kucun::PhysicalInventoriesController < Kucun::BaseController
         item.amount = item.quantity * item.price
         checkin.quantity += item.quantity
         checkin.amount += item.amount
-        inventory.checkin!(item.quantity)
       end
       checkin.save!
+
+      @checkin.items.each do |item|
+        inventory = item.store_material_inventory
+        @log = InventoryService.new(inventory, current_user).income!(item.quantity, item.cost_price).loggable!(item)
+        inventory.checkin!(item.quantity)
+      end
+
       StorePhysicalInventoryItem.where(id: params[:physical_items]).update_all(status: 1)
     end
     redirect_to review_kucun_physical_inventories_path(store_depot_id: @physical.store_depot_id)
