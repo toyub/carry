@@ -74,7 +74,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def terminate!
-    self.store_workstation.try(:idle!)
+    self.store_workstation.try(:free)
     self.finished!
     self.update!(elapsed: actual_time_in_minutes)
   end

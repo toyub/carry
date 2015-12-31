@@ -7,6 +7,7 @@ class StoreWorkstation < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   scope :of_store, -> (store_id) { where(store_id: store_id) }
+  scope :available, -> { where.not(status: self.statuses[:unavailable]) }
 
   enum status: [:idle, :busy, :unavailable]
 
@@ -25,10 +26,14 @@ class StoreWorkstation < ActiveRecord::Base
   def finish!
     ActiveRecord::Base.transaction do
       current_workflow.finish!
-      self.update!(workflow_id: nil)
-      self.idle!
+      self.free
       SpotDispatchJob.perform_later(self.store_id)
     end
+  end
+
+  def free
+    self.update!(workflow_id: nil)
+    self.idle!
   end
 
   def perform!(store_order)

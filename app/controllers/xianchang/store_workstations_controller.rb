@@ -4,10 +4,15 @@ module Xianchang
 
     def index
       @queuing_orders = current_store.store_orders.queuing
-      @processing_orders = current_store.store_orders.processing
-      @paying_orders = current_store.store_orders.paying
-      @finished_orders = current_store.store_orders.finished
 
+      @processing_orders_count = current_store.store_orders.processing.count
+      @paying_orders_count = current_store.store_orders.paying.count
+      @finished_orders_count = current_store.store_orders.finished.count
+      @orders_count = current_store.store_orders.count
+      @pending_orders_count = current_store.store_orders.pending.count
+      @mechanics_count = StoreStaff.mechanics.count
+
+      @task_finished_orders = current_store.store_orders.task_finished
       @workstations = current_store.workstations.order("id asc")
     end
 
