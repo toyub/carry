@@ -7,7 +7,9 @@ module Api
       end
 
       def create
-        group = {id: 23, name: '信心小组'}
+        id = rand(2000)
+        group = params[:group]
+        group[:id] = id
         respond_with group, location: nil
       end
 
