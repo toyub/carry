@@ -1,0 +1,2 @@
+class StoreMaterialOutgo < StoreMaterialLog
+end

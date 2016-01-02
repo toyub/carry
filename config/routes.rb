@@ -349,8 +349,17 @@ Rails.application.routes.draw do
       resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
-      resources :store_repayments
+      resources :store_repayments, only: [:index, :create] do
+        collection do
+          get :finished, :all
+        end
+      end
+      resources :store_assets, only: [:index, :show] do
+        resources :store_asset_items, only: [:show]
+      end
     end
+    resources :vehicle_series, only: [:index]
+    resources :vehicle_models, only: [:index]
   end
 
   resource :session, only: [:new, :create, :destroy, :edit]

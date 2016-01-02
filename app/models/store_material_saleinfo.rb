@@ -16,14 +16,22 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   delegate :name, to: :store_material
 
   def divide_unit_type
-    MaterialDivideUnitType.find(self.unit).try(:name)
+    MaterialDivideUnitType.find(self.divide_unit_type_id).try(:name)
   end
 
   def cost_price_per_unit
-    if self.volume.to_f > 0
-      (self.store_material.cost_price.to_f / self.volume.to_f).round(2)
+    if self.divide_total_volume.present?
+      (self.store_material.cost_price.to_f / self.divide_total_volume.to_f).round(2)
     else
-      '-'
+      self.store_material.cost_price.to_f
+    end
+  end
+
+  def cost_price
+    if self.divide_to_retail
+      cost_price_per_unit
+    else
+      self.store_material.cost_price
     end
   end
 

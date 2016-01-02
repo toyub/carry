@@ -1,8 +1,8 @@
 class StoreCustomerEntity < ActiveRecord::Base
   include BaseModel
 
-  has_one :store_customer, dependent: :destroy
-  has_one :store_customer_settlement, dependent: :destroy
+  has_one :store_customer
+  has_one :store_customer_settlement
   belongs_to :store_customer_category
 
   accepts_nested_attributes_for :store_customer
@@ -55,8 +55,12 @@ class StoreCustomerEntity < ActiveRecord::Base
     extra: '增值税发票'
   }
 
-  def district
-    read_attribute(:district) || {}
+  def settlement_payment_method
+    '现金'
+  end
+
+  def property_name
+    '个人客户'
   end
 
   def province
@@ -77,18 +81,6 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   def filling_date
     self.created_at.strftime("%Y-%m-%d")
-  end
-
-  def property_name
-    PROPERTIES[self.property]
-  end
-
-  def category
-    self.store_customer_category.try(:name)
-  end
-
-  def settlement
-    PAYMENTS[self.store_customer_settlement.payment_mode]
   end
 
   def increase_balance!(amount)
