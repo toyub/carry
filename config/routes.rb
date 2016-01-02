@@ -116,7 +116,7 @@ Rails.application.routes.draw do
 
   namespace :xianchang do
     resources :field_constructions, only: [:index]
-    resources :schedule_personals, only: [:index]
+    resources :groups, only: [:index]
     resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
       post :construction, on: :collection
       put :finish, on: :member
@@ -311,6 +311,11 @@ Rails.application.routes.draw do
         resources :sales, only: [:index]
         resources :vehicles, only: [:index]
       end
+    end
+
+    namespace :osm do
+      resources :groups
+      resources :staff
     end
   end#End of api
 

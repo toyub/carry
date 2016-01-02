@@ -1,0 +1,66 @@
+
+  <div class="main_top">
+    <%= breadcrumb_navigation(['现场', '人员调度']) %>
+  </div>
+  <div class="details">
+    <%= render partial: 'top' %>
+		<div class="search_nav margin-top-20">
+			<div class="item-query">
+				<label class="width-85" >查找技师</label>
+				<input type="text" class="width-150" >
+			</div>
+			<div class="item-query">
+        <a href="javascript:void(0)" class="btn query_btn" >查询</a>
+			</div>
+
+			<div class="item-query margin-left-150">
+				<a href="javascript:void(0)" id="createStaffGroup" class="btn new_btn new_staffgroup">新建</a>
+			</div>
+		</div>
+
+		<div class="staffing">
+			<div class="group_person">
+				<table cellspacing="0" cellpadding="0">
+					<tbody id="staffGroupList"></tbody>
+				</table>
+			</div>
+
+      <div class="no_grouping_staff" >
+        <ul id='pool'></ul>
+      </div>
+		</div>
+	</div>
+<% content_for :javascripts do%>
+<script>
+  jQuery(function(){
+    handle = new $$MIS.GroupsHandleView({
+      urlRoot: '/api/osm/groups'
+    });
+
+    $(document).on('dragstart', 'li[draggable]', function(evt){
+      var oevt = evt.originalEvent;
+      oevt.dataTransfer.setData("Text",oevt.target.id);
+    });
+
+    $(document).on('dragover', 'ul.dropable', function(evt){
+      var oevt = evt.originalEvent;
+      evt.preventDefault();
+      oevt.preventDefault();
+    });
+
+    $(document).on('drop', 'ul.dropable', function(evt){
+      evt.preventDefault();
+      var oevt = evt.originalEvent;
+      var data=oevt.dataTransfer.getData("Text");
+      oevt.target.appendChild(document.getElementById(data));
+    });
+
+    $.get('/api/osm/staff.json', function(staff){
+      var staff_html = staff.map(function(staffi){
+        return '<li class="drag_staff" id="staff_'+ staffi.id +'" draggable="true" >'+ staffi.screen_name +'</li>';
+      });
+      $('#pool').html(staff_html);
+    });
+  })
+</script>
+<% end %>
