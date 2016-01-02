@@ -1435,7 +1435,6 @@ ActiveRecord::Schema.define(version: 20151230121557) do
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
     t.integer  "store_order_item_id"
-
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
