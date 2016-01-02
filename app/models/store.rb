@@ -52,6 +52,8 @@ class Store <  ActiveRecord::Base
   has_many :root_material_categories, -> { where parent_id: 0 },
     class_name: 'StoreMaterialCategory'
 
+  has_many :store_groups
+
   validates :name, presence: true
 
   ENGINEER_LEVEL = {

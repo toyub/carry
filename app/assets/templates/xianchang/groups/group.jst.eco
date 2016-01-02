@@ -11,14 +11,14 @@
 <td>
   <div class="person">
     <span class="person_status bg-color-FD3528">忙</span>
-    <ul class='bussy'></ul>
+    <ul id='group_<%=@id%>_busy' class='busy'></ul>
   </div>
   <div class="person">
     <span class="person_status bg-color-009F3A">空</span>
-    <ul class='ready dropable'></ul>
+    <ul id='group_<%=@id%>_ready' data-group='<%= @id %>' data-work='ready' class='ready <%= "dropable" if @id %>'></ul>
   </div>
   <div class="person">
     <span class="person_status bg-color-FFF03F color-383515">休</span>
-    <ul class='absence dropable'></ul>
+    <ul id='group_<%=@id%>_absence' data-group='<%= @id %>' data-work='absence' class='absence <%= "dropable" if @id %>'></ul>
   </div>
 </td>

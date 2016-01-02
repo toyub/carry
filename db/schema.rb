@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230121557) do
+ActiveRecord::Schema.define(version: 20160102133059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -576,6 +576,27 @@ ActiveRecord::Schema.define(version: 20151230121557) do
   end
 
   add_index "store_files", ["fileable_id", "fileable_type"], name: "fileable", using: :btree
+
+  create_table "store_group_members", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_group_id"
+    t.integer  "member_id"
+    t.integer  "work_status",    default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "store_groups", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "name"
+    t.boolean  "deleted",        default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "store_infos", force: :cascade do |t|
     t.integer  "store_id",                                    null: false
