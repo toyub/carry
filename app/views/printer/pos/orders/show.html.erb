@@ -149,7 +149,7 @@
 					</thead>
 					<tbody>
             <% @store_order.items.services.each do |item| %>
-						<tr data-id="list_service_01">
+						<tr>
 							<td class="<%= 'package_icon' if item.from_customer_asset? %>" ><%= item.orderable.name %></td>
 							<td><%= item.quantity %></td>
 							<td><%= item.retail_price %></td>

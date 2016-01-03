@@ -221,7 +221,7 @@
             <dl>
 
               <dd>
-                <a class="receipt_btn bg-color-CBE19B" href="javascript:void(0)">小票</a>
+                <a class="receipt_btn bg-color-CBE19B js-xiaopiao" href="javascript:void(0);">小票</a>
                 <a class="receipt_btn bg-color-E4BE7F" href="/printer/pos/orders/<%= @id %>" target="_blank">单据</a>
               </dd>
               <% if @can_pay : %>

@@ -370,6 +370,12 @@ Rails.application.routes.draw do
     resources :vehicle_models, only: [:index]
   end
 
+  namespace :receipt do
+    namespace :pos do
+      resources :orders
+    end
+  end
+
   resource :session, only: [:new, :create, :destroy, :edit]
   resource :password do
     collection do
