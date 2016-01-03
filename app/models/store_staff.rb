@@ -173,7 +173,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total
-    store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission }
+    deduct_enabled ? store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission } : 0.0
   end
 
   def self.commission_amount_total
