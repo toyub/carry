@@ -1,0 +1,4 @@
+<li class="js-vehicle <%= 'js-draggable' unless order.task_finished? %>" <%= 'draggable' unless order.task_finished? %> data-order='{"id": <%= order.id %>, "state": "queuing"}' id="<%= 'order-' + order.id.to_s unless order.task_finished? %>">
+  <span><%= order.current_vehicle %></span>
+  <%= image_tag "/images/small_car.png" %>
+</li>

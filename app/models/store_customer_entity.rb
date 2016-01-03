@@ -3,6 +3,7 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   has_one :store_customer
   has_one :store_customer_settlement
+  belongs_to :store_customer_category
 
   accepts_nested_attributes_for :store_customer
   accepts_nested_attributes_for :store_customer_settlement
@@ -53,6 +54,14 @@ class StoreCustomerEntity < ActiveRecord::Base
     common: '普票',
     extra: '增值税发票'
   }
+
+  def settlement_payment_method
+    '现金'
+  end
+
+  def property_name
+    '个人客户'
+  end
 
   def province
     self.district["province"]

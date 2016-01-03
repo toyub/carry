@@ -65,4 +65,17 @@ class StoreService < ActiveRecord::Base
   def vip_price
     0
   end
+
+  def commission(order_item)
+    sum = 0.0
+    if setting.workflows.present?
+      setting.workflows.each do |flow|
+        amount = 0.0
+        amount = flow.engineer_commission.commission(order_item) if flow.engineer_commission.present?
+        sum += amount
+      end
+    end
+    sum
+  end
+
 end
