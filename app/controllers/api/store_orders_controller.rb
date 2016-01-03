@@ -4,6 +4,9 @@ module Api
 
     def index
       orders = StoreOrder.all
+      if params[:license_number]
+        orders = orders.joins(:plate).where(store_vehicle_registration_plates: {license_number: params[:license_number]})
+      end
       render json: orders
     end
 
