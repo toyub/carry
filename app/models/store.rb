@@ -53,6 +53,7 @@ class Store <  ActiveRecord::Base
     class_name: 'StoreMaterialCategory'
 
   has_many :store_groups
+  has_many :store_group_members
 
   validates :name, presence: true
 
