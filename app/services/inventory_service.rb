@@ -42,7 +42,8 @@ class InventoryService
       {
         quantity: @quantity,
         material_cost_price: @store_material.cost_price,
-        inventory_cost_price: @inventory.cost_price
+        inventory_cost_price: @inventory.cost_price,
+        cost_price: @cost_price
       }
   end
 
