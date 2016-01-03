@@ -41,7 +41,8 @@ class InventoryService
   def accruals
       {
         quantity: @quantity,
-        cost_price: @cost_price
+        material_cost_price: @store_material.cost_price,
+        inventory_cost_price: @inventory.cost_price
       }
   end
 
