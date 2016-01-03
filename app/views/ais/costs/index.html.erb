@@ -16,22 +16,22 @@
       <tbody>
         <tr>
           <td>2015-6</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><%= @material.barcode %></td>
+          <td><%= @material.name %></td>
+          <td><%= @material.speci %></td>
+          <td><%= StoreMaterialUnit.find(@material.store_material_unit_id).name %></td>
+          <td><%= @intial_income.openings['inventory_cost_price'] %></td>
+          <td><%= @intial_income.openings['inventory_quantity'] %></td>
+          <td><%= @intial_income.openings_amount %></td>
+          <td><%= @current_income.accruals['cost_price'] %></td>
+          <td><%= @current_income.accruals['quantity'] %></td>
+          <td><%= @current_income.accruals_amount %></td>
+          <td><%= @current_outgo.accruals['cost_price'] %></td>
+          <td><%= @current_outgo.accruals['quantity'] %></td>
+          <td><%= @current_outgo.accruals_amount %></td>
+          <td><%= @current_outgo.closings['inventory_cost_price'] %></td>
+          <td><%= @current_outgo.closings['inventory_quantity'] %></td>
+          <td><%= @current_outgo.closings_amount %></td>
         </tr>
       </tbody>
     </table>

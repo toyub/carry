@@ -26,12 +26,17 @@ class StoreMaterial < ActiveRecord::Base
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_package_items, as: :package_itemable
 
+  has_many :incomes, class_name: "StoreMaterialIncome"
+  has_many :outgos, class_name: "StoreMaterialOutgo"
+
   scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}%")}
   scope :by_sub_category, -> (category) {where(store_material_category_id: category) if category.present?}
   scope :by_primary_category, -> (category) {where(store_material_root_category_id: category) if category.present? }
   scope :keyword, -> (keyword){ where('name like :keyword', keyword: "%#{keyword}%") if keyword.present?  }
 
   after_create :generate_barcode!
+
+  CURRENT_MONTH = Date.today.strftime("%Y%m")
 
   def inventory(depot_id=nil)
     count_scope = self.store_material_inventories
@@ -58,6 +63,19 @@ class StoreMaterial < ActiveRecord::Base
   def root_category_id
     self.store_material_root_category_id
   end
+
+  def initial_income
+    incomes.where(created_month: (Date.today - 1.month).strftime("%Y%m")).last
+  end
+
+  def current_income
+    incomes.where(created_month: CURRENT_MONTH).last
+  end
+
+  def current_outgo
+    outgos.where(created_month: CURRENT_MONTH).last
+  end
+
   private
   def generate_barcode!
     unless self.barcode.present?
