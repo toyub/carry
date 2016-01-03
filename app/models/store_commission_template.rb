@@ -37,10 +37,19 @@ class StoreCommissionTemplate < ActiveRecord::Base
     when 0 #"标准提成"
       section = sections.where(mode_id: mode_id).last
       amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.amount
-    when 1 #"阶梯提成" 
+    when 1 #"阶梯提成"
       section = sections.where(mode_id: mode_id).where("min < ?", order_item.quantity).last
       amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.amount
     when 2 #"分段提成"
+      within_secs = sections.where(mode_id: mode_id).where("max < ?", order_item.quantity)
+      return 0.0 if within_secs.empty?
+      sec = sections.where(mode_id: mode_id).where("max > ?", order_item.quantity).first || within_secs.last
+      excess = order_item.quantity - within_secs.last.max
+
+      within_secs.each do |section|
+        amount += section.type_id == 0 ? section.amount : (section.amount/100).to_f * section.max
+      end
+      amount += sec.type_id == 0 ? sec.amount : (sec.amount/100).to_f * excess
     end
   end
 end
