@@ -27,6 +27,11 @@ class StoreOrderItem < ActiveRecord::Base
     ['王晓勇', '李明亮']
   end
 
+  def from_customer_asset?
+    @s ||= rand(2)
+    @s == 1
+  end
+
   def workflow_mechanics
     self.store_service_snapshot.workflow_snapshots
   end

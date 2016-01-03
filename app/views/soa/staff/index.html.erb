@@ -38,6 +38,7 @@
           <th class="border-right-0"></th>
           <th >员工姓名</th>
           <th >员工号</th>
+          <th>职务属性</th>
           <th >部门</th>
           <th >职务</th>
           <th>等级</th>
@@ -49,7 +50,6 @@
           <th>提成</th>
           <th>考核</th>
           <th>奖励</th>
-          <th>忠诚度</th>
           <th> 操作</th>
         </tr>
       </thead>
@@ -59,6 +59,7 @@
           <td class="number"><%= idx + 1 %></td>
           <td><a href="<%= soa_staff_path(staff) %>"><%= staff.screen_name %></a></td>
           <td><%= staff.numero %></td>
+          <td><%= staff.job_type.try :name %></td>
           <td><%= staff.store_department.try(:name) %></td>
           <td><%= staff.store_position.try(:name) %></td>
           <td><%= StoreStaffLevel.find(staff.level_type_id).try(:name) %></td>
@@ -74,7 +75,6 @@
           <td>975.00</td>
           <td><%= staff.store_events.total_pay_of_type_per_month + staff.store_events.total_pay_of_type_per_month("StorePenalty") %> </td>
           <td><%= staff.store_events.total_pay_of_type_per_month("StoreReward") + staff.store_events.total_pay_of_type_per_month("StoreOvertime")%></td>
-          <td></td>
           <td><%= link_to '详情', soa_staff_path(staff)%></td>
         </tr>
         <% end %>
