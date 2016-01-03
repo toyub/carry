@@ -89,12 +89,15 @@ Rails.application.routes.draw do
       resources :record, only: :index do
         get "search", on: :collection
       end
+      resources :performs, only: [:index, :show] do
+        get "search", on: :collection
+      end
     end
     resources :events, only: :index
     resources :protocols do
       get 'record', on: :member
     end
-    resources :performance do
+    resources :performance, only: :index do
       get 'search', on: :collection
     end
     resources :salaries do

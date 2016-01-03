@@ -5,6 +5,8 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_department
   belongs_to :store_position
   belongs_to :store_employee
+  has_many :store_orders
+  has_many :store_order_items
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
   has_many :complaints
   has_many :store_protocols, dependent: :destroy
@@ -159,6 +161,30 @@ class StoreStaff <  ActiveRecord::Base
 
   def locked?
     !mis_login_enabled
+  end
+
+  def commission?
+    regular && deduct_enabled
+  end
+
+  def materials_amount_total
+    store_order_items.materials.inject(0) {|sum, item| sum += item.amount }
+  end
+
+  def services_amount_total
+    store_order_items.services.inject(0) {|sum, item| sum += item.amount }
+  end
+
+  def items_amount_total
+    store_order_items.inject(0) {|sum, item| sum += item.amount }
+  end
+
+  def commission_amount_total
+    commission? ? store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission } : 0.0
+  end
+
+  def self.commission_amount_total
+    all.inject(0) {|sum, staff| sum += staff.commission_amount_total }
   end
 
   private

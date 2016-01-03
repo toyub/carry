@@ -4,6 +4,7 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :orderable, polymorphic: true
   belongs_to :store_order
   belongs_to :store_customer
+  belongs_to :store_staff
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
 
@@ -57,6 +58,9 @@ class StoreOrderItem < ActiveRecord::Base
     end
   end
 
+  def commission
+    store_staff.commission? ? orderable.commission(self) : 0.0
+  end
 
   private
 

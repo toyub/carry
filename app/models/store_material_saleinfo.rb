@@ -39,6 +39,10 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     self.reward_points
   end
 
+  def commission(order_item)
+    saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
+  end
+
   def to_snapshot!(order_item)
     self.services.each do |service|
       service.to_snapshot!(order_item)

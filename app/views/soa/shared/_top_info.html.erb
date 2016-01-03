@@ -22,7 +22,7 @@
   <ul>
     <li><%= link_to "基本信息", soa_staff_path(@staff), class: "width-90 #{is_hover("soa/staff", nil, dom_class: "bg-color-fff")}" %></li>
     <li><%= link_to "设置", soa_staff_setting_path(@staff), class: "width-90  #{is_hover("soa/setting", nil, dom_class: "bg-color-fff")}" %></li>
-    <li><%= link_to "绩效提成", soa_performance_path(@staff), class: "width-90  #{is_hover("soa/performance", nil, dom_class: "bg-color-fff")}" %></li>
+    <li><%= link_to "绩效提成", soa_staff_performs_path(staff_id: @staff.id), class: "width-90  #{is_hover("soa/performance", nil, dom_class: "bg-color-fff")}" %></li>
     <li><%= link_to "考勤奖惩", new_soa_staff_event_path(staff_id: @staff.id), class: "width-90  #{is_hover("soa/events", nil, dom_class: "bg-color-fff")}" %></li>
     <li><%= link_to "纪录", soa_staff_record_index_path(staff_id: @staff.id), class: "width-90  #{is_hover("soa/record", nil, dom_class: "bg-color-fff")}" %></li>
   </ul>
