@@ -26,6 +26,8 @@ class StoreOrder < ActiveRecord::Base
 
   validates_presence_of :items, :store_customer, :store_vehicle
 
+  belongs_to :cashier, class_name: 'StoreStaff', foreign_key: 'cashier_id'
+
   def self.today
     where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
   end
