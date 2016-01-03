@@ -63,16 +63,12 @@
           <td><%= staff.store_department.try(:name) %></td>
           <td><%= staff.store_position.try(:name) %></td>
           <td><%= StoreStaffLevel.find(staff.level_type_id).try(:name) %></td>
-          <% if staff.store_protocols.operate_type("StoreQianDingHeTong").size != 0 %>
-            <td><%= staff.store_protocols.operate_type("StoreQianDingHeTong").last.created_at.strftime("%Y-%m-%d") %></td>
-          <% else %>
-            <td>未签订合同</td>
-          <% end %>
+          <td><%= staff.contract.present? ? staff.contact.created_at.strftime("%Y-%m-%d") : "未签订合同" %></td>
           <td><%= staff.terminated_at.present? ? "离职" : "在职" %></td>
           <td><%= staff.insurence_enabled? %></td>
           <td><%= staff.terminated_at.nil? ? 0 : distance_of_time_in_words(Time.now, staff.terminated_at) %></td>
-          <td>11,2789.00</td>
-          <td>975.00</td>
+          <td><%= staff.items_amount_total %></td>
+          <td><%= staff.commission_amount_total %></td>
           <td><%= staff.store_events.total_pay_of_type_per_month + staff.store_events.total_pay_of_type_per_month("StorePenalty") %> </td>
           <td><%= staff.store_events.total_pay_of_type_per_month("StoreReward") + staff.store_events.total_pay_of_type_per_month("StoreOvertime")%></td>
           <td><%= link_to '详情', soa_staff_path(staff)%></td>

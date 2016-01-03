@@ -59,7 +59,7 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def commission
-    store_staff.deduct_enabled ? orderable.commission(self) : 0.0
+    store_staff.commission? ? orderable.commission(self) : 0.0
   end
 
   private

@@ -163,6 +163,10 @@ class StoreStaff <  ActiveRecord::Base
     !mis_login_enabled
   end
 
+  def commission?
+    regular && deduct_enabled
+  end
+
   def materials_amount_total
     store_order_items.materials.inject(0) {|sum, item| sum += item.amount }
   end
@@ -176,7 +180,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total
-    deduct_enabled ? store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission } : 0.0
   end
 
   def self.commission_amount_total
