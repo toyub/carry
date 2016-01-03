@@ -3,15 +3,8 @@
     <%= breadcrumb_navigation(['现场', '人员调度']) %>
   </div>
   <div class="details">
-    <%= render partial: 'top' %>
+    <%= render partial: 'xianchang/partials/top' %>
 		<div class="search_nav margin-top-20">
-			<div class="item-query">
-				<label class="width-85" >查找技师</label>
-				<input type="text" class="width-150" >
-			</div>
-			<div class="item-query">
-        <a href="javascript:void(0)" class="btn query_btn" >查询</a>
-			</div>
 
 			<div class="item-query margin-left-150">
 				<a href="javascript:void(0)" id="createStaffGroup" class="btn new_btn new_staffgroup">添加小组</a>
@@ -53,7 +46,6 @@
       var oevt = evt.originalEvent;
       var data=oevt.dataTransfer.getData("staff");
       var staff_li = document.getElementById(data)
-      oevt.target.appendChild(staff_li);
       var params = {
         store_group_id: this.dataset.group,
         work_status: this.dataset.work
@@ -64,16 +56,19 @@
         contentType: 'application/json',
         data: JSON.stringify(params),
         success: function(){
-          console.log(arguments)
+          oevt.target.appendChild(staff_li);
+          $(this).trigger('hi', staff_li.dataset.staff);
+        },
+        error: function(){
+          ZhanchuangAlert('网络错误，请重试!');
         }
       })
-      $(this).trigger('hi', staff_li.dataset.staff);
     });
 
     $.get('/api/osm/staff.json', function(staff){
       handle.group_members = new $$MIS.GroupMemberCollection(staff);
       staff.forEach(function(staffi){
-        var staff_html = '<li class="drag_staff" data-staff="'+ staffi.id + '" id="staff_'+ staffi.id +'" draggable="true" >'+ staffi.screen_name +'</li>'; 
+        var staff_html = '<li class="drag_staff" data-staff="'+ staffi.id + '" id="staff_'+ staffi.id +'" draggable="true" >'+ staffi.screen_name +'</li>';
         if(!staffi.store_group_member){
           $('#pool').append(staff_html);
         }else{

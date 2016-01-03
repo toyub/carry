@@ -30,6 +30,18 @@ class StoreOrder < ActiveRecord::Base
     where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
   end
 
+  def self.counts_by_state(date_time = Time.now)
+    counts = self.where('created_at BETWEEN ? AND ?', date_time.beginning_of_day, date_time.end_of_day)
+                 .group(:state).count(:id)
+    {
+      pending: counts[StoreOrder.states[:pending]].to_i,
+      queuing: counts[StoreOrder.states[:queuing]].to_i,
+      processing: counts[StoreOrder.states[:processing]].to_i,
+      paying: counts[StoreOrder.states[:paying]].to_i,
+      finished: counts[StoreOrder.states[:finished]].to_i
+    }
+  end
+
   def paid?
     self.pay_hanging? || self.pay_finished?
   end
