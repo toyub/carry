@@ -116,7 +116,16 @@ Rails.application.routes.draw do
 
   namespace :xianchang do
     resources :field_constructions, only: [:index]
-    resources :schedule_personals, only: [:index]
+    resources :groups, only: [:index]
+    resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
+      post :construction, on: :collection
+      put :finish, on: :member
+      put :perform, on: :member
+    end
+    resources :store_orders, only: [:show] do
+      put :terminate, on: :member
+    end
+    resources :store_workflows, only: [:edit, :update]
   end
 
   namespace :sas do
@@ -239,7 +248,6 @@ Rails.application.routes.draw do
       resources :store_service_reminds, only: [:update]
       resources :store_service_trackings, only: [:create, :update, :destroy]
     end
-
     resources :store_vehicles, only: [:index, :show] do
       collection do
         get :search
@@ -249,7 +257,6 @@ Rails.application.routes.draw do
     resources :store_orders, only: [:index, :show, :create] do
       resources :complaints, only:[:new, :create]
     end
-
     resources :store_subscribe_orders
 
     resources :store_packages, only: [:show, :create, :update, :index] do
@@ -304,6 +311,11 @@ Rails.application.routes.draw do
         resources :sales, only: [:index]
         resources :vehicles, only: [:index]
       end
+    end
+
+    namespace :osm do
+      resources :groups
+      resources :staff
     end
   end#End of api
 

@@ -52,6 +52,18 @@ class StoreCustomer < ActiveRecord::Base
     self.creator.screen_name
   end
 
+  def property
+    self.store_customer_entity.property_name
+  end
+
+  def category
+    self.store_customer_entity.category
+  end
+
+  def settlement
+    self.store_customer_entity.settlement
+  end
+
   def account
     StoreCustomerAccount.new(self)
   end

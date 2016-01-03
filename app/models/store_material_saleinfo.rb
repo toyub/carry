@@ -7,7 +7,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   belongs_to :saleman_commission_template,
                           class_name: 'StoreCommissionTemplate', foreign_key: 'saleman_commission_template_id'
 
-  has_many :services, class_name:'StoreMaterialSaleinfoService'
+  has_many :services, class_name:'StoreMaterialSaleinfoService', dependent: :delete_all
   has_many :store_subscribe_order_items, as: :itemable
   has_many :store_order_items, as: :orderable
 
@@ -37,5 +37,11 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   def point
     self.reward_points
+  end
+
+  def to_snapshot!(order_item)
+    self.services.each do |service|
+      service.to_snapshot!(order_item)
+    end
   end
 end
