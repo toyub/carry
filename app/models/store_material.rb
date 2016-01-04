@@ -1,6 +1,14 @@
 class StoreMaterial < ActiveRecord::Base
   include BaseModel
 
+  validates :store_material_root_category_id,
+            :store_material_category_id,
+            :store_material_unit_id,
+            :store_material_manufacturer_id,
+            :store_material_brand_id,
+            :name,
+            presence: true
+
   belongs_to :store_material_unit
   belongs_to :store_material_brand
   belongs_to :store_material_category
@@ -42,10 +50,18 @@ class StoreMaterial < ActiveRecord::Base
   def category
     self.store_material_category.try(:name)
   end
+
+  def category_id
+    self.store_material_category_id
+  end
+
+  def root_category_id
+    self.store_material_root_category_id
+  end
   private
   def generate_barcode!
     unless self.barcode.present?
-      self.barcode = format('N%s%s', self.store_id.to_s(36).upcase.rjust(5, '0'), self.id.to_s(36).upcase.rjust(5, '0'))
+      self.barcode = "N#{self.id.to_s(36).upcase.rjust(12, '0')}"
       self.save
     end
   end

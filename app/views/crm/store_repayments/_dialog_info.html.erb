@@ -1,0 +1,22 @@
+<table class="detail" id="js-detail-<%= order.id%>" >
+  <thead>
+    <tr>
+      <th>项目&amp;产品</th>
+      <th>单价</th>
+      <th>数量</th>
+      <th>优惠</th>
+      <th>小计</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% order.items.each do |item| %>
+      <tr>
+        <td> <%= item.orderable.name %> </td>
+        <td> <%= item.price %> </td>
+        <td> <%= item.quantity %> </td>
+        <td> <%= item.discount %> </td>
+        <td> <%= item.amount %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

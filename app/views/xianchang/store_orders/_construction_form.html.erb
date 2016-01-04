@@ -1,0 +1,24 @@
+<%= form_tag "/xianchang/store_workstations/construction", remote: true do -%>
+  <h2>编辑施工信息</h2>
+  <div class="constrction_info_tab">
+    <table cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>流程</th>
+          <th>工位</th>
+          <th>用时(分钟)</th>
+          <th>技师</th>
+          <th>检验</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= render partial: 'service', collection: order.store_service_snapshots, as: :service %>
+      </tbody>
+    </table>
+  </div>
+  <div class="btn_group float-right margin-top-20">
+    <a class="cancel_btn btn js-close-construction-form">取消</a>
+    <%= submit_tag "保存", class: "save_btn btn" %>
+  </div>
+<% end -%>

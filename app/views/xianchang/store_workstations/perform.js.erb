@@ -1,0 +1,10 @@
+<% if @idle_workstation.present? -%>
+  $("#workstation-<%= @idle_workstation.id %> .vehicle_info").remove();
+  $("#workstation-<%= @idle_workstation.id %>").append("<%= j render partial: 'idle_workstation' %>");
+<% end -%>
+<% unless @store_order.task_finished? -%>
+  $("#workstation-<%= @workstation.id %> .idle_station").remove();
+  $("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation} %>");
+<% else %>
+  $(".js-finished").prepend("<%= j render partial: 'order', locals: {order: @store_order} %>")
+<% end -%>

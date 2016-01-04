@@ -1,0 +1,22 @@
+<% content_for :pre_assets do %>
+  <%= stylesheet_link_tag "/stylesheets/kehu.css" %>
+<% end %>
+
+<%= render '/crm/common/page_head' %>
+
+<div class="details">
+
+  <%= render '/crm/common/customer_nav' %>
+
+  <div class="details_content">
+    <div class="base_info">
+
+      <%= render "consumption_category" %>
+
+      <div class="used-history-area">
+        <%= render 'deposit_records_wrap' %>
+      </div>
+
+    </div>
+  </div>
+</div>

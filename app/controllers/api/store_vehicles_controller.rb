@@ -14,11 +14,10 @@ module Api
 
     def search
       if params[:q]
-        @store_vehicle_registration_plates = StoreVehicleRegistrationPlate.where("license_number like ?", "%#{params[:q]}%")
-        store_vehicle_ids = @store_vehicle_registration_plates.pluck(:store_vehicle_id)
+        @store_vehicles = current_store.store_vehicles.joins(vehicle_plates: :plate).
+          where('license_number like ?', "%#{params[:q]}%")
 
-        @store_vehicles = StoreVehicle.where(id: store_vehicle_ids)
-        results = @store_vehicles.map{ |store_vehicle| {id: store_vehicle.id, text: store_vehicle.registration_plate.license_number } }
+        results = @store_vehicles.map{ |store_vehicle| {id: store_vehicle.id, text: store_vehicle.license_number } }
 
         render json: {items: results}
       else

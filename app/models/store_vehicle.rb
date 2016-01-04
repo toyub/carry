@@ -2,15 +2,14 @@ class StoreVehicle < ActiveRecord::Base
   include BaseModel
 
   belongs_to :store_customer
+  belongs_to :store_staff
 
   belongs_to :vehicle_brand
   belongs_to :vehicle_model
   belongs_to :vehicle_series
-  belongs_to :store_customer
-  belongs_to :store_staff
 
   # 车牌
-  has_many :vehicle_plates
+  has_many :vehicle_plates, dependent: :destroy
   has_many :plates, through: :vehicle_plates
 
   # 发动机
@@ -23,7 +22,21 @@ class StoreVehicle < ActiveRecord::Base
   has_many :orders, class_name: "StoreOrder"
   has_many :complaints, as: :creator
 
-  delegate :license_number, to: :registration_plate
+  validates_presence_of :store_customer
+  
+  has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_vehicle_id
+
+  def license_number
+    if current_plate.present?
+      current_plate.license_number
+    else
+      nil
+    end
+  end
+
+  def current_plate
+    self.vehicle_plates.last.try(:plate)
+  end
 
   accepts_nested_attributes_for :frame
   accepts_nested_attributes_for :plates

@@ -1,0 +1,2 @@
+class StoreCustomerPackagedService < StoreCustomerAsset
+end

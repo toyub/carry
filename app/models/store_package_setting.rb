@@ -5,4 +5,6 @@ class StorePackageSetting < ActiveRecord::Base
   has_many :items, class_name: 'StorePackageItem', dependent: :delete_all
 
   accepts_nested_attributes_for :items, allow_destroy: true
+
+  
 end

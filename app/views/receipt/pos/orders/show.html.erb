@@ -1,0 +1,143 @@
+
+<div class="receipt_wrap">
+  <div class="title">
+    <h1>欢迎光临</h1>
+    <h2><%= @store_order.store.name %></h2>
+  </div>
+
+  <div class="receipt">
+    <div class="abstract">
+      <p>
+        <label class="receipt_label">日期：</label><span class="receipt_control"><%= @store_order.created_at.strftime('%Y/%m%d/%H:%M') %></span>
+      </p>
+      <p>
+        <label class="receipt_label">订单号：</label><span class="receipt_control"><%= @store_order.numero %></span>
+      </p>
+      <p>
+        <label class="receipt_label">开单：</label><span class="receipt_control"><%= @store_order.creator.try :full_name %></span>
+      </p>
+      <p>
+        <label class="receipt_label">收银员：</label><span class="receipt_control"><%= @store_order.cashier.try :full_name %></span>
+      </p>
+
+    </div>
+
+    <div class="commodity">
+      <h2>商品明细</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>商品名称</th>
+            <th>规格</th>
+            <th>数量</th>
+            <th>金额</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @store_order.items.materials.each do |item| %>
+          <tr>
+            <td><%= item.orderable.name %></td>
+						<td><%= item.orderable.store_material.speci %></td>
+            <td><%= item.quantity %></td>
+            <td><%= item.amount %></td>
+          </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              <label class="num_label">商品金额总计：</label>
+              <span class="num_span"><%= @store_order.items.materials.sum(:amount) %></span>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+
+    <div class="service">
+      <h2>服务明细</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>技师</th>
+            <th>金额</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @store_order.items.services.each do |item| %>
+          <tr>
+            <td class="<%= 'package_icon' if item.from_customer_asset? %>" ><%= item.orderable.name %></td>
+            <td><label class="technician">王斌</label><label class="technician">王斌</label><label class="technician">姜河胡海</label><label class="technician">王斌王斌</label></td>
+            <td class="<%= 'text-decoration-linethrough' if item.from_customer_asset? %>"><%= item.amount %></td>
+          </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">
+              <label class="num_label">服务金额总计：</label>
+              <span class="num_span"><%= @store_order.items.services.map{|item| item.from_customer_asset? ? 0 : item.amount}.sum %></span>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="packages">
+      <h2>套餐/储值明细</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>数量</th>
+            <th>金额</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @store_order.items.packages.each do |item| %>
+          <tr>
+            <td><%= item.orderable.name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= item.amount %></td>
+          </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">
+              <label class="num_label">套餐/储值金额总计：</label>
+              <span class="num_span"><%= @store_order.items.packages.sum(:amount) %></span>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="total">
+      <p>
+        <label class="total_label">消费金额总计：</label>
+        <span class="total_span"><%= @store_order.amount %></span>
+      </p>
+
+      <p>
+        <label class="total_label">优惠：</label>
+        <span class="total_span"><%= @store_order.items.sum(:discount) %></span>
+      </p>
+
+      <p>
+        <label class="total_label">实收金额：</label>
+        <span class="total_span"><%= @store_order.amount %></span>
+      </p>
+    </div>
+
+    <div class="payment">
+      <h2>收款信息</h2>
+      <% @store_order.payments.each do |payment| %>
+      <p><label class="payment_label"><%= payment.payment_method_cn_name %></label><span class="payment_span"><%= payment.amount %></span></p>
+      <% end %>
+    </div>
+
+  </div>
+</div>

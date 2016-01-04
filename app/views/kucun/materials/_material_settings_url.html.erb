@@ -1,0 +1,12 @@
+<ul>
+  <li class="<%= is_hover 'materials', 'kucun', dom_class: ' bg-color-fff' %>"><a href="<%= kucun_material_path(@store_material) %>" class="width-90">商品信息</a></li>
+<% if @store_material.permitted_to_saleable %>
+  <li class="width-90 <%= is_hover 'saleinfos', 'kucun', dom_class: ' bg-color-fff' %>"><a href="<%= kucun_material_saleinfo_path(@store_material) %>" class="width-90">销售设置</a></li>
+  <li class="width-90 <%= is_hover 'trackings', 'kucun',  dom_class: ' bg-color-fff' %>"><a href="<%= kucun_material_tracking_path(@store_material) %>" class="width-90">回访</a></li>
+  <li class="width-90 <%= is_hover 'material_sales', 'kucun',  dom_class: ' bg-color-fff' %>"><a href="<%= kucun_material_material_sales_path(@store_material) %>" class="width-90">记录</a></li>
+<% else %>
+  <li class="width-90 <%= is_hover 'saleinfos', 'kucun', dom_class: ' bg-color-fff' %>"><a href="javascript: alert('商品被设置为内部使用， 请先开启销售选项！')" class="width-90">销售设置</a></li>
+  <li class="width-90 <%= is_hover 'trackings', 'kucun',  dom_class: ' bg-color-fff' %>"><a href="javascript: alert('商品被设置为内部使用， 请先开启销售选项！')" class="width-90">回访</a></li>
+  <li class="width-90 <%= is_hover 'material_sales', 'kucun',  dom_class: ' bg-color-fff' %>"><a href="javascript: alert('商品被设置为内部使用， 请先开启销售选项！')" class="width-90">记录</a></li>
+<% end %>
+</ul>

@@ -37,7 +37,7 @@
           <td colspan="3">
             <label for="engineer_level">技师级别限定</label>
             <select class="width-106 margin-right-14" id="engineer_level" name="engineer_level" disabled>
-              <option value=""></option>
+              <option value="">请选择</option>
               <% _.each @store.get('engineer_levels'), (value, key) -> :%>
                 <option value="<%= key %>"><%= value %></option>
               <% end %>

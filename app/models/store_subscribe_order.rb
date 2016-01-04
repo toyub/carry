@@ -11,7 +11,6 @@ class StoreSubscribeOrder < ActiveRecord::Base
   before_create :default_state_order_type
 
   accepts_nested_attributes_for :items
-  
   def fake_data
     [
       '2015-7-19',
@@ -26,7 +25,6 @@ class StoreSubscribeOrder < ActiveRecord::Base
       '王丽丽'
     ]
   end
-  
   private
 
     def default_state_order_type

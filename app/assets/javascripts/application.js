@@ -30,12 +30,14 @@
 //= require 'piccut/1.0.0'
 //= require 'piccut/1.0.1'
 //= require 'select2'
+//= require 'select2/zh-CN'
 //= require number_input
 //= require uploader/image
 //= require dialogs/upload
 //= require dialogs/piccut
 //= require dialogs/form
 //= require jquery_ext/jquery.datetimepicker
+//= require 'echarts/2.2.7'
 //= require payment_methods
 
 function ZhanchuangAlert(msg) {

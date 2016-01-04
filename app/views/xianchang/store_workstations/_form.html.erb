@@ -1,0 +1,43 @@
+<div id="FloatWindow" class="js-dialog" style="display: flex;">
+  <div class="FloatContent ">
+    <header class="bg-color-395C61"></header>
+    <div class="fheader">
+      <span class="color-395C61">新建工位</span>
+      <i class="lnr lnr-cross close_window do_close color-395C61 js-close"></i>
+    </div>
+
+    <%= form_for @workstation, url: url, html: {class: 'form_content'}, remote: true do |f| %>
+      <div class="new_info">
+        <div class="form_item">
+          <%= f.label :name, "工位名称"%>
+          <%= f.text_field :name %>
+        </div>
+        <div class="form_item">
+          <%= f.label :color, '工位颜色' %>
+          <%= f.color_field :color, class: "width-165"%>
+        </div>
+        <div class="form_item">
+          <%= f.label :store_workstation_category_id, '小组' %>
+          <%= f.select :store_workstation_category_id, {}, {}, class: 'width-167' %>
+        </div>
+        <div class="form_item">
+          <label for="">工位状态</label>
+          <label for="">
+            <input type="radio" name="store_workstation[status]" value="unavailable" <%= 'checked' if @workstation.unavailable? %>>停用
+          </label>
+          <label for="">
+            <input type="radio" name="store_workstation[status]" value="idle" <%= 'checked' if @workstation.idle?  %>>启用
+          </label>
+        </div>
+      </div>
+      <div class="prompt">
+        <h2>提示:</h2>
+        <p>您可以通过区域归类来进行工位的集中管理,并可以对工位区域标注特定的颜色以便快速鉴别,还可以通过功能区进行再次调整.</p>
+      </div>
+      <div class="ffooter float-right">
+        <%= f.submit "保存", class: 'confirm_btn do_close' %>
+        <input type="reset" name="commit" value="取消" class="cancel_btn do_close js-close">
+      </div>
+    <% end %>
+  </div>
+</div>

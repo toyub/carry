@@ -4,13 +4,15 @@ module Api
 
     def create
       order = StoreOrder.find(params[:order_id])
-      paid_amount = payment_params[:payments].map { |payment| payment[:amount]  }.sum
+      paid_amount = payment_params[:payments].map { |payment| payment[:amount].to_f  }.sum
       if(order.amount != paid_amount)
         render json: {checked: false, msg: 'Payments amount is not equal!'}
         return
       end
 
       if(StoreOrderArchive.new(fill_payments_with_order(payment_params[:payments], order), order).reform)
+        order.cashier = current_staff
+        order.save!
         render json: {checked: true, msg: 'Checked!'}
       else
         render json: {checked: false, msg: 'System error!'}

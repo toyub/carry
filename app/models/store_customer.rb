@@ -15,12 +15,29 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :store_repayments
 
+  has_many :assets, class_name: 'StoreCustomerAsset'
+  has_many :deposit_logs, class_name: "StoreCustomerDepositLog"
+
+  has_many :store_customer_deposit_cards
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
   accepts_nested_attributes_for :taggings
 
   before_save :set_full_name
+
+  def deposit_cards_assets
+    assets.where(type: "StoreCustomerDepositCard")
+  end
+
+  def packaged_assets
+    assets.where(type: "StoreCustomerPackagedService")
+  end
+
+  def taozhuang_assets
+    assets.where(type: "StoreCustomerTaozhuang")
+  end
 
   def age
     now = Time.now.to_date
@@ -33,6 +50,26 @@ class StoreCustomer < ActiveRecord::Base
 
   def operator
     self.creator.screen_name
+  end
+
+  def property
+    self.store_customer_entity.property_name
+  end
+
+  def category
+    self.store_customer_entity.category
+  end
+
+  def settlement
+    self.store_customer_entity.settlement
+  end
+
+  def account
+    StoreCustomerAccount.new(self)
+  end
+
+  def vip?
+    @vip ||= self.store_customer_deposit_cards.count(:id) > 0
   end
 
   private

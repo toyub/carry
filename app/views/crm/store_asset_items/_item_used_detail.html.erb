@@ -1,0 +1,30 @@
+<h3>消费明细</h3>
+<table class="table-head">
+  <thead>
+    <tr>
+      <th>使用时间</th>
+      <th>订单号</th>
+      <th>所属门店</th>
+    </tr>
+  </thead>
+</table>
+
+<div class="table-content-wrap">
+  <table class="table-content">
+    <tbody>
+
+      <% if @logs.present? %>
+        <% @logs.each do |log| %>
+          <tr>
+            <td><%= log.created_at.strftime("%y-%m-%d") %></td>
+            <td><%= log.store_order.numero %></td>
+            <td><%= log.store.name %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <h2 class='text-align-center'>该项目还未使用过:)</h2>
+      <% end %>
+
+    </tbody>
+  </table>
+</div>
