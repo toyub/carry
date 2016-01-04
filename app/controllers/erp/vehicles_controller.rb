@@ -1,9 +1,10 @@
 module Erp
   class VehiclesController < BaseController
-    before_action :set_customer, :set_vehicle, only: [:show]
+    before_action :set_customer
+    before_action :set_vehicle, only: [:show]
 
     def index
-      @vehicles = StoreVehicle.where('store_customer_id IN (?)', current_store_chain.store_customers.ids)
+      @vehicles = @customer.store_vehicles
       respond_with @vehicles, location: nil
     end
 
