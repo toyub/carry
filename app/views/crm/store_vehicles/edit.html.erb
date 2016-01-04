@@ -19,8 +19,7 @@
             <div class="car_info">
               <div class="items">
                 <%= form_for @vehicle, url: crm_store_customer_store_vehicle_path do |f| %>
-                  <%= render 'show_form' %>
-                  <%= render 'form', f: f %>
+                  <%= render 'edit_form', f: f %>
                   <div class="btn_group">
                     <%= f.submit '保存', class: 'save_btn btn' %>
                   </div>
@@ -38,5 +37,9 @@
       lang: 'ch',
       timepicker: false
     });
+
+    $('.readonly').keydown(function(e){
+      e.preventDefault();
+    })
   });
 </script>
