@@ -64,16 +64,16 @@ class StoreMaterial < ActiveRecord::Base
     self.store_material_root_category_id
   end
 
-  def initial_income
-    incomes.where(created_month: 1.month.ago.strftime("%Y%m")).last
+  def initial_income(prev_month = 1.month.ago.strftime("%Y%m"))
+    incomes.where(created_month: prev_month).last
   end
 
-  def current_incomes
-    incomes.where(created_month: CURRENT_MONTH)
+  def current_incomes(month = CURRENT_MONTH)
+    incomes.where(created_month: month)
   end
 
-  def current_outgos
-    outgos.where(created_month: CURRENT_MONTH)
+  def current_outgos(month = CURRENT_MONTH)
+    outgos.where(created_month: month)
   end
 
   private
