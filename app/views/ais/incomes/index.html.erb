@@ -9,13 +9,24 @@
   <%= render 'search'%>
 
     <div class="incomes">
-
       <%= render 'item_category' %>
-
-      <%= render "list_items" %>
+      <div class="order-items">
+        <%= render "order_items", order_items: @service_categories.first.order_items %>
+      </div>
     </div>
 
   </div>
 
 </div>
 
+<script type="text/javascript" charset="utf-8">
+  jQuery(function(){
+    $(".sale-category").on('click', 'tr', function(){
+      var url = '/ais/categories/' + $(this).data('category-id') + '/order_items';
+      $.get(url, function(){
+        return;
+      })
+    })
+  })
+  
+</script>

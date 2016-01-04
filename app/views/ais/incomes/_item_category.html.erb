@@ -7,12 +7,20 @@
     </tr>
   </thead>
 
-  <tbody>
-    <tr>
-      <td>清洗服务</td>
-      <td>44</td>
-      <td>6,280.00</td>
-    </tr>
-
+  <tbody class="sale-category">
+    <% @service_categories.each do |category| %>
+      <tr data-category-id='<%= category.id %>'>
+        <td><%= category.name %></td>
+        <td><%= category.items_total_quantity %></td>
+        <td><%= category.items_total_amount %> </td>
+      </tr>
+    <% end %>
+    <% @material_categories.each do |category| %>
+      <tr data-category-id='<%= category.id %>'>
+        <td><%= category.name %></td>
+        <td><%= category.items_total_quantity %></td>
+        <td><%= category.items_total_amount %> </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>

@@ -1,0 +1,31 @@
+<table class="by_item">
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>单号</th>
+      <th>订单金额</th>
+      <th>收款金额</th>
+      <th>收款类型</th>
+      <th>开单</th>
+      <th>收款</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% order_items.each do |item| %>
+    <tr>
+      <td><%= item.store_order.created_at.strftime("%Y-%m-%d") %></td>
+      <td><%= item.store_order.numero %></td>
+      <td><%= item.store_order.amount %></td>
+      <td><%= item.store_order.amount %></td>
+      <td><%= item.store_order.payment_methods %></td>
+      <td><%= item.store_order.creator.full_name %></td>
+      <td><%= item.store_order.payments.first.creator.full_name %></td>
+      <td></td>
+    </tr>
+    <% end %>
+
+  </tbody>
+</table>
+
