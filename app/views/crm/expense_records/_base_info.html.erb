@@ -29,12 +29,8 @@
                     <tbody>
                       <% order.items.each do |item|  %>
                       <tr>
-                        <td>
-                          <% item.workflow_mechanics.each do |workflow_snapshot| %>
-                            <label> <%= workflow_snapshot.engineer %> </label>
-                          <% end %>
-                        </td>
-                        <td> <%= item.store_service_snapshot.name %> </td>
+                        <td><label> <%= item.creator.full_name %> </label></td>
+                        <td> <%= item.orderable.name %> </td>
                         <td> <%= item.price %> </td>
                         <td> <%= item.quantity %> </td>
                         <td>0</td>

@@ -33,7 +33,7 @@ module Crm
     end
 
     def nested_selector
-      -> (k, v) { k.to_s.end_with?('_attributes') }
+      -> (k, v) { k.end_with?('_attributes') }
     end
   end
 end

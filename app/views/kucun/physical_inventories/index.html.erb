@@ -57,16 +57,6 @@
         <dd><%= physical.creator.screen_name %></dd>
       </dl>
       <dl>
-        <dd>是否核销</dd>
-        <dd>
-          <% if physical.pending? %>
-            否 <a href="/kucun/physical_inventories/review?store_depot_id=<%= physical.store_depot_id %>">去核销</a>
-          <% else %>
-            是
-          <% end %>
-        </dd>
-      </dl>
-      <dl>
         <dd><a href="<%= excel_kucun_physical_inventory_path(physical) %>" class="export_btn btn">导出</a></dd>
       </dl>
     </div>

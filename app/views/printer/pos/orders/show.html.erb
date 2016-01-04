@@ -1,45 +1,45 @@
 <div class="order_details">
   <div class="dialog_nav">
-    <span class="dialog_title ">单号: <%= @store_order.numero %></span>
+    <span class="dialog_title ">单号:20141105001</span>
   </div>
   <div class="vehicle_order_details">
     <div class="vehicle_info">
       <div class="vehicle_details_info">
         <div class="item_content">
           <label>车牌号</label>
-          <span><%= @store_order.store_vehicle.license_number %></span>
+          <span>浙A16034</span>
         </div>
         <div class="item_content">
           <label>客户姓名</label>
-          <span><%= @store_order.store_customer.full_name %></span>
+          <span>王</span>
         </div>
         <div class="item_content">
           <label>手机号</label>
-          <span><%= @store_order.store_customer.phone_number %></span>
+          <span>13335930000</span>
         </div>
         <div class="item_content" >
           <label>车辆品牌</label>
-          <span><%= @store_order.store_vehicle.vehicle_brand.try :name %></span>
-        </div>
-        <div class="item_content">
-          <label>车系</label>
-          <span><%= @store_order.store_vehicle.vehicle_series.try :name %></span>
+          <span>宝马</span>
         </div>
         <div class="item_content">
           <label>车型</label>
-          <span><%= @store_order.store_vehicle.vehicle_model.try :name %></span>
+          <span>宝马5系</span>
+        </div>
+        <div class="item_content">
+          <label>车系</label>
+          <span>宝马新5系</span>
         </div>
         <div class="item_content">
           <label>客户属性</label>
-          <span><%= @store_order.store_customer.store_customer_entity.try :property_name %></span>
+          <span>男</span>
         </div>
         <div class="item_content">
           <label>客户类别</label>
-          <span><%= @store_order.store_customer.store_customer_entity.store_customer_category.try :name %></span>
+          <span>个人</span>
         </div>
         <div class="item_content">
-          <label>收款方式</label>
-          <span><%= @store_order.store_customer.store_customer_entity.settlement_payment_method %></span>
+          <label>结算方式</label>
+          <span>现结</span>
         </div>
       </div>
 
@@ -49,44 +49,47 @@
 
         <div class="vehicle_check_point">
           <div class="status">
-            <dl><dd><label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E<input type="range" value="34" disabled style="width: 35.76mm;"> <%=33%>%</dd></dl>
-            <dl><dd><label>行驶公里</label><span class="mileage"><%= @store_order.situation[:km] %></span></dd></dl>
+            <dl><dd><label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E</dd></dl>
+            <dl><dd><label>行驶公里</label><span class="mileage"></span></dd></dl>
           </div>
           <div class="check_point">
             <img src="/images/car_status.png"></td>
-            <input type="checkbox" class="check_point_01" disabled>
-            <input type="checkbox" class="check_point_02" disabled>
-            <input type="checkbox" class="check_point_03" disabled>
-            <input type="checkbox" class="check_point_04" disabled>
-            <input type="checkbox" class="check_point_05" disabled>
-            <input type="checkbox" class="check_point_06" disabled>
-            <input type="checkbox" class="check_point_07" disabled>
-            <input type="checkbox" class="check_point_08" disabled>
-            <input type="checkbox" class="check_point_09" disabled>
-            <input type="checkbox" class="check_point_10" disabled>
-            <input type="checkbox" class="check_point_11" disabled>
-            <input type="checkbox" class="check_point_12" disabled>
+            <input type="checkbox" class="check_point_01 checktoggle"  data-targetnode='check_point_01'>
+            <input type="checkbox" class="check_point_02 checktoggle" data-targetnode='check_point_02'>
+            <input type="checkbox" class="check_point_03 checktoggle" data-targetnode='check_point_03'>
+            <input type="checkbox" class="check_point_04 checktoggle" data-targetnode='check_point_04'>
+            <input type="checkbox" class="check_point_05 checktoggle" data-targetnode='check_point_05'>
+            <input type="checkbox" class="check_point_06 checktoggle" data-targetnode='check_point_06'>
+            <input type="checkbox" class="check_point_07 checktoggle" data-targetnode='check_point_07'>
+            <input type="checkbox" class="check_point_08 checktoggle" data-targetnode='check_point_08'>
+            <input type="checkbox" class="check_point_09 checktoggle" data-targetnode='check_point_09'>
+            <input type="checkbox" class="check_point_10 checktoggle" data-targetnode='check_point_10'>
+            <input type="checkbox" class="check_point_11 checktoggle" data-targetnode='check_point_11'>
+            <input type="checkbox" class="check_point_12 checktoggle" data-targetnode='check_point_12'>
           </div>
           <div class="car_parts">
             <img src="/images/car_parts.png">
             <ul>
-              <li><input type="checkbox" disabled></li>
-              <li><input type="checkbox" disabled></li>
-              <li><input type="checkbox" disabled></li>
-              <li><input type="checkbox" disabled></li>
-              <li><input type="checkbox" disabled></li>
-              <li><input type="checkbox" disabled></li>
-              <li><input type="checkbox" disabled></li>
-              <li><input type="checkbox" disabled></li>
-              <li><input type="checkbox" disabled></li>
+              <% 20.times do %>
+              <li>
+                <input type="checkbox" class=" checktoggle" >
+              </li>
+              <% end %>
             </ul>
           </div>
         </div>
         <div class="vehicle_check_info">
           <label>车况检查记录</label>
           <ul>
-            <% @store_order.situation.each_with_index do |situation, idx| %>
-            <li><%= idx + 1 %>:<span><%=situation[1] %></span></li>
+            <li>1:<span>机盖划伤</span></li>
+            <li>2:<span>机盖划伤</span></li>
+            <li>3:<span>左前大灯裂纹</span></li>
+            <li>4:<span>左前大灯裂纹</span></li>
+            <li>5:<span>左前大灯裂纹</span></li>
+            <li>6:<span>左前大灯裂纹</span></li>
+            <li>7:<span>左前大灯裂纹</span></li>
+            <% 13.times do %>
+            <li>8:<span>左前大灯裂纹</span></li>
             <% end %>
           </ul>
         </div>
@@ -98,41 +101,42 @@
     <div class="vehicle_order">
       <div class="order_info">
         <h2>商品明细</h2>
-				<table cellpadding="0" cellspacing="0" class="commodity_details">
-					<thead>
-						<tr>
-							<th>名称</th>
-							<th>规格</th>
-							<th>数量</th>
-							<th>单价</th>
-							<th>会员/套餐价</th>
-							<th>优惠</th>
-							<th>原因</th>
-							<th>小计</th>
-						</tr>
-					</thead>
-					<tbody>
-            <% @store_order.items.materials.each do |item| %>
-						<tr data-id="list_commodity_01">
-							<td><%= item.orderable.name %></td>
-							<td><%= item.orderable.store_material.speci %></td>
-							<td><%= item.quantity %></td>
-							<td><%= item.retail_price %></td>
-							<td><%= item.vip_price %></td>
-							<td><%= item.discount %></a></td>
-							<td><%= item.discount_reason %></td>
-							<td><%= item.amount %></td>
-						</tr>
+        <table cellpadding="0" cellspacing="0" class="commodity_details">
+          <thead>
+            <tr>
+              <th>名称</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>数量</th>
+              <th>单价</th>
+              <th>属性</th>
+              <th>优惠</th>
+              <th>小计</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% 12.times do %>
+            <tr>
+              <td>米其林</td>
+              <td>195/65/15 XM2 91V</td>
+              <td>条</td>
+              <td>1</td>
+              <td>430.00</td>
+              <td>会员</td>
+              <td>0.00</td>
+              <td>430.00</td>
+            </tr>
             <% end %>
-					</tbody>
-					<tfoot>
-						<tr class="text-align-right">
-							<td colspan="10">
-								<label class="margin-right-10">小结：</label><label> <%= @store_order.items.materials.sum(:amount) %> </label>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="10">
+                <label>商品金额总计:</label><label>9051.70</label>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
 
         <h2>服务明细</h2>
 				<table cellpadding="0" cellspacing="0" class="service_details">
@@ -168,68 +172,63 @@
 						</tr>
 					</tfoot>
 				</table>
-
-        <h2>套餐/储值明细</h2>
-				<table cellpadding="0" cellspacing="0" class="packages">
-					<thead>
-						<tr>
-							<th>项目</th>
-							<th>数量</th>
-							<th>单价</th>
-							<th>小计</th>
-						</tr>
-					</thead>
-					<tbody>
-            <% @store_order.items.packages.each do |item| %>
-						<tr data-id="list_package_01">
-							<td><%= item.orderable.name %></td>
-							<td><%= item.quantity %></td>
-							<td><%= item.retail_price %></td>
-							<td><%= item.amount %></td>
-						</tr>
+            <% 11.times do %>
+            <tr>
+              <td>1</td>
+              <td>澜泰纳米镀晶</td>
+              <td><span >1/3</span></td>
+              <td>套餐</td>
+              <td>868.00</td>
+              <td>0</td>
+              <td>868.00</td>
+            </tr>
             <% end %>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">
-								<label class="margin-right-10">小结：</label><label><%= @store_order.items.packages.sum(:amount) %></label>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-
-        <div class="total_spending ">消费金额总计:<label><%= @store_order.amount %></label></div>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="8">
+                <label class="margin-right-10">服务金额总计:</label><label>936.00</label>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
       </div>
 
     </div>
     <div class="construction">
-			<div class="construction_info">
-				<dl class="table-head">
-					<dt>项目</dt>
-					<dt>流程</dt>
-					<dt>工位</dt>
-					<dt>用时</dt>
-					<dt>技师</dt>
-					<dt>检验</dt>
-				</dl>
-
-				<% 3.times do %>
-				<div class="dl-items">
-					<label  class="dl-dd">途乐打蜡</label>
-				  <% 3.times do %>
-					<dl class="dl-item">
-						<dd>表面清洗</dd>
-						<dd>1号工位</dd>
-						<dd>10分钟</dd>
-						<dd>姜河  刘俊</dd>
-						<dd>张三</dd>
-					</dl>
-					<% end %>
-				</div>
-				<% end %>
-
-			</div>
-		</div>
+      <div class="construction_info">
+        <table cellspacing="0" cellpadding="0">
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th>工位</th>
+              <th>用时</th>
+              <th>技师</th>
+              <th>检验</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>精致洗车精致洗车精致洗车精致洗车</td>
+              <td>洗车1号工位</td>
+              <td>48:55</td>
+              <td><span >李小龙</span> <span>王小斌</span></td>
+              <td>李克勤</td>
+            </tr>
+            <% 10.times do %>
+            <tr>
+              <td>澜泰纳米镀晶</td>
+              <td>洗车1号工位</td>
+              <td>48:55</td>
+              <td><span >李小龙</span> <span>王小斌</span></td>
+              <td>李克勤</td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div class="others">
       <div  class="others_info">
         <dl>
@@ -249,7 +248,7 @@
         </div>
         <div class="participant">
           <dl>
-            <dd><label>开单:</label><span><%= @store_order.creator.full_name %></span></dd>
+            <dd><label>开单:</label><span></span></dd>
             <dd><label>试车员：</label><span></span></dd>
             <dd><label>最终质检员：</label><span></span></dd>
           </dl>

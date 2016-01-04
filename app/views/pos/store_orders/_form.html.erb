@@ -2,8 +2,7 @@
   <div class="main_top"><h2>业务开单</h2></div>
   <div class="details">
     <div class="search_nav">
-      <%#尼玛了，没法修改css，暂时只能这样%>
-       <div class="width-400" style="float: left">
+       <div class="item-query">
         <label>查找车辆</label>
         <select class="width-180 query-license-number js-store-vehicle-license-number-input" name="license-number" ><select>
         <a href="#" class="query_btn btn">查&nbsp;询</a>
@@ -26,12 +25,12 @@
             <%= render partial: 'vehicle' %>
             <%= render partial: 'vehicle_condition' %>
             <%= render partial: 'items' %>
-            <%#= render partial: 'shigong' %>
+            <%= render partial: 'shigong' %>
           </div>
           <div class="construction_status">
             <div class="btn_group">
               <a class="end_construction_btn js-save-for-pending-btn" data-state="pending">保存草稿</a>
-              <a class="go_payment_btn js-save-for-queuing-btn" data-state="queuing">生成订单</a>
+              <a class="go_payment_btn">生成订单</a>
             </div>
           </div>
         </div>

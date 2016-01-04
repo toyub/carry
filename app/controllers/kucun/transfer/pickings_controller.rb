@@ -32,7 +32,6 @@ module Kucun
         StoreMaterialPicking.transaction do
           picking.save
           picking.items.each do |item|
-            @log = InventoryService.new(item.store_material_inventory, current_user).outgo!(item.quantity).loggable!(item)
             item.store_material_inventory.outing!(item.quantity)
           end
         end

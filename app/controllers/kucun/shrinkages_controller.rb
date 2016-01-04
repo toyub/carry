@@ -23,14 +23,9 @@ class Kucun::ShrinkagesController < Kucun::BaseController
         shrinkage.total_quantity += item.quantity
         shrinkage.total_amount += item.amount
 
-
+        item.store_material_inventory.outing!(item.quantity)
       end
       shrinkage.save!
-      shrinkage.items.each do |item|
-        inventory = item.store_material_inventory
-        @log = InventoryService.new(inventory, current_user).outgo!(item.quantity).loggable!(item)
-        inventory.outing!(item.quantity)
-      end
     end
     redirect_to action: 'index'
   end

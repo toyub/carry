@@ -52,7 +52,7 @@
 		</table>
 
 		<h2>服务明细</h2>
-		<table cellpadding="0" cellspacing="0" class="commodity_details vue-service-table-items">
+		<table cellpadding="0" cellspacing="0" class="service_details">
 			<thead>
 				<tr>
 					<th>项目</th>
@@ -64,38 +64,18 @@
 					<th>小计</th>
 				</tr>
 			</thead>
-      <tbody>
-        <tr v-for="item in serviceItems">
-          <td style="display:none" class="service-table-item-id">{{item.id}}</td>
-          <td>{{item.name}}</td>
-          <td>
-            <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
-          </td>
-          <td>{{ item.retail_price }}</td>
-          <td>{{ item.vip_price }}</td>
-          <td>
-            <a href="javascript:void(0)" class="js_discount discount">优惠</a>
-          </td>
-          <td></td>
-          <td>
-            <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
-            <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
-            </span>
-        	</td>
-        </tr>
-      </tbody>
+			<tbody></tbody>
 			<tfoot>
 			  <tr class="text-align-right">
 				  <td colspan="8">
-            <label class="margin-right-10">小结：</label><label>{{totalPrice}}</label>
+						<label class="margin-right-10">小结：</label><label>936.00</label>
 					</td>
 				</tr>
 			</tfoot>
 		</table>
 
     <h2>套餐/储值明细</h2>
-    <table cellpadding="0" cellspacing="0" class="commodity_details vue-package-table-items">
+    <table cellpadding="0" cellspacing="0" class="packages">
         <thead>
           <tr>
             <th>项目</th>
@@ -104,25 +84,11 @@
             <th>小计</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="item in packageItems">
-            <td>{{ item.name }}</td>
-            <td>
-              <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
-            </td>
-            <td>{{ item.retail_price }}</td>
-            <td>
-              <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
-              <span class="delete close">
-                <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
-              </span>
-        	  </td>
-          </tr>
-        </tbody>
+        <tbody></tbody>
         <tfoot>
           <tr>
             <td colspan="8">
-              <label class="js-materil-saleinfo-item-total-price">小结：{{totalPrice}}</label>
+              <label class="margin-right-10">小结：</label><label>5280</label>
             </td>
           </tr>
         </tfoot>

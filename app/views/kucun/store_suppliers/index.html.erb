@@ -5,19 +5,21 @@
   <div class="list_table">
     <div class="search_nav">
       <div class="item-query">
-        <label>查找供应商</label>
-        <input type="text" name='name' class="width-150" placeholder="按供应商名称查找">
+        <label>查找商品供应商</label>
+        <input type="text" class="width-150" placeholder="输入产品关键字或助记码">
       </div>
       <div class="item-query">
         <label>一级分类</label>
-        <select type="text" class="width-150" name='root_category_id'>
-          <option></option>
+        <select type="text" class="width-150">
+        <option></option>
+        <option></option>
         </select>
       </div>
       <div class="item-query">
         <label>二级分类</label>
-        <select type="text" class="width-150" name="category_id">
-          <option></option>
+        <select type="text" class="width-150">
+        <option></option>
+        <option></option>
         </select>
       </div>
       <div class="item-query">
@@ -45,22 +47,24 @@
           <th>结算方式</th>
           <th>结算周期</th>
           <th>结算日</th>
+          <th>余额</th>
           <th>备注</th>
           <th class=""> 操作</th>
         </tr>
       </thead>
       <tbody>
-        <% @store_suppliers.each_with_index do |supplier, idx| %>
+        <% @store_suppliers.each do |supplier| %>
         <tr>
-          <td><%= idx + 1 %></td>
-          <td><%= supplier.numero %></td>
+          <td>1</td>
+          <td>HZ-001</td>
           <td><%= supplier.name %></td>
-          <td><%= supplier.store_material_root_category.try(:name) %></td>
+          <td><%= supplier.store_material_root_category_id %></td>
           <td><%= supplier.contact_name %></td>
           <td><%= supplier.contact_phone_number %></td>
           <td><%= supplier.clearing_mode %></td>
           <td><%= supplier.clearing_cycle %></td>
           <td><%= supplier.clearing_day %></td>
+          <td><%= 0 %></td>
           <td><%= supplier.remark %></td>
           <td class=" ">
             <a href="<%= kucun_store_supplier_path(supplier) %>" class="edit_a"><i class="fa fa-file-text-o "></i></a>

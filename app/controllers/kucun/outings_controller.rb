@@ -30,14 +30,9 @@ class Kucun::OutingsController < Kucun::BaseController
 
         outing.total_quantity += item.quantity
         outing.total_amount += item.amount
-      end
-      outing.save!
-
-      outing.items.each do |item|
-        inventory = item.store_material_inventory
-        @log = InventoryService.new(inventory, current_user).outgo!(item.quantity).loggable!(item)
         inventory.outing!(item.quantity)
       end
+      outing.save!
     end
     redirect_to action: 'index'
   end

@@ -12,7 +12,7 @@ class Kucun::ReturningsController < Kucun::BaseController
 
   def new
     @store = current_store
-
+    
   end
 
   def create
@@ -32,9 +32,7 @@ class Kucun::ReturningsController < Kucun::BaseController
     saved = StoreMaterialReturning.transaction do
       returning.save!
       returning.items.each do |item|
-        inventory = item.store_material_inventory
-        @log = InventoryService.new(inventory, current_user).outgo!(item.quantity).loggable!(item)
-        inventory.returning!(item.quantity)
+        item.store_material_inventory.returning!(item.quantity)
       end
     end
 

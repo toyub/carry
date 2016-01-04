@@ -2,7 +2,7 @@ class Kucun::PhysicalInventoriesController < Kucun::BaseController
   before_action :set_store
 
   def index
-    @physicals = @store.store_physical_inventories
+    @physicals = @store.store_physical_inventories.where(status: 1)
     if params[:month].to_s =~ /^\d{4}(?:\-|\/){1}(?:0?[1-9]|1[0-2])$/
       from_date = Date.parse(params[:month].to_s.gsub(/(^\d{4})(?:\-|\/){1}(0?[1-9]|1[0-2])$/, '\1-\2') + "-01")
                       .to_time.beginning_of_day
@@ -32,11 +32,11 @@ class Kucun::PhysicalInventoriesController < Kucun::BaseController
   def new
     now = Time.now
     month = now.strftime('%Y%m')
-    # pandianri = 28
-    # if now.day > pandianri
-    #   render text: '盘点日已经过了'
-    #   return false
-    # end
+    pandianri = 28
+    if now.day > pandianri
+      render text: '盘点日已经过了'
+      return false
+    end
 
     if params[:store_depot_id].present?
       @physical = StorePhysicalInventory.where(store_depot_id: params[:store_depot_id])
@@ -64,6 +64,7 @@ class Kucun::PhysicalInventoriesController < Kucun::BaseController
     @physical = StorePhysicalInventory.where(store_depot_id: params[:store_depot_id])
                                       .where(created_month: month)
                                       .first
+
     if @physical.present?
       @inventory_count = StoreMaterialInventory.where(store_depot_id: params[:store_depot_id])
                                              .count(:id)
@@ -131,14 +132,9 @@ class Kucun::PhysicalInventoriesController < Kucun::BaseController
 
         outing.total_quantity += item.quantity
         outing.total_amount += item.amount
-      end
-      outing.save!
-      outing.items.each do |item|
-        inventory = item.store_material_inventory
-        @log = InventoryService.new(inventory, current_user).outgo!(item.quantity).loggable!(item)
         inventory.outing!(item.quantity)
       end
-
+      outing.save!
       StorePhysicalInventoryItem.where(id: params[:physical_items]).update_all(status: 1)
     end
     redirect_to review_kucun_physical_inventories_path(store_depot_id: @physical.store_depot_id)
@@ -159,15 +155,9 @@ class Kucun::PhysicalInventoriesController < Kucun::BaseController
         item.amount = item.quantity * item.price
         checkin.quantity += item.quantity
         checkin.amount += item.amount
-      end
-      checkin.save!
-
-      checkin.items.each do |item|
-        inventory = item.store_material_inventory
-        @log = InventoryService.new(inventory, current_user).income!(item.quantity, item.cost_price).loggable!(item)
         inventory.checkin!(item.quantity)
       end
-
+      checkin.save!
       StorePhysicalInventoryItem.where(id: params[:physical_items]).update_all(status: 1)
     end
     redirect_to review_kucun_physical_inventories_path(store_depot_id: @physical.store_depot_id)

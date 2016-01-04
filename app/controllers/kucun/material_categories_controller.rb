@@ -18,7 +18,7 @@ class Kucun::MaterialCategoriesController < Kucun::BaseController
     store = Store.find(current_user.store_id)
     category = store.store_material_categories.find(params[:id])
 
-    render json: category.sub_categories.to_json, root: nil
+    render json: category.sub_categories.to_json
   end
 
   def create

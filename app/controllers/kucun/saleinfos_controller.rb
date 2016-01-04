@@ -66,8 +66,7 @@ class Kucun::SaleinfosController < Kucun::BaseController
   private
   def saleinfo_params
     params.require(:saleinfo).permit :id, :bargainable, :bargain_price, :retail_price, :trade_price, :reward_points,
-                                     :divide_to_retail, :divide_unit_type_id, :divide_total_volume, :divide_volume_per_bill,
-                                     :service_needed, :service_fee_needed, :sale_category_id,
+                                     :divide_to_retail, :unit, :volume, :service_needed, :service_fee_needed, :sale_category_id,
                                      :service_fee,:saleman_commission_template_id, :vip_price_enabled, :vip_price,
                                      services_attributes: [:id, :store_commission_template_id, :name, :mechanic_level, :work_time,
                                                            :work_time_unit, :work_time_in_seconds, :tracking_needed, :tracking_delay,

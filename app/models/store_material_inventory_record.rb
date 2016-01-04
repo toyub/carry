@@ -3,9 +3,4 @@ class StoreMaterialInventoryRecord < ActiveRecord::Base
   belongs_to :store_material_order
   belongs_to :store_material_order_item
   belongs_to :store_material_inventory
-  belongs_to :store_staff
-
-  def price
-    self.ordered_cost_price
-  end
 end

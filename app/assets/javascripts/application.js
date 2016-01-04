@@ -30,7 +30,6 @@
 //= require 'piccut/1.0.0'
 //= require 'piccut/1.0.1'
 //= require 'select2'
-//= require 'select2/zh-CN'
 //= require number_input
 //= require uploader/image
 //= require dialogs/upload

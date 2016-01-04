@@ -22,13 +22,13 @@ module Kucun
             item_params = receipt_params[:items_attributes][item.id.to_s]
             inventory = item.store_material
                             .store_material_inventories
-                            .find_or_initialize_by(store_depot_id: item.dest_depot_id)
+                            .find_or_initialize_by(store_depot_id: item.dest_depot_id,
+                                                   store_id: item.store_id,
+                                                   store_chain_id: item.store_chain_id)
             if inventory.store_staff_id.blank?
               inventory.store_staff_id = current_user.id
               inventory.save
             end
-
-            @log = InventoryService.new(inventory, current_user).income!(item.quantity, item.cost_price)
 
             stri = StoreMaterialTransReceiptItem.create({
                 store_staff_id: current_user.id,
@@ -44,10 +44,9 @@ module Kucun
                 inventory_cost_price: inventory.cost_price,
                 ordered_quantity: item.quantity,
                 quantity: item.quantity,
-                latest_cost_price: @log.closings.symbolize_keys[:inventory_cost_price],
+                latest_cost_price: item.latest_depot_cost_price(inventory),
                 remark: item_params[:remark]
               })
-            @log.loggable!(stri)
             inventory.quantity += item.quantity
             inventory.cost_price = stri.latest_cost_price
             inventory.save

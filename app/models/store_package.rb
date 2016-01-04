@@ -27,9 +27,5 @@ class StorePackage < ActiveRecord::Base
   def point
     self.package_setting.point
   end
-  
-  def vip_price
-    0
-  end
 
 end

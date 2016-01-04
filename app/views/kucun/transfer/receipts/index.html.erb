@@ -5,8 +5,36 @@
 <div class="details">
   <div class="list_table">
     <div class="search_nav">
-      <%= render partial: 'kucun/partials/ruku_search' %>
+      <div class="item-query">
+        <label>查找出库产品</label>
+        <input type="text" class="width-150" placeholder="输入产品关键字">
+      </div>
+      <div class="item-query">
+        <label>记录类型</label>
+        <select type="text" class="width-150" id="stock_type">
+          <option value="1">全部</option>
+          <option value="2">订单入库</option>
+          <option value="3">快速入库</option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>二级分类</label>
+        <select type="text" class="width-150">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>选择仓库</label>
+        <select type="text" class="width-150" >
+          <option></option>
+          <option></option>
+        </select>
+        <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
+      </div>
       <div class="query_div">
+        <a href="javascript:void(0);" class="print_btn btn">打印</a>
+        <a href="javascript:void(0);" class="export_btn btn">导出</a>
         <a href="/kucun/transfer/receipts/new" class="in_stg_btn btn">入库</a>
         <a href="javascript:void(0);"  class="notes_btn btn">记录</a>
       </div>

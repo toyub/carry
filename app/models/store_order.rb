@@ -9,10 +9,10 @@ class StoreOrder < ActiveRecord::Base
   has_one :store_tracking
   has_many :items, class_name: 'StoreOrderItem'
   has_many :complaints
+  has_many :store_customer_payments
+  has_many :store_service_snapshots
+  has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_order_id
   has_many :payments, class_name: 'StoreCustomerPayment'
-
-  has_many :store_order_repayments
-  has_many :store_repayments, through: :store_order_repayments
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
@@ -97,21 +97,52 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def store_items
-    self.items.each do |item|
-      return  item.workflow_mechanics.map{ |snapshot| {name: snapshot.engineer, id: snapshot.engineer} }.uniq
+    self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
+  end
+
+  def finish!
+    self.task_finished! if workflows_finished?
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def terminate!
+    self.task_finished!
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def terminate
+    ActiveRecord::Base.transaction do
+      self.terminate!
+      self.workflows.map(&:terminate!)
     end
-    # self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
   end
 
-  def repayment_finished!
-    self.update(pay_status: 3, filled: self.amount_total)
+  def workflows_finished?
+    workflows.all? { |w| w.finished? }
   end
 
-  def repayment_remaining
-    self.amount_total - self.filled
+  def execute!
+    return if !executeable?
+    ActiveRecord::Base.transaction do
+      construction_items.each do |item|
+        service = item.orderable
+        service.to_snapshot!(item)
+      end
+      if self.task_finished? || self.task_pending?
+        self.task_queuing!
+        self.queuing!
+      end
+    end
   end
 
   private
+    def construction_items
+      self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
+    end
+
+    def executeable?
+      construction_items.present?
+    end
 
     def set_numero
       today_order_count = store.store_orders.today.count + 1
@@ -123,6 +154,6 @@ class StoreOrder < ActiveRecord::Base
     end
 
     def init_state
-      self.state = :pending unless self.state.present?
+      self.state = :pending
     end
 end

@@ -1,2 +1,0 @@
-class StoreMaterialOutgo < StoreMaterialLog
-end

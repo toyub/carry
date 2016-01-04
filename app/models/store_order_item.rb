@@ -19,8 +19,8 @@ class StoreOrderItem < ActiveRecord::Base
 
   validates_presence_of :orderable
 
-  def gross_profit
-    self.amount - self.total_cost
+  def youhui
+    rand(10)
   end
 
   def mechanics

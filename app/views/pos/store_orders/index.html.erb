@@ -55,14 +55,10 @@
 				  <td class="number"><%= idx + 1 %></td>
 					<td><%= order.created_at.to_s(:date_with_short_time) %></td>
 					<td><%= order.store_vehicle.license_number %></td>
-					<td><%= order.store_customer.try(:full_name) %></td>
-					<td><%= order.store_customer.try(:phone_number) %></td>
+					<td><%= order.store_customer.full_name %></td>
+					<td><%= order.store_customer.phone_number %></td>
 					<td><%= order.numero %></td>
-          <% if order.items.present? %>
-					  <td>包含 <%= order.items.first.orderable.name %> 等 <%= order.items.count %> 个项目 </td>
-          <% else %>
-					  <td>包含0个项目 </td>
-          <% end %>
+					<td>包含 <%= order.items.first.orderable.name %> 等 <%= order.items.count %> 个项目 </td>
 					<td><%= order.amount %></td>
 					<td><%= order.state %></td>
 					<td><%= order.remark %></td>
@@ -71,5 +67,7 @@
         <% end %>
 			</tbody>
 		</table>
+
 	</div>
+
 </div>

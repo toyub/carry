@@ -7,7 +7,7 @@ class StoreMaterialSaleinfoSerializer < ActiveModel::Serializer
   end
 
   def category_name
-    object.sale_category.try(:name)
+    object.store_material_saleinfo_category.try(:name)
   end
 
   def vip_price

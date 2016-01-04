@@ -1,5 +1,5 @@
 class Crm::StoreVehiclesController < Crm::BaseController
-  before_action :set_customer
+  before_action :set_customer, except: [:index, :destroy]
   before_action :set_vehicle, only:[:show, :edit, :update]
   before_action :set_vehicle_ids, only: [:new, :show]
 
