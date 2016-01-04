@@ -4,8 +4,8 @@
       <span>日期</span>
       <%= date_select(
         "", :date,
-        { start_year: 2000, use_short_month: true, discard_day: true, :default => @search_date},
-        {:include_blank => @search_date.nil?, class: "width-100" }
+        { start_year: 2000, use_short_month: true, discard_day: true, :default => @month},
+        {:include_blank => @search_date.nil?, class: "width-60" }
       )
     %>
   </div>
@@ -30,15 +30,8 @@
     <%= submit_tag "查询", class: "btn query_btn"%>
   </div>
 
-
   <div class="float-right">
-    <a href="#" class="btn print_btn">打印</a>
     <a href="#" class="btn export_btn">导出</a>
-
-    <select class="width-100 margin-left-10">
-      <option>显示5行</option>
-      <option>全部显示</option>
-    </select>
-  <% end %>
   </div>
+  <% end %>
 </div>
