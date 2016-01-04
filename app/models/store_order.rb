@@ -4,6 +4,8 @@ class StoreOrder < ActiveRecord::Base
   belongs_to :store_customer
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
   belongs_to :store_vehicle
+
+  #TODO 这个保存有点问题，以后 store_vhicle 更改了 plate 这个是否也需要更改
   belongs_to :plate, class_name: 'StoreVehicleRegistrationPlate', foreign_key: 'store_vehicle_registration_plate_id'
 
   has_one :store_tracking
@@ -137,6 +139,18 @@ class StoreOrder < ActiveRecord::Base
 
   def repayment_finished!
     self.update(pay_status: 3, filled: self.amount_total)
+  end
+
+  def situation_damage
+    situation.select do |key, val|
+      key.include?("damage") && key.split("_")[1].to_i < 12
+    end
+  end
+
+  def situation_damage_checkbox
+    situation.select do |key, val|
+      key.include?("damage") && key.split("_")[1].to_i > 12
+    end
   end
 
   def repayment_remaining
