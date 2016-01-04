@@ -3,7 +3,19 @@ module Api
     before_action :set_order, only: [:show]
 
     def index
-      orders = StoreOrder.all
+      orders = current_store.store_orders
+      if params[:license_number].present?
+        store_vehicle_ids = current_store.store_vehicles.joins(vehicle_plates: :plate).
+          where('license_number like ?', "%#{params[:license_number]}%").pluck(:id)
+
+        orders = orders.where(store_vehicle_id: store_vehicle_ids)
+      end
+      if params[:created_at].present?
+        orders = orders.where(created_at: params[:created_at])
+      end
+      if params[:state].present?
+        orders = orders.where(state: params[:state])
+      end
       render json: orders
     end
 

@@ -4,15 +4,19 @@ class StoreOrder < ActiveRecord::Base
   belongs_to :store_customer
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
   belongs_to :store_vehicle
+
+  #TODO 这个保存有点问题，以后 store_vhicle 更改了 plate 这个是否也需要更改
   belongs_to :plate, class_name: 'StoreVehicleRegistrationPlate', foreign_key: 'store_vehicle_registration_plate_id'
 
   has_one :store_tracking
   has_many :items, class_name: 'StoreOrderItem'
   has_many :complaints
+  has_many :store_customer_payments
+  has_many :store_service_snapshots
+  has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_order_id
   has_many :payments, class_name: 'StoreCustomerPayment'
 
-  has_many :store_order_repayments
-  has_many :store_repayments, through: :store_order_repayments
+  scope :by_month, ->(month = Time.now) { where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month) }
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
@@ -97,21 +101,76 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def store_items
-    self.items.each do |item|
-      return  item.workflow_mechanics.map{ |snapshot| {name: snapshot.engineer, id: snapshot.engineer} }.uniq
+    self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
+  end
+
+  def finish!
+    self.task_finished! if workflows_finished?
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def terminate!
+    self.task_finished!
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def terminate
+    ActiveRecord::Base.transaction do
+      self.terminate!
+      self.workflows.map(&:terminate!)
     end
-    # self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
+  end
+
+  def workflows_finished?
+    workflows.all? { |w| w.finished? }
+  end
+
+  def execute!
+    return if !executeable?
+    ActiveRecord::Base.transaction do
+      construction_items.each do |item|
+        service = item.orderable
+        service.to_snapshot!(item)
+      end
+      if self.task_finished? || self.task_pending?
+        self.task_queuing!
+        self.queuing!
+      end
+    end
   end
 
   def repayment_finished!
     self.update(pay_status: 3, filled: self.amount_total)
   end
 
+  def situation_damage
+    situation.select do |key, val|
+      key.include?("damage") && key.split("_")[1].to_i < 12
+    end
+  end
+
+  def situation_damage_checkbox
+    situation.select do |key, val|
+      key.include?("damage") && key.split("_")[1].to_i > 12
+    end
+  end
+
   def repayment_remaining
     self.amount_total - self.filled
   end
 
+  def payment_methods
+    payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
+  end
+
   private
+    def construction_items
+      self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
+    end
+
+    def executeable?
+      construction_items.present?
+    end
 
     def set_numero
       today_order_count = store.store_orders.today.count + 1
@@ -123,6 +182,6 @@ class StoreOrder < ActiveRecord::Base
     end
 
     def init_state
-      self.state = :pending unless self.state.present?
+      self.state = :pending
     end
 end
