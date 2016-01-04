@@ -85,6 +85,17 @@ class StoreOrder < ActiveRecord::Base
     self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
   end
 
+  def situation_damage
+    situation.select do |key, val|
+      key.include?("damage") && key.split("_")[1].to_i < 12
+    end
+  end
+
+  def situation_damage_checkbox
+    situation.select do |key, val|
+      key.include?("damage") && key.split("_")[1].to_i > 12
+    end
+  end
 
   private
 
