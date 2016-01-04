@@ -43,6 +43,7 @@
 
       $(document).on('change', '#brand', show_vehicle_series);
       $(document).on('change', '#series', show_vehicle_model);
+      $(document).on('keydown', '.readonly', prevent_default);
     });
 
     function show_vehicle_series() {
@@ -63,6 +64,10 @@
           $('#model').append($('<option></option>').attr('value', model.id).text(model.name));
         });
       });
+    }
+
+    function prevent_default(e) {
+      e.preventDefault();
     }
 
   </script>

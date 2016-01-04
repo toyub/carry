@@ -1,23 +1,23 @@
 <%= f.fields_for :detail do |ff| %>
   <div class="item_content">
     <%= ff.label '颜色', class: 'width-75' %>
-    <%= ff.color_field :color, class: 'width-165', value: @vehicle.detail_by('color') %>
+    <%= ff.color_field :color, class: 'width-165', value: @vehicle.detail_by('color') || '#FFFFFF' %>
   </div>
   <div class="item_content">
     <%= ff.label '座位数', class: 'width-75' %>
-    <%= ff.text_field :capacity, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('capacity') %>
+    <%= ff.text_field :capacity, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('capacity'), required: 'true' %>
   </div>
   <div class="item_content">
-    <%= f.label '档案编号', class: 'width-75' %>
-    <%= f.text_field :numero, class: 'width-165', autoComplete: 'off', value: @vehicle.id && @vehicle.numero %>
+    <%= ff.label '档案编号', class: 'width-75' %>
+    <%= ff.text_field :numero, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('numero') %>
   </div>
   <div class="item_content">
     <%= ff.label '车辆性质', class: 'width-75' %>
-    <%= ff.select :organization_type, options_for_select(StoreVehicle::ORGANIZATION_TYPE.invert, (@vehicle.detail['organization_type'] if @vehicle.id.present?)), {}, {class: 'width-165'} %>
+    <%= ff.select :organization_type, options_for_select(StoreVehicle::ORGANIZATION_TYPE.invert, (@vehicle.detail['organization_type'] if @vehicle.id.present?)), {}, {class: 'width-165', required: 'true'} %>
   </div>
   <div class="item_content">
     <%= ff.label '上牌日期', class: 'width-75' %>
-    <%= ff.text_field :registered_on, class: (@vehicle.detail && @vehicle.detail['registered_on']).present? ? 'width-165' : 'width-165 datepicker', value: @vehicle.detail_by('registered_on'), readonly: true %>
+    <%= ff.text_field :registered_on, class: 'width-165 readonly datepicker', value: @vehicle.detail_by('registered_on'), required: 'true', autoComplete: 'off' %>
   </div>
   <div class="item_content">
     <%= ff.label '公里数', class: 'width-75' %>
@@ -25,11 +25,11 @@
   </div>
   <div class="item_content">
     <%= ff.label '购买日期', class: 'width-75' %>
-    <%= ff.text_field :bought_on, class: @vehicle.detail_by('bought_on').present? ? 'width-165' : 'width-165 datepicker', value: @vehicle.detail_by('bought_on'), readonly: true %>
+    <%= ff.text_field :bought_on, class: 'width-165 readonly datepicker', value: @vehicle.detail_by('bought_on'), required: 'true', autoComplete: 'off' %>
   </div>
   <div class="item_content">
     <%= ff.label '出厂日期', class: 'width-75' %>
-    <%= ff.text_field :ex_factory_date, class: @vehicle.detail_by('ex_factory_date').present? ? 'width-165' : 'width-165 datepicker', value: @vehicle.detail_by('ex_factory_date'), readonly: true %>
+    <%= ff.text_field :ex_factory_date, class: 'width-165 datepicker', value: @vehicle.detail_by('ex_factory_date'), readonly: true %>
   </div>
   <div class="item_content">
     <%= ff.label '最近保养日期', class: 'width-75' %>
