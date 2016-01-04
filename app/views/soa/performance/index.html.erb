@@ -35,13 +35,13 @@
           <td><%= staff.numero %></td>
           <td><%= staff.store_department.try(:name) %></td>
           <td><%= staff.store_position.try(:name) %></td>
-          <td><%= staff.store_orders.count %></td>
-          <td><%= staff.store_order_items.materials.count %></td>
-          <td><%= staff.materials_amount_total %></td>
-          <td><%= staff.store_order_items.services.count %></td>
-          <td><%= staff.services_amount_total %></td>
-          <td><%= staff.items_amount_total %></td>
-          <td><%= staff.commission_amount_total %></td>
+          <td><%= staff.store_orders.by_month(@month).count %></td>
+          <td><%= staff.store_order_items.by_month(@month).materials.count %></td>
+          <td><%= staff.materials_amount_total(@month) %></td>
+          <td><%= staff.store_order_items.by_month(@month).services.count %></td>
+          <td><%= staff.services_amount_total(@month) %></td>
+          <td><%= staff.items_amount_total(@month) %></td>
+          <td><%= staff.commission_amount_total(@month) %></td>
           <td><a href="/soa/staff/<%= staff.id %>/performs"><i class="ico ico-edit font-14"></i></a></td>
         </tr>
       <% end %>
@@ -50,8 +50,8 @@
       <tfoot>
         <tr>
           <td colspan="13" class="text-align-right">
-            <span class="width-80">成交总金额：</span> <span class="width-110">0.0</span>
-            <span class="width-80">提成总金额：</span> <span class="width-110"><%= StoreStaff.commission_amount_total %></span>
+            <span class="width-80">成交总金额：</span> <span class="width-110"><%= StoreStaff.items_amount_total(@month) %></span>
+            <span class="width-80">提成总金额：</span> <span class="width-110"><%= StoreStaff.commission_amount_total(@month) %></span>
           </td>
         </tr>
       </tfoot>
