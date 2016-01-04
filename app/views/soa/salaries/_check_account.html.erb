@@ -45,7 +45,7 @@
           <th><%= @staff.store_department.try(:name) %></th>
           <th><%= @staff.store_position.try(:name) %></th>
           <th><%= @staff.current_salary.to_f %></th>
-          <th>未设置</th>
+          <th><%= @staff.commission_amount_total %></th>
           <th><%= @salary.amount_bonus.to_f %></th>
           <th><%= @salary.amount_reward.to_f %></th>
           <th><%= @salary.amount_insurence.to_f %></th>
