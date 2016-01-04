@@ -214,40 +214,31 @@
                   </div>
                 </div>
               </div>
-
-              <div class="list_tr list_content">
-                <ul>
-                  <li >2.</li>
-                  <li >2014-12-29 10:11</li>
-                  <li >YW2014122900019</li>
-                  <li >1,000.00</li>
-                  <li >1</li>
-                  <li >0</li>
-                  <li >1,000.00</li>
-                  <li class=" color-FF2929">未核实</li>
-                  <li class="color-FF2929">未核实</li>
-                  <li ><a href="#" class="color-73ACD4 cost_btn">核实成本</a></li>
-                </ul>
-              </div>
-               <div class="list_tr list_content">
-                <ul>
-                  <li >3.</li>
-                  <li >2014-12-29 10:11</li>
-                  <li >YW2014122900019</li>
-                  <li >1,000.00</li>
-                  <li >1</li>
-                  <li >0</li>
-                  <li >1,000.00</li>
-                  <li class="eightth_td  color-FF2929">未核实</li>
-                  <li class="ninth_td  color-FF2929">未核实</li>
-                  <li class="tenth_td " ><a href="#" class="color-73ACD4 cost_btn2">核实成本</a></li>
-                </ul>
-              </div>
-            </div>
+        <% @order_items.each_with_index do |item, idx|%>
+         <% need_check = item.divide_to_retail && !item.divide_cost_checked %>
+          <div class="list_tr list_content">
+            <ul>
+              <li><%= idx + 1 %>.</li>
+              <li><%= item.store_order.created_at.to_s(:date_with_short_time) %></li>
+              <li><%= item.store_order.numero  %></li>
+              <li><%= item.retail_price %></li>
+              <li><%= item.price %></li>
+              <li><%= item.quantity %></li>
+              <li><%= item.amount %></li>
+              <li class="eightth_td <%='color-FF2929' if need_check %>">
+                <%= item.cost_price %><% if need_check %>(待核实)<% end %>
+              </li>
+              <li class="ninth_td <%='color-FF2929' if need_check %>">
+                <%= item.gross_profit %><% if need_check %>(待核实)<% end %>
+              </li>
+              <li>
+                <a href="<%= printer_pos_order_path(item.store_order) %>" target='_blank' class="detailsbtn cursor">详情</a>
+                <% if need_check %>
+                <a href="javascript:void(0);" data-url='/kucun/materials/<%= @store_material.id %>/material_sales' data-checkdata='<%= item.to_cost_check_json.to_json %>' class="color-73ACD4 cost_btn js-heshi">核实成本</a>
+                <% end %>
+              </li>
+            </ul>
           </div>
-
-
-
         </div>
       </div>
 
