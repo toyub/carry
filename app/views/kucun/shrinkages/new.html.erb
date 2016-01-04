@@ -126,9 +126,7 @@
      $('#choices').on('change', 'input:checkbox', function(){
         var material_id = this.dataset.id;
         if(this.checked){
-          console.log(materials)
           var material = materials.filter(function(m){return m.store_material.id == material_id})[0];
-          console.log(material)
           $('#storage_tab > tbody').append(chosen_tmpl(material.store_material));
         }else{
           $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
