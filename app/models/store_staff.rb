@@ -129,7 +129,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def should_pay
     sum = 0
-    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay
+    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay + commission_amount_total
     sum
   end
 
@@ -180,7 +180,15 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total
-    commission? ? store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission } : 0.0
+    materials_commission + services_commission
+  end
+
+  def materials_commission
+    commission? ? store_order_items.materials.inject(0) {|sum, item| sum += item.commission } : 0.0
+  end
+
+  def services_commission
+    commission? ? store_order_items.services.inject(0) {|sum, item| sum += item.commission } : 0.0
   end
 
   def self.commission_amount_total
