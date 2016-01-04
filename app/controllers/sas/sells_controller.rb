@@ -1,7 +1,8 @@
 class Sas::SellsController < Sas::BaseController
-  def graph
+  def index
   end
 
   def report
   end
+
 end

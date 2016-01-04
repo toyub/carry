@@ -135,13 +135,10 @@ Rails.application.routes.draw do
   end
 
   namespace :sas do
-    controller :sells do
-      get '/sells/graph'
-      get '/sells/report'
+    resources :sells, only: [:index] do
+      get "report", on: :collection
     end
-    controller :customers do
-      get "/customers/graph"
-    end
+    resources :customers, only: [:index]
   end
 
   #Settings

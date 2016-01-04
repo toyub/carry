@@ -1,4 +1,4 @@
 class Sas::CustomersController < Sas::BaseController
-  def graph
+  def index
   end
 end
