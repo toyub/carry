@@ -119,6 +119,7 @@ class StoreOrder < ActiveRecord::Base
     situation.select do |key, val|
       key.include?("damage") && key.split("_")[1].to_i > 12
     end
+  end
 
   def repayment_remaining
     self.amount_total - self.filled
