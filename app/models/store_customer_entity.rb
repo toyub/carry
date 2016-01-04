@@ -63,6 +63,14 @@ class StoreCustomerEntity < ActiveRecord::Base
     '个人客户'
   end
 
+  def category
+    self.store_customer_category.try(:name)
+  end
+
+  def settlement
+    ''
+  end
+
   def district
     read_attribute(:district) || {}
   end
