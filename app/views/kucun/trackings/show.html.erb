@@ -1,6 +1,6 @@
 
 <div class="main_top">
-  <%= breadcrumb_navigation(['库存', '商品', '回访设置']) %>
+  <%= breadcrumb_navigation(['库存', '商品', '回访设置'], "/kucun/materials/") %>
 </div>
 <div class="details">
   <div class="content_list">
@@ -14,7 +14,7 @@
           <ul id='material_img_thumbnails' class="goods_small_img">
             <li id='preview_list'>
               <% @store_material.uploads.each do |image| %>
-                <img src="<%= image.img_url %>">
+                <img src="<%= image.file_url %>">
               <% end %>
             </li>
           </ul>

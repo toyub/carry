@@ -64,7 +64,7 @@
       <div class="nav-item-query">
         <label>出库类型</label>
         <input type="hidden" name="outing[outing_type_id]" value="<%= @outing_type.id %>">
-        <span class="in_stock_type_span click_btn as_select" data-select='#outing_type_select' data-target='input[name="outing_type_id"]'><%= @outing_type.name %></span>
+        <span class="in_stock_type_span click_btn as_select" data-select='#outing_type_select' data-target='input[name="outing[outing_type_id]"]'><%= @outing_type.name %></span>
         <div id='outing_type_select' class="select width-165">
           <ol class="width-165">
             <% OutingType.collection.each do |tipe| %>
@@ -76,9 +76,6 @@
             <% end %>
           </ol>
         </div>
-      </div>
-      <div class="out_storage_print">
-        <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
       </div>
     </div>
     <div class="out_storage_tab common_storage_tab">

@@ -24,6 +24,10 @@ class StorePackage < ActiveRecord::Base
     self.package_setting.items.where(package_itemable_type: "StoreService").count > 0
   end
 
+  def point
+    self.package_setting.point
+  end
+  
   def vip_price
     0
   end

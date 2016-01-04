@@ -1,0 +1,64 @@
+<div class="capital_wrap">
+  <div class="captical deposit captival_active" data-target="deposit">
+    <ul>
+      <li>储值账户</li>
+      <li>
+        <%= @deposit_card_assets.count %>
+        <%= link_to "查看", crm_store_customer_store_assets_path, class: "show_btn btn" %>
+      </li>
+    </ul>
+    <% @deposit_card_assets.each do |asset| %>
+      <dl>
+        <dd><span>充</span></dd>
+        <dd><%= asset.items.first.assetable.name %></dd>
+      </dl>
+    <% end %>
+  </div>
+
+  <div class="captical package" data-target="package">
+    <ul>
+      <li>套餐组合</li>
+      <li><%= @packaged_assets.count %></li>
+    </ul>
+    <% @packaged_assets.each do |package| %>
+      <dl>
+        <dd><span>套</span></dd>
+        <dd><%= package.package_name %></dd>
+        <dd>
+          <%= link_to "查看", crm_store_customer_store_asset_path(
+            store_customer_id: @customer.id,
+            id: package.id),
+            remote: true, class: "show_btn btn" %>
+        </dd>
+      </dl>
+    <% end %>
+  </div>
+
+  <div class="captical commodity" data-target="commodity">
+    <ul>
+      <li>商品组合</li>
+      <li><%= @taozhuang_assets.count %></li>
+    </ul>
+    <% @taozhuang_assets.each do |taozhuang| %>
+      <dl>
+        <dd><span>套</span></dd>
+        <dd><%= taozhuang.package_name %></dd>
+        <dd>
+          <%= link_to "查看", crm_store_customer_store_asset_path(
+            store_customer_id: @customer.id,
+            id: taozhuang.id),
+            remote: true, class: "show_btn btn" %>
+        </dd>
+      </dl>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(function(){
+    $("dd > a, li > a").on("click", function(){
+      var captical = $(this).parents(".captical");
+      captical.addClass("captival_active").siblings(".captical").removeClass("captival_active");
+    })
+  })
+</script>

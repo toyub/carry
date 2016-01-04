@@ -6,11 +6,16 @@ class StoreOrderArchive
   end
 
   def reform
+    ActiveRecord::Base.transaction do
       save_payments
       save_deposit_cards
       save_package_services
       save_taozhuang
+      reward_points
       pay_finish
+      auto_outing
+      deal_with_divideable
+    end
   end
 
   def save_payments
@@ -64,6 +69,8 @@ class StoreOrderArchive
                                            store_chain_id: @order.store_chain_id,
                                            store_customer_id: @order.store_customer_id,
                                            store_vehicle_id: @order.store_vehicle_id,
+                                           package: order_item.orderable,
+                                           package_name: order_item.orderable.name,
                                            items_attributes: items_attributes
         end
        end
@@ -84,18 +91,26 @@ class StoreOrderArchive
                                                        }
                                                   end
           StoreCustomerTaozhuang.create! store_id: @order.store_id,
-                                           store_chain_id: @order.store_chain_id,
-                                           store_customer_id: @order.store_customer_id,
-                                           store_vehicle_id: @order.store_vehicle_id,
-                                           items_attributes: items_attributes
+                                         store_chain_id: @order.store_chain_id,
+                                         store_customer_id: @order.store_customer_id,
+                                         store_vehicle_id: @order.store_vehicle_id,
+                                         package: order_item.orderable,
+                                         package_name: order_item.orderable.name,
+                                         items_attributes: items_attributes
         end
       end
     end
   end
 
+  def reward_points
+    points = @order.items.map{|item| item.orderable.try(:point).to_i}.sum
+    @customer.store_customer_entity.increase_points!(points)
+  end
+
   def pay_finish
     if @order.payments.any?(&->(pi){pi.hanging?})
       @order.pay_hanging!
+      @customer.store_customer_entity.store_customer_settlement.increase_credit_bill_amount!(@order.amount)
     else
       @order.pay_finished!
     end
@@ -104,6 +119,22 @@ class StoreOrderArchive
       @order.finished!
     end
     true
+  end
+
+  def auto_outing
+    depot = @order.store.store_depots.current_preferred
+    depot.outing_order_materials!(@order)
+  end
+
+  def deal_with_divideable
+    @order.items.materials.each do |order_item|
+      if order_item.orderable.divide_to_retail?
+        order_item.divide_to_retail = true
+        order_item.standard_volume_per_bill = order_item.orderable.divide_volume_per_bill
+        order_item.actual_volume_per_bill = order_item.orderable.divide_volume_per_bill
+        order_item.save!
+      end
+    end
   end
 
 end

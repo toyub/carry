@@ -3,6 +3,7 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   has_one :store_customer
   has_one :store_customer_settlement
+  belongs_to :store_customer_category
 
   accepts_nested_attributes_for :store_customer
   accepts_nested_attributes_for :store_customer_settlement
@@ -54,6 +55,14 @@ class StoreCustomerEntity < ActiveRecord::Base
     extra: '增值税发票'
   }
 
+  def settlement_payment_method
+    '现金'
+  end
+
+  def property_name
+    '个人客户'
+  end
+
   def province
     self.district["province"]
   end
@@ -66,6 +75,10 @@ class StoreCustomerEntity < ActiveRecord::Base
     self.district["region"]
   end
 
+  def creditable?
+    self.store_customer_settlement.creditable?
+  end
+
   def filling_date
     self.created_at.strftime("%Y-%m-%d")
   end
@@ -76,6 +89,10 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   def decrease_balance!(amount)
     self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) - #{amount.to_f.abs}")
+  end
+
+  def increase_points!(quantity)
+    self.class.unscoped.where(id: self.id).update_all("points=COALESCE(points, 0) + #{quantity.to_i.abs}")
   end
 
 end

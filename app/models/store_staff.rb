@@ -5,6 +5,8 @@ class StoreStaff <  ActiveRecord::Base
   belongs_to :store_department
   belongs_to :store_position
   belongs_to :store_employee
+  has_many :store_orders
+  has_many :store_order_items
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
   has_many :complaints
   has_many :store_protocols, dependent: :destroy
@@ -15,6 +17,8 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
   has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy
+  has_one :store_group_member, foreign_key: 'member_id'
+  has_one :store_group, through: :store_group_member
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
@@ -34,6 +38,7 @@ class StoreStaff <  ActiveRecord::Base
 
   scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
+  scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -156,6 +161,30 @@ class StoreStaff <  ActiveRecord::Base
 
   def locked?
     !mis_login_enabled
+  end
+
+  def commission?
+    regular && deduct_enabled
+  end
+
+  def materials_amount_total
+    store_order_items.materials.inject(0) {|sum, item| sum += item.amount }
+  end
+
+  def services_amount_total
+    store_order_items.services.inject(0) {|sum, item| sum += item.amount }
+  end
+
+  def items_amount_total
+    store_order_items.inject(0) {|sum, item| sum += item.amount }
+  end
+
+  def commission_amount_total
+    commission? ? store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission } : 0.0
+  end
+
+  def self.commission_amount_total
+    all.inject(0) {|sum, staff| sum += staff.commission_amount_total }
   end
 
   private

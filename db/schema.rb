@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229074936) do
+ActiveRecord::Schema.define(version: 20160103083437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -577,6 +577,27 @@ ActiveRecord::Schema.define(version: 20151229074936) do
 
   add_index "store_files", ["fileable_id", "fileable_type"], name: "fileable", using: :btree
 
+  create_table "store_group_members", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_group_id"
+    t.integer  "member_id"
+    t.integer  "work_status",    default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "store_groups", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "name"
+    t.boolean  "deleted",        default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
   create_table "store_infos", force: :cascade do |t|
     t.integer  "store_id",                                    null: false
     t.integer  "store_chain_id"
@@ -686,15 +707,21 @@ ActiveRecord::Schema.define(version: 20151229074936) do
   end
 
   create_table "store_material_logs", force: :cascade do |t|
-    t.integer  "store_id",                     null: false
-    t.integer  "store_chain_id",               null: false
-    t.integer  "store_staff_id",               null: false
-    t.string   "store_material_id", limit: 45, null: false
-    t.string   "log_type",          limit: 45
-    t.text     "prior_value"
-    t.text     "value"
+    t.integer  "store_id",                                            null: false
+    t.integer  "store_chain_id",                                      null: false
+    t.integer  "store_staff_id",                                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
+    t.string   "logged_item_type"
+    t.integer  "logged_item_id"
+    t.integer  "store_depot_id"
+    t.integer  "store_material_id"
+    t.integer  "store_material_inventory_id"
+    t.json     "openings",                               default: {}
+    t.json     "closings",                               default: {}
+    t.json     "accruals",                               default: {}
+    t.string   "created_month",               limit: 20
   end
 
   create_table "store_material_manufacturers", force: :cascade do |t|
@@ -906,13 +933,13 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "store_staff_id",                                                          null: false
     t.integer  "store_material_id",                                                       null: false
     t.boolean  "bargainable",                                             default: false
-    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0
+    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0
+    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0
     t.integer  "reward_points",                                           default: 0
     t.boolean  "divide_to_retail",                                        default: false
-    t.integer  "unit"
-    t.decimal  "volume",                         precision: 10, scale: 2
+    t.integer  "divide_unit_type_id"
+    t.decimal  "divide_total_volume",            precision: 10, scale: 2
     t.boolean  "service_needed",                                          default: false
     t.boolean  "service_fee_needed",                                      default: false
     t.decimal  "service_fee",                    precision: 10, scale: 2
@@ -922,6 +949,7 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "sale_category_id"
     t.decimal  "vip_price",                      precision: 10, scale: 2
     t.boolean  "vip_price_enabled",                                       default: false
+    t.decimal  "divide_volume_per_bill",         precision: 10, scale: 2
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|
@@ -1090,15 +1118,15 @@ ActiveRecord::Schema.define(version: 20151229074936) do
   create_table "store_order_items", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "quantity",                                               default: 0
-    t.decimal  "price",                         precision: 10, scale: 4, default: 0.0
-    t.decimal  "amount",                        precision: 12, scale: 4, default: 0.0
-    t.string   "remark",            limit: 255
-    t.integer  "orderable_id",                                                         null: false
-    t.string   "orderable_type",    limit: 60,                                         null: false
-    t.integer  "store_id",                                                             null: false
-    t.integer  "store_chain_id",                                                       null: false
-    t.integer  "store_staff_id",                                                       null: false
+    t.integer  "quantity",                                                      default: 0
+    t.decimal  "price",                                precision: 10, scale: 4, default: 0.0
+    t.decimal  "amount",                               precision: 12, scale: 4, default: 0.0
+    t.string   "remark",                   limit: 255
+    t.integer  "orderable_id",                                                                  null: false
+    t.string   "orderable_type",           limit: 60,                                           null: false
+    t.integer  "store_id",                                                                      null: false
+    t.integer  "store_chain_id",                                                                null: false
+    t.integer  "store_staff_id",                                                                null: false
     t.integer  "store_order_id"
     t.integer  "store_customer_id"
     t.decimal  "discount"
@@ -1106,6 +1134,10 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.decimal  "vip_price"
     t.decimal  "cost_price"
     t.decimal  "retail_price"
+    t.decimal  "standard_volume_per_bill"
+    t.decimal  "actual_volume_per_bill"
+    t.boolean  "divide_to_retail",                                              default: false
+    t.boolean  "divide_cost_checked",                                           default: false
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
@@ -1137,6 +1169,7 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "task_status",                                                              default: 0
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
     t.json     "situation"
+    t.integer  "cashier_id",                                                                                            comment: "收银员"
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1361,6 +1394,11 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.boolean  "favorable",                                                     default: false
     t.integer  "setting_type",                                                  default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
+    t.integer  "store_vehicle_id"
+    t.integer  "store_order_id"
+    t.integer  "templateable_id"
+    t.string   "templateable_type"
   end
 
   add_index "store_service_snapshots", ["store_service_category_id"], name: "store_service_snapshots_store_service_category_id", using: :btree
@@ -1393,16 +1431,16 @@ ActiveRecord::Schema.define(version: 20151229074936) do
   create_table "store_service_workflow_snapshots", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                    null: false
-    t.integer  "store_chain_id",                              null: false
-    t.integer  "store_staff_id",                              null: false
+    t.integer  "store_id",                                                    null: false
+    t.integer  "store_chain_id",                                              null: false
+    t.integer  "store_staff_id",                                              null: false
     t.integer  "engineer_level"
     t.integer  "engineer_count"
     t.integer  "position_mode"
     t.integer  "standard_time"
     t.integer  "buffering_time"
     t.integer  "factor_time"
-    t.integer  "store_service_id",                            null: false
+    t.integer  "store_service_id",                                            null: false
     t.integer  "sales_commission_subject"
     t.integer  "sales_commission_template_id"
     t.integer  "engineer_commission_subject"
@@ -1418,6 +1456,16 @@ ActiveRecord::Schema.define(version: 20151229074936) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
+    t.boolean  "finished",                                    default: false
+    t.integer  "used_time"
+    t.json     "mechanics"
+    t.integer  "store_vehicle_id"
+    t.integer  "store_order_id"
+    t.datetime "started_time"
+    t.integer  "elapsed"
+    t.json     "overtimes",                                   default: []
+    t.integer  "status",                                      default: 0
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1684,11 +1732,14 @@ ActiveRecord::Schema.define(version: 20151229074936) do
   create_table "store_workstations", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                 null: false
-    t.integer  "store_chain_id",                           null: false
-    t.integer  "store_staff_id",                           null: false
-    t.string   "name",                          limit: 45, null: false
+    t.integer  "store_id",                                             null: false
+    t.integer  "store_chain_id",                                       null: false
+    t.integer  "store_staff_id",                                       null: false
+    t.string   "name",                          limit: 45,             null: false
     t.integer  "store_workstation_category_id"
+    t.integer  "workflow_id"
+    t.string   "color"
+    t.integer  "status",                                   default: 0
   end
 
   create_table "stores", force: :cascade do |t|

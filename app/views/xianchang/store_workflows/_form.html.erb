@@ -1,0 +1,26 @@
+<div id="FloatWindow" class="js-dialog" style="display: flex;">
+  <div class="FloatContent ">
+    <header class="bg-color-395C61"></header>
+    <div class="fheader">
+      <span class="color-395C61">增加用时</span>
+      <i class="lnr lnr-cross close_window do_close color-395C61 js-close"></i>
+    </div>
+
+    <%= form_for @workflow, url: xianchang_store_workflow_path(@workflow), html: {class: 'form_content'}, remote: true do |f| %>
+      <div class="new_info">
+        <div class="form_item">
+          <%= f.label :overtime_interval, "时间"%>
+          <%= f.text_field :overtime_interval %>分钟
+        </div>
+        <div class="form_item">
+          <%= f.label :overtime_reason, "备注"%>
+          <%= f.text_area :overtime_reason %>
+        </div>
+      </div>
+      <div class="ffooter float-right">
+        <%= f.submit "保存", class: 'confirm_btn do_close' %>
+        <input type="reset" name="commit" value="取消" class="cancel_btn do_close js-close">
+      </div>
+    <% end %>
+  </div>
+</div>

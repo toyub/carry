@@ -13,6 +13,7 @@ class Mis.Routers.StoreServices extends Mis.Base.Router
     model = @collection.get(id)
     self = this
     model.fetch(success: () ->
+      model.parseMaterials()
       view = new Mis.Views.XiaoshouServiceProfilesShow(model: model, collection: self.collection)
       self.swap(view)
     )

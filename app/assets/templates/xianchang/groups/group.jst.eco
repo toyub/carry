@@ -1,0 +1,24 @@
+<td>
+  <div>
+    <a href="javascript:void(0);" class="btn group_btn delete_btn">删除</a>
+    <a href="javascript:void(0);" style='<%= "display:none;" if @id %>' class="btn group_btn save_btn">保存</a>
+  </div>
+  <div class="group <%= 'editing' unless @id %>" title="双击组名编辑">
+    <span class="font-18 width-120 edit"><%= @name %></span>
+    <input type="text" class="font-18 width-120 edit js-group-name" value="<%= @name %>">
+  </div>
+</td>
+<td>
+  <div class="person">
+    <span class="person_status bg-color-FD3528">忙</span>
+    <ul id='group_<%=@id%>_busy' class='busy'></ul>
+  </div>
+  <div class="person">
+    <span class="person_status bg-color-009F3A">空</span>
+    <ul id='group_<%=@id%>_ready' data-group='<%= @id %>' data-work='ready' class='ready <%= "dropable" if @id %>'></ul>
+  </div>
+  <div class="person">
+    <span class="person_status bg-color-FFF03F color-383515">休</span>
+    <ul id='group_<%=@id%>_absence' data-group='<%= @id %>' data-work='absence' class='absence <%= "dropable" if @id %>'></ul>
+  </div>
+</td>

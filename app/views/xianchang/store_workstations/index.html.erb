@@ -1,0 +1,117 @@
+<div class="main_top">
+  <h2>施工现场</h2>
+</div>
+
+<div class="details">
+  <table cellspacing="0" cellpadding="0" class="on_site_top">
+    <tbody>
+    <tr>
+      <td class="border-bottom-none">正在施工车辆</td>
+      <td class="border-bottom-none">正在排队车辆</td>
+      <td class="border-bottom-none">等待付款车辆</td>
+      <td class="border-bottom-none">离场车辆</td>
+      <td>
+        <label class="width-70">技师人数</label>
+        <label class="width-80 text-align-center"><%= @mechanics_count %></label>
+      </td>
+      <td>
+        <label class="width-70">技师忙碌</label>
+        <label class="width-80 text-align-center"></label>
+      </td>
+      <td>
+        <label class="width-70">工位总数</label>
+        <label class="width-80 text-align-center"><%= @workstations.count %></label>
+      </td>
+      <td>
+        <label class="width-70">工位使用</label>
+        <label class="width-80 text-align-center"><%= @workstations.busy.count %></label>
+      </td>
+      <td class="border-bottom-none">今天施工总台次</td>
+    </tr>
+    <tr>
+      <td class="font-18 text-align-center"><%= @processing_orders_count %><label class="margin-left-5 font-18">台</label></td>
+      <td class="font-18 text-align-center"><%= @queuing_orders.count %><label class="margin-left-5 font-18">台</label></td>
+      <td class="font-18 text-align-center"><%= @paying_orders_count %><label class="margin-left-5 font-18">台</label></td>
+      <td class="font-18 text-align-center"><%= @finished_orders_count %><label class="margin-left-5 font-18">台</label></td>
+      <td>
+        <label class="width-70">技师到岗</label>
+        <label class="width-80 text-align-center"></label>
+      </td>
+      <td>
+        <label class="width-70">技师空闲</label>
+        <label class="width-80 text-align-center"></label>
+      </td>
+      <td>
+        <label class="width-70">工位正常</label>
+        <label class="width-80 text-align-center"><%= @workstations.available.count %></label>
+      </td>
+      <td>
+        <label class="width-70">预约等待</label>
+        <label class="width-80 text-align-center"><%= @pending_orders_count %></label>
+      </td>
+      <td class="font-18 text-align-center"><%= @orders_count %><label class="margin-left-5 font-18">台</label></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <div class="search_nav margin-top-5">
+    <div class="item-query">
+      <label class="width-85">查找项目或车辆</label>
+      <input type="text" class="width-150" placeholder="车牌或项目关键字">
+      <a class=" btn query_btn">查询</a>
+    </div>
+
+    <div class="item-query float-right">
+      <%= link_to "新建", new_xianchang_store_workstation_path, remote: true, class: 'new_btn btn margin-left-5' %>
+    </div>
+  </div>
+
+  <div class="construction_site margin-top-36 do_wrap">
+    <div class="title bg-color-fb962d waiting">
+      <span>等候</span>
+      <span><i class="fa fa-chevron-left font-28 color-fff"></i></span>
+    </div>
+    <ul class="waiting">
+      <%= render partial: "order", collection: @queuing_orders, as: :order %>
+    </ul>
+  </div>
+
+
+  <div class="operating_station margin-top-36 do_wrap">
+    <ul class="work_staion" id="work_station">
+      <%= render partial: "workstation", collection: @workstations, as: :workstation %>
+    </ul>
+  </div>
+
+  <div class="construction_site margin-top-50 do_wrap js-finished-orders">
+    <div class="title bg-color-36a54a ">
+      <span>完工</span>
+      <span><i class="fa fa-ban font-28"></i></span>
+    </div>
+    <ul class="completion js-finished">
+      <%= render partial: "order", collection: @task_finished_orders, as: :order %>
+    </ul>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$(function(){
+    setInterval(function(){
+      <% @workstations.each do |w| -%>
+        if($("#workstation-<%= w.id %> .times").length > 0){
+          var interval = parseInt($("#workstation-<%= w.id %> .times").text()) - 1;
+          if(interval <= 0){
+            $.ajax({
+              url: "/xianchang/store_workstations/<%= w.id %>/finish",
+              method: "PUT"
+              }
+            );
+          }else{
+            $("#workstation-<%= w.id %> .times").text(interval);
+          }
+        }
+      <% end -%>
+    }, 60000)
+})
+</script>

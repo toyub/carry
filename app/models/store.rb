@@ -41,14 +41,19 @@ class Store <  ActiveRecord::Base
   has_many :store_switches
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
   has_many :store_orders
+  has_many :store_customer_categories
 
   has_one :sms_balance, as: :party
 
   has_many :tags, class_name: 'Tag::StoreCustomer'
+  has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot'
 
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
     class_name: 'StoreMaterialCategory'
+
+  has_many :store_groups
+  has_many :store_group_members
 
   validates :name, presence: true
 
@@ -59,7 +64,7 @@ class Store <  ActiveRecord::Base
   }
 
   def engineer_levels
-    ENGINEER_LEVEL.invert
+    StoreStaffLevel::ID_TYPES
   end
 
   def increase_balance!(amount)
