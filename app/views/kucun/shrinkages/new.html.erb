@@ -53,7 +53,7 @@
           </div>
       </div>
       <div class="loss_report_tab common_storage_tab">
-        <%= form_tag '/kucun/shrinkages' do %>
+        <%= form_tag '/kucun/shrinkages', id: 'shrinkage_form' do %>
         <table cellpadding="0" cellspacing="0" id="storage_tab" class="check_order storage_tab">
           <thead>
             <tr class=" bg-color-e39e66">
@@ -94,10 +94,10 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-     choice_tmpl = JST['kucun/shrinkages/new/choice'];
-     chosen_tmpl = JST['kucun/shrinkages/new/chosen'];
+     var choice_tmpl = JST['kucun/shrinkages/new/choice'];
+     var chosen_tmpl = JST['kucun/shrinkages/new/chosen'];
 
-     materials = [];
+     var materials = [];
      $('.query_btn').on('click', function(){
         $('#choices').html('');
         InventorySearch.search(InventorySearch.query_data(), choice_tmpl, function(html, data){
@@ -124,18 +124,24 @@
      }
 
      $('#choices').on('change', 'input:checkbox', function(){
+        var material_id = this.dataset.id;
         if(this.checked){
-          material_id = this.dataset.id;
-          material = materials.filter(function(m){return m.store_material.id == material_id})[0];
+          var material = materials.filter(function(m){return m.store_material.id == material_id})[0];
           $('#storage_tab > tbody').append(chosen_tmpl(material.store_material));
         }else{
-          material_id = this.dataset.id;
           $('#storage_tab > tbody > tr[data-id="' + material_id + '"]').remove()
         }
         calc_total();
         list_seq();
      });
 
+     $('#shrinkage_form').on('submit', function(evt){
+       if($('#storage_tab >tbody >tr').length < 1){
+         ZhanchuangAlert('请至少添加一条商品报损!');
+         evt.preventDefault();
+         return false;
+       }
+     })
   });
 </script>
 <% end %>
