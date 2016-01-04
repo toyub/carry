@@ -7,7 +7,7 @@ module Erp
     end
 
     def show
-      @customer = current_store_chain.store_customers.find(params[:id])
+      @customer = current_store_chain.store_customers.find(params[:customer_id])
       respond_with @customer, location: nil
     end
 
