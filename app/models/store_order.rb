@@ -157,6 +157,10 @@ class StoreOrder < ActiveRecord::Base
     self.amount_total - self.filled
   end
 
+  def payment_methods
+    payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
+  end
+
   private
     def construction_items
       self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
