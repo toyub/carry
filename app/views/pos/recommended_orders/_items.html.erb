@@ -24,13 +24,13 @@
           <td>{{ item.speci }}</td>
           <td>{{ item.retail_price }}</td>
           <td>
-            <input type="text" value="" class="width-60 text-align-center">
+            <input v-model="item.recommended_price" type="text" class="width-60 text-align-center">
           </td>
           <td>
             <input v-model="item.quantity" placeholder="输入数量" class="width-40"></input>
           </td>
 					<td>
-            {{ item.quantity * item.retail_price }}
+            {{ item.quantity * item.recommended_price }}
 						<span class="delete close" data-target="list_content_01">
 							<i class="lnr lnr-cross color-fff"></i>
 						</span>
@@ -41,7 +41,7 @@
 			  <tr class="text-align-right">
 				  <td colspan="10">
             <label class="margin-right-10">商品金额总计:</label>
-            <label>{{totalPrice}}</label>
+            <label>{{recommendedTotalPrice}}</label>
 					</td>
 				</tr>
 			</tfoot>
@@ -66,13 +66,13 @@
           <td>{{ item.retail_price }}</td>
           <td>{{ item.vip_price }}</td>
           <td>
-            <input type="text" value="" class="width-60 text-align-center">
+            <input v-model="item.recommended_price" type="text" class="width-60 text-align-center">
           </td>
           <td>
             <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
           </td>
           <td>
-            <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
+            <span class="js-material-saleinfo-item-price">{{ item.quantity * item.recommended_price }}</span>
             <span class="delete close">
               <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
             </span>
@@ -82,7 +82,7 @@
 			<tfoot>
 			  <tr class="text-align-right">
 				  <td colspan="8">
-            <label class="margin-right-10">小结：</label><label>{{totalPrice}}</label>
+            <label class="margin-right-10">小结：</label><label>{{recommendedTotalPrice}}</label>
 					</td>
 				</tr>
 			</tfoot>
@@ -104,13 +104,13 @@
             <td>{{ item.name }}</td>
             <td>{{ item.retail_price }}</td>
             <td>
-              <input type="text" value="" class="width-60 text-align-center">
+              <input v-model="item.recommended_price" type="text" class="width-60 text-align-center">
             </td>
             <td>
               <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
             </td>
             <td>
-              <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
+              <span class="js-material-saleinfo-item-price">{{ item.quantity * item.recommended_price }}</span>
               <span class="delete close">
                 <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
               </span>
@@ -120,7 +120,7 @@
         <tfoot>
           <tr>
             <td colspan="8">
-              <label class="js-materil-saleinfo-item-total-price">小结：{{totalPrice}}</label>
+              <label class="js-materil-saleinfo-item-total-price">小结：{{recommendedTotalPrice}}</label>
             </td>
           </tr>
         </tfoot>
