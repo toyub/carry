@@ -20,12 +20,7 @@
 
             <div class="car_info">
               <div class="items">
-                <%= form_for @vehicle, url: crm_store_customer_store_vehicles_path do |f| %>
-                  <%= render 'new_form', f: f %>
-                  <div class="btn_group">
-                    <%= f.submit '创建', class: 'save_btn btn' %>
-                  </div>
-                <% end %>
+                <%= render 'new_form' %>
               </div>
             </div>
           </div>
