@@ -2,7 +2,7 @@
 	<span class="vehicle_order_title title doslide">
 		意向内容
 	</span>
-	<div class="order_info">
+	<div class="order_info material-saleinfo-table-items">
 		<table cellpadding="0" cellspacing="0" class="intention_content">
 			<thead>
 				<tr>
@@ -15,13 +15,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr data-id="list_content_01">
-					<td>米其林轮胎</td>
-					<td>195/65/15 XM2 91V</td>
-					<td>630.00</td>
-					<td><input type="text" value="580.00" class="width-60 text-align-center"></td>
-					<td><input type="text" value="2" class="width-40"></td>
-					<td>1160.00
+				<tr v-for="item in materialSaleinfoItems">
+          <td style="display:none" class="material-saleinfo-table-item-id">{{item.id}}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.speci }}</td>
+          <td>{{ item.retail_price }}</td>
+          <td>
+            <input type="text" value="" class="width-60 text-align-center">
+          </td>
+          <td>
+            <input v-model="item.quantity" placeholder="输入数量" class="width-40"></input>
+          </td>
+					<td>
+            {{ item.quantity * item.retail_price }}
 						<span class="delete close" data-target="list_content_01">
 							<i class="lnr lnr-cross color-fff"></i>
 						</span>
@@ -31,7 +37,8 @@
 			<tfoot>
 			  <tr class="text-align-right">
 				  <td colspan="10">
-						<label class="margin-right-10">商品金额总计:</label><label>1160.00</label>
+            <label class="margin-right-10">商品金额总计:</label>
+            <label>{{totalPrice}}</label>
 					</td>
 				</tr>
 			</tfoot>
