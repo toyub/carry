@@ -323,6 +323,8 @@ Rails.application.routes.draw do
       resources :groups
       resources :staff
     end
+
+    resources :recommended_orders
   end#End of api
 
   namespace :pos do
