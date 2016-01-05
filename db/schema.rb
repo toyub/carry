@@ -1163,10 +1163,10 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
-    t.integer  "store_vehicle_registration_plate_id"
     t.boolean  "hanging",                                                                  default: false
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
+    t.integer  "store_vehicle_registration_plate_id"
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
     t.json     "situation"
     t.integer  "cashier_id",                                                                                            comment: "收银员"
@@ -1216,7 +1216,7 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing",   default: 1
+    t.integer  "trigger_timing"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1740,7 +1740,6 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.integer  "workflow_id"
     t.string   "color"
     t.integer  "status",                                   default: 0
-    t.integer  "store_group_id"
   end
 
   create_table "stores", force: :cascade do |t|

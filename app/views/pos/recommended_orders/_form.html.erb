@@ -2,7 +2,7 @@
   <div class="main_top">
 	<h2>意向开单</h2>
 	<a class="back_to_list" href="index.html">
-    <i class="fa-arrow-circle-left  fa"></i>
+    <i class="fa-arrow-circle-left fa"></i>
     返回列表
   </a>
 </div>
@@ -11,7 +11,7 @@
 	<div class="search_nav">
 		<div class="width-400" style="float: left">
 			<label>查找车辆</label>
-      <select class="width-180 js-store-vehicle-license-number-input"></select>
+      <select class="width-180 js-store-vehicle-license-number-input" name="license-number"></select>
 			<a href="#" class="query_btn btn">查&nbsp;询</a>
 		</div>
 		<div class="query_div page_card">
@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="intention_billing">
-    <div class="intention_billing_order float-left">
+    <div class="intention_billing_order float-left vue-recommended-info">
 			<div class="order_details">
 				<div class="dialog_nav">
           <% if @order.numero.present? %>
@@ -154,7 +154,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							
 							<tr>
 								<td class="number">1</td>
 								<td><span class="struct">施</span>米其林轮胎</td>
@@ -168,7 +167,6 @@
 								</td>
 								<td><input type="checkbox"></td>
 							</tr>
-							
 							<tr>
 								<td class="number">2</td>
 								<td><span class="struct">施</span>米其林轮胎</td>
@@ -182,7 +180,6 @@
 								</td>
 								<td><input type="checkbox"></td>
 							</tr>
-							
 							<tr>
 								<td class="number">3</td>
 								<td><span class="struct">施</span>米其林轮胎</td>
