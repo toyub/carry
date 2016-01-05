@@ -46,7 +46,7 @@
               <input type="radio" <%= 'checked' if setting.periodEnable() %> value="true" id="periodEnable" name="period_enable"> <input type="text" value="<%= setting.get 'period' %>" name="period" class="width-80 period">
               <select name="period_unit" class="width-80 period">
                 <% _.each setting.periodUnits(), (name, unit) ->: %>
-                <option value="<%= unit %>" <%= 'selected' if unit.toString() == setting.get('period_unit').toString() %>><%= name %></option>
+                <option value="<%= unit %>" <%= 'selected' if unit.toString() == String(setting.get('period_unit')) %>><%= name %></option>
               <% end %>
               </select>
               </li>
@@ -73,7 +73,7 @@
               <label>提成方案</label>
               <select name="store_commission_template_id" class="width-190">
                 <% Mis.commissions.each (c) ->: %>
-                <option value="<%= c.get 'id' %>" <%= 'selected' if c.get('id').toString() == setting.get('store_commission_template_id').toString() %>><%= c.get 'name' %></option>
+                <option value="<%= c.get 'id' %>" <%= 'selected' if c.get('id').toString() == String(setting.get('store_commission_template_id')) %>><%= c.get 'name' %></option>
               <% end %>
               </select>
               </li>
