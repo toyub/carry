@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103083437) do
+ActiveRecord::Schema.define(version: 20160105031107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1163,10 +1163,10 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
+    t.integer  "store_vehicle_registration_plate_id"
     t.boolean  "hanging",                                                                  default: false
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
-    t.integer  "store_vehicle_registration_plate_id"
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
     t.json     "situation"
     t.integer  "cashier_id",                                                                                            comment: "收银员"
@@ -1216,7 +1216,7 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing"
+    t.integer  "trigger_timing",   default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1740,6 +1740,7 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.integer  "workflow_id"
     t.string   "color"
     t.integer  "status",                                   default: 0
+    t.integer  "store_group_id"
   end
 
   create_table "stores", force: :cascade do |t|
@@ -1787,11 +1788,19 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "vehicle_manufacturers", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "vehicle_brand_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "vehicle_models", force: :cascade do |t|
     t.string   "name"
     t.integer  "vehicle_series_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "manufacturing_year"
   end
 
   create_table "vehicle_plates", force: :cascade do |t|
@@ -1803,9 +1812,12 @@ ActiveRecord::Schema.define(version: 20160103083437) do
 
   create_table "vehicle_series", force: :cascade do |t|
     t.string   "name"
-    t.integer  "vehicle_brand_id",              comment: "所属品牌"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "vehicle_brand_id",                                                            comment: "所属品牌"
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.decimal  "min",                     precision: 11, scale: 2, default: 0.0
+    t.decimal  "max",                     precision: 11, scale: 2, default: 0.0
+    t.integer  "vehicle_manufacturer_id"
   end
 
 end
