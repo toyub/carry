@@ -30,47 +30,7 @@
 				</div>
 				<div class="vehicle_order_details">
           <%= render "vehicle" %>
-					<div class="vehicle_order">
-						<span class="vehicle_order_title title doslide">
-							意向内容
-						</span>
-						<div class="order_info">
-							<table cellpadding="0" cellspacing="0" class="intention_content">
-								<thead>
-									<tr>
-										<th>名称</th>
-										<th>规格</th>
-										<th>零售价</th>
-										<th>意向价</th>
-										<th>数量</th>
-										<th>小计</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr data-id="list_content_01">
-										<td>米其林轮胎</td>
-										<td>195/65/15 XM2 91V</td>
-										<td>630.00</td>
-										<td><input type="text" value="580.00" class="width-60 text-align-center"></td>
-										<td><input type="text" value="2" class="width-40"></td>
-										<td>1160.00
-											<span class="delete close" data-target="list_content_01">
-												<i class="lnr lnr-cross color-fff"></i>
-											</span>
-										</td>
-									</tr>
-								</tbody>
-								<tfoot>
-								  <tr class="text-align-right">
-									  <td colspan="10">
-											<label class="margin-right-10">商品金额总计:</label><label>1160.00</label>
-										</td>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-					</div>
-
+          <%= render "items" %>
 					<div class="intention_info_wrap">
 						<span class="vehicle_order_title title doslide">
 							意向信息
