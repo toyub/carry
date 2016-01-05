@@ -10,6 +10,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   has_many :services, class_name:'StoreMaterialSaleinfoService', dependent: :delete_all
   has_many :store_subscribe_order_items, as: :itemable
   has_many :store_order_items, as: :orderable
+  has_many :recommended_order_items, as: :itemable
 
   accepts_nested_attributes_for :services
 
