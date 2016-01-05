@@ -15,7 +15,6 @@ json.customer do
     :tracking_accepted,
     :message_accepted
   )
-  json.created_at @customer.created_at.to_s
   json.age @customer.birthday && (Date.today - @customer.birthday).to_i/365
   json.birthday @customer.birthday.to_s
   json.property @customer.property_name
@@ -35,6 +34,6 @@ json.customer do
     :contract,
     :payment_mode,
     :credit,
-    :credit_limit,
+    :credit_limit
   )
 end
