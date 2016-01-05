@@ -311,7 +311,10 @@ Rails.application.routes.draw do
     namespace :sas do
       resources :stores do
         resources :customer_gender, only: [:index]
-        resources :sales, only: [:index]
+        resources :sales, only: [:index] do
+          get 'payments', on: :collection
+          get 'categories', on: :collection
+        end
         resources :vehicles, only: [:index]
       end
     end

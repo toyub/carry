@@ -1,8 +1,15 @@
 class Api::Sas::SalesController < Api::BaseController
   def index
+    sales = StoreMonthConsumingSerializer.new.data
     @data = {
-      title: ["集团消费","会员消费","非会员消费"],
+      months: sales.keys,
+      figures: sales.values
     }
+
     render json: @data
   end
+
+  def payments
+  end
+
 end
