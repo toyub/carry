@@ -15,6 +15,8 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   delegate :name, to: :store_material
 
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
+
   def divide_unit_type
     MaterialDivideUnitType.find(self.divide_unit_type_id).try(:name)
   end
@@ -41,6 +43,14 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   def commission(order_item)
     saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
+  end
+
+  def self.total_amount(month = Time.now)
+    amount = 0.0
+    by_month(month).each do |material|
+      amount += material.store_order_items.total_amount
+    end
+    amount
   end
 
   def to_snapshot!(order_item)

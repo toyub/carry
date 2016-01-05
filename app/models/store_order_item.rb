@@ -64,6 +64,10 @@ class StoreOrderItem < ActiveRecord::Base
     store_staff.commission? ? orderable.commission(self) : 0.0
   end
 
+  def self.total_amount
+    all.inject(0) { |sum, item| sum += item.amount }
+  end
+
   private
 
     def cal_amount

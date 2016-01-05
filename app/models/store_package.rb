@@ -16,6 +16,8 @@ class StorePackage < ActiveRecord::Base
 
   alias_attribute :retail_price, :price
 
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
+
   def create_one_setting
     self.create_package_setting(creator: self.creator)
   end
@@ -30,6 +32,14 @@ class StorePackage < ActiveRecord::Base
   
   def vip_price
     0
+  end
+
+  def self.total_amount(month = Time.now)
+    amount = 0.0
+    by_month(month).each do |package|
+      amount += package.store_order_items.total_amount
+    end
+    amount
   end
 
 end

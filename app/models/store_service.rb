@@ -29,6 +29,8 @@ class StoreService < ActiveRecord::Base
 
   after_create :create_service_reminds, :create_one_setting
 
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
+
   SETTING_TYPE = {
     regular: 0,
     workflow: 1
@@ -105,6 +107,14 @@ class StoreService < ActiveRecord::Base
       end
     end
     sum
+  end
+
+  def self.total_amount(month = Time.now)
+    amount = 0.0
+    by_month(month).each do |service|
+      amount += service.store_order_items.total_amount
+    end
+    amount
   end
 
 end
