@@ -45,7 +45,7 @@
           <th><%= @staff.store_department.try(:name) %></th>
           <th><%= @staff.store_position.try(:name) %></th>
           <th><%= @staff.current_salary.to_f %></th>
-          <th>未设置</th>
+          <th><%= @staff.commission_amount_total %></th>
           <th><%= @salary.amount_bonus.to_f %></th>
           <th><%= @salary.amount_reward.to_f %></th>
           <th><%= @salary.amount_insurence.to_f %></th>
@@ -66,21 +66,21 @@
                 <%= form.fields_for :deduction do |deduct_fields| %>
                   <li>
                     <label class="font-weight-bold width-50">提成</label>
-                    <label class="width-70">施工提成</label> <%= deduct_fields.text_field :shigong, value: "1.1" %>
+                    <label class="width-70">施工提成</label> <%= deduct_fields.text_field :shigong, value: @salary.deduction["shigong"].to_f %>
                   </li>
                   <li>
-                    <label>商品提成</label> <%= deduct_fields.text_field :shangpin, value: "1.2" %>
+                    <label>商品提成</label> <%= deduct_fields.text_field :shangpin, value: @salary.deduction["shangpin"].to_f %>
                   </li>
                   <li>
-                    <label>售卡提成</label> <%= deduct_fields.text_field :shouka, value: "1.3" %>
+                    <label>售卡提成</label> <%= deduct_fields.text_field :shouka, value: "0.0" %>
                   </li>
                   <li>
-                    <label>其他提成</label> <%= deduct_fields.text_field :qita, value: "1.4" %>
+                    <label>其他提成</label> <%= deduct_fields.text_field :qita, value: "0.0" %>
                   </li>
                 <% end %>
               </div>
               <li id="total_deduction" class="total_unit">
-                <label class="font-weight-bold">提成合计</label><%= form.text_field :amount_deduction, value: "5.0", class: "total" %>
+                <label class="font-weight-bold">提成合计</label><%= form.text_field :amount_deduction, value: @salary.amount_deduction, class: "total" %>
               </li>
             </ol>
 
@@ -142,7 +142,7 @@
         </li>
 
         <li class="total text-align-right total-salary-should-pay">
-          <label class="font-weight-bold">员工底薪：</label> <%= form.text_field :salary_should_pay, value: @salary.store_staff.current_salary, disabled: true, class: "margin-right-82" %>
+          <label class="font-weight-bold">员工底薪：</label> <%= form.text_field :basic_salary, value: @salary.store_staff.current_salary, disabled: true, class: "margin-right-82" %>
           <label class="color-7391C4 font-weight-bold">应发工资合计：</label> <%= form.text_field :salary_should_pay, value: @salary.salary_should_pay %>
         </li>
       </ul>
@@ -186,7 +186,7 @@
 
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
-    var total_should_pay_input = $(".total-salary-should-pay input"),
+    var total_should_pay_input = $(".total-salary-should-pay #salary_salary_should_pay"),
         total_should_pay = parseFloat(total_should_pay_input.val()),
         total_actual_pay_input = $(".total-actual-pay input"),
         total_actual_pay = parseFloat(total_actual_pay_input.val())
@@ -221,7 +221,6 @@
         var current_total_should_pay_input = $(total_area),
             current_total_should_pay = parseFloat(current_total_should_pay_input.val());
 
-        console.log(current_total_should_pay_input.length);
         if (operator == "+") {
           total_should_pay -= current_total_should_pay;
         } else if (operator == "-") {

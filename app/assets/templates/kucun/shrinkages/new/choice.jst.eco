@@ -9,5 +9,5 @@
   <td><%= @cost_price %></td>
   <td><%= @quantity %></td>
   <td><%= @remark %></td>
-  <td><input type="checkbox" data-id=<%= @idx %> name="sub_check"  ></td>
+  <td><input type="checkbox" data-id=<%= @id %> name="sub_check"  ></td>
 </tr>
