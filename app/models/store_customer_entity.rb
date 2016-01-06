@@ -111,4 +111,9 @@ class StoreCustomerEntity < ActiveRecord::Base
     self.class.unscoped.where(id: self.id).update_all("points=COALESCE(points, 0) + #{quantity.to_i.abs}")
   end
 
+  def membership!
+     self.membership = true
+     self.save!
+  end
+
 end
