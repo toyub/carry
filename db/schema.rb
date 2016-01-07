@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105031107) do
+ActiveRecord::Schema.define(version: 20160106122949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -404,13 +404,14 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.float    "range"
     t.string   "property"
     t.string   "remark"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "store_id"
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
-    t.decimal  "balance",                    default: 0.0, null: false
+    t.decimal  "balance",                    default: 0.0,   null: false
     t.integer  "points"
+    t.boolean  "membership",                 default: false
   end
 
   create_table "store_customer_payments", force: :cascade do |t|
@@ -443,7 +444,7 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.datetime "created_at",                                                      null: false
     t.datetime "updated_at",                                                      null: false
     t.integer  "store_customer_entity_id"
-    t.decimal  "credit_bill_amount",       precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "credit_bill_amount",                                default: 0.0, null: false
     t.decimal  "credit_limit",             precision: 12, scale: 2, default: 0.0
   end
 
@@ -1163,10 +1164,10 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
-    t.integer  "store_vehicle_registration_plate_id"
     t.boolean  "hanging",                                                                  default: false
     t.integer  "pay_status",                                                               default: 0
     t.integer  "task_status",                                                              default: 0
+    t.integer  "store_vehicle_registration_plate_id"
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
     t.json     "situation"
     t.integer  "cashier_id",                                                                                            comment: "收银员"
@@ -1216,7 +1217,7 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing",   default: 1
+    t.integer  "trigger_timing"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1394,9 +1395,9 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.boolean  "favorable",                                                     default: false
     t.integer  "setting_type",                                                  default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
   end
@@ -1456,6 +1457,7 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1465,7 +1467,6 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1740,7 +1741,6 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.integer  "workflow_id"
     t.string   "color"
     t.integer  "status",                                   default: 0
-    t.integer  "store_group_id"
   end
 
   create_table "stores", force: :cascade do |t|
