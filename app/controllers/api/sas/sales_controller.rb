@@ -5,17 +5,24 @@ class Api::Sas::SalesController < Api::BaseController
       months: sales.keys,
       figures: sales.values
     }
-
     render json: @data
   end
 
   def payments
-    @data = StoreMonthConsumingPaymentsSerializer.new.data
+    payments = StoreCustomerPayment.by_month
+    @data = StoreMonthConsumingPaymentsSerializer.new(payments).data
     render json: @data
   end
 
   def categories
-    @data = StoreMonthConsumingCategoriesSerializer.new.data
+    orderitems = StoreOrderItem.by_month
+    @data = StoreMonthConsumingCategoriesSerializer.new(orderitems).data
+    render json: @data
+  end
+
+  def days
+    orderitems = StoreOrderItem.by_month
+    @data = StoreMonthConsumingDaysSerializer.new(orderitems).data
     render json: @data
   end
 

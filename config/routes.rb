@@ -314,6 +314,7 @@ Rails.application.routes.draw do
         resources :sales, only: [:index] do
           get 'payments', on: :collection
           get 'categories', on: :collection
+          get 'days', on: :collection
         end
         resources :vehicles, only: [:index]
       end

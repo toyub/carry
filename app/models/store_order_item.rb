@@ -18,6 +18,7 @@ class StoreOrderItem < ActiveRecord::Base
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
 
   scope :by_month, ->(month = Time.now) { where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month) }
+  scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
 
   validates_presence_of :orderable
 
@@ -64,8 +65,8 @@ class StoreOrderItem < ActiveRecord::Base
     store_staff.commission? ? orderable.commission(self) : 0.0
   end
 
-  def self.total_amount(month = Time.now)
-    by_month(month).inject(0) { |sum, item| sum += item.amount }
+  def self.total_amount
+    all.inject(0) { |sum, item| sum += item.amount }
   end
 
   def self.top
