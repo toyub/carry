@@ -4,7 +4,7 @@ class VehicleCrawlerScheduleJob < ActiveJob::Base
   def perform(letters = [])
     letters = 'A'..'Z' if letters.blank?
     letters.each do |letter|
-      VehicleJob.perform_later(letter)
+      VehicleCrawlerJob.perform_later(letter)
     end
   end
 end

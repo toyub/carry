@@ -12,11 +12,8 @@ class VehicleCrawler
 
   def create_brands(brands, letter)
     brands.each do |brand|
-      vehicle_brand = VehicleBrand.create({
-        name: brand.search('dt').text,
-        letter: letter
-      })
       vehicle_brand = VehicleBrand.find_or_create_by(name: brand.search('dt').text)
+      vehicle_brand.update(letter: letter)
       manufacturers = brand.search('dd .h3-tit')
       create_manufacturers(manufacturers, vehicle_brand)
     end
@@ -24,8 +21,7 @@ class VehicleCrawler
 
   def create_manufacturers(manufacturers, vehicle_brand)
     manufacturers.each do |manufacturer|
-      vehicle_manufacturer = VehicleManufacturer.create(name: manufacturer.text)
-      vehicle_brand.vehicle_manufacturers << vehicle_manufacturer
+      vehicle_brand.vehicle_manufacturers.find_or_create_by(name: manufacturer.text)
       series = manufacturer.next_element.elements
       create_series(series, vehicle_brand, vehicle_manufacturer)
     end
@@ -35,14 +31,13 @@ class VehicleCrawler
     series.each do |s|
       next if s.attr(:class) == 'dashline'
       price_range = s.search('div a').first.text
-      vehicle_series = VehicleSeries.create({
-        name: s.search('h4').text,
+      vehicle_series = vehicle_brand.vehicle_series.find_or_create_by(name: s.search('h4').text)
+      vehicle_series.update({
         min: price_range.split('-').first,
         max: price_range.split('-').last.chop
       })
-      vehicle_brand.vehicle_series << vehicle_series
       vehicle_manufacturer.vehicle_series << vehicle_series
-      VehicleModelJob.perform_later(s.search('h4 a').first.attr('href'), vehicle_series)
+      ModelCrawlerJob.perform_later(s.search('h4 a').first.attr('href'), vehicle_series)
     end
   end
 

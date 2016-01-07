@@ -23,6 +23,6 @@ class CrawlerRunner
   def process_page_results(page)
     @crawlable.process_page_results(page)
   rescue => e
-    $crawler_logger.error e.inspect
+    $crawler_logger.error("message: #{e.message}, backtrace: #{e.backtrace.join("\n")}")
   end
 end
