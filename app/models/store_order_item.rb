@@ -69,8 +69,18 @@ class StoreOrderItem < ActiveRecord::Base
     all.inject(0) { |sum, item| sum += item.amount }
   end
 
-  def self.top
-    first.try :orderable
+  def self.top(sort_by = 'amount')
+    return unless count > 0
+    sort_by = 'amount' unless ['quantity', 'amount'].include? sort_by
+    id = group(:orderable_id).order("sum_#{sort_by} desc").sum(sort_by).first[0]
+    first.orderable_type.constantize.find(id)
+  end
+
+  def self.top_of_saler(sort_by = 'amount')
+    return unless count > 0
+    sort_by = 'amount' if ['quantity', 'amount'].include? sort_by
+    id = group(:store_staff_id).order("sum_#{sort_by} desc").sum(sort_by).first[0]
+    StoreStaff.find(id)
   end
 
   private

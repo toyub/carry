@@ -20,10 +20,10 @@
     <div class="graphs">
 
       <div class="bar_chart">
-        <select class="width-90">
-          <option value="half_year">半年图</option>
-          <option value="year_on_year">同比图</option>
-        </select>
+        <!-- <select class="width&#45;90"> -->
+        <!--   <option value="half_year">半年图</option> -->
+        <!--   <option value="year_on_year">同比图</option> -->
+        <!-- </select> -->
 
         <div id="half_year_barchart" class="half_year_barchart"  style="height:320px;width:720px;"></div>
         <div id="year_on_year_barchart" class="year_on_year_barchart"  style="height:320px;width:720px;"></div>
@@ -44,10 +44,19 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
+      $('select.sort-by').on('change', function(){
+        var optionSelected = $("option:selected", this),
+          valueSelected = this.value;
+
+        $.get("/api/sas/stores/<%= current_store.id %>/sale_top?type="+valueSelected, function(){
+        })
+      })
+
       Sells.display_year_sales_bar();
       Sells.display_payment_ways_pie();
       Sells.display_month_sales_pie();
       Sells.display_month_sales_line();
+
     });
   </script>
 <% end %>

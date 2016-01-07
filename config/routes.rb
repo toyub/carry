@@ -316,6 +316,7 @@ Rails.application.routes.draw do
           get 'categories', on: :collection
           get 'days', on: :collection
         end
+        resources :sale_top, only: [:index]
         resources :vehicles, only: [:index]
       end
     end

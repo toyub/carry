@@ -1,42 +1,13 @@
 <div class="personal_achivement">
   <div class="left">
-    <!-- <select class="width&#45;100"> -->
-    <!--   <option>全部</option> -->
-    <!-- </select> -->
+    <select class="sort-by width-100">
+      <option value='amount'>按金额</option>
+      <option value='quantity'>按件数</option>
+    </select>
 
-    <ul class="achives_top">
-      <li>业绩 TOP</li>
-      <li><%= @top_staff.screen_name %></li>
-      <li><%= @top_staff.store_order_items.by_month.count %>单</li>
-      <li><%= @top_staff.store_order_items.by_month.total_amount %></li>
-    </ul>
-
-    <ul class="material_top">
-      <li>商品 TOP</li>
-      <% if @top_material.present? %>
-        <li><%= @top_material.name %></li>
-        <li><%= @top_material.store_order_items.by_month.count %>件</li>
-        <li><%= @top_material.store_order_items.by_month.total_amount %></li>
-      <% end %>
-    </ul>
-
-    <ul class="service_top">
-      <li>服务 TOP</li>
-      <% if @top_service.present? %>
-        <li><%= @top_service.name %></li>
-        <li><%= @top_service.store_order_items.by_month.count %>次</li>
-        <li><%= @top_service.store_order_items.by_month.total_amount %></li>
-        <% end %>
-    </ul>
-
-    <ul class="package_top">
-      <li>套餐 TOP</li>
-      <% if @top_package.present? %>
-        <li><%= @top_package.name %></li>
-        <li><%= @top_package.store_order_items.by_month.count %>次</li>
-        <li><%= @top_package.store_order_items.by_month.total_amount %></li>
-        <% end %>
-    </ul>
+    <div class="rank">
+      <%= render 'rank' %>
+    </div>
   </div>
 
   <div class="line_chart">
