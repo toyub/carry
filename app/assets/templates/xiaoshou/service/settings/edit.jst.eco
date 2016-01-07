@@ -39,9 +39,9 @@
               <label for="engineer_level">技师级别限定</label>
               <select class="width-106 margin-right-14" id="engineer_level" name="engineer_level" <%= 'disabled' if @setting.isRegular() && !@setting.isLimitedEngineerLevel() %>>
                 <option value="">请选择</option>
-                <% _.each @store.get('engineer_levels'), (value, key) -> :%>
-                <option value="<%= key %>"><%= value %></option>
-              <% end %>
+                <% _.each @store.get('engineer_levels'), (value, key) => :%>
+                  <option value="<%= key %>" <%= 'selected' if String(@setting.get('engineer_level')) == key.toString() %>><%= value %></option>
+                <% end %>
               </select>
               以上
             </td>
@@ -79,7 +79,7 @@
             <td></td>
             <td></td>
             <td>
-              <input id="buffering_time_enable" class="toggleable" type="radio" value="false" <%= 'checked' if @setting.isRegular() && @setting.bufferingTimeEnable() %> name="buffering_time_enable">
+              <input id="buffering_time_enable" class="toggleable" type="radio" value="true" <%= 'checked' if @setting.isRegular() && @setting.bufferingTimeEnable() %> name="buffering_time_enable">
             </td>
             <td colspan="3">
               <label for="prepare_time">缓冲时间</label>
