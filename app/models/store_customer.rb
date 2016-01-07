@@ -70,10 +70,6 @@ class StoreCustomer < ActiveRecord::Base
     StoreCustomerAccount.new(self)
   end
 
-  def vip?
-    @vip ||= self.store_customer_deposit_cards.count(:id) > 0
-  end
-
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"

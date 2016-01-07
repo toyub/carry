@@ -1,6 +1,6 @@
 
   <td class="number">
-    1
+    <%= @idx %>
     <input type="hidden" name="store_material_order[items_attributes][][store_material_id]" value="<%= @id %>">
   </td>
   <td><div class="text_div"><%= @name %></div></td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103083437) do
+ActiveRecord::Schema.define(version: 20160106122949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -404,13 +404,14 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.float    "range"
     t.string   "property"
     t.string   "remark"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "store_id"
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
-    t.decimal  "balance",                    default: 0.0, null: false
+    t.decimal  "balance",                    default: 0.0,   null: false
     t.integer  "points"
+    t.boolean  "membership",                 default: false
   end
 
   create_table "store_customer_payments", force: :cascade do |t|
@@ -443,7 +444,7 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.datetime "created_at",                                                      null: false
     t.datetime "updated_at",                                                      null: false
     t.integer  "store_customer_entity_id"
-    t.decimal  "credit_bill_amount",       precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "credit_bill_amount",                                default: 0.0, null: false
     t.decimal  "credit_limit",             precision: 12, scale: 2, default: 0.0
   end
 
@@ -1394,9 +1395,9 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.boolean  "favorable",                                                     default: false
     t.integer  "setting_type",                                                  default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
   end
@@ -1456,6 +1457,7 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1465,7 +1467,6 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1787,11 +1788,19 @@ ActiveRecord::Schema.define(version: 20160103083437) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "vehicle_manufacturers", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "vehicle_brand_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "vehicle_models", force: :cascade do |t|
     t.string   "name"
     t.integer  "vehicle_series_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "manufacturing_year"
   end
 
   create_table "vehicle_plates", force: :cascade do |t|
@@ -1803,9 +1812,12 @@ ActiveRecord::Schema.define(version: 20160103083437) do
 
   create_table "vehicle_series", force: :cascade do |t|
     t.string   "name"
-    t.integer  "vehicle_brand_id",              comment: "所属品牌"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "vehicle_brand_id",                                                            comment: "所属品牌"
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.decimal  "min",                     precision: 11, scale: 2, default: 0.0
+    t.decimal  "max",                     precision: 11, scale: 2, default: 0.0
+    t.integer  "vehicle_manufacturer_id"
   end
 
 end
