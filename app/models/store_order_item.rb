@@ -68,6 +68,10 @@ class StoreOrderItem < ActiveRecord::Base
     by_month(month).inject(0) { |sum, item| sum += item.amount }
   end
 
+  def self.top
+    first.try :orderable
+  end
+
   private
 
     def cal_amount

@@ -10,6 +10,13 @@ class Api::Sas::SalesController < Api::BaseController
   end
 
   def payments
+    @data = StoreMonthConsumingPaymentsSerializer.new.data
+    render json: @data
+  end
+
+  def categories
+    @data = StoreMonthConsumingCategoriesSerializer.new.data
+    render json: @data
   end
 
 end

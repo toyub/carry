@@ -16,7 +16,7 @@
       <% if @top_material.present? %>
         <li><%= @top_material.name %></li>
         <li><%= @top_material.store_order_items.by_month.count %>件</li>
-        <li><%= @top_material.store_order_items.by_month.amount %></li>
+        <li><%= @top_material.store_order_items.by_month.total_amount %></li>
       <% end %>
     </ul>
 
@@ -25,7 +25,7 @@
       <% if @top_service.present? %>
         <li><%= @top_service.name %></li>
         <li><%= @top_service.store_order_items.by_month.count %>次</li>
-        <li><%= @top_service.store_order_items.by_month.amount %></li>
+        <li><%= @top_service.store_order_items.by_month.total_amount %></li>
         <% end %>
     </ul>
 
@@ -34,7 +34,7 @@
       <% if @top_package.present? %>
         <li><%= @top_package.name %></li>
         <li><%= @top_package.store_order_items.by_month.count %>次</li>
-        <li><%= @top_package.store_order_items.by_month.amount %></li>
+        <li><%= @top_package.store_order_items.by_month.total_amount %></li>
         <% end %>
     </ul>
   </div>
