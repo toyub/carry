@@ -1,8 +1,8 @@
 class StoreCustomerEntity < ActiveRecord::Base
   include BaseModel
 
-  has_one :store_customer
-  has_one :store_customer_settlement
+  has_one :store_customer, dependent: :destroy
+  has_one :store_customer_settlement, dependent: :destroy
   belongs_to :store_customer_category
 
   accepts_nested_attributes_for :store_customer
@@ -55,6 +55,18 @@ class StoreCustomerEntity < ActiveRecord::Base
     extra: '增值税发票'
   }
 
+  def settlement_payment_method
+   '现金'
+  end
+
+  def property_name
+   '个人客户'
+  end
+
+  def district
+    read_attribute(:district) || {}
+  end
+
   def province
     self.district["province"]
   end
@@ -75,6 +87,18 @@ class StoreCustomerEntity < ActiveRecord::Base
     self.created_at.strftime("%Y-%m-%d")
   end
 
+  def property_name
+    PROPERTIES[self.property]
+  end
+
+  def category
+    self.store_customer_category.try(:name)
+  end
+
+  def settlement
+    PAYMENTS[self.store_customer_settlement.payment_mode]
+  end
+
   def increase_balance!(amount)
     self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) + #{amount.to_f.abs}")
   end
@@ -85,6 +109,11 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   def increase_points!(quantity)
     self.class.unscoped.where(id: self.id).update_all("points=COALESCE(points, 0) + #{quantity.to_i.abs}")
+  end
+
+  def membership!
+     self.membership = true
+     self.save!
   end
 
 end

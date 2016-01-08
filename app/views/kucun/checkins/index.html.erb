@@ -1,290 +1,53 @@
-<div class="main_top">
-  <%= breadcrumb_navigation(['库存','入库记录']) %>
-</div>
-<div class="details">
-  <div class="list_table">
-    <div class="search_nav">
-      <div class="item-query">
-        <label>查找</label>
-        <input class="width-150" placeholder="输入产品关键字" type="text">
+  <div class="main_top">
+    <%= breadcrumb_navigation(['库存','入库记录']) %>
+  </div>
+  <div class="details">
+    <div class="list_table">
+      <div class="search_nav">
+        <%= render partial: 'kucun/partials/ruku_search' %>
+        <div class="query_div">
+          <a class="in_stg_btn btn" href="/kucun/checkins/new">入库</a>
+          <a class="notes_btn btn" href="javascript:void(0);">记录
+          </a>
+        </div>
       </div>
-      <div class="item-query">
-        <label>记录类型</label>
-        <select class="width-150 " id="stock_type" type="text">
-          <option value="1">全部</option>
-          <option value="2">订单入库</option>
-          <option value="3">快速入库</option>
-        </select>
-      </div>
-      <div class="item-query">
-        <label>二级分类</label>
-        <select class="width-150" type="text">
-          <option/><option/>
-        </select>
-      </div>
-      <div class="item-query">
-        <label>选择仓库</label>
-        <select class="width-150" type="text"><option/>
-          <option/>
-        </select>
-        <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
-      </div>
-      <div class="query_div">
-        <a class="in_stg_btn btn" href="/kucun/checkins/new">入库</a>
-        <a class="notes_btn btn" href="javascript:void(0);">记录
-        </a>
-      </div>
-    </div>
-
-    <div class="in_stock_by_orders common_in_storage">
-      <ul class="title">
-        <li>
-
-          <span class="line"></span>
-          单据时间
-        </li>
-        <li>
-          <span class="line"></span>订货单号</li>
-        <li>
-          <span class="line"></span>入库单号</li>
-        <li>
-          <span class="line"></span>供应商</li>
-        <li>
-          <span class="line"></span>单据金额</li>
-        <li>
-          <span class="line"></span>操作</li>
-        <li>
-          <span class="line"></span>详情</li>
-      </ul>
-      {% assign num=5 %}{% for i in (1..num)%}
-      <ul>
-        <li>2015-3-12
-        </li>
-        <li class="click_btn cursor-pointer">
-          DH2015031200028
-        </a>
-      </li>
-      <li class="click_instorage_order cursor-pointer">RK2015031200028
-      </li>
-      <li>杭州力得贸易有限工贸公司</li>
-      <li>2,380.00</li>
-      <li>李小龙</li>
-      <li/>
-  </ul>
-  <div class=" common_storage_content float-left ordergoods_details" id="ordernotes" style="display:none;">
-    <div class="ordergoods_query">
-      <div class="nav-item-query">
-        <label>供应商：</label>
-        <input class="width-200" type="text">
-      </div>
-      <div class="nav-item-query ">
-        <label>
-          时间：</label><input class="width-135" type="text">
-      </div>
-      <div class="nav-item-query">
-        <label>
-          单号：</label><input class="width-135" type="text">
-      </div>
-      <div class="ordergoods_print">
-        <a class="print_btn" href="#">
-          打<nbsp1/>印
-        </a>
-      </div>
-    </div>
-    <div class=" common_storage_tab order_goods_tab ">
-      <table cellpadding="0" cellspacing="0" class="storage_tab" id="storage_tab">
-        <thead>
-          <tr class="bg-color-e0e2cf color-282726">
-            <th width="3%">#
-            </th>
-            <th width="18%">
-              商品名称
-            </th>
-            <th width="8%">
-              条码
-            </th>
-            <th width="8%">规格
-            </th>
-            <th width="4%">单位
-            </th>
-            <th width="7%">一级分类
-            </th>
-            <th width="7%">二级分类
-            </th>
-            <th width="7%">单价
-            </th>
-            <th width="5%">数量
-            </th>
-            <th width="8%">小计
-            </th>
-            <th width="6%">仓库
-            </th>
-            <th width="15%">备注
-            </th>
-            <th width="4%">操作
-            </th>
-          </tr>
-        </thead>
-        <tbody>{% assign num=4 %}{% for i in (1..num) %}
-          <tr>
-            <td class="number">1
-            </td>
-            <td >
-              澜泰宾御纳米镀晶套装
-            </td>
-            <td>
-              887766555444
-            </td>
-            <td>长皮盒6项目
-            </td>
-            <td>套
-            </td>
-            <td>美容产品
-            </td>
-            <td>镀晶产品
-            </td>
-            <td>680.00
-            </td>
-            <td>8
-            </td>
-            <td>5,440.00
-            </td>
-            <td>未付款
-            </td><td/>
-            <td>
-              <i class="lnr lnr-cross-circle font-18"/></td>
-          </tr>
-          {% endfor %}</tbody>
-      </table>
-    </div>
-    <div class="order_goods_account">
-      <div class="item_content margin-left-10 margin-top-10">
-        <label class="width-75 margin-top-10 vertical-align-top">备注：</label>
-        <textarea class="remarks_textarea width-1246" disabled="disabled">
-          dfdgdfg
-
-        </textarea>
-      </div>
-      <div class="item_content margin-top-10 margin-left-10 float-left">
-        <label class="width-75">
-          本次付款：
-        </label><input class="width-253 " readonly="true" type="text" value="1000.00"></div>
-      <div class="item_content margin-top-10 float-left margin-left-20">
-        <label class="width-75 ">结算账户：
-        </label>
-        <input class="width-253 " readonly="true" type="text" value="622202000000000">
-      </div>
-      <div class="item_content margin-top-10 margin-left-20">
-        <label class="width-75">
-          本次欠款：
-        </label>
-        <input class="width-253" readonly="true" type="text" value="283.00">
-      </div>
-      <div class="item_content margin-left-10 height-30">
-        <label class="width-75">
-          制单人：
-        </label>
-        <label class="width-253">
-          李宁</label>
+      <div>
+        <table cellpadding="0" cellspacing="0" class="storage_tab" id="storage_tab">
+          <thead>
+            <tr class="bg-color-e0e2cf color-282726">
+              <th>#</th>
+              <th>商品名称</th>
+              <th>条码</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>成本价</th>
+              <th>数量</th>
+              <th>小计</th>
+              <th>仓库</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @items.each_with_index do |item, idx| %>
+            <tr title="<%= item.store_material.name %>">
+              <td class="number"><%= idx + 1 %></td>
+              <td><%= item.store_material.name.truncate(8) %></td>
+              <td><%= item.store_material.barcode %></td>
+              <td><%= item.store_material.store_material_root_category.try :name %></td>
+              <td><%= item.store_material.store_material_category.try :name %></td>
+              <td><%= item.store_material.speci %></td>
+              <td><%= item.store_material.store_material_unit.try :name %></td>
+              <td><%= item.price %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.amount %></td>
+              <td><%= item.store_depot.name %></td>
+              <td><%= item.remark %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div class="in_storage_content common_storage_content float-left" id="in_storage_order" style="display:none">
-    <div class="in_storage_query">
-      <div class="nav-item-query">
-        <label>
-          时间：</label><input class="width-135" type="text">
-      </div>
-      <div class="nav-item-query">
-        <label>
-
-          单号：
-        </label>
-
-        <input class="width-135" type="text">
-      </div>
-      <div class="nav-item-query">
-        <label>
-          供应商：
-        </label>
-        <select class="width-240">
-          <option/><option/></select>
-      </div>
-      <div class="nav-item-query">
-        <label>
-          数量：</label><input class="width-135" type="text">
-      </div>
-      <div class="nav-item-query">
-        <label>
-          金额：</label>
-        <input class="width-135" type="text">
-      </div>
-      <div class="in_storage_print">
-        <a class="print_btn" href="#">打&nbsp;&nbsp;&nbsp;印</a>
-        <a class="print_barcode_btn" href="#">
-          打印条码
-        </a>
-      </div>
-    </div>
-    <div class="in_storage_tab common_storage_tab">
-      <table cellpadding="0" cellspacing="0" class="storage_tab" id="storage_tab">
-        <thead>
-          <tr class="bg-color-e0e2cf color-282726">
-            <th width="3%">#</th>
-            <th width="16%">商品名称</th>
-            <th width="8%">
-              条码
-            </th>
-            <th width="8%">
-              规格
-            </th>
-            <th width="4%">单位</th>
-            <th width="7%">一级分类</th>
-            <th width="7%">二级分类</th>
-            <th width="7%">单价</th>
-            <th width="4%">数量</th>
-            <th width="7%">仓库</th>
-            <th width="8%">小计</th>
-            <th width="6%">付款状态</th>
-            <th width="15%">备注</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% assign num=3%}{% for i in (1..num)%}
-          <tr>
-            <td class="number">1</td>
-            <td>澜泰宾御纳米镀晶套装</td>
-
-            <td>
-              887766555444
-            </td>
-
-            <td>
-              长皮盒6项目
-            </td>
-            <td>套</td>
-            <td>美容产品</td>
-            <td>镀晶产品</td>
-            <td>680.00</td>
-            <td>8</td>
-            <td>仓库1</td>
-            <td>5,440.00</td>
-            <td>未付款</td>
-            <td/></tr>{% endfor %}
-        </tbody>
-      </table>
-      <div class="common_storage_account">
-        <div class="item_content margin-left-10">
-          <label class="width-75 vertical-align-top">备注：
-          </label><textarea class="remarks_textarea"/></div>
-        <div class="item_content margin-left-10">
-          <label class="width-75">
-            制单人：
-          </label>
-          <label class="width-253"/>
-        </div>
-      </div>
-    </div>
-  </div>{% endfor%}</div>
-</div>
-</div>

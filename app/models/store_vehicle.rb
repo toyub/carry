@@ -9,7 +9,7 @@ class StoreVehicle < ActiveRecord::Base
   belongs_to :vehicle_series
 
   # 车牌
-  has_many :vehicle_plates
+  has_many :vehicle_plates, dependent: :destroy
   has_many :plates, through: :vehicle_plates
 
   # 发动机
@@ -21,6 +21,10 @@ class StoreVehicle < ActiveRecord::Base
 
   has_many :orders, class_name: "StoreOrder"
   has_many :complaints, as: :creator
+
+  validates_presence_of :store_customer
+  
+  has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_vehicle_id
 
   def license_number
     if current_plate.present?

@@ -1,0 +1,3 @@
+class ServiceCategory < Category
+
+end

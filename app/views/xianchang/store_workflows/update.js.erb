@@ -1,0 +1,5 @@
+<% if @workflow.errors.empty? %>
+    window.location.href = "/xianchang/store_workstations";
+<% else %>
+    ZhanchuangAlert("<%= @workflow.errors.full_messages.join(",") %>");
+<% end %>

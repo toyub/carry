@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Printer</title>
     <meta name="description" content="The Printer Page">
-    <%= stylesheet_link_tag "/stylesheets/style.css", "/stylesheets/print.css" %>
+    <%= stylesheet_link_tag "/stylesheets/style.css", "/stylesheets/print.css", media: :all %>
   </head>
   <body>
-      <main id='main' >
+      <button class='print_btn' onclick="print();">打印单据</button>
+      <main id='main'>
         <%= yield %>
       </main>
   </body>

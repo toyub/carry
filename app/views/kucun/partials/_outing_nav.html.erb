@@ -1,0 +1,20 @@
+<div class="nav-item-query">
+  <label>出库类型</label>
+  <input type="hidden" name="material[out_store_type_id]" value=""/>
+  <span id='out_store_type_id' class="width-157 as_select" data-select='#out_store_type_select' data-target='input[name="material[out_store_type_id]"]'>
+    <%=
+      case params[:controller]
+      when 'kucun/transfer/pickings'
+        '转移出库'
+      when 'kucun/outings'
+        '其他出库'
+      end
+    -%>
+  </span>
+  <div id='out_store_type_select' class="select width-165">
+    <ol class="width-165">
+      <li data-value=""><a href="/kucun/transfer/pickings">转移出库</a></li>
+      <li data-value=""><a href="/kucun/outings">其他出库</a></li>
+    </ol>
+  </div>
+</div>
