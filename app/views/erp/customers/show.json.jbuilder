@@ -1,16 +1,16 @@
 json.(@customer,
   :full_name,
-  :gender,
   :nick,
   :telephone,
   :phone_number,
   :qq,
   :resident_id,
-  :married,
   :company,
   :tracking_accepted,
   :message_accepted
 )
+json.gender @customer.gender ? '男' : '女'
+json.married @customer.married ? '已婚' : '未婚'
 json.profession @customer.profession_name
 json.income @customer.income
 json.education @customer.education

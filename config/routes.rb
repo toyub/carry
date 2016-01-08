@@ -239,6 +239,8 @@ Rails.application.routes.draw do
       resources :orders, only: [:index]
       resources :license_numbers, only: [:index]
       resources :vehicles, only: [:index, :show]
+      resources :assets, only: [:index]
+      resources :deposit_card_assets, only: [:show]
     end
     resources :contact_ways, only: [:index]
     resources :stores, only: [:index]
