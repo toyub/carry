@@ -91,6 +91,21 @@ class StoreService < ActiveRecord::Base
     0
   end
 
+  def time
+    2
+  end
+
+  def mechanic_levles
+    "初级-初级"
+  end
+
+  def saled
+    23
+  end
+
+  def category
+    service_category.try(:name)
+  end
 
   def service_needed?
     true
