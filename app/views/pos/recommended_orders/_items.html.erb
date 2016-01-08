@@ -32,7 +32,7 @@
 					<td>
             {{ item.quantity * item.recommended_price }}
 						<span class="delete close" data-target="list_content_01">
-							<i class="lnr lnr-cross color-fff"></i>
+              <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
 						</span>
 					</td>
 				</tr>
