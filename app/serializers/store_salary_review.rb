@@ -13,8 +13,11 @@ class StoreSalaryReview
   private
   def default_salary_params(staff)
     {
-      amount_deduction: 5,
-      deduction: {},
+      amount_deduction: staff.commission_amount_total,
+      deduction: {
+        shigong: staff.services_commission,
+        shangpin: staff.materials_commission,
+      },
       amount_overtime: staff.store_overworks.total,
       amount_reward: staff.store_rewords.total,
       bonus: {gangwei: staff.bonus["gangwei"], zhusu: staff.bonus["zhusu"], canfei: staff.bonus["canfei"], laobao: staff.bonus["laobao"], gaowen: staff.bonus["gaowen"] },

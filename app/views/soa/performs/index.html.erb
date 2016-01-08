@@ -1,0 +1,62 @@
+<div class="main_top">
+  <h2>绩效提成</h2>
+  <%= render '/soa/shared/return' %>
+</div>
+
+<div class="details">
+  <%= render "/soa/shared/top_info" %>
+  <div class="details_content staff_commission">
+  <%= render "search" %>
+    <table class="head">
+      <thead>
+        <tr>
+          <th><label class="cursor-pointer date">日期<i class="fa fa-sort-down"></i></label></th>
+          <th>订单号</th>
+          <th>项目</th>
+          <th>流程</th>
+          <th><label class="cursor-pointer">项目金额<i class="fa fa-sort-down"></i></label></th>
+          <th><label class="cursor-pointer">提成金额<i class="fa fa-sort-down"></i></label></th>
+        </tr>
+      </thead>
+    </table>
+
+    <table class="content">
+      <tbody>
+        <% @order_items.each do |item| %>
+          <% unless item.orderable_type == 'StorePackage' %>
+            <tr>
+              <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
+              <td><%= item.store_order.numero %></td>
+              <td><%= item.orderable.name %></td>
+              <% if item.orderable_type == "StoreService" %>
+                <td>
+                  <% item.orderable.setting.workflows.each do |workflow| %>
+                    <div>
+                      <label><%= workflow.name %></label><span></span>
+                    </div>
+                  <% end %>
+                </td>
+              <% else %>
+                <td>卖出<em><%= item.quantity %></em>件</td>
+              <% end %>
+              <td><%= item.amount %></td>
+              <td> <%= item.commission %> </td>
+            </tr>
+          <% end %>
+        <% end %>
+      <tfoot>
+        <tr>
+          <td colspan="3"></td>
+          <td class="text-align-right">
+            <label>订单数：</label><span class="width-90 text-align-left"><%= @staff.store_orders.count %></span>
+            <label class="width-100">项目总金额：</label>
+          </td>
+          <td colspan="2">
+            <span class="width-80"><%= @staff.items_amount_total %></span>
+            <label>提成总金额：</label><span><%= @staff.commission_amount_total %></span>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

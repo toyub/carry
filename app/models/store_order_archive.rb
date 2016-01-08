@@ -14,6 +14,7 @@ class StoreOrderArchive
       reward_points
       pay_finish
       auto_outing
+      deal_with_divideable
     end
   end
 
@@ -43,7 +44,7 @@ class StoreOrderArchive
                                            store_order_id: @order.id,
                                            latest: @customer.store_customer_entity.balance.to_f,
                                            amount: card.denomination.to_f
-
+        @customer.store_customer_entity.membership! unless @customer.store_customer_entity.membership?
         @customer.store_customer_entity.increase_balance!(card.denomination)
      end
   end
@@ -123,6 +124,17 @@ class StoreOrderArchive
   def auto_outing
     depot = @order.store.store_depots.current_preferred
     depot.outing_order_materials!(@order)
+  end
+
+  def deal_with_divideable
+    @order.items.materials.each do |order_item|
+      if order_item.orderable.divide_to_retail?
+        order_item.divide_to_retail = true
+        order_item.standard_volume_per_bill = order_item.orderable.divide_volume_per_bill
+        order_item.actual_volume_per_bill = order_item.orderable.divide_volume_per_bill
+        order_item.save!
+      end
+    end
   end
 
 end

@@ -1,5 +1,6 @@
 class StoreCustomerPayment < ActiveRecord::Base
   belongs_to :store_customer
+  belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
 
   def hanging?
     self.payment_method_type == PaymentMethods::Internalcredit.name
@@ -7,5 +8,9 @@ class StoreCustomerPayment < ActiveRecord::Base
 
   def payment_method
     self.payment_method_type.constantize.as_json
+  end
+
+  def payment_method_cn_name
+    self.payment_method_type.constantize.cn_name
   end
 end

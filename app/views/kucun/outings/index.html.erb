@@ -5,35 +5,9 @@
 <div class="details">
     <div class="list_table">
       <div class="search_nav">
-        <div class="item-query">
-          <label>查找出库产品</label>
-          <input type="text" class="width-150" placeholder="输入产品关键字">
-        </div>
-        <div class="item-query">
-          <label>一级分类</label>
-          <select type="text" class="width-150">
-            <option></option>
-            <option></option>
-          </select>
-        </div>
-        <div class="item-query">
-          <label>二级分类</label>
-          <select type="text" class="width-150">
-            <option></option>
-            <option></option>
-          </select>
-        </div>
-        <div class="item-query">
-          <label>选择仓库</label>
-          <select type="text" class="width-150">
-            <option></option>
-            <option></option>
-          </select>
-          <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
-        </div>
+        <%= render partial: '/kucun/partials/outing_nav' %>
+
         <div class="query_div">
-          <a href='javascript:void(0);' class="print_btn btn">打印</a>
-          <a href='javascript:void(0);' class="export_btn btn bg-color-936ACB color-fff">导出</a>
           <a href="/kucun/outings/new" class="outstorage_btn btn">出库</a>
           <a href='javascript:void(0);' class="notes_btn btn">记录</a>
         </div>

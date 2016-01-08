@@ -1,7 +1,8 @@
 class StoreOrderSerializer < ActiveModel::Serializer
-  attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status
-  has_many :payments
+  attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status,
+    :created_at, :updated_at, :items_content
 
+  has_many :payments
   has_one :store_vehicle
   has_one :store_customer
 
@@ -24,6 +25,22 @@ class StoreOrderSerializer < ActiveModel::Serializer
       amount: object.items.services.collect { |service| service.amount }.sum,
       items: object.items.services.map { |service| StoreOrderItemSerializer.new(service).as_json(root: nil) }
     }
+  end
+
+  def created_at
+    object.created_at.strftime("%Y-%m-%d %H:%M")
+  end
+
+  def updated_at
+    object.updated_at.strftime("%Y-%m-%d %H:%M")
+  end
+
+  def items_content
+    if object.items.present?
+      "包含 #{object.items.first.orderable.name} 等 #{object.items.count} 个项目 "
+    else
+      "包含0个项目"
+    end
   end
 
 end

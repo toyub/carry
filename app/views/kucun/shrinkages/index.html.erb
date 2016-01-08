@@ -53,8 +53,8 @@
                 <li><%= idx + 1 %></li>
                 <li><%= shrinkage.created_at.to_s(:date_only) %></li>
                 <li><%= shrinkage.numero %></li>
-                <li>包含「<%= item.store_material.name.truncate(11) %>」等多个商品</li>
-                <li>包含「<%= item.store_material.store_material_root_category.name %>」 等多个类别</li>
+                <li>包含「<%= item.store_material.name.truncate(11) if item.present? %>」等多个商品</li>
+                <li>包含「<%= item.store_material.store_material_root_category.name if item.present? %>」 等多个类别</li>
                 <li><%= shrinkage.total_amount %></li>
                 <li><%= shrinkage.remark %><nbsp1></nbsp1></li>
                 <li>

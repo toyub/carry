@@ -4,11 +4,12 @@ class StoreService < ActiveRecord::Base
 
   random :code
 
+  belongs_to :service_category, class_name: 'ServiceCategory', foreign_key: :category_id
   belongs_to :store_service_category
   has_many :store_service_store_materials
   has_many :store_materials, through: :store_service_store_materials
   belongs_to :unit, foreign_key: 'store_service_unit_id'
-  has_many :snapshots, class_name: "StoreServiceSnapshot", foreign_key: :store_service_id
+  has_many :snapshots, class_name: "StoreServiceSnapshot", as: :templateable
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
   has_many :store_order_items, as: :orderable
   has_many :store_service_workflows, dependent: :delete_all
@@ -52,7 +53,59 @@ class StoreService < ActiveRecord::Base
     self.setting_type == SETTING_TYPE[:workflow]
   end
 
+  def to_snapshot!(order_item)
+    attrs = self.attributes.symbolize_keys.except(
+      :id,
+      :created_at,
+      :updated_at
+    ).merge(templateable: self).merge self.base_attrs(order_item)
+    service = StoreServiceSnapshot.create! attrs
+    self.store_service_workflows.each do |w|
+      options = {
+        store_service_id: service.id,
+        store_service_workflow_id: w.id
+      }
+      StoreServiceWorkflowSnapshot.create! w.snapshot_attrs(self.base_attrs(order_item).merge options)
+    end
+  end
+
+  def base_attrs(order_item)
+    {
+      store_vehicle_id: order_item.store_order.store_vehicle_id,
+      store_order_item_id: order_item.id,
+      store_order_id: order_item.store_order.id
+    }
+  end
+
   def to_workflowable_hash
     self.as_json.merge(workflows: self.store_service_workflows.unscoped.as_json)
   end
+
+  # jbuilder used
+  #
+  def quantity
+    1
+  end
+
+  def vip_price
+    0
+  end
+
+
+  def service_needed?
+    true
+  end
+
+  def commission(order_item)
+    sum = 0.0
+    if setting.workflows.present?
+      setting.workflows.each do |flow|
+        amount = 0.0
+        amount = flow.engineer_commission.commission(order_item) if flow.engineer_commission.present?
+        sum += amount
+      end
+    end
+    sum
+  end
+
 end

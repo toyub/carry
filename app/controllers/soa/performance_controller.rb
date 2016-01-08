@@ -3,6 +3,7 @@ class Soa::PerformanceController < Soa::BaseController
     @staffs = current_store.store_staff
     @departments = current_store.store_departments
     @positions = @departments[0].store_positions
+    @month = Time.now
   end
 
   def search
@@ -12,7 +13,7 @@ class Soa::PerformanceController < Soa::BaseController
                                               .by_job_type(params[:job_type_id])
     @departments = current_store.store_departments
     @positions = @departments.find(params[:store_department_id]).store_positions
-    @search_date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
+    @month = (Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i) || Time.now
     render :index
   end
 

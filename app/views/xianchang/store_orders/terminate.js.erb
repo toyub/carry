@@ -1,0 +1,8 @@
+<% if @state == "queuing" %>
+  $("#order-<%= @store_order.id %>").remove();
+<% else %>
+  var target = $("#order-<%= @store_order.id %>").closest(".item_station");
+  $(target).find(".vehicle_info").remove();
+  $(target).append("<%= j render partial: '/xianchang/store_workstations/idle_workstation' %>");
+<% end %>
+$(".js-finished").prepend("<%= j render partial: '/xianchang/store_workstations/order', locals: {order: @store_order} %>");

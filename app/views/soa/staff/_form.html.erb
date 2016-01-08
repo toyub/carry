@@ -78,7 +78,7 @@
 
       <div class="id">
         <label for="">身份证号</label>
-        <input type="text" name="employee[identity_card]" value="<%= @employee.identity_card%>">
+        <input type="text" name="employee[identity_card]" value="<%= @employee.identity_card%>" placeholder="请输入18位有效身份证号" pattern="\d{18}" >
       </div>
 
       <div>
@@ -115,7 +115,7 @@
 
       <div>
         <label for="">手机号</label>
-        <input type="text" name="employee[phone_number]"  value="<%= @employee.phone_number%>" required>
+        <input type="text" name="employee[phone_number]"  value="<%= @employee.phone_number%>" placeholder="请输入11位手机号码" pattern="^1\d{10}" required>
       </div>
 
       <div>

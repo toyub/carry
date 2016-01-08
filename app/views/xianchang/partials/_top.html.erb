@@ -1,0 +1,51 @@
+<table cellspacing="0" cellpadding="0" class="on_site_top">
+		<tbody>
+		  <tr>
+			  <td class="border-bottom-none">正在施工车辆</td>
+				<td class="border-bottom-none">正在排队车辆</td>
+				<td class="border-bottom-none">等待付款车辆</td>
+				<td class="border-bottom-none">离场车辆</td>
+				<td>
+					<label class="width-70">技师人数</label>
+					<label class="width-80 text-align-center"><%= @mechanics_count %></label>
+				</td>
+				<td>
+					<label class="width-70">技师忙碌</label>
+					<label class="width-80 text-align-center"><%= @worker_counts[:busy] %></label>
+				</td>
+				<td>
+					<label class="width-70">工位总数</label>
+					<label class="width-80 text-align-center">8</label>
+				</td>
+				<td>
+					<label class="width-70">工位使用</label>
+					<label class="width-80 text-align-center">8</label>
+				</td>
+				<td class="border-bottom-none">今天施工总台次</td>
+			</tr>
+			<tr >
+			  <td class="font-18 text-align-center"><%= @order_counts[:processing] %><label class="margin-left-5 font-18">台</label></td>
+				<td class="font-18 text-align-center"><%= @order_counts[:queuing] %><label class="margin-left-5 font-18">台</label></td>
+				<td class="font-18 text-align-center"><%= @order_counts[:paying] %><label class="margin-left-5 font-18">台</label></td>
+				<td class="font-18 text-align-center"><%= @order_counts[:finished] %><label class="margin-left-5 font-18">台</label></td>
+				<td>
+					<label class="width-70">技师到岗</label>
+					<label class="width-80 text-align-center"><%= @worker_counts[:ready] + @worker_counts[:busy] %></label>
+				</td>
+				<td>
+					<label class="width-70">技师空闲</label>
+					<label class="width-80 text-align-center"><%= @worker_counts[:ready] %></label>
+				</td>
+				<td>
+					<label class="width-70">工位正常</label>
+					<label class="width-80 text-align-center">8</label>
+				</td>
+				<td>
+					<label class="width-70">预约等待</label>
+					<label class="width-80 text-align-center">0</label>
+				</td>
+				<td class="font-18 text-align-center"><%= @order_counts.map{|key, value| value}.sum %><label class="margin-left-5 font-18">台</label></td>
+			</tr>
+
+		</tbody>
+	</table>

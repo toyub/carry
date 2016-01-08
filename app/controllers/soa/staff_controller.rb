@@ -44,6 +44,7 @@ class Soa::StaffController < Soa::BaseController
 
   def update
     staff = current_store.store_staff.find(params[:id])
+    staff.update!(:mis_login_enabled, false) if params[:terminated_at].present?
     employee = staff.store_employee || staff.build_store_employee(employee_params)
     staff.update!(staff_params)
     employee.update!(employee_params)

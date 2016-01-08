@@ -3,6 +3,8 @@ class StoreCustomer < ActiveRecord::Base
 
   belongs_to :store_customer_entity
   belongs_to :store_staff
+  belongs_to :store_customer_category
+
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
   has_many :orders, class_name: "StoreOrder"
 
@@ -18,6 +20,8 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :assets, class_name: 'StoreCustomerAsset'
   has_many :deposit_logs, class_name: "StoreCustomerDepositLog"
+
+  has_many :store_customer_deposit_cards
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -84,7 +88,18 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def satisfaction
+  end
 
+  def property
+    self.store_customer_entity.property_name
+  end
+
+  def category
+    self.store_customer_entity.category
+  end
+
+  def settlement
+    self.store_customer_entity.settlement
   end
 
   def account
