@@ -87,6 +87,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def satisfaction
+  end
 
   def property
     self.store_customer_entity.property_name

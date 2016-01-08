@@ -36,21 +36,21 @@ class StoreStaffSerializer < ActiveModel::Serializer
 
   def performance
     {
-      amount: 0,
-      orders: 0
+      amount: object.items_amount_total,
+      orders: object.store_orders.count
     }
   end
 
   def commission
-    0
+    object.commission_amount_total
   end
 
   def penalty
-    0
+    object.store_penalties.total
   end
 
   def reward
-    0
+    object.store_rewards.total
   end
 
 end

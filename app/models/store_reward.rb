@@ -3,6 +3,6 @@ class StoreReward < StoreEvent
   scope :amount, ->(month = Time.now.strftime("%Y%m")) {where(created_month: month) }
 
   def self.total
-    amount.inject(0) { |sum, reword| sum + reword.operate["amount"].to_f }
+    all.inject(0) { |sum, reword| sum + reword.operate["amount"].to_f }
   end
 end
