@@ -228,7 +228,10 @@ Rails.application.routes.draw do
     resources :contact_ways, only: [:index]
     resources :stores, only: [:index]
     resources :customer_properties, only: [:index]
-    resources :store_staff, only: [:index]
+
+    resources :stores, only: [:index] do
+      resources :store_staff, only: [:index]
+    end
   end #End of erp
 
   #Api
