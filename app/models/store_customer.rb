@@ -114,19 +114,16 @@ class StoreCustomer < ActiveRecord::Base
     1_0000
   end
 
-  def credits
-    300
-  end
-
-  def integrity
-
-  end
-
   def activeness
-
+    '活跃度'
   end
 
   def satisfaction
+    '满意度'
+  end
+
+  def integrity
+    '完整度'
   end
 
   def property
