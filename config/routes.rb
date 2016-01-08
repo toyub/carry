@@ -244,9 +244,7 @@ Rails.application.routes.draw do
     resources :stores, only: [:index]
     resources :customer_properties, only: [:index]
 
-    resources :stores, only: [:index] do
-      resources :store_staff, only: [:index]
-    end
+    resources :staff, only: [:index]
   end #End of erp
 
   #Api
