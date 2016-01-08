@@ -14,25 +14,36 @@
       <%= render 'thead' %>
 
       <tbody>
-        <tr>
-          <td>2015-6</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        <% @materials.each do |material| %>
+
+          <% intial_income = material.initial_income(@prev_month) || material.incomes.build %>
+          <% current_incomes = material.current_incomes(@month) %>
+          <% current_outgos = material.current_outgos(@month) %>
+          <% current_outgo = (current_outgos.try :last) || material.outgos.build %>
+          <tr>
+            <td><%= Date.today.strftime("%Y-%m") %></td>
+            <td><%= material.barcode %></td>
+            <td><%= material.name %></td>
+            <td><%= material.speci %></td>
+            <td><%= StoreMaterialUnit.find(material.store_material_unit_id).name %></td>
+
+            <td><%= intial_income.openings.try(:[], 'inventory_cost_price') || 0.0 %></td>
+            <td><%= intial_income.openings.try(:[], 'inventory_quantity') || 0.0  %></td>
+            <td><%= intial_income.try(:openings_amount) || 0.0  %></td>
+
+            <td><%= (current_incomes.try :total_cost_prices)  || 0.0 %></td>
+            <td><%= (current_incomes.try :total_quantities)  || 0.0 %></td>
+            <td><%= (current_incomes.try :total_accruals_amount)  || 0.0 %></td>
+
+            <td><%= (current_outgos.try :total_cost_prices)  || 0.0 %></td>
+            <td><%= (current_outgos.try :total_quantities)  || 0.0 %></td>
+            <td><%= (current_outgos.try :total_accruals_amount)  || 0.0 %></td>
+
+            <td><%= current_outgo.try(:closings).try(:[], 'inventory_cost_price')  || 0.0 %></td>
+            <td><%= current_outgo.try(:closings).try(:[], 'inventory_quantity')  || 0.0 %></td>
+            <td><%= current_outgo.try(:closings_amount) || 0.0  %></td>
+          </tr>
+    <% end %>
       </tbody>
     </table>
 

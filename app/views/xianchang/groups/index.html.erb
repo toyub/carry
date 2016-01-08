@@ -1,0 +1,82 @@
+
+  <div class="main_top">
+    <%= breadcrumb_navigation(['现场', '人员调度']) %>
+  </div>
+  <div class="details">
+    <%= render partial: 'xianchang/partials/top' %>
+		<div class="search_nav margin-top-20">
+
+			<div class="item-query margin-left-150">
+				<a href="javascript:void(0)" id="createStaffGroup" class="btn new_btn new_staffgroup">添加小组</a>
+			</div>
+		</div>
+
+		<div class="staffing">
+			<div class="group_person">
+				<table cellspacing="0" cellpadding="0">
+					<tbody id="staffGroupList"></tbody>
+				</table>
+			</div>
+
+      <div class="no_grouping_staff" >
+        <ul id='pool'></ul>
+      </div>
+		</div>
+	</div>
+<% content_for :javascripts do%>
+<script>
+  jQuery(function(){
+    handle = new $$MIS.GroupsHandleView({
+      urlRoot: '/api/osm/groups'
+    });
+
+    $(document).on('dragstart', 'li[draggable]', function(evt){
+      var oevt = evt.originalEvent;
+      oevt.dataTransfer.setData("staff",oevt.target.id);
+    });
+
+    $(document).on('dragover', 'ul.dropable', function(evt){
+      var oevt = evt.originalEvent;
+      evt.preventDefault();
+      oevt.preventDefault();
+    });
+
+    $(document).on('drop', 'ul.dropable', function(evt){
+      evt.preventDefault();
+      var oevt = evt.originalEvent;
+      var data=oevt.dataTransfer.getData("staff");
+      var staff_li = document.getElementById(data)
+      var params = {
+        store_group_id: this.dataset.group,
+        work_status: this.dataset.work
+      };
+      $.ajax({
+        url: "/api/osm/staff/"+ staff_li.dataset.staff,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(params),
+        success: function(){
+          oevt.target.appendChild(staff_li);
+          $(this).trigger('hi', staff_li.dataset.staff);
+        },
+        error: function(){
+          ZhanchuangAlert('网络错误，请重试!');
+        }
+      })
+    });
+
+    $.get('/api/osm/staff.json', function(staff){
+      handle.group_members = new $$MIS.GroupMemberCollection(staff);
+      staff.forEach(function(staffi){
+        var staff_html = '<li class="drag_staff" data-staff="'+ staffi.id + '" id="staff_'+ staffi.id +'" draggable="true" >'+ staffi.screen_name +'</li>';
+        if(!staffi.store_group_member){
+          $('#pool').append(staff_html);
+        }else{
+          var group = "#group_"+staffi.store_group_member.store_group_id + '_' + staffi.store_group_member.work_status;
+          $(group).append(staff_html);
+        }
+      });
+    });
+  })
+</script>
+<% end %>

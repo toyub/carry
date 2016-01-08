@@ -26,7 +26,7 @@
         <td><%= staff.store_department.try(:name) %></td>
         <td><%= staff.store_position.try(:name) %></td>
         <td><%= staff.current_salary %></td>
-        <td>未设置</td>
+        <td><%= staff.salary_of_month.amount_deduction %></td>
         <td><%= staff.salary_of_month.amount_bonus %></td>
         <td><%= staff.salary_of_month.amount_reward %></td>
         <td><%= staff.salary_of_month.amount_insurence %></td>
@@ -44,7 +44,7 @@
   <tfoot>
     <tr>
       <td colspan="13" class="text-align-right">
-        <span class="width-90">实发金额合计：</span> <span class="width-80">22,750.00</span>
+        <span class="width-90">实发金额合计：</span> <span class="width-80"><%= @salaries.try :total_amount %></span>
       </td>
     </tr>
   </tfoot>
