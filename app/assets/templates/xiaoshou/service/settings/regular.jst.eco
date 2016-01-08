@@ -35,6 +35,7 @@
       <tr>
         <td></td>
         <td></td>
+        <% console.log setting.isAppPosition() %>
         <td><input type="radio" name="sign_method" <%= 'checked' unless setting.isAppPosition() %> disabled=""></td>
         <td>自动上岗</td>
         <td><input type="radio" name="sign_method" <%= 'checked' if setting.isAppPosition() %> disabled=""></td>
@@ -43,7 +44,6 @@
       <tr>
         <td>施工时间</td>
         <td></td>
-        <% console.log setting.standardTimeEnable() %>
         <td><input type="radio" name="standard_time_enable" <%= 'checked' if setting.standardTimeEnable() %> disabled=""></td>
         <td colspan="3">
           标准时间

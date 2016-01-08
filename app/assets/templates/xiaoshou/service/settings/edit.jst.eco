@@ -56,7 +56,7 @@
               <label for="workflow_auto">自动上岗</label>
             </td>
             <td>
-              <input id="workflow_app" type="radio" value="2" <%= 'checked' if @setting.isRegular() && !@setting.isAppPosition() %> name="position_mode">
+              <input id="workflow_app" type="radio" value="2" <%= 'checked' if @setting.isRegular() && @setting.isAppPosition() %> name="position_mode">
             </td>
             <td>
               <label for="workflow_app">APP上岗</label>
