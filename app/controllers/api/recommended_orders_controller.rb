@@ -38,7 +38,11 @@ module Api
         creator: current_staff,
         store_vehicle: store_vehicle,
         store_customer: store_customer,
-        items_attributes: items_attributes
+        items_attributes: items_attributes,
+        recommended_reason: params[:recommended_reason],
+        refuse_reason: params[:refuse_reason],
+        recommended_date: params[:recommended_date],
+        remark: params[:remark]
       })
       if recommended_order.save
         render json: {success: true}

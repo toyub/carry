@@ -6,25 +6,25 @@
 		<dl>
 		  <dd>
         <label class="width-60">意向原因:</label>
-				<input class="width-200"></input>
+				<input class="width-200 js-recommended-reason" value="<%= @order.recommended_reason %>"></input>
 			</dd>
 			<dd>
         <label class="width-115">暂时不购买原因:</label>
-				<input class="width-200"></input>
+				<input class="width-200 js-refuse-reason" value="<%= @order.refuse_reason %>"></input>
 			</dd>
 		</dl>
 
 		<dl>
 		  <dd>
         <label class="width-60">预期时间:</label>
-				<input class="datetimepicker">
+        <input class="datetimepicker js-recommended-date" value="<%= @order.recommended_date %>">
 			</dd>
 		</dl>
 
 		<dl>
       <dd>
         <label class="width-60 vertical-align-top">备注:</label>
-				<textarea></textarea>
+				<textarea class="js-recommended-order-remark"><%= @order.remark %></textarea>
 			</dd>
 		</dl>
 		<dl class="float-right margin-right-5">
