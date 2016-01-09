@@ -1,5 +1,9 @@
 class RecommendedOrder < ActiveRecord::Base
-  has_many :items, class_name: 'RecommenedOrderItem'
+  include BaseModel
+
+  has_many :items, class_name: 'RecommendedOrderItem'
+  belongs_to :store_vehicle
+  belongs_to :store_customer
 
   before_create :set_numero
 

@@ -34,16 +34,16 @@ module Api
       items_attributes += gen_service_params(params[:services]) if params[:services]
 
       store_vehicle, store_customer = get_vehicle_and_customer(params[:vehicle_id])
-      store_order = StoreOrder.new({
+      recommended_order = RecommendedOrder.new({
         creator: current_staff,
         store_vehicle: store_vehicle,
         store_customer: store_customer,
         items_attributes: items_attributes
       })
-      if store_order.save
+      if recommended_order.save
         render json: {success: true}
       else
-        render json: {error: store_order.errors.full_messages}, status: 422
+        render json: {error: recommended_order.errors.full_messages}, status: 422
       end
     end
 
@@ -60,6 +60,11 @@ module Api
             creator: current_staff,
           }
         end
+      end
+
+      def get_vehicle_and_customer vehicle_id
+        store_vehicle = StoreVehicle.find(vehicle_id)
+        return store_vehicle, store_vehicle.store_customer
       end
   end
 end

@@ -1,4 +1,6 @@
-class RecommededOrderItem < ActiveRecord::Base
+class RecommendedOrderItem < ActiveRecord::Base
+  include BaseModel
+
   belongs_to :itemable, polymorphic: true
   belongs_to :recommended_order
   before_save :cal_amount
