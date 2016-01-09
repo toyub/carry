@@ -9,7 +9,7 @@ module Api
             itemable_id: info["id"],
             itemable_type: "StoreMaterialSaleinfo",
             quantity: info["quantity"],
-            price: info["recommened_price"],
+            price: info["recommended_price"],
             retail_price: info["retail_price"],
             # TODO 这个价格需要被修改
             creator: current_staff,
@@ -23,7 +23,7 @@ module Api
             itemable_id: info["id"],
             itemable_type: "StorePackage",
             quantity: info["quantity"],
-            price: info["recommened_price"],
+            price: info["recommended_price"],
             retail_price: info["retail_price"],
             # TODO 这个价格需要被修改
             creator: current_staff,
@@ -55,7 +55,7 @@ module Api
             itemable_id: info["id"],
             itemable_type: "StoreService",
             quantity: info["quantity"],
-            price: info["recommened_price"],
+            price: info["recommended_price"],
             retail_price: info["retail_price"],
             creator: current_staff,
           }
