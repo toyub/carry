@@ -7,9 +7,9 @@
     <div class="basic_info crm_info">
       <div class="item_content">
         <label class="width-55">姓</label>
-        <input type="text" class="width-55" name='store_customer_entity[store_customer_attributes][last_name]' value="<%= @store_customer.last_name %>">
+        <input type="text" class="width-55" name='store_customer_entity[store_customer_attributes][last_name]' value="<%= @store_customer.last_name %>" required>
         <label class="width-30">名</label>
-        <input type="text" class="width-56" name='store_customer_entity[store_customer_attributes][first_name]' value="<%= @store_customer.first_name %>">
+        <input type="text" class="width-56" name='store_customer_entity[store_customer_attributes][first_name]' value="<%= @store_customer.first_name %>" required>
       </div>
       <div class="item_content">
         <label class="width-55">性别</label>
@@ -47,17 +47,23 @@
         <label class="width-55">区域</label>
         <span class="area">
           <label>省:</label>
-          <select class="width-65" id="province" name='store_customer_entity[district][province]'></select>
+          <select class="width-70" id="province" name='store_customer_entity[district][province]'></select>
           <label>市:</label>
-          <select class="width-65" id="city" name='store_customer_entity[district][city]'></select>
+          <select class="width-70" id="city" name='store_customer_entity[district][city]'></select>
           <label>区/县:</label>
-          <select class="width-65" id="region" name='store_customer_entity[district][region]'></select>
+          <select class="width-70" id="region" name='store_customer_entity[district][region]'></select>
         </span>
       </div>
 
       <div class="item_content">
         <label class="width-55">联系地址</label>
         <input type="text" class="width-150" name='store_customer_entity[address]' value="<%= @store_customer.address %>">
+      </div>
+
+       <div class="item_content">
+        <label class="width-55">车程</label>
+        <input type="number" class="width-100" name='store_customer_entity[range]' value="<%= @range %>">
+        <span class="width-20">km</span>
       </div>
     
       <div class="item_content">
@@ -89,37 +95,41 @@
     
       <div class="item_content">
         <label class="width-55">单位</label>
-        <input type="text" class="width-380" value="<%= @store_customer.company %>" name='store_customer_entity[store_customer_attributes][company]'>
+        <input type="text" class="width-380" value="<%= @store_customer.company %>" name='store_customer_entity[store_customer_attributes][company]' value="<%= @store_customer.company %>">
       </div>
 
       <div class="item_content">
         <label class="width-55">开户银行</label>
-        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][bank]'>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][bank]' value="<%= @store_customer_settlement.bank %>">
       </div>
 
       <div class="item_content">
         <label class="width-55">发票抬头</label>
-        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][invoice_title]'>
+        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][invoice_title]' value="<%= @store_customer_settlement.invoice_title %>">
       </div>
 
       <div class="item_content">
         <label class="width-55">银行账号</label>
-        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][bank_account]'>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][bank_account]' value="<%= @store_customer_settlement.bank_account %>">
       </div>
 
       <div class="item_content">
         <label class="width-55">收款方式</label>
-        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][payment_mode]'>
+        <select class="width-150" name='store_customer_entity[store_customer_settlement_attributes][payment_mode]'>
+          <% for payment_method in PaymentMethods.available_methods() : %>
+          <option <%= 'selected' if payment_method.name == @store_customer_settlement.payment_mode %> value="<%= payment_method.name %>"><%= payment_method.cn_name %></option>
+          <% end %>
+        </select>
       </div>
 
       <div class="item_content">
         <label class="width-55">税号</label>
-        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][tax]'>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][tax]' value="<%= @store_customer_settlement.tax %>">
       </div>
 
       <div class="item_content">
         <label class="width-55">联系人</label>
-        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][contract]'>
+        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][contract]' value="<%= @store_customer_settlement.contract %>">
       </div>
     </div>
   </div>
