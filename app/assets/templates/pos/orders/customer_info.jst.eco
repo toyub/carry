@@ -4,40 +4,40 @@
     <div class="basic_info crm_info">
       <div class="item_content">
         <label class="width-55">姓</label>
-        <input type="text" class="width-55" name='store_customer_entity[store_customer_attributes][last_name]' value="<%= @last_name %>">
+        <input type="text" class="width-55" name='store_customer_entity[store_customer_attributes][last_name]' value="<%= @store_customer.last_name %>">
         <label class="width-30">名</label>
-        <input type="text" class="width-56" name='store_customer_entity[store_customer_attributes][first_name]' value="<%= @first_name %>">
+        <input type="text" class="width-56" name='store_customer_entity[store_customer_attributes][first_name]' value="<%= @store_customer.first_name %>">
       </div>
       <div class="item_content">
         <label class="width-55">性别</label>
-        <label class="width-75 sex">男<input type="radio" <%= 'checked' if @gender %> name="store_customer_entity[store_customer_attributes][gender]" value='true'></label>
-        <label class="width-73 sex">女<input type="radio" <%= 'checked' unless @gender %> name="store_customer_entity[store_customer_attributes][gender]" value='false'></label>
+        <label class="width-75 sex">男<input type="radio" <%= 'checked' if @store_customer.gender %> name="store_customer_entity[store_customer_attributes][gender]" value='true'></label>
+        <label class="width-73 sex">女<input type="radio" <%= 'checked' unless @store_customer.gender %> name="store_customer_entity[store_customer_attributes][gender]" value='false'></label>
       </div>
     
       <div class="item_content">
         <label class="width-55">生日</label>
-        <input type="date" class="width-150" name='store_customer_entity[store_customer_attributes][birthday]' value="<%= @birthday %>">
+        <input type="date" class="width-150" name='store_customer_entity[store_customer_attributes][birthday]' value="<%= @store_customer.birthday %>">
       </div>
       <div class="item_content">
         <label class="width-55">客户属性</label>
         <select class="width-152" name='store_customer_entity[property]'>
-          <option>个人</option>
-          <option>单位</option>
+          <option <%= 'selected' if @store_customer.property == 'personal' %> value='personal'>个人</option>
+          <option <%= 'selected' if @store_customer.property == 'group' %> value='group'>单位</option>
         </select>
       </div>
     
       <div class="item_content">
         <label class="width-55">证件号码</label>
-        <input type="text" class="width-150" value="<%= @resident_id %>" name='store_customer_entity[store_customer_attributes][resident_id]'>
+        <input type="text" class="width-150" value="<%= @store_customer.resident_id %>" name='store_customer_entity[store_customer_attributes][resident_id]'>
       </div>
     
       <div class="item_content">
         <label class="width-55">移动电话</label>
-        <input type="text" class="width-150" value="<%= @phone_number %>" name='store_customer_entity[store_customer_attributes][phone_number]'>
+        <input type="text" class="width-150" value="<%= @store_customer.phone_number %>" name='store_customer_entity[store_customer_attributes][phone_number]'>
       </div>
       <div class="item_content">
         <label class="width-55">QQ</label>
-        <input type="text" class="width-150" value="<%= @qq %>" name='store_customer_entity[store_customer_attributes][qq]'>
+        <input type="text" class="width-150" value="<%= @store_customer.qq %>" name='store_customer_entity[store_customer_attributes][qq]'>
       </div>
       <div class="item_content">
         <label class="width-55">区域</label>
@@ -52,7 +52,7 @@
       </div>
       <div class="item_content">
         <label class="width-55">联系地址</label>
-        <input type="text" class="width-150" name='store_customer_entity[address]'>
+        <input type="text" class="width-150" name='store_customer_entity[address]' value="<%= @store_customer.address %>">
       </div>
       <div class="item_content">
         <label class="width-55">车程</label>
