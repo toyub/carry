@@ -1,138 +1,131 @@
-<h2>完善客户信息</h2>
-<div class="improve_crm_info">
-  <div class="basic_info crm_info">
-  	<div class="item_content">
-  		<label class="width-55">姓</label>
-  		<input type="text" class="width-55" value="张">
-  		<label class="width-30">名</label>
-  		<input type="text" class="width-56" value="雨">
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">性别</label>
-  		<label class="width-75 sex">男<input type="radio" name="sex"></label>
-  		<label class="width-73 sex">女<input type="radio" name="sex"></label>
-  	</div>
-  
-  	<div class="item_content">
-  		<label class="width-55">生日</label>
-  		<input type="text" class="width-150">
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">客户属性</label>
-  		<select class="width-152">
-  			<option>个人</option>
-  			<option>单位</option>
-  		</select>
-  	</div>
-  
-  	<div class="item_content">
-  		<label class="width-55">证件号码</label>
-  		<input type="text" class="width-150" value="3317007811111111">
-  	</div>
-  
-  	<div class="item_content">
-  		<label class="width-55">移动电话</label>
-  		<input type="text" class="width-150" value="13805798634">
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">QQ</label>
-  		<input type="text" class="width-150" value="">
-  	</div>
-  	<div class="item_content">
-      <label class="width-55">区域</label>
-      <span class="area">
-        <label>省:</label>
-        <select class="width-60">
-          <option>省份</option>
-          <option></option>
+ <form action="<%= @url %>"> 
+  <h2>完善客户信息</h2>
+  <div class="improve_crm_info">
+    <div class="basic_info crm_info">
+      <div class="item_content">
+        <label class="width-55">姓</label>
+        <input type="text" class="width-55" name='store_customer_entity[store_customer_attributes][last_name]' value="<%= @last_name %>">
+        <label class="width-30">名</label>
+        <input type="text" class="width-56" name='store_customer_entity[store_customer_attributes][first_name]' value="<%= @first_name %>">
+      </div>
+      <div class="item_content">
+        <label class="width-55">性别</label>
+        <label class="width-75 sex">男<input type="radio" <%= 'checked' if @gender %> name="store_customer_entity[store_customer_attributes][gender]" value='true'></label>
+        <label class="width-73 sex">女<input type="radio" <%= 'checked' unless @gender %> name="store_customer_entity[store_customer_attributes][gender]" value='false'></label>
+      </div>
+    
+      <div class="item_content">
+        <label class="width-55">生日</label>
+        <input type="date" class="width-150" name='store_customer_entity[store_customer_attributes][birthday]' value="<%= @birthday %>">
+      </div>
+      <div class="item_content">
+        <label class="width-55">客户属性</label>
+        <select class="width-152" name='store_customer_entity[property]'>
+          <option>个人</option>
+          <option>单位</option>
         </select>
-        <label>市:</label>
-        <select class="width-60">
-          <option>城市</option>
-          <option></option>
-        </select>
-        <label>区/县:</label>
-        <select class="width-55">
-          <option>区县</option>
-          <option></option>
-        </select>
-      </span>
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">联系地址</label>
-  		<input type="text" class="width-150">
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">车程</label>
-  		<input type="text" value="35" class="width-130">
-  		<span class="width-20">km</span>
-  	</div>
-  
-  	<div class="item_content">
-  		<label class="width-102"><input type="checkbox" class="width-15">不接受回访</label>
-  		<label class="width-102"><input type="checkbox" class="width-15">不接受短信</label>
-  	</div>
-  </div>
-  
-  <div class="crm_info">
-  
-  	<div class="item_content">
-      <label class="width-55">挂账额度</label>
-  		<select class="width-152">
-        <option>不限金额</option>
-        <option>自定义金额</option>
-        <option>不允许挂账</option>
-      </select>
-  
-      <input type="text" class="width-150 margin-left-75">
+      </div>
+    
+      <div class="item_content">
+        <label class="width-55">证件号码</label>
+        <input type="text" class="width-150" value="<%= @resident_id %>" name='store_customer_entity[store_customer_attributes][resident_id]'>
+      </div>
+    
+      <div class="item_content">
+        <label class="width-55">移动电话</label>
+        <input type="text" class="width-150" value="<%= @phone_number %>" name='store_customer_entity[store_customer_attributes][phone_number]'>
+      </div>
+      <div class="item_content">
+        <label class="width-55">QQ</label>
+        <input type="text" class="width-150" value="<%= @qq %>" name='store_customer_entity[store_customer_attributes][qq]'>
+      </div>
+      <div class="item_content">
+        <label class="width-55">区域</label>
+        <span class="area">
+          <label>省:</label>
+          <select class="width-60" name='store_customer_entity[district][province]'></select>
+          <label>市:</label>
+          <select class="width-60" name='store_customer_entity[district][city]'></select>
+          <label>区/县:</label>
+          <select class="width-55" name='store_customer_entity[district][region]'></select>
+        </span>
+      </div>
+      <div class="item_content">
+        <label class="width-55">联系地址</label>
+        <input type="text" class="width-150" name='store_customer_entity[address]'>
+      </div>
+      <div class="item_content">
+        <label class="width-55">车程</label>
+        <input type="text" value="35" class="width-130" name='store_customer_entity[range]'>
+        <span class="width-20">km</span>
+      </div>
+    
+      <div class="item_content">
+        <label class="width-102"><input type="checkbox" name='store_customer_entity[store_customer_attributes][tracking_accepted]' class="width-15">不接受回访</label>
+        <label class="width-102"><input type="checkbox" name='store_customer_entity[store_customer_attributes][message_accepted]' class="width-15">不接受短信</label>
+      </div>
     </div>
-  
-  	<div class="item_content">
-  		<label class="width-55">结算提醒</label>
-  		<select class="width-150">
-  			<option>月底前3天</option>
-  			<option>月底前5天</option>
-  			<option>月底前7天</option>
-  		</select>
-  	</div>
-  
-  	<div class="item_content">
-  		<label class="width-55">单位</label>
-  		<input type="text" class="width-380" value="杭州瑞鲮商务咨询有限公司">
-  	</div>
-  
-  	<div class="item_content">
-      <label class="width-55">合同号</label>
-  		<input type="text" class="width-150">
-  	</div>
-  	<div class="item_content">
-      <label class="width-55">开户银行</label>
-  		<input type="text" class="width-380">
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">发票抬头</label>
-  		<input type="text" class="width-150">
-  	</div>
-  	<div class="item_content">
-      <label class="width-55">银行账号</label>
-  		<input type="text" class="width-380">
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">收款方式</label>
-  		<input type="text" class="width-150">
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">税号</label>
-  		<input type="text" class="width-380">
-  	</div>
-  	<div class="item_content">
-  		<label class="width-55">联系人</label>
-  		<input type="text" class="width-150">
-    </div>
-  </div>
-</div>
+    
+    <div class="crm_info">
+    
+      <div class="item_content">
+        <label class="width-55">挂账额度</label>
+        <select class="width-152" name='store_customer_entity[store_customer_settlement_attributes][credit]'>
+          <option>不限金额</option>
+          <option>自定义金额</option>
+          <option>不允许挂账</option>
+        </select>
+        <input type="text" class="width-150 margin-left-75" name='store_customer_entity[store_customer_settlement_attributes][credit_limit]'>
+      </div>
+    
+      <div class="item_content">
+        <label class="width-55">结算提醒</label>
+        <select class="width-150" name='store_customer_entity[store_customer_settlement_attributes][notice_period]'>
+          <option>月底前3天</option>
+          <option>月底前5天</option>
+          <option>月底前7天</option>
+        </select>
+      </div>
+    
+      <div class="item_content">
+        <label class="width-55">单位</label>
+        <input type="text" class="width-380" value="杭州瑞鲮商务咨询有限公司" name='store_customer_entity[store_customer_attributes][company]'>
+      </div>
 
-<div class="btn_group float-right  margin-right-10   margin-top-20">
-  <a class="cancel_btn btn">取消</a>
-  <a class="save_btn btn">保存</a>
-</div>
+      <div class="item_content">
+        <label class="width-55">开户银行</label>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][bank]'>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">发票抬头</label>
+        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][invoice_title]'>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">银行账号</label>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][bank_account]'>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">收款方式</label>
+        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][payment_mode]'>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">税号</label>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][tax]'>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">联系人</label>
+        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][contract]'>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn_group float-right  margin-right-10   margin-top-20">
+    <input type="reset" class="cancel_btn btn" value="取消">
+    <input type="submit" class="save_btn btn"  value="保存">
+  </div>
+</form>
