@@ -9,7 +9,7 @@ module Api
 
     def show
       @store_vehicle = StoreVehicle.find(params[:id])
-      render json: @store_vehicle
+      respond_with @store_vehicle, location: nil
     end
 
     def search

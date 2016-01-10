@@ -1,4 +1,7 @@
  <form action="<%= @url %>"> 
+  <input type="hidden" name="store_customer_entity[id]"  value="<%= @id %>">
+  <input type="hidden" name="store_customer_entity[store_customer_attributes][id]"  value="<%= @store_customer.id %>">
+  <input type="hidden" name="store_customer_entity[store_customer_settlement_attributes][id]"  value="<%= @store_customer_settlement.id %>">
   <h2>完善客户信息</h2>
   <div class="improve_crm_info">
     <div class="basic_info crm_info">
@@ -39,30 +42,27 @@
         <label class="width-55">QQ</label>
         <input type="text" class="width-150" value="<%= @store_customer.qq %>" name='store_customer_entity[store_customer_attributes][qq]'>
       </div>
+
       <div class="item_content">
         <label class="width-55">区域</label>
         <span class="area">
           <label>省:</label>
-          <select class="width-60" name='store_customer_entity[district][province]'></select>
+          <select class="width-65" id="province" name='store_customer_entity[district][province]'></select>
           <label>市:</label>
-          <select class="width-60" name='store_customer_entity[district][city]'></select>
+          <select class="width-65" id="city" name='store_customer_entity[district][city]'></select>
           <label>区/县:</label>
-          <select class="width-55" name='store_customer_entity[district][region]'></select>
+          <select class="width-65" id="region" name='store_customer_entity[district][region]'></select>
         </span>
       </div>
+
       <div class="item_content">
         <label class="width-55">联系地址</label>
         <input type="text" class="width-150" name='store_customer_entity[address]' value="<%= @store_customer.address %>">
       </div>
-      <div class="item_content">
-        <label class="width-55">车程</label>
-        <input type="text" value="35" class="width-130" name='store_customer_entity[range]'>
-        <span class="width-20">km</span>
-      </div>
     
       <div class="item_content">
-        <label class="width-102"><input type="checkbox" name='store_customer_entity[store_customer_attributes][tracking_accepted]' class="width-15">不接受回访</label>
-        <label class="width-102"><input type="checkbox" name='store_customer_entity[store_customer_attributes][message_accepted]' class="width-15">不接受短信</label>
+        <label class="width-102"><input type="checkbox" name='store_customer_entity[store_customer_attributes][tracking_accepted]' <%= 'checked' if @store_customer.tracking_accepted %> class="width-15">不接受回访</label>
+        <label class="width-102"><input type="checkbox" name='store_customer_entity[store_customer_attributes][message_accepted]' <%= 'checked' if @store_customer.message_accepted %> class="width-15">不接受短信</label>
       </div>
     </div>
     
@@ -70,26 +70,26 @@
     
       <div class="item_content">
         <label class="width-55">挂账额度</label>
-        <select class="width-152" name='store_customer_entity[store_customer_settlement_attributes][credit]'>
-          <option>不限金额</option>
-          <option>自定义金额</option>
-          <option>不允许挂账</option>
+        <select class="width-152" required id='credit' name='store_customer_entity[store_customer_settlement_attributes][credit]'>
+            <option value="unpermitted" <%= 'selected' if @store_customer_settlement.credit == 'unpermitted' %> >不允许挂账</option>
+            <option value="unlimited" <%= 'selected' if @store_customer_settlement.credit == 'unlimited' %> >不限金额</option>
+            <option value="custom" <%= 'selected' if @store_customer_settlement.credit == 'custom' %> >自定义</option>
         </select>
-        <input type="text" class="width-150 margin-left-75" name='store_customer_entity[store_customer_settlement_attributes][credit_limit]'>
+        <input type="number" id='credit_limit' <%= 'disabled' unless @store_customer_settlement.credit == 'custom' %> class="width-150 margin-left-75" name='store_customer_entity[store_customer_settlement_attributes][credit_limit]' value='<%= @store_customer_settlement.credit_limit %>' required>
       </div>
     
       <div class="item_content">
         <label class="width-55">结算提醒</label>
         <select class="width-150" name='store_customer_entity[store_customer_settlement_attributes][notice_period]'>
-          <option>月底前3天</option>
-          <option>月底前5天</option>
-          <option>月底前7天</option>
+          <option value="low" <%= 'selected' if @store_customer_settlement.notice_period == 'low' %> >月底前3天</option>
+          <option value="middle" <%= 'selected' if @store_customer_settlement.notice_period == 'middle' %> >月底前5天</option>
+          <option value="high" <%= 'selected' if @store_customer_settlement.notice_period == 'high' %> >月底前7天</option>
         </select>
       </div>
     
       <div class="item_content">
         <label class="width-55">单位</label>
-        <input type="text" class="width-380" value="杭州瑞鲮商务咨询有限公司" name='store_customer_entity[store_customer_attributes][company]'>
+        <input type="text" class="width-380" value="<%= @store_customer.company %>" name='store_customer_entity[store_customer_attributes][company]'>
       </div>
 
       <div class="item_content">
