@@ -36,6 +36,9 @@ module Api
       render json: @order
     end
 
+    def create
+    end
+
     private
 
       def order_params
