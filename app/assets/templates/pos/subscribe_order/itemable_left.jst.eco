@@ -24,17 +24,24 @@
   	<div class="order_commodity_tab">
   		<table cellpadding="0" cellspacing="0">
   			<tbody>
+          <% for item, index in @materials : %>
   				<tr>
-  					<td class="number">1.</td>
-  					<td><span class="struct">施</span>米其林轮胎</td>
-            <td>195/65/15XM2 91V</td>
-  					<td>4</td>
-  					<td class="text-align-right">
-  						<span class="text-decoration-linethrough display-block">480.00</span>
-  						<span class="color-08BD48">380.00</span>
-  					</td>
-  					<td><input type="checkbox" ></td>
+            <td class="number"><%= index+1 %></td>
+            <td>
+              <% if item.service_needed: %>
+              <span class="struct">施</span>
+              <% end %>
+              <%= item.name %>
+            </td>
+            <td><%= item.speci %></td>
+			  	  <td><%= item.inventory_quantity %></td>
+			  	  <td class="text-align-right">
+			  	  	<span class="text-decoration-linethrough display-block"><%= item.retail_price + item.service_fee_price %></span>
+			  	  	<span class="color-08BD48"><%= item.vip_price + item.service_fee_price %></span>
+			  	  </td>
+            <td><input type="checkbox" data-material-saleinfo-id="<%=item.id%>" class="material-saleinfo-checkbox"></td>
   				</tr>
+          <% end %>
   			</tbody>
   		</table>
   	</div>
@@ -51,7 +58,7 @@
   	</ul>
   	<div class="order_service_tab">
   		<table cellpadding="0" cellspacing="0">
-  			<tbody>
+  			<tbody>l
   				<tr>
   					<td class="number">1.</td>
   					<td>极致洗车</td>
