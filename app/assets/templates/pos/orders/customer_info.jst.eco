@@ -57,7 +57,7 @@
 
       <div class="item_content">
         <label class="width-55">联系地址</label>
-        <input type="text" class="width-150" name='store_customer_entity[address]' value="<%= @store_customer.address %>">
+        <input type="text" class="width-150" name='store_customer_entity[address]' value="<%= @address %>">
       </div>
 
        <div class="item_content">
