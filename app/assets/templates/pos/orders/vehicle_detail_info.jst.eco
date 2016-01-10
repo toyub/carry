@@ -1,18 +1,64 @@
-<div class="item_content" >
-  <label class="width-50" >车辆品牌</label><input type="text" value="宝马" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >车型</label><input type="text" value="宝马5系" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >车系</label><input type="text" value="宝马新5系" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >客户属性</label><input type="text" value="男" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >客户类别</label><input type="text" value="个人" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >结算方式</label><input type="text" value="现结" class="width-110"  readonly>
-</div>
+  <h2>完善车辆信息</h2>
+  <div class="vehicle_info">
+    <dl>
+      <dd class="item_content"><label class="width-77">车牌号码</label><input type="text" class="width-110"></dd>
+      <dd>
+        <label class="width-77">品牌</label>
+        <select class="width-110">
+          <optgroup label="Swedish Cars">
+            <option value ="volvo">Volvo</option>
+            <option value ="saab">Saab</option>
+          </optgroup>
+
+          <optgroup label="German Cars">
+            <option value ="mercedes">Mercedes</option>
+            <option value ="audi">Audi</option>
+          </optgroup>
+        </select>
+      </dd>
+      <dd>
+        <label class="width-65">车系</label>
+        <select class="width-110"></select>
+      </dd>
+      <dd>
+        <label class="width-55">车型</label>
+        <select class="width-103"></select>
+      </dd>
+    </dl>
+    <dl>
+      <dd><label class="width-77">VIN号码</label><input type="text"  class="width-110"></dd>
+      <dd><label class="width-77">发动机号码</label><input type="text"  class="width-110"></dd>
+      <dd><label class="width-65">颜色</label><input type="color"  class="width-100"></dd>
+      <dd><label class="width-55">座位数</label><input type="number"  class="width-103"></dd>
+    </dl>
+    <dl>
+      <dd><label class="width-77">购买日期</label><input type="date"  class="width-110"></dd>
+      <dd><label class="width-77">出厂</label><input type="date"  class="width-110"></dd>
+      <dd><label class="width-65">上牌时间</label><input type="date"  class="width-100"></dd>
+      <dd><label class="width-55">公里数</label><input type="number"  class="width-103"></dd>
+    </dl>
+    <dl>
+      <dd>
+        <label class="width-77">车辆性质</label>
+        <select class="width-110" name="store_vehicle[detail][organization_type]">
+          <option value="0">私家车</option>
+          <option value="1">公务车</option>
+          <option value="2">商务车</option>
+        </select>
+      </dd>
+      <dd><label class="width-77">最近保养时间</label><input type="date"  class="width-110"></dd>
+      <dd><label class="width-77">最近保养里程</label><input type="number"  class="width-110"></dd>
+    </dl>
+  </div>
+  
+  <dl class="remark">
+    <dd>
+      <label class="width-77 vertical-align-top">备注</label>
+      <textarea></textarea>
+    </dd>
+  </dl>
+
+  <div class="btn_group">
+    <a href="#" class="cancel_btn btn">取消</a>
+    <a href="#" class="save_btn btn">保存</a>
+  </div>
