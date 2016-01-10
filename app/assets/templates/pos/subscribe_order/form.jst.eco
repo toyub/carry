@@ -10,7 +10,6 @@
   	  <div class="float-left">
   	  	<div class="order_details">
   	  		<div class="vehicle_order_details">
-
   	  			<div class="vehicle_info">
               <div class="item_content">
                 <label class="width-50 form_label" >车牌号</label>
@@ -18,7 +17,7 @@
                 </select>
               </div>
               <div class="item_content">
-                <label class="width-50 form_label" >客户姓名</label>
+                <label class="width-50 form_label">客户姓名</label>
                 <input type="text" name="name" class="width-110 form_control js-customer-name" disabled>
               </div>
               <div class="item_content">
@@ -53,7 +52,7 @@
             <div class="committed_project">
               <div class="committed_project_title">
                 <label>约定项目</label>
-                <i class="fa-angle-double-right fa font-18 color-BAB7A3 cursor-pointer" id="choose_project"></i>
+                <i class="fa-angle-double-right fa font-18 color-BAB7A3 cursor-pointer"></i>
               </div>
               <dl>
                 <dd></dd>
@@ -61,24 +60,27 @@
                 <dd>数量</dd>
                 <dd>单价</dd>
               </dl>
-              <div class="committed_project_items">
+              <div class="material-saleinfo-table-items">
+                <div class="committed_project_items">
+                  <dl v-for="item in materialSaleinfoItems">
+                    <dd style="display:none" class="material-saleinfo-table-item-id">{{item.id}}</dd>
+                    <dd></dd>
+                    <dd>{{ item.name }}</dd>
+                    <dd>
+                      <input v-model="item.quantity" placeholder="输入数量" class="width-100 number-box-input"></input>
+                    </dd>
+                    <dd>{{ item.retail_price }}</dd>
+                    <dd></dd>
+                  </dl>
+                </div>
                 <dl>
-                  <dd class="number"></dd>
-                  <dd>精致洗车</dd>
-                  <dd>
-                    <input type="number" class="width-100 number-box-input">
-                  </dd>
-                  <dd>68.00</dd>
+                  <dd></dd>
+                  <dd></dd>
+                  <dd></dd>
+                  <dd>{{ totalPrice }}</dd>
                   <dd></dd>
                 </dl>
               </div>
-              <dl>
-                <dd></dd>
-                <dd></dd>
-                <dd></dd>
-                <dd>总价:68.00</dd>
-                <dd></dd>
-              </dl>
 		        </div>
             <div class="committed_remark">
               <h2>约定备注</h2>
