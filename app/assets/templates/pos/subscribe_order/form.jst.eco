@@ -21,15 +21,15 @@
                 <input type="text" name="name" class="width-110 form_control js-customer-name" disabled>
               </div>
               <div class="item_content">
-                <label class="width-50 form_label" >手机号</label>
+                <label class="width-50 form_label">手机号</label>
                 <input type="text" name="name" class="width-110 form_control js-mobile" disabled>
               </div>
               <div class="item_content">
-                <label class="width-50 form_label" >车辆品牌</label>
+                <label class="width-50 form_label">车辆品牌</label>
                 <input type="text" name="name" class="width-110 form_control js-brand-name" disabled>
               </div>
               <div class="item_content">
-                <label class="width-50 form_label" >车型</label>
+                <label class="width-50 form_label">车型</label>
                 <input type="text" name="name" class="width-110 form_control js-model" disabled>
               </div>
               <div class="item_content">
@@ -82,6 +82,69 @@
                 </dl>
               </div>
 		        </div>
+            <div class="committed_project">
+              <div class="committed_project_title">
+                <label>服务项目</label>
+              </div>
+              <dl>
+                <dd></dd>
+                <dd>项目</dd>
+                <dd>数量</dd>
+                <dd>单价</dd>
+              </dl>
+              <div class="vue-service-table-items">
+                <div class="committed_project_items">
+                  <dl v-for="item in serviceItems">
+                    <dd style="display:none" class="service-table-item-id">{{item.id}}</dd>
+                    <dd></dd>
+                    <dd>{{ item.name }}</dd>
+                    <dd>
+                      <input v-model="item.quantity" placeholder="输入数量" class="width-100 number-box-input"></input>
+                    </dd>
+                    <dd>{{ item.retail_price }}</dd>
+                    <dd></dd>
+                  </dl>
+                </div>
+                <dl>
+                  <dd></dd>
+                  <dd></dd>
+                  <dd></dd>
+                  <dd>{{ totalPrice }}</dd>
+                  <dd></dd>
+                </dl>
+              </div>
+            </div>
+            <div class="committed_project">
+              <div class="committed_project_title">
+                <label>套餐项目</label>
+              </div>
+              <dl>
+                <dd></dd>
+                <dd>项目</dd>
+                <dd>数量</dd>
+                <dd>单价</dd>
+              </dl>
+              <div class="vue-package-table-items">
+                <div class="committed_project_items">
+                  <dl v-for="item in packageItems">
+                    <dd></dd>
+                    <dd>{{ item.name }}</dd>
+                    <dd>
+                      <input v-model="item.quantity" placeholder="输入数量" class="width-100 number-box-input"></input>
+                    </dd>
+                    <dd>{{ item.retail_price }}</dd>
+                    <dd></dd>
+                  </dl>
+                </div>
+                <dl>
+                  <dd></dd>
+                  <dd></dd>
+                  <dd></dd>
+                  <dd>{{ totalPrice }}</dd>
+                  <dd></dd>
+                </dl>
+              </div>
+            </div>
             <div class="committed_remark">
               <h2>约定备注</h2>
               <textarea class="remark"></textarea>
