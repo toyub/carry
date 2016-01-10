@@ -1,9 +1,9 @@
 <div class="order_items float-left">
   <div class="order_items_category">
   	<ul>
-      <li class="bg-color-8E81B8 color-fff" data-target="commodity">商品</li>
-  		<li data-target="service">服务</li>
-      <li data-target="package">套餐</li>
+      <li class="bg-color-8E81B8 color-fff" data-table-class="js-material-items-table">商品</li>
+  		<li data-table-class="js-service-items-table">服务</li>
+      <li data-table-class="js-package-items-table">套餐</li>
       <li data-target="vip">客户资产</li>
   	</ul>
     <div class="search_bubble bubble_up width-250" style="margin-left:30px;">
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="order_item order_commodity" data-id="commodity" style="display:block;" >
+  <div class="order_item order_commodity js-material-items-table" data-id="commodity" style="display:block;" >
   	<ul>
       <li>#</li>
       <li>名称</li>
@@ -35,56 +35,12 @@
   					</td>
   					<td><input type="checkbox" ></td>
   				</tr>
-  				<tr>
-  					<td class="number">1.</td>
-  					<td><span class="struct">施</span>米其林轮胎</td>
-  					<td>195/65/15XM2 91V</td>
-  					<td>4</td>
-  					<td class="text-align-right">
-  						<span class="text-decoration-linethrough display-block">480.00</span>
-  						<span class="color-08BD48">380.00</span>
-  					</td>
-  					<td><input type="checkbox" ></td>
-  				</tr>
-  				<tr>
-  					<td class="number">1.</td>
-  					<td><span class="struct">施</span>米其林轮胎</td>
-  					<td>195/65/15XM2 91V</td>
-  					<td>4</td>
-  					<td class="text-align-right">
-  						<span class="text-decoration-linethrough display-block">480.00</span>
-  						<span class="color-08BD48">380.00</span>
-  					</td>
-  					<td><input type="checkbox" ></td>
-  				</tr>
-  				<tr>
-  					<td class="number">1.</td>
-  					<td><span class="struct">施</span>米其林轮胎</td>
-  					<td>195/65/15XM2 91V</td>
-  					<td>4</td>
-  					<td class="text-align-right">
-  						<span class="text-decoration-linethrough display-block">480.00</span>
-  						<span class="color-08BD48">380.00</span>
-  					</td>
-  					<td><input type="checkbox" ></td>
-  				</tr>
-  				<tr>
-  					<td class="number">1.</td>
-  					<td><span class="struct">施</span>米其林轮胎</td>
-  					<td>195/65/15XM2 91V</td>
-  					<td>4</td>
-  					<td class="text-align-right">
-  						<span class="text-decoration-linethrough display-block">480.00</span>
-  						<span class="color-08BD48">380.00</span>
-  					</td>
-  					<td><input type="checkbox" ></td>
-  				</tr>
   			</tbody>
   		</table>
   	</div>
   </div>
 
-  <div class="order_item  order_service" data-id="service">
+  <div class="order_item order_service js-service-items-table" data-id="service">
   	<ul>
   		<li>#</li>
   		<li>名称</li>
@@ -140,23 +96,12 @@
   					</td>
   					<td><input type="checkbox" ></td>
   				</tr>
-  				<tr>
-  					<td class="number">1.</td>
-  					<td>极致洗车</td>
-  					<td>清洗服务</td>
-  					<td>120分钟</td>
-  					<td class="text-align-right">
-  						<span class=" display-block">180.00</span>
-  						<span class="color-08BD48"></span>
-  					</td>
-  					<td><input type="checkbox" ></td>
-  				</tr>
   			</tbody>
   		</table>
   	</div>
   </div>
   
-  <div class="order_item order_package" data-id="package">
+  <div class="order_item order_package js-package-items-table" data-id="package">
   	<ul>
   		<li>#</li>
   		<li>名称</li>

@@ -3,7 +3,7 @@
     <li class="bg-color-8E81B8 color-fff" data-table-class="js-material-items-table">商品</li>
     <li data-table-class="js-service-items-table">服务</li>
     <li data-table-class="js-package-items-table">套餐</li>
-    <li>会员</li>
+    <li>客户资产</li>
   </ul>
 </div>
 
