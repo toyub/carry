@@ -7,11 +7,11 @@ class StoreStaffSerializer < ActiveModel::Serializer
   end
 
   def department
-    object.store_department.name
+    object.store_department.try :name
   end
 
   def position
-    object.store_position.name
+    object.store_position.try :name
   end
 
   def level
