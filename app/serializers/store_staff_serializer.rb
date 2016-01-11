@@ -19,7 +19,7 @@ class StoreStaffSerializer < ActiveModel::Serializer
   end
 
   def expired_on
-    object.store_contracts.present? ? object.store_contracts.last.expired_on.strftime("%Y-%m-%d") : "未签订合同"
+    object.store_contracts.present? ? object.store_contracts.last.try(:expired_on).try(:strftime, "%Y-%m-%d") : "未签订合同"
   end
 
   def status
