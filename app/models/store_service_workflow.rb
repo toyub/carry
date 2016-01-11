@@ -45,4 +45,8 @@ class StoreServiceWorkflow < ActiveRecord::Base
       :store_service_id).merge(options)
   end
 
+  def work_time_in_minutes
+    self.standard_time.to_i + self.buffering_time.to_i + self.factor_time.to_i
+  end
+
 end
