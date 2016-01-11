@@ -13,8 +13,8 @@ StoreOrder.create(
   store_customer: StoreCustomer.first,
   store_vehicle: StoreVehicle.first,
   items_attributes: [
-    { orderable: StoreMaterialSaleinfo.first, price: 100, quantity: 10 },
-    { orderable: StoreMaterialSaleinfo.first, price: 120, quantity: 20 },
+    { orderable: StoreMaterialSaleinfo.where(service_needed: true).first, price: 120, quantity: 20 },
+    { orderable: StoreMaterialSaleinfo.where(service_needed: true).first, price: 120, quantity: 20 },
     { orderable: StorePackage.first, price: 130, quantity: 10 },
     { orderable: StorePackage.first, price: 140, quantity: 10 },
     { orderable: StoreService.first, price: 260, quantity: 10 },
