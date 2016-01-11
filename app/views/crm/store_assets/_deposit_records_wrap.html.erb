@@ -3,7 +3,7 @@
     <ul>
       <li><label>充值次数</label><span><%= @deposit_card_items_logs.income_times %></span></li>
       <li><label>扣卡次数</label><span><%= @deposit_card_items_logs.expense_times %></span></li>
-      <li><label>可用余额</label><span class="width-100"><%= @deposit_card_items_logs.last.balance %></span></li>
+      <li><label>可用余额</label><span class="width-100"><%= @deposit_card_items_logs.last.try(:balance )%></span></li>
     </ul>
   </div>
 
