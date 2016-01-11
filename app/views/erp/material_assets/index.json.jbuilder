@@ -1,1 +1,1 @@
-json.assets @materials, :id, :package_name
+json.array! @materials, :id, :package_name

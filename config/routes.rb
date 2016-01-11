@@ -244,7 +244,9 @@ Rails.application.routes.draw do
       resources :package_assets, only: [:index, :show] do
         resources :package_logs, only: [:index]
       end
-      resources :material_assets, only: [:index, :show]
+      resources :material_assets, only: [:index, :show] do
+        resources :material_logs, only: [:index]
+      end
     end
     resources :contact_ways, only: [:index]
     resources :stores, only: [:index]
