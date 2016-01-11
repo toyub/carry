@@ -1,5 +1,5 @@
 class StoreStaffSerializer < ActiveModel::Serializer
-  attributes :id, :screen_name, :store, :department, :position, :level, :expired_on,
+  attributes :id, :screen_name, :numero, :store, :department, :position, :level, :expired_on,
              :status, :insurance, :work_age, :performance, :commission, :penalty, :reward
 
   def store
