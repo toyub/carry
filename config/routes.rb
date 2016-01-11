@@ -241,12 +241,11 @@ Rails.application.routes.draw do
       resources :vehicles, only: [:index, :show]
     end
     resources :contact_ways, only: [:index]
-    resources :stores, only: [:index]
-    resources :customer_properties, only: [:index]
-
-    resources :staff, only: [:index] do
-      get 'search', on: :collection
+    resources :stores, only: [:index] do
+      get 'organization', on: :member
     end
+    resources :staff, only: [:index]
+    resources :customer_properties, only: [:index]
   end #End of erp
 
   #Api
