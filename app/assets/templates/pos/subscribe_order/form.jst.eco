@@ -45,7 +45,7 @@
 		  			    <dd>
 		  			  	  <label class="width-40">日期:</label>
 		  			  		<div class="date">
-		  			  			<input type="text" class="width-200 committed_date datetimepicker">
+		  			  			<input type="text" class="width-200 committed_date datetimepicker js-subscribe-date">
 		  			  	  </div>
 		  			  	</dd>
 		  			  </dl>
