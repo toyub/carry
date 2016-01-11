@@ -244,7 +244,9 @@ Rails.application.routes.draw do
     resources :stores, only: [:index]
     resources :customer_properties, only: [:index]
 
-    resources :staff, only: [:index]
+    resources :staff, only: [:index] do
+      get 'search', on: :collection
+    end
   end #End of erp
 
   #Api
