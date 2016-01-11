@@ -20,13 +20,7 @@
 
             <div class="car_info">
               <div class="items">
-                <%= form_for @vehicle, url: crm_store_customer_store_vehicles_path do |f| %>
-                  <%= render 'edit_form', f: f %>
-                  <%= render 'form', f: f %>
-                  <div class="btn_group">
-                    <%= f.submit '创建', class: 'save_btn btn' %>
-                  </div>
-                <% end %>
+                <%= render 'new_form' %>
               </div>
             </div>
           </div>
@@ -43,6 +37,7 @@
 
       $(document).on('change', '#brand', show_vehicle_series);
       $(document).on('change', '#series', show_vehicle_model);
+      $(document).on('keydown', '.readonly', prevent_default);
     });
 
     function show_vehicle_series() {
@@ -59,10 +54,15 @@
     function show_vehicle_model() {
       var series_id = $('#series').find(':selected').val();
       $.get('/crm/vehicle_models', {id: series_id}, function(models) {
+        $('#model').find('option').remove().end().append($('<option></option>'));
         $.each(models, function(i, model) {
           $('#model').append($('<option></option>').attr('value', model.id).text(model.name));
         });
       });
+    }
+
+    function prevent_default(e) {
+      e.preventDefault();
     }
 
   </script>
