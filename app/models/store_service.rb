@@ -1,8 +1,5 @@
 class StoreService < ActiveRecord::Base
   include BaseModel
-  include RandomTextable
-
-  random :code
 
   belongs_to :service_category, class_name: 'ServiceCategory', foreign_key: :category_id
   belongs_to :store_service_category
@@ -43,6 +40,10 @@ class StoreService < ActiveRecord::Base
 
   def create_one_setting
     self.create_setting(creator: self.creator)
+  end
+
+  def category
+    service_category.try(:name)
   end
 
   def regular?
