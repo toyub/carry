@@ -241,7 +241,9 @@ Rails.application.routes.draw do
       resources :vehicles, only: [:index, :show]
       resources :deposit_card_assets, only: [:index]
       resources :deposit_logs, only: [:index]
-      resources :package_assets, only: [:index, :show]
+      resources :package_assets, only: [:index, :show] do
+        resources :package_logs, only: [:index]
+      end
       resources :material_assets, only: [:index, :show]
     end
     resources :contact_ways, only: [:index]
