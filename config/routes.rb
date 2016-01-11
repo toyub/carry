@@ -239,8 +239,10 @@ Rails.application.routes.draw do
       resources :orders, only: [:index]
       resources :license_numbers, only: [:index]
       resources :vehicles, only: [:index, :show]
-      resources :assets, only: [:index]
-      resources :deposit_card_assets, only: [:show]
+      resources :deposit_card_assets, only: [:index]
+      resources :deposit_logs, only: [:index]
+      resources :package_assets, only: [:index, :show]
+      resources :material_assets, only: [:index, :show]
     end
     resources :contact_ways, only: [:index]
     resources :stores, only: [:index]

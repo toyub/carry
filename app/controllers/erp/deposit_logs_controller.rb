@@ -1,10 +1,10 @@
 module Erp
-  class DepositCardAssetsController < BaseController
+  class DepositLogsController < BaseController
     before_action :set_customer
 
     def index
-      @deposit_cards = @customer.deposit_cards_assets
-      respond_with @deposit_cards, location: nil
+      @deposit_logs = @customer.deposit_logs
+      respond_with @deposit_logs, location: nil
     end
 
     private

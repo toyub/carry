@@ -1,10 +1,10 @@
 module Erp
-  class DepositCardAssetsController < BaseController
+  class MaterialAssetsController < BaseController
     before_action :set_customer
 
     def index
-      @deposit_cards = @customer.deposit_cards_assets
-      respond_with @deposit_cards, location: nil
+      @materials = @customer.taozhuang_assets
+      respond_with @materials, location: nil
     end
 
     private
@@ -12,6 +12,5 @@ module Erp
       def set_customer
         @customer = current_store_chain.store_customers.find(params[:customer_id])
       end
-
   end
 end
