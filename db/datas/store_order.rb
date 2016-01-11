@@ -15,9 +15,9 @@ StoreOrder.create(
   items_attributes: [
     { orderable: StoreMaterialSaleinfo.where(service_needed: true).first, price: 120, quantity: 20 },
     { orderable: StoreMaterialSaleinfo.where(service_needed: true).first, price: 120, quantity: 20 },
-    { orderable: StorePackage.first, price: 130, quantity: 10 },
-    { orderable: StorePackage.first, price: 140, quantity: 10 },
-    { orderable: StoreService.first, price: 260, quantity: 10 },
-    { orderable: StoreService.last, price: 100, quantity: 10 },
+    { orderable: StorePackage.first, price: 130, quantity: 2 },
+    { orderable: StorePackage.first, price: 140, quantity: 2 },
+    { orderable: StoreService.first, price: 260, quantity: 2 },
+    { orderable: StoreService.last, price: 100, quantity: 2 },
   ]
 )
