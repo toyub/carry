@@ -1,8 +1,8 @@
 class Api::Sas::CustomerGenderController < Api::BaseController
   def index
     @data = {
-      female: [120, 132, 101],
-      male: [220, 182, 191],
+      female: [StoreCustomer.female.store_group.count, StoreCustomer.female.membership!.count, StoreCustomer.female.membership.count ],
+      male: [StoreCustomer.male.store_group!.count, StoreCustomer.male.membership!.count, StoreCustomer.male.membership.count ],
     }
     render json: @data
   end

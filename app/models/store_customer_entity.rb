@@ -9,8 +9,8 @@ class StoreCustomerEntity < ActiveRecord::Base
   accepts_nested_attributes_for :store_customer_settlement
 
   PROPERTIES = {
-    group: '集团客户',
-    personal: '个人客户'
+    'group': '集团客户',
+    'personal': '个人客户'
   }
 
   EDUCATIONS = {
@@ -57,10 +57,6 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   def settlement_payment_method
    '现金'
-  end
-
-  def property_name
-   '个人客户'
   end
 
   def district

@@ -22,6 +22,14 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :store_customer_deposit_cards
 
+  scope :female, -> { where(gender: false) }
+  scope :male, -> { where(gender: true) }
+  scope :membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: true})}
+  scope :membership!, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: false})}
+  scope :store_group, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'group'})}
+  scope :store_group!, -> {joins(:store_customer_entity).where(store_customer_entities: { property: nil})}
+
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
