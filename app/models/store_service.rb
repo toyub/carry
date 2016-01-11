@@ -4,6 +4,7 @@ class StoreService < ActiveRecord::Base
 
   random :code
 
+  belongs_to :service_category, class_name: 'ServiceCategory', foreign_key: :category_id
   belongs_to :store_service_category
   has_many :store_service_store_materials
   has_many :store_materials, through: :store_service_store_materials

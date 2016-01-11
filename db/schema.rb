@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105031107) do
+ActiveRecord::Schema.define(version: 20160108034942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -404,13 +404,14 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.float    "range"
     t.string   "property"
     t.string   "remark"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "store_id"
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
-    t.decimal  "balance",                    default: 0.0, null: false
+    t.decimal  "balance",                    default: 0.0,   null: false
     t.integer  "points"
+    t.boolean  "membership",                 default: false
   end
 
   create_table "store_customer_payments", force: :cascade do |t|
@@ -1518,6 +1519,7 @@ ActiveRecord::Schema.define(version: 20160105031107) do
     t.integer  "position_mode"
     t.boolean  "favorable",                                                     default: false
     t.integer  "setting_type",                                                  default: 0
+    t.integer  "category_id"
   end
 
   add_index "store_services", ["store_service_category_id"], name: "store_services_store_service_category_id", using: :btree
