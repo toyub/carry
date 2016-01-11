@@ -70,6 +70,16 @@ class StoreCustomer < ActiveRecord::Base
     StoreCustomerAccount.new(self)
   end
 
+  def brand_name
+    if self.store_vehicles.last && self.store_vehicles.last.vehicle_brand
+      self.store_vehicles.last.vehicle_brand.name
+    end
+  end
+
+  def vehicle_bought
+    self.store_vehicles.last.detail["bought_on"] if self.store_vehicles.last
+  end
+
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"

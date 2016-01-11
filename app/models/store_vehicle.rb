@@ -23,7 +23,7 @@ class StoreVehicle < ActiveRecord::Base
   has_many :complaints, as: :creator
 
   validates_presence_of :store_customer
-  
+
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_vehicle_id
 
   def license_number
