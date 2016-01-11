@@ -19,7 +19,7 @@
         <dl>
           <dd><%= log.created_at.strftime("%Y-%m-%d") %></dd>
           <dd><span  class="<%= log.profit? ? 'profit' : 'loss' %>"><%= log.amount %></span></dd>
-          <dd><%= log.store_order.numero %></dd>
+          <dd><%= log.store_order.try(:numero) %></dd>
           <dd><span><%= log.balance %></span></dd>
         </dl>
       <% end %>
