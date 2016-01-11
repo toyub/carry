@@ -67,8 +67,8 @@
       <select disabled name="workflow[engineer_level]" id="level_limited">
         <option value=""></option>
         <% _.each @store.get('engineer_levels'), (value, key) -> :%>
-        <option value="<%= key %>" <%= 'selected' if workflow.get('engineer_level') == String(key)%>><%= value %></option>
-      <% end %>
+          <option value="<%= key %>" <%= 'selected' if String(workflow.get('engineer_level')) == String(key)%>><%= value %></option>
+        <% end %>
         以上
       </select>
     </td>
