@@ -10,3 +10,4 @@ json.vehicle do
   json.brand_name @customer.brand_name
 end
 json.status @status
+json.info @info

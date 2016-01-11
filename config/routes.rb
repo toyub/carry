@@ -251,6 +251,11 @@ Rails.application.routes.draw do
 
       resources :orders do
         collection do
+        end
+      end
+
+      resources :store_vehicles do
+        collection do
           post :add_vehicle
         end
       end
