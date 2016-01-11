@@ -15,7 +15,7 @@ class StoreStaffSerializer < ActiveModel::Serializer
   end
 
   def level
-    StoreStaffLevel.find(object.level_type_id).name
+    StoreStaffLevel.find(object.level_type_id).try :name
   end
 
   def expired_on
