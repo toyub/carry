@@ -4,14 +4,7 @@ StoreOrder.delete_all
 StoreServiceSnapshot.delete_all
 StoreServiceWorkflowSnapshot.delete_all
 
-# creating store package
-StorePackage.create(
-  store_chain_id: StoreChain.first.try(:id),
-  store_staff_id: StoreStaff.first.try(:id),
-  store_id: Store.first.id,
-  name: "充100送120",
-  price: 100
-)
+# creating store order
 
 StoreOrder.create(
   store_chain_id: StoreChain.first.try(:id),
@@ -20,11 +13,11 @@ StoreOrder.create(
   store_customer: StoreCustomer.first,
   store_vehicle: StoreVehicle.first,
   items_attributes: [
-    { orderable: StoreMaterialSaleinfo.first, price: 100, quantity: 10 },
-    { orderable: StoreMaterialSaleinfo.first, price: 120, quantity: 20 },
-    { orderable: StorePackage.first, price: 130, quantity: 30 },
-    { orderable: StorePackage.first, price: 140, quantity: 30 },
-    { orderable: StoreService.first, price: 260, quantity: 30 },
-    { orderable: StoreService.last, price: 100, quantity: 30 },
+    { orderable: StoreMaterialSaleinfo.where(service_needed: true).first, price: 120, quantity: 2 },
+    { orderable: StoreMaterialSaleinfo.where(service_needed: true).first, price: 120, quantity: 2 },
+    { orderable: StorePackage.first, price: 130, quantity: 2 },
+    { orderable: StorePackage.first, price: 140, quantity: 2 },
+    { orderable: StoreService.first, price: 260, quantity: 2 },
+    { orderable: StoreService.last, price: 100, quantity: 2 },
   ]
 )
