@@ -183,7 +183,11 @@ class StoreOrder < ActiveRecord::Base
     end
 
     def init_state
-      self.state = :pending
+      if items.blank
+        self.state = :paying
+      else
+        self.state = :pending if self.state == nil
+      end
     end
 
     def execution_job
