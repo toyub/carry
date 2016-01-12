@@ -313,6 +313,7 @@ Rails.application.routes.draw do
         resources :customer_gender, only: [:index]
         resources :customers, only: [:index]
         resources :customer_consuming, only: [:index]
+        resources :consuming_week, only: [:index]
         resources :sales, only: [:index] do
           get 'payments', on: :collection
           get 'categories', on: :collection
