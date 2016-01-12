@@ -1,5 +1,6 @@
 json.array! @plates do |plate|
-  json.store_id plate.store_customer.store_id
+  json.store_id plate.store.id
+  json.store_name plate.store.name
   json.license_number plate.license_number
   json.customer_name plate.store_customer.full_name
   json.phone_number plate.store_customer.phone_number
