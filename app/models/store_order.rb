@@ -25,6 +25,7 @@ class StoreOrder < ActiveRecord::Base
   before_create :set_numero
   before_create :init_state
   before_save :update_amount
+  before_save :execution_job
 
   accepts_nested_attributes_for :items
 
@@ -183,5 +184,9 @@ class StoreOrder < ActiveRecord::Base
 
     def init_state
       self.state = :pending
+    end
+
+    def execution_job
+      OrderExecutionJob.perform_now(id) if state_changed? && state == "queuing"
     end
 end
