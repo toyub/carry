@@ -254,6 +254,7 @@ Rails.application.routes.draw do
     resources :store_staff, only: [:index]
     resources :services, only: [:index]
     resources :service_categories, only: [:index]
+    resources :districts, only: [:index]
   end #End of erp
 
   #Api

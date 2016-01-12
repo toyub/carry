@@ -75,7 +75,7 @@ class Store <  ActiveRecord::Base
   end
 
   def info_by(name)
-    self.store_infos.where(info_category_id: InfoCategory.find_by(name: name).id).value
+    self.store_infos.where(info_category_id: InfoCategory.find_by(name: name).id).first.try(:value)
   end
 
   def province
@@ -95,10 +95,12 @@ class Store <  ActiveRecord::Base
   end
 
   def last_year_sales
-    # self.store_orders.sum(:amount)
+    last_year = Date.today.year - 1
+    self.store_orders.where('extract(year from created_at) = ?', last_year).sum(:amount)
   end
 
   def current_year_sales
-
+    current_year = Date.today.year
+    self.store_orders.where('extract(year from created_at) = ?', current_year).sum(:amount)
   end
 end

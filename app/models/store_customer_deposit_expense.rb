@@ -19,4 +19,8 @@ class StoreCustomerDepositExpense < StoreCustomerDepositLog
     store_customer.store_customer_entity.decrease_balance!(amount)
     {valid: true, paid: true}
   end
+
+  def methematical_symbol
+    'minus'
+  end
 end
