@@ -9,9 +9,7 @@ module Api
           @info = "客户已经存在!"
         else
           @status = AddVehicleForIpadService.call(customer_params,vehicle_params,plate_params)
-          if @status.success?
-            @state = 1
-          end
+          @state = 1 if @status.success?
           @customer = @status.customer
           @info = @status.notice
         end
