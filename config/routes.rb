@@ -319,6 +319,7 @@ Rails.application.routes.draw do
         end
         resources :sale_top, only: [:index]
         resources :vehicles, only: [:index]
+        resources :vehicle_brand, only: [:index]
       end
     end
 
