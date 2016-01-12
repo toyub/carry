@@ -73,4 +73,32 @@ class Store <  ActiveRecord::Base
   def decrease_balance!(amount)
     self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) - #{balance.to_f.abs}")
   end
+
+  def info_by(name)
+    self.store_infos.where(info_category_id: InfoCategory.find_by(name: name).id).value
+  end
+
+  def province
+    Geo.state(1, self.info_by('省份')).try(:name)
+  end
+
+  def city
+    Geo.city(1, self.info_by('省份'), self.info_by('城市')).try(:name)
+  end
+
+  def address
+    self.info_by('详细地址')
+  end
+
+  def business_hours
+    "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}"
+  end
+
+  def last_year_sales
+    # self.store_orders.sum(:amount)
+  end
+
+  def current_year_sales
+
+  end
 end
