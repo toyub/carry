@@ -22,6 +22,8 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :store_customer_deposit_cards
 
+  has_many :store_order_items
+
   scope :female, -> { where(gender: false) }
   scope :male, -> { where(gender: true) }
   scope :membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: true})}
