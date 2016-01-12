@@ -256,7 +256,7 @@ Rails.application.routes.draw do
 
       resources :store_vehicles do
         collection do
-          post :add_vehicle
+          post :add_vehicle, :search
         end
       end
 

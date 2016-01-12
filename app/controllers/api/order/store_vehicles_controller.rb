@@ -10,7 +10,7 @@ module Api
           creator = AddVehicleForIpadService.new(customer_params,vehicle_params,plate_params)
           if creator.call
             @status = 1
-            @customer = adder.customer
+            @customer = creator.customer
             @info = "创建成功!"
           else
             @info = "车牌已经存在!"
@@ -19,6 +19,15 @@ module Api
           end
         end
         respond_with @customer,@status,@info, location: nil
+      end
+
+
+
+      def search
+        # params[:q] = {license_number_cont: params[:license_number_cont]}
+        @q = @store.store_chain.plates.ransack(params[:q])
+        @plates = @q.result.order(id: 'desc')
+        respond_with @plates, location: nil
       end
 
       private
