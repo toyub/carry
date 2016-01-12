@@ -1,21 +1,12 @@
 module Erp
   class StoresController < BaseController
     def index
+      params[:q] ||= {}
       if params[:q][:province_code].present?
         if params[:q][:city_code].present?
-          city_code = params[:q][:city_code]
-          category_id = InfoCategory.find_by(name: '城市').id
-          params[:q].merge!({
-            store_infos_info_category_id_eq: category_id,
-            store_infos_value_eq: city_code
-          })
+          merge_params!(params[:q], '城市', :city_code)
         else
-          province_code = params[:q][:province_code]
-          category_id = InfoCategory.find_by(name: '省份').id
-          params[:q].merge!({
-            store_infos_info_category_id_eq: category_id,
-            store_infos_value_eq: province_code
-          })
+          merge_params!(params[:q], '省份', :province_code)
         end
       end
       params[:q].except!(:province_code, :city_code)
@@ -23,5 +14,15 @@ module Erp
       @stores = q.result.order('id asc')
       respond_with @stores, location: nil
     end
+
+    private
+    
+      def merge_params!(params, category_name, code_type)
+        category_id = InfoCategory.find_by(name: category_name).id
+        params.merge!({
+          store_infos_info_category_id_eq: category_id,
+          store_infos_value_eq: params[code_type]
+        })
+      end
   end
 end
