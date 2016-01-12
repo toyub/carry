@@ -1,5 +1,6 @@
 class AddVehicleForIpadService
   include Serviceable
+  include StatusObject
 
   attr_reader :customer, :vehicle, :plate
 
@@ -15,9 +16,10 @@ class AddVehicleForIpadService
       @vehicle = StoreVehicle.create!(@vehicle_params.merge(store_customer_id: @customer.id))
       @plate = @vehicle.plates.create!(@plate_params.merge(store_customer_id: @customer.id))
     end
-    true
+    Status.new(success: true, notice: '添加成功!', customer: @customer)
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error e.message
-    false
+    customer = StoreVehicleRegistrationPlate.where(license_number: @plate_params[:license_number]).first.store_customer
+    Status.new(success: false, notice: e.message, customer: customer)
   end
 end

@@ -9,5 +9,5 @@ json.vehicle do
   json.bought_on @customer.vehicle_bought
   json.brand_name @customer.brand_name
 end
-json.status @status
+json.status @state
 json.info @info

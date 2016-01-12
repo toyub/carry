@@ -1,24 +1,21 @@
 module Api
   module Order
     class StoreVehiclesController < BaseController
+
       def add_vehicle
-        @status = 0
+        @state = 0
         @customer = StoreCustomer.where(phone_number: params[:phone_number]).last
         if @customer
           @info = "客户已经存在!"
         else
-          creator = AddVehicleForIpadService.new(customer_params,vehicle_params,plate_params)
-          if creator.call
-            @status = 1
-            @customer = creator.customer
-            @info = "创建成功!"
-          else
-            @info = "车牌已经存在!"
-            plate = StoreVehicleRegistrationPlate.where(license_number: params[:license_number]).last
-            @customer = plate.store_customer
+          @status = AddVehicleForIpadService.call(customer_params,vehicle_params,plate_params)
+          if @status.success?
+            @state = 1
           end
+          @customer = @status.customer
+          @info = @status.notice
         end
-        respond_with @customer,@status,@info, location: nil
+        respond_with @customer,@state,@info, location: nil
       end
 
 
