@@ -1,6 +1,6 @@
 class Crm::VehicleSeriesController < Crm::BaseController
   def index
-    @series = VehicleSeries.series(params[:id])
+    @series = VehicleBrand.find(params[:id]).vehicle_series.order('name asc')
     respond_with @series, location: nil
   end
 end

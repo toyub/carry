@@ -14,8 +14,11 @@ class Mis.Views.XiaoshouServiceRemindsItem extends Mis.Base.View
     'click input.editRemind': 'openRemindForm'
 
   render: ->
-    @$el.html(@template(remind: @model))
+    @$el.html(@template(remind: @model, view: @))
     @
+
+  isShow: ->
+    @action == 'show'
 
   openRemindForm: ->
     view = new Mis.Views.XiaoshouServiceRemindsForm(model: @model, action: @action)

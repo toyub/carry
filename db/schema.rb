@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20160111013327) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false
+    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20160111013327) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -408,13 +408,14 @@ ActiveRecord::Schema.define(version: 20160111013327) do
     t.float    "range"
     t.string   "property"
     t.string   "remark"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "store_id"
     t.integer  "store_staff_id"
     t.integer  "store_chain_id"
-    t.decimal  "balance",                    default: 0.0, null: false
+    t.decimal  "balance",                    default: 0.0,   null: false
     t.integer  "points"
+    t.boolean  "membership",                 default: false
   end
 
   create_table "store_customer_payments", force: :cascade do |t|
@@ -1522,6 +1523,7 @@ ActiveRecord::Schema.define(version: 20160111013327) do
     t.integer  "position_mode"
     t.boolean  "favorable",                                                     default: false
     t.integer  "setting_type",                                                  default: 0
+    t.integer  "category_id"
   end
 
   add_index "store_services", ["store_service_category_id"], name: "store_services_store_service_category_id", using: :btree
@@ -1560,20 +1562,20 @@ ActiveRecord::Schema.define(version: 20160111013327) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
@@ -1786,6 +1788,7 @@ ActiveRecord::Schema.define(version: 20160111013327) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "letter"
   end
 
   create_table "vehicle_engines", force: :cascade do |t|
