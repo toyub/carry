@@ -148,10 +148,11 @@
             <td></td>
             <td colspan="4" style="text-align:left;">
               提成方案
-              <select class="width-190" name="engineer_commission_template_id" id="workflow_engineer_commission_template_id">
+              <select class="width-190" name="mechanic_commission_template_id" id="workflow_engineer_commission_template_id">
                 <option value="">请选择</option>
+                <% commission = @setting.get 'mechanic_commission_template_id' %>
                 <% @store.commissionTemplates.each (c) ->: %>
-                <option value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
+                <option <%= 'selected' if String(commission ) == String(c.get 'id') %> value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
               <% end %>
               </select>
             </td>
