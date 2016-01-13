@@ -17,6 +17,7 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
 
   defaults:
     setting_type: @::SETTING_TYPE.regular
+    position_mode: 1
 
   initialize: (options) ->
     @store_service = options.store_service

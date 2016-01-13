@@ -4,4 +4,5 @@ class StoreChain < ActiveRecord::Base
 
   has_many :store_customers
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
+  has_many :store_services
 end

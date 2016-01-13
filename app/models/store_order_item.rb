@@ -17,9 +17,13 @@ class StoreOrderItem < ActiveRecord::Base
   scope :services, -> { where(orderable_type: "StoreService") }
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
 
-  scope :by_month, ->(month = Time.now) { where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month) }
+  scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }
 
   validates_presence_of :orderable
+
+  def cost_price
+    23
+  end
 
   def gross_profit
     self.amount - self.total_cost

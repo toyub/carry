@@ -10,7 +10,6 @@ class Store <  ActiveRecord::Base
   has_many :store_suppliers
   has_many :store_material_inventories
   has_many :store_services
-  has_many :service_categories, class_name: 'StoreServiceCategory'
   has_many :store_workstation_categories
   has_many :store_commission_templates
   has_many :store_staff
@@ -73,5 +72,35 @@ class Store <  ActiveRecord::Base
 
   def decrease_balance!(amount)
     self.class.unscoped.where(id: self.id).update_all("balance=COALESCE(balance, 0) - #{balance.to_f.abs}")
+  end
+
+  def info_by(name)
+    self.store_infos.where(info_category_id: InfoCategory.find_by(name: name).id).first.try(:value)
+  end
+
+  def province
+    Geo.state(1, self.info_by('省份')).try(:name)
+  end
+
+  def city
+    Geo.city(1, self.info_by('省份'), self.info_by('城市')).try(:name)
+  end
+
+  def address
+    self.info_by('详细地址')
+  end
+
+  def business_hours
+    "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}"
+  end
+
+  def last_year_sales
+    last_year = Date.today.year - 1
+    self.store_orders.where('extract(year from created_at) = ?', last_year).sum(:amount)
+  end
+
+  def current_year_sales
+    current_year = Date.today.year
+    self.store_orders.where('extract(year from created_at) = ?', current_year).sum(:amount)
   end
 end

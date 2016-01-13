@@ -20,8 +20,8 @@
       <td><%= item.store_order.amount %></td>
       <td><%= item.store_order.amount %></td>
       <td><%= item.store_order.payment_methods %></td>
-      <td><%= item.store_order.creator.full_name %></td>
-      <td><%= item.store_order.payments.first.creator.full_name %></td>
+      <td><%= item.store_order.try(:creator).try(:full_name) %></td>
+      <td><%= item.store_order.payments.first.try(:creator).try(:full_name) %></td>
       <td></td>
     </tr>
     <% end %>

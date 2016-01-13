@@ -109,9 +109,7 @@ Rails.application.routes.draw do
   end
 
   namespace :ais do
-    resources :incomes, only: [:index] do
-      get 'search', on: :collection
-    end
+    resources :incomes, only: [:index]
     resources :costs, only: [:index] do
       get 'search', on: :collection
     end
@@ -234,7 +232,27 @@ Rails.application.routes.draw do
 
   # 总部平台api调用
   namespace :erp do
-    resources :customers, only: [:index]
+    resources :customers, only: [:index, :show] do
+      resources :customer_trackings, only: [:index]
+      resources :orders, only: [:index]
+      resources :license_numbers, only: [:index]
+      resources :vehicles, only: [:index, :show]
+      resources :deposit_card_assets, only: [:index]
+      resources :deposit_logs, only: [:index]
+      resources :package_assets, only: [:index, :show] do
+        resources :package_items, only: [:show]
+      end
+      resources :material_assets, only: [:index, :show] do
+        resources :material_items, only: [:show]
+      end
+    end
+    resources :contact_ways, only: [:index]
+    resources :stores, only: [:index]
+    resources :customer_properties, only: [:index]
+    resources :store_staff, only: [:index]
+    resources :services, only: [:index]
+    resources :service_categories, only: [:index]
+    resources :districts, only: [:index]
   end #End of erp
 
   #Api
@@ -367,6 +385,16 @@ Rails.application.routes.draw do
       resources :groups
       resources :staff
     end
+
+    resources :vehicle_brands, only: [:index] do
+      resources :vehicle_manufacturers, only: [:index]
+    end
+    resources :vehicle_manufacturers, only: [] do
+      resources :vehicle_series, only: [:index]
+    end
+    resources :vehicle_series, only: [] do
+      resources :vehicle_models, only: [:index]
+    end
   end#End of api
 
   namespace :pos do
@@ -413,8 +441,7 @@ Rails.application.routes.draw do
         resources :store_asset_items, only: [:show]
       end
     end
-    resources :vehicle_series, only: [:index]
-    resources :vehicle_models, only: [:index]
+
   end
 
   namespace :receipt do

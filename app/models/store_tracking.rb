@@ -22,4 +22,8 @@ class StoreTracking < ActiveRecord::Base
   def contact_way
     CONTACT_WAY[self.contact_way_id]
   end
+
+  def property
+    '消费提醒'
+  end
 end
