@@ -394,13 +394,14 @@ Rails.application.routes.draw do
     resources :recommended_orders
 
     resources :vehicle_brands, only: [:index] do
+      get :search_series
       resources :vehicle_manufacturers, only: [:index]
     end
-    
+
     resources :vehicle_manufacturers, only: [] do
       resources :vehicle_series, only: [:index]
     end
-    
+
     resources :vehicle_series, only: [] do
       resources :vehicle_models, only: [:index]
     end

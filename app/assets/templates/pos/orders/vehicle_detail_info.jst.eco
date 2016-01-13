@@ -4,7 +4,7 @@
       <dd class="item_content"><label class="width-77">车牌号码</label><input type="text" class="width-110"></dd>
       <dd>
         <label class="width-77">品牌</label>
-        <select name='vehicle[vehicle_brand_id]' class="width-110">
+        <select name='vehicle[vehicle_brand_id]' class="width-110 js-select-vehicle-brand">
           <% for brand in @vehicle_brands : %>
             <option value ="<%= brand.id %>"><%= brand.name %></option>
           <% end %>
