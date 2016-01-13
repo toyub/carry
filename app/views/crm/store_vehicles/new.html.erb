@@ -35,17 +35,26 @@
         timepicker: false
       });
 
+      show_vehicle_brands();
       $(document).on('change', '#brand', show_vehicle_series);
       $(document).on('change', '#series', show_vehicle_model);
       $(document).on('keydown', '.readonly', prevent_default);
     });
 
+    function show_vehicle_brands() {
+      $.get('/crm/vehicle_brands', function(brands){
+        $.each(brands, function(idx, brand) {
+          $('#brand').append($('<option></option>').attr('value', brand.id).text(brand.name));
+        });
+      });
+   }
+
     function show_vehicle_series() {
       var brand_id = $('#brand').find(':selected').val();
-      $.get('/crm/vehicle_series', {id: brand_id}, function(series) {
+      $.get('/crm/vehicle_brands/' + brand_id + '/vehicle_series', function(series) {
         $('#series').find('option').remove().end().append($('<option></option>'));
         $('#model').find('option').remove().end().append($('<option></option>'));
-        $.each(series, function(i, series) {
+        $.each(series, function(idx, series) {
           $('#series').append($('<option></option>').attr('value', series.id).text(series.name));
         });
       });
@@ -53,9 +62,9 @@
 
     function show_vehicle_model() {
       var series_id = $('#series').find(':selected').val();
-      $.get('/crm/vehicle_models', {id: series_id}, function(models) {
+      $.get('/crm/vehicle_series/' + series_id + '/vehicle_models', function(models) {
         $('#model').find('option').remove().end().append($('<option></option>'));
-        $.each(models, function(i, model) {
+        $.each(models, function(idx, model) {
           $('#model').append($('<option></option>').attr('value', model.id).text(model.name));
         });
       });

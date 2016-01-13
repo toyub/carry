@@ -1,8 +1,8 @@
 module Erp
-  class MaterialLogsController < BaseController
+  class MaterialItemsController < BaseController
     before_action :set_customer, :set_material_asset
 
-    def index
+    def show
       @logs = @material_asset.items.first.logs
       respond_with @logs, location: nil
     end

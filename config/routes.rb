@@ -242,10 +242,10 @@ Rails.application.routes.draw do
       resources :deposit_card_assets, only: [:index]
       resources :deposit_logs, only: [:index]
       resources :package_assets, only: [:index, :show] do
-        resources :package_logs, only: [:index]
+        resources :package_items, only: [:show]
       end
       resources :material_assets, only: [:index, :show] do
-        resources :material_logs, only: [:index]
+        resources :material_items, only: [:show]
       end
     end
     resources :contact_ways, only: [:index]
@@ -389,8 +389,15 @@ Rails.application.routes.draw do
         resources :store_asset_items, only: [:show]
       end
     end
-    resources :vehicle_series, only: [:index]
-    resources :vehicle_models, only: [:index]
+    resources :vehicle_brands, only: [:index] do
+      resources :vehicle_manufacturers, only: [:index]
+    end
+    resources :vehicle_manufacturers, only: [] do
+      resources :vehicle_series, only: [:index]
+    end
+    resources :vehicle_series, only: [] do
+      resources :vehicle_models, only: [:index]
+    end
   end
 
   namespace :receipt do

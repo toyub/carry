@@ -1,8 +1,8 @@
 module Erp
-  class PackageLogsController < BaseController
+  class PackageItemsController < BaseController
     before_action :set_customer, :set_package_asset
 
-    def index
+    def show
       @logs = @package_asset.items.first.logs
       respond_with @logs, location: nil
     end
