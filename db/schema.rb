@@ -1143,6 +1143,7 @@ ActiveRecord::Schema.define(version: 20160113024753) do
     t.decimal  "actual_volume_per_bill"
     t.boolean  "divide_to_retail",                                              default: false
     t.boolean  "divide_cost_checked",                                           default: false
+    t.boolean  "from_customer_asset",                                           default: false
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
