@@ -11,6 +11,7 @@ module Erp
     end
 
     def auth_token
+      return if Rails.env == 'development'
       render json: {errors: ["app token incrrect"]}, status: 401 and return unless AuthenticateTokenService.call(request.headers["HTTP_KEY"], request.headers["HTTP_SECRET"])
     end
 
