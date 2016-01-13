@@ -269,7 +269,7 @@ Rails.application.routes.draw do
 
       resources :store_services do
         collection do
-          get :service_categories
+          get :service_name
         end
       end
 
