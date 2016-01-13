@@ -343,6 +343,16 @@ Rails.application.routes.draw do
       resources :groups
       resources :staff
     end
+
+    resources :vehicle_brands, only: [:index] do
+      resources :vehicle_manufacturers, only: [:index]
+    end
+    resources :vehicle_manufacturers, only: [] do
+      resources :vehicle_series, only: [:index]
+    end
+    resources :vehicle_series, only: [] do
+      resources :vehicle_models, only: [:index]
+    end
   end#End of api
 
   namespace :pos do
@@ -389,15 +399,7 @@ Rails.application.routes.draw do
         resources :store_asset_items, only: [:show]
       end
     end
-    resources :vehicle_brands, only: [:index] do
-      resources :vehicle_manufacturers, only: [:index]
-    end
-    resources :vehicle_manufacturers, only: [] do
-      resources :vehicle_series, only: [:index]
-    end
-    resources :vehicle_series, only: [] do
-      resources :vehicle_models, only: [:index]
-    end
+
   end
 
   namespace :receipt do
