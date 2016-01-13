@@ -51,11 +51,18 @@
 
     function show_vehicle_series() {
       var brand_id = $('#brand').find(':selected').val();
-      $.get('/crm/vehicle_brands/' + brand_id + '/vehicle_series', function(series) {
-        $('#series').find('option').remove().end().append($('<option></option>'));
+      $.get('/crm/vehicle_brands/' + brand_id + '/vehicle_manufacturers', function(manufacturers) {
+        $('#series').find('optgroup').remove().end().append($('<optgroup>'));
         $('#model').find('option').remove().end().append($('<option></option>'));
-        $.each(series, function(idx, series) {
-          $('#series').append($('<option></option>').attr('value', series.id).text(series.name));
+        $.each(manufacturers, function(idx, manufacturer) {
+          var optgroup = $('<optgroup>');
+          optgroup.attr('label', manufacturer.name);
+          $.get('/crm/vehicle_manufacturers/' + manufacturer.id + '/vehicle_series', function(series){
+            $.each(series, function(idx, series) {
+              optgroup.append($('<option></option>').attr('value', series.id).text(series.name));
+            });
+          });
+          $('#series').append(optgroup);
         });
       });
     }
