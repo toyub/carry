@@ -1,6 +1,7 @@
 class Ais::OrderItemsController < Ais::BaseController
   def index
     @category = Category.find(params[:category_id])
-    @order_items = @category.order_items.by_month(params[:date])
+    date = Date.parse(params[:date])
+    @order_items = @category.order_items.by_month(date)
   end
 end
