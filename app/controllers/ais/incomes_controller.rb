@@ -1,18 +1,10 @@
 class Ais::IncomesController < Ais::BaseController
-  before_action :search_month, only: :search
+  before_action :search_month, only: :index
 
   def index
     @service_categories = ServiceCategory.all
     @material_categories = SaleCategory.all
     @first_category = @service_categories.first || @material_categories.first
-    @date = Time.now
-  end
-
-  def search
-    @service_categories = ServiceCategory.all
-    @material_categories = SaleCategory.all
-    @first_category = @service_categories.first || @material_categories.first
-    render "index"
   end
 
   private
