@@ -70,6 +70,7 @@ module Api
         items_attributes: items_attributes
       })
       if store_order.save
+        store_order.execution_job if store_order.queuing?
         render json: {success: true}
       else
         render json: {error: store_order.errors.full_messages}, status: 422
