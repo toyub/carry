@@ -13,7 +13,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_events, dependent: :destroy
   has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
   has_many :store_attendence, class_name: "StoreAttendence", dependent: :destroy
-  has_many :store_rewords, class_name: "StoreReward", dependent: :destroy
+  has_many :store_rewards, class_name: "StoreReward", dependent: :destroy
   has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
   has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy

@@ -42,6 +42,10 @@ class StoreOrderItem < ActiveRecord::Base
     self.store_service_snapshot.workflow_snapshots
   end
 
+  def workflow_mechanics
+    self.store_service_snapshot.workflow_snapshots
+  end
+
   def to_cost_check_json
     {
      id: self.id,
