@@ -94,6 +94,25 @@ class StoreService < ActiveRecord::Base
     0
   end
 
+  def time
+    self.store_service_workflows.map { |w| w.work_time_in_minutes }.sum
+  end
+
+  def mechanic_levles
+    self.store_service_workflows.map { |w| w.engineer_level_name }.compact.join("-")
+  end
+
+  def saled
+    self.store_order_items.count
+  end
+
+  def category
+    service_category.try(:name)
+  end
+
+  def store_name
+    self.store.name
+  end
 
   def service_needed?
     true

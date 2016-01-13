@@ -17,10 +17,14 @@ class StoreOrderItem < ActiveRecord::Base
   scope :services, -> { where(orderable_type: "StoreService") }
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
 
-  scope :by_month, ->(month = Time.now) { where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month) }
+  scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }
   scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
 
   validates_presence_of :orderable
+
+  def cost_price
+    23
+  end
 
   def gross_profit
     self.amount - self.total_cost
@@ -33,6 +37,10 @@ class StoreOrderItem < ActiveRecord::Base
   def from_customer_asset?
     @s ||= rand(2)
     @s == 1
+  end
+
+  def workflow_mechanics
+    self.store_service_snapshot.workflow_snapshots
   end
 
   def workflow_mechanics
