@@ -7,7 +7,7 @@
   </div>
   <div class="item_content">
     <%= f.label "品牌", class: 'width-75' %>
-    <%= f.select :vehicle_brand_id, VehicleBrand.order('letter,name asc').pluck(:name, :id), {include_blank: '请选择'}, {id: 'brand', class: "width-165", required: true} %>
+    <%= f.select :vehicle_brand_id, {}, {include_blank: '请选择'}, {id: 'brand', class: "width-165", required: true} %>
   </div>
   <div class="item_content">
     <%= f.label "车系", class: 'width-75' %>
