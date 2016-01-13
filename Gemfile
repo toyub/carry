@@ -139,3 +139,7 @@ gem 'typhoeus'
 
 # xml html解析
 gem 'nokogiri'
+
+# for App API
+gem 'grape', '~> 0.14.0'
+gem 'grape-swagger', '~> 0.10.4'
