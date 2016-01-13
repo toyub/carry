@@ -261,9 +261,21 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :store_materials do
+      resources :store_materials do
         collection do
-          get :material_categories, :search
+          get :material_name
+        end
+      end
+
+      resources :store_service do
+        collection do
+          get :service_categories
+        end
+      end
+
+      resources :categories do
+        collection do
+          get :sale_category, :service_category
         end
       end
 
