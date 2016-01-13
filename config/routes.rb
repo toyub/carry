@@ -267,7 +267,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :store_service do
+      resources :store_services do
         collection do
           get :service_categories
         end
