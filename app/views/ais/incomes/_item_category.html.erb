@@ -8,7 +8,14 @@
   </thead>
 
   <tbody class="sale-category">
-    <% @categories.each do |category| %>
+    <% @service_categories.each do |category| %>
+      <tr data-category-id='<%= category.id %>'>
+        <td><%= category.name %></td>
+        <td><%= category.items_total_quantity(@date) %></td>
+        <td><%= category.items_total_amount(@date) %> </td>
+      </tr>
+    <% end %>
+    <% @material_categories.each do |category| %>
       <tr data-category-id='<%= category.id %>'>
         <td><%= category.name %></td>
         <td><%= category.items_total_quantity(@date) %></td>

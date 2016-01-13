@@ -2,7 +2,8 @@ class Ais::IncomesController < Ais::BaseController
   before_action :search_month, only: :search
 
   def index
-    @categories = Category.all
+    @service_categories = ServiceCategory.all
+    @material_categories = SaleCategory.all
     @date = Time.now
   end
 
