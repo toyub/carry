@@ -16,7 +16,7 @@ class StoreOrder < ActiveRecord::Base
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_order_id
   has_many :payments, class_name: 'StoreCustomerPayment'
 
-  scope :by_month, ->(month = Time.now) { where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month) }
+  scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
