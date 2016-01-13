@@ -2,7 +2,7 @@ class ConsumingWeekSerializer < ActiveModel::Serializer
   attr_accessor :data
 
   CONSUMING_LEVEL = {
-    0..1000 => '0',
+    1..1000 => '0',
     1000..3000 => '1',
     3000..5000 => '2',
     5000..8000 => '3',
@@ -21,12 +21,13 @@ class ConsumingWeekSerializer < ActiveModel::Serializer
       Sun: [0, 0, 0, 0, 0],
     }
 
-    (0..Time.now.strftime("%w").to_i).each do |i|
+    (0...Time.now.strftime("%w").to_i).each do |i|
       day = i.day.ago
       index = day.strftime("%a").to_sym
       StoreCustomer.all.each do |customer|
+        amount = customer.store_order_items.by_day(day).total_amount
         CONSUMING_LEVEL.select do |level, flag|
-          if level === customer.store_order_items.by_day(day).total_amount
+          if level === amount
             @data[index][flag.to_i] += 1
             break
           end
