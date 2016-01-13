@@ -25,7 +25,6 @@ class StoreOrder < ActiveRecord::Base
   before_create :set_numero
   before_create :init_state
   before_save :update_amount
-  before_save :execution_job
 
   accepts_nested_attributes_for :items
 
@@ -164,6 +163,10 @@ class StoreOrder < ActiveRecord::Base
     payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
   end
 
+  def execution_job
+    OrderExecutionJob.perform_now(id)
+  end
+
   private
     def construction_items
       self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
@@ -188,9 +191,5 @@ class StoreOrder < ActiveRecord::Base
       else
         self.state = :pending if self.state == nil
       end
-    end
-
-    def execution_job
-      OrderExecutionJob.perform_now(id) if state_changed? && state == "queuing"
     end
 end
