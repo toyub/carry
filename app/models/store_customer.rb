@@ -4,7 +4,6 @@ class StoreCustomer < ActiveRecord::Base
   belongs_to :store_customer_entity
   belongs_to :store_staff
   belongs_to :store_customer_category
-
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
   has_many :orders, class_name: "StoreOrder"
 

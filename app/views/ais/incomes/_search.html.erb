@@ -1,5 +1,5 @@
 <div class="search_nav">
-  <%= form_tag("/ais/incomes/search", method: :get) do -%>
+  <%= form_tag("/ais/incomes", method: :get) do -%>
     <div class="item-query">
       <label>时间</label>
       <%= date_select(
@@ -8,15 +8,6 @@
         {:include_blank => @search_date.nil?, class: "width-100" }
       )
     %>
-    </div>
-
-    <div class="item-query">
-      <label>收款类型</label>
-      <select type="text" class="width-100">
-        <option>现金</option>
-        <option>刷卡</option>
-        <option>卡扣</option>
-      </select>
     </div>
 
     <%= submit_tag "查询", class: "btn query_btn do_search_result" %>
