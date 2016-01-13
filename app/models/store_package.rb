@@ -10,8 +10,6 @@ class StorePackage < ActiveRecord::Base
   has_many :store_subscribe_order_items, as: :itemable
   has_many :store_order_items, as: :itemable
 
-  has_many :store_package_items, as: :package_itemable
-
   after_create :create_one_setting
 
   alias_attribute :retail_price, :price
