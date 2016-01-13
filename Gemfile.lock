@@ -274,6 +274,7 @@ GEM
     rack (1.6.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-cors (0.4.0)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
     rack-protection (1.5.3)
@@ -430,6 +431,7 @@ DEPENDENCIES
   faraday
   geo!
   grape (~> 0.14.0)
+  grape-entity
   grape-swagger (~> 0.10.4)
   hashids (~> 1.0, >= 1.0.2)
   hiredis (~> 0.6.0)
@@ -447,6 +449,7 @@ DEPENDENCIES
   puma
   qiniu
   quiet_assets
+  rack-cors
   rails (= 4.2.0)
   ransack (~> 1.6.6)
   redis (~> 3.2.1)
