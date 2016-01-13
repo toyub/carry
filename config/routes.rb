@@ -261,6 +261,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resource :store_materials do
+        collection do
+          get :material_categories, :search
+        end
+      end
+
     end
     #Order end
 
