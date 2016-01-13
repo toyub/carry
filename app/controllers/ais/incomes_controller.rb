@@ -3,6 +3,7 @@ class Ais::IncomesController < Ais::BaseController
 
   def index
     @categories = Category.all
+    @date = Time.now
   end
 
   def search
@@ -16,6 +17,5 @@ class Ais::IncomesController < Ais::BaseController
     if params["date(1i)"] && params["date(2i)"]
       @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
     end
-    @month = @date.strftime("%Y%m")
   end
 end

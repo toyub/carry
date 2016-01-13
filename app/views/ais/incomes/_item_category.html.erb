@@ -11,8 +11,8 @@
     <% @categories.each do |category| %>
       <tr data-category-id='<%= category.id %>'>
         <td><%= category.name %></td>
-        <td><%= category.items_total_quantity %></td>
-        <td><%= category.items_total_amount %> </td>
+        <td><%= category.items_total_quantity(@date) %></td>
+        <td><%= category.items_total_amount(@date) %> </td>
       </tr>
     <% end %>
   </tbody>
