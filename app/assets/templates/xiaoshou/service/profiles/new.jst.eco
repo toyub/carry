@@ -29,6 +29,18 @@
               <label class="width-75">服务积分</label>
               <input type="text" class="width-165" name="point" id="point">
             </div>
+            <div class="item_content">
+              <label class="width-75">服务代码</label>
+              <input type="text" class="width-165" name="code">
+            </div>
+            <div class="item_content">
+              <label class="width-75">服务类别</label>
+              <select type="text" class="width-165" name="category_id">
+                <% Mis.store.serviceCategories.each (c) ->: %>
+                  <option value="<%= c.id %>"><%= c.get 'name' %></option>
+                <% end %>
+              </select>
+            </div>
             <div class="item_textarea ">
               <label class="width-75">服务介绍</label>
               <textarea class="server_textarea width-432" name="introduction" id="introduction"></textarea>

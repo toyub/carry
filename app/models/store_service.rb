@@ -1,9 +1,7 @@
 class StoreService < ActiveRecord::Base
   include BaseModel
-  include RandomTextable
 
-  random :code
-
+  belongs_to :service_category, class_name: 'ServiceCategory', foreign_key: :category_id
   belongs_to :store_service_category
   has_many :store_service_store_materials
   has_many :store_materials, through: :store_service_store_materials
@@ -42,6 +40,10 @@ class StoreService < ActiveRecord::Base
 
   def create_one_setting
     self.create_setting(creator: self.creator)
+  end
+
+  def category
+    service_category.try(:name)
   end
 
   def regular?
@@ -90,6 +92,25 @@ class StoreService < ActiveRecord::Base
     0
   end
 
+  def time
+    self.store_service_workflows.map { |w| w.work_time_in_minutes }.sum
+  end
+
+  def mechanic_levles
+    self.store_service_workflows.map { |w| w.engineer_level_name }.compact.join("-")
+  end
+
+  def saled
+    self.store_order_items.count
+  end
+
+  def category
+    service_category.try(:name)
+  end
+
+  def store_name
+    self.store.name
+  end
 
   def service_needed?
     true

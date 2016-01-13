@@ -58,12 +58,51 @@ class StoreCustomer < ActiveRecord::Base
     self.store_vehicles.count
   end
 
-  def category_name
-    self.store_customer_entity.store_customer_category.try(:name)
+  def age
+    self.birthday && (Date.today - self.birthday).to_i/365
   end
 
-  def property_name
-    StoreCustomerEntity::PROPERTIES[self.store_customer_entity.property]
+  def category
+    self.store_customer_entity.try(:store_customer_category).try(:name)
+  end
+
+  def property
+    StoreCustomerEntity::PROPERTIES[self.store_customer_entity.read_attribute(:property)]
+  end
+
+  def education
+    StoreCustomerEntity::EDUCATIONS[self.read_attribute(:education)]
+  end
+
+  def income
+    StoreCustomerEntity::INCOMES[self.read_attribute(:income)]
+  end
+
+  def credit
+    StoreCustomerEntity::CREDIS[self.store_customer_entity.store_customer_settlement.read_attribute(:credit)]
+  end
+
+  def notice_period
+    StoreCustomerEntity::SETTLEMENTS[self.store_customer_entity.store_customer_settlement.read_attribute(:notice_period)]
+  end
+
+  def payment_mode
+    StoreCustomerEntity::PAYMENTS[self.store_customer_entity.store_customer_settlement.read_attribute(:payment_mode)]
+  end
+
+  def invoice_type
+    StoreCustomerEntity::INVOICES[self.store_customer_entity.store_customer_settlement.read_attribute(:invoice_type)]
+  end
+
+  def district
+    province_code = self.store_customer_entity.district['province']
+    city_code = self.store_customer_entity.district['city']
+    region_code = self.store_customer_entity.district['region']
+    {
+      'province' => Geo.state(1, province_code).try(:name),
+      'city' => Geo.city(1, province_code, city_code).try(:name),
+      'region' => Geo.regions(1, province_code, city_code).where(code: region_code).first.try(:name)
+    }
   end
 
   def consume_times
@@ -74,19 +113,16 @@ class StoreCustomer < ActiveRecord::Base
     1_0000
   end
 
-  def credits
-    300
-  end
-
-  def integrity
-
-  end
-
   def activeness
-
+    '活跃度'
   end
 
   def satisfaction
+    '满意度'
+  end
+
+  def integrity
+    '完整度'
   end
 
   def property
@@ -105,15 +141,9 @@ class StoreCustomer < ActiveRecord::Base
     StoreCustomerAccount.new(self)
   end
 
-  def district
-    province_code = self.store_customer_entity.district['province']
-    city_code = self.store_customer_entity.district['city']
-    region_code = self.store_customer_entity.district['region']
-    {
-      'province' => Geo.state(1, province_code).name,
-      'city' => Geo.city(1, province_code, city_code).name,
-      'region' => Geo.regions(1, province_code, city_code).where(code: region_code).first.name
-    }
+  #＃ Todo 客户职业
+  def profession_name
+    '教师'
   end
 
   private

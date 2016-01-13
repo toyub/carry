@@ -2,7 +2,7 @@ module Erp
   class CustomersController < BaseController
     def index
       q = current_store_chain.store_customers.ransack(params[:q])
-      @customers = q.result(distinct: true)
+      @customers = q.result.order('id asc')
       respond_with @customers, location: nil
     end
 

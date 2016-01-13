@@ -20,13 +20,7 @@
 
             <div class="car_info">
               <div class="items">
-                <%= form_for @vehicle, url: crm_store_customer_store_vehicles_path do |f| %>
-                  <%= render 'edit_form', f: f %>
-                  <%= render 'form', f: f %>
-                  <div class="btn_group">
-                    <%= f.submit '创建', class: 'save_btn btn' %>
-                  </div>
-                <% end %>
+                <%= render 'new_form' %>
               </div>
             </div>
           </div>
@@ -41,28 +35,50 @@
         timepicker: false
       });
 
+      show_vehicle_brands();
       $(document).on('change', '#brand', show_vehicle_series);
       $(document).on('change', '#series', show_vehicle_model);
+      $(document).on('keydown', '.readonly', prevent_default);
     });
+
+    function show_vehicle_brands() {
+      $.get('/crm/vehicle_brands', function(brands){
+        $.each(brands, function(idx, brand) {
+          $('#brand').append($('<option></option>').attr('value', brand.id).text(brand.name));
+        });
+      });
+   }
 
     function show_vehicle_series() {
       var brand_id = $('#brand').find(':selected').val();
-      $.get('/crm/vehicle_series', {id: brand_id}, function(series) {
-        $('#series').find('option').remove().end().append($('<option></option>'));
+      $.get('/crm/vehicle_brands/' + brand_id + '/vehicle_manufacturers', function(manufacturers) {
+        $('#series').find('optgroup').remove().end().append($('<optgroup>'));
         $('#model').find('option').remove().end().append($('<option></option>'));
-        $.each(series, function(i, series) {
-          $('#series').append($('<option></option>').attr('value', series.id).text(series.name));
+        $.each(manufacturers, function(idx, manufacturer) {
+          var optgroup = $('<optgroup>');
+          optgroup.attr('label', manufacturer.name);
+          $.get('/crm/vehicle_manufacturers/' + manufacturer.id + '/vehicle_series', function(series){
+            $.each(series, function(idx, series) {
+              optgroup.append($('<option></option>').attr('value', series.id).text(series.name));
+            });
+          });
+          $('#series').append(optgroup);
         });
       });
     }
 
     function show_vehicle_model() {
       var series_id = $('#series').find(':selected').val();
-      $.get('/crm/vehicle_models', {id: series_id}, function(models) {
-        $.each(models, function(i, model) {
+      $.get('/crm/vehicle_series/' + series_id + '/vehicle_models', function(models) {
+        $('#model').find('option').remove().end().append($('<option></option>'));
+        $.each(models, function(idx, model) {
           $('#model').append($('<option></option>').attr('value', model.id).text(model.name));
         });
       });
+    }
+
+    function prevent_default(e) {
+      e.preventDefault();
     }
 
   </script>

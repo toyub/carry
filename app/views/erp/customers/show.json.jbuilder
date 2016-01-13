@@ -1,39 +1,38 @@
-json.customer do
-  json.(@customer,
-    :full_name,
-    :gender,
-    :nick,
-    :telephone,
-    :phone_number,
-    :qq,
-    :resident_id,
-    :married,
-    :profession,
-    :income,
-    :company,
-    :education,
-    :tracking_accepted,
-    :message_accepted
-  )
-  json.age @customer.birthday && (Date.today - @customer.birthday).to_i/365
-  json.birthday @customer.birthday.to_s
-  json.property @customer.property_name
-  json.category @customer.category_name
-  json.province @customer.district['province']
-  json.city @customer.district['city']
-  json.region @customer.district['region']
-  json.tags @customer.tags, :name
-  json.(@customer.store_customer_entity, :range, :address)
-  json.(@customer.store_customer_entity.store_customer_settlement,
-    :bank,
-    :bank_account,
-    :invoice_type,
-    :invoice_title,
-    :notice_period,
-    :tax,
-    :contract,
-    :payment_mode,
-    :credit,
-    :credit_limit
-  )
-end
+json.(@customer,
+  :full_name,
+  :nick,
+  :telephone,
+  :phone_number,
+  :qq,
+  :resident_id,
+  :company,
+  :tracking_accepted,
+  :message_accepted
+)
+json.gender @customer.gender ? '男' : '女'
+json.married @customer.married ? '已婚' : '未婚'
+json.profession @customer.profession_name
+json.income @customer.income
+json.education @customer.education
+json.created_at @customer.created_at.to_s
+json.age @customer.age
+json.birthday @customer.birthday.to_s
+json.property @customer.property
+json.category @customer.category
+json.province @customer.district['province']
+json.city @customer.district['city']
+json.region @customer.district['region']
+json.credit @customer.credit
+json.notice_period @customer.notice_period
+json.payment_mode @customer.payment_mode
+json.invoice_type @customer.invoice_type
+json.tags @customer.tags, :name
+json.(@customer.store_customer_entity, :range, :address, :remark)
+json.(@customer.store_customer_entity.store_customer_settlement,
+  :bank,
+  :bank_account,
+  :invoice_title,
+  :tax,
+  :contract,
+  :credit_limit
+)
