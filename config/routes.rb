@@ -291,6 +291,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :store_packages
+
       resources :categories do
         collection do
           get :sale_category, :service_category
