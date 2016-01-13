@@ -21,6 +21,10 @@ class StoreOrderItem < ActiveRecord::Base
 
   validates_presence_of :orderable
 
+  def cost_price
+    23
+  end
+
   def gross_profit
     self.amount - self.total_cost
   end

@@ -2,6 +2,7 @@ class StoreCustomer < ActiveRecord::Base
   include BaseModel
 
   belongs_to :store_customer_entity
+  belongs_to :store_staff
   belongs_to :store_customer_category
 
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
@@ -54,6 +55,77 @@ class StoreCustomer < ActiveRecord::Base
     self.creator.screen_name
   end
 
+  def vehicle_count
+    self.store_vehicles.count
+  end
+
+  def age
+    self.birthday && (Date.today - self.birthday).to_i/365
+  end
+
+  def category
+    self.store_customer_entity.try(:store_customer_category).try(:name)
+  end
+
+  def property
+    StoreCustomerEntity::PROPERTIES[self.store_customer_entity.read_attribute(:property)]
+  end
+
+  def education
+    StoreCustomerEntity::EDUCATIONS[self.read_attribute(:education)]
+  end
+
+  def income
+    StoreCustomerEntity::INCOMES[self.read_attribute(:income)]
+  end
+
+  def credit
+    StoreCustomerEntity::CREDIS[self.store_customer_entity.store_customer_settlement.read_attribute(:credit)]
+  end
+
+  def notice_period
+    StoreCustomerEntity::SETTLEMENTS[self.store_customer_entity.store_customer_settlement.read_attribute(:notice_period)]
+  end
+
+  def payment_mode
+    StoreCustomerEntity::PAYMENTS[self.store_customer_entity.store_customer_settlement.read_attribute(:payment_mode)]
+  end
+
+  def invoice_type
+    StoreCustomerEntity::INVOICES[self.store_customer_entity.store_customer_settlement.read_attribute(:invoice_type)]
+  end
+
+  def district
+    province_code = self.store_customer_entity.district['province']
+    city_code = self.store_customer_entity.district['city']
+    region_code = self.store_customer_entity.district['region']
+    {
+      'province' => Geo.state(1, province_code).try(:name),
+      'city' => Geo.city(1, province_code, city_code).try(:name),
+      'region' => Geo.regions(1, province_code, city_code).where(code: region_code).first.try(:name)
+    }
+  end
+
+  def consume_times
+    222
+  end
+
+  def consume_total
+    1_0000
+  end
+
+  def activeness
+    '活跃度'
+  end
+
+  def satisfaction
+    '满意度'
+  end
+
+  def integrity
+    '完整度'
+  end
+
   def property
     self.store_customer_entity.property_name
   end
@@ -68,6 +140,11 @@ class StoreCustomer < ActiveRecord::Base
 
   def account
     StoreCustomerAccount.new(self)
+  end
+
+  #＃ Todo 客户职业
+  def profession_name
+    '教师'
   end
 
   private
