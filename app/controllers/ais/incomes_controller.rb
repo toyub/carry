@@ -4,11 +4,14 @@ class Ais::IncomesController < Ais::BaseController
   def index
     @service_categories = ServiceCategory.all
     @material_categories = SaleCategory.all
+    @first_category = @service_categories.first || @material_categories.first
     @date = Time.now
   end
 
   def search
-    @categories = Category.all
+    @service_categories = ServiceCategory.all
+    @material_categories = SaleCategory.all
+    @first_category = @service_categories.first || @material_categories.first
     render "index"
   end
 

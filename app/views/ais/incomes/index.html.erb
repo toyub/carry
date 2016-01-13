@@ -8,11 +8,15 @@
 
   <%= render 'search'%>
 
-    <div class="incomes">
+  <div class="incomes">
+    <% if @first_category.present? %>
       <%= render 'item_category' %>
       <div class="order-items">
-        <%= render "order_items", order_items: @service_categories.first.order_items.by_month(@date) %>
+        <%= render "order_items", order_items: @first_category.order_items.by_month(@date) %>
       </div>
+    <% else %>
+      <h2>无相关数据请重新查询</h2>
+    <% end %>
     </div>
 
   </div>
