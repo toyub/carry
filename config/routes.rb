@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount MisAPI, at: "/" # API
+
   require 'sidekiq/web'
 
   #Kucun
