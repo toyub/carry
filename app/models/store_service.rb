@@ -22,6 +22,8 @@ class StoreService < ActiveRecord::Base
   #validates :store_service_category_id, presence: true
   validates :store_staff_id, presence: true
 
+  scope :by_category, ->(service_category_id) { where(category_id: service_category_id) }
+
   accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true
   accepts_nested_attributes_for :store_service_workflows, allow_destroy: true
 

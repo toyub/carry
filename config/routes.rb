@@ -258,6 +258,52 @@ Rails.application.routes.draw do
 
   #Api
   namespace :api do
+
+    #Order
+    namespace :order do
+
+      resources :login do
+        collection do
+          post :login
+        end
+      end
+
+      resources :orders do
+        collection do
+        end
+      end
+
+      resources :store_vehicles do
+        collection do
+          post :add_vehicle
+          get :search
+        end
+      end
+
+      resources :store_materials do
+        collection do
+          get :material_name
+        end
+      end
+
+      resources :store_services do
+        collection do
+          get :service_name
+        end
+      end
+
+      resources :store_packages
+
+      resources :categories do
+        collection do
+          get :sale_category, :service_category
+        end
+      end
+
+    end
+    #Order end
+
+
     resources :store_staff, only: [:index, :update]
     resources :store_service_categories, only: [:create]
     resources :store_services, only: [:index, :show, :create, :update] do
