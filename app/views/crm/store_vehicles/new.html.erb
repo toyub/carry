@@ -42,7 +42,7 @@
     });
 
     function show_vehicle_brands() {
-      $.get('/crm/vehicle_brands', function(brands){
+      $.get('/api/vehicle_brands', function(brands){
         $.each(brands, function(idx, brand) {
           $('#brand').append($('<option></option>').attr('value', brand.id).text(brand.name));
         });
@@ -51,29 +51,40 @@
 
     function show_vehicle_series() {
       var brand_id = $('#brand').find(':selected').val();
-      $.get('/crm/vehicle_brands/' + brand_id + '/vehicle_manufacturers', function(manufacturers) {
-        $('#series').find('optgroup').remove().end().append($('<optgroup>'));
-        $('#model').find('option').remove().end().append($('<option></option>'));
-        $.each(manufacturers, function(idx, manufacturer) {
-          var optgroup = $('<optgroup>');
-          optgroup.attr('label', manufacturer.name);
-          $.get('/crm/vehicle_manufacturers/' + manufacturer.id + '/vehicle_series', function(series){
-            $.each(series, function(idx, series) {
-              optgroup.append($('<option></option>').attr('value', series.id).text(series.name));
-            });
-          });
-          $('#series').append(optgroup);
-        });
+      $.get('/api/vehicle_brands/' + brand_id + '/vehicle_manufacturers', function(manufacturers) {
+        empty_series();
+        empty_models();
+        append_manufacturers_with_series(manufacturers);
       });
     }
 
     function show_vehicle_model() {
-      var series_id = $('#series').find(':selected').val();
-      $.get('/crm/vehicle_series/' + series_id + '/vehicle_models', function(models) {
-        $('#model').find('option').remove().end().append($('<option></option>'));
-        $.each(models, function(idx, model) {
-          $('#model').append($('<option></option>').attr('value', model.id).text(model.name));
+      if($('#series').find(':selected').text() != '请选择'){
+        var series_id = $('#series').find(':selected').val();
+        $.get('/api/vehicle_series/' + series_id + '/vehicle_models', function(models) {
+          empty_models();
+          $.each(models, function(idx, model) {
+            $('#model').append($('<option></option>').attr('value', model.id).text(model.name));
+          });
         });
+      }
+    }
+
+    function empty_series() {
+      $('#series').find('optgroup').remove().end();
+    }
+
+    function empty_models() {
+      $('#model').find('option').remove().end().append($('<option>请选择</option>'));
+    }
+
+    function append_manufacturers_with_series(manufacturers) {
+      $.each(manufacturers, function(idx, manufacturer) {
+        var optgroup = $('<optgroup>').attr('label', manufacturer.name);
+        $.each(manufacturer.series, function(idx, s) {
+          optgroup.append($('<option></option>').attr('value', s.id).text(s.name));
+        });
+        $('#series').append(optgroup);
       });
     }
 

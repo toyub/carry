@@ -151,7 +151,16 @@ class StoreCustomer < ActiveRecord::Base
     StoreCustomerAccount.new(self)
   end
 
-  #＃ Todo 客户职业
+  def brand_name
+    if self.store_vehicles.last && self.store_vehicles.last.vehicle_brand
+      self.store_vehicles.last.vehicle_brand.name
+    end
+  end
+
+  def vehicle_bought
+    self.store_vehicles.last.detail["bought_on"] if self.store_vehicles.last
+  end
+	#＃ Todo 客户职业
   def profession_name
     '教师'
   end

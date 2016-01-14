@@ -1,10 +1,9 @@
 module Erp
   class PackageItemsController < BaseController
-    before_action :set_customer, :set_package_asset
+    before_action :set_customer, :set_package_asset, :set_package_asset_item
 
     def show
-      @logs = @package_asset.items.first.logs
-      respond_with @logs, location: nil
+      respond_with @package_asset_item, location: nil
     end
 
     private
@@ -15,6 +14,10 @@ module Erp
 
       def set_package_asset
         @package_asset = @customer.packaged_assets.find(params[:package_asset_id])
+      end
+
+      def set_package_asset_item
+        @package_asset_item = @package_asset.items.find(params[:id])
       end
   end
 end
