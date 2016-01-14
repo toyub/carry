@@ -102,13 +102,17 @@ class StoreStaff <  ActiveRecord::Base
     store_contracts.last
   end
 
+  def contract_status
+    contract.present? ? contract.effected_on.try(:strftime, "%Y-%m-%d") : "未签订合同"
+  end
+
   def contract_life
     year = 12
-    (contract.expired_on.year - contract.effected_on.year) * year + (contract.effected_on.month - contract.expired_on.month) if contract.present?
+    (contract.expired_on.try(:year).to_i - contract.effected_on.try(:year).to_i) * year + (contract.effected_on.try(:month).to_i - contract.expired_on.try(:month).to_i) if contract.present?
   end
 
   def contract_valid?
-    contract.expired_on > contract.effected_on if contract
+    contract.expired_on > contract.effected_on if contract && contract.expired_on.present? && contract.effected_on.present?
   end
 
   def bonus_amount
