@@ -1,6 +1,7 @@
 class StoreCustomerDepositLog < ActiveRecord::Base
   belongs_to :store_customer
   belongs_to :store_order
+  belongs_to :store
 
   before_create :set_balance
 

@@ -7,7 +7,8 @@ class Mis.Models.Store extends Backbone.Model
   initialize: ->
     @on('change:root_material_categories', @parseRootMaterialCategories, @)
     @on('change:materials', @parseMaterials, @)
-    @on('change:services', @parseServies, @)
+    @on('change:services', @parseServices, @)
+    @on('change:service_categories', @parseServiceCategories, @)
     @on('change:packages', @parsePackages, @)
     @on('change:customers', @parseCustomers, @)
     @on('change:customer_categories', @parseCustomerCategories, @)
@@ -16,6 +17,7 @@ class Mis.Models.Store extends Backbone.Model
     @on('change:regions', @parseRegions, @)
 
     @parseServices()
+    @parseServiceCategories()
     @parsePackages()
     @parseCustomers()
     @parseRootMaterialCategories()
@@ -59,3 +61,6 @@ class Mis.Models.Store extends Backbone.Model
 
   parseProvinces: ->
     @provinces = @get 'provinces'
+
+  parseServiceCategories: ->
+    @serviceCategories = new Mis.Collections.StoreServiceCategories(@get 'service_categories')
