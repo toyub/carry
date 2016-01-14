@@ -21,7 +21,7 @@ class VehicleCrawler
 
   def create_manufacturers(manufacturers, vehicle_brand)
     manufacturers.each do |manufacturer|
-      vehicle_brand.vehicle_manufacturers.find_or_create_by(name: manufacturer.text)
+      vehicle_manufacturer = vehicle_brand.vehicle_manufacturers.find_or_create_by(name: manufacturer.text)
       series = manufacturer.next_element.elements
       create_series(series, vehicle_brand, vehicle_manufacturer)
     end

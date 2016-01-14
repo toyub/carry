@@ -13,7 +13,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_events, dependent: :destroy
   has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
   has_many :store_attendence, class_name: "StoreAttendence", dependent: :destroy
-  has_many :store_rewords, class_name: "StoreReward", dependent: :destroy
+  has_many :store_rewards, class_name: "StoreReward", dependent: :destroy
   has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
   has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy
@@ -102,13 +102,17 @@ class StoreStaff <  ActiveRecord::Base
     store_contracts.last
   end
 
+  def contract_status
+    contract.present? ? contract.effected_on.try(:strftime, "%Y-%m-%d") : "未签订合同"
+  end
+
   def contract_life
     year = 12
-    (contract.expired_on.year - contract.effected_on.year) * year + (contract.effected_on.month - contract.expired_on.month) if contract.present?
+    (contract.expired_on.try(:year).to_i - contract.effected_on.try(:year).to_i) * year + (contract.effected_on.try(:month).to_i - contract.expired_on.try(:month).to_i) if contract.present?
   end
 
   def contract_valid?
-    contract.expired_on > contract.effected_on if contract
+    contract.expired_on > contract.effected_on if contract && contract.expired_on.present? && contract.effected_on.present?
   end
 
   def bonus_amount

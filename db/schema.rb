@@ -1395,9 +1395,9 @@ ActiveRecord::Schema.define(version: 20160111085545) do
     t.boolean  "favorable",                                                     default: false
     t.integer  "setting_type",                                                  default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
   end
@@ -1457,6 +1457,7 @@ ActiveRecord::Schema.define(version: 20160111085545) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1466,7 +1467,6 @@ ActiveRecord::Schema.define(version: 20160111085545) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
