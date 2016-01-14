@@ -2,7 +2,6 @@ class StoreService < ActiveRecord::Base
   include BaseModel
 
   belongs_to :service_category, class_name: 'ServiceCategory', foreign_key: :category_id
-  belongs_to :store_service_category
   has_many :store_service_store_materials
   has_many :store_materials, through: :store_service_store_materials
   belongs_to :unit, foreign_key: 'store_service_unit_id'
@@ -19,7 +18,6 @@ class StoreService < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :retail_price, presence: true
-  #validates :store_service_category_id, presence: true
   validates :store_staff_id, presence: true
 
   scope :by_category, ->(service_category_id) { where(category_id: service_category_id) }

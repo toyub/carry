@@ -5,7 +5,7 @@ class Settings::CustomerCategoriesController < Settings::BaseController
   end
 
   def services
-    render json: current_store.store_services.where(store_service_category_id: params[:id]), root:nil
+    render json: current_store.store_services.where(category_id: params[:id]), root:nil
   end
 
   def customers
