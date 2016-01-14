@@ -2,6 +2,7 @@ class Sas::SellsController < Sas::BaseController
   before_action :search_params, only: :report
 
   def index
+    @store = current_store
     @material_amount = StoreOrderItem.by_month.materials.total_amount
     @service_amount = StoreOrderItem.by_month.services.total_amount
     @package_amount = StoreOrderItem.by_month.packages.total_amount

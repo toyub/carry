@@ -52,10 +52,10 @@
         })
       })
 
-      Sells.display_year_sales_bar();
-      Sells.display_payment_ways_pie();
-      Sells.display_month_sales_pie();
-      Sells.display_month_sales_line();
+      Sells.display_year_sales_bar("<%= @store.id %>");
+      Sells.display_payment_ways_pie("<%= @store.id %>");
+      Sells.display_month_sales_pie("<%= @store.id %>");
+      Sells.display_month_sales_line("<%= @store.id %>");
 
     });
   </script>
