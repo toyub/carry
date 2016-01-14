@@ -32,6 +32,10 @@ class StorePackage < ActiveRecord::Base
     0
   end
 
+  def category
+    ""
+  end
+
   def self.total_amount(month = Time.now)
     amount = 0.0
     by_month(month).each do |package|
