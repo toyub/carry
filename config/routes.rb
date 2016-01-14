@@ -248,6 +248,7 @@ Rails.application.routes.draw do
     end
     resources :contact_ways, only: [:index]
     resources :stores, only: [:index]
+    resources :staff, only: [:index]
     resources :customer_properties, only: [:index]
     resources :store_staff, only: [:index]
     resources :services, only: [:index]

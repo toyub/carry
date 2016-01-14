@@ -51,13 +51,13 @@
 
     function show_vehicle_series() {
       var brand_id = $('#brand').find(':selected').val();
-      $.get('/crm/vehicle_brands/' + brand_id + '/vehicle_manufacturers', function(manufacturers) {
+      $.get('/api/vehicle_brands/' + brand_id + '/vehicle_manufacturers', function(manufacturers) {
         $('#series').find('optgroup').remove().end().append($('<optgroup>'));
         $('#model').find('option').remove().end().append($('<option></option>'));
         $.each(manufacturers, function(idx, manufacturer) {
           var optgroup = $('<optgroup>');
           optgroup.attr('label', manufacturer.name);
-          $.get('/crm/vehicle_manufacturers/' + manufacturer.id + '/vehicle_series', function(series){
+          $.get('/api/vehicle_manufacturers/' + manufacturer.id + '/vehicle_series', function(series){
             $.each(series, function(idx, series) {
               optgroup.append($('<option></option>').attr('value', series.id).text(series.name));
             });
@@ -69,7 +69,7 @@
 
     function show_vehicle_model() {
       var series_id = $('#series').find(':selected').val();
-      $.get('/crm/vehicle_series/' + series_id + '/vehicle_models', function(models) {
+      $.get('/api/vehicle_series/' + series_id + '/vehicle_models', function(models) {
         $('#model').find('option').remove().end().append($('<option></option>'));
         $.each(models, function(idx, model) {
           $('#model').append($('<option></option>').attr('value', model.id).text(model.name));
