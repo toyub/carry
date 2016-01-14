@@ -3,8 +3,7 @@ module Erp
     before_action :set_customer, :set_package_asset, :set_package_asset_item
 
     def show
-      @logs = @package_asset_item.logs
-      respond_with @logs, location: nil
+      respond_with @package_asset_item, location: nil
     end
 
     private
