@@ -3,13 +3,10 @@ class StoreVehicleBrandSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :name
 
   def initialize
-    @data = {
-      brands: [],
-      number: []
-    }
+    @data = {}
     VehicleBrand.all.each do |brand|
-      @data[:brands] << brand.name # ["其他","奥迪","马自达","日产","本田","奔驰","宝马","丰田","大众"]·
-      @data[:number] << brand.store_vehicles.count # [289,299,360,400,450,500,550,600,700]
+      @data[brand.name] = brand.store_vehicles.present? ? brand.store_vehicles.count : 0
     end
+    @data = @data.sort_by { |_brand, count| count }.to_h
   end
 end

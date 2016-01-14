@@ -1,6 +1,10 @@
 class Api::Sas::VehicleBrandController < Api::BaseController
   def index
-    @data = StoreVehicleBrandSerializer.new.data
+    vehicles = StoreVehicleBrandSerializer.new.data
+    @data = {
+      brands: vehicles.keys,
+      number: vehicles.values,
+    }
     render json: @data
   end
 end
