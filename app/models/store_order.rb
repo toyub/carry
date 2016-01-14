@@ -186,7 +186,7 @@ class StoreOrder < ActiveRecord::Base
     end
 
     def init_state
-      if items.blank
+      if items.blank?
         self.state = :paying
       else
         self.state = :pending if self.state == nil
