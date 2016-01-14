@@ -55,7 +55,7 @@ class StoreService < ActiveRecord::Base
   end
 
   def category
-    service_category.try(:name)
+    service_category
   end
 
   def regular?

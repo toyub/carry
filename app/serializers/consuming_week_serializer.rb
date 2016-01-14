@@ -11,24 +11,22 @@ class ConsumingWeekSerializer < ActiveModel::Serializer
 
   def initialize
 
-    @data = {
-      Mon: [0, 0, 0, 0, 0],
-      Tue: [0, 0, 0, 0, 0],
-      Wed: [0, 0, 0, 0, 0],
-      Thu: [0, 0, 0, 0, 0],
-      Fri: [0, 0, 0, 0, 0],
-      Sat: [0, 0, 0, 0, 0],
-      Sun: [0, 0, 0, 0, 0],
-    }
+    @data = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+    ]
 
     (0...Time.now.strftime("%w").to_i).each do |i|
       day = i.day.ago
-      index = day.strftime("%a").to_sym
+      index = day.strftime("%w").to_i - 1
       StoreCustomer.all.each do |customer|
-        amount = customer.store_order_items.by_day(day).total_amount
+        amount = customer.orders.by_day(day).total_amount
         CONSUMING_LEVEL.select do |level, flag|
           if level === amount
-            @data[index][flag.to_i] += 1
+            @data[flag.to_i][index] += 1
             break
           end
         end

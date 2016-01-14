@@ -9,8 +9,8 @@ class StoreCustomerEntity < ActiveRecord::Base
   accepts_nested_attributes_for :store_customer_settlement
 
   PROPERTIES = {
-    'group': '集团客户',
-    'personal': '个人客户'
+    group: '集团客户',
+    personal: '个人客户'
   }
 
   EDUCATIONS = {

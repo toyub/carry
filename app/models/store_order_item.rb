@@ -74,12 +74,8 @@ class StoreOrderItem < ActiveRecord::Base
     end
   end
 
-  def orderable_category
-     orderable_type == 'StoreMaterialSaleinfo' ? orderable.try(:sale_category) : orderable.try(:service_category)
-  end
-
   def category_name
-    orderable_category.try(:name)
+    orderable.category.try(:name)
   end
 
   def barcode
@@ -99,7 +95,7 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def self.total_amount
-    all.inject(0) { |sum, item| sum += item.amount }
+    sum(:amount)
   end
 
   def self.top(sort_by = 'amount')
