@@ -19,6 +19,7 @@ class StoreVehiclePriceSerializer < ActiveModel::Serializer
       vehicle_quantity: [0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
     StoreVehicle.all.try(:each) do |vehicle|
+      next if vehicle.vehicle_series.nil?
       max = vehicle.vehicle_series.max
       VEHICLE_ESTIMATE.select do |price, flag|
         if price === max
