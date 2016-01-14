@@ -48,7 +48,7 @@
               <td><%= item.retail_price %></td>
               <td><%= item.discount %></td>
               <td><%= item.amount %></td>
-              <td><%= item.store_order.payments.try(:last).try(:payment_method_cn_name) %></td>
+              <td><%= item.store_order.try(:payments).try(:last).try(:payment_method_cn_name) %></td>
               <td><%= item.cost_price %></td>
               <td><%= item.profit %></td>
             </tr>
