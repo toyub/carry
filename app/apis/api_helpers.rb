@@ -13,20 +13,7 @@ module APIHelpers
   end
 
   def current_user
-    @current_user ||= begin
-      header_token = request.headers["Authorization"]
-
-      token = ApiToken.where(access_token: header_token, sn_code: sn_code).first
-
-      # 如果token存在并且没有过期
-      if token && !token.expired?
-        # 如果临近过期时间，推迟过期时间
-        token.refresh_expires_at! if token.expires_at - Time.now <= 3.days
-        token.user
-      else
-        nil
-      end
-    end
+    @current_user ||= "待续"
   end
 
   # 对客户端提交的未正确进行UTF-8编码的数据进行编码
