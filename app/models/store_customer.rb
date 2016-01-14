@@ -4,7 +4,6 @@ class StoreCustomer < ActiveRecord::Base
   belongs_to :store_customer_entity
   belongs_to :store_staff
   belongs_to :store_customer_category
-
   has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
   has_many :orders, class_name: "StoreOrder"
 
@@ -142,7 +141,16 @@ class StoreCustomer < ActiveRecord::Base
     StoreCustomerAccount.new(self)
   end
 
-  #＃ Todo 客户职业
+  def brand_name
+    if self.store_vehicles.last && self.store_vehicles.last.vehicle_brand
+      self.store_vehicles.last.vehicle_brand.name
+    end
+  end
+
+  def vehicle_bought
+    self.store_vehicles.last.detail["bought_on"] if self.store_vehicles.last
+  end
+	#＃ Todo 客户职业
   def profession_name
     '教师'
   end
