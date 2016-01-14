@@ -30,6 +30,10 @@ class StoreOrderItem < ActiveRecord::Base
     self.amount - self.total_cost
   end
 
+  def type_cn_name
+    orderable_type == "StoreMaterialSaleinfo" ? '商品' : '服务'
+  end
+
   def mechanics
     ['王晓勇', '李明亮']
   end
@@ -67,6 +71,26 @@ class StoreOrderItem < ActiveRecord::Base
     else
       self.cost_price.to_f * self.quantity.to_f
     end
+  end
+
+  def orderable_category
+     orderable_type == 'StoreMaterialSaleinfo' ? orderable.sale_category : orderable.service_category
+  end
+
+  def category_name
+    orderable_category.try(:name)
+  end
+
+  def barcode
+    orderable.try(:barcode)
+  end
+
+  def speci
+    orderable.try(:speci)
+  end
+
+  def profit
+    amount - cost_price.to_f
   end
 
   def commission

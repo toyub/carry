@@ -41,6 +41,14 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     self.reward_points
   end
 
+  def barcode
+    store_material.try(:barcode)
+  end
+
+  def speci
+    store_material.try(:speci)
+  end
+
   def commission(order_item)
     saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
   end

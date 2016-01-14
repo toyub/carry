@@ -10,6 +10,7 @@ class Sas::SellsController < Sas::BaseController
   end
 
   def report
+    @order_items = StoreOrderItem.by_month
   end
 
 end

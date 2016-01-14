@@ -40,6 +40,14 @@ class StoreService < ActiveRecord::Base
     end
   end
 
+  def barcode
+    code
+  end
+
+  def speci
+    ''
+  end
+
   def create_one_setting
     self.create_setting(creator: self.creator)
   end
