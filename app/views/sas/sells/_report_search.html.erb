@@ -1,44 +1,23 @@
-  <div class="search_nav">
+<div class="search_nav">
+  <%= form_tag("/sas/sells/report", method: :get) do -%>
     <div class="item-query">
       <label>日期</label>
-      <input type="date" class="width-120"> 至 <input type="date" class="width-120">
-    </div>
-
-    <div class="item-query">
-      <label>查看类型</label>
-      <select type="text" class="width-100">
-        <option>按明细</option>
-        <option></option>
-      </select>
+      <%= date_select(
+        "", :date,
+        { start_year: 2000, use_short_month: true, discard_day: true, :default => @date},
+        {:include_blank => @search_date.nil?, class: "width-60" }
+      ) %>
     </div>
 
     <div class="item-query">
       <label>类型</label>
-      <select type="text" class="width-100">
-        <option>全部</option>
-        <option></option>
-      </select>
+      <%= select_tag :category, options_for_select([["全部", ""], ["商品", "materials"], ["服务", "services"]], params[:category]), class: "width-100" %>
     </div>
 
-    <div class="item-query">
-      <label>部门</label>
-      <select type="text" class="width-100">
-        <option>全部</option>
-        <option></option>
-      </select>
-    </div>
-
-    <div class="item-query">
-      <label>收款方式</label>
-      <select type="text" class="width-100">
-        <option>全部</option>
-        <option></option>
-      </select>
-      <a class=" btn query_btn do_search_result">查<nbsp1></nbsp1>询</a>
-    </div>
-
+    <%= submit_tag "查询", class: "btn query_btn do_search_result" %>
     <div class="query_div">
-      <a href="#" class="print_btn btn">打印</a>
       <a href="#" class="export_btn btn">导出</a>
     </div>
-  </div>
+  <% end %>
+
+</div>
