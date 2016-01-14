@@ -9,9 +9,9 @@ class CustomerConsumingSerializer < ActiveModel::Serializer
     8000..10000 => '4'
   }
 
-  def initialize
+  def initialize(store)
     @data = [0, 0, 0, 0, 0]
-    StoreCustomer.all.each do |customer|
+    store.store_customers.all.each do |customer|
       CONSUMING_LEVEL.select do |level, flag|
         if level === customer.store_order_items.by_month.total_amount
           @data[flag.to_i] += 1

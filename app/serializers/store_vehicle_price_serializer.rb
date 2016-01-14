@@ -13,12 +13,12 @@ class StoreVehiclePriceSerializer < ActiveModel::Serializer
     800000..10000000 => '8',
     10000001 => '9'
   }
-  def initialize
+  def initialize(store)
     @data = {
       vehicle_amount: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       vehicle_quantity: [0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
-    StoreVehicle.all.try(:each) do |vehicle|
+    store.store_vehicles.try(:each) do |vehicle|
       next if vehicle.vehicle_series.nil?
       max = vehicle.vehicle_series.max
       VEHICLE_ESTIMATE.select do |price, flag|

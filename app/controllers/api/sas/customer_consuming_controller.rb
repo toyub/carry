@@ -1,6 +1,7 @@
 class Api::Sas::CustomerConsumingController < Api::BaseController
   def index
-    @data = CustomerConsumingSerializer.new.data
+    store = Store.find_by_id(params[:store_id]) || current_store
+    @data = CustomerConsumingSerializer.new(store).data
     render json: @data
   end
 end

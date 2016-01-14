@@ -30,6 +30,7 @@ class Store <  ActiveRecord::Base
   has_many :store_material_saleinfos
   has_many :store_vehicle_registration_plates
   has_many :store_vehicles
+  has_many :vehicle_brands, through: 'store_vehicles'
 
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'

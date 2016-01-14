@@ -9,7 +9,7 @@ class ConsumingWeekSerializer < ActiveModel::Serializer
     8000..10000 => '4'
   }
 
-  def initialize
+  def initialize(store)
 
     @data = [
       [0, 0, 0, 0, 0, 0, 0],
@@ -22,7 +22,7 @@ class ConsumingWeekSerializer < ActiveModel::Serializer
     (0...Time.now.strftime("%w").to_i).each do |i|
       day = i.day.ago
       index = day.strftime("%w").to_i - 1
-      StoreCustomer.all.each do |customer|
+      store.store_customers.try(:each) do |customer|
         amount = customer.orders.by_day(day).total_amount
         CONSUMING_LEVEL.select do |level, flag|
           if level === amount
