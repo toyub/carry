@@ -82,13 +82,13 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      Customer.display_customer_gender_bar();
-      Customer.display_customer_category_pie();
-      Customer.display_vehicle_price_consuming_bar();
-      Customer.display_vehicle_consuming_rank_bar();
-      Customer.display_consuming_distribution_pie();
-      Customer.display_consuming_week_bar();
-      Customer.display_top_editors();
+      Customer.display_customer_gender_bar("<%= @store.id %>");
+      Customer.display_customer_category_pie("<%= @store.id %>");
+      Customer.display_vehicle_price_consuming_bar("<%= @store.id %>");
+      Customer.display_vehicle_consuming_rank_bar("<%= @store.id %>");
+      Customer.display_consuming_distribution_pie("<%= @store.id %>");
+      Customer.display_consuming_week_bar("<%= @store.id %>");
+      Customer.display_top_editors("<%= @store.id %>");
     });
   </script>
 <% end %>
