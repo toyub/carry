@@ -19,6 +19,7 @@ class StoreOrderItem < ActiveRecord::Base
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }
   scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
+  scope :by_type, ->(type) { where(orderable_type: type) }
 
   validates_presence_of :orderable
 
@@ -74,7 +75,7 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def orderable_category
-     orderable_type == 'StoreMaterialSaleinfo' ? orderable.sale_category : orderable.service_category
+     orderable_type == 'StoreMaterialSaleinfo' ? orderable.try(:sale_category) : orderable.try(:service_category)
   end
 
   def category_name

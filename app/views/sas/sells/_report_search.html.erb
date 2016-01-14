@@ -11,7 +11,7 @@
 
     <div class="item-query">
       <label>类型</label>
-      <%= select_tag :category, options_for_select([["全部", ""], ["商品", "materials"], ["服务", "services"]], params[:category]), class: "width-100" %>
+      <%= select_tag :type, options_for_select([["全部", ""], ["商品", "materials"], ["服务", "services"]], params[:type]), class: "width-100" %>
     </div>
 
     <%= submit_tag "查询", class: "btn query_btn do_search_result" %>
