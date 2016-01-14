@@ -48,8 +48,7 @@ module Api
         params.require(:store_service).permit(
           :name, :code, :retail_price,
           :bargain_price, :point, :category_id,
-          :introduction, :remark,
-          :store_service_category_id, :favorable,
+          :introduction, :remark, :favorable,
           store_service_store_materials_attributes: [:store_material_id]
         )
       end
