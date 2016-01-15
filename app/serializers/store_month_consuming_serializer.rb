@@ -11,7 +11,7 @@ class StoreMonthConsumingSerializer < ActiveModel::Serializer
   def set_data(store, month)
     ((month - 6)..month).each do |i|
       next if i < 1
-      @data[i.to_s + "月份"] = store.store_material_saleinfos.total_amount(i.month.ago)
+      @data[i.to_s + "月份"] = store.store_material_saleinfos.month_total_sales(i.month.ago)
     end
   end
 end

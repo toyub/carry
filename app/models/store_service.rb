@@ -45,7 +45,6 @@ class StoreService < ActiveRecord::Base
   end
 
   def speci
-    ''
   end
 
   def create_one_setting
@@ -138,12 +137,8 @@ class StoreService < ActiveRecord::Base
     sum
   end
 
-  def self.total_amount(month = Time.now)
-    amount = 0.0
-    by_month(month).each do |service|
-      amount += service.store_order_items.total_amount
-    end
-    amount
+  def self.month_total_sales(month = Time.now)
+    StoreOrderItem.services.by_month(month).sum(:amount)
   end
 
 end

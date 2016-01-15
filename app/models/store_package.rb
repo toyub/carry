@@ -27,21 +27,16 @@ class StorePackage < ActiveRecord::Base
   def point
     self.package_setting.point
   end
-  
+
   def vip_price
     0
   end
 
   def category
-    ""
   end
 
-  def self.total_amount(month = Time.now)
-    amount = 0.0
-    by_month(month).each do |package|
-      amount += package.store_order_items.total_amount
-    end
-    amount
+  def self.month_total_sales(month = Time.now)
+    StoreOrderItem.packages.by_month(month).sum(:amount)
   end
 
 end

@@ -30,7 +30,7 @@ class Api::Sas::SalesController < Api::BaseController
 
   private
   def set_store
-    @store = Store.find_by_id(params[:id]) || current_store
+    @store = Store.find_by_id(params[:store_id]) || current_store
   end
 
 end

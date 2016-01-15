@@ -59,12 +59,8 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
   end
 
-  def self.total_amount(month = Time.now)
-    amount = 0.0
-    by_month(month).each do |material|
-      amount += material.store_order_items.total_amount
-    end
-    amount
+  def self.month_total_sales(month = Time.now)
+    StoreOrderItem.materials.by_month(month).sum(:amount)
   end
 
   def to_snapshot!(order_item)
