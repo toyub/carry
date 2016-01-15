@@ -8,9 +8,6 @@
     <select name='section[delay_unit]' class="width-60 margin-left-10">
       <option <%= 'selected' if @delay_unit == 'hours' %> value="hours">小时</option>
       <option <%= 'selected' if @delay_unit == 'days' %> value="days">天</option>
-      <option <%= 'selected' if @delay_unit == 'weeks' %> value="weeks">周</option>
-      <option <%= 'selected' if @delay_unit == 'months' %> value="months">月</option>
-      <option <%= 'selected' if @delay_unit == 'years' %> value="years">年</option>
     </select>
   </div>
   <div class=" text-align-left ">
@@ -18,7 +15,6 @@
     <label class="width-75 text-align-left"> 下拉选择</label>
     <select class="width-120" name='section[contact_way]'>
       <option <%= 'selected' if @contact_way.toString() == '0' %> value="0">短信</option>
-      <option <%= 'selected' if @contact_way.toString() == '1' %> value="1">微信</option>
     </select>
   </div>
 
