@@ -12,6 +12,8 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   has_many :store_order_items, as: :orderable
   has_many :recommended_order_items, as: :itemable
 
+  scope :by_category, ->(sale_category_id){ where(sale_category_id: sale_category_id) if sale_category_id.present? }
+
   accepts_nested_attributes_for :services
 
   delegate :name, to: :store_material

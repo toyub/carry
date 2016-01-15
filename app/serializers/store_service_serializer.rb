@@ -18,7 +18,7 @@ class StoreServiceSerializer < ActiveModel::Serializer
   end
 
   def category
-    object.store_service_category.name
+    object.service_category.try(:name)
   end
 
   def price
