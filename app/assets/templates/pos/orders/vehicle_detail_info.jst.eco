@@ -1,7 +1,10 @@
 <h2>完善车辆信息</h2>
   <div class="vehicle_info">
     <dl>
-      <dd class="item_content"><label class="width-77">车牌号码</label><input type="text" class="width-110"></dd>
+      <dd class="item_content">
+        <label class="width-77">车牌号码</label>
+        <input type="text" class="width-110" value={{vehicle.license_number}}>
+      </dd>
       <dd>
         <label class="width-77">品牌</label>
         <select name='vehicle[vehicle_brand_id]' class="width-110 js-select-vehicle-brand">
