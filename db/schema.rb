@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114053210) do
+ActiveRecord::Schema.define(version: 20160115070653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1724,6 +1724,7 @@ ActiveRecord::Schema.define(version: 20160114053210) do
     t.integer  "vehicle_series_id"
     t.json     "detail"
     t.string   "numero"
+    t.text     "remark"
   end
 
   create_table "store_workstation_categories", force: :cascade do |t|

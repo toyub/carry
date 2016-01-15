@@ -27,16 +27,34 @@
       </dd>
     </dl>
     <dl>
-      <dd><label class="width-77">VIN号码</label><input type="text"  class="width-110"></dd>
-      <dd><label class="width-77">发动机号码</label><input type="text"  class="width-110"></dd>
-      <dd><label class="width-65">颜色</label><input type="color"  class="width-100"></dd>
-      <dd><label class="width-55">座位数</label><input type="number"  class="width-103"></dd>
+      <dd>
+        <label class="width-77">VIN号码</label>
+        <input type="text" class="width-110" value={{vehicle.vin}}>
+      </dd>
+      <dd>
+        <label class="width-77">发动机号码</label>
+        <input type="text" class="width-110" value={{vehicle.engine_num}}>
+      </dd>
+      <dd><label class="width-65">颜色</label><input type="color" class="width-100"></dd>
+      <dd><label class="width-55">座位数</label><input type="number" class="width-103"></dd>
     </dl>
     <dl>
-      <dd><label class="width-77">购买日期</label><input type="date"  class="width-110"></dd>
-      <dd><label class="width-77">出厂</label><input type="date"  class="width-110"></dd>
-      <dd><label class="width-65">上牌时间</label><input type="date"  class="width-100"></dd>
-      <dd><label class="width-55">公里数</label><input type="number"  class="width-103"></dd>
+      <dd>
+        <label class="width-77">购买日期</label>
+        <input type="date" class="width-110" value={{vehicle.bought_on}}>
+      </dd>
+      <dd>
+        <label class="width-77">出厂</label>
+        <input type="date" class="width-110" value={{vehicle.ex_factory_date}}>
+      </dd>
+      <dd>
+        <label class="width-65">上牌时间</label>
+        <input type="date" class="width-100" value={{vehicle.registered_on}}>
+      </dd>
+      <dd>
+        <label class="width-55">公里数</label>
+        <input type="number" class="width-103" value={{vehicle.mileage}}>
+      </dd>
     </dl>
     <dl>
       <dd>
@@ -47,15 +65,21 @@
           <option value="2">商务车</option>
         </select>
       </dd>
-      <dd><label class="width-77">最近保养时间</label><input type="date"  class="width-110"></dd>
-      <dd><label class="width-77">最近保养里程</label><input type="number"  class="width-110"></dd>
+      <dd>
+        <label class="width-77">最近保养时间</label>
+        <input type="date" class="width-110" value={{vehicle.next_maintain_at}}>
+      </dd>
+      <dd>
+        <label class="width-77">最近保养里程</label>
+        <input type="number"  class="width-110" value={{vehicle.next_maintain_mileage}}>
+      </dd>
     </dl>
   </div>
 
   <dl class="remark">
     <dd>
       <label class="width-77 vertical-align-top">备注</label>
-      <textarea></textarea>
+      <textarea>{{vehicle.remark}}</textarea>
     </dd>
   </dl>
 
