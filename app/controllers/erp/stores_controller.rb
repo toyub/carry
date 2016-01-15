@@ -1,22 +1,23 @@
 module Erp
   class StoresController < BaseController
     def index
-      params[:q] ||= {}
-      if params[:q][:province_code].present?
-        if params[:q][:city_code].present?
-          merge_params!(params[:q], '城市', :city_code)
-        else
-          merge_params!(params[:q], '省份', :province_code)
-        end
-      end
-      params[:q].except!(:province_code, :city_code)
+      # params[:q] ||= {}
+      # if params[:q][:province_code].present?
+      #   if params[:q][:city_code].present?
+      #     merge_params!(params[:q], '城市', :city_code)
+      #   else
+      #     merge_params!(params[:q], '省份', :province_code)
+      #   end
+      # end
+      # params[:q].except!(:province_code, :city_code)
+      params[:q] ||= {"created_at_cont_any": "2016-1-15"}
       q = current_store_chain.stores.ransack(params[:q])
       @stores = q.result.order('id asc')
       respond_with @stores, location: nil
     end
 
     private
-    
+
       def merge_params!(params, category_name, code_type)
         category_id = InfoCategory.find_by(name: category_name).id
         params.merge!({
