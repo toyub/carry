@@ -13,20 +13,14 @@
       <dd>
         <label class="width-65">车系</label>
         <select name='vehicle[vehicle_series_id]' class="width-110 js-select-vehicle-series">
-          <optgroup label="Swedish Cars">
-            <option value ="volvo">Volvo</option>
-            <option value ="saab">Saab</option>
-          </optgroup>
-
-          <optgroup label="German Cars">
-            <option value ="mercedes">Mercedes</option>
-            <option value ="audi">Audi</option>
-          </optgroup>
+          <option value={{series.id}} v-for="series in vehicleSeries">{{series.name}}</option>
         </select>
       </dd>
       <dd>
         <label class="width-55">车型</label>
-        <select class="width-103 js-select-vehicle-model" name='vehicle[vehicle_model_id]'></select>
+        <select class="width-103 js-select-vehicle-model" name='vehicle[vehicle_model_id]'>
+          <option value={{model.id}} v-for="model in vehicleModels">{{model.name}}</option>
+        </select>
       </dd>
     </dl>
     <dl>
