@@ -98,6 +98,10 @@ class StoreOrderItem < ActiveRecord::Base
     sum(:amount)
   end
 
+  def self.total_quantities
+    sum(:quantity)
+  end
+
   private
 
     def cal_amount

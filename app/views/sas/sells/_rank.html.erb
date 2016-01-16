@@ -1,15 +1,15 @@
 <ul class="achives_top">
   <li>业绩 TOP</li>
   <li><%= @top_saler.screen_name %></li>
-  <li><%= @top_saler.store_order_items.by_month.count %>单</li>
-  <li><%= @top_saler.store_order_items.by_month.total_amount %></li>
+  <li><%= @top_saler.sales_quantity %>单</li>
+  <li><%= @top_saler.sales_amount %></li>
 </ul>
 
 <ul class="material_top">
   <li>商品 TOP</li>
   <% if @top_material.present? %>
     <li><%= @top_material.name %></li>
-    <li><%= @top_material.store_order_items.by_month.count %>件</li>
+    <li><%= @top_material.store_order_items.by_month.total_quantities %>件</li>
     <li><%= @top_material.store_order_items.by_month.total_amount %></li>
   <% end %>
 </ul>
@@ -18,7 +18,7 @@
   <li>服务 TOP</li>
   <% if @top_service.present? %>
     <li><%= @top_service.name %></li>
-    <li><%= @top_service.store_order_items.by_month.count %>次</li>
+    <li><%= @top_service.store_order_items.by_month.total_quantities %>次</li>
     <li><%= @top_service.store_order_items.by_month.total_amount %></li>
   <% end %>
 </ul>
@@ -27,7 +27,7 @@
   <li>套餐 TOP</li>
   <% if @top_package.present? %>
     <li><%= @top_package.name %></li>
-    <li><%= @top_package.store_order_items.by_month.count %>次</li>
+    <li><%= @top_package.store_order_items.by_month.total_quantities %>次</li>
     <li><%= @top_package.store_order_items.by_month.total_amount %></li>
   <% end %>
 </ul>

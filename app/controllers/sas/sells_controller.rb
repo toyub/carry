@@ -5,7 +5,7 @@ class Sas::SellsController < Sas::BaseController
     @material_amount = StoreMaterialSaleinfo.amount_by_month
     @service_amount = StoreService.amount_by_month
     @package_amount = StorePackage.amount_by_month
-    @top_saler = StoreStaff.the_best_saler
+    @top_saler = StoreStaff.best_saler
     @top_material = StoreMaterialSaleinfo.top_sales_by_month
     @top_service = StoreService.top_sales_by_month
     @top_package = StorePackage.top_sales_by_month

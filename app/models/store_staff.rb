@@ -203,18 +203,21 @@ class StoreStaff <  ActiveRecord::Base
     all.inject(0) {|sum, staff| sum += staff.commission_amount_total(month) }
   end
 
-  def self.best_saler_by_amount(month = Time.now)
-    joins(:store_order_items)
-      .where(store_order_items: {created_at: month.at_beginning_of_month .. month.at_end_of_month})
-      .group(:store_staff_id).order("sum_amount desc").limit(1).sum(:amount)
+  def self.best_saler(month = Time.now)
+    id = joins(:store_order_items)
+          .where(store_order_items: {created_at: month.at_beginning_of_month .. month.at_end_of_month})
+          .group(:store_staff_id).order("sum_amount desc").limit(1).sum(:amount).keys[0]
+
+    find_by_id(id)
   end
 
-  def self.best_saler_by_quantity(month = Time.now)
-    joins(:store_order_items)
-      .where(store_order_items: {created_at: month.at_beginning_of_month .. month.at_end_of_month})
-      .group(:store_staff_id).order("sum_quantity desc").limit(1).sum(:quantity).keys[0]
+  def sales_amount(month = Time.now)
+    store_order_items.by_month(month).sum(:amount)
   end
 
+  def sales_quantity(month = Time.now)
+    store_order_items.by_month(month).sum(:quantity)
+  end
 
   private
   def encrypt_password()
