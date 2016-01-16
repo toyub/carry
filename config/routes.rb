@@ -376,7 +376,7 @@ Rails.application.routes.draw do
     end
 
     namespace :sas do
-      resources :stores do
+      resources :stores, only: [] do
         resources :customer_gender, only: [:index]
         resources :customers, only: [:index]
         resources :customer_consuming, only: [:index]

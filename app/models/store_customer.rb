@@ -27,9 +27,9 @@ class StoreCustomer < ActiveRecord::Base
   scope :female, -> { where(gender: false) }
   scope :male, -> { where(gender: true) }
   scope :membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: true})}
-  scope :membership!, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: false})}
-  scope :store_group, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'group'})}
-  scope :store_group!, -> {joins(:store_customer_entity).where(store_customer_entities: { property: nil})}
+  scope :non_membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: false})}
+  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'group'})}
+  scope :personal_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: nil})}
 
 
   validates :first_name, presence: true
