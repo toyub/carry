@@ -137,8 +137,18 @@ class StoreService < ActiveRecord::Base
     sum
   end
 
-  def self.month_total_sales(month = Time.now)
-    StoreOrderItem.services.by_month(month).sum(:amount)
+  def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
+    id = joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+
+    find_by_id(id)
+  end
+
+  def self.amount_by_month(month = Time.now)
+    joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .sum(:amount)
   end
 
 end

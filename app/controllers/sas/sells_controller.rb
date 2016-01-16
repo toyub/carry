@@ -2,13 +2,13 @@ class Sas::SellsController < Sas::BaseController
   before_action :search_params, only: :report
 
   def index
-    @material_amount = StoreOrderItem.by_month.materials.total_amount
-    @service_amount = StoreOrderItem.by_month.services.total_amount
-    @package_amount = StoreOrderItem.by_month.packages.total_amount
-    @top_saler = StoreOrderItem.top_of_saler
-    @top_material = StoreOrderItem.by_month.materials.top
-    @top_service = StoreOrderItem.by_month.services.top
-    @top_package = StoreOrderItem.by_month.packages.top
+    @material_amount = StoreMaterialSaleinfo.amount_by_month
+    @service_amount = StoreService.amount_by_month
+    @package_amount = StorePackage.amount_by_month
+    @top_saler = StoreStaff.the_best_saler
+    @top_material = StoreMaterialSaleinfo.top_sales_by_month
+    @top_service = StoreService.top_sales_by_month
+    @top_package = StorePackage.top_sales_by_month
   end
 
   def report

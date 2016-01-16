@@ -35,8 +35,13 @@ class StorePackage < ActiveRecord::Base
   def category
   end
 
-  def self.month_total_sales(month = Time.now)
-    StoreOrderItem.packages.by_month(month).sum(:amount)
+  def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
+    id = StoreOrderItem.packages.by_month(month).group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+    find_by_id(id)
+  end
+
+  def self.amount_by_month(month = Time.now)
+    StoreOrderItem.packages.by_month.sum(:amount)
   end
 
 end
