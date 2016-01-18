@@ -1,7 +1,16 @@
-class StoreMonthConsumingDaysSerializer < ActiveModel::Serializer
-  attr_accessor :data
+class StoreMonthConsumingDays
+  attr_reader :data
 
   def initialize(orderitems)
+    set_data(orderitems)
+  end
+
+  def self.to_json
+    @data
+  end
+
+  private
+  def set_data(orderitems)
 
     @data = {
       days: [],

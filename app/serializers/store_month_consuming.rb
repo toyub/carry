@@ -1,10 +1,13 @@
-class StoreMonthConsumingSerializer < ActiveModel::Serializer
-  attr_accessor :data
+class StoreMonthConsuming
+  attr_reader :data
 
   def initialize(store, month)
     @data = {}
-    month = Time.now.month unless (1..12).include? month
     set_data(store, month)
+  end
+
+  def self.to_json
+    @data
   end
 
   private

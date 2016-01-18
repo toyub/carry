@@ -1,7 +1,16 @@
-class StoreMonthConsumingCategoriesSerializer < ActiveModel::Serializer
-  attr_accessor :data
+class StoreMonthConsumingCategories
+  attr_reader :data
 
   def initialize(orderitems)
+    set_data(orderitems)
+  end
+
+  def self.to_json
+    @data
+  end
+
+  private
+  def set_data(orderitems)
     total_count = orderitems.count.to_f
     materials= orderitems.materials.count / total_count
     services= orderitems.services.count / total_count
