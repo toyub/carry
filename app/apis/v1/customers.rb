@@ -34,6 +34,31 @@ module V1
             present q.result(distince: true), with: ::Entities::CustomerTracking
           end
         end# end of customer_trackings
+
+        resource :deposit_card_assets do
+          add_desc '储值卡列表'
+          get do
+            customer = StoreCustomer.find(params[:customer_id])
+            present customer.deposit_cards_assets, with: ::Entities::DepositCardAsset
+          end
+        end# end of deposit_card_assets
+
+        resource :package_assets do
+          add_desc '套餐组合列表'
+          get do
+            customer = StoreCustomer.find(params[:customer_id])
+            present customer.packaged_assets, with: ::Entities::PackageAsset
+          end
+        end# end of package_assets
+
+        resources :material_assets do
+          add_desc '商品组合列表'
+          get do
+            customer = StoreCustomer.find(params[:customer_id])
+            present customer.taozhuang_assets, with: ::Entities::MaterialAsset
+          end
+        end# end of material_assets
+
       end
 
     end
