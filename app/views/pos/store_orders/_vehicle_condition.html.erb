@@ -1,4 +1,4 @@
-<div class="vehicle_condition">
+<div id='order-situation' class="vehicle_condition">
   <span class="vehicle_order_title title doslide">
     车辆状态
     <i class="fa-angle-double-up fa cursor-pointer"></i>
@@ -11,10 +11,10 @@
         <dl>
           <dd>
             <label>油表油量</label>
-            <form oninput="range.value=parseInt(oil_range.value)">
-              <input type="range" class="width-120" id="oil_range">
+            <form oninput="range.value=parseInt(100-oil_range.value)">
+              <input type="range" class="width-120" id="oil_range" value="{{100-fuel_gauge}}">
               F<span class="oil"></span><span class="oil"></span>E
-              <output name="range" for="oil_range"></output>
+              <output name="range" for="oil_range">{{fuel_gauge}}</output>%
             </form>
           </dd>
         </dl>
@@ -22,70 +22,39 @@
       </div>
       <div class="check_point">
         <img src="/images/car_status.png">
-        <input type="checkbox" class="check_point_01 checktoggle"  data-targetnode='check_point_01' />
-        <input type="checkbox" class="check_point_02 checktoggle" data-targetnode='check_point_02'/>
-        <input type="checkbox" class="check_point_03 checktoggle" data-targetnode='check_point_03'/>
-        <input type="checkbox" class="check_point_04 checktoggle" data-targetnode='check_point_04'/>
-        <input type="checkbox" class="check_point_05 checktoggle" data-targetnode='check_point_05'/>
-        <input type="checkbox" class="check_point_06 checktoggle" data-targetnode='check_point_06'/>
-        <input type="checkbox" class="check_point_07 checktoggle" data-targetnode='check_point_07'/>
-        <input type="checkbox" class="check_point_08 checktoggle" data-targetnode='check_point_08'/>
-        <input type="checkbox" class="check_point_09 checktoggle" data-targetnode='check_point_09'/>
-        <input type="checkbox" class="check_point_10 checktoggle" data-targetnode='check_point_10'/>
-        <input type="checkbox" class="check_point_11 checktoggle" data-targetnode='check_point_11'/>
-        <input type="checkbox" class="check_point_12 checktoggle" data-targetnode='check_point_12'/>
+        <input type="checkbox" class="check_point_01 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="1"/>
+        <input type="checkbox" class="check_point_02 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="2"/>
+        <input type="checkbox" class="check_point_03 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="3"/>
+        <input type="checkbox" class="check_point_04 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="4"/>
+        <input type="checkbox" class="check_point_05 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="5"/>
+        <input type="checkbox" class="check_point_06 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="6"/>
+        <input type="checkbox" class="check_point_07 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="7"/>
+        <input type="checkbox" class="check_point_08 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="8"/>
+        <input type="checkbox" class="check_point_09 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="9"/>
+        <input type="checkbox" class="check_point_10 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="10"/>
+        <input type="checkbox" class="check_point_11 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="11"/>
+        <input type="checkbox" class="check_point_12 checktoggle" v-model='damages' name="situation[damages][][part_id]" value="12"/>
       </div>
     </div>
     <div class="vehicle_check_info">
       <label>车况检查记录</label>
       <ul>
-        <li>
-          1:<input type='text' class="width-150 js-store-order-damage-1" placeholder="车辆损坏情况" data-id="check_point_01">
-        </li>
-        <li>2:<input type='text' class="width-150 js-store-order-damage-2" placeholder="车辆损坏情况" data-id="check_point_02"></li>
-        <li>3:<input type='text' class="width-150 js-store-order-damage-3" placeholder="车辆损坏情况" data-id="check_point_03" ></li>
-        <li>4:<input type='text' class="width-150 js-store-order-damage-4" placeholder="车辆损坏情况" data-id="check_point_04" ></li>
-        <li>5:<input type='text' class="width-150 js-store-order-damage-5" placeholder="车辆损坏情况" data-id="check_point_05" ></li>
-        <li>6:<input type='text' class="width-150 js-store-order-damage-6" placeholder="车辆损坏情况" data-id="check_point_06" ></li>
-        <li>7:<input type='text' class="width-150 js-store-order-damage-7" placeholder="车辆损坏情况" data-id="check_point_07" ></li>
-        <li>8:<input type='text' class="width-150 js-store-order-damage-8" placeholder="车辆损坏情况" data-id="check_point_08" ></li>
-        <li>9:<input type='text' class="width-150 js-store-order-damage-9" placeholder="车辆损坏情况" data-id="check_point_09" ></li>
-        <li>10:<input type='text' class="width-150 js-store-order-damage-10" placeholder="车辆损坏情况" data-id="check_point_10"></li>
-        <li>11:<input type='text' class="width-150 js-store-order-damage-11" placeholder="车辆损坏情况" data-id="check_point_11"></li>
-        <li>12:<input type='text' class="width-150 js-store-order-damage-12" placeholder="车辆损坏情况" data-id="check_point_12"></li>
+        <li v-for='damage in damages'>{{$index+1}}:<input type='text' class="width-150" name="situation[damages][][content]" placeholder="损坏情况描述" value="{{damage.content}}"></li>
       </ul>
     </div>
 
     <div class="car_parts">
       <img src="/images/car_parts.png">
       <ul>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-13">
-        </li>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-14">
-        </li>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-15">
-        </li>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-16">
-        </li>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-17">
-        </li>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-18">
-        </li>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-19">
-        </li>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-20">
-        </li>
-        <li>
-          <input type="checkbox" class="checktoggle js-store-order-damage-21">
-        </li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="13"></li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="14"></li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="15"></li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="16"></li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="17"></li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="18"></li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="19"></li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="20"></li>
+        <li><input type="checkbox" class="checktoggle" v-model='damages' name="situation[damages][][part_id]" value="21"></li>
       </ul>
     </div>
   </div>
