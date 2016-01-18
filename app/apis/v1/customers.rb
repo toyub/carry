@@ -30,6 +30,22 @@ module V1
         present material_asset.items.find(params[:id]).logs, with: ::Entities::MaterialItems
       end
 
+
+      add_desc "消费记录"
+      params do
+        optional :q, type: Hash, default: {} do
+          optional :plate_id_eq, type: Integer, desc: "车牌ID"
+          optional :created_at_gt, type: DateTime, desc: "开始时间"
+          optional :created_at_lt, type: DateTime, desc: "结束时间"
+        end
+      end
+      get ":customer_id/orders", requirements: { customer_id: /[0-9]*/ } do
+        customer = StoreCustomer.find(params[:customer_id])
+        q = customer.orders.ransack(params[:q])
+        orders = q.result.order('id asc')
+        present orders, with: ::Entities::Orders
+      end
+
     end
 
 
