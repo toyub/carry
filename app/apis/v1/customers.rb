@@ -33,6 +33,7 @@ module V1
 
       add_desc "消费记录"
       params do
+        requires :customer_id, type: Integer, desc: '客户ID'
         optional :q, type: Hash, default: {} do
           optional :plate_id_eq, type: Integer, desc: "车牌ID"
           optional :created_at_gt, type: DateTime, desc: "开始时间"
@@ -45,6 +46,35 @@ module V1
         orders = q.result.order('id asc')
         present orders, with: ::Entities::Orders
       end
+
+      add_desc "车牌的显示"
+      params do
+        requires :customer_id, type: Integer, desc: "客户id"
+      end
+      get ":customer_id/license_numbers", requirements: { customer_id: /[0-9]*/ } do
+        customer = StoreCustomer.find(params[:customer_id])
+        present customer.plates, with: ::Entities::LicenseNumbers
+      end
+
+      add_desc "套餐列表"
+      params do
+        requires :customer_id, type: Integer, desc: '客户ID'
+      end
+      get ":customer_id/package_assets", requirements: { customer_id: /[0-9]*/ } do
+        customer = StoreCustomer.find(params[:customer_id])
+        present customer.packaged_assets, with: ::Entities::PackageAssetsList
+      end
+
+      add_desc "套餐查看"
+      params do
+        requires :customer_id, type: Integer, desc: '客户ID'
+        requires :id, type: Integer, desc: '套餐id'
+      end
+       get ":customer_id/package_assets/:id", requirements: { id: /[0-9]*/ } do
+         customer = StoreCustomer.find(params[:customer_id])
+         package_asset = customer.packaged_assets.find(params[:id])
+         present package_asset, with: ::Entities::PackageAssetItem
+       end
 
     end
 
