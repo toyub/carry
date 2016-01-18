@@ -5,10 +5,6 @@ class StoreMonthConsumingPayments
     set_data(payments)
   end
 
-  def self.to_json
-    @data
-  end
-
   private
 
   def set_data(payments)

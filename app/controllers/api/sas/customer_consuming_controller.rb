@@ -1,6 +1,5 @@
 class Api::Sas::CustomerConsumingController < Api::BaseController
   def index
-    @data = CustomerConsumingSerializer.new(current_store).data
-    render json: @data
+    render json: CustomerConsumingDistribute.new(current_store)
   end
 end

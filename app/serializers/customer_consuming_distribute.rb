@@ -1,5 +1,5 @@
-class CustomerConsumingSerializer < ActiveModel::Serializer
-  attr_accessor :data
+class CustomerConsumingDistribute
+  attr_reader :data
 
   CONSUMING_LEVEL = {
     0..1000 => '0',
@@ -10,6 +10,11 @@ class CustomerConsumingSerializer < ActiveModel::Serializer
   }
 
   def initialize(store)
+    set_data(store)
+  end
+
+  private
+  def set_data(store)
     @data = [0, 0, 0, 0, 0]
     store.store_customers.all.each do |customer|
       CONSUMING_LEVEL.select do |level, flag|

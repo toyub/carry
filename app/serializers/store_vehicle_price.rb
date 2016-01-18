@@ -1,5 +1,5 @@
-class StoreVehiclePriceSerializer < ActiveModel::Serializer
-  attr_accessor :data
+class StoreVehiclePrice
+  attr_reader :data
 
   VEHICLE_ESTIMATE = {
     1..80000 => '0',
@@ -13,7 +13,13 @@ class StoreVehiclePriceSerializer < ActiveModel::Serializer
     800000..10000000 => '8',
     10000001 => '9'
   }
+
   def initialize(store)
+    set_data(store)
+  end
+
+  private
+  def set_data(store)
     @data = {
       vehicle_amount: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       vehicle_quantity: [0, 0, 0, 0, 0, 0, 0, 0, 0]

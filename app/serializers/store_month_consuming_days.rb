@@ -5,10 +5,6 @@ class StoreMonthConsumingDays
     set_data(orderitems)
   end
 
-  def self.to_json
-    @data
-  end
-
   private
   def set_data(orderitems)
 

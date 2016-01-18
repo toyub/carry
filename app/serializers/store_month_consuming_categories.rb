@@ -5,10 +5,6 @@ class StoreMonthConsumingCategories
     set_data(orderitems)
   end
 
-  def self.to_json
-    @data
-  end
-
   private
   def set_data(orderitems)
     total_count = orderitems.count.to_f

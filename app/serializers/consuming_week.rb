@@ -1,5 +1,5 @@
-class ConsumingWeekSerializer < ActiveModel::Serializer
-  attr_accessor :data
+class ConsumingWeek
+  attr_reader :data
 
   CONSUMING_LEVEL = {
     1..1000 => '0',
@@ -10,6 +10,11 @@ class ConsumingWeekSerializer < ActiveModel::Serializer
   }
 
   def initialize(store)
+    set_data(store)
+  end
+
+  private
+  def set_data(store)
 
     @data = [
       [0, 0, 0, 0, 0, 0, 0],
