@@ -73,7 +73,20 @@ module V1
        get ":customer_id/package_assets/:id", requirements: { id: /[0-9]*/ } do
          customer = StoreCustomer.find(params[:customer_id])
          package_asset = customer.packaged_assets.find(params[:id])
-         present package_asset, with: ::Entities::PackageAssetItem
+         present package_asset, with: ::Entities::PackageAssetItems
+       end
+
+       add_desc "套餐组合-查看-项目消费明细"
+       params do
+         requires :customer_id, type: Integer, desc: '客户ID'
+         requires :package_asset_id, type: Integer, desc: "套餐资产id"
+         requires :id, type: Integer, desc: '项目id'
+       end
+       get ":customer_id/packages_assets/:package_asset_id/package_items/:id", requirements: { id: /[0-9]*/ } do
+         customer = StoreCustomer.find(params[:customer_id])
+         package_asset = customer.packaged_assets.find(params[:package_asset_id])
+         package_asset_item = package_asset.items.find(params[:id])
+         present package_asset_item.logs, with: ::Entities::PackageAssetItem
        end
 
     end

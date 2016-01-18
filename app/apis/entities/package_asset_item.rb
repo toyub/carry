@@ -1,27 +1,7 @@
 module Entities
-  class Item < Grape::Entity
-    expose :id
-    expose(:name) {|model| model.workflowable_hash['name']}
-    expose :left_quantity
-  end
-
-  class Fuck < Grape::Entity
-    expose(:name) {|model| model.workflowable_hash["name"]}
-  end
-
   class PackageAssetItem < Grape::Entity
-    expose :id
-    expose :package_name
-    expose(:bought_form) {|model| model.store.name }
-    expose(:use_for) {|model| model.store.name + "等"}
-    expose :contain_items, using: Fuck
-    expose :items, using: Item
-
-    private
-    def contain_items
-      object.items
-    end
+    expose(:created_at) {|model| model.created_at.strftime("%Y-%m-%d")}
+    expose(:numero) {|model| model.store_order.numero}
+    expose(:store_name) {|model| model.store.name}
   end
-
-
 end
