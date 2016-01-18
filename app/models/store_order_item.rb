@@ -86,10 +86,6 @@ class StoreOrderItem < ActiveRecord::Base
     orderable.try(:speci)
   end
 
-  def profit
-    amount - cost_price.to_f
-  end
-
   def commission
     store_staff.commission? ? orderable.commission(self) : 0.0
   end

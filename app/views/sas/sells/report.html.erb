@@ -50,7 +50,7 @@
               <td><%= item.amount %></td>
               <td><%= item.store_order.try(:payments).try(:last).try(:payment_method_cn_name) %></td>
               <td><%= item.cost_price %></td>
-              <td><%= item.profit %></td>
+              <td><%= item.gross_profit %></td>
             </tr>
           <% end %>
         </tbody>
