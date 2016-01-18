@@ -2,9 +2,9 @@ module Sas
   class MonthConsumingPayments < Base
 
     private
-    def set_data(payments)
+    def set_data(store)
+      payments = store.store_customer_payments.by_month
       total_count = payments.count.to_f
-
       unless total_count == 0.0
         cash = payments.payment_method("PaymentMethods::Cash").count / total_count
         backcard = payments.payment_method("PaymentMethods::Bankcard").count / total_count

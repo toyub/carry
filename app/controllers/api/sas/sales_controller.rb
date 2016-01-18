@@ -5,18 +5,15 @@ class Api::Sas::SalesController < Api::BaseController
   end
 
   def payments
-    payments = current_store.store_customer_payments.by_month
-    render json: Sas::MonthConsumingPayments.new(payments)
+    render json: Sas::MonthConsumingPayments.new(current_store)
   end
 
   def categories
-    orderitems = current_store.store_order_items.by_month
-    render json: Sas::MonthConsumingCategories.new(orderitems)
+    render json: Sas::MonthConsumingCategories.new(current_store)
   end
 
   def days
-    orderitems = current_store.store_order_items.by_month
-    render json: Sas::MonthConsumingDays.new(orderitems)
+    render json: Sas::MonthConsumingDays.new(current_store)
   end
 
 end

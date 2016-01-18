@@ -2,7 +2,8 @@ module Sas
   class MonthConsumingDays < Base
 
     private
-    def set_data(orderitems)
+    def set_data(store)
+      orderitems = store.store_order_items.by_month
 
       @data = {
         days: [],
