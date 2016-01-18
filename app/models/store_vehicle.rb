@@ -64,4 +64,8 @@ class StoreVehicle < ActiveRecord::Base
     self.detail && self.detail[name]
   end
 
+  def total_pay
+    orders.pluck(:amount).reduce(0.0,:+)
+  end
+
 end

@@ -2,8 +2,8 @@
   <span class="font-18 margin-right-15">销售分析</span>
 
   <select class="width-90" onchange="self.location.pathname=options[selectedIndex].value">
-    <option value="<%= sas_sells_report_path %>">报表</option>
-    <option value="<%= sas_sells_graph_path %>" >图形分析</option>
+    <option value="<%= report_sas_sells_path %>">报表</option>
+    <option value="<%= sas_sells_path %>" >图形分析</option>
   </select>
 </div>
 
@@ -11,50 +11,8 @@
 <div class="details sales_analysis">
 
   <div class="list_table">
-    <div class="search_nav">
-      <div class="item-query">
-        <label>日期</label>
-        <input type="date" class="width-120"> 至 <input type="date" class="width-120">
-      </div>
 
-      <div class="item-query">
-        <label>查看类型</label>
-        <select type="text" class="width-100">
-          <option>按明细</option>
-          <option></option>
-        </select>
-      </div>
-
-      <div class="item-query">
-        <label>类型</label>
-        <select type="text" class="width-100">
-          <option>全部</option>
-          <option></option>
-        </select>
-      </div>
-
-      <div class="item-query">
-        <label>部门</label>
-        <select type="text" class="width-100">
-          <option>全部</option>
-          <option></option>
-        </select>
-      </div>
-
-      <div class="item-query">
-        <label>收款方式</label>
-        <select type="text" class="width-100">
-          <option>全部</option>
-          <option></option>
-        </select>
-        <a class=" btn query_btn do_search_result">查<nbsp1></nbsp1>询</a>
-      </div>
-
-      <div class="query_div">
-        <a href="#" class="print_btn btn">打印</a>
-        <a href="#" class="export_btn btn">导出</a>
-      </div>
-    </div>
+    <%= render 'report_search' %>
 
     <table cellpadding="0" cellspacing="0" class="index_list">
 
@@ -76,106 +34,46 @@
         </tr>
       </thead>
 
-      <tbody class="content">
-        <tr >
-          <td>1</td>
-          <td>米其林轮胎</td>
-          <td>商品</td>
-          <td>365478987755</td>
-          <td>195/65/12 XM2 91V</td>
-          <td>轮胎</td>
-          <td>2</td>
-          <td>430.00</td>
-          <td>50.00</td>
-          <td>810.00</td>
-          <td>现金</td>
-          <td>710.00</td>
-          <td>100.00</td>
-        </tr>
+      <% if @order_items.present? %>
+        <tbody class="content">
+          <% @order_items.each.with_index(1) do |item, index| %>
+            <tr >
+              <td><%= index %></td>
+              <td><%= item.orderable.name %></td>
+              <td><%= item.type_cn_name %></td>
+              <td><%= item.barcode %></td>
+              <td><%= item.speci %></td>
+              <td><%= item.category_name %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.retail_price %></td>
+              <td><%= item.discount %></td>
+              <td><%= item.amount %></td>
+              <td><%= item.store_order.try(:payments).try(:last).try(:payment_method_cn_name) %></td>
+              <td><%= item.cost_price %></td>
+              <td><%= item.gross_profit %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="13" class="text-align-right">
+              <span>实收金额合计：</span>
+              <label><%= @order_items.total_amount %></label>
+            </td>
+          </tr>
+        </tfoot>
 
-        <tr>
-          <td>2</td>
-          <td>普通洗车</td>
-          <td>服务</td>
-          <td>FW5478987755</td>
-          <td></td>
-          <td>清洗服务</td>
-          <td>2</td>
-          <td>30.00</td>
-          <td>0.00</td>
-          <td>60.00</td>
-          <td>现金</td>
-          <td>710.00</td>
-          <td>100.00</td>
-        </tr>
+      <% else %>
+        <tbody class="no_search_result" style="display:none;">
+          <tr>
+            <td class="font-16" colspan="13">
+              <i class="fa fa-info-circle font-34 margin-right-8"></i>
+              很抱歉，没有找到与此相关联的报表，或者没有该报表，请核实后再进行操作
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
 
-        <tr>
-          <td>3</td>
-          <td>普通洗车</td>
-          <td>服务</td>
-          <td>FW5478987755</td>
-          <td></td>
-          <td>清洗服务</td>
-          <td>1</td>
-          <td>30.00</td>
-          <td>9.00</td>
-          <td>21.00</td>
-          <td>卡扣</td>
-          <td>0.00</td>
-          <td>21.00</td>
-        </tr>
-
-        <tr>
-          <td>4</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <td>5</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-
-      </tbody>
-
-      <tbody class="no_search_result" style="display:none;">
-        <tr>
-          <td class="font-16" colspan="13">
-            <i class="fa fa-info-circle font-34 margin-right-8"></i>
-            很抱歉，没有找到与此相关联的报表，或者没有该报表，请核实后再进行操作
-          </td>
-        </tr>
-      </tbody>
-
-      <tfoot>
-        <tr>
-          <td colspan="13" class="text-align-right">
-            <span>实收金额合计：</span>
-            <label>22,750.00</label>
-          </td>
-        </tr>
-      </tfoot>
     </table>
 
   </div>
