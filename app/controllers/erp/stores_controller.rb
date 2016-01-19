@@ -9,10 +9,12 @@ module Erp
           merge_params!(params[:q], '省份', :province_code)
         end
       end
-      params[:q].merge!({
-        created_at_gteq: DateTime.parse(params[:q][:created_at]).beginning_of_day,
-        created_at_lteq: DateTime.parse(params[:q][:created_at]).end_of_day
-      })
+      if params[:q][:created_at].present?
+        params[:q].merge!({
+          created_at_gteq: DateTime.parse(params[:q][:created_at]).beginning_of_day,
+          created_at_lteq: DateTime.parse(params[:q][:created_at]).end_of_day
+        })
+      end
       params[:q].except!(:province_code, :city_code, :created_at)
       q = current_store_chain.stores.ransack(params[:q])
       @stores = q.result.order('id asc')
