@@ -171,6 +171,13 @@ class StoreOrder < ActiveRecord::Base
     payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
   end
 
+  def repay!(filled)
+    self.update!(filled: self.filled + filled)
+    if self.filled == self.amount
+      self.pay_finished!
+    end
+  end
+
   private
     def construction_items
       self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
