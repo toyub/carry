@@ -26,6 +26,22 @@ class StorePackage < ActiveRecord::Base
     self.package_setting.point
   end
 
+  def valid_date
+    self.package_setting.try(:valid_date)
+  end
+
+  def store_name
+    store.name
+  end
+
+  def retail_price
+    20
+  end
+
+  def selled
+    0
+  end
+
   def vip_price
     0
   end
