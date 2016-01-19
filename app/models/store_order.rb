@@ -16,6 +16,9 @@ class StoreOrder < ActiveRecord::Base
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_order_id
   has_many :payments, class_name: 'StoreCustomerPayment'
 
+  has_many :store_order_repayments
+  has_many :store_repayments, through: :store_order_repayments
+
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
 
@@ -138,6 +141,10 @@ class StoreOrder < ActiveRecord::Base
         self.queuing!
       end
     end
+  end
+
+  def amount_total
+   self.items.pluck(:amount).reduce(0.0,:+)
   end
 
   def repayment_finished!
