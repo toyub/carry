@@ -36,7 +36,7 @@ module Grape
       def out_error(message={})
         error = {
           message: message,
-          status: 200
+          status: 500
         }
         error_response(error)
       end
