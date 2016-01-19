@@ -5,7 +5,7 @@ module V1
       before do
         authenticate_user!
       end
-
+      
       add_desc "客户列表"
       params do
         optional :q, type: Hash, default: {} do
@@ -13,14 +13,13 @@ module V1
         end
       end
       get do
-        q = current_store_chain.store_customers.ransack(params[:q])
+        q = StoreCustomer.ransack(params[:q])
         present q.result.order('id asc'), with: ::Entities::Customer
       end
 
       add_desc "客户详情"
       get ":id", requirements: { id: /[0-9]*/ } do
-        customer = current_store_chain.store_customers.find(params[:id])
-        present customer, with: ::Entities::Customer
+        present StoreCustomer.find(params[:id]), with: ::Entities::Customer
       end
 
       route_param :customer_id do
@@ -63,6 +62,15 @@ module V1
             present customer.taozhuang_assets, with: ::Entities::MaterialAsset
           end
         end# end of material_assets
+
+        resources :license_numbers do
+          add_desc '车牌列表'
+          get do
+            customer = StoreCustomer.find(params[:customer_id])
+            q = customer.plates.ransack(params[:q])
+            present q.result(distinct: true), with: ::Entities::LicenseNumber
+          end
+        end# end of license_numbers
 
       end
 
