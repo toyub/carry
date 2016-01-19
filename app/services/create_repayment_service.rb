@@ -12,12 +12,10 @@ class CreateRepaymentService
     @repayment.transaction do
       @customer.orders.where(id: @form_params[:orders]).each do |order|
         remaining = @total - order.repayment_remaining
-        if remaining > 0
+        if remaining >= 0
           @total = remaining
           order.repayment_finished!
           order.store_order_repayments.create!(filled: order.repayment_remaining, remaining: 0.0, store_repayment: @repayment)
-        elsif remaining ==0
-          break
         else
           order.update!(filled: order.filled + @total)
           order.store_order_repayments.create!(filled: @total, remaining: order.repayment_remaining, store_repayment: @repayment  )

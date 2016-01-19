@@ -7,9 +7,9 @@ module APIHelpers
     raise APIErrors::AuthenticateFail unless current_user
   end
 
-  # 设备的sn码
+  # 设备的sn码或者是用户名
   def sn_code
-    @header_sn_code ||= headers["X-Sn-Code"]
+    @header_sn_code ||= (headers["X-Sn-Code"] || headers["Http-Username"])
   end
 
   # 对客户端提交的未正确进行UTF-8编码的数据进行编码
@@ -19,11 +19,11 @@ module APIHelpers
   end
 
   def current_user
-    @current_user ||= StoreStaff.find_by(login_name: request.headers["Http-Username"])
+    @current_user ||= StoreStaff.find_by(login_name: sn_code)
   end
 
   def authenticate_user!
-    raise APIErrors::NoGetAuthenticate unless request.headers["Http-Username"].present?
+    raise APIErrors::NoGetAuthenticate unless sn_code.present?
     raise APIErrors::AuthenticateFail unless current_user
   end
 
