@@ -9,7 +9,7 @@ module Erp
           merge_params!(params[:q], '省份', :province_code)
         end
       end
-      params[:q].merge({
+      params[:q].merge!({
         created_at_gteq: DateTime.parse(params[:q][:created_at]).beginning_of_day,
         created_at_lteq: DateTime.parse(params[:q][:created_at]).end_of_day
       })
