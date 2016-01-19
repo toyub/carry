@@ -52,15 +52,7 @@ module V1
           add_desc '储值卡消费记录'
           get do
             customer = current_store_chain.store_customers.find(params[:customer_id])
-            present customer.deposit_logs, with: ::Entities::DepositLog
-          end
-        end
-
-        resource :package_assets do
-          add_desc '套餐组合列表'
-          get do
-            customer = StoreCustomer.find(params[:customer_id])
-            present customer.packaged_assets, with: ::Entities::PackageAsset
+            present customer, with: ::Entities::DepositLog
           end
         end
 
