@@ -59,10 +59,6 @@ class StoreCustomerEntity < ActiveRecord::Base
    '现金'
   end
 
-  def property_name
-   '个人客户'
-  end
-
   def district
     read_attribute(:district) || {}
   end

@@ -1,8 +1,5 @@
 class Api::Sas::VehiclesController < Api::BaseController
   def index
-    @data = {
-      hello: "world",
-    }
-    render json: @data
+    render json: Sas::VehiclePrice.new(current_store)
   end
 end
