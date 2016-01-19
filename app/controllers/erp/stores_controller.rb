@@ -11,8 +11,8 @@ module Erp
       end
       if params[:q][:created_at].present?
         params[:q].merge!({
-          created_at_gteq: DateTime.parse(params[:q][:created_at]).beginning_of_day,
-          created_at_lteq: DateTime.parse(params[:q][:created_at]).end_of_day
+          created_at_gteq: Time.zone.parse(params[:q][:created_at]).beginning_of_day,
+          created_at_lteq: Time.zone.parse(params[:q][:created_at]).end_of_day
         })
       end
       params[:q].except!(:province_code, :city_code, :created_at)

@@ -3,7 +3,7 @@ class Crm::StoreTrackingsController < Crm::BaseController
   respond_to :js
 
   def index
-    q = StoreTracking.ransack(params[:q] ||= {})
+    q = @customer.trackings.ransack(params[:q] ||= {})
     @store_trackings = q.result(distinct: true).order('id asc')
     @search = {
       plate: params[:q][:store_order_plate_id_eq],
@@ -16,6 +16,7 @@ class Crm::StoreTrackingsController < Crm::BaseController
 
   def create
     @tracking = StoreTracking.create tracking_params
+    @tracking.update(trackable: @customer)
     respond_with @tracking, location: nil
   end
 
@@ -27,13 +28,13 @@ class Crm::StoreTrackingsController < Crm::BaseController
 
     def tracking_params
       params.require(:store_tracking).permit(
-          :creator_id,
-          :title,
-          :category_id,
-          :contact_way_id,
-          :executant_id,
-          :content,
-          :feedback
-        )
+        :creator_id,
+        :title,
+        :category_id,
+        :contact_way_id,
+        :executant_id,
+        :content,
+        :feedback
+      )
     end
 end

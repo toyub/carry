@@ -1,5 +1,6 @@
 class StoreTracking < ActiveRecord::Base
   belongs_to :store_order
+  belongs_to :trackable, polymorphic: true
 
   validates :title, presence: true
   validates :content, presence: true

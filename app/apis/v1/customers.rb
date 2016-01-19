@@ -23,10 +23,6 @@ module V1
       end
 
       route_param :customer_id do
-        before do
-          @customer = current_store_chain.store_customers.find(params[:customer_id])
-        end
-
         resource :customer_trackings do
           add_desc '客户回访记录列表'
           params do
@@ -38,18 +34,27 @@ module V1
             end
           end
           get do
-            q = StoreTracking.ransack(params[:q])
+            customer = current_store_chain.store_customers.find(params[:customer_id])
+            q = customer.trackings.ransack(params[:q])
             present q.result(distince: true), with: ::Entities::CustomerTracking
           end
-        end# end of customer_trackings
+        end
 
         resource :deposit_card_assets do
           add_desc '储值卡列表'
           get do
-            customer = StoreCustomer.find(params[:customer_id])
+            customer = current_store_chain.store_customers.find(params[:customer_id])
             present customer.deposit_cards_assets, with: ::Entities::DepositCardAsset
           end
-        end# end of deposit_card_assets
+        end
+
+        resource :deposit_logs do
+          add_desc '储值卡消费记录'
+          get do
+            customer = current_store_chain.store_customers.find(params[:customer_id])
+            present customer.deposit_logs, with: ::Entities::DepositLog
+          end
+        end
 
         resource :package_assets do
           add_desc '套餐组合列表'
@@ -57,29 +62,31 @@ module V1
             customer = StoreCustomer.find(params[:customer_id])
             present customer.packaged_assets, with: ::Entities::PackageAsset
           end
-        end# end of package_assets
+        end
 
         resources :material_assets do
           add_desc '商品组合列表'
           get do
-            customer = StoreCustomer.find(params[:customer_id])
+            customer = current_store_chain.store_customers.find(params[:customer_id])
             present customer.taozhuang_assets, with: ::Entities::MaterialAsset
           end
 
-          add_desc '商品组合'
+          add_desc '商品组合有关信息'
           get ':id' do
-
+            customer = current_store_chain.store_customers.find(params[:customer_id])
+            material_asset = customer.taozhuang_assets.find(params[:id])
+            present material_asset, with: ::Entities::MaterialAssetInfo
           end
-        end# end of material_assets
+        end
 
         resources :license_numbers do
           add_desc '车牌列表'
           get do
-            customer = StoreCustomer.find(params[:customer_id])
+            customer = current_store_chain.store_customers.find(params[:customer_id])
             q = customer.plates.ransack(params[:q])
             present q.result(distinct: true), with: ::Entities::LicenseNumber
           end
-        end# end of license_numbers
+        end
 
       end
 
