@@ -2,8 +2,8 @@
   <span class="font-18 margin-right-15">销售分析</span>
 
   <select class="width-90" onchange="self.location.pathname=options[selectedIndex].value">
-    <option value="<%= sas_sells_graph_path %>">图形分析</option>
-    <option value="<%= sas_sells_report_path %>">报表</option>
+    <option value="<%= sas_sells_path %>">图形分析</option>
+    <option value="<%= report_sas_sells_path %>">报表</option>
   </select>
   <a class="back_to_list" href="index.html">
     <i class="fa-arrow-circle-left  fa" ></i>
@@ -20,11 +20,6 @@
     <div class="graphs">
 
       <div class="bar_chart">
-        <select class="width-90">
-          <option value="half_year">半年图</option>
-          <option value="year_on_year">同比图</option>
-        </select>
-
         <div id="half_year_barchart" class="half_year_barchart"  style="height:320px;width:720px;"></div>
         <div id="year_on_year_barchart" class="year_on_year_barchart"  style="height:320px;width:720px;"></div>
       </div>
@@ -44,10 +39,15 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($){
-      Sells.display_year_sales_bar();
-      Sells.display_payment_ways_pie();
-      Sells.display_month_sales_pie();
-      Sells.display_month_sales_line();
+      $('select.sort-by').on('change', function(){
+        var optionSelected = $("option:selected", this),
+          valueSelected = this.value;
+
+        $.get("/api/sas/stores/<%= current_store.id %>/sale_top?type="+valueSelected, function(){
+        })
+      })
+
+      Sells.initialize("<%= current_store.id %>");
     });
   </script>
 <% end %>

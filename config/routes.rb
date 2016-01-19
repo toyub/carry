@@ -135,13 +135,10 @@ Rails.application.routes.draw do
   end
 
   namespace :sas do
-    controller :sells do
-      get '/sells/graph'
-      get '/sells/report'
+    resources :sells, only: [:index] do
+      get "report", on: :collection
     end
-    controller :customers do
-      get "/customers/graph"
-    end
+    resources :customers, only: [:index]
   end
 
   #Settings
@@ -379,10 +376,19 @@ Rails.application.routes.draw do
     end
 
     namespace :sas do
-      resources :stores do
+      resources :stores, only: [] do
         resources :customer_gender, only: [:index]
-        resources :sales, only: [:index]
+        resources :customers, only: [:index]
+        resources :customer_consuming, only: [:index]
+        resources :consuming_week, only: [:index]
+        resources :sales, only: [:index] do
+          get 'payments', on: :collection
+          get 'categories', on: :collection
+          get 'days', on: :collection
+        end
+        resources :sale_top, only: [:index]
         resources :vehicles, only: [:index]
+        resources :vehicle_brand, only: [:index]
       end
     end
 
