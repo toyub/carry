@@ -18,7 +18,7 @@
             </form>
           </dd>
         </dl>
-        <dl><dd><label>行驶公里</label><input class="mileage js-store-order-km" name='situation[mileage]' type="number" min=0></dd></dl>
+        <dl><dd><label>行驶公里</label><input class="mileage" id='mileage' name='situation[mileage]' type="number" min=0></dd></dl>
       </div>
       <div class="check_point">
         <img src="/images/car_status.png">
@@ -38,9 +38,7 @@
     </div>
     <div class="vehicle_check_info">
       <label>车况检查记录</label>
-      <ul id='situation_damages'>
-
-      </ul>
+      <ul id='situation_damages'></ul>
     </div>
 
     <div class="car_parts">
