@@ -5,7 +5,7 @@ class CreateRepaymentService
     @form = form_params
     @customer = customer
     @repayment_params = @form.except(:orders, :total)
-    @total = @form[:total].to_d
+    @total = @form[:total].to_f
   end
 
   def call
