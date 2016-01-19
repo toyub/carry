@@ -5,7 +5,7 @@ module V1
       before do
         authenticate_user!
       end
-      
+
       add_desc "客户列表"
       params do
         optional :q, type: Hash, default: {} do
@@ -23,6 +23,10 @@ module V1
       end
 
       route_param :customer_id do
+        before do
+          @customer = current_store_chain.store_customers.find(params[:customer_id])
+        end
+
         resource :customer_trackings do
           add_desc '客户回访记录列表'
           params do
@@ -60,6 +64,11 @@ module V1
           get do
             customer = StoreCustomer.find(params[:customer_id])
             present customer.taozhuang_assets, with: ::Entities::MaterialAsset
+          end
+
+          add_desc '商品组合'
+          get ':id' do
+
           end
         end# end of material_assets
 
