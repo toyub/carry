@@ -2,7 +2,7 @@ module APIErrors
   extend ActiveSupport::Concern
 
   def self.included(klass)
-    klass.send(:include_errors)
+    #klass.send(:include_errors)
   end
 
   VerifyFail = Class.new StandardError

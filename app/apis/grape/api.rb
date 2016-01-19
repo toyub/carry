@@ -9,6 +9,10 @@ module Grape
               description: "用户token",
               required: false
             },
+            "Http-Username" => {
+              description: "用户名称",
+              required: false
+            },
             "X-SN-Code" => {
               description: "设备唯一识别码",
               required: false
