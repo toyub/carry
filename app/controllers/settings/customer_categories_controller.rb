@@ -1,7 +1,7 @@
 class Settings::CustomerCategoriesController < Settings::BaseController
   def index
     @material_categories = current_store.store_material_categories.super_categories
-    @service_categories = current_store.service_categories
+    @service_categories = ServiceCategory.all
   end
 
   def services
