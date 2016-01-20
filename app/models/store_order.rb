@@ -191,4 +191,8 @@ class StoreOrder < ActiveRecord::Base
     def init_state
       self.state = :pending
     end
+
+    def total_amount
+      self.items.sum(:amount) - self.items.sum(:discount)
+    end
 end
