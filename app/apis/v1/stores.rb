@@ -2,10 +2,11 @@ module V1
   class Stores < Grape::API
 
     resource :stores do
-      add_desc '门店列表'
       before do
         authenticate_user!
       end
+
+      add_desc '门店列表'
 
       params do
         optional :q, type: Hash, default: {} do

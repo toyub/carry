@@ -2,10 +2,11 @@ module V1
   class MessageRecords < Grape::API
 
     resource :message_records do
-      add_desc '短信记录列表'
       before do
         authenticate_user!
       end
+
+      add_desc '短信记录列表'
       
       params do
         optional :q, type: Hash, default: {} do
