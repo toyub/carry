@@ -12,6 +12,5 @@ module Entities
     expose(:creator) {|model, optional| model.creator.full_name}
     expose :total_amount
     expose :items, using: Order
-    # expose(:mechanics) {|model, options| model.items.map(&->(item){item.workflow_mechanics.map(&->(wm){wm.engineer})})}
   end
 end
