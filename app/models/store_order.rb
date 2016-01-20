@@ -144,7 +144,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def amount_total
-   self.items.pluck(:amount).reduce(0.0,:+)
+   self.amount
   end
 
   def repayment_finished!
@@ -164,7 +164,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def repayment_remaining
-    self.amount_total - self.filled
+    self.amount_total.to_f - self.filled.tp_f
   end
 
   def payment_methods
@@ -172,7 +172,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def repay!(filled)
-    self.update!(filled: self.filled + filled)
+    self.update!(filled: self.filled.to_f + filled)
     if self.filled == self.amount
       self.pay_finished!
     end
