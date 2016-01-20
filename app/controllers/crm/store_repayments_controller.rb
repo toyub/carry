@@ -8,8 +8,7 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   end
 
   def create
-    repayment = StoreRepayment.create(append_store_attrs({amount: @total}))
-    creator = CreateRepaymentService.new(form_params, @customer, repayment)
+    creator = CreateRepaymentService.new(append_store_attrs(form_params), @customer)
     if creator.call
       redirect_to crm_store_customer_store_repayments_path(@customer), notice: "回款成功!"
     else

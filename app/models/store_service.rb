@@ -2,7 +2,6 @@ class StoreService < ActiveRecord::Base
   include BaseModel
 
   belongs_to :service_category, class_name: 'ServiceCategory', foreign_key: :category_id
-  belongs_to :store_service_category
   has_many :store_service_store_materials
   has_many :store_materials, through: :store_service_store_materials
   belongs_to :unit, foreign_key: 'store_service_unit_id'
@@ -19,7 +18,6 @@ class StoreService < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :retail_price, presence: true
-  #validates :store_service_category_id, presence: true
   validates :store_staff_id, presence: true
 
   scope :by_category, ->(service_category_id) { where(category_id: service_category_id) }
@@ -28,6 +26,8 @@ class StoreService < ActiveRecord::Base
   accepts_nested_attributes_for :store_service_workflows, allow_destroy: true
 
   after_create :create_service_reminds, :create_one_setting
+
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
 
   SETTING_TYPE = {
     regular: 0,
@@ -40,12 +40,19 @@ class StoreService < ActiveRecord::Base
     end
   end
 
+  def barcode
+    code
+  end
+
+  def speci
+  end
+
   def create_one_setting
     self.create_setting(creator: self.creator)
   end
 
   def category
-    service_category.try(:name)
+    service_category
   end
 
   def regular?
@@ -128,6 +135,20 @@ class StoreService < ActiveRecord::Base
       end
     end
     sum
+  end
+
+  def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
+    id = joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+
+    find_by_id(id)
+  end
+
+  def self.amount_by_month(month = Time.now)
+    joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .sum(:amount)
   end
 
 end

@@ -1,0 +1,23 @@
+<div class="search_nav">
+  <%= form_tag("/sas/sells/report", method: :get) do -%>
+    <div class="item-query">
+      <label>日期</label>
+      <%= date_select(
+        "", :date,
+        { start_year: 2000, use_short_month: true, discard_day: true, :default => @date},
+        {:include_blank => @search_date.nil?, class: "width-60" }
+      ) %>
+    </div>
+
+    <div class="item-query">
+      <label>类型</label>
+      <%= select_tag :type, options_for_select([["全部", ""], ["商品", "materials"], ["服务", "services"]], params[:type]), class: "width-100" %>
+    </div>
+
+    <%= submit_tag "查询", class: "btn query_btn do_search_result" %>
+    <div class="query_div">
+      <a href="#" class="export_btn btn">导出</a>
+    </div>
+  <% end %>
+
+</div>
