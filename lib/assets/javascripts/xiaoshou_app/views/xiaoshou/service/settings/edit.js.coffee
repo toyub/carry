@@ -105,6 +105,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
   openWorkflowForm: ->
     model = new Mis.Models.StoreServiceWorkflow()
     view = new Mis.Views.XiaoshouServiceWorkflowsForm(model: model, setting: @model)
+    console.log 'open workflow form'
     @appendChildTo(view, @$(".j_workflow_setting"))
 
   handleSuccess: ->
@@ -114,9 +115,11 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @model.workflows.each @renderWorkflow
 
   goToShow: ->
-    @leave()
-    view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
-    $("#bodyContent").html(view.render().el)
+    @model.fetch
+      success: =>
+        @leave()
+        view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
+        $("#bodyContent").html(view.render().el)
 
   rootResource: ->
     "service"

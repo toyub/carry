@@ -11,5 +11,6 @@ json.(
   :factor_time,
   :nominated_workstation,
   :mechanic_commission_template_id,
-  :position_mode
+  :position_mode,
+  :workstation_ids
 )

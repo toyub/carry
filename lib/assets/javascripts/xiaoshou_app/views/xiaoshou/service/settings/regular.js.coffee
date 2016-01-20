@@ -4,6 +4,14 @@ class Mis.Views.XiaoshouServiceSettingsRegular extends Mis.Base.View
 
   render: ->
     @$el.html(@template(setting: @model, store: Mis.store))
+    console.log Mis.store
+    @renderWorkstations()
     @
 
+  renderWorkstations: ->
+    @$("#stations").empty()
+    #Mis.store.workstations.each @addWorkstation
 
+  addWorkstation: (workstation) =>
+    view = new Mis.Views.XiaoshouServiceWorkstationsWorkstation(workflow: @model, model: workstation, action: 'show')
+    @appendChildTo(view, @$("#stations"))

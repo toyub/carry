@@ -79,13 +79,13 @@
     <td>
       <label>
         指定工位
-        <input type="radio" disabled name="workflow[nominated_workstation]" value="true" <%= 'checked' if workflow.get('nominated_workstation') == 'true' %> id="nominate_station">
+        <input type="radio" disabled name="workflow[nominated_workstation]" value="true" <%= 'checked' if workflow.get('nominated_workstation') %> id="nominate_station">
       </label>
     </td>
     <td colspan="4">
       <label>
         系统自动分配
-        <input type="radio" disabled name="workflow[nominated_workstation]" <%= 'checked' unless workflow.get('nominated_workstation') == 'true' %> value="false" id="random_station_in_process">
+        <input type="radio" disabled name="workflow[nominated_workstation]" <%= 'checked' unless workflow.get('nominated_workstation') %> value="false" id="random_station_in_process">
       </label>
     </td>
   </tr>
@@ -94,7 +94,8 @@
     <td></td>
     <td colspan="5" rowspan="3">
       <div>
-        <ul id="nominated_stations" style="<%= 'display: none;' unless workflow.get('nominated_workstation') == 'true' %>">
+        <% console.log workflow.get('nominated_workstation') %>
+        <ul id="nominated_stations" style="<%= 'display: none;' unless workflow.get('nominated_workstation') %>">
 
         </ul>
       </div>
@@ -126,7 +127,7 @@
       <select disabled name="workflow[mechanic_commission_template_id]">
         <option></option>
         <% @store.commissionTemplates.each (c) ->: %>
-        <option value="<%= c.get 'id' %>" <%= 'selected' if String(c.get('id')) == workflow.get('mechanic_commission_template_id') %>><%= c.get 'name' %></option>
+        <option value="<%= c.get 'id' %>" <%= 'selected' if String(c.get('id')) == String(workflow.get('mechanic_commission_template_id')) %>><%= c.get 'name' %></option>
       <% end %>
       </select>
     </td>

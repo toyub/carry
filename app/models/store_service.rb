@@ -130,7 +130,7 @@ class StoreService < ActiveRecord::Base
     if setting.workflows.present?
       setting.workflows.each do |flow|
         amount = 0.0
-        amount = flow.engineer_commission.commission(order_item) if flow.engineer_commission.present?
+        amount = flow.mechanic_commission.commission(order_item) if flow.mechanic_commission.present?
         sum += amount
       end
     end

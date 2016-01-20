@@ -4,7 +4,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   belongs_to :store_order_item
   belongs_to :store_service, class_name: "StoreServiceSnapshot", foreign_key: :store_service_id
-  belongs_to :engineer_commission, class_name: 'StoreCommissionTemplate', foreign_key: :mechanic_commission_template_id
+  belongs_to :mechanic_commission, class_name: 'StoreCommissionTemplate', foreign_key: :mechanic_commission_template_id
   belongs_to :store_service_workflow
   belongs_to :store_workstation
   belongs_to :store_order

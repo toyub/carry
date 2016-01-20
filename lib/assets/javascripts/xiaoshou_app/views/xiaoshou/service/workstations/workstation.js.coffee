@@ -5,12 +5,13 @@ class Mis.Views.XiaoshouServiceWorkstationsWorkstation extends Mis.Base.View
 
   initialize: (options) ->
     @workflow = options.workflow
+    @action = options.action
 
   events:
     'click input.checked': 'toggleChecked'
 
   render: ->
-    @$el.html(@template(w: @model, workflow: @workflow))
+    @$el.html(@template(w: @model, workflow: @workflow, view: @))
     @
 
   toggleChecked: (event) ->
@@ -18,3 +19,6 @@ class Mis.Views.XiaoshouServiceWorkstationsWorkstation extends Mis.Base.View
       @workflow.workstations.add @model
     else
       @workflow.workstations.remove @model
+
+  isShow: ->
+    @action == 'show'
