@@ -18,6 +18,8 @@ class StoreOrderItem < ActiveRecord::Base
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }
+  scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
+  scope :by_type, ->(type) { where(orderable_type: type) }
 
   validates_presence_of :orderable
 
@@ -27,6 +29,10 @@ class StoreOrderItem < ActiveRecord::Base
 
   def gross_profit
     self.amount - self.total_cost
+  end
+
+  def type_cn_name
+    orderable_type == "StoreMaterialSaleinfo" ? '商品' : '服务'
   end
 
   def mechanics
@@ -68,8 +74,28 @@ class StoreOrderItem < ActiveRecord::Base
     end
   end
 
+  def category_name
+    orderable.category.try(:name)
+  end
+
+  def barcode
+    orderable.try(:barcode)
+  end
+
+  def speci
+    orderable.try(:speci)
+  end
+
   def commission
     store_staff.commission? ? orderable.commission(self) : 0.0
+  end
+
+  def self.total_amount
+    sum(:amount)
+  end
+
+  def self.total_quantities
+    sum(:quantity)
   end
 
   private

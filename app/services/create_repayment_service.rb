@@ -1,26 +1,30 @@
 class CreateRepaymentService
   include Serviceable
 
-  def initialize(form_params, customer, repayment)
-    @form_params = form_params
+  def initialize(form_params, customer)
+    @form = form_params
     @customer = customer
-    @repayment = repayment
-    @total = @form_params[:total].to_i
+    @repayment_params = @form.except(:orders, :total)
+    @total = @form[:total].to_f
   end
 
   def call
-    @repayment.transaction do
-      @customer.orders.where(id: @form_params[:orders]).each do |order|
+    if @total <= 0
+      return false
+    end
+    ActiveRecord::Base.transaction do
+      repayment = StoreRepayment.create(@repayment_params.merge(amount: @total))
+      @customer.orders.where(id: @form[:orders]).each do |order|
         remaining = @total - order.repayment_remaining
-        if remaining > 0
-          @total = remaining
-          order.repayment_finished!
-          order.store_order_repayments.create!(filled: order.repayment_remaining, remaining: 0.0, store_repayment: @repayment)
-        elsif remaining ==0
-          break
+        if remaining <= 0
+          filled = @total
         else
-          order.update!(filled: order.filled + @total)
-          order.store_order_repayments.create!(filled: @total, remaining: order.repayment_remaining, store_repayment: @repayment  )
+          filled = order.repayment_remaining
+        end
+        order.store_order_repayments.create!(filled: filled, remaining: order.repayment_remaining - filled, store_repayment: repayment)
+        order.repay!(filled)
+        @total = remaining
+        if @total <= 0
           break
         end
       end
@@ -29,4 +33,5 @@ class CreateRepaymentService
   rescue ActiveRecord::RecordInvalid
     false
   end
+
 end

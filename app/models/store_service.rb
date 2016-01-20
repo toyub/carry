@@ -28,6 +28,8 @@ class StoreService < ActiveRecord::Base
 
   after_create :create_service_reminds, :create_one_setting
 
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
+
   SETTING_TYPE = {
     regular: 0,
     workflow: 1
@@ -39,12 +41,19 @@ class StoreService < ActiveRecord::Base
     end
   end
 
+  def barcode
+    code
+  end
+
+  def speci
+  end
+
   def create_one_setting
     self.create_setting(creator: self.creator)
   end
 
   def category
-    service_category.try(:name)
+    service_category
   end
 
   def regular?
@@ -110,7 +119,7 @@ class StoreService < ActiveRecord::Base
   end
 
   def store_name
-    self.store.name
+    self.store.try(:name)
   end
 
   def service_needed?
@@ -127,6 +136,20 @@ class StoreService < ActiveRecord::Base
       end
     end
     sum
+  end
+
+  def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
+    id = joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+
+    find_by_id(id)
+  end
+
+  def self.amount_by_month(month = Time.now)
+    joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .sum(:amount)
   end
 
 end

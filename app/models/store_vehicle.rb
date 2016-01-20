@@ -91,4 +91,8 @@ class StoreVehicle < ActiveRecord::Base
   def next_maintain_at
     detail_by("next_maintain_at")
   end
+
+  def total_pay
+    orders.pluck(:amount).reduce(0.0,:+)
+  end
 end

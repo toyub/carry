@@ -16,7 +16,11 @@ class StoreOrder < ActiveRecord::Base
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_order_id
   has_many :payments, class_name: 'StoreCustomerPayment'
 
-  scope :by_month, ->(month = Time.now) { where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month) }
+  has_many :store_order_repayments
+  has_many :store_repayments, through: :store_order_repayments
+
+  scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
+  scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
@@ -96,8 +100,8 @@ class StoreOrder < ActiveRecord::Base
     store_items
   end
 
-  def amount_total
-    self.items.pluck(:amount).reduce(0.0,:+)
+  def self.total_amount
+    sum(:amount)
   end
 
   def store_items
@@ -139,10 +143,6 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def repayment_finished!
-    self.update(pay_status: 3, filled: self.amount_total)
-  end
-
   def situation_damage
     situation.select do |key, val|
       key.include?("damage") && key.split("_")[1].to_i < 12
@@ -156,15 +156,23 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def repayment_remaining
-    self.amount_total - self.filled
+    self.amount.to_f - self.filled.to_f
   end
 
   def payment_methods
     payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
   end
 
+
   def execution_job
     OrderExecutionJob.perform_now(id)
+  end
+
+  def repay!(filled)
+    self.update!(filled: self.filled.to_f + filled.to_f)
+    if self.filled == self.amount
+      self.pay_finished!
+    end
   end
 
   private
@@ -191,5 +199,9 @@ class StoreOrder < ActiveRecord::Base
       else
         self.state = :pending if self.state == nil
       end
+    end
+
+    def total_amount
+      self.items.sum(:amount) - self.items.sum(:discount)
     end
 end
