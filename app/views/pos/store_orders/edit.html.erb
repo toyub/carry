@@ -1,6 +1,6 @@
 <input type="hidden" id='vehicle_brands' data-brands='<%= @vehicle_brands.to_json(root:nil) %>'>
 <div class="content pos-orders-index" id="content">
-  <div class="main_top"><h2>业务开单</h2></div>
+  <div class="main_top"><h2>业务开单 > <%= @order.store_vehicle.license_number %>, #<%= @order.numero %> </h2></div>
   <div class="details">
     <div class="search_nav">
        <div class="width-400" style="float: left">
@@ -44,3 +44,13 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    if($(".pos-orders-index").length > 0){
+      new Mis.Views.PosOrderIndexView();
+    }
+  })
+</script>
+<% end %>

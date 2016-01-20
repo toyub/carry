@@ -46,3 +46,12 @@
     </div>
   </div>
 </div>
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    if($(".pos-orders-index").length > 0){
+      new Mis.Views.PosOrderIndexView();
+    }
+  })
+</script>
+<% end %>
