@@ -27,7 +27,6 @@
   jQuery(function(){
     $(".sale-category").on('click', 'tr', function(){
       var url = '/ais/categories/' + $(this).data('category-id') + '/order_items?date=<%= @date.strftime("%Y-%m-%d") %>';
-      console.log(url)
       $.get(url, function(){
         return;
       })
