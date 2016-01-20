@@ -36,7 +36,7 @@ module V1
         end
         get ":customer_id/material_assets/:material_asset_id/material_items/:id", requirements: { id: /[0-9]*/ } do
           material_asset = @customer.taozhuang_assets.find(params[:material_asset_id])
-          present material_asset.items.find(params[:id]).logs, with: ::Entities::MaterialItem
+          present material_asset.items.find(params[:id]), with: ::Entities::MaterialItem
         end
 
         add_desc "消费记录"
@@ -67,7 +67,7 @@ module V1
           requires :customer_id, type: Integer, desc: '客户ID'
         end
         get ":customer_id/package_assets", requirements: { customer_id: /[0-9]*/ } do
-          present @customer.packaged_assets, with: ::Entities::PackageAssetsList
+          present @customer.packaged_assets, with: ::Entities::PackageAsset, type: :list
         end
 
         add_desc "套餐查看"
