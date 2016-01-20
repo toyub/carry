@@ -1,5 +1,8 @@
 module V1
   class Customers < Grape::API
+    before do
+      @customer = current_store_chain.store_customers.find(params[:customer_id])
+    end
 
     resource :customers, desc: "客户相关" do
       before do
@@ -30,8 +33,7 @@ module V1
         requires :id, type: Integer, desc: "项目ID"
       end
       get ":customer_id/material_assets/:material_asset_id/material_items/:id", requirements: { id: /[0-9]*/ } do
-        customer = StoreCustomer.find(params[:customer_id])
-        material_asset = customer.taozhuang_assets.find(params[:material_asset_id])
+        material_asset = @customer.taozhuang_assets.find(params[:material_asset_id])
         present material_asset.items.find(params[:id]).logs, with: ::Entities::MaterialItems
       end
 
@@ -46,8 +48,7 @@ module V1
         end
       end
       get ":customer_id/orders", requirements: { customer_id: /[0-9]*/ } do
-        customer = StoreCustomer.find(params[:customer_id])
-        q = customer.orders.ransack(params[:q])
+        q = @customer.orders.ransack(params[:q])
         orders = q.result.order('id asc')
         present orders, with: ::Entities::Orders
       end
@@ -57,8 +58,7 @@ module V1
         requires :customer_id, type: Integer, desc: "客户id"
       end
       get ":customer_id/license_numbers", requirements: { customer_id: /[0-9]*/ } do
-        customer = StoreCustomer.find(params[:customer_id])
-        present customer.plates, with: ::Entities::LicenseNumbers
+        present @customer.plates, with: ::Entities::LicenseNumbers
       end
 
       add_desc "套餐列表"
@@ -66,8 +66,7 @@ module V1
         requires :customer_id, type: Integer, desc: '客户ID'
       end
       get ":customer_id/package_assets", requirements: { customer_id: /[0-9]*/ } do
-        customer = StoreCustomer.find(params[:customer_id])
-        present customer.packaged_assets, with: ::Entities::PackageAssetsList
+        present @customer.packaged_assets, with: ::Entities::PackageAssetsList
       end
 
       add_desc "套餐查看"
@@ -76,8 +75,7 @@ module V1
         requires :id, type: Integer, desc: '套餐id'
       end
        get ":customer_id/package_assets/:id", requirements: { id: /[0-9]*/ } do
-         customer = StoreCustomer.find(params[:customer_id])
-         package_asset = customer.packaged_assets.find(params[:id])
+         package_asset = @customer.packaged_assets.find(params[:id])
          present package_asset, with: ::Entities::PackageAssetItems
        end
 
@@ -88,8 +86,7 @@ module V1
          requires :id, type: Integer, desc: '项目id'
        end
        get ":customer_id/packages_assets/:package_asset_id/package_items/:id", requirements: { id: /[0-9]*/ } do
-         customer = StoreCustomer.find(params[:customer_id])
-         package_asset = customer.packaged_assets.find(params[:package_asset_id])
+         package_asset = @customer.packaged_assets.find(params[:package_asset_id])
          package_asset_item = package_asset.items.find(params[:id])
          present package_asset_item.logs, with: ::Entities::PackageAssetItem
        end
