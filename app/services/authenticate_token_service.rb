@@ -16,6 +16,13 @@ class AuthenticateTokenService
     end
   end
 
+  def self.authenticate!(client_key)
+    return false unless client_key.present?
+
+    key, secret = client_key.split(":")
+    self.new(key, secret).call
+  end
+
   private
   def path
     AUTH_URL + "/#{@key}/auth"
