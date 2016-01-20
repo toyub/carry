@@ -53,7 +53,7 @@ module V1
         resource :deposit_logs do
           add_desc '储值卡消费记录'
           get do
-            present @customer, with: ::Entities::DepositLog
+            present @customer, with: ::Entities::DepositLogInfo
           end
         end
 

@@ -1,5 +1,5 @@
 module Entities
-  class MessageBalance < Grape::Entity
+  class MessageBalanceInfo < Grape::Entity
     expose :balance_infos do |balance, options|
       {
         total_quantity: balance[:total_quantity],

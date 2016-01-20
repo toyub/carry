@@ -11,7 +11,7 @@ module V1
           left_quantity: balances.map{ |balance| balance.remaining }.sum,
           total_fee: balances.sum(:total_fee)
         }
-        present balance_infos, with: ::Entities::MessageBalance
+        present balance_infos, with: ::Entities::MessageBalanceInfo
       end
     end
 
