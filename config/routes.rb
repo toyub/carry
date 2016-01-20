@@ -253,6 +253,7 @@ Rails.application.routes.draw do
     resources :services, only: [:index]
     resources :service_categories, only: [:index]
     resources :districts, only: [:index]
+    resources :packages, only: [:index]
   end #End of erp
 
   #Api
