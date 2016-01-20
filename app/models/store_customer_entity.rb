@@ -63,6 +63,18 @@ class StoreCustomerEntity < ActiveRecord::Base
     read_attribute(:district) || {}
   end
 
+  def category
+    self.store_customer_category.try(:name)
+  end
+
+  def settlement
+    ''
+  end
+
+  def district
+    read_attribute(:district) || {}
+  end
+
   def province
     self.district["province"]
   end
