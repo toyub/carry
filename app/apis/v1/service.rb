@@ -1,5 +1,9 @@
 module V1
   class Service < Grape::API
+    before do
+      authenticate_user!
+    end
+    
     resource :services, desc: "服务相关" do
       add_desc "服务类别"
       get "service_categories" do
@@ -24,7 +28,7 @@ module V1
       end
 
 
-      
+
     end
   end
 end

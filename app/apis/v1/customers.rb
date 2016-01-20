@@ -36,7 +36,7 @@ module V1
         end
         get ":customer_id/material_assets/:material_asset_id/material_items/:id", requirements: { id: /[0-9]*/ } do
           material_asset = @customer.taozhuang_assets.find(params[:material_asset_id])
-          present material_asset.items.find(params[:id]).logs, with: ::Entities::MaterialItems
+          present material_asset.items.find(params[:id]).logs, with: ::Entities::MaterialItem
         end
 
         add_desc "消费记录"
@@ -51,7 +51,7 @@ module V1
         get ":customer_id/orders", requirements: { customer_id: /[0-9]*/ } do
           q = @customer.orders.ransack(params[:q])
           orders = q.result.order('id asc')
-          present orders, with: ::Entities::Orders
+          present orders, with: ::Entities::Order
         end
 
         add_desc "车牌的显示"
@@ -59,7 +59,7 @@ module V1
           requires :customer_id, type: Integer, desc: "客户id"
         end
         get ":customer_id/license_numbers", requirements: { customer_id: /[0-9]*/ } do
-          present @customer.plates, with: ::Entities::LicenseNumbers
+          present @customer.plates, with: ::Entities::LicenseNumber
         end
 
         add_desc "套餐列表"
@@ -77,7 +77,7 @@ module V1
         end
          get ":customer_id/package_assets/:id", requirements: { id: /[0-9]*/ } do
            package_asset = @customer.packaged_assets.find(params[:id])
-           present package_asset, with: ::Entities::PackageAssetItems
+           present package_asset, with: ::Entities::PackageAsset, type: :default
          end
 
          add_desc "套餐组合-查看-项目消费明细"
@@ -89,7 +89,7 @@ module V1
          get ":customer_id/packages_assets/:package_asset_id/package_items/:id", requirements: { id: /[0-9]*/ } do
            package_asset = @customer.packaged_assets.find(params[:package_asset_id])
            package_asset_item = package_asset.items.find(params[:id])
-           present package_asset_item.logs, with: ::Entities::PackageAssetItem
+           present package_asset_item.logs, with: ::Entities::PackageAsset, type: :full
          end
      end
      #group end

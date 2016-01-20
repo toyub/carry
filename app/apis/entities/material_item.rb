@@ -1,5 +1,5 @@
 module Entities
-  class MaterialItems < Grape::Entity
+  class MaterialItem < Grape::Entity
     root :logs
     expose(:created_at) {|model, options| model.created_at.strftime("%Y-%m-%d")}
     expose(:store_name) { |model, options| model.store.name }
