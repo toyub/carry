@@ -6,6 +6,7 @@ module V1
     include V1::Defaults
 
     mount V1::Customers
+    mount V1::Service
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: {title: "api接口文档", description: "v1.0"}
