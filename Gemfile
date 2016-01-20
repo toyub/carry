@@ -129,3 +129,19 @@ gem "http_client", git: 'git@gitlab.icar99.com:zc/http_client.git', tag: '0.0.4'
 
 # add comments to migration
 gem 'migration_comments', '~> 0.3.2'
+
+# 爬虫
+gem 'mechanize'
+
+# http client
+gem 'faraday'
+gem 'typhoeus'
+
+# xml html解析
+gem 'nokogiri'
+
+# for App API
+gem 'grape', '~> 0.14.0'
+gem 'grape-swagger', '~> 0.10.4'
+gem 'grape-entity'
+gem 'rack-cors', :require => 'rack/cors'

@@ -23,7 +23,7 @@ class StoreVehicle < ActiveRecord::Base
   has_many :complaints, as: :creator
 
   validates_presence_of :store_customer
-  
+
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_vehicle_id
 
   def license_number
@@ -62,6 +62,10 @@ class StoreVehicle < ActiveRecord::Base
 
   def detail_by(name)
     self.detail && self.detail[name]
+  end
+
+  def total_pay
+    orders.pluck(:amount).reduce(0.0,:+)
   end
 
 end

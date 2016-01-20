@@ -16,12 +16,8 @@ class StoreServiceSerializer < ActiveModel::Serializer
     StoreWorkstation.all
   end
 
-  #def commissions
-    #object.store.store_commission_templates
-  #end
-
   def category
-    object.store_service_category.name
+    object.service_category.try(:name)
   end
 
   def price

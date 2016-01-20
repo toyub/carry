@@ -59,10 +59,6 @@ class StoreCustomerEntity < ActiveRecord::Base
    '现金'
   end
 
-  def property_name
-   '个人客户'
-  end
-
   def district
     read_attribute(:district) || {}
   end
@@ -121,6 +117,11 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   def increase_points!(quantity)
     self.class.unscoped.where(id: self.id).update_all("points=COALESCE(points, 0) + #{quantity.to_i.abs}")
+  end
+
+  def membership!
+     self.membership = true
+     self.save!
   end
 
 end

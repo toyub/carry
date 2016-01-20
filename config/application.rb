@@ -39,6 +39,9 @@ module Mis
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += %W(#{config.root}/lib)
 
+    config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
+
     # 使用redis作为默认缓存
     redis_conf = YAML.load_file(Rails.root.join('config', 'redis.yml'))[Rails.env]
     config.cache_store = :redis_store, "redis://#{redis_conf['host']}:#{redis_conf['port']}/0/#{Rails.env}_cache"
@@ -48,5 +51,22 @@ module Mis
 
     # 设置后台任务连接器为sidekiq
     config.active_job.queue_adapter = :sidekiq
+
+    config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
+      allow do
+        origins '*'
+
+        resource '/cors',
+          :headers => :any,
+          :methods => [:post],
+          :credentials => true,
+          :max_age => 0
+
+        resource '*',
+          :headers => :any,
+          :methods => [:get, :post, :delete, :put, :patch, :options, :head],
+          :max_age => 0
+      end
+    end
   end
 end

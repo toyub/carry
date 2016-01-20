@@ -33,6 +33,8 @@ class StoreMaterial < ActiveRecord::Base
   scope :by_sub_category, -> (category) {where(store_material_category_id: category) if category.present?}
   scope :by_primary_category, -> (category) {where(store_material_root_category_id: category) if category.present? }
   scope :keyword, -> (keyword){ where('name like :keyword', keyword: "%#{keyword}%") if keyword.present?  }
+  scope :saleable, -> { where(permitted_to_saleable: true) }
+  scope :by_saleinfo, -> (id){ where(id: id) }
 
   after_create :generate_barcode!
 

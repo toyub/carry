@@ -13,7 +13,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_events, dependent: :destroy
   has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
   has_many :store_attendence, class_name: "StoreAttendence", dependent: :destroy
-  has_many :store_rewords, class_name: "StoreReward", dependent: :destroy
+  has_many :store_rewards, class_name: "StoreReward", dependent: :destroy
   has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
   has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy
@@ -102,13 +102,17 @@ class StoreStaff <  ActiveRecord::Base
     store_contracts.last
   end
 
+  def contract_status
+    contract.present? ? contract.effected_on.try(:strftime, "%Y-%m-%d") : "未签订合同"
+  end
+
   def contract_life
     year = 12
-    (contract.expired_on.year - contract.effected_on.year) * year + (contract.effected_on.month - contract.expired_on.month) if contract.present?
+    (contract.expired_on.try(:year).to_i - contract.effected_on.try(:year).to_i) * year + (contract.effected_on.try(:month).to_i - contract.expired_on.try(:month).to_i) if contract.present?
   end
 
   def contract_valid?
-    contract.expired_on > contract.effected_on if contract
+    contract.expired_on > contract.effected_on if contract && contract.expired_on.present? && contract.effected_on.present?
   end
 
   def bonus_amount
@@ -179,16 +183,16 @@ class StoreStaff <  ActiveRecord::Base
     store_order_items.by_month(month).inject(0) {|sum, item| sum += item.amount }
   end
 
-  def commission_amount_total
-    materials_commission + services_commission
+  def commission_amount_total(month = Time.now)
+    materials_commission(month) + services_commission(month)
   end
 
-  def materials_commission
-    commission? ? store_order_items.materials.inject(0) {|sum, item| sum += item.commission } : 0.0
+  def materials_commission(month = Time.now)
+    commission? ? store_order_items.by_month(month).materials.inject(0) {|sum, item| sum += item.commission } : 0.0
   end
 
-  def services_commission
-    commission? ? store_order_items.services.inject(0) {|sum, item| sum += item.commission } : 0.0
+  def services_commission(month = Time.now)
+    commission? ? store_order_items.by_month(month).services.inject(0) {|sum, item| sum += item.commission } : 0.0
   end
 
   def self.items_amount_total(month = Time.now)
@@ -197,6 +201,22 @@ class StoreStaff <  ActiveRecord::Base
 
   def self.commission_amount_total(month = Time.now)
     all.inject(0) {|sum, staff| sum += staff.commission_amount_total(month) }
+  end
+
+  def self.best_saler(month = Time.now)
+    id = joins(:store_order_items)
+          .where(store_order_items: {created_at: month.at_beginning_of_month .. month.at_end_of_month})
+          .group(:store_staff_id).order("sum_amount desc").limit(1).sum(:amount).keys[0]
+
+    find_by_id(id)
+  end
+
+  def sales_amount(month = Time.now)
+    store_order_items.by_month(month).sum(:amount)
+  end
+
+  def sales_quantity(month = Time.now)
+    store_order_items.by_month(month).sum(:quantity)
   end
 
   private

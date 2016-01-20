@@ -4,7 +4,7 @@ class StoreCustomerAssetItem < ActiveRecord::Base
   has_many :logs, class_name: "StoreCustomerAssetLog"
 
   def left_quantity
-    total_quantity - used_quantity
+    total_quantity.to_i - used_quantity.to_i
   end
 
 end

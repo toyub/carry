@@ -11,9 +11,13 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   has_many :store_subscribe_order_items, as: :itemable
   has_many :store_order_items, as: :orderable
 
+  scope :by_category, ->(sale_category_id){ where(sale_category_id: sale_category_id) if sale_category_id.present? }
+
   accepts_nested_attributes_for :services
 
   delegate :name, to: :store_material
+
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
 
   def divide_unit_type
     MaterialDivideUnitType.find(self.divide_unit_type_id).try(:name)
@@ -39,8 +43,34 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     self.reward_points
   end
 
+  def barcode
+    store_material.try(:barcode)
+  end
+
+  def speci
+    store_material.try(:speci)
+  end
+
+  def category
+    sale_category
+  end
+
   def commission(order_item)
     saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
+  end
+
+  def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
+    id = joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+
+    find_by_id(id)
+  end
+
+  def self.amount_by_month(month = Time.now)
+    joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .sum(:amount)
   end
 
   def to_snapshot!(order_item)

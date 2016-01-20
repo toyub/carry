@@ -22,6 +22,7 @@ class XiaoshouController < ApplicationController
       json.customer_categories current_store.store_customer_categories, :id, :name
       json.commissions current_store.commission_templates, :id, :name
       json.services current_store.store_services.order("id asc"), :id, :name, :code, :bargain_price, :point, :retail_price
+      json.service_categories ServiceCategory.all, :id, :name
       json.customers current_store.store_customer_entities do |entity|
         json.(entity, :id, :region, :address, :remark, :property, :store_customer_category_id)
         json.store_customer entity.store_customer, :phone_number, :full_name, :operator

@@ -33,11 +33,11 @@ class Crm::StoreVehiclesController < Crm::BaseController
 
     def vehicle_params
       params.require(:store_vehicle).permit(
-        :numero,
         :vehicle_brand_id,
         :vehicle_series_id,
         :vehicle_model_id,
         detail: [
+                 :numero,
                  :organization_type,
                  :bought_on,
                  :ex_factory_date,
@@ -47,7 +47,8 @@ class Crm::StoreVehiclesController < Crm::BaseController
                  :maintain_interval_mileage,
                  :next_maintain_mileage,
                  :next_maintain_at,
-                 :color, :capacity,
+                 :color,
+                 :capacity,
                  :registered_on,
                  :mileage,
                  :annual_check_at,

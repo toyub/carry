@@ -6,4 +6,8 @@ class StoreSalary < ActiveRecord::Base
   def checked?
     self.status
   end
+
+  def self.total_amount
+    all.inject(0) { |sum, salary| sum += salary.salary_actual_pay }
+  end
 end
