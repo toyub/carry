@@ -45,7 +45,7 @@
       <div class="position">
         <label for="" class="width-50">职务属性</label>
         <select name="staff[job_type_id]">
-          <%= options_from_collection_for_select(JobType.collection, 'id', 'name') %>
+          <%= options_from_collection_for_select(JobType.collection, 'id', 'name', @staff.job_type_id) %>
         </select>
 
         <label for="">职务</label>
