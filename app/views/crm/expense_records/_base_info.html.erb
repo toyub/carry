@@ -34,7 +34,7 @@
                             <label> <%= workflow_snapshot.engineer %> </label>
                           <% end %>
                         </td>
-                        <td> <%= item.store_service_snapshot.name %> </td>
+                        <td> <%= item.store_service_snapshot.try(:name)%> </td>
                         <td> <%= item.price %> </td>
                         <td> <%= item.quantity %> </td>
                         <td>0</td>
@@ -51,7 +51,7 @@
               <tr>
                 <td colspan="6">
                   <label class="width-50">合计:</label>
-                  <label class="width-100"> <%= order.amount_total %> </label>
+                  <label class="width-100"> <%= order.amount %> </label>
                 </td>
               </tr>
             </tfoot>

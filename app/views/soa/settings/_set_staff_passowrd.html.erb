@@ -1,7 +1,7 @@
 <div id="FloatWindow" style="display:none">
 	<div class="FloatContent">
 		<div class="fheader">
-			<span>请设置<%= @staff.screen_name %>登陆密码</span>
+			<span>请给<%= @staff.screen_name %>设置登陆密码</span>
 			<i class="close_window  lnr-cross lnr"></i>
 		</div>
     <form class="form_content" id="new_store_service_category" action="/soa/staff/<%= @staff.id %>/setting/password" accept-charset="UTF-8" data-remote="true" method="patch">

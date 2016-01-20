@@ -104,10 +104,6 @@ class StoreOrder < ActiveRecord::Base
     store_items
   end
 
-  def self.total_amount
-    sum(:amount)
-  end
-
   def store_items
     self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
   end
