@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115070653) do
+ActiveRecord::Schema.define(version: 20160120085336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,6 +233,9 @@ ActiveRecord::Schema.define(version: 20160115070653) do
     t.integer  "quantity",        default: 1
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "store_id"
+    t.string   "party_type"
+    t.integer  "party_id"
   end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
@@ -1230,14 +1233,15 @@ ActiveRecord::Schema.define(version: 20160115070653) do
   create_table "store_packages", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                            null: false
-    t.integer  "store_chain_id",                                      null: false
-    t.integer  "store_staff_id",                                      null: false
+    t.integer  "store_id",                                                          null: false
+    t.integer  "store_chain_id",                                                    null: false
+    t.integer  "store_staff_id",                                                    null: false
     t.string   "name",           limit: 45
     t.string   "code",           limit: 45
     t.string   "abstract",       limit: 255
     t.text     "remark"
     t.decimal  "price",                      precision: 10, scale: 2
+    t.decimal  "retail_price",               precision: 10, scale: 2, default: 0.0
   end
 
   create_table "store_payments", force: :cascade do |t|
