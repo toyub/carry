@@ -3,12 +3,12 @@ module V1
     before do
       authenticate_user!
     end
-    
+
     resource :services, desc: "服务相关" do
       add_desc "服务类别"
       get "service_categories" do
         categories = ServiceCategory.all
-        present categories, with: ::Entities::ServiceCategories
+        present categories, with: ::Entities::ServiceCategory
       end
 
 
@@ -24,7 +24,7 @@ module V1
       end
       get "services" do
         store_services = StoreService.all
-        present store_services, with: ::Entities::Services
+        present store_services, with: ::Entities::Service
       end
 
 
