@@ -18,7 +18,7 @@ module V1
       end
       get do
         q = current_store_chain.store_material_saleinfos.ransack(params[:q])
-        present q
+        present q.result(distinct: true), with: ::Entities::Material
       end
     end
 
