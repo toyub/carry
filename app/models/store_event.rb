@@ -6,6 +6,8 @@ class StoreEvent < ActiveRecord::Base
   scope :by_date, ->(from, to) { where("created_at >= :start_date AND created_at <= :end_date",
                                        {:start_date => from, :end_date => to}) if from.present? && to.present? }
 
+  scope :amount, ->(month = Time.now.strftime("%Y%m")) {where(created_month: month) }
+
   DefaultType = "StoreAttendence"
   CurrentMonth = Time.now.beginning_of_month.strftime("%m")
   class << self
@@ -32,6 +34,10 @@ class StoreEvent < ActiveRecord::Base
 
   def recorder
     StoreStaff.find(recorder_id).screen_name
+  end
+
+  def self.total
+    by_month.inject(0) { |sum, event| sum += event.operate["amount"].to_f }
   end
 
 end

@@ -19,7 +19,7 @@ class StoreSalaryReview
         shangpin: staff.materials_commission,
       },
       amount_overtime: staff.store_overworks.total,
-      amount_reward: staff.store_rewords.total,
+      amount_reward: staff.store_rewards.total,
       bonus: {gangwei: staff.bonus["gangwei"], zhusu: staff.bonus["zhusu"], canfei: staff.bonus["canfei"], laobao: staff.bonus["laobao"], gaowen: staff.bonus["gaowen"] },
       amount_bonus: staff.bonus_amount,
       insurence: {yibaofei: staff.bonus["yibaofei"], baoxianjing: staff.bonus["baoxianjing"]},
