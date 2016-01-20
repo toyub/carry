@@ -1,5 +1,5 @@
 module Entities
-  class ServiceCategory < Grape::Entity
+  class ServicesCategory < Grape::Entity
     expose :id
     expose :name
   end

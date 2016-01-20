@@ -8,7 +8,7 @@ module V1
       add_desc "服务类别"
       get "service_categories" do
         categories = ServiceCategory.all
-        present categories, with: ::Entities::ServiceCategory
+        present categories, with: ::Entities::ServicesCategory
       end
 
 

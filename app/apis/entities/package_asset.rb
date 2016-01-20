@@ -12,7 +12,6 @@ module Entities
   class PackageAsset < Grape::Entity
     expose :id, if: {type: :default}
     expose :package_name, if: {type: :default}
-    # expose(:bought_form) {|model, options| model.store.name}
     expose(:bought_form, if: {type: :default}) {|model, options| model.store.name}
     expose(:use_for, if: {type: :default}) {|model| model.store.name + "等"}
     expose :contain_items, using: Contain, if: {type: :default}
