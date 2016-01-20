@@ -87,11 +87,11 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def employed_date
-    employeed_at.try(:strftime, "%Y-%m-%d") || created_at.strftime("%Y-%m-%d")
+    employeed_at || created_at
   end
 
   def insurence_enabled?
-    return (bonus.try(:[], "insurence_enabled").nil? || bonus.try(:[], "insurence_enabled") == "0") ? "否" : "是"
+    bonus.present? && bonus['insurence_enabled'] == '1'
   end
 
   def current_salary
@@ -119,13 +119,13 @@ class StoreStaff <  ActiveRecord::Base
     contract.expired_on > contract.effected_on if contract && contract.expired_on.present? && contract.effected_on.present?
   end
 
-  def bonus_amount
+  def amount_bonus
     bonus || {}
     bonus["gangwei"].to_f + bonus["canfei"].to_f + bonus["laobao"].to_f +
       bonus["gaowen"].to_f + bonus["zhusu"].to_f
   end
 
-  def insurence_amount
+  def amount_insurence
     bonus || {}
     bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
   end
@@ -137,7 +137,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def should_pay
     sum = 0
-    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay + commission_amount_total
+    sum = current_salary + amount_bonus + amount_insurence + store_events.total_pay + commission_amount_total
     sum
   end
 

@@ -37,7 +37,7 @@ class StoreEvent < ActiveRecord::Base
   end
 
   def self.total
-    by_month.inject(0) { |sum, event| sum += event.operate["amount"].to_f }
+    by_month.map { |event| event.operate["amount"].to_f }.sum
   end
 
 end
