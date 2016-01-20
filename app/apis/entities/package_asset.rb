@@ -21,6 +21,9 @@ module Entities
     expose(:numero, if: {type: :full}) {|model| model.store_order.numero}
     expose(:store_name, if: {type: :full}) {|model| model.store.name}
 
+    expose :id, if: {type: :list}
+    expose :package_name, if: {type: :list}
+
     private
     def contain_items
       object.items
