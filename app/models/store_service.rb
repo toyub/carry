@@ -118,7 +118,7 @@ class StoreService < ActiveRecord::Base
   end
 
   def store_name
-    self.store.name
+    self.store.try(:name)
   end
 
   def service_needed?
