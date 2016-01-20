@@ -2,20 +2,10 @@ module Erp
   class StoresController < BaseController
     def index
       params[:q] ||= {}
-      if params[:q][:province_code].present?
-        if params[:q][:city_code].present?
-          merge_params!(params[:q], '城市', :city_code)
-        else
-          merge_params!(params[:q], '省份', :province_code)
-        end
-      end
-      if params[:q][:created_at].present?
-        params[:q].merge!({
-          created_at_gteq: Time.zone.parse(params[:q][:created_at]).beginning_of_day,
-          created_at_lteq: Time.zone.parse(params[:q][:created_at]).end_of_day
-        })
-      end
-      params[:q].except!(:province_code, :city_code, :created_at)
+      district = params[:q][:province] || params[:q][:city]
+      merge_store_infos!(params[:q], district) if district.present?
+      merge_created_at! if params[:q][:created_at].present?
+      params[:q].except!(:province, :city, :created_at)
       q = current_store_chain.stores.ransack(params[:q])
       @stores = q.result.order('id asc')
       respond_with @stores, location: nil
@@ -23,11 +13,19 @@ module Erp
 
     private
 
-      def merge_params!(params, category_name, code_type)
-        category_id = InfoCategory.find_by(name: category_name).id
-        params.merge!({
-          store_infos_info_category_id_eq: category_id,
-          store_infos_value_eq: params[code_type]
+      def merge_store_infos!(q_params, district)
+        code = q_params.has_key?(:province) ? 'province' : 'city'
+        q_params.merge!({
+          store_infos_info_category_id_eq: InfoCategory.find_by(code: code).id,
+          store_infos_value_eq: district
+        })
+      end
+
+      def merge_created_at!(q_params)
+        time = Time.zone.parse(q_params[:created_at])
+        q_params.merge!({
+          created_at_gteq: time.beginning_of_day,
+          created_at_lteq: time.end_of_day
         })
       end
   end

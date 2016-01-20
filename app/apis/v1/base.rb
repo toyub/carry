@@ -12,6 +12,7 @@ module V1
     mount V1::MessageBalances
     mount V1::MessageCategories
     mount V1::Districts
+    mount V1::Stores
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: {title: "api接口文档", description: "v1.0"}
