@@ -3,6 +3,10 @@ module V1
 
     resource :stores do
       add_desc '门店列表'
+      before do
+        authenticate_user!
+      end
+
       params do
         optional :q, type: Hash, default: {} do
           optional :name_cont, type: String, desc: "门店名称"

@@ -3,6 +3,10 @@ module V1
 
     resource :message_records do
       add_desc '短信记录列表'
+      before do
+        authenticate_user!
+      end
+      
       params do
         optional :q, type: Hash, default: {} do
           optional :store_id_eq, type: Integer

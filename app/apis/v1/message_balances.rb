@@ -3,6 +3,10 @@ module V1
 
     resource :message_balances do
       add_desc '短信条数相关信息列表'
+      before do
+        authenticate_user!
+      end
+      
       get do
         balances = SmsBalance.where(party_type: 'Store')
         balance_infos = {

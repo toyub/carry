@@ -3,6 +3,10 @@ module V1
 
     resources :districts do
       add_desc '中国省市列表'
+      before do
+        authenticate_user!
+      end
+      
       get do
         present Geo.provinces('1').map{ |p| [p.code, p.name] }, with: ::Entities::District
       end
