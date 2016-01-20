@@ -17,8 +17,8 @@
           <%= f.color_field :color, class: "width-165"%>
         </div>
         <div class="form_item">
-          <%= f.label :store_workstation_category_id, '小组' %>
-          <%= f.select :store_workstation_category_id, {}, {}, class: 'width-167' %>
+          <%= f.label :store_group_id, '小组' %>
+          <%= f.select :store_group_id, @groups, {}, class: 'width-167' %>
         </div>
         <div class="form_item">
           <label for="">工位状态</label>
@@ -32,7 +32,7 @@
       </div>
       <div class="prompt">
         <h2>提示:</h2>
-        <p>您可以通过区域归类来进行工位的集中管理,并可以对工位区域标注特定的颜色以便快速鉴别,还可以通过功能区进行再次调整.</p>
+        <p>您可以通过区域归类来进行工位的集中管理,并可以对工位标注特定的颜色以便快速鉴别,还可以通过功能区进行再次调整.</p>
       </div>
       <div class="ffooter float-right">
         <%= f.submit "保存", class: 'confirm_btn do_close' %>

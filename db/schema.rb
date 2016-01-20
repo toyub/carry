@@ -1221,7 +1221,7 @@ ActiveRecord::Schema.define(version: 20160114053210) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing"
+    t.integer  "trigger_timing",   default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1745,6 +1745,7 @@ ActiveRecord::Schema.define(version: 20160114053210) do
     t.integer  "workflow_id"
     t.string   "color"
     t.integer  "status",                                   default: 0
+    t.integer  "store_group_id"
   end
 
   create_table "stores", force: :cascade do |t|

@@ -1,6 +1,7 @@
 module Xianchang
   class StoreWorkstationsController < BaseController
     before_action :set_workstation, only: [:edit, :update, :finish, :perform]
+    before_action :set_groups, only: [:new, :edit]
 
     def index
       @queuing_orders = current_store.store_orders.queuing
@@ -47,8 +48,12 @@ module Xianchang
     end
 
     private
+    def set_groups
+      @groups = StoreGroup.pluck(:name, :id)
+    end
+
     def workstation_params
-      params.require(:store_workstation).permit(:color, :name, :store_workstation_category_id, :status)
+      params.require(:store_workstation).permit(:color, :name, :store_group_id, :status)
     end
 
     def set_workstation
