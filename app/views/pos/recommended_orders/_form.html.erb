@@ -1,0 +1,52 @@
+<div class="content pos-recommended-orders-index" id="content">
+  <div class="main_top">
+	<h2>意向开单</h2>
+	<a class="back_to_list" href="index.html">
+    <i class="fa-arrow-circle-left fa"></i>
+    返回列表
+  </a>
+</div>
+
+<div class="details">
+	<div class="search_nav">
+		<div class="width-400" style="float: left">
+			<label>查找车辆</label>
+      <select class="width-180 js-store-vehicle-license-number-input" name="recommended-order-license-number"></select>
+			<a href="#" class="query_btn btn">查&nbsp;询</a>
+		</div>
+		<div class="query_div page_card">
+			<a href="javascript:void(0)" class="active">新建</a>
+      <%= link_to "列表", pos_recommended_orders_path%>
+		</div>
+	</div>
+
+	<div class="intention_billing">
+    <div class="intention_billing_order float-left vue-recommended-info">
+			<div class="order_details">
+				<div class="dialog_nav">
+          <% if @order.numero.present? %>
+            <span class="dialog_title ">单号:<%= @order.numero %></span>
+          <% end %>
+				</div>
+				<div class="vehicle_order_details">
+          <%= render "vehicle" %>
+          <%= render "items" %>
+          <%= render "message" %>
+				</div>
+
+				<div class="construction_status">
+					<div class="btn_group margin-right-5">
+						<a class="conserve_btn btn js-save-btn" href="javascript:void(0)">保存</a>
+						<a class="change_order_btn btn" href="javascript:void(0)">转正单</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="right_information">
+      <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
+    </div>
+
+	</div>
+</div>

@@ -7,3 +7,10 @@ zh-CN:
         done: 已执行
       order_type:
         auto: 自主
+    store_order:
+      state:
+        pending: 草稿
+        queuing: 排队
+        processing: 施工中
+        paying: 在付款
+        finished: 已完成
