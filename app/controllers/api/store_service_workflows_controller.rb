@@ -22,7 +22,7 @@ module Api
           :name, :engineer_level, :engineer_count, :position_mode,
           :engineer_count_enable,
           :standard_time, :buffering_time, :factor_time,
-          :engineer_commission_template_id, :nominated_workstation,
+          :mechanic_commission_template_id, :nominated_workstation,
           store_workstation_ids: []).merge(store_staff_id: current_staff.id, store_id: current_store.id)
       end
 

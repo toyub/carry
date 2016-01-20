@@ -123,10 +123,10 @@
     </td>
     <td colspan="2">提成方案</td>
     <td>
-      <select name="workflow[engineer_commission_template_id]">
+      <select name="workflow[mechanic_commission_template_id]">
         <option></option>
         <% @store.commissionTemplates.each (c) ->: %>
-          <option value="<%= c.get 'id' %>" <%= 'selected' if String(c.get('id')) == workflow.get('engineer_commission_template_id') %>><%= c.get 'name' %></option>
+          <option value="<%= c.get 'id' %>" <%= 'selected' if String(c.get('id')) == workflow.get('mechanic_commission_template_id') %>><%= c.get 'name' %></option>
         <% end %>
       </select>
     </td>
