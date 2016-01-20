@@ -1,11 +1,11 @@
 module Entities
   class DepositLog < Grape::Entity
     expose :logs do |customer, options|
-      customer.deposit_logs.each do |log|
+      customer.deposit_logs.map do |log|
         {
           balance: log.balance,
           amount: log.amount,
-          numero: log.store_order,
+          numero: log.store_order.try(:numero),
           store_name: log.store.name,
           created_at: log.created_at.strftime('%Y-%m-%d'),
           amount_symbol: log.methematical_symbol
