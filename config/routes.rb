@@ -398,15 +398,21 @@ Rails.application.routes.draw do
       resources :staff
     end
 
+    resources :recommended_orders
+
     resources :vehicle_brands, only: [:index] do
+      get :search_series
       resources :vehicle_manufacturers, only: [:index]
     end
+
     resources :vehicle_manufacturers, only: [] do
       resources :vehicle_series, only: [:index]
     end
+
     resources :vehicle_series, only: [] do
       resources :vehicle_models, only: [:index]
     end
+
   end#End of api
 
   namespace :pos do
@@ -415,6 +421,7 @@ Rails.application.routes.draw do
     end
     resources :store_orders
     resources :pre_orders, only: [:index]
+    resources :recommended_orders
   end
 
   namespace :printer do
