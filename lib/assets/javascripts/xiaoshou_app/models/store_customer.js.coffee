@@ -30,7 +30,10 @@ class Mis.Models.StoreCustomer extends Backbone.Model
   income: -> Mis.Settings.Entity.income[@get 'income']
 
   assetsUrl: ->
-    "javascript:void(0)"
+    if @id
+      "/crm/store_customers/#{@id}/store_assets"
+    else
+      "javascript:void(0)"
 
   repaymentsUrl: ->
     if @id
