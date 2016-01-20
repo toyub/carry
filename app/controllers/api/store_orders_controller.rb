@@ -24,81 +24,93 @@ module Api
     end
 
     def create
-      items_attributes = []
-
-      if params[:material_saleinfos]
-        items_attributes = params[:material_saleinfos].values.map do |info|
-          {
-            orderable_id: info["id"],
-            orderable_type: "StoreMaterialSaleinfo",
-            vip_price: info["vip_price"],
-            quantity: info["quantity"],
-            price: info["retail_price"],
-            # TODO 这个价格需要被修改
-            amount: info["quantity"].to_f * info["retail_price"].to_f,
-            creator: current_staff,
-          }
-        end
-      end
-
-      if params[:packages]
-        items_attributes += params[:packages].values.map do |info|
-          {
-            orderable_id: info["id"],
-            orderable_type: "StorePackage",
-            vip_price: info["vip_price"],
-            quantity: info["quantity"],
-            price: info["retail_price"],
-            # TODO 这个价格需要被修改
-            amount: info["quantity"].to_f * info["retail_price"].to_f,
-            creator: current_staff,
-          }
-        end
-      end
-
-      items_attributes += gen_service_params(params[:services]) if params[:services]
-
+      vehicle = StoreVehicle.find(params[:vehicle_id])
+      customer = vehicle.store_customer
+      items_attributes = material_items + service_items + package_items
       state = params[:state].present? ? params[:state] : "pending"
 
-      store_vehicle, store_customer = get_vehicle_and_customer(params[:vehicle_id])
-      store_order = StoreOrder.new({
+      if items_attributes.blank?
+        render json: {success: false, error: '未选择任何产品或服务'}, status: 422
+        return false
+      end
+
+      order = StoreOrder.new({
         state: state,
         creator: current_staff,
-        store_vehicle: store_vehicle,
-        store_customer: store_customer,
+        store_vehicle: vehicle,
+        store_customer: customer,
         situation: params[:situation],
         items_attributes: items_attributes
       })
-      if store_order.save
-        render json: {success: true}
+
+      if order.save
+        order.execution_job if order.queuing?
+        render json: {success: true, order: order}
       else
-        render json: {error: store_order.errors.full_messages}, status: 422
+        render json: {success: false, error: order.errors.full_messages}, status: 422
       end
     end
 
-    private
+    def update
+    end
 
+    private
       def set_order
         @order = StoreOrder.find(params[:id])
       end
 
-      def gen_service_params services
-        return services.values.map do |info|
-          {
-            orderable_id: info["id"],
-            orderable_type: "StoreService",
-            vip_price: info["vip_price"],
-            quantity: info["quantity"],
-            price: info["retail_price"],
-            amount: info["quantity"].to_f * info["retail_price"].to_f,
-            creator: current_staff,
-          }
+      def material_items
+        if params[:materials].present?
+          params[:materials].map do |info|
+            {
+              orderable_id: info["id"],
+              orderable_type: "StoreMaterialSaleinfo",
+              vip_price: info["vip_price"],
+              quantity: info["quantity"],
+              price: info["retail_price"],
+              amount: info["quantity"].to_f * info["retail_price"].to_f,
+              creator: current_staff
+            }
+          end
+        else
+          []
         end
       end
 
-      def get_vehicle_and_customer vehicle_id
-        store_vehicle = StoreVehicle.find(vehicle_id)
-        return store_vehicle, store_vehicle.store_customer
+      def service_items
+        if params[:services].present?
+          params[:services].map do |info|
+            {
+              orderable_id: info["id"],
+              orderable_type: "StoreService",
+              vip_price: info["vip_price"],
+              quantity: info["quantity"],
+              price: info["retail_price"],
+              amount: info["quantity"].to_f * info["retail_price"].to_f,
+              creator: current_staff
+            }
+          end
+        else
+          []
+        end
+      end
+
+      def package_items
+        if params[:packages].present?
+          params[:packages].map do |info|
+            {
+              orderable_id: info["id"],
+              orderable_type: "StorePackage",
+              vip_price: info["vip_price"],
+              quantity: info["quantity"],
+              price: info["retail_price"],
+              amount: info["quantity"].to_f * info["retail_price"].to_f,
+              creator: current_staff
+            }
+          end
+        else
+          []
+        end
       end
   end
 end

@@ -1,5 +1,6 @@
 class StoreServiceSerializer < ActiveModel::Serializer
-  attributes :id, :name, :engineer_levels, :workstations, :point, :category, :retail_price, :bargain_price, :unit, :code, :introduction, :remark, :price
+  attributes :id, :name, :engineer_levels, :workstations, :point, :category, :retail_price,
+    :bargain_price, :unit, :code, :introduction, :remark, :price
 
   has_many :store_service_workflows, root: :store_service_workflows_attributes
   has_many :uploads
