@@ -86,6 +86,10 @@ class StoreStaff <  ActiveRecord::Base
     Time.now.year - (employeed_at.try(:year) || created_at.try(:year))
   end
 
+  def employed_date
+    employeed_at.try(:strftime, "%Y-%m-%d") || created_at.strftime("%Y-%m-%d")
+  end
+
   def insurence_enabled?
     return (bonus.try(:[], "insurence_enabled").nil? || bonus.try(:[], "insurence_enabled") == "0") ? "否" : "是"
   end
