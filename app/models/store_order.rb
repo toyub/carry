@@ -52,6 +52,10 @@ class StoreOrder < ActiveRecord::Base
     }
   end
 
+  def state_i18n
+    I18n.t self.state, scope: [:enums, :store_order, :state]
+  end
+
   def paid?
     self.pay_hanging? || self.pay_finished?
   end
