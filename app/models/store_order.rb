@@ -143,14 +143,6 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def amount_total
-   self.amount
-  end
-
-  def repayment_finished!
-    self.update(pay_status: 3, filled: self.amount_total)
-  end
-
   def situation_damage
     situation.select do |key, val|
       key.include?("damage") && key.split("_")[1].to_i < 12
@@ -164,7 +156,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def repayment_remaining
-    self.amount_total.to_f - self.filled.tp_f
+    self.amount.to_f - self.filled.to_f
   end
 
   def payment_methods
@@ -172,7 +164,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def repay!(filled)
-    self.update!(filled: self.filled.to_f + filled)
+    self.update!(filled: self.filled.to_f + filled.to_f)
     if self.filled == self.amount
       self.pay_finished!
     end
