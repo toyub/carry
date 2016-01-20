@@ -3,7 +3,6 @@ module Pos
     before_action :load_vehicle_brands, only: [:new, :edit]
 
     def index
-      @orders = current_store.store_orders
     end
 
     def new
