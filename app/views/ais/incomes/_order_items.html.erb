@@ -14,18 +14,16 @@
 
   <tbody>
     <% order_items.each do |item| %>
-      <% if item.store_order.present? %>
-        <tr>
-          <td><%= item.store_order.created_at.strftime("%Y-%m-%d") %></td>
-          <td><%= item.store_order.numero %></td>
-          <td><%= item.store_order.amount %></td>
-          <td><%= item.store_order.amount %></td>
-          <td><%= item.store_order.payment_methods %></td>
-          <td><%= item.store_order.try(:creator).try(:full_name) %></td>
-          <td><%= item.store_order.payments.first.try(:creator).try(:full_name) %></td>
-          <td></td>
-        </tr>
-      <% end %>
+      <tr>
+        <td><%= item.store_order.created_at.strftime("%Y-%m-%d") %></td>
+        <td><%= item.store_order.numero %></td>
+        <td><%= item.store_order.amount %></td>
+        <td><%= item.store_order.amount %></td>
+        <td><%= item.store_order.payment_methods %></td>
+        <td><%= item.store_order.try(:creator).try(:full_name) %></td>
+        <td><%= item.store_order.payments.first.try(:creator).try(:full_name) %></td>
+        <td></td>
+      </tr>
     <% end %>
 
   </tbody>
