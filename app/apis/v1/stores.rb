@@ -17,13 +17,12 @@ module V1
         end
       end
       get do
-        params[:q] ||= {}
         district = params[:q][:province] || params[:q][:city]
         merge_store_infos!(params[:q], district) if district.present?
-        merge_created_at! if params[:q][:created_at].present?
+        merge_created_at!(params[:q]) if params[:q][:created_at].present?
         params[:q].except!(:province, :city, :created_at)
         q = current_store_chain.stores.ransack(params[:q])
-        present q.result.order('id asc'), with: ::Entities::Store
+        present q.result(district: true).order('id asc'), with: ::Entities::Store
       end
     end
 

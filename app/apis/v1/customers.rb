@@ -63,7 +63,7 @@ module V1
             present @customer.taozhuang_assets, with: ::Entities::MaterialAsset
           end
 
-          add_desc '商品组合有关信息'
+          add_desc '商品组合信息'
           get ':id' do
             material_asset = @customer.taozhuang_assets.find(params[:id])
             present material_asset, with: ::Entities::MaterialAssetInfo
@@ -73,8 +73,7 @@ module V1
         resources :license_numbers do
           add_desc '车牌列表'
           get do
-            q = @customer.plates.ransack(params[:q])
-            present q.result(distinct: true), with: ::Entities::LicenseNumber
+            present @customer.plates, with: ::Entities::LicenseNumber
           end
         end
 

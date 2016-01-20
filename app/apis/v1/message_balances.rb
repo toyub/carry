@@ -9,7 +9,7 @@ module V1
       add_desc '短信条数相关信息列表'
 
       get do
-        balances = SmsBalance.where(party_type: 'Store')
+        balances = SmsBalance.by_store
         balance_infos = {
           total_quantity: balances.sum(:total),
           sent_quantity: balances.sum(:sent_quantity),
