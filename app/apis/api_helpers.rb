@@ -7,19 +7,28 @@ module APIHelpers
     raise APIErrors::AuthenticateFail unless current_user
   end
 
-  # 设备的sn码
+  # 设备的sn码或者是用户名
   def sn_code
-    @header_sn_code ||= headers["X-Sn-Code"]
-  end
-
-  def current_user
-    @current_user ||= "待续"
+    @header_sn_code ||= (headers["X-Sn-Code"] || headers["Http-Username"])
   end
 
   # 对客户端提交的未正确进行UTF-8编码的数据进行编码
   def normalize_encode_params
     @env["rack.request.form_hash"] ||= {}
     encode_params_values params if request.form_data? && request.media_type == 'multipart/form-data'
+  end
+
+  def current_user
+    @current_user ||= StoreStaff.find_by(login_name: sn_code)
+  end
+
+  def authenticate_user!
+    raise APIErrors::NoGetAuthenticate unless sn_code.present?
+    raise APIErrors::AuthenticateFail unless current_user
+  end
+
+  def current_store_chain
+    current_user.store_chain
   end
 
   # 迭代对 params 的 values 进行编码处理
