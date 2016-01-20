@@ -14,10 +14,13 @@ module V1
           optional :sale_category_id_eq, type: Integer, desc: "销售类别"
           optional :retail_price_gteq, type: Float, desc: "价格区间-最小价格"
           optional :retail_price_lteq, type: Float, desc: "价格区间-最大价格"
+          optional :created_at_gteq, type: String, desc: "上架时间"
+          optional :s, type: String, desc: "价格排序"
         end
       end
       get do
-        q = current_store_chain.store_material_saleinfos.ransack(params[:q])
+        saleinfos = current_store_chain.store_material_saleinfos.order(params[:q][:s])
+        q = saleinfos.ransack(params[:q].except(:s))
         present q.result(distinct: true), with: ::Entities::Material
       end
     end
