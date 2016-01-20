@@ -1747,6 +1747,7 @@ ActiveRecord::Schema.define(version: 20160115070653) do
     t.integer  "workflow_id"
     t.string   "color"
     t.integer  "status",                                   default: 0
+    t.integer  "store_group_id"
   end
 
   create_table "stores", force: :cascade do |t|
