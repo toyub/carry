@@ -52,6 +52,10 @@ class StoreOrder < ActiveRecord::Base
     }
   end
 
+  def state_i18n
+    I18n.t self.state, scope: [:enums, :store_order, :state]
+  end
+
   def paid?
     self.pay_hanging? || self.pay_finished?
   end
@@ -98,10 +102,6 @@ class StoreOrder < ActiveRecord::Base
 
   def mechanic
     store_items
-  end
-
-  def self.total_amount
-    sum(:amount)
   end
 
   def store_items
@@ -163,6 +163,11 @@ class StoreOrder < ActiveRecord::Base
     payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
   end
 
+
+  def execution_job
+    OrderExecutionJob.perform_now(id)
+  end
+
   def repay!(filled)
     self.update!(filled: self.filled.to_f + filled.to_f)
     if self.filled == self.amount
@@ -189,6 +194,14 @@ class StoreOrder < ActiveRecord::Base
     end
 
     def init_state
-      self.state = :pending
+      if items.blank?
+        self.state = :paying
+      else
+        self.state = :pending if self.state == nil
+      end
+    end
+
+    def total_amount
+      self.items.sum(:amount) - self.items.sum(:discount)
     end
 end
