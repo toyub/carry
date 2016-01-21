@@ -19,7 +19,8 @@ module V1
       end
 
       get do
-        q = current_store_chain.store_packages.ransack(params[:q])
+        store_packages = current_store_chain.store_packages.order(params[:q][:s])
+        q = store_packages.ransack(params[:q].except(:s))
         present q.result.order('id asc'), with: ::Entities::Package
       end
     end
