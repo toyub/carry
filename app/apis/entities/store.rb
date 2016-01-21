@@ -26,10 +26,10 @@ module Entities
     end
     expose :province
     expose :city
-    expose (:admin) { |store, options| store.admin.try(:full_name) }
-    expose (:phone_number) { |store, options| store.admin.try(:phone_number) }
+    expose(:admin) { |store, options| store.admin.try(:full_name) }
+    expose(:phone_number) { |store, options| store.admin.try(:phone_number) }
     expose :address
-    expose (:created_at) { |store, options| store.created_at.strftime('%Y-%m-%d') }
+    expose(:created_at) { |store, options| store.created_at.strftime('%Y-%m-%d') }
     expose :business_status
     expose :business_hours
     expose :last_year_sales

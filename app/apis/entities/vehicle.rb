@@ -5,11 +5,11 @@ module Entities
       expose :license_number
       expose :identification_number
       expose :vin
-      expose (:vehicle_brand){ |vehicle, options| vehicle.vehicle_brand.name }
-      expose (:vehicle_model){ |vehicle, options| vehicle.vehicle_model.name }
-      expose (:vehicle_series){ |vehicle, options| vehicle.vehicle_series.name }
+      expose(:vehicle_brand){ |vehicle, options| vehicle.vehicle_brand.name }
+      expose(:vehicle_model){ |vehicle, options| vehicle.vehicle_model.name }
+      expose(:vehicle_series){ |vehicle, options| vehicle.vehicle_series.name }
       expose :operator
-      expose (:created_at){ |vehicle, options| vehicle.created_at.strftime('%Y-%m-%d') }
+      expose(:created_at){ |vehicle, options| vehicle.created_at.strftime('%Y-%m-%d') }
       expose :color
       expose :capacity
       expose :organization_type
@@ -20,7 +20,7 @@ module Entities
     end
 
     expose :detail do
-      expose :numero
+      expose(:numero){ |vehicle, options| vehicle.detail_by('numero') }
       expose :maintained_at
       expose :maintained_mileage
       expose :maintain_interval_time
