@@ -44,6 +44,7 @@ class Store <  ActiveRecord::Base
   has_many :store_customer_categories
 
   has_one :sms_balance, as: :party
+  has_many :sms_records, as: :party
 
   has_many :tags, class_name: 'Tag::StoreCustomer'
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot'
