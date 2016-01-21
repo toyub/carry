@@ -17,11 +17,10 @@ module V1
         end
       end
       get do
-        if params[:q][:created_at_lteq].present?
-          params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]).end_of_day
-        end
-        q = SmsRecord.ransack(params[:q])# 添加多态后需要条件查询
-        present q.result(distince: true), with: ::Entities::MessageRecord
+        created_at_lteq = params[:q][:created_at_lteq]
+        created_at_lteq = Time.zone.parse(created_at_lteq).end_of_day if created_at_lteq.present?
+        q = SmsRecord.by_store.ransack(params[:q])
+        present q.result(distince: true).order('created_at desc'), with: ::Entities::MessageRecord
       end
     end
 

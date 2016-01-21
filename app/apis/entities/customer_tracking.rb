@@ -1,6 +1,8 @@
 module Entities
   class CustomerTracking < Grape::Entity
-    expose :contact_way, :content, :category_name
+    expose :contact_way
+    expose :content
+    expose :category_name
     expose :created_at do |tracking, options|
       tracking.created_at.strftime('%Y-%m-%d')
     end
