@@ -24,16 +24,16 @@ module Entities
         }
       end
     end
-    expose (:province) { |store, options| store.province }
-    expose (:city) { |store, options| store.city }
+    expose :province
+    expose :city
     expose (:admin) { |store, options| store.admin.try(:full_name) }
     expose (:phone_number) { |store, options| store.admin.try(:phone_number) }
-    expose (:address) { |store, options| store.address }
+    expose :address
     expose (:created_at) { |store, options| store.created_at.strftime('%Y-%m-%d') }
-    expose (:business_status) { |store, options| store.business_status }
-    expose (:business_hours) { |store, options| store.business_hours }
-    expose (:last_year_sales) { |store, options| store.last_year_sales }
-    expose (:current_year_sales) { |store, options| store.current_year_sales }
+    expose :business_status
+    expose :business_hours
+    expose :last_year_sales
+    expose :current_year_sales
 
     private
 
