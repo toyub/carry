@@ -2,11 +2,17 @@ class StoreServiceWorkflow < ActiveRecord::Base
   include BaseModel
 
   belongs_to :store_service
+  belongs_to :store_service_setting
   belongs_to :mechanic_commission, class_name: 'StoreCommissionTemplate', foreign_key: :mechanic_commission_template_id
   has_many :snapshots, class_name: "StoreServiceWorkflowSnapshot", foreign_key: :store_service_workflow_id
 
   validates :store_staff_id, presence: true
   #validates :store_service_setting_id, presence: true
+
+  before_save :set_service
+  def set_service
+    self.store_service = self.store_service_setting.store_service
+  end
 
   ENGINEER_LEVEL = {
     '初级' => 1,

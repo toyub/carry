@@ -29,7 +29,8 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
 
   initWorkstations: ->
     @workstations = new Mis.Collections.StoreWorkstations()
-    Mis.store.workstations.each(
+    store = @store_service.store ? Mis.store
+    store.workstations.each(
       (w) =>
         @workstations.add w if _.contains(@.get('workstation_ids') ? [], w.id.toString())
     )
