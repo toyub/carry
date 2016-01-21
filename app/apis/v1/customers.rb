@@ -89,7 +89,7 @@ module V1
         get ":customer_id/packages_assets/:package_asset_id/package_items/:id", requirements: { id: /[0-9]*/ } do
           package_asset = @customer.packaged_assets.find(params[:package_asset_id])
           package_asset_item = package_asset.items.find(params[:id])
-          present package_asset_item.logs, with: ::Entities::PackageAsset, type: :full
+          present package_asset_item, with: ::Entities::PackageAsset, type: :full
         end
      end
      #group end

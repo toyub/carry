@@ -5,6 +5,12 @@ module Entities
     expose :left_quantity
   end
 
+  class PackageAssetItemLog < Grape::Entity
+    expose(:created_at, if: {type: :full}) {|model| model.created_at.strftime("%Y-%m-%d")}
+    expose(:numero, if: {type: :full}) {|model| model.store_order.numero}
+    expose(:store_name, if: {type: :full}) {|model| model.store.name}
+  end
+
   class ContainName < Grape::Entity
     expose(:name) {|model| model.workflowable_hash["name"]}
   end
@@ -17,9 +23,8 @@ module Entities
     expose :contain_items, using: ContainName, if: {type: :default}
     expose :items, using: PackageAssetItem, if: {type: :default}
 
-    expose(:created_at, if: {type: :full}) {|model| model.created_at.strftime("%Y-%m-%d")}
-    expose(:numero, if: {type: :full}) {|model| model.store_order.numero}
-    expose(:store_name, if: {type: :full}) {|model| model.store.name}
+    expose :logs, using: PackageAssetItemLog, if: {type: :full}
+
 
     expose :id, if: {type: :list}
     expose :package_name, if: {type: :list}
