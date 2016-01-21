@@ -8,7 +8,8 @@ class StorePackage < ActiveRecord::Base
   has_one :package_setting, class_name: 'StorePackageSetting', dependent: :destroy
   has_many :trackings, class_name: 'StorePackageTracking', dependent: :destroy
   has_many :store_subscribe_order_items, as: :itemable
-  has_many :store_order_items, as: :itemable
+  has_many :store_order_items, as: :orderable
+  has_many :recommended_order_items, as: :itemable
 
   after_create :create_one_setting
 

@@ -18,7 +18,7 @@
             <td>所属门店</td>
             <td><span class="width-132 show_content"><%= @staff.store.try(:name) %></span></td>
             <td>入职时间</td>
-            <td><span class="width-132 show_content"><%= @staff.created_at.strftime("%Y-%m-%d") %></span></td>
+            <td><span class="width-132 show_content"><%= @staff.employed_date.to_s(:short_date) %></span></td>
             <td>工龄</td>
             <td><span class="width-132 show_content"></span></td>
             <td>职称</td>

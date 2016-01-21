@@ -1,1 +1,56 @@
-<%= render 'form' %>
+<input type="hidden" id='vehicle_brands' data-brands='<%= @vehicle_brands.to_json(root:nil) %>'>
+<div class="content pos-orders-index" id="content">
+  <div class="main_top"><h2>业务开单 > <%= @order.store_vehicle.license_number %>, #<%= @order.numero %> </h2></div>
+  <div class="details">
+    <div class="search_nav">
+       <div class="width-400" style="float: left">
+        <label>订单编辑</label>
+      </div>
+      <div class="query_div page_card">
+      <a href="javascript:void(0)"  class="active">开单</a>
+      <a href="/pos/store_orders/">列表</a>
+      </div>
+    </div>
+
+    <div class="billing">
+      <div class="billing_order float-left">
+        <div class="order_details">
+          <div class="dialog_nav">
+            <% if @order.numero.present? %>
+            <span class="dialog_title ">单号:<%= @order.numero %></span>
+            <% end %>
+          </div>
+          <div class="vehicle_order_details">
+            <%= render partial: 'vehicle' %>
+            <%= render partial: 'vehicle_condition' %>
+            <%= render partial: 'items' %>
+          </div>
+          <div class="construction_status">
+            <div class="btn_group">
+              <a href="javascript:void(0);" class="go_payment_btn">更新订单</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right_information">
+        <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
+        <%= render partial: 'construction' %>
+        <div class="improve_crm_wrap float-left"></div>
+        <div class="completing_vehicle_info float-left">
+          <%= render "vehicle_detail_info" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    if($(".pos-orders-index").length > 0){
+      new Mis.Views.PosOrderIndexView();
+    }
+  })
+</script>
+<% end %>

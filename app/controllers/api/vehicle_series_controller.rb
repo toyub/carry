@@ -13,5 +13,4 @@ module Api
         @manufacturer = VehicleManufacturer.find(params[:vehicle_manufacturer_id])
       end
   end
-
 end

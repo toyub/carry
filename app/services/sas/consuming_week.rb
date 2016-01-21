@@ -24,7 +24,7 @@ module Sas
         day = i.day.ago
         index = day.strftime("%w").to_i - 1
         store.store_customers.try(:each) do |customer|
-          amount = customer.orders.by_day(day).total_amount
+          amount = customer.orders.by_day(day).sum(:amount)
           CONSUMING_LEVEL.select do |level, flag|
             if level === amount
               @data[flag.to_i][index] += 1
