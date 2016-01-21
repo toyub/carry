@@ -78,6 +78,13 @@ module V1
           end
         end
 
+        resource :vehicles do
+          add_desc '车辆列表'
+          get do
+            present @customer.store_vehicles, with: ::Entities::Vehicle
+          end
+        end
+
       end
 
       group do #group start

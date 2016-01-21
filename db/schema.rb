@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160118064304) do
+ActiveRecord::Schema.define(version: 20160120085336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,6 +234,8 @@ ActiveRecord::Schema.define(version: 20160118064304) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "store_id"
+    t.string   "party_type"
+    t.integer  "party_id"
   end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
@@ -1263,14 +1265,15 @@ ActiveRecord::Schema.define(version: 20160118064304) do
   create_table "store_packages", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                            null: false
-    t.integer  "store_chain_id",                                      null: false
-    t.integer  "store_staff_id",                                      null: false
+    t.integer  "store_id",                                                          null: false
+    t.integer  "store_chain_id",                                                    null: false
+    t.integer  "store_staff_id",                                                    null: false
     t.string   "name",           limit: 45
     t.string   "code",           limit: 45
     t.string   "abstract",       limit: 255
     t.text     "remark"
     t.decimal  "price",                      precision: 10, scale: 2
+    t.decimal  "retail_price",               precision: 10, scale: 2, default: 0.0
   end
 
   create_table "store_payments", force: :cascade do |t|
@@ -1432,9 +1435,9 @@ ActiveRecord::Schema.define(version: 20160118064304) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
-    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
+    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1493,7 +1496,6 @@ ActiveRecord::Schema.define(version: 20160118064304) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
-    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1503,6 +1505,7 @@ ActiveRecord::Schema.define(version: 20160118064304) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
+    t.integer  "store_order_item_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
