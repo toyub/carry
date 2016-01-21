@@ -3,17 +3,12 @@ class Soa::PerformsController < Soa::BaseController
 
   def index
     @staff = current_store.store_staff.find(params[:staff_id])
-    @order_items = @staff.store_order_items.by_month(Time.now)
+    @order_items = @staff.store_order_items.joins(:store_order).by_month(Time.now)
   end
 
   def search
     @staff = current_store.store_staff.find(params[:staff_id])
-    if %w[materials services all].include? params[:category]
-      @order_items = @staff.store_order_items.send(params[:category])
-    else
-      @order_items = @staff.store_order_items
-    end
-    @order_items = @order_items.by_month(@date)
+    @order_items = @staff.store_order_items.joins(:store_order).by_month(@date).send(params[:category])
     render :index
   end
 
