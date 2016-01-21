@@ -84,7 +84,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def working_age
-    Time.now.year - (employeed_at.try(:year) || created_at.try(:year))
+    ((((Time.now.year - employed_date.year) * 12) + (Time.now.month - employed_date.month)) / 12).ceil + 1
   end
 
   def employed_date
