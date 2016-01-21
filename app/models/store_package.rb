@@ -14,7 +14,7 @@ class StorePackage < ActiveRecord::Base
 
   alias_attribute :retail_price, :price
 
-  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)}
 
   def create_one_setting
     self.create_package_setting(creator: self.creator)
@@ -25,7 +25,7 @@ class StorePackage < ActiveRecord::Base
   end
 
   def point
-    self.package_setting.point
+    self.package_setting.try(:point)
   end
 
   def valid_date
@@ -40,7 +40,7 @@ class StorePackage < ActiveRecord::Base
     20
   end
 
-  def selled
+  def sold
     0
   end
 
