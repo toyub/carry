@@ -138,22 +138,22 @@ module V1
           requires :customer_id, type: Integer, desc: '客户ID'
           requires :id, type: Integer, desc: '套餐id'
         end
-         get ":customer_id/package_assets/:id", requirements: { id: /[0-9]*/ } do
-           package_asset = @customer.packaged_assets.find(params[:id])
-           present package_asset, with: ::Entities::PackageAsset, type: :default
-         end
+        get ":customer_id/package_assets/:id", requirements: { id: /[0-9]*/ } do
+          package_asset = @customer.packaged_assets.find(params[:id])
+          present package_asset, with: ::Entities::PackageAsset, type: :default
+        end
 
-         add_desc "套餐组合-查看-项目消费明细"
-         params do
-           requires :customer_id, type: Integer, desc: '客户ID'
-           requires :package_asset_id, type: Integer, desc: "套餐资产id"
-           requires :id, type: Integer, desc: '项目id'
-         end
-         get ":customer_id/packages_assets/:package_asset_id/package_items/:id", requirements: { id: /[0-9]*/ } do
-           package_asset = @customer.packaged_assets.find(params[:package_asset_id])
-           package_asset_item = package_asset.items.find(params[:id])
-           present package_asset_item.logs, with: ::Entities::PackageAsset, type: :full
-         end
+        add_desc "套餐组合-查看-项目消费明细"
+        params do
+          requires :customer_id, type: Integer, desc: '客户ID'
+          requires :package_asset_id, type: Integer, desc: "套餐资产id"
+          requires :id, type: Integer, desc: '项目id'
+        end
+        get ":customer_id/packages_assets/:package_asset_id/package_items/:id", requirements: { id: /[0-9]*/ } do
+          package_asset = @customer.packaged_assets.find(params[:package_asset_id])
+          package_asset_item = package_asset.items.find(params[:id])
+          present package_asset_item, with: ::Entities::PackageAsset, type: :full
+        end
      end
      #group end
     end
