@@ -143,24 +143,12 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def situation_damage
-    situation.select do |key, val|
-      key.include?("damage") && key.split("_")[1].to_i < 12
-    end
-  end
-
-  def situation_damage_checkbox
-    situation.select do |key, val|
-      key.include?("damage") && key.split("_")[1].to_i > 12
-    end
-  end
-
   def repayment_remaining
     self.amount.to_f - self.filled.to_f
   end
 
   def payment_methods
-    payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
+    payments.map {|payment| payment.payment_method.cn_name }.join(',')
   end
 
 
