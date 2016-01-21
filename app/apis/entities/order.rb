@@ -1,5 +1,5 @@
 module Entities
-  class Item < Grape::Entity
+  class OrderItem < Grape::Entity
     expose(:mechanics) {|model, options| model.workflow_mechanics.map(&->(wm){wm.engineer})}
     expose(:service_name)  {|model, options| model.store_service_snapshot.name}
     expose :price, :quantity, :discount, :amount
@@ -11,6 +11,6 @@ module Entities
     expose(:store_name) { |model, options| model.store.name }
     expose(:creator) {|model, optional| model.creator.full_name}
     expose :total_amount
-    expose :items, using: Item
+    expose :items, using: OrderItem
   end
 end
