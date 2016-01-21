@@ -12,8 +12,6 @@ class StorePackage < ActiveRecord::Base
 
   after_create :create_one_setting
 
-  alias_attribute :retail_price, :price
-
   scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)}
 
   def create_one_setting
@@ -34,10 +32,6 @@ class StorePackage < ActiveRecord::Base
 
   def store_name
     store.name
-  end
-
-  def retail_price
-    20
   end
 
   def sold

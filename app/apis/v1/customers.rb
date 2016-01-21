@@ -57,7 +57,7 @@ module V1
           end
         end
 
-        resources :material_assets do
+        resource :material_assets do
           add_desc '商品组合列表'
           get do
             present @customer.taozhuang_assets, with: ::Entities::MaterialAsset
@@ -70,7 +70,7 @@ module V1
           end
         end
 
-        resources :license_numbers do
+        resource :license_numbers do
           add_desc '车牌列表'
           get do
             present @customer.plates, with: ::Entities::LicenseNumber
