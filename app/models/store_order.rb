@@ -84,20 +84,12 @@ class StoreOrder < ActiveRecord::Base
     items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
   end
 
-  def position_name
-    '前保险杠右侧'
-  end
-
-  def condition_name
-    '前保险杠右侧擦伤，油漆见底'
-  end
-
   def creators
     { name: self.creator.full_name, id: self.creator.id }
   end
 
   def current_vehicle
-    self.store_vehicle.plates.last.license_number
+    self.store_vehicle.license_number
   end
 
   def mechanic
