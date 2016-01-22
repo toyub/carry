@@ -29,7 +29,7 @@ module V1
     private
 
       def self.merge_store_infos!(q_params, district)
-        name = q_params.has_key?(:province) ? '省份' : '城市'
+        name = q_params.has_key?(:city) ? '城市' : '省份'
         q_params.merge!({
           store_infos_info_category_id_eq: InfoCategory.find_by(name: name).id,
           store_infos_value_eq: district
