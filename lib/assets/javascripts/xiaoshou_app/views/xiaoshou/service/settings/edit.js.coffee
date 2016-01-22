@@ -18,6 +18,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     'click #standard_time_enable': 'toggleStandardTime'
     'click #buffering_time_enable': 'toggleBufferingTime'
     'click #unnominated_workstation': 'unnominatedWorkstation'
+    'click #nominated_workstation': 'nominatedWorkstation'
     'click #workflow_setting': 'enableWorkflowSetting'
     'click #create_workflow': 'openWorkflowForm'
     'click #closeWithoutSave': 'goToShow'
@@ -28,6 +29,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @renderNav()
     @renderProfileSummary()
     @renderWorkflows() if !@model.isRegular()
+    @renderWorkstations() if @model.isRegular()
     @
 
   renderNav: ->
@@ -44,10 +46,19 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @$("#workflow_list").parent().show()
 
   unnominatedWorkstation: ->
-    @$("#workstationCategories").hide()
     @$("#storeWorkstations").hide()
-    @$("#getWorkstationCategory").text("")
-    @model.workstations.reset()
+
+  nominatedWorkstation: ->
+    @$("#storeWorkstations").show()
+
+  renderWorkstations: ->
+    @$("#storeWorkstations").empty()
+    console.log @store.workstations
+    @store.workstations.each @addWorkstation
+
+  addWorkstation: (workstation) =>
+    view = new Mis.Views.XiaoshouServiceWorkstationsWorkstation(workflow: @model, model: workstation)
+    @appendChildTo(view, @$("#storeWorkstations"))
 
   disableEngineerCount: ->
     @$("#engineer_count").attr('disabled', true)

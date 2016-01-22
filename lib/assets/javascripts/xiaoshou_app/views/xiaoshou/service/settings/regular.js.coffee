@@ -10,7 +10,7 @@ class Mis.Views.XiaoshouServiceSettingsRegular extends Mis.Base.View
 
   renderWorkstations: ->
     @$("#stations").empty()
-    #Mis.store.workstations.each @addWorkstation
+    Mis.store.workstations.each @addWorkstation
 
   addWorkstation: (workstation) =>
     view = new Mis.Views.XiaoshouServiceWorkstationsWorkstation(workflow: @model, model: workstation, action: 'show')

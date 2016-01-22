@@ -90,7 +90,7 @@
             <td>工位设置</td>
             <td></td>
             <td>
-              <input id="unnominated_workstation" type="radio" value="false" <%= 'checked' if @setting.isRegular() && !@setting.nominatedWorkstation() %> name="nominated_workstations">
+              <input id="unnominated_workstation" type="radio" value="false" <%= 'checked' if @setting.isRegular() && !@setting.nominatedWorkstation() %> name="nominated_workstation">
             </td>
             <td colspan="3">
               <label for="unnominated_workstation">系统自动分配</label>
@@ -100,16 +100,12 @@
             <td></td>
             <td></td>
             <td>
-              <input id="nominated_workstation" type="radio" value="true" name="nominated_workstations" <%= 'checked' if @setting.isRegular() && @setting.nominatedWorkstation() %>>
+              <input id="nominated_workstation" type="radio" value="true" name="nominated_workstation" <%= 'checked' if @setting.isRegular() && @setting.nominatedWorkstation() %>>
             </td>
             <td>
               <label for="nominated_workstation">指定工位</label>
             </td>
             <td colspan="2" class="text-align-left">
-              <span id="getWorkstationCategory" class="cursor"></span>
-              <ul id="workstationCategories">
-
-              </ul>
             </td>
           </tr>
           <tr>
@@ -118,7 +114,7 @@
             <td></td>
             <td colspan="3" rowspan="4" class="padding-0">
               <div id="j_workstations">
-                <ul id="storeWorkstations" style="display: none;">
+                <ul id="storeWorkstations" style="<%= 'display: none;' unless @setting.get('nominated_workstation') %>">
 
                 </ul>
               </div>
