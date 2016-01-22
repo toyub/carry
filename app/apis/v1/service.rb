@@ -5,13 +5,6 @@ module V1
     end
 
     resource :services, desc: "服务相关" do
-      add_desc "服务类别"
-      get "service_categories" do
-        categories = ServiceCategory.all
-        present categories, with: ::Entities::ServicesCategory
-      end
-
-
       add_desc "销售管理-服务列表"
       params do
         optional :q, type: Hash, default: {} do
@@ -22,13 +15,11 @@ module V1
           optional :retail_price_lte, type: BigDecimal, desc: "销售价"
         end
       end
-      get "services" do
+      get "/" do
         store_services = StoreService.all
         present store_services, with: ::Entities::Service
       end
-
-
-
     end
+
   end
 end

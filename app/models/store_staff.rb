@@ -39,6 +39,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
   scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
+  scope :verifiers, -> { where(mis_login_enabled: true) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -83,7 +84,11 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def working_age
-    Time.now.year - (employeed_at.try(:year) || created_at.try(:year))
+    ((((Time.now.year - employed_date.year) * 12) + (Time.now.month - employed_date.month)) / 12).ceil + 1
+  end
+
+  def terminated?
+    terminated_at.present? && (Time.now > terminated_at)
   end
 
   def employed_date

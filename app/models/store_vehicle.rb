@@ -38,6 +38,26 @@ class StoreVehicle < ActiveRecord::Base
     self.vehicle_plates.last.try(:plate)
   end
 
+  def identification_number
+    if current_engine.present?
+      current_engine.identification_number
+    else
+      nil
+    end
+  end
+
+  def current_engine
+    self.vehicle_engines.last.try(:engine)
+  end
+
+  def vin
+    self.frame.try(:vin)
+  end
+
+  def operator
+    self.store_staff.full_name
+  end
+
   accepts_nested_attributes_for :frame
   accepts_nested_attributes_for :plates
   accepts_nested_attributes_for :engines
@@ -94,6 +114,66 @@ class StoreVehicle < ActiveRecord::Base
 
   def next_maintain_at
     detail_by("next_maintain_at")
+  end
+
+  def color
+    detail_by('color')
+  end
+
+  def capacity
+    detail_by('capacity')
+  end
+
+  def maintained_at
+    detail_by('maintained_at')
+  end
+
+  def maintained_mileage
+    detail_by('maintained_mileage')
+  end
+
+  def maintain_interval_time
+    detail_by('maintain_interval_time')
+  end
+
+  def maintain_interval_mileage
+    detail_by('maintain_interval_mileage')
+  end
+
+  def annual_check_at
+    detail_by('annual_check_at')
+  end
+
+  def insurance_compnay
+    detail_by('insurance_compnay')
+  end
+
+  def insurance_expire_at
+    detail_by('insurance_expire_at')
+  end
+
+  def next_maintain_customer_alermify
+    detail_by('next_maintain_customer_alermify')
+  end
+
+  def next_maintain_store_alermify
+    detail_by('next_maintain_store_alermify')
+  end
+
+  def annual_check_customer_alermify
+    detail_by('annual_check_customer_alermify')
+  end
+
+  def annual_check_store_alermify
+    detail_by('annual_check_store_alermify')
+  end
+
+  def insurance_customer_alermify
+    detail_by('insurance_customer_alermify')
+  end
+
+  def insurance_store_alermify
+    detail_by('insurance_store_alermify')
   end
 
   def total_pay

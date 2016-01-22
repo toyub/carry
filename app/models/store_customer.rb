@@ -19,10 +19,14 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :assets, class_name: 'StoreCustomerAsset'
   has_many :deposit_logs, class_name: "StoreCustomerDepositLog"
+  has_many :deposit_incomes, class_name: "StoreCustomerDepositIncome"
+  has_many :deposit_expenses, class_name: "StoreCustomerDepositExpense"
 
   has_many :store_customer_deposit_cards
 
   has_many :store_order_items
+
+  has_many :trackings, class_name: 'StoreTracking', as: :trackable
 
   scope :female, -> { where(gender: false) }
   scope :male, -> { where(gender: true) }
