@@ -87,7 +87,7 @@ class StoreStaff <  ActiveRecord::Base
     ((((Time.now.year - employed_date.year) * 12) + (Time.now.month - employed_date.month)) / 12).ceil + 1
   end
 
-  def is_leaving?
+  def terminated?
     terminated_at.present? && (Time.now > terminated_at)
   end
 

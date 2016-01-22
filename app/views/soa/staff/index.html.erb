@@ -64,7 +64,7 @@
           <td><%= staff.store_position.try(:name) %></td>
           <td><%= StoreStaffLevel.find(staff.level_type_id).try(:name) %></td>
           <td><%= staff.contract_status %> </td>
-          <td><%= staff.is_leaving? ? "离职" : "在职" %></td>
+          <td><%= staff.terminated? ? "离职" : "在职" %></td>
           <td><%= staff.insurence_enabled? ? '是' : '否' %></td>
           <td><%= staff.working_age %>年</td>
           <td><%= staff.items_amount_total %></td>
