@@ -8,15 +8,15 @@ module Entities
     private
 
       def income_times
-        StoreCustomerDepositLog.income_times
+        object.deposit_incomes.count
       end
 
       def expense_times
-        StoreCustomerDepositLog.expense_times
+        object.deposit_expenses.count
       end
 
       def current_balance
-        StoreCustomerDepositLog.last.try(:balance)
+        object.deposit_logs.last.try(:balance)
       end
   end
 end
