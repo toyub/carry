@@ -2,10 +2,11 @@ class SmsJob < ActiveJob::Base
   queue_as :default
 
   def perform(options)
-    if current_store.sms_balance.remaining > 0
+    store = Store.find(options[:store_id])
+    if store.sms_balance.present? && (store.sms_balance.remaining > 0)
       customer = StoreCustomer.find(options[:customer_id])
       quantity = (options[:content].size / 70).ceil + 1
-      current_store.sms_records.create!({
+      store.sms_records.create!({
         phone_number: customer.phone_number,
         customer_name: customer.full_name,
         customer_id: customer.id,
@@ -15,7 +16,7 @@ class SmsJob < ActiveJob::Base
         quantity: quantity
       })
       SmsClient.publish(customer.phone_number, options[:content])
-      current_store.sms_balance.increase_sent_quantity!(quantity)
+      store.sms_balance.increase_sent_quantity!(quantity)
     end
   end
 end
