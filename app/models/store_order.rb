@@ -147,6 +147,10 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
+  def situation
+    read_attribute(:situation) || {}
+  end
+
   def repayment_remaining
     self.amount.to_f - self.filled.to_f
   end

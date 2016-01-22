@@ -22,7 +22,7 @@ class Crm::VehicleConditionsController < ApplicationController
 
     def damages
       -> (order) do
-        order.situation['damages'].map do |damage|
+        order.situation.fetch('damages', []).map do |damage|
           {
             created_at: order.created_at,
             content: damage['content']
