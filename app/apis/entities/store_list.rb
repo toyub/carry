@@ -1,5 +1,5 @@
 module Entities
-  class Store < Grape::Entity
+  class StoreList < Grape::Entity
     expose :id, :name
     expose :customer_categories do |store, options|
       store.store_customer_categories.map do |category|
