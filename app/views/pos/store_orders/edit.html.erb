@@ -54,6 +54,9 @@
       x.setVehicleInfoData({target: {value: '<%= @order.store_vehicle_id %>'}})
      order = $('#order_data').data('order');
      x.vehicle_situation.set_situation(order.situation)
+     Mis.Vues.ServiceItem.serviceItems = order.services.items.slice()
+     Mis.Vues.MaterialSaleinfoItem.materialSaleinfoItems = order.materials.items.slice();
+     Mis.Vues.PackageItem.packageItems = order.packages.items.slice();
     }
   })
 </script>
