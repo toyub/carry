@@ -8,13 +8,13 @@ class Soa::SettingsController < Soa::BaseController
   def edit
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
-    @verifiers = StoreStaff.where(mis_login_enabled: true)
+    @verifiers = @store.store_staff.verifiers
   end
 
   def new
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
-    @verifiers = StoreStaff.where(mis_login_enabled: true)
+    @verifiers = @store.store_staff.verifiers
   end
 
   def update

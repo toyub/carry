@@ -27,7 +27,7 @@
 
           <li>
             <%= form.label :regular_salary, "正式底薪" %>
-            <%= form.number_field :regular_salary, min: 1 %>
+            <%= form.number_field :regular_salary, min: 1, disabled: @staff.regular %>
           </li>
 
           <li class="text-align-right">

@@ -5,7 +5,7 @@ class SmsJob < ActiveJob::Base
     if current_store.sms_balance.remaining > 0
       customer = StoreCustomer.find(options[:customer_id])
       quantity = (options[:content].size / 70).ceil + 1
-      SmsRecord.create!({
+      current_store.sms_records.create!({
         phone_number: customer.phone_number,
         customer_name: customer.full_name,
         customer_id: customer.id,
