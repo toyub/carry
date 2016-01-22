@@ -45,7 +45,7 @@ module Entities
 
       def damages
         object.orders.order('created_at desc').map do |order|
-          order.situation.fetch('damages', []).map do |damage|
+          order.damages.map do |damage|
             {
               created_at: order.created_at.strftime('%Y-%m-%d'),
               content: damage['content']
