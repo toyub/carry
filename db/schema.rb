@@ -386,27 +386,6 @@ ActiveRecord::Schema.define(version: 20160120085336) do
     t.datetime "updated_at"
   end
 
-  create_table "store_customer_credits", force: :cascade do |t|
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_customer_id"
-    t.integer  "store_order_id"
-    t.string   "subject"
-    t.decimal  "amount",            precision: 10, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-  end
-
-  create_table "store_customer_debits", force: :cascade do |t|
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_customer_id"
-    t.string   "subject"
-    t.decimal  "amount",            precision: 10, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-  end
-
   create_table "store_customer_deposit_logs", force: :cascade do |t|
     t.string   "type"
     t.integer  "store_id"
@@ -440,17 +419,6 @@ ActiveRecord::Schema.define(version: 20160120085336) do
     t.decimal  "balance",                    default: 0.0,   null: false
     t.integer  "points"
     t.boolean  "membership",                 default: false
-  end
-
-  create_table "store_customer_journal_entries", force: :cascade do |t|
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_customer_id"
-    t.string   "journalable_type"
-    t.integer  "journalable_id"
-    t.decimal  "amount",            precision: 10, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
   end
 
   create_table "store_customer_payments", force: :cascade do |t|
@@ -1435,9 +1403,9 @@ ActiveRecord::Schema.define(version: 20160120085336) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1496,6 +1464,7 @@ ActiveRecord::Schema.define(version: 20160120085336) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1505,7 +1474,6 @@ ActiveRecord::Schema.define(version: 20160120085336) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1594,20 +1562,20 @@ ActiveRecord::Schema.define(version: 20160120085336) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
