@@ -17,7 +17,7 @@ module V1
         end
       end
       get do
-        district = params[:q][:province] || params[:q][:city]
+        district = params[:q][:city] || params[:q][:province]
         Stores.merge_store_infos!(params[:q], district) if district.present?
         Stores.merge_created_at!(params[:q]) if params[:q][:created_at].present?
         params[:q].except!(:province, :city, :created_at)
