@@ -24,6 +24,8 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :store_order_items
 
+  has_many :trackings, class_name: 'StoreTracking', as: :trackable
+
   scope :female, -> { where(gender: false) }
   scope :male, -> { where(gender: true) }
   scope :membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: true})}
