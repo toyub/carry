@@ -4,6 +4,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   belongs_to :sale_category
   belongs_to :store_material
+  belongs_to :store
   belongs_to :saleman_commission_template,
                           class_name: 'StoreCommissionTemplate', foreign_key: 'saleman_commission_template_id'
 
@@ -18,7 +19,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   delegate :name, to: :store_material
 
-  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)}
 
   def divide_unit_type
     MaterialDivideUnitType.find(self.divide_unit_type_id).try(:name)

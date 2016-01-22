@@ -6,6 +6,7 @@ module V1
     include V1::Defaults
 
     mount V1::Customers
+    mount V1::Materials
     mount V1::CustomerProperties
     mount V1::ContactWays
     mount V1::MessageRecords
