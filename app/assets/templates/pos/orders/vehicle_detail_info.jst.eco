@@ -1,18 +1,92 @@
-<div class="item_content" >
-  <label class="width-50" >车辆品牌</label><input type="text" value="宝马" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >车型</label><input type="text" value="宝马5系" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >车系</label><input type="text" value="宝马新5系" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >客户属性</label><input type="text" value="男" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >客户类别</label><input type="text" value="个人" class="width-110"  readonly>
-</div>
-<div class="item_content">
-  <label class="width-50" >结算方式</label><input type="text" value="现结" class="width-110"  readonly>
-</div>
+<form>
+<h2>完善车辆信息</h2>
+  <div class="vehicle_info">
+    <dl>
+      <dd class="item_content">
+        <label class="width-77">车牌号码</label>
+        <input type="text" class="width-110" value={{vehicle.license_number}}>
+      </dd>
+      <dd>
+        <label class="width-77">品牌</label>
+        <select name='vehicle[vehicle_brand_id]' class="width-110 js-select-vehicle-brand">
+          <option value="">请选择</option>
+          <% for brand in @vehicle_brands : %>
+            <option <%= 'selected' if String(@vehicle_brand.id) == String(brand.id) %> value ="<%= brand.id %>"><%= brand.name %></option>
+          <% end %>
+        </select>
+      </dd>
+      <dd>
+        <label class="width-65">车系</label>
+        <select name='vehicle[vehicle_series_id]' class="width-110 js-select-vehicle-series">
+          <option value={{series.id}} v-for="series in vehicleSeries">{{series.name}}</option>
+        </select>
+      </dd>
+      <dd>
+        <label class="width-55">车型</label>
+        <select class="width-103 js-select-vehicle-model" name='vehicle[vehicle_model_id]'>
+          <option value={{model.id}} v-for="model in vehicleModels">{{model.name}}</option>
+        </select>
+      </dd>
+    </dl>
+    <dl>
+      <dd>
+        <label class="width-77">VIN号码</label>
+        <input type="text" class="width-110" value={{vehicle.vin}}>
+      </dd>
+      <dd>
+        <label class="width-77">发动机号码</label>
+        <input type="text" class="width-110" value={{vehicle.engine_num}}>
+      </dd>
+      <dd><label class="width-65">颜色</label><input type="color" class="width-100"></dd>
+      <dd><label class="width-55">座位数</label><input type="number" class="width-103"></dd>
+    </dl>
+    <dl>
+      <dd>
+        <label class="width-77">购买日期</label>
+        <input type="date" class="width-110" value={{vehicle.bought_on}}>
+      </dd>
+      <dd>
+        <label class="width-77">出厂</label>
+        <input type="date" class="width-110" value={{vehicle.ex_factory_date}}>
+      </dd>
+      <dd>
+        <label class="width-65">上牌时间</label>
+        <input type="date" class="width-100" value={{vehicle.registered_on}}>
+      </dd>
+      <dd>
+        <label class="width-55">公里数</label>
+        <input type="number" class="width-103" value={{vehicle.mileage}}>
+      </dd>
+    </dl>
+    <dl>
+      <dd>
+        <label class="width-77">车辆性质</label>
+        <select class="width-110" name="store_vehicle[detail][organization_type]">
+          <option value="0">私家车</option>
+          <option value="1">公务车</option>
+          <option value="2">商务车</option>
+        </select>
+      </dd>
+      <dd>
+        <label class="width-77">最近保养时间</label>
+        <input type="date" class="width-110" value={{vehicle.next_maintain_at}}>
+      </dd>
+      <dd>
+        <label class="width-77">最近保养里程</label>
+        <input type="number"  class="width-110" value={{vehicle.next_maintain_mileage}}>
+      </dd>
+    </dl>
+  </div>
+
+  <dl class="remark">
+    <dd>
+      <label class="width-77 vertical-align-top">备注</label>
+      <textarea>{{vehicle.remark}}</textarea>
+    </dd>
+  </dl>
+
+  <div class="btn_group">
+    <input type="reset" class="cancel_btn btn" value="取消">
+    <a href="#" class="save_btn btn">保存</a>
+  </div>
+</form>

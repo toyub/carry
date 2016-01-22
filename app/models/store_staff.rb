@@ -39,6 +39,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
   scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
+  scope :verifiers, -> { where(mis_login_enabled: true) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -83,11 +84,15 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def working_age
-    Time.now.year - (employeed_at.try(:year) || created_at.try(:year))
+    ((((Time.now.year - employed_date.year) * 12) + (Time.now.month - employed_date.month)) / 12).ceil + 1
+  end
+
+  def employed_date
+    employeed_at || created_at
   end
 
   def insurence_enabled?
-    return (bonus.try(:[], "insurence_enabled").nil? || bonus.try(:[], "insurence_enabled") == "0") ? "否" : "是"
+    bonus.present? && bonus['insurence_enabled'] == '1'
   end
 
   def current_salary
@@ -115,13 +120,13 @@ class StoreStaff <  ActiveRecord::Base
     contract.expired_on > contract.effected_on if contract && contract.expired_on.present? && contract.effected_on.present?
   end
 
-  def bonus_amount
+  def amount_bonus
     bonus || {}
     bonus["gangwei"].to_f + bonus["canfei"].to_f + bonus["laobao"].to_f +
       bonus["gaowen"].to_f + bonus["zhusu"].to_f
   end
 
-  def insurence_amount
+  def amount_insurence
     bonus || {}
     bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
   end
@@ -133,7 +138,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def should_pay
     sum = 0
-    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay + commission_amount_total
+    sum = current_salary + amount_bonus + amount_insurence + store_events.total_pay + commission_amount_total
     sum
   end
 

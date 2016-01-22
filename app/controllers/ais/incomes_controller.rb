@@ -12,7 +12,7 @@ class Ais::IncomesController < Ais::BaseController
       @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
     end
 
-    if params[:type].empty?
+    if params[:type].blank?
       @service_categories = ServiceCategory.all
       @material_categories = SaleCategory.all
     elsif params[:type] == 'materials'

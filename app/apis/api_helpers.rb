@@ -9,7 +9,7 @@ module APIHelpers
 
   # 设备的sn码或者是用户名
   def sn_code
-    @header_sn_code ||= (headers["X-Sn-Code"] || headers["Http-Username"])
+    @header_sn_code ||= (headers["X-Sn-Code"] || headers["X-Username"])
   end
 
   # 对客户端提交的未正确进行UTF-8编码的数据进行编码

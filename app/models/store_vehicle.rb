@@ -53,19 +53,50 @@ class StoreVehicle < ActiveRecord::Base
   end
 
   def current_license_number
-    self.plates.last.license_number
+    self.plates.last.try(:license_number)
   end
 
   def current_identification_number
-    self.engines.last.identification_number
+    self.engines.last.try(:identification_number)
+  end
+
+  def detail
+    read_attribute(:detail) || {}
   end
 
   def detail_by(name)
     self.detail && self.detail[name]
   end
 
+  def organization_type
+    detail_by('organization_type')
+  end
+
+  def bought_on
+    detail_by("bought_on")
+  end
+
+  def ex_factory_date
+    detail_by("ex_factory_date")
+  end
+
+  def registered_on
+    detail_by("registered_on")
+  end
+
+  def mileage
+    detail_by("mileage")
+  end
+
+  def next_maintain_mileage
+    detail_by("next_maintain_mileage")
+  end
+
+  def next_maintain_at
+    detail_by("next_maintain_at")
+  end
+
   def total_pay
     orders.pluck(:amount).reduce(0.0,:+)
   end
-
 end

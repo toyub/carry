@@ -8,13 +8,13 @@ class Soa::SettingsController < Soa::BaseController
   def edit
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
-    @verifiers = StoreStaff.where(mis_login_enabled: true)
+    @verifiers = @store.store_staff.verifiers
   end
 
   def new
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
-    @verifiers = StoreStaff.where(mis_login_enabled: true)
+    @verifiers = @store.store_staff.verifiers
   end
 
   def update
@@ -50,11 +50,11 @@ class Soa::SettingsController < Soa::BaseController
 
 
   def password
-    @store = current_store
-    @staff = @store.store_staff.find(params[:staff_id])
+    @staff = current_store.store_staff.find(params[:staff_id])
 
     respond_to do |format|
       if @staff.update!(staff_password_param)
+        @staff.reset_password!(params[:store_staff][:password], params[:store_staff][:password_confirmation])
         format.js
       else
         format.js { render plain: "some errors occur!!!" }

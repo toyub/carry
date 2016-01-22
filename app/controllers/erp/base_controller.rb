@@ -16,7 +16,7 @@ module Erp
     end
 
     def current_user
-      @current_user ||= StoreStaff.find_by(login_name: request.headers["HTTP_USERNAME"])
+      @current_user ||= StoreStaff.find_by(login_name: request.headers["X-Username"])
     end
 
     def authenticate_user

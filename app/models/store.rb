@@ -30,8 +30,8 @@ class Store <  ActiveRecord::Base
   has_many :store_material_saleinfos
   has_many :store_vehicle_registration_plates
   has_many :store_vehicles
-  has_many :vehicle_brands, through: 'store_vehicles'
 
+  has_many :vehicle_brands, through: 'store_vehicles'
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_orders
   has_many :store_order_items, through: 'store_orders', source: 'items'
@@ -39,10 +39,12 @@ class Store <  ActiveRecord::Base
   has_many :store_customer_payments
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
 
+  has_many :recommended_orders
   has_many :store_switches
   has_many :store_customer_categories
 
   has_one :sms_balance, as: :party
+  has_many :sms_records, as: :party
 
   has_many :tags, class_name: 'Tag::StoreCustomer'
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot'

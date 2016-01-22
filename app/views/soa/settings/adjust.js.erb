@@ -1,2 +1,7 @@
 $(".transfer_wrap, .salary_adjusting_wrap, .contract_signing_wrap").css("display", "none");
-location.reload(true);
+<% if params[:protocols][:type] == "StoreQianDingHeTong" %>
+$('.contract-detail').html("<%= j render '/soa/settings/contract_detail' %>");
+<% elsif params[:protocols][:type] == "StoreTiaoXin" %>
+  var current_salary_input = <%= @staff.regular %> ? $("#store_staff_regular_salary") : $("#store_staff_trial_salary")
+  current_salary_input.val("<%= @staff.current_salary %>")
+<% end %>

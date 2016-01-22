@@ -1,0 +1,130 @@
+<div class="vehicle_order">
+
+	<span class="vehicle_order_title title doslide">
+		意向内容
+	</span>
+
+	<div class="order_info">
+
+		<table cellpadding="0" cellspacing="0" class="intention_content material-saleinfo-table-items">
+			<thead>
+				<tr>
+					<th>名称</th>
+					<th>规格</th>
+					<th>零售价</th>
+					<th>意向价</th>
+					<th>数量</th>
+					<th>小计</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="item in materialSaleinfoItems">
+          <td style="display:none" class="material-saleinfo-table-item-id">{{item.id}}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.speci }}</td>
+          <td>{{ item.retail_price }}</td>
+          <td>
+            <input v-model="item.recommended_price" type="text" class="width-60 text-align-center">
+          </td>
+          <td>
+            <input v-model="item.quantity" placeholder="输入数量" class="width-40"></input>
+          </td>
+					<td>
+            {{ item.quantity * item.recommended_price }}
+						<span class="delete close" data-target="list_content_01">
+              <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+			  <tr class="text-align-right">
+				  <td colspan="10">
+            <label class="margin-right-10">商品金额总计:</label>
+            <label>{{recommendedTotalPrice}}</label>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<h2>服务明细</h2>
+		<table cellpadding="0" cellspacing="0" class="intention_content vue-service-table-items">
+			<thead>
+				<tr>
+					<th>项目</th>
+					<th>单价</th>
+          <th>会员/套餐价</th>
+					<th>意向价</th>
+					<th>数量</th>
+					<th>小计</th>
+				</tr>
+			</thead>
+      <tbody>
+        <tr v-for="item in serviceItems">
+          <td style="display:none" class="service-table-item-id">{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{ item.retail_price }}</td>
+          <td>{{ item.vip_price }}</td>
+          <td>
+            <input v-model="item.recommended_price" type="text" class="width-60 text-align-center">
+          </td>
+          <td>
+            <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
+          </td>
+          <td>
+            <span class="js-material-saleinfo-item-price">{{ item.quantity * item.recommended_price }}</span>
+            <span class="delete close">
+              <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
+            </span>
+        	</td>
+        </tr>
+      </tbody>
+			<tfoot>
+			  <tr class="text-align-right">
+				  <td colspan="8">
+            <label class="margin-right-10">小结：</label><label>{{recommendedTotalPrice}}</label>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+    <h2>套餐/储值明细</h2>
+    <table cellpadding="0" cellspacing="0" class="intention_content vue-package-table-items">
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>单价</th>
+					  <th>意向价</th>
+            <th>数量</th>
+            <th>小计</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in packageItems">
+            <td>{{ item.name }}</td>
+            <td>{{ item.retail_price }}</td>
+            <td>
+              <input v-model="item.recommended_price" type="text" class="width-60 text-align-center">
+            </td>
+            <td>
+              <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
+            </td>
+            <td>
+              <span class="js-material-saleinfo-item-price">{{ item.quantity * item.recommended_price }}</span>
+              <span class="delete close">
+                <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
+              </span>
+        	  </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="8">
+              <label class="js-materil-saleinfo-item-total-price">小结：{{recommendedTotalPrice}}</label>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+	</div>
+</div>

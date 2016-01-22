@@ -8,4 +8,5 @@ json.array! @plates do |plate|
   json.phone_number plate.store_customer.phone_number
   json.bought_on plate.store_vehicles.last.detail["bought_on"]
   json.barnd_name plate.store_vehicles.last.try(:vehicle_brand).try(:name)
+  json.serie_name plate.store_vehicles.last.try(:vehicle_serie).try(:name)
 end
