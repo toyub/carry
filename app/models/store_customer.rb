@@ -19,6 +19,8 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :assets, class_name: 'StoreCustomerAsset'
   has_many :deposit_logs, class_name: "StoreCustomerDepositLog"
+  has_many :deposit_incomes, class_name: "StoreCustomerDepositIncome"
+  has_many :deposit_expenses, class_name: "StoreCustomerDepositExpense"
 
   has_many :store_customer_deposit_cards
 
