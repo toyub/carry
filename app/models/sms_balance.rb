@@ -2,6 +2,8 @@ class SmsBalance < ActiveRecord::Base
   belongs_to :party, polymorphic: true
   validates :party_type, :party_id, presence: true
 
+  scope :by_store, ->{ where(party_type: 'Store') }
+
   def remaining
     self.total-self.sent_quantity
   end
