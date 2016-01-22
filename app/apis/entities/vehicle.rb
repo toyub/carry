@@ -37,7 +37,22 @@ module Entities
       expose :insurance_customer_alermify
     end
 
+    expose :damages
+
     expose :orders, using: ::Entities::Order
+
+    private
+
+      def damages
+        object.orders.order('created_at desc').map do |order|
+          order.situation['damages'].map do |damage|
+            {
+              created_at: order.created_at.strftime('%Y-%m-%d'),
+              content: damage['content']
+            }
+          end
+        end.flatten!
+      end
 
   end
 end
