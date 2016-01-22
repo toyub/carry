@@ -325,7 +325,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_orders, only: [:index, :show, :create] do
+    resources :store_orders do
+      collection do
+        post :draft
+      end
       resources :complaints, only:[:new, :create]
     end
     resources :store_subscribe_orders

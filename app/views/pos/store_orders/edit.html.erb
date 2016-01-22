@@ -28,7 +28,7 @@
           </div>
           <div class="construction_status">
             <div class="btn_group">
-              <a href="javascript:void(0);" class="go_payment_btn">更新订单</a>
+              <a href="javascript:void(0);" class="go_payment_btn js-update-order">更新订单</a>
             </div>
           </div>
         </div>
@@ -53,6 +53,7 @@
       x = new Mis.Views.PosOrderIndexView();
       x.setVehicleInfoData({target: {value: '<%= @order.store_vehicle_id %>'}})
      order = $('#order_data').data('order');
+     x.order = order;
      x.vehicle_situation.set_situation(order.situation)
      Mis.Vues.ServiceItem.serviceItems = order.services.items.slice()
      Mis.Vues.MaterialSaleinfoItem.materialSaleinfoItems = order.materials.items.slice();
