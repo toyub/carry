@@ -18,8 +18,8 @@ module V1
       end
       get do
         district = params[:q][:province] || params[:q][:city]
-        merge_store_infos!(params[:q], district) if district.present?
-        merge_created_at!(params[:q]) if params[:q][:created_at].present?
+        Stores.merge_store_infos!(params[:q], district) if district.present?
+        Stores.merge_created_at!(params[:q]) if params[:q][:created_at].present?
         params[:q].except!(:province, :city, :created_at)
         q = current_store_chain.stores.ransack(params[:q])
         present q.result(district: true).order('id asc'), with: ::Entities::Store
@@ -28,15 +28,15 @@ module V1
 
     private
 
-      def merge_store_infos!(q_params, district)
-        code = q_params.has_key?(:province) ? 'province' : 'city'
+      def self.merge_store_infos!(q_params, district)
+        name = q_params.has_key?(:province) ? '省份' : '城市'
         q_params.merge!({
-          store_infos_info_category_id_eq: InfoCategory.find_by(code: code).id,
+          store_infos_info_category_id_eq: InfoCategory.find_by(name: name).id,
           store_infos_value_eq: district
         })
       end
 
-      def merge_created_at!(q_params)
+      def self.merge_created_at!(q_params)
         time = Time.zone.parse(q_params[:created_at])
         q_params.merge!({
           created_at_gteq: time.beginning_of_day,
