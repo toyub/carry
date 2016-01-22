@@ -1,13 +1,12 @@
 class RecommendedOrder < ActiveRecord::Base
   include BaseModel
-  
-  has_many :items, class_name: 'RecommendedOrderItem'
   belongs_to :store_vehicle
   belongs_to :store_customer
 
-  before_create :set_numero
-
+  has_many :items, class_name: 'RecommendedOrderItem'
   accepts_nested_attributes_for :items
+
+  before_create :set_numero
 
   def self.today
     where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
