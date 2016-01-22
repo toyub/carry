@@ -19,9 +19,11 @@ module V1
         end
       end
       get do
-        saleinfos = current_store_chain.store_material_saleinfos.order(params[:q][:s])
-        q = saleinfos.ransack(params[:q].except(:s))
-        present q.result(distinct: true), with: ::Entities::Material
+        # saleinfos = current_store_chain.store_material_saleinfos.order(params[:q][:s])
+        # q = saleinfos.ransack(params[:q].except(:s))
+        @q = current_store_chain.store_material_saleinfos.order(params[:q][:s]).ransack(params[:q].except(:s))
+        @materials = StoreMaterial.saleable.by_saleinfo(@q.result.pluck(:store_material_id))
+        present @materials, with: ::Entities::Material
       end
     end
 
