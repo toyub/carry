@@ -6,6 +6,15 @@ module V1
     include V1::Defaults
 
     mount V1::Customers
+    mount V1::CustomerProperties
+    mount V1::ContactWays
+    mount V1::MessageRecords
+    mount V1::MessageBalances
+    mount V1::MessageCategories
+    mount V1::Districts
+    mount V1::Stores
+    mount V1::Packages
+    mount V1::SaleCategories
     mount V1::Service
     mount V1::ServiceCategories
     mount V1::Staff

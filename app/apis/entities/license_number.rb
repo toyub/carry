@@ -1,5 +1,6 @@
 module Entities
   class LicenseNumber < Grape::Entity
-    expose :id, :license_number
+    expose :id
+    expose :license_number
   end
 end

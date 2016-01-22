@@ -93,6 +93,7 @@ class Store <  ActiveRecord::Base
   end
 
   def business_hours
+    return if "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}" == "~"
     "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}"
   end
 
