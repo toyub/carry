@@ -20,6 +20,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     'click #unnominated_workstation': 'unnominatedWorkstation'
     'click #nominated_workstation': 'nominatedWorkstation'
     'click #workflow_setting': 'enableWorkflowSetting'
+    'click #regular_setting': 'enableRegularSetting'
     'click #create_workflow': 'openWorkflowForm'
     'click #closeWithoutSave': 'goToShow'
 
@@ -111,7 +112,12 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @appendChildTo(view, @$("#workstationCategories"))
 
   enableWorkflowSetting: ->
+    @$(".j_regular_setting table").find("input, select").attr('disabled', true)
     @$("#create_workflow").attr('disabled', false)
+
+  enableRegularSetting: ->
+    @$(".j_regular_setting table").find("input, select").attr('disabled', false)
+    @$("#create_workflow").attr('disabled', true)
 
   openWorkflowForm: ->
     model = new Mis.Models.StoreServiceWorkflow()
