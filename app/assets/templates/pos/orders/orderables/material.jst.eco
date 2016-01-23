@@ -14,5 +14,5 @@
     <span class="text-decoration-linethrough display-block"><%= @retail_price + @service_fee_price %></span>
     <span class="color-08BD48"><%= @vip_price + @service_fee_price %></span>
   </td>
-  <td><input type="checkbox" data-itemid="<%= @id %>" class="material-saleinfo-checkbox"></td>
+  <td><input type="checkbox" data-itemid="<%= @id %>" class="material-checkbox"></td>
 </tr>

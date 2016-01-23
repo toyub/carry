@@ -24,7 +24,7 @@
 		<tbody id='js-orderables-materials'></tbody>
 	</table>
   <div class="btn_group margin-right-20">
-    <a href="javascript:void(0)" class="selected_btn btn js-material-saleinfo-checkbox">选中</a>
+    <a href="javascript:void(0)" class="selected_btn btn js-select-materials">选中</a>
   </div>
 </div>
 
@@ -44,7 +44,7 @@
 		<tbody id='js-orderables-services'></tbody>
 	</table>
   <div class="btn_group margin-right-20">
-    <a href="javascript:void(0)" class="selected_btn btn js-service-checkbox">选中</a>
+    <a href="javascript:void(0)" class="selected_btn btn js-select-services">选中</a>
   </div>
 </div>
 
@@ -64,7 +64,7 @@
 		</thead>
 		<tbody id='js-orderables-packages'></tbody>
 	</table>
-	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn js-package-checkbox">选中</a></div>
+	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn js-select-packages">选中</a></div>
 </div>
 
 <div class="order_item order_vip js-orderables-assets">
