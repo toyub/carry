@@ -1,0 +1,12 @@
+<tr>
+  <td class="number"><%= @idx %></td>
+  <td><%= @name %></td>
+  <td><%= @standard_time %>分钟</td>
+  <td><%= @category_name %></td>
+  <td><%= @point %></td>
+  <td class="text-align-right">
+    <span class="text-decoration-linethrough display-block"><%= @retail_price %></span>
+    <span class="color-08BD48"><%= @retail_price %></span>
+  </td>
+  <td><input type="checkbox" data-itemid="<%= @id %>" class="service-checkbox"></td>
+</tr>

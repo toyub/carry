@@ -1,0 +1,18 @@
+<tr>
+  <td><%= @idx %></td>
+  <td>
+    <% if @service_needed: %>
+    <span class="struct">施</span>
+    <% end %>
+    <%= @name %>
+  </td>
+  <td><%= @speci %></td>
+  <td><%= @category_name %></td>
+  <td><%= @reward_points %></td>
+  <td><%= @inventory_quantity %></td>
+  <td class="text-align-right">
+    <span class="text-decoration-linethrough display-block"><%= @retail_price + @service_fee_price %></span>
+    <span class="color-08BD48"><%= @vip_price + @service_fee_price %></span>
+  </td>
+  <td><input type="checkbox" data-itemid="<%= @id %>" class="material-saleinfo-checkbox"></td>
+</tr>
