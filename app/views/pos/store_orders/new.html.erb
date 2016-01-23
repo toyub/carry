@@ -39,9 +39,7 @@
         <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
         <%= render partial: 'construction' %>
         <div class="improve_crm_wrap float-left"></div>
-        <div class="completing_vehicle_info float-left">
-          <%= render "vehicle_detail_info" %>
-        </div>
+        <div class="completing_vehicle_info float-left"></div>
       </div>
     </div>
   </div>
@@ -50,6 +48,9 @@
 <script>
   jQuery(function($){
     if($(".pos-orders-index").length > 0){
+      Mis.Vues.MaterialSaleinfoItem = new Vue(Mis.Vues.Opts.material);
+      Mis.Vues.ServiceItem = new Vue(Mis.Vues.Opts.service);
+      Mis.Vues.PackageItem = new Vue(Mis.Vues.Opts.package);
       new Mis.Views.PosOrderIndexView();
     }
   })
