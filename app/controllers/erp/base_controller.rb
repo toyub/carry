@@ -1,6 +1,6 @@
 module Erp
   class BaseController < ApplicationController
-    # before_filter :auth_token, :authenticate_user
+    before_filter :auth_token, :authenticate_user
 
     respond_to :json
 
@@ -24,8 +24,7 @@ module Erp
     end
 
     def current_store_chain
-      # current_user.store_chain
-      StoreChain.find(2400)
+      current_user.store_chain
     end
   end
 end

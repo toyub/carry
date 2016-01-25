@@ -7,7 +7,7 @@ module Entities
     expose(:speci) {|model| model.store_material_saleinfo.try(:speci)}
     expose(:unit) { |material, options|  material.store_material_unit.try :name}
     expose(:retail_price) {|model| model.store_material_saleinfo.try(:retail_price)}
-    expose(:bargain_price) {|model| model.store_material_saleinfo.try(:bargain_price)}
+    expose(:bargain_price) {|model| model.store_material_saleinfo.try(:bargain_price) if model.store_material_saleinfo.bargainable == true }
     expose(:point) {|model| model.store_material_saleinfo.try(:point)}
     expose :inventory
     expose :sold_count
