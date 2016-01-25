@@ -7,9 +7,8 @@ module V1
       end
 
       add_desc '短信类型列表'
-      
       get do
-        present SmsNotifySwitchType::ID_TYPES.to_a, with: ::Entities::MessageCategory
+        present SmsSwitchType.collection, with: ::Entities::MessageCategory
       end
     end
 
