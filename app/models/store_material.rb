@@ -78,6 +78,10 @@ class StoreMaterial < ActiveRecord::Base
     outgos.where(created_month: month)
   end
 
+  def sold_count
+    store_material_saleinfo.store_order_items.count
+  end
+
   private
   def generate_barcode!
     unless self.barcode.present?

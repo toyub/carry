@@ -12,11 +12,5 @@ module Entities
     expose :inventory
     expose :sold_count
     expose(:category) {|model| model.store_material_saleinfo.try(:category).try :name}
-
-    private
-
-      def sold_count
-        500
-      end
   end
 end
