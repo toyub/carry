@@ -79,7 +79,7 @@ class StoreMaterial < ActiveRecord::Base
   end
 
   def sold_count
-    store_material_saleinfo.store_order_items.count
+    store_material_saleinfo.try(:store_order_items).try(:count)
   end
 
   private
