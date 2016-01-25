@@ -110,7 +110,7 @@ module V1
           present orders, with: ::Entities::Order
         end
 
-        resource :packaged_assets, desc: "套餐相关" do
+        resource :package_assets, desc: "套餐相关" do
           add_desc "套餐列表"
           get "/", requirements: { customer_id: /[0-9]*/ } do
             present @customer.packaged_assets, with: ::Entities::PackageAsset, type: :list
