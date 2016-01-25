@@ -25,7 +25,31 @@ module Api
     end
 
     def draft
+      items_attributes = material_items + service_items + package_items
+      if items_attributes.blank?
+        render json: {success: false, error: '未选择任何产品或服务'}, status: 422
+        return false
+      end
+      order = new_order(current_staff, @vehicle, @customer, params[:situation], items_attributes, 'pending')
+      if order.save
+        render json: {success: true, order: order}
+      else
+        render json: {success: false, error: order.errors.full_messages}, status: 422
+      end
+    end
 
+    def update_draft
+      items_attributes = material_items + service_items + package_items
+      if items_attributes.blank?
+        render json: {success: false, error: '未选择任何产品或服务'}, status: 422
+        return false
+      end
+
+      if @order.update(situation: params[:situation], items_attributes: items_attributes)
+        render json: {success: true, order: @order}
+      else
+        render json: {success: false, error: @order.errors.full_messages}, status: 422
+      end
     end
 
     def create
