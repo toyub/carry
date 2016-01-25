@@ -11,7 +11,7 @@ module Entities
     expose(:point) {|model| model.store_material_saleinfo.try(:point)}
     expose :inventory
     expose :sold_count
-    expose(:category, if: :full) {|model| model.store_material_saleinfo.category.try :name}
+    expose(:category) {|model| model.store_material_saleinfo.category.try :name}
 
     private
 
