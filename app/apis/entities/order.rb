@@ -11,7 +11,7 @@ module Entities
     expose(:store_name) { |model, options| model.store.name }
     expose(:creator) {|model, optional| model.creator.full_name}
     expose :total_amount
-    expose(:damages) { |model, options| model.try(:situation).try([:damages].to_s) }
+    expose :damages
     expose :items, using: OrderItem
   end
 end
