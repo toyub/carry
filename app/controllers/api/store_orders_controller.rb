@@ -67,6 +67,7 @@ module Api
         if params[:materials].present?
           params[:materials].map do |info|
             {
+              id: info['id'],
               orderable_id: info["orderable_id"],
               orderable_type: "StoreMaterialSaleinfo",
               vip_price: info["vip_price"],
@@ -85,6 +86,7 @@ module Api
         if params[:services].present?
           params[:services].map do |info|
             {
+              id: info['id'],
               orderable_id: info["orderable_id"],
               orderable_type: "StoreService",
               vip_price: info["vip_price"],
@@ -103,6 +105,7 @@ module Api
         if params[:packages].present?
           params[:packages].map do |info|
             {
+              id: info['id'],
               orderable_id: info["orderable_id"],
               orderable_type: "StorePackage",
               vip_price: info["vip_price"],
