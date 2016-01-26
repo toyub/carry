@@ -17,6 +17,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
   has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy
+  has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
 
