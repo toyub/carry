@@ -4,5 +4,5 @@ class VehicleSeries < ActiveRecord::Base
   belongs_to :vehicle_brand
   belongs_to :vehicle_manufacturer
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: {scope: :vehicle_manufacturer_id}
 end
