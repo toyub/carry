@@ -5,9 +5,9 @@ module Entities
       expose :license_number
       expose :identification_number
       expose :vin
-      expose(:vehicle_brand){ |vehicle, options| vehicle.vehicle_brand.name }
-      expose(:vehicle_model){ |vehicle, options| vehicle.vehicle_model.name }
-      expose(:vehicle_series){ |vehicle, options| vehicle.vehicle_series.name }
+      expose(:vehicle_brand){ |vehicle, options| vehicle.vehicle_brand.try(:name) }
+      expose(:vehicle_model){ |vehicle, options| vehicle.vehicle_model.try(:name) }
+      expose(:vehicle_series){ |vehicle, options| vehicle.vehicle_series.try(:name) }
       expose :operator
       expose(:created_at){ |vehicle, options| vehicle.created_at.strftime('%Y-%m-%d') }
       expose :color
