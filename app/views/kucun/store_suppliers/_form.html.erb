@@ -23,11 +23,13 @@
         </div>
         <div class="item_content">
           <label class="width-75">国家</label>
-          <%= form.select :location_country_code, options_for_select(Geo.countries.map{|country| [country.name, country.code]}, ['中国', '1']), {}, {class: "width-65 margin-left-0"} %>
+          <%= form.select :location_country_code, options_for_select(Geo.countries.map{|country| [country.name, country.code]}, @store_supplier.location_country_code), {}, {class: "width-65 margin-left-0"} %>
           <label class="width-40">省份</label>
-          <%= form.select :location_state_code, options_for_select(Geo.states('1').map{|state| [state.name, state.code]}, ['北京', '11']), {}, {class: "width-65 margin-left-0"} %>
+          <% country_code = (@store_supplier.location_country_code || '1').to_s %>
+          <%= form.select :location_state_code, options_for_select(Geo.states(country_code).map{|state| [state.name, state.code]}, @store_supplier.location_state_code), {}, {class: "width-65 margin-left-0"} %>
           <label class="width-40">市</label>
-          <%= form.select :location_city_code, options_for_select(Geo.cities('1', '11').map{|city| [city.name, city.code]}), {}, {class: "width-64 margin-left-0"} %>
+          <% state_code = (@store_supplier.location_state_code || '11').to_s %>
+          <%= form.select :location_city_code, options_for_select(Geo.cities(country_code, state_code).map{|city| [city.name, city.code]}, @store_supplier.location_city_code), {}, {class: "width-64 margin-left-0"} %>
         </div>
         <div class="item_content">
           <label class="width-75">地址</label>
@@ -49,7 +51,8 @@
           <label class="width-75">一级分类</label>
           <%= form.select :store_material_root_category_id, options_for_select(@store.store_material_categories.super_categories.map { |category| [category.name, category.id] }, @store_supplier.store_material_root_category_id), {}, {class: "width-103"} %>
           <label class="width-75">二级分类</label>
-          <%= form.select :store_material_category_id, options_for_select(@store.store_material_categories.super_categories.first.sub_categories.map { |category| [category.name, category.id] }, @store_supplier.store_material_category_id), {}, {class: "width-103"} %>
+          <% category = @store_supplier.store_material_root_category || @store.store_material_categories.super_categories.first %>
+          <%= form.select :store_material_category_id, options_for_select(category.sub_categories.map { |category| [category.name, category.id] }, @store_supplier.store_material_category_id), {}, {class: "width-103"} %>
         </div>
 
         <div class="item_content">
