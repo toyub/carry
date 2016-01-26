@@ -22,8 +22,12 @@ module APIHelpers
     @current_user ||= StoreStaff.find_by(login_name: sn_code)
   end
 
-  def authenticate_user!
+  def authenticate_sn_code!
     raise APIErrors::NoGetAuthenticate unless sn_code.present?
+  end
+
+  def authenticate_user!
+    authenticate_sn_code!
     raise APIErrors::AuthenticateFail unless current_user
   end
 
