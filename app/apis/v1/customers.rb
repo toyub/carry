@@ -14,13 +14,13 @@ module V1
         end
       end
       get do
-        q = StoreCustomer.ransack(params[:q])
-        present q.result.order('id asc'), with: ::Entities::Customer
+        q = current_store_chain.store_customers.ransack(params[:q])
+        present q.result.order('id asc'), with: ::Entities::Customer, type: :default
       end
 
       add_desc "客户详情"
       get ":id", requirements: { id: /[0-9]*/ } do
-        present StoreCustomer.find(params[:id]), with: ::Entities::Customer
+        present StoreCustomer.find(params[:id]), with: ::Entities::Customer, type: :full
       end
 
       route_param :customer_id do
@@ -110,7 +110,7 @@ module V1
           present orders, with: ::Entities::Order
         end
 
-        resource :packaged_assets, desc: "套餐相关" do
+        resource :package_assets, desc: "套餐相关" do
           add_desc "套餐列表"
           get "/", requirements: { customer_id: /[0-9]*/ } do
             present @customer.packaged_assets, with: ::Entities::PackageAsset, type: :list

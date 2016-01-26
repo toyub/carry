@@ -325,10 +325,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_orders, only: [:index, :show, :create] do
+    resources :store_orders do
+      collection do
+        post :draft
+      end
       resources :complaints, only:[:new, :create]
     end
-    resources :store_subscribe_orders
+    resources :subscribe_orders
+    resources :recommended_orders
 
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do
@@ -399,6 +403,7 @@ Rails.application.routes.draw do
     end
 
     resources :recommended_orders
+    resources :subscribe_orders
 
     resources :vehicle_brands, only: [:index] do
       get :search_series
@@ -420,8 +425,8 @@ Rails.application.routes.draw do
       resources :checkouts
     end
     resources :store_orders
-    resources :pre_orders, only: [:index]
     resources :recommended_orders
+    resources :subscribe_orders
   end
 
   namespace :printer do
@@ -448,7 +453,6 @@ Rails.application.routes.draw do
       resources :vehicle_conditions, only: [:show]
       resources :vehicle_services, only: [:show]
       resources :expense_records, only: [:index]
-      resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
       resources :store_repayments, only: [:index, :create] do

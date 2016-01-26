@@ -1,22 +1,16 @@
 module Entities
   class Material < Grape::Entity
     expose :id
-    expose(:name) { |material, options| material.store_material.name }
-    expose(:store_name) { |material, options| material.store.name }
-    expose :barcode
-    expose :speci
-    expose(:unit) { |material, options|  material.store_material.store_material_unit.try :name}
-    expose :retail_price
-    expose :bargain_price
-    expose :point
-    expose(:inventory) { |material, options| material.store_material.inventory }
+    expose(:name) { |material, options| material.name }
+    expose(:store_name) {|model| model.store.name}
+    expose(:barcode) {|model| model.store_material_saleinfo.try(:barcode) }
+    expose(:speci) {|model| model.store_material_saleinfo.try(:speci)}
+    expose(:unit) { |material, options|  material.store_material_unit.try :name}
+    expose(:retail_price) {|model| model.store_material_saleinfo.try(:retail_price)}
+    expose(:bargain_price) {|model| model.store_material_saleinfo.try(:bargain_price) if model.store_material_saleinfo.try(:bargainable) == true }
+    expose(:point) {|model| model.store_material_saleinfo.try(:point)}
+    expose :inventory
     expose :sold_count
-    expose(:category) { |material, options| material.category.try :name }
-
-    private
-
-      def sold_count
-        500
-      end
+    expose(:category) {|model| model.store_material_saleinfo.try(:category).try :name}
   end
 end
