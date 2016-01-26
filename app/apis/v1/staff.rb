@@ -2,6 +2,9 @@ module V1
   class Staff < Grape::API
 
     resource :staff, desc: "员工相关" do
+      before do
+        authenticate_user!
+      end
 
       add_desc "员工列表"
       params do
