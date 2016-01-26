@@ -40,6 +40,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
   scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
   scope :verifiers, -> { where(mis_login_enabled: true) }
+  scope :unregular, -> { where(regular: false) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -81,6 +82,12 @@ class StoreStaff <  ActiveRecord::Base
 
   def unregular
     update!(regular: false)
+  end
+
+  def could_regular?
+    return true if trial_period.blank?
+    protocol = store_protocols.where(type: "StoreZhuanZheng").last
+    protocol.present? ? Time.now > protocol.effected_on : Time.now > trial_period.month.since(employed_date)
   end
 
   def working_age
