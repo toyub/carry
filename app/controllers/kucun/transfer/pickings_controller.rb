@@ -11,6 +11,7 @@ module Kucun
 
       def new
         @store = current_store
+        @depots = @store.store_depots
       end
 
       def create

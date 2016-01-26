@@ -17,7 +17,7 @@
         <td colspan="2">
           <select class="admin_ids" style="width:252px;" name="admin_ids[]" multiple="multiple" required>
             <%  for opt in @staff : %>
-              <option <%= 'selected' if @admin_ids.indexOf(opt.id) > -1 %> value="<%= opt.id %>"><%= opt.login_name %></option>
+              <option <%= 'selected' if @admin_ids.indexOf(opt.id) > -1 %> value="<%= opt.id %>"><%= opt.full_name %></option>
             <% end %>
           </select>
         </td>
