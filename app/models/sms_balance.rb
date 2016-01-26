@@ -19,4 +19,8 @@ class SmsBalance < ActiveRecord::Base
   def increase_sent_quantity!(quantity)
     self.class.unscoped.where(id: self.id).update_all("sent_quantity=COALESCE(sent_quantity, 0) + #{quantity.to_i.abs}")
   end
+
+  def left_quantity
+    self.total.to_i - self.sent_quantity.to_i
+  end
 end
