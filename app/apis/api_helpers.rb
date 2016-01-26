@@ -12,6 +12,10 @@ module APIHelpers
     @header_sn_code ||= (headers["X-Sn-Code"] || headers["X-Username"])
   end
 
+  def authorization
+    @header_authorization ||= headers["Authorization"]
+  end
+
   # 对客户端提交的未正确进行UTF-8编码的数据进行编码
   def normalize_encode_params
     @env["rack.request.form_hash"] ||= {}
@@ -19,11 +23,15 @@ module APIHelpers
   end
 
   def current_user
-    @current_user ||= StoreStaff.find_by(login_name: sn_code)
+    @current_user ||= ApiToken.authenticate(sn_code, authorization).try(:store_staff)
+  end
+
+  def authenticate_sn_code!
+    raise APIErrors::NoGetAuthenticate unless sn_code.present?
   end
 
   def authenticate_user!
-    raise APIErrors::NoGetAuthenticate unless sn_code.present?
+    authenticate_sn_code!
     raise APIErrors::AuthenticateFail unless current_user
   end
 
