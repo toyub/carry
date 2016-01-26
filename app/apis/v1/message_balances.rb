@@ -7,16 +7,12 @@ module V1
       end
 
       add_desc '短信条数相关信息列表'
-
+      params do
+        optional :store_id, type: Integer, desc: "所属门店ID"
+      end
       get do
-        balances = SmsBalance.by_store
-        balance_infos = {
-          total_quantity: balances.sum(:total),
-          sent_quantity: balances.sum(:sent_quantity),
-          left_quantity: balances.map{ |balance| balance.remaining }.sum,
-          total_fee: balances.sum(:total_fee)
-        }
-        present balance_infos, with: ::Entities::MessageBalanceInfo
+        store = Store.find_by(params[:store_id]) || {}
+        present store, with: ::Entities::MessageBalanceInfo
       end
     end
 

@@ -1,12 +1,16 @@
 module Entities
+  class SmsBalanceInfo < Grape::Entity
+    expose(:total_quantity) {|model| model.total}
+    expose :sent_quantity, :total_fee
+    expose(:left_quantity) {|model| model.total - model.sent_quantity}
+
+  end
+
   class MessageBalanceInfo < Grape::Entity
-    expose :balance_infos do |balance, options|
-      {
-        total_quantity: balance[:total_quantity],
-        sent_quantity: balance[:sent_quantity],
-        left_quantity: balance[:left_quantity],
-        total_fee: balance[:total_fee]
-      }
+    expose :balance_infos, using: SmsBalanceInfo
+    private
+    def balance_infos
+      object.sms_balance
     end
   end
 end
