@@ -30,7 +30,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @renderNav()
     @renderProfileSummary()
     @renderWorkflows() if !@model.isRegular()
-    @renderWorkstations() if @model.isRegular()
+    @renderWorkstations() #if @model.isRegular()
     @
 
   renderNav: ->
