@@ -11,7 +11,7 @@
 
     <li>
       <label class="width-100">提醒触发：</label>
-      <label class="width-100"><%= remind.timingName() %></label>
+      <label class="width-100 text-align-right"><%= remind.timingName() %></label>
       <input type="text" <%= 'disabled' if view.isShow() %> name="delay_interval" value="<%= remind.get 'delay_interval' %>" class="width-80" > 分钟
     </li>
 
@@ -33,7 +33,7 @@
     <li>
       <label class="width-158">提醒内容：</label>
       <div class="display-inline-block">
-        <textarea <%= 'disabled' if view.isShow() %> rows="9" class="width-245" name="content"><%= @remind.get('content') %></textarea>
+        <textarea <%= 'disabled' if view.isShow() %> rows="7" class="width-245" name="content"><%= @remind.get('content') %></textarea>
       </div>
     </li>
   </ul>

@@ -1,5 +1,6 @@
 class StoreTracking < ActiveRecord::Base
   belongs_to :store_order
+  belongs_to :trackable, polymorphic: true
 
   validates :title, presence: true
   validates :content, presence: true
@@ -22,4 +23,5 @@ class StoreTracking < ActiveRecord::Base
   def contact_way
     CONTACT_WAY[self.contact_way_id]
   end
+
 end

@@ -4,19 +4,19 @@
 </div>
 <div class="item_content">
   <label class="width-75">品牌</label>
-  <span class="width-165 border"><%= @vehicle.vehicle_brand.name %></span>
-</div>
-<div class="item_content">
-  <label class="width-75">车型</label>
-  <span class="width-165 border"><%= @vehicle.vehicle_model.name %></span>
+  <span class="width-165 border"><%= @vehicle.vehicle_brand.try(:name )%></span>
 </div>
 <div class="item_content">
   <label class="width-75">车系</label>
-  <span class="width-165 border"><%= @vehicle.vehicle_series.name %></span>
+  <span class="width-165 border"><%= @vehicle.vehicle_series.try(:name )%></span>
+</div>
+<div class="item_content">
+  <label class="width-75">车型</label>
+  <span class="width-165 border"><%= @vehicle.vehicle_model.try(:name )%></span>
 </div>
 <div class="item_content">
   <label class="width-75">VIN号码</label>
-  <span class="width-165 border"><%= @vehicle.frame.vin %></span>
+  <span class="width-165 border"><%= @vehicle.frame.try(:vin )%></span>
 </div>
 <div class="item_content">
   <label class="width-75">发动机号码</label>
@@ -32,7 +32,7 @@
 </div>
 <div class="item_content">
    <label class="width-75">档案编号</label>
-   <span class="width-165 border"><%= @vehicle.numero %></span>
+   <span class="width-165 border"><%= @vehicle.detail["numero"] %></span>
  </div>
  <div class="item_content">
    <label class="width-75">车辆性质</label>

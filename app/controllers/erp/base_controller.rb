@@ -11,11 +11,12 @@ module Erp
     end
 
     def auth_token
-      render json: {errors: ["app token incrrect"]}, status: 401 and return unless AuthenticateTokenService.call(request.headers["HTTP_KEY"], request.headers["HTTP_SECRET"])
+      return if Rails.env == 'development'
+      render json: {errors: ["app token incrrect"]}, status: 401 and return unless AuthenticateTokenService.authenticate!(request.headers["X-Client-Key"])
     end
 
     def current_user
-      @current_user ||= StoreStaff.find_by(login_name: request.headers["HTTP_USERNAME"])
+      @current_user ||= StoreStaff.find_by(login_name: request.headers["X-Username"])
     end
 
     def authenticate_user

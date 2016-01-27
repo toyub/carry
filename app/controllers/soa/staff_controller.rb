@@ -1,6 +1,7 @@
 class Soa::StaffController < Soa::BaseController
   def index
-    @staffs = current_store.store_staff.by_keyword(params[:keyword])
+    @staffs = current_store.store_staff.order('id asc')
+                                       .by_keyword(params[:keyword])
                                        .by_level(params[:level_type_id])
                                        .by_job_type(params[:job_type_id])
   end
@@ -44,7 +45,9 @@ class Soa::StaffController < Soa::BaseController
 
   def update
     staff = current_store.store_staff.find(params[:id])
+    staff.update!(:mis_login_enabled, false) if params[:terminated_at].present?
     employee = staff.store_employee || staff.build_store_employee(employee_params)
+    params[:staff][:login_name] = params[:employee][:phone_number] if params[:employee][:phone_number]
     staff.update!(staff_params)
     employee.update!(employee_params)
     redirect_to action: :show

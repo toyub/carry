@@ -22,10 +22,10 @@
 
 </div>
 
-<% if !@varifiers.nil? %>
+<% if @verifiers.present? %>
   <div class="confirm_person">
     <%= form.label :verifier_id, "审核人" %>
-    <%= form.select :verifier_id, @verifiers.map {|verifier| [verifier.login_name, verifier.id]} %>
+    <%= form.select :verifier_id, @verifiers.map {|verifier| [verifier.full_name, verifier.id]} %>
   </div>
 <% end %>
 

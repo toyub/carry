@@ -2,15 +2,12 @@
   <%= form_tag("/ais/costs/search", method: :get) do -%>
     <div class="item-query">
       <label>时间</label>
-      <%= date_field_tag :start, nil, class: "width-120" %> -
-      <%= date_field_tag :end, nil, class: "width-120" %>
-    </div>
-
-    <div class="item-query">
-      <label>查看方式</label>
-      <select type="text" class="width-100">
-        <option>汇总</option>
-      </select>
+      <%= date_select(
+        "", :date,
+        { start_year: 2000, use_short_month: true, discard_day: true, :default => @date},
+        {:include_blank => @search_date.nil?, class: "width-100" }
+      )
+    %>
     </div>
 
     <div class="item-query">
@@ -23,7 +20,6 @@
     </div>
 
     <div class="query_div">
-      <a href="#" class="print_btn btn">打印</a>
       <a href="#" class="export_btn btn">导出</a>
     </div>
   <% end %>

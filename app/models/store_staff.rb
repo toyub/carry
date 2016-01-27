@@ -13,10 +13,11 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_events, dependent: :destroy
   has_many :store_contracts, class_name: "StoreQianDingHeTong", dependent: :destroy
   has_many :store_attendence, class_name: "StoreAttendence", dependent: :destroy
-  has_many :store_rewords, class_name: "StoreReward", dependent: :destroy
+  has_many :store_rewards, class_name: "StoreReward", dependent: :destroy
   has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
   has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy
+  has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
 
@@ -39,6 +40,8 @@ class StoreStaff <  ActiveRecord::Base
   scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
   scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
+  scope :verifiers, -> { where(mis_login_enabled: true) }
+  scope :unregular, -> { where(regular: false) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -82,12 +85,26 @@ class StoreStaff <  ActiveRecord::Base
     update!(regular: false)
   end
 
+  def could_regular?
+    return true if trial_period.blank?
+    protocol = store_protocols.where(type: "StoreZhuanZheng").last
+    protocol.present? ? Time.now > protocol.effected_on : Time.now > trial_period.month.since(employed_date)
+  end
+
   def working_age
-    Time.now.year - (employeed_at.try(:year) || created_at.try(:year))
+    ((((Time.now.year - employed_date.year) * 12) + (Time.now.month - employed_date.month)) / 12).ceil + 1
+  end
+
+  def terminated?
+    terminated_at.present? && (Time.now > terminated_at)
+  end
+
+  def employed_date
+    employeed_at || created_at
   end
 
   def insurence_enabled?
-    return (bonus.try(:[], "insurence_enabled").nil? || bonus.try(:[], "insurence_enabled") == "0") ? "否" : "是"
+    bonus.present? && bonus['insurence_enabled'] == '1'
   end
 
   def current_salary
@@ -102,22 +119,26 @@ class StoreStaff <  ActiveRecord::Base
     store_contracts.last
   end
 
+  def contract_status
+    contract.present? ? contract.effected_on.try(:strftime, "%Y-%m-%d") : "未签订合同"
+  end
+
   def contract_life
     year = 12
-    (contract.expired_on.year - contract.effected_on.year) * year + (contract.effected_on.month - contract.expired_on.month) if contract.present?
+    (contract.expired_on.try(:year).to_i - contract.effected_on.try(:year).to_i) * year + (contract.effected_on.try(:month).to_i - contract.expired_on.try(:month).to_i) if contract.present?
   end
 
   def contract_valid?
-    contract.expired_on > contract.effected_on if contract
+    contract.expired_on > contract.effected_on if contract && contract.expired_on.present? && contract.effected_on.present?
   end
 
-  def bonus_amount
+  def amount_bonus
     bonus || {}
     bonus["gangwei"].to_f + bonus["canfei"].to_f + bonus["laobao"].to_f +
       bonus["gaowen"].to_f + bonus["zhusu"].to_f
   end
 
-  def insurence_amount
+  def amount_insurence
     bonus || {}
     bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
   end
@@ -129,7 +150,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def should_pay
     sum = 0
-    sum = current_salary + bonus_amount + insurence_amount + store_events.total_pay
+    sum = current_salary + amount_bonus + amount_insurence + store_events.total_pay + commission_amount_total
     sum
   end
 
@@ -167,24 +188,52 @@ class StoreStaff <  ActiveRecord::Base
     regular && deduct_enabled
   end
 
-  def materials_amount_total
-    store_order_items.materials.inject(0) {|sum, item| sum += item.amount }
+  def materials_amount_total(month = Time.now)
+    store_order_items.by_month(month).materials.inject(0) {|sum, item| sum += item.amount }
   end
 
-  def services_amount_total
-    store_order_items.services.inject(0) {|sum, item| sum += item.amount }
+  def services_amount_total(month = Time.now)
+    store_order_items.by_month(month).services.inject(0) {|sum, item| sum += item.amount }
   end
 
-  def items_amount_total
-    store_order_items.inject(0) {|sum, item| sum += item.amount }
+  def items_amount_total(month = Time.now)
+    store_order_items.by_month(month).inject(0) {|sum, item| sum += item.amount }
   end
 
-  def commission_amount_total
-    commission? ? store_order_items.where.not(orderable_type: "StorePackage").inject(0) {|sum, item| sum += item.commission } : 0.0
+  def commission_amount_total(month = Time.now)
+    materials_commission(month) + services_commission(month)
   end
 
-  def self.commission_amount_total
-    all.inject(0) {|sum, staff| sum += staff.commission_amount_total }
+  def materials_commission(month = Time.now)
+    commission? ? store_order_items.by_month(month).materials.inject(0) {|sum, item| sum += item.commission } : 0.0
+  end
+
+  def services_commission(month = Time.now)
+    commission? ? store_order_items.by_month(month).services.inject(0) {|sum, item| sum += item.commission } : 0.0
+  end
+
+  def self.items_amount_total(month = Time.now)
+    all.inject(0) {|sum, staff| sum += staff.items_amount_total(month) }
+  end
+
+  def self.commission_amount_total(month = Time.now)
+    all.inject(0) {|sum, staff| sum += staff.commission_amount_total(month) }
+  end
+
+  def self.best_saler(month = Time.now)
+    id = joins(:store_order_items)
+          .where(store_order_items: {created_at: month.at_beginning_of_month .. month.at_end_of_month})
+          .group(:store_staff_id).order("sum_amount desc").limit(1).sum(:amount).keys[0]
+
+    find_by_id(id)
+  end
+
+  def sales_amount(month = Time.now)
+    store_order_items.by_month(month).sum(:amount)
+  end
+
+  def sales_quantity(month = Time.now)
+    store_order_items.by_month(month).sum(:quantity)
   end
 
   private

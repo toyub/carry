@@ -2,33 +2,33 @@
 	<h2>业务开单</h2>
 </div>
 
-<div class="details">
+<div class="details vue-store-order-index">
 	<div class="search_nav">
 		<div class="item-query">
 			<label>查找车辆</label>
-			<input type="text" class="width-180" placeholder="输入车牌或项目模糊查询">
+			<input type="text" class="width-180 js-store-vehicle-license-number" placeholder="输入车牌">
 		</div>
 		<div class="item-query">
 			<label>日期</label>
-			<input type="date" class="width-160">
+			<input type="text" class="width-160 datetimepicker js-store-order-date">
 		</div>
 		<div class="item-query">
 			<label>状态</label>
-			<select type="text" class="width-140">
-				<option>全部</option>
-				<option>全部订单</option>
-				<option>正在排队订单</option>
-				<option>正在施工订单</option>
-				<option>等待付款订单</option>
-				<option>已完成订单</option>
+      <select type="text" class="width-140 state-select">
+        <option value="">全部订单</option>
+        <option value="0">草稿订单</option>
+        <option value="1">正在排队订单</option>
+        <option value="2">正在施工订单</option>
+        <option value="3">等待付款订单</option>
+        <option value="4">已完成订单</option>
 			</select>
 		</div>
 		<div class="item-query">
-			<a href="#" class="query_btn btn">查&nbsp;询</a>
+			<a href="javascript:void(0);" class="query_btn btn" v-on:click="searchStoreOrder">查&nbsp;询</a>
 		</div>
 		<div class="query_div page_card">
-			<a href="/pos/store_orders/new"  class="">开单</a>
-			<a  href="javascript:void(0)"  class="active">列表</a>
+			<a href="/pos/store_orders/new" class="">开单</a>
+			<a href="javascript:void(0)" class="active">列表</a>
 		</div>
 	</div>
 
@@ -50,25 +50,19 @@
 				</tr>
 			</thead>
 			<tbody>
-        <% @orders.each_with_index do |order, idx| %>
-			  <tr>
-				  <td class="number"><%= idx + 1 %></td>
-					<td><%= order.created_at.to_s(:date_with_short_time) %></td>
-					<td><%= order.store_vehicle.license_number %></td>
-					<td><%= order.store_customer.try(:full_name) %></td>
-					<td><%= order.store_customer.try(:phone_number) %></td>
-					<td><%= order.numero %></td>
-          <% if order.items.present? %>
-					  <td>包含 <%= order.items.first.orderable.name %> 等 <%= order.items.count %> 个项目 </td>
-          <% else %>
-					  <td>包含0个项目 </td>
-          <% end %>
-					<td><%= order.amount %></td>
-					<td><%= order.state %></td>
-					<td><%= order.remark %></td>
-					<td><a href="/pos/store_orders/<%= order.id %>/edit">详情</a></td>
+			  <tr v-for="order in storeOrders">
+          <td class="number">{{$index + 1 }}</td>
+          <td>{{ order.attributes.created_at }}</td>
+          <td>{{ order.attributes.store_vehicle.license_number }}</td>
+          <td>{{ order.attributes.store_customer.full_name }}</td>
+          <td>{{ order.attributes.store_customer.phone_number }}</td>
+          <td>{{ order.attributes.numero }}</td>
+          <td>{{ order.attributes.items_content}}</td>
+          <td>{{ order.attributes.amount }}</td>
+          <td>{{ order.attributes.state_i18n }}</td>
+          <td>{{ order.attributes.remark }}</td>
+          <td><a href="/pos/store_orders/{{order.id}}/edit">详情</a></td>
 				</tr>
-        <% end %>
 			</tbody>
 		</table>
 	</div>

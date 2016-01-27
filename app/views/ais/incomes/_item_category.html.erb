@@ -1,18 +1,26 @@
 <table class="by_category">
   <thead>
     <tr>
-      <th>销售类别</th>
+      <th>类别</th>
       <th>数量</th>
       <th>收款金额</th>
     </tr>
   </thead>
 
-  <tbody>
-    <tr>
-      <td>清洗服务</td>
-      <td>44</td>
-      <td>6,280.00</td>
-    </tr>
-
+  <tbody class="sale-category">
+    <% @service_categories.try(:each) do |category| %>
+      <tr data-category-id='<%= category.id %>'>
+        <td><%= category.name %></td>
+        <td><%= category.items_total_quantity(@date) %></td>
+        <td><%= category.items_total_amount(@date) %> </td>
+      </tr>
+    <% end %>
+    <% @material_categories.try(:each) do |category| %>
+      <tr data-category-id='<%= category.id %>'>
+        <td><%= category.name %></td>
+        <td><%= category.items_total_quantity(@date) %></td>
+        <td><%= category.items_total_amount(@date) %> </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>

@@ -44,7 +44,7 @@ class StoreOrderArchive
                                            store_order_id: @order.id,
                                            latest: @customer.store_customer_entity.balance.to_f,
                                            amount: card.denomination.to_f
-
+        @customer.store_customer_entity.membership! unless @customer.store_customer_entity.membership?
         @customer.store_customer_entity.increase_balance!(card.denomination)
      end
   end

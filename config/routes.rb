@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount MisAPI, at: "/" # API
+
   require 'sidekiq/web'
 
   #Kucun
@@ -109,11 +111,12 @@ Rails.application.routes.draw do
   end
 
   namespace :ais do
-    resources :incomes, only: [:index] do
-      get 'search', on: :collection
-    end
+    resources :incomes, only: [:index]
     resources :costs, only: [:index] do
       get 'search', on: :collection
+    end
+    resources :categories, only: [:show] do
+      resources :order_items, only: [:index]
     end
   end
 
@@ -132,13 +135,10 @@ Rails.application.routes.draw do
   end
 
   namespace :sas do
-    controller :sells do
-      get '/sells/graph'
-      get '/sells/report'
+    resources :sells, only: [:index] do
+      get "report", on: :collection
     end
-    controller :customers do
-      get "/customers/graph"
-    end
+    resources :customers, only: [:index]
   end
 
   #Settings
@@ -231,11 +231,79 @@ Rails.application.routes.draw do
 
   # 总部平台api调用
   namespace :erp do
-    resources :customers, only: [:index]
+    resources :customers, only: [:index, :show] do
+      resources :customer_trackings, only: [:index]
+      resources :orders, only: [:index]
+      resources :license_numbers, only: [:index]
+      resources :vehicles, only: [:index, :show]
+      resources :deposit_card_assets, only: [:index]
+      resources :deposit_logs, only: [:index]
+      resources :package_assets, only: [:index, :show] do
+        resources :package_items, only: [:show]
+      end
+      resources :material_assets, only: [:index, :show] do
+        resources :material_items, only: [:show]
+      end
+    end
+    resources :contact_ways, only: [:index]
+    resources :stores, only: [:index]
+    resources :staff, only: [:index]
+    resources :customer_properties, only: [:index]
+    resources :store_staff, only: [:index]
+    resources :services, only: [:index]
+    resources :service_categories, only: [:index]
+    resources :districts, only: [:index]
+    resources :packages, only: [:index]
   end #End of erp
 
   #Api
   namespace :api do
+
+    #Order
+    namespace :order do
+
+      resources :login do
+        collection do
+          post :login
+        end
+      end
+
+      resources :orders do
+        collection do
+        end
+      end
+
+      resources :store_vehicles do
+        collection do
+          post :add_vehicle
+          get :search
+        end
+      end
+
+      resources :store_materials do
+        collection do
+          get :material_name
+        end
+      end
+
+      resources :store_services do
+        collection do
+          get :service_name
+        end
+      end
+
+      resources :store_packages
+
+      resources :categories do
+        collection do
+          get :sale_category, :service_category
+        end
+      end
+
+    end
+    #Order end
+
+
     resources :store_staff, only: [:index, :update]
     resources :store_service_categories, only: [:create]
     resources :store_services, only: [:index, :show, :create, :update] do
@@ -257,10 +325,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_orders, only: [:index, :show, :create] do
+    resources :store_orders do
+      collection do
+        post :draft
+      end
       resources :complaints, only:[:new, :create]
     end
-    resources :store_subscribe_orders
+    resources :subscribe_orders
+    resources :recommended_orders
 
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do
@@ -309,10 +381,19 @@ Rails.application.routes.draw do
     end
 
     namespace :sas do
-      resources :stores do
+      resources :stores, only: [] do
         resources :customer_gender, only: [:index]
-        resources :sales, only: [:index]
+        resources :customers, only: [:index]
+        resources :customer_consuming, only: [:index]
+        resources :consuming_week, only: [:index]
+        resources :sales, only: [:index] do
+          get 'payments', on: :collection
+          get 'categories', on: :collection
+          get 'days', on: :collection
+        end
+        resources :sale_top, only: [:index]
         resources :vehicles, only: [:index]
+        resources :vehicle_brand, only: [:index]
       end
     end
 
@@ -320,6 +401,23 @@ Rails.application.routes.draw do
       resources :groups
       resources :staff
     end
+
+    resources :recommended_orders
+    resources :subscribe_orders
+
+    resources :vehicle_brands, only: [:index] do
+      get :search_series
+      resources :vehicle_manufacturers, only: [:index]
+    end
+
+    resources :vehicle_manufacturers, only: [] do
+      resources :vehicle_series, only: [:index]
+    end
+
+    resources :vehicle_series, only: [] do
+      resources :vehicle_models, only: [:index]
+    end
+
   end#End of api
 
   namespace :pos do
@@ -327,7 +425,8 @@ Rails.application.routes.draw do
       resources :checkouts
     end
     resources :store_orders
-    resources :pre_orders, only: [:index]
+    resources :recommended_orders
+    resources :subscribe_orders
   end
 
   namespace :printer do
@@ -354,7 +453,6 @@ Rails.application.routes.draw do
       resources :vehicle_conditions, only: [:show]
       resources :vehicle_services, only: [:show]
       resources :expense_records, only: [:index]
-      resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
       resources :store_repayments, only: [:index, :create] do
@@ -366,8 +464,7 @@ Rails.application.routes.draw do
         resources :store_asset_items, only: [:show]
       end
     end
-    resources :vehicle_series, only: [:index]
-    resources :vehicle_models, only: [:index]
+
   end
 
   namespace :receipt do

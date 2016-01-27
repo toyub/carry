@@ -1,9 +1,0 @@
-zh-CN:
-  enums:
-    store_subscribe_order:
-      state:
-        pending: 未执行
-        processing: 执行中
-        done: 已执行
-      order_type:
-        auto: 自主

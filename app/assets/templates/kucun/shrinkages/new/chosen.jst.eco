@@ -1,4 +1,4 @@
-<tr>
+<tr data-id='<%= @id %>'>
   <td class="number"><%= @idx %></td>
   <td><%= @name %><input type="hidden" name="shrinkage[items_attributes][][store_material_id]" value="<%= @id %>"></td>
   <td><%= @barcode %></td>

@@ -7,16 +7,16 @@ set :deploy_to, "/var/www/mis"
 set :html_deploy_to, "#{fetch(:deploy_to)}/html"
 
 set :rvm_type, :system
-set :rvm_ruby_version, '2.2.2'
+set :rvm_ruby_version, '2.2.3'
 
 #set :nginx_sites_enabled_path, "#{shared_path}/config"
 #set :nginx_sites_available_path, "#{shared_path}/config"
-set :nginx_server_name, "store.icar99.com"
+set :nginx_server_name, "store.icar99.com md.icar99.com"
 set :puma_init_active_record, true
 
 set :rails_env, "production"
 
-set :branch, 'deploy'
+set :branch, 'master'
 set :html_branch, 'development'
 
 set :sidekiq_role, :worker

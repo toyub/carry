@@ -8,14 +8,30 @@
 
   <%= render 'search'%>
 
-    <div class="incomes">
-
+  <div class="incomes">
+    <% if @first_category.present? %>
       <%= render 'item_category' %>
-
-      <%= render "list_items" %>
+      <div class="order-items">
+        <%= render "order_items", order_items: @first_category.order_items.joins(:store_order).by_month(@date) %>
+      </div>
+    <% else %>
+      <h2>无相关数据请重新查询</h2>
+    <% end %>
     </div>
 
   </div>
 
 </div>
 
+<script type="text/javascript" charset="utf-8">
+  jQuery(function(){
+    $(".sale-category").on('click', 'tr', function(){
+      var url = '/ais/categories/' + $(this).data('category-id') + '/order_items?date=<%= @date.strftime("%Y-%m-%d") %>';
+      $(this).addClass("active").siblings('tr').removeClass("active")
+      $.get(url, function(){
+        return;
+      })
+    })
+  })
+  
+</script>

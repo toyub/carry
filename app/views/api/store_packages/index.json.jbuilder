@@ -7,4 +7,5 @@ json.array! @packages do |package|
     json.point package.package_setting.point
   end
   json.quantity 1
+  json.recommended_price 0
 end

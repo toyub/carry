@@ -2,11 +2,11 @@
 	<span class="vehicle_order_title title doslide">
 		业务信息
 		<i class="fa-angle-double-up fa cursor-pointer"></i>
-		<a href="javascript:void(0)" data-target="order_items" class="do_show">选择</a>
+		<a href="javascript:void(0)" class="js-select-items">选择</a>
 	</span>
 	<div class="order_info">
 		<h2>商品明细</h2>
-		<table cellpadding="0" cellspacing="0" class="commodity_details material-saleinfo-table-items">
+		<table cellpadding="0" id='material-items' cellspacing="0" class="commodity_details">
       <thead>
       	<tr>
       		<th>名称</th>
@@ -20,9 +20,8 @@
       	</tr>
       </thead>
       <tbody>
-        <tr data-id="list_commodity_01" v-for="item in materialSaleinfoItems">
-          <td style="display:none" class="material-saleinfo-table-item-id">{{item.id}}</td>
-          <td>{{ item.name }}</td>
+        <tr v-for="item in materialSaleinfoItems">
+          <td>{{ item.name }} <input type="hidden" name='items[][orderable_id]' value="{{item.orderable_id}}"> <input type="hidden" name="items[][id]" value="{{item.id}}"></td>
           <td>{{ item.speci }}</td>
           <td>
             <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
@@ -52,7 +51,7 @@
 		</table>
 
 		<h2>服务明细</h2>
-		<table cellpadding="0" cellspacing="0" class="commodity_details vue-service-table-items">
+		<table cellpadding="0" cellspacing="0" id='service-items' class="commodity_details">
 			<thead>
 				<tr>
 					<th>项目</th>
@@ -66,8 +65,7 @@
 			</thead>
       <tbody>
         <tr v-for="item in serviceItems">
-          <td style="display:none" class="service-table-item-id">{{item.id}}</td>
-          <td>{{item.name}}</td>
+          <td>{{item.name}} <input type="hidden" name='items[][orderable_id]' value="{{item.orderable_id}}"> <input type="hidden" name="items[][id]" value="{{item.id}}"></td>
           <td>
             <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
           </td>
@@ -80,7 +78,7 @@
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
             <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
+              <i class="lnr lnr-cross color-fff" data-item-id={{item.orderable_id}} v-on:click="removeItem"></i>
             </span>
         	</td>
         </tr>
@@ -95,7 +93,7 @@
 		</table>
 
     <h2>套餐/储值明细</h2>
-    <table cellpadding="0" cellspacing="0" class="commodity_details vue-package-table-items">
+    <table cellpadding="0" cellspacing="0" id='package-items' class="commodity_details">
         <thead>
           <tr>
             <th>项目</th>
@@ -106,7 +104,7 @@
         </thead>
         <tbody>
           <tr v-for="item in packageItems">
-            <td>{{ item.name }}</td>
+            <td>{{ item.name }} <input type="hidden" name='items[][orderable_id]' value="{{item.orderable_id}}"> <input type="hidden" name="items[][id]" value="{{item.id}}"></td>
             <td>
               <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
             </td>
@@ -128,7 +126,7 @@
         </tfoot>
       </table>
 
-		<div class="total_spending ">消费金额总计:<label>9,987.70</label></div>
+      <div class="total_spending vue-store-order-new">消费金额总计:<label>{{totalItemsPrice}}</label></div>
 	</div>
 
 </div>

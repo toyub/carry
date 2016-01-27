@@ -29,6 +29,19 @@
               <label class="width-75">服务积分</label>
               <input type="text" class="width-165" name="point" value="<%= @service.get 'point' %>">
             </div>
+            <div class="item_content">
+              <label class="width-75">服务代码</label>
+              <input type="text" class="width-165" value="<%= @service.get 'code' %>" name="code">
+            </div>
+            <div class="item_content">
+              <label class="width-75">服务类别</label>
+              <select type="text" class="width-165" name="category_id">
+                <% current_category = @service.get 'category_id' %>
+                <% Mis.store.serviceCategories.each (c) ->: %>
+                  <option <%= 'selected' if c.id.toString() == String(current_category) %> value="<%= c.id %>"><%= c.get 'name' %></option>
+                <% end %>
+              </select>
+            </div>
             <div class="item_textarea ">
               <label class="width-75">服务介绍</label>
               <textarea class="server_textarea width-432" name="introduction"><%= @service.get 'introduction' %></textarea>

@@ -59,7 +59,7 @@
 
     <div>
       <label for="">营业时间</label>
-      <span class="show_content width-61"><%= @open_time.value %></span> -- <span class="show_content width-61"><%= @close_time.value %></span>
+      <span class="show_content width-61"><%= @open_time.try :value %></span> -- <span class="show_content width-61"><%= @close_time.try :value %></span>
     </div>
   </div>
 </div>

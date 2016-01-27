@@ -1,30 +1,23 @@
 <div class="search_nav">
-  <%= form_tag("/ais/incomes/search", method: :get) do -%>
+  <%= form_tag("/ais/incomes", method: :get) do -%>
     <div class="item-query">
       <label>时间</label>
-      <%= date_field_tag :start, nil, class: "width-120"%> - <%= date_field_tag :end, nil, class: "width-120" %>
+      <%= date_select(
+        "", :date,
+        { start_year: 2000, use_short_month: true, discard_day: true, :default => @date},
+        {:include_blank => @search_date.nil?, class: "width-100" }
+      )
+    %>
     </div>
 
     <div class="item-query">
-      <label>收款类型</label>
-      <select type="text" class="width-100">
-        <option>现金</option>
-        <option>刷卡</option>
-        <option>卡扣</option>
-      </select>
+      <label for="">类别</label>
+      <%= select_tag :type, options_for_select([['全部', ''], ['商品', 'materials'], ['服务', 'services']], params[:type]), class: "width-100" %>
     </div>
 
-    <div class="item-query">
-      <label>销售类别</label>
-      <select type="text" class="width-100">
-        <option>商品</option>
-        <option>套餐</option>
-        <option>服务</option>
-      </select>
-    </div>
+
     <%= submit_tag "查询", class: "btn query_btn do_search_result" %>
     <div class="query_div">
-      <a href="#" class="print_btn btn">打印</a>
       <a href="#" class="export_btn btn">导出</a>
     </div>
   <% end %>

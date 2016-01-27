@@ -2,20 +2,9 @@
   <span class="width-60">劳动关系</span>
 
   <ul>
-    <li class="start_time">
-      <label>劳动合同起始</label>
-      <input type="text" class="width-64 year" value="<%= @staff.contract.try(:effected_on).try(:strftime, "%Y") %>" readonly>
-      <input type="text" class="width-42 margin-right-2 month" value="<%= @staff.contract.try(:effected_on).try(:strftime, "%m") %>" readonly>
-      <input type="text" class="width-40 day" value="<%= @staff.contract.try(:effected_on).try(:strftime, "%d") %>" readonly>
-    </li>
-
-    <li class="end_time">
-      <label>劳动合同结束</label>
-      <input type="text" class="width-64 year" value="<%= @staff.contract.try(:expired_on).try(:strftime, "%Y") %>" readonly>
-      <input type="text" class="width-42 margin-right-2 month" value="<%= @staff.contract.try(:expired_on).try(:strftime, "%m") %>" readonly>
-      <input type="text" class="width-40 day" value="<%= @staff.contract.try(:expired_on).try(:strftime, "%d") %>" readonly>
-    </li>
-
+    <div class="contract-detail">
+      <%= render 'contract_detail' %>
+    </div>
     <li>
       <label for="remind">合同到期提醒</label>
       <%= form.check_box :contract_notice_enabled, checked: @staff.contract_notice_enabled, class: "vertical-align-middle margin-right-20 toggleable", id: "contract-notice-checkbox" %>

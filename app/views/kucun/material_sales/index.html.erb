@@ -75,7 +75,7 @@
                 <%= item.gross_profit %><% if need_check %>(待核实)<% end %>
               </li>
               <li>
-                <a href="<%= pos_store_order_path(item.store_order) %>" class="detailsbtn cursor">详情</a>
+                <a href="<%= printer_pos_order_path(item.store_order) %>" target='_blank' class="detailsbtn cursor">详情</a>
                 <% if need_check %>
                 <a href="javascript:void(0);" data-url='/kucun/materials/<%= @store_material.id %>/material_sales' data-checkdata='<%= item.to_cost_check_json.to_json %>' class="color-73ACD4 cost_btn js-heshi">核实成本</a>
                 <% end %>
