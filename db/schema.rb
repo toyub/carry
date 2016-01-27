@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false
+    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1233,7 +1233,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing",   default: 1
+    t.integer  "trigger_timing"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1241,15 +1241,14 @@ ActiveRecord::Schema.define(version: 20160126061341) do
   create_table "store_packages", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                                          null: false
-    t.integer  "store_chain_id",                                                    null: false
-    t.integer  "store_staff_id",                                                    null: false
+    t.integer  "store_id",                                            null: false
+    t.integer  "store_chain_id",                                      null: false
+    t.integer  "store_staff_id",                                      null: false
     t.string   "name",           limit: 45
     t.string   "code",           limit: 45
     t.string   "abstract",       limit: 255
     t.text     "remark"
     t.decimal  "price",                      precision: 10, scale: 2
-    t.decimal  "retail_price",               precision: 10, scale: 2, default: 0.0
   end
 
   create_table "store_payments", force: :cascade do |t|
@@ -1457,6 +1456,10 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "buffering_time"
     t.integer  "factor_time"
     t.integer  "store_service_id",                                            null: false
+    t.integer  "sales_commission_subject"
+    t.integer  "sales_commission_template_id"
+    t.integer  "engineer_commission_subject"
+    t.integer  "engineer_commission_template_id"
     t.boolean  "engineer_count_enable"
     t.boolean  "engineer_level_enable"
     t.boolean  "standard_time_enable"
@@ -1478,7 +1481,6 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
     t.integer  "store_order_item_id"
-    t.integer  "mechanic_commission_template_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1493,6 +1495,10 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "standard_time"
     t.integer  "buffering_time"
     t.integer  "factor_time"
+    t.integer  "sales_commission_subject"
+    t.integer  "sales_commission_template_id"
+    t.integer  "engineer_commission_subject"
+    t.integer  "engineer_commission_template_id"
     t.boolean  "engineer_count_enable"
     t.boolean  "engineer_level_enable"
     t.boolean  "standard_time_enable"
@@ -1502,7 +1508,6 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.string   "name",                            limit: 45
     t.integer  "store_service_setting_id"
     t.integer  "store_service_id"
-    t.integer  "mechanic_commission_template_id"
   end
 
   create_table "store_services", force: :cascade do |t|

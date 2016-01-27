@@ -145,3 +145,5 @@ gem 'grape', '~> 0.14.0'
 gem 'grape-swagger', '~> 0.10.4'
 gem 'grape-entity'
 gem 'rack-cors', :require => 'rack/cors'
+
+gem 'font-awesome-rails', '4.4.0'

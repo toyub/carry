@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require scaffolds
+ *= require icomoon
  *= require jquery_ui
  *= require select2
  *= require datetimepicker/jquery.datetimepicker
