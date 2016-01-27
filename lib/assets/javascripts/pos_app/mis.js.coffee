@@ -4,7 +4,13 @@ window.Mis =
   Views: {}
   Routers: {}
   Helpers: {}
-  Vues: {}
+  Vues: {
+    Orders:{
+      Items:{}
+    },
+    Opts: {}
+  }
+  Components:{}
   initialize: ->
 
 $(document).ready ->

@@ -39,8 +39,9 @@ module Mis
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += %W(#{config.root}/lib)
 
-    config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
+    # config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
+    # config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
+    config.autoload_paths += %W(#{config.root}/app/apis)
 
     # 使用redis作为默认缓存
     redis_conf = YAML.load_file(Rails.root.join('config', 'redis.yml'))[Rails.env]

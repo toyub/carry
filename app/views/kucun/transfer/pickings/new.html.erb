@@ -1,4 +1,4 @@
-
+<input type="hidden" id='store-depots' data-depots='<%= @depots.to_json(root:nil) %>'>
 <div class="main_top">
   <%= breadcrumb_navigation(['库存', '转移出库', '新建移库单']) %>
 </div>
@@ -71,9 +71,7 @@
       </div>
       <div class="nav-item-query">
         <label>目标库</label>
-        <select name='picking[dest_depot_id]' class="width-135">
-          <%= options_from_collection_for_select(@store.store_depots, :id, :name, params[:store_depot_id]) %>
-        </select>
+        <select name='picking[dest_depot_id]' id='dest_depot_id' class="width-135"></select>
       </div>
       <div class="nav-item-query">
         <a href="#" class="print_btn btn">打<nbsp1></nbsp1>印</a>
@@ -122,8 +120,9 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function(){
-      choice_tmpl = JST['kucun/transfer/pickings/new/choice'];
-      chosen_tmpl = JST['kucun/transfer/pickings/new/chosen'];
+      var choice_tmpl = JST['kucun/transfer/pickings/new/choice'];
+      var chosen_tmpl = JST['kucun/transfer/pickings/new/chosen'];
+      var depots = $('#store-depots').data('depots')
       $('.query_btn').on('click', function(){
         var keyword = $('#keyword').val().trim();
         var depot_id =  $('#depot_id').val();
@@ -168,6 +167,18 @@
          el.firstElementChild.innerText=(idx+1);
        });
      }
+
+     var available_depots_select = function(depot_id){
+       var available_depots = depots.filter(function(depot){return depot.id != depot_id});
+       var html = available_depots.map(function(depot){
+         return '<option value="'+ depot.id +'">' + depot.name + '</option>';
+       }).join('');
+       $('#dest_depot_id').html(html);
+     }
+     $('#depot_id').on('change', function(){
+       available_depots_select($('#depot_id').val());
+     });
+     available_depots_select($('#depot_id').val());
 
     });
   </script>

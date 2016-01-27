@@ -13,8 +13,8 @@ json.array! @stores do |store|
 
   json.province store.province
   json.city store.city
-  json.admin store.admin.full_name
-  json.(store.admin, :phone_number)
+  json.admin store.admin.try(:full_name)
+  json.phone_number store.admin.try(:phone_number)
   json.address store.address
   json.created_at store.created_at.strftime('%Y-%m-%d')
   json.(store, :business_status)

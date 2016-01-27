@@ -19,10 +19,14 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :assets, class_name: 'StoreCustomerAsset'
   has_many :deposit_logs, class_name: "StoreCustomerDepositLog"
+  has_many :deposit_incomes, class_name: "StoreCustomerDepositIncome"
+  has_many :deposit_expenses, class_name: "StoreCustomerDepositExpense"
 
   has_many :store_customer_deposit_cards
 
   has_many :store_order_items
+
+  has_many :trackings, class_name: 'StoreTracking', as: :trackable
 
   scope :female, -> { where(gender: false) }
   scope :male, -> { where(gender: true) }
@@ -89,25 +93,25 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def credit
-    StoreCustomerEntity::CREDIS[self.store_customer_entity.store_customer_settlement.read_attribute(:credit)]
+    StoreCustomerEntity::CREDIS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:credit))]
   end
 
   def notice_period
-    StoreCustomerEntity::SETTLEMENTS[self.store_customer_entity.store_customer_settlement.read_attribute(:notice_period)]
+    StoreCustomerEntity::SETTLEMENTS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:notice_period))]
   end
 
   def payment_mode
-    StoreCustomerEntity::PAYMENTS[self.store_customer_entity.store_customer_settlement.read_attribute(:payment_mode)]
+    StoreCustomerEntity::PAYMENTS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:payment_mode))]
   end
 
   def invoice_type
-    StoreCustomerEntity::INVOICES[self.store_customer_entity.store_customer_settlement.read_attribute(:invoice_type)]
+    StoreCustomerEntity::INVOICES[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:invoice_type))]
   end
 
   def district
-    province_code = self.store_customer_entity.district['province']
-    city_code = self.store_customer_entity.district['city']
-    region_code = self.store_customer_entity.district['region']
+    province_code = self.store_customer_entity.try(:district).try([:province].to_s)
+    city_code = self.store_customer_entity.try(:district).try([:city].to_s)
+    region_code = self.store_customer_entity.try(:district).try([:region].to_s)
     {
       'province' => Geo.state(1, province_code).try(:name),
       'city' => Geo.city(1, province_code, city_code).try(:name),
@@ -136,11 +140,11 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def property
-    self.store_customer_entity.property_name
+    self.store_customer_entity.try(:property_name)
   end
 
   def category
-    self.store_customer_entity.category
+    self.store_customer_entity.try(:category)
   end
 
   def settlement

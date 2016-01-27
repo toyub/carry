@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119024117) do
+ActiveRecord::Schema.define(version: 20160126061341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20160119024117) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
+  end
+
+  create_table "api_tokens", force: :cascade do |t|
+    t.string   "sn_code"
+    t.string   "token"
+    t.integer  "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ca_stations", force: :cascade do |t|
@@ -229,6 +237,9 @@ ActiveRecord::Schema.define(version: 20160119024117) do
     t.integer  "quantity",        default: 1
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "store_id"
+    t.string   "party_type"
+    t.integer  "party_id"
   end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
@@ -1218,7 +1229,7 @@ ActiveRecord::Schema.define(version: 20160119024117) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing"
+    t.integer  "trigger_timing",   default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1793,9 +1804,11 @@ ActiveRecord::Schema.define(version: 20160119024117) do
   create_table "vehicle_models", force: :cascade do |t|
     t.string   "name"
     t.integer  "vehicle_series_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "manufacturing_year"
+    t.decimal  "min_price",          precision: 12, scale: 2
+    t.decimal  "max_price",          precision: 12, scale: 2
   end
 
   create_table "vehicle_plates", force: :cascade do |t|
