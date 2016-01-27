@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+
+	.nav_query_wrap{
+		width: 95.8%;
+		.nav-item-query{
+			label{
+				text-align: right;
+			}
+		}
+	}
+
+  .car_content{
+		.base_info{
+			.car_list{
+				.car_sercice_record{
+					.item_car_service_record_wrapper{
+						.items_car_service_records{
+
+							.item_car_service_record{
+								label{
+									&.label_td{
+										border-bottom:1px solid #E1E1E1;
+									}
+								}
+							}
+
+							dl.total{
+								display: flex;
+								width: 100%;
+								height: 30px;
+								line-height: 30px;
+								border-right: 1px solid #e1e1e1;
+								border-bottom: 1px solid #e1e1e1;
+								dd{
+									display:table-cell;
+									font-weight: bold;
+									&:nth-child(1){
+                    width: 92.4%;
+										text-align: right;
+									}
+									&:nth-child(2){
+										width: 7.6%;
+										text-align: center;
+									}
+								}
+							}
+
+						}
+					}
+				}
+			}
+
+			.returning_records{
+				border: 1px solid #e1e1e1;
+				padding: 0px 10px 50px 10px;
+				.list_top{
+					ul{
+						li{
+							font-weight: bold;
+						}
+					}
+				}
+				.list_tr{
+
+					ul{
+						li{
+							&:nth-child(1){ width: 2.88%;}
+							&:nth-child(2){ width: 8.04%;}
+							&:nth-child(3){ width: 9.63%;}
+							&:nth-child(4){ width: 12.32%;}
+							&:nth-child(5){ width: 6.86%;}
+							&:nth-child(6){ width: 7.30%;}
+							&:nth-child(7){ width: 46.42%;}
+							&:nth-child(8){ width: 5.54%;}
+						}
+					}
+				}
+
+				.list_contents{
+          width: 100%;
+					.list_content{
+						border-left: 3px solid #F8AC51 !important;
+						width: 99.5%;
+					}
+
+				}
+			}
+	  }
+	}
+
+	.window_wrap{
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+
+		.new_return_info{
+			width:860px;
+			height: 400px;
+			margin: 0 auto;
+			margin-top: 234px;
+			padding: 0px 20px;
+			background: #fff;
+			border-top: 10px solid #F6EFA4;
+			box-shadow: 3px 3px 8px #C0BEBE,-3px -3px 8px #C0BEBE,3px 3px 8px #C0BEBE;
+
+			.top{
+				height: 45px;
+				padding: 10px 0px;
+				line-height: 45px;
+				span{
+					font-size: 16px;
+				}
+
+			}
+
+			dl{
+				overflow: auto;
+				margin-top: 10px;
+				dd{
+					.item_content{
+						display: inline-block;
+
+						label{
+							text-align: right;
+						}
+
+						textarea{
+							width: 782px;
+							height: 100px;
+						}
+					}
+				}
+			}
+
+			.btn_group{
+				margin-right: 20px;
+				margin-top: 20px;
+			}
+
+		}
+	}

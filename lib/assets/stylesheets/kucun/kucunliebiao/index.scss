@@ -1,0 +1,30 @@
+#main{
+  .content{
+    .details{
+      .list_table{
+        table.materials{
+          tbody{
+            tr{
+              td{
+                &:nth-child(1){width:3%;}
+                &:nth-child(2){width:12%;}
+                &:nth-child(3){width:12%;}
+                &:nth-child(4){width:10%;}
+                &:nth-child(5){width:8%;}
+                &:nth-child(6){width:15%;}
+                &:nth-child(7){width:5%;}
+                &:nth-child(8){width:10%;}
+                &:nth-child(9){width:8%;}
+                &:nth-child(10){width:12%;}
+                &:nth-child(11){width:4%;}
+
+              }
+            }
+          }
+        }
+
+
+      }
+    }
+  }
+}

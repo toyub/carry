@@ -1,0 +1,168 @@
+@mixin punishment-col-width{
+  &:nth-child(1){ width: 17.32%; }
+  &:nth-child(2){ width: 13.39%; }
+  &:nth-child(3){ width: 42.59%; }
+  &:nth-child(4){ width: 11.96%; }
+  &:nth-child(5){ width: 9.64%; }
+  &:nth-child(6){ width: 5.09%; }
+}
+
+@mixin border{
+  border:1px solid #d9d9d9;
+}
+
+@mixin tfoot{
+  tfoot{
+    tr{ height:35px; @include border;}
+    td{ text-align:right; font-weight:bold;}
+  }
+}
+
+@mixin tr-bg-color{
+  &:nth-child(odd){
+    background:#FDF6ED;
+  }
+}
+
+.punishment_record{
+  table.record{
+    margin-top:10px;
+    width:100%;
+    thead{
+      tr{ @include border; height:30px;}
+      th{
+        @include punishment-col-width;
+        label{
+          margin:0 auto;
+          display:flex;
+          justify-content:space-between;
+          i{
+            position:relative;
+            &.fa-sort-down::before{
+              position:absolute;
+            }
+            &.fa-sort-up::before{
+              position:absolute; top:6px;
+            }
+          }
+        }
+      }
+    }
+    tbody{
+      tr{
+        height:35px;
+        @include tr-bg-color;
+        td{
+          @include border;
+          text-align:center;
+          @include punishment-col-width;
+          &:first-child{
+            text-align:left;
+            label{ text-align:center;}
+          }
+          &.descript{
+            text-align:left;
+            span{
+              display:block;
+              width:570px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              &:hover{
+                overflow: inherit;
+                text-overflow: inherit;
+              }
+            }
+          }
+        }
+      }
+    }
+    @include tfoot;
+  }
+}
+
+
+.punishment_pop_wrap{
+  display:none;
+  position:absolute; top:0; left:0;
+  background:rgba(0,0,0,0.07);
+  width:100%;
+  height:110%;
+  .punishment_pop{
+    width:50%;
+    margin:100px auto 0 auto;
+    box-shadow:3px 5px 10px #EAE7E7, 0 0 0 #EAE7E7, -3px -2px 10px #EAE7E7;
+    p{
+      width: 100%;
+      text-align: center;
+      height: 35px;
+      line-height: 35px;
+      background: #7c7c7c;
+      color: #fff;
+      font-size: 14px;
+      position:relative;
+      a{
+        color:#fff;
+        font-size:20px;
+        padding:0 6px;
+        position:absolute; right:0;
+      }
+    }
+    table{
+      background:#fff;
+      width:100%;
+      thead{
+        tr{
+          height:32px;
+          th{
+            border:1px solid #d9d9d9;
+            border-bottom:none;
+            &:nth-child(odd){ width:12%;}
+            &:nth-child(even){ width:21%; font-weight:100;}
+          }
+        }
+      }
+      tbody{
+        tr{
+          height:40px;
+          th,td{
+            padding:0;
+            border:1px solid #d9d9d9;
+            &>textarea{ width:93%;margin:10px 0 10px 20px; padding-top:10px; border:none; outline:none; text-indent:10px;}
+            &>div{ height:25px; line-height:25px; margin-bottom:5px;}
+          }
+          th{
+            &:nth-child(1){ width:12.2%; }
+            &.dealing{ text-align:left; text-indent:28px;}
+          }
+          td{
+            &:nth-child(2){ width:33.3%; }
+            input[type="checkbox"]{ vertical-align:middle;}
+          }
+          &:nth-child(2){
+            label{ width:45%; height:50px; line-height:50px; text-align:center;}
+          }
+          &:nth-child(6){
+            ul{
+              height:50px; line-height:50px;
+              width:80%; margin: 0 auto;
+              li{ float:left; width:20%;}
+            }
+          }
+          &.punish{
+            height:190px;
+            ul{
+              height:190px;
+              padding-top:10px;
+              li{
+                height:80px; line-height:80px; text-indent:30px;
+                span{ display:inline-block; width:80px;}
+                input{ margin-right:10px;}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

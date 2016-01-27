@@ -1,0 +1,151 @@
+@charset "UTF-8";
+.aftersales_list{
+
+	.list{
+		.list_tr{
+			li{
+				&:nth-child(1){width:3%;}
+				&:nth-child(2){width:10%;}
+				&:nth-child(3){width:9%;}
+				&:nth-child(4){width:15%;}
+				&:nth-child(5){width:10%;}
+				&:nth-child(6){width:10%;}
+				&:nth-child(7){width:9%;}
+				&:nth-child(8){width:10%;}
+				&:nth-child(9){width:18%;}
+				&:nth-child(10){width:5.33%;}
+			}
+		}
+
+		.list_contents{
+			width: 100%;
+			.list_content{
+				width:99.74%;
+			}
+
+			.examination_passed{
+
+				.list_content{
+					background: #E4E4E4;
+					width:99.74%;
+				}
+
+				.after_sale_order{
+          background: #F3E5E5;
+					.after_sale_order_nav{
+						.nav-item-query{
+							.after_sale_title{
+								background: #767676;
+								width: 30px;
+								border: none;
+								color: #fff;
+							}
+
+							span{
+								display: inline-block;
+							}
+						}
+
+						.audit_status{
+							display: inline-block;
+
+							.audit_status_img{
+								width: 43px;
+								height: 43px;
+								border: 1px solid #eee;
+							}
+						}
+					}
+
+					.after_sale_order_list{
+						.order_form_info{
+							.item_content{
+								textarea{
+									background: #F3E5E5;
+								}
+						  }
+						}
+
+					}
+				}
+			}
+		}
+
+		.after_sale_order{
+			.after_sale_order_nav{
+				.nav-item-query{
+					.after_sale_title{
+						font-size: 18px;
+						text-align: center;
+						background: #ff0020;
+						width: 30px;
+						border: none;
+						color: #fff;
+					}
+
+					span{
+						display:inline-block;
+					}
+				}
+				.audit_status{
+					display: none;
+				}
+			}
+
+			.after_sale_order_list{
+				table{
+					thead{
+						tr{
+							th{
+								color: #fff;
+								&:nth-child(1){width: 2.59%;}
+								&:nth-child(2){width: 16.78%;}
+								&:nth-child(3){width: 9.15%;}
+								&:nth-child(4){width: 9.15%;}
+								&:nth-child(5){width: 5.25%;}
+								&:nth-child(6){width: 7.13%;}
+								&:nth-child(7){width: 6.98%;}
+								&:nth-child(8){width: 4.32%;}
+								&:nth-child(9){width: 5.04%;}
+								&:nth-child(10){width: 5.26%;}
+								&:nth-child(11){width: 28.31%;}
+							}
+						}
+					}
+
+					tfoot{
+						tr{
+							border:1px solid #cecece;
+							td{
+								height: 25px;
+    					  padding: 0px 5px;
+
+								&:last-child{
+									border-left: 1px solid #cecece;
+								}
+							}
+						}
+					}
+				}
+
+				.order_form_info{
+					padding: 10px 0px;
+
+					.item_content{
+						textarea{
+							background: #fff;
+						}
+
+						span{
+							font-weight: bold;
+							display: inline-block;
+						}
+					}
+
+				}
+
+			}
+		}
+
+	}
+}

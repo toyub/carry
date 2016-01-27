@@ -75,7 +75,7 @@
               <option selected="selected"><%= @store_material.store_material_manufacturer.name %></option>
             </select>
           </div>
-          <div class="item_content outline item_property text-align-left margin-left-54">
+          <div class="item_content outline item_property text-align-left">
             <label class="width-75">商品属性</label>
 
             <input type="checkbox" <%= "checked" if @store_material.permitted_to_internal %> disabled class="margin-left-15"><label>自用</label>
@@ -102,7 +102,7 @@
             <label>
               <%= @store_material.expiry_alarmify ? "保质期提醒[开]" : "保质期提醒[关]" %>
             </label>
-            <div class="input_div">
+            <div class="input_div width-80">
               <input type="text" class="width-50 border-none" data-id="shelf_life" disabled="disabled" required="true" readonly value="<%= @store_material.shelf_life if @store_material.expiry_alarmify %>">
               <label>天</label>
             </div>

@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+/*------------------------库存管理-订货-记录-start------------------*/
+
+.ordernotes_list{
+	margin-top: 10px;
+	width: 100%;
+
+  .list{
+
+    .list_top{
+      ul{
+        width: 99.8%;
+
+        li{
+          height: 45px;
+          line-height: 45px;
+
+          &.second_td{
+            width: 13%;
+          }
+
+        }
+      }
+    }
+
+    .list_tr{
+      width: 99.6%;
+
+			ul{
+				li{
+					height: 22px;
+					line-height: 22px;
+
+					i{
+						float: right;
+    				padding-right: 5px;
+					}
+
+					&:nth-child(1){width:4%;}
+					&:nth-child(2){width:14%;}
+					&:nth-child(3){width:15%;}
+					&:nth-child(4){width:11%;}
+					&:nth-child(5){width:11%;}
+					&:nth-child(6){width:11%;}
+					&:nth-child(7){width:11%;}
+					&:nth-child(8){width:10.33%;}
+					&:nth-child(9){width:11.93%;}
+					&:last-child{border:none;}
+		  	}
+      }
+    }
+		.list_contents{
+			width: 100%;
+			.list_content{
+				padding: 0px;
+				ul{
+
+					width: 99.8%;
+					padding: 5px 0px;
+					height: 20px;
+					line-height: 20px;
+
+					&:nth-child(even){
+						border-left:3px solid #00E994;
+					}
+				}
+			}
+		}
+
+  }
+
+	.ordergoods_details{
+
+    width: 98.95%;
+		margin-left: 5px;
+		border: 1px solid #dbd9d9;
+    overflow: hidden;
+    float: left;
+		background: #fff;
+		box-shadow: -2px 0px 8px #C1C1C1,0px 2px 8px #C1C1C1,2px 2px 8px #D9D9D9;
+		margin-bottom:5px;
+		margin-top: 2px;
+
+		.ordergoods_query {
+		  overflow: hidden;
+		  margin: 0px 0px 2px 2px;
+		  background: #fff;
+		  float: left;
+		  width: 100%;
+		  height: 45px;
+		  line-height: 40px;
+
+			.ordergoods_print {
+			  float: right;
+			  margin-right: 10px;
+			}
+		}
+		.order_goods_tab{
+
+			table{
+				thead{
+					tr{
+						th{
+							height: 28px;
+						  border: 1px solid #D1D1D1;
+
+							&:nth-child(1){width:3%;}
+							&:nth-child(2){width:18%;}
+							&:nth-child(3){width:8%;}
+							&:nth-child(4){width:8%;}
+							&:nth-child(5){width:4%;}
+							&:nth-child(6){width:7%;}
+							&:nth-child(7){width:7%;}
+							&:nth-child(8){width:7%;}
+							&:nth-child(9){width:5%;}
+							&:nth-child(10){width:8%;}
+							&:nth-child(11){width:6%;}
+							&:nth-child(12){width:15%;}
+							&:nth-child(14){width:4%;}
+						}
+					}
+				}
+
+				tbody{
+
+					tr{
+
+						td{
+
+							height: 25px;
+						  border: 1px solid #D1D1D1;
+
+
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/*------------------------库存管理-订货-记录-end------------------*/

@@ -1,0 +1,209 @@
+
+@mixin border{
+  border:1px solid #d9d9d9;
+}
+
+
+@mixin col-width{
+  &:nth-child(1){ width: 2.2%; }
+  &:nth-child(2){ width: 7.2%; }
+  &:nth-child(3){ width: 7.5%; }
+  &:nth-child(4){ width: 7.2%; }
+  &:nth-child(5){ width: 6.7%; }
+  &:nth-child(6){ width: 8.4%; }
+  &:nth-child(7){ width: 8.8%; }
+  &:nth-child(8){ width: 8.0%; }
+  &:nth-child(9){ width: 8.0%; }
+  &:nth-child(10){ width: 8.0%; }
+  &:nth-child(11){ width: 8.0%; }
+  &:nth-child(12){ width: 8.0%; }
+  &:nth-child(13){ width: 7.0%; }
+  &:nth-child(14){ width: 5%; }
+}
+
+@mixin col-width2{
+  &:nth-child(1){ width: 8.10%; }
+  &:nth-child(2){ width: 12.86%; }
+  &:nth-child(3){ width: 6.82%; }
+  &:nth-child(4){ width: 7.82%; }
+  &:nth-child(5){ width: 7.25%; }
+  &:nth-child(6){ width: 7.96%; }
+  &:nth-child(7){ width: 9.31%; }
+  &:nth-child(8){ width: 7.89%; }
+  &:nth-child(9){ width: 8.24%; }
+  &:nth-child(10){ width: 7.75%; }
+  &:nth-child(11){ width: 7.82%; }
+  &:nth-child(12){ width: 8.17%; }
+}
+
+@mixin input-width{
+  width:120px;
+}
+
+.details{
+  .salary_record_list_table{
+    ul.salary_list_head{
+      height:35px; line-height:35px;
+      @include border;
+      li{
+        float:left;
+        text-align:center; font-weight:bold;
+        border-right:1px solid #d9d9d9;
+          &:nth-child(1){ width: 2.05% ; border-right:0;}
+          &:nth-child(2){ width: 7.1% ;}
+          &:nth-child(3){ width: 7.85% ;}
+          &:nth-child(4){ width: 7.1% ;}
+          &:nth-child(5){ width: 6.5% ;}
+          &:nth-child(6){ width: 8.25% ;}
+          &:nth-child(7){ width: 8.75% ;}
+          &:nth-child(8){ width: 7.85% ;}
+          &:nth-child(9){ width: 7.85% ;}
+          &:nth-child(10){ width: 7.88% ;}
+          &:nth-child(11){ width: 7.88% ;}
+          &:nth-child(12){ width: 7.88% ;}
+          &:nth-child(13){ width: 6.88% ;}
+          &:nth-child(14){ width: 5% ; border-right:0;}
+      }
+    }
+    .list_wrap{
+      overflow-y: scroll;
+      border-right: 1px solid #d9d9d9;
+      table{
+        tbody{
+          tr{
+            &:nth-child(odd){
+              background: #F2F2F2;
+            }
+            td{
+              @include col-width;
+              height:28px;
+              text-align:center;
+              @include border;
+              i{ cursor:pointer; }
+            }
+          }
+        }
+        tfoot{
+          tr{
+            height:28px;
+            td{
+              @include border;
+              span{
+                display:inline-block;
+                font-weight:bold;
+                text-align:left;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.salary_record_wrap{
+  display:none;
+  background:rgba(0,0,0,0.07);
+  position:absolute; top:0;left:0;
+  width:100%;height:100%;
+  .salary_record{
+    width: 1281px;
+    margin: 156px auto 0 auto;
+    background:#fff;
+    padding:10px;
+    min-height:530px;
+    box-shadow: -4px 8px 8px #BAB7B7, 0 0 5px #BAB7B7, 4px 0 8px #BAB7B7;
+    position:relative;
+    a.delete{
+      background: #4e6ab2;
+      padding: 2px 7px;
+      line-height: 20px;
+      font-size: 14px;
+      text-align: center;
+      color: #fff;
+      position: absolute;
+      right: -12px;
+      top: -12px;
+      border-radius: 15px;
+      &:hover{ background: #F20343; }
+    }
+    table.abstract{
+      margin:8px 0;
+      width:100%;
+      th,td{
+        height:25px;
+        @include border;
+        @include col-width2;
+      }
+      th{ border-top:none;}
+      td{ border-bottom:none;}
+    }
+    div.salary_checkout{
+      height: 452px;
+      border:1px solid #d9d9d9;
+      div.salary{
+        border-top:12px solid #EDECEC;
+        ul{
+          margin-bottom: 30px;
+          padding:10px 0;
+          float:left;
+          height:420px;
+          span.show_content{@include input-width; text-indent:40px; }
+          &.total_salary{
+            width: 47.5%;
+            border-right:1px solid #d9d9d9;
+            &>li{
+              &:first-child{ text-indent: 12px; }
+              &.total{
+                span { @include input-width; margin-right:38px; text-align:left;}
+                label{ margin-top:30px;}
+              }
+              ol{
+                float:left;
+                margin:10px 15px;
+                li{
+                  height:32px; line-height:32px;
+                  span{
+                    @include input-width; margin-left:15px;
+                    &.total{ outline-color: #F70500 ;}
+                  }
+                  label{ width:123px; text-align:right; }
+                  &.bonus{ height: 64px; line-height: 96px;}
+                }
+              }
+            }
+          }
+          &.deducted_salary{
+            width: 29.5%;
+            border-right:1px solid #d9d9d9;;
+            &>li:first-child { text-indent: 12px;}
+            &>li.total{
+              label { margin-left: 32px; margin-top:156px;}
+            }
+            ol{
+              margin: 10px auto 0 auto;
+              width:70%;
+              li{
+                height:32px; line-height:32px;
+                label { margin-right:12px; }
+                span.total{ outline-color: #F70500 ;}
+              }
+            }
+          }
+          &.balance_salary{
+            width: 22.8%;
+            &>li:first-child { text-indent: 12px;}
+            li{
+              label{
+                text-align: left;
+                @include input-width;
+                margin: 40px auto 15px auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

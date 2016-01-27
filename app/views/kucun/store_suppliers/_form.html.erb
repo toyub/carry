@@ -62,7 +62,7 @@
 
         <div class="item_content">
           <label class="width-68">重要程度</label>
-          <%= form.select :weight_id, options_for_select(StoreSupplier::WEIGHTS.map{|key, value| [value, key]}, @store_supplier.weight_id), {}, {class: "width-88"} %>
+          <%= form.select :weight_id, options_for_select(StoreSupplier::WEIGHTS.map{|key, value| [value, key]}, @store_supplier.weight_id), {}, {class: "width-85"} %>
         </div>
 
         <div class="item_content">
@@ -92,15 +92,15 @@
         </div>
         <div class="item_content">
           <label class="width-75">税号</label>
-          <%= form.text_field :clearing_vatin, class: 'width-340' %>
+          <%= form.text_field :clearing_vatin, class: 'width-345' %>
         </div>
          <div class="item_content">
           <label class="width-75">付款方式</label>
           <%= form.select :clearing_payment_method_id, options_for_select(StoreSupplier::CLEARING_PAYMENT_METHODS.map{|key, value| [value, key]}), {}, {class: "width-130"} %>
         </div>
         <div class="item_content">
-          <label class="width-75">备注</label>
-          <%= form.text_area :remark, maxlength: 200, class:"width-1242 height-100 border-dbd9d9 texarea_width" %>
+          <label class="width-75 vertical-align-top">备注</label>
+          <%= form.text_area :remark, maxlength: 200, class:"width-1258 height-100 border-dbd9d9 texarea_width" %>
         </div>
     </div>
     <div class="supplier_related" >

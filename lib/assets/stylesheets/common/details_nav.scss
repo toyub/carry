@@ -1,0 +1,93 @@
+@charset "utf-8";
+
+/*---------------------内容中的二级菜单-start------------------------*/
+
+.details {
+	.details_nav {
+		width: 99.8%;
+		border: 1px solid #d5d6d7;
+		margin: 5px auto;
+		background: #efeeee;
+		overflow:hidden;
+
+		ul{
+      height: 25px;
+			margin:0px;
+			padding:0px;
+
+			li{
+        display: inline-block;
+				font-size: 12px;
+				width: 92px;
+				text-align: center;
+				margin: 0px -3px 0px 0px;
+				padding: 0px;
+				border-right: 1px solid #d5d6d7;
+
+				&:hover{
+				  background:#fff;
+				}
+
+				a{
+				  display: inline-block;
+					text-decoration: none;
+					height: 25px;
+					line-height: 25px;
+					color: #302f2f;
+					font-size: 12px;
+				}
+			}
+		}
+  }
+
+  .details_nav_second{
+
+    width: 99.8%;
+		border-bottom: 1px solid #cacbbf;
+		margin: 0 auto;
+		height:35px;
+
+		ul.goods_nav{
+
+		  margin: 0px;
+			padding: 0px;
+			height:20px;
+			line-height: 20px;
+			padding-top: 5px;
+
+		  li{
+
+        display: inline-block;
+				font-size: 12px;
+				text-align: center;
+				padding: 0px;
+				overflow: hidden;
+				border-right: 1px solid #eee;
+
+				a{
+
+          display: inline-block;
+				  text-decoration: none;
+					height: 22px;
+					line-height: 22px;
+					color: #3f3f3f;
+
+					a{
+				    color:#fff;
+				  }
+				}
+		  }
+		}
+
+		ul.nav_cf{
+
+		  li{
+        display: inline-block;
+				text-decoration: none;
+				height: 18px;
+				line-height: 18px;
+				color: #3f3f3f;
+		  }
+		}
+  }
+}

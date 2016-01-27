@@ -1,0 +1,164 @@
+.change_view_btn{
+  padding: 3px 14px;
+  border-bottom: 2px solid #BE1274;
+  color:#fff;
+  background:rgb(234, 18, 158);
+}
+
+
+@mixin col-width{
+  &:nth-child(1){ width: 8.10%; }
+  &:nth-child(2){ width: 12.86%; }
+  &:nth-child(3){ width: 6.82%; }
+  &:nth-child(4){ width: 7.82%; }
+  &:nth-child(5){ width: 7.25%; }
+  &:nth-child(6){ width: 7.96%; }
+  &:nth-child(7){ width: 9.31%; }
+  &:nth-child(8){ width: 7.89%; }
+  &:nth-child(9){ width: 8.24%; }
+  &:nth-child(10){ width: 7.75%; }
+  &:nth-child(11){ width: 7.82%; }
+  &:nth-child(12){ width: 8.17%; }
+}
+
+@mixin input-width{
+  width:135px;
+}
+
+
+
+.details{
+  .salary_list_table{
+    .list_wrap{
+      overflow-y: scroll;
+      border-right: 1px solid #d9d9d9;
+      &.highlight{
+        tr:hover{ cursor:pointer; background:#FFF9F9; }
+        tr.checked{ background:#FFF9F9; }
+      }
+    }
+    ul.salary_list_head{
+      height:35px; line-height:35px;
+      border:1px solid #d9d9d9;
+      li{
+        float:left;
+        text-align:center; font-weight:bold;
+        border-right:1px solid #d9d9d9;
+          &:nth-child(1){ width: 2.2% ; border-right:0;}
+          &:nth-child(2){ width: 7.1% ;}
+          &:nth-child(3){ width: 7.85% ;}
+          &:nth-child(4){ width: 7.15% ;}
+          &:nth-child(5){ width: 6.55% ;}
+          &:nth-child(6){ width: 8.35% ;}
+          &:nth-child(7){ width: 8.65% ;}
+          &:nth-child(8){ width: 8.55% ;}
+          &:nth-child(9){ width: 8.8% ;}
+          &:nth-child(10){ width: 8.75% ;}
+          &:nth-child(11){ width: 8.55% ;}
+          &:nth-child(12){ width: 8.65% ;}
+          &:nth-child(13){ width: 7.95% ; border-right:0;}
+      }
+    }
+  }
+  .salary_related{
+    display:none;
+    .checkout_nav{
+      height:30px; line-height:20px;
+      border-bottom:1px solid #d9d9d9;
+      &>div{
+        display: inline-block;
+        &.staff_select{
+          a{ display:inline-block;}
+        }
+        &.operation{
+          input.edit_btn,input.save_btn{
+            &[disabled]{ cursor:auto; background:#eee; color:#ccc;}
+          }
+        }
+      }
+      span{
+        display:inline-block;
+      }
+    }
+    table.abstract{
+      margin:8px 0;
+      width:100%;
+      th,td{
+        height:25px;
+        border:1px solid #d9d9d9;
+        @include col-width;
+      }
+      th{ border-top:none;}
+      td{ border-bottom:none;}
+    }
+
+    div.salary_checkout{
+      height: 452px;
+      border:1px solid #d9d9d9;
+      div.salary{
+        border-top:12px solid #EDECEC;
+        ul{
+          margin-bottom: 30px;
+          padding:10px 0;
+          float:left;
+          height:420px;
+          &.total_salary{
+            width: 47.5%;
+            border-right:1px solid #d9d9d9;
+            input[type="text"] { text-indent:40px;}
+            &>li{
+              &:first-child{ text-indent: 12px; }
+              &.total{
+                input { @include input-width; margin:30px 43px 0 0; }
+              }
+              ol{
+                float:left;
+                margin:10px 15px;
+                li{
+                  height:32px; line-height:32px;
+                  input[type="text"]{
+                    @include input-width; margin-left:15px;
+                    &.total{ border-color: #F70500 ;}
+                  }
+                  label{ width:123px; text-align:right; }
+                  &.bonus{ height: 64px; line-height: 96px;}
+                }
+              }
+            }
+          }
+          &.deducted_salary{
+            width: 29.5%;
+            border-right:1px solid #d9d9d9;
+            &>li:first-child { text-indent: 12px;}
+            &>li.total{
+              input{ margin-top:156px; }
+              label { margin-left: 36px; }
+            }
+            input[type="text"] { text-indent:40px;}
+            ol{
+              margin: 10px auto 0 auto;
+              width:70%;
+              li{
+                height:32px; line-height:32px;
+                label { margin-right:12px; }
+                input.total{ border-color: #F70500 ;}
+              }
+            }
+          }
+          &.balance_salary{
+            width: 22.55%;
+            &>li:first-child { text-indent: 12px;}
+            li{
+              label{
+                text-align: left;
+                @include input-width;
+                margin: 40px auto 15px auto;
+              }
+              input{ @include input-width; text-indent:40px;}
+            }
+          }
+        }
+      }
+    }
+  }
+}

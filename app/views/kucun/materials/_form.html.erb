@@ -120,7 +120,7 @@
         </div>
 
 
-        <div class="item_content outline property text-align-left">
+        <div class="item_content outline item_property text-align-left">
           <label class="width-49">商品属性</label>
           <input class="margin-left-15" type="checkbox" value='true' name="material[permitted_to_internal]" <%= "checked='checked'" if @store_material.permitted_to_internal %>><label for="">自用</label>
           <input class="margin-left-26" type="checkbox" value='true' name="material[permitted_to_saleable]" <%= "checked='checked'" if @store_material.permitted_to_saleable %>><label for="">销售</label>
@@ -143,7 +143,7 @@
 
         <div class="item_content outline shelf_life margin-left-50">
           <label class="width-75"><input type="checkbox" name='material[expiry_alarmify]' <%= "checked data-checked='checked'" if @store_material.expiry_alarmify %> data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
-          <div class="input_div">
+          <div class="input_div width-80">
             <input type="text" data-id='shelf_life' name='material[shelf_life]' <%= "disabled=true" unless @store_material.expiry_alarmify %> class="width-50 border-none " style="border:0px;" required=true value='<%= @store_material.shelf_life %>'>
             <span>天</span>
           </div>

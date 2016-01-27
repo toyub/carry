@@ -1,0 +1,20 @@
+
+table.top_info{
+  width:100%;
+  border-top:4px solid #4A5C79;
+  margin:15px 0 10px 0;
+  tr{
+    height:40px;
+    border:1px solid #d5d6d7;
+    td{
+      &:nth-child(odd){
+        width:5.7%;
+      }
+      &:nth-child(even){
+        width:6.4%;
+        font-weight:bold;
+        border-right:1px solid #d5d6d7;
+      }
+    }
+  }
+}

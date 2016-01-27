@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+.cancel_order_wrap{
+	border: 1px solid #c6c6c6;
+	width: 99.8%;
+	overflow: auto;
+	height: 640px;
+	.cancel_order_records{
+		&.billing_records{
+			margin-bottom: 0px;
+		}
+		width: 58%;
+		float: left;
+		max-height: 630px;
+		overflow-y: scroll;
+		table.billing_record_list{
+      border-top: none;
+			//border-left: none;
+		}
+	}
+
+
+	.cancel_order{
+		float: left;
+		width: 41%;
+		height: 627px;
+		margin: 5px 0px 5px 5px;
+    border:1px solid #E7E1E1;
+		background: #FDF1F1;
+
+		.order_details{
+			background: none;
+			width: 100%;
+
+			.vehicle_order_details{
+				.vehicle_info{
+					dl{
+						dd{
+							span{
+								border: none;
+								border-bottom: 1px solid #C1C0BF;
+
+							}
+						}
+					}
+				}
+
+				.vehicle_order{
+					.cancel_order_processing_wrap{
+
+						h2{
+							height: 25px;
+							line-height: 25px;
+							background: #eee;
+							text-align: center;
+						}
+						.cancel_order_processing{
+							dl{
+								height: 45px;
+								line-height: 45px;
+								dd{
+									display: inline-block;
+									&:nth-child(1){width: 40%;}
+									&:nth-child(2){width: 59%;}
+									label{
+										text-align: right;
+									}
+
+								}
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+	}
+
+}

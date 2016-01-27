@@ -1,0 +1,192 @@
+*{margin:0;padding:0;font-family:  '微软雅黑'; color:#000; font-size: 0.8em;}
+body{width: 58mm;}
+
+
+table tr td{padding: 0; }
+h1{font-weight: normal;}
+h2{ font-weight: normal;}
+label,span{ display: inline-block;}
+
+
+.receipt_wrap{
+  width: 48mm;
+
+  color: #000;
+
+  .title{
+    h1{
+      line-height: 20pt;
+
+      text-align: center;
+    }
+    h2{
+      line-height: 20pt;
+
+      text-align: center;
+      color: #000;
+    }
+  }
+
+  .receipt{
+
+    .abstract{
+      padding-bottom: 3mm;
+      p{
+        padding: 0 0;
+        .receipt_label{
+          width: 20mm;
+          text-align: right;
+        }
+      }
+    }
+    .commodity,.service,.packages{
+      width: 48mm;
+
+      h2{
+        border-bottom: 1px dashed #000;
+        border-top: 1px dashed #000;
+        text-align: center;
+        padding: 5pt 0;
+      }
+      table{
+        width: 48mm;
+        thead{
+          tr{
+            th{
+
+              padding: 1mm 0;
+              font-weight: normal;
+
+              &:last-child{
+                text-align: right;
+              }
+              &:first-child{
+                text-align: left;
+              }
+            }
+          }
+        }
+        tbody{
+          tr{
+            td{
+              box-sizing: border-box;
+              padding: 1mm 0;
+              &:last-child{
+                text-align: right;
+              }
+            }
+          }
+        }
+
+        tfoot{
+
+          tr{
+            border-top: 1px dashed #000;
+            td{
+              text-align: right;
+              padding: 2mm 0;
+
+              .num_span{
+                display: inline-block;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .commodity{
+      table tr th{
+        &:nth-child(1){ width: 20mm; }
+        &:nth-child(2){ width: 10mm; }
+        &:nth-child(3){ width: 8mm; text-align: center;}
+        &:nth-child(4){ width: 10mm; }
+      }
+      table tr td{
+
+        &:nth-child(3){text-align: center;}
+      }
+    }
+
+    .service{
+      table tr th{
+        &:nth-child(1){ width: 23mm; }
+        &:nth-child(2){ width: 15mm; }
+        &:nth-child(3){ width: 10mm; }
+      }
+
+      table tr td{
+        vertical-align: top;
+        .technician{
+          display:block;
+        }
+      }
+    }
+
+    .packages{
+      table tr th{
+        &:nth-child(1){ width: 28mm; }
+        &:nth-child(2){ width: 10mm; text-align: center;}
+        &:nth-child(3){ width: 10mm; }
+      }
+
+      table tr td{
+        &:nth-child(2){text-align: center;}
+      }
+    }
+
+    .total{
+      text-align: right;
+      padding: 3mm 0;
+      border-top: 1px dashed #000;;
+      border-bottom: 1px dashed #000;
+      p{
+        .total_span{
+          width: 23mm;
+          display: inline-block;
+        }
+      }
+    }
+
+    .payment{
+      padding-bottom: 3mm;
+      h2{
+        padding: 2mm 0;
+      }
+      p{
+        .payment_label{
+          width: 27mm;
+        }
+        .payment_span{
+          width: 21mm;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  .package_icon:before {
+    content: "*";
+    color: #000;
+    font-size: 18px;
+    vertical-align: middle;
+  }
+
+}
+
+.text-decoration-linethrough {
+  text-decoration: line-through;
+}
+
+.print_btn{
+  width: 20px;
+  position: fixed;
+  left: 56mm;
+  top: 33px;
+}
+
+@media print{
+  .print_btn {
+    display: none;
+  }
+}

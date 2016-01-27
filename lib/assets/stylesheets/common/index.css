@@ -1,0 +1,7 @@
+/**
+*= require common/details_nav
+*= require common/head
+*= require common/master
+*= require common/sidebar
+*= require_self
+*/

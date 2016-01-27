@@ -1,0 +1,410 @@
+@charset "utf-8";
+
+.btn{
+
+	&:hover{
+
+		animation-name: shine_red;
+	  animation-duration: 1s;
+	  animation-iteration-count: infinite;
+	  -webkit-animation-name: shine_red;
+	  -webkit-animation-duration: 1s;
+	  -webkit-animation-iteration-count: infinite;
+	}
+
+	@keyframes   shine_red {
+		from {box-shadow: 0 0 5px #bbb; }
+		50%  { box-shadow: 0 0 10px red; }
+		to  {box-shadow: 0 0 5px #bbb; }
+	}
+
+	@-webkit-keyframes  shine_red {
+		from { -webkit-box-shadow: 0 0 5px #bbb; }
+		50% { -webkit-box-shadow: 0 0 10px red; }
+		to { -webkit-box-shadow: 0 0 5px #bbb; }
+	}
+
+}
+
+
+
+.generated_tab_btn{
+	display:inline-block;
+	border:1px solid #000;
+	height:24px;
+	line-height:24px;
+	padding:0px 5px;
+}
+
+.query_btn,.queries_btn,.new_btn,.print_btn,.export_btn,.outstorage_btn,.notes_btn,.cancel_btn,.edit_btn,.modify_btn,.save_btn,.conserve_btn,.delete_btn,.add_btn,.in_stg_btn,.warehousing_btn,.search_btn,.popup_search_btn,
+.returnstorage_btn,.appand_btn,.print_barcode_btn,.quick_order_btn,.exporting_system_inventory_btn,.import_inventory_stock_btn,
+.overage_single_btn,.single_shortage_btn,.export_inventory_records_btn,.canceled_project_btn,.end_construction_btn,.go_payment_btn,.billing_btn,
+.management_btn,.complate_order_btn,.list_btn,.selected_btn,.change_order_btn,.show_btn,.complaints_btn,.view_btn,.rechange_btn,.return_btn{
+	display:inline-block;
+	margin:0px 10px;
+	padding:0px 15px;
+	height:24px;
+	line-height:24px;
+	border:0px;
+	cursor: pointer;
+}
+
+.add_btn{
+	color: #fff !important;
+	background: #198fff  !important;
+	border-bottom:2px solid #063a93;
+	padding:0px 8px;
+}
+
+.list_btn{
+	color: #565656 !important;
+	background: #F4F5F5  !important;
+	border-bottom:2px solid #B0AEAF;
+}
+
+.appand_btn{
+
+	background:#EEEDED;
+	border-radius: 5px;
+	color:#676767;
+	border-bottom: 2px solid #C3C2C2;
+
+}
+
+
+.query_btn{
+	color: #fff !important;
+	height: 20px;
+	line-height: 20px;
+	background: #198fff  !important;
+	border-bottom:2px solid #063a93;
+	margin-top:4px;
+	padding: 0px 10px;
+}
+
+.queries_btn{
+	border: 1px solid #989898;
+	height: 20px;
+	line-height: 20px;
+	background: #fff;
+}
+
+.feecharge_btn{
+	color:#fff;
+	padding: 3px 10px;
+	background:#27A9E3;
+	text-align:center;
+}
+
+.finish_charge_btn{
+	background: #00B3EC;
+	color:#fff;
+	padding:4px 10px;
+}
+
+.recharge_btn{
+	background: #FC6B49;
+	color:#fff;
+	padding:4px 10px;
+}
+
+.popup_search_btn{
+   color: #717171 !important;
+   background: #eee  !important;
+   border-bottom:2px solid #d0cfcf;
+}
+
+.new_btn{
+	color: #fff  !important;
+	background: #23b45a ;
+	height: 20px;
+	line-height: 20px;
+	border-bottom:2px solid #abaeb7;
+}
+
+.in_stg_btn{
+  color:#282727 ;
+	background: #F4F5F5  ;
+	border-bottom: 2px solid #D2D3D3;
+
+}
+
+.warehousing_btn,.selected_btn{
+	color:#fff ;
+	background: #008EFA  ;
+	border-bottom: 2px solid #003D8F;
+}
+
+.notes_btn,.outstorage_btn,.returnstorage_btn{
+	color:#282727 ;
+	background: #f4f5f5  ;
+	border-bottom:2px solid #d3d4d4;
+}
+
+.export_btn{
+	background:#936ACB;
+	color:#fff;
+	border-bottom: 2px solid #7847BF;
+}
+
+.print_btn{
+	background:#2aaba3;
+	border-bottom:2px solid #17736e;
+	color:#fff;
+	border-radius:0px;
+}
+
+.print_barcode_btn{
+	background:#936ad0;
+	color:#ffffff;
+	border-bottom:2px solid #7845c4;
+}
+
+.save_btn{
+	background: #198fff;
+	border-bottom: 2px solid #063a93;
+	color: #fff;
+	margin-right:0px;
+}
+
+.cancel_btn {
+	background: #e2e2e6  !important;
+	box-shadow: 0px 2px 0px #abaeb7;
+	margin: 0px 20px;
+}
+
+.delete_btn{
+	background:#DD474A;
+	color:#fff;
+	border-bottom:2px solid #782C2E;
+}
+
+.edit_btn {
+	background: #e2e2e6;
+	box-shadow: 0px 2px 0px #abaeb7;
+	margin: 0px 20px;
+	color:#6e6e70;
+}
+
+.search_btn{
+	background:#ffffff;
+	border:1px solid #949494;
+}
+
+.search_btn_in_nav{
+	text-align:center;
+	background:#198FFF;
+	color:#fff;
+	width:52px;
+	margin:0px 10px;
+	padding:1px 15px;
+	border:0;
+	border-bottom:2px solid #01416C;
+}
+
+.choose_img_btn{
+	color:#ffffff;
+	font-size:16px;
+	background:#f66b31;
+}
+.order_btn{
+	color: #ffffff;
+	background: #26a8e2;
+	border: none;
+	height: 20px;
+	line-height: 20px;
+	border-bottom: 2px solid #226b8b;
+	padding: 3px 7px;
+
+}
+
+.quick_order_btn{
+	background:#9971FA  !important;
+	box-shadow: 0px 2px 0px #7542F9;
+	margin: 0px 20px;
+	color:#fff  !important;
+
+}
+
+.show_selected_btn{
+	color:#fff;
+	width:54px;
+	background:#55a0ec;
+	border:none;
+	border-bottom:2px solid #15212e;
+}
+.show_all_btn{
+	color:#fff;
+	width:54px;
+	background:#5bcb83;
+	border:none;
+	border-bottom:2px solid #15212e;
+}
+.overage_single_btn,.single_shortage_btn{
+	letter-spacing: 0.1em;
+	background: #198fff;
+	border-bottom: 2px solid #063a93;
+  color: #fff;
+
+}
+.exporting_system_inventory_btn,.import_inventory_stock_btn,.export_inventory_records_btn{
+	letter-spacing: 0.1em;
+	background: #F4F5F5;
+	color:#757575;
+	border-bottom:2px solid #D2D3D3;
+}
+
+.canceled_project_btn{
+	background: #FFF36B;
+	color:#615B2B;
+	border-bottom:2px solid #ACA145;
+}
+
+.end_construction_btn{
+	background: #FB962D;
+	color:#615B2B;
+	border-bottom:2px solid #ACA145;
+}
+.go_payment_btn{
+	background: #449B58;
+	color:#111311;
+	border-bottom:2px solid #2C5E38;
+}
+
+.cfm_btn{
+	color:#fff;
+	background:#198fff;
+	padding: 2.5px 16px;
+	border:none;
+	border-bottom:2px solid #1e4897 !important;
+}
+
+.billing_btn{
+  color: #fff;
+	background: #00B260;
+	border-bottom: 2px solid #1D6540;
+}
+
+.management_btn{
+	color: #464545;
+  background: #F4F5F5;
+	border-bottom: 2px solid #A7A4A5;
+}
+
+.batch_convert_btn{
+	background: #EC6100;
+	color: #fff;
+	font-weight: bold;
+	padding: 0px 15px;
+	border-bottom: 2px solid #9E3400;
+	height: 22px;line-height: 22px;
+	cursor:pointer;
+}
+
+.close_btn{
+	background: #aaa;
+	color:#fff;
+	display: inline-block;
+  padding: 0px 15px;
+  height: 22px;
+  line-height: 22px;
+  border: 0px;
+	border-bottom:2px solid #6A6A6A;
+  cursor: pointer;
+}
+.record_btn{
+	height:22px; line-height:22px;
+	background:#F4F5F5;
+	display:inline-block;
+	border-bottom:2px solid #C8C4C4;
+	text-align:center;
+}
+
+.complate_order_btn{
+	background: #B8B7B7;
+	color: #fff;
+	padding: 0px 5px;
+	border-bottom: 2px solid #7E7C7C;
+}
+
+.modify_btn{
+	background: #F42B74;
+	color: #fff;
+	border-bottom: 2px solid #922D52;
+}
+
+.conserve_btn{
+	background: #FFF36B;
+	color: #1F1D15;
+	border-bottom: 2px solid #ACA145;
+}
+
+.change_order_btn{
+	background: #449B58;
+	color: #fff;
+	border-bottom: 2px solid #2C5E38;
+}
+
+.show_btn{
+	background: #2797E6;
+	color: #fff;
+	border-radius: 3px;
+	padding: 3px 15px;
+}
+.view_btn{
+	background: #F4F5F5;
+	border-bottom: 2px solid #D2D3D3;
+	height: 18px;
+	line-height: 18px;
+	border-radius: 3px;
+	color: #4D4C4C;
+}
+
+.complaints_btn{
+	background: #FF0020;
+	color: #fff;
+	height: 18px;
+	line-height: 18px;
+	border-bottom: 2px solid #792326;
+	border-radius: 3px;
+}
+
+.rechange_btn{
+	background: #F69DC0;
+	color: #412D34;
+	height: 18px;
+	line-height: 18px;
+	border-bottom: 2px solid #98687B;
+	border-radius: 3px;
+}
+
+.return_btn{
+	background: #FF0020;
+	color: #fff;
+	height: 18px;
+	line-height: 18px;
+	border-bottom: 2px solid #792326;
+	border-radius: 3px;
+}
+
+.button_query{
+  color: #fff;
+  background: #1990ff;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #0765d4;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button_confirm{
+  color: #fff;
+  background: #23b55b;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #038f49;
+  text-align: center;
+  cursor: pointer;
+}

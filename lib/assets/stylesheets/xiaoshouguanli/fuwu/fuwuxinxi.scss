@@ -1,0 +1,291 @@
+@charset "utf-8";
+
+
+/*----销售设置-服务-服务信息-start-----*/
+.details_content{
+
+  .base_info{
+    .server_content{
+
+      color: #444;
+      margin: 0 auto;
+      float: right;
+      width: 80%;
+
+      .item_content{
+        margin:12px 0px 12px 25px;
+        
+        input[type="radio"]{
+          width:15px;
+          height:15px;
+        }
+      }
+
+      .item_textarea{
+
+        textarea{
+          &.server_textarea{
+
+            height:290px !important;
+          }
+
+        }
+      }
+
+      .grid-1-2{
+
+        .server_list{
+          width:472px;
+          float:right;
+          margin-right:0px;
+          min-height:582px;
+          border:1px solid #e6e6e6;
+          position:relative;
+
+          .top{
+            height:45px;
+            line-height:45px;
+            padding:0px 15px 0px 0px;
+            border-bottom:1px solid #e6e6e6;
+
+            a{
+              display:inline-block;
+              top: 20%;
+              position: relative;
+              float:right;
+
+            }
+
+            h2{
+              width:75%;
+              padding:0px;
+              margin:0px;
+              text-indent:20px;
+              float:left;
+            }
+          }
+
+          .none_server_data{
+            width:58%;
+            margin:80px auto;
+            display:block;
+            z-index:2;
+
+            .none_server_p{
+              font-size:22px;
+              color:#878987;
+              text-align:center;
+
+            }
+
+            .none_details{
+              font-size:12px;
+              height:25px;
+              line-height:25px;
+              text-align:center;
+              color:#505250;
+            }
+          }
+
+          .list{
+            display:none;
+            overflow:auto;
+            position: absolute;
+            top: 46px;
+            background: #fff;
+            min-height: 200px;
+            width:100%;
+
+            ul{
+
+              li{
+                display: inline-block;
+                text-align: center;
+                float: left;
+
+              }
+
+            }
+
+            div.list_top{
+
+              border-bottom: 0px;
+              float:none;
+            }
+
+            div.list_tr{
+
+              li{
+                height : 24px;
+                line-height : 24px;
+                &:nth-child(1){width:12.5%;}
+                &:nth-child(2){width:55%;}
+                &:nth-child(3){width:31%;}
+                &:last-child{border-right:none;}
+              }
+            }
+
+            .list_contents{
+    					padding: 0px 15px;
+              width: 93.7%;
+
+              .list_content{
+                width: 100%;
+              }
+            }
+
+
+          }
+
+          .add_server{
+
+            overflow:auto;
+            position:absolute;
+            top:46px;
+            background:#fff;
+            padding: 10px 20px;
+            margin-bottom:110px;
+            border:1px solid #e6e6e6;
+            box-shadow: -5px 0 5px #f2f2f2,0 -5px 5px #ffffff,0 5px 5px #cfcece,5px 0 5px #e9e9e9;
+
+            .item_textarea {
+              margin-left:0px;
+
+              textarea {
+                width:347px !important;
+                height:130px;
+              }
+            }
+
+            .item_content{
+
+              margin-left:0px !important;
+
+              .query_btn{
+                margin-left:23px;
+                margin-right:0px;
+              }
+
+
+
+            }
+
+            .table_list{
+              padding-bottom:20px;
+              width:100%;
+              overflow:auto;
+
+              label{
+               margin-right:3px;
+              }
+
+              .query_results{
+                padding:0px 10px;
+                width:317px;
+                border:1px solid #dbd9d9;
+                float:left;
+                height:160px;
+                overflow-y:auto;
+
+                table.query_results_table{
+                  width:310px;
+
+                  tbody{
+                    tr{
+                      height:28px;
+                      line-height:28px;
+                      padding:0px 10px;
+                      border-bottom:1px solid #dbd9d9;
+                      text-indent:5px;
+
+                      td{
+                        &:nth-child(1){width:90%;}
+                        &:nth-child(2){width:10%;}
+                      }
+
+                    }
+                  }
+                }
+              }
+
+              .selected{
+                width:338px;
+                float:left;
+                max-height: 200px;
+                overflow-y:scroll;
+                border: 1px solid #dbd9d9;
+
+
+                table.selected_table{
+                  width:330px;
+
+                  tbody{
+                    tr{
+                      height:28px;
+                      line-height:28px;
+                      padding:0px 10px;
+                      border-bottom:1px solid #dbd9d9;
+                      text-indent:10px;
+
+                      td{
+                        padding:0px;
+                        &:nth-child(1){width:38%;}
+                        &:nth-child(2){width:62%;}
+                        select{
+                          border:none;
+                          font-weight:bold;
+                          float:left;
+                        }
+
+                        .scattered{
+                          float:left;
+                          display:none;
+                        }
+
+                        input{
+                          height:20px;
+                          line-height:20px;
+                          border:none;
+
+                        }
+
+                      }
+
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .show_server{
+            overflow:auto;
+            position:absolute;
+            top:46px;
+            background:#fff;
+            padding: 10px 20px;
+            margin-bottom:110px;
+            border:1px solid #e6e6e6;
+            box-shadow: -5px 0 5px #f2f2f2,0 -5px 5px #ffffff,0 5px 5px #cfcece,5px 0 5px #e9e9e9;
+
+            span{
+              border: 1px solid #dbd9d9;
+              height: 27px;
+              line-height: 27px;
+              text-indent: 5px;
+              color:#6b6b6b;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+
+
+  }
+
+}
+
+
+
+/*----销售设置-服务-服务信息-end-----*/

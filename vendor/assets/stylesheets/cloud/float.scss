@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+
+.float-left {
+	float: left !important;
+}
+
+.float-right{
+	float:right !important;
+}
+
+.display-block{
+	display: block !important;
+}
+
+.display-inline-block{
+	display: inline-block;
+}
+
+.inline-block{
+	display: inline-block;
+}
+
+.display-none{
+	display: none;
+}
+
+.display-flex{
+	display:flex;
+}
+
+.align-items-center{
+	align-items: center;
+}
+
+.display-flex-center{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

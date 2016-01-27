@@ -1,0 +1,126 @@
+@charset "UTF-8";
+.staffing{
+
+	.group_person{
+		height: 425px;
+		overflow-y: scroll;
+		border: 1px solid #e6e6e6;
+
+		table{
+			width: 100%;
+		//	border: 1px solid #e6e6e6;
+
+
+			tr{
+				border-bottom: 1px solid #e6e6e6;
+				&:hover{
+					background: rgba(235, 210, 245, 0.17);
+				}
+
+				&.selected_tr{
+					background: rgba(235, 210, 245, 0.17);
+				}
+
+				td{
+					&:nth-child(1){width:11.74%; text-align: center;}
+					&:nth-child(2){width:88.25%;}
+					border-right: 1px solid #e6e6e6;
+					padding: 0px;
+          .group_btn{
+             top: -26px;
+             height: 22px;
+             position: relative;
+             width: 24px;
+          }
+					.group{
+						display: flex;
+						justify-content: center;
+						span{
+							background: none;
+							color:#323131;
+							height:25px;
+							border:1px dashed #d9d9d9;
+							&:hover{
+								border:2px dashed #ddd;
+							}
+						}
+						input{
+							background: none;
+							color:#323131;
+							display: none;
+						}
+					}
+					.editing{
+						input{
+							display: block;
+						}
+						span{
+							display: none;
+						}
+					}
+
+					.person{
+						line-height: 35px;
+						height: 35px;
+						display: flex;
+						align-items: center;
+						border-bottom: 1px solid #e6e6e6;
+						padding-left: 15px;
+
+						&:last-child{
+							border: none;
+						}
+
+						.person_status{
+							border-radius: 15px;
+							display: inline-block;
+							width:26px;
+							height: 26px;
+							line-height: 26px;
+							text-align: center;
+							color:#fff;
+							box-shadow: 1px 0px 7px #BEBCBB,0px 0px 7px #BEBCBB,1px 0px 7px #BEBCBB;
+							font-size: 14px;
+						}
+
+						ul{
+							display: inline-block;
+							width: 96%;
+							line-height: 35px;
+							height: 35px;
+							li{
+								display: inline-block;
+								margin-left: 8px;
+								cursor: pointer;
+								&:hover{
+									text-shadow:-1px 0px 5px #3144FF;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.no_grouping_staff{
+		width: 99.8%;
+		border: 1px solid #e6e6e6;
+		height: 80px;
+
+		ul{
+			display: inline-block;
+			width: 96%;
+			line-height: 35px;
+			li{
+				display: inline-block;
+				margin-left: 8px;
+				cursor: pointer;
+				&:hover{
+					text-shadow:-1px 0px 5px #3144FF;
+				}
+			}
+		}
+	}
+
+}

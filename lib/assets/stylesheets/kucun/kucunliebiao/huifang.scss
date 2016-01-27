@@ -1,0 +1,175 @@
+@charset "utf-8";
+
+.visit_list{
+
+  width:472px;
+  float:right;
+  margin-right:0px;
+  min-height:515px;
+  border:1px solid #e6e6e6;
+  position:relative;
+
+
+  .top{
+    height:45px;
+    line-height:45px;
+    margin: 0 auto;
+    width: 93.5%;
+    border-bottom:1px solid #e6e6e6 ;
+
+    h2{
+
+      width:75%;
+    	padding:0px;
+    	margin:0px;
+    	text-indent:20px;
+    	float:left;
+    }
+
+    a{
+
+      display:inline-block;
+      top: 20%;
+      position: relative;
+      float:right;
+
+    }
+
+  }
+
+  .none_visit_data{
+  	width:58%;
+  	margin:80px auto;
+  	display:block;
+  	z-index:2;
+
+    .none_visit_p{
+    	font-size:22px;
+    	color:#878987;
+    	text-align:center;
+    }
+
+    .none_details{
+    	font-size:12px;
+    	height:25px;
+    	line-height:25px;
+    	text-align:center;
+    	color:#505250;
+    }
+  }
+
+  .list{
+
+    padding:0px 15px;
+    border:0px;
+    display:none;
+    background: #fff;
+    position: absolute;
+    top: 46px;
+    width: 93.5%;
+    min-height: 180px;
+
+    ul{
+
+      li{
+        &:nth-child(1){width:7.5%;}
+        &:nth-child(2){width:49%;}
+        &:nth-child(3){width:20%;}
+        &:nth-child(4){width:22%;}
+
+        &:last-child{border-right: 0px;}
+      }
+    }
+
+    .list_contents{
+      width: 100%;
+      .list_content{
+        width: 97.5%;
+      }
+    }
+  }
+
+  .add_visit{
+
+    padding:10px 20px;
+    margin-bottom:110px;
+    position: absolute;
+    background: #fff;
+    top: 46px;
+    overflow:auto;
+    display:block;
+    border:1px solid #e6e6e6;
+    box-shadow: -5px 0 5px #f2f2f2,0 -5px 5px #ffffff,0 5px 5px #cfcece,5px 0 5px #e9e9e9;
+
+    div{
+      label{
+        height: 35px;
+        line-height: 35px;
+      }
+    }
+
+    .model{
+
+      position: relative;
+
+      textarea{
+        float: right;
+        width:330px;
+        height: 120px;
+        margin-right:23px;
+        border:1px solid #dbd9d9;
+      }
+
+      div{
+
+        position: absolute;
+        bottom:0px;
+        right:30px;
+        color:#BABABA;
+      }
+
+    }
+  }
+
+}
+
+
+.base_info{
+
+  .car_content{
+
+    .grid-1-2{
+
+      table.car_info{
+        tbody{
+          tr{
+            td{
+              &:nth-child(1){width:50%;}
+              &:nth-child(2){width:50%;}
+              fieldset{
+                ul{
+                  li{
+                    height: 25px;
+                    line-height: 25px;
+                  }
+                }
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*库存管理-库存列表-回访-start*/
+
+.add_visit .item_textarea{
+	margin-top:5px;
+	margin-left:0px;
+}
+
+input.toggleable:focus ~ label {font-weight: bold;}
+
+
+/*库存管理-库存列表-回访-end*/

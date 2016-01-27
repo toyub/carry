@@ -1,0 +1,122 @@
+@charset "utf-8";
+
+
+.search_more{
+  margin:10px 0;
+}
+
+.customize_select{
+  width:480px;
+  height:230px;
+  background:#fff;
+  position:fixed;
+  top:180px;
+  left:535px;
+  z-index:5;
+  box-shadow: 1px 6px 32px #DCDCDC,0 8px 15px #C9C8C8,-8px -4px 15px #F1F1F1;
+  span.triangle{
+    position:absolute;
+    top:-24px;
+    left:35px;
+    border-width:12px;
+    border-style:solid;
+    border-color: transparent  transparent #E5E5E5;
+    font-size:0;
+    line-height:0;
+  }
+  em{
+    position:absolute;
+    top:-24px;
+    left:35px;
+    border-width:12px;
+    border-style:solid;
+    border-color: transparent transparent #fff;
+    font-size:0;
+    line-height:0;
+  }
+  p{
+    width:92%;
+    height:32px;
+    line-height:32px;
+    margin:4px auto;
+    padding:0 8px;
+    border-bottom:1px solid #F0EFEF;
+  }
+  .select_and_search{
+    width:90%;
+    margin:30px auto;
+    padding-left:26px;
+    position:relative;
+    span{
+      position:relative;
+      display:inline-block;
+      border:1px solid #E1E1E1;
+      cursor:pointer;
+      width:286px;
+      height:25px;
+      line-height:25px;
+      &:after{
+        content:"▼";
+        position:absolute;
+        right:4px;
+      }
+    }
+    ul{
+      display:none;
+      border:1px solid #E1E1E1;
+      width:286px;
+      margin:0;
+      position:absolute;
+      left:86px;
+      top:27px;
+      li{
+        height:22px;
+        line-height:22px;
+        padding:0;
+        text-indent:8px;
+        background:#FBFBFB;
+        cursor:pointer;
+        &:hover{
+          background:#F2F2F2;
+        }
+      }
+    }
+  input{
+    margin:25px 0 0 12px;
+    width:134px;
+  }
+  }
+}
+.sms_details_content{
+
+  .functional_bar{
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 8px;
+
+    .search_bar{
+      text-align:center;
+    }
+
+  }
+
+
+  table.sms_record{
+    border:1px solid #E7E7E7;
+    width:100%;
+    th{
+      height:38px;
+    }
+    td{
+      text-align:center;
+      height:28px;
+      &:nth-child(1){ width:5%;}
+      &:nth-child(2){ width:12%;}
+      &:nth-child(3){ width:10%;}
+      &:nth-child(4){ width:10%;}
+      &:nth-child(5){ width:12%;}
+      &:nth-child(6){ width:45%;}
+      &:nth-child(7){ width:6%;}
+    }
+  }
+}

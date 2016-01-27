@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+/*----库存管理-盘点-start------*/
+
+.check_content{
+  position:relative;
+
+  .list_table{
+    table.inventory_list{
+      thead{
+        tr{
+          th{
+            &:nth-child(1){width:3%;}
+            &:nth-child(2){width:3%;}
+            &:nth-child(3){width:14%;}
+            &:nth-child(4){width:10%;}
+            &:nth-child(5){width:10%;}
+            &:nth-child(6){width:8%;}
+            &:nth-child(7){width:12%;}
+            &:nth-child(8){width:8%;}
+            &:nth-child(9){width:8%;}
+            &:nth-child(10){width:7%;}
+            &:nth-child(11){width:7%;}
+            &:nth-child(12){width:10%;}
+          }
+        }
+      }
+      tbody{
+        tr{
+
+          &.previously_written_off{
+            background:#ECFBFE !important;
+            input[type="checkbox"]{
+              display: none;
+            }
+          }
+          &.unapplied{
+            input[type="checkbox"]{
+              vertical-align: middle;
+              display: block;
+            }
+          }
+          input[type="checkbox"]{
+            display: none;
+            vertical-align: middle;
+          }
+
+          td{
+
+            .edit_hover{
+            	width:24px;
+            	height:24px;
+            	margin:0 auto;
+
+              &:hover{
+                width:24px;
+                height:24px;
+                border-radius:12px;
+                margin:0 auto;
+                background:rgba(201,201,201,0.5);
+              }
+
+              img{
+                margin-top:5px;
+              }
+            }
+
+            span.diff{
+              display:block;
+            	width:100%;
+
+            }
+
+            span.profit{
+              &:before{
+                content:"+";
+              }
+              color: #6AD849;
+            }
+            span.loss{
+              content: "-";
+              color: #FF2865;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+}
+
+
+.the_warehouse_verification{
+  width: 1360.91px;
+  margin: 200px auto;
+  background-color: #fff;
+  display: inline-block;
+  vertical-align:middle;
+
+  .btn_group{
+    text-align: right;
+    margin: 30px 0px;
+    margin-right: 0px;
+    width: 98%;
+    float: right;
+  }
+
+  .out_storage_tab{
+    .storage_tab{
+      thead{
+        tr{
+          th{
+            border: 1px solid #eee;
+            height:28px;
+
+            &:nth-child(1){width:3%;}
+            &:nth-child(2){width:15%;}
+            &:nth-child(3){width:14%;}
+            &:nth-child(4){width:14%;}
+            &:nth-child(5){width:6%;}
+            &:nth-child(6){width:7%;}
+            &:nth-child(7){width:7%}
+            &:nth-child(8){width:7%;}
+            &:nth-child(9){width:10%;}
+            &:nth-child(10){width:20%;}
+          }
+        }
+      }
+      tbody{
+        tr{
+          td{
+            border: 1px solid #eee;
+            height: 28px;
+          }
+        }
+
+      }
+
+    }
+
+
+  }
+
+  .in_storage_tab{
+    .storage_tab{
+      thead{
+        tr{
+          th{
+            border: 1px solid #eee;
+            height:28px;
+
+            &:nth-child(1){width:3%;}
+            &:nth-child(2){width:20%;}
+            &:nth-child(3){width:14%;}
+            &:nth-child(4){width:14%;}
+            &:nth-child(5){width:6%;}
+            &:nth-child(6){width:11%}
+            &:nth-child(7){width:10%;}
+            &:nth-child(8){width:6%;}
+            &:nth-child(9){width:17%;}
+          }
+        }
+      }
+      tbody{
+        tr{
+          td{
+            border: 1px solid #eee;
+            height: 28px;
+          }
+        }
+
+      }
+
+    }
+
+  }
+}
+/*----库存管理-盘点-end------*/

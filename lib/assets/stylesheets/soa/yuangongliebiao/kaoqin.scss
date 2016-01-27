@@ -1,0 +1,148 @@
+
+
+.attendance_reward_punishment{
+  ul.option_nav{
+    width:100%;
+    padding:5px 0;
+    height:25px; line-height:25px;
+    border-bottom:1px solid #d9d9d9;
+    li{
+      float:left;
+      width:100px;
+      input{ margin-left:8px; }
+    }
+  }
+  .forms{
+    width:50%;
+    margin-top:15px;
+    p{
+      width:100%;
+      text-align:center;
+      height:35px; line-height:35px;
+      background:#7c7c7c; color:#fff;
+      font-size:14px;
+    }
+
+    table{
+      width:100%;
+      thead{
+        tr{
+          height:32px;
+          th{
+            border:1px solid #d9d9d9;
+            border-bottom:none;
+            &:nth-child(odd){ width:12%;}
+            &:nth-child(even){ width:21%; font-weight:100;}
+          }
+        }
+      }
+      tbody.attendance{
+        tr{
+          th{ width:12%;}
+          th,td{
+            padding:0;
+            border:1px solid #d9d9d9;
+            input[type="date"]{ height:25px; line-height:25px; border:1px solid #d9d9d9;}
+            &>textarea{ width:93%;margin:10px 0 10px 20px; border:none; outline:none; padding-top:10px; text-indent:10px;
+              &:hover{
+                outline:1px solid #d9d9d9;
+              }
+            }
+            &>div{ height:25px; line-height:25px; margin-bottom:5px;}
+            ul{
+              width:85%;
+              margin:0 auto;
+              height:230px;
+              padding-top:60px;
+              li{
+                height:50px; line-height:50px;
+                label{
+                  width:120px; text-align:right; cursor:pointer;
+                  input{ margin-right:20px;}
+                }
+                span{ display:inline-block; width:75px; text-align:right; margin-right:8px;}
+              }
+            }
+          }
+          &:first-child{
+            label{
+              &:first-child{ margin-left:20px; }
+              height:40px; line-height:40px; width:10%; cursor:pointer;
+            }
+          }
+          &:nth-child(2){
+            height:50px;
+            label{ margin-right:8px;}
+          }
+        }
+      }
+      tbody.reward,tbody.punishment{
+        display:none;
+        tr{
+          height:40px;
+          th,td{
+            padding:0;
+            border:1px solid #d9d9d9;
+            &>textarea{ width:93%;margin:10px 0 10px 20px; padding-top:10px; border:none; outline:none; text-indent:10px;
+              &:hover{
+                outline:1px solid #d9d9d9;
+              }
+            }
+            &>div{ height:25px; line-height:25px; margin-bottom:5px;}
+          }
+          th{
+            &:nth-child(1){ width:12.2%; }
+            &.dealing{ text-align:left; text-indent:28px;}
+          }
+          td{
+            &:nth-child(2){ width:33.3%; }
+            input[type="checkbox"]{ vertical-align:middle;}
+          }
+          &:nth-child(2){
+            label{ width:22%; height:50px; line-height:50px;}
+          }
+          &.reward{
+            ul{
+              height:220px;
+              padding-top:30px;
+              li{
+                height:80px; line-height:80px; text-indent:30px;
+                span{ display:inline-block; width:80px;}
+                input{ margin-right:10px;}
+              }
+            }
+          }
+        }
+      }
+      tbody.punishment{
+        tr{
+          &:nth-child(2){
+            label{ width:45%; height:50px; line-height:50px; text-align:center;}
+          }
+          &.punish{
+            height:190px;
+            ul{
+              height:190px;
+              padding-top:10px;
+              li{
+                height:80px; line-height:80px; text-indent:30px;
+                span{ display:inline-block; width:80px;}
+                input{ margin-right:10px;}
+              }
+            }
+          }
+          &:nth-child(6){
+            ul{
+              height:50px; line-height:50px;
+              width:80%; margin: 0 auto;
+              li{ float:left; width:20%;}
+            }
+          }
+        }
+      }
+    }
+    div.btn_group{
+      width:50%;
+    }
+  }
+}

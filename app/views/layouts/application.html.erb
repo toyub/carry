@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tags %>
   <title>MIS-<% if content_for?(:title) %><%= yield :title %><% else %><%= I18n.t 'site.name' %><% end %></title>
-  <%= stylesheet_link_tag "/stylesheets/style.css", "/stylesheets/main.css" %>
+
   <%= stylesheet_link_tag    'application', media: 'all' %>
-  <% if controller_namespace(params).present? %>
-    <%= stylesheet_link_tag "/stylesheets/#{controller_namespace(params)}.css" %>
-  <% end %>
+
   <%= javascript_include_tag 'application' %>
 
   <%= include_javascript_by_namespace %>

@@ -1,0 +1,315 @@
+@charset "UTF-8";
+
+
+.reserve{
+
+	.index_list_top{
+		width: 100%;
+		border-top: 1px solid #e6e6e6;
+
+		thead{
+			tr{
+				th{
+          border-bottom: none;
+					&:nth-child(1){width:2.14%;border-left: 1px solid #e6e6e6;}
+					&:nth-child(2){width:9.09%;}
+					&:nth-child(3){width:10.45%;}
+					&:nth-child(4){width:10.80%;}
+					&:nth-child(5){
+						width:12.67%;
+            .reserve_time{
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							i{
+								margin-left: 15px;
+								font-size: 14px;
+								float: right;
+								cursor: pointer;
+							}
+
+						}
+          }
+					&:nth-child(6){width:16.10%;}
+					&:nth-child(7){width:7.02%;}
+					&:nth-child(8){width:7.08%;}
+					&:nth-child(9){width:13.60%;}
+					&:nth-child(10){width:11.02%;}
+				}
+			}
+		}
+	}
+
+	.reserve_list{
+		border:1px solid #e6e6e6;
+		border-top: 0px;
+		.index_list{
+			border-left: none;
+			tbody{
+				tr{
+					td{
+						&:nth-child(1){width:2.14%;}
+						&:nth-child(2){width:9.09%;}
+						&:nth-child(3){width:10.45%;}
+						&:nth-child(4){width:10.80%;}
+						&:nth-child(5){width:12.67%;}
+						&:nth-child(6){width:16.10%;}
+						&:nth-child(7){width:7.02%;}
+						&:nth-child(8){width:7.08%;}
+						&:nth-child(9){width:13.60%;}
+						&:nth-child(10){
+							width:11.02%;
+							i{
+								font-size: 16px;
+								padding: 0px 6px;
+							}
+
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.window_wrap{
+
+	.wrap_order_details{
+		top: 236px;
+		position: absolute;
+		left: 156px;
+		.wrap_order{
+			float: left;
+			display: inline-block;
+
+			.order_details{
+				padding-bottom: 50px;
+
+				.vehicle_order_details{
+					.vehicle_info{
+						.item_content{
+							display: inline-block;
+							margin-right: 25px;
+							margin-bottom: 20px;
+							box-sizing: border-box;
+
+							.form_label{
+								display: inline-block;
+								height: 25px;
+								line-height: 25px;
+								text-align: right;
+							}
+
+							.form_control{
+								box-sizing: border-box;
+								margin-left: 5px;
+								padding: 0px 5px;
+								display: inline-block;
+								border: 1px solid #C1C0BF;
+								height: 25px;
+								line-height: 25px;
+								vertical-align: middle;
+							}
+						}
+					}
+				}
+			}
+
+			.committed_info{
+				border-top: 1px solid #e6e6e6;
+				h2{
+					padding: 5px 2px;
+				}
+				dl{
+					padding:10px 0px;
+					height: 35px;
+					dd{
+						padding: 5px	5px;
+						display: flex;
+						align-items: center;
+						height: 28px;
+						line-height: 28px;
+						width: 47%;
+						float:left;
+
+						&.time{
+							input{
+								border: 1px solid #eee;
+							}
+						}
+
+					}
+				}
+
+				.date{
+
+					border: 1px solid #eee;
+					display: inline-block;
+					height: 28px;
+					width: 200px;
+					font-size: 14px;
+					position: relative;
+
+					.committed_date{
+						border: none;
+						height: 28px;
+						font-size: 14px;
+						float:left;
+
+					}
+					.committed_week{
+						display: inline-block;
+						width: 50px;
+						height: 28px;
+						line-height: 28px;
+						position: absolute;
+						left: 100px;
+					}
+				}
+			}
+
+			.committed_project{
+				border-top: 1px solid #e6e6e6;
+
+				.committed_project_title{
+					padding: 10px 10px;
+					border-bottom: 1px solid #e6e6e6;
+					display: flex;
+					justify-content: space-between;
+
+					label{
+						font-weight: bold;
+					}
+				}
+				dl{
+					width: 100%;
+					height: 25px;
+					line-height: 25px;
+					dd{
+						display: inline-block;
+						text-align: center;
+						box-sizing: border-box;
+						&:nth-child(1){width:8.90%;}
+						&:nth-child(2){width:40.4%; text-align: left;}
+						&:nth-child(3){width:27.78%;}
+						&:nth-child(4){width:20.89%; text-align: right;padding: 0px 20px 0px 0px;}
+
+					}
+				}
+
+				.committed_project_items{
+					height: 150px;
+					overflow-y: scroll;
+					dl{
+						input{
+							height:20px;
+							border:  1px solid #eee;
+							outline: none;
+							background: none;
+						}
+						a{
+							display: inline-block;
+							width: 20px;
+							height: 20px;
+							border: 1px solid #eee;
+							cursor: pointer;
+
+							&:hover{
+								border: 1px solid #FF2929;
+							}
+						}
+					}
+				}
+			}
+
+			.committed_remark{
+				border-top:1px solid #e6e6e6;
+
+				h2{
+					padding: 10px 10px;
+				}
+				.remark{
+					width: 100%;
+					height: 88px;
+					text-indent: 20px;
+					border: 1px solid #e6e6e6;
+				}
+			}
+
+			.construction_status{
+				margin-top: 50px;
+			}
+		}
+
+		.wrap_project{
+			min-height: 292px;
+			background: #fff;
+			width: 513px;
+			float: left;
+			margin-top: 256px;
+			display: inline-block;
+			box-shadow: 4px 5px 6px #d8d5d5,-5px 5px 6px #d8d5d5,4px -5px 6px #d8d5d5;
+		}
+	}
+
+}
+
+
+.window_wrap{
+	position: absolute;
+	top: -103px;
+	align-items:baseline;
+
+
+	.title{
+		display: block;
+		width: 100%;
+		height: 30px;
+		text-indent: 5px;
+		line-height: 30px;
+		border-top: 1px solid #D3D3D3;
+		border-bottom: 1px solid #D3D3D3;
+		cursor: pointer;
+		font-weight: bold;
+
+
+	}
+
+	.wrap_order{
+		background: #fff;
+		border-top: 7px solid #395C61;
+		box-shadow:4px 5px 6px #d8d5d5,-5px 5px 6px #d8d5d5,4px 5px 6px #d8d5d5;
+    padding: 10px;
+		margin-top: 128px;
+		margin-bottom: 30px;
+
+		.dialog_nav{
+	    width: 100%;
+	    position:relative;
+
+	    .dialog_title{
+	      color:#3B5E63;
+	      font-weight: bold;
+	      padding-left:20px;
+	      height: 40px;
+	      line-height: 40px;
+	      font-size: 14px;
+	    }
+
+	    a.dialog_close{
+	      color:#3C5E63;
+	      height: 21px;
+	      padding-right: 10px;
+	      height: 27px;
+	      line-height: 27px;
+	      font-weight: bold;
+	      font-size: 14px;
+	      cursor: pointer;
+	      position: absolute;
+	      right: 0px;
+	    }
+	  }
+
+
+	}
+}

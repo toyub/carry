@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+/*------------库存管理-出库-start---------------------------*/
+
+.out_storage_list{
+
+  height: 350px;
+
+  .out_storage{
+
+    .list{
+      ul li{
+        &:nth-child(1){width:3%;}
+
+        &:nth-child(2){width:14%;}
+
+        &:nth-child(3){width:8.5%;}
+
+        &:nth-child(4){	width:8%;}
+
+        &:nth-child(5){width:8%;}
+
+        &:nth-child(6){width:8%;}
+
+        &:nth-child(7){width:8%;}
+
+        &:nth-child(8){width:8%;}
+
+        &:nth-child(9){width:5%;}
+
+        &:nth-child(10){width:8%;}
+
+        &:nth-child(11){width:15%;}
+
+        &:nth-child(12){width:5%;border-right:0px;}
+      }
+
+      .list_contents{
+        height: 240px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.out_storage_content{
+
+  .out_storage_query{
+  	margin: 0px 0px 2px 2px;
+  	background: #f8f9ee;
+  	float: left;
+  	width:100%;
+  	height:45px;
+  	line-height:45px;
+
+    .in_stock_type_span{
+    	display:inline-block;
+      width:150px;
+      height:22px;
+      line-height:22px;
+      border:1px solid #E6E6E6;
+      border-bottom:none;
+      padding:0 4px 0 10px;
+      position:relative;
+      letter-spacing:4px;
+      background: #fff;
+
+      &:after{
+
+        content:"▼";
+        position:absolute;
+        right:0;
+
+
+      }
+    }
+
+    .in_stock_type_ul{
+    	background: #fff;
+    	width: 150px;
+    	position: relative;
+    	padding:0 4px 0 10px;
+    	z-index: 3;
+    	border:1px solid #eee;
+    	margin: 0px;
+    	left: 52px;
+    	top: -11px;
+
+      li{
+        height: 20px;
+        line-height: 20px;
+        a{
+        	display: block;
+        	width: 100%;
+        }
+      }
+
+
+    }
+
+    .out_storage_print{
+    	float:right;
+    	margin-right:5px;
+
+      a{
+        text-decoration:none;
+      	display:inline-block;
+      	font-size:12px;
+      	height:22px;
+      	line-height:22px;
+      	padding:0px 10px;
+      	width:50px;
+      	text-align:center;
+      	margin-right:20px;
+
+        &.print_btn{
+
+          background:#2aaba3;
+          border-radius:0px;
+          color:#ffffff;
+          box-shadow:0px 2px 0px #17736e;
+
+        }
+
+      }
+    }
+  }
+
+  .out_storage_tab{
+
+    .storage_tab{
+      width: 99.8%;
+
+      thead{
+        tr{
+
+          th{
+
+            height:28px;
+            line-height:28px;
+            border: 1px solid #C8C9C9;
+            text-align: center;
+            background:#ddb3b3;
+            color:#ffffff;
+
+            &:nth-child(1){width:3%;}
+            &:nth-child(2){width:16%;}
+            &:nth-child(3){width:10%;}
+            &:nth-child(4){width:12%;}
+            &:nth-child(5){width:4%;}
+            &:nth-child(6){width:7%;}
+            &:nth-child(7){width:7%;}
+            &:nth-child(8){width:6%;}
+            &:nth-child(9){width:5%;}
+            &:nth-child(10){width:7%;}
+            &:nth-child(11){width:6%;}
+            &:nth-child(12){width:13%;}
+          }
+        }
+
+      }
+
+      tbody{
+
+        tr{
+
+          td{
+            height:25px;
+            line-height: 25px;
+            border:1px solid #C8C9C9;
+            text-align:center;
+
+            input.td_input{
+            	height:17px;
+            	line-height:17px;
+            	text-align:center;
+            }
+
+            select{
+              height:25px;
+            	line-height:25px;
+            	text-align:center;
+              border: 0px;
+              outline:none;
+
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+.out_store_list{
+  thead{
+    tr{
+      th{
+        &:nth-child(1){width:2.01%; }
+        &:nth-child(2){width:10.40%; }
+        &:nth-child(3){width:13.75%; }
+        &:nth-child(4){width:10.78%; }
+        &:nth-child(5){width:6%; }
+        &:nth-child(6){width:6%; }
+        &:nth-child(7){width:11.55%; }
+        &:nth-child(8){width:3.86%; }
+        &:nth-child(9){width:6.99%; }
+        &:nth-child(10){width:5.45%; }
+        &:nth-child(11){width:7.07%; }
+        &:nth-child(12){width:5.59%; }
+        &:nth-child(13){width:5.48%; }
+        &:nth-child(14){width:5.48%; }
+      }
+    }
+  }
+}
+
+
+/*------------库存管理-出库-end-----------------------------*/
