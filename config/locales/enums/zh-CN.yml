@@ -14,3 +14,7 @@ zh-CN:
         processing: 施工中
         paying: 在付款
         finished: 已完成
+    store_customer_entity:
+      property:
+        company: 集团客户
+        personal: 个人客户

@@ -8,10 +8,7 @@ class StoreCustomerEntity < ActiveRecord::Base
   accepts_nested_attributes_for :store_customer
   accepts_nested_attributes_for :store_customer_settlement
 
-  PROPERTIES = {
-    group: '集团客户',
-    personal: '个人客户'
-  }
+  enum property: %w[personal company]
 
   EDUCATIONS = {
     middle: '初中及以下',
@@ -96,7 +93,7 @@ class StoreCustomerEntity < ActiveRecord::Base
   end
 
   def property_name
-    PROPERTIES[self.property]
+    I18n.t self.property, scope: [:enums, :store_customer_entity, :property]
   end
 
   def category

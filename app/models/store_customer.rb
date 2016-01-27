@@ -81,7 +81,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def property
-    StoreCustomerEntity::PROPERTIES[self.store_customer_entity.read_attribute(:property)]
+    self.store_customer_entity.try(:property)
   end
 
   def education

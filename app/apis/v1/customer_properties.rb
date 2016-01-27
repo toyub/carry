@@ -9,7 +9,7 @@ module V1
       add_desc '客户属性列表'
 
       get do
-        present StoreCustomerEntity::PROPERTIES.to_a, with: ::Entities::CustomerProperty
+        present StoreCustomerEntity.properties.keys, with: ::Entities::CustomerProperty
       end
     end
 
