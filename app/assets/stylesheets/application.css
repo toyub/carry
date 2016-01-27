@@ -16,7 +16,7 @@
  *= require jquery_ui
  *= require select2
  *= require datetimepicker/jquery.datetimepicker
- *= require_tree ./common
+ *= require cloud
  *= require ais
  *= require kehu
  *= require kucun
