@@ -417,7 +417,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.json     "district"
     t.string   "address"
     t.float    "range"
-    t.string   "property"
+    t.integer  "property",                   default: 0
     t.string   "remark"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
