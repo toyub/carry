@@ -1,0 +1,79 @@
+
+.staff_commission{
+  table.search{
+    width:620px;
+    margin:10px 0;
+    tr{
+      height:35px;
+      td{
+        &:nth-child(1){ width:6%; }
+        &:nth-child(2){ width:20%; }
+        &:nth-child(3){ width:2%; }
+        &:nth-child(4){ width:27%; }
+        &:nth-child(5){ width:13%; text-align:right;}
+        &:nth-child(6){ width:20%; }
+        &:nth-child(7){ width:12%; text-align:right;}
+        input[type="date"]{ height:23px; line-height:23px; border:1px solid #d9d9d9;}
+        .query_btn{
+          height:25px; line-height:25px; padding:0; margin:0;
+        }
+      }
+    }
+  }
+  table.head,table.content{
+    width:100%;
+    th,td{
+      padding:0;
+      text-align:left;
+      &:nth-child(1){ width:16%; }
+      &:nth-child(2){ width:18%; }
+      &:nth-child(3){ width:20%; }
+      &:nth-child(4){ width:27.6%; }
+      &:nth-child(5){ width:11.4%; }
+      &:nth-child(6){ width:7%; }
+    }
+    &.head{
+      border:1px solid #d9d9d9; border-bottom:0;
+      tr{
+        height:30px;
+        th{
+          text-indent:15px;
+          label{
+            &.date{ width:95%; }
+            height:30px;
+            width:90%; display:flex; justify-content:space-between; align-items:center;
+          }
+        }
+      }
+    }
+    &.content{
+      tbody{
+        tr{
+          height:32px;
+          &:nth-child(odd){ background:#fdf6ed; }
+          td{
+            text-indent:15px;
+            border:1px solid #d9d9d9;
+            &>label{ text-indent:0; height:32px; line-height:32px; }
+            &>div{
+              display:inline-block;
+              text-indent:0;
+              margin-right:12px;
+              &>label{ margin-right:5px; }
+              &>span,&>label{ display:inline-block; height:32px; line-height:32px; text-indent:0;}
+            }
+          }
+        }
+      }
+      tfoot{
+        tr{
+          height:32px; border: 1px solid #d9d9d9;
+          td{
+            text-indent:15px;
+            &>label,&>span{ display:inline-block; font-weight:bold; height:32px; line-height:32px; text-indent:0;}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+
+.user_setting{
+  position:relative;
+  table{
+    width:1360px;
+    border:1px solid #d5d6d7;
+    thead{
+      tr{
+        height:38px;
+        th{
+          font-size:14px;
+          &:nth-child(1){ width:3.27%; }
+          &:nth-child(2){ width:19%; }
+          &:nth-child(3){ width:18.4%; }
+          &:nth-child(4){ width:25%; }
+          &:nth-child(5){ width:34%; }
+        }
+      }
+    }
+    tbody{
+      tr{
+        height:48px;
+        &:last-child{ height:38px; }
+        &:nth-child(odd){
+          background:#DCF5E9;
+        }
+        td{
+          text-align:center;
+          border:1px solid #d5d6d7;
+          &.sel{
+            position:relative;
+            cursor:pointer;
+            &:after{
+              content:"▼";
+              position:absolute; right:8px; top:18px;
+            }
+          }
+        }
+      }
+    }
+
+  }
+  .roles_options{
+    position:absolute; top:39px; right:1px;
+    background:#fff;
+    box-shadow:-5px 8px 20px rgba(204, 204, 204, 0.8);
+    span.roles_selected{
+      display: block;
+      height: 40px;
+      line-height:40px;
+      text-align: center;
+    }
+    .role_opts{
+      width:464px;
+      padding:8px 0;
+      border-top:1px solid #d9d9d9;
+      border-bottom:1px solid #d9d9d9;
+      li{
+        height:34px;
+        font-size:14px;
+        display: flex;
+        justify-content: space-around; align-items:center;
+        label{ font-size:14px; width:170px;}
+      }
+    }
+  }
+}

@@ -1,0 +1,113 @@
+@charset "utf-8";
+
+
+/*库存管理-入库-入库记录--------start--------------------*/
+
+.in_storage_records{
+
+	.in_storage_records_lists{
+		.list{
+			li{
+				&:nth-child(1) {width: 3%; }
+			  &:nth-child(2) {width: 17%; }
+			  &:nth-child(3) {width: 12%; }
+			  &:nth-child(4) {width: 24%; }
+			  &:nth-child(5) {width: 13%; }
+			  &:nth-child(6) {width: 25%; }
+			  &:nth-child(7) {width: 5%; }
+
+				i.chevrondow{
+					margin-right: 10px;
+					margin-top: 4px;
+					cursor:pointer;
+				}
+			}
+
+			.list_contents{
+				width: 100%;
+
+
+				.storage_lists{
+					.storage_lists_tab{
+						thead{
+							tr{
+								th{
+									&:nth-child(1){width:13.69%;}
+									&:nth-child(2){width:9.20%;}
+									&:nth-child(3){width:12.29%;}
+									&:nth-child(4){width:4.23%;}
+									&:nth-child(5){width:7.5%;}
+									&:nth-child(6){width:6.25%;}
+									&:nth-child(7){width:4.48%;}
+									&:nth-child(8){width:4.77%;}
+									&:nth-child(9){width:5.32%;}
+									&:nth-child(10){width:6.14%;}
+									&:nth-child(11){width:7.92%;}
+									&:nth-child(12){width:4.85%;}
+									&:nth-child(13){width:13.30%;}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+}
+
+
+.in_stock_by_orders{
+	ul{
+		display: block;
+		li{
+			&:nth-child(1){width:15.76%;}
+			&:nth-child(2){width:15.76%;}
+			&:nth-child(3){width:16.21%;}
+			&:nth-child(4){width:18.64%;}
+			&:nth-child(5){width:12.42%;}
+			&:nth-child(6){width:10.91%;}
+			&:nth-child(7){width:10.30%;}
+		}
+  }
+	.ordergoods_details{
+		width: 99%;
+		margin-left: 5px;
+		border: 1px solid #dbd9d9;
+		overflow: hidden;
+		float: left;
+		box-shadow: -2px 0px 8px #C1C1C1,0px 2px 8px #C1C1C1,0px 2px 8px #C1C1C1,2px 2px 8px #D9D9D9;
+		margin-bottom: 5px;
+
+		.ordergoods_query {
+		  overflow: hidden;
+		  margin: 0px 0px 2px 2px;
+		  background: #fff;
+		  float: left;
+		  width: 100%;
+		  height: 45px;
+		  line-height: 40px;
+		}
+	}
+}
+
+.quickly_in_stock{
+
+	ul{
+		display: block;
+		li{
+
+			&:nth-child(1){width:15.76%;}
+			&:nth-child(2){width:16.82%;}
+			&:nth-child(3){width:20.23%;}
+			&:nth-child(4){width:20.68%;}
+			&:nth-child(5){width:15.45%;}
+			&:nth-child(6){width:11.06%;}
+
+		}
+	}
+}
+
+
+/*库存管理-入库-入库记录--------end--------------------*/

@@ -1,0 +1,160 @@
+
+
+.reset{
+	width: 900px;
+	margin:0 auto;
+	font-family: "微软雅黑";
+
+	a{
+		text-decoration: none;
+	}
+
+	ul{
+		text-decoration:none;
+		list-style: none;
+	}
+
+	header{
+		padding: 1em 0.8em;
+		margin-top: 30px;
+		span{
+			color: #5bd1f5;
+			font-size: 36px;
+
+		}
+	}
+
+	.main{
+		width:990px;
+		height: 700px;
+		border: 1px solid #c8c7c7;
+		border-radius:12px;
+		margin-top: 55px;
+
+		.error_tip{
+			padding: 0px 10px 10px 45px;
+			line-height: 26px;
+			font-size: 13px;
+			color:#df5640;
+			margin: 0px 0px 0px 75px;
+			top: -10px;
+			position: absolute;
+		}
+
+		.step{
+			padding-top: 10px;
+			height: 50px;
+			line-height: 50px;
+			border-bottom: 3px solid #c8c7c7;
+			a{
+				width: 142px;
+				padding:15px 25px;
+				font-size: 16px;
+				color: #959393;
+
+
+				&.active{
+					color: #1ac86f;
+					border-bottom: 3px solid #1ac86f;
+
+				}
+			}
+		}
+
+		.management{
+			margin-top: 35px;
+
+			ul.account_info{
+				padding: 0px;
+				width: 600px;
+				margin: 0 auto;
+				li{
+					padding: 24px 0px;
+
+					&:last-child{
+						position:relative;
+					}
+					label{
+						width: 120px;
+						display: inline-block;
+						text-align: right;
+						color: #9d9d9c;
+						font-size: 16px;
+
+						&:after{
+							content:"*";
+							margin:0px 10px;
+							color: #f19149;
+							font-weight: bold;
+							font-size: 20px;
+							vertical-align: middle;
+
+						}
+					}
+
+					input[type="text"],input[type="password"]{
+						height:33px;
+						background: #fff;
+						border: 1px solid #c8c7c7;
+						width: 324px;
+					}
+
+					.verification_code{
+						display: inline-block;
+						height: 33px;
+
+						i{
+							color: #9d9d9c;
+							font-size: 14px;
+							margin-left:15px;
+						}
+
+						.get_verification_code{
+							width: 88px;
+							height: 23px;
+							line-height: 23px;
+							text-align: center;
+							color: #fff;
+							display: inline-block;
+							background: #9bd159;
+							font-size: 14px;
+
+
+						}
+					}
+				}
+			}
+		}
+		.success{
+			width: 100%;
+			margin-top: 90px;
+			text-align: center;
+
+			.tip_words{
+				color: #474746;
+				font-size: 24px;
+				display: block;
+			}
+
+			.relanded{
+				margin-left:0;
+				margin-top: 65px;
+			}
+		}
+
+		.next,.determine,.relanded{
+			font-size: 18px;
+			background: #1ac86f;
+			color: #fff;
+			border-radius: 3px;
+			padding: 0.2em 1.8em;
+			border: none;
+		}
+
+		.next,.determine{
+			margin-left: 120px;
+		}
+
+	}
+
+}

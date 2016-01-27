@@ -1,0 +1,238 @@
+@charset "UTF-8";
+
+/*-------客户-客户列表-信息-基本信息-start--*/
+
+.main_top{
+  .main_top_span{
+    display: inline-block;
+    height:45px;
+    line-height: 45px;
+  }
+}
+
+.crm_info_wrap{
+  width: 100%;
+  min-height: 600px;
+
+  .crm_info{
+    overflow: auto;
+    padding: 10px 0px 10px 0px;
+    .title{
+      width: 10%;
+      float: left;
+      span{
+        font-size: 16px;
+        font-weight: bold;
+        margin-left: 20px;
+      }
+    }
+
+    .item_content{
+      margin:12px 0px 12px 25px;
+
+      .score_stars{
+        width: 116px;
+        height: 25px;
+        margin-left: 10px;
+        display: inline-block;
+        background:url('/images/stars.png') repeat-x 0px -26px;
+        background-size: 23px;
+
+        span{
+          width: 87.5%;
+          background:url('/images/stars.png');
+          background-size: 23px;
+
+        }
+      }
+
+    }
+
+    .crm_info_content{
+      width: 89%;
+      float: left;
+      border: 1px solid #E1E1E1;
+      padding: 10px 0px;
+      box-shadow:3px 3px 10px #eee,-3px -3px 10px #eee,3px 3px 10px #eee;
+
+
+
+      .item_content{
+        span{
+          vertical-align: middle;
+        }
+
+        span{
+          border: 1px solid #d0d0d0;
+          &.area{
+            border: none;
+            width: 461px;
+
+            select{
+              float:left;
+              margin-right: 10px;
+            }
+
+            label{
+              float: left;
+              padding: 0px 10px;
+            }
+
+            span{
+              float: left;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
+  .adv_info_wrap{
+
+    .crm_info_content{
+      .item_content{
+        margin:12px 0px 12px 25px;
+        .martial{
+          padding: 0px 13px 0px 14px;
+        }
+      }
+
+      .impression{
+        display: block;
+        margin-left: 103px;
+        border: 1px solid #eee;
+        width: 1031px;
+        h3{
+          font-size: 12px;
+          font-weight: normal;
+          line-height: 43px;
+          padding: 0 20px;
+          position: relative;
+          cursor: pointer;
+          color: #6b6b6b;
+        }
+
+        .taglinks{
+          margin: 0px auto 15px 89px;
+          padding: 0;
+          width: 618px;
+          position: relative;
+
+          label{
+            display: inline-block;
+            margin: 6px 10px 6px 0;
+
+            span,.append{
+              border: 1px solid #c4cde1;
+              border-radius: 2px;
+              color: #6f6f6f;
+              cursor: pointer;
+              display: inline-block;
+              line-height: 1.2;
+              outline: 0 none;
+              padding: 6px 9px;
+              text-decoration: none;
+              vertical-align: middle;
+            }
+            span{
+              background: #1069c2;
+              border: 1px solid #0065ca;
+              color: #fff;
+            }
+
+            .append{
+              background: #E4E4E4;
+              width: auto;
+              height: auto;
+              color: #747171;
+              border: none;
+
+              &:before{
+                content: "+";
+                padding: 0px 2px;
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+
+
+  .integrity_info{
+    width: 100%;
+    height: 130px;
+  }
+}
+
+
+.impression_dialog{
+  width: 450px;
+  padding: 10px 0px 10px 20px;
+  background: #fff;
+
+  .new_label{
+
+    input{
+      width: 360px;
+    }
+    .new_btn{
+      width: auto;
+      height: auto;
+      line-height:normal;
+      border-bottom: none;
+      padding: 5px 10px;
+
+    }
+  }
+
+  .links{
+    margin: 20px auto 15px 0px;
+    padding: 10px 14px 10px;
+    width: 400px;
+    position: relative;
+    border: 1px solid #eee;
+
+    label{
+      display: inline-block;
+      margin: 6px 10px 6px 0;
+
+      input[type="checkbox"]{
+        display: none;
+      }
+
+      span{
+        border: 1px solid #c4cde1;
+        border-radius: 2px;
+        color: #6f6f6f;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 1.2;
+        outline: 0 none;
+        padding: 6px 9px;
+        text-decoration: none;
+        vertical-align: middle;
+      }
+
+      input[type="checkbox"]:checked+span{
+        background: #1069c2;
+        border: 1px solid #0065ca;
+        color: #fff;
+
+      }
+    }
+  }
+
+  .btn_group{
+    text-align: right;
+    margin-right: 20px;
+  }
+
+}
+
+
+/*-------客户-客户列表-信息-基本信息-start--*/

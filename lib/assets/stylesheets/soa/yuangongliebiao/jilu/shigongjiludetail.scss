@@ -1,0 +1,324 @@
+@mixin record-details-head{
+  font-weight:bold;
+  margin:0 auto;
+  height: 30px;
+  line-height: 30px;
+  border-bottom:1px solid #d9d9d9;
+}
+
+
+@mixin record-material-col-width{
+  &:nth-child(1){
+    width:16.49%; text-align:left;
+  }
+  &:nth-child(2){
+    width: 24.21%; text-align:left;
+  }
+  &:nth-child(3){
+    width: 7.09%; text-align:center;
+  }
+  &:nth-child(4){
+    width: 8.59%; text-align:center;
+  }
+  &:nth-child(5){
+    width: 10.83%; text-align:right;
+  }
+  &:nth-child(6){
+    width: 11.91%; text-align:center;
+  }
+  &:nth-child(7){
+    width: 7.92%; text-align:right;
+  }
+  &:nth-child(8){
+    width: 13.92%; text-align:right;
+  }
+}
+
+@mixin record-service-col-width{
+  &:nth-child(1){
+    width:3%; text-align:left;
+  }
+  &:nth-child(2){
+    width: 25.4%; text-align:center;
+  }
+  &:nth-child(3){
+    width: 12.5%; text-align:center;
+  }
+  &:nth-child(4){
+    width: 10.3%; text-align:center;
+  }
+  &:nth-child(5){
+    width: 15.7%; text-align:right;
+  }
+  &:nth-child(6){
+    width: 14.4%; text-align:right;
+  }
+  &:nth-child(7){
+    width: 18.7%; text-align:right;
+  }
+}
+
+@mixin record-construction-col-width{
+  &:nth-child(1){
+    width:18.9%; text-align:center;
+  }
+  &:nth-child(2){
+    width: 22%; text-align:center;
+  }
+  &:nth-child(3){
+    width: 6.5%; text-align:center;
+  }
+  &:nth-child(4){
+    width: 39.8%; text-align:center;
+  }
+  &:nth-child(5){
+    width: 12.5%; text-align:center;
+  }
+}
+
+
+
+.construction_record_details_wrap{
+  position:absolute; top:0; left:0;
+  padding:20px 0;
+  background:rgba(0, 0, 0, 0.07);
+  width:100%; height:170%;
+  .construction_record_details{
+    background:#fff;
+    width:650px;
+    margin:80px auto 30px auto;
+    padding: 0 20px 20px 20px;
+    min-height:750px;
+    border-top:8px solid #0068B7;
+    box-shadow:3px 5px 8px #dedddd,0px 0px 5px #dedddd,-3px 0px 8px #dedddd;
+    p.order{
+      display:flex;
+      justify-content:space-between;
+      height: 50px; line-height:50px;
+      font-weight: bold;
+      a{
+        font-size:20px;
+        &:hover{ color:#FF0000; }
+      }
+    }
+    ul{
+      width:95%;
+      margin:0 auto;
+      overflow:auto;
+      padding-bottom:10px;
+      border-bottom:1px solid #d9d9d9;
+      li{
+        float:left;
+        width:205px;
+        label{
+          width:55px;
+          text-align:right;
+        }
+        input[type="text"] {
+          width:110px; height:22px; line-height:22px;
+        }
+      }
+    }
+
+    .detail_info{
+      &>p{
+        width:95%;
+        @include record-details-head;
+      }
+      ul{
+        padding-top:10px;
+        padding-bottom:0px;
+        li{
+          margin-bottom:10px;
+        }
+      }
+    }
+
+    .vehicle_record{
+      overflow:auto;
+      width:95%;
+      margin:0 auto;
+      border-bottom:1px solid #d9d9d9;
+      &>p{
+        width:100%;
+        @include record-details-head;
+      }
+      .vehicle{
+        width:60%;
+        .image{
+          position:relative;
+          margin:20px 0;
+          padding:20px 0 20px 60px;
+          input[type="checkbox"]{
+            position:absolute;
+            width:15px; height:15px;
+            &.part1{ left:45px; top:10px;}
+            &.part2{ left:90px; top:0; }
+            &.part3{ left:145px; top:0; }
+            &.part4{ left:200px; top:0; }
+            &.part5{ left:240px; top:10px; }
+            &.part6{ left:265px; top:50px; }
+            &.part7{ left:250px; top:90px; }
+            &.part8{ left:200px; top:115px; }
+            &.part9{ left:145px; top:115px; }
+            &.part10{ left:90px; top:115px; }
+            &.part11{ left:48px; top:95px; }
+            &.part12{ left:35px; top:55px; }
+          }
+        }
+        .parts{
+          ul{
+            width:100%;
+            border-bottom:none;
+            li{
+              width:40px;
+              text-align:center;
+            }
+          }
+        }
+      }
+      .records{
+        width:40%;
+        margin-top:10px;
+        p{
+          font-weight:bold;
+          text-indent:20px;
+          font-size:16px;
+        }
+      }
+    }
+
+    .business_info{
+      overflow:auto;
+      width:95%;
+      margin:0 auto;
+      border-bottom:1px solid #d9d9d9;
+      &>p{
+        width:100%;
+        @include record-details-head;
+      }
+      .detail{
+        table{
+          width:100%;
+          caption{
+            height:28px; line-height:28px;
+            font-weight:bold;
+            background:#eee;
+          }
+          &.material{
+            thead{
+              tr{
+                height:28px;
+                th{
+                  @include record-material-col-width;
+                }
+              }
+            }
+            tbody{
+              tr{
+                height:25px;
+                td{
+                  padding:0;
+                  @include record-material-col-width;
+                }
+              }
+            }
+            tfoot{
+              tr{
+                height:40px;
+              }
+            }
+          }
+          &.service{
+            thead{
+              tr{
+                height:28px;
+                th{
+                  @include record-service-col-width;
+                }
+              }
+            }
+            tbody{
+              tr{
+                height:25px;
+                td{
+                  padding:0;
+                  @include record-service-col-width;
+                }
+              }
+            }
+            tfoot{
+              tr{
+                height:40px;
+              }
+            }
+          }
+        }
+        p{
+          height:30px; line-height:30px;
+          border-top:1px solid #d9d9d9;
+        }
+      }
+    }
+
+    .construction_info{
+      overflow:auto;
+      width:95%;
+      margin:0 auto;
+      border-bottom:1px solid #d9d9d9;
+      &>p{
+        width:100%;
+        @include record-details-head;
+      }
+      table{
+        thead{
+          tr{
+            height:28px;
+            th{
+              @include record-construction-col-width;
+            }
+          }
+        }
+        tbody{
+          tr{
+            height:28px;
+            td{
+              @include record-construction-col-width;
+              span{
+                margin-right:8px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .other_info{
+      overflow:auto;
+      width:95%;
+      margin:0 auto;
+      &>p{
+        width:100%;
+        @include record-details-head;
+      }
+      &>div.dealing{
+        height:30px; line-height:30px;
+        input[type="checkbox"]{ vertical-align:middle; margin-left:8px;}
+        label{ width:130px; margin-left:10px; text-align:right;}
+        label.customer_signing{ width:100px;}
+        input[type="text"] { border:none; border-bottom:1px solid #d9d9d9; outline:none;}
+      }
+      div.remark{
+        display:flex;
+        align-items: flex-start;
+        margin:20px 0;
+        textarea{
+          width:90%;
+          margin-left:8px;
+          height:50px;
+          outline:none;
+        }
+      }
+    }
+  }
+}

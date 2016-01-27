@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+.list_table table.taocan{
+  thead{
+    th{
+      &:nth-child(1){ width: 2% ;}
+      &:nth-child(2){ width: 13% ;}
+      &:nth-child(3){ width: 10% ;}
+      &:nth-child(4){ width: 12% ;}
+      &:nth-child(5){ width: 4% ;}
+      &:nth-child(6){ width: 7% ;}
+      &:nth-child(7){ width: 5% ;}
+      &:nth-child(8){ width: 6% ;}
+      &:nth-child(9){ width: 5% ;}
+      &:nth-child(10){ width: 6% ;}
+      &:nth-child(11){ width: 11.5% ;}
+      &:nth-child(12){
+        width: 12.5% ;
+      }
+    }
+  }
+}

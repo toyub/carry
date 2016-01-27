@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+
+.improve_crm_wrap{
+	padding:0px 5px;
+	margin-left: 8px;
+  width: 690px;
+	height: 700px;
+	border:1px solid #e0e0e0;
+	border-top: 7px solid #642DB0;
+	display: none;
+
+	h2{
+		height: 45px;
+	  line-height: 45px;
+	  padding-left: 10px;
+	  font-size: 20px;
+	}
+
+	.improve_crm_info{
+
+		.crm_info{
+			margin-bottom: 50px;
+			.item_content{
+				display: inline-block;
+				margin: 10px 7px 10px 10px;
+
+				label{
+					text-align: right;
+
+					&.sex{
+						text-align: center;
+						input[type='radio']{
+							margin-left: 10px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

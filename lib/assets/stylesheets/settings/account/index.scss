@@ -1,0 +1,95 @@
+
+@mixin col-width{
+  &:nth-child(1){ width: 2.30%; }
+  &:nth-child(2){ width: 21.55%; }
+  &:nth-child(3){ width: 18.00%; }
+  &:nth-child(4){ width: 14.77%; }
+  &:nth-child(5){ width: 28.09%; }
+  &:nth-child(6){ width: 6.89%; }
+  &:nth-child(7){ width: 8.39%; }
+}
+
+
+.account{
+  table{
+    width:100%;
+    thead{
+      tr{
+        border:1px solid #d9d9d9;
+        height:45px;
+        background:#C5D0D4;
+        th{
+          @include col-width;
+        }
+      }
+    }
+
+    tbody{
+      tr{
+        height:35px;
+
+        &.modifying{
+          input.save_btn{ display: inline-block;}
+          i{ display:none; }
+          a{ display:none;}
+          input[type='text']{ display:block;}
+          span{display:none;}
+        }
+
+        &.done_editing{
+          i{ display:inline-block; }
+          a{ display:inline-block;}
+          input[type='text']{ display:none;}
+          span{ display:block;}
+        }
+
+        td{
+          @include col-width;
+          text-align:center;
+          border:1px solid #d9d9d9;
+
+          input.save_btn{ display:none;}
+
+          input[type='text']{ width:100%; border:none; height:35px; line-height:35px; text-indent:0;}
+
+          span{ display:none; height:35px; line-height:35px;}
+
+          a{
+            display:none;
+            width:36px;
+            background:#BFBFBF;
+            color:#fff;
+            padding:3px 10px;
+            border-radius:3px;
+            &:before{
+              content:"停用中";
+            }
+            &:hover{
+              background:#6ACE81;
+              &:before{
+                content:"启用";
+              }
+            }
+
+            &.active{
+              background:#6ACE81;
+              &:before{
+                content:"使用中";
+              }
+              &:hover{
+                background:#FF0044;
+                &:before{
+                  content:"停用";
+                }
+              }
+            }
+          }
+
+          i{ display:none; cursor:pointer; font-size:16px;}
+
+        }
+      }
+    }
+
+  }
+}

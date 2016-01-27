@@ -10,11 +10,30 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require font-awesome
  *= require scaffolds
  *= require icomoon
  *= require jquery_ui
  *= require select2
  *= require datetimepicker/jquery.datetimepicker
+ *= require_tree ./common
+ *= require ais
+ *= require kehu
+ *= require kucun
+ *= require login
+ *= require reset_password
+ *= require sas
+ *= require settings
+ *= require shouyin
+ *= require soa
+ *= require xianchang
+ *= require xiaoshouguanli
+ *= require piccut
+ *= require common
+ *= require partial
+ *= require as_select
+ *= require error
+ *= require float_window
  *= require_self
  */
 

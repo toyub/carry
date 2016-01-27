@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+.single_shift_library{
+
+	.list{
+		li{
+			&:nth-child(1){width:2.87%; }
+			&:nth-child(2){width:12.38%; }
+			&:nth-child(3){width:13.96%; }
+			&:nth-child(4){width:24.12%; }
+			&:nth-child(5){width:13.32%; }
+			&:nth-child(6){width:12.32%; }
+			&:nth-child(7){width:15.26%; }
+			&:nth-child(8){width:4.75%; }
+		}
+		.list_contents{
+			width: 100%;
+			padding: 0px!important
+
+		}
+
+	}
+}
+
+
+.in_storage_by_receipt{
+	.in_storage_tab{
+		table{
+			thead{
+				tr{
+					th{
+						&:nth-child(1){width:2.54%;}
+						&:nth-child(2){width:16.95%;}
+						&:nth-child(3){width:9.17%;}
+						&:nth-child(4){width:9.17%;}
+						&:nth-child(5){width:8.02%;}
+						&:nth-child(6){width:6.69%;}
+						&:nth-child(7){width:7.13%;}
+						&:nth-child(8){width:8.29%;}
+						&:nth-child(9){width:5.33%;}
+						&:nth-child(10){width:10.08%;}
+						&:nth-child(11){width:16.60%;}
+
+					}
+				}
+			}
+			tbody{
+				tr{
+					td{
+						input{
+							height: 18px;
+							line-height: 18px;
+						}
+					}
+				}
+
+			}
+
+		}
+
+	}
+
+}

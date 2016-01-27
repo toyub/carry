@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+
+@mixin col-width{
+  &:nth-child(1){ width: 5.0%; }
+  &:nth-child(2){ width: 11.48%; }
+  &:nth-child(3){ width: 25.0%; }
+  &:nth-child(4){ width: 26.0%; }
+  &:nth-child(5){ width: 17.75%; }
+  &:nth-child(6){ width: 14.00%; }
+}
+
+.feecharge{
+  min-height:500px;
+
+  .functional_bar{
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 8px;
+  }
+
+  .lists{
+    ul{
+      width: 99.8%;
+      li{
+        float: left;
+        text-align: center;
+
+        @include col-width;
+      }
+    }
+
+    .head{
+      height:35px;
+      line-height: 35px;
+      border-top: 2px solid #d9d9d9;
+    }
+
+    .content{
+      ul{
+        height: 20px;
+        line-height: 20px;
+        border: 1px solid #d9d9d9;
+        margin-bottom: 8px;
+        padding: 6px 0;
+        li{
+          border-left: 1px solid #d9d9d9;
+          &:first-child{
+            border-left: none;
+          }
+        }
+        &:nth-child(even){
+          border-left: 2px solid #E6191B;
+        }
+        &:nth-child(odd){
+          border-left: 2px solid #31ADE4;
+        }
+      }
+    }
+  }
+
+}
+
+
+.feecharge_option{
+  padding: 30px 0;
+  .quantity{
+    input[type='number']{
+      height:27px;
+      border: 1px solid #d9d9d9;
+      margin-left:8px;
+    }
+  }
+  .price{
+    margin: 20px 0;
+    text-indent: 48px;
+    span,label{
+      color: #B9AFAF;
+    }
+  }
+  .amount{
+    margin: 20px 0;
+    text-indent: 48px;
+  }
+  .pay{
+    width: 48px;
+    padding: 6px 51px;
+    border: 1px solid #d9d9d9;
+    margin-left: 13px;
+  }
+}
+
+.feecharge_notice{
+  padding: 30px 0 20px 50px;
+}

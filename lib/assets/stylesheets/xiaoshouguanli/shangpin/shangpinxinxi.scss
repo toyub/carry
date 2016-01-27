@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+
+/*----销售设置-商品-start-----*/
+.item_content {
+  margin:12px 0px 12px 25px;
+
+  .input_div{
+  	display:inline-block;
+  	height:25px;
+  	line-height:25px;
+  	border:1px solid #e6e6e6;
+  	padding:0px 10px 0px 0px;
+  	width:155px;
+
+  }
+
+  span{
+   text-indent: 5px;
+ }
+}
+
+.item_textarea {
+
+  textarea.textarea-width{
+
+    height:120px;
+    width:977px;
+  }
+}
+
+
+/*----销售设置-商品-end-----*/

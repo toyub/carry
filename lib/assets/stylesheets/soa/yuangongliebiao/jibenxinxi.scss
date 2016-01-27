@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+.employee_basic_info{
+  .photo_info{
+    padding:0 25px;
+    margin-top:9px;
+    .photo{
+      height:248px;
+      border:1px solid #D9D9D9;
+      overflow:hidden;
+      text-align:center;
+      margin-bottom:12px;
+    }
+
+  }
+  .basic_info{
+    margin-right:12px;
+    margin-top:4px;
+
+    & > div{
+      width : 240px;
+      display : inline-block;
+      margin :0 18px 20px 0px;
+
+      label {
+        width : 50px;
+        text-align : right;
+        margin-right : 5px;
+      }
+
+      input[type="text"]{
+        width : 170px;
+      }
+
+      span.show_content{
+        width : 172px;
+      }
+
+      select{
+        width : 170px;
+      }
+
+      &.name {
+        label {
+          width : 15px;
+        }
+      }
+
+      &.position {
+        label {
+          width : 26px;
+        }
+        select,span.show_content{
+          width : 67px;
+        }
+      }
+
+      &.gender{
+        span {
+          display : inline-block;
+          height : 25px;
+          line-height : 25px;
+          width : 170px;
+          border : 1px solid #d9d9d9;
+        }
+      }
+
+      &.height, &.weight{
+        position: relative;
+        label.height, label.weight {
+          position: absolute;
+          top : 5px; right : 20px;
+        }
+      }
+
+      &.address{
+        width : 502px;
+        input[type="text"] { width : 431px;}
+        span.show_content { width : 433px;}
+      }
+
+      &.remark {
+        width : 100%;
+        display : flex;
+        align-items : flex-start;
+        justify-content: flex-start;
+        textarea {
+          width : 958px;
+          height: 50px;
+        }
+        span.show_content{
+          width : 960px;
+          height : 50px;
+        }
+      }
+    }
+  }
+}
