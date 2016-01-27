@@ -32,7 +32,7 @@ class StoreCustomer < ActiveRecord::Base
   scope :male, -> { where(gender: true) }
   scope :membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: true})}
   scope :non_membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: false})}
-  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'group'})}
+  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'company'})}
   scope :personal_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'personal'})}
 
 

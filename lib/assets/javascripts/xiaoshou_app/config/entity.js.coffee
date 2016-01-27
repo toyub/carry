@@ -1,6 +1,6 @@
 Mis.Settings.Entity =
   properties:
-    group: '集团客户'
+    company: '集团客户'
     personal: '个人客户'
 
   education:

@@ -93,7 +93,11 @@ class StoreCustomerEntity < ActiveRecord::Base
   end
 
   def property_name
-    I18n.t self.property, scope: [:enums, :store_customer_entity, :property]
+    self.property_i18n
+  end
+
+  def property_i18n
+    I18n.t "enums.store_customer_entity.property.#{self.property}"
   end
 
   def category

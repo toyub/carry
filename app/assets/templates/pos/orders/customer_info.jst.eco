@@ -25,7 +25,7 @@
         <label class="width-55">客户属性</label>
         <select class="width-152" name='store_customer_entity[property]'>
           <option <%= 'selected' if @store_customer.property == 'personal' %> value='personal'>个人</option>
-          <option <%= 'selected' if @store_customer.property == 'group' %> value='group'>单位</option>
+          <option <%= 'selected' if @store_customer.property == 'company' %> value='company'>单位</option>
         </select>
       </div>
     
