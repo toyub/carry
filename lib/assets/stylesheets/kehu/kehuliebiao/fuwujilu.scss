@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+/*------------客户管理-客户列表-车辆档案-服务记录-start--------*/
+
+  .car_content{
+
+    .car_list{
+
+      width:98.3%;
+    	padding: 0px 10px 50px 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    	border:1px solid #dddddd;
+      min-height: 400px;
+
+      dl{
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+
+        dt{
+          display: inline-block;
+          text-align: center;
+          font-size: 14px;
+          height:40px;
+          line-height:40px;
+          color:#A3A2A2;
+          float:left;
+
+          &:nth-child(1){ width: 3.2%; }
+          &:nth-child(2){ width: 7.95%; }
+          &:nth-child(3){ width: 10.40%; }
+          &:nth-child(4){ width: 8.00%; }
+          &:nth-child(5){ width: 12.95%; }
+          &:nth-child(6){ width: 21.00%; }
+          &:nth-child(7){ width: 8.34%; }
+          &:nth-child(8){ width: 5.83%; }
+          &:nth-child(9){ width: 7.2%; }
+          &:nth-child(10){ width:7.72%; }
+          &:nth-child(11){ width: 6.93%; }
+        }
+      }
+
+      .car_sercice_record{
+        overflow: auto;
+
+        .item_car_service_record_wrapper{
+          width: 100%;
+          overflow: inherit;
+          margin-bottom:7px;
+          &:nth-child(odd){
+            .items_car_service_records{
+              border-left:3px solid #198fff !important;
+            }
+
+          }
+          &:nth-child(even){
+            .items_car_service_records{
+              border-left:3px solid #F8AC51 !important;
+            }
+
+          }
+
+          .items_car_service_records{
+            width: 92.54%;
+            float: left;
+
+            >table.item_car_service_record{
+              width: 100%;
+              border:1px solid #E1E1E1;
+              border-bottom: 0px;
+
+              tbody{
+                tr{
+                  td{
+                    height: 25px;
+                    text-align: center;
+                    border-right: 1px solid #E1E1E1;
+                    border-bottom: 1px solid #E1E1E1;
+                    color:#2B2A2A;
+
+                    &:nth-child(1){ width: 3.23%; }
+                    &:nth-child(2){ width: 8.52%; }
+                    &:nth-child(3){ width: 11.36%; }
+                    &:nth-child(4){ width: 8.60%; }
+                    &:nth-child(5){ width: 71.66%; }
+                    &:last-child{padding: 0;}
+
+                    >table.item_construction{
+                      width: 100%;
+
+                      tbody{
+                        tr{
+                          td{
+                            padding: 0px 10px;
+                            &:nth-child(1){ width: 17.90%; }
+                            &:nth-child(2){ width: 29.45%; }
+                            &:nth-child(3){ width: 11.66%; text-align: right;}
+                            &:nth-child(4){ width: 8.20%; }
+                            &:nth-child(5){ width: 10.16%; }
+                            &:nth-child(6){ width: 10.62%; }
+                            &:last-child{border-right: none; text-align: right;}
+                          }
+
+                          &:last-child{
+                            td{
+                              border-bottom: none;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
+              tfoot{
+                tr{
+                  td{
+                    height: 35px;
+                    padding: 0px 10px;
+                    border-bottom: 1px solid #e1e1e1;
+                    text-align: right;
+                    font-weight: bold;
+                  }
+                }
+              }
+            }
+          }
+
+
+          .get_order{
+            margin-top: 5px;
+            width: 7.2%;
+            float: left;
+            line-height: 28px;
+          }
+        }
+      }
+    }
+
+  }
+
+
+
+
+
+/*------------客户管理-客户列表-车辆档案-服务记录-start--------*/

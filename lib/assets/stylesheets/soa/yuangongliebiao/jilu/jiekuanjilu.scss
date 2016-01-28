@@ -1,0 +1,123 @@
+
+@mixin border{
+  border:1px solid #d9d9d9;
+}
+
+@mixin loan-col-width{
+  &:nth-child(1){ width: 17.37%; }
+  &:nth-child(2){ width: 27.35%; }
+  &:nth-child(3){ width: 10.88%; }
+  &:nth-child(4){ width: 11.28%; }
+  &:nth-child(5){ width: 10.39%; }
+  &:nth-child(6){ width: 9.74%; }
+  &:nth-child(7){ width: 6.90%; }
+  &:nth-child(8){ width: 6.09%; }
+}
+
+
+
+@mixin tfoot{
+  tfoot{
+    tr{ height:35px; @include border;}
+    td{ text-align:right; font-weight:bold;}
+  }
+}
+
+@mixin tr-bg-color{
+  &:nth-child(odd){
+    background:#FDF6ED;
+  }
+}
+
+.loan_record{
+  table.record{
+    margin-top:10px;
+    width:100%;
+    thead{
+      tr{ @include border; height:30px;}
+      th{
+        @include loan-col-width;
+      }
+    }
+    tbody{
+      tr{
+        height:35px;
+        @include tr-bg-color;
+        td{
+          @include border;
+          text-align:center;
+          &.reason{ text-align:left; }
+          @include loan-col-width;
+        }
+      }
+    }
+    @include tfoot;
+  }
+}
+
+
+.loan_pop_wrap{
+  display : none;
+  position : absolute;
+  top : 0;
+  left : 0;
+  background: rgba(0,0,0,0.07);
+  width : 100%;
+  height : 110%;
+  .loan_pop{
+    margin: 160px auto 0 auto;
+    width : 725px;
+    min-height : 200px;
+    padding-bottom : 20px;
+    background : #fff;
+    border-top : 6px solid #959595;
+    box-shadow : 3px 5px 5px #ccc, 0 0 5px #ccc, -3px 0px 5px #ccc;
+    h3{
+      border-bottom : 2px solid #d9d9d9;
+      width : 95%;
+      height : 35px;
+      margin : 0 auto;
+      display: flex;
+      justify-content : space-between;
+      align-items : center;
+    }
+    .record{
+      width : 95%;
+      margin: 10px auto;
+      & > ul{
+        overflow : auto;
+        li {
+          float : left;
+          width : 228px;
+          padding: 10px 0;
+          label {
+            width : 50px;
+            margin-right : 5px;
+            text-align : right;
+          }
+        }
+      }
+
+      & > div{
+        margin-top : 20px;
+        label {
+          width : 50px;
+          margin-right : 5px;
+          text-align : right;
+        }
+        span.reason{
+          width : 588px;
+          height : 50px;
+        }
+      }
+
+      .form_maker{
+        width : 95%;
+        text-align : right;
+        label.date{
+          min-width : 100px;
+        }
+      }
+    }
+  }
+}

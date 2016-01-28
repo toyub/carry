@@ -1,0 +1,163 @@
+@charset "utf-8";
+
+
+/*-----------库存管理-退货-index-start---------*/
+
+@mixin td {
+  &:nth-child(1){width:2%;}
+  &:nth-child(2){width:14%;}
+  &:nth-child(3){width:12%;}
+  &:nth-child(4){width:8%;}
+  &:nth-child(5){width:6%;}
+  &:nth-child(6){width:15%;}
+  &:nth-child(7){width:5%;}
+  &:nth-child(8){width:7%;}
+  &:nth-child(9){width:7%;}
+  &:nth-child(10){width:14%;}
+  &:nth-child(11){width:5%;}
+  &:nth-child(12){width:4%;}
+}
+
+.main_top{
+  span{
+    &.second_title{
+      float: left;
+      font-size: 14px;
+      height: 25px;
+      line-height: 25px;
+      margin-left: 35px;
+      margin-top: 15px;
+      color: #838382;
+    }
+  }
+}
+
+.return_storage_list{
+
+  .returned_purchase_list{
+    ul{
+      border: 1px solid #e0e0e0;
+      height: 40px;
+      width: 99.85%;
+      li{
+        display: inline-block;
+        float: left;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-right: 1px solid #e0e0e0;
+        font-weight:bold;
+        &:nth-child(1){width:1.9%;border-right: none;}
+        &:nth-child(2){width:14.1%;}
+        &:nth-child(3){width:12.1%;}
+        &:nth-child(4){width:8%;}
+        &:nth-child(5){width:5.95%;}
+        &:nth-child(6){width:15.15%;}
+        &:nth-child(7){width:4.95%;}
+        &:nth-child(8){width:6.95%;}
+        &:nth-child(9){width:6.95%;}
+        &:nth-child(10){width:14.2%;}
+        &:nth-child(11){width:4.95%;}
+        &:nth-child(12){width:4%;border-right: none;}
+      }
+    }
+
+    .returned_purchase_invoice{
+      height: 292px;
+      overflow-y: scroll;
+      border-bottom: 1px solid #e6e6e6;
+      table{
+        border-top: none;
+        tbody{
+          tr{
+            @include td;
+          }
+        }
+        tfoot{
+          tr{
+            td{
+              border: 1px solid #e0e0e0;
+              height: 25px;
+              @include td;
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.return_storage_content{
+  border: 1px solid #dbd9d9;
+	float: left;
+	width: 99.7%;
+
+  .return_storage_query{
+  	margin: 0px 0px 2px 2px;
+  	float: left;
+  	width:100%;
+  	height:45px;
+  	line-height:40px;
+
+    .return_storage_print{
+    	float:right;
+    	margin-right:10px;
+    }
+  }
+
+  .return_storage_tab{
+    table.check_order{
+      width:99.8%;
+      thead{
+        tr{
+          th{
+            border: 1px solid #CACACA;
+            height: 28px;
+            line-height: 28px;
+            color:#fff;
+            &:nth-child(1){width:3%;}
+            &:nth-child(2){width:18%;}
+            &:nth-child(3){width:8%;}
+            &:nth-child(4){width:8%;}
+            &:nth-child(5){width:4%;}
+            &:nth-child(6){width:10%;}
+            &:nth-child(7){width:8%;}
+            &:nth-child(8){width:6%;}
+            &:nth-child(9){width:6%;}
+            &:nth-child(10){width:8%;}
+            &:nth-child(11){width:6%;}
+            &:nth-child(12){width:5%;}
+            &:nth-child(13){width:10%;}
+
+          }
+        }
+      }
+      tbody{
+        tr{
+          td{
+
+
+
+            border: 1px solid #CACACA;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+
+            input[type="text"]{
+            	height:18px;
+            	line-height: 18px;
+
+            }
+          }
+        }
+      }
+    }
+
+
+  }
+}
+
+
+
+/*---------------库存管理-退货-index-end----------------*/

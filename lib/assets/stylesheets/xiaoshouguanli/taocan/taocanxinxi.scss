@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+.package{
+  position:relative;
+  .package_descript{
+    margin-left:31.5px;
+    width:570px;
+    &>div{
+      display:inline-block;
+      margin-bottom:20px;
+      label{ width:62px; text-align:right;}
+      input[type=text],span{
+        width:214px;
+      }
+      span{ height:27px; }
+
+      select{ width:216px; height:27px;}
+
+      &.abstract,&.descript{
+        display:flex;
+        textarea{
+          width:499px;
+          margin-left:3px;
+        }
+      }
+      &.abstract{
+        textarea{ height:148px;}
+      }
+      &.descript{
+        textarea{ height:300px;}
+      }
+    }
+  }
+  .package_card_list{
+    background:#fff;
+    width:444px;
+    height:518px;
+    padding:0 14px;
+    border:1px solid #E6E6E6;
+    h2{
+      border-bottom:1px solid #E6E6E6;
+      height:26px; line-height:26px;
+      padding:0 0 2px 8px;
+      letter-spacing:1px;
+      label{
+        font-size:14px;
+      }
+      input{
+        margin:0;
+        padding:0;
+        height:18px;
+        width:44px;
+        text-align:center;
+      }
+    }
+    h3{
+      font-size:16px;
+      text-align:center;
+      margin-top:90px;
+      letter-spacing:2px;
+    }
+    p{
+      width:74%;
+      margin:0 auto;
+      line-height:22px;
+      letter-spacing:1px;
+    }
+
+    .created_package_card_lists{
+      background:#fff;
+      width:93.5%;
+      height:90%;
+      margin:8px 0 0 14px;
+      position:absolute;left:0;top:26px;
+      ul{
+        width:100%;
+        height:18px;
+        line-height:18px;
+        margin:0;
+        padding:6px 0;
+        border:1px solid #E6E6E6;
+        li{
+          float:left;
+          margin:0;
+          text-align:center;
+          border-left:1px solid #E6E6E6;
+          &:nth-child(1){ width:9.3%; border:none; }
+
+          &:nth-child(2){ width:45.5%; }
+
+          &:nth-child(3){ width:23.0%; }
+
+          &:nth-child(4){ width:21.5%; }
+        }
+        &.list_head{
+          border:none;
+          li{
+            border:none;
+          }
+        }
+      }
+    }
+  }
+}

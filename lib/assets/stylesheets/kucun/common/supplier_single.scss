@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.supplier_single_tab{
+	thead{
+		tr{
+			th{
+				&:nth-child(1){width: 3%;}
+				&:nth-child(2){width:18%; }
+				&:nth-child(3){width:12%; }
+				&:nth-child(4){width:8%;}
+				&:nth-child(5){width:5%; }
+				&:nth-child(6){width:9%; }
+				&:nth-child(7){width:9%; }
+				&:nth-child(8){width:9%; }
+				&:nth-child(9){width:5%; }
+				&:nth-child(10){width:8%; }
+				&:nth-child(11){width:12%; }
+			}
+		}
+	}
+
+	tfoot{
+		tr{
+		  td{
+				height: 25px;
+		    border: 1px solid #D1D1D1;
+		    text-align: center;
+		    font-weight: bold;
+			}
+		}
+	}
+}

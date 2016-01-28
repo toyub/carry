@@ -1,0 +1,225 @@
+@charset "utf-8";
+
+.details{
+
+  position: relative;
+
+  .common_storage{
+
+    ul{
+
+      margin:0px;
+      padding:0px;
+
+      li{
+        display: inline-block;
+        text-align: center;
+        float: left;
+        font-size:12px;
+      }
+    }
+
+    .list{
+      border: 0px;
+      width:100%;
+
+      .list_top{
+        border:1px solid #ffffff;
+        li{
+        	height:45px;
+        	line-height:45px;
+        	border-right:1px solid #ffffff;
+        }
+      }
+
+      .list_tr{
+        width:99.7%;
+      }
+    }
+  }
+
+
+
+
+
+  .common_storage_query{
+  	overflow: hidden;
+    width: 99%;
+    margin: 0 auto;
+    background: #fff;
+  }
+
+  .operate_icon_click{
+    padding: 2px 6px;
+    border-radius: 12px;
+    background-color: #C8C8C8;
+  }
+
+  .operate_icon{
+    font-size: 16px;
+    cursor: pointer;
+
+    i{
+      cursor: pointer;
+    }
+  }
+
+  .item_content{
+    span{
+     text-indent: 5px;
+    }
+
+  }
+
+
+
+  .common_in_storage{
+  	display: none;
+  	ul{
+  		overflow: visible;
+
+  		&.title{
+  			li{
+  				height: 60px;
+  				line-height: 60px;
+  				font-size: 16px;
+  				text-indent: 10px;
+  				font-weight: bold;
+  				position: relative;
+  			}
+
+  			:hover{
+  				background: none;
+  			}
+  		}
+
+  		&:hover{
+  			background: #f5fafc;
+  		}
+
+  		li{
+  			display: inline-block;
+  			margin:0px;
+  			padding:0px;
+  			float: left;
+  			padding:8px 0px;
+  			border-bottom: 1px solid #BECAD9;
+  			height: 20px;
+
+  			span.line{
+  				position: absolute;
+  				top: 0;
+  				left: -8px;
+  				border-left: 1px solid #CFD2D6;
+  				height: 10px;
+  			}
+  		}
+  	}
+  }
+
+
+  .storage_tab{
+    width:99.8%;
+    font-size: 12px;
+    text-align: center;
+
+    thead{
+
+      tr{
+
+        th{
+
+          border: 1px solid #cecece;
+          height: 25px;
+        }
+      }
+    }
+
+    tbody{
+
+      tr{
+
+        td{
+
+          border: 1px solid #cecece;
+          height: 25px;
+          padding: 0px 5px;
+
+        }
+      }
+    }
+  }
+}
+
+.common_storage_account{
+  width: 100%;
+  margin-top: 10px;
+
+  .item_content{
+    label{
+      height:30px;
+      line-height:30px;
+    }
+    .remarks_textarea{
+      width:1249px;;
+    }
+
+  }
+}
+
+.common_storage_content{
+  border: 1px solid #dbd9d9;
+  overflow: hidden;
+  width: 99.7%;
+}
+
+.common_storage_tab{
+  overflow: hidden;
+  width: 99%;
+  margin: 0 auto;
+}
+
+
+.input_div{
+  display:inline-block;
+  height:26px;
+  line-height:25px;
+  padding:0px 10px 0px 0px;
+  width:155px;
+
+}
+
+.operate{
+  position: absolute;
+  background: #fff;
+  width: 50px;
+  border:1px solid #e6e6e6;
+  letter-spacing:normal;
+  height:120px;
+  font-size:12px;
+  padding:10px 10px;
+  z-index: 6;
+  display: none;
+  box-shadow:-5px 0 5px #f2f2f2,0 -5px 5px #ffffff,0 5px 5px #cfcece,5px 0 5px #e9e9e9;
+
+  a{
+  	height:18px;
+  	line-height: 18px;
+    display: block;
+  }
+  a:hover{
+    background: #EDD9D1;
+  }
+}
+
+.click_underline{
+  font-weight: bold;
+  border-bottom: 1px solid #252121;
+  &:hover{
+    border-bottom: 1px solid #4183c4;
+    color: #4183c4;
+  }
+}
+
+
+/*---库存管理-公共部分-end*/

@@ -1,0 +1,161 @@
+
+
+.sales_analysis{
+
+  .abstrct{
+
+    .material_sales,.service_sales,.package_sales{
+      display:inline-block;
+      width:434px;
+      border-radius: 0 5px 5px 0;
+
+      .image{
+        float:left;
+        width:90px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:50px;
+        i{ font-size:30px; color:#fff;}
+      }
+
+      ul{
+        width:340px;
+        float:left;
+
+        li{
+          height : 24px;
+          line-height:24px;
+          color:#fff;
+          float:left;
+          text-align:right;
+          &:nth-child(1),&:nth-child(3){
+            width:25%;
+          }
+          &:nth-child(2),&:nth-child(4){
+            width:70%;
+          }
+
+          span{
+            background:#fff;
+            display: inline-block;
+            width:50px;
+            height:15px; line-height:15px;
+            text-align:left;
+            text-indent:5px;
+            border-radius:10px;
+          }
+
+          i{ position:absolute; right:8px; bottom:5px;}
+        }
+
+      }
+    }
+
+    .material_sales{
+      background:#5AB5E0;
+      margin-right:25px;
+      .image{ background: #297AB3; }
+      ul li span,i{ color: #5AB5E0;}
+    }
+
+    .service_sales{
+      background:#82AE54;
+      margin-right:25px;
+      .image{ background: #618838; }
+      ul li span,i{ color: #82AE54;}
+    }
+
+    .package_sales{
+      background:#DC972A;
+      .image{background: #AD6722;}
+      ul li span,i{ color: #DC972A;}
+    }
+
+  }
+
+  .details_content{
+
+    .graphs{
+      display:flex;
+      justify-content:space-between;
+
+      div.bar_chart,div.pie_chart{
+        width:49.8%;
+        height:320px;
+        background:#F9F9F9;
+      }
+
+      div.bar_chart{
+        position:relative;
+        select{
+          position:absolute;right:0;
+        }
+        .half_year_barchart{ margin-top:25px; }
+        .year_on_year_barchart{display:none;  margin-top:25px; }
+      }
+
+      div.pie_chart{
+        display: flex;
+        align-items: center;
+        justify-content:space-around;
+      }
+
+    }
+
+    .personal_achivement{
+      display:flex;
+      justify-content:space-between;
+      margin-top:20px;
+
+      div.left{
+        width:35%;
+
+        ul{
+          width:92%;
+          overflow:auto;
+          border-radius:6px;
+          margin:15px 0;
+          padding-right:20px;
+          li{
+            float:left;
+            height : 40px;
+            line-height:40px;
+            text-align:center;
+            &:nth-child(1){ width: 20.22%; }
+            &:nth-child(2){ width: 27.30%; }
+            &:nth-child(3){ width: 22.30%; text-align:right; }
+            &:nth-child(4){ width: 30.17%; text-align:right;}
+          }
+
+          &.achives_top{
+            border: 1px solid #CDE298;
+            li:first-child{ background: #CDE298;}
+          }
+
+          &.material_top{
+            border: 1px solid #EF55B4;
+            li:first-child{ background: #EF55B4; color:#fff;}
+          }
+
+          &.service_top{
+            border: 1px solid #EA673A;
+            li:first-child{ background: #EA673A; color:#fff;}
+          }
+
+          &.package_top{
+            border: 1px solid #9384EA;
+            li:first-child{ background: #9384EA; color:#fff;}
+          }
+
+        }
+      }
+
+      div.line_chart{
+        width:65%;
+        height:260px;
+      }
+    }
+
+  }
+}

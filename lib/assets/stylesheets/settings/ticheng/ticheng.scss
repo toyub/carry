@@ -1,0 +1,209 @@
+div.ticheng_details{
+  div.ticheng_plan{
+    width:29.3%; min-height:548px; margin-top:12px; padding: 0 16px; border:1px solid #e8e8e8;
+    h2{
+      height:36px; line-height:36px; border-bottom:1px solid #e8e8e8;
+      label{ width:320px; }
+    }
+    div.new_lists{
+      ul.list_header{
+        border:none; height:30px; line-height:30px;
+        li{
+          height : 30px;
+          line-height : 30px;
+          float:left; text-align:center;
+          &:nth-child(1){ width:5.5%; }
+          &:nth-child(2){ width:44.4%; }
+          &:nth-child(3){ width:16.5%; }
+          &:nth-child(4){ width:16.5%; }
+          &:nth-child(5){ width:16.5%; }
+        }
+      }
+      .new_lists_content{
+        ul{
+          height:16px; line-height:16px; padding:6px 0; margin-bottom:10px; border:1px solid #e8e8e8;
+          &:hover{
+            border:1px solid #4E6AB2;
+            label.edit_list{ font-weight:bold; border-bottom: 1px solid #000;
+              &:hover{
+                color: blue; cursor:pointer;
+              }
+            }
+            span.delete { display:block; }
+          }
+          li{
+            height : 16px;
+            line-height : 16px;
+            float:left; text-align:center;
+            &:nth-child(1){ width:5.5%; border-right:1px solid #d9d9d9;}
+            &:nth-child(2){ width:44%; border-right:1px solid #d9d9d9;}
+            &:nth-child(3){ width:16.5%; border-right:1px solid #d9d9d9;}
+            &:nth-child(4){ width:16.5%; border-right:1px solid #d9d9d9;}
+            &:nth-child(5){ width:16.5%; position:relative; }
+            a{
+              display:block;
+              &.active{
+                &:before{
+                  content:"使用";
+                  color:#000;
+                }
+                &:hover{
+                  &:before{
+                    content:"停用";
+                    background:#ED0A12;
+                    color:#fff;
+                    padding:2px 5px;
+                    border-radius:3px;
+                  }
+                }
+              }
+              &.disable{
+                &:before{
+                  content:"停用";
+                  color:#000;
+                }
+                &:hover{
+                  &:before{
+                    content:"使用";
+                    background:#6ACE81;
+                    color:#fff;
+                    padding:2px 5px;
+                    border-radius:3px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+
+.list_new_page_wrap{
+  display:-webkit-flex;
+  justify-content:center;
+  align-items:center;
+  position:fixed; left:0; top:0;
+  width:100%; height:100%;
+  background:rgba(206, 205, 205, 0.22);
+  .list_new_page{
+    border-top:7px solid #4c6d85;
+    box-shadow:8px 5px 28px #d8d5d5,-5px 5px 36px #d8d5d5,4px 5px 28px #d8d5d5;
+    width:830px; height:570px;
+    background:#fff;
+    h3{
+      height:36px; line-height:36px; padding-left:20px;
+      label{ color:#4c6d85; width:775px;}
+      span{ display:inline-block; color:#4c6d85; cursor:pointer; width:24px; text-align:center;}
+    }
+    .plan{
+      width:45%; height:425px;
+      border:1px solid #e8e8e8;
+      position:relative;
+      margin:35px 25px 0 25px;
+      span.num{
+        position:absolute; left:-16px; top:-16px;
+        font-size:18px; color:#fff; background:#4c6d85;
+        padding:5px 12px;
+        border-radius:18px;
+      }
+      &>div{
+        height:45px; line-height:45px;
+        margin-left: 30px;
+        &.plan_name {
+          margin-top:10px;
+        }
+        label{margin-right:10px; text-align:right; width:48px;}
+        input[type="text"]{ width:230px; }
+        select{ width:232px;}
+
+        p{ font-weight:bold; font-size:14px; height:40px; line-height:40px;}
+
+        span{
+          height: 25px; line-height: 25px;
+          display: inline-block;
+          width: 314px;
+        }
+
+        ul{
+          li{
+            height:35px;
+            line-height:35px;
+            input[type="text"]{ width:50px; height:20px; line-height:20px;}
+          }
+        }
+
+      }
+
+    }
+    div.ticheng{
+      margin:35px 0 0 0; width:45.6%; height:425px; border:1px solid #e8e8e8; position:relative;
+      span.num{
+        position:absolute; left:-16px; top:-16px;
+        font-size:18px; color:#fff; background:#4c6d85;
+        padding:5px 12px;
+        border-radius:18px;
+      }
+      div.ticheng_sel{
+        padding: 22px 22px 10px 12px;
+        display: -webkit-flex;
+        justify-content: space-around;
+        input{ margin-left: 5px; }
+      }
+      div.regular_ticheng{
+        width: 306px;
+        margin: 0 auto;
+        label{ width: 60px; margin: 15px 0;}
+        select{ width: 232px; }
+        input[type="text"]{ width:230px;}
+      }
+      div.ladder_ticheng,div.period_ticheng{
+        width:100%;
+        position:absolute; top:50px;
+        .setting{
+          ul{
+            width:96%; height:25px; line-height:25px;
+            margin:6px auto;
+            border:1px solid #e8e8e8;
+            &.lists_header{ border:none; margin-bottom:0;
+              li:nth-child(1){border:none;}
+              li:nth-child(6){ display: -webkit-box;}
+            }
+            li{
+              float:left; text-align:center;
+              &:nth-child(1){ width:6%; border-right:1px solid #e8e8e8;}
+              &:nth-child(2){ width:19%;}
+              &:nth-child(3){ width:19%;}
+              &:nth-child(4){ width:35%;}
+              &:nth-child(5){ width:14.5%; }
+              &:nth-child(6){ width:5.6%; }
+              input[type="text"]{
+                height:18px; line-height:18px; text-indent:0; text-align:center;
+              }
+              select{ text-indent:0; height:20px;}
+              span.delete{
+                color: #000; font-size: 14px;
+                width: 14px;  height: 14px; line-height: 14px;
+                border-radius: 8px;
+                border:1px solid #000;
+                display: inline-block;
+                &:hover{ background: #ff0000; color:#fff; border-color:#ff0000;}
+              }
+              span.new_list{
+                background: #23B159; color: #fff; font-size: 14px;
+                display: inline-block;
+                width: 13px;  height: 14px; line-height: 14px;
+              }
+            }
+          }
+          .lists_content{ overflow-y:scroll; height:235px; }
+        }
+      }
+    }
+    input.save_btn{ margin: 22px 27px 0 0 ;}
+  }
+}

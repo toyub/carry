@@ -1,0 +1,54 @@
+
+
+
+
+@mixin col-width{
+  &:nth-child(1){ width: 2.20%; }
+  &:nth-child(2){ width: 13.18%; }
+  &:nth-child(3){ width: 8.31%; }
+  &:nth-child(3){ width: 8.31%; }
+  &:nth-child(5){ width: 9.88%; }
+  &:nth-child(6){ width: 8.16%; }
+  &:nth-child(7){ width: 6.43%; }
+  &:nth-child(8){ width: 7.14%; }
+  &:nth-child(9){ width: 6.43%; }
+  &:nth-child(10){ width: 6.59%; }
+  &:nth-child(11){ width: 7.22%; }
+  &:nth-child(12){ width: 7.37%; }
+  &:nth-child(13){ width: 6.90%; }
+}
+
+.page_head{
+  select{ height:20px; }
+}
+
+.sales_analysis{
+  margin-top:10px;
+
+  table.index_list{
+    thead{
+      tr{
+        th{ @include col-width;}
+      }
+    }
+
+    tbody.content{
+      tr{
+        td{
+          @include col-width;
+        }
+      }
+    }
+
+    tfoot{
+      tr{
+        height:30px;
+        td{
+          font-weight:bold;
+          label{ margin-right:15px; }
+        }
+      }
+    }
+
+  }
+}

@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+*{margin:0; padding:0; font-size:12px; font-family: "微软雅黑","Microsoft YaHei"; color:#252121;}
+
+html{ font-size:100%; }
+
+body {
+	background:#ffffff;
+	padding: 0px;
+	margin: 0px;
+	color: #717171;
+	overflow-y:scroll;
+	position:relative;
+}
+
+body, input, button, select, textarea {
+	font-size: 12px;
+}
+
+
+select,input[type="text"]{
+	height:25px;
+	line-height:25px;
+	border:1px solid #dbd9d9;
+	text-indent:5px;
+	font-size:12px;
+	font-family:"微软雅黑","Microsoft YaHei" ;
+}
+
+select {background:#fff;}
+
+select[disabled]{
+	background:#f7f7f7;
+	color: #666666;
+}
+
+
+input[readonly],input[disabled]{
+	background: #f7f7f7;
+	color: #666666;
+}
+
+textarea{
+	border:1px solid #dbd9d9;
+}
+
+textarea[disabled]{
+	background: #f7f7f7;
+	border:1px solid #dbd9d9;
+}
+
+ul li{ list-style:none;}
+
+ul {list-style: none; padding: 0px;}
+
+a{text-decoration:none;color:#6d6d6d;}
+
+table {border-collapse:collapse; border:0px; border-spacing:0px; }
+
+table tr td{padding:0px 5px;}
+
+img{ border:none 0;}
+
+label{ display:inline-block;}
+
+i.delete{
+  font-size: 17px;
+  color:#999999;
+  cursor:pointer;
+}
+
+input[ type="text"] {text-indent: 5px;}
+
+input[type="checkbox"]{
+	height:12px;
+	vertical-align:middle;
+}
+
+input[type="radio"], input[type='range']{ vertical-align:middle;}
+
+button {
+	color: #fff;
+	background: #6574c1;
+	padding: 0px 10px;
+	border: 0px;
+	height: 25px;
+	line-height: 25px;
+	width: 80px;
+	font-size: 13px;
+}
+
+nbsp1{width:14px; display:inline-block;height:2px;background:none;border:0px; margin:0px; padding:0px;}
+
+nbsp2{width:28px; display:inline-block;height:2px;background:none;border:0px; margin:0px; padding:0px;}
+
+
+.clr{ clear:both;}
+
+.unable{
+	color: #A7A3A3;;
+}
+
+.align-center{
+	margin: 0 auto;
+}

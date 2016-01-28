@@ -1,0 +1,305 @@
+
+@mixin graph_head{
+  overflow:auto;
+  border-bottom:1px solid #d9d9d9;
+  background:#FAFAFA;
+
+  &.white{
+    label,i{ color:#8E8D8D;}
+  }
+
+  @include bg-colors;
+}
+
+@mixin graph_name{
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  label{
+    font-size:14px;
+    display:block;
+    text-indent:20px;
+    width:100%;
+  }
+
+  input[type="text"]{
+    display:none;
+  }
+
+  &.editing{
+    input[type="text"]{
+      display:block;
+      height:38px;
+      width:100%;
+    }
+
+    label{display:none;}
+  }
+}
+
+@mixin btns{
+  i{
+    display: inline-block; width:24px; cursor:pointer; text-align:center;
+  }
+
+  i.fa-floppy-o, i.save_name, i.fa-plus{ display:none;}
+
+  &.changing_bg_color{
+    i.save_color{ display:inline-block;}
+    i.lnr-drop{ display: none;}
+  }
+
+  &.changing_name{
+    i.save_name{ display:inline-block;}
+    i.fa-pencil{ display: none;}
+  }
+
+  &.hide{
+    i.fa-minus{ display:none;}
+    i.fa-plus{ display:inline-block;}
+  }
+}
+
+
+@mixin colors_picker{
+  .colors_picker{
+    display:none;
+    text-align:right;
+    border-bottom:1px solid #d9d9d9;
+    height:35px; line-height:35px;
+    span{
+      border: 2px solid #C3C1C1;
+      width: 20px;
+      height: 20px;
+      display:inline-block;
+      cursor:pointer;
+      margin-right:10px;
+      vertical-align: middle;
+
+      &:hover{
+        border-color:#000;
+      }
+
+      @include bg-colors;
+    }
+  }
+}
+
+@mixin bg-colors{
+  label,i { color : #fff;}
+  &.blue{ background: #3498DB;}
+  &.light_blue{ background: #3BAFDA;}
+  &.green{ background: #70CA63; }
+  &.orange{ background: #F6BB42; }
+  &.red{ background:#DF5640;}
+  &.purple{ background:#9579DA;}
+  &.dark_green{ background: #37BC9B;}
+  &.black{ background: #3B3F4F;}
+}
+
+
+.customer_analysis{
+  margin-bottom:30px;
+  margin-top: 10px;
+  overflow:auto;
+  .customers{
+    float:left;
+    width:58%;
+    margin-right:30px;
+    border:1px solid #d9d9d9;
+    margin-bottom:30px;
+    ul{
+      @include graph_head;
+
+      li{
+        float:left;
+        height:40px; line-height:40px;
+        &:first-child{
+          width: 80%;
+          @include graph_name;
+        }
+        &:nth-child(2){
+          width:19.8%;
+          text-align:center;
+          background:rgba(0, 0, 0, 0.028);
+
+          @include btns;
+        }
+      }
+    }
+
+    @include colors_picker;
+
+    .customers_barchart{
+      margin-top:20px;
+    }
+  }
+  .consuming_percent{
+    float:left;
+    width:39.5%;
+    border:1px solid #d9d9d9;
+    margin-bottom:30px;
+    ul{
+      @include graph_head;
+
+      li{
+        float:left;
+        height:40px; line-height:40px;
+
+        &:first-child{
+          width: 62%;
+          @include graph_name;
+
+        }
+        &:nth-child(2){
+          width:37.7%;
+          text-align:center;
+          background:rgba(0, 0, 0, 0.028);
+
+          @include btns;
+        }
+      }
+    }
+
+    @include colors_picker;
+
+    .consuming_piecharts{
+      margin-top:20px;
+      display:flex;
+      min-height:260px;
+      padding-right:10px;
+    }
+  }
+
+  .vehicle{
+    border:1px solid #d9d9d9;
+    width:99.85%;
+    float:left;
+    margin-bottom:30px;
+
+    ul{
+      @include graph_head;
+
+      li{
+        float:left;
+        height:40px; line-height:40px;
+
+        &:first-child{
+          width: 85%;
+          @include graph_name;
+
+        }
+        &:nth-child(2){
+          width:14.85%;
+          text-align:center;
+          background:rgba(0, 0, 0, 0.028);
+
+          @include btns;
+        }
+      }
+    }
+
+    @include colors_picker;
+
+    .vehicle_graph{
+      .price_chart_wrap{
+        float:left; width:79%;
+        padding:20px 10px 0 0 ;
+        border-right:1px solid #d9d9d9;
+      }
+      .rank_chart_wrap{
+        float:right; width:19%;
+        padding:20px 10px 0 0;
+      }
+    }
+  }
+
+  .loyalty_activity_consuming{
+    border:1px solid #d9d9d9;
+    width:99.85%;
+    float:left;
+    margin-bottom : 30px;
+
+    ul{
+      @include graph_head;
+
+      li{
+        float:left;
+        height:40px; line-height:40px;
+
+        &:first-child{
+          width: 85%;
+
+          & > div{
+            float:left;
+            text-align:center;
+            width:75px;
+
+            input[type="text"] {display:none; width :99%; height:30px;}
+
+            &:hover {
+              label {
+                cursor : pointer;
+                font-weight : bold;
+                text-decoration: underline;
+              }
+            }
+
+            &.active {
+              background: transparent;
+              label{
+                font-weight : bold; text-decoration: underline;
+              }
+            }
+
+            &.editing{
+              input[type="text"] {display:block;}
+              label { display:none;}
+            }
+          }
+        }
+        &:nth-child(2){
+          width:14.85%;
+          text-align:center;
+          background:rgba(0, 0, 0, 0.028);
+
+          @include btns;
+        }
+      }
+    }
+
+    @include colors_picker;
+
+
+    .consuming_distribution{
+      margin-top:20px;
+      min-height: 300px;
+
+      .pie_wrap{
+        width : 40%;
+        float:left;
+      }
+      .bar_wrap{
+        width : 60%;
+        float:right;
+        position: relative;
+        ol{
+          position: absolute;
+          top: 75px;
+          right: 22px;
+          list-style : none;
+          li{
+            text-align : center;
+            border-radius : 3px;
+            width :55px;
+            height : 22px; line-height : 22px;
+            cursor : pointer;
+            margin : 10px 0;
+            &:nth-child(1){ background: #FCCE10;}
+            &:nth-child(2){ background: #B5C334;}
+            &:nth-child(3){ background: #C1232B;}
+            &:nth-child(4){ background: transparent; color :#000; border: 1px dotted #d9d9d9;}
+          }
+        }
+      }
+    }
+  }
+}

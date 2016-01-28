@@ -1,0 +1,127 @@
+@mixin salary-adjusting-col-width{
+  &:nth-child(1){ width: 11.17%; }
+  &:nth-child(2){ width: 10.23%; }
+  &:nth-child(3){ width: 10.46%; }
+  &:nth-child(4){ width: 10.15%; }
+  &:nth-child(5){ width: 43.27%; }
+  &:nth-child(6){ width: 9.68%; }
+  &:nth-child(7){ width: 5.04%; }
+}
+
+@mixin border{
+  border:1px solid #d9d9d9;
+}
+
+@mixin tfoot{
+  tfoot{
+    tr{ height:35px; @include border;}
+    td{ text-align:right; font-weight:bold;}
+  }
+}
+
+@mixin tr-bg-color{
+  &:nth-child(odd){
+    background:#FDF6ED;
+  }
+}
+
+.salary_adjusting_record{
+  table.record{
+    margin-top:10px;
+    width:100%;
+    thead{
+      tr{ @include border; height:30px;}
+      th{
+        @include salary-adjusting-col-width;
+        label{
+          margin:0 auto;
+          display:flex;
+          justify-content:space-between;
+          i{
+            position:relative;
+            &.fa-sort-down::before{
+              position:absolute;
+            }
+            &.fa-sort-up::before{
+              position:absolute; top:6px;
+            }
+          }
+        }
+      }
+    }
+    tbody{
+      tr{
+        height:35px;
+        @include tr-bg-color;
+        td{
+          @include border;
+          text-align:center;
+          @include salary-adjusting-col-width;
+          &:first-child{
+            text-align:left;
+            label{ text-align:center;}
+          }
+        }
+      }
+    }
+    @include tfoot;
+  }
+}
+
+.salary_adjusting_record_wrap{
+  display:none;
+  width:100%;
+  height:110%;
+  background:rgba(0, 0, 0, 0.09);
+  position:absolute; top:0; left : 0;
+  .salary_adjusting_record{
+    width:770px;
+    min-height:530px;
+    background:#fff;
+    border-top: 8px solid #959595;
+    margin: 160px auto 0 auto;
+    box-shadow:3px 6px 18px #dedddd, -3px 0px 18px #dedddd, 0px 0px 0px #dedddd;
+    padding: 0 15px 15px 15px;
+    h3{
+      border-bottom:2px solid #d9d9d9; height:35px; line-height:35px;
+      position:relative;
+      a{ position:absolute; right:0; padding: 0 6px;}
+    }
+    .content{
+      table{
+        margin-top:15px;
+        tr{
+          height:45px;
+          td{
+            &:nth-child(odd){ text-align:right; }
+            input[type="text"]{width:131px;}
+          }
+        }
+      }
+
+      div.reason,div.start_time,div.confirm_person,div.remark,div.valid_period{
+        display:flex;
+        margin:10px 0 20px 0;
+        label{
+          width: 53px;
+          text-align: right;
+          margin-right: 9px;
+        }
+        textarea{ width: 683px; height:45px;}
+        span.show_content{ width:140px;}
+      }
+      div.form_maker{
+        height:76px; line-height:76px;
+        text-align:right;
+        span{ font-weight:bold;}
+        label.maker{
+          margin-right:50px;
+        }
+        label.date{ margin-right:20px; }
+      }
+      .btn_groups{
+        text-align:right;
+      }
+    }
+  }
+}

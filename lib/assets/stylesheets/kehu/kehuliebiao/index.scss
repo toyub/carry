@@ -1,0 +1,96 @@
+@charset "utf-8";
+
+.top_content{
+
+  .content_tab_top{
+    table.crm_list_top{
+      background: red;
+      tbody{
+        tr{
+          td{
+            &:nth-child(1){width:17%;}
+            &:nth-child(2){width:12%;}
+            &:nth-child(3){width:14%;}
+            &:nth-child(4){width:11%;}
+            &:nth-child(5){width:13.8%;}
+            &:nth-child(6){width:14%;}
+            &:nth-child(7){width:17.2%;}
+
+            table.in_tab{
+              tr{
+                td{
+
+                  &:nth-child(1){width:50%;}
+                  &:nth-child(2){width:50%;}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.crm_list_table{
+  .crm_table{
+
+    thead{
+      tr{
+        th{
+          height:45px;
+          line-height:45px;
+
+          &:nth-child(1){ width: 4.62%; }
+          &:nth-child(2){ width: 6.97%; }
+          &:nth-child(3){ width: 8.96%; }
+          &:nth-child(4){ width: 5.54%; }
+          &:nth-child(5){ width: 5.40%; }
+          &:nth-child(6){ width: 6.76%; }
+          &:nth-child(7){ width: 5.75%; }
+          &:nth-child(8){ width: 6.54%; }
+          &:nth-child(9){ width: 7.82%; }
+          &:nth-child(10){ width: 5.05%; }
+          &:nth-child(11){ width: 7.53%; }
+          &:nth-child(12){ width: 6.96%; }
+          &:nth-child(13){ width: 6.82%; }
+          &:nth-child(14){ width: 6.75%; }
+          &:nth-child(15){ width: 8.53%; }
+
+          .sequence{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            i{
+              margin-left: 5px;
+              font-size: 14px;
+              float: right;
+              cursor: pointer;
+            }
+          }
+
+        }
+      }
+    }
+    tbody{
+      tr{
+        td{
+
+          border:1px solid #eee;
+          padding:0px !important;
+
+          span{
+
+            &.span_border_left{
+              display: inline-block;
+              border-left: 3px solid #FE56A9;
+              width: 99%;
+              line-height: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

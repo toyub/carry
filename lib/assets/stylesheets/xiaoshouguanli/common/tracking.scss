@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+.lists_in_tracking{
+  margin-top:8px;
+  h2{
+    border-bottom:1px solid #e6e6e6;
+    height:32px; line-height:32px;
+    padding:0 0 2px 8px;
+    input{
+      margin-top:6px;
+    }
+  }
+  .left_list{
+    padding:0 14px;
+    width:47.5%;  height:484px;
+    float:left;
+    border:1px solid #e6e6e6;
+  }
+
+  .right_list{
+    padding:0 14px;
+    width:47.5%; height:484px;
+    float:right;
+    border:1px solid #e6e6e6;
+    position:relative;
+    .new_lists{
+      ul{
+        li{
+          float:left;
+          text-align:center;
+          &:nth-child(1){ width: 5%;  }
+
+          &:nth-child(2){width:51%; border-left:1px solid #e6e6e6; border-right:1px solid #e6e6e6;}
+
+          &:nth-child(3){ width: 14%; }
+
+          &:nth-child(4){ width:15%; border-left:1px solid #e6e6e6; border-right:1px solid #e6e6e6; }
+
+          &:nth-child(5){ width:14%; }
+        }
+        &.list_header{
+          height:24px; line-height:19px;
+          margin-top:10px;
+          li{
+            border:none;
+          }
+        }
+        &.list_content{
+          height:18px; line-height:18px;
+          border:1px solid #e6e6e6;
+          padding:6px 0;
+          margin-bottom:10px;
+          li{
+            height : 18px;
+            line-height : 18px;
+          }
+          &:hover{
+            border:1px solid #556FB5;
+            li{
+              span.delete{
+              display:block;
+              }
+              label{
+                border-bottom: 1px solid #4E6AB2; font-weight:bold;cursor:pointer;
+                &:hover{ color:blue; border-bottom: 1px solid blue;}
+              }
+            }
+          }
+          li:nth-child(5){ position: relative; }
+        }
+      }
+    }
+    .tracking_create{
+      position:absolute; left:0; top:34px;
+      background:#fff;
+      h3{
+        background:#5C5D5D;
+        height:32px; line-height:32px;
+        padding:0 0 0 24px;
+        font-size:12px;
+      }
+      .details_create{
+        padding: 0 12px;
+      }
+    }
+  }
+}

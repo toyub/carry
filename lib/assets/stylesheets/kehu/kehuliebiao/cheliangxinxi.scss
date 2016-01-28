@@ -1,0 +1,155 @@
+@charset "UTF-8";
+
+/*-------客户管理-客户列表-车辆档案-车辆信息-start-------*/
+
+.main_top{
+  .main_top_span{
+    height:45px;
+    line-height: 45px;
+  }
+}
+
+.details_nav_second{
+  .handle_nav{
+    margin-top:-17px;
+    float:right;
+    li{
+      display:inline-block;
+      margin-left:25px;
+    }
+
+  }
+}
+
+.page_card{
+  position: relative;
+  top: 68px;
+  width: 46px;
+  float: left;
+
+  li{
+    width:40px;
+    height:40px;
+    border-radius:0px 3px 13px 0px;
+    list-style-type: none;
+    border: 1px solid #dedede;
+    border-left: none;
+
+    &.add_carinfo{
+      a{
+        font-size: 20px;
+      }
+    }
+
+    &.active{
+      background: #3498db;
+      a{
+        color: #fff;
+      }
+    }
+
+    &:hover{
+      background: #f6f6f6;
+      a{
+        color:#3498db;
+      }
+    }
+
+
+    a{
+      text-align: center;
+      width: 40px;
+      display: inline-block;
+      line-height: 40px;
+      text-align: center;
+      color:#3498db;
+      z-index: 15;
+      text-align: center;
+    }
+
+  }
+}
+
+.car_details{
+  border: 1px solid #e3e3e3;
+  width:99.8%;
+
+  .details_nav_second{
+    width: 95.8%;
+  }
+
+  .car_content{
+    width: 95%;
+    margin-left: 53px;
+    min-height:640px;
+
+    .car_main_img{
+      width: 182px;
+      margin-top: 57px;
+      img{
+        width: 178px;
+        height: 95px;
+      }
+    }
+
+    .car_info{
+      width:84.8%;
+      float: left;
+
+      .items{
+        .item_content{
+          margin:12px 0px 12px 25px;
+
+          span.border{
+            border: 1px solid #eee;
+            background: #fff;
+
+          }
+
+          &.next_maintenance_time{
+            margin-left: 276px;
+          }
+
+          .stars{
+            i{
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
+
+      .section{
+        width: 48%;
+        float: left;
+        &:nth-child(2){
+          margin-left: 43px;
+        }
+
+        .item_content{
+          margin:12px 0px 12px 13px;
+
+          span.border{
+            border: 1px solid #eee;
+            background: #fff;
+
+          }
+
+          &.next_maintenance_time{
+            margin-left: 276px;
+          }
+
+          .stars{
+            i{
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+/*-------客户管理-客户列表-车辆档案-车辆信息-end-------*/

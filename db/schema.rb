@@ -1241,15 +1241,14 @@ ActiveRecord::Schema.define(version: 20160126061341) do
   create_table "store_packages", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                                          null: false
-    t.integer  "store_chain_id",                                                    null: false
-    t.integer  "store_staff_id",                                                    null: false
+    t.integer  "store_id",                                            null: false
+    t.integer  "store_chain_id",                                      null: false
+    t.integer  "store_staff_id",                                      null: false
     t.string   "name",           limit: 45
     t.string   "code",           limit: 45
     t.string   "abstract",       limit: 255
     t.text     "remark"
     t.decimal  "price",                      precision: 10, scale: 2
-    t.decimal  "retail_price",               precision: 10, scale: 2, default: 0.0
   end
 
   create_table "store_payments", force: :cascade do |t|
@@ -1482,6 +1481,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
+    t.integer  "store_order_item_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|

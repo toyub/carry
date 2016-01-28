@@ -1,0 +1,77 @@
+@charset "utf-8";
+
+/*-------库存-报损-记录-start---*/
+.loss_report_list{
+
+  .list{
+
+    .list_contents{
+      width: 100%;
+
+      .list_content{
+        padding: 0px;
+        width: 99.74%;
+
+        ul{
+
+          &:nth-child(odd) {
+            border-left: 3px solid #00A0E9;
+          }
+          &:nth-child(even) {
+            border-left: 3px solid #00E994;
+          }
+        }
+
+      }
+
+    }
+
+
+    .list_tr{
+      ul{
+        li{
+
+          &:nth-child(1){width:3%;}
+          &:nth-child(2){width:12%;}
+          &:nth-child(3){width:14%;}
+          &:nth-child(4){width:18.4%;}
+          &:nth-child(5){width:14%;}
+          &:nth-child(6){width:12%;}
+          &:nth-child(7){width:20%;}
+          &:nth-child(8){width:6%;}
+        }
+      }
+
+    }
+
+    .common_storage_content{
+    	background: #F0EEF3;
+    }
+
+    .loss_report_content{
+      .loss_report_tab{
+        table.storage_tab{
+          thead{
+            tr{
+              th{
+                &:nth-child(1){width:3%;}
+                &:nth-child(2){width:18%;}
+                &:nth-child(3){width:8%;}
+                &:nth-child(4){width:8%;}
+                &:nth-child(5){width:6%;}
+                &:nth-child(6){width:8%;}
+                &:nth-child(7){width:8%;}
+                &:nth-child(8){width:8%;}
+                &:nth-child(9){width:6%;}
+                &:nth-child(10){width:8%;}
+                &:nth-child(11){width:15%;}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*-------库存-报损-记录-end---*/

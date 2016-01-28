@@ -1,0 +1,53 @@
+.materials_info{
+
+  .item_content{
+    margin:12px 0px 12px 25px;
+
+    &:nth-child(4n){margin:12px 0px 12px 0px; }
+    &.item_property {
+      margin-left: 29px;
+      padding-left: 4px;
+      height: 26px;
+      line-height: 26px;
+      width: 212px;
+      margin-top: 12px;
+
+      label{
+        height: 25px;
+        line-height: 25px;
+      }
+
+      input[type="checkbox"]{
+        width:13px;
+        vertical-align: middle;
+      }
+
+    }
+  }
+}
+
+
+.item_inventory {
+  width: 406px;
+  height: 54px;
+  line-height: 54px;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.shelf_life {
+  text-align: left;
+  padding: 0 6px 0 20px;
+  height: 54px;
+  line-height: 54px;
+
+  .input_div{
+    display:inline-block;
+    height:26px;
+    line-height:25px;
+    padding:0px ;
+    margin-left:20px;
+    width:96px;
+
+  }
+}

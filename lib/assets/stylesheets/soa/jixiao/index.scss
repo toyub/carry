@@ -1,0 +1,68 @@
+
+@mixin col-width{
+  &:nth-child(1){ width: 2.26%; }
+  &:nth-child(2){ width: 7.26%; }
+  &:nth-child(3){ width: 7.58%; }
+  &:nth-child(4){ width: 7.26%; }
+  &:nth-child(5){ width: 6.7%; }
+  &:nth-child(6){ width: 8.47%; }
+  &:nth-child(7){ width: 8.8%; }
+  &:nth-child(8){ width: 8.7%; }
+  &:nth-child(9){ width: 8.87%; }
+  &:nth-child(10){ width: 8.87%; }
+  &:nth-child(11){ width: 8.7%; }
+  &:nth-child(12){ width: 8.8%; }
+  &:nth-child(13){ width: 7.74%; }
+}
+
+@mixin border-color{
+  border:1px solid #d9d9d9;
+}
+
+.list_table{
+  .search_nav{
+    div{ display:inline-block; margin-right:10px;}
+    span{
+      display:inline-block; width:50px; text-align:right;
+    }
+  }
+  table.commission_list,table.attendance_list,table.salary_list{
+    width:100%;
+    thead{
+      tr{
+        th{
+          @include col-width;
+          @include border-color;
+          height:35px;
+          &:first-child{ border-right:1px solid #fff;}
+        }
+      }
+    }
+    tbody{
+      tr{
+        &:nth-child(odd){
+          background: #F2F2F2;
+        }
+        td{
+          @include col-width;
+          height:28px;
+          text-align:center;
+          @include border-color;
+        }
+      }
+    }
+    tfoot{
+      tr{
+        height:28px;
+        td{
+          @include border-color;
+          span{
+            display:inline-block;
+            font-weight:bold;
+            text-align:left;
+          }
+        }
+      }
+    }
+  }
+}
