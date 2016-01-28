@@ -44,7 +44,7 @@ class StoreCustomer < ActiveRecord::Base
   before_save :set_full_name
 
   enum education: %w[middle high academy graduate postgraduate]
-  enum profession: %w[it others]
+  enum profession: %w[it finance energy education engineering others]
   enum income: %w[ilow imiddle iupper ihigh]
 
   def deposit_cards_assets
@@ -89,11 +89,11 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def education_i18n
-    
+    I18n.t "enums.store_customer.education.#{self.education}"
   end
 
-  def income
-    StoreCustomerEntity::INCOMES[self.read_attribute(:income)]
+  def income_i18n
+    I18n.t "enums.store_customer.income.#{self.income}"
   end
 
   def credit
@@ -170,7 +170,11 @@ class StoreCustomer < ActiveRecord::Base
   end
 	#＃ Todo 客户职业
   def profession_name
-    '教师'
+    self.profession_i18n
+  end
+
+  def profession_i18n
+    I18n.t "enums.store_customer.profession.#{self.profession}"
   end
 
   private

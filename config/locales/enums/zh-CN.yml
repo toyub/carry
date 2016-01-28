@@ -30,3 +30,10 @@ zh-CN:
         imiddle: 5000 ~ 10000
         iupper: 10000 ~ 30000
         ihigh: 30000以上
+      profession:
+        it: 信息技术
+        finance: 金融
+        energy: 能源
+        education: 教育
+        engineering: 工程
+        others: 其他

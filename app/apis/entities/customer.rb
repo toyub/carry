@@ -66,5 +66,9 @@ module Entities
     def education
       object.education_i18n
     end
+
+    def income
+      object.income_i18n
+    end
   end
 end

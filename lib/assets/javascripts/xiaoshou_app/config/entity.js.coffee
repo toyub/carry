@@ -11,13 +11,18 @@ Mis.Settings.Entity =
     postgraduate: '硕士以上'
 
   income:
-    low: '5000以下'
-    middle: '5000 ~ 10000'
-    upper: '10000 ~ 30000'
-    high: '30000以上'
+    ilow: '5000以下'
+    imiddle: '5000 ~ 10000'
+    iupper: '10000 ~ 30000'
+    ihigh: '30000以上'
 
   profession:
-    it: 'IT'
+    it: '信息技术'
+    finance: '金融'
+    energy: '能源'
+    education: '教育'
+    engineering: '工程'
+    others: '其他'
 
   credit:
     unpermitted: '不允许挂账'
