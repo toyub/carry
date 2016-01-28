@@ -8,7 +8,7 @@ class AddVehicleForIpadService
     @customer_params = options[:customer_params]
     @vehicle_params = vehicle_params
     @plate_params = plate_params
-    @customer = options[:object]
+    @customer = options[:customer]
   end
 
   def call
