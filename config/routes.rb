@@ -393,6 +393,13 @@ Rails.application.routes.draw do
 
     namespace :pos do
       namespace :products do
+        resources :materials
+        resources :packages
+        resources :services
+      end
+
+      namespace :customers do
+        resources :vehicles
       end
     end
 
