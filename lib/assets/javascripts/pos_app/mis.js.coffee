@@ -13,7 +13,7 @@ window.Mis =
   Components:{
     Order: {
       removeItem: (e)->
-        orderable_id = $(e.target).data("orderableid")
+        orderable_id = parseInt(e.target.dataset.orderableid)
         _this = this;
         $.grep this.items, (item)->
           if item.orderable_id == orderable_id
