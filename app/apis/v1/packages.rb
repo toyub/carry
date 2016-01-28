@@ -8,6 +8,7 @@ module V1
       add_desc '套餐列表'
 
       params do
+        requires :platform, type: String, desc: '调用的平台'
         optional :q, type: Hash, default: {} do
           optional :name_cont, type: String
           optional :store_id_eq, type: Integer
@@ -19,9 +20,14 @@ module V1
       end
 
       get do
-        store_packages = current_store_chain.store_packages.order(params[:q][:s])
-        q = store_packages.ransack(params[:q].except(:s))
-        present q.result.order('id asc'), with: ::Entities::Package
+        if params[:platform] == "app" || params[:platform] == "erp"
+          current_store_chain = current_store if params[:platform] == "app"
+          store_packages = current_store_chain.store_packages.order(params[:q][:s])
+          q = store_packages.ransack(params[:q].except(:s))
+          present q.result.order('id asc'), with: ::Entities::Package
+        else
+          error! status: "请选择平台app或erp!"
+        end
       end
     end
 

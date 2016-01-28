@@ -8,6 +8,7 @@ module V1
 
       add_desc "商品列表"
       params do
+        requires :platform, type: String, desc: '调用的平台!'
         optional :q, type: Hash, default: {} do
           optional :store_id_eq, type: Integer, desc: "所属门店ID"
           optional :store_material_root_category_id, type: Integer, desc: '类别的id--ipad'
@@ -20,9 +21,14 @@ module V1
         end
       end
       get do
-        params[:q] = {store_material_root_category_id_eq: params[:store_material_root_category_id]} if params[:store_material_root_category_id].present?
-        q = current_store_chain.store_materials.saleable.ransack(params[:q])
-        present q.result, with: ::Entities::Material
+        if params[:platform] == "app" || params[:platform] == "erp"
+          current_store_chain = current_store if params[:platform] == "app"
+          params[:q] = {store_material_root_category_id_eq: params[:store_material_root_category_id]} if params[:store_material_root_category_id].present?
+          q = current_store_chain.store_materials.saleable.ransack(params[:q])
+          present q.result, with: ::Entities::Material
+        else
+          error! status: "请选择对应的平台,app或erp!"
+        end
       end
 
     end

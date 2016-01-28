@@ -4,15 +4,16 @@ class AddVehicleForIpadService
 
   attr_reader :customer, :vehicle, :plate
 
-  def initialize(customer_params, vehicle_params, plate_params)
-    @customer_params = customer_params
+  def initialize(vehicle_params, plate_params, options = {})
+    @customer_params = options[:customer_params]
     @vehicle_params = vehicle_params
     @plate_params = plate_params
+    @customer = options[:object]
   end
 
   def call
     ActiveRecord::Base.transaction do
-      @customer = StoreCustomer.create!(@customer_params)
+      @customer ||= StoreCustomer.create!(@customer_params)
       @vehicle = StoreVehicle.create!(@vehicle_params.merge(store_customer_id: @customer.id))
       @plate = @vehicle.plates.create!(@plate_params.merge(store_customer_id: @customer.id))
     end
