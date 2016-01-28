@@ -65,11 +65,7 @@ class StoreService < ActiveRecord::Base
   end
 
   def to_snapshot!(order_item)
-    attrs = self.attributes.symbolize_keys.except(
-      :id,
-      :created_at,
-      :updated_at
-    ).merge(templateable: self).merge self.base_attrs(order_item)
+    attrs = self.snapshot_attrs.symbolize_keys.merge(templateable: self).merge self.base_attrs(order_item)
     service = StoreServiceSnapshot.create! attrs
     self.store_service_workflows.each do |w|
       options = {
@@ -86,6 +82,25 @@ class StoreService < ActiveRecord::Base
       store_order_item_id: order_item.id,
       store_order_id: order_item.store_order.id
     }
+  end
+
+  def snapshot_attrs
+    self.as_json(
+      only: [
+        :store_staff_id,
+        :store_chain_id,
+        :store_id,
+        :name,
+        :code,
+        :retail_price,
+        :bargain_price,
+        :point,
+        :introduction,
+        :remark,
+        :category_id,
+        :store_service_unit_id
+      ]
+    )
   end
 
   def to_workflowable_hash

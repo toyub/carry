@@ -1,0 +1,127 @@
+
+
+.panel_tab{
+  padding: 10px 0;
+  .tab_items{
+    overflow: auto;
+    li{
+      float: left;
+
+      &:last-child{
+        .tab_item{
+          border-width: 0;
+        }
+      }
+
+      .tab_item{
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: inherit;
+        border-right: 1px solid #d6d6d6;
+
+        &.active{
+          color: #fff;
+          background: #5d3ba7;
+        }
+      }
+
+    }
+  }
+}
+
+.panel_query{
+  overflow: auto;
+  padding: 20px 10px;
+  .query_item{
+    display: inline-block;
+  }
+}
+
+#main .customer_account{
+  width: 99.7%;
+  box-sizing: border-box;
+  padding: 0 25px;
+  margin-top: 10px;
+  border: 1px solid #d6d6d6;
+  overflow: auto;
+  .orders{
+    overflow-y: scroll;
+    width:100%;
+    height: 520px;
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+
+    .order_item{
+      padding: 0 22px;
+      border-bottom: 1px solid #d6d6d6;
+
+      &:nth-child(even){
+        background: #fafafa;
+      }
+
+      &.slide_up{
+        .fa-chevron-up,.detail{
+          display: none;
+        }
+      }
+
+      &.slide_down{
+        .fa-chevron-down{
+          display: none;
+        }
+
+        .details{
+          display: table;
+        }
+      }
+
+      .abstract{
+        height: 40px;
+        line-height: 40px;
+        .item_control{
+          display: inline-block;
+          .status{
+            font-weight: normal;
+          }
+        }
+      }
+
+      .detail{
+        margin-left: 35px;
+        margin-bottom: 20px;
+        thead{
+          tr{
+            th{
+              text-align: left;
+              width: 171px;
+              padding: 15px 12px;
+            }
+          }
+        }
+        tbody{
+          tr{
+            td{
+              width: 171px;
+              height: 36px;
+              border: 1px solid #d6d6d6;
+              padding: 0 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .btn_group{
+    margin: 0;
+    .show_more{
+      position:relative;
+      &:before{
+        position:absolute;
+        right: -15px;
+      }
+    }
+  }
+}

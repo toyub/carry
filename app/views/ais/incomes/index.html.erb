@@ -27,6 +27,7 @@
   jQuery(function(){
     $(".sale-category").on('click', 'tr', function(){
       var url = '/ais/categories/' + $(this).data('category-id') + '/order_items?date=<%= @date.strftime("%Y-%m-%d") %>';
+      $(this).addClass("active").siblings('tr').removeClass("active")
       $.get(url, function(){
         return;
       })

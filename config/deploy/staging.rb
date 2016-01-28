@@ -19,5 +19,5 @@ set :rails_env, "staging"
 set :branch, 'staging'
 set :html_branch, 'development'
 
-set :sidekiq_role, :none
+set :sidekiq_role, :worker
 set :monit_role, :all

@@ -1,0 +1,87 @@
+.complaints,.satisfaction{
+	width: 100%;
+	border: 1px solid #DEDEDE;
+
+	thead{
+		tr{
+			height: 40px;
+			th{
+				border-right: 1px solid #DEDEDE;
+			}
+		}
+	}
+	tbody{
+		tr{
+			&:nth-child(odd){background: #FFEDED;}
+			&:last-child{
+				td{
+					border-bottom: 1px solid #DEDEDE;
+				}
+			}
+
+			td{
+				border-right: 1px solid #DEDEDE;
+				border-bottom: 1px sold #DEDEDE;
+				color: #363232;
+				height: 28px;
+				text-align: center;
+				&:nth-child(1){ width: 2.25%;}
+				&:nth-child(2){ width: 6.92%;}
+				&:nth-child(3){ width: 11.00%;}
+				&:nth-child(4){ width: 22.75%; text-align: left; padding-left: 15px;}
+				&:nth-child(5){ width: 7.33%;}
+				&:nth-child(6){ width: 5.75%;}
+				&:nth-child(7){ width: 13.75%;text-align: left;padding-left: 15px;}
+				&:nth-child(8){ width: 11.75%;}
+				&:nth-child(9){ width: 12.67%;}
+				&:nth-child(10){ width: 4.83%;
+					i{
+						font-size: 18px;
+						cursor: pointer;
+					}
+
+				}
+
+				span{
+					margin-right: 15px;
+				}
+
+			}
+		}
+	}
+
+	tfoot{
+		tr{
+			height: 40px;
+			td{
+				text-align: right;
+
+				label{
+					font-weight: bold;
+				}
+				span{
+					display: inline-block;
+				}
+			}
+		}
+	}
+}
+
+.complaints{
+	tbody{
+		tr{
+			&:nth-child(odd){background: #FFEDED;}
+		}
+
+	}
+
+
+}
+
+.satisfaction{
+	tbody{
+		tr{
+			&:nth-child(odd){background: #FCF8DE;}
+		}
+	}
+}

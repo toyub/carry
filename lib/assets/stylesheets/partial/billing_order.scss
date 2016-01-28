@@ -1,0 +1,585 @@
+
+.dialog_nav{
+  width: 100%;
+  position: relative;
+
+
+  .dialog_title {
+    color: #3B5E63;
+    font-weight: bold;
+    padding-left: 20px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+  }
+}
+
+.order_details{
+
+	width: 620px;
+	min-height: 500px;
+	background: #fff;
+	position: relative;
+
+
+
+
+	.vehicle_order_details{
+		padding: 0px 10px 0px 20px;
+
+
+
+		.vehicle_info{
+			width: 100%;
+
+      dl{
+        overflow: auto;
+  			dd{
+  				height: 30px;
+  				padding:5px 0px;
+  				display: inline-block;
+          float: left;
+
+  				&:nth-child(1){width:32.7%;}
+  				&:nth-child(2){width:32.7%;}
+  				&:nth-child(3){width:32.8%;}
+  				input{
+  					height: 20px;
+  					line-height: 20px;
+  				}
+
+  				label{
+  					text-align: right;
+            float: left;
+            padding-right: 7px;
+  				}
+
+          span{
+            height: 20px;
+            line-height: 20px;
+            border: 1px solid #e6e6e6;
+            display: inline-block;
+            vertical-align: middle;
+            text-indent: 10px;
+          }
+  			}
+  		}
+			.vehicle_details_info{
+        overflow: auto;
+        padding-top: 10px;
+
+        .item_content{
+          padding:5px 0px;
+          float: left;
+          width: 32.7%;
+          display: inline-block;
+          input{
+            height: 20px;
+            line-height: 20px;
+            float: left;
+          }
+
+          label{
+            text-align: right;
+            padding-right: 7px;
+            float:left;
+          }
+
+        }
+			}
+		}
+
+    .vehicle_order_title{
+      display: block;
+      width: 100%;
+      height: 30px;
+      text-indent: 5px;
+      line-height: 30px;
+      border-top: 1px solid #D3D3D3;
+      border-bottom: 1px solid #D3D3D3;
+      font-weight: bold;
+
+      a{
+  			float: right;
+  			color:#5570E5;
+  			font-weight: 100;
+  			margin-right: 32px;
+  		}
+
+      i{
+        font-size: 16px;
+        vertical-align: middle;
+        color: #B2B2B2;
+      }
+
+    }
+
+		.vehicle_condition{
+			margin-top: 10px;
+
+			.vehicle_condition_info{
+				width: 100%;
+				min-height: 201px;
+				.vehicle_check_point{
+					width: 49.5%;
+					position: relative;
+					float: left;
+
+
+          .status{
+            width: 100%;
+            padding: 10px 0px;
+            dl{
+              height: 28px;
+              dd{
+                  input[type="range"]{
+                    border: none;
+                    margin-top: 2px;
+                    background-color: transparent;
+                    width: 120px;
+                    -webkit-appearance: none;
+                    height:10px;
+                    position: absolute;
+                    outline: none;
+                    left: 73px;
+                  }
+                  span{
+                    border: 1px solid #ADACAD;
+                    display: inline-block;
+                    &.oil{
+                      height:5px;
+                      width: 58px;
+                      border-top: none;
+                      margin-left: 10px;
+                    }
+
+                    &:nth-child(3){
+                      border-left:none;
+                      margin-left:0px;
+                      margin-right: 10px;
+                    }
+                    &:nth-child(4){
+                      background-color: #000;
+                      background: red;
+                    }
+                  }
+
+                  output{
+
+                  }
+
+
+
+
+                .mileage{
+                  width: 150px;
+                  height: 28px;
+                  line-height: 28px;
+                }
+
+                label{
+                  height: 25px;
+                  line-height: 25px;
+                  float: left;
+                  margin-right: 10px;
+                }
+              }
+
+            }
+
+          }
+
+          .check_point{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 210px;
+            img{
+  						width: 200px;
+  					}
+            input[type="checkbox"]{
+  						position: absolute;
+  						width: 18px;
+  						height: 18px;
+
+  						&.check_point_01{top:42px;left: 35px;}
+  						&.check_point_02{top:92px;left: 23px;}
+  						&.check_point_03{top:142px;left: 35px;}
+  						&.check_point_04{top:153px;left: 85px;}
+  						&.check_point_05{top:153px;left: 142px;}
+  						&.check_point_06{top:153px;left: 192px;}
+  						&.check_point_07{top:146px;left: 250px;}
+  						&.check_point_08{top:93px;left: 271px;}
+  						&.check_point_09{top:40px;left: 250px;}
+  						&.check_point_10{top:29px;left: 192px;}
+  						&.check_point_11{top:29px;left: 142px;}
+  						&.check_point_12{top:29px;left: 85px;}
+
+  					}
+
+          }
+
+
+
+				}
+				.vehicle_check_info{
+					width: 49.5%;
+					float: left;
+          height: 201px;
+					text-align: center;
+
+					label{
+						font-size: 16px;
+						font-weight: bold;
+						height: 25px;
+						padding: 10px 0px;
+						color: #8D8E8E;
+						line-height: 25px;
+					}
+
+					ul{
+						height: 217px;
+						overflow-y:scroll;
+						width: 180px;
+						margin:0 auto;
+
+						li{
+							height: 22px;
+							line-height: 22px;
+							text-align: left;
+
+							input{
+								height: 22px;
+								border: none;
+							}
+						}
+					}
+				}
+
+        .car_parts{
+          width: 100%;
+          ul{
+            li{
+              width: 37px;
+              display: inline-block;
+              text-align: center;
+            }
+          }
+        }
+			}
+		}
+
+		.vehicle_order{
+			margin-top: 10px;
+
+      .account_info{
+        padding: 0px 10px;
+        dl{
+          height: 28px;
+          line-height: 28px;
+          dd{
+            display: inline-block;
+
+            &:nth-child(1){
+              float: right;
+            }
+
+            label{
+              text-align: right;
+            }
+
+            span{
+              display: inline-block;
+            }
+
+            &:last-child{
+              span{
+                font-weight: bold;
+                text-align: right;
+                width: 100px;
+              }
+            }
+          }
+        }
+      }
+
+			.order_info{
+				min-height:130px;
+				position: relative;
+        h2{
+          height: 25px;
+          line-height: 25px;
+          background: #eee;
+          text-align: center;
+        }
+
+				table{
+					width:99%;
+
+          &.commodity_details{
+            thead{
+  						tr{
+  							th{
+  								height: 30px;
+                  text-align: right;
+  								&:nth-child(1){width: 19%;text-align: left;}
+  								&:nth-child(2){width: 19%;text-align: left;}
+  								&:nth-child(3){width: 6%; text-align: center;}
+  								&:nth-child(4){width: 12%;}
+  								&:nth-child(5){width: 13%;}
+  								&:nth-child(6){width: 10%;}
+                  &:nth-child(7){width: 10%; text-align: center;}
+                  &:nth-child(8){width: 11%;}
+  							}
+  						}
+  					}
+            tbody{
+              tr{
+                td{
+                  text-align: right;
+
+                  &:nth-child(1){text-align: left;}
+                  &:nth-child(2){text-align: left;}
+                  &:nth-child(3){text-align: center;}
+                  &:nth-child(7){text-align: center;}
+
+                  input{
+                    border:1px solid #fff;
+                    height: 20px;
+                    background: transparent;
+
+                    &:hover{
+                      border: 1px dashed #dbd9d9;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.service_details{
+            thead{
+  						tr{
+  							th{
+  								height: 30px;
+                  text-indent: 5px;
+                  text-align: right;
+
+                  &:nth-child(1){width:24%;text-align: left;}
+  								&:nth-child(2){width: 6%;text-align: center;}
+  								&:nth-child(3){width: 16%;}
+  								&:nth-child(4){width: 16%;}
+  								&:nth-child(5){width: 8%;}
+  								&:nth-child(6){width: 16%; text-align: center;}
+  								&:nth-child(7){width: 14%;}
+  							}
+  						}
+  					}
+
+            tbody{
+              tr{
+                td{
+                  text-align: right;
+            
+                  input{
+                    border: 1px solid #fff;
+                    height: 20px;
+                    background: transparent;
+
+                    &:hover{
+                      border: 1px dashed #dbd9d9;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.packages{
+            thead{
+              tr{
+                th{
+                  text-align: right;
+
+                  &:nth-child(1){width:25%; text-align: left;}
+                  &:nth-child(2){width: 15%;text-align: center;}
+                  &:nth-child(3){width: 20%;}
+                  &:nth-child(4){width: 20%;}
+                  &:nth-child(5){width:20%;}
+                }
+              }
+            }
+
+            tbody{
+              tr{
+                td{
+                  text-align: right;
+                  &:nth-child(1){text-align: left;}
+                  &:nth-child(2){text-align: center;}
+                }
+              }
+            }
+          }
+
+					tbody{
+						tr{
+							&:hover{
+								td{
+									span.close{
+										display: inline-block;
+									}
+								}
+							}
+							td{
+								height: 25px;
+								position: relative;
+                padding:0px;
+
+
+								span.delete{
+									display: none;
+									border-radius: 10px;
+									margin: 0px;
+									padding: 0px;
+									width: 20px;
+									height: 20px;
+									line-height: 20px;
+									font-size: 16px;
+									background: #4e6ab2;
+									text-align: center;
+									color: #fff;
+									cursor: pointer;
+									position: absolute;
+									right: -11px;
+									top:-12px;
+
+									&:hover{
+										background: #D50000;
+									}
+								}
+							}
+						}
+					}
+
+          tfoot{
+            tr{
+              height: 50px;
+              td{
+                text-align: right;
+              }
+            }
+          }
+				}
+			}
+
+      .total_spending{
+        width: 100%;
+        text-align: right;
+        height: 30px;
+        line-height: 30px;
+        border-top: 1px solid #cecece;
+        border-bottom: 1px solid #cecece;
+
+        label{
+          margin-left: 10px;
+          margin-right: 5px;
+        }
+      }
+
+
+		}
+		.construction{
+			margin-top: 10px;
+
+			.construction_info{
+				table{
+					width: 100%;
+					thead{
+						tr{
+							th{
+								height: 35px;
+                padding: 0px 5px;
+                text-align: left;
+								&:nth-child(1){width: 18.9%;}
+								&:nth-child(2){width: 22%;}
+								&:nth-child(3){width: 6.5%;}
+								&:nth-child(4){width: 39.8%;}
+								&:nth-child(5){width: 12.5%;}
+							}
+						}
+					}
+					tbody{
+						tr{
+							height: 35px;
+
+							td{
+							text-align: left;
+
+								select{
+									height: 28px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+    .others{
+      margin-top: 10px;
+      .others_info{
+        padding: 0px 10px;
+        dl{
+          height: 35px;
+          line-height: 35px;
+          dt{
+            display: inline-block;
+            width: 20%;
+          }
+          dd{
+            display: inline-block;
+            width: 20%;
+            input[type="checkbox"]{
+              vertical-align: middle;
+              margin-left: 5px;
+            }
+            &:last-child{
+              width: 38%;
+
+              input[type='text']{
+                border: none;
+                border-bottom: 1px solid #d3d3d3;
+                outline: none;
+              }
+            }
+
+          }
+        }
+
+        .order_remark{
+          margin-top: 25px;
+          textarea{
+            width: 500px;
+            height: 80px;
+          }
+        }
+      }
+    }
+  }
+	.construction_status{
+		height: 40px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		padding-bottom: 10px;
+		span{
+			padding-left: 10px;
+		}
+		.btn_group{
+			float: right;
+			margin-right: 10px;
+		}
+	}
+}

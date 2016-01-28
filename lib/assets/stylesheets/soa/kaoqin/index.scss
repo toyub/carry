@@ -1,0 +1,17 @@
+.list_table{
+
+  table.attendance_list{
+    tbody{
+      td.operation{
+        a{
+          display:inline-block;
+          border:1px solid #867878;
+          border-radius:9px;
+          width: 18px;
+          height: 18px; line-height:18px;
+          margin:0 4px;
+        }
+      }
+    }
+  }
+}

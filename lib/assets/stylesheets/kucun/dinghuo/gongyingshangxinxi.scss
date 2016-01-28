@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+/*-----------库存管理-订货-供应商信息-start--------------*/
+
+.supplier_info{
+
+  .item_content{
+    margin:12px 0px 12px 0px;
+
+    .texarea_width{
+      width:1240px;
+
+    }
+
+    span{
+     border:1px solid #ccc;
+     height: 25px;
+     line-height: 25px;
+   }
+
+  }
+
+}
+
+
+.supplier_related{
+
+	width:100%;
+	margin-top:10px;
+	line-height: 28px;
+	height: 28px;
+
+}
+/*-----------库存管理-订货-供应商信息-end----------------*/

@@ -17,6 +17,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
   has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy
+  has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
 
@@ -40,6 +41,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }
   scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
   scope :verifiers, -> { where(mis_login_enabled: true) }
+  scope :unregular, -> { where(regular: false) }
 
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
@@ -83,8 +85,18 @@ class StoreStaff <  ActiveRecord::Base
     update!(regular: false)
   end
 
+  def could_regular?
+    return true if trial_period.blank?
+    protocol = store_protocols.where(type: "StoreZhuanZheng").last
+    protocol.present? ? Time.now > protocol.effected_on : Time.now > trial_period.month.since(employed_date)
+  end
+
   def working_age
     ((((Time.now.year - employed_date.year) * 12) + (Time.now.month - employed_date.month)) / 12).ceil + 1
+  end
+
+  def terminated?
+    terminated_at.present? && (Time.now > terminated_at)
   end
 
   def employed_date

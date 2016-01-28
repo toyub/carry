@@ -1,4 +1,5 @@
 <input type="hidden" id='vehicle_brands' data-brands='<%= @vehicle_brands.to_json(root:nil) %>'>
+<input type="hidden" id='order_data' data-order='<%= StoreOrderSerializer.new(@order).to_json(root:nil) %>'>
 <div class="content pos-orders-index" id="content">
   <div class="main_top"><h2>业务开单 > <%= @order.store_vehicle.license_number %>, #<%= @order.numero %> </h2></div>
   <div class="details">
@@ -6,7 +7,7 @@
        <div class="width-400" style="float: left">
         <label>订单编辑</label>
       </div>
-      <div class="query_div page_card">
+      <div class="query_div pos_page_card">
       <a href="javascript:void(0)"  class="active">开单</a>
       <a href="/pos/store_orders/">列表</a>
       </div>
@@ -27,7 +28,9 @@
           </div>
           <div class="construction_status">
             <div class="btn_group">
-              <a href="javascript:void(0);" class="go_payment_btn">更新订单</a>
+              <a href="javascript:void(0);" style='<%= "display:none" unless @order.pending? %>' class="end_construction_btn js-update-draft">更新草稿</a>
+              <a href="javascript:void(0);" style='<%= "display:none" unless @order.pending? %>' class="go_payment_btn js-update-and-execute">生成订单</a>
+              <a href="javascript:void(0);" style='<%= "display:none" if @order.pending? %>' class="go_payment_btn js-update-order">更新订单</a>
             </div>
           </div>
         </div>
@@ -37,9 +40,7 @@
         <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
         <%= render partial: 'construction' %>
         <div class="improve_crm_wrap float-left"></div>
-        <div class="completing_vehicle_info float-left">
-          <%= render "vehicle_detail_info" %>
-        </div>
+        <div class="completing_vehicle_info float-left"></div>
       </div>
     </div>
   </div>
@@ -49,7 +50,14 @@
 <script>
   jQuery(function($){
     if($(".pos-orders-index").length > 0){
-      new Mis.Views.PosOrderIndexView();
+      x = new Mis.Views.PosOrderIndexView();
+      x.setVehicleInfoData({target: {value: '<%= @order.store_vehicle_id %>'}})
+     order = $('#order_data').data('order');
+     x.order = order;
+     x.vehicle_situation.set_situation(order.situation)
+     Mis.Vues.ServiceItem.$set('serviceItems',order.services.items.slice());
+     Mis.Vues.MaterialSaleinfoItem.$set('materialSaleinfoItems', order.materials.items.slice());
+     Mis.Vues.PackageItem.$set('packageItems', order.packages.items.slice());
     }
   })
 </script>

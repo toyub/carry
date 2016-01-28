@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/*-------客户-客户列表-信息-详细信息-start--*/
+
+.crm_basic_info{
+  width:1102px;
+  margin:0 auto;
+  overflow: inherit;
+
+  table{
+    width:100%;
+
+    tbody{
+      tr{
+        td{
+          padding:4px 5px;
+
+          label{
+            text-align:right;
+            line-height:35px;
+          }
+
+          div.idnumber{
+            select{
+              outline:none;
+            }
+            input{
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+/*-------客户-客户列表-信息-详细信息-end--*/

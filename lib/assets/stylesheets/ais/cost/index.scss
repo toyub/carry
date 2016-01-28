@@ -1,0 +1,107 @@
+
+
+
+@mixin border{
+  border:1px solid #d9d9d9;
+}
+
+%border-right{
+  border-right:1px solid #d9d9d9;
+}
+
+%border-vsides{
+  border-left:1px solid #d9d9d9;
+  border-right:1px solid #d9d9d9;
+}
+
+@mixin tbody-tr-bgcolor{
+  background:#eee;
+}
+
+@mixin tbody-col-width{
+  &:nth-child(1){ width: 5.75%; }
+  &:nth-child(2){ width: 8.89%; }
+  &:nth-child(3){ width: 9.78%; }
+  &:nth-child(4){ width: 8.89%; }
+  &:nth-child(5){ width: 5.13%; }
+  &:nth-child(6){ width: 5.13%; }
+  &:nth-child(7){ width: 5.13%; }
+  &:nth-child(8){ width: 5.13%; }
+  &:nth-child(9){ width: 5.13%; }
+  &:nth-child(10){ width: 5.13%; }
+  &:nth-child(11){ width: 5.13%; }
+  &:nth-child(12){ width: 5.13%; }
+  &:nth-child(13){ width: 5.13%; }
+  &:nth-child(14){ width: 5.13%; }
+  &:nth-child(15){ width: 5.13%; }
+  &:nth-child(16){ width: 5.13%; }
+  &:nth-child(17){ width: 5.13%; }
+}
+
+@mixin thead-col-width{
+  &:nth-child(1){ width: 5.75%; }
+  &:nth-child(2){ width: 8.89%; }
+  &:nth-child(3){ width: 9.78%; }
+  &:nth-child(4){ width: 8.89%; }
+  &:nth-child(5){ width: 5.13%; }
+  &:nth-child(6){ width: 15.39%; }
+  &:nth-child(7){ width: 15.39%; }
+  &:nth-child(8){ width: 15.39%; }
+  &:nth-child(9){ width: 15.39%; }
+}
+
+.details{
+  table.cost{
+    margin:5px 0;
+    width:100%;
+    thead{
+      tr{
+        @include border;
+        height:20px;
+        &:first-child{
+          th{
+            @include thead-col-width;
+          }
+        }
+
+        th{
+          &.time, &.barcode, &.name, &.specification, &.unit{
+            background:#FEFBD3;
+          }
+          &.initial_balance{
+            background:#E4DAFC;
+            @extend %border-vsides;
+          }
+          &.present_income{
+            background:#DAE8FC;
+          }
+          &.present_cost{
+            @extend %border-vsides;
+            background:#DAFCFC;
+          }
+          &.present_balance{
+            background:#DAFCDF;
+          }
+
+          &.price{
+            @extend %border-right;
+          }
+        }
+      }
+    }
+
+    tbody{
+      tr{
+        height:28px;
+        &:nth-child(even){
+          @include tbody-tr-bgcolor;
+        }
+        td{
+          text-align:center;
+          @include border;
+          @include tbody-col-width;
+        }
+      }
+    }
+  }
+}

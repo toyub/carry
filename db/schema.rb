@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120085336) do
+ActiveRecord::Schema.define(version: 20160126061341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20160120085336) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
+  end
+
+  create_table "api_tokens", force: :cascade do |t|
+    t.string   "sn_code"
+    t.string   "token"
+    t.integer  "staff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ca_stations", force: :cascade do |t|
@@ -1233,15 +1241,14 @@ ActiveRecord::Schema.define(version: 20160120085336) do
   create_table "store_packages", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                                          null: false
-    t.integer  "store_chain_id",                                                    null: false
-    t.integer  "store_staff_id",                                                    null: false
+    t.integer  "store_id",                                            null: false
+    t.integer  "store_chain_id",                                      null: false
+    t.integer  "store_staff_id",                                      null: false
     t.string   "name",           limit: 45
     t.string   "code",           limit: 45
     t.string   "abstract",       limit: 255
     t.text     "remark"
     t.decimal  "price",                      precision: 10, scale: 2
-    t.decimal  "retail_price",               precision: 10, scale: 2, default: 0.0
   end
 
   create_table "store_payments", force: :cascade do |t|
@@ -1474,6 +1481,7 @@ ActiveRecord::Schema.define(version: 20160120085336) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
+    t.integer  "store_order_item_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1810,9 +1818,11 @@ ActiveRecord::Schema.define(version: 20160120085336) do
   create_table "vehicle_models", force: :cascade do |t|
     t.string   "name"
     t.integer  "vehicle_series_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "manufacturing_year"
+    t.decimal  "min_price",          precision: 12, scale: 2
+    t.decimal  "max_price",          precision: 12, scale: 2
   end
 
   create_table "vehicle_plates", force: :cascade do |t|

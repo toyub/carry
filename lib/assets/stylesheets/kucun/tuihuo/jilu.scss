@@ -1,0 +1,128 @@
+@charset "utf-8";
+
+/*---------------库存管理-退货-jilu-end----------------*/
+
+.returnnotes_list{
+  margin-top: 10px;
+  width: 100%;
+  .list{
+
+    .list_contents{
+      width: 100%;
+      .list_content{
+        padding: 0px;
+        width: 99.74%;
+        ul{
+
+          &:nth-child(odd){
+            border-left: 3px solid #00A0E9;
+          }
+          &:nth-child(even){
+            border-left: 3px solid #00E994;
+          }
+        }
+
+      }
+    }
+
+    .list_tr{
+      ul{
+        li{
+          &:nth-child(1){width:3%;}
+          &:nth-child(2){width:10%;}
+          &:nth-child(3){width:9%;}
+          &:nth-child(4){width:15%;}
+          &:nth-child(5){width:13%;}
+          &:nth-child(6){width:10%;}
+          &:nth-child(7){width:16%;}
+          &:nth-child(8){width:18%;}
+          &:nth-child(9){width:5.33%;}
+        }
+      }
+    }
+    .common_storage_content{
+    	background: #F0EEF3;
+    	border:none;
+    	width: 99.6%;
+    }
+    .return_storage_content{
+      border: 1px solid #dbd9d9;
+    	float: left;
+    	width: 99.7%;
+
+      .return_storage_query{
+      	margin: 0px 0px 2px 2px;
+      	float: left;
+      	width:100%;
+      	height:45px;
+      	line-height:40px;
+
+        .return_storage_print{
+        	float:right;
+        	margin-right:10px;
+        }
+      }
+
+      .return_storage_tab{
+        table{
+          width:99.8%;
+          thead{
+            tr{
+              th{
+                &:nth-child(1){width:3%;}
+                &:nth-child(2){width:18%;}
+                &:nth-child(3){width:10%;}
+                &:nth-child(4){width:10%;}
+                &:nth-child(5){width:8%;}
+                &:nth-child(6){width:8%;}
+                &:nth-child(7){width:8%;}
+                &:nth-child(8){width:6%;}
+                &:nth-child(9){width:8%;}
+                &:nth-child(10){width:6%;}
+                &:nth-child(11){width:15%;}
+
+
+                border: 1px solid #CACACA;
+                height: 28px;
+                line-height: 28px;
+                color:#fff;
+              }
+            }
+          }
+          tbody{
+            tr{
+              td{
+                border: 1px solid #CACACA;
+                height: 25px;
+                line-height: 25px;
+
+                input[type="text"]{
+                	height:18px;
+                	line-height: 18px;
+                }
+              }
+            }
+          }
+        }
+
+        .return_storage_account{
+          width: 100%;
+          margin-top: 10px;
+          padding-left:10px;
+
+          .item_content{
+            label{
+              height:30px;
+              line-height:30px;
+            }
+            .remarks_textarea{
+            	width:1250px;;
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+/*-----------库存管理-退货--jilu-end-----------*/

@@ -1,0 +1,337 @@
+@charset "UTF-8";
+
+.project_items{
+	width: 483px;
+	padding:10px 10px;
+	float: left;
+
+	.order_items{
+		width: 95%;
+		margin-left: 24px;
+		display: block;
+		.order_items_category{
+			position: relative;
+			height: 30px;
+			border-bottom: 1px solid #e0e0e0;
+
+
+			ul{
+				margin-top: 30px;
+				li{
+					display: inline-block;
+					width: 50px;
+					height: 20px;
+					line-height: 20px;
+					border: 1px solid #e0e0e0;
+					text-align: center;
+					border-radius: 4px;
+					cursor: pointer;
+
+					&:hover{
+						background: #8E81B8;
+						color: #fff;
+					}
+				}
+			}
+
+			.search_bubble{
+				position: absolute;
+				height: 40px;
+				text-align: center;
+				line-height: 25px;
+				display:flex;
+				align-items:center;
+				background-color: #fff;
+				border: 1px solid #D0C8C8;
+				-webkit-border-radius: 30px;
+				-moz-border-radius: 30px;
+				border-radius: 5px;
+				-webkit-box-shadow: 2px 2px 4px #D0C8C8;
+				-moz-box-shadow: 2px 2px 4px #D0C8C8;
+				box-shadow: 0px 1px 4px #D0C8C8;
+				z-index: 10;
+				color: #9E6969;
+				padding: 0 8px 0 7px;
+
+				&:before{
+					content: ' ';
+					position: absolute;
+					width: 0;
+					height: 0;
+				}
+
+				&:after{
+					content: ' ';
+					position: absolute;
+					width: 0;
+					height: 0;
+
+				}
+
+				input{
+					height: 20px;
+					line-height: 18px;
+				}
+
+			}
+
+			.bubble_up{
+				top: 31px;
+				left: 0px;
+				&:before{
+					left: 37px;
+					top: -21px;
+					border: 10px solid;
+					border-color:transparent  transparent  #D0C8C8 transparent ;
+				}
+
+
+				&:after{
+					left: 39px;
+					top: -16px;
+					border: 8px solid;
+					border-color:  transparent transparent #fff transparent ;
+				}
+			}
+
+		}
+
+		.order_item{
+			width: 100%;
+			margin-bottom: 20px;
+			display: none;
+
+			ul{
+				height: 35px;
+				display: flex;
+				align-items: center;
+				text-align: center;
+				border-bottom: 1px solid #e0e0e0;
+
+				li{
+					display: inline-block;
+					float:left;
+				}
+			}
+
+			table{
+				width: 100%;
+				tbody{
+					tr{
+						height: 33px;
+						border-bottom: 1px solid #e0e0e0;
+						td{
+							text-align: center;
+						}
+					}
+				}
+			}
+
+		}
+
+		.order_commodity{
+			ul{
+				li{
+					&:nth-child(1){width:9.64%; }
+					&:nth-child(2){width:24.52%; }
+					&:nth-child(3){width:29.97%; }
+					&:nth-child(4){width:14.46%; }
+					&:nth-child(5){width:13.83%; }
+					&:nth-child(6){width:7.54%; }
+				}
+
+			}
+
+			.order_commodity_tab{
+				table{
+					tbody{
+						tr{
+							td{
+								&:nth-child(1){width:9.64%; }
+								&:nth-child(2){width:24.52%; }
+								&:nth-child(3){width:29.97%; }
+								&:nth-child(4){width:14.46%; }
+								&:nth-child(5){width:13.83%; }
+								&:nth-child(6){width:7.54%; }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.order_service{
+			ul{
+				li{
+					&:nth-child(1){width:8.29%; }
+					&:nth-child(2){width:28.42%; }
+					&:nth-child(3){width:21.36%; }
+					&:nth-child(4){width:20.74%; }
+					&:nth-child(5){width:13.69%; }
+					&:nth-child(6){width:7.54%; }
+				}
+			}
+
+			.order_service_tab{
+				table{
+					tbody{
+						tr{
+							td{
+								&:nth-child(1){width:8.29%; }
+								&:nth-child(2){width:28.42%; }
+								&:nth-child(3){width:21.36%; }
+								&:nth-child(4){width:20.74%; }
+								&:nth-child(5){width:13.69%; }
+								&:nth-child(6){width:7.54%; }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.order_package{
+			ul{
+				li{
+					&:nth-child(1){width:8.24%;}
+					&:nth-child(2){width:27.62%;}
+					&:nth-child(3){width:24.12%;}
+					&:nth-child(4){width:17.73%; }
+					&:nth-child(5){width:14.84%; }
+					&:nth-child(6){width:7.42%;}
+				}
+			}
+			.order_package_tab{
+				table{
+					tbody{
+						tr{
+							td{
+								&:nth-child(1){width:8.24%;}
+								&:nth-child(2){width:27.62%;}
+								&:nth-child(3){width:24.12%;}
+								&:nth-child(4){width:17.73%; }
+								&:nth-child(5){width:14.84%; }
+								&:nth-child(6){width:7.42%;}
+
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.order_vip{
+			.card_items{
+				>ul{
+						border: 1px solid #e0e0e0;
+						margin-bottom: 5px;
+					li{
+						display: inline-block;
+						float: left;
+						border-right: 1px solid #e0e0e0;
+						&:nth-child(1){width:6.09%; }
+						&:nth-child(2){width:33.03%; }
+						&:nth-child(3){width:19.95%; }
+						&:nth-child(4){width:23.94%; }
+						&:nth-child(5){width:15.96%; border:none;}
+
+					}
+				}
+
+				.card_item{
+					margin-bottom: 5px;
+					ul{
+						border: 1px solid #e0e0e0;
+						li{
+							display: inline-block;
+							float: left;
+							border-right: 1px solid #e0e0e0;
+							&:nth-child(1){width:6.09%; }
+							&:nth-child(2){width:33.03%; }
+							&:nth-child(3){width:19.95%; }
+							&:nth-child(4){width:23.94%; }
+							&:nth-child(5){width:15.96%; border:none;}
+
+						}
+					}
+
+					.card_item_info{
+						border: 1px solid #e0e0e0;
+						border-top: 5px solid #CBE19B;
+						display: none;
+						ul{
+							padding: 0px 10px;
+							border: none;
+							li{
+								text-align: left;
+								border: none;
+								&:nth-child(1){width: 30.57%;}
+								&:nth-child(2){width: 20.06%;}
+								&:nth-child(3){width: 24.81%;}
+								&:nth-child(4){width: 15.52%;}
+								&:nth-child(5){width: 9.02%;}
+							}
+						}
+
+						.card_item_info_tab{
+							padding: 0px 10px;
+							min-height: 120px;
+							table{
+								tr{
+									border: none;
+									td{
+										text-align: left;
+										padding: 0px;
+										&:nth-child(1){width: 30.57%;}
+										&:nth-child(2){width: 20.06%;}
+										&:nth-child(3){width: 24.81%;}
+										&:nth-child(4){width: 15.52%;}
+										&:nth-child(5){width: 9.02%;}
+
+										&:last-child{
+											text-align: center;
+										}
+									}
+								}
+							}
+						}
+
+						.card_foot{
+							line-height: 30px;
+							border-top: 1px solid #e0e0e0;
+							padding-bottom:10px;
+							padding-left: 10px;
+
+						}
+					}
+				}
+			}
+		}
+
+
+	}
+
+	.payment{
+		display: block;
+		.of_payment{
+			.amounts_payable{
+
+			}
+			.payment_method{
+				ul{
+					li{
+						.payment_method_item{
+							border: 1px solid #e0e0e0;
+							border-radius: 5px;
+							width: 55px;
+							height: 55px;
+						}
+					}
+				}
+
+			}
+		}
+
+
+	}
+}

@@ -1,0 +1,46 @@
+.instruction{
+  height: 30px;
+  line-height: 30px;
+  padding-left: 20px;
+  box-sizing: border-box;
+  color: #8E8D8D;
+
+  .item_commodity{
+    color: #000;
+    font-weight: bold;
+    margin: 0px 3px;
+  }
+}
+
+.discount_confirmation{
+  .form_group{
+    padding: 5px 0px;
+    label{
+      text-align: right;
+      height: 28px;
+      line-height: 28px;
+    }
+
+    input{
+      background: #fff;
+      border: 1px solid #EAEAEA;
+      height: 28px;
+      line-height: 28px;
+      vertical-align: middle;
+    }
+
+    &.error{
+      border: none;
+
+      input{
+        border: 1px solid red;
+
+      }
+    }
+  }
+
+  .btn_group{
+    margin-top: 30px;
+  }
+
+}

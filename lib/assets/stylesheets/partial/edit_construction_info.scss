@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+.edit_construction_info{
+	width: 690px;
+	border: 1px solid #e2e2e2;
+	background: #fff;
+	padding: 10px;
+	height: 100%;
+	border-top: 7px solid #DEDB71;
+	min-height: 550px;
+	max-height: 700px;
+	display: none;
+	position:relative;
+
+	h2{
+		height: 45px;
+		line-height: 45px;
+		padding-left: 10px;
+		font-size: 20px;
+	}
+	.constrction_info_tab{
+		min-height: 500px;
+		table{
+			width: 99%;
+
+			thead{
+				tr{
+					th{
+						&:nth-child(1){width: 12.94%;}
+						&:nth-child(2){width: 16.18%;}
+						&:nth-child(3){width: 18.03%;}
+						&:nth-child(4){width: 11.32%;}
+						&:nth-child(5){width: 30.50%;}
+						&:nth-child(6){width: 11.00%}
+						border-bottom: 1px solid #e2e2e2;
+						height: 35px;
+					}
+				}
+			}
+			tbody{
+				tr{
+					td{
+						vertical-align: top;
+						line-height: 25px;
+						padding: 0px;
+						ul.item_project{
+							width: 100%;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							height: 30px;
+							>li{
+								&:nth-child(1){width:18.8%;text-align: left;}
+								&:nth-child(2){width: 20.58%;}
+								&:nth-child(3){width: 12.96%;}
+								&:nth-child(4){width: 34.84%;}
+								&:nth-child(5){width: 12.80%;}
+								display: inline-block;
+								text-align: center;
+
+							}
+						}
+
+						ul.technician{
+							position: absolute;
+							border: 1px solid #CFCFCF;
+							border-top: 0px;
+							padding-top: 10px;
+							min-height: 60px;
+							width: 200px;
+							background: #fff;
+							z-index: 3;
+							text-align: left;
+							li{
+								display: inline-block;
+								width: 40px;
+								padding: 0px 5px;
+								cursor: pointer;
+							}
+						}
+						div.assign_technician{
+							border: 1px solid #d3d3d3;
+							display: flex;
+							align-items: center;
+							height: 24px;
+							position: relative;
+							width: 200px;
+
+
+							.action_button{
+								position: absolute;
+								right: 10px;
+								line-height: 28px;
+								cursor: pointer;
+							}
+
+							ul{
+								display: flex;
+								align-items: center;
+								li{
+									display: inline-block;
+									margin: 5px;
+									padding: 5px 0px;
+									height: 10px;
+									width: 53px;
+									line-height: 10px;
+
+									span{
+										margin-left: 0px;
+										text-align: left;
+										float: left;
+										position: relative;
+									}
+
+									i{
+										width: 12px;
+										height: 12px;
+										margin-left: 5px;
+										color: red;
+										cursor: pointer;
+										display: none;
+										vertical-align: middle;
+									}
+									&:hover{
+										i{
+											display: inline-block;
+										}
+									}
+
+								}
+							}
+						}
+
+					}
+				}
+			}
+
+		}
+	}
+}

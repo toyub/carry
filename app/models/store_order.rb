@@ -4,8 +4,6 @@ class StoreOrder < ActiveRecord::Base
   belongs_to :store_customer
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
   belongs_to :store_vehicle
-
-  #TODO 这个保存有点问题，以后 store_vhicle 更改了 plate 这个是否也需要更改
   belongs_to :plate, class_name: 'StoreVehicleRegistrationPlate', foreign_key: 'store_vehicle_registration_plate_id'
 
   has_one :store_tracking
@@ -27,8 +25,8 @@ class StoreOrder < ActiveRecord::Base
   enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]
 
   before_create :set_numero
-  before_create :init_state
-  before_save :update_amount
+
+  before_save :set_amount
 
   accepts_nested_attributes_for :items
 
@@ -60,10 +58,6 @@ class StoreOrder < ActiveRecord::Base
     self.pay_hanging? || self.pay_finished?
   end
 
-  def cal_amount
-    items.collect { |oi| oi.quantity * oi.price }.sum
-  end
-
   def revenue_ables
     self.items.revenue_ables
   end
@@ -84,20 +78,12 @@ class StoreOrder < ActiveRecord::Base
     items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
   end
 
-  def position_name
-    '前保险杠右侧'
-  end
-
-  def condition_name
-    '前保险杠右侧擦伤，油漆见底'
-  end
-
   def creators
     { name: self.creator.full_name, id: self.creator.id }
   end
 
   def current_vehicle
-    self.store_vehicle.plates.last.license_number
+    self.store_vehicle.license_number
   end
 
   def mechanic
@@ -143,26 +129,22 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def situation_damage
-    situation.select do |key, val|
-      key.include?("damage") && key.split("_")[1].to_i < 12
-    end
+  def situation
+    read_attribute(:situation) || {}
   end
 
-  def situation_damage_checkbox
-    situation.select do |key, val|
-      key.include?("damage") && key.split("_")[1].to_i > 12
-    end
+  def damages
+    situation.fetch(:damages, [])
   end
+
 
   def repayment_remaining
     self.amount.to_f - self.filled.to_f
   end
 
   def payment_methods
-    payments.all.inject([]) {|array, pay| array << pay.payment_method[:cn_name] }.join(',')
+    payments.map {|payment| payment.payment_method.cn_name }.join(',')
   end
-
 
   def execution_job
     OrderExecutionJob.perform_now(id)
@@ -185,23 +167,11 @@ class StoreOrder < ActiveRecord::Base
     end
 
     def set_numero
-      today_order_count = store.store_orders.today.count + 1
-      self.numero = Time.now.to_date.to_s(:number) + today_order_count.to_s.rjust(7, '0')
+      idx = store.store_orders.today.count + 1
+      self.numero = Time.now.to_date.to_s(:number) + idx.to_s.rjust(7, '0')
     end
 
-    def update_amount
-      self.amount = cal_amount
-    end
-
-    def init_state
-      if items.blank?
-        self.state = :paying
-      else
-        self.state = :pending if self.state == nil
-      end
-    end
-
-    def total_amount
-      self.items.sum(:amount) - self.items.sum(:discount)
+    def set_amount
+      self.amount = self.items.sum(:amount)
     end
 end

@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+/*-------------客户-客户列表-车辆档案-车辆状况-start------------*/
+.car_details{
+  .car_content{
+
+    .car_list{
+      .list{
+        .list_top{
+          ul{
+            li{
+              &:nth-child(1){
+                width: 3.15%;
+              }
+              &:nth-child(2){
+                width: 6.70%;
+              }
+              &:nth-child(3){
+                width: 21.60%;
+              }
+              &:nth-child(4){
+                width: 5.60%;
+              }
+              &:nth-child(5){
+                width: 20.15%;
+              }
+              &:nth-child(6){
+                width: 20.75%;
+              }
+              &:nth-child(7){
+                width: 8.75%;
+              }
+              &:nth-child(8){
+                width: 6.15%;
+              }
+              &:nth-child(9){
+                width: 6.30%;
+              }
+            }
+          }
+        }
+
+        .list_content{
+          ul{
+
+            li{
+
+              &:nth-child(1){
+                width: 3.36%;
+              }
+              &:nth-child(2){
+                width: 7.14%;
+              }
+              &:nth-child(3){
+                width: 22.82%;
+              }
+              &:nth-child(4){
+                width: 6%;
+              }
+              &:nth-child(5){
+                width: 21.52%;
+              }
+              &:nth-child(6){
+                width: 22.18%;
+              }
+              &:nth-child(7){
+                width: 9.36%;
+              }
+              &:nth-child(8){
+                width: 6.57%;
+              }
+
+
+            }
+          }
+
+        }
+
+
+
+
+        .get_order{
+          margin-top: 7px;
+          width: 6.30%;
+          a{
+            display:inline-block;
+            text-decoration:none;
+            width: 65px;
+            height: 20px;
+            font-size: 12px;
+            text-align: center;
+            line-height: 20px;
+            color: #ffffff;
+            background: #26a8e2;
+            border: none;
+            border-bottom: 2px solid #226b8b;
+            padding: 5px 0px;
+          }
+        }
+        .list_content{
+
+          width: 93.38% !important;
+        }
+      }
+
+    }
+  }
+}
+
+/*-------------客户-客户列表-车辆档案-车辆状况-end------------*/

@@ -229,33 +229,6 @@ Rails.application.routes.draw do
     end
   end# End of Ajax
 
-  # 总部平台api调用
-  namespace :erp do
-    resources :customers, only: [:index, :show] do
-      resources :customer_trackings, only: [:index]
-      resources :orders, only: [:index]
-      resources :license_numbers, only: [:index]
-      resources :vehicles, only: [:index, :show]
-      resources :deposit_card_assets, only: [:index]
-      resources :deposit_logs, only: [:index]
-      resources :package_assets, only: [:index, :show] do
-        resources :package_items, only: [:show]
-      end
-      resources :material_assets, only: [:index, :show] do
-        resources :material_items, only: [:show]
-      end
-    end
-    resources :contact_ways, only: [:index]
-    resources :stores, only: [:index]
-    resources :staff, only: [:index]
-    resources :customer_properties, only: [:index]
-    resources :store_staff, only: [:index]
-    resources :services, only: [:index]
-    resources :service_categories, only: [:index]
-    resources :districts, only: [:index]
-    resources :packages, only: [:index]
-  end #End of erp
-
   #Api
   namespace :api do
 
@@ -325,10 +298,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :store_orders, only: [:index, :show, :create] do
+    resources :store_orders do
+      collection do
+        post :draft
+      end
       resources :complaints, only:[:new, :create]
     end
-    resources :store_subscribe_orders
+    resources :subscribe_orders
+    resources :recommended_orders
 
     resources :store_packages, only: [:show, :create, :update, :index] do
       member do
@@ -399,6 +376,7 @@ Rails.application.routes.draw do
     end
 
     resources :recommended_orders
+    resources :subscribe_orders
 
     resources :vehicle_brands, only: [:index] do
       get :search_series
@@ -420,8 +398,8 @@ Rails.application.routes.draw do
       resources :checkouts
     end
     resources :store_orders
-    resources :pre_orders, only: [:index]
     resources :recommended_orders
+    resources :subscribe_orders
   end
 
   namespace :printer do
@@ -448,7 +426,6 @@ Rails.application.routes.draw do
       resources :vehicle_conditions, only: [:show]
       resources :vehicle_services, only: [:show]
       resources :expense_records, only: [:index]
-      resources :pre_orders, only: [:index]
       resources :complaints, only: [:index, :edit, :update]
       resources :store_trackings, only: [:index, :create]
       resources :store_repayments, only: [:index, :create] do

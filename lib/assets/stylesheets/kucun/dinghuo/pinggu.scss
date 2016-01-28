@@ -1,0 +1,211 @@
+@charset "UTF-8";
+
+
+
+/*------------------------库存管理-订货-评估-start------------------*/
+
+.choose{
+  overflow:hidden;
+	padding:10px 0px;
+
+  .title{
+  	height:50px;
+  	letter-spacing:0.15em;
+  	padding: 0px 20px;
+
+    .first_title{
+    	color:#8f908f;
+    }
+
+    .second_title{
+    	width:61%;
+    	margin-left:20px;
+    	float:left;
+
+    }
+
+
+  }
+
+  .supplier_content{
+    width:408px;
+    border: 1px solid #e6e6e6;
+    padding: 35px 0px 0px;
+    overflow: hidden;
+    width: 99.6%;
+    border-top: 0px;
+    box-shadow: 0px 3px 4px #999;
+    height: 380px;
+
+    .item_content{
+
+      float: left;
+      margin-top:10px;
+
+      label{
+        height: 30px;
+        line-height: 30px;
+        text-align: right;
+        vertical-align: top;
+      }
+
+      textarea.textarea_describe{
+      	border:1px solid #dbd9d9;
+      	width:300px;
+      	height: 50px;
+      }
+    }
+  }
+
+
+}
+
+.choose_supplier{
+	margin-right:20px;
+	width:400px;
+}
+
+.assess_notes{
+	width:900px;
+
+  .assessnotes_tab_div{
+  	border: 1px solid #e6e6e6;
+    padding: 0px 0px 0px 0px;
+    overflow:auto;
+    width: 99.5%;
+    border-top: 0px;
+    box-shadow: 0px 3px 4px #999;
+    height: 415px;
+  	position:relative;
+
+    .assessnotes_tab{
+    	border:0px;
+    	width:97%;
+    	margin:auto;
+
+      thead{
+        tr{
+          th{
+            border-bottom:1px solid #e6e6e6;
+          	border-right:0px;
+          	height:45px;
+
+            &:nth-child(1){width:20%;}
+            &:nth-child(2){width:18%;}
+            &:nth-child(3){width:18%;}
+            &:nth-child(4){width:9%;}
+            &:nth-child(5){width:10%;}
+            &:nth-child(6){width:10%;}
+            &:nth-child(7){width:15%;}
+
+          }
+        }
+
+      }
+
+      tbody{
+
+        tr{
+          td{
+
+            border-bottom:1px solid #e6e6e6;
+          	border-right:0px;
+          	height:45px;
+            text-align: center;
+
+
+          }
+        }
+      }
+    }
+
+    .assess_edit{
+    	background:#ffffff;
+    	position:absolute;
+    	top:45px;
+    	width:96.8%;
+    	left:13px;
+    	box-shadow:2px 2px 2px #e6e6e6;
+    	border:1px solid #e6e6e6;
+
+      h2{
+
+        height:35px;
+        line-height:35px;
+      }
+
+      .assess_edit_tab{
+        width:40%;
+
+        thead{
+
+          tr{
+
+            th{
+              &:nth-child(1){width:50%;}
+              &:nth-child(2){width:50%;}
+            }
+          }
+        }
+        tbody{
+
+          tr{
+
+            td{
+              text-align: center;
+            	height:35px;
+            	line-height:35px;
+            }
+
+          }
+        }
+      }
+
+      .item_content{
+
+        label{
+          vertical-align: top;
+        }
+
+        textarea{
+
+          &.assess_textarea{
+          	height:155px;
+          	width:400px;
+          }
+
+
+        }
+      }
+
+      .btn_group{
+      	padding-right: 30px;
+        width: 98% ;
+      }
+    }
+
+  }
+}
+
+
+
+.order_goods{
+  overflow: hidden;
+  background: #fff;
+}
+
+.pop_ordergoods{
+  width:1440px;
+  margin:10px auto;
+
+  .pop_ordergoods_content{
+    position: absolute;
+    top: 280px;
+    background: #fff;
+    width: 1440px;
+    padding-top:10px;
+  }
+}
+
+
+/*------------------------库存管理-订货-评估-end------------------*/

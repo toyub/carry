@@ -1,0 +1,6 @@
+/**
+*= require partial/billing_order
+*= require partial/edit_construction_info
+*= require partial/project_items
+*= require_self
+*/
