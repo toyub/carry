@@ -13,16 +13,24 @@ module V1
       end
 
       resource :series do
+        params do
+          optional :vehicle_brand_id, type: Integer, desc: "所属品牌ID"
+        end
         add_desc "车系"
         get do
-          present VehicleSeries.all, with: ::Entities::VehicleBrand
+          series = VehicleSeries.where(vehicle_brand_id: params[:vehicle_brand_id])
+          present series, with: ::Entities::VehicleBrand
         end
       end
 
       resource :models do
+        params do
+          optional :vehicle_series_id, type: Integer, desc: '所属车系的id'
+        end
         add_desc "车型"
         get do
-          present VehicleModel.all, with: ::Entities::VehicleBrand
+          models = VehicleModel.where(vehicle_series_id: params[:vehicle_series_id])
+          present models, with: ::Entities::VehicleBrand
         end
       end
 
