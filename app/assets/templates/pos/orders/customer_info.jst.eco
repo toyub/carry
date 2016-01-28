@@ -87,9 +87,9 @@
       <div class="item_content">
         <label class="width-55">结算提醒</label>
         <select class="width-150" name='store_customer_entity[store_customer_settlement_attributes][notice_period]'>
-          <option value="low" <%= 'selected' if @store_customer_settlement.notice_period == 'low' %> >月底前3天</option>
-          <option value="middle" <%= 'selected' if @store_customer_settlement.notice_period == 'middle' %> >月底前5天</option>
-          <option value="high" <%= 'selected' if @store_customer_settlement.notice_period == 'high' %> >月底前7天</option>
+          <option value="low" <%= 'selected' if @store_customer_settlement.notice_period == '_3days' %> >月底前3天</option>
+          <option value="middle" <%= 'selected' if @store_customer_settlement.notice_period == '_5days' %> >月底前5天</option>
+          <option value="high" <%= 'selected' if @store_customer_settlement.notice_period == '_7days' %> >月底前7天</option>
         </select>
       </div>
     

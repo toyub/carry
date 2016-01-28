@@ -37,3 +37,23 @@ zh-CN:
         education: 教育
         engineering: 工程
         others: 其他
+    store_customer_settlement:
+      credit:
+        unpermitted: 不允许挂账
+        unlimited: 不限金额
+        custom: 自定义
+      notice_period:
+        _3days: 月底前3天
+        _5days: 月底前5天
+        _7days: 月底前7天
+      payment_mode:
+        cash: 现金
+        check: 支票
+        credit_card: 信用卡
+        debit: 银行卡
+        alipay: 支付宝
+        wechat: 微信
+        hanging: 挂账
+      invoice_type:
+        common: 普票
+        extra: 增值税发票

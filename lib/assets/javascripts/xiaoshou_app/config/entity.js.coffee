@@ -30,14 +30,14 @@ Mis.Settings.Entity =
     custom: '自定义'
 
   settlement:
-    low: '月底前3天'
-    middle: '月底前5天'
-    high: '月底前7天'
+    _3days: '月底前3天'
+    _5days: '月底前5天'
+    _7days: '月底前7天'
 
   payment:
     cash: '现金'
     check: '支票'
-    credit: '信用卡'
+    credit_card: '信用卡'
     debit: '银行卡'
     alipay: '支付宝'
     wechat: '微信'

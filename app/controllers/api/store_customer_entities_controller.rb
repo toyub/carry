@@ -74,7 +74,7 @@ module Api
             :bank_account,
             :credit,
             :credit_limit,
-            :notice_required,
+            :notice_period,
             :contract,
             :tax,
             :payment_mode,

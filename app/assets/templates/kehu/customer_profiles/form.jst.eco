@@ -186,7 +186,7 @@
                   <label class="width-75">挂账额度</label>
                   <select class="width-178" name="store_customer_settlement[credit]">
                     <% _.each Mis.Settings.Entity.credit, (name, code) ->: %>
-                      <option value="<%= code %>"><%= name %></option>
+                      <option value="<%= code %>" <%= 'selected' if code.toString() == String(entity.storeCustomerSettlement.get('credit')) %>><%= name %></option>
                     <% end %>
                   </select>
 
@@ -197,7 +197,7 @@
                   <label class="width-75">结算提醒</label>
                   <select class="width-178" name="store_customer_settlement[notice_period]">
                     <% _.each Mis.Settings.Entity.settlement, (name, code) ->: %>
-                      <option value="<%= code %>"><%= name %></option>
+                      <option value="<%= code %>" <%= 'selected' if code.toString() == String(entity.storeCustomerSettlement.get('notice_period')) %>><%= name %></option>
                     <% end %>
                   </select>
                 </div>
@@ -224,18 +224,18 @@
 
                 <div class="item_content">
                   <label class="width-75">收款方式</label>
-                  <select class="width-178" name="store_customer_settlement[payment]">
+                  <select class="width-178" name="store_customer_settlement[payment_mode]">
                     <% _.each Mis.Settings.Entity.payment, (name, code) ->: %>
-                      <option value="<%= code %>"><%= name %></option>
+                      <option value="<%= code %>" <%= 'selected' if code.toString() == String(entity.storeCustomerSettlement.get('payment_mode')) %>><%= name %></option>
                     <% end %>
                   </select>
                 </div>
 
                 <div class="item_content">
                   <label class="width-75">发票种类</label>
-                  <select class="width-178" name="store_customer_settlement[invoice]">
+                  <select class="width-178" name="store_customer_settlement[invoice_type]">
                     <% _.each Mis.Settings.Entity.invoice, (name, code) ->: %>
-                      <option value="<%= code %>"><%= name %></option>
+                      <option value="<%= code %>" <%= 'selected' if code.toString() == String(entity.storeCustomerSettlement.get('invoice_type')) %>><%= name %></option>
                     <% end %>
                   </select>
                 </div>

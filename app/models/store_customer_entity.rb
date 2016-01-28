@@ -10,35 +10,6 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   enum property: %w[personal company]
 
-  INCOMES = {
-    low: '5000以下',
-    middle: '5000 ~ 10000',
-    upper: '10000 ~ 30000',
-    high: '30000以上'
-  }
-
-  CREDIS = {
-    unlimited: '不限金额',
-    custom: '自定义',
-    unpermitted: '不允许挂账'
-  }
-
-  SETTLEMENTS = {
-    low: '月底前3天',
-    middle: '月底前5天',
-    high: '月底前7天'
-  }
-
-  PAYMENTS = {
-    cash: '现金',
-    check: '支票',
-    credit: '信用卡',
-    debit: '银行卡',
-    alipay: '支付宝',
-    wechat: '微信',
-    hanging: '挂账'
-  }
-
   INVOICES = {
     common: '普票',
     extra: '增值税发票'
@@ -97,7 +68,7 @@ class StoreCustomerEntity < ActiveRecord::Base
   end
 
   def settlement
-    PAYMENTS[self.store_customer_settlement.payment_mode]
+    self.store_customer_settlement.payment_mode_i18n
   end
 
   def increase_balance!(amount)

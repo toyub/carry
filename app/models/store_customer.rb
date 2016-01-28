@@ -97,19 +97,19 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def credit
-    StoreCustomerEntity::CREDIS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:credit))]
+    self.store_customer_entity.try(:store_customer_settlement).try(:credit_i18n)
   end
 
   def notice_period
-    StoreCustomerEntity::SETTLEMENTS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:notice_period))]
+    self.store_customer_entity.try(:store_customer_settlement).try(:notice_period_i18n)
   end
 
   def payment_mode
-    StoreCustomerEntity::PAYMENTS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:payment_mode))]
+    self.store_customer_entity.try(:store_customer_settlement).try(:payment_mode_i18n)
   end
 
   def invoice_type
-    StoreCustomerEntity::INVOICES[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:invoice_type))]
+    self.store_customer_entity.try(:store_customer_settlement).try(:invoice_type_i18n)
   end
 
   def district
