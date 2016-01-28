@@ -1,6 +1,8 @@
 class StoreMaterialSaleinfoSerializer < ActiveModel::Serializer
-  attributes :name, :id, :speci, :retail_price, :vip_price, :category_name,
-    :reward_points, :inventory_quantity, :service_needed, :service_fee_price, :quantity, :recommended_price
+  attributes :id, :name, :speci, :retail_price, :vip_price, :category_name,
+    :reward_points, :inventory_quantity, :service_needed, :service_fee_price, :quantity, :recommended_price,
+    :bargainable, :bargain_price, :trade_price, :divide_to_retail, :divide_unit_type_id, :divide_total_volume,
+    :service_fee_needed, :service_fee,  :vip_price_enabled, :divide_volume_per_bill
 
   def speci
     object.store_material.speci
@@ -8,10 +10,6 @@ class StoreMaterialSaleinfoSerializer < ActiveModel::Serializer
 
   def category_name
     object.sale_category.try(:name)
-  end
-
-  def vip_price
-    5
   end
 
   def service_fee_price

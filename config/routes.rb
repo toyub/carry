@@ -391,6 +391,11 @@ Rails.application.routes.draw do
       resources :vehicle_models, only: [:index]
     end
 
+    namespace :pos do
+      namespace :products do
+      end
+    end
+
   end#End of api
 
   namespace :pos do
