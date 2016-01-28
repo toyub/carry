@@ -40,6 +40,10 @@ module APIHelpers
     current_user.store_chain
   end
 
+  def current_store
+    current_user.store
+  end
+
   # 迭代对 params 的 values 进行编码处理
   def encode_params_values(hash)
     return if hash.blank?
