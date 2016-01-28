@@ -6,11 +6,16 @@ module Entities
     expose(:store_name) {|model| model.store.name}
   end
   class Session < Grape::Entity
+    expose :status
     expose(:authorization) {|model| model.token}
     expose :current_staff, using: CurrentStoreStaff
 
     def current_staff
       object.store_staff
+    end
+
+    def status
+      "登陆成功!"
     end
   end
 end
