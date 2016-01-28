@@ -1,7 +1,7 @@
 class StoreStaffLoginSerializer < ActiveModel::Serializer
 
    attributes :id, :encrypted_password, :salt, :app_login_enabled, :store_id, :store_position,
-            :store_department, :login_name, :full_name, :store
+            :store_department, :login_name, :full_name, :store, :store_chain_id
 
    def initialize(object)
        super(object)
