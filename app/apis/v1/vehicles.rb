@@ -49,7 +49,6 @@ module V1
         optional :vehicle_model_id, type: Integer, desc: '车型'
       end
       post do
-        binding.pry
         customer = StoreCustomer.where(phone_number: params[:phone_number]).last
         status = AddVehicleForIpadService.call(Vehicles.vehicle_params,Vehicles.plate_params, Vehicles.customer_params, customer: customer)
         state = 1 if status.success?
@@ -77,8 +76,8 @@ module V1
     end
 
     def self.basic_params
-      params[:store_id] = APIHelpers::current_store.id
-      params[:store_chain_id] = APIHelpers::current_store.store_chain_id
+      params[:store_id] = current_store.id
+      params[:store_chain_id] = current_store.store_chain_id
       params[:store_staff_id] = current_user.id
     end
 
