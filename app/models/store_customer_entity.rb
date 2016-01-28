@@ -10,13 +10,8 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   enum property: %w[personal company]
 
-  INVOICES = {
-    common: '普票',
-    extra: '增值税发票'
-  }
-
   def settlement_payment_method
-   '现金'
+    self.settlement
   end
 
   def district
@@ -25,10 +20,6 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   def category
     self.store_customer_category.try(:name)
-  end
-
-  def settlement
-    ''
   end
 
   def district
@@ -68,7 +59,7 @@ class StoreCustomerEntity < ActiveRecord::Base
   end
 
   def settlement
-    self.store_customer_settlement.payment_mode_i18n
+    self.store_customer_settlement.try(:payment_mode_i18n)
   end
 
   def increase_balance!(amount)
