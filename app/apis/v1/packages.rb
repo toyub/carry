@@ -21,8 +21,12 @@ module V1
 
       get do
         if params[:platform] == "app" || params[:platform] == "erp"
-          current_store_chain = current_store if params[:platform] == "app"
-          store_packages = current_store_chain.store_packages.order(params[:q][:s])
+
+          if params[:platform] == "app"
+            store_packages = current_store.store_packages.order(params[:q][:s])
+          else
+            store_packages = current_store_chain.store_packages.order(params[:q][:s])
+          end
           q = store_packages.ransack(params[:q].except(:s))
           present q.result.order('id asc'), with: ::Entities::Package
         else

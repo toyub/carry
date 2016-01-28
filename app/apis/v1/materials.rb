@@ -22,9 +22,12 @@ module V1
       end
       get do
         if params[:platform] == "app" || params[:platform] == "erp"
-          current_store_chain = current_store if params[:platform] == "app"
           params[:q] = {store_material_root_category_id_eq: params[:store_material_root_category_id]} if params[:store_material_root_category_id].present?
-          q = current_store_chain.store_materials.saleable.ransack(params[:q])
+          if params[:platform] == "app"
+            q = current_store.store_materials.saleable.ransack(params[:q])
+          else
+            q = current_store_chain.store_materials.saleable.ransack(params[:q])
+          end
           present q.result, with: ::Entities::Material
         else
           error! status: "请选择对应的平台,app或erp!"
