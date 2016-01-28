@@ -10,14 +10,6 @@ class StoreCustomerEntity < ActiveRecord::Base
 
   enum property: %w[personal company]
 
-  EDUCATIONS = {
-    middle: '初中及以下',
-    high: '高中或中专',
-    academy: '专科',
-    graduate: '本科',
-    postgraduate: '硕士以上'
-  }
-
   INCOMES = {
     low: '5000以下',
     middle: '5000 ~ 10000',

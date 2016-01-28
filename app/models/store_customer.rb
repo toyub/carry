@@ -43,6 +43,10 @@ class StoreCustomer < ActiveRecord::Base
 
   before_save :set_full_name
 
+  enum education: %w[middle high academy graduate postgraduate]
+  enum profession: %w[it others]
+  enum income: %w[ilow imiddle iupper ihigh]
+
   def deposit_cards_assets
     assets.where(type: "StoreCustomerDepositCard")
   end
@@ -84,8 +88,8 @@ class StoreCustomer < ActiveRecord::Base
     self.store_customer_entity.try(:property)
   end
 
-  def education
-    StoreCustomerEntity::EDUCATIONS[self.read_attribute(:education)]
+  def education_i18n
+    
   end
 
   def income

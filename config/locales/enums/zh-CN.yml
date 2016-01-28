@@ -18,3 +18,15 @@ zh-CN:
       property:
         company: 集团客户
         personal: 个人客户
+    store_customer:
+      education:
+        middle: 初中及以下
+        high: 高中或中专
+        academy: 专科
+        graduate: 本科
+        postgraduate: 硕士以上
+      income:
+        ilow: 5000以下
+        imiddle: 5000 ~ 10000
+        iupper: 10000 ~ 30000
+        ihigh: 30000以上

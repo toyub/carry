@@ -62,5 +62,9 @@ module Entities
     def remark
       object.store_customer_entity.try(:remark)
     end
+
+    def education
+      object.education_i18n
+    end
   end
 end
