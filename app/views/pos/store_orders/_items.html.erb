@@ -20,7 +20,7 @@
       	</tr>
       </thead>
       <tbody>
-        <tr v-for="item in materialSaleinfoItems">
+        <tr v-for="item in items">
           <td>{{ item.name }} <input type="hidden" name='items[][orderable_id]' value="{{item.orderable_id}}"> <input type="hidden" name="items[][id]" value="{{item.id}}"></td>
           <td>{{ item.speci }}</td>
           <td>
@@ -35,7 +35,7 @@
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
             <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
+              <i class="lnr lnr-cross color-fff" data-orderableid={{item.orderable_id}} v-on:click="removeItem"></i>
             </span>
         	</td>
         </tr>
@@ -64,7 +64,7 @@
 				</tr>
 			</thead>
       <tbody>
-        <tr v-for="item in serviceItems">
+        <tr v-for="item in items">
           <td>{{item.name}} <input type="hidden" name='items[][orderable_id]' value="{{item.orderable_id}}"> <input type="hidden" name="items[][id]" value="{{item.id}}"></td>
           <td>
             <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
@@ -78,7 +78,7 @@
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
             <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-item-id={{item.orderable_id}} v-on:click="removeItem"></i>
+              <i class="lnr lnr-cross color-fff" data-orderableid={{item.orderable_id}} v-on:click="removeItem"></i>
             </span>
         	</td>
         </tr>
@@ -103,7 +103,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in packageItems">
+          <tr v-for="item in items">
             <td>{{ item.name }} <input type="hidden" name='items[][orderable_id]' value="{{item.orderable_id}}"> <input type="hidden" name="items[][id]" value="{{item.id}}"></td>
             <td>
               <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
@@ -112,7 +112,7 @@
             <td>
               <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
               <span class="delete close">
-                <i class="lnr lnr-cross color-fff" data-item-id={{item.id}} v-on:click="removeItem"></i>
+                <i class="lnr lnr-cross color-fff" data-orderableid={{item.orderable_id}} v-on:click="removeItem"></i>
               </span>
         	  </td>
           </tr>

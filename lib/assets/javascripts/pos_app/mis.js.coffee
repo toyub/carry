@@ -10,7 +10,17 @@ window.Mis =
     },
     Opts: {}
   }
-  Components:{}
+  Components:{
+    Order: {
+      removeItem: (e)->
+        orderable_id = $(e.target).data("orderableid")
+        _this = this;
+        $.grep this.items, (item)->
+          if item.orderable_id == orderable_id
+            _this.items.pop(item)
+    }
+  }
+
   initialize: ->
 
 $(document).ready ->
