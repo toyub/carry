@@ -44,8 +44,8 @@
                 <div class="item_content">
                   <label class="width-75">客户类别</label>
                   <select class="width-178" name="store_customer_category_id">
+                    <option value="">请选择</option>
                     <% Mis.store.customerCategories.each (c) ->: %>
-                      <option value="">请选择</option>
                       <option value="<%= c.id %>" <%= 'selected' if c.id.toString() == String(entity.get('store_customer_category_id')) %>><%= c.get 'name' %></option>
                     <% end %>
                   </select>
