@@ -25,6 +25,7 @@ config/alipay.yml
 /tmp/*
 !/tmp/.keep
 /doc/
+/public/
 /vendor/bundle
 /vendor/assets/bower_components
 .rvmrc
