@@ -43,6 +43,7 @@ module Api
           :address,
           :range,
           :remark,
+          :property,
           :store_customer_category_id,
           district: [:province, :city, :region],
           store_customer_attributes: [
