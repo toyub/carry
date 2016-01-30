@@ -35,7 +35,6 @@
       <tr>
         <td></td>
         <td></td>
-        <% console.log setting.isAppPosition() %>
         <td><input type="radio" name="sign_method" <%= 'checked' unless setting.isAppPosition() %> disabled=""></td>
         <td>自动上岗</td>
         <td><input type="radio" name="sign_method" <%= 'checked' if setting.isAppPosition() %> disabled=""></td>
@@ -77,15 +76,6 @@
           指定工位
         </td>
         <td colspan="2" class="text-align-left">
-          <span class="bg-color-f7f7f7"></span>
-          <ul>
-            <li>
-            清洗服务
-            </li>
-            <li>
-            美容服务
-            </li>
-          </ul>
         </td>
       </tr>
       <tr>
@@ -94,57 +84,7 @@
         <td></td>
         <td colspan="3" rowspan="4" class="padding-0">
           <div id="stations_to_sel">
-            <ul id="stations_of_cleaning" style="display:none;">
-              <li>
-              洗车1号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车2号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车3号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车4号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车5号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车6号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车7号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车8号工位
-              <input type="checkbox">
-              </li>
-            </ul>
-            <ul style="display:none;">
-              <li>
-              洗车1号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车2号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车3号工位
-              <input type="checkbox">
-              </li>
-              <li>
-              洗车4号工位
-              <input type="checkbox">
-              </li>
+            <ul id="stations" style="<%= 'display: none;' unless setting.get('nominated_workstation') %>">
             </ul>
           </div>
         </td>
@@ -175,8 +115,9 @@
           提成方案
           <select style="width:190px;" disabled="">
             <option></option>
-            <option>方案1</option>
-            <option>方案2</option>
+            <% @store.commissionTemplates.each (c) ->: %>
+              <option value="<%= c.get 'id' %>" <%= 'selected' if String(c.get('id')) == String(setting.get('mechanic_commission_template_id')) %>><%= c.get 'name' %></option>
+            <% end %>
           </select>
         </td>
       </tr>

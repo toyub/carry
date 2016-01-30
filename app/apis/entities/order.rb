@@ -9,9 +9,10 @@ module Entities
     expose :numero
     expose(:created_at) {|model, options| model.created_at.strftime("%Y-%m-%d")}
     expose(:store_name) { |model, options| model.store.name }
-    expose(:creator) {|model, optional| model.creator.full_name}
-    expose :total_amount
+    expose(:creator) {|model, options| model.creator.full_name}
+    expose(:total_amount) {|model, options| model.amount }
     expose :damages
     expose :items, using: OrderItem
+
   end
 end

@@ -18,6 +18,7 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Mis.Base.View
   render: ->
     @$el.html(@template(workflow: @model, store: @store))
     @renderWorkstations()
+    console.log 'xxxxxxxx'
     @$el.show()
     @
 
@@ -47,6 +48,7 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Mis.Base.View
 
   renderWorkstations: ->
     @$("#nominated_stations").empty()
+    console.log @store.workstations
     @store.workstations.each @addWorkstation
 
   showWorkstations: ->

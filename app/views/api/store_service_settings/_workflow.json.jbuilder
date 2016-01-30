@@ -10,6 +10,7 @@ json.(
   :buffering_time_enable,
   :factor_time,
   :nominated_workstation,
-  :engineer_commission_template_id,
-  :position_mode
+  :mechanic_commission_template_id,
+  :position_mode,
+  :workstation_ids
 )
