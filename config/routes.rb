@@ -401,6 +401,12 @@ Rails.application.routes.draw do
       namespace :customers do
         resources :vehicles
       end
+
+      namespace :carts do
+        resources :orders do
+          resources :items
+        end
+      end
     end
 
   end#End of api
