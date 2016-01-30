@@ -55,9 +55,9 @@
      order = $('#order_data').data('order');
      x.order = order;
      x.vehicle_situation.set_situation(order.situation)
-     Mis.Vues.ServiceItem.$set('serviceItems',order.services.items.slice());
-     Mis.Vues.MaterialSaleinfoItem.$set('materialSaleinfoItems', order.materials.items.slice());
-     Mis.Vues.PackageItem.$set('packageItems', order.packages.items.slice());
+     Mis.Vues.ServiceItem.$set('items',order.services.items.slice());
+     Mis.Vues.MaterialItem.$set('items', order.materials.items.slice());
+     Mis.Vues.PackageItem.$set('items', order.packages.items.slice());
     }
   })
 </script>

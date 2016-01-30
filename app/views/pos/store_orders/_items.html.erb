@@ -34,8 +34,8 @@
           <td></td>
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
-            <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-orderableid={{item.orderable_id}} v-on:click="removeItem"></i>
+            <span class="delete close" data-orderableid='{{item.orderable_id}}' v-on:click="removeItem">
+              <i class="lnr lnr-cross color-fff" data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
             </span>
         	</td>
         </tr>
@@ -77,8 +77,8 @@
           <td></td>
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
-            <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-orderableid={{item.orderable_id}} v-on:click="removeItem"></i>
+            <span class="delete close" data-orderableid='{{item.orderable_id}}' v-on:click="removeItem">
+              <i class="lnr lnr-cross color-fff" data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
             </span>
         	</td>
         </tr>
@@ -111,8 +111,8 @@
             <td>{{ item.retail_price }}</td>
             <td>
               <span class="js-material-saleinfo-item-price">{{ item.quantity * item.retail_price }}</span>
-              <span class="delete close">
-                <i class="lnr lnr-cross color-fff" data-orderableid={{item.orderable_id}} v-on:click="removeItem"></i>
+              <span class="delete close" data-orderableid='{{item.orderable_id}}' v-on:click="removeItem">
+                <i class="lnr lnr-cross color-fff" data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
               </span>
         	  </td>
           </tr>
