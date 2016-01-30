@@ -36,6 +36,7 @@ class XiaoshouController < ApplicationController
       end
       json.tags current_store.tags, :id, :name
       json.provinces Geo.provinces(1), :name, :code
+      json.workstations current_store.workstations, :id, :name
     end
   end
 end

@@ -8,8 +8,17 @@ class Mis.Views.XiaoshouServiceWorkflowsShow extends Mis.Base.View
 
   render: ->
     @$el.html(@template(workflow: @model, store: Mis.store))
+    @renderWorkstations()
     @$el.show()
     @
 
+  renderWorkstations: ->
+    @$("#nominated_stations").empty()
+    Mis.store.workstations.each @addWorkstation
+
   close: ->
     @leave()
+
+  addWorkstation: (workstation) =>
+    view = new Mis.Views.XiaoshouServiceWorkstationsWorkstation(workflow: @model, model: workstation, action: 'show')
+    @appendChildTo(view, @$("#nominated_stations"))

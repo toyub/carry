@@ -1482,6 +1482,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
+    t.integer  "mechanic_commission_template_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
