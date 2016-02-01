@@ -8,6 +8,15 @@
 </div>
 
 <div class="order_item order_commodity js-orderables-materials">
+  <div>
+    <form id='search_materials' action="/api/pos/products/materials.json" method="get">
+      <label>一级分类</label><select name="store_material_root_category_id"></select>
+      <label>二级分类</label><select name="store_material_category_id"></select>
+      <label>商品品牌</label><select name="store_material_brand_id"></select>
+      <label>查找产品</label><input type="text" name="keyword" value="">
+      <input type="submit" value="查 询">
+    </form>
+  </div>
 	<table cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
@@ -26,6 +35,9 @@
 </div>
 
 <div class="order_item order_service js-orderables-services">
+  <label>服务类别</label><select class="" name=""></select>
+  <label>查找关键字</label><input type="text" name="name" value="">
+  <input type="button" name="name" value="查 询">
 	<table cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
@@ -43,6 +55,8 @@
 </div>
 
 <div class="order_item order_package js-orderables-packages">
+  <label>查找关键字</label><input type="text" name="name" value="">
+  <input type="button" name="name" value="查 询">
 	<table cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>

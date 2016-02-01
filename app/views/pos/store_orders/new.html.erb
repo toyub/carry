@@ -1,4 +1,5 @@
 <input type="hidden" id='vehicle_brands' data-brands='<%= @vehicle_brands.to_json(root:nil) %>'>
+<input type="hidden" id='super_material_categories' data-categories='<%= @super_material_categories.to_json(root: nil) %>'>
 <div class="content pos-orders-index" id="content">
   <div class="main_top"><h2>业务开单</h2></div>
   <div class="details">
@@ -10,7 +11,7 @@
       <div class="width-100" style="float:left">
         <a class='button js-add-vehicle' href="javascript:void(0);">添加车辆</a>
       </div>
-      
+
       <div class="query_div pos_page_card">
         <a href="javascript:void(0)"  class="active">开单</a>
         <a href="/pos/store_orders/">列表</a>
