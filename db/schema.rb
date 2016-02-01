@@ -1411,9 +1411,9 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
-    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
+    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1457,10 +1457,6 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "buffering_time"
     t.integer  "factor_time"
     t.integer  "store_service_id",                                            null: false
-    t.integer  "sales_commission_subject"
-    t.integer  "sales_commission_template_id"
-    t.integer  "engineer_commission_subject"
-    t.integer  "engineer_commission_template_id"
     t.boolean  "engineer_count_enable"
     t.boolean  "engineer_level_enable"
     t.boolean  "standard_time_enable"
@@ -1472,7 +1468,6 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
-    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1482,6 +1477,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
+    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
   end
 
@@ -1497,10 +1493,6 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "standard_time"
     t.integer  "buffering_time"
     t.integer  "factor_time"
-    t.integer  "sales_commission_subject"
-    t.integer  "sales_commission_template_id"
-    t.integer  "engineer_commission_subject"
-    t.integer  "engineer_commission_template_id"
     t.boolean  "engineer_count_enable"
     t.boolean  "engineer_level_enable"
     t.boolean  "standard_time_enable"
@@ -1510,6 +1502,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.string   "name",                            limit: 45
     t.integer  "store_service_setting_id"
     t.integer  "store_service_id"
+    t.integer  "mechanic_commission_template_id"
   end
 
   create_table "store_services", force: :cascade do |t|
