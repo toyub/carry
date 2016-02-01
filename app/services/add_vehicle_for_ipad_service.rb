@@ -9,6 +9,7 @@ class AddVehicleForIpadService
     @vehicle_params = vehicle_params
     @plate_params = plate_params
     @customer = options[:customer]
+    binding.pry
   end
 
   def call
