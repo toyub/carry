@@ -25,7 +25,8 @@ class XiaoshouController < ApplicationController
       json.service_categories ServiceCategory.all, :id, :name
       json.customers current_store.store_customer_entities do |entity|
         json.(entity, :id, :region, :address, :remark, :property, :store_customer_category_id)
-        json.store_customer entity.store_customer, :phone_number, :full_name, :operator
+        json.store_customer entity.store_customer, :phone_number, :full_name, :operator,
+                                                   :vehicles_count, :orders_count, :total_amount, :customer_asset
       end
       json.customer_categories current_store.store_customer_categories, :id, :name
       json.root_material_categories current_store.root_material_categories do |c|
