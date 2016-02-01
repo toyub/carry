@@ -52,59 +52,49 @@ module V1
         customer = StoreCustomer.where(phone_number: params[:phone_number]).last
         status = AddVehicleForIpadService.call(vehicle_params, plate_params, customer_params: customer_params, customer: customer)
         state = 1 if status.success?
-        present state, info: status.notice
+        present status: state, info: status.notice
       end
     end
 
     helpers do
-      def vehicle_params
-        declared(except_other_with_vehicle, include_missing: false).merge(
-          store_id: current_store.id,
-          store_chain_id: current_store_chain.id,
-          store_staff_id: current_user.id
-        )
+      def basic_params
+        params[:store_id] = current_store.id
+        params[:store_chain_id] = current_store_chain.id
+        params[:store_staff_id] = current_user.id
       end
 
-      def except_other_with_vehicle
-        params.except(:first_name, :last_name, :phone_number, :license_number, :json)
+      def vehicle_params
+        basic_params
+        vehicle = ActionController::Parameters.new(params)
+        vehicle.permit(:store_id,
+                       :store_chain_id,
+                       :store_staff_id,
+                       :vehicle_brand_id,
+                       :vehicle_series_id,
+                       :vehicle_model_id,
+                       detail: [
+                         :bought_on
+                         ])
       end
 
       def customer_params
-        declared(except_other_with_customers, include_missing: false).merge(
-          store_id: current_store.id,
-          store_chain_id: current_store_chain.id,
-          store_staff_id: current_user.id
-        )
-      end
-
-      def except_other_with_customers
-        params.except(:license_number,
-                      :json,
-                      :vehicle_brand_id,
-                      :vehicle_series_id,
-                      :vehicle_model_id,
-                      :detail
-                        )
+        vehicle = ActionController::Parameters.new(params)
+        basic_params
+        vehicle.permit(:first_name,
+                        :last_name,
+                        :phone_number,
+                        :store_id,
+                        :store_chain_id,
+                        :store_staff_id)
       end
 
       def plate_params
-        declared(except_other_with_plate, include_missing: false).merge(
-          store_id: current_store.id,
-          store_chain_id: current_store_chain.id,
-          store_staff_id: current_user.id
-        )
-      end
-
-      def except_other_with_plate
-        params.except(:first_name,
-                      :last_name,
-                      :phone_number,
-                      :json,
-                      :vehicle_brand_id,
-                      :vehicle_series_id,
-                      :vehicle_model_id,
-                      :detail
-                      )
+        vehicle = ActionController::Parameters.new(params)
+        basic_params
+        vehicle.permit(:license_number,
+                     :store_id,
+                     :store_chain_id,
+                     :store_staff_id)
       end
     end
 
