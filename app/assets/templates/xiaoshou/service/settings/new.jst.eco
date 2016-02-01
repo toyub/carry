@@ -8,12 +8,13 @@
 
   <div class="settings_in_service settings_in_sales">
 
-    <div class="regular_setting setting_left float-left j_regular_setting">
+    <div class="regular_setting setting_left active float-left j_regular_setting">
       <h2><label for="regular_setting">按常规设置</label>
         <input type="radio" name="setting_type" value="0" checked class="margin-left-8" id="regular_setting">
       </h2>
       <table>
-        <tbody><tr>
+        <tbody>
+          <tr>
           <td>技师设置</td>
           <td></td>
           <td>
@@ -159,11 +160,11 @@
     </div>
 
 
-    <div class="process_setting setting_right float-right j_workflow_setting">
+    <div class="process_setting setting_right inactive float-right j_workflow_setting">
       <h2>
-        <label class="color-ccc" for="workflow_setting">按流程设置</label>
+        <label for="workflow_setting">按流程设置</label>
         <input type="radio" value="1" name="setting_type" class="margin-left-8 margin-top-0" id="workflow_setting" >
-        <input type="button" id="create_workflow" class="new_btn float-right do_open_list_new_page btn" value="创建" disabled>
+        <input type="button" id="create_workflow" class="new_btn float-right btn" value="创建" disabled>
       </h2>
       <p class="no_process">
       您可以根据需要施工流程进行拆分管理，流程拆分后，施工时间会根据您设定的流程步骤单独计算，
