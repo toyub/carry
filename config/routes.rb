@@ -302,6 +302,10 @@ Rails.application.routes.draw do
       collection do
         post :draft
       end
+      member do
+        put :update_draft
+        patch :update_draft
+      end
       resources :complaints, only:[:new, :create]
     end
     resources :subscribe_orders
@@ -393,6 +397,19 @@ Rails.application.routes.draw do
 
     namespace :pos do
       namespace :products do
+        resources :materials
+        resources :packages
+        resources :services
+      end
+
+      namespace :customers do
+        resources :vehicles
+      end
+
+      namespace :carts do
+        resources :orders do
+          resources :items
+        end
       end
     end
 
