@@ -302,6 +302,10 @@ Rails.application.routes.draw do
       collection do
         post :draft
       end
+      member do
+        put :update_draft
+        patch :update_draft
+      end
       resources :complaints, only:[:new, :create]
     end
     resources :subscribe_orders

@@ -1,7 +1,7 @@
 module Api
   class StoreOrdersController < BaseController
-    before_action :set_order, only: [:show, :update]
-    before_action :set_vehicle, only: [:draft, :create, :update]
+    before_action :set_order, only: [:show, :update, :update_draft]
+    before_action :set_vehicle, only: [:draft, :update_draft, :create, :update]
 
     def index
       orders = current_store.store_orders
