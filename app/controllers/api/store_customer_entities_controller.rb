@@ -43,6 +43,7 @@ module Api
           :address,
           :range,
           :remark,
+          :property,
           :store_customer_category_id,
           district: [:province, :city, :region],
           store_customer_attributes: [
@@ -73,7 +74,7 @@ module Api
             :bank_account,
             :credit,
             :credit_limit,
-            :notice_required,
+            :notice_period,
             :contract,
             :tax,
             :payment_mode,

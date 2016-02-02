@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20160202023142) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
+    t.decimal  "amount",         precision: 8, scale: 2, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20160202023142) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
+    t.decimal  "amount",     precision: 10, scale: 2
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -417,7 +417,7 @@ ActiveRecord::Schema.define(version: 20160202023142) do
     t.json     "district"
     t.string   "address"
     t.float    "range"
-    t.string   "property"
+    t.integer  "property",                   default: 0
     t.string   "remark"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
@@ -449,12 +449,8 @@ ActiveRecord::Schema.define(version: 20160202023142) do
     t.integer  "store_staff_id"
     t.string   "bank"
     t.string   "bank_account"
-    t.string   "credit"
-    t.string   "notice_period"
     t.string   "contract"
     t.string   "tax"
-    t.string   "payment_mode"
-    t.string   "invoice_type"
     t.string   "invoice_title"
     t.datetime "created_at",                                                      null: false
     t.datetime "updated_at",                                                      null: false
@@ -462,15 +458,19 @@ ActiveRecord::Schema.define(version: 20160202023142) do
     t.decimal  "credit_bill_amount",       precision: 10, scale: 2, default: 0.0, null: false
     t.decimal  "credit_limit",             precision: 12, scale: 2, default: 0.0
     t.string   "contact"
+    t.integer  "credit",                                            default: 0
+    t.integer  "notice_period",                                     default: 0
+    t.integer  "payment_mode",                                      default: 0
+    t.integer  "invoice_type",                                      default: 0
   end
 
   create_table "store_customers", force: :cascade do |t|
-    t.integer  "store_id",                              null: false
-    t.integer  "store_chain_id",                        null: false
-    t.integer  "store_staff_id",                        null: false
-    t.string   "first_name",                 limit: 45, null: false
-    t.string   "last_name",                  limit: 45, null: false
-    t.string   "full_name",                  limit: 45, null: false
+    t.integer  "store_id",                                          null: false
+    t.integer  "store_chain_id",                                    null: false
+    t.integer  "store_staff_id",                                    null: false
+    t.string   "first_name",                 limit: 45,             null: false
+    t.string   "last_name",                  limit: 45,             null: false
+    t.string   "full_name",                  limit: 45,             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone_number",               limit: 45
@@ -481,9 +481,6 @@ ActiveRecord::Schema.define(version: 20160202023142) do
     t.string   "resident_id"
     t.date     "birthday"
     t.boolean  "married"
-    t.string   "education"
-    t.string   "profession"
-    t.string   "income"
     t.string   "company"
     t.boolean  "tracking_accepted"
     t.boolean  "message_accepted"
@@ -491,6 +488,9 @@ ActiveRecord::Schema.define(version: 20160202023142) do
     t.string   "telephone"
     t.string   "remark"
     t.integer  "points"
+    t.integer  "education",                             default: 0
+    t.integer  "profession",                            default: 0
+    t.integer  "income",                                default: 0
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -1235,7 +1235,7 @@ ActiveRecord::Schema.define(version: 20160202023142) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing"
+    t.integer  "trigger_timing",   default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
