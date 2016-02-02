@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126061341) do
+ActiveRecord::Schema.define(version: 20160202010746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -489,6 +489,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "store_customer_entity_id"
     t.string   "telephone"
     t.string   "remark"
+    t.integer  "points"
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -1411,9 +1412,9 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1468,6 +1469,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1477,7 +1479,6 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
   end
 
