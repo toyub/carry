@@ -6,12 +6,22 @@ class Mis.Models.StoreServiceWorkflow extends Backbone.Model
 
   initialize: ->
     @initWorkstations()
+    console.log @get "engineer_level"
 
   defaults:
     engineer_count_enable: true
 
   clear: ->
     @destroy(wait: true)
+
+  workstationName: ->
+    if @get("nominated_workstation")
+      @workstations.map(
+        (w) ->
+          w.get "name"
+      ).join("，").substring(0,10)
+    else
+      "不限"
 
   initWorkstations: ->
     @workstations = new Mis.Collections.StoreWorkstations()

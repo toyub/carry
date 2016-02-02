@@ -3,7 +3,7 @@
 <li><%= @workflow.get "engineer_count" %></li>
 <li><%= @workflow.get "engineer_level" %></li>
 <li><%= @workflow.get "standard_time" %></li>
-<li><%= "不限" %></li>
+<li><%= @workflow.workstationName() %></li>
 <li>
 <span><%= @workflow.get "mechanic_commission_template_id" %></span>
 <% if @view.isEdit(): %>
