@@ -8,7 +8,7 @@
 <td><%= @entity.storeCustomer.get 'orders_count' %></td>
 <td><%= @entity.storeCustomer.get 'total_amount' %></td>
 <td></td>
-<td><%= @entity.storeCustomer.get 'customer_integrity' %></td>
+<td><%= @entity.storeCustomer.get 'integrity' %></td>
 <td></td>
 <td>
 </td>

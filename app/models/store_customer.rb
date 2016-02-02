@@ -131,16 +131,8 @@ class StoreCustomer < ActiveRecord::Base
     1_0000
   end
 
-  def activeness
-    '活跃度'
-  end
-
   def satisfaction
     '满意度'
-  end
-
-  def integrity
-    '完整度'
   end
 
   def property
@@ -193,16 +185,14 @@ class StoreCustomer < ActiveRecord::Base
     store_customer_entity.try(:membership) == true ? "会员" : "非会员"
   end
 
-  def customer_integrity
+  def integrity
     customer_column = ["full_name","age","qq","resident_id","phone_number",
                         "profession","education","income","company"]
     customer_entity_column = ["district","address","property"]
     settlement_column = ["contract","bank","bank_account","tax","invoice_title","payment_mode"]
     #married gender membership was exist(3)
-    customer_result = customer_column.map(&->(c){self.send(c).present?})
-    entity_result = customer_entity_column.map(&->(c){self.store_customer_entity.send(c).present?})
-    customer_count = customer_result.select{|result| result == true}.count.to_f
-    entity_count = entity_result.select{|result| result == true}.count.to_f
+    customer_count = customer_column.map(&->(c){self.send(c).present?}).select{|result| result == true}.count.to_f
+    entity_count = customer_entity_column.map(&->(c){self.store_customer_entity.send(c).present?}).select{|result| result == true}.count.to_f
     if store_customer_entity.try(:property_name) == "集团客户"
       settlement_result = settlement_column.map(&->(c){self.store_customer_entity.store_customer_settlement.send(c).present?})
       settlement_count = settlement_result.select{|result| result == true}.count.to_f
@@ -210,7 +200,6 @@ class StoreCustomer < ActiveRecord::Base
     else
       ((customer_count + entity_count + 3)/15).to_s[0,6].to_f*100
     end
-
   end
 
 
