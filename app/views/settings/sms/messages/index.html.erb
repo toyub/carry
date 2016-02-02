@@ -8,21 +8,25 @@
 <div class="details_content list_table sms_details_content">
 
   <div class="functional_bar">
-    <div class="search_bar float-left">
-      <label class="margin-right-8 line-height-25">选择类型</label>
-      <select class="width-150">
-        <option></option>
-        <option>储值账户使用提醒1</option>
-        <option>储值账户使用提醒2</option>
-        <option>储值账户使用提醒3</option>
-      </select>
-
-      <span>日期</span>
-      <input type="date">
-      <span>至</span>
-      <input type="date">
-      <input type="button" class="btn query_btn" value="查询">
-    </div>
+    <form action="/settings/sms/messages" method="get">
+      <div class="search_bar float-left">
+        <label class="margin-right-8 line-height-25">选择类型</label>
+        <select name="category">
+          <% SmsSwitchType.collection.each do |category| %>
+          <optgroup label="<%= category.name[:type] %>">
+            <% category.name[:sub_category].constantize.collection.each do |sub| %>
+            <option value="<%= category.name[:type]%>-<%= sub.id %>"><%= sub.name %></option>
+            <% end %>
+          </optgroup>
+          <% end %>
+        </select>
+        <span>日期</span>
+        <input type="date" name="start_date" value="<%= params[:start_date]%>">
+        <span>至</span>
+        <input type="date" name="end_date" value="<%= params[:end_date]%>">
+        <input type="submit" class="btn query_btn" value="查询">
+      </div>
+    </form>
   </div>
 
   <table border="1" class="index_list sms_record">
@@ -38,17 +42,17 @@
       </tr>
     <thead>
     <tbody>
-        <% 5.times do %>
+      <% @records.each_with_index do |record, index| %>
       <tr>
-        <td class="number">1</td>
-        <td>2015-1-15 09:44:38</td>
-        <td>15068898085</td>
-        <td>张 实施</td>
-        <td>储值账户使用提醒</td>
-        <td>候名洋，您好，您的储值卡车储500卡使用30.0元，剩余297.0元，用于支付30水釉被膜洗车</td>
-        <td>1</td>
+        <td class="number"><%= index + 1%></td>
+        <td><%= record.created_at.strftime("%Y-%m-%d")%></td>
+        <td><%= record.phone_number%></td>
+        <td><%= record.customer_name%></td>
+        <td><%= record.first_category%> <%= SmsNotifySwitchType.find(record.second_category).name%></td>
+        <td><%= record.content%></td>
+        <td><%= record.quantity%></td>
       </tr>
-        <% end %>
+      <% end %>
     </tbody>
   </table>
 </div>
