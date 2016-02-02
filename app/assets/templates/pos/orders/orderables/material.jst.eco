@@ -11,8 +11,17 @@
   <td><%= @reward_points %></td>
   <td><%= @inventory_quantity %></td>
   <td class="text-align-right">
-    <span class="text-decoration-linethrough display-block"><%= @retail_price + @service_fee_price %></span>
-    <span class="color-08BD48"><%= @vip_price + @service_fee_price %></span>
+    <% if @vip_price_enabled : %>
+      <% if current_customer.isMembership : %>
+        <span title='零售价' class="text-decoration-linethrough display-block"><%= @retail_price %></span>
+        <span title='会员价' class="color-08BD48"><%= @vip_price %></span>
+      <% else : %>
+        <span title='会员价' class="text-decoration-linethrough display-block"><%= @vip_price %></span>
+        <span title='零售价' class="color-08BD48"><%= @retail_price %></span>
+      <% end %>
+    <% else : %>
+      <span class="color-08BD48"><%= @retail_price %></span>
+    <% end %>
   </td>
   <td><input type="checkbox" data-itemid="<%= @id %>" class="material-checkbox"></td>
 </tr>

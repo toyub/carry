@@ -4,7 +4,10 @@ class Mis.Models.StoreService extends Backbone.Model
 
   modelName: 'store_service'
 
-  initialize: ->
+  initialize: (attrs, options) ->
+    super(attrs)
+
+    @store = options.store if options
     @on('change:store_service_workflows_attributes', @parseWorkflows)
     @on('change:uploads', @parseUploads)
     @on('change:store_materials', @parseMaterials)

@@ -18,7 +18,9 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     'click #standard_time_enable': 'toggleStandardTime'
     'click #buffering_time_enable': 'toggleBufferingTime'
     'click #unnominated_workstation': 'unnominatedWorkstation'
+    'click #nominated_workstation': 'nominatedWorkstation'
     'click #workflow_setting': 'enableWorkflowSetting'
+    'click #regular_setting': 'enableRegularSetting'
     'click #create_workflow': 'openWorkflowForm'
     'click #closeWithoutSave': 'goToShow'
 
@@ -28,6 +30,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @renderNav()
     @renderProfileSummary()
     @renderWorkflows() if !@model.isRegular()
+    @renderWorkstations() #if @model.isRegular()
     @
 
   renderNav: ->
@@ -44,10 +47,19 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @$("#workflow_list").parent().show()
 
   unnominatedWorkstation: ->
-    @$("#workstationCategories").hide()
     @$("#storeWorkstations").hide()
-    @$("#getWorkstationCategory").text("")
-    @model.workstations.reset()
+
+  nominatedWorkstation: ->
+    @$("#storeWorkstations").show()
+
+  renderWorkstations: ->
+    @$("#storeWorkstations").empty()
+    console.log @store.workstations
+    @store.workstations.each @addWorkstation
+
+  addWorkstation: (workstation) =>
+    view = new Mis.Views.XiaoshouServiceWorkstationsWorkstation(workflow: @model, model: workstation)
+    @appendChildTo(view, @$("#storeWorkstations"))
 
   disableEngineerCount: ->
     @$("#engineer_count").attr('disabled', true)
@@ -100,11 +112,17 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @appendChildTo(view, @$("#workstationCategories"))
 
   enableWorkflowSetting: ->
+    @$(".j_regular_setting table").find("input, select").attr('disabled', true)
     @$("#create_workflow").attr('disabled', false)
+
+  enableRegularSetting: ->
+    @$(".j_regular_setting table").find("input, select").attr('disabled', false)
+    @$("#create_workflow").attr('disabled', true)
 
   openWorkflowForm: ->
     model = new Mis.Models.StoreServiceWorkflow()
     view = new Mis.Views.XiaoshouServiceWorkflowsForm(model: model, setting: @model)
+    console.log 'open workflow form'
     @appendChildTo(view, @$(".j_workflow_setting"))
 
   handleSuccess: ->
@@ -114,9 +132,11 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @model.workflows.each @renderWorkflow
 
   goToShow: ->
-    @leave()
-    view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
-    $("#bodyContent").html(view.render().el)
+    @model.fetch
+      success: =>
+        @leave()
+        view = new Mis.Views.XiaoshouServiceSettingsShow(model: @model)
+        $("#bodyContent").html(view.render().el)
 
   rootResource: ->
     "service"
