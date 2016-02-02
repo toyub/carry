@@ -1,11 +1,11 @@
 <li><%= @workflow.id %>.</li>
 <li><label class="name"><%= @workflow.get "name" %></label></li>
 <li><%= @workflow.get "engineer_count" %></li>
-<li><%= @workflow.get "engineer_level" %></li>
+<li><%= @workflow.engineerLevel() %></li>
 <li><%= @workflow.get "standard_time" %></li>
 <li><%= @workflow.workstationName() %></li>
 <li>
-<span><%= @workflow.get "mechanic_commission_template_id" %></span>
+<span><%= @workflow.commissionName() %></span>
 <% if @view.isEdit(): %>
   <span class="delete delete_list">×</span>
 <% end %>

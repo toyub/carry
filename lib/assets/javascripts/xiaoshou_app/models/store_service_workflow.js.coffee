@@ -6,7 +6,6 @@ class Mis.Models.StoreServiceWorkflow extends Backbone.Model
 
   initialize: ->
     @initWorkstations()
-    console.log @get "engineer_level"
 
   defaults:
     engineer_count_enable: true
@@ -22,6 +21,19 @@ class Mis.Models.StoreServiceWorkflow extends Backbone.Model
       ).join("，").substring(0,10)
     else
       "不限"
+
+  engineerLevel: ->
+    level = undefined
+    _.each Mis.store.get("engineer_levels"), (value, key) =>
+      level = value if String(key) == String(@get("engineer_level"))
+    level
+
+  commissionName: ->
+    commission = Mis.store.commissionTemplates.find(
+      (c) =>
+        c.id == @get("mechanic_commission_template_id")
+    )
+    commission.get("name") if commission
 
   initWorkstations: ->
     @workstations = new Mis.Collections.StoreWorkstations()
