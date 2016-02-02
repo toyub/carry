@@ -67,7 +67,7 @@ class StoreService < ActiveRecord::Base
   def to_snapshot!(order_item)
     attrs = self.snapshot_attrs.symbolize_keys.merge(templateable: self).merge self.base_attrs(order_item)
     service = StoreServiceSnapshot.create! attrs
-    self.store_service_workflows.each do |w|
+    self.setting.workflows.each do |w|
       options = {
         store_service_id: service.id,
         store_service_workflow_id: w.id
@@ -146,7 +146,7 @@ class StoreService < ActiveRecord::Base
     if setting.workflows.present?
       setting.workflows.each do |flow|
         amount = 0.0
-        amount = flow.engineer_commission.commission(order_item) if flow.engineer_commission.present?
+        amount = flow.mechanic_commission.commission(order_item) if flow.mechanic_commission.present?
         sum += amount
       end
     end

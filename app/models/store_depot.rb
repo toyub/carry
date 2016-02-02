@@ -4,6 +4,8 @@ class StoreDepot  < ActiveRecord::Base
 
   default_scope {where(deleted: false).order('id asc')}
 
+  scope :preferred, ->{where(preferred: true)}
+
   def material_types_count
     self.store_material_inventories.count(:id)
   end

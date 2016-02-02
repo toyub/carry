@@ -63,7 +63,7 @@
               </dl>
               <div class="material-saleinfo-table-items">
                 <div class="committed_project_items">
-                  <dl v-for="item in materialSaleinfoItems">
+                  <dl v-for="item in MaterialItems">
                     <dd style="display:none" class="material-saleinfo-table-item-id">{{item.id}}</dd>
                     <dd></dd>
                     <dd>{{ item.name }}</dd>

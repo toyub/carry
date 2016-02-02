@@ -9,7 +9,7 @@
 
     <div class="settings_in_service settings_in_sales">
 
-      <div class="regular_setting setting_left float-left j_regular_setting">
+      <div class="regular_setting setting_left active float-left j_regular_setting">
         <h2><label for="regular_setting">按常规设置</label>
           <input type="radio" name="setting_type" value="0" <%= 'checked' if @setting.isRegular() %> class="margin-left-8" id="regular_setting">
         </h2>
@@ -90,7 +90,7 @@
             <td>工位设置</td>
             <td></td>
             <td>
-              <input id="unnominated_workstation" type="radio" value="false" <%= 'checked' if @setting.isRegular() && !@setting.nominatedWorkstation() %> name="nominated_workstations">
+              <input id="unnominated_workstation" type="radio" value="false" <%= 'checked' if @setting.isRegular() && !@setting.nominatedWorkstation() %> name="nominated_workstation">
             </td>
             <td colspan="3">
               <label for="unnominated_workstation">系统自动分配</label>
@@ -100,16 +100,12 @@
             <td></td>
             <td></td>
             <td>
-              <input id="nominated_workstation" type="radio" value="true" name="nominated_workstations" <%= 'checked' if @setting.isRegular() && @setting.nominatedWorkstation() %>>
+              <input id="nominated_workstation" type="radio" value="true" name="nominated_workstation" <%= 'checked' if @setting.isRegular() && @setting.nominatedWorkstation() %>>
             </td>
             <td>
               <label for="nominated_workstation">指定工位</label>
             </td>
             <td colspan="2" class="text-align-left">
-              <span id="getWorkstationCategory" class="cursor"></span>
-              <ul id="workstationCategories">
-
-              </ul>
             </td>
           </tr>
           <tr>
@@ -118,7 +114,7 @@
             <td></td>
             <td colspan="3" rowspan="4" class="padding-0">
               <div id="j_workstations">
-                <ul id="storeWorkstations" style="display: none;">
+                <ul id="storeWorkstations" style="<%= 'display: none;' unless @setting.get('nominated_workstation') %>">
 
                 </ul>
               </div>
@@ -148,10 +144,11 @@
             <td></td>
             <td colspan="4" style="text-align:left;">
               提成方案
-              <select class="width-190" name="engineer_commission_template_id" id="workflow_engineer_commission_template_id">
+              <select class="width-190" name="mechanic_commission_template_id" id="workflow_engineer_commission_template_id">
                 <option value="">请选择</option>
+                <% commission = @setting.get 'mechanic_commission_template_id' %>
                 <% @store.commissionTemplates.each (c) ->: %>
-                <option value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
+                <option <%= 'selected' if String(commission ) == String(c.get 'id') %> value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
               <% end %>
               </select>
             </td>
@@ -160,11 +157,11 @@
       </div>
 
 
-      <div class="process_setting setting_right float-right j_workflow_setting">
+      <div class="process_setting setting_right inactive float-right j_workflow_setting">
         <h2>
-          <label class="color-ccc" for="workflow_setting">按流程设置</label>
+          <label for="workflow_setting">按流程设置</label>
           <input type="radio" value="1" name="setting_type" <%= 'checked' if !@setting.isRegular() %> class="margin-left-8 margin-top-0" id="workflow_setting" >
-          <input type="button" id="create_workflow" class="new_btn float-right do_open_list_new_page btn" value="创建" <%= 'disabled' if @setting.isRegular() %>>
+          <input type="button" id="create_workflow" class="new_btn float-right btn" value="创建" <%= 'disabled' if @setting.isRegular() %>>
         </h2>
         <p class="no_process">
         您可以根据需要施工流程进行拆分管理，流程拆分后，施工时间会根据您设定的流程步骤单独计算，

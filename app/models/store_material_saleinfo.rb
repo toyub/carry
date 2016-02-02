@@ -80,4 +80,9 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
       service.to_snapshot!(order_item)
     end
   end
+
+  def inventory
+    depot = self.store.store_depots.preferred.first
+    self.store_material.inventory(depot.id)
+  end
 end

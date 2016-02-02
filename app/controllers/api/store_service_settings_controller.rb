@@ -40,7 +40,7 @@ module Api
             :buffering_time,
             :factor_time,
             :nominated_workstation,
-            :engineer_commission_template_id,
+            :mechanic_commission_template_id,
             :store_workstation_ids]
         )
       end

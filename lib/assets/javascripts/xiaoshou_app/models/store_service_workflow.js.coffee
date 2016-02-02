@@ -15,3 +15,7 @@ class Mis.Models.StoreServiceWorkflow extends Backbone.Model
 
   initWorkstations: ->
     @workstations = new Mis.Collections.StoreWorkstations()
+    Mis.store.workstations.each(
+      (w) =>
+        @workstations.add w if _.contains(@.get('workstation_ids') ? [], w.id.toString())
+    )
