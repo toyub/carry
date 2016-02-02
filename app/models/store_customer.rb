@@ -178,7 +178,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def total_amount
-    orders.pluck(:amount).reduce(:+)
+    orders.pluck(:amount).reduce(:+) || 0.0
   end
 
   def customer_asset

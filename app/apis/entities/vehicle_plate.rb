@@ -8,5 +8,6 @@ module Entities
     expose(:bought_on) {|model| model.store_vehicles.last.try(:detail).try(:bought_on,[])}
     expose(:barnd_name) {|model| model.store_vehicles.last.try(:vehicle_brand).try(:name)}
     expose(:series_name) {|model| model.store_vehicles.last.try(:vehicle_serie).try(:name)}
+    expose(:vip) {|model| model.store_customer_entity.try(:membership) == true ? true : false}
   end
 end
