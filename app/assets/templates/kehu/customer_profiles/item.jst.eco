@@ -9,7 +9,7 @@
 <td><%= @entity.storeCustomer.get 'total_amount' %></td>
 <td></td>
 <td><%= @entity.storeCustomer.get 'integrity' %></td>
-<td></td>
+<td><%= @entity.storeCustomer.get 'activeness' %></td>
 <td>
 </td>
 <td><%= @entity.storeCustomer.get 'operator' %></td>

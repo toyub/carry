@@ -27,7 +27,7 @@ class XiaoshouController < ApplicationController
         json.(entity, :id, :region, :address, :remark, :property, :store_customer_category_id)
         json.store_customer entity.store_customer, :phone_number, :full_name, :operator,
                                                    :vehicles_count, :orders_count, :total_amount,
-                                                   :customer_asset, :integrity
+                                                   :customer_asset, :integrity, :activeness
       end
       json.customer_categories current_store.store_customer_categories, :id, :name
       json.root_material_categories current_store.root_material_categories do |c|

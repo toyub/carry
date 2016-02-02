@@ -202,6 +202,10 @@ class StoreCustomer < ActiveRecord::Base
     end
   end
 
+  def activeness
+    days = (Time.now - created_at).to_i/(60*60*24)
+    (orders.count/days.to_f).to_s[0,6].to_f*100 || 0
+  end
 
   private
   def set_full_name
