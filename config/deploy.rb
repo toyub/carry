@@ -71,7 +71,7 @@ namespace :deploy do
   after  :finishing,    :cleanup
   after  :finishing,    :restart
 
-  after :updating, 'html:update'
+  #after :updating, 'html:update'
 end
 
 # ps aux | grep puma    # Get puma pid

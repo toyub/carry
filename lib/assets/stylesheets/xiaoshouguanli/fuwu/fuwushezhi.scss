@@ -32,7 +32,20 @@ table.service_info_abstract{
 
 div.settings_in_service{
   .regular_setting{
-    min-height:525px;
+    min-height: 542px;
+
+    &.active{
+      h2 label{
+        color: #000;
+      }
+    }
+
+    &.inactive{
+      h2 label{
+        color: #ccc;
+      }
+    }
+
     table{
       margin:10px auto 24px auto;
       tr{
@@ -134,10 +147,27 @@ div.settings_in_service{
     display:block;
     position:relative;
     min-height: 542px;
-    input.not_available{
-    	background:#e7e7e7 !important;
-      cursor:auto;
+
+    &.active{
+      h2{
+        label{
+          color: #000;
+        }
+      }
     }
+
+    &.inactive{
+      h2{
+        label{
+          color: #ccc;
+        }
+        .new_btn{
+          background:#e7e7e7 !important;
+          cursor:auto;
+        }
+      }
+    }
+
     p.no_process{
       width:79%;
       position:absolute; top:94px; left:95px;

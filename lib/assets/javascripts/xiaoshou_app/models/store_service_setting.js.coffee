@@ -25,10 +25,16 @@ class Mis.Models.StoreServiceSetting extends Backbone.Model
     @initWorkstations()
 
     @on('change:workflows', @parseWorkflows, @)
+    @on('change:workstation_ids', @initWorkstations, @)
     @on('sync', @parseWorkflows)
 
   initWorkstations: ->
     @workstations = new Mis.Collections.StoreWorkstations()
+    store = @store_service.store ? Mis.store
+    store.workstations.each(
+      (w) =>
+        @workstations.add w if _.contains(@get('workstation_ids') ? [], w.id.toString())
+    )
 
   parseStoreService: ->
     @store_service = @get 'store_service'

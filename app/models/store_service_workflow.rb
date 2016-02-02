@@ -2,12 +2,17 @@ class StoreServiceWorkflow < ActiveRecord::Base
   include BaseModel
 
   belongs_to :store_service
-  belongs_to :sales_commission, class_name: 'StoreCommissionTemplate', foreign_key: :sales_commission_template_id
-  belongs_to :engineer_commission, class_name: 'StoreCommissionTemplate', foreign_key: :engineer_commission_template_id
+  belongs_to :store_service_setting
+  belongs_to :mechanic_commission, class_name: 'StoreCommissionTemplate', foreign_key: :mechanic_commission_template_id
   has_many :snapshots, class_name: "StoreServiceWorkflowSnapshot", foreign_key: :store_service_workflow_id
 
   validates :store_staff_id, presence: true
   #validates :store_service_setting_id, presence: true
+
+  before_save :set_service
+  def set_service
+    self.store_service = self.store_service_setting.store_service
+  end
 
   ENGINEER_LEVEL = {
     '初级' => 1,
@@ -47,6 +52,10 @@ class StoreServiceWorkflow < ActiveRecord::Base
 
   def work_time_in_minutes
     self.standard_time.to_i + self.buffering_time.to_i + self.factor_time.to_i
+  end
+
+  def workstation_ids
+    self.store_workstation_ids.to_s.split(",")
   end
 
 end

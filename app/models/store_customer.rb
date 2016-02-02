@@ -169,6 +169,22 @@ class StoreCustomer < ActiveRecord::Base
     '教师'
   end
 
+  def vehicles_count
+    plates.count
+  end
+
+  def orders_count
+    orders.count
+  end
+
+  def total_amount
+    orders.pluck(:amount).reduce(:+)
+  end
+
+  def customer_asset
+    store_customer_entity.try(:membership) == true ? "会员" : "非会员"
+  end
+
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"

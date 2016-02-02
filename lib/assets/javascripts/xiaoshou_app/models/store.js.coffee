@@ -16,14 +16,14 @@ class Mis.Models.Store extends Backbone.Model
     @on('change:cities', @parseCities, @)
     @on('change:regions', @parseRegions, @)
 
+    @parseRootMaterialCategories()
+    @parseWorkstations()
     @parseServices()
     @parseServiceCategories()
     @parsePackages()
     @parseCustomers()
-    @parseRootMaterialCategories()
     @parseMaterials()
     @parseWorkstationCategories()
-    @parseWorkstations()
     @parseCommissionTemplates()
     @parseCustomerCategories()
     @parseProvinces()
@@ -45,7 +45,7 @@ class Mis.Models.Store extends Backbone.Model
     @customerEntities = new Mis.Collections.StoreCustomerEntities(@get 'customers')
 
   parseServices: ->
-    @services = new Mis.Collections.StoreServices(@get 'services')
+    @services = new Mis.Collections.StoreServices(@get('services'), store: @)
 
   parseWorkstationCategories: ->
     @workstationCategories = new Mis.Collections.StoreWorkstationCategories(@get 'store_workstation_categories')

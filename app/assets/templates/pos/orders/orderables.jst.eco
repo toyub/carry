@@ -23,9 +23,6 @@
 		</thead>
 		<tbody id='js-orderables-materials'></tbody>
 	</table>
-  <div class="btn_group margin-right-20">
-    <a href="javascript:void(0)" class="selected_btn btn js-select-materials">选中</a>
-  </div>
 </div>
 
 <div class="order_item order_service js-orderables-services">
@@ -43,9 +40,6 @@
 		</thead>
 		<tbody id='js-orderables-services'></tbody>
 	</table>
-  <div class="btn_group margin-right-20">
-    <a href="javascript:void(0)" class="selected_btn btn js-select-services">选中</a>
-  </div>
 </div>
 
 <div class="order_item order_package js-orderables-packages">
@@ -54,7 +48,7 @@
 			<tr>
 				<th>#</th>
 				<th>名称</th>
-				<th>套餐类别</th>
+				<th></th>
 				<th>项目</th>
 				<th>有效期</th>
 				<th>积分</th>
@@ -64,7 +58,6 @@
 		</thead>
 		<tbody id='js-orderables-packages'></tbody>
 	</table>
-	<div class="btn_group margin-right-20"><a href="javascript:void(0)" class="selected_btn btn js-select-packages">选中</a></div>
 </div>
 
 <div class="order_item order_vip js-orderables-assets">
