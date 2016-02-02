@@ -27,7 +27,8 @@ class Mis.Models.StoreCustomerEntity extends Backbone.Model
   parseStoreCustomerSettlement: ->
     @storeCustomerSettlement = new Mis.Models.StoreCustomerSettlement(@get 'store_customer_settlement')
 
-  propertyName: -> Mis.Settings.Entity.properties[@get 'property']
+  propertyName: ->
+    @get 'property_i18n'
 
   category: ->
     Mis.store.customerCategories.get(@get 'store_customer_category_id') || new Mis.Models.NullObject()
