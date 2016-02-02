@@ -168,7 +168,6 @@
 
       var staffers = new Collection();
       staffers.fetch({success: function(){
-        console.log(staffers)
         var view = new View({collection: staffers});
         view.render();
       }});
