@@ -62,7 +62,7 @@
       });
 
       var Collection = Backbone.Collection.extend({
-        url: '/api/store_staff',
+        url: '/api/store_operators',
 
         model: Model,
 
@@ -168,6 +168,7 @@
 
       var staffers = new Collection();
       staffers.fetch({success: function(){
+        console.log(staffers)
         var view = new View({collection: staffers});
         view.render();
       }});
