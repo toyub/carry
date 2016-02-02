@@ -14,10 +14,10 @@ module V1
 
       add_desc "商品的类别(二级)"
       params do
-        requires :store_material_category_root_id, type: Integer, desc: '一级分类的id'
+        requires :store_material_root_category_id, type: Integer, desc: '一级分类的id'
       end
       get :sub_categories do
-        root_category = current_store_chain.store_material_categories.find(params[:store_material_category_root_id])
+        root_category = current_store_chain.store_material_categories.find(params[:store_material_root_category_id])
         present root_category.sub_categories, with: ::Entities::MaterialCategory
       end
     end
