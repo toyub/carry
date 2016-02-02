@@ -203,7 +203,7 @@ class StoreCustomer < ActiveRecord::Base
     if store_customer_entity.try(:property_name) == "集团客户"
       ((customer_complation_count + entity_complation_count + settlement_complation_count + 3)/21).to_s[0,6].to_f*100
     else
-      ((customer_complation_count + entity_complation_count + 3)/15).to_s[0,6].to_f*100
+      ((customer_complation_count + entity_complation_count + 3)/15).round(4)*100
     end
   end
 
@@ -222,7 +222,7 @@ class StoreCustomer < ActiveRecord::Base
 
   def activeness
     days = (Time.now - created_at).to_i/(60*60*24)
-    ((orders.count.to_f/days)*100).to_s[0,4] || 0
+    (orders.count.to_f/days).round(6)*100 || 0
   end
 
   private
