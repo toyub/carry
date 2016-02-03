@@ -201,9 +201,9 @@ class StoreCustomer < ActiveRecord::Base
 
   def integrity
     if store_customer_entity.try(:property_name) == "集团客户"
-      ((customer_complation_count + entity_complation_count + settlement_complation_count + 3)/21).to_s[0,6].to_f*100
+      ((customer_complation_count + entity_complation_count + settlement_complation_count + 3)/21)*100.round(2)
     else
-      ((customer_complation_count + entity_complation_count + 3)/15).round(4)*100
+      ((customer_complation_count + entity_complation_count + 3)/15)*100.round(2)
     end
   end
 
@@ -221,8 +221,8 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def activeness
-    days = (Time.now - created_at).to_i/(60*60*24).to_f
-    (orders.count.to_f/days).round(4)*100 || 0
+    days = (Time.now - created_at).to_i/(60*60*24)
+    ((orders.count.to_f/days)*100).round(2) || 0
   end
 
   private
