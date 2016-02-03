@@ -4,7 +4,7 @@ module Api
       class ServicesController < Api::BaseController
         def index
           @q = current_store.store_services.ransack(params[:q])
-          @services = @q.result(distinct: true).order("id asc")
+          @services = @q.result.order("id asc")
         end
       end
     end
