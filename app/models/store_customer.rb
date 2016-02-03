@@ -209,6 +209,16 @@ class StoreCustomer < ActiveRecord::Base
     end
   end
 
+  def activeness
+    days = (Time.now - created_at).to_i/(60*60*24)
+    ((orders.count.to_f/days)*100).round(2) || 0
+  end
+
+  private
+  def set_full_name
+    self.full_name = "#{last_name}#{first_name}"
+  end
+
   def customer_complation_count
     CUSTOMER.map(&->(c){self.send(c).present?}).select{|result| result == true}.count.to_f
   end
@@ -220,15 +230,5 @@ class StoreCustomer < ActiveRecord::Base
   def settlement_complation_count
     sett_integrity = SETTLEMENT.map(&->(c){self.store_customer_entity.store_customer_settlement.send(c).present?})
     sett_integrity.select{|result| result == true}.count.to_f
-  end
-
-  def activeness
-    days = (Time.now - created_at).to_i/(60*60*24)
-    ((orders.count.to_f/days)*100).round(2) || 0
-  end
-
-  private
-  def set_full_name
-    self.full_name = "#{last_name}#{first_name}"
   end
 end
