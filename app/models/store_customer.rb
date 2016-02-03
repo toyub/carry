@@ -185,7 +185,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def vehicles_count
-    plates.count
+    store_vehicles.map(&->(m){m.vehicle_plates.last.plate.license_number}).count
   end
 
   def orders_count
@@ -197,7 +197,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def customer_asset
-    store_customer_entity.try(:membership) == true ? "会员" : "非会员"
+    store_customer_entity.try(:membership) == true ? "有" : "无"
   end
 
   def integrity
