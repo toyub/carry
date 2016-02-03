@@ -59,7 +59,8 @@ class StoreCustomer < ActiveRecord::Base
               "income",
               "company"
               ]
-
+  COMPANY_COUNT = 21
+  PERSONAL = 15
 
   def deposit_cards_assets
     assets.where(type: "StoreCustomerDepositCard")
@@ -200,10 +201,11 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def integrity
+    count = customer_complation_count + entity_complation_count + 3
     if store_customer_entity.try(:property_name) == "集团客户"
-      ((customer_complation_count + entity_complation_count + settlement_complation_count + 3)/21)*100.round(2)
+      (((count + settlement_complation_count)/COMPANY_COUNT)*100).round(2)
     else
-      ((customer_complation_count + entity_complation_count + 3)/15)*100.round(2)
+      ((count/PERSONAL)*100).round(2)
     end
   end
 
