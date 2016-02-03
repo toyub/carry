@@ -11,12 +11,14 @@ class Mis.Views.XiaoshouServiceWorkflowsItem extends Mis.Base.View
 
     @listenTo(@model, 'remove', @leave)
     @listenTo(@model, 'change', @render)
+    @listenTo(@model.workstations, "all", @render)
 
   events:
     'click span.delete': 'clear'
     'click label.name': 'editOrShow'
 
   render: ->
+    console.log @model
     @$el.html(@template(workflow: @model, view: @))
     @
 

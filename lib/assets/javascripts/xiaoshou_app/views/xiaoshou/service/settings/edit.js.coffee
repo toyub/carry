@@ -5,7 +5,6 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
 
   initialize: ->
     @store = Mis.store
-
     @listenTo(@model.workflows, 'add', @renderWorkflow)
     @listenTo(@model, 'sync', @handleSuccess)
 
@@ -112,12 +111,16 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @appendChildTo(view, @$("#workstationCategories"))
 
   enableWorkflowSetting: ->
+    @$(".j_regular_setting").addClass("inactive").removeClass("active")
+    @$(".j_workflow_setting").addClass("active").removeClass("inactive")
     @$(".j_regular_setting table").find("input, select").attr('disabled', true)
-    @$("#create_workflow").attr('disabled', false)
+    @$("#create_workflow").addClass("btn").attr('disabled', false)
 
   enableRegularSetting: ->
+    @$(".j_regular_setting").addClass("active").removeClass("inactive")
+    @$(".j_workflow_setting").addClass("inactive").removeClass("active")
     @$(".j_regular_setting table").find("input, select").attr('disabled', false)
-    @$("#create_workflow").attr('disabled', true)
+    @$("#create_workflow").removeClass("btn").attr('disabled', true)
 
   openWorkflowForm: ->
     model = new Mis.Models.StoreServiceWorkflow()
