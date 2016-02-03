@@ -405,6 +405,7 @@ Rails.application.routes.draw do
 
       namespace :customers do
         resources :vehicles
+        resources :assets
       end
 
       namespace :carts do
