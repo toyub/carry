@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126061341) do
+ActiveRecord::Schema.define(version: 20160203071707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1528,6 +1528,7 @@ ActiveRecord::Schema.define(version: 20160126061341) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "category_id"
+    t.boolean  "bargain_price_enabled",                                     default: false
   end
 
   create_table "store_settlement_accounts", force: :cascade do |t|

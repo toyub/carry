@@ -19,11 +19,11 @@
               <input type="text" class="width-165" name="retail_price" value="<%= @service.get 'retail_price' %>">
             </div>
             <div class="item_content">
-              <input type="radio" class="toggleable margin-left-15" data-target="radio_btn" data-checked="">
+              <input type="checkbox" id="bargain_price_enabled" name="bargain_price_enabled" class="toggleable margin-left-15" <%= 'checked' if @service.get 'bargain_price_enabled' %> >
               <label class="width-40">
                 优惠价
               </label>
-              <input type="text" class="width-165" name="bargain_price" value="<%= @service.get 'bargain_price' %>">
+              <input type="text" class="width-165" name="bargain_price" value="<%= @service.get 'bargain_price' %>" <%= 'disabled' unless @service.get 'bargain_price_enabled' %>>
             </div>
             <div class="item_content">
               <label class="width-75">服务积分</label>
