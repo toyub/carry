@@ -18,6 +18,7 @@
       </select>
       <label>二级分类</label><select class='width-80' name="store_material_category_id"></select>
       <label>商品品牌</label><select class='width-80' name="store_material_brand_id">
+          <option value="">全部</option>
           <% for category in @store_material_brands : %>
             <option value="<%= category.id %>"><%= category.name %></option>
           <% end %>
@@ -44,14 +45,14 @@
 </div>
 
 <div class="order_item order_service js-orderables-services">
-  <form action="/api/pos/products/services.json" method="GET">
-    <label>服务类别</label><select class="width-80" name="category_id">
+  <form id='search-services' action="/api/pos/products/services.json" method="GET">
+    <label>服务类别</label><select class="width-80" name="q[category_id_eq]">
       <option value="">全部</option>
       <% for category in @service_categories : %>
         <option value="<%= category.id %>"><%= category.name %></option>
       <% end %>
     </select>
-    <label>查找关键字</label><input type="text" name="keyword" value="">
+    <label>查找关键字</label><input type="text" name="q[name_cont]" value="">
     <input type="submit" value="查 询">
   </form>
 
@@ -72,8 +73,8 @@
 </div>
 
 <div class="order_item order_package js-orderables-packages">
-  <form action="/api/pos/products/packages.json" method="GET">
-    <label>查找关键字</label><input type="text" name="keyword" value="">
+  <form id='search-packages' action="/api/pos/products/packages.json" method="GET">
+    <label>查找关键字</label><input type="text" name="q[name_cont]" value="">
     <input type="submit" value="查 询">
   </form>
 	<table cellpadding="0" cellspacing="0">
