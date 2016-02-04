@@ -1,12 +1,12 @@
 module V1
   class Plate < Grape::API
 
-    resource :plates, desc: "员工相关" do
+    resource :plates, desc: "车牌搜索用户" do
       before do
         authenticate_user!
       end
 
-      add_desc "员工列表"
+      add_desc "车牌搜索用户"
       params do
         optional :q, type: Hash, default: {} do
           optional :license_number_cont, type: String, desc: "车牌"
