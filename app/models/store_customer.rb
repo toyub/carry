@@ -47,18 +47,10 @@ class StoreCustomer < ActiveRecord::Base
   enum profession: %w[it finance energy education engineering others]
   enum income: %w[ilow imiddle iupper ihigh]
 
-  ENTITY = ["district","address","property"]
-  SETTLEMENT = ["contract","bank","bank_account","tax","invoice_title","payment_mode"]
-  CUSTOMER = ["full_name",
-              "age",
-              "qq",
-              "resident_id",
-              "phone_number",
-              "profession",
-              "education",
-              "income",
-              "company"
-              ]
+  ENTITY = %w(district address address)
+  SETTLEMENT = %w(contract bank bank_account tax invoice_title payment_mode)
+  CUSTOMER = %w(full_name age qq resident_id phone_number profession education income company)
+
   COMPANY_COUNT = 21
   PERSONAL = 15
 
