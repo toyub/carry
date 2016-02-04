@@ -44,11 +44,12 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
 
   triggerPriceInput: (e) ->
     checkbox = $(e.target)
-    console.log(checkbox.prop("checked"))
-    if (checkbox.prop("checked") == true) 
-      checkbox.next("input").removeAttr("disabled") 
+    input_bargain_price = $("#bargain_price")
+    checkbox.val(checkbox.prop('checked'));
+    if checkbox.prop("checked")
+      input_bargain_price.prop("disabled", false)
     else
-      checkbox.next("input").attr("disabled", "disabled")
+      input_bargain_price.prop("disabled", true)
 
   handleSuccess: ->
     @uploadImages()
