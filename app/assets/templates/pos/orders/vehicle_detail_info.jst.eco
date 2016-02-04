@@ -11,7 +11,7 @@
         <select name='vehicle[vehicle_brand_id]' class="width-110 js-select-vehicle-brand">
           <option value="">请选择</option>
           <% for brand in @vehicle_brands : %>
-            <option <%= 'selected' if String(@vehicle_brand.id) == String(brand.id) %> value ="<%= brand.id %>"><%= brand.name %></option>
+            <option <%= 'selected' if String(@vehicle_brand && @vehicle_brand.id) == String(brand.id) %> value ="<%= brand.id %>"><%= brand.name %></option>
           <% end %>
         </select>
       </dd>

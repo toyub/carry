@@ -1,0 +1,54 @@
+
+  <ul>
+    <li>#</li>
+    <li>名称</li>
+    <li>-</li>
+    <li>卡内项目</li>
+    <li>剩余项目</li>
+    <li>有效期</li>
+    <li>详情</li>
+  </ul>
+  <% for asset, idx in @assets : %>
+  <ul class="doslide">
+    <li><%= idx + 1 %></li>
+    <li><%= asset.package_name || '-' %></li>
+    <li>-</li>
+    <li>-</li>
+    <li>-</li>
+    <li>-</li>
+    <li><i class="fa-angle-double-down fa cursor-pointer font-16"></i></li>
+  </ul>
+  <div class="card_item_info" style="display:block">
+    <table>
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>套餐次数</th>
+          <th>使用次数</th>
+          <th>剩余</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for item in asset.items : %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.total_quantity %></td>
+          <td><%= item.used_quantity %></td>
+          <td><%= item.total_quantity - item.used_quantity %></td>
+          <td><input type='checkbox'></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td colspan="5"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"></td>
+          <td colspan="2" class="text-align-center"><input type="button" value="选中" class="save_btn btn"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <% end %>

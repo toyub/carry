@@ -11,6 +11,8 @@ class StorePackageItem < ActiveRecord::Base
   
   scope :deposits_cards, ->{where(package_itemable_type: StoreDepositCard.name)}
   scope :packaged_services, ->{where(package_itemable_type: StoreService.name)}
+
+  belongs_to :store_package_setting
   
   private
     def create_deposit_card

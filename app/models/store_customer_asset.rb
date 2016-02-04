@@ -4,5 +4,11 @@ class StoreCustomerAsset < ActiveRecord::Base
    belongs_to :package, polymorphic: true
    has_many :items, class_name: 'StoreCustomerAssetItem'
 
+   scope :serviceable, ->{where(type: [StoreCustomerTaozhuang.name, StoreCustomerPackagedService.name])}
+
    accepts_nested_attributes_for :items
+
+   def name
+    package.try :name
+   end
 end

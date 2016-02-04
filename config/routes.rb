@@ -403,15 +403,17 @@ Rails.application.routes.draw do
         resources :services
       end
 
-      namespace :customers do
-        resources :vehicles
-        resources :assets
-      end
-
       namespace :carts do
         resources :orders do
           resources :items
         end
+      end
+    end
+
+    namespace :crm do
+      resources :customers do
+        resources :vehicles
+        resources :assets
       end
     end
 
