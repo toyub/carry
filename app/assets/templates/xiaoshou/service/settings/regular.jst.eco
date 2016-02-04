@@ -1,6 +1,6 @@
 <% setting = @setting %>
 <div class="regular_setting setting_left float-left">
-  <h2>按常规设置
+  <h2><label class="<%= 'color-ccc' unless @setting.isRegular() %>">按常规设置
     <input type="radio" name="service_setting_select" checked class="margin-left-8 " disabled="">
   </h2>
   <table>
@@ -127,7 +127,7 @@
 
 <div class="process_setting setting_right float-right">
   <h2>
-    <label>按流程设置</label>
+    <label for="regular_setting" class="<%= 'color-ccc' if @setting.isRegular() %>">按流程设置</label>
     <input type="radio" name="service_setting_select" id="service_process_setting_sel" class="margin-left-8 margin-top-0 " disabled="">
   </h2>
   <p class="no_process">
