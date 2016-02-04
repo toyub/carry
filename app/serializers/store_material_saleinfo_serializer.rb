@@ -21,12 +21,7 @@ class StoreMaterialSaleinfoSerializer < ActiveModel::Serializer
   end
 
   def inventory_quantity
-    store_depot = StoreDepot.where(preferred: true).first
-    if store_depot
-      object.store_material.inventory(store_depot.id)
-    else
-      0
-    end
+    0
   end
 
   def quantity

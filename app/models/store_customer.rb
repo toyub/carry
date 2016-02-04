@@ -32,7 +32,7 @@ class StoreCustomer < ActiveRecord::Base
   scope :male, -> { where(gender: true) }
   scope :membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: true})}
   scope :non_membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: false})}
-  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'group'})}
+  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'company'})}
   scope :personal_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'personal'})}
 
 
@@ -42,6 +42,10 @@ class StoreCustomer < ActiveRecord::Base
   accepts_nested_attributes_for :taggings
 
   before_save :set_full_name
+
+  enum education: %w[middle high academy graduate postgraduate]
+  enum profession: %w[it finance energy education engineering others]
+  enum income: %w[ilow imiddle iupper ihigh]
 
   def deposit_cards_assets
     assets.where(type: "StoreCustomerDepositCard")
@@ -81,31 +85,31 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def property
-    StoreCustomerEntity::PROPERTIES[self.store_customer_entity.read_attribute(:property)]
+    self.store_customer_entity.try(:property)
   end
 
-  def education
-    StoreCustomerEntity::EDUCATIONS[self.read_attribute(:education)]
+  def education_i18n
+    I18n.t "enums.store_customer.education.#{self.education}"
   end
 
-  def income
-    StoreCustomerEntity::INCOMES[self.read_attribute(:income)]
+  def income_i18n
+    I18n.t "enums.store_customer.income.#{self.income}"
   end
 
   def credit
-    StoreCustomerEntity::CREDIS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:credit))]
+    self.store_customer_entity.try(:store_customer_settlement).try(:credit_i18n)
   end
 
   def notice_period
-    StoreCustomerEntity::SETTLEMENTS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:notice_period))]
+    self.store_customer_entity.try(:store_customer_settlement).try(:notice_period_i18n)
   end
 
   def payment_mode
-    StoreCustomerEntity::PAYMENTS[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:payment_mode))]
+    self.store_customer_entity.try(:store_customer_settlement).try(:payment_mode_i18n)
   end
 
   def invoice_type
-    StoreCustomerEntity::INVOICES[self.store_customer_entity.try(:store_customer_settlement).try(:read_attribute,(:invoice_type))]
+    self.store_customer_entity.try(:store_customer_settlement).try(:invoice_type_i18n)
   end
 
   def district
@@ -166,7 +170,11 @@ class StoreCustomer < ActiveRecord::Base
   end
 	#＃ Todo 客户职业
   def profession_name
-    '教师'
+    self.profession_i18n
+  end
+
+  def profession_i18n
+    I18n.t "enums.store_customer.profession.#{self.profession}"
   end
 
   private

@@ -278,6 +278,7 @@ Rails.application.routes.draw do
 
 
     resources :store_staff, only: [:index, :update]
+    resources :store_operators, only: [:index, :update]
     resources :store_service_categories, only: [:create]
     resources :store_services, only: [:index, :show, :create, :update] do
       resources :store_service_workflows, only: [:create, :destroy, :update]
@@ -301,6 +302,10 @@ Rails.application.routes.draw do
     resources :store_orders do
       collection do
         post :draft
+      end
+      member do
+        put :update_draft
+        patch :update_draft
       end
       resources :complaints, only:[:new, :create]
     end
@@ -393,6 +398,19 @@ Rails.application.routes.draw do
 
     namespace :pos do
       namespace :products do
+        resources :materials
+        resources :packages
+        resources :services
+      end
+
+      namespace :customers do
+        resources :vehicles
+      end
+
+      namespace :carts do
+        resources :orders do
+          resources :items
+        end
       end
     end
 
