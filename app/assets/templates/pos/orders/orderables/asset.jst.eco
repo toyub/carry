@@ -36,7 +36,7 @@
           <td><%= item.total_quantity %></td>
           <td><%= item.used_quantity %></td>
           <td><%= item.total_quantity - item.used_quantity %></td>
-          <td><input type='checkbox'></td>
+          <td><input data-assetid='<%= asset.id %>' data-assetitem='<%= item.id %>' type='checkbox'></td>
         </tr>
         <% end %>
         <tr>
@@ -46,7 +46,7 @@
       <tfoot>
         <tr>
           <td colspan="3"></td>
-          <td colspan="2" class="text-align-center"><input type="button" value="选中" class="save_btn btn"></td>
+          <td colspan="2" class="text-align-center"><input type="button" value="选中" class="save_btn btn js-chose-asset"></td>
         </tr>
       </tfoot>
     </table>
