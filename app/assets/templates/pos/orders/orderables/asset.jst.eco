@@ -2,7 +2,7 @@
   <ul>
     <li>#</li>
     <li>名称</li>
-    <li>-</li>
+    <li>购买日期</li>
     <li>卡内项目</li>
     <li>剩余项目</li>
     <li>有效期</li>
@@ -12,13 +12,13 @@
   <ul class="doslide">
     <li><%= idx + 1 %></li>
     <li><%= asset.package_name || '-' %></li>
+    <li><%= asset.created_at %></li>
     <li>-</li>
     <li>-</li>
     <li>-</li>
-    <li>-</li>
-    <li><i class="fa-angle-double-down fa cursor-pointer font-16"></i></li>
+    <li><i class="fa-angle-double-down fa cursor-pointer font-16 js-detail"></i></li>
   </ul>
-  <div class="card_item_info" style="display:block">
+  <div class="card_item_info">
     <table>
       <thead>
         <tr>

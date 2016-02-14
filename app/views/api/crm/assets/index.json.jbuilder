@@ -5,5 +5,6 @@ json.customer do
     json.id asset.id
     json.package_name asset.package_name
     json.items asset.items, :id, :total_quantity, :used_quantity, :name
+    json.created_at asset.created_at.to_s(:date_only)
   end
 end
