@@ -64,6 +64,14 @@ class StoreService < ActiveRecord::Base
     self.setting_type == SETTING_TYPE[:workflow]
   end
 
+  def standard_time
+    setting.try(:workflow).try(:standard_time)
+  end
+
+  def engineer_count
+    setting.try(:workflow).try(:engineer_count)
+  end
+
   def to_snapshot!(order_item)
     attrs = self.snapshot_attrs.symbolize_keys.merge(templateable: self).merge self.base_attrs(order_item)
     service = StoreServiceSnapshot.create! attrs
