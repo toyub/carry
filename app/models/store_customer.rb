@@ -216,7 +216,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def entity_complation_count
-    ENTITY.map(&->(c){self.store_customer_entity.send(c).present?}).select{|result| result == true}.count.to_f
+    ENTITY.map(&->(c){self.store_customer_entity.try(:send,(c)).present?}).select{|result| result == true}.count.to_f
   end
 
   def settlement_complation_count
