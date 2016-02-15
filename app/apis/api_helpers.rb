@@ -47,8 +47,8 @@ module APIHelpers
     current_user.store
   end
 
-  def platform_accessible(params)
-    params == "app" || params == "erp"
+  def platform_accessible(platform)
+    platform == "app" || platform == "erp"
   end
 
   # 迭代对 params 的 values 进行编码处理
