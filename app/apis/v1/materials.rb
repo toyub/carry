@@ -3,13 +3,19 @@ module V1
 
     resource :materials, desc: "商品相关" do
       before do
+        authenticate_platform!
         authenticate_user!
       end
 
       add_desc "商品列表"
       params do
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
+        optional :store_id, type: Integer, desc: "门店ID(ipad)"
+        optional :chain_id, type: Integer, desc: "总店ID(erp)"
         optional :q, type: Hash, default: {} do
           optional :store_id_eq, type: Integer, desc: "所属门店ID"
+          optional :store_material_root_category_id_eq, type: Integer, desc: '一级类别的id--ipad'
+          optional :store_material_category_id_eq, type: Integer, desc: '二级类别的id--ipad'
           optional :name_cont, type: String, desc: "商品名称"
           optional :store_material_saleinfo_sale_category_id_eq, type: Integer, desc: "销售类别"
           optional :store_material_saleinfo_retail_price_gteq, type: Float, desc: "价格区间-最小价格"
@@ -19,10 +25,11 @@ module V1
         end
       end
       get do
-        q = current_store_chain.store_materials.saleable.ransack(params[:q])
-        present q.result, with: ::Entities::Material
+        materials = StoreMaterial.by_store_chain(params[:chain_id]).by_store(params[:store_id])
+        store_materials = materials.saleable.ransack(params[:q]).result
+        present store_materials, with: ::Entities::Material
       end
-    end
 
+    end
   end
 end

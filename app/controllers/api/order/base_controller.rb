@@ -7,11 +7,11 @@ module Api
 
       private
       def get_store
-        @store = Store.find(2488)
       end
 
       def get_store_staff
         @staffer = StoreStaff.find(2491)
+        @store = @staffer.store
       end
 
       def get_customer

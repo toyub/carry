@@ -6,14 +6,14 @@ module Api
         @state = 0
         @customer = StoreCustomer.where(phone_number: params[:phone_number]).last
         if @customer
-          @info = "客户已经存在!"
-        else
-          status = AddVehicleForIpadService.call(customer_params,vehicle_params,plate_params)
+          status = AddVehicleForIpadService.call(vehicle_params,plate_params, customer: @customer)
           @state = 1 if status.success?
-          @customer = status.customer
-          @info = status.notice
+        else
+          status = AddVehicleForIpadService.call(vehicle_params,plate_params, customer_params)
+          @state = 1 if status.success?
         end
-        respond_with @customer,@state,@info, location: nil
+        @info = status.notice
+        respond_with @state,@info, location: nil
       end
 
 
