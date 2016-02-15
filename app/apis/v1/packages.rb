@@ -20,14 +20,14 @@ module V1
       end
 
       get do
-        if params[:platform] == "app" || params[:platform] == "erp"
-
+        if platform?(params[:platform])
           if params[:platform] == "app"
             store_packages = current_store.store_packages.order(params[:q][:s])
           else
             store_packages = current_store_chain.store_packages.order(params[:q][:s])
           end
           q = store_packages.ransack(params[:q].except(:s))
+          store_packages = q.result
           present q.result.order('id asc'), with: ::Entities::Package
         else
           error! status: "请选择平台app或erp!"

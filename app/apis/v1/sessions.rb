@@ -14,9 +14,7 @@ module V1
       end
 
       post do
-        if params[:platform] != "app" && params[:platform] != "erp"
-          error! status: "请选择调用的平台, app或erp!", staff: nil
-        else
+        if platform?(params[:platform])
           staff = StoreStaff.find_by(login_name: params[:login_name])
           status = AuthenticateStaffService.call(staff, params[:password],platform: params[:platform])
           if status.success?
@@ -26,7 +24,10 @@ module V1
           else
             error! status: status.notice, staff: nil
           end
+        else
+          error! status: "请选择调用的平台, app或erp!", staff: nil
         end
+
       end
     end
   end

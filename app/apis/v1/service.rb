@@ -18,14 +18,15 @@ module V1
         end
       end
       get "/" do
-        if params[:platform] == "app" || params[:platform] == "erp"
+        if platform?(params[:platform])
           params[:q] = { service_category_id_eq: params[:service_category_id] } if params[:service_category_id]
           if params[:platform] == "app"
             q = current_store.store_services.ransack(params[:q])
           else
             q = current_store_chain.store_services.ransack(params[:q])
           end
-          present q.result, with: ::Entities::Service
+          store_services = q.result
+          present store_services, with: ::Entities::Service
         else
           error! status: "请选择平台app或erp!"
         end
