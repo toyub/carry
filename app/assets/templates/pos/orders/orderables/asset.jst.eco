@@ -43,12 +43,6 @@
           <td colspan="5"></td>
         </tr>
       </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3"></td>
-          <td colspan="2" class="text-align-center"><input type="button" value="选中" class="save_btn btn js-chose-asset"></td>
-        </tr>
-      </tfoot>
     </table>
   </div>
   <% end %>
