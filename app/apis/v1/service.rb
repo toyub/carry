@@ -8,9 +8,9 @@ module V1
       add_desc "销售管理-服务列表"
       params do
         requires :platform, type: String, desc: '调用的平台(app或者erp)'
+        optional :service_category_id, type: Integer, desc: '服务类别的id--ipad'
         optional :q, type: Hash, default: {} do
           optional :name_cont, type: String, desc: '服务名称'
-          optional :service_category_id, type: Integer, desc: '服务类别的id--ipad'
           optional :store_id_eq, type: Integer, desc: "门店ID"
           optional :category_id_eq, type: Integer, desc: "类别ID"
           optional :retail_price_gte, type: BigDecimal, desc: '销售价'
