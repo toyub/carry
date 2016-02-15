@@ -11,7 +11,8 @@
     <form action="/settings/sms/messages" method="get">
       <div class="search_bar float-left">
         <label class="margin-right-8 line-height-25">选择类型</label>
-        <select name="category">
+        <select name="category" id="category">
+          <option value="">所有类型</option>
           <% SmsSwitchType.collection.each do |category| %>
           <optgroup label="<%= category.name[:type] %>">
             <% category.name[:sub_category].constantize.collection.each do |sub| %>
@@ -56,3 +57,6 @@
     </tbody>
   </table>
 </div>
+<script type="text/javascript">
+  $('#category').val("<%= params[:category]%>");
+</script>
