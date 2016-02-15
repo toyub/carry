@@ -36,7 +36,7 @@ module APIHelpers
   end
 
   def authenticate_platform!
-    raise APIErrors::AuthenticateFail unless platform_accessible(params[:platform])
+    raise APIErrors::AuthenticateFail unless platform_accessible?(params[:platform])
   end
 
   def current_store_chain
@@ -47,7 +47,7 @@ module APIHelpers
     current_user.store
   end
 
-  def platform_accessible(platform)
+  def platform_accessible?(platform)
     platform == "app" || platform == "erp"
   end
 
