@@ -44,10 +44,6 @@ module APIHelpers
     current_user.store
   end
 
-  # def permitted_params
-  #   @permitted_params ||= declared(params, include_missing: false)
-  # end
-
   # 迭代对 params 的 values 进行编码处理
   def encode_params_values(hash)
     return if hash.blank?
