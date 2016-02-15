@@ -36,7 +36,7 @@
           <td><%= item.total_quantity %></td>
           <td><%= item.used_quantity %></td>
           <td><%= item.total_quantity - item.used_quantity %></td>
-          <td><input data-assetid='<%= asset.id %>' data-assetitem='<%= item.id %>' type='checkbox'></td>
+          <td><input data-assetid='<%= asset.id %>' data-assetitem='<%= item.id %>' type='checkbox' class='js-chose-asset'></td>
         </tr>
         <% end %>
         <tr>
