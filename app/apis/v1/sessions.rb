@@ -3,6 +3,7 @@ module V1
 
     resource :sessions do
       before do
+        authenticate_platform!
         authenticate_sn_code!
       end
 
@@ -14,20 +15,15 @@ module V1
       end
 
       post do
-        if platform?(params[:platform])
-          staff = StoreStaff.find_by(login_name: params[:login_name])
-          status = AuthenticateStaffService.call(staff, params[:password],platform: params[:platform])
-          if status.success?
-            api_token = staff.api_tokens.find_or_create_by(sn_code: request.headers["X-Sn-Code"])
-            api_token.reset_token
-            present api_token, with: ::Entities::Session
-          else
-            error! status: status.notice, staff: nil
-          end
+        staff = StoreStaff.find_by(login_name: params[:login_name])
+        status = AuthenticateStaffService.call(staff, params[:password],platform: params[:platform])
+        if status.success?
+          api_token = staff.api_tokens.find_or_create_by(sn_code: request.headers["X-Sn-Code"])
+          api_token.reset_token
+          present api_token, with: ::Entities::Session
         else
-          error! status: "请选择调用的平台, app或erp!", staff: nil
+          error! status: status.notice, staff: nil
         end
-
       end
     end
   end

@@ -2,11 +2,15 @@ module V1
   class Vehicles < Grape::API
 
     before do
+      authenticate_platform!
       authenticate_user!
     end
 
     resource :vehicles do
       resource :brands do
+        params do
+          requires :platform, type: String, desc: '调用的平台(app或者erp)'
+        end
         add_desc "车品牌"
         get do
           present VehicleBrand.all, with: ::Entities::VehicleBrand
@@ -15,6 +19,7 @@ module V1
 
       resource :series do
         params do
+          requires :platform, type: String, desc: '调用的平台(app或者erp)'
           optional :vehicle_brand_id, type: Integer, desc: "所属品牌ID"
         end
         add_desc "车系"
@@ -26,6 +31,7 @@ module V1
 
       resource :models do
         params do
+          requires :platform, type: String, desc: '调用的平台(app或者erp)'
           optional :vehicle_series_id, type: Integer, desc: '所属车系的id'
         end
         add_desc "车型"
@@ -37,6 +43,7 @@ module V1
 
       add_desc "添加车辆"
       params do
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
         requires :license_number, type: String, desc: '车牌号'
         requires :first_name, type: String, desc: '名字'
         requires :last_name, type: String, desc: '姓'
@@ -51,8 +58,7 @@ module V1
       post do
         customer = StoreCustomer.where(phone_number: params[:phone_number]).last
         status = AddVehicleForIpadService.call(vehicle_params, plate_params, customer_params: customer_params, customer: customer)
-        state = complate if status.success?
-        present status: state, info: status.notice
+        present info: status.notice
       end
     end
 

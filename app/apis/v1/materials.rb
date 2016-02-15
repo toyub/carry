@@ -3,12 +3,15 @@ module V1
 
     resource :materials, desc: "商品相关" do
       before do
+        authenticate_platform!
         authenticate_user!
       end
 
       add_desc "商品列表"
       params do
-        requires :platform, type: String, desc: '调用的平台!'
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
+        optional :store_id, type: Integer, desc: "门店ID(ipad)"
+        optional :chain_id, type: Integer, desc: "总店ID(erp)"
         optional :q, type: Hash, default: {} do
           optional :store_id_eq, type: Integer, desc: "所属门店ID"
           optional :store_material_root_category_id_eq, type: Integer, desc: '一级类别的id--ipad'
@@ -22,17 +25,9 @@ module V1
         end
       end
       get do
-        if platform?(params[:platform])
-          if params[:platform] == "app"
-            q = current_store.store_materials.saleable.ransack(params[:q])
-          else
-            q = current_store_chain.store_materials.saleable.ransack(params[:q])
-          end
-          store_materials = q.result
-          present store_materials, with: ::Entities::Material
-        else
-          error! status: "请选择对应的平台,app或erp!"
-        end
+        materials = StoreMaterial.by_store_chain(params[:chain_id]).by_store(params[:store_id])
+        store_materials = materials.saleable.ransack(params[:q]).result
+        present store_materials, with: ::Entities::Material
       end
 
     end

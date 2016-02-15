@@ -2,13 +2,16 @@ module V1
   class Packages < Grape::API
     resource :packages do
       before do
+        authenticate_platform!
         authenticate_user!
       end
 
       add_desc '套餐列表'
 
       params do
-        requires :platform, type: String, desc: '调用的平台'
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
+        optional :store_id, type: Integer, desc: "门店ID(ipad)"
+        optional :chain_id, type: Integer, desc: "总店ID(erp)"
         optional :q, type: Hash, default: {} do
           optional :name_cont, type: String
           optional :store_id_eq, type: Integer
@@ -20,18 +23,9 @@ module V1
       end
 
       get do
-        if platform?(params[:platform])
-          if params[:platform] == "app"
-            store_packages = current_store.store_packages.order(params[:q][:s])
-          else
-            store_packages = current_store_chain.store_packages.order(params[:q][:s])
-          end
-          q = store_packages.ransack(params[:q].except(:s))
-          store_packages = q.result
-          present q.result.order('id asc'), with: ::Entities::Package
-        else
-          error! status: "请选择平台app或erp!"
-        end
+        packages = StorePackage.by_store_chain(params[:chain_id]).by_store(params[:store_id])
+        store_packages = packages.order(params[:q][:s]).ransack(params[:q].except(:s)).result.order('id asc')
+        present store_packages, with: ::Entities::Package
       end
     end
 

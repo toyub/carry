@@ -3,11 +3,13 @@ module V1
 
     resource :staff, desc: "员工相关" do
       before do
+        authenticate_platform!
         authenticate_user!
       end
 
       add_desc "员工列表"
       params do
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
         optional :q, type: Hash, default: {} do
           optional :store_id_eq, type: Integer, desc: "所属门店ID"
           optional :store_department_id_eq, type: Integer, desc: "所属门店部门ID"
