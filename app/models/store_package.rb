@@ -14,6 +14,8 @@ class StorePackage < ActiveRecord::Base
   after_create :create_one_setting
 
   scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)}
+  scope :by_store, ->(store_id){ where(store_id: store_id) if store_id.present? }
+  scope :by_store_chain, ->(chain_id){ where(store_chain_id: chain_id) if chain_id.present? }
 
   def create_one_setting
     self.create_package_setting(creator: self.creator)

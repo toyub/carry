@@ -18,7 +18,7 @@ class Mis.Models.StoreServiceWorkflow extends Backbone.Model
       @workstations.map(
         (w) ->
           w.get "name"
-      ).join("，").substring(0,10)
+      ).join("，")
     else
       "不限"
 
@@ -31,7 +31,7 @@ class Mis.Models.StoreServiceWorkflow extends Backbone.Model
   commissionName: ->
     commission = Mis.store.commissionTemplates.find(
       (c) =>
-        c.id == @get("mechanic_commission_template_id")
+        String(c.id) == String(@get("mechanic_commission_template_id"))
     )
     commission.get("name") if commission
 

@@ -3,7 +3,7 @@
 <li><%= @workflow.get "engineer_count" %></li>
 <li><%= @workflow.engineerLevel() %></li>
 <li><%= @workflow.get "standard_time" %></li>
-<li><%= @workflow.workstationName() %></li>
+<li title="<%= @workflow.workstationName() %>"><%= @workflow.workstationName().substring(0,10) %></li>
 <li>
 <span><%= @workflow.commissionName() %></span>
 <% if @view.isEdit(): %>

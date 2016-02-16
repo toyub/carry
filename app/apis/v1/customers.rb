@@ -4,11 +4,13 @@ module V1
 
     resource :customers, desc: "客户相关" do
       before do
+        authenticate_platform!
         authenticate_user!
       end
 
       add_desc "客户列表"
       params do
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
         optional :q, type: Hash, default: {} do
           optional :store_id_eq, type: Integer, desc: "所属门店ID"
         end
@@ -19,6 +21,9 @@ module V1
       end
 
       add_desc "客户详情"
+      params do
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
+      end
       get ":id", requirements: { id: /[0-9]*/ } do
         present StoreCustomer.find(params[:id]), with: ::Entities::Customer, type: :full
       end
@@ -31,6 +36,7 @@ module V1
         resource :customer_trackings do
           add_desc '客户回访记录列表'
           params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
             optional :q, type: Hash do
               optional :store_order_plate_id_eq, type: Integer
               optional :created_at_gt, type: String
@@ -46,6 +52,9 @@ module V1
 
         resource :deposit_card_assets do
           add_desc '储值卡列表'
+          params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
+          end
           get do
             present @customer.deposit_cards_assets, with: ::Entities::DepositCardAsset
           end
@@ -53,6 +62,9 @@ module V1
 
         resource :deposit_logs do
           add_desc '储值卡消费记录'
+          params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
+          end
           get do
             present @customer, with: ::Entities::DepositLogInfo
           end
@@ -60,11 +72,17 @@ module V1
 
         resource :material_assets do
           add_desc '商品组合列表'
+          params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
+          end
           get do
             present @customer.taozhuang_assets, with: ::Entities::MaterialAsset
           end
 
           add_desc '商品组合信息'
+          params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
+          end
           get ':id' do
             material_asset = @customer.taozhuang_assets.find(params[:id])
             present material_asset, with: ::Entities::MaterialAssetInfo
@@ -73,6 +91,7 @@ module V1
           route_param :material_asset_id do
             add_desc "资产-商品-项目消费明细"
             params do
+              requires :platform, type: String, desc: '调用的平台(app或者erp)'
               requires :id, type: Integer, desc: "项目ID"
             end
             get "material_items/:id", requirements: { id: /[0-9]*/ } do
@@ -84,6 +103,9 @@ module V1
 
         resource :license_numbers do
           add_desc '车牌列表'
+          params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
+          end
           get do
             present @customer.plates, with: ::Entities::LicenseNumber
           end
@@ -91,6 +113,9 @@ module V1
 
         resource :vehicles do
           add_desc '车辆列表'
+          params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
+          end
           get do
             present @customer.store_vehicles, with: ::Entities::Vehicle
           end
@@ -98,6 +123,7 @@ module V1
 
         add_desc "消费记录"
         params do
+          requires :platform, type: String, desc: '调用的平台(app或者erp)'
           optional :q, type: Hash, default: {} do
             optional :plate_id_eq, type: Integer, desc: "车牌ID"
             optional :created_at_gt, type: DateTime, desc: "开始时间"
@@ -112,12 +138,16 @@ module V1
 
         resource :package_assets, desc: "套餐相关" do
           add_desc "套餐列表"
+          params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
+          end
           get "/", requirements: { customer_id: /[0-9]*/ } do
             present @customer.packaged_assets, with: ::Entities::PackageAsset, type: :list
           end
 
           add_desc "套餐查看"
           params do
+            requires :platform, type: String, desc: '调用的平台(app或者erp)'
             requires :id, type: Integer, desc: '套餐id'
           end
           get ":id", requirements: { id: /[0-9]*/ } do
@@ -128,6 +158,7 @@ module V1
           route_param :package_asset_id do
             add_desc "套餐组合-查看-项目消费明细"
             params do
+              requires :platform, type: String, desc: '调用的平台(app或者erp)'
               requires :id, type: Integer, desc: '项目id'
             end
             get "package_items/:id", requirements: { id: /[0-9]*/ } do

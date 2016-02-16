@@ -49,7 +49,7 @@ module Xianchang
 
     private
     def set_groups
-      @groups = StoreGroup.pluck(:name, :id)
+      @groups = current_store.store_groups.where(deleted: false).pluck(:name, :id)
     end
 
     def workstation_params

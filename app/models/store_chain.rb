@@ -10,4 +10,5 @@ class StoreChain < ActiveRecord::Base
   has_many :store_services
   has_many :store_packages
   belongs_to :head_office, class_name: 'Store', foreign_key: :admin_store_id
+  has_many :store_material_categories
 end

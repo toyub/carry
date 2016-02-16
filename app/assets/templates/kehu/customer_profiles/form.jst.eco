@@ -244,6 +244,11 @@
                   <label class="width-75">发票抬头</label>
                   <input type="text" class="width-176" name="store_customer_settlement[invoice_title]" value="<%= entity.storeCustomerSettlement.get 'invoice_title' %>">
                 </div>
+
+                <div class="item_content">
+                  <label class="width-75">联系人</label>
+                  <input type="text" class="width-176" name="store_customer_settlement[contact]" value="<%= entity.storeCustomerSettlement.get 'contact' %>"></span>
+                </div>
               </div>
             </div>
 

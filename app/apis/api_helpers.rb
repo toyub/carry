@@ -1,5 +1,4 @@
 module APIHelpers
-
   # 认证用户
   def authenticate!
     # 如果token不存在，则返回没有得到token
@@ -36,8 +35,20 @@ module APIHelpers
     raise APIErrors::AuthenticateFail unless current_user
   end
 
+  def authenticate_platform!
+    raise APIErrors::AuthenticateFail unless platform_accessible?(params[:platform])
+  end
+
   def current_store_chain
     current_user.store_chain
+  end
+
+  def current_store
+    current_user.store
+  end
+
+  def platform_accessible?(platform)
+    platform == "app" || platform == "erp"
   end
 
   # 迭代对 params 的 values 进行编码处理

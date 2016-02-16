@@ -79,7 +79,8 @@ module Api
             :tax,
             :payment_mode,
             :invoice_type,
-            :invoice_title
+            :invoice_title,
+            :contact
           ]
         )
       end

@@ -9,7 +9,7 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Mis.Base.View
 
   events:
     'click #cancel_workflow': 'close'
-    'click #save_workflow': 'addWorkflow'
+    'click #save_workflow': 'saveWorkflow'
     'click #delay_allowed': 'toggleDelayAllowed'
     'click #unlimited_mechanics': 'toggleEngineerCount'
     'click #nominate_station': 'showWorkstations'
@@ -18,19 +18,16 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Mis.Base.View
   render: ->
     @$el.html(@template(workflow: @model, store: @store))
     @renderWorkstations()
-    console.log 'xxxxxxxx'
     @$el.show()
     @
 
   close: =>
     @leave()
 
-  addWorkflow: ->
+  saveWorkflow: ->
     @model.set @$el.find("input,select").serializeJSON().workflow
-    console.log @model
     @setting.workflows.add @model
     @close()
-    console.log @setting
 
   toggleDelayAllowed: (event) ->
     if $(event.target).attr('checked')
@@ -48,7 +45,6 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Mis.Base.View
 
   renderWorkstations: ->
     @$("#nominated_stations").empty()
-    console.log @store.workstations
     @store.workstations.each @addWorkstation
 
   showWorkstations: ->
