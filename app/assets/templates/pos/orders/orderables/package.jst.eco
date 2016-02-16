@@ -1,6 +1,11 @@
 <div class="packages_order orderable">
   <ul>
-    <li><%= @idx %></li>
+    <li>
+      <%= @idx %>
+      <% if @contains_service: %>
+      <span class="struct">施</span>
+      <% end %>
+    </li>
     <li><%= @name %></li>
     <li></li>
     <li><%= 2 %></li>
@@ -21,6 +26,7 @@
     <dt></dt>
   </dl>
 
+  <% for service in @services : %>
   <dl>
     <dd>普通洗车</dd>
     <dd>5</dd>
@@ -28,13 +34,6 @@
     <dd>初级以上(含初级)</dd>
     <dd><input type="checkbox"></dd>
   </dl>
-  <dl>
-    <dd>镀晶</dd>
-    <dd>5</dd>
-    <dd>45分钟</dd>
-    <dd>初级以上(含初级)</dd>
-    <dd><input type="checkbox"></dd>
-  </dl>
-
+  <% end %>
 </div>
 <% end %>

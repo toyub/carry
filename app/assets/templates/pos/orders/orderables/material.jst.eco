@@ -37,21 +37,14 @@
     <dt>技师等级</dt>
     <dt></dt>
   </dl>
-
+  <% for service in @services : %>
   <dl>
-    <dd>普通洗车</dd>
-    <dd>5</dd>
-    <dd>30分钟</dd>
-    <dd>初级以上(含初级)</dd>
+    <dd><%= service.name %></dd>
+    <dd><%= service.quantity %></dd>
+    <dd><%= service.work_time_in_seconds/60 %>分钟</dd>
+    <dd><%= service.mechanic_level %></dd>
     <dd><input type="checkbox"></dd>
   </dl>
-  <dl>
-    <dd>镀晶</dd>
-    <dd>5</dd>
-    <dd>45分钟</dd>
-    <dd>初级以上(含初级)</dd>
-    <dd><input type="checkbox"></dd>
-  </dl>
-
+  <% end %>
 </div>
 <% end %>
