@@ -1,5 +1,35 @@
 @charset "UTF-8";
 
+@mixin material-order-li-width {
+  &:nth-child(1){width: 10%;}
+  &:nth-child(2){width: 15%;}
+  &:nth-child(3){width: 20%;}
+  &:nth-child(4){width: 15%;}
+  &:nth-child(5){width: 10%;}
+  &:nth-child(6){width: 12.5%;}
+  &:nth-child(7){width: 12.5%; text-align: right;}
+  &:nth-child(8){width: 5%; text-align: center;}
+}
+
+@mixin workstation-width {
+	&:nth-child(1){width: 20%; text-align: center;}
+	&:nth-child(2){width: 20%;}
+	&:nth-child(3){width: 20%;}
+	&:nth-child(4){width: 20%;}
+	&:nth-child(5){width: 20%;}
+}
+
+@mixin services-order-li-width {
+  &:nth-child(1){width: 12.5%;}
+  &:nth-child(2){width: 18%;}
+  &:nth-child(3){width: 23%;}
+  &:nth-child(4){width: 16%;}
+  &:nth-child(5){width: 13%;}
+  &:nth-child(7){width: 12.5%; text-align: right;}
+  &:nth-child(8){width: 5%; text-align: center;}
+}
+
+
 .pos_page_card{
 	padding-right: 5em;
 	a{
@@ -54,14 +84,12 @@
 		}
 	}
 
-
 	table.billing_record_list{
 		tbody{
 			tr{
 				&:nth-child(2n+1){background: #F6F9FF;}
 			}
 		}
-
 	}
 
 	table.intention_billing_list{
@@ -159,28 +187,118 @@
 			.order_item{
 				width: 100%;
 				display: none;
-				table{
-					width: 100%;
-					thead{
-						tr{
-							height: 42px;
-							border-bottom: 1px solid #e0e0e0;
-							th{
-								color: #1B1A1A;
-								font-weight: 100;
 
+				.order_search{
+					margin:5px 0;
+				}
+
+				.orderables_title{
+					width: 100%;
+
+					ul{
+						height: 42px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						border-bottom: 1px solid #e0e0e0;
+
+						li{
+							color: #1B1A1A;
+							display: inline-block;
+							font-weight: 100;
+							float: left;
+							@include material-order-li-width;
+						}
+					}
+				}
+
+				.orderables{
+					.orderable{
+						width: 100%;
+						background: #fff;
+						ul{
+							height: 30px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							border-bottom: 1px solid #d3d3d3;
+							li{
+								color:#1B1A1A;
+								display: inline-block;
+								float: left;
+
+								.struct {
+									display: inline-block;
+									padding: 2px 4px;
+									border-radius: 11px;
+									border: 1px solid #8C8989;
+									margin-right: 5px;
+								}
 							}
 						}
 					}
-					tbody{
-						background: #fff;
-						tr{
+
+					.workstation{
+						border:1px solid #eee;
+						border-top: 8px solid #B1CD88;
+						margin-top: 1px;
+						dl{
 							height: 30px;
-							border-bottom: 1px solid #d3d3d3;
-							td{
-								color:#1B1A1A;
-								text-align: center;
+							dt{
+								display: inline-block;
+								float: left;
+								height: 30px;
+								@include workstation-width;
 							}
+
+							dd{
+								display: inline-block;
+								float: left;
+								height: 30px;
+								@include workstation-width;
+							}
+						}
+					}
+				}
+
+				.matrial_order_title{
+					ul li{
+						@include material-order-li-width;
+					}
+				}
+
+				.services_order_title{
+					ul li{
+						@include services-order-li-width;
+					}
+				}
+
+				.packages_order_title{
+					ul li{
+						@include material-order-li-width;
+					}
+				}
+
+				.matrial_orders{
+					.matrial_order{
+						ul li{
+							@include material-order-li-width;
+						}
+					}
+				}
+
+				.services_orders{
+					.services_order{
+						ul li{
+							@include services-order-li-width;
+						}
+					}
+				}
+
+				.packages_orders{
+					.packages_order{
+						ul li{
+							@include material-order-li-width;
 						}
 					}
 				}

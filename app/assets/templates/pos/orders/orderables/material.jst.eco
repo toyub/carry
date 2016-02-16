@@ -1,27 +1,55 @@
-<tr>
-  <td><%= @idx %></td>
-  <td>
-    <% if @service_needed: %>
-    <span class="struct">施</span>
-    <% end %>
-    <%= @name %>
-  </td>
-  <td><%= @speci %></td>
-  <td><%= @category_name %></td>
-  <td><%= @reward_points %></td>
-  <td><%= @inventory_quantity %></td>
-  <td class="text-align-right">
-    <% if @vip_price_enabled : %>
-      <% if current_customer.isMembership : %>
-        <span title='零售价' class="text-decoration-linethrough display-block"><%= @retail_price %></span>
-        <span title='会员价' class="color-08BD48"><%= @vip_price %></span>
-      <% else : %>
-        <span title='会员价' class="text-decoration-linethrough display-block"><%= @vip_price %></span>
-        <span title='零售价' class="color-08BD48"><%= @retail_price %></span>
+<div class="matrial_order orderable">
+  <ul>
+    <li>
+    <%= @idx %>
+      <% if @service_needed: %>
+        <span class="struct">施</span>
       <% end %>
-    <% else : %>
-      <span class="color-08BD48"><%= @retail_price %></span>
-    <% end %>
-  </td>
-  <td><input type="checkbox" data-itemid="<%= @id %>" class="material-checkbox"></td>
-</tr>
+    </li>
+    <li><%= @name %></li>
+    <li><%= @speci %></li>
+    <li><%= @category_name %></li>
+    <li><%= @reward_points %></li>
+    <li><%= @inventory_quantity %></li>
+    <li>
+      <% if @vip_price_enabled : %>
+        <% if current_customer.isMembership : %>
+          <span title='零售价' class="text-decoration-linethrough display-block"><%= @retail_price %></span>
+          <span title='会员价' class="color-08BD48"><%= @vip_price %></span>
+        <% else : %>
+          <span title='会员价' class="text-decoration-linethrough display-block"><%= @vip_price %></span>
+          <span title='零售价' class="color-08BD48"><%= @retail_price %></span>
+        <% end %>
+      <% else : %>
+        <span class="color-08BD48"><%= @retail_price %></span>
+      <% end %>
+    </li>
+    <li><input type="checkbox" data-itemid="<%= @id %>" class="material-checkbox"></li>
+  </ul>
+</div>
+
+<div class="workstation">
+  <dl>
+    <dt>服务项目</dt>
+    <dt>总次数</dt>
+    <dt>施工时间</dt>
+    <dt>技师等级</dt>
+    <dt></dt>
+  </dl>
+
+  <dl>
+    <dd>普通洗车</dd>
+    <dd>5</dd>
+    <dd>30分钟</dd>
+    <dd>初级以上(含初级)</dd>
+    <dd><input type="checkbox"></dd>
+  </dl>
+  <dl>
+    <dd>镀晶</dd>
+    <dd>5</dd>
+    <dd>45分钟</dd>
+    <dd>初级以上(含初级)</dd>
+    <dd><input type="checkbox"></dd>
+  </dl>
+
+</div>

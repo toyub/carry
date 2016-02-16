@@ -9,7 +9,7 @@
 
 <div class="order_item order_commodity js-orderables-materials">
   <div>
-    <form id='search-materials' action="/api/pos/products/materials.json" method="GET">
+    <form id='search-materials' class="order_search" action="/api/pos/products/materials.json" method="GET">
       <label>一级分类</label><select class='width-80' name="store_material_root_category_id">
         <option value="">全部</option>
         <% for category in @super_material_categories : %>
@@ -27,25 +27,25 @@
       <input type="submit" value="查 询">
     </form>
   </div>
-	<table cellpadding="0" cellspacing="0">
-		<thead>
-			<tr>
-        <th>#</th>
-        <th>名称</th>
-        <th>规格</th>
-        <th>销售类别</th>
-        <th>积分</th>
-        <th>库存</th>
-        <th>零售价</th>
-        <th></th>
-			</tr>
-		</thead>
-		<tbody id='js-orderables-materials'></tbody>
-	</table>
+  <div class="matrial_order_title orderables_title">
+    <ul>
+      <li>#</li>
+      <li>名称</li>
+      <li>规格</li>
+      <li>销售类别</li>
+      <li>积分</li>
+      <li>库存</li>
+      <li>零售价</li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="matrial_orders orderables" id='js-orderables-materials'>
+
+  </div>
 </div>
 
 <div class="order_item order_service js-orderables-services">
-  <form id='search-services' action="/api/pos/products/services.json" method="GET">
+  <form id='search-services' class="order_search" action="/api/pos/products/services.json" method="GET">
     <label>服务类别</label><select class="width-80" name="q[category_id_eq]">
       <option value="">全部</option>
       <% for category in @service_categories : %>
@@ -56,42 +56,44 @@
     <input type="submit" value="查 询">
   </form>
 
-	<table cellpadding="0" cellspacing="0">
-		<thead>
-			<tr>
-        <th>#</th>
-        <th>名称</th>
-        <th>施工时间</th>
-        <th>服务分类</th>
-        <th>积分</th>
-        <th>零售价</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody id='js-orderables-services'></tbody>
-	</table>
+  <div class="services_order_title orderables_title">
+    <ul>
+      <li>#</li>
+      <li>名称</li>
+      <li>施工时间</li>
+      <li>服务分类</li>
+      <li>积分</li>
+      <li>零售价</li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="services_orders orderables" id='js-orderables-services'>
+
+  </div>
 </div>
 
 <div class="order_item order_package js-orderables-packages">
-  <form id='search-packages' action="/api/pos/products/packages.json" method="GET">
+  <form id='search-packages' class="order_search" action="/api/pos/products/packages.json" method="GET">
     <label>查找关键字</label><input type="text" name="q[name_cont]" value="">
     <input type="submit" value="查 询">
   </form>
-	<table cellpadding="0" cellspacing="0">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>名称</th>
-				<th></th>
-				<th>项目</th>
-				<th>有效期</th>
-				<th>积分</th>
-				<th>售价</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody id='js-orderables-packages'></tbody>
-	</table>
+
+  <div class="packages_order_title orderables_title">
+    <ul>
+      <li>#</li>
+      <li>名称</li>
+      <li>套餐类别</li>
+      <li>项目</li>
+      <li>有效期</li>
+      <li>积分</li>
+      <li>售价</li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="packages_orders orderables" id='js-orderables-packages'>
+
+  </div>
+
 </div>
 
 <div class="order_item order_vip js-orderables-assets">

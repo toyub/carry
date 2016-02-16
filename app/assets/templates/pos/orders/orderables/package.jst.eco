@@ -1,12 +1,39 @@
-<tr>
-  <td class="number"><%= @idx %></td>
-  <td><%= @name %></td>
-  <td></td>
-  <td><%= 2 %></td>
-  <td><%= @expired_at %></td>
-  <td><%= @point %></td>
-  <td class="text-align-right">
-    <span class="color-08BD48"><%= @retail_price %></span>
-  </td>
-  <td><input type="checkbox" data-itemid="<%= @id %>" class="package-checkbox"></td>
-</tr>
+<div class="packages_order orderable">
+  <ul>
+    <li><%= @idx %></li>
+    <li><%= @name %></li>
+    <li></li>
+    <li><%= 2 %></li>
+    <li><%= @expired_at %></li>
+    <li><%= @point %></li>
+    <li><span class="color-08BD48"><%= @retail_price %></span></li>
+    <li><input type="checkbox" data-itemid="<%= @id %>" class="package-checkbox"></li>
+  </ul>
+</div>
+
+
+<div class="workstation">
+  <dl>
+    <dt>服务项目</dt>
+    <dt>总次数</dt>
+    <dt>施工时间</dt>
+    <dt>技师等级</dt>
+    <dt></dt>
+  </dl>
+
+  <dl>
+    <dd>普通洗车</dd>
+    <dd>5</dd>
+    <dd>30分钟</dd>
+    <dd>初级以上(含初级)</dd>
+    <dd><input type="checkbox"></dd>
+  </dl>
+  <dl>
+    <dd>镀晶</dd>
+    <dd>5</dd>
+    <dd>45分钟</dd>
+    <dd>初级以上(含初级)</dd>
+    <dd><input type="checkbox"></dd>
+  </dl>
+
+</div>
