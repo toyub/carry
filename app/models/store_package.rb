@@ -46,6 +46,8 @@ class StorePackage < ActiveRecord::Base
   def category
   end
 
+  def sms_type; 2; end
+
   def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
     id = StoreOrderItem.packages.by_month(month).group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
     find_by_id(id)

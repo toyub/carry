@@ -48,6 +48,8 @@ class StoreService < ActiveRecord::Base
   def speci
   end
 
+  def sms_type; 0; end
+
   def create_one_setting
     self.create_setting(creator: self.creator)
   end

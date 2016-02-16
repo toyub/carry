@@ -21,6 +21,12 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)}
 
+
+  def trackings
+    trackings = store_material.try(:store_material_tracking).try(:sections)
+    # trackings << services.where(tracking_needed: true) if service_needed
+  end
+
   def divide_unit_type
     MaterialDivideUnitType.find(self.divide_unit_type_id).try(:name)
   end
@@ -52,6 +58,8 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   def speci
     store_material.try(:speci)
   end
+
+  def sms_type; 1; end
 
   def category
     sale_category
