@@ -28,6 +28,7 @@
   </ul>
 </div>
 
+<% if @service_needed: %>
 <div class="services">
   <dl>
     <dt>服务项目</dt>
@@ -53,3 +54,4 @@
   </dl>
 
 </div>
+<% end %>

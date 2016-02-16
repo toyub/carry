@@ -11,7 +11,7 @@
   </ul>
 </div>
 
-
+<% if @contains_service: %>
 <div class="services">
   <dl>
     <dt>服务项目</dt>
@@ -37,3 +37,4 @@
   </dl>
 
 </div>
+<% end %>
