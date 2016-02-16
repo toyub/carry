@@ -24,7 +24,6 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   def trackings
     trackings = store_material.try(:store_material_tracking).try(:sections)
-    # trackings << services.where(tracking_needed: true) if service_needed
   end
 
   def divide_unit_type

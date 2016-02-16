@@ -4,12 +4,18 @@ class StoreServiceTracking < ActiveRecord::Base
   belongs_to :store_service
 
   def delay_until
-  case 
-    delay_interval.minutes
-    delay_interval.hours
-    delay_interval.days
-    delay_interval.weeks
-    delay_interval.months
+    case delay_unit
+    when 0
+      delay_interval.minutes
+    when 1
+      delay_interval.hours
+    when 2
+      delay_interval.days
+    when 3
+      delay_interval.weeks
+    when 4
+      delay_interval.months
+    end
   end
 
 end

@@ -11,7 +11,7 @@ class OrderTrackingJob < ActiveJob::Base
           first_category:   "回访",
           second_category:  item.orderable.sms_type
         }
-        SmsJob.set(wait: tracking.delay_until.seconds).perform_later(options)
+        SmsJob.set(wait: tracking.delay_until).perform_later(options)
       end
     end
   end

@@ -5,7 +5,7 @@ class StoreMaterialTrackingSection < ActiveRecord::Base
   default_scope {where(deleted: false).order('id asc')}
 
   def delay_until
-    delay_in_seconds
+    delay_in_seconds.seconds
   end
-  
+
 end
