@@ -6,7 +6,7 @@
 <td><%= @retail_price %></td>
 <td><%= @bargain_price %></td>
 <td><%= @point %></td>
-<td><%= @engineer_count %> </td>
+<td><%= @engineer_level %> </td>
 <td></td>
 <td><%= @category %></td>
 <td class="last_td">

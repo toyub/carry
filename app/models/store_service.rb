@@ -68,8 +68,9 @@ class StoreService < ActiveRecord::Base
     setting.try(:workflow).try(:standard_time)
   end
 
-  def engineer_count
-    setting.try(:workflow).try(:engineer_count)
+  def engineer_level
+    level = setting.try(:workflow).try(:engineer_level)
+    StoreStaffLevel.find(level).name if level.present?
   end
 
   def to_snapshot!(order_item)
