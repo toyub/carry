@@ -1,5 +1,5 @@
 class OrderTrackingJob < ActiveJob::Base
-  queue_as :order_tracking
+  queue_as :default
 
   def perform(order)
     order.items.each do |item|
