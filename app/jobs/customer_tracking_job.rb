@@ -8,9 +8,8 @@ class CustomerTrackingJob < ActiveJob::Base
       {
         title: "售后回访",
         content: options[:content],
-        category_id: 3,
-        contact_way_id: 1,
-        executant_id: 3,
+        category_id: StoreTracking::IDS_CATEGORY['售后回访'],
+        contact_way_id: StoreTracking::IDS_CATEGORY['短信'],
         automatic: true,
       }
     )

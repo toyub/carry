@@ -17,6 +17,8 @@ class StoreTracking < ActiveRecord::Base
     3 => '售后回访',
     4 => '其他'
   }
+  IDS_CONTACT_WAY=CONTACT_WAY.invert
+  IDS_CATEGORY=CATEGORY.invert
 
   def category_name
     CATEGORY[self.category_id]
