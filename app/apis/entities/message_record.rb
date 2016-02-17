@@ -9,8 +9,9 @@ module Entities
 
     private
     def category
-      first_category = SmsSwitchType.find(object.first_category.to_i)
-      "#{first_category.name[:type]}-#{first_category.name[:sub_category].constantize.find(object.second_category.to_i).name}"
+      if ["SmsNotifySwitchType", "SmsTrackingSwitchType", "SmsCaptchaSwitchType"].include? object.first_category
+        "#{object.first_category.constantize.find(object.second_category.to_i).name}"
+      end
     end
   end
 end
