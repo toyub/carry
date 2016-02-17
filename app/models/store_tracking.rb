@@ -7,13 +7,15 @@ class StoreTracking < ActiveRecord::Base
 
   CONTACT_WAY = {
     0 => '电话'
+    1 => '短信'
   }
 
   CATEGORY = {
     0 => '业务回访',
     1 => '投诉回访',
     2 => '业务提醒',
-    3 => '其他'
+    3 => '售后回访',
+    4 => '其他'
   }
 
   def category_name

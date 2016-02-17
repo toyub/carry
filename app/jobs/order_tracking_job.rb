@@ -13,6 +13,7 @@ class OrderTrackingJob < ActiveJob::Base
           second_category:  StoreSwitch::SaleCategory[item.orderable_type.to_sym]
         }
         SmsJob.set(wait: tracking.delay_until).perform_later(options)
+        CustomerTrackingJob.set(wait: tracking.delay_until).perform_later(options)
       end
     end
   end

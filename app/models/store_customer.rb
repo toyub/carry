@@ -177,7 +177,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def vehicles_count
-    store_vehicles.map(&->(m){m.vehicle_plates.last.plate.license_number}).count
+    store_vehicles.map(&->(m){m.vehicle_plates.last.try(:plate).try(:license_number)}).count
   end
 
   def orders_count
