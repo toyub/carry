@@ -87,14 +87,6 @@ class StoreCustomer < ActiveRecord::Base
     self.birthday && (Date.today - self.birthday).to_i/365
   end
 
-  def category
-    self.store_customer_entity.try(:store_customer_category).try(:name)
-  end
-
-  def property
-    self.store_customer_entity.try(:property)
-  end
-
   def education_i18n
     I18n.t "enums.store_customer.education.#{self.education}"
   end
@@ -131,11 +123,11 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def consume_times
-    222
+    orders_count
   end
 
   def consume_total
-    1_0000
+    total_amount
   end
 
   def satisfaction
