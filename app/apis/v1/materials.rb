@@ -30,6 +30,15 @@ module V1
         present store_materials, with: ::Entities::Material
       end
 
+      add_desc "商品品牌"
+      params do
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
+      end
+      get :brands do
+        material_brands = current_store.store_material_brands
+        present material_brands, with: ::Entities::MaterialBrand
+      end
+
     end
   end
 end
