@@ -7,6 +7,7 @@ json.array! @packages do |package|
   json.contains_service package.package_setting.contains_service
 
   json.services package.package_setting.services do |service|
+    json.id service.id
     json.name service.package_itemable.name
     json.quantity service.quantity
     json.work_time service.package_itemable.time
