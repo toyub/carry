@@ -32,5 +32,6 @@ class OrderTrackingJob < ActiveJob::Base
       }
       SmsJob.set(wait: tracking.delay_until).perform_later(options)
       CustomerTrackingJob.set(wait: tracking.delay_until).perform_later(options)
+    end
   end
 end

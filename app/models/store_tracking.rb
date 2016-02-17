@@ -6,7 +6,7 @@ class StoreTracking < ActiveRecord::Base
   validates :content, presence: true
 
   CONTACT_WAY = {
-    0 => '电话'
+    0 => '电话',
     1 => '短信'
   }
 
