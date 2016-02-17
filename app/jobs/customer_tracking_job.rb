@@ -6,9 +6,10 @@ class CustomerTrackingJob < ActiveJob::Base
 
     customer.trackings.create!(
       {
+        title: "售后回访",
+        content: options[:content],
         category_id: 3,
         contact_way_id: 1,
-        content: options[:content],
         executant_id: 3,
         automatic: true,
       }
