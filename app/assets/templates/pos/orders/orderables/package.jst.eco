@@ -28,11 +28,11 @@
 
   <% for service in @services : %>
   <dl>
-    <dd>普通洗车</dd>
-    <dd>5</dd>
-    <dd>30分钟</dd>
+    <dd><%= service.name %></dd>
+    <dd><%= service.quantity %></dd>
+    <dd><%= service.time %>分钟</dd>
     <dd>初级以上(含初级)</dd>
-    <dd><input type="checkbox"></dd>
+    <dd><input type="checkbox" class='js-package-service' data-itemid='<%= service.id %>'></dd>
   </dl>
   <% end %>
 </div>
