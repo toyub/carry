@@ -51,7 +51,7 @@ class StoreCustomerEntity < ActiveRecord::Base
   end
 
   def property_i18n
-    I18n.t "enums.store_customer_entity.property.#{self.property}"
+    I18n.t "enums.store_customer_entity.property.#{self.property}" if property.present?
   end
 
   def category
