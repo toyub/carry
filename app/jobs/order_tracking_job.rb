@@ -3,18 +3,15 @@ class OrderTrackingJob < ActiveJob::Base
 
   def perform(order)
     order.items.each do |item|
+      switch_id = SmsSwitchType.find_by_name(item.orderable_type).id
+      next unless StoreSwitch.by_type(item.orderable_type, switch_id).first.enabled
       item.orderable.trackings.each do |tracking|
-
-        sms_type = 0
-        sms_type = 1 if item.orderable_type == "StoreMaterialSaleinfo"
-        sms_type = 2 if item.orderable_type == "StorePackage"
-
         options = {
           store_id:         order.store_id,
           customer_id:      order.store_customer_id,
           content:          tracking.content,
           first_category:   "SmsTrackingSwitchType",
-          second_category:  sms_type
+          second_category:  switch_id
         }
         SmsJob.set(wait: tracking.delay_until).perform_later(options)
       end

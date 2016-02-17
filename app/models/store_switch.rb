@@ -3,6 +3,8 @@ class StoreSwitch < ActiveRecord::Base
   validates :switchable_id, presence: true
   validates :switchable_type, presence: true
 
+  scope :by_type, ->(type, id) { where(switchable_type: type, switchable_id: id) }
+
   def switchable
     self.switchable_type.constantize.find(self.switchable_id)
   end
