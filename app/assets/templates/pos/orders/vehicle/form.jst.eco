@@ -1,16 +1,16 @@
 <div class="fheader">
   <span class="color-395C61">新建车辆</span>
 </div>
-<form id='new_vehicle_form'  method="post" class="form_content">
+<form method="post" class="form_content">
   <div class="new_vehicle">
     <div class="form_item">
       <label>*车牌号</label>
-      <input type="text" value="" name="vehicle[license_number]"  required>
+      <input type="text" value="" name="vehicle[license_number]" required>
     </div>
 
     <div class="form_item">
       <label>*手机号</label>
-      <input type="text" value=""  name="vehicle[phone_number]"  required>
+      <input type="text" value="" title='请输入11位手机号码' pattern='^\d{11}$' name="vehicle[phone_number]" autocomplete='off' required>
     </div>
 
     <div class="form_item">
