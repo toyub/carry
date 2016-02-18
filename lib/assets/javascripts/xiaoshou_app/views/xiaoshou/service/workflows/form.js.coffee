@@ -28,7 +28,6 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Mis.Base.View
     @model.set @$el.find("input,select").serializeJSON().workflow
     @setting.workflows.add @model
     @close()
-    console.log @setting
 
   toggleDelayAllowed: (event) ->
     if $(event.target).attr('checked')
@@ -46,7 +45,6 @@ class Mis.Views.XiaoshouServiceWorkflowsForm extends Mis.Base.View
 
   renderWorkstations: ->
     @$("#nominated_stations").empty()
-    console.log @store.workstations
     @store.workstations.each @addWorkstation
 
   showWorkstations: ->

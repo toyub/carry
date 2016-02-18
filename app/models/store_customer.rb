@@ -47,6 +47,13 @@ class StoreCustomer < ActiveRecord::Base
   enum profession: %w[it finance energy education engineering others]
   enum income: %w[ilow imiddle iupper ihigh]
 
+  ENTITY = %w(district address address)
+  SETTLEMENT = %w(contract bank bank_account tax invoice_title payment_mode)
+  CUSTOMER = %w(full_name age qq resident_id phone_number profession education income company)
+
+  COMPANY_COUNT = 21
+  PERSONAL = 15
+
   def deposit_cards_assets
     assets.where(type: "StoreCustomerDepositCard")
   end
@@ -131,16 +138,8 @@ class StoreCustomer < ActiveRecord::Base
     1_0000
   end
 
-  def activeness
-    '活跃度'
-  end
-
   def satisfaction
     '满意度'
-  end
-
-  def integrity
-    '完整度'
   end
 
   def property
@@ -177,8 +176,51 @@ class StoreCustomer < ActiveRecord::Base
     I18n.t "enums.store_customer.profession.#{self.profession}"
   end
 
+  def vehicles_count
+    store_vehicles.map(&->(m){m.vehicle_plates.last.try(:plate).try(:license_number)}).count
+  end
+
+  def orders_count
+    orders.count
+  end
+
+  def total_amount
+    orders.pluck(:amount).reduce(:+) || 0.0
+  end
+
+  def customer_asset
+    store_customer_entity.try(:membership) == true ? "有" : "无"
+  end
+
+  def integrity
+    count = customer_complation_count + entity_complation_count + 3
+    if store_customer_entity.try(:property_name) == "集团客户"
+      (((count + settlement_complation_count)/COMPANY_COUNT)*100).round(2)
+    else
+      ((count/PERSONAL)*100).round(2)
+    end
+  end
+
+  def activeness
+    days = (Time.now - created_at).to_i/(60*60*24)
+    ((orders.count.to_f/days)*100).round(2) || 0
+  end
+
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"
+  end
+
+  def customer_complation_count
+    CUSTOMER.map(&->(c){self.send(c).present?}).select{|result| result == true}.count.to_f
+  end
+
+  def entity_complation_count
+    ENTITY.map(&->(c){self.store_customer_entity.try(:send,(c)).present?}).select{|result| result == true}.count.to_f
+  end
+
+  def settlement_complation_count
+    sett_integrity = SETTLEMENT.map(&->(c){self.store_customer_entity.store_customer_settlement.send(c).present?})
+    sett_integrity.select{|result| result == true}.count.to_f
   end
 end

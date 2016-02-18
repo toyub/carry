@@ -194,7 +194,7 @@
 
             <div class="item_content">
               <label class="width-75">联系人</label>
-              <span class="width-176"></span>
+              <span class="width-176"><%= @entity.storeCustomerSettlement.get 'contact' %></span>
             </div>
 
 					</div>

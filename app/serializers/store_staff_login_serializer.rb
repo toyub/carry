@@ -1,14 +1,14 @@
 class StoreStaffLoginSerializer < ActiveModel::Serializer
 
    attributes :id, :encrypted_password, :salt, :app_login_enabled, :store_id, :store_position,
-            :store_department, :login_name, :full_name, :store
+            :store_department, :login_name, :full_name, :store, :store_chain_id, :erp_login_enabled
 
    def initialize(object)
        super(object)
    end
 
    def locked?
-     !app_login_enabled
+     !app_login_enabled || !erp_login_enabled
    end
 
    def position

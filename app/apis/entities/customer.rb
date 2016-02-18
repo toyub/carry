@@ -5,9 +5,10 @@ module Entities
 
   class Customer < Grape::Entity
     expose :telephone, :full_name, :property, :category
-    expose :id, :vehicle_count,
-            :consume_times, :consume_total, :integrity,
-            :activeness, :satisfaction, if: {type: :default}
+    expose :id, :vehicle_count, :consume_times, :consume_total, if: {type: :default}
+    expose(:integrity, if: {type: :default}) {|model| model.integrity.to_s}
+    expose(:activeness, if: {type: :default}) {|model| model.activeness.to_s}
+    expose(:satisfaction, if: {type: :default}) {|model| model.satisfaction.to_s}
     expose(:store_name, if: {type: :default}) {|model| model.store.name}
     expose(:creator, if: {type: :default}) {|model| model.creator.full_name}
     expose(:points, if: {type: :default}) {|model| model.store_customer_entity.try(:points)}

@@ -3,12 +3,14 @@ module V1
 
     resource :stores do
       before do
+        authenticate_platform!
         authenticate_user!
       end
 
       add_desc '门店列表'
 
       params do
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
         optional :q, type: Hash, default: {} do
           optional :name_cont, type: String, desc: "门店名称"
           optional :province, type: String, desc: "省份code"

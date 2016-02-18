@@ -22,13 +22,15 @@ class StoreService < ActiveRecord::Base
   validates :store_staff_id, presence: true
 
   scope :by_category, ->(service_category_id) { where(category_id: service_category_id) }
+  scope :by_store, ->(store_id){ where(store_id: store_id) if store_id.present? }
+  scope :by_store_chain, ->(chain_id){ where(store_chain_id: chain_id) if chain_id.present? }
 
   accepts_nested_attributes_for :store_service_store_materials, allow_destroy: true
   accepts_nested_attributes_for :store_service_workflows, allow_destroy: true
 
   after_create :create_service_reminds, :create_one_setting
 
-  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)} 
+  scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)}
 
   SETTING_TYPE = {
     regular: 0,

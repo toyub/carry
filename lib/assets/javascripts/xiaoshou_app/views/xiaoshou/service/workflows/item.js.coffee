@@ -18,7 +18,6 @@ class Mis.Views.XiaoshouServiceWorkflowsItem extends Mis.Base.View
     'click label.name': 'editOrShow'
 
   render: ->
-    console.log @model
     @$el.html(@template(workflow: @model, view: @))
     @
 

@@ -1,9 +1,9 @@
 class SmsSwitchType
   attr_reader :id, :name
   ID_TYPES={
-    0=>{type: '提醒', sub_category: 'SmsNotifySwitchType' },
-    1=>{type: '回访', sub_category: 'SmsTrackingSwitchType' },
-    2=>{type: '验证', sub_category: 'SmsCaptchaSwitchType' },
+    0=> 'StoreService',
+    1=> 'StoreMaterialSaleinfo',
+    2=> 'StorePackage',
   }
   TYPES_ID = ID_TYPES.invert
 

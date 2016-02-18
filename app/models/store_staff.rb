@@ -180,9 +180,18 @@ class StoreStaff <  ActiveRecord::Base
     return partial, record
   end
 
-  def locked?
+  def mis_locked?
     !mis_login_enabled
   end
+
+  def app_locked?
+    !app_login_enabled
+  end
+
+  def erp_locked?
+    !erp_login_enabled
+  end
+
 
   def commission?
     regular && deduct_enabled
@@ -234,6 +243,10 @@ class StoreStaff <  ActiveRecord::Base
 
   def sales_quantity(month = Time.now)
     store_order_items.by_month(month).sum(:quantity)
+  end
+
+  def photo
+    "http://7xnnp5.com2.z0.glb.qiniucdn.com/FqDwPdqIc3p11utb-qEFURPRXJ8Z"
   end
 
   private

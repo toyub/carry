@@ -2,11 +2,12 @@ class AuthenticateStaffService
   include Serviceable
   include StatusObject
 
-  delegate :locked?, to: :@user
+  delegate :mis_locked?, :app_locked?, :erp_locked?, to: :@user
 
-  def initialize(user, password)
+  def initialize(user, password, options = {})
     @user = user
     @password = password
+    @platform = options[:platform]
   end
 
   def password_correct?
@@ -23,4 +24,16 @@ class AuthenticateStaffService
   def validated?
     @user.present? && password_correct?
   end
+
+  def locked?
+    if @platform == "app"
+      app_locked?
+    elsif @platform == "erp"
+      erp_locked?
+    else
+      mis_locked?
+    end
+  end
+
+
 end
