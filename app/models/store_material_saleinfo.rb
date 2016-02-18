@@ -58,8 +58,6 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     store_material.try(:speci)
   end
 
-  def sms_type; 1; end
-
   def category
     sale_category
   end

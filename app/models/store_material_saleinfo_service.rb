@@ -34,4 +34,8 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     (self.work_time_in_seconds/60.0).ceil
   end
 
+  def delay_until
+    tracking_delay_in_seconds.seconds
+  end
+
 end
