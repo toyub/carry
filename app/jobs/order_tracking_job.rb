@@ -29,7 +29,7 @@ class OrderTrackingJob < ActiveJob::Base
         store_order_id:        order.id,
         store_order_item_id:   item.id,
         customer_id:           order.store_customer_id,
-        content:               tracking.content,
+        content:               tracking.tracking_content,
         first_category:        "SmsTrackingSwitchType",
         second_category:       StoreSwitch::SaleCategory[item.orderable_type.to_sym]
       }
