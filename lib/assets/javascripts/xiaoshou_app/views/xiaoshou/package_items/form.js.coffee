@@ -23,7 +23,7 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
     attrs = @$el.find("input, select").serializeJSON()
     @model.clear(silent: true)
     @model.set attrs
-    if @model.isValid(true)
+    if @model.isValid(true) && @model.package_setting
       @model.package_setting.items.add @model
       @close()
     @close()
