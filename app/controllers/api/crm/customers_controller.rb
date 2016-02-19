@@ -21,6 +21,7 @@ module Api
             store_id: current_store.id,
             store_chain_id: current_store.store_chain.id,
             store_staff_id: current_user.id,
+            detail: {bought_on: params[:vehicle][:detail][:bought_on]}
           }
         )
         plate = customer.plates.create!(
