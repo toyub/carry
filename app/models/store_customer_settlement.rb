@@ -3,7 +3,7 @@ class StoreCustomerSettlement < ActiveRecord::Base
 
   enum credit: %w[unpermitted custom unlimited ]
   enum notice_period: %w[_3days _5days _7days]
-  enum payment_mode: %w[cash check debit alipay wechat hanging credit_card]
+  enum payment_mode: PaymentMethods.available_methods_enumables
   enum invoice_type: %w[common extra]
 
   def creditable?

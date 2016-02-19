@@ -30,6 +30,8 @@ class StoreOrderArchive
                                          store_chain_id: @order.store_chain_id,
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,
+                                         package: card.store_package_setting.store_package,
+                                         package_name: card.store_package_setting.store_package.name,
                                          items_attributes: [{store_id: @order.store_id,
                                                              store_chain_id: @order.store_chain_id,
                                                              store_customer_id: @order.store_customer_id,
