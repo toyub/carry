@@ -12,7 +12,7 @@ module V1
         requires :platform, type: String, desc: '调用的平台(app或者erp)'
       end
       get do
-        present SmsSwitchType.collection, with: ::Entities::MessageCategory
+        present SmsSwitch.category, with: ::Entities::MessageCategory
       end
     end
 
