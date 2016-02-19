@@ -4,10 +4,10 @@ class StoreCustomer < ActiveRecord::Base
   belongs_to :store_customer_entity
   belongs_to :store_staff
   belongs_to :store_customer_category
-  has_many :plates, class_name: 'StoreVehicleRegistrationPlate'
   has_many :orders, class_name: "StoreOrder"
 
   has_many :store_vehicles
+  has_many :plates, through: :store_vehicles
   has_many :creator_complaints, class_name: 'Complaint', as: :creator
   has_many :complaints
 
@@ -203,7 +203,7 @@ class StoreCustomer < ActiveRecord::Base
 
   def activeness
     days = (Time.now - created_at).to_i/(60*60*24)
-    ((orders.count.to_f/days)*100).round(2) || 0
+    ((orders.count.to_f/days)*100).round(2) if days != 0
   end
 
   private
