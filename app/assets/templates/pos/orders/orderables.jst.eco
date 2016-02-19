@@ -90,9 +90,8 @@
       <li></li>
     </ul>
   </div>
-  <div class="packages_orders orderables" id='js-orderables-packages'>
-
-  </div>
+  
+  <div class="packages_orders orderables" id='js-orderables-packages'></div>
 
 </div>
 

@@ -1,7 +1,8 @@
 class StoreVehicleSerializer < ActiveModel::Serializer
-  attributes :id, :created_at, :updated_at, :license_number, :store_customer, :bought_on,
-    :ex_factory_date, :registered_on, :mileage, :next_maintain_mileage, :next_maintain_at,
-    :remark, :vin, :engine_num
+  attributes :id, :store_id, :store_chain_id, :store_staff_id, :store_customer_id,
+    :vehicle_brand_id, :vehicle_model_id, :vehicle_series_id, :detail,
+    :numero, :remark, :created_at, :updated_at, :license_number,
+    :store_customer, :remark, :vin, :engine_num, :engine_id
 
   has_one :vehicle_brand
   has_one :vehicle_model
@@ -18,6 +19,14 @@ class StoreVehicleSerializer < ActiveModel::Serializer
   def engine_num
     if object.engines.present?
       object.engines.first.identification_number
+    else
+      ""
+    end
+  end
+
+  def engine_id
+    if object.engines.present?
+      object.engines.first.id
     else
       ""
     end
