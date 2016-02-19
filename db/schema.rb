@@ -1530,7 +1530,6 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "category_id"
-    t.boolean  "bargain_price_enabled",                                     default: false
   end
 
   create_table "store_settlement_accounts", force: :cascade do |t|
