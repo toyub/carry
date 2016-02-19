@@ -117,7 +117,7 @@
         <label class="width-55">收款方式</label>
         <select class="width-150" name='store_customer_entity[store_customer_settlement_attributes][payment_mode]'>
           <% for payment_method in PaymentMethods.available_methods() : %>
-          <option <%= 'selected' if payment_method.name == @store_customer_settlement.payment_mode %> value="<%= payment_method.name %>"><%= payment_method.cn_name %></option>
+          <option <%= 'selected' if payment_method.enumable_name == @store_customer_settlement.payment_mode %> value="<%= payment_method.enumable_name %>"><%= payment_method.cn_name %></option>
           <% end %>
         </select>
       </div>

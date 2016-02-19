@@ -461,7 +461,6 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.integer  "notice_period",                                     default: 0
     t.integer  "payment_mode",                                      default: 0
     t.integer  "invoice_type",                                      default: 0
-    t.string   "contact"
   end
 
   create_table "store_customers", force: :cascade do |t|
@@ -490,7 +489,6 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.integer  "education",                             default: 0
     t.integer  "profession",                            default: 0
     t.integer  "income",                                default: 0
-    t.integer  "points"
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -1413,9 +1411,9 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1470,6 +1468,7 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1479,7 +1478,6 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
   end
 
@@ -1530,7 +1528,6 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "category_id"
-    t.boolean  "bargain_price_enabled",                                     default: false
   end
 
   create_table "store_settlement_accounts", force: :cascade do |t|
@@ -1683,10 +1680,9 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.integer  "trackable_id"
     t.string   "trackable_type"
     t.integer  "store_order_id"
-    t.boolean  "automatic",           default: true
+    t.boolean  "automatic",      default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_order_item_id"
   end
 
   create_table "store_vehicle_engines", force: :cascade do |t|
