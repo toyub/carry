@@ -29,6 +29,10 @@ module PaymentMethods
       '支付宝'
     end
 
+    def self.enumable_name
+      'alipay'
+    end
+
     def initialize(order)
       unless (@@partner && @@service)
         raise
