@@ -1,6 +1,6 @@
 json.array! @packages do |package|
   json.(package, :id, :name, :code, :abstract, :remark, :price, :vip_price, :retail_price)
-    
+
   json.period package.package_setting.period
   json.period_unit package.package_setting.period_unit
   json.point package.package_setting.point
@@ -12,8 +12,10 @@ json.array! @packages do |package|
     json.quantity service.quantity
     json.work_time service.package_itemable.time
     json.mechanic_level service.package_itemable.engineer_level
+    json.retail_price service.package_itemable.retail_price
+    json.price service.price
   end
-  
+
   json.quantity 1
   json.recommended_price 0
 end
