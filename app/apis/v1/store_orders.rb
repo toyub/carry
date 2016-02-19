@@ -11,6 +11,7 @@ module V1
         requires :is_vip, type: Boolean, desc: '是否是会员客户'
         requires :platform, type: String, desc: '验证平台！'
         requires :store_customer_id, type: Integer, desc: '客户id'
+        requires :vehicle_id, type: Integer, desc: '车辆的id'
         optional :materials, type: Array do
           optional :material_id, type: Integer, desc: '商品的id'
           optional :count, type: Integer, desc: '商品的数量'
@@ -67,6 +68,7 @@ module V1
         @order.permit(
           :is_vip,
           :platform,
+          :vehicle_id,
           :store_customer_id,
           :store_id,
           :store_chain_id,
