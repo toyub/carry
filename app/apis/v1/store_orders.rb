@@ -10,34 +10,38 @@ module V1
       params do
         requires :is_vip, type: Boolean, desc: '是否是会员客户'
         requires :platform, type: String, desc: '验证平台！'
-        requires :customer_id, type: Integer, desc: '客户id'
-        optional :material, type: Hash, default: {} do
-          optional :material_id, type: String, desc: '商品的id'
-          optional :count, type: String, desc: '商品的数量'
-          optional :bargain_price, type: String, desc: '优惠价'
+        requires :store_customer_id, type: Integer, desc: '客户id'
+        optional :materials, type: Array do
+          optional :material_id, type: Integer, desc: '商品的id'
+          optional :count, type: Integer, desc: '商品的数量'
+          optional :price, type: BigDecimal, desc: '单价'
+          optional :vip_price, type: BigDecimal, desc: '会员价'
+          optional :discount, type: BigDecimal, desc: '优惠价'
+          optional :discount_reason, type: String, desc: '优惠理由'
+          optional :from_asset, type: Boolean, desc: '是否卡扣'
         end
-        optional :service, type: Hash, default: {} do
-          optional :service_id, type: String, desc: '服务的id'
-          optional :count, type: String, desc: '服务的数量'
-          optional :bargain_price, type: String, desc: '优惠价'
+        optional :services, type: Array do
+          optional :service_id, type: Integer, desc: '服务的id'
+          optional :count, type: Integer, desc: '服务的数量'
+          optional :price, type: BigDecimal, desc: '单价'
+          optional :vip_price, type: BigDecimal, desc: '会员价'
+          optional :discount, type: BigDecimal, desc: '优惠价'
+          optional :discount_reason, type: String, desc: '优惠理由'
+          optional :from_asset, type: Boolean, desc: '是否卡扣'
         end
-        optional :package, type: Hash, default: {} do
+        optional :packages, type: Array do
           optional :package_id, type: Integer, desc: '套餐的id'
           optional :count, type: Integer, desc: '套餐的数量'
-          optional :bargain_price, type: BigDecimal, desc: '优惠价'
+          optional :price, type: BigDecimal, desc: '单价'
+          optional :vip_price, type: BigDecimal, desc: '会员价'
+          optional :discount, type: BigDecimal, desc: '优惠价'
+          optional :discount_reason, type: String, desc: '优惠理由'
+          optional :from_asset, type: Boolean, desc: '是否卡扣'
         end
       end
 
       get do
-        binding.pry
-
-        material_ids = order_params[:material][:material_id].split(",")
-        if params[:is_vip]
-          StoreMaterial.where(id: material_ids).each do |material|
-            
-          end
-        else
-        end
+        creator = GenerateOrderService.call(order_params, basic_params)
         present info: 444
       end
     end
@@ -48,9 +52,13 @@ module V1
       end
 
       def basic_params
+        params_permit
         params[:store_id] = current_store.id
         params[:store_chain_id] = current_store_chain.id
         params[:store_staff_id] = current_user.id
+        @order.permit(:store_id,
+                      :store_chain_id,
+                      :store_staff_id)
       end
 
       def order_params
@@ -59,24 +67,39 @@ module V1
         @order.permit(
           :is_vip,
           :platform,
-          :customer_id,
+          :store_customer_id,
           :store_id,
           :store_chain_id,
           :store_staff_id,
-          material: [
+          materials: [
             :material_id,
             :bargain_price,
-            :count
+            :count,
+            :vip_price,
+            :price,
+            :discount,
+            :discount_reason,
+            :from_asset
           ],
-          service: [
+          services: [
             :service_id,
             :bargain_price,
-            :count
+            :count,
+            :vip_price,
+            :price,
+            :discount,
+            :discount_reason,
+            :from_asset
           ],
-          package: [
+          packages: [
             :package_id,
             :bargain_price,
-            :count
+            :count,
+            :vip_price,
+            :price,
+            :discount,
+            :discount_reason,
+            :from_asset
           ]
         )
       end

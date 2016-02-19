@@ -11,4 +11,8 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
 
   validates :license_number, presence: true, uniqueness: true
 
+  def vehicle_id
+    vehicle_plates.last.store_vehicle.id
+  end
+
 end

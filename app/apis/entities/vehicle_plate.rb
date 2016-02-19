@@ -1,6 +1,6 @@
 module Entities
   class VehiclePlate < Grape::Entity
-    expose :store_customer_id, :license_number
+    expose :store_customer_id, :license_number, :vehicle_id
     expose(:store_name) {|model| model.store.name}
     expose(:plate_id) {|model| model.id}
     expose(:customer_name) {|model| model.store_customer.try(:full_name)}
