@@ -2,16 +2,16 @@
 <h2>完善车辆信息</h2>
   <div class="vehicle_info">
     <dl>
-      <dd class="item_content">
+      <dd class="license_number">
         <label class="width-77">车牌号码</label>
-        <span class="width-110">{{vehicle.license_number}}</span>
+        <span class="width-90">{{vehicle.license_number}}</span>
       </dd>
       <dd>
         <label class="width-77">*品牌</label>
         <% if @vehicle_brand and @vehicle_brand.name : %>
-          <span class='width-110'> <%= @vehicle_brand.name %> </span>
+          <span class='width-90'> <%= @vehicle_brand.name %> </span>
         <% else : %>
-          <select name='vehicle[vehicle_brand_id]' class="width-110 js-select-vehicle-brand" required>
+          <select name='vehicle[vehicle_brand_id]' class="width-90 js-select-vehicle-brand" required>
             <option value="">请选择</option>
             <% for brand in @vehicle_brands : %>
               <option <%= 'selected' if String(@vehicle_brand && @vehicle_brand.id) == String(brand.id) %> value ="<%= brand.id %>"><%= brand.name %></option>
@@ -21,22 +21,22 @@
 
       </dd>
       <dd>
-        <label class="width-65">*车系</label>
+        <label class="width-77">*车系</label>
         <% if @vehicle_series and @vehicle_series.name : %>
-          <span class='width-110'> <%= @vehicle_series.name %> </span>
+          <span class='width-90'> <%= @vehicle_series.name %> </span>
         <% else : %>
-          <select name='vehicle[vehicle_series_id]' class="width-110 js-select-vehicle-series" required>
+          <select name='vehicle[vehicle_series_id]' class="width-90 js-select-vehicle-series" required>
             <option value="">请选择</option>
             <option value={{series.id}} v-for="series in vehicleSeries">{{series.name}}</option>
           </select>
         <% end %>
       </dd>
       <dd>
-        <label class="width-55">*车型</label>
+        <label class="width-77">*车型</label>
         <% if @vehicle_model and @vehicle_model.name : %>
-          <span class='width-110'> <%= @vehicle_model.name %> </span>
+          <span class='width-90'> <%= @vehicle_model.name %> </span>
         <% else : %>
-          <select class="width-103 js-select-vehicle-model" name='vehicle[vehicle_model_id]' required>
+          <select class="width-90 js-select-vehicle-model" name='vehicle[vehicle_model_id]' required>
             <option value="">请选择</option>
             <option value={{model.id}} v-for="model in vehicleModels">{{model.name}}</option>
           </select>
@@ -47,21 +47,21 @@
       <dd>
         <label class="width-77">VIN号码</label>
         <% if @vin : %>
-          <span class="width-110"><%= @vin %></span>
+          <span class="width-90"><%= @vin %></span>
         <% else : %>
-          <input type="text" class="width-110" name="vehicle[frame_attributes][vin]" value={{vehicle.vin}}>
+          <input type="text" class="width-90" name="vehicle[frame_attributes][vin]" value={{vehicle.vin}}>
         <% end %>
       </dd>
       <dd>
         <label class="width-77">发动机号码</label>
         <% if @engine_num : %>
-          <span class="width-110"><%= @engine_num %></span>
+          <span class="width-90"><%= @engine_num %></span>
         <% else : %>
-          <input type="text" class="width-110" name="vehicle[engines_attributes][{{vehicle.engine_id}}][identification_number]" value={{vehicle.engine_num}}>
+          <input type="text" class="width-90" name="vehicle[engines_attributes][{{vehicle.engine_id}}][identification_number]" value={{vehicle.engine_num}}>
         <% end %>
       </dd>
-      <dd><label class="width-65">颜色</label><input type="color" name="vehicle[detail][color]" class="width-100" value="{{vehicle.detail.color}}"></dd>
-      <dd><label class="width-55">座位数</label><input type="number" name='vehicle[detail][capacity]' class="width-103" value="{{vehicle.detail.capacity}}"></dd>
+      <dd><label class="width-77">颜色</label><input type="color" name="vehicle[detail][color]" class="width-90" value="{{vehicle.detail.color}}"></dd>
+      <dd><label class="width-77">座位数</label><input type="number" name='vehicle[detail][capacity]' class="width-90" value="{{vehicle.detail.capacity}}"></dd>
     </dl>
     <dl>
       <dd>
@@ -69,7 +69,7 @@
         <% if @detail and @detail.bought_on : %>
         <span><%= @detail.bought_on %></span>
         <% else : %>
-        <input type="date" class="width-110" name='vehicle[detail][bought_on]' value={{vehicle.detail.bought_on}}>
+        <input type="date" class="width-90" name='vehicle[detail][bought_on]' value={{vehicle.detail.bought_on}}>
         <% end %>
       </dd>
       <dd>
@@ -77,26 +77,26 @@
         <% if @detail and @detail.ex_factory_date : %>
         <span><%= @detail.ex_factory_date %></span>
         <% else : %>
-        <input type="date" class="width-110" name="vehicle[detail][ex_factory_date]" value={{vehicle.detail.ex_factory_date}}>
+        <input type="date" class="width-90" name="vehicle[detail][ex_factory_date]" value={{vehicle.detail.ex_factory_date}}>
         <% end %>
       </dd>
       <dd>
-        <label class="width-65">上牌时间</label>
+        <label class="width-77">上牌时间</label>
         <% if @detail and @detail.registered_on : %>
         <span><%= @detail.registered_on %></span>
         <% else : %>
-        <input type="date" class="width-100" name="vehicle[detail][registered_on]" value={{vehicle.detail.registered_on}}>
+        <input type="date" class="width-90" name="vehicle[detail][registered_on]" value={{vehicle.detail.registered_on}}>
         <% end %>
       </dd>
       <dd>
-        <label class="width-55">公里数</label>
-        <input type="number" class="width-103" name="vehicle[detail][mileage]" value={{vehicle.detail.mileage}}>
+        <label class="width-77">公里数</label>
+        <input type="number" class="width-90" name="vehicle[detail][mileage]" value={{vehicle.detail.mileage}}>
       </dd>
     </dl>
     <dl>
       <dd>
         <label class="width-77">车辆性质</label>
-        <select class="width-110" name="vehicle[detail][organization_type]">
+        <select class="width-90" name="vehicle[detail][organization_type]">
           <option <%= 'selected' if String(@detail && @detail.organization_type) == '0' %> value="0">私家车</option>
           <option <%= 'selected' if String(@detail && @detail.organization_type) == '1' %> value="1">公务车</option>
           <option <%= 'selected' if String(@detail && @detail.organization_type) == '2' %> value="2">商务车</option>
@@ -104,11 +104,11 @@
       </dd>
       <dd>
         <label class="width-77">最近保养时间</label>
-        <input type="date" class="width-110" name="vehicle[detail][maintained_at]" value={{vehicle.detail.maintained_at}}>
+        <input type="date" class="width-90" name="vehicle[detail][maintained_at]" value={{vehicle.detail.maintained_at}}>
       </dd>
       <dd>
         <label class="width-77">最近保养里程</label>
-        <input type="number" class="width-110" name="vehicle[detail][maintained_mileage]" value={{vehicle.detail.maintained_mileage}}>
+        <input type="number" class="width-90" name="vehicle[detail][maintained_mileage]" value={{vehicle.detail.maintained_mileage}}>
       </dd>
     </dl>
   </div>

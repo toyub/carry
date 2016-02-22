@@ -20,58 +20,30 @@
 	div.vehicle_info{
 		dl{
 			overflow: auto;
+      padding-top: 5px;
+      padding-bottom: 5px;
 			dd{
+        display: inline-flex;
+				align-items: center;
+				float: left;
+				height: 40px;
 
-				&.item_content{
+        input, span, select{
+          box-sizing: border-box;
+        }
+
+				&.license_number{
 					position: relative;
 				}
-				display: flex;
-				align-items: center;
-				float: left;
-				height: 40px;
-				&:nth-child(1){width: 27%;}
-				&:nth-child(2){width: 27%;}
-				&:nth-child(3){width: 23%;}
-				&:nth-child(4){width: 23%;}
 
 				label{
 					text-align: right;
-				}
-
-
-			}
-		}
-	}
-
-	div.vehicle_maintenance{
-		width:635px;
-		margin-left:54px;
-		background: #EFEAE5;
-		margin-top: 30px;
-		dl{
-			overflow: auto;
-			dd{
-				display: flex;
-				align-items: center;
-				float: left;
-				height: 40px;
-				&:nth-child(1){width: 41%;}
-				&:nth-child(2){width: 59%;}
-
-				label{
-					text-align: right;
-				}
-
-				input{
-					height: 22px;
-					line-height: 22px;
-					margin-left: 5px;
 				}
 			}
 		}
 	}
 
-	dl.remark{
+  dl.remark{
 		width: 690px;
 		margin-top: 25px;
 		dd{
@@ -86,11 +58,15 @@
 			}
 
 			textarea{
-				margin-left: 5px;
-				width: 634px;
+				width: 589px;
+        height: 60px;
+        resize: none;
 			}
     }
 	}
 
+  .save_btn{
+    margin-right: 22px;
+  }
 
 }
