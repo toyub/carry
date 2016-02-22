@@ -1,10 +1,11 @@
 class GenerateOrderService
   include Serviceable
   include StatusObject
-  
-  def initialize(order_params, basic_params)
+
+  def initialize(order_params, basic_params, options = {})
     @order_params = order_params
     @basic_params = basic_params
+    @order = options[:order]
     @order_items = []
     @customer = StoreCustomer.where(id: order_params[:store_customer_id]).last
   end
@@ -14,7 +15,11 @@ class GenerateOrderService
       material_items
       service_items
       package_items
-      @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items))
+      if @order.present?
+        @order.update!(items: @order_items)
+      else
+        @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items))
+      end
     end
     Status.new(success: true, notice: '下单成功!')
   rescue ActiveRecord::RecordInvalid => e
@@ -33,7 +38,7 @@ class GenerateOrderService
   def service_items
     service_ids = @order_params[:services].map{|s| s[:service_id]} if @order_params[:services].present?
     StoreService.where(id: service_ids).each_with_index do |service, i|
-      service_item = service.store_order_items.new(service_ietm_params(i))
+      service_item = service.store_order_items.new(service_item_params(i))
       @order_items << service_item
     end
   end
@@ -68,7 +73,7 @@ class GenerateOrderService
     end
   end
 
-  def service_ietm_params(i)
+  def service_item_params(i)
     @basic_params.merge(
       quantity: @order_params[:services][i][:count],
       price: service_price(i),

@@ -37,10 +37,48 @@ module V1
         end
       end
 
-      get do
+      add_desc '下单'
+      post do
         status = GenerateOrderService.call(order_params, basic_params)
         present status: status.success, info: status.notice
       end
+
+      add_desc '订单更新(订单编辑)'
+      params do
+        requires :order_id, type: Integer, desc: '订单的id'
+        requires :is_vip, type: Boolean, desc: '是否是会员客户'
+        requires :platform, type: String, desc: '验证平台！'
+        requires :store_customer_id, type: Integer, desc: '客户id'
+        optional :materials, type: Array do
+          optional :material_id, type: Integer, desc: '商品的id'
+          optional :count, type: Integer, desc: '商品的数量'
+          optional :price, type: BigDecimal, desc: '单价'
+          optional :vip_price, type: BigDecimal, desc: '会员价'
+          optional :discount, type: BigDecimal, desc: '优惠价'
+          optional :discount_reason, type: String, desc: '优惠理由'
+          optional :from_asset, type: Boolean, desc: '是否卡扣'
+        end
+        optional :services, type: Array do
+          optional :service_id, type: Integer, desc: '服务的id'
+          optional :count, type: Integer, desc: '服务的数量'
+          optional :price, type: BigDecimal, desc: '单价'
+          optional :vip_price, type: BigDecimal, desc: '会员价'
+          optional :discount, type: BigDecimal, desc: '优惠价'
+          optional :discount_reason, type: String, desc: '优惠理由'
+          optional :from_asset, type: Boolean, desc: '是否卡扣'
+        end
+        optional :packages, type: Array do
+          optional :package_id, type: Integer, desc: '套餐的id'
+          optional :count, type: Integer, desc: '套餐的数量'
+          optional :price, type: BigDecimal, desc: '单价'
+        end
+      end
+      put ":order_id", requirements: { id: /[0-9]*/ } do
+        order = StoreOrder.find(params[:order_id])
+        status = GenerateOrderService.call(order_params, basic_params, order: order)
+        present status: status.success, info: status.notice
+      end
+
     end
 
     helpers do
