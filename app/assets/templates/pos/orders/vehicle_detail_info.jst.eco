@@ -61,7 +61,7 @@
         <% end %>
       </dd>
       <dd><label class="width-77">颜色</label><input type="color" name="vehicle[detail][color]" class="width-90" value="{{vehicle.detail.color}}"></dd>
-      <dd><label class="width-77">座位数</label><input type="number" name='vehicle[detail][capacity]' class="width-90" value="{{vehicle.detail.capacity}}"></dd>
+      <dd><label class="width-77">座位数</label><input type="number" min="1" name='vehicle[detail][capacity]' class="width-90" value="{{vehicle.detail.capacity}}"></dd>
     </dl>
     <dl>
       <dd>
@@ -90,7 +90,7 @@
       </dd>
       <dd>
         <label class="width-77">公里数</label>
-        <input type="number" class="width-90" name="vehicle[detail][mileage]" value={{vehicle.detail.mileage}}>
+        <input type="number" min="0" class="width-90" name="vehicle[detail][mileage]" value={{vehicle.detail.mileage}}>
       </dd>
     </dl>
     <dl>
@@ -108,7 +108,7 @@
       </dd>
       <dd>
         <label class="width-77">最近保养里程</label>
-        <input type="number" class="width-90" name="vehicle[detail][maintained_mileage]" value={{vehicle.detail.maintained_mileage}}>
+        <input type="number" min="0" class="width-90" name="vehicle[detail][maintained_mileage]" value={{vehicle.detail.maintained_mileage}}>
       </dd>
     </dl>
   </div>
