@@ -1,6 +1,7 @@
 class GenerateOrderService
   include Serviceable
-
+  include StatusObject
+  
   def initialize(order_params, basic_params)
     @order_params = order_params
     @basic_params = basic_params
@@ -15,9 +16,9 @@ class GenerateOrderService
       package_items
       @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items))
     end
-    true
-  rescue ActiveRecord::RecordInvalid
-    false
+    Status.new(success: true, notice: '下单成功!')
+  rescue ActiveRecord::RecordInvalid => e
+    Status.new(success: false, notice: e.message)
   end
 
   def material_items

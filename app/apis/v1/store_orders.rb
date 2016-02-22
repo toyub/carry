@@ -38,8 +38,8 @@ module V1
       end
 
       get do
-        creator = GenerateOrderService.call(order_params, basic_params)
-        present info: 444
+        status = GenerateOrderService.call(order_params, basic_params)
+        present status: status.success, info: status.notice
       end
     end
 
