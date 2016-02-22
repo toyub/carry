@@ -25,6 +25,7 @@
   &:nth-child(3){width: 23%;}
   &:nth-child(4){width: 16%;}
   &:nth-child(5){width: 13%;}
+  &:nth-child(6){width: 12.5%;}
   &:nth-child(7){width: 12.5%; text-align: right;}
   &:nth-child(8){width: 5%; text-align: center;}
 }
@@ -189,7 +190,13 @@
 				display: none;
 
 				.order_search{
-					margin:5px 0;
+					padding-top: 10px;
+          padding-bottom: 10px;
+
+          .form-label{
+            padding-left: 8px;
+            padding-right: 8px;
+          }
 				}
 
 				.orderables_title{
