@@ -10,6 +10,7 @@ class SmsJob < ActiveJob::Base
         phone_number: receiver.phone_number,
         receiver_name: receiver.full_name,
         receiver_id: receiver.id,
+        receiver_type: options[:receiver_type],
         content: options[:content],
         first_category: options[:first_category],
         second_category: options[:second_category],
