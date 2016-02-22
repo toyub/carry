@@ -34,10 +34,6 @@ module V1
           optional :package_id, type: Integer, desc: '套餐的id'
           optional :count, type: Integer, desc: '套餐的数量'
           optional :price, type: BigDecimal, desc: '单价'
-          optional :vip_price, type: BigDecimal, desc: '会员价'
-          optional :discount, type: BigDecimal, desc: '优惠价'
-          optional :discount_reason, type: String, desc: '优惠理由'
-          optional :from_asset, type: Boolean, desc: '是否卡扣'
         end
       end
 
