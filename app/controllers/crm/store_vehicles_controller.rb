@@ -8,7 +8,8 @@ class Crm::StoreVehiclesController < Crm::BaseController
   end
 
   def create
-    vehicle = StoreVehicle.new((append_store_attrs vehicle_params).merge(plate_params))
+    vehicle = StoreVehicle.new(append_store_attrs vehicle_params)
+    vehicle.plates.new(plate_params)
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
@@ -67,10 +68,7 @@ class Crm::StoreVehiclesController < Crm::BaseController
     end
 
     def plate_params
-      attrs = params.require(:store_vehicle).permit(
-        plates_attributes: [:license_number]
-      ).values.first.values.map{ |x| x.merge(store_options).except(:store_customer_id) }
-      { 'plates_attributes': attrs }
+      { license_number: params[:license_number] }.merge(store_options).except(:store_customer_id)
     end
 
     def set_customer
