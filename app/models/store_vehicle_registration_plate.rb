@@ -9,6 +9,6 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
   has_many :vehicle_plates
   has_many :store_vehicles, through: :vehicle_plates
 
-  validates :license_number, presence: true, uniqueness: true
+  validates :license_number, presence: true, uniqueness: true, format: { with: /[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}/ }
 
 end

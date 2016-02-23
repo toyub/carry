@@ -8,7 +8,7 @@ class Crm::StoreVehiclesController < Crm::BaseController
   end
 
   def create
-    vehicle = StoreVehicle.new(append_store_attrs vehicle_params)
+    vehicle = StoreVehicle.new(update_vehicle_params(append_store_attrs vehicle_params))
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
@@ -77,5 +77,12 @@ class Crm::StoreVehiclesController < Crm::BaseController
 
     def set_vehicle_ids
       @vehicle_ids = @customer.store_vehicles.ids.sort
+    end
+
+    def update_vehicle_params(vehicle_params)
+      arr = vehicle_params.map do |k,v|
+        [k, k.to_s == 'plates_attributes' ? [v.first.except(:store_customer_id)] : v]
+      end
+      Hash[arr]
     end
 end

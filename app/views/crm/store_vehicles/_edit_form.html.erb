@@ -5,15 +5,15 @@
   </div>
   <div class="item_content">
     <label class='width-75'>品牌</label>
-    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vehicle_brand.name %>' >
+    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.brand_name %>' >
   </div>
   <div class="item_content">
     <label class='width-75'>车系</label>
-    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vehicle_series.name %>' >
+    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.series_name %>' >
   </div>
   <div class="item_content">
     <label class='width-75'>车型</label>
-    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vehicle_model.name %>' >
+    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vehicle_model.try(:name) %>' >
   </div>
   <div class="item_content">
     <label class='width-75'>VIN号码</label>
