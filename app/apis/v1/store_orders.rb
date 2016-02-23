@@ -15,31 +15,30 @@ module V1
         optional :plate_id, type: Integer, desc: '车牌的id'
         optional :materials, type: Array do
           optional :material_id, type: Integer, desc: '商品的id'
-          optional :count, type: Integer, desc: '商品的数量'
-          optional :price, type: BigDecimal, desc: '单价'
+          optional :quantity, type: Integer, desc: '商品的数量'
+          optional :retail_price, type: BigDecimal, desc: '销售单价'
           optional :vip_price, type: BigDecimal, desc: '会员价'
           optional :discount, type: BigDecimal, desc: '优惠价'
           optional :discount_reason, type: String, desc: '优惠理由'
-          optional :from_asset, type: Boolean, desc: '是否卡扣'
+          optional :price, type: BigDecimal, desc: '单价'
         end
         optional :services, type: Array do
           optional :service_id, type: Integer, desc: '服务的id'
-          optional :count, type: Integer, desc: '服务的数量'
+          optional :quantity, type: Integer, desc: '服务的数量'
           optional :price, type: BigDecimal, desc: '单价'
-          optional :vip_price, type: BigDecimal, desc: '会员价'
-          optional :discount, type: BigDecimal, desc: '优惠价'
-          optional :discount_reason, type: String, desc: '优惠理由'
           optional :from_asset, type: Boolean, desc: '是否卡扣'
+          optional :store_customer_asset_item_id, type: Integer, desc: '卡扣的id'
         end
         optional :packages, type: Array do
           optional :package_id, type: Integer, desc: '套餐的id'
-          optional :count, type: Integer, desc: '套餐的数量'
+          optional :quantity, type: Integer, desc: '套餐的数量'
           optional :price, type: BigDecimal, desc: '单价'
         end
       end
 
       add_desc '下单'
       post do
+        # binding.pry
         status = GenerateOrderService.call(order_params, basic_params)
         present status: status.success, info: status.notice
       end
@@ -54,27 +53,27 @@ module V1
           requires :is_vip, type: Boolean, desc: '是否是会员客户'
           requires :platform, type: String, desc: '验证平台！'
           requires :store_customer_id, type: Integer, desc: '客户id'
+          optional :plate_id, type: Integer, desc: '车牌的id'
           optional :materials, type: Array do
             optional :material_id, type: Integer, desc: '商品的id'
-            optional :count, type: Integer, desc: '商品的数量'
-            optional :price, type: BigDecimal, desc: '单价'
+            optional :quantity, type: Integer, desc: '商品的数量'
+            optional :retail_price, type: BigDecimal, desc: '销售单价'
             optional :vip_price, type: BigDecimal, desc: '会员价'
             optional :discount, type: BigDecimal, desc: '优惠价'
             optional :discount_reason, type: String, desc: '优惠理由'
-            optional :from_asset, type: Boolean, desc: '是否卡扣'
+            optional :price, type: BigDecimal, desc: '单价'
           end
           optional :services, type: Array do
             optional :service_id, type: Integer, desc: '服务的id'
-            optional :count, type: Integer, desc: '服务的数量'
+            optional :quantity, type: Integer, desc: '服务的数量'
             optional :price, type: BigDecimal, desc: '单价'
-            optional :vip_price, type: BigDecimal, desc: '会员价'
-            optional :discount, type: BigDecimal, desc: '优惠价'
-            optional :discount_reason, type: String, desc: '优惠理由'
             optional :from_asset, type: Boolean, desc: '是否卡扣'
+            optional :store_customer_asset_item_id, type: Integer, desc: '卡扣的id'
+
           end
           optional :packages, type: Array do
             optional :package_id, type: Integer, desc: '套餐的id'
-            optional :count, type: Integer, desc: '套餐的数量'
+            optional :quantity, type: Integer, desc: '套餐的数量'
             optional :price, type: BigDecimal, desc: '单价'
           end
         end
@@ -142,39 +141,31 @@ module V1
           :is_vip,
           :platform,
           :vehicle_id,
+          :plate_id,
           :store_customer_id,
           :store_id,
           :store_chain_id,
           :store_staff_id,
           materials: [
             :material_id,
-            :bargain_price,
-            :count,
+            :retail_price,
+            :quantity,
             :vip_price,
             :price,
             :discount,
-            :discount_reason,
-            :from_asset
+            :discount_reason
           ],
           services: [
             :service_id,
-            :bargain_price,
-            :count,
-            :vip_price,
+            :quantity,
             :price,
-            :discount,
-            :discount_reason,
-            :from_asset
+            :from_asset,
+            :store_customer_asset_item_id
           ],
           packages: [
             :package_id,
-            :bargain_price,
-            :count,
-            :vip_price,
-            :price,
-            :discount,
-            :discount_reason,
-            :from_asset
+            :quantity,
+            :price
           ]
         )
       end

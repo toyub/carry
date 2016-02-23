@@ -53,58 +53,33 @@ class GenerateOrderService
 
   def material_item_params(i)
     @basic_params.merge(
-      quantity: @order_params[:materials][i][:count],
-      price: material_price(i),
-      store_customer_id: @order_params[:materials][i][:store_customer_id],
+      quantity: @order_params[:materials][i][:quantity],
+      price: @order_params[:materials][i][:price],
+      store_customer_id: @order_params[:store_customer_id],
       discount: @order_params[:materials][i][:discount],
       discount_reason: @order_params[:materials][i][:discount_reason],
       vip_price: @order_params[:materials][i][:vip_price],
-      from_customer_asset: @order_params[:materials][i][:from_asset],
-      retail_price: @order_item[:materials][i][:price]
+      retail_price: @order_params[:materials][i][:retail_price]
     )
-  end
-
-  def material_price(i)
-    if @order_params[:materials][i][:from_asset]
-      0
-    elsif @order_params[:is_vip] && @order_params[:materials][i][:vip_price].present?
-      @order_params[:materials][i][:vip_price] - @order_params[:materials][i][:discount].to_f
-    else
-      @order_params[:materials][i][:price] - @order_params[:materials][i][:discount].to_f
-    end
   end
 
   def service_item_params(i)
     @basic_params.merge(
-      quantity: @order_params[:services][i][:count],
-      price: service_price(i),
-      store_customer_id: @order_params[:services][i][:store_customer_id],
-      discount: @order_params[:services][i][:discount],
-      discount_reason: @order_params[:services][i][:discount_reason],
-      vip_price: @order_params[:services][i][:vip_price],
-      amount: service_price(i) * @order_params[:services][i][:count],
+      quantity: @order_params[:services][i][:quantity],
+      price: @order_params[:services][i][:price],
+      store_customer_id: @order_params[:store_customer_id],
       from_customer_asset: @order_params[:services][i][:from_asset],
-      retail_price: @order_item[:materials][i][:price]
+      retail_price: @order_params[:services][i][:price],
+      store_customer_asset_item_id: @order_params[:services][i][:store_customer_asset_item_id]
     )
-  end
-
-  def service_price(i)
-    if @order_params[:services][i][:from_asset]
-      0
-    elsif @order_params[:is_vip] && @order_params[:services][i][:vip_price].present?
-      @order_params[:services][i][:vip_price] - @order_params[:services][i][:discount].to_f
-    else
-      @order_params[:services][i][:price] - @order_params[:services][i][:discount].to_f
-    end
   end
 
   def package_item_params(i)
     @basic_params.merge(
-      quantity: @order_params[:packages][i][:count],
+      quantity: @order_params[:packages][i][:quantity],
       price: @order_params[:packages][i][:price],
       store_customer_id: @order_params[:packages][i][:store_customer_id],
-      amount: @order_params[:packages][i][:price] * @order_params[:packages][i][:count],
-      retail_price: @order_item[:materials][i][:price]
+      retail_price: @order_params[:packages][i][:price]
     )
   end
 
