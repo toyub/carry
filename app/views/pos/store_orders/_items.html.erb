@@ -35,7 +35,7 @@
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.price }}</span>
             <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-orderabletype='{{item.orderable_type}}' data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
+              <i class="lnr lnr-cross color-fff" v-on:click="removeItem($index, $event)"></i>
             </span>
         	</td>
         </tr>
@@ -78,7 +78,7 @@
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.price }}</span>
             <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-orderabletype='{{item.orderable_type}}' data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
+              <i class="lnr lnr-cross color-fff" v-on:click="removeItem($index, $event)"></i>
             </span>
         	</td>
         </tr>
@@ -112,7 +112,7 @@
             <td>
               <span class="js-material-saleinfo-item-price">{{ item.quantity * item.price }}</span>
               <span class="delete close">
-                <i class="lnr lnr-cross color-fff" data-orderabletype='{{item.orderable_type}}' data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
+                <i class="lnr lnr-cross color-fff" v-on:click="removeItem($index, $event)"></i>
               </span>
         	  </td>
           </tr>

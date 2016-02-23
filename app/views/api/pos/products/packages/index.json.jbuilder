@@ -14,6 +14,8 @@ json.array! @packages do |package|
     json.mechanic_level service.package_itemable.engineer_level
     json.retail_price service.package_itemable.retail_price
     json.price service.price
+    json.package_itemable_type service.package_itemable_type
+    json.package_itemable_id service.package_itemable_id
   end
 
   json.quantity 1
