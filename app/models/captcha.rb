@@ -5,6 +5,11 @@ class Captcha < ActiveRecord::Base
 
   EXPRIED = 30.minutes
 
+  def self.authenticate(phone, token)
+    amender = where(phone: phone).last
+    amender.present? && amender.token == token && !amender.expried?
+  end
+
   def store_staff
     StoreStaff.find_by(login_name: phone)
   end

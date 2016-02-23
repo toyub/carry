@@ -16,8 +16,7 @@ module V1
       end
 
       get do
-        cap = Captcha.find_by(phone: params[:phone_number])
-        if cap.validate_with_token(params[:captcha])
+        if Captcha.authenticate(params[:phone_number], params[:captcha])
           {status: 'success', notice: "验证通过"}
         else
           {status: 'fails', notice: "验证失败，请重新输入"}
