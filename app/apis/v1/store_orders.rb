@@ -12,6 +12,7 @@ module V1
         requires :platform, type: String, desc: '验证平台！'
         requires :store_customer_id, type: Integer, desc: '客户id'
         requires :vehicle_id, type: Integer, desc: '车辆的id'
+        optional :plate_id, type: Integer, desc: '车牌的id'
         optional :materials, type: Array do
           optional :material_id, type: Integer, desc: '商品的id'
           optional :count, type: Integer, desc: '商品的数量'
@@ -44,6 +45,9 @@ module V1
       end
 
       route_param :order_id do
+        before do
+          @order = StoreOrder.find(params[:order_id])
+        end
         add_desc '订单更新(订单编辑)'
         params do
           requires :order_id, type: Integer, desc: '订单的id'
@@ -86,10 +90,33 @@ module V1
           requires :platform, type: String, desc: '验证平台！'
         end
         delete  do
-          order = StoreOrder.find(params[:order_id])
-          order.delete
+          @order.delete
           present info: '取消订单成功'
         end
+
+        add_desc '订单详情'
+        params do
+          requires :platform, type: String, desc: '验证平台！'
+          requires :order_id, type: Integer, desc: '订单的id'
+        end
+        get do
+          present @order.items, with: ::Entities::StoreOrder, type: :full
+        end
+
+      end
+
+      add_desc '订单列表'
+      params do
+        requires :platform, type: String, desc: '验证平台！'
+        optional :q, type: Hash, default: {} do
+          optional :plate_license_number_cont, type: String
+          optional :store_customer_phone_number_cont, type: String
+          optional :state_eq, type: Integer
+        end
+      end
+      get do
+        orders = current_store.store_orders.ransack(params[:q]).result
+        present orders, with: ::Entities::StoreOrder, type: :default
       end
     end
 

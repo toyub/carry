@@ -59,7 +59,8 @@ class GenerateOrderService
       discount: @order_params[:materials][i][:discount],
       discount_reason: @order_params[:materials][i][:discount_reason],
       vip_price: @order_params[:materials][i][:vip_price],
-      from_customer_asset: @order_params[:materials][i][:from_asset]
+      from_customer_asset: @order_params[:materials][i][:from_asset],
+      retail_price: @order_item[:materials][i][:price]
     )
   end
 
@@ -82,7 +83,8 @@ class GenerateOrderService
       discount_reason: @order_params[:services][i][:discount_reason],
       vip_price: @order_params[:services][i][:vip_price],
       amount: service_price(i) * @order_params[:services][i][:count],
-      from_customer_asset: @order_params[:services][i][:from_asset]
+      from_customer_asset: @order_params[:services][i][:from_asset],
+      retail_price: @order_item[:materials][i][:price]
     )
   end
 
@@ -101,13 +103,15 @@ class GenerateOrderService
       quantity: @order_params[:packages][i][:count],
       price: @order_params[:packages][i][:price],
       store_customer_id: @order_params[:packages][i][:store_customer_id],
-      amount: @order_params[:packages][i][:price] * @order_params[:packages][i][:count]
+      amount: @order_params[:packages][i][:price] * @order_params[:packages][i][:count],
+      retail_price: @order_item[:materials][i][:price]
     )
   end
 
   def order_params_merge_vehicle
     @basic_params.merge(
-      store_vehicle_id: @order_params[:vehicle_id]
+      store_vehicle_id: @order_params[:vehicle_id],
+      store_vehicle_registration_plate_id: @order_params[:plate_id]
     )
   end
 end
