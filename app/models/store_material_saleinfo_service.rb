@@ -5,6 +5,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
   belongs_to :store_material_saleinfo
   belongs_to :mechanic_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'mechanic_commission_template_id'
   has_many :snapshots, class_name: "StoreServiceSnapshot", as: :templateable
+  has_many :store_order_items, as: :orderable
 
   default_scope {where(deleted: false).order('id asc')}
 
@@ -30,8 +31,20 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     )
   end
 
+  def retail_price
+    0
+  end
+
+  def vip_price
+    0
+  end
+
   def standard_time
     (self.work_time_in_seconds/60.0).ceil
+  end
+
+  def delay_until
+    tracking_delay_in_seconds.seconds
   end
 
 end

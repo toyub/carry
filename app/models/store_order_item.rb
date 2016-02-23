@@ -14,7 +14,7 @@ class StoreOrderItem < ActiveRecord::Base
 
   scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
   scope :packages, -> { where(orderable_type: "StorePackage") }
-  scope :services, -> { where(orderable_type: "StoreService") }
+  scope :services, -> { where(orderable_type: ["StoreService", 'StoreMaterialSaleinfoService']) }
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }

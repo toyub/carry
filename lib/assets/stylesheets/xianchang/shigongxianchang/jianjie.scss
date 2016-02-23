@@ -312,6 +312,63 @@
 
 
 .modalDialog{
+
+	.fheader{
+		padding: 0px 15px 0px;
+    height: 48px;
+    line-height: 48px;
+    background: #fff;
+    border-bottom: 1px solid #d2d2d2;
+
+		span{
+			display: inline-block;
+	    height: 29px;
+	    line-height: 29px;
+	    font-size: 14px;
+	    color: #999999;
+		}
+	}
+
+	.form_content{
+		.form_item{
+			margin-top: 25px;
+    	position: relative;
+
+			label{
+				width: 75px;
+		    display: inline-block;
+		    text-align: right;
+			}
+
+			input[type="text"],input[type="date"]{
+				width: 165px;
+		    height: 25px;
+		    line-height: 25px;
+				border: 1px solid #dbd9d9;
+			}
+		}
+
+		.ffooter{
+			padding: 30px 20px;
+	    text-align: center;
+	    text-align: right;
+
+			.confirm_btn{
+				color: #fff;
+		    background-color: #198fff;
+		    border-color: #2e6da4;
+		    display: inline-block;
+		    margin: 0px 10px;
+		    padding: 0px 15px;
+		    height: 22px;
+		    line-height: 22px;
+		    border: 0px;
+		    cursor: pointer;
+		    box-shadow: 0px 2px 0px #063a93;
+			}
+		}
+	}
+
 	.add_time_content{
 		input{
 			margin: 10px 20px;

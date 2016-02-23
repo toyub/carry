@@ -5,6 +5,7 @@ class StoreOrderItemSerializer < ActiveModel::Serializer
               :quantity, :amount,
               :discount_reason, :remark,
               :divide_to_retail, :standard_volume_per_bill, :actual_volume_per_bill, :divide_cost_checked,
+              :from_customer_asset, :store_customer_asset_item_id, :package_type, :package_id, :assetable_type, :assetable_id,
               :created_at, :updated_at
 
   def name

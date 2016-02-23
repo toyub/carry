@@ -16,5 +16,12 @@ class StorePackageSetting < ActiveRecord::Base
     "#{self.period}#{PERIOD_UNIT[self.period_unit]}"
   end
 
+  def services
+    self.items.packaged_services
+  end
+
+  def contains_service
+    self.services.length > 0
+  end
 
 end

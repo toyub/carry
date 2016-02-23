@@ -35,13 +35,13 @@ Mis.Settings.Entity =
     _7days: '月底前7天'
 
   payment:
-    cash: '现金'
-    check: '支票'
-    credit_card: '信用卡'
-    debit: '银行卡'
-    alipay: '支付宝'
-    wechat: '微信'
-    hanging: '挂账'
+    cash: "现金"
+    bankcard: "银行卡"
+    cheque: "支票"
+    alipay: "支付宝"
+    wechatpay: "微信支付"
+    deposit: "储值余额"
+    internalcredit: "挂账"
 
   invoice:
     common: '普票'

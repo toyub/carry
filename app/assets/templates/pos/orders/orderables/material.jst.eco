@@ -1,27 +1,50 @@
-<tr>
-  <td><%= @idx %></td>
-  <td>
-    <% if @service_needed: %>
-    <span class="struct">施</span>
-    <% end %>
-    <%= @name %>
-  </td>
-  <td><%= @speci %></td>
-  <td><%= @category_name %></td>
-  <td><%= @reward_points %></td>
-  <td><%= @inventory_quantity %></td>
-  <td class="text-align-right">
-    <% if @vip_price_enabled : %>
-      <% if current_customer.isMembership : %>
-        <span title='零售价' class="text-decoration-linethrough display-block"><%= @retail_price %></span>
-        <span title='会员价' class="color-08BD48"><%= @vip_price %></span>
-      <% else : %>
-        <span title='会员价' class="text-decoration-linethrough display-block"><%= @vip_price %></span>
-        <span title='零售价' class="color-08BD48"><%= @retail_price %></span>
+<div class="matrial_order orderable">
+  <ul>
+    <li>
+    <%= @idx %>
+      <% if @service_needed: %>
+        <span class="struct">施</span>
       <% end %>
-    <% else : %>
-      <span class="color-08BD48"><%= @retail_price %></span>
-    <% end %>
-  </td>
-  <td><input type="checkbox" data-itemid="<%= @id %>" class="material-checkbox"></td>
-</tr>
+    </li>
+    <li><%= @name %></li>
+    <li><%= @speci %></li>
+    <li><%= @category_name %></li>
+    <li><%= @reward_points %></li>
+    <li><%= @inventory_quantity %></li>
+    <li>
+      <% if @vip_price_enabled : %>
+        <% if current_customer.isMembership : %>
+          <span title='零售价' class="text-decoration-linethrough display-block"><%= @retail_price %></span>
+          <span title='会员价' class="color-08BD48"><%= @vip_price %></span>
+        <% else : %>
+          <span title='会员价' class="text-decoration-linethrough display-block"><%= @vip_price %></span>
+          <span title='零售价' class="color-08BD48"><%= @retail_price %></span>
+        <% end %>
+      <% else : %>
+        <span class="color-08BD48"><%= @retail_price %></span>
+      <% end %>
+    </li>
+    <li><input type="checkbox" data-itemid="<%= @id %>" class="material-checkbox"></li>
+  </ul>
+</div>
+
+<% if @service_needed: %>
+<div class="services">
+  <dl>
+    <dt>服务项目</dt>
+    <dt>总次数</dt>
+    <dt>施工时间</dt>
+    <dt>技师等级</dt>
+    <dt></dt>
+  </dl>
+  <% for service in @services : %>
+  <dl>
+    <dd><%= service.name %></dd>
+    <dd><%= service.quantity %></dd>
+    <dd><%= service.work_time_in_seconds/60 %>分钟</dd>
+    <dd><%= service.mechanic_level %></dd>
+    <dd><input type="checkbox" class='js-material-service' data-parentid='<%= @id %>' data-itemid='<%= service.id %>'></dd>
+  </dl>
+  <% end %>
+</div>
+<% end %>

@@ -1,11 +1,11 @@
 module Entities
   class MessageCategory < Grape::Entity
-    expose(:name) { |category, opton| category.name[:type] }
+    expose(:name) { |category, opton| category[:cn_name] }
     expose :categories do |category, option|
-      category.name[:sub_category].constantize.collection.map do |sub_category|
+      category[:sub_category].map do |sub|
         {
-          code: "#{category.id}-#{sub_category.id}",
-          desc: "#{category.name[:type]}-#{sub_category.name}"
+          code: "#{category[:name]}-#{sub.id}",
+          desc: "#{category[:cn_name]}-#{sub.name}"
         }
       end
     end

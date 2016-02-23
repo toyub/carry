@@ -51,7 +51,11 @@ class StoreCustomerEntity < ActiveRecord::Base
   end
 
   def property_i18n
-    I18n.t "enums.store_customer_entity.property.#{self.property}" if property.present?
+    if self.property.present?
+      I18n.t self.property, scope: [:enums, :store_customer_entity, :property]
+    else
+      '未定义'
+    end
   end
 
   def category
