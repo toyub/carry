@@ -8,7 +8,7 @@ class Crm::StoreVehiclesController < Crm::BaseController
   end
 
   def create
-    vehicle = StoreVehicle.new(update_vehicle_params(append_store_attrs vehicle_params))
+    vehicle = StoreVehicle.create((append_store_attrs vehicle_params).merge(plate_params))
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
@@ -62,9 +62,15 @@ class Crm::StoreVehiclesController < Crm::BaseController
                  :insurance_store_alermify
                ],
         frame_attributes: [:vin],
-        plates_attributes: [:license_number],
         engines_attributes: [:identification_number]
         )
+    end
+
+    def plate_params
+      attrs = params.require(:store_vehicle).permit(
+        plates_attributes: [:license_number]
+      ).values.first.values.map{ |x| x.merge(store_options).except(:store_customer_id) }
+      { 'plates_attributes': attrs }
     end
 
     def set_customer
@@ -77,12 +83,5 @@ class Crm::StoreVehiclesController < Crm::BaseController
 
     def set_vehicle_ids
       @vehicle_ids = @customer.store_vehicles.ids.sort
-    end
-
-    def update_vehicle_params(vehicle_params)
-      arr = vehicle_params.map do |k,v|
-        [k, k.to_s == 'plates_attributes' ? [v.first.except(:store_customer_id)] : v]
-      end
-      Hash[arr]
     end
 end
