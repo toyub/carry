@@ -25,7 +25,7 @@ module V1
           phone_number: params[:phone_number],
           first_category: 'SmsCaptchaSwitchType',
           second_category: SmsCaptchaSwitchType::TYPES_ID["密码找回验证"],
-          content: "尊敬的用户：您正在重置密码，验证码：#{captcha.token}，请在15分钟内按提示进行操作，切勿将验证码泄漏。 #{current_store.name}汽车服务门店"
+          content: "尊敬的用户：您正在重置密码，验证码：#{captcha.token}，请在15分钟内按提示进行操作，切勿将验证码泄漏。 #{staff.store.name}汽车服务门店"
         }
         SmsJob.perform_now(options)
       end
