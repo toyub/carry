@@ -15,10 +15,11 @@ module V1
       end
 
       get do
-        staff = current_store.store_staff.find_by(phone_number: params[:phone_number])
+        staff = StoreStaff.find_by(phone_number: params[:phone_number])
+        return {status: "fails", notice: "the user is not exist!"} unless staff.present?
         captcha = Captcha.create!(token: generate_salt(6), sent_at: Time.now, phone: params[:phone_number])
         options = {
-          store_id: current_store.id,
+          store_id: staff.store.id,
           receiver_type: "StoreStaff",
           receiver_id: staff.id,
           phone_number: params[:phone_number],
