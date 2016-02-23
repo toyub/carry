@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219025727) do
+ActiveRecord::Schema.define(version: 20160220070032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1136,15 +1136,15 @@ ActiveRecord::Schema.define(version: 20160219025727) do
   create_table "store_order_items", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "quantity",                                                      default: 0
-    t.decimal  "price",                                precision: 10, scale: 4, default: 0.0
-    t.decimal  "amount",                               precision: 12, scale: 4, default: 0.0
-    t.string   "remark",                   limit: 255
-    t.integer  "orderable_id",                                                                  null: false
-    t.string   "orderable_type",           limit: 60,                                           null: false
-    t.integer  "store_id",                                                                      null: false
-    t.integer  "store_chain_id",                                                                null: false
-    t.integer  "store_staff_id",                                                                null: false
+    t.integer  "quantity",                                                          default: 0
+    t.decimal  "price",                                    precision: 10, scale: 4, default: 0.0
+    t.decimal  "amount",                                   precision: 12, scale: 4, default: 0.0
+    t.string   "remark",                       limit: 255
+    t.integer  "orderable_id",                                                                      null: false
+    t.string   "orderable_type",               limit: 60,                                           null: false
+    t.integer  "store_id",                                                                          null: false
+    t.integer  "store_chain_id",                                                                    null: false
+    t.integer  "store_staff_id",                                                                    null: false
     t.integer  "store_order_id"
     t.integer  "store_customer_id"
     t.decimal  "discount"
@@ -1154,9 +1154,14 @@ ActiveRecord::Schema.define(version: 20160219025727) do
     t.decimal  "retail_price"
     t.decimal  "standard_volume_per_bill"
     t.decimal  "actual_volume_per_bill"
-    t.boolean  "divide_to_retail",                                              default: false
-    t.boolean  "divide_cost_checked",                                           default: false
-    t.boolean  "from_customer_asset",                                           default: false
+    t.boolean  "divide_to_retail",                                                  default: false
+    t.boolean  "divide_cost_checked",                                               default: false
+    t.boolean  "from_customer_asset",                                               default: false
+    t.integer  "store_customer_asset_item_id"
+    t.string   "package_type"
+    t.integer  "package_id"
+    t.string   "assetable_type"
+    t.integer  "assetable_id"
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree

@@ -7,7 +7,7 @@
     </dd>
     <dd>
       <label class="width-50" >客户姓名</label>
-      <input type="text" value={{vehicleInfoData.store_customer.full_name}} class="width-110" readonly>
+      <input type="text" value='{{vehicleInfoData.store_customer.full_name}}' class="width-110" readonly>
     </dd>
     <dd>
       <label class="width-50">手机号</label>
@@ -30,15 +30,15 @@
     </div>
     <div class="item_content">
       <label class="width-50" >客户属性</label>
-      <input type="text" value={{store_customer.gender}} class="width-110" readonly>
+      <input type="text" value={{vehicleInfoData.store_customer.property_i18n}} class="width-110" readonly>
     </div>
     <div class="item_content">
       <label class="width-50" >客户类别</label>
-      <input type="text" value="个人" class="width-110"  readonly>
+      <input type="text" value="{{vehicleInfoData.store_customer.category_name}}" class="width-110"  readonly>
     </div>
     <div class="item_content">
-      <label class="width-50" >结算方式</label>
-      <input type="text" value="现结" class="width-110"  readonly>
+      <label class="width-50">结算方式</label>
+      <input type="text" value="{{vehicleInfoData.store_customer.payment_mode_i18n}}" class="width-110"  readonly>
     </div>
   </div>
 </div>
