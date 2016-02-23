@@ -8,7 +8,7 @@ class Crm::StoreVehiclesController < Crm::BaseController
   end
 
   def create
-    vehicle = StoreVehicle.create((append_store_attrs vehicle_params).merge(plate_params))
+    vehicle = StoreVehicle.new((append_store_attrs vehicle_params).merge(plate_params))
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
