@@ -27,6 +27,7 @@ class StoreStaff <  ActiveRecord::Base
   before_validation :set_full_name
   before_create     :encrypt_password
   before_create :set_default_password
+  before_create :check_phone_number
 
   scope :by_keyword, ->(keyword){ where('full_name like :name or phone_number like :phone_number',
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
@@ -274,6 +275,13 @@ class StoreStaff <  ActiveRecord::Base
     if self.password.blank?
       self.password = self.password_confirmation = rand
       encrypt_password
+    end
+  end
+
+  def check_phone_number
+    if StoreStaff.by_phone(self.phone_number).unterminated.present?
+      errors.add(:notice, "该电话号码在别的门店已使用!")
+      false
     end
   end
 end
