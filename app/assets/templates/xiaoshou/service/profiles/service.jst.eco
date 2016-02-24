@@ -2,12 +2,12 @@
 <td class='name'><a href="#store_services/<%= @id %>"><%= @name %></a></td>
 <td><%= @code %></td>
 <td><%= @standard_time %></td>
-<td><%= @unit %></td>
+<td> 分</td>
 <td><%= @retail_price %></td>
 <td><%= @bargain_price %></td>
 <td><%= @point %></td>
+<td><%= @engineer_level %> </td>
 <td></td>
-<td>0</td>
 <td><%= @category %></td>
 <td class="last_td">
 </td>

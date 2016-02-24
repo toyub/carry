@@ -13,6 +13,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
   events:
     'submit #editStoreService': 'updateOnSubmit'
     'click #add_server_btn': 'openMaterialForm'
+    'click #bargain_price_enabled': 'triggerPriceInput'
 
   render: ->
     @$el.html(@template(service: @model))
@@ -33,12 +34,22 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
 
   updateOnSubmit: ->
     event.preventDefault()
+    console.log($("#editStoreService").serializeJSON())
     @model.set $("#editStoreService").serializeJSON()
     @model.save() if @model.isValid(true)
 
   openMaterialForm: ->
     view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
     @appendChildTo(view, @$(".server_list"))
+
+  triggerPriceInput: (e) ->
+    checkbox = $(e.target)
+    input_bargain_price = $("#bargain_price")
+    checkbox.val(checkbox.prop('checked'));
+    if checkbox.prop("checked")
+      input_bargain_price.prop("disabled", false)
+    else
+      input_bargain_price.prop("disabled", true)
 
   handleSuccess: ->
     @uploadImages()

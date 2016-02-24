@@ -111,14 +111,14 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
     @appendChildTo(view, @$("#workstationCategories"))
 
   enableWorkflowSetting: ->
-    @$(".j_regular_setting").addClass("inactive").removeClass("active")
-    @$(".j_workflow_setting").addClass("active").removeClass("inactive")
+    @$(".j_regular_setting h2 label").addClass("color-ccc")
+    @$(".j_workflow_setting h2 label").removeClass("color-ccc")
     @$(".j_regular_setting table").find("input, select").attr('disabled', true)
     @$("#create_workflow").addClass("btn").attr('disabled', false)
 
   enableRegularSetting: ->
-    @$(".j_regular_setting").addClass("active").removeClass("inactive")
-    @$(".j_workflow_setting").addClass("inactive").removeClass("active")
+    @$(".j_regular_setting h2 label").removeClass("color-ccc")
+    @$(".j_workflow_setting h2 label").addClass("color-ccc")
     @$(".j_regular_setting table").find("input, select").attr('disabled', false)
     @$("#create_workflow").removeClass("btn").attr('disabled', true)
 
