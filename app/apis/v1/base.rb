@@ -24,6 +24,7 @@ module V1
     mount V1::Plate
     mount V1::MaterialCategories
     mount V1::StoreOrders
+    mount V1::StoreWorkstation
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: {title: "api接口文档", description: "v1.0"}
