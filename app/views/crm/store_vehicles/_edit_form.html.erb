@@ -54,7 +54,7 @@
     </div>
     <div class="item_content">
       <%= ff.label '上牌日期', class: 'width-75' %>
-      <%= ff.text_field :registered_on, class: 'width-165', value: @vehicle.detail_by('registered_on'), readonly: true %>
+      <%= ff.date_field :registered_on, class: 'width-165', value: @vehicle.detail_by('registered_on'), readonly: true %>
     </div>
     <div class="item_content">
       <%= ff.label '公里数', class: 'width-75' %>
@@ -62,15 +62,15 @@
     </div>
     <div class="item_content">
       <%= ff.label '购买日期', class: 'width-75' %>
-      <%= ff.text_field :bought_on, class: 'width-165', value: @vehicle.detail_by('bought_on'), readonly: true %>
+      <%= ff.date_field :bought_on, class: 'width-165', value: @vehicle.detail_by('bought_on') %>
     </div>
     <div class="item_content">
       <%= ff.label '出厂日期', class: 'width-75' %>
-      <%= ff.text_field :ex_factory_date, class: 'width-165 datepicker', value: @vehicle.detail_by('ex_factory_date'), readonly: true %>
+      <%= ff.date_field :ex_factory_date, class: 'width-165', value: @vehicle.detail_by('ex_factory_date'), readonly: true %>
     </div>
     <div class="item_content">
       <%= ff.label '最近保养日期', class: 'width-75' %>
-      <%= ff.text_field :maintained_at, class: 'width-165 datepicker', value: @vehicle.detail_by('maintained_at'), readonly: true %>
+      <%= ff.date_field :maintained_at, class: 'width-165', value: @vehicle.detail_by('maintained_at') %>
     </div>
     <div class="item_content">
       <%= ff.label '最近保养里程', class: 'width-75' %>
@@ -88,7 +88,7 @@
     <div class="bg-color-efeae5 float-left margin-top-10 section">
       <div class="item_content">
         <%= ff.label '年检日期', class: 'width-75' %>
-        <%= ff.text_field :annual_check_at, class: 'width-165 datepicker', value: @vehicle.detail_by('annual_check_at'), readonly: true %>
+        <%= ff.date_field :annual_check_at, class: 'width-165', value: @vehicle.detail_by('annual_check_at') %>
       </div>
       <div class="item_content">
         <span class="display-inline-block width-120 text-align-right">
@@ -102,11 +102,11 @@
       </div>
       <div class="item_content margin-right-150">
         <%= ff.label '保险公司', class: 'width-75' %>
-        <%= ff.text_field :insurance_compnay, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('insurance_compnay') %>
+        <%= ff.text_field :insurance_company, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('insurance_compnay') %>
       </div>
       <div class="item_content">
         <%= ff.label '保险截至', class: 'width-75' %>
-        <%= ff.text_field :insurance_expire_at, class: 'width-165 datepicker', value: @vehicle.detail_by('insurance_expire_at'), readonly: 'true' %>
+        <%= ff.date_field :insurance_expire_at, class: 'width-165', value: @vehicle.detail_by('insurance_expire_at') %>
       </div>
       <div class="item_content">
         <span class="display-inline-block width-120 text-align-right">
@@ -144,7 +144,7 @@
       </div>
       <div class="item_content next_maintenance_time">
         <%= ff.label '下次保养日期', class: 'width-75' %>
-        <%= ff.text_field :next_maintain_at, class: 'width-165 datepicker', value: @vehicle.detail_by('next_maintain_at'), readonly: 'true' %>
+        <%= ff.date_field :next_maintain_at, class: 'width-165', value: @vehicle.detail_by('next_maintain_at') %>
       </div>
     </div>
     </div>
