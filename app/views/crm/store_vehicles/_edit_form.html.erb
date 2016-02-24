@@ -8,7 +8,7 @@
     <% if @vehicle.vehicle_brand.present? %>
       <input type='text' class='width-165' disabled='true' value='<%= @vehicle.brand_name %>' >
     <% else %>
-      <%= f.select :vehicle_brand_id, [], {include_blank: '所有品牌'}, {id: 'brand', class: "width-165", required: true} %>
+      <%= f.select :vehicle_brand_id, [], {include_blank: '请选择'}, {id: 'brand', class: "width-165", required: true} %>
     <% end %>
   </div>
   <div class="item_content">
@@ -16,7 +16,7 @@
     <% if @vehicle.vehicle_series.present? %>
       <input type='text' class='width-165' disabled='true' value='<%= @vehicle.series_name %>' >
     <% else %>
-      <%= f.select :vehicle_series_id, [], {include_blank: '所有车系'}, {id: 'series', class: "width-165", required: true} %>
+      <%= f.select :vehicle_series_id, [], {include_blank: '请选择'}, {id: 'series', class: "width-165", required: true} %>
     <% end %>
   </div>
   <div class="item_content">
@@ -24,7 +24,7 @@
     <% if @vehicle.vehicle_model.present? %>
       <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vehicle_model.try(:name) %>' >
     <% else %>
-      <%= f.select :vehicle_model_id, [], {include_blank: '所有车型'}, {id: 'model', class: "width-165", required: true} %>
+      <%= f.select :vehicle_model_id, [], {include_blank: '请选择'}, {id: 'model', class: "width-165", required: true} %>
     <% end %>
   </div>
   <div class="item_content">
