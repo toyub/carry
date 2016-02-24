@@ -62,7 +62,8 @@ ActiveRecord::Schema.define(version: 20160224052606) do
     t.string   "phone"
     t.string   "token"
     t.datetime "sent_at"
-    t.boolean  "used",    default: false
+    t.boolean  "used",           default: false
+    t.integer  "switch_type_id", default: 1
   end
 
   create_table "categories", force: :cascade do |t|

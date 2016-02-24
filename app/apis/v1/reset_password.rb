@@ -19,8 +19,9 @@ module V1
 
       post do
         return {status: 'failed', notice: '输入验证码有误'} unless Captcha.authenticate(params[:phone_number], params[:captcha])
-        staff = StoreStaff.find_by(phone_number: params[:phone_number])
+        staff = StoreStaff.by_phone(params[:phone_number]).unterminated.last
         return {status: 'failed', notice: '用户不存在或密码不匹配'} if staff.blank? || (params[:new_password] != params[:pass_confirmation])
+        Captcha.disabled_token!(params[:captcha])
         staff.reset_password!(params[:new_password], params[:pass_confirmation])
         {status: 'success', notice: '重置成功'}
       end

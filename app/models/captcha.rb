@@ -10,13 +10,17 @@ class Captcha < ActiveRecord::Base
 
   EXPRIED = 15.minutes
 
-  def self.generate!(phone)
-    create!(token: generate_token(6), sent_at: Time.now, phone: phone)
+  def self.generate!(phone, type_id)
+    create!(token: generate_token(6), switch_type_id: type_id, sent_at: Time.now, phone: phone)
   end
 
   def self.authenticate(phone, token)
     cap = valid_captchas(phone).last
     cap.present? && cap.token == token
+  end
+
+  def self.disabled_token!(token)
+    find_by(token: token).update!(used: true)
   end
 
   def store_staff
