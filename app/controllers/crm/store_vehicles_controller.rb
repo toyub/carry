@@ -8,7 +8,8 @@ class Crm::StoreVehiclesController < Crm::BaseController
   end
 
   def create
-    vehicle = StoreVehicle.new(append_store_attrs vehicle_params)
+    vehicle = StoreVehicle.new(vehicle_params)
+    vehicle.plates.new(plate_params)
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
@@ -32,7 +33,7 @@ class Crm::StoreVehiclesController < Crm::BaseController
   private
 
     def vehicle_params
-      params.require(:store_vehicle).permit(
+      vehicle_params = params.require(:store_vehicle).permit(
         :vehicle_brand_id,
         :vehicle_series_id,
         :vehicle_model_id,
@@ -62,9 +63,13 @@ class Crm::StoreVehiclesController < Crm::BaseController
                  :insurance_store_alermify
                ],
         frame_attributes: [:vin],
-        plates_attributes: [:license_number],
         engines_attributes: [:identification_number]
         )
+        append_store_attrs(vehicle_params)
+    end
+
+    def plate_params
+      { license_number: params[:license_number] }.merge(store_options).except(:store_customer_id)
     end
 
     def set_customer
