@@ -5,15 +5,27 @@
   </div>
   <div class="item_content">
     <label class='width-75'>品牌</label>
-    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.brand_name %>' >
+    <% if @vehicle.vehicle_brand.present? %>
+      <input type='text' class='width-165' disabled='true' value='<%= @vehicle.brand_name %>' >
+    <% else %>
+      <%= f.select :vehicle_brand_id, [], {include_blank: '所有品牌'}, {id: 'brand', class: "width-165", required: true} %>
+    <% end %>
   </div>
   <div class="item_content">
     <label class='width-75'>车系</label>
-    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.series_name %>' >
+    <% if @vehicle.vehicle_series.present? %>
+      <input type='text' class='width-165' disabled='true' value='<%= @vehicle.series_name %>' >
+    <% else %>
+      <%= f.select :vehicle_series_id, [], {include_blank: '所有车系'}, {id: 'series', class: "width-165", required: true} %>
+    <% end %>
   </div>
   <div class="item_content">
     <label class='width-75'>车型</label>
-    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vehicle_model.try(:name) %>' >
+    <% if @vehicle.vehicle_model.present? %>
+      <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vehicle_model.try(:name) %>' >
+    <% else %>
+      <%= f.select :vehicle_model_id, [], {include_blank: '所有车型'}, {id: 'model', class: "width-165", required: true} %>
+    <% end %>
   </div>
   <div class="item_content">
     <label class='width-75'>VIN号码</label>

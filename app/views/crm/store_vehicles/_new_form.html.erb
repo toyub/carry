@@ -5,15 +5,15 @@
   </div>
   <div class="item_content">
     <%= f.label "品牌", class: 'width-75' %>
-    <%= f.select :vehicle_brand_id, [], {include_blank: '请选择'}, {id: 'brand', class: "width-165", required: true} %>
+    <%= f.select :vehicle_brand_id, [], {include_blank: '所有品牌'}, {id: 'brand', class: "width-165", required: true} %>
   </div>
   <div class="item_content">
     <%= f.label "车系", class: 'width-75' %>
-    <%= f.select :vehicle_series_id, [], {include_blank: '请选择'}, {id: 'series', class: "width-165", required: true} %>
+    <%= f.select :vehicle_series_id, [], {include_blank: '所有车系'}, {id: 'series', class: "width-165", required: true} %>
   </div>
   <div class="item_content">
     <%= f.label "车型", class: 'width-75' %>
-    <%= f.select :vehicle_model_id, [], {include_blank: '请选择'}, {id: 'model', class: "width-165", required: true} %>
+    <%= f.select :vehicle_model_id, [], {include_blank: '所有车型'}, {id: 'model', class: "width-165", required: true} %>
   </div>
   <%= f.fields_for :frame, @vehicle.build_frame do |ff| %>
     <div class="item_content">
