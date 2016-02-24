@@ -1,4 +1,7 @@
 module Entities
+  class MaterialPhotoPath < Grape::Entity
+    expose :file_url
+  end
   class Material < Grape::Entity
     expose :id
     expose(:name) { |material, options| material.name }
@@ -11,5 +14,10 @@ module Entities
     expose(:point) {|model| model.store_material_saleinfo.try(:point)}
     expose :inventory, :sold_count
     expose(:category) {|model| model.store_material_saleinfo.try(:category).try :name}
+    expose :photo_path, using: MaterialPhotoPath
+
+    def photo_path
+      object.uploads
+    end
   end
 end
