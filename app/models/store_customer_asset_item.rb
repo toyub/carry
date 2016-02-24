@@ -10,7 +10,7 @@ class StoreCustomerAssetItem < ActiveRecord::Base
   end
 
   def name
-    assetable.name
+    assetable.try(:name)
   end
 
   def service

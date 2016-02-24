@@ -38,7 +38,6 @@ module V1
 
       add_desc '下单'
       post do
-        # binding.pry
         status = GenerateOrderService.call(order_params, basic_params)
         present status: status.success, info: status.notice
       end

@@ -121,6 +121,16 @@ module V1
           end
         end
 
+        resource :assets do
+          add_desc "资产(服务)"
+          params do
+            requires :platform, type: String, desc: '调用的平台'
+          end
+          get do
+            present @customer.assets.serviceable, with: ::Entities::AssetServiceable
+          end
+        end
+
         add_desc "消费记录"
         params do
           requires :platform, type: String, desc: '调用的平台(app或者erp)'
