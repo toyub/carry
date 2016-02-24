@@ -16,13 +16,12 @@ module V1
 
       get do
         staff = StoreStaff.find_by(phone_number: params[:phone_number])
-        return {status: "fails", notice: "the user is not exist!"} unless staff.present?
+        return {status: "fails", notice: "the user is not exist!"} if staff.blank?
         captcha = Captcha.create!(token: generate_salt(6), sent_at: Time.now, phone: params[:phone_number])
         options = {
           store_id: staff.store.id,
           receiver_type: "StoreStaff",
           receiver_id: staff.id,
-          phone_number: params[:phone_number],
           first_category: 'SmsCaptchaSwitchType',
           second_category: SmsCaptchaSwitchType::TYPES_ID["密码找回验证"],
           content: "尊敬的用户：您正在重置密码，验证码：#{captcha.token}，请在15分钟内按提示进行操作，切勿将验证码泄漏。 #{staff.store.name}汽车服务门店"
