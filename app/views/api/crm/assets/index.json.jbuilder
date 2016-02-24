@@ -4,7 +4,7 @@ json.customer do
   json.assets @customer.assets.serviceable do |asset|
     json.id asset.id
     json.package_name asset.package_name
-    json.items asset.items, :id, :total_quantity, :used_quantity, :name
+    json.items asset.items, :id, :total_quantity, :used_quantity, :name, :assetable_type, :assetable_id, :service, :orderable_type, :orderable_id
     json.created_at asset.created_at.to_s(:date_only)
   end
 end

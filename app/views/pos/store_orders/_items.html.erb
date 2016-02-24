@@ -35,7 +35,7 @@
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.price }}</span>
             <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-orderabletype='{{item.orderable_type}}' data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
+              <i class="lnr lnr-cross color-fff" v-on:click="removeItem($index, $event)"></i>
             </span>
         	</td>
         </tr>
@@ -43,8 +43,7 @@
       <tfoot>
         <tr class="text-align-right">
       	  <td colspan="10">
-            <label class="margin-right-10">小结：</label>
-            <label class="js-materil-saleinfo-item-total-price">{{totalPrice}}</label>
+            <label class="margin-right-10">小结：</label><label>{{totalPrice}}</label>
       		</td>
       	</tr>
       </tfoot>
@@ -73,13 +72,13 @@
           <td>{{ item.retail_price }}</td>
           <td>{{ item.vip_price }}</td>
           <td>
-            <a href="javascript:void(0)" class="js_discount discount">优惠</a>
+            <a v-if="!item.from_customer_asset" href="javascript:void(0)" class="js_discount discount">优惠</a>
           </td>
           <td></td>
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.price }}</span>
             <span class="delete close">
-              <i class="lnr lnr-cross color-fff" data-orderabletype='{{item.orderable_type}}' data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
+              <i class="lnr lnr-cross color-fff" v-on:click="removeItem($index, $event)"></i>
             </span>
         	</td>
         </tr>
@@ -113,7 +112,7 @@
             <td>
               <span class="js-material-saleinfo-item-price">{{ item.quantity * item.price }}</span>
               <span class="delete close">
-                <i class="lnr lnr-cross color-fff" data-orderabletype='{{item.orderable_type}}' data-orderableid='{{item.orderable_id}}' v-on:click="removeItem"></i>
+                <i class="lnr lnr-cross color-fff" v-on:click="removeItem($index, $event)"></i>
               </span>
         	  </td>
           </tr>
@@ -127,7 +126,7 @@
         </tfoot>
       </table>
 
-      <div class="total_spending vue-store-order-new">消费金额总计:<label>{{totalItemsPrice}}</label></div>
+      <div class="total_spending vue-store-order-new">消费金额总计:<label>{{amount}}</label></div>
 	</div>
 
 </div>

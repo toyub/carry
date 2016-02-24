@@ -67,3 +67,16 @@
 		</table>
 	</div>
 </div>
+
+
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function($){
+    Mis.Vues.StoreOrderListView = new Vue(Mis.Vues.Opts.list);
+    Mis.Vues.StoreOrderListView.storeOrdersCollection = new Mis.Collections.StoreOrders;
+    Mis.Vues.StoreOrderListView.storeOrdersCollection.fetch({success: function(){
+      Mis.Vues.StoreOrderListView.storeOrders = Mis.Vues.StoreOrderListView.storeOrdersCollection.models;
+    }});
+  });
+  </script>
+<% end %>

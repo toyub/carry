@@ -96,8 +96,9 @@ module Api
               orderable_type: "StoreMaterialSaleinfo",
               vip_price: info["vip_price"],
               quantity: info["quantity"],
-              price: info["retail_price"],
-              amount: info["quantity"].to_f * info["retail_price"].to_f,
+              price: info["price"],
+              discount: info['discount'],
+              discount_reason: info['discount_reason'],
               creator: current_staff
             }
           end
@@ -112,12 +113,19 @@ module Api
             {
               id: info['id'],
               orderable_id: info["orderable_id"],
-              orderable_type: "StoreService",
+              orderable_type: info['orderable_type'],
               vip_price: info["vip_price"],
               quantity: info["quantity"],
-              price: info["retail_price"],
-              amount: info["quantity"].to_f * info["retail_price"].to_f,
-              creator: current_staff
+              price: info["price"],
+              discount: info['discount'],
+              discount_reason: info['discount_reason'],
+              creator: current_staff,
+              from_customer_asset: info['from_customer_asset'],
+              store_customer_asset_item_id: info['store_customer_asset_item_id'],
+              package_type: info['package_type'],
+              package_id: info['package_id'],
+              assetable_type: info['assetable_type'],
+              assetable_id: info['assetable_id']
             }
           end
         else
@@ -134,8 +142,9 @@ module Api
               orderable_type: "StorePackage",
               vip_price: info["vip_price"],
               quantity: info["quantity"],
-              price: info["retail_price"],
-              amount: info["quantity"].to_f * info["retail_price"].to_f,
+              price: info["price"],
+              discount: info['discount'],
+              discount_reason: info['discount_reason'],
               creator: current_staff
             }
           end
