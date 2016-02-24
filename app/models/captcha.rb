@@ -19,8 +19,8 @@ class Captcha < ActiveRecord::Base
     cap.present? && cap.token == token
   end
 
-  def self.disabled_token!(token)
-    find_by(token: token).update!(used: true)
+  def disabled_token!
+    update!(used: true)
   end
 
   def store_staff
