@@ -36,6 +36,8 @@ class StoreStaff <  ActiveRecord::Base
   scope :by_department_id, ->(store_department_id) { where(store_department_id: store_department_id) if store_department_id.present? }
   scope :by_position_id, ->(store_position_id) { where(store_position_id: store_position_id) if store_position_id.present? }
   scope :by_created_month_in_salary, ->(month) { joins(:store_salaries).where(store_salaries: {created_month: month} ) if month.present? }
+  scope :by_phone, ->(phone) { where(phone_number: phone) }
+  scope :unterminated, -> { where("terminated_at IS NULL or terminated_at > ?", Time.now) }
 
   scope :salary_has_been_confirmed, ->(month = Time.now.beginning_of_month.strftime("%Y%m")) { includes("store_salaries").where( store_salaries: { status: "true", created_month: month}) }
   scope :salary_has_been_not_confirmed, -> { where.not(id: salary_has_been_confirmed.pluck(:id)) }

@@ -1,7 +1,8 @@
 class SmsCaptchaSwitchType
   attr_reader :id, :name
   ID_TYPES={
-    0=>'账户余额支付验证'
+    0=>'账户余额支付验证',
+    1=>'密码找回验证'
   }
   TYPES_ID = ID_TYPES.invert
 
