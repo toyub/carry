@@ -15,8 +15,8 @@ module V1
       end
 
       get do
-        staff = StoreStaff.find_by(phone_number: params[:phone_number])
-        return {status: "fails", notice: "the staff is not exist or has terminated!"} if staff.blank? || staff.terminated?
+        staff = StoreStaff.by_phone(params[:phone_number]).unterminated.last
+        return {status: "fails", notice: "the staff is not exist or has terminated!"} if staff.blank?
         captcha = Captcha.generate!(params[:phone_number])
         options = {
           store_id: staff.store.id,

@@ -11,7 +11,7 @@ class Captcha < ActiveRecord::Base
   EXPRIED = 15.minutes
 
   def self.generate!(phone)
-    create!(token: generate_salt(6), sent_at: Time.now, phone: phone)
+    create!(token: generate_token(6), sent_at: Time.now, phone: phone)
   end
 
   def self.authenticate(phone, token)
@@ -36,7 +36,7 @@ class Captcha < ActiveRecord::Base
   end
 
   private
-  def self.generate_salt(len)
+  def self.generate_token(len)
     chars = Array(0..9)
     len.times.map { chars.sample }.join
   end
