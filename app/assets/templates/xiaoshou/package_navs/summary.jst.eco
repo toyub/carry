@@ -5,17 +5,15 @@
   <td>套餐积分<label><%= @package.package_setting.get 'point' %></label></td>
   <td>套餐类别<label></label></td>
   <td>有效期<label></label></td>
-  <td>已销售<label></label></td>
   <td>销售收入<label></label></td>
 </tr>
 <tr>
   <td class="text-align-center font-18 font-weight-bold"><%= @package.get 'name' %></td>
   <td class="text-align-center font-14 font-weight-bold"><%= @package.package_setting.amount() %></td>
   <td>折扣率<label><%= @package.package_setting.discountRate() %></label></td>
-  <td>套餐代码<label><%= @package.get 'code' %></label></td>
   <td>服务单位<label></label></td>
   <td>使用范围<label></label></td>
-  <td>满意度<label></label></td>
+  <td>已销售<label></label></td>
   <td></td>
 </tr>
 

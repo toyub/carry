@@ -9,8 +9,8 @@
 
     <div class="settings_in_service settings_in_sales">
 
-      <div class="regular_setting setting_left active float-left j_regular_setting">
-        <h2><label for="regular_setting">按常规设置</label>
+      <div class="regular_setting setting_left float-left j_regular_setting">
+        <h2><label for="regular_setting" class="<%= 'color-ccc' unless @setting.isRegular() %>">按常规设置</label>
           <input type="radio" name="setting_type" value="0" <%= 'checked' if @setting.isRegular() %> class="margin-left-8" id="regular_setting">
         </h2>
         <table>
@@ -156,10 +156,9 @@
         </tbody></table>
       </div>
 
-
-      <div class="process_setting setting_right inactive float-right j_workflow_setting">
+      <div class="process_setting setting_right float-right j_workflow_setting">
         <h2>
-          <label for="workflow_setting">按流程设置</label>
+          <label for="workflow_setting" class="<%= 'color-ccc' if @setting.isRegular() %>">按流程设置</label>
           <input type="radio" value="1" name="setting_type" <%= 'checked' if !@setting.isRegular() %> class="margin-left-8 margin-top-0" id="workflow_setting" >
           <input type="button" id="create_workflow" class="new_btn float-right btn" value="创建" <%= 'disabled' if @setting.isRegular() %>>
         </h2>

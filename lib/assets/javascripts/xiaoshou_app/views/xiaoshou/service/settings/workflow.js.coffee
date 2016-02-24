@@ -3,7 +3,7 @@ class Mis.Views.XiaoshouServiceSettingsWorkflow extends Mis.Base.View
   template: JST['xiaoshou/service/settings/workflow']
 
   render: ->
-    @$el.html(@template())
+    @$el.html(@template(setting: @model, store: Mis.store))
     @renderWorkflows()
     @
 

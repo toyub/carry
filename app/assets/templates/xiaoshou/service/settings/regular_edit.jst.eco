@@ -188,6 +188,7 @@
   <h2>
     <label>按流程设置</label>
     <input type="radio" name="service_setting_select" id="service_process_setting_sel" class="margin-left-8 margin-top-0 " >
+    <input type="button" id="create_workflow" class="new_btn float-right btn" value="创建" disabled>
   </h2>
   <p class="no_process">
   您可以根据需要施工流程进行拆分管理，流程拆分后，施工时间会根据您设定的流程步骤单独计算，
