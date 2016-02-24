@@ -63,9 +63,4 @@ module APIHelpers
     end
   end
 
-  def generate_salt(len)
-    chars = Array(0..9)
-    len.times.map { chars.sample }.join
-  end
-
 end

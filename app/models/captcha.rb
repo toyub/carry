@@ -3,11 +3,20 @@ class Captcha < ActiveRecord::Base
             format: { with: /(^\d+$)/, message: "请输入正确的手机号！" }
   validates :token, presence: true, length: { is: 6 }
 
-  EXPRIED = 30.minutes
+  scope :by_phone, ->(phone) { where(phone: phone) }
+  scope :unused, -> { where(used: false) }
+  scope :unexpried, -> { where("sent_at > ?", EXPRIED.ago) }
+  scope :valid_captchas, ->(phone) { by_phone(phone).unused.unexpried }
+
+  EXPRIED = 15.minutes
+
+  def self.generate!(phone)
+    create!(token: generate_salt(6), sent_at: Time.now, phone: phone)
+  end
 
   def self.authenticate(phone, token)
-    amender = where(phone: phone).last
-    amender.present? && amender.token == token && !amender.expried?
+    cap = valid_captchas(phone).last
+    cap.present? && cap.token == token
   end
 
   def store_staff
@@ -25,4 +34,11 @@ class Captcha < ActiveRecord::Base
   def send_message
     SmsClient.publish(phone, token)
   end
+
+  private
+  def self.generate_salt(len)
+    chars = Array(0..9)
+    len.times.map { chars.sample }.join
+  end
+
 end
