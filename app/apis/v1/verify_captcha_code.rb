@@ -1,7 +1,7 @@
 module V1
   class VerifyCaptchaCode < Grape::API
 
-    resource :varify_captcha_code do
+    resource :verify_captcha_code do
       before do
         authenticate_platform!
         authenticate_sn_code!
