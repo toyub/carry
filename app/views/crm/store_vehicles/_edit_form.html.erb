@@ -38,7 +38,7 @@
   <%= f.fields_for :detail do |ff| %>
     <div class="item_content">
       <%= ff.label '颜色', class: 'width-75' %>
-      <%= ff.color_field :color, class: 'width-165', value: @vehicle.detail_by('color'), readonly: true %>
+      <%= ff.color_field :color, class: 'js-color width-165', value: @vehicle.detail_by('color'), disabled: true %>
     </div>
     <div class="item_content">
       <%= ff.label '座位数', class: 'width-75' %>
@@ -153,3 +153,10 @@
     <%= f.submit '保存', class: 'save_btn btn' %>
   </div>
 <% end %>
+<script type="text/javascript">
+  jQuery(function($) {
+    $('form').bind('submit', function() {
+      $('.js-color').prop('disabled', false);
+    });
+  });
+</script>
