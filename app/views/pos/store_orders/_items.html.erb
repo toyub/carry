@@ -34,7 +34,9 @@
               <span v-else>优惠</span>
             </a>
           </td>
-          <td></td>
+          <td>
+            <span v-model="item.discount_reason">{{item.discount_reason}}</span>
+          </td>
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.price }}</span>
             <span class="delete close">
@@ -80,7 +82,9 @@
               <span v-else>优惠</span>
             </a>
           </td>
-          <td></td>
+          <td>
+            <span v-model="item.discount_reason">{{item.discount_reason}}</span>
+          </td>
           <td>
             <span class="js-material-saleinfo-item-price">{{ item.quantity * item.price }}</span>
             <span class="delete close">
