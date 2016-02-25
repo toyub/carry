@@ -24,12 +24,15 @@
           <td>{{ item.name }} <input type="hidden" name='items[][orderable_id]' value="{{item.orderable_id}}"> <input type="hidden" name="items[][id]" value="{{item.id}}"></td>
           <td>{{ item.speci }}</td>
           <td>
-            <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
+            <input type='text' num un int min=1 v-model="item.quantity" placeholder="输入数量" class="width-20" required>
           </td>
           <td>{{ item.retail_price }}</td>
           <td>{{ item.vip_price }}</td>
           <td>
-            <a href="javascript:void(0)" class="js_discount discount">优惠</a>
+            <a href="javascript:void(0)" v-model="item.discount" v-on:click="makeDiscount($index, $event)" class="discount">
+              <span v-if='item.discount'>{{item.discount}}</span>
+              <span v-else>优惠</span>
+            </a>
           </td>
           <td></td>
           <td>
@@ -72,7 +75,10 @@
           <td>{{ item.retail_price }}</td>
           <td>{{ item.vip_price }}</td>
           <td>
-            <a v-if="!item.from_customer_asset" href="javascript:void(0)" class="js_discount discount">优惠</a>
+            <a v-if="!item.from_customer_asset" href="javascript:void(0)" v-model="item.discount" v-on:click="makeDiscount($index, $event)" class="discount">
+              <span v-if='item.discount'>{{item.discount}}</span>
+              <span v-else>优惠</span>
+            </a>
           </td>
           <td></td>
           <td>
@@ -106,7 +112,7 @@
           <tr v-for="item in items">
             <td>{{ item.name }} <input type="hidden" name='items[][orderable_id]' value="{{item.orderable_id}}"> <input type="hidden" name="items[][id]" value="{{item.id}}"></td>
             <td>
-              <input v-model="item.quantity" placeholder="输入数量" class="width-20"></input>
+              <input type='text' num un int min=1 v-model="item.quantity" placeholder="输入数量" class="width-20" required>
             </td>
             <td>{{ item.retail_price }}</td>
             <td>
