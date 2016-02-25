@@ -38,7 +38,7 @@
   <%= f.fields_for :detail do |ff| %>
     <div class="item_content">
       <%= ff.label '颜色', class: 'width-75' %>
-      <%= ff.color_field :color, class: 'js-color width-165', value: @vehicle.detail_by('color') %>
+      <%= ff.color_field :color, class: 'width-165', value: @vehicle.detail_by('color') %>
     </div>
     <div class="item_content">
       <%= ff.label '座位数', class: 'width-75' %>
