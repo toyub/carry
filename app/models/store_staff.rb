@@ -280,7 +280,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def check_phone_number
     if StoreStaff.by_phone(self.phone_number).unterminated.present?
-      errors.add(:notice, "该电话号码在别的门店已使用!")
+      errors.add(:notice, "您输入的号码正在使用，请使用新号码或停用该号码后再进行绑定。")
       false
     end
   end
