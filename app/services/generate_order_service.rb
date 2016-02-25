@@ -18,8 +18,9 @@ class GenerateOrderService
       if @order.present?
         @order.update!(items: @order_items)
       else
-        @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items))
+        @order = @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items))
       end
+      @order.execution_job
     end
     Status.new(success: true, notice: '下单成功!')
   rescue ActiveRecord::RecordInvalid => e

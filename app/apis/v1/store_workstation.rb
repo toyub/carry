@@ -14,6 +14,20 @@ module V1
         stations = current_store.workstations
         present stations, with: ::Entities::WorkStation
       end
+
+      resource :execution_information do
+        add_desc '施工中的信息'
+        params do
+          requires :platform, type: String, desc: '调用平台！'
+          requires :order_id, type: Integer, desc: '订单的ID'
+        end
+        get do
+          order = StoreOrder.find(params[:order_id])
+          present order.store_service_snapshots, with: ::Entities::ExecutionInformation
+        end
+      end
+
     end
+
   end
 end
