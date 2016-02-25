@@ -1,4 +1,4 @@
-<li><%= @item.get 'id' %>.</li>
+<li><%= @view.index %>.</li>
 <li><label class="name"><%= @item.name() %></label></li>
 <li><%= @item.category() %></li>
 <li><%= @item.retail_price() %></li>
