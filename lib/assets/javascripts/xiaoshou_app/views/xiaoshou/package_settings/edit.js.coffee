@@ -10,7 +10,7 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
     'click #noticeRequired': 'toggleNoticeRequired'
 
   initialize: ->
-    @listenTo(@model.items, 'add', @renderItem)
+    @listenTo(@model.items, 'all', @renderItems)
     @listenTo(@model, 'sync', @handleSuccess)
 
   render: ->
@@ -42,10 +42,12 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
     @renderChildInto(view, $("#newPackageItem"))
 
   renderItems: ->
+    @$("#itemList").empty()
     @model.items.each @renderItem
 
-  renderItem: (item) =>
-    view = new Mis.Views.XiaoshouPackageItemsPackageItem(model: item)
+  renderItem: (item, index) =>
+    console.log index
+    view = new Mis.Views.XiaoshouPackageItemsPackageItem(model: item, package_setting: @model,index: index)
     @renderChild(view)
     @$("#itemList").append view.el
 
