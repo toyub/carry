@@ -15,7 +15,7 @@ module V1
         present stations, with: ::Entities::WorkStation
       end
 
-      resource :execution_information do
+      resource :services do
         add_desc '施工中的信息'
         params do
           requires :platform, type: String, desc: '调用平台！'
@@ -23,7 +23,7 @@ module V1
         end
         get do
           order = StoreOrder.find(params[:order_id])
-          present order.store_service_snapshots, with: ::Entities::ExecutionInformation
+          present order.store_service_snapshots, with: ::Entities::ServiceInWorkstation
         end
       end
 

@@ -17,7 +17,7 @@ module Entities
     end
   end
 
-  class ExecutionInformation < Grape::Entity
+  class ServiceInWorkstation < Grape::Entity
     expose :name
     expose :workflow_snapshots, using: StoreServiceWorkflowSnapshot
   end
