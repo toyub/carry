@@ -58,14 +58,14 @@ class StoreStaff <  ActiveRecord::Base
     StoreStaffLevel.find(self.level_type_id)
   end
 
-  def reset_password(new_password, pass_confirmation)
+  def reset_password(new_password, password_confirmation)
     self.password = new_password
-    self.password_confirmation = pass_confirmation
+    self.password_confirmation = password_confirmation
     encrypt_password
   end
 
-  def reset_password!(new_password, pass_confirmation)
-    self.reset_password(new_password, pass_confirmation)
+  def reset_password!(new_password, password_confirmation)
+    self.reset_password(new_password, password_confirmation)
     self.save
   end
 
