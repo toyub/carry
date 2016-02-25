@@ -14,8 +14,8 @@ module Api
       if params[:created_at].present?
         orders = orders.where(created_at: params[:created_at])
       end
-      if params[:state].present?
-        orders = orders.where(state: params[:state])
+      if params[:pay_status].present?
+        orders = orders.where(pay_status: params[:pay_status])
       end
       render json: orders.order('id desc')
     end
