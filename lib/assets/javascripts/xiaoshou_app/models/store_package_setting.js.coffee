@@ -74,6 +74,14 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
   discountRate: ->
     (@amount()/@regularAmount()).toFixed(2)
 
+  commissionName: ->
+    commission = Mis.commissions.find(
+      (c) =>
+        String(c.id) == String(@get("store_commission_template_id"))
+    )
+    commission.get("name") if commission
+
+
   toJSON: ->
     hashWithRoot = {}
     json = _.clone(@attributes)

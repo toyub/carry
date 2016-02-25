@@ -68,7 +68,7 @@
           <ol>
             <li>
             <label>提成方案</label>
-            <span class="width-190 show_content"><%= @setting.get 'store_commission_template_id' %></span>
+            <span class="width-190 show_content"><%= @setting.commissionName() %></span>
             </li>
           </ol>
           </li>
