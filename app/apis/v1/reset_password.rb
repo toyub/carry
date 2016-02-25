@@ -14,7 +14,7 @@ module V1
         requires :phone_number, type: String, desc: '手机号'
         requires :captcha, type: String, desc: '验证码'
         requires :new_password, type: String, desc: '新密码'
-        requires :pass_confirmation, type: String, desc: '新密码确认'
+        requires :new_password_confirmation, type: String, desc: '新密码确认'
       end
 
       post do
@@ -22,7 +22,7 @@ module V1
         staff = StoreStaff.by_phone(params[:phone_number]).unterminated.last
         return {status: 'failed', notice: '用户不存在或密码不匹配'} if staff.blank? || (params[:new_password] != params[:pass_confirmation])
         Captcha.valid_captchas(params[:phone_number]).last.try(:disabled_token!)
-        staff.reset_password!(params[:new_password], params[:pass_confirmation])
+        staff.reset_password!(params[:new_password], params[:new_password_confirmation])
         {status: 'success', notice: '重置成功'}
       end
     end
