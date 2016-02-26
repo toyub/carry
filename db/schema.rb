@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224052606) do
+ActiveRecord::Schema.define(version: 20160226065141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1233,7 +1233,7 @@ ActiveRecord::Schema.define(version: 20160224052606) do
 
   create_table "store_package_items", force: :cascade do |t|
     t.string   "name"
-    t.integer  "quantity"
+    t.integer  "quantity",                                          default: 1
     t.decimal  "price",                    precision: 10, scale: 2
     t.integer  "store_id"
     t.integer  "store_chain_id"
@@ -1241,8 +1241,8 @@ ActiveRecord::Schema.define(version: 20160224052606) do
     t.string   "package_itemable_type"
     t.integer  "package_itemable_id"
     t.integer  "store_package_setting_id"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.decimal  "denomination",             precision: 10, scale: 2
   end
 
@@ -1607,20 +1607,20 @@ ActiveRecord::Schema.define(version: 20160224052606) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
