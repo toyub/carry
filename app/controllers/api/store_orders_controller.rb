@@ -11,12 +11,6 @@ module Api
 
         orders = orders.where(store_vehicle_id: store_vehicle_ids)
       end
-      if params[:created_at].present?
-        orders = orders.where(created_at: params[:created_at])
-      end
-      if params[:pay_status].present?
-        orders = orders.where(pay_status: params[:pay_status])
-      end
       render json: orders.order('id desc')
     end
 
