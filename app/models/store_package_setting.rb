@@ -14,7 +14,8 @@ class StorePackageSetting < ActiveRecord::Base
   }
 
   def set_retail_price
-    self.retail_price = self.items.inject{ |sum, item| sum + item.quantity * item.price }
+    return if self.items.size == 0
+    self.retail_price = self.items.map { |item| item.quantity * item.price }.sum
   end
 
   def valid_date
