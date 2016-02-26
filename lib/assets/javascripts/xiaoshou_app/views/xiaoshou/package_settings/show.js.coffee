@@ -30,8 +30,8 @@ class Mis.Views.XiaoshouPackageSettingsShow extends Mis.Base.View
   renderItems: ->
     @model.items.each @renderItem
 
-  renderItem: (item) =>
-    view = new Mis.Views.XiaoshouPackageItemsPackageItem(model: item, action: 'show')
+  renderItem: (item, index) =>
+    view = new Mis.Views.XiaoshouPackageItemsPackageItem(model: item, index: index, action: 'show')
     @renderChild(view)
     @$("#itemList").append view.el
 

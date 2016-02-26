@@ -408,6 +408,10 @@ Rails.application.routes.draw do
           resources :items
         end
       end
+
+      namespace :auth do
+        resources :discount_authorities
+      end
     end
 
     namespace :crm do

@@ -80,6 +80,14 @@ class StoreVehicle < ActiveRecord::Base
     self.engines.last.try(:identification_number)
   end
 
+  def brand_name
+    vehicle_brand.try(:name)
+  end
+
+  def series_name
+    vehicle_series.try(:name)
+  end
+
   def detail
     read_attribute(:detail) || {}
   end

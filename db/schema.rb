@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220070032) do
+ActiveRecord::Schema.define(version: 20160224052606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20160220070032) do
     t.string   "phone"
     t.string   "token"
     t.datetime "sent_at"
+    t.boolean  "used",           default: false
+    t.integer  "switch_type_id", default: 1
   end
 
   create_table "categories", force: :cascade do |t|
@@ -233,8 +235,8 @@ ActiveRecord::Schema.define(version: 20160220070032) do
 
   create_table "sms_records", force: :cascade do |t|
     t.string   "phone_number"
-    t.string   "customer_name"
-    t.integer  "customer_id"
+    t.string   "receiver_name"
+    t.integer  "receiver_id"
     t.string   "first_category"
     t.integer  "second_category"
     t.text     "content"
@@ -244,6 +246,7 @@ ActiveRecord::Schema.define(version: 20160220070032) do
     t.integer  "store_id"
     t.string   "party_type"
     t.integer  "party_id"
+    t.string   "receiver_type"
   end
 
   create_table "staffer_operation_logs", force: :cascade do |t|
@@ -394,6 +397,27 @@ ActiveRecord::Schema.define(version: 20160220070032) do
     t.datetime "updated_at"
   end
 
+  create_table "store_customer_credits", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_customer_id"
+    t.integer  "store_order_id"
+    t.string   "subject"
+    t.decimal  "amount",            precision: 10, scale: 2, default: 0.0
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+  end
+
+  create_table "store_customer_debits", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_customer_id"
+    t.string   "subject"
+    t.decimal  "amount",            precision: 10, scale: 2, default: 0.0
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+  end
+
   create_table "store_customer_deposit_logs", force: :cascade do |t|
     t.string   "type"
     t.integer  "store_id"
@@ -427,6 +451,17 @@ ActiveRecord::Schema.define(version: 20160220070032) do
     t.decimal  "balance",                    default: 0.0,   null: false
     t.integer  "points"
     t.boolean  "membership",                 default: false
+  end
+
+  create_table "store_customer_journal_entries", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_customer_id"
+    t.string   "journalable_type"
+    t.integer  "journalable_id"
+    t.decimal  "amount",            precision: 10, scale: 2, default: 0.0
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
   end
 
   create_table "store_customer_payments", force: :cascade do |t|
@@ -1418,9 +1453,9 @@ ActiveRecord::Schema.define(version: 20160220070032) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
-    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
+    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1475,7 +1510,6 @@ ActiveRecord::Schema.define(version: 20160220070032) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
-    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1485,6 +1519,7 @@ ActiveRecord::Schema.define(version: 20160220070032) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
+    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
   end
 
@@ -1535,6 +1570,7 @@ ActiveRecord::Schema.define(version: 20160220070032) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "category_id"
+    t.boolean  "bargain_price_enabled",                                     default: false
   end
 
   create_table "store_settlement_accounts", force: :cascade do |t|
