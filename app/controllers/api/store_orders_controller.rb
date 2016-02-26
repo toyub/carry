@@ -15,7 +15,7 @@ module Api
         orders = orders.where(created_at: params[:created_at])
       end
       if params[:state].present?
-        orders = orders.whe  redirect_to(state: params[:state])
+        orders = orders.where(state: params[:state])
       end
 
       render json: orders.order('id desc')
