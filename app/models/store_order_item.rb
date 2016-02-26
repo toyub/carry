@@ -8,7 +8,6 @@ class StoreOrderItem < ActiveRecord::Base
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
 
-
   before_save :cal_amount
   before_create :set_store_info
 
@@ -23,10 +22,6 @@ class StoreOrderItem < ActiveRecord::Base
 
   validates_presence_of :orderable
 
-  def cost_price
-    23
-  end
-
   def gross_profit
     self.amount - self.total_cost
   end
@@ -40,8 +35,7 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def from_customer_asset?
-    @s ||= rand(2)
-    @s == 1
+    self.from_customer_asset
   end
 
   def workflow_mechanics
