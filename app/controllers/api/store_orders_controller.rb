@@ -90,17 +90,7 @@ module Api
       def material_items
         if params[:materials].present?
           params[:materials].map do |info|
-            {
-              id: info['id'],
-              orderable_id: info["orderable_id"],
-              orderable_type: "StoreMaterialSaleinfo",
-              vip_price: info["vip_price"],
-              quantity: info["quantity"],
-              price: info["price"],
-              discount: info['discount'],
-              discount_reason: info['discount_reason'],
-              creator: current_staff
-            }
+            basic_item_params(info).merge(orderable_type: "StoreMaterialSaleinfo")
           end
         else
           []
@@ -110,23 +100,13 @@ module Api
       def service_items
         if params[:services].present?
           params[:services].map do |info|
-            {
-              id: info['id'],
-              orderable_id: info["orderable_id"],
-              orderable_type: info['orderable_type'],
-              vip_price: info["vip_price"],
-              quantity: info["quantity"],
-              price: info["price"],
-              discount: info['discount'],
-              discount_reason: info['discount_reason'],
-              creator: current_staff,
-              from_customer_asset: info['from_customer_asset'],
-              store_customer_asset_item_id: info['store_customer_asset_item_id'],
-              package_type: info['package_type'],
-              package_id: info['package_id'],
-              assetable_type: info['assetable_type'],
-              assetable_id: info['assetable_id']
-            }
+            basic_item_params(info).merge(orderable_type: info['orderable_type'],
+                                          from_customer_asset: info['from_customer_asset'],
+                                          store_customer_asset_item_id: info['store_customer_asset_item_id'],
+                                          package_type: info['package_type'],
+                                          package_id: info['package_id'],
+                                          assetable_type: info['assetable_type'],
+                                          assetable_id: info['assetable_id'])
           end
         else
           []
@@ -136,17 +116,7 @@ module Api
       def package_items
         if params[:packages].present?
           params[:packages].map do |info|
-            {
-              id: info['id'],
-              orderable_id: info["orderable_id"],
-              orderable_type: "StorePackage",
-              vip_price: info["vip_price"],
-              quantity: info["quantity"],
-              price: info["price"],
-              discount: info['discount'],
-              discount_reason: info['discount_reason'],
-              creator: current_staff
-            }
+            basic_item_params(info).merge(orderable_type: "StorePackage")
           end
         else
           []
@@ -167,6 +137,20 @@ module Api
       def set_vehicle
         @vehicle = StoreVehicle.find(params[:vehicle_id])
         @customer = @vehicle.store_customer
+      end
+
+      def basic_item_params(info)
+        {
+          id: info['id'],
+          orderable_id: info["orderable_id"],
+          retail_price: info['retail_price'],
+          vip_price: info["vip_price"],
+          price: info["price"],
+          discount: info['discount'],
+          discount_reason: info['discount_reason'],
+          quantity: info["quantity"],
+          creator: current_staff
+        }
       end
   end
 end

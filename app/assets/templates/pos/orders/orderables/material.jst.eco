@@ -29,7 +29,7 @@
 </div>
 
 <% if @service_needed: %>
-<div class="services">
+<div class="services" id='StoreMaterialSaleinfo<%= @id %>'>
   <dl>
     <dt>服务项目</dt>
     <dt>总次数</dt>

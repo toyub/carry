@@ -7,7 +7,8 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Mis.Base.View
 
   initialize: (options) ->
     @action = options.action if options
-    @package_setting = @model.package_setting
+    @package_setting = options.package_setting
+    @index = options.index + 1 if options
 
     @listenTo(@model, 'remove', @leave)
     @listenTo(@model, 'change', @render)

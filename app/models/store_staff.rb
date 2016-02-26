@@ -27,6 +27,7 @@ class StoreStaff <  ActiveRecord::Base
   before_validation :set_full_name
   before_create     :encrypt_password
   before_create :set_default_password
+  before_create :check_phone_number
 
   scope :by_keyword, ->(keyword){ where('full_name like :name or phone_number like :phone_number',
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
@@ -57,14 +58,14 @@ class StoreStaff <  ActiveRecord::Base
     StoreStaffLevel.find(self.level_type_id)
   end
 
-  def reset_password(new_password, pass_confirmation)
+  def reset_password(new_password, password_confirmation)
     self.password = new_password
-    self.password_confirmation = pass_confirmation
+    self.password_confirmation = password_confirmation
     encrypt_password
   end
 
-  def reset_password!(new_password, pass_confirmation)
-    self.reset_password(new_password, pass_confirmation)
+  def reset_password!(new_password, password_confirmation)
+    self.reset_password(new_password, password_confirmation)
     self.save
   end
 
@@ -274,6 +275,13 @@ class StoreStaff <  ActiveRecord::Base
     if self.password.blank?
       self.password = self.password_confirmation = rand
       encrypt_password
+    end
+  end
+
+  def check_phone_number
+    if StoreStaff.by_phone(self.phone_number).unterminated.present?
+      errors.add(:notice, "您输入的号码正在使用，请使用新号码或停用该号码后再进行绑定。")
+      false
     end
   end
 end

@@ -203,8 +203,8 @@
             align-items: center;
             height:48px;
             label { width : 70px; margin-right : 15px; text-align : right;}
-            span{ display: block;height:25px;}
-            input[type="text"],span { margin-right:5px;}
+            span{ display: block;}
+            input[type="text"] { margin-right:5px;}
           }
         }
       }
