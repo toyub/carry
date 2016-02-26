@@ -1,7 +1,14 @@
 module Entities
+  class StoreMaterialSaleinfoService < Grape::Entity
+    expose :name, :work_time, :quantity, :mechanic_level, :store_material_id,
+           :store_material_saleinfo_id, :mechanic_level_type
+    expose(:material_service_id){|model|model.id}
+  end
+
   class MaterialPhotoPath < Grape::Entity
     expose :file_url
   end
+
   class Material < Grape::Entity
     expose :id
     expose(:name) { |material, options| material.name }
@@ -15,9 +22,14 @@ module Entities
     expose :inventory, :sold_count
     expose(:category) {|model| model.store_material_saleinfo.try(:category).try :name}
     expose :photo_path, using: MaterialPhotoPath
+    expose :material_service, using: StoreMaterialSaleinfoService
 
     def photo_path
       object.uploads
+    end
+
+    def material_service
+      object.store_material_saleinfo.try(:services)
     end
   end
 end
