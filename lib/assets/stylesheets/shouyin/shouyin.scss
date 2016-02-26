@@ -135,6 +135,11 @@
     }
 
     .payment_method_wrap{
+      overflow: auto;
+
+      .payment_method{
+        max-height: 70px;
+      }
       dl{
         dd{
           a{
