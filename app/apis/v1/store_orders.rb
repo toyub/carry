@@ -34,6 +34,10 @@ module V1
           optional :quantity, type: Integer, desc: '套餐的数量'
           optional :price, type: BigDecimal, desc: '单价'
         end
+        optional :material_services, type: Array do
+          optional :store_material_saleinfo_id, type: Integer, desc: '商品信息的id'
+          optional :store_material_saleinfo_service_id, type: Integer, desc: '商品服务的id'
+        end
       end
 
       add_desc '下单'
@@ -68,12 +72,15 @@ module V1
             optional :price, type: BigDecimal, desc: '单价'
             optional :from_asset, type: Boolean, desc: '是否卡扣'
             optional :store_customer_asset_item_id, type: Integer, desc: '卡扣的id'
-
           end
           optional :packages, type: Array do
             optional :package_id, type: Integer, desc: '套餐的id'
             optional :quantity, type: Integer, desc: '套餐的数量'
             optional :price, type: BigDecimal, desc: '单价'
+          end
+          optional :material_services, type: Array do
+            optional :store_material_saleinfo_id, type: Integer, desc: '商品信息的id'
+            optional :store_material_saleinfo_service_id, type: Integer, desc: '商品服务的id'
           end
         end
         put  do
@@ -165,6 +172,10 @@ module V1
             :package_id,
             :quantity,
             :price
+          ],
+          material_services: [
+            :store_material_saleinfo_id,
+            :store_material_saleinfo_service_id
           ]
         )
       end

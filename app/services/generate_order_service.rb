@@ -15,6 +15,7 @@ class GenerateOrderService
       material_items
       service_items
       package_items
+      material_service_items
       if @order.present?
         @order.update!(items: @order_items)
       else
@@ -31,24 +32,28 @@ class GenerateOrderService
     material_ids = @order_params[:materials].map{|m| m[:material_id]} if @order_params[:materials].present?
     StoreMaterial.where(id: material_ids).each_with_index do |material, i|
       StoreMaterialSaleinfo.create!(@basic_params.merge(store_material_id: material.id)) unless material.store_material_saleinfo.present?
-      material_item = material.store_material_saleinfo.store_order_items.new(material_item_params(i))
-      @order_items << material_item
+      @order_items << material.store_material_saleinfo.store_order_items.new(material_item_params(i))
     end
   end
 
   def service_items
     service_ids = @order_params[:services].map{|s| s[:service_id]} if @order_params[:services].present?
     StoreService.where(id: service_ids).each_with_index do |service, i|
-      service_item = service.store_order_items.new(service_item_params(i))
-      @order_items << service_item
+      @order_items << service.store_order_items.new(service_item_params(i))
     end
   end
 
   def package_items
     package_ids = @order_params[:packages].map{|pa| pa[:package_id]} if @order_params[:packages].present?
     StorePackage.where(id: package_ids).each_with_index do |package, i|
-      package_item = package.store_order_items.new(package_item_params(i))
-      @order_items << package_item
+      @order_items << package.store_order_items.new(package_item_params(i))
+    end
+  end
+
+  def material_service_items
+    material_service_ids = @order_params[:material_services].map{|ms| ms[:store_material_saleinfo_service_id]} if @order_params[:material_services].present?
+    StoreMaterialSaleinfoService.where(id: material_service_ids).each_with_index do |material_service, i|
+      @order_items << material_service.store_order_items.new(material_service_params(i))
     end
   end
 
@@ -79,8 +84,22 @@ class GenerateOrderService
     @basic_params.merge(
       quantity: @order_params[:packages][i][:quantity],
       price: @order_params[:packages][i][:price],
-      store_customer_id: @order_params[:packages][i][:store_customer_id],
+      store_customer_id: @order_params[:store_customer_id],
       retail_price: @order_params[:packages][i][:price]
+    )
+  end
+
+  def material_service_params(i)
+    @basic_params.merge(
+      store_customer_id: @order_params[:store_customer_id],
+      package_type: 'StoreMaterialSaleinfo',
+      package_id: @order_params[:material_services][i][:store_material_saleinfo_id],
+      retail_price: 0,
+      vip_price: 0,
+      price: 0,
+      quantity: 1,
+      assetable_type: 'StoreMaterialSaleinfoService',
+      assetable_id: @order_params[:material_services][i][:store_material_saleinfo_service_id]
     )
   end
 
