@@ -35,8 +35,8 @@ module Grape
       # 将默认错误返回状态码改为200
       def out_error(message={})
         error = {
-          message: message,
-          status: 500
+          message: message[:msg],
+          status: message[:code] || 500
         }
         error_response(error)
       end
