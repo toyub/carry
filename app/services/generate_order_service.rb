@@ -30,25 +30,30 @@ class GenerateOrderService
   def material_items
     material_ids = @order_params[:materials].map{|m| m[:material_id]} if @order_params[:materials].present?
     StoreMaterial.where(id: material_ids).each_with_index do |material, i|
-      StoreMaterialSaleinfo.create!(@basic_params.merge(store_material_id: material.id)) unless material.store_material_saleinfo.present?
-      material_item = material.store_material_saleinfo.store_order_items.new(material_item_params(i))
-      @order_items << material_item
+      material_item(material, i)
+    end
+  end
+
+  def material_item(material, i)
+    StoreMaterialSaleinfo.create!(@basic_params.merge(store_material_id: material.id)) unless material.store_material_saleinfo.present?
+    if material.store_material_saleinfo.services.present?
+      @order_items << material.store_material_saleinfo.services.store_order_items.new(material_item_params(i))
+    else
+      @order_items << material.store_material_saleinfo.store_order_items.new(material_item_params(i))
     end
   end
 
   def service_items
     service_ids = @order_params[:services].map{|s| s[:service_id]} if @order_params[:services].present?
     StoreService.where(id: service_ids).each_with_index do |service, i|
-      service_item = service.store_order_items.new(service_item_params(i))
-      @order_items << service_item
+      @order_items << service.store_order_items.new(service_item_params(i))
     end
   end
 
   def package_items
     package_ids = @order_params[:packages].map{|pa| pa[:package_id]} if @order_params[:packages].present?
     StorePackage.where(id: package_ids).each_with_index do |package, i|
-      package_item = package.store_order_items.new(package_item_params(i))
-      @order_items << package_item
+      @order_items << package.store_order_items.new(package_item_params(i))
     end
   end
 
