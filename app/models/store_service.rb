@@ -131,7 +131,7 @@ class StoreService < ActiveRecord::Base
     self.store_order_items.count
   end
 
-  def category
+  def category_name
     service_category.try(:name)
   end
 
