@@ -69,6 +69,7 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
   handleSuccess: ->
     @leave()
     view = new Mis.Views.XiaoshouPackageSettingsShow(model: @model)
+    @model.set("retail_price", @model.amount())
     $("#bodyContent").html(view.render().el)
 
   rootResource: ->

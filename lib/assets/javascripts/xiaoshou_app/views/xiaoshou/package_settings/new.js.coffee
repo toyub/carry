@@ -30,8 +30,6 @@ class Mis.Views.XiaoshouPackageSettingsNew extends Backbone.View
     e.preventDefault()
     attrs = @$("#newPackageSetting").find("input, select").serializeJSON()
     @model.set attrs
-    console.log @model
-    console.log @model.toJSON()
     @model.save()
 
   openPackageItemForm: ->
