@@ -6,7 +6,7 @@
   <div class="search_nav">
     <div class="item-query">
       <label>查找车辆</label>
-      <input type="text" class="width-180" placeholder="输入车牌或项目模糊查询">
+      <input type="text" class="width-180 query-by-license" placeholder="输入车牌或项目模糊查询">
     </div>
     <div class="item-query">
       <a href="#" class="query_btn btn">查&nbsp;询</a>
@@ -19,8 +19,8 @@
         <li>
           <div class="vehicle_operating">
             <div class="width-200 float-left">
-              <span class="display-block">正在排队</span>
-              <span id='queuing_count' class="display-block font-22 color-0669B7 font-weight-bold"></span>
+              <span class="display-block">未付款</span>
+              <span id='queuing_count' class="display-block font-22 color-BAB7A3 font-weight-bold"></span>
             </div>
             <span class="float-right">
               <i class="lnr-chevron-down lnr font-18 cursor-pointer"></i>
@@ -31,31 +31,7 @@
         <li>
           <div class="vehicle_operating">
             <div class="width-200 float-left">
-              <span class="display-block">正在施工</span>
-              <span id='processing_count' class="display-block font-22 color-BAB7A3 font-weight-bold"></span>
-            </div>
-            <span class="float-right">
-              <i class="lnr-chevron-down lnr font-18 cursor-pointer"></i>
-            </span>
-          </div>
-          <ul id='processing' class="item_vehicle"></ul>
-        </li>
-        <li>
-          <div class="vehicle_operating">
-            <div class="width-200 float-left">
-              <span class="display-block">等待付款</span>
-              <span id='paying_count' class="display-block font-22 color-4CA848 font-weight-bold"></span>
-            </div>
-            <span class="float-right">
-              <i class="lnr-chevron-down lnr font-18 cursor-pointer"></i>
-            </span>
-          </div>
-          <ul id='paying' class="item_vehicle"></ul>
-        </li>
-        <li>
-          <div class="vehicle_operating">
-            <div class="width-200 float-left">
-              <span class="display-block">今日完成</span>
+              <span class="display-block">已付款</span>
               <span id='finished_count' class="display-block font-22 color-F43C59 font-weight-bold"></span>
             </div>
             <span class="float-right">

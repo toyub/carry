@@ -3,10 +3,15 @@ class StoreCustomerSerializer < ActiveModel::Serializer
              :created_at, :updated_at, :phone_number, :qq, :store_customer_category_id, :gender,
              :nick, :resident_id, :birthday, :married, :education, :profession, :income,
              :company, :tracking_accepted, :message_accepted, :store_customer_entity_id,
-             :telephone, :remark, :account, :category_name, :payment_mode, :property_i18n, :payment_mode_i18n
+             :telephone, :remark, :account, :category_name, :category, :payment_mode,
+             :property_i18n, :payment_mode_i18n
 
   def category_name
     object.store_customer_entity.store_customer_category.try(:name)
+  end
+
+  def category
+    object.store_customer_entity.store_customer_category
   end
 
   def payment_mode
