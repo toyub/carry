@@ -15,7 +15,7 @@ class AddVehicleForIpadService
     ActiveRecord::Base.transaction do
       @customer ||= StoreCustomer.create!(@customer_params)
       @vehicle = StoreVehicle.create!(@vehicle_params.merge(store_customer_id: @customer.id))
-      @plate = @vehicle.plates.create!(@plate_params.merge(store_customer_id: @customer.id))
+      @plate = @vehicle.plates.create!(@plate_params)
     end
     Status.new(success: true, notice: '添加成功!', customer: @customer)
   rescue ActiveRecord::RecordInvalid => e
