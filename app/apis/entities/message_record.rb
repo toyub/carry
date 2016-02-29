@@ -1,7 +1,7 @@
 module Entities
   class MessageRecord < Grape::Entity
     expose :content
-    expose :customer_name
+    expose :receiver_name
     expose :phone_number
     expose :category
     expose(:store_name) { |record, options| record.store.try(:name) }

@@ -17,6 +17,7 @@ module Api
       if params[:state].present?
         orders = orders.where(state: params[:state])
       end
+
       render json: orders.order('id desc')
     end
 

@@ -17,7 +17,4 @@ json.array! @packages do |package|
     json.package_itemable_type service.package_itemable_type
     json.package_itemable_id service.package_itemable_id
   end
-
-  json.quantity 1
-  json.recommended_price 0
 end
