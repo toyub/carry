@@ -50,9 +50,9 @@ module V1
           requires :store_customer_id, type: Integer, desc: '客户id'
           optional :plate_id, type: Integer, desc: '车牌的id'
           optional :order_items, type: Array do
-            optional :orderable_id, type: Integer, desc: '选择的对应id'
-            optional :orderable_type, type: String, desc: '服务：StoreService, StoreMaterialSaleinfo, 套餐: StorePackage,
-                                                           商品服务： StoreMaterialSaleinfoService'
+            optional :orderable_id, type: Integer, desc: '选择的对应id,如果套餐服务，则需要从套餐接口获取对应的package_itemable_id'
+            optional :orderable_type, type: String, desc: '服务：StoreService,商品:StoreMaterialSaleinfo, 套餐: StorePackage,
+                                                           商品服务： StoreMaterialSaleinfoService, 套餐服务: 套餐接口获取package_itemable_type'
             optional :quantity, type: Integer, desc: '数量'
             optional :retail_price, type: BigDecimal, desc: '销售单价'
             optional :vip_price, type: BigDecimal, desc: '会员价'
@@ -66,8 +66,9 @@ module V1
             optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，
                                                         套餐服务情况下： store_package_id,其他情况可不填!'
             optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService
-                                                           套餐服务情况下: '
-            optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id'
+                                                           套餐服务情况下: StorePackageItem,其他情况可不填!'
+            optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
+                                                          套餐服务情况下: store_package_item_id,其他情况可不填!'
           end
         end
         put  do
