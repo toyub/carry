@@ -3,7 +3,7 @@
   <td>销售价</td>
   <td>优惠价</td>
   <td>服务积分<label><%= @setting.store_service.get 'point' %></label></td>
-  <td>服务类别<label><%= @setting.store_service.get 'category' %></label></td>
+  <td>服务类别<label><%= @setting.store_service.get 'category_name' %></label></td>
   <td>关联商品<label> </label></td>
   <td>销售收入<label></label></td>
 </tr>
