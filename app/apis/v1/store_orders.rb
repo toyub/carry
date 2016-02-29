@@ -65,7 +65,8 @@ module V1
                                                          套餐服务情况下：StorePackage,其他情况可不填！'
             optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，
                                                         套餐服务情况下： store_package_id,其他情况可不填!'
-            optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService'
+            optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService
+                                                           套餐服务情况下: '
             optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id'
           end
         end
