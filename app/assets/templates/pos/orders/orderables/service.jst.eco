@@ -6,17 +6,7 @@
     <li><%= @category_name %></li>
     <li><%= @point %></li>
     <li>
-      <% if @bargain_price_enabled : %>
-        <% if current_customer.isMembership : %>
-          <span class="text-decoration-linethrough display-block"><%= @retail_price %></span>
-          <span class="color-08BD48"><%= @bargain_price %></span>
-        <% else : %>
-          <span class="text-decoration-linethrough display-block"><%= @bargain_price %></span>
-          <span class="color-08BD48"><%= @retail_price %></span>
-        <% end %>
-      <% else : %>
-        <span class="color-08BD48"><%= @retail_price %></span>
-      <% end %>
+      <span class="color-08BD48"><%= @retail_price %></span>
     </li>
     <li><input type="checkbox" data-itemid="<%= @id %>" class="service-checkbox"></li>
   </ul>
