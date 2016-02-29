@@ -17,7 +17,7 @@ class GenerateOrderService
       end
       order_event
     end
-    Status.new(success: true, notice: '下单成功!')
+    Status.new(success: true, notice: @order.id)
   rescue ActiveRecord::RecordInvalid => e
     Status.new(success: false, notice: e.message)
   end
