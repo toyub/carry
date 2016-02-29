@@ -13,30 +13,22 @@ module V1
         requires :store_customer_id, type: Integer, desc: '客户id'
         requires :vehicle_id, type: Integer, desc: '车辆的id'
         optional :plate_id, type: Integer, desc: '车牌的id'
-        optional :materials, type: Array do
-          optional :material_id, type: Integer, desc: '商品的id'
-          optional :quantity, type: Integer, desc: '商品的数量'
+        optional :order_items, type: Array do
+          optional :orderable_id, type: Integer, desc: '选择的对应id'
+          optional :orderable_type, type: String, desc: '服务：StoreService, 商品：StoreMaterialSaleinfo, 套餐: StorePackage,
+                                                         商品服务： StoreMaterialSaleinfoService'
+          optional :quantity, type: Integer, desc: '数量'
           optional :retail_price, type: BigDecimal, desc: '销售单价'
           optional :vip_price, type: BigDecimal, desc: '会员价'
           optional :discount, type: BigDecimal, desc: '优惠价'
           optional :discount_reason, type: String, desc: '优惠理由'
           optional :price, type: BigDecimal, desc: '单价'
-        end
-        optional :services, type: Array do
-          optional :service_id, type: Integer, desc: '服务的id'
-          optional :quantity, type: Integer, desc: '服务的数量'
-          optional :price, type: BigDecimal, desc: '单价'
-          optional :from_asset, type: Boolean, desc: '是否卡扣'
+          optional :from_customer_asset, type: Boolean, desc: '是否卡扣'
           optional :store_customer_asset_item_id, type: Integer, desc: '卡扣的id'
-        end
-        optional :packages, type: Array do
-          optional :package_id, type: Integer, desc: '套餐的id'
-          optional :quantity, type: Integer, desc: '套餐的数量'
-          optional :price, type: BigDecimal, desc: '单价'
-        end
-        optional :material_services, type: Array do
-          optional :store_material_saleinfo_id, type: Integer, desc: '商品信息的id'
-          optional :store_material_saleinfo_service_id, type: Integer, desc: '商品服务的id'
+          optional :package_type, type: String, desc: '商品服务情况下：StoreMaterialSaleinfo，其他情况可不填！'
+          optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，其他情况可不填!'
+          optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService'
+          optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id'
         end
       end
 
@@ -57,30 +49,22 @@ module V1
           requires :platform, type: String, desc: '验证平台！'
           requires :store_customer_id, type: Integer, desc: '客户id'
           optional :plate_id, type: Integer, desc: '车牌的id'
-          optional :materials, type: Array do
-            optional :material_id, type: Integer, desc: '商品的id'
-            optional :quantity, type: Integer, desc: '商品的数量'
+          optional :order_items, type: Array do
+            optional :orderable_id, type: Integer, desc: '选择的对应id'
+            optional :orderable_type, type: String, desc: '服务：StoreService, StoreMaterialSaleinfo, 套餐: StorePackage,
+                                                           商品服务： StoreMaterialSaleinfoService'
+            optional :quantity, type: Integer, desc: '数量'
             optional :retail_price, type: BigDecimal, desc: '销售单价'
             optional :vip_price, type: BigDecimal, desc: '会员价'
             optional :discount, type: BigDecimal, desc: '优惠价'
             optional :discount_reason, type: String, desc: '优惠理由'
             optional :price, type: BigDecimal, desc: '单价'
-          end
-          optional :services, type: Array do
-            optional :service_id, type: Integer, desc: '服务的id'
-            optional :quantity, type: Integer, desc: '服务的数量'
-            optional :price, type: BigDecimal, desc: '单价'
-            optional :from_asset, type: Boolean, desc: '是否卡扣'
+            optional :from_customer_asset, type: Boolean, desc: '是否卡扣'
             optional :store_customer_asset_item_id, type: Integer, desc: '卡扣的id'
-          end
-          optional :packages, type: Array do
-            optional :package_id, type: Integer, desc: '套餐的id'
-            optional :quantity, type: Integer, desc: '套餐的数量'
-            optional :price, type: BigDecimal, desc: '单价'
-          end
-          optional :material_services, type: Array do
-            optional :store_material_saleinfo_id, type: Integer, desc: '商品信息的id'
-            optional :store_material_saleinfo_service_id, type: Integer, desc: '商品服务的id'
+            optional :package_type, type: String, desc: '商品服务情况下：StoreMaterialSaleinfo，其他情况可不填！'
+            optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，其他情况可不填!'
+            optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService'
+            optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id'
           end
         end
         put  do
@@ -152,30 +136,21 @@ module V1
           :store_id,
           :store_chain_id,
           :store_staff_id,
-          materials: [
-            :material_id,
+          order_items: [
+            :orderable_id,
+            :orderable_type,
+            :quantity,
             :retail_price,
-            :quantity,
             :vip_price,
-            :price,
             :discount,
-            :discount_reason
-          ],
-          services: [
-            :service_id,
-            :quantity,
+            :discount_reason,
             :price,
-            :from_asset,
-            :store_customer_asset_item_id
-          ],
-          packages: [
-            :package_id,
-            :quantity,
-            :price
-          ],
-          material_services: [
-            :store_material_saleinfo_id,
-            :store_material_saleinfo_service_id
+            :from_customer_asset,
+            :store_customer_asset_item_id,
+            :orderable_type,
+            :orderable_id,
+            :assetable_type,
+            :assetable_id
           ]
         )
       end

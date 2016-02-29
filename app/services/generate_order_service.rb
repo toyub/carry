@@ -12,95 +12,42 @@ class GenerateOrderService
 
   def call
     ActiveRecord::Base.transaction do
-      material_items
-      service_items
-      package_items
-      material_service_items
-      if @order.present?
-        @order.update!(items: @order_items)
-      else
-        @order = @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items))
+      @order_params[:order_items].each do |item|
+        @order_items << StoreOrderItem.new(item_params(item).merge(@basic_params))
       end
-      @order.execution_job
+      order_event
     end
     Status.new(success: true, notice: '下单成功!')
   rescue ActiveRecord::RecordInvalid => e
     Status.new(success: false, notice: e.message)
   end
 
-  def material_items
-    material_ids = @order_params[:materials].map{|m| m[:material_id]} if @order_params[:materials].present?
-    StoreMaterial.where(id: material_ids).each_with_index do |material, i|
-      StoreMaterialSaleinfo.create!(@basic_params.merge(store_material_id: material.id)) unless material.store_material_saleinfo.present?
-      @order_items << material.store_material_saleinfo.store_order_items.new(material_item_params(i))
+  def order_event
+    if @order.present?
+      @order.update!(items: @order_items)
+    else
+      @order = @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items))
     end
+    @order.execution_job
   end
 
-  def service_items
-    service_ids = @order_params[:services].map{|s| s[:service_id]} if @order_params[:services].present?
-    StoreService.where(id: service_ids).each_with_index do |service, i|
-      @order_items << service.store_order_items.new(service_item_params(i))
-    end
-  end
-
-  def package_items
-    package_ids = @order_params[:packages].map{|pa| pa[:package_id]} if @order_params[:packages].present?
-    StorePackage.where(id: package_ids).each_with_index do |package, i|
-      @order_items << package.store_order_items.new(package_item_params(i))
-    end
-  end
-
-  def material_service_items
-    material_service_ids = @order_params[:material_services].map{|ms| ms[:store_material_saleinfo_service_id]} if @order_params[:material_services].present?
-    StoreMaterialSaleinfoService.where(id: material_service_ids).each_with_index do |material_service, i|
-      @order_items << material_service.store_order_items.new(material_service_params(i))
-    end
-  end
-
-  def material_item_params(i)
-    @basic_params.merge(
-      quantity: @order_params[:materials][i][:quantity],
-      price: @order_params[:materials][i][:price],
-      store_customer_id: @order_params[:store_customer_id],
-      discount: @order_params[:materials][i][:discount],
-      discount_reason: @order_params[:materials][i][:discount_reason],
-      vip_price: @order_params[:materials][i][:vip_price],
-      retail_price: @order_params[:materials][i][:retail_price]
-    )
-  end
-
-  def service_item_params(i)
-    @basic_params.merge(
-      quantity: @order_params[:services][i][:quantity],
-      price: @order_params[:services][i][:price],
-      store_customer_id: @order_params[:store_customer_id],
-      from_customer_asset: @order_params[:services][i][:from_asset],
-      retail_price: @order_params[:services][i][:price],
-      store_customer_asset_item_id: @order_params[:services][i][:store_customer_asset_item_id]
-    )
-  end
-
-  def package_item_params(i)
-    @basic_params.merge(
-      quantity: @order_params[:packages][i][:quantity],
-      price: @order_params[:packages][i][:price],
-      store_customer_id: @order_params[:store_customer_id],
-      retail_price: @order_params[:packages][i][:price]
-    )
-  end
-
-  def material_service_params(i)
-    @basic_params.merge(
-      store_customer_id: @order_params[:store_customer_id],
-      package_type: 'StoreMaterialSaleinfo',
-      package_id: @order_params[:material_services][i][:store_material_saleinfo_id],
-      retail_price: 0,
-      vip_price: 0,
-      price: 0,
-      quantity: 1,
-      assetable_type: 'StoreMaterialSaleinfoService',
-      assetable_id: @order_params[:material_services][i][:store_material_saleinfo_service_id]
-    )
+  def item_params(item)
+    {
+      orderable_id: item[:orderable_id],
+      orderable_type: item[:orderable_type],
+      quantity: item[:quantity],
+      retail_price: item[:retail_price],
+      vip_price: item[:vip_price],
+      discount: item[:discount],
+      discount_reason: item[:discount_reason],
+      price: item[:price],
+      from_customer_asset: item[:from_customer_asset],
+      store_customer_asset_item_id: item[:store_customer_asset_item_id],
+      orderable_type: item[:orderable_type],
+      orderable_id: item[:orderable_id],
+      assetable_type: item[:assetable_type],
+      assetable_id: item[:assetable_id]
+    }
   end
 
   def order_params_merge_vehicle
