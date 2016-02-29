@@ -2,7 +2,6 @@
 <td><a class='name' href="<%= @view.packageUrl() %>"><%= @package.get 'name' %></a></td>
 <td><%= @package.get 'code' %></td>
 <td><%= @package.validPeriod() %></td>
-<% console.log @package %>
 <td><%= @package.package_setting.get "retail_price" %></td>
 <td><%= @package.package_setting.get 'point' %></td>
 <td><%= @package.get 'abstract' %></td>
