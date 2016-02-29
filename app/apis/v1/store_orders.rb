@@ -61,8 +61,10 @@ module V1
             optional :price, type: BigDecimal, desc: '单价'
             optional :from_customer_asset, type: Boolean, desc: '是否卡扣'
             optional :store_customer_asset_item_id, type: Integer, desc: '卡扣的id'
-            optional :package_type, type: String, desc: '商品服务情况下：StoreMaterialSaleinfo，其他情况可不填！'
-            optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，其他情况可不填!'
+            optional :package_type, type: String, desc: '商品服务情况下：StoreMaterialSaleinfo，
+                                                         套餐服务情况下：StorePackage,其他情况可不填！'
+            optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，
+                                                        套餐服务情况下： store_package_id,其他情况可不填!'
             optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService'
             optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id'
           end
