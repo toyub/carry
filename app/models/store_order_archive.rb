@@ -64,9 +64,11 @@ class StoreOrderArchive
                                                                  store_customer_id: @order.store_customer_id,
                                                                  assetable: package_item,
                                                                  total_quantity: package_item.quantity,
+                                                                 used_quantity: order_item.from_customer_asset ? 1 : 0,
                                                                  workflowable_hash: package_item.package_itemable.to_workflowable_hash
                                                                }
                                                   end
+          Rails.logger.debug "====package=============#{order_item.id}-#{order_item.from_customer_asset}===================================="
           StoreCustomerPackagedService.create! store_id: @order.store_id,
                                            store_chain_id: @order.store_chain_id,
                                            store_customer_id: @order.store_customer_id,
@@ -89,9 +91,11 @@ class StoreOrderArchive
                                                          store_customer_id: @order.store_customer_id,
                                                          assetable: taozhuang_item,
                                                          total_quantity: taozhuang_item.quantity,
+                                                         used_quantity: order_item.from_customer_asset ? 1 : 0,
                                                          workflowable_hash: taozhuang_item.as_json
                                                        }
                                                   end
+          Rails.logger.debug "====taozhuang=============#{order_item.id}-#{order_item.from_customer_asset}============================"
           StoreCustomerTaozhuang.create! store_id: @order.store_id,
                                          store_chain_id: @order.store_chain_id,
                                          store_customer_id: @order.store_customer_id,
