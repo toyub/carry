@@ -12,7 +12,6 @@ window.Mis =
     @materials = @store.materials
     @services = @store.services
     @commissions = @store.commissionTemplates
-    console.log @store.packages
     new Mis.Routers.StorePackages(collection: @store.packages)
     new Mis.Routers.StoreServices(collection: @services)
     new Mis.Routers.StoreCustomerEntities(collection: @store.customerEntities)
