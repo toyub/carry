@@ -105,6 +105,7 @@ module V1
       add_desc '订单列表'
       params do
         requires :platform, type: String, desc: '验证平台！'
+        requires :default, type: Boolean, desc: 'true为订单列表，false为现场列表'
         optional :q, type: Hash, default: {} do
           optional :plate_license_number_cont, type: String
           optional :store_customer_phone_number_cont, type: String
@@ -112,7 +113,12 @@ module V1
         end
       end
       get do
-        orders = current_store.store_orders.ransack(params[:q]).result
+        if params[:default]
+          orders = current_store.store_orders.ransack(params[:q]).result
+        else
+          "有workflow就是有需要施工"
+
+        end
         present orders, with: ::Entities::StoreOrder, type: :default
       end
     end
