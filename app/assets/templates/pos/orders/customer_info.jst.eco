@@ -47,11 +47,11 @@
         <label class="width-55">区域</label>
         <span class="area">
           <label>省:</label>
-          <select class="width-70" id="province" name='store_customer_entity[district][province]'></select>
+          <select class="width-70" id="province" data-oldid='<%= @province %>' name='store_customer_entity[district][province]'></select>
           <label>市:</label>
-          <select class="width-70" id="city" name='store_customer_entity[district][city]'></select>
+          <select class="width-70" id="city" data-oldid='<%= @city %>' name='store_customer_entity[district][city]'></select>
           <label>区/县:</label>
-          <select class="width-70" id="region" name='store_customer_entity[district][region]'></select>
+          <select class="width-70" id="region" data-oldid='<%= @region %>' name='store_customer_entity[district][region]'></select>
         </span>
       </div>
 
@@ -96,6 +96,13 @@
       <div class="item_content">
         <label class="width-55">单位</label>
         <input type="text" class="width-380" value="<%= @store_customer.company %>" name='store_customer_entity[store_customer_attributes][company]' value="<%= @store_customer.company %>">
+      </div>
+      <div class="item_content">
+        <label class="width-55">发票种类</label>
+        <select class="width-150" name="store_customer_entity[store_customer_settlement_attributes][invoice_type]">
+          <option value="common" <%= "selected" if @store_customer_settlement.invoice_type == 'common' %> >普票</option>
+          <option value="extra" <%= "selected" if @store_customer_settlement.invoice_type == 'extra' %> >增值税发票</option>
+        </select>
       </div>
 
       <div class="item_content">
