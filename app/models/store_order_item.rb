@@ -7,6 +7,7 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :store_order
   belongs_to :store_customer
   belongs_to :store_staff
+  belongs_to :store_customer_asset_item
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
 
