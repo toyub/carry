@@ -15,14 +15,14 @@ class GenerateOrderService
       @order_params[:order_items].each do |item|
         @order_items << StoreOrderItem.new(item_params(item).merge(@basic_params))
       end
-      order_event
+      ordering
     end
     Status.new(success: true, notice: @order.id)
   rescue ActiveRecord::RecordInvalid => e
     Status.new(success: false, notice: e.message)
   end
 
-  def order_event
+  def ordering
     if @order.present?
       @order.update!(items: @order_items)
     else
