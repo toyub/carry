@@ -136,7 +136,7 @@
 
       <div class="item_content">
         <label class="width-55">联系人</label>
-        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][contract]' value="<%= @store_customer_settlement.contract %>">
+        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][contact]' value="<%= @store_customer_settlement.contact %>">
       </div>
     </div>
   </div>

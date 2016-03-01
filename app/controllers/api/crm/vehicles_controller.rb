@@ -6,7 +6,9 @@ module Api
 
       def update
         vehicle = current_store.store_vehicles.find(params[:id])
-        vehicle.update append_store_attrs(vehicle_params)
+        safe_params = append_store_attrs(vehicle_params)
+        safe_params[:detail] = vehicle.detail.deep_merge(safe_params[:detail])
+        vehicle.update safe_params
         respond_with vehicle, location: nil
       end
 
