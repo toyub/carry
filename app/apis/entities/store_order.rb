@@ -3,10 +3,11 @@ module Entities
     expose(:name) {|model|model.orderable}
   end
   class StoreOrder < Grape::Entity
-    expose :id, :numero, :amount, :pay_status, if: {type: :default}
-    expose(:full_name, if: {type: :default}) {|model| model.store_customer.full_name}
-    expose(:license_number, if: {type: :default}) {|model| model.plate.try(:license_number)}
-    expose(:phone_number, if: {type: :default}) {|model| model.store_customer.phone_number}
+    expose :id, :numero, :amount
+    expose(:full_name) {|model| model.store_customer.full_name}
+    expose(:license_number) {|model| model.store_vehicle.vehicle_plates.last.try(:plate).try(:license_number)}
+    expose(:phone_number) {|model| model.store_customer.phone_number}
+    expose :pay_status, if: {type: :default}
     expose :state, if: {type: :default} do |model|
       '施工中' if model.state == 'processing'
       '完工' if model.state == 'paying'
