@@ -19,12 +19,12 @@ module V1
 
       post do
         cap = Captcha.by_phone(params[:phone_number]).unexpried.last
-        return {status: 'failed', notice: '输入验证码或手机号有误'} unless cap && cap.token_available && cap.authenticate(params[:token])
+        return {status: false, notice: '输入验证码或手机号有误'} unless cap && cap.token_available && cap.authenticate(params[:token])
         staff = StoreStaff.by_phone(params[:phone_number]).unterminated.last
-        return {status: 'failed', notice: '用户不存在或密码不匹配'} if staff.blank? || (params[:new_password] != params[:new_password_confirmation])
+        return {status: false, notice: '用户不存在或密码不匹配'} if staff.blank? || (params[:new_password] != params[:new_password_confirmation])
         staff.reset_password!(params[:new_password], params[:new_password_confirmation])
         cap.disabled_token!
-        {status: 'success', notice: '重置成功'}
+        {status: true, notice: '重置成功'}
       end
     end
 
