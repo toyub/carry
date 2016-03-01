@@ -28,6 +28,7 @@ module V1
     mount V1::SendCaptchaCode
     mount V1::VerifyCaptchaCode
     mount V1::ResetPassword
+    mount V1::DiscountAuthorities
 
 
 
