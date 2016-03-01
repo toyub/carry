@@ -16,4 +16,9 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
     vehicle_plates.last.store_vehicle.id
   end
 
+  def store_customer
+    vehicle_plates.last.store_vehicle.store_customer
+  end
+
+
 end
