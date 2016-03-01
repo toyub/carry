@@ -19,7 +19,7 @@ class StoreOrder < ActiveRecord::Base
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
-  scope :has_service, -> { where(include_service: true) }
+  scope :has_service, -> { where(service_included: true) }
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
