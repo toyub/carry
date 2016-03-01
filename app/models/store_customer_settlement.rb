@@ -35,18 +35,34 @@ class StoreCustomerSettlement < ActiveRecord::Base
   end
 
   def credit_i18n
-    I18n.t "enums.store_customer_settlement.credit.#{self.credit}"
+    if self.credit
+      I18n.t self.credit, scope: [:enums, :store_customer_settlement, :credit]
+    else
+      '未定义'
+    end
   end
 
   def notice_period_i18n
-    I18n.t "enums.store_customer_settlement.notice_period.#{self.notice_period}"
+    if self.notice_period
+      I18n.t self.notice_period, scope: [:enums, :store_customer_settlement, :notice_period]
+    else
+      '未定义'
+    end
   end
 
   def payment_mode_i18n
-    I18n.t "enums.store_customer_settlement.payment_mode.#{self.payment_mode}"
+    if self.payment_mode
+      I18n.t self.payment_mode, scope: [:enums, :store_customer_settlement, :payment_mode]
+    else
+      '未定义'
+    end
   end
 
   def invoice_type_i18n
-    I18n.t "enums.store_customer_settlement.invoice_type.#{self.invoice_type}"
+    if self.invoice_type
+      I18n.t self.invoice_type, scope: [:enums, :store_customer_settlement, :invoice_type]
+    else
+      '未定义'
+    end
   end
 end
