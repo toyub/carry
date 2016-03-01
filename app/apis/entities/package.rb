@@ -1,5 +1,7 @@
 module Entities
   class StorePackageItem < Grape::Entity
+    expose :quantity
+    expose(:mechanic_level) {|model|model.package_itemable.engineer_level}
     expose(:store_package_item_id){|model| model.id}
     expose(:retail_price) {|model| model.package_itemable.retail_price}
     expose(:service_name) {|model| model.package_itemable.name}
@@ -11,7 +13,7 @@ module Entities
   class Package < Grape::Entity
     expose :name, :store_name, :code, :valid_date, :retail_price, :point, :sold, :abstract
     expose(:store_package_id) {|model|model.id}
-
+    expose(:contains_service) {|model|model.package_setting.contains_service}
     expose :package_services,using: StorePackageItem
 
     def package_services
