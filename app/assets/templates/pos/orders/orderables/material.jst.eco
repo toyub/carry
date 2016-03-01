@@ -10,19 +10,9 @@
     <li><%= @speci %></li>
     <li><%= @category_name %></li>
     <li><%= @reward_points %></li>
-    <li><%= @inventory_quantity %></li>
+    <li><%= @inventory %></li>
     <li>
-      <% if @vip_price_enabled : %>
-        <% if current_customer.isMembership : %>
-          <span title='零售价' class="text-decoration-linethrough display-block"><%= @retail_price %></span>
-          <span title='会员价' class="color-08BD48"><%= @vip_price %></span>
-        <% else : %>
-          <span title='会员价' class="text-decoration-linethrough display-block"><%= @vip_price %></span>
-          <span title='零售价' class="color-08BD48"><%= @retail_price %></span>
-        <% end %>
-      <% else : %>
-        <span class="color-08BD48"><%= @retail_price %></span>
-      <% end %>
+      <span class="color-08BD48"><%= @retail_price %></span>
     </li>
     <li><input type="checkbox" data-itemid="<%= @id %>" class="material-checkbox"></li>
   </ul>
@@ -42,7 +32,7 @@
     <dd><%= service.name %></dd>
     <dd><%= service.quantity %></dd>
     <dd><%= service.work_time_in_seconds/60 %>分钟</dd>
-    <dd><%= service.mechanic_level %></dd>
+    <dd><%= service.mechanic_level_type %></dd>
     <dd><input type="checkbox" class='js-material-service' data-parentid='<%= @id %>' data-itemid='<%= service.id %>'></dd>
   </dl>
   <% end %>

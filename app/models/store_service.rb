@@ -129,7 +129,8 @@ class StoreService < ActiveRecord::Base
   end
 
   def time
-    self.store_service_workflows.map { |w| w.work_time_in_minutes }.sum
+
+    self.setting.workflows.map { |w| w.work_time_in_minutes }.sum
   end
 
   def mechanic_levles
@@ -140,7 +141,7 @@ class StoreService < ActiveRecord::Base
     self.store_order_items.count
   end
 
-  def category
+  def category_name
     service_category.try(:name)
   end
 

@@ -35,7 +35,7 @@
           <div class="item_content">
             <label class="width-75">服务类别</label>
             <select type="text" class="width-165" disabled="">
-              <option selected><%= @service.get 'category' %></option>
+              <option selected><%= @service.get 'category_name' %></option>
             </select>
           </div>
           <div class="item_textarea ">

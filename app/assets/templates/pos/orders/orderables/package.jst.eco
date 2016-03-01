@@ -7,11 +7,11 @@
       <% end %>
     </li>
     <li><%= @name %></li>
-    <li></li>
-    <li><%= 2 %></li>
-    <li><%= @expired_at %></li>
+    <li><%= @human_readable_period %></li>
     <li><%= @point %></li>
     <li><span class="color-08BD48"><%= @retail_price %></span></li>
+    <li></li>
+    <li></li>
     <li><input type="checkbox" data-itemid="<%= @id %>" class="package-checkbox"></li>
   </ul>
 </div>
@@ -21,8 +21,8 @@
   <dl>
     <dt>服务项目</dt>
     <dt>总次数</dt>
-    <dt>施工时间</dt>
-    <dt>技师等级</dt>
+    <dt></dt>
+    <dt></dt>
     <dt></dt>
   </dl>
 
@@ -30,8 +30,8 @@
   <dl>
     <dd><%= service.name %></dd>
     <dd><%= service.quantity %></dd>
-    <dd><%= service.time %>分钟</dd>
-    <dd>初级以上(含初级)</dd>
+    <dd><nbsp1></nbsp1></dd>
+    <dd><nbsp1></nbsp1></dd>
     <dd><input type="checkbox" class='js-package-service' data-parentid='<%= @id %>' data-itemid='<%= service.id %>'></dd>
   </dl>
   <% end %>

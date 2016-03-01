@@ -13,13 +13,13 @@
           <div  class="login_form_ipt">
             <span class="ico ico-user"></span>
             <%= text_field_tag :login, nil, placeholder: '请输入用户名', required: true,
-            title: 'Please input your signed phone number as login name' %>
+            title: '请输入登录名' %>
           </div>
           <div class="login_form_pw">
             <div class="login_form_ipt">
               <span class="ico ico-password"></span>
               <%= password_field_tag :password, nil, placeholder: '请输入密码',
-              required: true, title: 'Please enter your password' %>
+              required: true, title: '请输入密码' %>
             </div>
             <div class="login_form_check">
               <%= link_to '忘记登录密码?', new_password_path %>

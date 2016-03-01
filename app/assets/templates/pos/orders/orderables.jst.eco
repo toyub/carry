@@ -82,11 +82,11 @@
     <ul>
       <li>#</li>
       <li>名称</li>
-      <li>套餐类别</li>
-      <li>项目</li>
       <li>有效期</li>
       <li>积分</li>
       <li>售价</li>
+      <li></li>
+      <li></li>
       <li></li>
     </ul>
   </div>
