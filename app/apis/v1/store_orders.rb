@@ -8,7 +8,6 @@ module V1
     resource :store_orders, desc: "订单相关" do
       add_desc "订单提交(确认订单)"
       params do
-        requires :is_vip, type: Boolean, desc: '是否是会员客户'
         requires :platform, type: String, desc: '验证平台！'
         requires :store_customer_id, type: Integer, desc: '客户id'
         requires :vehicle_id, type: Integer, desc: '车辆的id'
@@ -49,7 +48,6 @@ module V1
         add_desc '订单更新(订单编辑)'
         params do
           requires :order_id, type: Integer, desc: '订单的id'
-          requires :is_vip, type: Boolean, desc: '是否是会员客户'
           requires :platform, type: String, desc: '验证平台！'
           requires :store_customer_id, type: Integer, desc: '客户id'
           optional :plate_id, type: Integer, desc: '车牌的id'
@@ -105,7 +103,7 @@ module V1
       add_desc '订单列表'
       params do
         requires :platform, type: String, desc: '验证平台！'
-        requires :default, type: Boolean, desc: 'true为订单列表，false为现场列表'
+        requires :has_workflow, type: Boolean, desc: 'true为需要施工，false为不需要施工'
         optional :q, type: Hash, default: {} do
           optional :plate_license_number_cont, type: String
           optional :store_customer_phone_number_cont, type: String
@@ -113,11 +111,9 @@ module V1
         end
       end
       get do
-        if params[:default]
-          orders = current_store.store_orders.ransack(params[:q]).result
-        else
-          "有workflow就是有需要施工"
-
+        orders = current_store.store_orders.ransack(params[:q]).result
+        if params[:has_workflow]
+          orders = orders.has_workflow
         end
         present orders, with: ::Entities::StoreOrder, type: :default
       end
