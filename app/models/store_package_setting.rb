@@ -24,4 +24,10 @@ class StorePackageSetting < ActiveRecord::Base
     self.services.length > 0
   end
 
+  def human_readable_period
+    if self.period_enable
+      "#{self.period}#{PERIOD_UNIT[self.period_unit]}"
+    end
+  end
+
 end

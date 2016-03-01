@@ -12,15 +12,6 @@ class StoreOrderItemSerializer < ActiveModel::Serializer
     object.orderable.name
   end
 
-  def retail_price
-    object.orderable.retail_price
-  end
-
-  # TODO set correct vip_price
-  def vip_price
-    0
-  end
-
   def speci
     if object.orderable_type == "StoreMaterialSaleinfo"
       object.orderable.store_material.speci

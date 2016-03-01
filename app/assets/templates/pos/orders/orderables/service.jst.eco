@@ -2,11 +2,10 @@
   <ul>
     <li><%= @idx %></li>
     <li><%= @name %></li>
-    <li><%= @standard_time %>分钟</li>
+    <li><%= @time %>分钟</li>
     <li><%= @category_name %></li>
     <li><%= @point %></li>
     <li>
-      <span class="text-decoration-linethrough display-block"><%= @retail_price %></span>
       <span class="color-08BD48"><%= @retail_price %></span>
     </li>
     <li><input type="checkbox" data-itemid="<%= @id %>" class="service-checkbox"></li>
