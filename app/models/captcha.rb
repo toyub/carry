@@ -4,7 +4,7 @@ class Captcha < ActiveRecord::Base
   validates :verification, presence: true, length: { is: 6 }
 
   scope :by_phone, ->(phone) { where(phone: phone) }
-  scope :unused, -> { where(used: false) }
+  scope :unused, -> { where(verification_used: false) }
   scope :unexpried, -> { where("sent_at > ?", EXPRIED.ago) }
   scope :valid_captchas, ->(phone) { by_phone(phone).unused.unexpried }
 
@@ -17,7 +17,7 @@ class Captcha < ActiveRecord::Base
   end
 
   def authenticate(token)
-    cap.token == token
+    self.token == token
   end
 
   def disabled_token!
