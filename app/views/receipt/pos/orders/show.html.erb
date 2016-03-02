@@ -69,7 +69,13 @@
           <% @store_order.items.services.each do |item| %>
           <tr>
             <td class="<%= 'package_icon' if item.from_customer_asset? %>" ><%= item.orderable.name %></td>
-            <td><label class="technician">王斌</label><label class="technician">王斌</label><label class="technician">姜河胡海</label><label class="technician">王斌王斌</label></td>
+            <td>
+              <% item.store_service_workflow_snapshots.each do |snapshot| %>
+                <% snapshot.mechanics.each do |mechanic| %>
+                  <label class="technician"><%= mechanic[:name] %></label>
+                <% end %>
+              <% end %>
+            </td>
             <td class="<%= 'text-decoration-linethrough' if item.from_customer_asset? %>"><%= item.amount %></td>
           </tr>
           <% end %>
