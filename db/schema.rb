@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226065141) do
+ActiveRecord::Schema.define(version: 20160302072753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1140,7 +1140,7 @@ ActiveRecord::Schema.define(version: 20160226065141) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "quantity",                                                          default: 0
-    t.decimal  "price",                                    precision: 10, scale: 4, default: 0.0
+    t.decimal  "price",                                    precision: 12, scale: 2, default: 0.0
     t.decimal  "amount",                                   precision: 12, scale: 4, default: 0.0
     t.string   "remark",                       limit: 255
     t.integer  "orderable_id",                                                                      null: false
@@ -1152,9 +1152,9 @@ ActiveRecord::Schema.define(version: 20160226065141) do
     t.integer  "store_customer_id"
     t.decimal  "discount"
     t.string   "discount_reason"
-    t.decimal  "vip_price"
-    t.decimal  "cost_price"
-    t.decimal  "retail_price"
+    t.decimal  "vip_price",                                precision: 12, scale: 2, default: 0.0
+    t.decimal  "cost_price",                               precision: 12, scale: 2, default: 0.0
+    t.decimal  "retail_price",                             precision: 12, scale: 2, default: 0.0
     t.decimal  "standard_volume_per_bill"
     t.decimal  "actual_volume_per_bill"
     t.boolean  "divide_to_retail",                                                  default: false
