@@ -1203,7 +1203,7 @@ ActiveRecord::Schema.define(version: 20160301060708) do
 
   create_table "store_package_items", force: :cascade do |t|
     t.string   "name"
-    t.integer  "quantity"
+    t.integer  "quantity",                                          default: 1
     t.decimal  "price",                    precision: 10, scale: 2
     t.integer  "store_id"
     t.integer  "store_chain_id"
@@ -1211,8 +1211,8 @@ ActiveRecord::Schema.define(version: 20160301060708) do
     t.string   "package_itemable_type"
     t.integer  "package_itemable_id"
     t.integer  "store_package_setting_id"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.decimal  "denomination",             precision: 10, scale: 2
   end
 
