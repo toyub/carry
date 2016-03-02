@@ -16,7 +16,7 @@ class StoreCustomerAssetItem < ActiveRecord::Base
   def service
     case self.assetable_type
     when StorePackageItem.name
-      self.assetable.package_itemable
+      self.assetable.try(:package_itemable)
     when StoreMaterialSaleinfoService.name
       self.assetable
     else
