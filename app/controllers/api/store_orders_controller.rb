@@ -77,7 +77,7 @@ module Api
       end
 
       if @order.update(situation: params[:situation], items_attributes: items_attributes)
-        order.pay_queuing!
+        @order.pay_queuing!
         @order.execution_job
         render json: {success: true, order: @order}
       else
