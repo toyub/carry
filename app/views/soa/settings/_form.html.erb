@@ -157,6 +157,11 @@
             <%= form.check_box :app_login_enabled, checked: @staff.app_login_enabled, class: "vertical-align-middle margin-left-46", id: "allowable-app" %>
           </li>
 
+          <li>
+            <%= form.label :erp_login_enabled, "Erp系统操作员" %>
+            <%= form.check_box :erp_login_enabled, checked: @staff.erp_login_enabled, class: "vertical-align-middle margin-left-46", id: "allowable-erp" %>
+          </li>
+
         </ul>
       </div>
     </div>
