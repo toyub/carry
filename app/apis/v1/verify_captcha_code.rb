@@ -19,9 +19,9 @@ module V1
         cap = Captcha.valid_captchas(params[:phone_number]).last
         if cap && cap.verification == params[:captcha]
           cap.update!(verification_used: true)
-          {status: true, notice: "验证通过", token: cap.token}
+          {success: true, notice: "验证通过", token: cap.token}
         else
-          {status: false, notice: "验证失败，请重新输入"}
+          {success: false, notice: "验证失败，请重新输入"}
         end
       end
     end

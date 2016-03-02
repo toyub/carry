@@ -16,7 +16,7 @@ module V1
 
       get do
         staff = StoreStaff.by_phone(params[:phone_number]).unterminated.last
-        return {status: "fails", notice: "the staff is not exist or has terminated!"} if staff.blank?
+        return {success: false, notice: "the staff is not exist or has terminated!"} if staff.blank?
         captcha = Captcha.generate!(params[:phone_number], SmsCaptchaSwitchType::TYPES_ID["密码找回验证"])
         options = {
           store_id: staff.store.id,
