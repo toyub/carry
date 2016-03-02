@@ -11,7 +11,7 @@ class StoreOrderItem < ActiveRecord::Base
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
 
-  before_save :cal_amount
+  before_save :set_amount
   before_create :set_store_info
 
   scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
@@ -31,6 +31,10 @@ class StoreOrderItem < ActiveRecord::Base
 
   def type_cn_name
     orderable_type == "StoreMaterialSaleinfo" ? '商品' : '服务'
+  end
+
+  def cal_amount
+    self.quantity.to_i * self.price.to_f
   end
 
   def mechanics
@@ -93,8 +97,8 @@ class StoreOrderItem < ActiveRecord::Base
 
   private
 
-    def cal_amount
-      self.amount = price * quantity
+    def set_amount
+      self.amount = self.cal_amount
     end
 
     def set_store_info
