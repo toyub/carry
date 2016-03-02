@@ -44,8 +44,8 @@ class Mis.Views.XiaoshouPackageProfilesEdit extends Mis.Base.View
     @$("#packageItemList").show() if @model.package_setting.items.length > 0
     @model.package_setting.items.each @renderPackageItem
 
-  renderPackageItem: (item) =>
-    item = new Mis.Views.XiaoshouPackageItemsItem(model: item)
+  renderPackageItem: (item, index) =>
+    item = new Mis.Views.XiaoshouPackageItemsItem(model: item, index: index)
     @renderChild(item)
     @$("#packageItemList").append item.el
 

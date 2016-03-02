@@ -5,6 +5,8 @@ class StoreCustomerAssetItem < ActiveRecord::Base
   belongs_to :store
   belongs_to :store_customer_asset
 
+  scope :available, ->{where('total_quantity > used_quantity')}
+
   def left_quantity
     total_quantity.to_i - used_quantity.to_i
   end

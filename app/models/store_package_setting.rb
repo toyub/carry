@@ -3,6 +3,7 @@ class StorePackageSetting < ActiveRecord::Base
 
   belongs_to :store_package
   has_many :items, class_name: 'StorePackageItem', dependent: :delete_all
+  before_save :set_retail_price
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
@@ -11,6 +12,11 @@ class StorePackageSetting < ActiveRecord::Base
     1 => '月',
     2 => '日'
   }
+
+  def set_retail_price
+    return if self.items.size == 0
+    self.retail_price = self.items.map { |item| item.quantity * item.price }.sum
+  end
 
   def valid_date
     "#{self.period}#{PERIOD_UNIT[self.period_unit]}"
