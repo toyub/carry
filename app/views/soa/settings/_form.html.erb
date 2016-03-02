@@ -158,8 +158,8 @@
           </li>
 
           <li>
-            <%= form.label :erp_login_enabled, "Erp系统操作员" %>
-            <%= form.check_box :erp_login_enabled, checked: @staff.erp_login_enabled, class: "vertical-align-middle margin-left-46", id: "allowable-erp" %>
+            <%= form.label :erp_login_enabled, "Erp系统操作员", class: "width-115" %>
+            <%= form.check_box :erp_login_enabled, checked: @staff.erp_login_enabled, class: "vertical-align-middle", id: "allowable-erp" %>
           </li>
 
         </ul>
@@ -213,7 +213,7 @@
       })
     }
 
-    initial_skills = <%= raw @staff.skills['other_skills'] || [] %>
+    initial_skills = <%= raw @staff.skills.try(:[], 'other_skills') || [] %>
     $("#store_staff_skills_other_skills").select2().select2('val', initial_skills );
 
     $("#store_staff_skills_theory, #store_staff_skills_operate, #store_staff_skills_integrate").on("input", function(){

@@ -47,4 +47,8 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     tracking_delay_in_seconds.seconds
   end
 
+  def commission(order_item)
+    0
+  end
+
 end
