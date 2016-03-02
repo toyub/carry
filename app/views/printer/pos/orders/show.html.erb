@@ -49,8 +49,13 @@
 
         <div class="vehicle_check_point">
           <div class="status">
-            <dl><dd><label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E<input type="range" value="34" disabled style="width: 35.76mm;"> <%=33%>%</dd></dl>
-            <dl><dd><label>行驶公里</label><span class="mileage"><%= @store_order.situation[:km] %></span></dd></dl>
+            <dl>
+              <dd>
+                <label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E
+                <input type="range" value="<%= @store_order.situation['fuel_gauge'] %>" disabled style="width: 35.76mm;"> <%= @store_order.situation['fuel_gauge'] %>%
+              </dd>
+            </dl>
+            <dl><dd><label>行驶公里</label><span class="mileage"><%= @store_order.situation['mileage'] %></span></dd></dl>
           </div>
           <div class="check_point">
             <img src="/images/car_status.png"></td>
@@ -85,8 +90,8 @@
         <div class="vehicle_check_info">
           <label>车况检查记录</label>
           <ul>
-            <% @store_order.situation.each_with_index do |situation, idx| %>
-            <li><%= idx + 1 %>:<span><%=situation[1] %></span></li>
+            <% (@store_order.situation['damages'] || []).each_with_index do |damage, idx| %>
+            <li><%= idx + 1 %>:<span><%= damage['content'] %></span></li>
             <% end %>
           </ul>
         </div>
@@ -213,20 +218,27 @@
 					<dt>检验</dt>
 				</dl>
 
-				<% 3.times do %>
-				<div class="dl-items">
-					<label  class="dl-dd">途乐打蜡</label>
-				  <% 3.times do %>
-					<dl class="dl-item">
-						<dd>表面清洗</dd>
-						<dd>1号工位</dd>
-						<dd>10分钟</dd>
-						<dd>姜河  刘俊</dd>
-						<dd>张三</dd>
-					</dl>
-					<% end %>
-				</div>
-				<% end %>
+        <% @store_order.store_service_snapshots.each do |service| %>
+          <div class="dl-items">
+            <label class="dl-dd"><%= service.name %></label>
+            <% service.workflow_snapshots.each do |workflow| %>
+              <dl class="dl-item">
+                <dd><%= workflow.name %></dd>
+                <dd>
+                  <% workflow.workstations.each do |w| %>
+                    <span><%= w.name %></span>
+                  <% end %>
+                </dd>
+                <dd><%= workflow.used_time || workflow.work_time_in_minutes %></dd>
+                <dd>
+                  <% workflow.mechanics.each do |m| %>
+                    <span><%= m['name'] %></span>
+                  <% end %>
+                </dd>
+              </dl>
+            <% end %>
+          </div>
+        <% end %>
 
 			</div>
 		</div>
