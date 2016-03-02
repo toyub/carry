@@ -148,13 +148,13 @@
 
         <ul>
           <li>
-            <%= form.label :mis_login_enabled, "系统操作员" %>
-            <%= form.check_box :mis_login_enabled, checked: @staff.mis_login_enabled, class: "vertical-align-middle margin-left-46", id: "system-operator" %>
+            <%= form.label :mis_login_enabled, "系统操作员", class: "width-115" %>
+            <%= form.check_box :mis_login_enabled, checked: @staff.mis_login_enabled, class: "vertical-align-middle", id: "system-operator" %>
           </li>
 
           <li>
-            <%= form.label :app_login_enabled, "允许使用APP" %>
-            <%= form.check_box :app_login_enabled, checked: @staff.app_login_enabled, class: "vertical-align-middle margin-left-46", id: "allowable-app" %>
+            <%= form.label :app_login_enabled, "允许使用APP", class: "width-115" %>
+            <%= form.check_box :app_login_enabled, checked: @staff.app_login_enabled, class: "vertical-align-middle", id: "allowable-app" %>
           </li>
 
           <li>
