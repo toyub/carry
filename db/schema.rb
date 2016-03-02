@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226065141) do
+ActiveRecord::Schema.define(version: 20160301060708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,8 +62,10 @@ ActiveRecord::Schema.define(version: 20160226065141) do
     t.string   "phone"
     t.string   "token"
     t.datetime "sent_at"
-    t.boolean  "used",           default: false
-    t.integer  "switch_type_id", default: 1
+    t.boolean  "verification_used", default: false
+    t.integer  "switch_type_id",    default: 1
+    t.string   "verification"
+    t.boolean  "token_available",   default: true
   end
 
   create_table "categories", force: :cascade do |t|
