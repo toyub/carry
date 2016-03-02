@@ -17,6 +17,7 @@ class XiaoshouController < ApplicationController
           json.period package.package_setting.period
           json.period_unit package.package_setting.period_unit
           json.point package.package_setting.point
+          json.retail_price package.package_setting.retail_price
         end
       end
       json.customer_categories current_store.store_customer_categories, :id, :name

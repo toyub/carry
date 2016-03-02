@@ -46,7 +46,6 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
     @model.items.each @renderItem
 
   renderItem: (item, index) =>
-    console.log index
     view = new Mis.Views.XiaoshouPackageItemsPackageItem(model: item, package_setting: @model,index: index)
     @renderChild(view)
     @$("#itemList").append view.el
@@ -70,6 +69,7 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
   handleSuccess: ->
     @leave()
     view = new Mis.Views.XiaoshouPackageSettingsShow(model: @model)
+    @model.set("retail_price", @model.amount())
     $("#bodyContent").html(view.render().el)
 
   rootResource: ->
