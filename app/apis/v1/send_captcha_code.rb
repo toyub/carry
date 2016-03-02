@@ -16,7 +16,7 @@ module V1
 
       get do
         staff = StoreStaff.by_phone(params[:phone_number]).unterminated.last
-        return {status: "fails", notice: "the staff is not exist or has terminated!"} if staff.blank?
+        return {success: false, notice: "the staff is not exist or has terminated!"} if staff.blank?
         captcha = Captcha.generate!(params[:phone_number], SmsCaptchaSwitchType::TYPES_ID["密码找回验证"])
         options = {
           store_id: staff.store.id,
@@ -24,7 +24,7 @@ module V1
           receiver_id: staff.id,
           first_category: SmsCaptchaSwitchType.name,
           second_category: SmsCaptchaSwitchType::TYPES_ID["密码找回验证"],
-          content: "尊敬的用户：您正在重置密码，验证码：#{captcha.token}，请在15分钟内按提示进行操作，切勿将验证码泄漏。 #{staff.store.name}"
+          content: "尊敬的用户：您正在重置密码，验证码：#{captcha.verification}，请在15分钟内按提示进行操作，切勿将验证码泄漏。 #{staff.store.name}"
         }
         SmsJob.perform_now(options)
       end

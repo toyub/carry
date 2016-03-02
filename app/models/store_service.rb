@@ -43,6 +43,10 @@ class StoreService < ActiveRecord::Base
     end
   end
 
+  def vip_price_enabled
+    self.read_attribute(:vip_price_enabled) || rand(2) == 0
+  end
+
   def barcode
     code
   end

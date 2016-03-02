@@ -17,6 +17,9 @@ module Pos
       @store_material_brands = current_store.store_material_brands
       @service_categories = ServiceCategory.all
       @order = current_store.store_orders.find(params[:id])
+      if @order.paid?
+        redirect_to "/printer/pos/orders/#{@order.id}"
+      end
     end
 
     private

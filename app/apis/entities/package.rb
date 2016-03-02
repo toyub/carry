@@ -8,5 +8,9 @@ module Entities
     expose :point
     expose :sold
     expose :abstract
+
+    def retail_price
+      object.package_setting.retail_price
+    end
   end
 end

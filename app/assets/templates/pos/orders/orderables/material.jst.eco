@@ -12,7 +12,7 @@
     <li><%= @reward_points %></li>
     <li><%= @inventory %></li>
     <li>
-      <span class="color-08BD48"><%= @retail_price %></span>
+      <span class="color-08BD48"><%= @list_price %></span>
     </li>
     <li><input type="checkbox" data-itemid="<%= @id %>" class="material-checkbox"></li>
   </ul>
