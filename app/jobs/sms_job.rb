@@ -18,9 +18,9 @@ class SmsJob < ActiveJob::Base
       })
       SmsClient.publish(options[:phone_number], options[:content])
       store.sms_balance.increase_sent_quantity!(quantity)
-      {status: 'success', notice: "sending message successfully"}
+      {success: true, notice: "sending message successfully"}
     else
-      {status: 'fails', notice: "Error: There is no capability of sending message"}
+      {success: false, notice: "Error: There is no capability of sending message"}
     end
   end
 end
