@@ -54,7 +54,7 @@
     </div>
     <div class="item_content">
       <%= ff.label '上牌日期', class: 'width-75' %>
-      <%= ff.date_field :registered_on, class: 'width-165', value: @vehicle.detail_by('registered_on'), readonly: true %>
+      <%= ff.date_field :registered_on, class: 'width-165', value: @vehicle.detail_by('registered_on'), readonly: @vehicle.detail_by('registered_on').present? %>
     </div>
     <div class="item_content">
       <%= ff.label '公里数', class: 'width-75' %>
@@ -62,11 +62,11 @@
     </div>
     <div class="item_content">
       <%= ff.label '购买日期', class: 'width-75' %>
-      <%= ff.date_field :bought_on, class: 'width-165', value: @vehicle.detail_by('bought_on') %>
+      <%= ff.date_field :bought_on, class: 'width-165', value: @vehicle.detail_by('bought_on'), readonly: @vehicle.detail_by('bought_on').present? %>
     </div>
     <div class="item_content">
       <%= ff.label '出厂日期', class: 'width-75' %>
-      <%= ff.date_field :ex_factory_date, class: 'width-165', value: @vehicle.detail_by('ex_factory_date'), readonly: true %>
+      <%= ff.date_field :ex_factory_date, class: 'width-165', value: @vehicle.detail_by('ex_factory_date'), readonly: @vehicle.detail_by('ex_factory_date').present? %>
     </div>
     <div class="item_content">
       <%= ff.label '最近保养日期', class: 'width-75' %>
