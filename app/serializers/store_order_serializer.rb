@@ -1,6 +1,6 @@
 class StoreOrderSerializer < ActiveModel::Serializer
   attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status,
-    :created_at, :updated_at, :items_content, :state_i18n
+    :created_at, :updated_at, :items_content, :state_i18n, :pay_status_i18n, :paid
 
   has_many :payments
   has_one :store_vehicle
@@ -41,6 +41,10 @@ class StoreOrderSerializer < ActiveModel::Serializer
     else
       "包含0个项目"
     end
+  end
+
+  def paid
+    object.paid?
   end
 
 end

@@ -23,7 +23,7 @@
           </ul>
           <i class="action_button fa-plus fa <%= 'js-show-mechanics' if workflow.pending? %>" data-id="<%= workflow.id %>"></i>
         </div>
-        <ul class="technician <%= 'js-mechanics' unless workflow.pending? %>" id="workflow-<%= workflow.id %>" data-id="<%= workflow.id %>" style="display:none;">
+        <ul class="technician js-mechanics" id="workflow-<%= workflow.id %>" data-id="<%= workflow.id %>" style="display:none;">
           <% StoreStaff.mechanics.each do |m| %>
             <li data-id="<%= m.id %>" data-name="<%= m.full_name %>"><%= m.full_name %></li>
           <% end %>
