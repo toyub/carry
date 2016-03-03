@@ -9,7 +9,7 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
   has_many :vehicle_plates
   has_many :store_vehicles, through: :vehicle_plates
 
-  validates :license_number, uniqueness: { scope: :store_id }, length: { in: 0..15 }
+  validates :license_number, uniqueness: { scope: :store_id }, length: { in: 0..15 }, allow_blank: true
 
   before_validation :set_license_number
 
