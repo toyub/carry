@@ -6,6 +6,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
   belongs_to :mechanic_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'mechanic_commission_template_id'
   has_many :snapshots, class_name: "StoreServiceSnapshot", as: :templateable
   has_many :store_order_items, as: :orderable
+  has_many :store_staff_tasks, as: :taskable
 
   default_scope {where(deleted: false).order('id asc')}
 

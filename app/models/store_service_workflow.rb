@@ -5,6 +5,7 @@ class StoreServiceWorkflow < ActiveRecord::Base
   belongs_to :store_service_setting
   belongs_to :mechanic_commission, class_name: 'StoreCommissionTemplate', foreign_key: :mechanic_commission_template_id
   has_many :snapshots, class_name: "StoreServiceWorkflowSnapshot", foreign_key: :store_service_workflow_id
+  has_many :store_staff_tasks, as: :taskable
 
   validates :store_staff_id, presence: true
   #validates :store_service_setting_id, presence: true
