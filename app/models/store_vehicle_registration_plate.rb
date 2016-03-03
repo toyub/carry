@@ -11,11 +11,11 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
 
   validates :license_number, presence: true, uniqueness: { scope: :store_id }
 
-  before_save :handle_license_number
+  before_save :set_license_number
 
   private
 
-    def handle_license_number
+    def set_license_number
       ln = license_number.delete(" ").chars.map { |c| c.upcase if c >= 'A' && c <= 'z' }.join
       return false if (7..8).exclude?(ln.length)
       self.license_number = ln
