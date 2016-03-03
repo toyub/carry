@@ -12,6 +12,7 @@ class Crm::StoreVehiclesController < Crm::BaseController
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
+      binding.pry
       @vehicle_ids = @customer.store_vehicles.ids
       @vehicle = StoreVehicle.new
       render :new
@@ -65,7 +66,7 @@ class Crm::StoreVehiclesController < Crm::BaseController
         engines_attributes: [:identification_number],
         plates_attributes: [:license_number]
         )
-        append_store_attrs(vehicle_params, :store_customer_id)
+        append_attrs(vehicle_params, store_option, staff_option)
     end
 
     def set_customer

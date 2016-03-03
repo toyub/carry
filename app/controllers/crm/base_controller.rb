@@ -10,15 +10,26 @@ module Crm
       {root: false}
     end
 
-
-    ## add store_attrs to params
-    def append_store_attrs(options, key)
-      nested_attrs = options.select(&nested_selector).transform_values(&nested_transformer(store_options.except(key)))
-      options.merge(store_options).merge(nested_attrs)
+    def append_attrs(target_options, *opts)
+      options = opts.inject({}) { |options, option| options.merge option  }
+      nested_attrs = target_options.select(&nested_selector).transform_values(&nested_transformer(options))
+      target_options.merge(base_options).merge(nested_attrs)
     end
 
-    def store_options
-      {store_staff_id: current_staff.id, store_id: current_store.id, store_customer_id: @customer.id}
+    def store_option
+      { store_id: current_store.id }
+    end
+
+    def staff_option
+      { store_staff_id: current_staff.id }
+    end
+
+    def customer_option
+      { store_customer_id: @customer.id }
+    end
+
+    def base_options
+      { store_id: current_store.id, store_staff_id: current_staff.id, store_customer_id: @customer.id }
     end
 
     def nested_transformer(options)
