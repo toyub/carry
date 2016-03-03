@@ -6,6 +6,8 @@ class CreateStoreStaffTasks < ActiveRecord::Migration
       t.integer :workflow_id
       t.integer :store_id
       t.integer :store_chain_id
+      t.string  :taskable_type
+      t.integer :taskable_id
 
       t.timestamps null: false
     end
