@@ -222,7 +222,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def services_commission(month = Time.now)
-    commission? ? tasks.by_month(month).inject(0) {|sum, task| sum += task.taskable.commission } : 0.0
+    commission? ? tasks.by_month(month).inject(0) {|sum, task| sum += task.taskable.commission(task.store_order_item) } : 0.0
   end
 
   def packages_commission(month = Time.now)
