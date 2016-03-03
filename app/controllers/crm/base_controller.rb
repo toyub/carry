@@ -12,8 +12,8 @@ module Crm
 
 
     ## add store_attrs to params
-    def append_store_attrs options
-      nested_attrs = options.select(&nested_selector).transform_values(&nested_transformer)
+    def append_store_attrs(options, key)
+      nested_attrs = options.select(&nested_selector).transform_values(&nested_transformer(key))
       options.merge(store_options).merge(nested_attrs)
     end
 
@@ -21,13 +21,13 @@ module Crm
       {store_staff_id: current_staff.id, store_id: current_store.id, store_customer_id: @customer.id}
     end
 
-    def nested_transformer
+    def nested_transformer(key = nil)
       -> (v) do
         case v
         when Array
-          v.map { |x| x.merge(store_options) }
+          v.map { |x| x.merge(store_options).except(key) }
         when Hash
-          v.values.first.is_a?(Hash) ? v.values.map { |x| x.merge(store_options) } : v.merge(store_options)
+          v.values.first.is_a?(Hash) ? v.values.map { |x| x.merge(store_options).except(key) } : v.merge(store_options).except(key)
         end
       end
     end

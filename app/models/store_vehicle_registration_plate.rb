@@ -9,15 +9,13 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
   has_many :vehicle_plates
   has_many :store_vehicles, through: :vehicle_plates
 
-  validates :license_number, presence: true, uniqueness: { scope: :store_id }
+  validates :license_number, uniqueness: { scope: :store_id }, length: { in: 0..15 }
 
-  before_save :set_license_number
+  before_validation :set_license_number
 
   private
 
     def set_license_number
-      ln = license_number.delete(" ").chars.map { |c| c.upcase if c >= 'A' && c <= 'z' }.join
-      return false if (7..8).exclude?(ln.length)
-      self.license_number = ln
+      self.license_number = self.license_number.to_s.gsub(/\s/, '').upcase
     end
 end

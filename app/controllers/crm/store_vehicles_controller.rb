@@ -9,7 +9,6 @@ class Crm::StoreVehiclesController < Crm::BaseController
 
   def create
     vehicle = StoreVehicle.new(vehicle_params)
-    vehicle.plates.new(plate_params)
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
@@ -63,13 +62,10 @@ class Crm::StoreVehiclesController < Crm::BaseController
                  :insurance_store_alermify
                ],
         frame_attributes: [:vin],
-        engines_attributes: [:identification_number]
+        engines_attributes: [:identification_number],
+        plates_attributes: [:license_number]
         )
-        append_store_attrs(vehicle_params)
-    end
-
-    def plate_params
-      { license_number: params[:license_number] }.merge(store_options).except(:store_customer_id)
+        append_store_attrs(vehicle_params, :store_customer_id)
     end
 
     def set_customer
@@ -83,4 +79,5 @@ class Crm::StoreVehiclesController < Crm::BaseController
     def set_vehicle_ids
       @vehicle_ids = @customer.store_vehicles.ids.sort
     end
+
 end
