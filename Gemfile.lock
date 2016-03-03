@@ -460,6 +460,7 @@ DEPENDENCIES
   redis-objects (= 1.1.0)
   redis-rails
   responders (~> 2.0)
+  rufus-scheduler
   sass (= 3.4.10)
   sass-rails (~> 5.0.1)
   sdoc (= 0.4.1)
