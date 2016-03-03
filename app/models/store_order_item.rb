@@ -10,6 +10,7 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :store_customer_asset_item
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
+  has_many :store_staff_tasks
 
   before_save :set_amount
   before_create :set_store_info
