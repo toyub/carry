@@ -130,6 +130,7 @@ Rails.application.routes.draw do
     end
     resources :store_orders, only: [:show] do
       put :terminate, on: :member
+      get :check_dispatch, on: :member
     end
     resources :store_workflows, only: [:edit, :update]
   end
