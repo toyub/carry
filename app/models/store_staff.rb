@@ -214,7 +214,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total(month = Time.now)
-    materials_commission(month) + services_commission(month)
+    materials_commission(month) + services_commission(month) + packages_commission(month)
   end
 
   def materials_commission(month = Time.now)
@@ -222,7 +222,11 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def services_commission(month = Time.now)
-    commission? ? store_order_items.by_month(month).services.inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? tasks.by_month(month).inject(0) {|sum, task| sum += task.taskable.commission } : 0.0
+  end
+
+  def packages_commission(month = Time.now)
+    commission? ? store_order_items.by_month(month).packages.inject(0) {|sum, item| sum += item.commission } : 0.0
   end
 
   def self.items_amount_total(month = Time.now)

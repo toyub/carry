@@ -49,7 +49,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
   end
 
   def commission(order_item)
-    0
+    mechanic_commission_template.present? ? mechanic_commission_template.commission(order_item) : 0.0
   end
 
 end

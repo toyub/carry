@@ -59,4 +59,8 @@ class StoreServiceWorkflow < ActiveRecord::Base
     self.store_workstation_ids.to_s.split(",")
   end
 
+  def commission(order_item)
+    mechanic_commission.present? ? mechanic_commission.commission(order_item) : 0.0
+  end
+
 end
