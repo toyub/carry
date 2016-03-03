@@ -32,9 +32,8 @@ module V1
       end
       delete do
         authenticate_user!
-        api_token = ApiToken.where(token: authorization).last
-        
-        present authorization
+        api_token = ApiToken.by_token(authorization)
+        api_token.reset_token
       end
     end
   end
