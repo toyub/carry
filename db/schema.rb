@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301015230) do
+ActiveRecord::Schema.define(version: 20160302072753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,8 +62,10 @@ ActiveRecord::Schema.define(version: 20160301015230) do
     t.string   "phone"
     t.string   "token"
     t.datetime "sent_at"
-    t.boolean  "used",           default: false
-    t.integer  "switch_type_id", default: 1
+    t.boolean  "verification_used", default: false
+    t.integer  "switch_type_id",    default: 1
+    t.string   "verification"
+    t.boolean  "token_available",   default: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -1140,7 +1142,7 @@ ActiveRecord::Schema.define(version: 20160301015230) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "quantity",                                                          default: 0
-    t.decimal  "price",                                    precision: 10, scale: 4, default: 0.0
+    t.decimal  "price",                                    precision: 12, scale: 2, default: 0.0
     t.decimal  "amount",                                   precision: 12, scale: 4, default: 0.0
     t.string   "remark",                       limit: 255
     t.integer  "orderable_id",                                                                      null: false
@@ -1152,9 +1154,9 @@ ActiveRecord::Schema.define(version: 20160301015230) do
     t.integer  "store_customer_id"
     t.decimal  "discount"
     t.string   "discount_reason"
-    t.decimal  "vip_price"
-    t.decimal  "cost_price"
-    t.decimal  "retail_price"
+    t.decimal  "vip_price",                                precision: 12, scale: 2, default: 0.0
+    t.decimal  "cost_price",                               precision: 12, scale: 2, default: 0.0
+    t.decimal  "retail_price",                             precision: 12, scale: 2, default: 0.0
     t.decimal  "standard_volume_per_bill"
     t.decimal  "actual_volume_per_bill"
     t.boolean  "divide_to_retail",                                                  default: false
@@ -1422,9 +1424,9 @@ ActiveRecord::Schema.define(version: 20160301015230) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1479,6 +1481,7 @@ ActiveRecord::Schema.define(version: 20160301015230) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1488,7 +1491,6 @@ ActiveRecord::Schema.define(version: 20160301015230) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
   end
 

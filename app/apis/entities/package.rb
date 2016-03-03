@@ -19,5 +19,9 @@ module Entities
     def package_services
       object.package_setting.services
     end
+
+    def retail_price
+      object.package_setting.retail_price
+    end
   end
 end

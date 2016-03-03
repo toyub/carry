@@ -55,6 +55,14 @@ class StoreOrder < ActiveRecord::Base
     I18n.t self.state, scope: [:enums, :store_order, :state]
   end
 
+  def pay_status_i18n
+    if self.paid?
+      '已付款'
+    else
+      '未付款'
+    end
+  end
+
   def paid?
     self.pay_hanging? || self.pay_finished?
   end
@@ -175,6 +183,6 @@ class StoreOrder < ActiveRecord::Base
     end
 
     def set_amount
-      self.amount = self.items.sum(:amount)
+      self.amount = self.items.map(&:cal_amount).sum
     end
 end
