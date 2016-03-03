@@ -8,8 +8,11 @@ module Api
         vehicle = current_store.store_vehicles.find(params[:id])
         safe_params = append_store_attrs(vehicle_params)
         safe_params[:detail] = vehicle.detail.deep_merge(safe_params[:detail])
-        vehicle.update safe_params
-        respond_with vehicle, location: nil
+        if vehicle.update(safe_params)
+          render json: StoreVehicleSerializer.new(vehicle).to_json(root: nil)
+        else
+          respond_with vehicle, location: nil
+        end
       end
 
       private

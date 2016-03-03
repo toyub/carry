@@ -13,9 +13,13 @@ module Api
     end
 
     def search
-      @store_vehicles = current_store.store_vehicles.joins(vehicle_plates: :plate)
-      @store_vehicles = @store_vehicles.where('license_number like ?', "%#{params[:q].to_s.upcase}%") if params[:q].present?
-      results = @store_vehicles.map{|store_vehicle| {id: store_vehicle.id, text: store_vehicle.license_number }}
+      @store_vehicles = current_store.store_vehicles.joins(:store_customer, vehicle_plates: :plate)
+      if params[:q].present?
+        @store_vehicles = @store_vehicles.where('license_number like ? or phone_number like ?', "%#{params[:q].to_s.upcase}%", "%#{params[:q].to_s}%")
+      end
+      results = @store_vehicles.map do |store_vehicle|
+        {id: store_vehicle.id, text: "#{store_vehicle.license_number},#{store_vehicle.store_customer.phone_number},#{store_vehicle.store_customer.full_name}" }
+      end
       render json: {items: results}
     end
   end

@@ -49,7 +49,7 @@
         <% if @vin : %>
           <span class="width-90 form-control"><%= @vin %></span>
         <% else : %>
-          <input type="text" class="width-90" name="vehicle[frame_attributes][vin]" value={{vehicle.vin}}>
+          <input type="text" class="width-90" name="vehicle[frame_attributes][vin]" value={{vehicle.vin}} required>
         <% end %>
       </dd>
       <dd>
@@ -57,7 +57,7 @@
         <% if @engine_num : %>
           <span class="width-90 form-control"><%= @engine_num %></span>
         <% else : %>
-          <input type="text" class="width-90" name="vehicle[engines_attributes][{{vehicle.engine_id}}][identification_number]" value={{vehicle.engine_num}}>
+          <input type="text" class="width-90" name="vehicle[engines_attributes][{{vehicle.engine_id}}][identification_number]" value={{vehicle.engine_num}} required>
         <% end %>
       </dd>
       <dd><label class="width-77">颜色</label><input type="color" name="vehicle[detail][color]" class="width-90" value="{{vehicle.detail.color}}"></dd>
