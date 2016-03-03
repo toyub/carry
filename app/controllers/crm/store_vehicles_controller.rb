@@ -12,7 +12,6 @@ class Crm::StoreVehiclesController < Crm::BaseController
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
-      binding.pry
       @vehicle_ids = @customer.store_vehicles.ids
       @vehicle = StoreVehicle.new
       render :new
