@@ -8,7 +8,7 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   end
 
   def create
-    creator = CreateRepaymentService.new(append_store_attrs(form_params), @customer)
+    creator = CreateRepaymentService.new(form_params, @customer)
     if creator.call
       redirect_to crm_store_customer_store_repayments_path(@customer), notice: "回款成功!"
     else
@@ -40,7 +40,8 @@ class Crm::StoreRepaymentsController < Crm::BaseController
     end
 
     def form_params
-      params.require(:repayment).permit(:total, orders: [])
+      form_params = params.require(:repayment).permit(:total, orders: [])
+      append_attrs(form_params, store_option, staff_option, customer_option)
     end
 
     def set_limit

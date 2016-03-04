@@ -35,7 +35,7 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def cal_amount
-    self.quantity.to_i * self.price.to_f
+    _amount()
   end
 
   def mechanics
@@ -99,7 +99,11 @@ class StoreOrderItem < ActiveRecord::Base
   private
 
     def set_amount
-      self.amount = self.cal_amount
+      self.amount = _amount()
+    end
+
+    def _amount
+      quantity.to_i * price.to_f
     end
 
     def set_store_info
