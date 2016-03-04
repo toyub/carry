@@ -11,7 +11,7 @@ module Entities
   end
 
   class Package < Grape::Entity
-    expose :name, :store_name, :code, :valid_date, :retail_price, :point, :sold, :abstract
+    expose :id, :name, :store_name, :code, :valid_date, :retail_price, :point, :sold, :abstract
     expose(:store_package_id) {|model|model.id}
     expose(:contains_service) {|model|model.package_setting.contains_service}
     expose :package_services,using: StorePackageItem
