@@ -26,7 +26,7 @@ class StoreOrderService
   end
 
   def create_order
-    @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items)) unless @order.present?
+    @order = @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items)) unless @order.present?
     @order.execution_job
   end
 
