@@ -8,6 +8,6 @@
 <td><%= @point %></td>
 <td><%= @engineer_level %> </td>
 <td></td>
-<td><%= @category %></td>
+<td><%= @category_name %></td>
 <td class="last_td">
 </td>

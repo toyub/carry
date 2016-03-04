@@ -11,6 +11,7 @@ class Mis.Routers.StoreServices extends Mis.Base.Router
 
   show: (id) ->
     model = @collection.get(id)
+    console.log(model)
     self = this
     model.fetch(success: () ->
       model.parseMaterials()
@@ -19,8 +20,11 @@ class Mis.Routers.StoreServices extends Mis.Base.Router
     )
 
   index: ->
-    view = new Mis.Views.XiaoshouServiceProfilesIndex(collection: @collection)
-    @swap(view)
+    self = this
+    @collection.fetch(success: () =>
+      view = new Mis.Views.XiaoshouServiceProfilesIndex(collection: @collection)
+      @swap(view)
+    )
 
   edit: (id) ->
     model = @collection.get(id)
