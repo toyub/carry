@@ -10,24 +10,35 @@ module Crm
       {root: false}
     end
 
-
-    ## add store_attrs to params
-    def append_store_attrs options
-      nested_attrs = options.select(&nested_selector).transform_values(&nested_transformer)
-      options.merge(store_options).merge(nested_attrs)
+    def append_attrs(target_options, *opts)
+      options = opts.inject({}) { |options, option| options.merge option  }
+      nested_attrs = target_options.select(&nested_selector).transform_values(&nested_transformer(options))
+      target_options.merge(base_options).merge(nested_attrs)
     end
 
-    def store_options
-      {store_staff_id: current_staff.id, store_id: current_store.id, store_customer_id: @customer.id}
+    def store_option
+      { store_id: current_store.id }
     end
 
-    def nested_transformer
+    def staff_option
+      { store_staff_id: current_staff.id }
+    end
+
+    def customer_option
+      { store_customer_id: @customer.id }
+    end
+
+    def base_options
+      { store_id: current_store.id, store_staff_id: current_staff.id, store_customer_id: @customer.id }
+    end
+
+    def nested_transformer(options)
       -> (v) do
         case v
         when Array
-          v.map { |x| x.merge(store_options) }
+          v.map { |x| x.merge(options) }
         when Hash
-          v.values.first.is_a?(Hash) ? v.values.map { |x| x.merge(store_options) } : v.merge(store_options)
+          v.values.first.is_a?(Hash) ? v.values.map { |x| x.merge(options) } : v.merge(options)
         end
       end
     end

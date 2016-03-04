@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303024133) do
+ActiveRecord::Schema.define(version: 20160303070317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1720,18 +1720,16 @@ ActiveRecord::Schema.define(version: 20160303024133) do
     t.integer  "store_staff_id",                   null: false
     t.string   "identification_number", limit: 45
     t.integer  "store_vehicle_id"
-    t.integer  "store_customer_id"
   end
 
   create_table "store_vehicle_frames", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                     null: false
-    t.integer  "store_chain_id",               null: false
-    t.integer  "store_staff_id",               null: false
-    t.string   "vin",               limit: 45
+    t.integer  "store_id",                    null: false
+    t.integer  "store_chain_id",              null: false
+    t.integer  "store_staff_id",              null: false
+    t.string   "vin",              limit: 45
     t.integer  "store_vehicle_id"
-    t.integer  "store_customer_id"
   end
 
   create_table "store_vehicle_registration_plates", force: :cascade do |t|
