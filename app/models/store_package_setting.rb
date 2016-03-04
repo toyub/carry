@@ -3,6 +3,7 @@ class StorePackageSetting < ActiveRecord::Base
 
   belongs_to :store_package
   has_many :items, class_name: 'StorePackageItem', dependent: :delete_all
+  belongs_to :saleman_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'store_commission_template_id'
   before_save :set_retail_price
 
   accepts_nested_attributes_for :items, allow_destroy: true
@@ -34,6 +35,10 @@ class StorePackageSetting < ActiveRecord::Base
     if self.period_enable
       "#{self.period}#{PERIOD_UNIT[self.period_unit]}"
     end
+  end
+
+  def commission(order_item)
+    saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
   end
 
 end

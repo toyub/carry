@@ -1607,6 +1607,8 @@ ActiveRecord::Schema.define(version: 20160304062817) do
     t.integer  "workflow_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
+    t.string   "taskable_type"
+    t.integer  "taskable_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -1719,18 +1721,16 @@ ActiveRecord::Schema.define(version: 20160304062817) do
     t.integer  "store_staff_id",                   null: false
     t.string   "identification_number", limit: 45
     t.integer  "store_vehicle_id"
-    t.integer  "store_customer_id"
   end
 
   create_table "store_vehicle_frames", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                     null: false
-    t.integer  "store_chain_id",               null: false
-    t.integer  "store_staff_id",               null: false
-    t.string   "vin",               limit: 45
+    t.integer  "store_id",                    null: false
+    t.integer  "store_chain_id",              null: false
+    t.integer  "store_staff_id",              null: false
+    t.string   "vin",              limit: 45
     t.integer  "store_vehicle_id"
-    t.integer  "store_customer_id"
   end
 
   create_table "store_vehicle_registration_plates", force: :cascade do |t|
