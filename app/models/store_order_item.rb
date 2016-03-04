@@ -99,7 +99,7 @@ class StoreOrderItem < ActiveRecord::Base
   private
 
     def set_amount
-      self.amount = _amount()
+      amount = _amount()
     end
 
     def _amount
