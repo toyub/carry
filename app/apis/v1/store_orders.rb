@@ -160,7 +160,9 @@ module V1
             :orderable_type,
             :orderable_id,
             :assetable_type,
-            :assetable_id
+            :assetable_id,
+            :package_id,
+            :package_type
           ]
         )
       end

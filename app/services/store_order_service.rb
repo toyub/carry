@@ -43,10 +43,10 @@ class StoreOrderService
       price: item[:price],
       from_customer_asset: item[:from_customer_asset],
       store_customer_asset_item_id: item[:store_customer_asset_item_id],
-      orderable_type: item[:orderable_type],
-      orderable_id: item[:orderable_id],
       assetable_type: item[:assetable_type],
-      assetable_id: item[:assetable_id]
+      assetable_id: item[:assetable_id],
+      package_id: item[:package_id],
+      package_type: item[:package_type]
     }
   end
 
