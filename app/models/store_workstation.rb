@@ -31,6 +31,20 @@ class StoreWorkstation < ActiveRecord::Base
     end
   end
 
+  def free?
+    current_workflow.blank?
+  end
+
+  def dispatch
+    if free?
+      SpotDispatchJob.perform_later(self.store_id)
+    else
+      if current_workflow.count_down <= 0
+        finish!
+      end
+    end
+  end
+
   def free
     self.update!(workflow_id: nil)
     self.idle!
