@@ -1,4 +1,4 @@
-class GenerateOrderService
+class StoreOrderService
   include Serviceable
   include StatusObject
 

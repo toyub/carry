@@ -1,4 +1,4 @@
-class AddVehicleForIpadService
+class AddVehicleService
   include Serviceable
   include StatusObject
 

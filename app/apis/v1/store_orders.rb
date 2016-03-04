@@ -37,7 +37,7 @@ module V1
 
       add_desc '下单'
       post do
-        status = GenerateOrderService.call(order_params, basic_params)
+        status = StoreOrderService.call(order_params, basic_params)
         present status: status.success, order_id: status.notice
       end
 
@@ -76,7 +76,7 @@ module V1
         end
         put  do
           order = StoreOrder.find(params[:order_id])
-          status = GenerateOrderService.call(order_params, basic_params, order: order)
+          status = StoreOrderService.call(order_params, basic_params, order: order)
           present status: status.success, info: status.notice
         end
 

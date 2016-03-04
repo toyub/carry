@@ -57,7 +57,7 @@ module V1
       end
       post do
         customer = StoreCustomer.where(phone_number: params[:phone_number]).last
-        status = AddVehicleForIpadService.call(vehicle_params, plate_params, customer_params: customer_params, customer: customer)
+        status = AddVehicleService.call(vehicle_params, plate_params, customer_params: customer_params, customer: customer)
         present info: status.notice, customer_id: status.customer.try(:id)
       end
     end
