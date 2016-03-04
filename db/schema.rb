@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302072753) do
+ActiveRecord::Schema.define(version: 20160304062817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1492,6 +1492,7 @@ ActiveRecord::Schema.define(version: 20160302072753) do
     t.integer  "status",                                      default: 0
     t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
+    t.string   "inspector"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1599,6 +1600,16 @@ ActiveRecord::Schema.define(version: 20160302072753) do
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
+
+  create_table "store_staff_tasks", force: :cascade do |t|
+    t.integer  "store_order_item_id"
+    t.integer  "store_staff_id"
+    t.integer  "workflow_id"
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "store_subscribe_order_items", force: :cascade do |t|
     t.integer  "store_subscribe_order_id"

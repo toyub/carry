@@ -61,7 +61,7 @@ module Xianchang
     end
 
     def construction_params
-      params.permit(workflow: [:store_workstation_id, :used_time, mechanics: [:id, :name]])
+      params.permit(workflow: [:store_workstation_id, :inspector, :used_time, mechanics: [:id, :name]])
     end
 
   end
