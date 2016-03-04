@@ -5,8 +5,10 @@ module Entities
     expose :service, :assetable_type, :assetable_id, :orderable_type,
            :orderable_id, :total_quantity, :used_quantity, :name
   end
+
   class AssetServiceable < Grape::Entity
     expose :id, :package_name
-    expose :items, using: AssetServiceableItem
+    expose :available_items, using: AssetServiceableItem
   end
+
 end

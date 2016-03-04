@@ -11,4 +11,8 @@ class StoreCustomerAsset < ActiveRecord::Base
    def name
     package.try :name
    end
+
+   def available_items
+     items.available.select(&->(item){item.service.present?})
+   end
 end

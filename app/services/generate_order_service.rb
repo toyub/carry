@@ -12,27 +12,27 @@ class GenerateOrderService
 
   def call
     ActiveRecord::Base.transaction do
-      @order_params[:order_items].each do |item|
+      @order_params[:items_attributes].each do |item|
+        if @order.present?
+          @order.update!(items_attributes: item_params(item))
+        end
         @order_items << StoreOrderItem.new(item_params(item).merge(@basic_params))
       end
-      ordering
+      create_order
     end
     Status.new(success: true, notice: @order.id)
   rescue ActiveRecord::RecordInvalid => e
     Status.new(success: false, notice: e.message)
   end
 
-  def ordering
-    if @order.present?
-      @order.update!(items: @order_items)
-    else
-      @order = @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items))
-    end
+  def create_order
+    @customer.orders.create!(order_params_merge_vehicle.merge(items: @order_items)) unless @order.present?
     @order.execution_job
   end
 
   def item_params(item)
     {
+      id: item[:item_id],
       orderable_id: item[:orderable_id],
       orderable_type: item[:orderable_type],
       quantity: item[:quantity],

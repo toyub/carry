@@ -127,7 +127,8 @@ module V1
             requires :platform, type: String, desc: '调用的平台'
           end
           get do
-            present @customer.assets.serviceable, with: ::Entities::AssetServiceable
+            assets = @customer.assets.serviceable.select(&->(asset){asset.available_items.present?})
+            present assets, with: ::Entities::AssetServiceable
           end
         end
 

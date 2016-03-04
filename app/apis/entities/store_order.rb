@@ -10,6 +10,7 @@ module Entities
     expose :state, :state_i18n, :pay_status_i18n, :pay_status,
            :task_status, :task_status_i18n, if: {type: :default}
 
+    expose(:item_id, if: {type: :full}) {|model|model.id}
     expose :orderable_type, :orderable_id, :from_customer_asset, :discount,
            :discount_reason, :vip_price, :quantity, :package_type, :package_id,
            :assetable_type, :assetable_id, :store_customer_asset_item_id, if: {type: :full}

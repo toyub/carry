@@ -12,7 +12,7 @@ module V1
         requires :store_customer_id, type: Integer, desc: '客户id'
         requires :vehicle_id, type: Integer, desc: '车辆的id'
         optional :plate_id, type: Integer, desc: '车牌的id'
-        optional :order_items, type: Array do
+        optional :items_attributes, type: Array do
           optional :orderable_id, type: Integer, desc: '选择的对应id,如果套餐服务，则需要从套餐接口获取对应的package_itemable_id'
           optional :orderable_type, type: String, desc: '服务：StoreService,商品:StoreMaterialSaleinfo, 套餐: StorePackage,
                                                          商品服务： StoreMaterialSaleinfoService, 套餐服务: 套餐接口获取package_itemable_type'
@@ -51,7 +51,8 @@ module V1
           requires :platform, type: String, desc: '验证平台！'
           requires :store_customer_id, type: Integer, desc: '客户id'
           optional :plate_id, type: Integer, desc: '车牌的id'
-          optional :order_items, type: Array do
+          optional :items_attributes, type: Array do
+            optional :item_id, type: Integer, desc: '更新的item的id'
             optional :orderable_id, type: Integer, desc: '选择的对应id,如果套餐服务，则需要从套餐接口获取对应的package_itemable_id'
             optional :orderable_type, type: String, desc: '服务：StoreService,商品:StoreMaterialSaleinfo, 套餐: StorePackage,
                                                            商品服务： StoreMaterialSaleinfoService, 套餐服务: 套餐接口获取package_itemable_type'
@@ -138,15 +139,14 @@ module V1
         params_permit
         basic_params
         @order.permit(
-          :is_vip,
-          :platform,
           :vehicle_id,
           :plate_id,
           :store_customer_id,
           :store_id,
           :store_chain_id,
           :store_staff_id,
-          order_items: [
+          items_attributes: [
+            :item_id,
             :orderable_id,
             :orderable_type,
             :quantity,
