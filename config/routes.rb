@@ -421,6 +421,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :store_commission_templates, only: [:show]
+
   end#End of api
 
   namespace :pos do

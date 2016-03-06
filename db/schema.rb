@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303070317) do
+ActiveRecord::Schema.define(version: 20160306002434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1520,15 +1520,15 @@ ActiveRecord::Schema.define(version: 20160303070317) do
   create_table "store_services", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_staff_id",                                                            null: false
-    t.integer  "store_chain_id",                                                            null: false
-    t.integer  "store_id",                                                                  null: false
-    t.string   "name",                  limit: 45
-    t.string   "code",                  limit: 45
+    t.integer  "store_staff_id",                                                                     null: false
+    t.integer  "store_chain_id",                                                                     null: false
+    t.integer  "store_id",                                                                           null: false
+    t.string   "name",                           limit: 45
+    t.string   "code",                           limit: 45
     t.integer  "standard_time"
     t.integer  "store_service_unit_id"
-    t.decimal  "retail_price",                     precision: 10, scale: 2, default: 0.0
-    t.decimal  "bargain_price",                    precision: 10, scale: 2, default: 0.0
+    t.decimal  "retail_price",                              precision: 10, scale: 2, default: 0.0
+    t.decimal  "bargain_price",                             precision: 10, scale: 2, default: 0.0
     t.integer  "point"
     t.text     "introduction"
     t.text     "remark"
@@ -1537,10 +1537,12 @@ ActiveRecord::Schema.define(version: 20160303070317) do
     t.integer  "engineer_count"
     t.integer  "engineer_level"
     t.integer  "position_mode"
-    t.boolean  "favorable",                                                 default: false
-    t.integer  "setting_type",                                              default: 0
+    t.boolean  "favorable",                                                          default: false
+    t.integer  "setting_type",                                                       default: 0
     t.integer  "category_id"
-    t.boolean  "bargain_price_enabled",                                     default: false
+    t.boolean  "bargain_price_enabled",                                              default: false
+    t.integer  "saleman_commission_template_id"
+    t.boolean  "vip_price_enabled",                                                  default: false
   end
 
   create_table "store_settlement_accounts", force: :cascade do |t|
