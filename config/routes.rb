@@ -74,6 +74,10 @@ Rails.application.routes.draw do
         get :materials
       end
     end
+
+    namespace :purchase do
+      resources :receipts
+    end
   end# END of namespace :kucun
 
   get "xiaoshou/main", to:  "xiaoshou#main"

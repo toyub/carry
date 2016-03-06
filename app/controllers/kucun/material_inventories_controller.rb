@@ -12,7 +12,8 @@ class Kucun::MaterialInventoriesController < Kucun::BaseController
     store = current_user.store
     order = store.store_material_orders.suspense.find(params[:order_id])
     ActiveRecord::Base.transaction do
-      smr = StoreMaterialReceipt.create(store_staff_id: current_user.id, remark: params[:remark])
+
+      smr = StoreMaterialPurchaseReceipt.create(store_staff_id: current_user.id, remark: params[:remark])
       order.items.where(id: params[:items].keys).each do |item|
         item_params = params[:items][item.id.to_s]
         if item.quantity == item_params[:received_quantity].to_f
@@ -22,17 +23,18 @@ class Kucun::MaterialInventoriesController < Kucun::BaseController
         else
           item.partially_receive(item_params[:received_quantity].to_f)
         end
-        put_in_depot!(item, item_params[:store_depot_id], smr.id)
+        put_in_depot!(item, item_params[:store_depot_id], smr.id, item_params[:remark])
       end
       order.process = order.items.sum(:process)/order.items.length
       order.save!
+      smr.save!
     end
     redirect_to action: :new
   end
 
 
   private
-  def put_in_depot!(item, depot_id, smr_id)
+  def put_in_depot!(item, depot_id, smr_id, remark)
     inventory = item.store_material
                                  .store_material_inventories
                                  .find_or_initialize_by(store_depot_id: depot_id)
@@ -57,8 +59,9 @@ class Kucun::MaterialInventoriesController < Kucun::BaseController
                                                     ordered_quantiry: item.quantity,
                                                     prior_cost_price: item.store_material.cost_price,
                                                     ordered_cost_price: item.price,
-                                                    latest_cost_price:  @log.closings.symbolize_keys[:inventory_cost_price])
-    
+                                                    latest_cost_price:  @log.closings.symbolize_keys[:inventory_cost_price],
+                                                    remark: remark)
+
     @log.loggable!(smir)
     inventory.quantity = @log.closings.symbolize_keys[:inventory_quantity]
     item.store_material.cost_price = @log.closings.symbolize_keys[:material_cost_price]

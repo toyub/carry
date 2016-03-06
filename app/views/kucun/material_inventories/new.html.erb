@@ -20,7 +20,7 @@
 
         <div class="query_div">
          <a  href="#" class="in_stg_btn btn">入库</a>
-         <a  href="/kucun/material_inventories/" class="notes_btn btn">记录</a>
+         <a  href="/kucun/purchase/receipts" class="notes_btn btn">记录</a>
         </div>
       </div>
       <div class="in_storage common_storage by_orders">
@@ -102,11 +102,11 @@
       </div>
       <div class="nav-item-query">
         <label>时间：</label>
-        <input type="text" class="width-135" value="<%= Time.now.to_s(:date_only) %>" readonly>
+        <input type="text" class="width-135" value="" readonly>
       </div>
       <div class="nav-item-query">
         <label>单号：</label>
-        <input type="text" class="width-135" value="<%= make_numero("IN") %>" readonly>
+        <input type="text" class="width-135" value="" readonly>
       </div>
       <div class="nav-item-query">
         <label>供应商：</label>
