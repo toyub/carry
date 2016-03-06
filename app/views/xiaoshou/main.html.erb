@@ -1,7 +1,3 @@
-<% content_for :pre_assets do %>
-  <%= javascript_include_tag 'xiaoshou' %>
-<% end %>
-
 <div id="bodyContent">
 
 </div>
@@ -11,10 +7,17 @@
 </div>
 <%= content_tag :div, '', id: 'bootstrap', data: {store: @data} %>
 
+<% content_for :scenes do %>
+  <div class="list_new_page_wrap do_create_ticheng_window" style='display:none;' id="commission_tempalte_detail"></div>
+<% end %>
 <% content_for :javascripts do %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
       Mis.initialize($("#bootstrap").data('store'));
+
+      $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
+        $('#commission_tempalte_detail').hide();
+      });
     })
   </script>
 <% end %>
