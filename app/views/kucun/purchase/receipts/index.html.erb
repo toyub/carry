@@ -1,5 +1,5 @@
 <div class="main_top">
-  <%= breadcrumb_navigation(['库存', '入库', '按商品入库', '记录']) %>
+  <%= breadcrumb_navigation(['库存', '入库', '按订单入库', '记录']) %>
 </div>
 
 <div class="details">
@@ -7,7 +7,7 @@
 		<div class="search_nav">
 			<%= render partial: 'kucun/partials/ruku_search' %>
       <div class="query_div">
-        <a href="/kucun/checkins/new" class="in_stg_btn btn">入库</a>
+        <a href="/kucun/material_inventories/new" class="in_stg_btn btn">入库</a>
         <a href="javascript:void(0);" class="notes_btn btn">记录</a>
       </div>
 		</div>
@@ -26,17 +26,17 @@
 					</ul>
 				</div>
 
-        <% @checkins.each_with_index do |checkin, idx| %>
+        <% @receipts.each_with_index do |receipt, idx| %>
 				<div class="list_contents">
 
 					<div class="list_content list_tr border_left ">
 						<ul>
 							<li><%= idx+1 %>.</li>
-							<li><%= checkin.created_at.to_s(:date_only) %></li>
-							<li><%= checkin.numero %></li>
-							<li><%= checkin.quantity %></li>
-							<li><%= checkin.amount %></li>
-							<li><%= checkin.creator.screen_name %></li>
+							<li><%= receipt.created_at.to_s(:date_only) %></li>
+							<li><%= receipt.numero %></li>
+							<li><%= receipt.quantity %></li>
+							<li><%= receipt.amount %></li>
+							<li><%= receipt.creator.screen_name %></li>
 							<li>
 							  <i class="fa fa-chevron-down cursor-pointer click_btn detailsbtn"></i>
 							</li>
@@ -50,15 +50,23 @@
           		</div>
           		<div class="nav-item-query">
           			<label>时间：</label>
-          			<input type="text" class="width-135" readonly value="<%= checkin.created_at.to_s(:date_only) %>">
+          			<input type="text" class="width-135" readonly value="<%= receipt.created_at.to_s(:date_only) %>">
+          		</div>
+          		<div class="nav-item-query">
+          			<label>订货单号：</label>
+          			<input type="text" class="width-135" readonly value="<%= receipt.source_order.numero %>">
+          		</div>
+          		<div class="nav-item-query">
+          			<label>订货供应商：</label>
+          			<input type="text" class="width-240" readonly value="<%= receipt.source_order.store_supplier.name %>">
           		</div>
           		<div class="nav-item-query">
           			<label>数量：</label>
-          			<input type="text" class="width-135" readonly value="<%= checkin.quantity %>">
+          			<input type="text" class="width-135" readonly value="<%= receipt.quantity %>">
           		</div>
           		<div class="nav-item-query">
           			<label>金额：</label>
-          			<input type="text" class="width-135" readonly value="<%= checkin.amount %>">
+          			<input type="text" class="width-135" readonly value="<%= receipt.amount %>">
           		</div>
 
           	</div>
@@ -81,7 +89,7 @@
           			</tr>
           		</thead>
           		<tbody>
-                <% checkin.items.each do |item| %>
+                <% receipt.items.each do |item| %>
           			<tr>
           				<td><%= item.store_material.name %></td>
           				<td><%= item.store_material.barcode %></td>
@@ -90,7 +98,7 @@
           				<td><%= item.store_material.store_material_root_category.try :name %></td>
           				<td><%= item.store_material.store_material_category.try :name %></td>
           				<td><%= item.store_material_inventory.store_depot.name %></td>
-          				<td><%= item.cost_price %></td>
+          				<td><%= item.ordered_cost_price %></td>
           				<td><%= item.quantity %></td>
           				<td><%= item.amount %></td>
           				<td><%= item.created_at.to_s(:date_only) %></td>
@@ -105,11 +113,11 @@
           	<div class="common_storage_account">
           		<div class="item_content margin-left-10">
           			<label class="width-75 vertical-align-top">备注：</label>
-          			<p class="remarks_textarea"><%= checkin.remark %></p>
+          			<p class="remarks_textarea"><%= receipt.remark %></p>
           		</div>
           		<div class="item_content  margin-left-10">
           			<label class="width-75">制单人：</label>
-          			<label class="width-253"><%= checkin.creator.screen_name %></label>
+          			<label class="width-253"><%= receipt.creator.screen_name %></label>
           		</div>
           	</div>
           </div>

@@ -1,57 +1,146 @@
-
 <div class="main_top">
-  <%= breadcrumb_navigation(['库存', '转移入库', '历史记录']) %>
+  <%= breadcrumb_navigation(['库存', '入库', '转移入库', '记录']) %>
 </div>
+
 <div class="details">
-  <div class="list_table">
-    <div class="search_nav">
-      <%= render partial: 'kucun/partials/ruku_search' %>
+	<div class="in_storage_records list_table">
+		<div class="search_nav">
+			<%= render partial: 'kucun/partials/ruku_search' %>
       <div class="query_div">
         <a href="/kucun/transfer/receipts/new" class="in_stg_btn btn">入库</a>
-        <a href="javascript:void(0);"  class="notes_btn btn">记录</a>
+        <a href="javascript:void(0);" class="notes_btn btn">记录</a>
       </div>
-    </div>
-    <div id="all_in_stock">
-      <table cellpadding="0" cellspacing="0" class="index_list">
-        <thead>
-            <tr>
-              <th style="border-right:0px;"></th>
-              <th>入库时间</th>
-              <th>商品名称</th>
-              <th>商品条形码</th>
-              <th>一级分类</th>
-              <th>二级分类</th>
-              <th>规格</th>
-              <th>单位</th>
-              <th>成本价</th>
-              <th>转移数量</th>
-              <th>小计</th>
-              <th>转出仓库</th>
-              <th>目的仓库</th>
-              <th>操作人</th>
-            </tr>
-        </thead>
-        <tbody>
-          <% @trans_receipt_items.each_with_index do |item, idx| %>
-            <tr>
-              <td class="number"><%= idx + 1 %></td>
-              <td><%= item.created_at.to_s(:date_only) %></td>
-              <td title="<%= item.store_material.name %>"><%= item.store_material.name.to_s.truncate(11) %></td>
-              <td><%= item.store_material.barcode %></td>
-              <td><%= item.store_material.store_material_root_category.name %></td>
-              <td><%= item.store_material.store_material_category.name %></td>
-              <td><%= item.store_material.speci %></td>
-              <td><%= item.store_material.store_material_unit.name %></td>
-              <td class="text-align-right"><%= item.store_material.cost_price %></td>
-              <td><%= item.quantity %></td>
-              <td class="text-align-right"><%= item.amount %></td>
-              <td><%= item.store_material_picking_item.store_depot.name %></td>
-              <td><%= item.store_material_picking_item.dest_depot.name %></td>
-              <td class=""><%= item.creator.screen_name %></td>
-            </tr>
-          <% end %>
-         </tbody>
-      </table>
-    </div>
-  </div>
+		</div>
+
+		<div class="common_storage in_storage_records_lists">
+			<div class="list">
+				<div class="list_top list_tr">
+					<ul>
+						<li>#</li>
+						<li>时间</li>
+						<li>入库单号</li>
+						<li>数量</li>
+						<li>金额</li>
+						<li>操作人</li>
+						<li>明细</li>
+					</ul>
+				</div>
+
+        <% @receipts.each_with_index do |receipt, idx| %>
+				<div class="list_contents">
+
+					<div class="list_content list_tr border_left ">
+						<ul>
+							<li><%= idx+1 %>.</li>
+							<li><%= receipt.created_at.to_s(:date_only) %></li>
+							<li><%= receipt.numero %></li>
+							<li><%= receipt.quantity %></li>
+							<li><%= receipt.amount %></li>
+							<li><%= receipt.creator.screen_name %></li>
+							<li>
+							  <i class="fa fa-chevron-down cursor-pointer click_btn detailsbtn"></i>
+							</li>
+						</ul>
+					</div>
+
+          <div class=" common_storage_content float-left storage_lists" style="display:none;">
+          	<div class="in_storage_query">
+          		<div class="nav-item-query">
+          			<div class="font-20 font-borderradius text-align-center">入</div>
+          		</div>
+          		<div class="nav-item-query">
+          			<label>时间：</label>
+          			<input type="text" class="width-135" readonly value="<%= receipt.created_at.to_s(:date_only) %>">
+          		</div>
+          		<div class="nav-item-query">
+          			<label>转移单单号：</label>
+          			<input type="text" class="width-135" readonly value="<%= receipt.source_order.numero %>">
+          		</div>
+          		<div class="nav-item-query">
+          			<label>数量：</label>
+          			<input type="text" class="width-135" readonly value="<%= receipt.quantity %>">
+          		</div>
+          		<div class="nav-item-query">
+          			<label>金额：</label>
+          			<input type="text" class="width-135" readonly value="<%= receipt.amount %>">
+          		</div>
+
+          	</div>
+          	<table cellpadding="0" cellspacing="0" class="storage_tab storage_lists_tab">
+          		<thead>
+          			<tr class="bg-color-e0e2cf color-282726">
+          				<th>商品名称</th>
+          				<th>条码</th>
+          				<th>规格</th>
+          				<th>单位</th>
+          				<th>一级分类</th>
+          				<th>二级分类</th>
+          				<th>转出仓库</th>
+          				<th>转入仓库</th>
+          				<th>入库数量</th>
+          				<th>小计</th>
+          				<th>入库时间</th>
+          				<th>操作人</th>
+          				<th>备注</th>
+          			</tr>
+          		</thead>
+          		<tbody>
+                <% receipt.items.each do |item| %>
+          			<tr>
+          				<td><%= item.store_material.name %></td>
+          				<td><%= item.store_material.barcode %></td>
+          				<td><%= item.store_material.speci %></td>
+          				<td><%= item.store_material.store_material_unit.try :name %></td>
+          				<td><%= item.store_material.store_material_root_category.try :name %></td>
+          				<td><%= item.store_material.store_material_category.try :name %></td>
+                  <td><%= item.store_material_picking_item.store_depot.name %></td>
+          				<td><%= item.store_material_inventory.store_depot.name %></td>
+          				<td><%= item.quantity %></td>
+          				<td><%= item.amount %></td>
+          				<td><%= item.created_at.to_s(:date_only) %></td>
+          				<td><%= item.store_staff.screen_name %></td>
+          				<td><%= item.remark %></td>
+          			</tr>
+                <% end %>
+
+          		</tbody>
+          	</table>
+
+          	<div class="common_storage_account">
+          		<div class="item_content margin-left-10">
+          			<label class="width-75 vertical-align-top">备注：</label>
+          			<p class="remarks_textarea"><%= receipt.remark %></p>
+          		</div>
+          		<div class="item_content  margin-left-10">
+          			<label class="width-75">制单人：</label>
+          			<label class="width-253"><%= receipt.creator.screen_name %></label>
+          		</div>
+          	</div>
+          </div>
+
+			</div>
+      <% end %>
+
+		</div>
+
+	</div>
 </div>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    $('#main').on('click', '.detailsbtn', function(){
+      var $this = $(this);
+      if($this.hasClass('fa-chevron-down')){
+        $this.removeClass('fa-chevron-down');
+        $this.addClass('fa-chevron-up');
+        $(this).parents('.list_content').next('.storage_lists').show();
+      }else{
+        $this.removeClass('fa-chevron-up');
+        $this.addClass('fa-chevron-down');
+        $(this).parents('.list_content').next('.storage_lists').hide();
+      }
+    })
+  });
+</script>
+<% end %>
