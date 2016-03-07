@@ -219,10 +219,10 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total(month = Time.now)
-    sale_commission(month) + process_commission(month)
+    sale_commission(month) + constucted_commission(month)
   end
 
-  def process_commission(month = Time.now)
+  def constucted_commission(month = Time.now)
     (mechanic? && commission?) ? tasks.by_month(month).map(&:commission).sum : 0.0
   end
 
@@ -240,6 +240,13 @@ class StoreStaff <  ActiveRecord::Base
 
   def packages_commission(month = Time.now)
     commission? ? store_order_items.by_month(month).packages.map(&:commission).sum : 0.0
+  end
+
+  def commission_of(item)
+    sum = 0.0
+    sum = item.commission if item.saled_by? self
+    sum += tasks.by_item(item).map(&:commission).sum if item.constructed_by? self
+    sum
   end
 
   def self.items_amount_total(month = Time.now)

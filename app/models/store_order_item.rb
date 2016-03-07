@@ -88,6 +88,14 @@ class StoreOrderItem < ActiveRecord::Base
     store_staff.commission? ? orderable.commission(self) : 0.0
   end
 
+  def constructed_by? staff
+    staff.tasks.by_item(id).present?
+  end
+
+  def saled_by? staff
+    store_staff_id == staff.id
+  end
+
   def self.total_amount
     sum(:amount)
   end
