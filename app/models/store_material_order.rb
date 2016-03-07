@@ -23,6 +23,6 @@ class StoreMaterialOrder < ActiveRecord::Base
   def set_numero
     time_now = Time.now
     today_count = self.class.unscoped.where('created_at between ? and ?', time_now.beginning_of_day, time_now.end_of_day).count(:id) + 1
-    self.numero = "#{time_now.strftime('%Y%m%d')}#{today_count.to_s.rjust(7, '0')}"
+    self.numero = "OD#{time_now.strftime('%Y%m%d')}#{today_count.to_s.rjust(7, '0')}"
   end
 end
