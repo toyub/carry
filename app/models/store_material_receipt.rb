@@ -11,15 +11,15 @@ class StoreMaterialReceipt < ActiveRecord::Base
   before_save :save_search_keys
 
   def save_search_keys
-    self.search_keys = self.items.unscoped.map(&->(item){item.store_material.name}).join(',').truncate(255)
+    self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',').truncate(255)
   end
 
   def set_quantity
-    self.quantity = self.items.unscoped.map(&->(item){item.quantity}).sum
+    self.quantity = self.items.map(&->(item){item.quantity}).sum
   end
 
   def set_amount
-    self.amount = self.items.unscoped.map(&->(item){item.amount}).sum
+    self.amount = self.items.map(&->(item){item.amount}).sum
   end
 
   def set_numero

@@ -6,7 +6,7 @@ module Kucun
     class ReceiptsController < Kucun::BaseController
       def index
         @store = current_store
-        @receipts = StoreMaterialTransReceipt.where(store_id: @store.id)
+        @receipts = StoreMaterialTransReceipt.where(store_id: @store.id).order('id desc')
       end
 
       def new
