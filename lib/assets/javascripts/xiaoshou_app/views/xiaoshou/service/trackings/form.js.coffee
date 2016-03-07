@@ -23,7 +23,6 @@ class Mis.Views.XiaoshouServiceTrackingsForm extends Mis.Base.View
 
   saveTracking: ->
     @model.save @$el.find("input,select,textarea").serializeJSON()
-    console.log @model
     @close()
 
   addTracking: ->

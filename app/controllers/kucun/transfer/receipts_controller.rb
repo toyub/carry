@@ -17,7 +17,8 @@ module Kucun
       def create
         picking = StoreMaterialPicking.find(receipt_params[:store_material_picking_id])
         ActiveRecord::Base.transaction do
-          smr = StoreMaterialReceipt.create(store_staff_id: current_user.id, remark: receipt_params[:remark])
+
+          smr = StoreMaterialTransReceipt.create(store_staff_id: current_user.id, remark: receipt_params[:remark])
           picking.items.each do |item|
             item_params = receipt_params[:items_attributes][item.id.to_s]
             inventory = item.store_material
@@ -53,6 +54,7 @@ module Kucun
             inventory.save
           end
           picking.received!
+          smr.save!
         end
         redirect_to action: 'index'
       end

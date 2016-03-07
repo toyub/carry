@@ -4,6 +4,9 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
 
   template: JST['xiaoshou/service/profiles/show']
 
+  events:
+    'click .detail': 'showCommissionTemplate'
+
   render: ->
     @$el.html(@template(service: @model))
     @renderTop()

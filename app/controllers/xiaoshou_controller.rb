@@ -9,7 +9,6 @@ class XiaoshouController < ApplicationController
   def to_builder
     Jbuilder.encode do |json|
       json.(current_store, :id, :name, :engineer_levels)
-      json.materials current_store.store_materials, :id, :name, :price, :category_id, :root_category_id
       json.packages current_store.store_packages.order("id asc") do |package|
         json.(package, :id, :name, :code, :abstract, :remark, :price)
         json.package_setting do
@@ -22,7 +21,7 @@ class XiaoshouController < ApplicationController
       end
       json.customer_categories current_store.store_customer_categories, :id, :name
       json.commissions current_store.commission_templates, :id, :name
-      json.services current_store.store_services.order("id asc"), :id, :name, :code, :bargain_price, :bargain_price_enabled, :point, :retail_price, :standard_time, :engineer_level, :category_name
+      json.services current_store.store_services.order("id asc"), :id, :name, :code, :bargain_price, :bargain_price_enabled, :point, :retail_price, :standard_time, :engineer_level, :category_name, :saleman_commission_template_id, :vip_price_enabled
       json.service_categories ServiceCategory.all, :id, :name
       json.customers current_store.store_customer_entities do |entity|
         json.(entity, :id, :region, :address, :remark, :property, :store_customer_category_id)

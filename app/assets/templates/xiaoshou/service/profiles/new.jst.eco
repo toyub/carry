@@ -33,6 +33,7 @@
               <label class="width-75">服务代码</label>
               <input type="text" class="width-165" name="code">
             </div>
+
             <div class="item_content">
               <label class="width-75">服务类别</label>
               <select type="text" class="width-165" name="category_id">
@@ -41,6 +42,22 @@
                 <% end %>
               </select>
             </div>
+
+            <div class="item_textarea">
+              <label class="width-100">销售提成方案：</label>
+              <select class="width-235" name="saleman_commission_template_id">
+                <option value=""></option>
+                <% Mis.store.commissionTemplates.each (ct) => : %>
+                  <option <%= 'selected' if String(@service.get('saleman_commission_template_id')) == String(ct.id) %> value="<%= ct.id %>"><%=ct.get 'name' %></option>
+                <% end %>
+              </select>
+              <a class="detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
+            </div>
+
+            <div class="item_content">
+              <label class="width-100"><input type="checkbox" name="vip_price_enabled">启用会员价</label>
+            </div>
+
             <div class="item_textarea ">
               <label class="width-75">服务介绍</label>
               <textarea class="server_textarea width-432" name="introduction" id="introduction"></textarea>

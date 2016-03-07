@@ -15,6 +15,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
     'submit #createService': 'createOnSubmit'
     'click #add_server_btn': 'openMaterialForm'
     'click input.toggleable': 'toggleFavorable'
+    'click .detail': 'showCommissionTemplate'
 
   render: ->
     @$el.html(@template(service: @model))
@@ -29,7 +30,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
 
   createOnSubmit: ->
     event.preventDefault()
-    @model.set $("#createService").serializeJSON()
+    @model.set $("#createService").serializeJSON({checkboxUncheckedValue: 'false', parseBooleans: true})
     @model.save() if @model.isValid(true)
 
   openMaterialForm: ->
