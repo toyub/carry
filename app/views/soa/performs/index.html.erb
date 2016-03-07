@@ -21,48 +21,11 @@
     </table>
 
     <table class="content">
-      <tbody>
-        <% @order_items.each do |item| %>
-          <%# <% commission_history = staff.commission_histories.find_by(created_month: @date.strftime("%Y%m")) %>
-          <tr>
-            <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
-            <td><%= item.store_order.numero %></td>
-            <td><%= item.orderable.name %></td>
-            <td>
-              <% if item.saled_by? @staff %>
-                卖出<em><%= item.quantity %></em>件
-                <% if item.constructed_by? @staff %>
-                  <% @staff.tasks.by_item(item.id).each do |task| %>
-                    <div>
-                      <label><%= task.workflow_snapshot.try(:name) %></label><span><%= task.commission %></span>
-                    </div>
-                  <% end %>
-                <% end %>
-              <% else %>
-                <% @staff.tasks.by_item(item.id).each do |task| %>
-                  <div>
-                    <label><%= task.workflow_snapshot.try(:name) %></label><span><%= task.commission %></span>
-                  </div>
-                <% end %>
-              <% end %>
-            </td>
-            <td><%= item.amount %></td>
-            <td> <%= @staff.commission_of item %> </td>
-          </tr>
-        <% end %>
-      <tfoot>
-        <tr>
-          <td colspan="3"></td>
-          <td class="text-align-right">
-            <label>项目数：</label><span class="width-90 text-align-left"><%= @orders_count %></span>
-            <label class="width-100">项目总金额：</label>
-          </td>
-          <td colspan="2">
-            <span class="width-80"><%= @order_items.map(&:amount).sum %></span>
-            <label>提成总金额：</label><span><%= @staff.commission_amount_total %></span>
-          </td>
-        </tr>
-      </tfoot>
+      <% if @date < Time.now.at_beginning_of_month %>
+        <%= render 'pass_month_commission' %>
+      <% else %>
+        <%= render 'current_month_commission' %>
+      <% end %>
     </table>
   </div>
 </div>

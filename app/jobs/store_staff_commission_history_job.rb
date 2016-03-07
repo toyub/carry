@@ -4,7 +4,7 @@ class StoreStaffCommissionHistoryJob < ActiveJob::Base
   def perform(*args)
     StoreStaff.all.each do |staff|
       staff.store_order_items.by_month.each do |item|
-        staff.commission_histories.create!(commission_params(staff, item))
+        staff.commission_hiseories.create!(commission_params(staff, item))
       end
     end
   end
@@ -31,9 +31,9 @@ class StoreStaffCommissionHistoryJob < ActiveJob::Base
   end
 
   def commission_type(staff, item)
-    'sale' if item.saled_by? staff
-    'constructed' if item.constructed_by? staff
-    'all' if item.saled_by?(staff) && item.constructed_by?(staff)
+    type = 'sale'
+    type = 'constructed' if item.constructed_by? staff
+    type
   end
 
   def remark_detail(staff, item)
@@ -46,6 +46,7 @@ class StoreStaffCommissionHistoryJob < ActiveJob::Base
         remark += " "
       end
     end
+    remark
   end
 
 end

@@ -1,0 +1,25 @@
+<tbody>
+  <% @order_item_histories.each do |history| %>
+    <tr>
+      <td><label class="width-90"><%= history.order_created_at.strftime("%Y/%m/%d") %></label><label><%= history.order_created_at.strftime("%H:%S") %></label></td>
+      <td><%= history.store_order_numero %></td>
+      <td><%= history.store_order_item_name %></td>
+      <td><%= history.store_order_item_remark %></td>
+      <td><%= history.item_amount %></td>
+      <td><%= history.commission_amount %> </td>
+    </tr>
+  <% end %>
+</tbody>
+<tfoot>
+  <tr>
+    <td colspan="3"></td>
+    <td class="text-align-right">
+      <label>项目数：</label><span class="width-90 text-align-left"><%= @order_item_histories.size %></span>
+      <label class="width-100">项目总金额：</label>
+    </td>
+    <td colspan="2">
+      <span class="width-80"><%= @order_item_histories.map(&:item_amount).sum %></span>
+      <label>提成总金额：</label><span><%= @order_item_histories.map(&:commission_amount).sum %></span>
+    </td>
+  </tr>
+</tfoot>

@@ -1,5 +1,5 @@
 <div class="search_nav">
-  <%= form_tag("/soa/staff/#{@staff.id}/performs/search", method: :get) do -%>
+  <%= form_tag("/soa/staff/#{@staff.id}/performs", method: :get) do -%>
     <div class="item-query">
       <label>时间</label>
       <%= date_select(
