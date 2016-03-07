@@ -6,7 +6,7 @@ class StoreMaterialCheckin < ActiveRecord::Base
   before_save :save_search_keys
   before_create :set_numero
 
-  private
+  
   def save_search_keys
     self.search_keys = self.items.map(&->(item){item.store_material.name}).join(',').truncate(255)
   end

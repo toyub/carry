@@ -1,6 +1,8 @@
 class StoreMaterialReceipt < ActiveRecord::Base
   belongs_to :store_staff
 
+  belongs_to :source_order, polymorphic: true
+
   include BaseModel
 
   before_create :set_numero
