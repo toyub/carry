@@ -54,11 +54,11 @@
           		</div>
           		<div class="nav-item-query">
           			<label>订货单号：</label>
-          			<input type="text" class="width-135" readonly value="<%= receipt.order.numero %>">
+          			<input type="text" class="width-135" readonly value="<%= receipt.source_order.numero %>">
           		</div>
           		<div class="nav-item-query">
           			<label>订货供应商：</label>
-          			<input type="text" class="width-240" readonly value="<%= receipt.order.store_supplier.name %>">
+          			<input type="text" class="width-240" readonly value="<%= receipt.source_order.store_supplier.name %>">
           		</div>
           		<div class="nav-item-query">
           			<label>数量：</label>
@@ -98,7 +98,7 @@
           				<td><%= item.store_material.store_material_root_category.try :name %></td>
           				<td><%= item.store_material.store_material_category.try :name %></td>
           				<td><%= item.store_material_inventory.store_depot.name %></td>
-          				<td><%= item.store_material_order_item.price %></td>
+          				<td><%= item.ordered_cost_price %></td>
           				<td><%= item.quantity %></td>
           				<td><%= item.amount %></td>
           				<td><%= item.created_at.to_s(:date_only) %></td>

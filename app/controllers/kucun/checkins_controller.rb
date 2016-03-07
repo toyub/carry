@@ -1,7 +1,7 @@
 #Just In Time
 class Kucun::CheckinsController < Kucun::BaseController
   def index
-    @items = StoreMaterialCheckinItem.where(store_id: current_store.id)
+    @checkins = StoreMaterialCheckin.where(store_id: current_store.id).order('id desc')
   end
 
   def new

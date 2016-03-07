@@ -13,7 +13,7 @@ class Kucun::MaterialInventoriesController < Kucun::BaseController
     order = store.store_material_orders.suspense.find(params[:order_id])
     ActiveRecord::Base.transaction do
 
-      smr = StoreMaterialPurchaseReceipt.create(store_staff_id: current_user.id, remark: params[:remark])
+      smr = StoreMaterialPurchaseReceipt.create(store_staff_id: current_user.id, remark: params[:remark], source_order: order)
       order.items.where(id: params[:items].keys).each do |item|
         item_params = params[:items][item.id.to_s]
         if item.quantity == item_params[:received_quantity].to_f

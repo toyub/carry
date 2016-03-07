@@ -6,7 +6,7 @@ module Kucun
     class ReceiptsController < Kucun::BaseController
       def index
         @store = current_store
-        @trans_receipt_items = StoreMaterialTransReceiptItem.where(store_id: @store.id)
+        @receipts = StoreMaterialTransReceipt.where(store_id: @store.id).order('id desc')
       end
 
       def new
@@ -18,7 +18,7 @@ module Kucun
         picking = StoreMaterialPicking.find(receipt_params[:store_material_picking_id])
         ActiveRecord::Base.transaction do
 
-          smr = StoreMaterialTransReceipt.create(store_staff_id: current_user.id, remark: receipt_params[:remark])
+          smr = StoreMaterialTransReceipt.create(store_staff_id: current_user.id, remark: receipt_params[:remark], source_order: picking)
           picking.items.each do |item|
             item_params = receipt_params[:items_attributes][item.id.to_s]
             inventory = item.store_material
