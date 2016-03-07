@@ -20,6 +20,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
+  has_many :tasks, class_name: 'StoreStaffTask'
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
@@ -58,14 +59,14 @@ class StoreStaff <  ActiveRecord::Base
     StoreStaffLevel.find(self.level_type_id)
   end
 
-  def reset_password(new_password, pass_confirmation)
+  def reset_password(new_password, password_confirmation)
     self.password = new_password
-    self.password_confirmation = pass_confirmation
+    self.password_confirmation = password_confirmation
     encrypt_password
   end
 
-  def reset_password!(new_password, pass_confirmation)
-    self.reset_password(new_password, pass_confirmation)
+  def reset_password!(new_password, password_confirmation)
+    self.reset_password(new_password, password_confirmation)
     self.save
   end
 
@@ -213,7 +214,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total(month = Time.now)
-    materials_commission(month) + services_commission(month)
+    materials_commission(month) + services_commission(month) + packages_commission(month)
   end
 
   def materials_commission(month = Time.now)
@@ -221,7 +222,11 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def services_commission(month = Time.now)
-    commission? ? store_order_items.by_month(month).services.inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? tasks.by_month(month).inject(0) {|sum, task| sum += task.taskable.commission(task.store_order_item) } : 0.0
+  end
+
+  def packages_commission(month = Time.now)
+    commission? ? store_order_items.by_month(month).packages.inject(0) {|sum, item| sum += item.commission } : 0.0
   end
 
   def self.items_amount_total(month = Time.now)
@@ -280,7 +285,7 @@ class StoreStaff <  ActiveRecord::Base
 
   def check_phone_number
     if StoreStaff.by_phone(self.phone_number).unterminated.present?
-      errors.add(:notice, "该电话号码在别的门店已使用!")
+      errors.add(:notice, "您输入的号码正在使用，请使用新号码或停用该号码后再进行绑定。")
       false
     end
   end

@@ -17,9 +17,11 @@ module Api
 
     def update
       @entity = current_store.store_customer_entities.find(params[:id])
-      @entity.store_customer.taggings.clear
-      @entity.update(append_store_attrs entity_params)
-      respond_with @entity, location: nil
+      if @entity.update(append_store_attrs entity_params)
+        render json: StoreCustomerSerializer.new(@entity.store_customer).as_json(root: nil)
+      else
+        respond_with @entity, location: nil
+      end
     end
 
     def show

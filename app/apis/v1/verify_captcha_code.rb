@@ -1,7 +1,7 @@
 module V1
-  class Varificate < Grape::API
+  class VerifyCaptchaCode < Grape::API
 
-    resource :varificate do
+    resource :verify_captcha_code do
       before do
         authenticate_platform!
         authenticate_sn_code!
@@ -16,10 +16,12 @@ module V1
       end
 
       get do
-        if Captcha.authenticate(params[:phone_number], params[:captcha])
-          {status: 'success', notice: "验证通过"}
+        cap = Captcha.valid_captchas(params[:phone_number]).last
+        if cap && cap.verification == params[:captcha]
+          cap.update!(verification_used: true)
+          {success: true, notice: "验证通过", token: cap.token}
         else
-          {status: 'fails', notice: "验证失败，请重新输入"}
+          {success: false, notice: "验证失败，请重新输入"}
         end
       end
     end

@@ -14,6 +14,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
     'submit #editStoreService': 'updateOnSubmit'
     'click #add_server_btn': 'openMaterialForm'
     'click #bargain_price_enabled': 'triggerPriceInput'
+    'click .detail': 'showCommissionTemplate'
 
   render: ->
     @$el.html(@template(service: @model))
@@ -34,8 +35,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
 
   updateOnSubmit: ->
     event.preventDefault()
-    console.log($("#editStoreService").serializeJSON())
-    @model.set $("#editStoreService").serializeJSON()
+    @model.set $("#editStoreService").serializeJSON({checkboxUncheckedValue: 'false', parseBooleans: true})
     @model.save() if @model.isValid(true)
 
   openMaterialForm: ->

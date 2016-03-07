@@ -11,6 +11,7 @@ class StoreOrderArchive
       save_deposit_cards
       save_package_services
       save_taozhuang
+      update_customer_assets
       reward_points
       pay_finish
       auto_outing
@@ -52,6 +53,8 @@ class StoreOrderArchive
   end
 
   def save_package_services
+    @package_service_assets = []
+    @immediate_used_package_items = @order.items.where(from_customer_asset: true, package_type: StorePackage.name)
     @order.packages.each do |order_item|
       if order_item.orderable.contain_service?
         order_item.quantity.times do
@@ -67,19 +70,22 @@ class StoreOrderArchive
                                                                  workflowable_hash: package_item.package_itemable.to_workflowable_hash
                                                                }
                                                   end
-          StoreCustomerPackagedService.create! store_id: @order.store_id,
-                                           store_chain_id: @order.store_chain_id,
-                                           store_customer_id: @order.store_customer_id,
-                                           store_vehicle_id: @order.store_vehicle_id,
-                                           package: order_item.orderable,
-                                           package_name: order_item.orderable.name,
-                                           items_attributes: items_attributes
+          @package_service_assets << StoreCustomerPackagedService.create!(store_id: @order.store_id,
+                                                                          store_chain_id: @order.store_chain_id,
+                                                                          store_customer_id: @order.store_customer_id,
+                                                                          store_vehicle_id: @order.store_vehicle_id,
+                                                                          package: order_item.orderable,
+                                                                          package_name: order_item.orderable.name,
+                                                                          items_attributes: items_attributes)
         end
        end
     end
+    check_customer_asset_item(@package_service_assets, @immediate_used_package_items)
   end
 
   def save_taozhuang
+    @taozhuang_service_assets = []
+    @immediate_used_taozhuang_items = @order.items.where(from_customer_asset: true, package_type: StoreMaterialSaleinfo.name)
     @order.taozhuangs.each do |order_item|
       if order_item.orderable.service_needed
         order_item.quantity.times do
@@ -92,15 +98,32 @@ class StoreOrderArchive
                                                          workflowable_hash: taozhuang_item.as_json
                                                        }
                                                   end
-          StoreCustomerTaozhuang.create! store_id: @order.store_id,
+          @taozhuang_service_assets << StoreCustomerTaozhuang.create!(store_id: @order.store_id,
                                          store_chain_id: @order.store_chain_id,
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,
                                          package: order_item.orderable,
                                          package_name: order_item.orderable.name,
-                                         items_attributes: items_attributes
+                                         items_attributes: items_attributes)
         end
       end
+    end
+    check_customer_asset_item(@taozhuang_service_assets, @immediate_used_taozhuang_items)
+  end
+
+  def update_customer_assets
+    customer_asset_items = @order.items.where("store_customer_asset_item_id IS NOT NULL AND from_customer_asset = 'true'")
+    customer_asset_items.each do |item|
+      item.store_customer_asset_item.increment!(:used_quantity, 1)
+      item.store_customer_asset_item.logs.create! store_id: @order.store_id,
+                                      store_chain_id: @order.store_chain_id,
+                                      store_customer_id: @order.store_customer_id,
+                                      store_vehicle_id: @order.store_vehicle_id,
+                                      store_order_id: @order.id,
+                                      store_order_item_id: item.id,
+                                      latest: 1,
+                                      quantity: 1,
+                                      balance: item.store_customer_asset_item.left_quantity
     end
   end
 
@@ -135,6 +158,29 @@ class StoreOrderArchive
         order_item.standard_volume_per_bill = order_item.orderable.divide_volume_per_bill
         order_item.actual_volume_per_bill = order_item.orderable.divide_volume_per_bill
         order_item.save!
+      end
+    end
+  end
+
+  private
+  def check_customer_asset_item(customer_assets, used_items)
+    customer_assets.each do |asset|
+      asset.items.each do |item|
+        used_items.each do |used_item|
+          if item.assetable == used_item.assetable
+            item.increment!(:used_quantity, 1)
+            item.logs.create! store_id: @order.store_id,
+                              store_chain_id: @order.store_chain_id,
+                              store_customer_id: @order.store_customer_id,
+                              store_vehicle_id: @order.store_vehicle_id,
+                              store_order_id: @order.id,
+                              store_order_item_id: used_item.id,
+                              latest: 1,
+                              quantity: 1,
+                              balance: item.left_quantity
+            break
+          end
+        end
       end
     end
   end

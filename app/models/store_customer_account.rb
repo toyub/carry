@@ -7,11 +7,11 @@ class StoreCustomerAccount
 
   def as_json(*args)
     {
-      balance: @entity.balance,
-      points: @entity.points,
-      credit_able: @settlement.creditable?,
-      credit_line: @settlement.credit_line,
-      human_readable_credit_line: @settlement.human_readable_credit_line
+      balance: @entity.try(:balance),
+      points: @entity.try(:points),
+      credit_able: @settlement.try(:creditable?),
+      credit_line: @settlement.try(:credit_line),
+      human_readable_credit_line: @settlement.try(:human_readable_credit_line)
     }
   end
 

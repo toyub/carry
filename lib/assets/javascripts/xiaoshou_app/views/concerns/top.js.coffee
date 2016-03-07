@@ -33,3 +33,13 @@ Mis.Views.Concerns.Top =
 
   redirectUrl: ->
     "#store_#{@rootResource()}s" unless @subResource() == 'profiles' && @action() == 'index'
+
+  showCommissionTemplate: (evt)->
+    detail_tmpl = JST['kucun/commissions/new/detail']
+    target = evt.target;
+    select = $(target).siblings('select')[0]
+    if select.value
+      $.get '/api/store_commission_templates/' + select.value + '.json', (response) ->
+        $("#commission_tempalte_detail").html(detail_tmpl(response)).show()
+    else
+      ZhanchuangAlert('请选择一个方案')

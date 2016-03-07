@@ -2,14 +2,17 @@ class StoreOrderItem < ActiveRecord::Base
   include BaseModel
 
   belongs_to :orderable, polymorphic: true
+  belongs_to :package, polymorphic: true
+  belongs_to :assetable, polymorphic: true
   belongs_to :store_order
   belongs_to :store_customer
   belongs_to :store_staff
+  belongs_to :store_customer_asset_item
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
+  has_many :store_staff_tasks
 
-
-  before_save :cal_amount
+  before_save :set_amount
   before_create :set_store_info
 
   scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
@@ -23,10 +26,6 @@ class StoreOrderItem < ActiveRecord::Base
 
   validates_presence_of :orderable
 
-  def cost_price
-    23
-  end
-
   def gross_profit
     self.amount - self.total_cost
   end
@@ -35,13 +34,16 @@ class StoreOrderItem < ActiveRecord::Base
     orderable_type == "StoreMaterialSaleinfo" ? '商品' : '服务'
   end
 
+  def cal_amount
+    _amount()
+  end
+
   def mechanics
     ['王晓勇', '李明亮']
   end
 
   def from_customer_asset?
-    @s ||= rand(2)
-    @s == 1
+    self.from_customer_asset
   end
 
   def workflow_mechanics
@@ -96,8 +98,12 @@ class StoreOrderItem < ActiveRecord::Base
 
   private
 
-    def cal_amount
-      self.amount = price * quantity
+    def set_amount
+      self.amount = _amount()
+    end
+
+    def _amount
+      quantity.to_i * price.to_f
     end
 
     def set_store_info

@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
-  layout 'tiny'
-
+  layout "login"
   before_action :set_staff, only: [:create]
 
   def new

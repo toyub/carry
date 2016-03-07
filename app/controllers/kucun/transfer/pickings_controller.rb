@@ -19,13 +19,12 @@ module Kucun
         picking.total_quantity = 0
         picking.total_amount = 0.0
         picking.total_inventory_amount = 0.0
-        picking.numero = ApplicationController.helpers.make_numero('T')
         picking.items.each do |item|
           item.cost_price = item.store_material.cost_price
           item.dest_depot_id = picking.dest_depot_id
           item.inventory_cost_price = item.store_material_inventory.cost_price
           item.amount = item.quantity.to_i * item.cost_price.to_f
-          
+
           picking.total_quantity += item.quantity.to_i
           picking.total_amount += item.amount
           picking.total_inventory_amount += item.quantity.to_i * item.inventory_cost_price.to_f
@@ -37,7 +36,7 @@ module Kucun
             item.store_material_inventory.outing!(item.quantity)
           end
         end
-        
+
         redirect_to action: 'index'
       end
 

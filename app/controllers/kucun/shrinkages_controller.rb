@@ -11,7 +11,6 @@ class Kucun::ShrinkagesController < Kucun::BaseController
   def create
 
     shrinkage = StoreMaterialShrinkage.new(shrinkage_params)
-    shrinkage.numero = ApplicationController.helpers.make_numero('S')
     ActiveRecord::Base.transaction do
       shrinkage.items.each do |item|
         item.prior_quantity = item.store_material_inventory.quantity

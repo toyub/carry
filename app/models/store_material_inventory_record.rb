@@ -8,4 +8,8 @@ class StoreMaterialInventoryRecord < ActiveRecord::Base
   def price
     self.ordered_cost_price
   end
+
+  def amount
+    self.quantity * self.price
+  end
 end

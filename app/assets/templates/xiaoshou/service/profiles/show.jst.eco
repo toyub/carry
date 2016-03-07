@@ -35,9 +35,27 @@
           <div class="item_content">
             <label class="width-75">服务类别</label>
             <select type="text" class="width-165" disabled="">
-              <option selected><%= @service.get 'category' %></option>
+              <option selected><%= @service.get 'category_name' %></option>
             </select>
           </div>
+
+          <div class="item_textarea">
+            <label class="width-100">销售提成方案：</label>
+            <select class="width-235" name="saleman_commission_template_id" disabled>
+              <option value=""></option>
+              <% Mis.store.commissionTemplates.each (ct) => : %>
+                <option <%= 'selected' if String(@service.get('saleman_commission_template_id')) == String(ct.id) %> value="<%= ct.id %>"><%=ct.get 'name' %></option>
+              <% end %>
+            </select>
+            <% if @service.get('saleman_commission_template_id') : %>
+            <a class="detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
+            <% end %>
+          </div>
+
+          <div class="item_content">
+            <label class="width-100"><input type="checkbox" <%= 'checked' if @service.get('vip_price_enabled') %> name="vip_price_enabled" disabled>启用会员价</label>
+          </div>
+
           <div class="item_textarea ">
             <label class="width-75">服务介绍</label>
             <textarea class="server_textarea width-432" disabled=""><%= @service.get 'introduction' %></textarea>

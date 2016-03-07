@@ -161,6 +161,12 @@
               <%= form.label :app_login_enabled, "允许使用APP", class: "width-115" %>
               <%= form.check_box :app_login_enabled, checked: @staff.app_login_enabled, class: "vertical-align-middle" %>
             </li>
+
+            <li>
+              <%= form.label :erp_login_enabled, "Erp系统操作员", class: "width-115" %>
+              <%= form.check_box :erp_login_enabled, checked: @staff.erp_login_enabled, class: "vertical-align-middle" %>
+            </li>
+
           </ul>
         </div>
       </div>

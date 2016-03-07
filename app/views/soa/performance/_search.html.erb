@@ -17,12 +17,14 @@
     </select>
   </div>
 
+
   <div class="position nav_item">
     <span>职务</span>
     <select name="store_position_id" class="width-100">
       <%= options_from_collection_for_select(@positions, 'id', 'name', params[:store_position_id]) %>
     </select>
   </div>
+
 
   <div class="keywords margin-right-50 nav_item">
     <span>关键字</span>
