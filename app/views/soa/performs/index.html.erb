@@ -13,7 +13,7 @@
           <th><label class="cursor-pointer date">日期<i class="fa fa-sort-down"></i></label></th>
           <th>订单号</th>
           <th>项目</th>
-          <th>流程</th>
+          <th>摘要</th>
           <th><label class="cursor-pointer">项目金额<i class="fa fa-sort-down"></i></label></th>
           <th><label class="cursor-pointer">提成金额<i class="fa fa-sort-down"></i></label></th>
         </tr>
@@ -23,6 +23,7 @@
     <table class="content">
       <tbody>
         <% @order_items.each do |item| %>
+          <%# <% commission_history = staff.commission_histories.find_by(created_month: @date.strftime("%Y%m")) %>
           <tr>
             <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
             <td><%= item.store_order.numero %></td>

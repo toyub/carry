@@ -22,6 +22,7 @@ class StoreStaff <  ActiveRecord::Base
   has_one :store_group, through: :store_group_member
   has_many :tasks, class_name: 'StoreStaffTask'
   has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
+  has_many :commission_histories, class_name: 'StoreStaffCommissionHistory'
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
