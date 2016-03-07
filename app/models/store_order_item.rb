@@ -104,6 +104,10 @@ class StoreOrderItem < ActiveRecord::Base
     sum(:quantity)
   end
 
+  def retail_amount
+    quantity.to_i * retail_price.to_f
+  end
+
   private
 
     def set_amount
