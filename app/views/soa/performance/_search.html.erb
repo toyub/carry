@@ -1,6 +1,6 @@
 <div class="search_nav">
   <%= form_tag("/soa/performance/search", method: :get) do -%>
-    <div class="date">
+    <div class="date nav_item">
       <span>日期</span>
       <%= date_select(
         "", :date,
@@ -10,22 +10,24 @@
     %>
   </div>
 
-  <div class="department">
-    <span class="width-50">部门</span>
+  <div class="department nav_item">
+    <span>部门</span>
     <select name="store_department_id" class="width-100">
       <%= options_from_collection_for_select(@departments, 'id', 'name', params[:store_department_id]) %>
     </select>
   </div>
 
-  <div class="position">
-    <span class="width-50">职务</span>
+
+  <div class="position nav_item">
+    <span>职务</span>
     <select name="store_position_id" class="width-100">
       <%= options_from_collection_for_select(@positions, 'id', 'name', params[:store_position_id]) %>
     </select>
   </div>
 
-  <div class="keywords margin-right-50">
-    <span class="width-50">关键字</span>
+
+  <div class="keywords margin-right-50 nav_item">
+    <span>关键字</span>
     <%= text_field_tag :keyword, params[:keyword], class: "width-150" %>
     <%= submit_tag "查询", class: "btn query_btn"%>
   </div>

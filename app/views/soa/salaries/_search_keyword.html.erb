@@ -1,6 +1,6 @@
 <div class="search_nav">
   <%= form_tag("/soa/salaries", method: :get) do -%>
-    <div class="date">
+    <div class="date nav_item">
       <span>日期</span>
       <%= date_select(
         "", :date,
@@ -11,13 +11,13 @@
     </div>
 
 
-  <div class="keywords margin-right-50">
+  <div class="keywords nav_item margin-right-50">
     <span>关键字</span>
     <%= text_field_tag :keyword, params[:keyword], class: "width-150" %>
     <%= submit_tag "查询", class: "btn query_btn"%>
   </div>
 
-  <div class="float-right">
+  <div class="float-right nav_item">
     <%= link_to "记 录", record_soa_salaries_path, class: "btn record_btn width-60" %>
     <% if !@staffs.empty? %>
       <a href="#" class="btn print_btn">打印</a>
