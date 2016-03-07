@@ -56,6 +56,10 @@ class StoreStaff <  ActiveRecord::Base
     JobType.find(self.job_type_id)
   end
 
+  def mechanic?
+    self.job_type_id == JobType::TYPES_ID['技师']
+  end
+
   def level_type
     StoreStaffLevel.find(self.level_type_id)
   end
@@ -215,19 +219,27 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total(month = Time.now)
+    sale_commission(month) + process_commission(month)
+  end
+
+  def process_commission(month = Time.now)
+    (mechanic? && commission?) ? tasks.by_month(month).map(&:commission).sum : 0.0
+  end
+
+  def sale_commission(month = Time.now)
     materials_commission(month) + services_commission(month) + packages_commission(month)
   end
 
   def materials_commission(month = Time.now)
-    commission? ? store_order_items.by_month(month).materials.inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? store_order_items.by_month(month).materials.map(&:commission).sum : 0.0
   end
 
   def services_commission(month = Time.now)
-    commission? ? tasks.by_month(month).inject(0) {|sum, task| sum += task.taskable.commission(task.store_order_item) } : 0.0
+    commission? ? store_order_items.by_month(month).where(orderable_type: StoreService.name).map(&:commission).sum : 0.0
   end
 
   def packages_commission(month = Time.now)
-    commission? ? store_order_items.by_month(month).packages.inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? store_order_items.by_month(month).packages.map(&:commission).sum : 0.0
   end
 
   def self.items_amount_total(month = Time.now)
