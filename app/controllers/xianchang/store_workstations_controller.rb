@@ -13,7 +13,7 @@ module Xianchang
       @pending_orders_count = current_store.store_orders.pending.count
       @mechanics_count = StoreStaff.mechanics.count
 
-      @task_finished_orders = current_store.store_orders.task_finished
+      @task_finished_orders = current_store.store_orders.task_finished.paying.today
       @workstations = current_store.workstations.order("id asc")
     end
 
