@@ -97,8 +97,11 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def destroy_related_workflows
-    self.store_service_snapshot.destroy
-    self.store_service_workflow_snapshots.map(&:remove!)
+    ActiveRecord::Base.transaction do
+      self.store_service_snapshot.destroy
+      self.store_service_workflow_snapshots.map(&:remove!)
+      self.store_service_workflow_snapshots.delete_all
+    end
   end
 
   private
