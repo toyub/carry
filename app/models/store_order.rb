@@ -119,6 +119,18 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
+  def settle_down
+    if self.paying?
+      self.state = :finished
+    end
+  end
+
+  def settle_down!
+    if self.paying?
+      self.finished!
+    end
+  end
+
   def workflows_finished?
     workflows.all? { |w| w.finished? }
   end
