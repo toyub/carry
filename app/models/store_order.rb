@@ -99,6 +99,7 @@ class StoreOrder < ActiveRecord::Base
     self.store_vehicle.license_number
   end
 
+  #TODO: find the order mechanics
   def mechanic
     result = []
     self.items.map(&->(item){item.workflow_mechanics}).each do |mechanic|
