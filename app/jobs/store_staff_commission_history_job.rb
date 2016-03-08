@@ -33,6 +33,7 @@ class StoreStaffCommissionHistoryJob < ActiveJob::Base
   def commission_type(staff, item)
     type = 'sale'
     type = 'constructed' if item.constructed_by? staff
+    type = 'all' if item.constructed_by?(staff) && item.constructed_by?(staff)
     type
   end
 
