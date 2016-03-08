@@ -32,15 +32,7 @@
   <script>
     jQuery(function($){
 
-      var allRoles = [
-        {code: 0, name: '管理员'},
-        {code: 1, name: '门店经理'},
-        {code: 2, name: '收银员'},
-        {code: 3, name: '出纳员'},
-        {code: 4, name: '库管员'},
-        {code: 5, name: '销售员'},
-        {code: 6, name: '财务员'}
-      ]
+      var allRoles = <%= StoreStaff::ROLES.to_json(root: nil).html_safe %>;
 
       var Model = Backbone.Model.extend({
         toJSON: function(){

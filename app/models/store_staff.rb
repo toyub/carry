@@ -50,6 +50,16 @@ class StoreStaff <  ActiveRecord::Base
   scope :verifiers, -> { where(mis_login_enabled: true) }
   scope :unregular, -> { where(regular: false) }
 
+  ROLES = [
+        {code: 0, name: '管理员'},
+        {code: 1, name: '门店经理'},
+        {code: 2, name: '收银员'},
+        {code: 3, name: '出纳员'},
+        {code: 4, name: '库管员'},
+        {code: 5, name: '销售员'},
+        {code: 6, name: '财务员'}
+      ]
+
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end
@@ -64,6 +74,18 @@ class StoreStaff <  ActiveRecord::Base
 
   def level_type
     StoreStaffLevel.find(self.level_type_id)
+  end
+
+  def includes_roles?(roles_codes=nil)
+    if self.roles.blank? || roles_codes.blank?
+      false
+    else
+      (self.roles & [roles_codes].flatten).length > 0
+    end
+  end
+
+  def has_discount_authority?
+    self.includes_roles?([0, 1])
   end
 
   def reset_password(new_password, password_confirmation)

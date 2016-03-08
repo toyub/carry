@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20160308075422) do
     t.integer  "orderable_id"
     t.integer  "quantity",                               null: false
     t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
+    t.decimal  "amount",         precision: 8, scale: 2, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20160308075422) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
+    t.decimal  "amount",     precision: 10, scale: 2
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1238,6 +1238,7 @@ ActiveRecord::Schema.define(version: 20160308075422) do
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
     t.json     "situation"
     t.integer  "cashier_id",                                                                                            comment: "收银员"
+    t.boolean  "service_included",                                                         default: false
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1284,7 +1285,7 @@ ActiveRecord::Schema.define(version: 20160308075422) do
     t.string   "content"
     t.integer  "delay_interval",   default: 0
     t.integer  "delay_unit"
-    t.integer  "trigger_timing"
+    t.integer  "trigger_timing",   default: 1
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -1530,6 +1531,7 @@ ActiveRecord::Schema.define(version: 20160308075422) do
     t.integer  "status",                                      default: 0
     t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
+    t.string   "inspector"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1650,6 +1652,7 @@ ActiveRecord::Schema.define(version: 20160308075422) do
     t.datetime "updated_at",          null: false
     t.string   "taskable_type"
     t.integer  "taskable_id"
+    t.integer  "mechanic_id"
   end
 
   create_table "store_subscribe_order_items", force: :cascade do |t|

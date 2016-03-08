@@ -108,6 +108,14 @@ class StoreOrderItem < ActiveRecord::Base
     quantity.to_i * retail_price.to_f
   end
 
+  def destroy_related_workflows
+    ActiveRecord::Base.transaction do
+      self.store_service_snapshot.destroy
+      self.store_service_workflow_snapshots.map(&:remove!)
+      self.store_service_workflow_snapshots.delete_all
+    end
+  end
+
   private
 
     def set_amount
@@ -119,7 +127,7 @@ class StoreOrderItem < ActiveRecord::Base
     end
 
     def set_store_info
-      self.store_id = store_order.id
+      self.store_id = store_order.store_id
       self.store_chain_id = store_order.store_chain.id
       self.store_staff_id = store_order.creator.id
     end
