@@ -72,7 +72,7 @@
             <td>
               <% item.store_service_workflow_snapshots.each do |snapshot| %>
                 <% snapshot.mechanics.each do |mechanic| %>
-                  <label class="technician"><%= mechanic['name'] %></label>
+                  <label class="technician"><%= mechanic.name %></label>
                 <% end %>
               <% end %>
             </td>
