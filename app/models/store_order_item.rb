@@ -107,7 +107,7 @@ class StoreOrderItem < ActiveRecord::Base
     end
 
     def set_store_info
-      self.store_id = store_order.id
+      self.store_id = store_order.store_id
       self.store_chain_id = store_order.store_chain.id
       self.store_staff_id = store_order.creator.id
     end
