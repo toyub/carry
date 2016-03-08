@@ -110,7 +110,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def terminate!
     self.store_workstation.try(:free)
-    self.mechanics.map(&:store_group_member).map(&:free)
+    self.mechanics.map(&:store_group_member).map(&:free!)
     self.finished!
     self.update!(elapsed: actual_time_in_minutes)
   end

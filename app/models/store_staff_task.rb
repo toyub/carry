@@ -9,6 +9,6 @@ class StoreStaffTask < ActiveRecord::Base
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
 
   def free
-    self.mechanic.store_group_member.free
+    self.mechanic.store_group_member.free!
   end
 end
