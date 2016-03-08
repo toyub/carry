@@ -46,7 +46,11 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def has_mechanic?
-    mechanics.present?
+    mechanics.present? || has_free_mechanic?
+  end
+
+  def has_free_mechanic?
+    self.store.store_staff.mechanics.map(&:store_group_member).any? {|mem| mem.ready? && mem.eligible_for?(self)}
   end
 
   def executable?
@@ -67,6 +71,23 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
+  end
+
+  def assign_mechanics
+    return if mechanics.present?
+    store_staff = self.store.store_staff.mechanics.map(&:store_group_member).select {|mem| mem.ready? && mem.eligible_for?(self)}.first.member
+    StoreStaffTask.create!(
+      workflow_id: self.id,
+      mechanic_id: store_staff.id,
+      store_order_item_id: self.store_order_item_id,
+      store_staff_id: self.store_staff_id,
+      store_id: self.store_id,
+      store_chain_id: self.store_chain_id
+    )
+  end
+
+  def set_mechanic_busy
+    self.mechanics.map(&:store_group_member).map(&:busy!)
   end
 
   def count_down

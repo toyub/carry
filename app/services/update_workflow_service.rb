@@ -7,7 +7,6 @@ class UpdateWorkflowService
 
   def call
     @workflow.each do |id, attrs|
-      binding.pry
       attrs[:mechanics] = attrs[:mechanics].values if attrs[:mechanics]
       attrs[:mechanics] = [] if attrs[:mechanics].blank?
       w = StoreServiceWorkflowSnapshot.find(id)

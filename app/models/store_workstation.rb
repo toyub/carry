@@ -54,6 +54,7 @@ class StoreWorkstation < ActiveRecord::Base
   def perform!(store_order)
     ActiveRecord::Base.transaction do
       store_order.workflows.processing.first.try(:finish!)
+      store_order.assign_mechanics
       store_order.workflows.pending.order("created_at asc").each do |w|
         w.execute(self) and break if w.executable?
       end

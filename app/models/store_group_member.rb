@@ -16,4 +16,9 @@ class StoreGroupMember < ActiveRecord::Base
   def free
     self.ready!
   end
+
+  def eligible_for?(workflow)
+    return true if workflow.engineer_level.blank?
+    workflow.engineer_level == self.member.level_type_id
+  end
 end
