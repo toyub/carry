@@ -18,6 +18,8 @@
           <thead>
             <tr class="bg-color-e0e2cf color-282726">
               <th>#</th>
+              <th>入库时间</th>
+              <th>入库单号</th>
               <th>商品名称</th>
               <th>条码</th>
               <th>一级分类</th>
@@ -29,13 +31,16 @@
               <th>小计</th>
               <th>仓库</th>
               <th>备注</th>
+              <th>操作人</th>
             </tr>
           </thead>
           <tbody>
             <% @items.each_with_index do |item, idx| %>
-            <tr title="<%= item.store_material.name %>">
+            <tr>
               <td class="number"><%= idx + 1 %></td>
-              <td><%= item.store_material.name.truncate(8) %></td>
+              <td><%= item.created_at.to_s(:date_with_short_time) %></td>
+              <td><%= item.store_material_checkin.numero %></td>
+              <td title="<%= item.store_material.name %>"><%= item.store_material.name.truncate(8) %></td>
               <td><%= item.store_material.barcode %></td>
               <td><%= item.store_material.store_material_root_category.try :name %></td>
               <td><%= item.store_material.store_material_category.try :name %></td>
@@ -46,6 +51,7 @@
               <td><%= item.amount %></td>
               <td><%= item.store_depot.name %></td>
               <td><%= item.remark %></td>
+              <td><%= item.store_staff.screen_name %></td>
             </tr>
             <% end %>
           </tbody>
