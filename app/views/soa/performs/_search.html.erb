@@ -1,5 +1,5 @@
 <div class="search_nav">
-  <%= form_tag("/soa/staff/#{@staff.id}/performs/search", method: :get) do -%>
+  <%= form_tag("/soa/staff/#{@staff.id}/performs", method: :get) do -%>
     <div class="item-query nav_item">
       <label>时间</label>
       <%= date_select(
@@ -12,7 +12,7 @@
 
     <div class="item-query nav_item">
       <label>项目类别</label>
-      <%= select_tag :category, options_for_select([["全部", "all"], ["商品", "materials"], ["服务", "services"]], params[:category]), class: "width-100" %>
+      <%= select_tag :category, options_for_select([["全部", "all"], ["销售", "sale"], ["施工", "constructed"]], params[:category]), class: "width-100" %>
       <%= submit_tag "查询", class: "btn query_btn do_search_result" %>
     </div>
   <% end %>

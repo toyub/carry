@@ -20,7 +20,10 @@ class StoreStaff <  ActiveRecord::Base
   has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
-  has_many :tasks, class_name: 'StoreStaffTask'
+  has_many :store_staff_tasks
+  has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
+  has_many :store_commission_items, as: :ownerable
+  has_many :store_commissions, as: :ownerable
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
@@ -63,6 +66,10 @@ class StoreStaff <  ActiveRecord::Base
 
   def job_type
     JobType.find(self.job_type_id)
+  end
+
+  def mechanic?
+    self.job_type_id == JobType::TYPES_ID['技师']
   end
 
   def level_type
@@ -236,19 +243,42 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total(month = Time.now)
+    sale_commission(month) + constucted_commission(month)
+  end
+
+  def constucted_commission(month = Time.now)
+    (mechanic? && commission?) ? store_staff_tasks.by_month(month).map(&:commission).sum : 0.0
+  end
+
+  def sale_commission(month = Time.now)
     materials_commission(month) + services_commission(month) + packages_commission(month)
   end
 
   def materials_commission(month = Time.now)
-    commission? ? store_order_items.by_month(month).materials.inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? store_order_items.by_month(month).materials.map(&:commission).sum : 0.0
   end
 
   def services_commission(month = Time.now)
-    commission? ? tasks.by_month(month).inject(0) {|sum, task| sum += task.taskable.commission(task.store_order_item) } : 0.0
+    commission? ? store_order_items.by_month(month).where(orderable_type: StoreService.name).map(&:commission).sum : 0.0
   end
 
   def packages_commission(month = Time.now)
-    commission? ? store_order_items.by_month(month).packages.inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? store_order_items.by_month(month).packages.map(&:commission).sum : 0.0
+  end
+
+  def commission_of(item)
+    sum = 0.0
+    sum = item.commission if item.saled_by? self
+    sum += store_staff_tasks.by_item(item).map(&:commission).sum if item.constructed_by? self
+    sum
+  end
+
+  def sale_commission_of(item)
+    item.commission
+  end
+
+  def task_commission_of(task)
+    task.commission
   end
 
   def self.items_amount_total(month = Time.now)
