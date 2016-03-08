@@ -12,4 +12,8 @@ class StoreStaffTask < ActiveRecord::Base
   def commission
     workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.commission(store_order_item) : 0.0
   end
+
+  def constructed_commission_template
+    workflow_snapshot.mechanic_commission
+  end
 end

@@ -13,7 +13,7 @@ class Soa::PerformsController < Soa::BaseController
     end
 
     if @date < Time.now.at_beginning_of_month
-      @commission_items = @staff.commission_items.by_month(@date)
+      @commission_items = @staff.store_commission_items.by_month(@date)
       @commission_items = @commission_items.by_type(params[:category]) if params[:category].present? && params[:category] != 'all'
     else
       @order_items = (@staff.store_order_items.where.not(orderable_type: StoreMaterialSaleinfoService.name).joins(:store_order).by_month(@date) unless params[:category] == 'constructed') || []

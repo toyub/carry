@@ -52,4 +52,8 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     mechanic_commission_template.present? ? mechanic_commission_template.commission(order_item) : 0.0
   end
 
+  def saleman_commission_template
+    nil
+  end
+
 end
