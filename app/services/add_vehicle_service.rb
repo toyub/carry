@@ -13,7 +13,11 @@ class AddVehicleService
 
   def call
     ActiveRecord::Base.transaction do
-      @customer ||= StoreCustomer.create!(@customer_params)
+      if @customer.blank?
+        @customer ||= StoreCustomer.create!(@customer_params)
+        entity = @customer.create_store_customer_entity(@plate_params.except(:license_number))
+        entity.create_store_customer_settlement(@plate_params.except(:license_number))
+      end
       @vehicle = StoreVehicle.create!(@vehicle_params.merge(store_customer_id: @customer.id))
       @plate = @vehicle.plates.create!(@plate_params)
     end
