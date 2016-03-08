@@ -8,7 +8,9 @@ class UpdateWorkflowService
   def call
     @workflow.each do |id, attrs|
       attrs[:mechanics] = attrs[:mechanics].values if attrs[:mechanics]
-      attrs[:mechanics] = [] if attrs[:mechanics].blank?
+      if attrs[:mechanics].blank?
+        return false
+      end
       w = StoreServiceWorkflowSnapshot.find(id)
       StoreStaffTask.where(workflow_id: w.id).where.not(mechanic_id: attrs[:mechanics].map {|m| m[:id]}).map(&:free)
       attrs.delete(:mechanics).each do |mechanic|

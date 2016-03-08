@@ -34,6 +34,7 @@ module Xianchang
 
     def construction
       @status = UpdateWorkflowService.call(construction_params)
+      SpotDispatchJob.perform_now(current_store.id)
     end
 
     def finish
