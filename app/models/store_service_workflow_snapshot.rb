@@ -129,7 +129,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def free_mechanics
-    self.mechanics.map(&:store_group_member).map(&:free)
+    self.mechanics.map(&:store_group_member).map(&:free!)
   end
 
   def remove!
