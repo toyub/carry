@@ -33,6 +33,7 @@ module Xianchang
     end
 
     def construction
+      binding.pry
       @status = UpdateWorkflowService.call(construction_params)
     end
 

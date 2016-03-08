@@ -136,7 +136,9 @@ Rails.application.routes.draw do
       put :terminate, on: :member
       get :check_dispatch, on: :member
     end
-    resources :store_workflows, only: [:edit, :update]
+    resources :store_workflows, only: [:edit, :update] do
+      get :free_mechanics, on: :member
+    end
   end
 
   namespace :sas do

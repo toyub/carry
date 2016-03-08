@@ -9,6 +9,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   belongs_to :store_workstation
   belongs_to :store_order
   belongs_to :store_vehicle
+  has_many :tasks, class_name: 'StoreStaffTask', foreign_key: :workflow_id
 
   validates :store_staff_id, presence: true
   validates :store_service_id, presence: true
@@ -20,6 +21,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def engineer
     # { name: ["xiao","ming"] }
      1
+  end
+
+  def free_mechanics
+    self.workstations.map(&:store_group).compact.map(&:members).flatten.uniq.select {|m| m.store_group_member.ready?}
   end
 
   def workstations
@@ -37,7 +42,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics
-    read_attribute(:mechanics) || []
+    tasks.map(&:mechanic) || []
   end
 
   def executable?
@@ -54,6 +59,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
     workstation.update!(current_workflow: self)
     workstation.busy!
+    self.mechanics.map(&:store_group_memeber).map(&:busy!)
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
@@ -79,6 +85,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def terminate!
     self.store_workstation.try(:free)
+    self.mechanics.map(&:store_group_memeber).map(&:free)
     self.finished!
     self.update!(elapsed: actual_time_in_minutes)
   end

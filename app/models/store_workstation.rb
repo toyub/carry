@@ -3,6 +3,7 @@ class StoreWorkstation < ActiveRecord::Base
 
   belongs_to :store_workstation_category
   belongs_to :current_workflow, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :workflow_id
+  belongs_to :store_group
 
   validates :name, presence: true, uniqueness: {scope: :store_id}
 

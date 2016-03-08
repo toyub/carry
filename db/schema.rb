@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307004736) do
+ActiveRecord::Schema.define(version: 20160307061958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1616,10 +1616,9 @@ ActiveRecord::Schema.define(version: 20160307004736) do
     t.integer  "workflow_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.string   "taskable_type"
-    t.integer  "taskable_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "mechanic_id"
   end
 
   create_table "store_subscribe_order_items", force: :cascade do |t|

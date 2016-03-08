@@ -12,4 +12,8 @@ class StoreGroupMember < ActiveRecord::Base
       busy: counts[self.work_statuses[:busy]].to_i
     }
   end
+
+  def free
+    self.ready!
+  end
 end

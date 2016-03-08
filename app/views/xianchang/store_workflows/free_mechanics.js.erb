@@ -1,0 +1,4 @@
+<% @mechanics.each do |m| -%>
+  $("#workflow-<%= @workflow.id %>").append("<%= j render partial: 'mechanic', locals: {mechanic: m} %>");
+<% end -%>
+$("#workflow-<%= @workflow.id %>").show();

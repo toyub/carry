@@ -16,17 +16,14 @@
         <div class="assign_technician">
           <ul id="workflow-<%= workflow.id %>-mechanics">
             <% workflow.mechanics.each do |m| %>
-              <li class="do_coise_close js-mechanic" id="workflow-<%= workflow.id %>-mechanics-<%= m['id'] %>"><span><%= m["name"] %><i class="coise_close lnr-cross lnr js-mechanic-close"></i></span>
-              <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m["id"] %>][id]" value="<%= m["id"] %>" />
-              <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m["id"] %>][name]" value="<%= m["name"] %>" /></li>
+              <li class="do_coise_close js-mechanic" id="workflow-<%= workflow.id %>-mechanics-<%= m.id %>"><span><%= m.full_name %><i class="coise_close lnr-cross lnr js-mechanic-close"></i></span>
+              <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][id]" value="<%= m.id %>" />
+              <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][name]" value="<%= m.full_name %>" /></li>
             <% end %>
           </ul>
           <i class="action_button fa-plus fa <%= 'js-show-mechanics' if workflow.pending? %>" data-id="<%= workflow.id %>"></i>
         </div>
         <ul class="technician js-mechanics" id="workflow-<%= workflow.id %>" data-id="<%= workflow.id %>" style="display:none;">
-          <% StoreStaff.mechanics.each do |m| %>
-            <li data-id="<%= m.id %>" data-name="<%= m.full_name %>"><%= m.full_name %></li>
-          <% end %>
         </ul>
         </li>
         <li>
