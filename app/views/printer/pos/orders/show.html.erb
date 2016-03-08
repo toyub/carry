@@ -224,11 +224,7 @@
             <% service.workflow_snapshots.each do |workflow| %>
               <dl class="dl-item">
                 <dd><%= workflow.name %></dd>
-                <dd>
-                  <% workflow.workstations.each do |w| %>
-                    <span><%= w.name %></span>
-                  <% end %>
-                </dd>
+                <dd><%= workflow.store_workstation.try :name %></dd>
                 <dd><%= workflow.used_time || workflow.work_time_in_minutes %></dd>
                 <dd>
                   <% workflow.mechanics.each do |m| %>
