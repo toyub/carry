@@ -96,6 +96,14 @@ class StoreOrderItem < ActiveRecord::Base
     sum(:quantity)
   end
 
+  def destroy_related_workflows
+    ActiveRecord::Base.transaction do
+      self.store_service_snapshot.destroy
+      self.store_service_workflow_snapshots.map(&:remove!)
+      self.store_service_workflow_snapshots.delete_all
+    end
+  end
+
   private
 
     def set_amount
