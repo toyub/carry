@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308023427) do
+ActiveRecord::Schema.define(version: 20160308061629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,6 +311,26 @@ ActiveRecord::Schema.define(version: 20160308023427) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
+  end
+
+  create_table "store_commission_items", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_order_id"
+    t.string   "store_order_numero"
+    t.integer  "store_order_item_id"
+    t.string   "store_order_item_name"
+    t.string   "store_order_item_remark"
+    t.decimal  "item_amount",             precision: 8, scale: 2
+    t.decimal  "commission_amount",       precision: 8, scale: 2
+    t.string   "commission_type"
+    t.datetime "order_created_at"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "orderable_type"
+    t.string   "ownerable_type"
+    t.integer  "ownerable_id"
   end
 
   create_table "store_commission_template_sections", force: :cascade do |t|
@@ -1607,23 +1627,6 @@ ActiveRecord::Schema.define(version: 20160308023427) do
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
-
-  create_table "store_staff_commission_histories", force: :cascade do |t|
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_staff_id"
-    t.integer  "store_order_id"
-    t.string   "store_order_numero"
-    t.integer  "store_order_item_id"
-    t.string   "store_order_item_name"
-    t.string   "store_order_item_remark"
-    t.decimal  "item_amount",             precision: 8, scale: 2
-    t.decimal  "commission_amount",       precision: 8, scale: 2
-    t.string   "commission_type"
-    t.datetime "order_created_at"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-  end
 
   create_table "store_staff_sale_histories", force: :cascade do |t|
     t.integer  "store_id"

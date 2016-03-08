@@ -20,9 +20,9 @@ class StoreStaff <  ActiveRecord::Base
   has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
-  has_many :tasks, class_name: 'StoreStaffTask'
+  has_many :store_staff_tasks
   has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
-  has_many :commission_histories, class_name: 'StoreStaffCommissionHistory'
+  has_many :store_commission_items, as: :ownerable
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
@@ -224,7 +224,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def constucted_commission(month = Time.now)
-    (mechanic? && commission?) ? tasks.by_month(month).map(&:commission).sum : 0.0
+    (mechanic? && commission?) ? store_staff_tasks.by_month(month).map(&:commission).sum : 0.0
   end
 
   def sale_commission(month = Time.now)
@@ -246,7 +246,7 @@ class StoreStaff <  ActiveRecord::Base
   def commission_of(item)
     sum = 0.0
     sum = item.commission if item.saled_by? self
-    sum += tasks.by_item(item).map(&:commission).sum if item.constructed_by? self
+    sum += store_staff_tasks.by_item(item).map(&:commission).sum if item.constructed_by? self
     sum
   end
 

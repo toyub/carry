@@ -89,7 +89,7 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def constructed_by? staff
-    staff.tasks.by_item(id).present?
+    staff.store_staff_tasks.by_item(id).present?
   end
 
   def saled_by? staff
