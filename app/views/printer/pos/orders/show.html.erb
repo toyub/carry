@@ -228,7 +228,7 @@
                 <dd><%= workflow.used_time || workflow.work_time_in_minutes %></dd>
                 <dd>
                   <% workflow.mechanics.each do |m| %>
-                    <span><%= m['name'] %></span>
+                    <span><%= m.full_name %></span>
                   <% end %>
                 </dd>
               </dl>
