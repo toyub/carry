@@ -16,6 +16,7 @@ class StoreStaffTask < ActiveRecord::Base
 
   def constructed_commission_template
     workflow_snapshot.mechanic_commission
+  end
 
   def free
     self.mechanic.store_group_member.free!
