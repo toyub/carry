@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307074024) do
+ActiveRecord::Schema.define(version: 20160308023427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -336,8 +336,8 @@ ActiveRecord::Schema.define(version: 20160307074024) do
     t.integer  "aim_to"
     t.integer  "confined_to"
     t.integer  "mode_id"
-    t.string   "level_weight_hash", limit: 100
-    t.integer  "status",                        default: 0
+    t.json     "level_weight_hash",            default: {}
+    t.integer  "status",                       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
