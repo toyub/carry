@@ -14,8 +14,8 @@ html{ font-size:100%;}
 body {
   width: 210mm;
 	background:#ffffff;
-	padding: 10px 0px;
-	margin: 0px;
+	padding: 7.5pt 0;
+	margin: 0;
 	color: #717171;
 	overflow-y:scroll;
 	position:relative;
@@ -31,10 +31,10 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 }
 
 select,input[type="text"]{
-	height:25px;
-	line-height:25px;
+	height:18.75pt;
+	line-height:18.75pt;
 	border:1pt solid #1B1414;
-	text-indent:5px;
+	text-indent:3.75pt;
 	font-size:10pt;
 	font-family:"微软雅黑","Microsoft YaHei" ;
 }
@@ -68,19 +68,19 @@ textarea[disabled]{
 
 ul li{ list-style:none;}
 
-ul {list-style: none; padding: 0px;}
+ul {list-style: none; padding: 0;}
 
-table {border-collapse:collapse; border:0px; border-spacing:0px; }
+table {border-collapse:collapse; border:0; border-spacing:0; }
 
-table tr td{padding:0px 5px;}
+table tr td{padding:0 3.75pt;}
 
 img{ border:none 0;}
 
 label{ display:inline-block;}
 
 
-input[ type="text"] {text-indent: 5px;}
-input[type="checkbox"]{height:12px;}
+input[ type="text"] {text-indent: 3.75pt;}
+input[type="checkbox"]{height:9pt;}
 input[type="radio"]{ vertical-align:middle;}
 
 
@@ -88,7 +88,7 @@ input[type="radio"]{ vertical-align:middle;}
 	background: #fff;
 	position: relative;
 	width:100%;
-	min-height: 760px;
+	min-height: 570pt;
 	margin:auto;
 	z-index:0;
 
@@ -100,25 +100,25 @@ input[type="radio"]{ vertical-align:middle;}
     .dialog_title {
       color: #3B5E63;
       font-weight: bold;
-      padding-left: 20px;
-      height: 40px;
-      line-height: 40px;
+      padding-left: 15pt;
+      height: 30pt;
+      line-height: 30pt;
       font-size: 12pt;
     }
   }
 
   .order_details{
 
-  	width: 800px;
-  	min-height: 500px;
+  	width: 600pt;
+  	min-height: 375pt;
   	background: #fff;
   	position: relative;
     border: 1pt solid #1B1414;
     margin: 0 auto;
-    margin-bottom: 100px;
+    margin-bottom: 75pt;
 
   	.vehicle_order_details{
-  		padding: 0px 10px 0px 20px;
+  		padding: 0 7.5pt 0 15pt;
 
   		.vehicle_info{
   			width: 100%;
@@ -127,25 +127,21 @@ input[type="radio"]{ vertical-align:middle;}
           overflow: auto;
 
           .item_content{
-            padding:5px 0px;
-            float: left;
+            padding:3.75pt 0;
             width: 32.7%;
             display: inline-block;
             span{
-              height: 20px;
-              line-height: 20px;
+              line-height: 15pt;
+              min-height: 15pt;
               border-bottom: 1pt solid #1B1414;
               display: inline-block;
               vertical-align: middle;
-              text-indent: 10px;
-              width: 133px;
-
+              width: 130pt;
             }
 
             label{
               text-align: right;
               padding-right: 7px;
-              float:left;
               width: 50pt;
             }
 
@@ -155,13 +151,13 @@ input[type="radio"]{ vertical-align:middle;}
 
 
   		.vehicle_condition{
-  			margin-top: 10px;
+  			margin-top: 7.5pt;
         border-top: 1pt solid #1B1414;
         overflow: auto;
 
   			.vehicle_condition_info{
   				width: 100%;
-  				min-height: 201px;
+  				min-height: 151pt;
   				.vehicle_check_point{
   					width: 49.5%;
   					position: relative;
@@ -170,35 +166,35 @@ input[type="radio"]{ vertical-align:middle;}
 
             .status{
               width: 100%;
-              padding: 10px 0px;
+              padding: 7.5pt 0;
               dl{
-                height: 28px;
+                height: 21pt;
                 dd{
                   input[type="range"]{
                     border: none;
-                    margin-top: 2px;
+                    margin-top: 1.5pt;
                     background-color: transparent;
-                    width: 120px;
+                    width: 90pt;
                     -webkit-appearance: none;
-                    height:10px;
+                    height:7.5pt;
                     position: absolute;
                     outline: none;
-                    left: 73px;
+                    left: 97.3pt;
                   }
                   span{
                     border: 1pt solid #1B1414;
                     display: inline-block;
                     &.oil{
-                      height:5px;
-                      width: 58px;
+                      height: 3.75pt;
+                      width: 43.5pt;
                       border-top: none;
-                      margin-left: 10px;
+                      margin-left: 7.5pt;
                     }
 
                     &:nth-child(3){
                       border-left:none;
-                      margin-left:0px;
-                      margin-right: 10px;
+                      margin-left: 0;
+                      margin-right: 7.5pt;
                     }
                     &:nth-child(4){
                       background-color: #000;
@@ -207,16 +203,16 @@ input[type="radio"]{ vertical-align:middle;}
                   }
 
                   .mileage{
-                    width: 150px;
-                    height: 28px;
-                    line-height: 28px;
+                    width: 112.5pt;
+                    height: 21pt;
+                    line-height: 21pt
                   }
 
                   label{
-                    height: 25px;
-                    line-height: 25px;
+                    height: 18.75pt;
+                    line-height: 18.75pt;
                     float: left;
-                    margin-right: 10px;
+                    margin-right: 7.5pt;
                   }
                 }
 
@@ -228,28 +224,28 @@ input[type="radio"]{ vertical-align:middle;}
               position: relative;
               display: flex;
               align-items: center;
-              height: 185px;
+              height: 138.75pt;
               img{
-    						width: 200px;
-                margin-left: 53px;
+    						width: 150pt;
+                margin-left: 39.75pt;
     					}
               input[type="checkbox"]{
     						position: absolute;
-    						width: 18px;
-    						height: 18px;
+    						width: 13.5pt;
+    						height: 13.5pt;
 
-    						&.check_point_01{top:42px;left: 35px;}
-    						&.check_point_02{top:92px;left: 23px;}
-    						&.check_point_03{top:136px;left: 35px;}
-    						&.check_point_04{top:146px;left: 85px;}
-    						&.check_point_05{top:146px;left: 142px;}
-    						&.check_point_06{top:146px;left: 192px;}
-    						&.check_point_07{top:136px;left: 250px;}
-    						&.check_point_08{top:93px;left: 271px;}
-    						&.check_point_09{top:40px;left: 250px;}
-    						&.check_point_10{top:29px;left: 192px;}
-    						&.check_point_11{top:29px;left: 142px;}
-    						&.check_point_12{top:29px;left: 85px;}
+    						&.check_point_01{top:31.5pt;left: 26.25pt;}
+    						&.check_point_02{top:69pt;left: 17.25pt;}
+    						&.check_point_03{top:102pt;left: 26.25pt;}
+    						&.check_point_04{top:109.5pt;left: 63.75pt;}
+    						&.check_point_05{top:109.5pt;left: 106.5pt;}
+    						&.check_point_06{top:109.5pt;left: 144pt;}
+    						&.check_point_07{top:102pt;left: 187.5pt;}
+    						&.check_point_08{top:69.75pt;left: 203.25pt;}
+    						&.check_point_09{top:30pt;left:  203.25pt;}
+    						&.check_point_10{top:21.75pt;left: 144pt;}
+    						&.check_point_11{top:21.75pt;left: 106.5pt;}
+    						&.check_point_12{top:21.75pt;left: 63.75pt;}
 
     					}
 
@@ -263,23 +259,23 @@ input[type="radio"]{ vertical-align:middle;}
   					label{
   						font-size: 14pt;
   						font-weight: bold;
-  						height: 25px;
-  						padding: 10px 0px;
+  						height: 18.75pt;
+  						padding: 7.5pt 0;
   						color: #8D8E8E;
-  						line-height: 25px;
+  						line-height: 18.75pt;
   					}
 
   					ul{
   						margin:0 auto;
 
   						li{
-  							height: 22px;
-  							line-height: 22px;
+  							height:  16.5pt;
+  							line-height:  16.5pt;
 
                 span{
-                  width: 150px;
+                  width: 112.5pt;
                   display: inline-block;
-                  height: 22px;
+                  height: 16.5pt;
                 }
 
   						}
@@ -291,7 +287,7 @@ input[type="radio"]{ vertical-align:middle;}
             overflow: auto;
             ul{
               li{
-                width: 37px;
+                width: 27.75pt;
                 display: inline-block;
                 text-align: center;
               }
@@ -301,13 +297,13 @@ input[type="radio"]{ vertical-align:middle;}
   		}
 
   		.vehicle_order{
-  			margin-top: 10px;
+  			margin-top: 7.5pt;
 
         .account_info{
-          padding: 0px 10px;
+          padding: 0 7.5pt;
           dl{
-            height: 28px;
-            line-height: 28px;
+            height: 21pt;
+            line-height: 21pt;
             dd{
               display: inline-block;
 
@@ -327,7 +323,7 @@ input[type="radio"]{ vertical-align:middle;}
                 span{
                   font-weight: bold;
                   text-align: right;
-                  width: 100px;
+                  width: 75pt;
                 }
               }
             }
@@ -335,11 +331,11 @@ input[type="radio"]{ vertical-align:middle;}
         }
 
   			.order_info{
-  				min-height:130px;
+  				min-height:97.5pt;
   				position: relative;
           h2{
-            height: 30px;
-            line-height: 30px;
+            height: 22.5pt;
+            line-height: 22.5pt;
             background: #eee;
             text-align: center;
           }
@@ -350,22 +346,22 @@ input[type="radio"]{ vertical-align:middle;}
             tbody{
   						tr{
   							td{
-  								height: 25px;
+  								height:  18.75pt;
   								position: relative;
-                  padding:0px;
+                  padding: 0;
                 }
   						}
   					}
 
             tfoot{
               tr{
-                height: 52px;
+                height: 39pt;
                 text-align: right;
 
                 td{
-                  height: 25px;
+                  height: 18.75pt;
                   label{
-                    margin-right: 10px;
+                    margin-right: 7.5pt;
                   }
                 }
               }
@@ -375,7 +371,7 @@ input[type="radio"]{ vertical-align:middle;}
               thead{
     						tr{
     							th{
-    								height: 30px;
+    								height: 22.5pt;
                     text-align: right;
                     &:nth-child(1){width: 19%;text-align: left;}
                     &:nth-child(2){width: 19%;text-align: left;}
@@ -398,7 +394,7 @@ input[type="radio"]{ vertical-align:middle;}
                     &:nth-child(7){text-align: center;}
                     input{
                       border:1pt solid #fff;
-                      height: 20px;
+                      height: 15pt;
                       background: transparent;
 
                       &:hover{
@@ -414,8 +410,8 @@ input[type="radio"]{ vertical-align:middle;}
               thead{
     						tr{
     							th{
-    								height: 30px;
-                    text-indent: 5px;
+    								height: 22.5pt;
+                    text-indent: 3.75pt;
                     text-align: right;
 
                     &:nth-child(1){width:24%;text-align: left;}
@@ -480,22 +476,22 @@ input[type="radio"]{ vertical-align:middle;}
         .total_spending{
           width: 100%;
           text-align: right;
-          height: 50px;
-          line-height: 50px;
+          height: 37.5pt;
+          line-height: 37.5pt;
           font-weight: bold;
           border-top: 1pt solid #1B1414;
           border-bottom: 1pt solid #1B1414;
 
           label{
-            margin-left: 10px;
-            margin-right: 5px;
+            margin-left: 7.5pt;
+            margin-right: 3.75pt;
           }
         }
 
 
   		}
   		.construction{
-  			margin-top: 10px;
+  			margin-top: 7.5pt;
 
   			.construction_info{
 
@@ -545,14 +541,14 @@ input[type="radio"]{ vertical-align:middle;}
   		}
 
       .others{
-        margin-top: 10px;
-        margin-bottom: 20px;
+        margin-top: 7.5pt;
+        margin-bottom: 15pt;
         border-top: 1pt solid #1B1414;
         .others_info{
-          padding: 0px 10px;
+          padding: 0px 7.5pt;
           dl{
-            height: 35px;
-            line-height: 35px;
+            height: 26.25pt;
+            line-height: 26.25pt;
             dt{
               display: inline-block;
               width: 20%;
@@ -578,14 +574,14 @@ input[type="radio"]{ vertical-align:middle;}
           }
 
           .order_remark{
-            margin-top: 25px;
+            margin-top: 18.75pt;
             label{
               vertical-align: top;
             }
             textarea{
-              width: 700px;
-              max-width: 700px;
-              height: 80px;
+              width: 525pt;
+              max-width:  525pt;
+              height: 60pt;
             }
           }
 
@@ -611,7 +607,7 @@ input[type="radio"]{ vertical-align:middle;}
 .package_icon:before {
   content: "*";
   color: #000;
-  font-size: 18px;
+  font-size: 13.5pt;
   vertical-align: middle;
 }
 
@@ -620,10 +616,10 @@ input[type="radio"]{ vertical-align:middle;}
 }
 
 .print_btn{
-  width: 20px;
+  width: 15pt;
   position: fixed;
   left: 220mm;
-  top: 33px;
+  top: 24.75pt;
 }
 
 @media print{

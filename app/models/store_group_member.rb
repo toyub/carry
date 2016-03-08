@@ -13,7 +13,7 @@ class StoreGroupMember < ActiveRecord::Base
     }
   end
 
-  def free
+  def free!
     self.ready!
   end
 

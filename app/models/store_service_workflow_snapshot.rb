@@ -23,14 +23,23 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
      1
   end
 
-  def free_mechanics
-    self.workstations.map(&:store_group).compact.map(&:members).flatten.uniq.select {|m| m.store_group_member.ready?}
+  def free_mechanics(workstation_id)
+    workstation = StoreWorkstation.find(workstation_id)
+    workstation.store_group.members.select {|m| m.store_group_member.ready?} if workstation
   end
 
   def workstations
     stations = StoreWorkstation.where(id: self.workstaiton_ids)
     return stations if stations.present?
     StoreWorkstation.all
+  end
+
+  def free_workstations
+    self.workstations.idle
+  end
+
+  def screen_workstations
+    self.store_order.task_queuing? ? free_workstations : workstations
   end
 
   def workstaiton_ids

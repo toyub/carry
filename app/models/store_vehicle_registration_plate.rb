@@ -13,8 +13,15 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
 
   before_validation :set_license_number
 
-  private
+  def vehicle_id
+    vehicle_plates.last.store_vehicle.id
+  end
 
+  def store_customer
+    vehicle_plates.last.store_vehicle.store_customer
+  end
+
+  private
     def set_license_number
       self.license_number = self.license_number.to_s.gsub(/\s/, '').upcase
     end

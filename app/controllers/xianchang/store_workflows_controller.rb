@@ -12,7 +12,7 @@ module Xianchang
     end
 
     def free_mechanics
-      @mechanics = @workflow.free_mechanics
+      @mechanics = @workflow.free_mechanics(params[:workstation]) || []
     end
 
     private

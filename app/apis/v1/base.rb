@@ -23,9 +23,12 @@ module V1
     mount V1::Vehicles
     mount V1::Plate
     mount V1::MaterialCategories
+    mount V1::StoreOrders
+    mount V1::StoreWorkstation
     mount V1::SendCaptchaCode
     mount V1::VerifyCaptchaCode
     mount V1::ResetPassword
+    mount V1::DiscountAuthorities
 
 
 
