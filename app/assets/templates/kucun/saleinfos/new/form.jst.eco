@@ -30,7 +30,7 @@
       <select class="width-130" name="mechanic_commission_template_id">
         <option value=""></option>
         <% for option in @store_commission_templates: %>
-        <option <%= 'selected' if @mechanic_commission_template_id == option.id %> data-template='<%= JSON.stringify(option) %>' value="<%= option.id %>"><%= option.name %></option>
+        <option <%= 'selected' if String(@mechanic_commission_template_id) == String(option.id) %> data-template='<%= JSON.stringify(option) %>' value="<%= option.id %>"><%= option.name %></option>
         <% end %>
       </select>
       <a href="javascript:void(0)" class="detail color-0C489C">详情</a>

@@ -12,4 +12,13 @@ class StoreGroupMember < ActiveRecord::Base
       busy: counts[self.work_statuses[:busy]].to_i
     }
   end
+
+  def free!
+    self.ready!
+  end
+
+  def eligible_for?(workflow)
+    return true if workflow.engineer_level.blank?
+    workflow.engineer_level == self.member.level_type_id
+  end
 end

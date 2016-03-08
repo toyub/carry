@@ -3,6 +3,7 @@
   $("#workstation-<%= @idle_workstation.id %>").append("<%= j render partial: 'idle_workstation' %>");
 <% end -%>
 <% unless @store_order.task_finished? -%>
+  $("ul.waiting #order-<%= @store_order.id %>").remove();
   $("#workstation-<%= @workstation.id %> .idle_station").remove();
   $("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation} %>");
 <% else %>

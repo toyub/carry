@@ -14,7 +14,6 @@ store_model = VehicleModel.create!(
 
 store_vehicle_registration_plates = StoreVehicleRegistrationPlate.create!(
   license_number: "浙A56789",
-  store_customer: StoreCustomer.first,
   creator: StoreStaff.first
 )
 

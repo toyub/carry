@@ -19,6 +19,7 @@ class StoreOrder < ActiveRecord::Base
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
+  scope :today, -> { by_day(Date.today) }
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
@@ -124,7 +125,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def execute!
-    return if !executeable?
+    return self.paying! if !executeable?
     ActiveRecord::Base.transaction do
       construction_items.each do |item|
         service = item.orderable
@@ -163,6 +164,15 @@ class StoreOrder < ActiveRecord::Base
     if self.filled == self.amount
       self.pay_finished!
     end
+  end
+
+  def check_mechanic
+    self.workflows.all? {|w| w.has_mechanic? }
+  end
+
+  def assign_mechanics
+    self.workflows.pending.order("created_at asc").map(&:assign_mechanics)
+    self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
   end
 
   private

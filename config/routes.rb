@@ -74,6 +74,10 @@ Rails.application.routes.draw do
         get :materials
       end
     end
+
+    namespace :purchase do
+      resources :receipts
+    end
   end# END of namespace :kucun
 
   get "xiaoshou/main", to:  "xiaoshou#main"
@@ -130,8 +134,12 @@ Rails.application.routes.draw do
     end
     resources :store_orders, only: [:show] do
       put :terminate, on: :member
+      get :check_dispatch, on: :member
+      get :check_mechanic, on: :member
     end
-    resources :store_workflows, only: [:edit, :update]
+    resources :store_workflows, only: [:edit, :update] do
+      get :free_mechanics, on: :member
+    end
   end
 
   namespace :sas do
@@ -420,6 +428,8 @@ Rails.application.routes.draw do
         resources :assets
       end
     end
+
+    resources :store_commission_templates, only: [:show]
 
   end#End of api
 

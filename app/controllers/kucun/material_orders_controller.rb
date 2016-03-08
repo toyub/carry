@@ -33,7 +33,6 @@ class Kucun::MaterialOrdersController < Kucun::BaseController
       order.store_chain_id = @store.store_chain_id
       order.store_staff_id = current_user.id
       order.store_supplier_id = store_supplier.id
-      order.numero = ApplicationController.helpers.make_numero("MO")
       order.amount = 0.0
       order.items.each do |item|
         item.store_id = order.store_id
@@ -63,7 +62,7 @@ class Kucun::MaterialOrdersController < Kucun::BaseController
   def order_params
     safe_params = params.require(:store_material_order)
                         .permit(:remark,
-                                items_attributes:[:store_material_id, :quantity, :price, :remark], 
+                                items_attributes:[:store_material_id, :quantity, :price, :remark],
                                 payments_attributes:[:amount, :store_settlement_account_id])
     safe_params[:payments_attributes][0][:store_staff_id] = current_user.id
     safe_params[:payments_attributes][0][:store_supplier_id] = params[:store_supplier_id]

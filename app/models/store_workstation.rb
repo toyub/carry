@@ -3,8 +3,9 @@ class StoreWorkstation < ActiveRecord::Base
 
   belongs_to :store_workstation_category
   belongs_to :current_workflow, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :workflow_id
+  belongs_to :store_group
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: {scope: :store_id}
 
   scope :of_store, -> (store_id) { where(store_id: store_id) }
   scope :available, -> { where.not(status: self.statuses[:unavailable]) }
@@ -31,6 +32,20 @@ class StoreWorkstation < ActiveRecord::Base
     end
   end
 
+  def free?
+    current_workflow.blank?
+  end
+
+  def dispatch
+    if free?
+      SpotDispatchJob.perform_later(self.store_id)
+    else
+      if current_workflow.count_down <= 0
+        finish!
+      end
+    end
+  end
+
   def free
     self.update!(workflow_id: nil)
     self.idle!
@@ -39,6 +54,7 @@ class StoreWorkstation < ActiveRecord::Base
   def perform!(store_order)
     ActiveRecord::Base.transaction do
       store_order.workflows.processing.first.try(:finish!)
+      store_order.assign_mechanics
       store_order.workflows.pending.order("created_at asc").each do |w|
         w.execute(self) and break if w.executable?
       end

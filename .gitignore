@@ -12,6 +12,7 @@
 config/redis.yml
 config/qiniu.yml
 config/alipay.yml
+config/scheduler.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -35,4 +36,3 @@ config/alipay.yml
 TODOLIST.md
 .DS_Store
 .idea
-

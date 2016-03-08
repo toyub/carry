@@ -5,6 +5,7 @@ class StoreServiceWorkflow < ActiveRecord::Base
   belongs_to :store_service_setting
   belongs_to :mechanic_commission, class_name: 'StoreCommissionTemplate', foreign_key: :mechanic_commission_template_id
   has_many :snapshots, class_name: "StoreServiceWorkflowSnapshot", foreign_key: :store_service_workflow_id
+  has_many :store_staff_tasks, as: :taskable
 
   validates :store_staff_id, presence: true
   #validates :store_service_setting_id, presence: true
@@ -56,6 +57,10 @@ class StoreServiceWorkflow < ActiveRecord::Base
 
   def workstation_ids
     self.store_workstation_ids.to_s.split(",")
+  end
+
+  def commission(order_item)
+    mechanic_commission.present? ? mechanic_commission.commission(order_item) : 0.0
   end
 
 end

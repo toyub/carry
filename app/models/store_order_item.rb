@@ -10,6 +10,7 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :store_customer_asset_item
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
+  has_many :store_staff_tasks
 
   before_save :set_amount
   before_create :set_store_info
@@ -34,7 +35,7 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def cal_amount
-    self.quantity.to_i * self.price.to_f
+    _amount()
   end
 
   def mechanics
@@ -98,7 +99,11 @@ class StoreOrderItem < ActiveRecord::Base
   private
 
     def set_amount
-      self.amount = self.cal_amount
+      self.amount = _amount()
+    end
+
+    def _amount
+      quantity.to_i * price.to_f
     end
 
     def set_store_info
