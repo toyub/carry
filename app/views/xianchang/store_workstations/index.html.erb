@@ -97,21 +97,18 @@
 
 <script type="text/javascript" charset="utf-8">
 $(function(){
-    setInterval(function(){
-      <% @workstations.each do |w| -%>
-        if($("#workstation-<%= w.id %> .times").length > 0){
-          var interval = parseInt($("#workstation-<%= w.id %> .times").text()) - 1;
-          if(interval <= 0){
-            $.ajax({
-              url: "/xianchang/store_workstations/<%= w.id %>/finish",
-              method: "PUT"
-              }
-            );
-          }else{
-            $("#workstation-<%= w.id %> .times").text(interval);
-          }
-        }
-      <% end -%>
-    }, 60000)
+  setInterval(function(){
+    $("#work_station .times").each(function(){
+      var interval = parseInt(this.innerText) - 1;
+      if(interval > 0){
+        this.innerText = interval;
+      }else{
+        $.ajax({
+          url: "/xianchang/store_workstations/" + this.dataset.stationid + "/finish",
+          method: "PUT"
+        });
+      }
+    });
+  }, 59900);
 })
 </script>

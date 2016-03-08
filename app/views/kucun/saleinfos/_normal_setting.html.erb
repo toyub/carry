@@ -25,11 +25,10 @@
 </tr>
 <tr>
   <td>
-    <span class="width-75 display-inline-block text-align-right">
-      <input type="checkbox" name='saleinfo[vip_price_enabled]' <%= 'checked' if @saleinfo.vip_price_enabled && normal %>  class="toggleable width-13 normal-price" data-target="vip_price" data-checked='<%="checked" if @saleinfo.vip_price_enabled && normal %>' <%= disabled %> >
-      会员价
+    <span class="width-100 display-inline-block text-align-right">
+      <input type="checkbox" name='saleinfo[vip_price_enabled]' class="width-13 normal-price" <%= 'checked' if @saleinfo.vip_price_enabled && normal %> <%= disabled %> >
+      开启会员价
     </span>
-    <input type="text" num un class="width-165 normal-price" data-id="vip_price" name='saleinfo[vip_price]' <%= 'disabled="disabled"' unless @saleinfo.vip_price_enabled %> required="true" autocomplete="off" value='<%= @saleinfo.vip_price if normal %>' <%= disabled %> >
   </td>
   <td></td>
 </tr>

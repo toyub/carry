@@ -1,0 +1,65 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '入库', '按订单入库', '记录']) %>
+</div>
+
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <%= render partial: 'kucun/partials/ruku_search' %>
+      <div class="query_div">
+        <a href="/kucun/material_inventories/new" class="in_stg_btn btn">入库</a>
+        <a href="javascript:void(0);" class="notes_btn btn">记录</a>
+      </div>
+    </div>
+    <div id="all_in_stock">
+      <table cellpadding="0" cellspacing="0" class="index_list">
+        <thead>
+            <tr>
+              <th style="border-right:0px;"></th>
+              <th>入库时间</th>
+              <th>入库单号</th>
+              <th>采购单号</th>
+              <th>供应商</th>
+              <th>商品名称</th>
+              <th>商品条形码</th>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>采购价格</th>
+              <th>采购数量</th>
+              <th>入库数量</th>
+              <th>小计</th>
+              <th>仓库</th>
+              <th>备注</th>
+              <th>操作人</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @record_items.each_with_index do |item, idx| %>
+            <tr>
+              <td class="number"><%= idx + 1 %></td>
+              <td><%= item.created_at.to_s(:date_with_short_time) %></td>
+              <td title="<%= item.receipt.numero %>"><%= item.receipt.numero.to_s.truncate(7) %></td>
+              <td title="<%= item.store_material_order.numero %>"><%= item.store_material_order.numero.truncate(7) %></td>
+              <td><%= item.store_material_order.store_supplier.name %></td>
+              <td title="<%= item.store_material.name %>"><%= item.store_material.name.to_s.truncate(10) %></td>
+              <td><%= item.store_material.barcode %></td>
+              <td><%= item.store_material.store_material_root_category.try :name %></td>
+              <td><%= item.store_material.store_material_category.try :name %></td>
+              <td><%= item.store_material.speci %></td>
+              <td><%= item.store_material.store_material_unit.try :name %></td>
+              <td class="text-align-right"><%= item.price %></td>
+              <td class="text-align-right"><%= item.ordered_quantiry %></td>
+              <td><%= item.quantity %></td>
+              <td class="text-align-right"><%= item.amount %></td>
+              <td><%= item.store_depot.name %></td>
+              <td><%= item.remark %></td>
+              <td class=""><%= item.store_staff.full_name %></td>
+            </tr>
+          <% end %>
+         </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-Dir["#{Rails.root}/app/apis/grape/*.rb"].each {|p| require p }
+Dir["#{Rails.root}/app/apis/grape/*.rb"].each {|pi| require pi }
 
 module V1
   module Defaults

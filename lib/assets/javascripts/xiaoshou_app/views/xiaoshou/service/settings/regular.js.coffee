@@ -4,7 +4,6 @@ class Mis.Views.XiaoshouServiceSettingsRegular extends Mis.Base.View
 
   render: ->
     @$el.html(@template(setting: @model, store: Mis.store))
-    console.log Mis.store
     @renderWorkstations()
     @
 

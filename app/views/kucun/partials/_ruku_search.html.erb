@@ -4,10 +4,10 @@
   <span id='in_store_type_id' class="width-157 as_select" data-select='#in_store_type_select' data-target='input[name="material[in_store_type_id]"]'>
     <%=
        case params[:controller]
-       when 'kucun/material_inventories'
+       when 'kucun/purchase/receipts'
          '按订单入库'
        when 'kucun/transfer/receipts'
-         '转移入库'
+         '按移库单入库'
        when 'kucun/checkins'
          '按商品入库'
        end
@@ -15,8 +15,8 @@
   </span>
   <div id='in_store_type_select' class="select width-165">
     <ol class="width-165">
-      <li data-value="1"><a href="/kucun/material_inventories/">按订单入库</a></li>
-      <li data-value="2"><a href="/kucun/transfer/receipts/">转移入库</a></li>
+      <li data-value="1"><a href="/kucun/purchase/receipts">按订单入库</a></li>
+      <li data-value="2"><a href="/kucun/transfer/receipts/">按移库单入库</a></li>
       <li data-value="3"><a href="/kucun/checkins/">按商品入库</a></li>
     </ol>
   </div>

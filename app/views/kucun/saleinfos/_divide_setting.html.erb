@@ -38,11 +38,10 @@
         </div>
 
         <div class="float-left">
-          <span class="width-75 display-inline-block text-align-right">
-            <input type="checkbox" name="saleinfo[vip_price_enabled]"  data-target='dividevip' class="toggleable width-13 divide-price" <%= 'checked' if @saleinfo.vip_price_enabled && divided %>  <%= disabled %> data-checked='<%="checked" if @saleinfo.vip_price_enabled && divided %>'>
-            会员价
+          <span class="width-100 display-inline-block text-align-right">
+            <input type="checkbox" name="saleinfo[vip_price_enabled]" class="width-13 divide-price" <%= 'checked' if @saleinfo.vip_price_enabled && divided %>  <%= disabled %>>
+            启用会员价
           </span>
-          <input type="text" num un name='saleinfo[vip_price]' data-id='dividevip' class="width-160 divide-price"  required="true" value="<%= @saleinfo.vip_price if divided %>" <%= 'disabled'  if !divided || !@saleinfo.vip_price_enabled %> >
         </div>
 
         <div class="float-left">
