@@ -29,21 +29,32 @@
 
       <tbody>
         <% @staffs.each do |staff| %>
-          <% sale_history = staff.sale_histories.find_by(created_month: @month.strftime("%Y%m")) %>
+          <% commission_history = staff.store_commissions.find_by(created_month: @month.strftime("%Y%m")) %>
           <tr>
             <td class="sequence_num"><%= staff.id %></td>
             <td><%= staff.screen_name %></td>
             <td><%= staff.numero %></td>
             <td><%= staff.store_department.try(:name) %></td>
             <td><%= staff.store_position.try(:name) %></td>
-            <td><%= sale_history.try(:order_quantity)    || staff.store_orders.by_month(@month).count %></td>
-            <td><%= sale_history.try(:material_quantity) || staff.store_order_items.by_month(@month).materials.count %></td>
-            <td><%= sale_history.try(:material_amount)   || staff.materials_amount_total(@month) %></td>
-            <td><%= sale_history.try(:service_quantity)  || staff.store_order_items.by_month(@month).services.count %></td>
-            <td><%= sale_history.try(:service_amount)    || staff.services_amount_total(@month) %></td>
-            <td><%= sale_history.try(:item_amount)       || staff.items_amount_total(@month) %></td>
-            <td><%= sale_history.try(:commission_amount) || staff.commission_amount_total(@month) %></td>
-            <td><a href="/soa/staff/<%= staff.id %>/performs"><i class="ico ico-edit font-14"></i></a></td>
+            <% if commission_history.present? %>
+              <td><%= commission_history.store_commission_items.select(:store_order_id).uniq.count   || staff.store_orders.by_month(@month).count %></td>
+              <td><%= commission_history.store_commission_items.where(orderable_type: [StoreMaterialSaleinfo.name, StorePackage.name]).count %></td>
+              <td><%= commission_history.store_commission_items.where(orderable_type: [StoreMaterialSaleinfo.name, StorePackage.name]).map(&:item_amount).sum %></td>
+              <td><%= commission_history.store_commission_items.where(orderable_type: StoreService.name).count %></td>
+              <td><%= commission_history.store_commission_items.where(orderable_type: StoreService.name).map(&:item_amount).sum %></td>
+              <td><%= commission_history.store_commission_items.map(&:item_amount).sum %></td>
+              <td><%= commission_history.store_commission_items.map(&:commission_amount).sum %></td>
+              <td><a href="/soa/staff/<%= staff.id %>/performs"><i class="ico ico-edit font-14"></i></a></td>
+            <% else %>
+              <td><%= staff.store_orders.by_month(@month).count %></td>
+              <td><%= staff.store_order_items.by_month(@month).materials.count %></td>
+              <td><%= staff.materials_amount_total(@month) %></td>
+              <td><%= staff.store_order_items.by_month(@month).services.count %></td>
+              <td><%= staff.services_amount_total(@month) %></td>
+              <td><%= staff.items_amount_total(@month) %></td>
+              <td><%= staff.commission_amount_total(@month) %></td>
+              <td><a href="/soa/staff/<%= staff.id %>/performs"><i class="ico ico-edit font-14"></i></a></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
