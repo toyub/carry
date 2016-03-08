@@ -146,6 +146,7 @@ class StoreOrder < ActiveRecord::Base
 
   def execute!
     return self.paying! if !executeable?
+    self.update(service_included: true)
     ActiveRecord::Base.transaction do
       construction_items.each do |item|
         service = item.orderable
