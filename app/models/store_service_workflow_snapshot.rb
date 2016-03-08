@@ -45,6 +45,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     tasks.map(&:mechanic) || []
   end
 
+  def has_mechanic?
+    mechanics.present?
+  end
+
   def executable?
     self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
   end
@@ -59,7 +63,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
     workstation.update!(current_workflow: self)
     workstation.busy!
-    self.mechanics.map(&:store_group_memeber).map(&:busy!)
+    self.mechanics.map(&:store_group_member).map(&:busy!)
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
@@ -85,7 +89,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def terminate!
     self.store_workstation.try(:free)
-    self.mechanics.map(&:store_group_memeber).map(&:free)
+    self.mechanics.map(&:store_group_member).map(&:free)
     self.finished!
     self.update!(elapsed: actual_time_in_minutes)
   end

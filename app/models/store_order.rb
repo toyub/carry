@@ -165,6 +165,10 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
+  def check_mechanic
+    self.workflows.all? {|w| w.has_mechanic? }
+  end
+
   private
     def construction_items
       self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))

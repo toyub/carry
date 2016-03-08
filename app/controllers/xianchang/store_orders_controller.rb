@@ -15,6 +15,10 @@ module Xianchang
       render json: {status: @store_order.store_vehicle.orders.task_processing.count == 0}
     end
 
+    def check_mechanic
+      render json: {status: @store_order.check_mechanic}
+    end
+
     private
     def set_store_order
       @store_order = current_store.store_orders.find(params[:id])
