@@ -1238,6 +1238,7 @@ ActiveRecord::Schema.define(version: 20160307061958) do
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
     t.json     "situation"
     t.integer  "cashier_id",                                                                                            comment: "收银员"
+    t.boolean  "service_included",                                                         default: false
   end
 
   create_table "store_package_items", force: :cascade do |t|
