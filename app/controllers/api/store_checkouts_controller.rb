@@ -12,6 +12,7 @@ module Api
 
       if(StoreOrderArchive.new(fill_payments_with_order(payment_params[:payments], order), order).reform)
         order.cashier = current_staff
+        order.settle_down
         order.save!
         OrderTrackingJob.perform_later order if order.store_customer.tracking_accepted
         render json: {checked: true, msg: 'Checked!'}
