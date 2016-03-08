@@ -23,7 +23,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
      1
   end
 
-  def free_mechanics(workstation_id)
+  def ready_mechanics(workstation_id)
     workstation = StoreWorkstation.find(workstation_id)
     workstation.store_group.members.select {|m| m.store_group_member.ready?} if workstation
   end
