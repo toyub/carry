@@ -1,7 +1,6 @@
 defaults: &defaults
   app_name: "MIS"
-  auth_host: "http://localhost:3004"
-  api_key: "xx"
+  auth_host: "http://staging.open.icar99.com"
 
 development:
   <<: *defaults

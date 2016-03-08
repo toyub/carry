@@ -85,7 +85,7 @@ class Complaint < ActiveRecord::Base
   end
 
   def mechanics
-    self.order.store_items
+    self.order.mechanic
   end
 
   def responses
