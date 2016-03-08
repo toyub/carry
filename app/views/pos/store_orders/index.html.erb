@@ -59,7 +59,7 @@
           <td>{{ order.attributes.numero }}</td>
           <td>{{ order.attributes.items_content}}</td>
           <td>{{ order.attributes.amount }}</td>
-          <td>{{ order.attributes.state_i18n }}({{ order.attributes.pay_status_i18n }})</td>
+          <td>{{ order.attributes.human_readable_status }}</td>
           <td>{{ order.attributes.remark }}</td>
           <td>
             <a v-if='order.attributes.paid' class='width-65' target="_blank" href="/printer/pos/orders/{{order.id}}">详情(打印)</a>

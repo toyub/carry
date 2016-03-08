@@ -126,6 +126,18 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
+  def settle_down
+    if self.paying?
+      self.state = :finished
+    end
+  end
+
+  def settle_down!
+    if self.paying?
+      self.finished!
+    end
+  end
+
   def workflows_finished?
     workflows.all? { |w| w.finished? }
   end
@@ -152,6 +164,21 @@ class StoreOrder < ActiveRecord::Base
     situation.fetch(:damages, [])
   end
 
+  def human_readable_status
+    if self.pending?
+      '草稿'
+    elsif self.finished?
+      '完结'
+    elsif self.paying?
+      '完工(待付款)'
+    else
+      "#{self.state_i18n}(#{self.pay_status_i18n})"
+    end
+  end
+
+  def task_status_i18n
+    I18n.t self.task_status, scope: [:enums, :store_order, :task_status]
+  end
 
   def repayment_remaining
     self.amount.to_f - self.filled.to_f

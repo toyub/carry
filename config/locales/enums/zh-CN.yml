@@ -10,17 +10,17 @@ zh-CN:
     store_order:
       state:
         pending: 草稿
-        queuing: 排队
+        queuing: 待施工
         processing: 施工中
-        paying: 在付款
+        paying: 待付款
         finished: 已完成
       task_status:
         task_pending: 草稿
-        task_queuing: 排队
+        task_queuing: 待施工
         task_processing: 施工中
         task_checking: 检查中
-        task_checked: 检查完成
-        task_finished: 施工完成
+        task_checked: 验收通过
+        task_finished: 完工
     store_customer_entity:
       property:
         company: 集团客户

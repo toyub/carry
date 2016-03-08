@@ -1,6 +1,6 @@
 class StoreOrderSerializer < ActiveModel::Serializer
   attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status,
-    :created_at, :updated_at, :items_content, :state_i18n, :pay_status_i18n, :paid
+    :created_at, :updated_at, :items_content, :state_i18n, :pay_status_i18n, :paid, :human_readable_status
 
   has_many :payments
   has_one :store_vehicle
