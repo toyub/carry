@@ -10,6 +10,5 @@ class StoreStaffTask < ActiveRecord::Base
 
   def free
     self.mechanic.store_group_member.free
-    self.destroy
   end
 end
