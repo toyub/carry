@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308061629) do
+ActiveRecord::Schema.define(version: 20160308075422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -331,6 +331,7 @@ ActiveRecord::Schema.define(version: 20160308061629) do
     t.string   "orderable_type"
     t.string   "ownerable_type"
     t.integer  "ownerable_id"
+    t.integer  "store_commission_id"
   end
 
   create_table "store_commission_template_sections", force: :cascade do |t|
@@ -360,6 +361,17 @@ ActiveRecord::Schema.define(version: 20160308061629) do
     t.integer  "status",                       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "store_commissions", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.string   "created_month"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "ownerable_type"
+    t.integer  "ownerable_id"
   end
 
   create_table "store_customer_asset_items", force: :cascade do |t|
@@ -1627,27 +1639,6 @@ ActiveRecord::Schema.define(version: 20160308061629) do
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
-
-  create_table "store_staff_sale_histories", force: :cascade do |t|
-    t.integer  "store_id"
-    t.integer  "store_chain_id"
-    t.integer  "store_staff_id"
-    t.integer  "order_quantity"
-    t.decimal  "order_amount",      precision: 8, scale: 2
-    t.integer  "item_quantity"
-    t.decimal  "item_amount",       precision: 8, scale: 2
-    t.integer  "material_quantity"
-    t.decimal  "material_amount",   precision: 8, scale: 2
-    t.integer  "service_quantity"
-    t.decimal  "service_amount",    precision: 8, scale: 2
-    t.integer  "package_quantity"
-    t.decimal  "package_amount",    precision: 8, scale: 2
-    t.integer  "task_quantity"
-    t.decimal  "commission_amount", precision: 8, scale: 2
-    t.string   "created_month"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-  end
 
   create_table "store_staff_tasks", force: :cascade do |t|
     t.integer  "store_order_item_id"

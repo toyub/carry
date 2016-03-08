@@ -23,6 +23,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_staff_tasks
   has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
   has_many :store_commission_items, as: :ownerable
+  has_many :store_commissions, as: :ownerable
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
