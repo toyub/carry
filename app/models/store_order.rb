@@ -180,6 +180,15 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
+  def check_mechanic
+    self.workflows.all? {|w| w.has_mechanic? }
+  end
+
+  def assign_mechanics
+    self.workflows.pending.order("created_at asc").map(&:assign_mechanics)
+    self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
+  end
+
   private
     def construction_items
       self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))

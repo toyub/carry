@@ -4,7 +4,7 @@ module Xianchang
     before_action :set_groups, only: [:new, :edit]
 
     def index
-      @queuing_orders = current_store.store_orders.queuing
+      @queuing_orders = current_store.store_orders.task_queuing
 
       @processing_orders_count = current_store.store_orders.processing.count
       @paying_orders_count = current_store.store_orders.paying.count
@@ -61,7 +61,7 @@ module Xianchang
     end
 
     def construction_params
-      params.permit(workflow: [:store_workstation_id, :used_time, mechanics: [:id, :name]])
+      params.permit(workflow: [:store_workstation_id, :inspector, :used_time, mechanics: [:id, :name]])
     end
 
   end

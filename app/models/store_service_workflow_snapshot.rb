@@ -9,6 +9,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   belongs_to :store_workstation
   belongs_to :store_order
   belongs_to :store_vehicle
+  has_many :tasks, class_name: 'StoreStaffTask', foreign_key: :workflow_id
 
   validates :store_staff_id, presence: true
   validates :store_service_id, presence: true
@@ -20,6 +21,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def engineer
     # { name: ["xiao","ming"] }
      1
+  end
+
+  def free_mechanics
+    self.workstations.map(&:store_group).compact.map(&:members).flatten.uniq.select {|m| m.store_group_member.ready?}
   end
 
   def workstations
@@ -37,7 +42,15 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics
-    read_attribute(:mechanics) || []
+    tasks.map(&:mechanic) || []
+  end
+
+  def has_mechanic?
+    mechanics.present? || has_free_mechanic?
+  end
+
+  def has_free_mechanic?
+    self.store.store_staff.mechanics.map(&:store_group_member).any? {|mem| mem.ready? && mem.eligible_for?(self)}
   end
 
   def executable?
@@ -54,9 +67,27 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
     workstation.update!(current_workflow: self)
     workstation.busy!
+    self.mechanics.map(&:store_group_member).map(&:busy!)
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
+  end
+
+  def assign_mechanics
+    return if mechanics.present?
+    store_staff = self.store.store_staff.mechanics.map(&:store_group_member).select {|mem| mem.ready? && mem.eligible_for?(self)}.first.member
+    StoreStaffTask.create!(
+      workflow_id: self.id,
+      mechanic_id: store_staff.id,
+      store_order_item_id: self.store_order_item_id,
+      store_staff_id: self.store_staff_id,
+      store_id: self.store_id,
+      store_chain_id: self.store_chain_id
+    )
+  end
+
+  def set_mechanic_busy
+    self.mechanics.map(&:store_group_member).map(&:busy!)
   end
 
   def count_down
@@ -79,6 +110,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def terminate!
     self.store_workstation.try(:free)
+    self.mechanics.map(&:store_group_member).map(&:free)
     self.finished!
     self.update!(elapsed: actual_time_in_minutes)
   end
