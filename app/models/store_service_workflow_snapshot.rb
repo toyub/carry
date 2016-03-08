@@ -83,6 +83,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.update!(elapsed: actual_time_in_minutes)
   end
 
+  def remove!
+    self.store_workstation.try(:free)
+  end
+
   private
   def big_brothers_finished?
     big_brothers.all? { |w| w.finished? }
