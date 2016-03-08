@@ -11,6 +11,7 @@ module Entities
            :task_status, :task_status_i18n, if: {type: :default}
 
     expose(:item_id, if: {type: :full}) {|model|model.id}
+    expose(:order_amount, if: {type: :full}) {|model|model.store_order.amount}
     expose :orderable_type, :orderable_id, :from_customer_asset, :discount,
            :discount_reason, :vip_price, :quantity, :package_type, :package_id,
            :assetable_type, :assetable_id, :store_customer_asset_item_id, if: {type: :full}
