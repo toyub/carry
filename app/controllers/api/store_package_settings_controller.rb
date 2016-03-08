@@ -9,8 +9,9 @@ module Api
     end
 
     def update
-      @setting.items.clear
-      @setting.update(append_store_attrs setting_params)
+      attrs = setting_params
+      attrs.delete!(:items_attributes) if @setting.items.present?
+      @setting.update(append_store_attrs attrs)
       respond_with @setting, location: nil
     end
 
