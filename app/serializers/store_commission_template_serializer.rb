@@ -1,6 +1,6 @@
 class StoreCommissionTemplateSerializer < ActiveModel::Serializer
   attributes :id, :store_id, :store_chain_id, :store_staff_id, :name,
-             :aim_to, :aim_type, :confined_to, :confined_type, :mode_id, :mode_type,
+             :aim_to, :aim_type, :confined_to, :confined_type, :mode_id, :mode_type, :sharing_enabled,
              :level_weight, :status, :created_at, :updated_at
 
   has_many :sections_attributes, serializer: 'StoreCommissionTemplateSectionSerializer'
