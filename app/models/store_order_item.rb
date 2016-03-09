@@ -84,12 +84,12 @@ class StoreOrderItem < ActiveRecord::Base
     orderable.try(:speci)
   end
 
-  def commission
-    store_staff.commission? ? orderable.commission(self) : 0.0
+  def commission(for_who = 'person')
+    store_staff.commission? ? orderable.commission(store_staff, self, for_who) : 0.0
   end
 
   def constructed_by? staff
-    staff.store_staff_tasks.by_item(id).present?
+    store_staff_tasks.exists?(store_staff_id: staff)
   end
 
   def saled_by? staff

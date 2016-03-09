@@ -13,7 +13,7 @@ class StoreCommissionTemplate < ActiveRecord::Base
 
   def level_weight
     if self.level_weight_hash.present?
-      JSON.parse(self.level_weight_hash)
+      self.level_weight_hash
     else
       {}
     end
@@ -31,7 +31,20 @@ class StoreCommissionTemplate < ActiveRecord::Base
     CommissionAimType.find(self.aim_to).name
   end
 
-  def commission(order_item)
+  def commission(staff, item, for_who = 'person')
+    if confined_to == CommissionConfineType::TYPES_ID['班组']
+      return calculate_commission(item) if for_who == 'department'
+      return 0.0
+    end
+    return account_for(staff) * calculate_commission(item) if CommissionConfineType::TYPES_ID['多人合作']
+    calculate_commission(item)
+  end
+
+  def account_for(staff)
+    (level_weight_hash[staff.level_type_id.to_s].to_f / (level_weight_hash.map {|_, value| value.to_f}.sum) )
+  end
+
+  def calculate_commission(order_item)
     amount = 0.0
     case mode_id
     when 0 #"标准提成"

@@ -24,7 +24,7 @@ class CheckMonthCommission
     if item.orderable.saleman_commission_template.present?
       if item.orderable.saleman_commission_template.confined_to == CommissionConfineType::TYPES_ID['班组']
         commission = staff.store_department.store_commissions.find_or_create_by(commission_params(staff))
-        staff.store_department.store_commission_items.create!(sale_commission_item_params(staff, item, commission, "卖出#{item.quantity}件"))
+        staff.store_department.store_commission_items.create!(sale_commission_item_params(staff, item, commission, "卖出#{item.quantity}件", 'department'))
       else
         commission = staff.store_commissions.find_or_create_by(commission_params(staff))
         staff.store_commission_items.create!(sale_commission_item_params(staff, item, commission, "卖出#{item.quantity}件"))
@@ -38,7 +38,7 @@ class CheckMonthCommission
     if task.constructed_commission_template.present?
       if task.constructed_commission_template.confined_to == CommissionConfineType::TYPES_ID['班组']
         commission = staff.store_department.store_commissions.find_or_create_by(commission_params(staff))
-        staff.store_department.store_commission_items.create!(task_commission_item_params(staff, task, item, commission, task.workflow_snapshot.name))
+        staff.store_department.store_commission_items.create!(task_commission_item_params(staff, task, item, commission, task.workflow_snapshot.name, 'department'))
       else
         commission = staff.store_commissions.find_or_create_by(commission_params(staff))
         staff.store_commission_items.create!(task_commission_item_params(staff, task, item, commission, task.workflow_snapshot.name))
@@ -55,7 +55,7 @@ class CheckMonthCommission
     commission.permit(:store_id, :store_chain_id, :created_month)
   end
 
-  def sale_commission_item_params(staff, item, commission, remark)
+  def sale_commission_item_params(staff, item, commission, remark, for_who = 'person')
     commission_item = ActionController::Parameters.new(
       store_id:                 staff.store.id,
       store_chain_id:           staff.store_chain.id,
@@ -68,7 +68,7 @@ class CheckMonthCommission
       store_order_item_remark:  remark,
       item_amount:              item.amount,
       orderable_type:           item.orderable_type,
-      commission_amount:        staff.sale_commission_of(item),
+      commission_amount:        staff.sale_commission_of(item, for_who),
       commission_type:          check_commission_type(staff, item),
       order_created_at:         item.store_order.created_at
     )
@@ -78,7 +78,7 @@ class CheckMonthCommission
                            :commission_type, :order_created_at)
   end
 
-  def task_commission_item_params(staff, task, item, commission, remark)
+  def task_commission_item_params(staff, task, item, commission, remark, for_who = 'person')
     commission_item = ActionController::Parameters.new(
       store_id:                 staff.store.id,
       store_chain_id:           staff.store_chain.id,
@@ -91,7 +91,7 @@ class CheckMonthCommission
       store_order_item_remark:  remark,
       item_amount:              item.amount,
       orderable_type:           item.orderable_type,
-      commission_amount:        staff.task_commission_of(task),
+      commission_amount:        staff.task_commission_of(task, for_who),
       commission_type:          check_commission_type(staff, item),
       order_created_at:         item.store_order.created_at
     )
