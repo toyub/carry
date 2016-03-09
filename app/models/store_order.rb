@@ -19,6 +19,8 @@ class StoreOrder < ActiveRecord::Base
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
+  scope :today, -> { by_day(Date.today) }
+  scope :has_service, -> { where(service_included: true) }
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
@@ -62,6 +64,10 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
+  def task_status_i18n
+    I18n.t self.task_status, scope: [:enums, :store_order, :task_status]
+  end
+
   def paid?
     self.pay_hanging? || self.pay_finished?
   end
@@ -94,12 +100,15 @@ class StoreOrder < ActiveRecord::Base
     self.store_vehicle.license_number
   end
 
+  #TODO: find the order mechanics
   def mechanic
-    store_items
-  end
-
-  def store_items
-    self.items.map{ |item| {name: item.creator.full_name, id: item.creator.id} }.uniq
+    result = []
+    self.items.map(&->(item){item.workflow_mechanics}).each do |mechanic|
+      mechanic.each do |workflow_snapshot|
+        result << {name: workflow_snapshot.engineer, id: workflow_snapshot.engineer}
+      end
+    end
+    result.uniq
   end
 
   def finish!
@@ -136,7 +145,8 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def execute!
-    return if !executeable?
+    return self.paying! if !executeable?
+    self.update(service_included: true)
     ActiveRecord::Base.transaction do
       construction_items.each do |item|
         service = item.orderable
@@ -190,6 +200,15 @@ class StoreOrder < ActiveRecord::Base
     if self.filled == self.amount
       self.pay_finished!
     end
+  end
+
+  def check_mechanic
+    self.workflows.all? {|w| w.has_mechanic? }
+  end
+
+  def assign_mechanics
+    self.workflows.pending.order("created_at asc").map(&:assign_mechanics)
+    self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
   end
 
   private

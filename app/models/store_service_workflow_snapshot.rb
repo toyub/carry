@@ -9,6 +9,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   belongs_to :store_workstation
   belongs_to :store_order
   belongs_to :store_vehicle
+  has_many :tasks, class_name: 'StoreStaffTask', foreign_key: :workflow_id
 
   validates :store_staff_id, presence: true
   validates :store_service_id, presence: true
@@ -22,10 +23,23 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
      1
   end
 
+  def ready_mechanics(workstation_id)
+    workstation = StoreWorkstation.find(workstation_id)
+    workstation.store_group.members.select {|m| m.store_group_member.ready?} if workstation
+  end
+
   def workstations
     stations = StoreWorkstation.where(id: self.workstaiton_ids)
     return stations if stations.present?
     StoreWorkstation.all
+  end
+
+  def free_workstations
+    self.workstations.idle
+  end
+
+  def screen_workstations
+    self.store_order.task_queuing? ? free_workstations : workstations
   end
 
   def workstaiton_ids
@@ -37,7 +51,15 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics
-    read_attribute(:mechanics) || []
+    tasks.map(&:mechanic) || []
+  end
+
+  def has_mechanic?
+    mechanics.present? || has_free_mechanic?
+  end
+
+  def has_free_mechanic?
+    self.store.store_staff.mechanics.map(&:store_group_member).any? {|mem| mem.ready? && mem.eligible_for?(self)}
   end
 
   def executable?
@@ -54,9 +76,27 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
     workstation.update!(current_workflow: self)
     workstation.busy!
+    self.mechanics.map(&:store_group_member).map(&:busy!)
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
+  end
+
+  def assign_mechanics
+    return if mechanics.present?
+    store_staff = self.store.store_staff.mechanics.map(&:store_group_member).select {|mem| mem.ready? && mem.eligible_for?(self)}.first.member
+    StoreStaffTask.create!(
+      workflow_id: self.id,
+      mechanic_id: store_staff.id,
+      store_order_item_id: self.store_order_item_id,
+      store_staff_id: self.store_staff_id,
+      store_id: self.store_id,
+      store_chain_id: self.store_chain_id
+    )
+  end
+
+  def set_mechanic_busy
+    self.mechanics.map(&:store_group_member).map(&:busy!)
   end
 
   def count_down
@@ -78,9 +118,24 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def terminate!
-    self.store_workstation.try(:free)
+    self.free_workstation
+    self.free_mechanics
     self.finished!
     self.update!(elapsed: actual_time_in_minutes)
+  end
+
+  def free_workstation
+    self.store_workstation.try(:free)
+  end
+
+  def free_mechanics
+    self.mechanics.map(&:store_group_member).map(&:free!)
+  end
+
+  def remove!
+    self.free_workstation
+    self.free_mechanics
+    self.tasks.delete_all
   end
 
   private

@@ -27,9 +27,32 @@ module V1
       get do
         materials = StoreMaterial.by_store_chain(params[:chain_id]).by_store(params[:store_id])
         store_materials = materials.saleable.ransack(params[:q]).result
-        present store_materials, with: ::Entities::Material
+        present store_materials, with: ::Entities::Material, type: :default
       end
 
+      add_desc "商品品牌"
+      params do
+        requires :platform, type: String, desc: '调用的平台(app或者erp)'
+      end
+      get :brands do
+        material_brands = current_store.store_material_brands
+        present material_brands, with: ::Entities::MaterialBrand
+      end
+
+      add_desc "销售商品"
+      params do
+        requires :platform, type: String, desc: '调用的平台！'
+        optional :q, type: Hash, default: {} do
+          optional :store_material_store_material_root_category_id_eq, type: Integer, desc: '一级类别的id--ipad'
+          optional :store_material_store_material_category_id_eq, type: Integer, desc: '二级类别的id--ipad'
+          optional :store_material_store_material_brand_name_cont, type: String, desc: '商品品牌名称'
+          optional :store_material_name_cont, type: String, desc: '商品名称'
+        end
+      end
+      get :sales do
+        material_sales = current_store.store_material_saleinfos.ransack(params[:q]).result
+        present material_sales, with: ::Entities::Material, type: :full
+      end
     end
   end
 end

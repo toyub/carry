@@ -11,6 +11,10 @@ module Xianchang
       @workflow.save
     end
 
+    def free_mechanics
+      @mechanics = @workflow.ready_mechanics(params[:workstation]) || []
+    end
+
     private
 
     def set_workflow

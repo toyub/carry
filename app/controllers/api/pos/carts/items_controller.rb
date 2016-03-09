@@ -12,6 +12,7 @@ module Api
           if item.orderable.is_a?(StoreMaterialSaleinfo) || item.orderable.is_a?(StorePackage)
             order.items.where(package_type: item.orderable.class.name, package_id: item.orderable.id).destroy_all
           end
+          item.destroy_related_workflows
           item.destroy!
           respond_with item,location: nil
         end

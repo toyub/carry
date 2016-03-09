@@ -20,7 +20,10 @@ class StoreStaff <  ActiveRecord::Base
   has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
-  has_many :tasks, class_name: 'StoreStaffTask'
+  has_many :store_staff_tasks
+  has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
+  has_many :store_commission_items, as: :ownerable
+  has_many :store_commissions, as: :ownerable
 
   validates_presence_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
@@ -47,6 +50,16 @@ class StoreStaff <  ActiveRecord::Base
   scope :verifiers, -> { where(mis_login_enabled: true) }
   scope :unregular, -> { where(regular: false) }
 
+  ROLES = [
+        {code: 0, name: '管理员'},
+        {code: 1, name: '门店经理'},
+        {code: 2, name: '收银员'},
+        {code: 3, name: '出纳员'},
+        {code: 4, name: '库管员'},
+        {code: 5, name: '销售员'},
+        {code: 6, name: '财务员'}
+      ]
+
   def self.encrypt_with_salt(txt, salt)
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end
@@ -55,8 +68,24 @@ class StoreStaff <  ActiveRecord::Base
     JobType.find(self.job_type_id)
   end
 
+  def mechanic?
+    self.job_type_id == JobType::TYPES_ID['技师']
+  end
+
   def level_type
     StoreStaffLevel.find(self.level_type_id)
+  end
+
+  def includes_roles?(roles_codes=nil)
+    if self.roles.blank? || roles_codes.blank?
+      false
+    else
+      (self.roles & [roles_codes].flatten).length > 0
+    end
+  end
+
+  def has_discount_authority?
+    self.includes_roles?([0, 1])
   end
 
   def reset_password(new_password, password_confirmation)
@@ -214,19 +243,42 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total(month = Time.now)
+    sale_commission(month) + constucted_commission(month)
+  end
+
+  def constucted_commission(month = Time.now)
+    (mechanic? && commission?) ? store_staff_tasks.by_month(month).map(&:commission).sum : 0.0
+  end
+
+  def sale_commission(month = Time.now)
     materials_commission(month) + services_commission(month) + packages_commission(month)
   end
 
   def materials_commission(month = Time.now)
-    commission? ? store_order_items.by_month(month).materials.inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? store_order_items.by_month(month).materials.map(&:commission).sum : 0.0
   end
 
   def services_commission(month = Time.now)
-    commission? ? tasks.by_month(month).inject(0) {|sum, task| sum += task.taskable.commission(task.store_order_item) } : 0.0
+    commission? ? store_order_items.by_month(month).where(orderable_type: StoreService.name).map(&:commission).sum : 0.0
   end
 
   def packages_commission(month = Time.now)
-    commission? ? store_order_items.by_month(month).packages.inject(0) {|sum, item| sum += item.commission } : 0.0
+    commission? ? store_order_items.by_month(month).packages.map(&:commission).sum : 0.0
+  end
+
+  def commission_of(item)
+    sum = 0.0
+    sum = item.commission if item.saled_by? self
+    sum += store_staff_tasks.by_item(item).map(&:commission).sum if item.constructed_by? self
+    sum
+  end
+
+  def sale_commission_of(item)
+    item.commission
+  end
+
+  def task_commission_of(task)
+    task.commission
   end
 
   def self.items_amount_total(month = Time.now)

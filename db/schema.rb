@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307004736) do
+ActiveRecord::Schema.define(version: 20160308112611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -313,6 +313,27 @@ ActiveRecord::Schema.define(version: 20160307004736) do
     t.integer  "creator_id"
   end
 
+  create_table "store_commission_items", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.integer  "store_staff_id"
+    t.integer  "store_order_id"
+    t.string   "store_order_numero"
+    t.integer  "store_order_item_id"
+    t.string   "store_order_item_name"
+    t.string   "store_order_item_remark"
+    t.decimal  "item_amount",             precision: 8, scale: 2
+    t.decimal  "commission_amount",       precision: 8, scale: 2
+    t.string   "commission_type"
+    t.datetime "order_created_at"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "orderable_type"
+    t.string   "ownerable_type"
+    t.integer  "ownerable_id"
+    t.integer  "store_commission_id"
+  end
+
   create_table "store_commission_template_sections", force: :cascade do |t|
     t.integer  "store_id",                                              null: false
     t.integer  "store_chain_id",                                        null: false
@@ -336,10 +357,20 @@ ActiveRecord::Schema.define(version: 20160307004736) do
     t.integer  "aim_to"
     t.integer  "confined_to"
     t.integer  "mode_id"
-    t.string   "level_weight_hash", limit: 100
-    t.integer  "status",                        default: 0
+    t.json     "level_weight_hash",            default: {}
+    t.integer  "status",                       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "store_commissions", force: :cascade do |t|
+    t.integer  "store_id"
+    t.integer  "store_chain_id"
+    t.string   "created_month"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "ownerable_type"
+    t.integer  "ownerable_id"
   end
 
   create_table "store_customer_asset_items", force: :cascade do |t|
@@ -1206,6 +1237,7 @@ ActiveRecord::Schema.define(version: 20160307004736) do
     t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
     t.json     "situation"
     t.integer  "cashier_id",                                                                                            comment: "收银员"
+    t.boolean  "service_included",                                                         default: false
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1430,9 +1462,9 @@ ActiveRecord::Schema.define(version: 20160307004736) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1487,6 +1519,7 @@ ActiveRecord::Schema.define(version: 20160307004736) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time"
     t.json     "mechanics"
@@ -1496,8 +1529,8 @@ ActiveRecord::Schema.define(version: 20160307004736) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
+    t.string   "inspector"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1618,6 +1651,7 @@ ActiveRecord::Schema.define(version: 20160307004736) do
     t.integer  "taskable_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "mechanic_id"
   end
 
   create_table "store_subscribe_order_items", force: :cascade do |t|

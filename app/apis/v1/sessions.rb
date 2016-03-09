@@ -25,6 +25,16 @@ module V1
           error! status: status.notice, staff: nil
         end
       end
+
+      add_desc '退出登陆'
+      params do
+        requires :platform, type: String, desc: "调用平台!"
+      end
+      delete do
+        authenticate_user!
+        api_token = ApiToken.by_token(authorization)
+        api_token.reset_token
+      end
     end
   end
 end
