@@ -92,25 +92,8 @@ class StoreOrder < ActiveRecord::Base
     items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
   end
 
-  def creators
-    { name: self.creator.full_name, id: self.creator.id }
-  end
-
-  def current_vehicle
+  def license_number
     self.store_vehicle.license_number
-  end
-
-  #TODO: find the order mechanics
-  def mechanic
-    result = []
-    self.items.each do |item|
-      item.store_service_workflow_snapshots.each do |service_workflow|
-        service_workflow.mechanics.each do |mechanic|
-          result << {name: mechanic.full_name, id: mechanic.id }
-        end
-      end
-    end
-    result.uniq
   end
 
   def finish!

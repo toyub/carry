@@ -30,8 +30,8 @@ module Api
         detail: [
                   :content,
                   :inquire,
-                  {:category => [], :way => []},
-                  principal: [:saler, {:mechanic => []}],
+                  {:categories => [], :ways => []},
+                  principal: [:saler, {:mechanics => []}],
                   response:  [:principal, :customer]
                 ])
     end

@@ -23,13 +23,13 @@
       <dd>投诉类别</dd>
       <dd>
         <% @complaint_categories.each do |key, value|  %>
-          <label> <%= value %> <input name="complaint[detail][category][]" type="checkbox" value="<%= key%>" ></label>
+          <label> <%= value %> <input name="complaint[detail][categories][]" type="checkbox" value="<%= key%>" ></label>
         <% end %>
       </dd>
       <dd>投诉渠道</dd>
       <dd>
         <% @complaint_ways.each do |key, value|  %>
-          <label> <%= value %> <input name="complaint[detail][way][]" type="checkbox" value="<%= key%>" ></label>
+          <label> <%= value %> <input name="complaint[detail][ways][]" type="checkbox" value="<%= key%>" ></label>
         <% end %>
       </dd>
     </dl>

@@ -23,7 +23,7 @@
         <td> <%= complaint.order.amount %> </td>
         <td> <%= complaint.order_creator %>  </td>
         <td>
-          <% complaint.constructor(complaint.mechanic).each do |mechanic| %>
+          <% complaint.constructors.each do |mechanic| %>
             <%= mechanic.full_name %>
           <% end %>
         </td>
