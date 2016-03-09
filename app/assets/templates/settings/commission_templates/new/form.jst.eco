@@ -49,7 +49,7 @@
       </li>
       <li>
         <label>高级：</label>
-        <input type="text" <%= 'disabled'unless @sharing_enabled %> required="true" autocomplete="off" num un name="template[level_weight][2]" value='<%= @level_weight[2] %>' />
+        <input type="text" <%= 'disabled' unless @sharing_enabled %> required="true" autocomplete="off" num un name="template[level_weight][2]" value='<%= @level_weight[2] %>' />
       </li>
       <li>
         <label>中级：</label>
