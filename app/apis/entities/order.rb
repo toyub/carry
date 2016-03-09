@@ -4,8 +4,6 @@ module Entities
     expose(:service_name)  {|model, options| model.orderable.try(:name)}
     expose :price, :quantity, :discount, :amount
 
-
-
     def mechanics
       result = []
       object.store_service_workflow_snapshots.each do |workflow_snapshot|
@@ -25,6 +23,5 @@ module Entities
     expose(:total_amount) {|model, options| model.amount }
     expose :damages
     expose :items, using: OrderItem
-
   end
 end
