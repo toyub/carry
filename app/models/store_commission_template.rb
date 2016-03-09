@@ -36,7 +36,7 @@ class StoreCommissionTemplate < ActiveRecord::Base
       return calculate_commission(item).round(2) if for_who == 'department'
       return 0.0
     end
-    return (account_for(staff) * calculate_commission(item)).round(2) if CommissionConfineType::TYPES_ID['多人合作']
+    return (account_for(staff) * calculate_commission(item)).round(2) if confined_to == CommissionConfineType::TYPES_ID['多人合作']
     calculate_commission(item).round(2)
   end
 
