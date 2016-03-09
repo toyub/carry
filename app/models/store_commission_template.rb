@@ -27,7 +27,15 @@ class StoreCommissionTemplate < ActiveRecord::Base
     CommissionAimType.find(self.aim_to).name
   end
 
-  def commission(item, staff, beneficiary = 'person')
+  def task_commission(item, task, staff, beneficiary = 'person')
+    if confined_to == CommissionConfineType::TYPES_ID['班组']
+      beneficiary == 'department' ? (account_for(task, staff) * calculate_commission(item)).round(2) : 0.0
+    else
+      beneficiary == 'person' ? (account_for(task, staff) * calculate_commission(item)).round(2) : 0.0
+    end
+  end
+
+  def self_commission(item, staff, beneficiary = 'person')
     if confined_to == CommissionConfineType::TYPES_ID['班组']
       beneficiary == 'department' ? calculate_commission(item).round(2) : 0.0
     else
@@ -35,8 +43,13 @@ class StoreCommissionTemplate < ActiveRecord::Base
     end
   end
 
-  def account_for(staff)
-    (level_weight_hash[staff.level_type_id.to_s].to_f / (level_weight_hash.map {|_, value| value.to_f}.sum) )
+  def account_for(task, staff)
+    if sharing_enabled
+      base = task.workflow_snapshot.mechanics.map {|mech| level_weight_hash[mech.level_type_id.to_s] }.sum
+      base > 0 ? (level_weight_hash[staff.level_type_id.to_s] / base ) : 0.0
+    else
+      1
+    end
   end
 
   def calculate_commission(order_item)

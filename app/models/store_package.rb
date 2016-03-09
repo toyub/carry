@@ -62,7 +62,7 @@ class StorePackage < ActiveRecord::Base
   end
 
   def commission(order_item, staff, beneficiary)
-    package_setting.present? ? package_setting.commission(order_item, staff, beneficiary) : 0.0
+    package_setting.present? ? package_setting.sale_commission(order_item, staff, beneficiary) : 0.0
   end
 
 end

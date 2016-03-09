@@ -11,7 +11,7 @@ class StoreStaffTask < ActiveRecord::Base
   scope :by_item, ->(item_id) { where(store_order_item_id: item_id) }
 
   def commission(beneficiary = 'person')
-    workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.commission(store_order_item, store_staff, beneficiary) : 0.0
+    workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.task_commission(store_order_item, task, store_staff, beneficiary) : 0.0
   end
 
   def constructed_commission_template
