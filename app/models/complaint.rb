@@ -104,7 +104,7 @@ class Complaint < ActiveRecord::Base
     StoreStaff.find(self.saler_id).full_name if self.saler_id
   end
 
-  def construction(id)
-    StoreServiceWorkflowSnapshot.find(id).engineer
+  def constructor(mechanic_id)
+    StoreStaff.where(id: mechanic_id)
   end
 end

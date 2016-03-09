@@ -103,9 +103,11 @@ class StoreOrder < ActiveRecord::Base
   #TODO: find the order mechanics
   def mechanic
     result = []
-    self.items.map(&->(item){item.workflow_mechanics}).each do |mechanic|
-      mechanic.each do |workflow_snapshot|
-        result << {name: workflow_snapshot.engineer, id: workflow_snapshot.engineer}
+    self.items.each do |item|
+      item.store_service_workflow_snapshots.each do |service_workflow|
+        service_workflow.mechanics.each do |mechanic|
+          result << {name: mechanic.full_name, id: mechanic.id }
+        end
       end
     end
     result.uniq

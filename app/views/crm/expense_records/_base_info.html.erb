@@ -31,10 +31,12 @@
                       <tr>
                         <td>
                           <% item.workflow_mechanics.each do |workflow_snapshot| %>
-                            <label> <%= workflow_snapshot.engineer %> </label>
+                            <% workflow_snapshot.engineer.each do |mechanic| %>
+                              <label> <%= mechanic.full_name %> </label>
+                            <% end %>
                           <% end %>
                         </td>
-                        <td> <%= item.store_service_snapshot.try(:name)%> </td>
+                        <td> <%= item.orderable.try(:name)%> </td>
                         <td> <%= item.price %> </td>
                         <td> <%= item.quantity %> </td>
                         <td>0</td>

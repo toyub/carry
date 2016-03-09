@@ -19,8 +19,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   enum status: [:pending, :processing, :finished]
 
   def engineer
-    # { name: ["xiao","ming"] }
-     1
+    tasks.map(&:mechanic) || []
   end
 
   def ready_mechanics(workstation_id)
