@@ -9,9 +9,7 @@ module Api
     end
 
     def update
-      attrs = setting_params
-      attrs.delete!(:items_attributes) if @setting.items.present?
-      @setting.update(append_store_attrs attrs)
+      @setting.update(append_store_attrs setting_params)
       respond_with @setting, location: nil
     end
 
@@ -40,6 +38,7 @@ module Api
           :payment_mode,
           :store_commission_template_id,
           items_attributes: [
+            :id,
             :name,
             :quantity,
             :price,
