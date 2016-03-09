@@ -9,7 +9,6 @@ module Api
     end
 
     def update
-      @setting.items.clear
       @setting.update(append_store_attrs setting_params)
       respond_with @setting, location: nil
     end
@@ -39,6 +38,7 @@ module Api
           :payment_mode,
           :store_commission_template_id,
           items_attributes: [
+            :id,
             :name,
             :quantity,
             :price,
