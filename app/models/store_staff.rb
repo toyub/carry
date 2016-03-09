@@ -273,12 +273,12 @@ class StoreStaff <  ActiveRecord::Base
     sum
   end
 
-  def sale_commission_of(item, for_who = 'person')
-    item.commission(for_who)
+  def sale_commission_of(item, beneficiary = 'person')
+    item.commission(beneficiary)
   end
 
-  def task_commission_of(task, for_who = 'person')
-    task.commission(for_who)
+  def task_commission_of(task, beneficiary = 'person')
+    task.commission(beneficiary)
   end
 
   def self.items_amount_total(month = Time.now)

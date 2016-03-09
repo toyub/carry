@@ -158,8 +158,8 @@ class StoreService < ActiveRecord::Base
     true
   end
 
-  def commission(staff, order_item, for_who)
-    saleman_commission_template.present? ? saleman_commission_template.commission(staff, order_item, for_who) : 0.0
+  def commission(order_item, staff, beneficiary)
+    saleman_commission_template.present? ? saleman_commission_template.commission(order_item, staff, beneficiary) : 0.0
   end
 
   def self.top_sales_by_month(sort_by = 'amount', month = Time.now)

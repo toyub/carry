@@ -31,13 +31,12 @@ class StoreCommissionTemplate < ActiveRecord::Base
     CommissionAimType.find(self.aim_to).name
   end
 
-  def commission(staff, item, for_who = 'person')
+  def commission(item, staff, beneficiary = 'person')
     if confined_to == CommissionConfineType::TYPES_ID['班组']
-      return calculate_commission(item).round(2) if for_who == 'department'
-      return 0.0
+      beneficiary == 'department' ? calculate_commission(item).round(2) : 0.0
+    else
+      beneficiary == 'person' ? calculate_commission(item).round(2) : 0.0
     end
-    return (account_for(staff) * calculate_commission(item)).round(2) if confined_to == CommissionConfineType::TYPES_ID['多人合作']
-    calculate_commission(item).round(2)
   end
 
   def account_for(staff)

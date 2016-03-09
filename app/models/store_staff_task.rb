@@ -10,8 +10,8 @@ class StoreStaffTask < ActiveRecord::Base
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_item, ->(item_id) { where(store_order_item_id: item_id) }
 
-  def commission(for_who = 'person')
-    workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.commission(store_staff, store_order_item, for_who) : 0.0
+  def commission(beneficiary = 'person')
+    workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.commission(store_order_item, store_staff, beneficiary) : 0.0
   end
 
   def constructed_commission_template
