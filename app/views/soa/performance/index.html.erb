@@ -41,7 +41,7 @@
               <td><%= commission_history.store_commission_items.where(orderable_type: [StoreMaterialSaleinfo.name, StorePackage.name]).count %></td>
               <td><%= commission_history.store_commission_items.where(orderable_type: [StoreMaterialSaleinfo.name, StorePackage.name]).map(&:item_amount).sum %></td>
               <td><%= commission_history.store_commission_items.select(:store_order_item_id).uniq.count %></td>
-              <td><%= commission_history.store_commission_items.where(commisson_type: 'sale').map(&:item_amount).sum %></td>
+              <td><%= commission_history.store_commission_items.where(commission_type: 'sale').map(&:item_amount).sum %></td>
               <td><%= commission_history.store_commission_items.map(&:item_amount).sum %></td>
               <td><%= commission_history.store_commission_items.map(&:commission_amount).sum %></td>
               <td><a href="/soa/staff/<%= staff.id %>/performs"><i class="ico ico-edit font-14"></i></a></td>

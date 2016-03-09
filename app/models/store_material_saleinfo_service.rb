@@ -48,8 +48,8 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     tracking_delay_in_seconds.seconds
   end
 
-  def commission(order_item)
-    mechanic_commission_template.present? ? mechanic_commission_template.commission(order_item) : 0.0
+  def commission(order_item, staff, beneficiary = 'person')
+    0.0
   end
 
   def saleman_commission_template
