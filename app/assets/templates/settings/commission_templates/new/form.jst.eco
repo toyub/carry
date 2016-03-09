@@ -28,12 +28,15 @@
   </div>
 
   <div class="commission_coverage">
-    <label>提成范围</label>
+    <label>受益方</label>
     <select name='template[confined_to]' class="confined_to">
-      <option value="0">班组</option>
-      <option value='1' <%= 'selected' if @confined_to.toString() == '1' %> value='1'>个人</option>
-      <option value='2' <%= 'selected' if @confined_to.toString() == '2' %> value='1'>多人合作</option>
+      <option value="0">部门</option>
+      <option value='1' <%= 'selected' if @confined_to.toString() == '1' %> >个人</option>
     </select>
+  </div>
+
+  <div class="commission_coverage">
+    <label style="width: 120px;"><input type="checkbox" <%= 'checked' if @sharing_enabled %> name="template[sharing_enabled]">多人合作模式</label>
   </div>
 
   <div>
@@ -42,19 +45,19 @@
     <ul>
       <li>
         <label>专家：</label>
-        <input type="text" <%= 'disabled' if @confined_to.toString() != '2' %> required="true" autocomplete="off" num un name="template[level_weight][3]" value='<%= @level_weight[3] %>' />
+        <input type="text" <%= 'disabled' unless @sharing_enabled %> required="true" autocomplete="off" num un name="template[level_weight][3]" value='<%= @level_weight[3] %>' />
       </li>
       <li>
         <label>高级：</label>
-        <input type="text" <%= 'disabled' if @confined_to.toString() != '2' %> required="true" autocomplete="off" num un name="template[level_weight][2]" value='<%= @level_weight[2] %>' />
+        <input type="text" <%= 'disabled'unless @sharing_enabled %> required="true" autocomplete="off" num un name="template[level_weight][2]" value='<%= @level_weight[2] %>' />
       </li>
       <li>
         <label>中级：</label>
-        <input type="text" <%= 'disabled' if @confined_to.toString() != '2' %> required="true" autocomplete="off" num un name="template[level_weight][1]" value='<%= @level_weight[1] %>' />
+        <input type="text" <%= 'disabled' unless @sharing_enabled %> required="true" autocomplete="off" num un name="template[level_weight][1]" value='<%= @level_weight[1] %>' />
       </li>
       <li>
         <label>初级：</label>
-        <input type="text" <%= 'disabled' if @confined_to.toString() != '2' %> required="true" autocomplete="off" num un name="template[level_weight][0]" value='<%= @level_weight[0] %>' />
+        <input type="text" <%= 'disabled' unless @sharing_enabled %> required="true" autocomplete="off" num un name="template[level_weight][0]" value='<%= @level_weight[0] %>' />
       </li>
     </ul>
   </div>

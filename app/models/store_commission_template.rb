@@ -12,11 +12,7 @@ class StoreCommissionTemplate < ActiveRecord::Base
   accepts_nested_attributes_for :sections, allow_destroy: true
 
   def level_weight
-    if self.level_weight_hash.present?
-      JSON.parse(self.level_weight_hash)
-    else
-      {}
-    end
+    self.level_weight_hash
   end
 
   def mode_type

@@ -1,6 +1,6 @@
 class CommissionConfineType
   attr_reader :id, :name
-  ID_TYPES={ 0 => '班组', 1 => '个人', 2 => '多人合作'}
+  ID_TYPES={ 0 => '部门', 1 => '个人'}
   TYPES_ID = ID_TYPES.invert
 
   def initialize(_id, _name)

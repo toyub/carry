@@ -19,13 +19,13 @@
     </div>
 
     <div class="commission_coverage plan_info">
-      <label>提成范围</label>
+      <label>受益方</label>
       <span style="width:180px;"><%= @confined_type %></span>
     </div>
 
-    <% if String(@confined_to) == '2' : %>
+    <% if @sharing_enabled : %>
     <div class="modulus">
-      <p>提成系数设置</p>
+      <p>提成系数设置[开启多人合作模式]</p>
       <span>多人合作提成多用于多个技师合同对一个项目施工的情况。设置提成系数后将会按比例进行分配提成金额。</span>
 
       <ul>
