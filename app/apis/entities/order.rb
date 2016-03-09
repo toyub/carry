@@ -1,8 +1,20 @@
 module Entities
   class OrderItem < Grape::Entity
-    expose(:mechanics) {|model, options| model.workflow_mechanics.map(&->(wm){wm.engineer})}
-    expose(:service_name)  {|model, options| model.store_service_snapshot.try(:name)}
+    expose :mechanics
+    expose(:service_name)  {|model, options| model.orderable.try(:name)}
     expose :price, :quantity, :discount, :amount
+
+
+
+    def mechanics
+      result = []
+      object.store_service_workflow_snapshots.each do |workflow_snapshot|
+        workflow_snapshot.mechanics.each do |mechanic|
+          result << mechanic.full_name
+        end
+      end
+      result.uniq
+    end
   end
 
   class Order < Grape::Entity
