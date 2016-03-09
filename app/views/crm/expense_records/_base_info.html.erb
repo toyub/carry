@@ -60,7 +60,7 @@
           </table>
         </div>
         <dl class="get_order text-align-center ">
-          <dd><a href="#" target="_blank" class="order_btn">查看单据</a></dd>
+          <dd><a href="/printer/pos/orders/<%= order.id %>" target="_blank" class="order_btn">查看单据</a></dd>
           <dd> <%= link_to '投诉', 'javascript:void(0)', class: 'complaints_btn btn do_complaints',id: 'tousu',
           data: { order: order.id, customer: @customer.id } %> </dd>
         </dl>
