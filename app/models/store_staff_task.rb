@@ -1,7 +1,6 @@
 class StoreStaffTask < ActiveRecord::Base
   include BaseModel
 
-  belongs_to :store_staff
   belongs_to :store_order_item
   belongs_to :mechanic, class_name: 'StoreStaff', foreign_key: :mechanic_id
   belongs_to :taskable, polymorphic: true
@@ -11,7 +10,7 @@ class StoreStaffTask < ActiveRecord::Base
   scope :by_item, ->(item_id) { where(store_order_item_id: item_id) }
 
   def commission(beneficiary = 'person')
-    workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.task_commission(store_order_item, self, store_staff, beneficiary) : 0.0
+    workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.task_commission(store_order_item, self, mechanic, beneficiary) : 0.0
   end
 
   def constructed_commission_template

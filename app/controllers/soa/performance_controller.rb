@@ -4,6 +4,7 @@ class Soa::PerformanceController < Soa::BaseController
     @departments = current_store.store_departments
     @positions = @departments[0].store_positions
     @month = Time.now
+    @performances = ConstructPerformance.new(@staffs, @month)
   end
 
   def search
@@ -15,6 +16,7 @@ class Soa::PerformanceController < Soa::BaseController
     @departments = current_store.store_departments
     @positions = @departments.find(params[:store_department_id]).store_positions
     @month = (Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i) || Time.now
+    @performances = ConstructPerformance.new(@staffs, @month)
     render :index
   end
 

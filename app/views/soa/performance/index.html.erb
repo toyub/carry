@@ -46,18 +46,21 @@
               <td><%= commission_history.store_commission_items.map(&:commission_amount).sum %></td>
               <td><a href="/soa/staff/<%= staff.id %>/performs"><i class="ico ico-edit font-14"></i></a></td>
             <% else %>
-              <td><%= staff.store_orders.by_month(@month).count %></td>
-              <td><%= staff.store_order_items.by_month(@month).materials.count %></td>
-              <td><%= staff.materials_amount_total(@month) %></td>
               <% if staff.job_type_id == JobType::TYPES_ID['销售']  %>
-                <td> <%= staff.store_order_items.by_month(@month).services.count %> </td>
+                <td><%= (staff.store_orders.by_month(@month).pluck(:id) + staff.store_staff_tasks.joins(:store_order_item => :store_order).pluck("store_orders.id").uniq).uniq.count %></td>
+                <td><%= staff.store_order_items.by_month(@month).materials.count %></td>
+                <td><%= staff.materials_amount_total(@month) %></td>
+                <td><%= staff.store_order_items.by_month(@month).services.count %> </td>
                 <td><%= staff.services_amount_total(@month) %></td>
               <% elsif staff.job_type_id == JobType::TYPES_ID['技师'] %>
+                <td><%= staff.store_orders.by_month(@month) +  %></td>
+                <td><%= staff.store_order_items.by_month(@month).materials.count %></td>
+                <td><%= staff.materials_amount_total(@month) %></td>
+                <td> <%= staff.store_order_items.by_month(@month).services.count %> </td>
+                <td><%= staff.services_amount_total(@month) %></td>
                 <td> <%= staff.store_order_items.by_month(@month).services.count + staff.store_staff_tasks.by_month(@month).count %> </td>
                 <td>0</td>
               <% else %>
-                <td>0</td>
-                <td>0</td>
               <% end %>
               <td><%= staff.items_amount_total(@month) %></td>
               <td><%= staff.commission_amount_total(@month) %></td>
