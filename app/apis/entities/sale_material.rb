@@ -9,8 +9,9 @@ module Entities
     expose :file_url
   end
 
-  class SaleMaterial < Entity
-    expose :id, :store_material_id, :store_material_saleinfo_id, :name,
+  class SaleMaterial < Grape::Entity
+    expose :id, :name, :barcode, :speci, :bargainable, :point,
+           :retail_price, :bargain_price
     expose(:store_name) {|model| model.store.name}
 
     expose(:unit) {|model| model.store_material.store_material_unit.try :name}
@@ -21,7 +22,6 @@ module Entities
     expose :photo_path, using: MaterialPhotoPath
 
     expose :services, using: StoreMaterialSaleinfoService
-    expose :barcode, :speci, :retail_price, :bargain_price, :bargainable, :point
 
 
     def photo_path
