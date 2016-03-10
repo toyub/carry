@@ -2,7 +2,7 @@ class Kucun::SaleinfoServicesController < Kucun::BaseController
   def index
     store_material = StoreMaterial.find(params[:material_id])
     if store_material.store_material_saleinfo.present?
-      render json: store_material.store_material_saleinfo.services, root: nil
+      render json: store_material.store_material_saleinfo.services.available, root: nil
     else
       render json: [], root: nil
     end

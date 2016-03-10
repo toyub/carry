@@ -13,6 +13,10 @@ class StorePackageItem < ActiveRecord::Base
   scope :packaged_services, ->{where(package_itemable_type: StoreService.name)}
 
   belongs_to :store_package_setting
+
+  def name
+    read_attribute(:name) || package_itemable.try(:name)
+  end
   
   private
     def create_deposit_card
