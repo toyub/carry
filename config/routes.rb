@@ -240,6 +240,8 @@ Rails.application.routes.draw do
   #Api
   namespace :api do
 
+    resources :store_materials, only: :index
+
     #Order
     namespace :order do
 
