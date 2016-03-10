@@ -10,7 +10,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   belongs_to :store_order
   belongs_to :store_vehicle
   has_many :tasks, class_name: 'StoreStaffTask', foreign_key: :workflow_id
-  has_many :mechanics, through: :tasks
 
   validates :store_staff_id, presence: true
   validates :store_service_id, presence: true
