@@ -20,7 +20,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
-  has_many :store_staff_tasks
+  has_many :store_staff_tasks, foreign_key: 'mechanic_id'
   has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
   has_many :store_commission_items, as: :ownerable
   has_many :store_commissions, as: :ownerable
@@ -231,7 +231,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def materials_amount_total(month = Time.now)
-    store_order_items.by_month(month).materials.inject(0) {|sum, item| sum += item.amount }
+    store_order_items.by_month(month).map(&:amount).sum
   end
 
   def services_amount_total(month = Time.now)
@@ -271,6 +271,16 @@ class StoreStaff <  ActiveRecord::Base
     sum = item.commission if item.saled_by? self
     sum += store_staff_tasks.by_item(item).map(&:commission).sum if item.constructed_by? self
     sum
+  end
+
+  def has_commission?(month = Time.now)
+    if store_order_items.by_month(month).present? || store_staff_tasks.by_month(month).present?
+      store_order_items.by_month(month).map { |item| return true if item.orderable.saleman_commission_template.present? }
+      store_staff_tasks.by_month(month).map { |task| return true if task.workflow_snapshot.mechanic_commission_template_id.present? } if mechanic?
+      return false
+    else
+      return false
+    end
   end
 
   def sale_commission_of(item, beneficiary = 'person')

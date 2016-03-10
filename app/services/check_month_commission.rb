@@ -33,7 +33,7 @@ class CheckMonthCommission
   end
 
   def make_constructe_commission(task)
-    staff = task.store_staff
+    staff = task.mechanic
     item = task.store_order_item
     if task.constructed_commission_template.present?
       if task.constructed_commission_template.confined_to == CommissionConfineType::TYPES_ID['班组']
@@ -69,7 +69,7 @@ class CheckMonthCommission
       item_amount:              item.amount,
       orderable_type:           item.orderable_type,
       commission_amount:        staff.sale_commission_of(item, beneficiary),
-      commission_type:          check_commission_type(staff, item),
+      commission_type:          'sale',
       order_created_at:         item.store_order.created_at
     )
     commission_item.permit(:store_id, :store_chain_id, :store_staff_id, :store_order_id, :store_commission_id,
@@ -90,22 +90,15 @@ class CheckMonthCommission
       store_order_item_name:    item.orderable.name,
       store_order_item_remark:  remark,
       item_amount:              item.amount,
-      orderable_type:           item.orderable_type,
+      orderable_type:           nil,
       commission_amount:        staff.task_commission_of(task, beneficiary),
-      commission_type:          check_commission_type(staff, item),
+      commission_type:          'constructed',
       order_created_at:         item.store_order.created_at
     )
     commission_item.permit(:store_id, :store_chain_id, :store_staff_id, :store_order_id, :store_commission_id,
                            :store_order_numero, :store_order_item_id, :store_order_item_name,
                            :store_order_item_remark, :item_amount, :orderable_type, :commission_amount,
                            :commission_type, :order_created_at)
-  end
-
-  def check_commission_type(staff, item)
-    type = 'sale'
-    type = 'constructed' if item.constructed_by? staff
-    type = 'all' if item.saled_by?(staff) && item.constructed_by?(staff)
-    type
   end
 
   def last_month
