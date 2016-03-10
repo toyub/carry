@@ -35,7 +35,7 @@ class StoreCommissionTemplate < ActiveRecord::Base
     end
   end
 
-  def self_commission(item, staff, beneficiary = 'person')
+  def sale_commission(item, staff, beneficiary = 'person')
     if confined_to == CommissionConfineType::TYPES_ID['班组']
       beneficiary == 'department' ? calculate_commission(item).round(2) : 0.0
     else

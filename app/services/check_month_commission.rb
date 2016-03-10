@@ -55,7 +55,7 @@ class CheckMonthCommission
     commission.permit(:store_id, :store_chain_id, :created_month)
   end
 
-  def sale_commission_item_params(staff, item, commission, remark, for_who = 'person')
+  def sale_commission_item_params(staff, item, commission, remark, beneficiary = 'person')
     commission_item = ActionController::Parameters.new(
       store_id:                 staff.store.id,
       store_chain_id:           staff.store_chain.id,
@@ -68,7 +68,7 @@ class CheckMonthCommission
       store_order_item_remark:  remark,
       item_amount:              item.amount,
       orderable_type:           item.orderable_type,
-      commission_amount:        staff.sale_commission_of(item, for_who),
+      commission_amount:        staff.sale_commission_of(item, beneficiary),
       commission_type:          check_commission_type(staff, item),
       order_created_at:         item.store_order.created_at
     )
@@ -78,7 +78,7 @@ class CheckMonthCommission
                            :commission_type, :order_created_at)
   end
 
-  def task_commission_item_params(staff, task, item, commission, remark, for_who = 'person')
+  def task_commission_item_params(staff, task, item, commission, remark, beneficiary = 'person')
     commission_item = ActionController::Parameters.new(
       store_id:                 staff.store.id,
       store_chain_id:           staff.store_chain.id,
@@ -91,7 +91,7 @@ class CheckMonthCommission
       store_order_item_remark:  remark,
       item_amount:              item.amount,
       orderable_type:           item.orderable_type,
-      commission_amount:        staff.task_commission_of(task, for_who),
+      commission_amount:        staff.task_commission_of(task, beneficiary),
       commission_type:          check_commission_type(staff, item),
       order_created_at:         item.store_order.created_at
     )

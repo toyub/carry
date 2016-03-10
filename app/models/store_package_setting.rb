@@ -37,8 +37,8 @@ class StorePackageSetting < ActiveRecord::Base
     end
   end
 
-  def commission(staff, order_item, for_who)
-    saleman_commission_template.present? ? saleman_commission_template.commission(staff, order_item, for_who) : 0.0
+  def sale_commission(staff, order_item, beneficiary)
+    saleman_commission_template.present? ? saleman_commission_template.sale_commission(staff, order_item, beneficiary) : 0.0
   end
 
 end
