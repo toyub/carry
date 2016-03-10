@@ -274,13 +274,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def has_commission?(month = Time.now)
-    if store_order_items.by_month(month).present? || store_staff_tasks.by_month(month).present?
-      store_order_items.by_month(month).map { |item| return true if item.orderable.saleman_commission_template.present? }
-      store_staff_tasks.by_month(month).map { |task| return true if task.workflow_snapshot.mechanic_commission_template_id.present? } if mechanic?
-      return false
-    else
-      return false
-    end
+    store_order_items.by_month(month).any? { |item| item.orderable.saleman_commission_template.present? } || (mechanic? ? store_staff_tasks.by_month(month).any? { |task| task.workflow_snapshot.mechanic_commission_template_id.present? } : false)
   end
 
   def sale_commission_of(item, beneficiary = 'person')
