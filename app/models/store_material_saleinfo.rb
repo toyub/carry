@@ -14,7 +14,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   has_many :recommended_order_items, as: :itemable
 
   scope :by_category, ->(sale_category_id){ where(sale_category_id: sale_category_id) if sale_category_id.present? }
-  scope :exclude_service, -> { where.not(service_needed: true) }
+  scope :exclude_service, -> { where(service_needed: false) }
 
   accepts_nested_attributes_for :services
 
