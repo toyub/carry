@@ -22,7 +22,7 @@ class CheckMonthCommission
   def make_sale_commission(item)
     staff = item.store_staff
     if item.orderable.saleman_commission_template.present?
-      if item.orderable.saleman_commission_template.confined_to == CommissionConfineType::TYPES_ID['班组']
+      if item.orderable.saleman_commission_template.confined_to == CommissionConfineType::TYPES_ID['部门']
         commission = staff.store_department.store_commissions.find_or_create_by(commission_params(staff))
         staff.store_department.store_commission_items.create!(sale_commission_item_params(staff, item, commission, "卖出#{item.quantity}件", 'department'))
       else
@@ -36,7 +36,7 @@ class CheckMonthCommission
     staff = task.mechanic
     item = task.store_order_item
     if task.constructed_commission_template.present?
-      if task.constructed_commission_template.confined_to == CommissionConfineType::TYPES_ID['班组']
+      if task.constructed_commission_template.confined_to == CommissionConfineType::TYPES_ID['部门']
         commission = staff.store_department.store_commissions.find_or_create_by(commission_params(staff))
         staff.store_department.store_commission_items.create!(task_commission_item_params(staff, task, item, commission, task.workflow_snapshot.name, 'department'))
       else

@@ -23,6 +23,7 @@ class StoreOrderItem < ActiveRecord::Base
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }
   scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
   scope :by_type, ->(type) { where(orderable_type: type) }
+  scope :except_from_customer_assets, -> { where.not(from_customer_asset: true) }
 
   validates_presence_of :orderable
 
@@ -89,7 +90,7 @@ class StoreOrderItem < ActiveRecord::Base
   end
 
   def constructed_by? staff
-    store_staff_tasks.exists?(store_staff_id: staff)
+    store_staff_tasks.exists?(mechanic_id: staff)
   end
 
   def saled_by? staff

@@ -28,9 +28,9 @@
       </thead>
 
       <tbody>
-        <% @staff_performances.each do |staff| %>
+        <% @staff_performances.each.with_index(1) do |staff, index| %>
           <tr>
-            <td class="sequence_num"><%= staff[:id] %></td>
+            <td class="sequence_num"><%= index %></td>
             <td><%= staff[:name] %></td>
             <td><%= staff[:numero] %></td>
             <td><%= staff[:department] %></td>
