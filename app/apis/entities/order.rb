@@ -2,6 +2,7 @@ module Entities
   class WorkflowSnapshotMechanic < Grape::Entity
     expose :full_name
   end
+  
   class WorkflowSnapshot < Grape::Entity
     expose(:workflow_snapshot_id) {|model| model.id}
     expose :mechanics, using: WorkflowSnapshotMechanic
@@ -11,7 +12,6 @@ module Entities
     expose(:service_name)  {|model, options| model.orderable.try(:name)}
     expose :price, :quantity, :discount, :amount
     expose :workflow_snapshots, using: WorkflowSnapshot
-
     def workflow_snapshots
       object.store_service_workflow_snapshots.map(&->(workflow_snapshot){workflow_snapshot})
     end
