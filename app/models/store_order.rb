@@ -22,7 +22,7 @@ class StoreOrder < ActiveRecord::Base
   scope :today, -> { by_day(Date.today) }
   scope :has_service, -> { where(service_included: true) }
   scope :unfinished, -> { where.not(state: StoreOrder.states[:finished]) }
-  scope :unpending, -> { where.not(state: StoreOrder.states[:pending])}
+  scope :unpending, -> { where.not(state: StoreOrder.states[:pending]) }
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
