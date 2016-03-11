@@ -1,24 +1,26 @@
 <tbody>
   <% @order_items.each do |item| %>
-    <tr>
-      <% if item.saled_by? @staff %>
+    <% if item.saled_by? @staff %>
+      <tr>
         <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
         <td><%= item.store_order.numero %></td>
         <td><%= item.orderable.name %></td>
         <td> 卖出<em><%= item.quantity %></em>件</td>
         <td><%= item.amount %></td>
         <td> <%= @staff.sale_commission_of item %> </td>
-      <% else  %>
-        <% @staff.store_staff_tasks.where(store_order_item_id: item).each do |task| %>
-        <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
-        <td><%= item.store_order.numero %></td>
-        <td><%= item.orderable.name %></td>
-        <td> <em><%= task.workflow_snapshot.name %> <%= @staff.task_commission_of(task) %></em></td>
-        <td><%= item.amount %></td>
-        <td> <%= @staff.task_commission_of task %> </td>
-        <% end %>
+      </tr>
+    <% else  %>
+      <% @staff.store_staff_tasks.where(store_order_item_id: item).each do |task| %>
+        <tr>
+          <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
+          <td><%= item.store_order.numero %></td>
+          <td><%= item.orderable.name %></td>
+          <td> <em><%= task.workflow_snapshot.name %> <%= @staff.task_commission_of(task) %></em></td>
+          <td><%= item.amount %></td>
+          <td> <%= @staff.task_commission_of task %> </td>
+        </tr>
       <% end %>
-    </tr>
+    <% end %>
   <% end %>
 </tbody>
 <tfoot>
