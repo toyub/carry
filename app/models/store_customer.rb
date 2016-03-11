@@ -71,10 +71,6 @@ class StoreCustomer < ActiveRecord::Base
     now.year - birthday.year - (birthday.to_date.change(year: now.year) > now ? 1 : 0)
   end
 
-  def first_vehicle_id
-    self.store_vehicles.ids.sort.first
-  end
-
   def operator
     self.creator.screen_name
   end
