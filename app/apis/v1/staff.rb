@@ -15,7 +15,7 @@ module V1
           optional :store_department_id_eq, type: Integer, desc: "所属门店部门ID"
           optional :store_position_id_eq, type: Integer, desc: "所属门店职务ID"
           optional :level_type_id_eq, type: Integer, desc: "提成等级"
-          optional :employeed_at_eq, type: DateTime, desc: "入职时间"
+          optional :employeed_at_eq, type: Date, desc: "入职时间"
         end
       end
 
