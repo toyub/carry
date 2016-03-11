@@ -10,7 +10,8 @@ module Entities
   end
 
   class Material < Grape::Entity
-    expose :id, :inventory, :sold_count, :name
+    expose :id, :inventory, :name
+    expose(:sold_count) {|model|model.store_material_saleinfo.try(:sold_count)}
     expose(:store_name) {|model| model.store.name}
     expose(:barcode) {|model| model.store_material_saleinfo.try(:barcode) }
     expose(:speci) {|model| model.store_material_saleinfo.try(:speci)}

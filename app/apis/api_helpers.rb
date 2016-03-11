@@ -22,8 +22,8 @@ module APIHelpers
   end
 
   def current_user
-    @current_user ||= ApiToken.authenticate(sn_code, authorization).try(:store_staff)
-    # @current_user ||= StoreStaff.where(login_name: sn_code).last
+    # @current_user ||= ApiToken.authenticate(sn_code, authorization).try(:store_staff)
+    @current_user ||= StoreStaff.where(login_name: sn_code).last
   end
 
   def authenticate_sn_code!
