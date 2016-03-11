@@ -24,7 +24,8 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
       :store_id,
       :store_chain_id,
       :store_staff_id,
-      :name
+      :name,
+      :mechanic_commission_template_id
     ).merge(
       store_vehicle_id: order_item.store_order.store_vehicle_id,
       store_order_item_id: order_item.id,
