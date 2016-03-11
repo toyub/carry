@@ -97,6 +97,10 @@ class StoreOrderItem < ActiveRecord::Base
     store_staff_id == staff.id
   end
 
+  def has_commission?
+    orderable.saleman_commission_template.present?
+  end
+
   def self.total_amount
     sum(:amount)
   end

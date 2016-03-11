@@ -20,4 +20,8 @@ class StoreStaffTask < ActiveRecord::Base
   def free
     self.mechanic.store_group_member.free!
   end
+
+  def has_commission?
+    workflow_snapshot.mechanic_commission.present?
+  end
 end

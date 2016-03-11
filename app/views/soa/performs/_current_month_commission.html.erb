@@ -1,6 +1,6 @@
 <tbody>
   <% @order_items.each do |item| %>
-    <% if item.saled_by? @staff %>
+    <% if item.saled_by?(@staff) && item.has_commission? %>
       <tr>
         <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
         <td><%= item.store_order.numero %></td>
@@ -10,8 +10,9 @@
         <td> <%= @staff.sale_commission_of item %> </td>
       </tr>
     <% end %>
-    <% if item.constructed_by? @staff  %>
+    <% if item.constructed_by? @staff %>
       <% @staff.store_staff_tasks.where(store_order_item_id: item).each do |task| %>
+        <% next unless task.has_commission? %>
         <tr>
           <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
           <td><%= item.store_order.numero %></td>
