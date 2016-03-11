@@ -1,5 +1,4 @@
 module Entities
-  included Material
   class SaleMaterial < Grape::Entity
     expose :id, :name, :barcode, :speci, :bargainable, :point,
            :retail_price, :bargain_price, :sold_count
