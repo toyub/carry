@@ -114,7 +114,7 @@ module V1
       get do
         orders = current_store.store_orders.ransack(params[:q]).result
         if params[:service_included]
-          orders = orders.has_service
+          orders = orders.has_service.unfinished.unpending
         end
         present orders, with: ::Entities::StoreOrder, type: :default
       end
