@@ -31,7 +31,7 @@
                       <tr>
                         <td>
                           <% item.workflow_mechanics.each do |workflow_snapshot| %>
-                            <% workflow_snapshot.engineer.each do |mechanic| %>
+                            <% workflow_snapshot.mechanics.each do |mechanic| %>
                               <label> <%= mechanic.full_name %> </label>
                             <% end %>
                           <% end %>
