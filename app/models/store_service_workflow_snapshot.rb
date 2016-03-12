@@ -51,7 +51,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics
-    tasks.map(&:mechanic) || []
+    tasks.map(&:mechanic).compact
   end
 
   def has_mechanic?

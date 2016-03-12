@@ -61,8 +61,8 @@ class StorePackage < ActiveRecord::Base
     StoreOrderItem.packages.by_month.sum(:amount)
   end
 
-  def commission(order_item)
-    package_setting.present? ? package_setting.commission(order_item) : 0.0
+  def commission(order_item, staff, beneficiary)
+    package_setting.present? ? package_setting.sale_commission(order_item, staff, beneficiary) : 0.0
   end
 
 end

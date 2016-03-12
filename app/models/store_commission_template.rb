@@ -27,7 +27,32 @@ class StoreCommissionTemplate < ActiveRecord::Base
     CommissionAimType.find(self.aim_to).name
   end
 
-  def commission(order_item)
+  def task_commission(item, task, staff, beneficiary = 'person')
+    if confined_to == CommissionConfineType::TYPES_ID['部门']
+      beneficiary == 'department' ? (account_for(task, staff) * calculate_commission(item)).round(2) : 0.0
+    else
+      beneficiary == 'person' ? (account_for(task, staff) * calculate_commission(item)).round(2) : 0.0
+    end
+  end
+
+  def sale_commission(item, staff, beneficiary = 'person')
+    if confined_to == CommissionConfineType::TYPES_ID['部门']
+      beneficiary == 'department' ? calculate_commission(item).round(2) : 0.0
+    else
+      beneficiary == 'person' ? calculate_commission(item).round(2) : 0.0
+    end
+  end
+
+  def account_for(task, staff)
+    if sharing_enabled
+      base = task.workflow_snapshot.mechanics.map {|mech| level_weight_hash[mech.level_type_id.to_s] }.sum.to_f
+      base > 0 ? (level_weight_hash[staff.level_type_id.to_s].to_f / base ) : 0.0
+    else
+      1
+    end
+  end
+
+  def calculate_commission(order_item)
     amount = 0.0
     case mode_id
     when 0 #"标准提成"
