@@ -15,6 +15,7 @@ module Entities
     expose :orderable_type, :orderable_id, :from_customer_asset, :discount,
            :discount_reason, :vip_price, :quantity, :package_type, :package_id,
            :assetable_type, :assetable_id, :store_customer_asset_item_id, if: {type: :full}
+    expose(:order_numero, if: {type: :full}){|model|model.store_order.numero}
     expose(:name, if: {type: :full}) {|model|model.orderable.name}
     expose(:speci, if: {type: :full}) {|model| model.orderable.speci if model.orderable_type == 'StoreMaterial'}
     expose(:price, if: {type: :full}) {|model|model.retail_price}
