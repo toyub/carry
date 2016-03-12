@@ -1,6 +1,5 @@
 class SmsRecord < ActiveRecord::Base
   belongs_to :store_customers
-  belongs_to :store
 
   scope :by_store, -> { where(party_type: 'Store') }
   scope :by_date, -> (start_date, end_date){ where(created_at: start_date .. end_date) }
