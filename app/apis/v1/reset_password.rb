@@ -4,7 +4,6 @@ module V1
     resource :reset_password do
       before do
         authenticate_platform!
-        authenticate_sn_code!
       end
 
       add_desc '重置密码'
