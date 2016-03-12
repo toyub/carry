@@ -24,12 +24,11 @@ class PasswordsController < ApplicationController
   end
 
   def send_validate_code
-    @captcha = Captcha.new(token: generate_salt(6), sent_at: Time.now, phone: params[:phone])
-    if @captcha.save
+    @captcha = Captcha.generate!(params[:phone], SmsCaptchaSwitchType.find_by_name('密码找回验证').id)
+    if @captcha.present?
       @captcha.send_message
-    else
-      redirect_to new_password_path, notice: '发送失败！'
     end
+
   end
 
   def update
@@ -42,11 +41,6 @@ class PasswordsController < ApplicationController
   end
 
   private
-  def generate_salt(len)
-    chars = Array(0..9)
-    len.times.map { chars.sample }.join
-  end
-
   def set_captcha
     @captcha = Captcha.find(params[:id]) if params[:id].present?
   end
