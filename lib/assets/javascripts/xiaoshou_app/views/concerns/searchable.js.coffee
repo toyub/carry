@@ -28,8 +28,8 @@ Mis.Views.Concerns.Searchable =
       @renderChild(none)
       @$("tbody").addClass("no_search_result").html none.el
 
-  renderResource: (r) ->
-    row = @resourceItem(model: r)
+  renderResource: (r, index) ->
+    row = @resourceItem(model: r, index: index)
     @appendChildTo(row, @$("tbody"))
 
   columns: ->

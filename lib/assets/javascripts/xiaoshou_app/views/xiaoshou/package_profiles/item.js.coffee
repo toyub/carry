@@ -3,8 +3,9 @@ class Mis.Views.XiaoshouPackageProfilesItem extends Mis.Base.View
 
   template: JST['xiaoshou/package_profiles/item']
 
-  initialize: ->
+  initialize: (options) ->
     @listenTo(@model, 'remove', @leave)
+    @index = options.index
 
   render: ->
     @$el.html(@template(package: @model, view: @))
