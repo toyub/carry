@@ -243,7 +243,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total(month = Time.now)
-    sale_commission(month) + constucted_commission(month)
+    commission? ? (sale_commission(month) + constucted_commission(month)) : 0.0
   end
 
   def constucted_commission(month = Time.now)
@@ -278,11 +278,11 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def sale_commission_of(item, beneficiary = 'person')
-    item.commission(beneficiary)
+    commission? ? item.commission(beneficiary) : 0.0
   end
 
   def task_commission_of(task, beneficiary = 'person')
-    task.commission(beneficiary)
+    commission? ? task.commission(beneficiary) : 0.0
   end
 
   def self.items_amount_total(month = Time.now)

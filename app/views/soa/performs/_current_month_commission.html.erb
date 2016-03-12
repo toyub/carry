@@ -18,7 +18,7 @@
           <td><%= item.store_order.numero %></td>
           <td><%= item.orderable.name %></td>
           <td> <em><%= task.workflow_snapshot.name %> <%= @staff.task_commission_of(task) %></em></td>
-          <td><%= item.amount %></td>
+          <td><%= 0.0 %></td>
           <td> <%= @staff.task_commission_of task %> </td>
         </tr>
       <% end %>
