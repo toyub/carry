@@ -7,10 +7,6 @@ module APIHelpers
   end
 
   # 设备的sn码或者是用户名
-  def sn_code
-    @header_sn_code ||= (headers["X-Sn-Code"] || headers["X-Username"])
-  end
-
   def authorization
     @header_authorization ||= headers["Authorization"]
   end
@@ -22,16 +18,10 @@ module APIHelpers
   end
 
   def current_user
-    @current_user ||= ApiToken.authenticate(sn_code, authorization).try(:store_staff)
-    # @current_user ||= StoreStaff.where(login_name: sn_code).last
-  end
-
-  def authenticate_sn_code!
-    raise APIErrors::NoGetAuthenticate unless sn_code.present?
+    @current_user ||= ApiToken.authenticate(authorization).try(:store_staff)
   end
 
   def authenticate_user!
-    authenticate_sn_code!
     raise APIErrors::AuthenticateFail unless current_user
   end
 
