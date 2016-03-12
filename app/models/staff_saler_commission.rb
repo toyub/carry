@@ -1,4 +1,4 @@
-class StaffMechanicCommission
+class StaffSalerCommission
   include StaffBaseCommission
 
   def initialize(staff, month)
