@@ -91,4 +91,8 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     depot = self.store.store_depots.preferred.first
     self.store_material.inventory(depot.id)
   end
+
+  def sold_count
+    try(:store_order_items).try(:count)
+  end
 end

@@ -1,6 +1,6 @@
 module Entities
   class StoreMechainic < Grape::Entity
-    expose :name, :id
+    expose :full_name, :id
   end
 
   class StoreServiceWorkflowSnapshot < Grape::Entity

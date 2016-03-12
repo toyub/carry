@@ -18,11 +18,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   enum status: [:pending, :processing, :finished]
 
-  def engineer
-    # { name: ["xiao","ming"] }
-     1
-  end
-
   def ready_mechanics(workstation_id)
     workstation = StoreWorkstation.find(workstation_id)
     workstation.store_group.members.select {|m| m.store_group_member.ready?} if workstation

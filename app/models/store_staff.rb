@@ -313,6 +313,10 @@ class StoreStaff <  ActiveRecord::Base
     "http://7xnnp5.com2.z0.glb.qiniucdn.com/FqDwPdqIc3p11utb-qEFURPRXJ8Z"
   end
 
+  def full_name
+    read_attribute(:full_name) || ""
+  end
+
   private
   def encrypt_password()
     self.salt = Digest::MD5.hexdigest("--#{Time.now.to_f}--")

@@ -67,7 +67,7 @@ class Mis.Models.StoreCustomer extends Backbone.Model
 
   complaintsUrl: ->
     if @id
-      "/crm/store_customers/#{@id}/compalints"
+      "/crm/store_customers/#{@id}/complaints"
     else
       "javascript:void(0)"
 

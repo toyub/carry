@@ -31,10 +31,12 @@
                       <tr>
                         <td>
                           <% item.workflow_mechanics.each do |workflow_snapshot| %>
-                            <label> <%= workflow_snapshot.engineer %> </label>
+                            <% workflow_snapshot.mechanics.each do |mechanic| %>
+                              <label> <%= mechanic.full_name %> </label>
+                            <% end %>
                           <% end %>
                         </td>
-                        <td> <%= item.store_service_snapshot.try(:name)%> </td>
+                        <td> <%= item.orderable.try(:name)%> </td>
                         <td> <%= item.price %> </td>
                         <td> <%= item.quantity %> </td>
                         <td>0</td>
@@ -58,7 +60,7 @@
           </table>
         </div>
         <dl class="get_order text-align-center ">
-          <dd><a href="#" target="_blank" class="order_btn">查看单据</a></dd>
+          <dd> <%= link_to "查看单据", printer_pos_order_path(order), target: '_blank', class: 'order_btn'  %></dd>
           <dd> <%= link_to '投诉', 'javascript:void(0)', class: 'complaints_btn btn do_complaints',id: 'tousu',
           data: { order: order.id, customer: @customer.id } %> </dd>
         </dl>
