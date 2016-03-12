@@ -2,12 +2,16 @@ zh-CN:
   activerecord:
     models:
       store_service_store_material: 关联商品
+      store_customer: 客户
     attributes:
       store_service_store_material:
         store_material_id: id
       store_tracking:
         title: 标题
         content: 内容
+      store_customer:
+        last_name: 姓
+        first_name: 名
     errors:
       models:
         store_service_store_material:

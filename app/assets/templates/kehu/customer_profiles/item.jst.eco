@@ -1,4 +1,4 @@
-<td><%= @entity.get 'id' %></td>
+<td><%= @view.index + 1 %></td>
 <td><span class="span_border_left"><%= @entity.storeCustomer.get 'full_name' %></span></td>
 <td><%= @entity.storeCustomer.get 'phone_number' %></td>
 <td><%= @entity.categoryName() %></td>
