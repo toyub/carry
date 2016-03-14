@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311015826) do
+ActiveRecord::Schema.define(version: 20160314015245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1521,7 +1521,7 @@ ActiveRecord::Schema.define(version: 20160311015826) do
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
     t.boolean  "finished",                                    default: false
-    t.integer  "used_time"
+    t.integer  "used_time",                                   default: 0
     t.json     "mechanics"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"

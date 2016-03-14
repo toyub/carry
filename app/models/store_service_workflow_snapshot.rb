@@ -95,7 +95,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def count_down
-    self.used_time - self.elapsed_time
+    self.used_time.to_i - self.elapsed_time
   end
 
   def elapsed_time
