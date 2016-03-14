@@ -18,7 +18,7 @@ class Soa::PerformsController < Soa::BaseController
     else
       @order_items = (@staff.store_order_items.where.not(orderable_type: StoreMaterialSaleinfoService.name).joins(:store_order).by_month(@date) unless params[:category] == 'constructed') || []
       if @staff.mechanic? && params[:category] != 'sale'
-        items = current_store.store_order_items.joins(:store_staff_tasks).where(store_staff_tasks: {store_staff_id: @staff.id}).by_month(@date)
+        items = current_store.store_order_items.joins(:store_staff_tasks).where(store_staff_tasks: {mechanic_id: @staff.id}).by_month(@date)
         @order_items += items if items.present?
         @order_items.uniq!
       end

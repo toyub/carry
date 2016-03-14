@@ -4,7 +4,7 @@
       <td><label class="width-90"><%= history.order_created_at.strftime("%Y/%m/%d") %></label><label><%= history.order_created_at.strftime("%H:%S") %></label></td>
       <td><%= history.store_order_numero %></td>
       <td><%= history.store_order_item_name %></td>
-      <td><%= history.store_order_item_remark %></td>
+      <td><em><%= history.store_order_item_remark %><%= history.commission_amount %></em></td>
       <td><%= history.item_amount %></td>
       <td><%= history.commission_amount %> </td>
     </tr>

@@ -23,6 +23,7 @@ class StoreOrderItem < ActiveRecord::Base
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }
   scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
   scope :by_type, ->(type) { where(orderable_type: type) }
+  scope :except_from_customer_assets, -> { where.not(from_customer_asset: true) }
 
   validates_presence_of :orderable
 
@@ -84,16 +85,20 @@ class StoreOrderItem < ActiveRecord::Base
     orderable.try(:speci)
   end
 
-  def commission
-    store_staff.commission? ? orderable.commission(self) : 0.0
+  def commission(beneficiary = 'person')
+    store_staff.commission? ? orderable.commission(self, store_staff, beneficiary) : 0.0
   end
 
   def constructed_by? staff
-    staff.store_staff_tasks.by_item(id).present?
+    store_staff_tasks.exists?(mechanic_id: staff)
   end
 
   def saled_by? staff
     store_staff_id == staff.id
+  end
+
+  def has_commission?
+    orderable.saleman_commission_template.present?
   end
 
   def self.total_amount

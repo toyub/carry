@@ -104,7 +104,7 @@ module Api
         if params[:services].present?
           params[:services].map do |info|
             basic_item_params(info).merge(orderable_type: info['orderable_type'],
-                                          from_customer_asset: info['from_customer_asset'],
+                                          from_customer_asset: info['from_customer_asset'] || false,
                                           store_customer_asset_item_id: info['store_customer_asset_item_id'],
                                           package_type: info['package_type'],
                                           package_id: info['package_id'],

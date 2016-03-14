@@ -14,6 +14,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   has_many :recommended_order_items, as: :itemable
 
   scope :by_category, ->(sale_category_id){ where(sale_category_id: sale_category_id) if sale_category_id.present? }
+  scope :exclude_service, -> { where(service_needed: false) }
 
   accepts_nested_attributes_for :services
 
@@ -62,8 +63,8 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     sale_category
   end
 
-  def commission(order_item)
-    saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
+  def commission( order_item, staff, beneficiary)
+    saleman_commission_template.present? ? saleman_commission_template.sale_commission(order_item, staff, beneficiary) : 0.0
   end
 
   def self.top_sales_by_month(sort_by = 'amount', month = Time.now)

@@ -18,7 +18,7 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Mis.Base.View
     service = Mis.materials.get($(e.target).val())
     if service
       $("#materialName").text(service.get 'name')
-      $("#materialPrice").text(service.get 'cost_price')
+      $("#materialPrice").text(service.get 'retail_price')
     else
       $("#materialName").text("")
       $("#materialPrice").text("")

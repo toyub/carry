@@ -4,7 +4,6 @@ module V1
     resource :verify_captcha_code do
       before do
         authenticate_platform!
-        authenticate_sn_code!
       end
 
       add_desc '验证captcha'

@@ -16,7 +16,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
 
   def to_snapshot!(order_item)
     service = StoreServiceSnapshot.create! self.base_attrs(order_item).merge(templateable: self, retail_price: 0)
-    StoreServiceWorkflowSnapshot.create! self.base_attrs(order_item).merge(store_service_id: service.id, standard_time: self.standard_time)
+    StoreServiceWorkflowSnapshot.create! self.base_attrs(order_item).merge(mechanic_commission_template_id: self.mechanic_commission_template_id, store_service_id: service.id, standard_time: self.standard_time)
   end
 
   def base_attrs(order_item)
@@ -24,7 +24,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
       :store_id,
       :store_chain_id,
       :store_staff_id,
-      :name
+      :name,
     ).merge(
       store_vehicle_id: order_item.store_order.store_vehicle_id,
       store_order_item_id: order_item.id,
@@ -48,8 +48,8 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     tracking_delay_in_seconds.seconds
   end
 
-  def commission(order_item)
-    mechanic_commission_template.present? ? mechanic_commission_template.commission(order_item) : 0.0
+  def commission(order_item, staff, beneficiary = 'person')
+    0.0
   end
 
   def saleman_commission_template

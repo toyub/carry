@@ -240,6 +240,8 @@ Rails.application.routes.draw do
   #Api
   namespace :api do
 
+    resources :store_materials, only: :index
+
     #Order
     namespace :order do
 
@@ -494,6 +496,9 @@ Rails.application.routes.draw do
   end
   root 'kucun/materials#index'
 
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
+  end if Rails.env.production?
   mount Sidekiq::Web => '/sidekiq'
 
 end

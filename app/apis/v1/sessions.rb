@@ -4,7 +4,6 @@ module V1
     resource :sessions do
       before do
         authenticate_platform!
-        authenticate_sn_code!
       end
 
       add_desc '登录验证'
@@ -18,7 +17,7 @@ module V1
         staff = StoreStaff.where(login_name: params[:login_name]).unterminated.last
         status = AuthenticateStaffService.call(staff, params[:password],platform: params[:platform])
         if status.success?
-          api_token = staff.api_tokens.find_or_create_by(sn_code: request.headers["X-Sn-Code"])
+          api_token = ApiToken.find_or_create_by(staff_id: staff.id)
           api_token.reset_token
           present api_token, with: ::Entities::Session
         else

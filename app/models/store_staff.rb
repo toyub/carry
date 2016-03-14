@@ -17,10 +17,10 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_penalties, class_name: "StorePenalty", dependent: :destroy
   has_many :store_overworks, class_name: "StoreOvertime", dependent: :destroy
   has_many :store_salaries, dependent: :destroy
-  has_many :api_tokens, dependent: :destroy, foreign_key: 'staff_id'
+  has_one :api_token, dependent: :destroy, foreign_key: 'staff_id'
   has_one :store_group_member, foreign_key: 'member_id'
   has_one :store_group, through: :store_group_member
-  has_many :store_staff_tasks
+  has_many :store_staff_tasks, foreign_key: 'mechanic_id'
   has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
   has_many :store_commission_items, as: :ownerable
   has_many :store_commissions, as: :ownerable
@@ -231,7 +231,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def materials_amount_total(month = Time.now)
-    store_order_items.by_month(month).materials.inject(0) {|sum, item| sum += item.amount }
+    store_order_items.by_month(month).map(&:amount).sum
   end
 
   def services_amount_total(month = Time.now)
@@ -243,7 +243,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def commission_amount_total(month = Time.now)
-    sale_commission(month) + constucted_commission(month)
+    commission? ? (sale_commission(month) + constucted_commission(month)) : 0.0
   end
 
   def constucted_commission(month = Time.now)
@@ -273,12 +273,16 @@ class StoreStaff <  ActiveRecord::Base
     sum
   end
 
-  def sale_commission_of(item)
-    item.commission
+  def has_commission?(month = Time.now)
+    store_order_items.by_month(month).any? { |item| item.orderable.saleman_commission_template.present? } || (mechanic? ? store_staff_tasks.by_month(month).any? { |task| task.workflow_snapshot.mechanic_commission_template_id.present? } : false)
   end
 
-  def task_commission_of(task)
-    task.commission
+  def sale_commission_of(item, beneficiary = 'person')
+    commission? ? item.commission(beneficiary) : 0.0
+  end
+
+  def task_commission_of(task, beneficiary = 'person')
+    commission? ? task.commission(beneficiary) : 0.0
   end
 
   def self.items_amount_total(month = Time.now)
