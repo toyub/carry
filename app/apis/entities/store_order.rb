@@ -3,7 +3,7 @@ module Entities
     expose(:name) {|model|model.orderable}
   end
   class StoreOrder < Grape::Entity
-    expose :id, :numero, :amount, if: {type: :default}
+    expose :id, :numero, :amount, :only_today, if: {type: :default}
     expose(:full_name, if: {type: :default}) {|model| model.store_customer.full_name}
     expose(:license_number, if: {type: :default}) {|model| model.store_vehicle.vehicle_plates.last.try(:plate).try(:license_number)}
     expose(:phone_number, if: {type: :default}) {|model| model.store_customer.phone_number}
@@ -20,5 +20,13 @@ module Entities
     expose(:speci, if: {type: :full}) {|model| model.orderable.speci if model.orderable_type == 'StoreMaterial'}
     expose(:price, if: {type: :full}) {|model|model.retail_price}
     expose(:standard_time, if: {type: :full}) {|model|model.orderable.try(:standard_time)}
+
+    def date
+      Date.today
+    end
+
+    def only_today
+      object.created_at.to_date.between?(date.beginning_of_day, date.end_of_day)
+    end
   end
 end
