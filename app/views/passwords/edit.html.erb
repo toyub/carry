@@ -14,7 +14,7 @@
     <div class="management">
       <%= form_for @store_staff, url: password_path, method: :put do |f| %>
         <%= f.hidden_field :id, value: @store_staff.id %>
-        <input type="hidden" name="captcha_id" value=" <%= @captcha.id %> ">
+        <input type="hidden" name="captcha_token" value="<%= params[:token] %>">
         <ul class="account_info">
           <li> <%= f.label "新密码:" %> <%= f.password_field :password, required: 'required' %>  </li>
           <li> <%= f.label "确认密码:" %> <%= f.password_field :password_confirmation, required: 'required' %>  </li>

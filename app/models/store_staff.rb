@@ -64,6 +64,10 @@ class StoreStaff <  ActiveRecord::Base
     Digest::SHA256.hexdigest("#{salt}#{txt}")
   end
 
+  def self.phone_exist_or_available?(phone)
+    by_phone(phone).unterminated.last.present?
+  end
+
   def job_type
     JobType.find(self.job_type_id)
   end
