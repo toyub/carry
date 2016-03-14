@@ -13,6 +13,7 @@ class Captcha < ActiveRecord::Base
   EXPRIED = 15.minutes
 
   def self.generate!(phone, type_id)
+    return false unless StoreStaff.phone_exist_or_available? phone
     create!(verification: generate_varification(6), switch_type_id: type_id, sent_at: Time.now, phone: phone)
   end
 

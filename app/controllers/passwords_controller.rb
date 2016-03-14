@@ -1,21 +1,23 @@
 class PasswordsController < ApplicationController
   layout "login"
-  before_action :set_captcha, only: [:create, :edit]
+  before_action :set_captcha, only: :create
   def new
   end
 
   def create
-    if  (@captcha ||= NullObject.new).validate_with_token(params[:token])
-      redirect_to edit_password_path(id: @captcha), notice: '恭喜你,验证通过!'
+    if @captcha && @captcha.verification == params[:verification]
+      @captcha.update!(verification_used: true)
+      redirect_to edit_password_path(phone: @captcha.phone, token: @captcha.token), notice: '恭喜你,验证通过!'
     else
       redirect_to new_password_path, notice: '请输入正确的验证码！'
     end
   end
 
   def edit
-    @store_staff = @captcha.store_staff
-    if @store_staff.blank?
-      redirect_to new_password_path, notice: '请确认手机号是否注册！'
+    captcha = Captcha.by_phone(params[:phone]).last
+    if captcha && captcha.authenticate(params[:token])
+      @store_staff = captcha.store_staff
+      redirect_to new_password_path, notice: '请确认手机号是否注册！' if @store_staff.blank?
     end
   end
 
@@ -25,24 +27,27 @@ class PasswordsController < ApplicationController
 
   def send_validate_code
     @captcha = Captcha.generate!(params[:phone], SmsCaptchaSwitchType.find_by_name('密码找回验证').id)
-    if @captcha.present?
-      @captcha.send_message
+    if captcha.present?
+      captcha.send_message
+    else
+      redirect_to new_password_path, notice: '发送失败！'
     end
-
   end
 
   def update
-    @store_staff = StoreStaff.find(set_store_staffer_params[:id])
-    if @store_staff.reset_password!(set_store_staffer_params[:password], set_store_staffer_params[:password_confirmation] )
+    captcha = Captcha.find_by(token: params[:captcha_token])
+    @store_staff = captcha.store_staff if captcha && captcha.token_available
+    if @store_staff && @store_staff.reset_password!(set_store_staffer_params[:password], set_store_staffer_params[:password_confirmation] )
+      captcha.disabled_token!
       redirect_to password_path, notice: '重置密码成功！'
     else
-      redirect_to edit_password_path(id: params[:captcha_id]), notice: @store_staff.errors.first
+      redirect_to edit_password_path(phone: captcha.phone, token: captcha.token), notice: @store_staff.errors.first
     end
   end
 
   private
   def set_captcha
-    @captcha = Captcha.find(params[:id]) if params[:id].present?
+    @captcha = Captcha.valid_captchas(params[:phone]).last if params[:phone].present?
   end
 
   def set_store_staffer_params
