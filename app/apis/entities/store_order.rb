@@ -9,6 +9,9 @@ module Entities
     expose(:phone_number, if: {type: :default}) {|model| model.store_customer.phone_number}
     expose :state, :state_i18n, :pay_status_i18n, :pay_status,
            :task_status, :task_status_i18n, if: {type: :default}
+    expose(:state_to_i, if: {type: :default}) {|model| ActiveRecord::Base::StoreOrder.states[:"#{model.state}"]}
+    expose(:pay_status_to_i, if: {type: :default}) {|model| ActiveRecord::Base::StoreOrder.pay_statuses[:"#{model.pay_status}"]}
+    expose(:task_status_to_i, if: {type: :default}) {|model| ActiveRecord::Base::StoreOrder.task_statuses[:"#{model.task_status}"]}
 
     expose(:item_id, if: {type: :full}) {|model|model.id}
     expose(:order_amount, if: {type: :full}) {|model|model.store_order.amount}
