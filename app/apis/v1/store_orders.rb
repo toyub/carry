@@ -96,7 +96,7 @@ module V1
           requires :order_id, type: Integer, desc: '订单的id'
         end
         get do
-          present @order.items, with: ::Entities::StoreOrder, type: :full
+          present @order, with: ::Entities::StoreOrder, type: :full
         end
 
       end
