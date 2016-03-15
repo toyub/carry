@@ -30,7 +30,7 @@ class Captcha < ActiveRecord::Base
   end
 
   def validate_with_token(token_code)
-     token == token_code && !expried?
+    verification == token_code && !expried?
   end
 
   def expried?

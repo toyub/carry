@@ -96,7 +96,7 @@ module V1
           requires :order_id, type: Integer, desc: '订单的id'
         end
         get do
-          present @order.items, with: ::Entities::StoreOrder, type: :full
+          present @order, with: ::Entities::StoreOrder, type: :full
         end
 
       end
@@ -108,7 +108,9 @@ module V1
         optional :q, type: Hash, default: {} do
           optional :plate_license_number_cont, type: String
           optional :store_customer_phone_number_cont, type: String
-          optional :state_eq, type: Integer
+          optional :state_eq, type: Integer, desc: '订单状态'
+          optional :task_status_eq, type: Integer, desc: '订单施工状态'
+          optional :pay_status_in, type: Array, desc: '订单付费状态'
         end
       end
       get do
