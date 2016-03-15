@@ -175,7 +175,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def payment_methods
-    payments.map {|payment| payment.payment_method.cn_name }.join(',')
+    payments.map {|payment| payment.payment_method_cn_name }.join(',')
   end
 
   def execution_job

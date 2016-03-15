@@ -95,7 +95,7 @@ Rails.application.configure do
     :email => {
       :email_prefix => "[Error From ZC] ",
       :sender_address => %{"notifier" <bug@icar99.com>},
-      :exception_recipients => %w{zhushisong@icar99.com zhuangshunhe@icar99.com liujun@icar99.com jianghe@icar99.com},
+      :exception_recipients => %w{buging@icar99.com},
       :delivery_method => :smtp,
           :smtp_settings => {
             :port => 25,

@@ -26,9 +26,9 @@ class PasswordsController < ApplicationController
   end
 
   def send_validate_code
-    @captcha = Captcha.generate!(params[:phone], SmsCaptchaSwitchType.find_by_name('密码找回验证').id)
-    if captcha.present?
-      captcha.send_message
+    @captcha = Captcha.generate!(params[:phone], SmsCaptchaSwitchType::TYPES_ID["密码找回验证"])
+    if @captcha.present?
+      @captcha.send_message
     else
       redirect_to new_password_path, notice: '发送失败！'
     end

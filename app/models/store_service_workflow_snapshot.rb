@@ -26,7 +26,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def workstations
     stations = StoreWorkstation.where(id: self.workstaiton_ids)
     return stations if stations.present?
-    StoreWorkstation.all
+    StoreWorkstation.all #FIXME: store.workstations
   end
 
   def free_workstations

@@ -16,15 +16,15 @@ class StoreCommissionTemplate < ActiveRecord::Base
   end
 
   def mode_type
-    CommissionModeType.find(self.mode_id).name
+    CommissionModeType.find(self.mode_id).try(:name)
   end
 
   def confined_type
-    CommissionConfineType.find(self.confined_to).name
+    CommissionConfineType.find(self.confined_to).try(:name)
   end
 
   def aim_type
-    CommissionAimType.find(self.aim_to).name
+    CommissionAimType.find(self.aim_to).try(:name)
   end
 
   def task_commission(item, task, staff, beneficiary = 'person')
