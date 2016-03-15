@@ -18,11 +18,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   enum status: [:pending, :processing, :finished]
 
-  def engineer
-    # { name: ["xiao","ming"] }
-     1
-  end
-
   def ready_mechanics(workstation_id)
     workstation = StoreWorkstation.find(workstation_id)
     workstation.store_group.members.select {|m| m.store_group_member.ready?} if workstation
@@ -31,7 +26,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def workstations
     stations = StoreWorkstation.where(id: self.workstaiton_ids)
     return stations if stations.present?
-    StoreWorkstation.all
+    StoreWorkstation.all #FIXME: store.workstations
   end
 
   def free_workstations
@@ -51,7 +46,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics
-    tasks.map(&:mechanic) || []
+    tasks.map(&:mechanic).compact
   end
 
   def has_mechanic?
@@ -100,7 +95,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def count_down
-    self.used_time - self.elapsed_time
+    self.used_time.to_i - self.elapsed_time
   end
 
   def elapsed_time

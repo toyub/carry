@@ -22,10 +22,10 @@ module Entities
       staff.terminated_at.present? ? "离职" : "在职"
     end
     expose :insurance do |staff, options|
-      staff.insurence_enabled?
+      staff.insurence_enabled? ? "有" : "无"
     end
     expose :work_age do |staff, options|
-      0
+      staff.working_age
     end
     expose :performance do |staff, options|
       {

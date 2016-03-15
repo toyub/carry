@@ -42,11 +42,11 @@ class Crm::ComplaintsController < Crm::BaseController
       detail: [
         :content,
         :inquire,
-        category: [],
-        way: [],
+        categories: [],
+        ways: [],
         principal: [
           :saler,
-          mechanic: []
+          mechanics: []
         ],
         response: [
           :customer,

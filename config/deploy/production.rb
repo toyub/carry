@@ -11,8 +11,9 @@ set :rvm_ruby_version, '2.2.3'
 
 #set :nginx_sites_enabled_path, "#{shared_path}/config"
 #set :nginx_sites_available_path, "#{shared_path}/config"
-set :nginx_server_name, "store.icar99.com md.icar99.com"
-set :puma_init_active_record, true
+set :nginx_server_name, "store.icar99.cn md.icar99.cn"
+set :puma_init_active_record, false
+set :puma_workers, 2
 
 set :rails_env, "production"
 

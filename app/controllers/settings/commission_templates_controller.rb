@@ -1,7 +1,7 @@
 class Settings::CommissionTemplatesController < Settings::BaseController
   def index
 
-    @templates = StoreCommissionTemplate.all
+    @templates = current_store.store_commission_templates
 
 
     respond_to do |format|

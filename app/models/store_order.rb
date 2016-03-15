@@ -21,6 +21,8 @@ class StoreOrder < ActiveRecord::Base
   scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
   scope :today, -> { by_day(Date.today) }
   scope :has_service, -> { where(service_included: true) }
+  scope :unfinished, -> { where.not(state: StoreOrder.states[:finished]) }
+  scope :unpending, -> { where.not(state: StoreOrder.states[:pending]) }
 
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
@@ -92,23 +94,8 @@ class StoreOrder < ActiveRecord::Base
     items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
   end
 
-  def creators
-    { name: self.creator.full_name, id: self.creator.id }
-  end
-
-  def current_vehicle
+  def license_number
     self.store_vehicle.license_number
-  end
-
-  #TODO: find the order mechanics
-  def mechanic
-    result = []
-    self.items.map(&->(item){item.workflow_mechanics}).each do |mechanic|
-      mechanic.each do |workflow_snapshot|
-        result << {name: workflow_snapshot.engineer, id: workflow_snapshot.engineer}
-      end
-    end
-    result.uniq
   end
 
   def finish!
@@ -188,7 +175,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def payment_methods
-    payments.map {|payment| payment.payment_method.cn_name }.join(',')
+    payments.map {|payment| payment.payment_method_cn_name }.join(',')
   end
 
   def execution_job

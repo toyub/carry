@@ -134,8 +134,7 @@ class StoreService < ActiveRecord::Base
   end
 
   def time
-
-    self.setting.workflows.map { |w| w.work_time_in_minutes }.sum
+    setting.workflows.present? ? self.setting.workflows.map { |w| w.work_time_in_minutes }.sum : 0
   end
 
   def mechanic_levles
@@ -158,8 +157,8 @@ class StoreService < ActiveRecord::Base
     true
   end
 
-  def commission(order_item)
-    saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
+  def commission(order_item, staff, beneficiary)
+    saleman_commission_template.present? ? saleman_commission_template.sale_commission(order_item, staff, beneficiary) : 0.0
   end
 
   def self.top_sales_by_month(sort_by = 'amount', month = Time.now)

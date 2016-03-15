@@ -32,8 +32,8 @@ class Complaint < ActiveRecord::Base
     detail["principal"] || {}
   end
 
-  def mechanic
-    principal["mechanic"] || []
+  def mechanics
+    principal["mechanics"] || []
   end
 
   def saler_id
@@ -53,11 +53,11 @@ class Complaint < ActiveRecord::Base
   end
 
   def categoried
-    detail['category'] || []
+    detail['categories'] || []
   end
 
-  def way
-    detail['way'] || []
+  def ways
+    detail['ways'] || []
   end
 
   def content
@@ -84,10 +84,6 @@ class Complaint < ActiveRecord::Base
     {selected: saler_id.to_i == order_creator_id, name: order_creator_name, id: order_creator_id}
   end
 
-  def mechanics
-    self.order.mechanic
-  end
-
   def responses
     {customer: self.customer, principal: response["principal"]}
   end
@@ -104,7 +100,7 @@ class Complaint < ActiveRecord::Base
     StoreStaff.find(self.saler_id).full_name if self.saler_id
   end
 
-  def construction(id)
-    StoreServiceWorkflowSnapshot.find(id).engineer
+  def constructors
+    StoreStaff.where(id: mechanics)
   end
 end

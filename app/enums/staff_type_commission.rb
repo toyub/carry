@@ -1,6 +1,7 @@
-class CommissionModeType
+class StaffTypeCommission
+
   attr_reader :id, :name
-  ID_TYPES={0=>'标准提成', 1=>'阶梯提成', 2=>'分段提成'}
+  ID_TYPES={0=>'StaffSalerCommission', 1=>'StaffMechanicCommission', 2=>'StaffOtherCommission'}
   TYPES_ID = ID_TYPES.invert
 
   def initialize(_id, _name)
@@ -9,7 +10,6 @@ class CommissionModeType
   end
 
   def self.find(id)
-    id=id.to_i
     if ID_TYPES[id]
       self.new(id, ID_TYPES[id])
     else
@@ -18,7 +18,6 @@ class CommissionModeType
   end
 
   def self.find_by_name(name)
-    name = name.to_s
     if TYPES_ID[name]
       self.new(TYPES_ID[name], name)
     else
