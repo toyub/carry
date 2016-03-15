@@ -14,7 +14,7 @@ class StoreServiceSerializer < ActiveModel::Serializer
   end
 
   def workstations
-    StoreWorkstation.all
+    StoreWorkstation.all #FIXME: store.workstations
   end
 
   def category
