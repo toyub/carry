@@ -2,11 +2,11 @@ class Ais::CostsController < Ais::BaseController
   before_action :search_month, only: :search
 
   def index
-    @materials = StoreMaterial.all
+    @materials = current_store.store_materials
   end
 
   def search
-    @materials = StoreMaterial.all
+    @materials = current_store.store_materials
     render "index"
   end
 

@@ -170,18 +170,18 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def amount_bonus
-    bonus || {}
+    self.bonus ||= {}
     bonus["gangwei"].to_f + bonus["canfei"].to_f + bonus["laobao"].to_f +
       bonus["gaowen"].to_f + bonus["zhusu"].to_f
   end
 
   def amount_insurence
-    bonus || {}
+    self.bonus ||= {}
     bonus["insurence_enabled"] == "1" ? bonus["yibaofei"].to_f + bonus["baoxianjing"].to_f : 0
   end
 
   def cutfee
-    bonus || {}
+    self.bonus ||= {}
     bonus["gerendanbao"].to_f + store_attendence.total + store_penalties.total
   end
 
