@@ -46,11 +46,6 @@ class PasswordsController < ApplicationController
   end
 
   private
-  def generate_salt(len)
-    chars = Array(0..9)
-    len.times.map { chars.sample }.join
-  end
-
   def set_captcha
     @captcha = Captcha.valid_captchas(params[:phone]).last if params[:phone].present?
   end
