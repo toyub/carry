@@ -123,11 +123,6 @@
 
     <div class="total">
       <p>
-        <label class="total_label">消费金额总计：</label>
-        <span class="total_span"><%= @store_order.amount %></span>
-      </p>
-
-      <p>
         <label class="total_label">优惠：</label>
         <span class="total_span"><%= @store_order.items.sum(:discount) %></span>
       </p>

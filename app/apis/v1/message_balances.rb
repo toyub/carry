@@ -13,8 +13,8 @@ module V1
         optional :store_id, type: Integer, desc: "所属门店ID"
       end
       get do
-        store = Store.find_by(id: params[:store_id])
-        present (store.try(:sms_balance) || NullSmsBalance.new), with: ::Entities::MessageBalanceInfo
+        store = Store.find_by(params[:store_id])
+        present (store.try(:sms_balance) || NullSmsBalance.new), with: ::Entities::MessageBalance
       end
     end
 
