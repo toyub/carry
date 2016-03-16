@@ -22,7 +22,7 @@ module Api
     def update
       @entity = current_store.store_customer_entities.find(params[:id])
       if @entity.update(append_store_attrs entity_params)
-        render json: StoreCustomerSerializer.new(@entity.store_customer).as_json(root: nil)
+        respond_with @entity, location: nil
       else
         render json: {errors: @entity.errors.full_messages}, status: 422
       end
