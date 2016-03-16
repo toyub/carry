@@ -49,7 +49,7 @@ class Captcha < ActiveRecord::Base
   end
 
   def encrypt_token
-    self.token = Digest::SHA256.hexdigest("#{self.phone}")
+    self.token = SecureRandom.hex(32)
   end
 
 end
