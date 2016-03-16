@@ -497,8 +497,8 @@ Rails.application.routes.draw do
   root 'kucun/materials#index'
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-    username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
-  end if Rails.env.production?
+    username == SIDEKIQ[:username] && password == SIDEKIQ[:password]
+  end #if Rails.env.production?
   mount Sidekiq::Web => '/sidekiq'
 
 end

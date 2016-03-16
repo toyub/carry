@@ -12,7 +12,7 @@
 config/redis.yml
 config/qiniu.yml
 config/alipay.yml
-config/scheduler.yml
+config/sidekiq_web.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
