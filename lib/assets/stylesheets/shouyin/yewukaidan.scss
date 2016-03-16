@@ -224,7 +224,7 @@
 						width: 100%;
 						background: #fff;
 						ul{
-							height: 30px;
+							min-height: 30px;
 							display: flex;
 							align-items: center;
 							justify-content: center;
@@ -233,6 +233,8 @@
 								color:#1B1A1A;
 								display: inline-block;
 								float: left;
+                line-height: 21px;
+                padding: 0 5px;
 
 								.struct {
 									display: inline-block;

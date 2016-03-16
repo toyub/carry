@@ -1,6 +1,6 @@
 host: 'http://qiniuhost'
 access:
-  access_key: '< Qiniu ACCESS_KEY >' 
+  access_key: '< Qiniu ACCESS_KEY >'
   secret_key: '< Qiniu SECRET_KEY >'
 
 buckets:
