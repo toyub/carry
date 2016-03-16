@@ -7,7 +7,11 @@ module Api
 
     def update
       @staffer = current_store.store_staff.find(params[:id])
-      @staffer.update(staff_params)
+      if staff_params[:roles].present?
+        @staffer.update(staff_params)
+      else
+        @staffer.update(roles: nil)
+      end
       respond_with @staffer, location: nil
     end
 
