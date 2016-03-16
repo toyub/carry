@@ -15,7 +15,7 @@ module Entities
   end
   class StoreOrder < Grape::Entity
     expose :id, :numero, :amount
-    expose :only_today, if: {type: :default}
+    expose :only_today, :human_readable_status, if: {type: :default}
     expose(:full_name, if: {type: :default}) {|model| model.store_customer.full_name}
     expose(:license_number, if: {type: :default}) {|model| model.store_vehicle.vehicle_plates.last.try(:plate).try(:license_number)}
     expose(:phone_number, if: {type: :default}) {|model| model.store_customer.phone_number}
