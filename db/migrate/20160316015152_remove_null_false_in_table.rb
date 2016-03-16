@@ -1,6 +1,6 @@
-class ChangeAllDecimalPrecision < ActiveRecord::Migration
+class RemoveNullFalseInTable < ActiveRecord::Migration
   def change
-    change_column :renewal_records, :renewal_money, :decimal, precision: 12, scale: 2, null: false
+    change_column :renewal_records, :renewal_money, :decimal, precision: 12, scale: 2
 
     change_column :store_material_checkin_items, :price, :decimal, precision: 12, scale: 2
     change_column :store_material_checkin_items, :amount, :decimal, precision: 14, scale: 4
@@ -25,18 +25,18 @@ class ChangeAllDecimalPrecision < ActiveRecord::Migration
     change_column :store_material_outing_items, :inventory_cost_price, :decimal, precision: 12, scale: 2
     change_column :store_material_outings, :total_amount, :decimal, precision: 14, scale: 4
 
-    change_column :store_material_picking_items, :cost_price, :decimal, precision: 12, scale: 2, null: false
-    change_column :store_material_picking_items, :inventory_cost_price, :decimal, precision: 12, scale: 2, null: false
+    change_column :store_material_picking_items, :cost_price, :decimal, precision: 12, scale: 2
+    change_column :store_material_picking_items, :inventory_cost_price, :decimal, precision: 12, scale: 2
     change_column :store_material_picking_items, :amount, :decimal, precision: 14, scale: 4
     change_column :store_material_pickings, :total_amount, :decimal, precision: 14, scale: 4
     change_column :store_material_pickings, :total_inventory_amount, :decimal, precision: 14, scale: 4
 
-    change_column :store_material_returning_items, :price, :decimal, precision: 12, scale: 2, null: false
+    change_column :store_material_returning_items, :price, :decimal, precision: 12, scale: 2
     change_column :store_material_returnings, :total_amount, :decimal, precision: 14, scale: 4
 
-    change_column :store_material_saleinfos, :bargain_price, :decimal, precision: 12, scale: 2, null: false
-    change_column :store_material_saleinfos, :retail_price, :decimal, precision: 12, scale: 2, null: false
-    change_column :store_material_saleinfos, :trade_price, :decimal, precision: 12, scale: 2, null: false
+    change_column :store_material_saleinfos, :bargain_price, :decimal, precision: 12, scale: 2
+    change_column :store_material_saleinfos, :retail_price, :decimal, precision: 12, scale: 2
+    change_column :store_material_saleinfos, :trade_price, :decimal, precision: 12, scale: 2
     change_column :store_material_saleinfos, :service_fee, :decimal, precision: 12, scale: 2
 
     change_column :store_material_shrinkage_items, :cost_price, :decimal, precision: 12, scale: 2
@@ -107,8 +107,8 @@ class ChangeAllDecimalPrecision < ActiveRecord::Migration
     change_column :store_customer_payments, :amount, :decimal, precision: 14, scale: 4
 
     change_column :store_orders, :filled, :decimal, precision: 14, scale: 4
-    change_column :store_customer_settlements, :credit_bill_amount, :decimal, precision: 12, scale: 2, null: false, default: 0
-    change_column :store_customer_settlements, :credit_limit, :decimal, precision: 12, scale: 2, null: false, default: 0
+    change_column :store_customer_settlements, :credit_bill_amount, :decimal, precision: 12, scale: 2, default: 0
+    change_column :store_customer_settlements, :credit_limit, :decimal, precision: 12, scale: 2, default: 0
 
     change_column :store_material_saleinfos, :vip_price, :decimal, precision: 12, scale: 2
     change_column :store_material_saleinfos, :divide_volume_per_bill, :decimal, precision: 12, scale: 2, default: 0.0
