@@ -16,6 +16,17 @@ development:
 
 staging:
   <<: *defaults
+  ScanTaskJob:
+    every: '10s'
+    class: ScanTaskWorker
+    queue: default
+    description: 'This job will check state of stations.'
 
 production:
   <<: *defaults
+  ScanTaskJob:
+    every: '10s'
+    class: ScanTaskWorker
+    queue: default
+    description: 'This job will check state of stations.'
+
