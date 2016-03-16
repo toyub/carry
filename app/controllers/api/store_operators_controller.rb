@@ -7,7 +7,7 @@ module Api
 
     def update
       @staffer = current_store.store_staff.find(params[:id])
-      @staffer.update(staff_params)
+      @staffer.update(roles: params[:store_staff][:roles] || [])
       respond_with @staffer, location: nil
     end
 
