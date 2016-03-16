@@ -149,6 +149,7 @@ module Api
           retail_price: info['retail_price'],
           vip_price: info["vip_price"],
           price: info["price"],
+          cost_price: info["cost_price"],
           discount: info['discount'],
           discount_reason: info['discount_reason'],
           quantity: info["quantity"],

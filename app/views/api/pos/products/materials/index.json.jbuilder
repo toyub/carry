@@ -1,7 +1,7 @@
 json.array! @materials do |material|
   json.(material, :id, :name, :speci, :inventory, :reward_points,
                   :service_needed, :service_fee, :service_fee_needed,
-                  :retail_price, :vip_price, :vip_price_enabled, :bargainable, :bargain_price, :trade_price,
+                  :retail_price, :vip_price, :vip_price_enabled, :bargainable, :bargain_price, :trade_price, :cost_price,
                   :divide_to_retail, :divide_unit_type_id, :divide_total_volume, :divide_volume_per_bill)
   json.store_material_root_category_id material.store_material.store_material_root_category_id
   json.store_material_category_id material.store_material.store_material_category_id
