@@ -50,7 +50,10 @@ class Mis.Models.StorePackageItem extends Backbone.Model
   retail_price: (type = '') ->
     return '' if type != '' && type != @get('package_itemable_type')
     return @get 'denomination' if @isStoreDepositCard()
-    @packageItemable().get 'price'
+    @packageItemable().get 'retail_price'
+
+  cost_price: ->
+    @packageItemable().get 'cost_price'
 
   price: (type = '') ->
     return '' if type != '' && type != @get('package_itemable_type')
