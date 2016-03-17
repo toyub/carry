@@ -15,3 +15,5 @@ end
 Sidekiq.configure_client do |config|
   config.redis = { namespace: "#{Rails.env}_sidekiq", url: sidekiq_url }
 end
+
+SIDEKIQ = (YAML.load_file("#{Rails.root}/config/sidekiq_web.yml") rescue {}).deep_symbolize_keys

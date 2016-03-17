@@ -40,6 +40,10 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     0
   end
 
+  def category
+    self
+  end
+
   def standard_time
     (self.work_time_in_seconds/60.0).ceil
   end
