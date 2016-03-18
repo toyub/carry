@@ -1,7 +1,9 @@
 <tr>
   <td>
-    <% item.mechanics.each do |mechanic| %>
-      <label><%= mechanic %></label>
+    <% (item.store_service_snapshot.try(:workflow_snapshots) || []).each do |workflow| %>
+      <% workflow.mechanics.each do |m| %>
+        <label><%= m.full_name %></label>
+      <% end %>
     <% end %>
   </td>
   <td><%= item.orderable.name %></td>
