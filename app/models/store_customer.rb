@@ -194,8 +194,8 @@ class StoreCustomer < ActiveRecord::Base
     ((orders.count.to_f/days)*100).round(2) if days != 0
   end
 
-  def first_vehicle
-    store_vehicles.sort.first
+  def first_vehicle_id
+    store_vehicles.sort.first.try(:id)
   end
 
   private
