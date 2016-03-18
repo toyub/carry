@@ -153,6 +153,7 @@ class StoreOrderArchive
 
   def deal_with_divideable
     @order.items.materials.each do |order_item|
+      order_item.update!(cost_price: order_item.orderable.cost_price)
       if order_item.orderable.divide_to_retail?
         order_item.divide_to_retail = true
         order_item.standard_volume_per_bill = order_item.orderable.divide_volume_per_bill
