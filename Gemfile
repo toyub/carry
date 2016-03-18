@@ -148,3 +148,5 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'font-awesome-rails', '4.4.0'
 gem 'exception_notification'
+
+gem 'capistrano-logrotate', git: 'git@gitlab.icar99.com:zc/capistrano-logrotate.git', tag: 'v0.0.1', require: false
