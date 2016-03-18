@@ -12,7 +12,14 @@ module Api
         orders = orders.where(store_vehicle_id: store_vehicle_ids)
       end
       if params[:created_at].present?
-        orders = orders.where(created_at: params[:created_at])
+        parsed_date = begin
+          Date.parse(params[:created_at])
+        rescue
+         nil
+        end
+        if parsed_date
+          orders = orders.where("created_at between ? and ?", parsed_date.to_datetime.beginning_of_day, parsed_date.to_datetime.end_of_day)
+        end
       end
       if params[:state].present?
         orders = orders.where(state: params[:state])
