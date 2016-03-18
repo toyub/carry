@@ -1,10 +1,9 @@
 class Crm::ComplaintsController < Crm::BaseController
   before_action :set_customer, only: [:index, :edit, :update]
   before_action :set_complaint, only: [:edit, :update]
-  before_action :set_search_params, only: [:index]
+  before_action :set_search_params, :enmu, only: [:index]
   skip_before_action :verify_authenticity_token, only: [:update]
   def index
-    enmu
     @q = @customer.complaints.ransack(params[:q])
     @complaints = @q.result.order(id: :desc).includes(:store_vehicle)
   end
