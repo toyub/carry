@@ -194,6 +194,10 @@ class StoreCustomer < ActiveRecord::Base
     ((orders.count.to_f/days)*100).round(2) if days != 0
   end
 
+  def first_vehicle
+    store_vehicles.sort.first
+  end
+
   private
   def set_full_name
     self.full_name = "#{last_name}#{first_name}"
