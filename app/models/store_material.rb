@@ -80,6 +80,10 @@ class StoreMaterial < ActiveRecord::Base
     outgos.where(created_month: month)
   end
 
+  def retail_price
+    store_material_saleinfo.retail_price
+  end
+
   private
   def generate_barcode!
     unless self.barcode.present?

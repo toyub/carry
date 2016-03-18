@@ -1,18 +1,19 @@
-<div class="content" id="content">
-  <%= render "crm/common/page_head" %>
-  <div class="details">
-    <%= render '/crm/common/customer_nav' %>
+<%= render "crm/common/page_head" %>
+<div class="details">
+  <%= render '/crm/common/customer_nav' %>
 
-    <%= search_form_for @q, url: crm_store_customer_expense_records_path, class: 'search navbar-form' do |f| -%>
-      <%= render 'search_form' %>
-    <% end -%>
+  <%= search_form_for @q, url: crm_store_customer_expense_records_path, class: 'search navbar-form' do |f| -%>
+    <%= render 'search_form' %>
+  <% end -%>
 
-    <div class="details_content car_content">
-      <%= render 'base_info' %>
-    </div>
+  <div class="details_content car_content">
+    <%= render 'base_info' %>
   </div>
+</div>
 
+
+<% content_for :scenes do %>
   <div class="window_wrap" style="display: none;">
     <%= render 'dialog_form' %>
   </div>
-</div>
+<%end%>
