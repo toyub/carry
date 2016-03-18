@@ -58,7 +58,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def executable?
-    self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+    self.store_vehicle.try(:workflows).try(:processing).blank? && big_brothers_finished?
   end
 
   def execute!(workstation)
