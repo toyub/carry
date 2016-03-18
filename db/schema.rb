@@ -875,18 +875,18 @@ ActiveRecord::Schema.define(version: 20160316015152) do
   end
 
   create_table "store_material_picking_items", force: :cascade do |t|
-    t.integer  "store_id",                                                         null: false
-    t.integer  "store_chain_id",                                                   null: false
-    t.integer  "store_staff_id",                                                   null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "dest_depot_id",                                                    null: false
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_material_inventory_id",                                      null: false
-    t.integer  "store_material_picking_id",                                        null: false
-    t.integer  "quantity",                                                         null: false
-    t.decimal  "cost_price",                              precision: 12, scale: 2, null: false
+    t.integer  "store_id",                                                                       null: false
+    t.integer  "store_chain_id",                                                                 null: false
+    t.integer  "store_staff_id",                                                                 null: false
+    t.integer  "store_depot_id",                                                                 null: false
+    t.integer  "dest_depot_id",                                                                  null: false
+    t.integer  "store_material_id",                                                              null: false
+    t.integer  "store_material_inventory_id",                                                    null: false
+    t.integer  "store_material_picking_id",                                                      null: false
+    t.integer  "quantity",                                                                       null: false
+    t.decimal  "cost_price",                              precision: 12, scale: 2, default: 0.0, null: false
     t.decimal  "amount",                                  precision: 14, scale: 4
-    t.decimal  "inventory_cost_price",                    precision: 12, scale: 2, null: false
+    t.decimal  "inventory_cost_price",                    precision: 12, scale: 2, default: 0.0, null: false
     t.string   "remark",                      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -924,30 +924,30 @@ ActiveRecord::Schema.define(version: 20160316015152) do
   end
 
   create_table "store_material_returning_items", force: :cascade do |t|
-    t.integer  "store_id",                                                         null: false
-    t.integer  "store_chain_id",                                                   null: false
-    t.integer  "store_staff_id",                                                   null: false
-    t.integer  "store_supplier_id",                                                null: false
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_material_inventory_id",                                      null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "store_material_returning_id",                                      null: false
-    t.integer  "quantity",                                                         null: false
-    t.decimal  "price",                                   precision: 12, scale: 2, null: false
-    t.integer  "prior_quantity",                                                   null: false
+    t.integer  "store_id",                                                                       null: false
+    t.integer  "store_chain_id",                                                                 null: false
+    t.integer  "store_staff_id",                                                                 null: false
+    t.integer  "store_supplier_id",                                                              null: false
+    t.integer  "store_material_id",                                                              null: false
+    t.integer  "store_material_inventory_id",                                                    null: false
+    t.integer  "store_depot_id",                                                                 null: false
+    t.integer  "store_material_returning_id",                                                    null: false
+    t.integer  "quantity",                                                                       null: false
+    t.decimal  "price",                                   precision: 12, scale: 2, default: 0.0, null: false
+    t.integer  "prior_quantity",                                                                 null: false
     t.string   "remark",                      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "store_material_returnings", force: :cascade do |t|
-    t.integer  "store_id",                                                            null: false
-    t.integer  "store_chain_id",                                                      null: false
-    t.integer  "store_staff_id",                                                      null: false
-    t.integer  "store_supplier_id",                                                   null: false
-    t.string   "numero",            limit: 45,                                        null: false
+    t.integer  "store_id",                                                             null: false
+    t.integer  "store_chain_id",                                                       null: false
+    t.integer  "store_staff_id",                                                       null: false
+    t.integer  "store_supplier_id",                                                    null: false
+    t.string   "numero",            limit: 45,                                         null: false
     t.integer  "total_quantity"
-    t.decimal  "total_amount",                  precision: 14, scale: 4
+    t.decimal  "total_amount",                  precision: 14, scale: 4, default: 0.0
     t.string   "remark",            limit: 255
     t.string   "search_keys",       limit: 255,                          default: ""
     t.datetime "created_at"
@@ -997,14 +997,14 @@ ActiveRecord::Schema.define(version: 20160316015152) do
     t.boolean  "bargainable",                                             default: false
     t.decimal  "bargain_price",                  precision: 12, scale: 2, default: 0.0,   null: false
     t.decimal  "retail_price",                   precision: 12, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",                    precision: 12, scale: 2, default: 0.0,   null: false
+    t.decimal  "trade_price",                    precision: 12, scale: 2, default: 0.0
     t.integer  "reward_points",                                           default: 0
     t.boolean  "divide_to_retail",                                        default: false
     t.integer  "divide_unit_type_id"
     t.decimal  "divide_total_volume",            precision: 10, scale: 2
     t.boolean  "service_needed",                                          default: false
     t.boolean  "service_fee_needed",                                      default: false
-    t.decimal  "service_fee",                    precision: 12, scale: 2
+    t.decimal  "service_fee",                    precision: 12, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "saleman_commission_template_id"
