@@ -74,6 +74,11 @@ class StoreOrder < ActiveRecord::Base
     self.pay_hanging? || self.pay_finished?
   end
 
+  def hanging!
+    self.update! hanging: true
+    self.pay_hanging!
+  end
+
   def revenue_ables
     self.items.revenue_ables
   end
