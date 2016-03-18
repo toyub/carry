@@ -9,6 +9,8 @@ module Entities
     expose(:category) {|model|model.try(:category).try(:name)}
     expose :photo_path, using: MaterialPhotoPath
     expose :services, using: StoreMaterialSaleinfoService
+    expose(:material_root_category_id) {|model|model.store_material.store_material_root_category.id}
+    expose(:material_category_id) {|model|model.store_material.store_material_category.id}
 
     def photo_path
       object.store_material.uploads
