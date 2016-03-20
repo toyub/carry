@@ -21,6 +21,10 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
     vehicle_plates.last.store_vehicle.store_customer
   end
 
+  def current_vehicle
+    @vehicle = @vehicle || vehicle_plates.last
+  end
+
   private
     def set_license_number
       self.license_number = self.license_number.to_s.gsub(/\s/, '').upcase

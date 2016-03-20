@@ -7,6 +7,14 @@ GIT
       puma (>= 2.6)
 
 GIT
+  remote: git@gitlab.icar99.com:zc/capistrano-logrotate.git
+  revision: 0af82d748dcee4ce6bedfd32d4fec43cb3b14c04
+  tag: v0.0.1
+  specs:
+    capistrano-logrotate (0.1.0)
+      capistrano
+
+GIT
   remote: git@gitlab.icar99.com:zc/capistrano-monit.git
   revision: 6caa6023864cc1b56560e7ef3fbac862ae099df8
   tag: v0.0.2
@@ -424,6 +432,7 @@ DEPENDENCIES
   byebug
   capistrano (~> 3.3.0)
   capistrano-bundler (~> 1.1.2)
+  capistrano-logrotate!
   capistrano-monit!
   capistrano-rails (~> 1.1)
   capistrano-rails-console
