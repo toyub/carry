@@ -32,6 +32,7 @@
  *= require as_select
  *= require error
  *= require float_window
+ *= require fake_loader
  *= require_self
  */
 

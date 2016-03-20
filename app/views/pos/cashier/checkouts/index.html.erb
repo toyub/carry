@@ -48,8 +48,13 @@
 
 <% content_for :javascripts do %>
   <script>
-     jQuery(function($){
-        handle = new $$MIS.CashierCheckoutsHandleView({urlRoot: '/api/store_orders/'});
-     });
+    $(".fakeloader").fakeLoader({
+      timeToHide:2200,
+      bgColor:"#2ecc71",
+      spinner:"spinner2"
+    });
+    jQuery(function($){
+      handle = new $$MIS.CashierCheckoutsHandleView({urlRoot: '/api/store_orders/'});
+    });
   </script>
 <% end %>
