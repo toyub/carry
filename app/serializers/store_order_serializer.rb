@@ -37,7 +37,7 @@ class StoreOrderSerializer < ActiveModel::Serializer
 
   def items_content
     if object.items.present?
-      "包含 #{object.items.first.orderable.name} 等 #{object.items.count} 个项目 "
+      "包含 #{object.items.first.orderable.try(:name)} 等 #{object.items.count} 个项目 "
     else
       "包含0个项目"
     end

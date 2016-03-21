@@ -8,7 +8,10 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
   has_many :store_order_items, as: :orderable
   has_many :store_staff_tasks, as: :taskable
 
-  default_scope {where(deleted: false).order('id asc')}
+  default_scope {order('id asc')}
+
+  scope :has_deleted, ->{where(deleted: true)}
+  scope :not_deleted, ->{where(deleted: false)}
 
   def mechanic_level_type
     ServiceMechanicLevelType.find(self.mechanic_level).name
