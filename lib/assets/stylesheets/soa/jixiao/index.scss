@@ -1,18 +1,18 @@
 
 @mixin col-width{
-  &:nth-child(1){ width: 2.26%; }
-  &:nth-child(2){ width: 7.26%; }
-  &:nth-child(3){ width: 7.58%; }
-  &:nth-child(4){ width: 7.26%; }
-  &:nth-child(5){ width: 6.7%; }
-  &:nth-child(6){ width: 8.47%; }
-  &:nth-child(7){ width: 8.8%; }
-  &:nth-child(8){ width: 8.7%; }
-  &:nth-child(9){ width: 8.87%; }
-  &:nth-child(10){ width: 8.87%; }
-  &:nth-child(11){ width: 8.7%; }
-  &:nth-child(12){ width: 8.8%; }
-  &:nth-child(13){ width: 7.74%; }
+  &:nth-child(1){ width: 40px;}
+  &:nth-child(2){ width: 100px;}
+  &:nth-child(3){ width: 101px;}
+  &:nth-child(4){ width: 99px;}
+  &:nth-child(5){ width: 92px;}
+  &:nth-child(6){ width: 113px;}
+  &:nth-child(7){ width: 115px;}
+  &:nth-child(8){ width: 118px;}
+  &:nth-child(9){ width: 118px;}
+  &:nth-child(10){ width: 118px;}
+  &:nth-child(11){ width: 116px;}
+  &:nth-child(12){ width: 118px;}
+  &:nth-child(13){ width: 103px;}
 }
 
 @mixin border-color{
@@ -33,6 +33,7 @@
         th{
           @include col-width;
           @include border-color;
+          box-sizing: border-box;
           height:35px;
           &:first-child{ border-right:1px solid #fff;}
         }
@@ -47,11 +48,12 @@
         &:hover{
           background: #dce2e5;
         }
-        
+
         td{
           @include col-width;
           height:28px;
           text-align:center;
+          box-sizing: border-box;
           @include border-color;
 
           a:hover, a:hover i{
