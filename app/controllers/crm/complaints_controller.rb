@@ -1,9 +1,9 @@
 class Crm::ComplaintsController < Crm::BaseController
   before_action :set_customer, only: [:index, :edit, :update]
   before_action :set_complaint, only: [:edit, :update]
+  before_action :set_search_params, :enmu, only: [:index]
   skip_before_action :verify_authenticity_token, only: [:update]
   def index
-    emu
     @q = @customer.complaints.ransack(params[:q])
     @complaints = @q.result.order(id: :desc).includes(:store_vehicle)
   end
@@ -22,7 +22,7 @@ class Crm::ComplaintsController < Crm::BaseController
   end
 
   private
-  def emu
+  def enmu
     @complaint_categories = Complaint::CATEGORY
     @complaint_ways = Complaint::WAY
   end
@@ -33,6 +33,13 @@ class Crm::ComplaintsController < Crm::BaseController
 
   def set_complaint
     @complaint = Complaint.find(params[:id])
+  end
+
+  def set_search_params
+    params[:q] = {created_at_lteq: ""} unless params[:q]
+    if params[:q][:created_at_lteq].present?
+      params[:q][:created_at_lteq] = params[:q][:created_at_lteq].to_time.end_of_day
+    end
   end
 
   def complaint_params

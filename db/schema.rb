@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316015152) do
+ActiveRecord::Schema.define(version: 20160316020808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -875,18 +875,18 @@ ActiveRecord::Schema.define(version: 20160316015152) do
   end
 
   create_table "store_material_picking_items", force: :cascade do |t|
-    t.integer  "store_id",                                                         null: false
-    t.integer  "store_chain_id",                                                   null: false
-    t.integer  "store_staff_id",                                                   null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "dest_depot_id",                                                    null: false
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_material_inventory_id",                                      null: false
-    t.integer  "store_material_picking_id",                                        null: false
-    t.integer  "quantity",                                                         null: false
-    t.decimal  "cost_price",                              precision: 12, scale: 2, null: false
+    t.integer  "store_id",                                                                       null: false
+    t.integer  "store_chain_id",                                                                 null: false
+    t.integer  "store_staff_id",                                                                 null: false
+    t.integer  "store_depot_id",                                                                 null: false
+    t.integer  "dest_depot_id",                                                                  null: false
+    t.integer  "store_material_id",                                                              null: false
+    t.integer  "store_material_inventory_id",                                                    null: false
+    t.integer  "store_material_picking_id",                                                      null: false
+    t.integer  "quantity",                                                                       null: false
+    t.decimal  "cost_price",                              precision: 12, scale: 2, default: 0.0, null: false
     t.decimal  "amount",                                  precision: 14, scale: 4
-    t.decimal  "inventory_cost_price",                    precision: 12, scale: 2, null: false
+    t.decimal  "inventory_cost_price",                    precision: 12, scale: 2, default: 0.0, null: false
     t.string   "remark",                      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -924,30 +924,30 @@ ActiveRecord::Schema.define(version: 20160316015152) do
   end
 
   create_table "store_material_returning_items", force: :cascade do |t|
-    t.integer  "store_id",                                                         null: false
-    t.integer  "store_chain_id",                                                   null: false
-    t.integer  "store_staff_id",                                                   null: false
-    t.integer  "store_supplier_id",                                                null: false
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_material_inventory_id",                                      null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "store_material_returning_id",                                      null: false
-    t.integer  "quantity",                                                         null: false
-    t.decimal  "price",                                   precision: 12, scale: 2, null: false
-    t.integer  "prior_quantity",                                                   null: false
+    t.integer  "store_id",                                                                       null: false
+    t.integer  "store_chain_id",                                                                 null: false
+    t.integer  "store_staff_id",                                                                 null: false
+    t.integer  "store_supplier_id",                                                              null: false
+    t.integer  "store_material_id",                                                              null: false
+    t.integer  "store_material_inventory_id",                                                    null: false
+    t.integer  "store_depot_id",                                                                 null: false
+    t.integer  "store_material_returning_id",                                                    null: false
+    t.integer  "quantity",                                                                       null: false
+    t.decimal  "price",                                   precision: 12, scale: 2, default: 0.0, null: false
+    t.integer  "prior_quantity",                                                                 null: false
     t.string   "remark",                      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "store_material_returnings", force: :cascade do |t|
-    t.integer  "store_id",                                                            null: false
-    t.integer  "store_chain_id",                                                      null: false
-    t.integer  "store_staff_id",                                                      null: false
-    t.integer  "store_supplier_id",                                                   null: false
-    t.string   "numero",            limit: 45,                                        null: false
+    t.integer  "store_id",                                                             null: false
+    t.integer  "store_chain_id",                                                       null: false
+    t.integer  "store_staff_id",                                                       null: false
+    t.integer  "store_supplier_id",                                                    null: false
+    t.string   "numero",            limit: 45,                                         null: false
     t.integer  "total_quantity"
-    t.decimal  "total_amount",                  precision: 14, scale: 4
+    t.decimal  "total_amount",                  precision: 14, scale: 4, default: 0.0
     t.string   "remark",            limit: 255
     t.string   "search_keys",       limit: 255,                          default: ""
     t.datetime "created_at"
@@ -997,14 +997,14 @@ ActiveRecord::Schema.define(version: 20160316015152) do
     t.boolean  "bargainable",                                             default: false
     t.decimal  "bargain_price",                  precision: 12, scale: 2, default: 0.0,   null: false
     t.decimal  "retail_price",                   precision: 12, scale: 2, default: 0.0,   null: false
-    t.decimal  "trade_price",                    precision: 12, scale: 2, default: 0.0,   null: false
+    t.decimal  "trade_price",                    precision: 12, scale: 2, default: 0.0
     t.integer  "reward_points",                                           default: 0
     t.boolean  "divide_to_retail",                                        default: false
     t.integer  "divide_unit_type_id"
     t.decimal  "divide_total_volume",            precision: 10, scale: 2
     t.boolean  "service_needed",                                          default: false
     t.boolean  "service_fee_needed",                                      default: false
-    t.decimal  "service_fee",                    precision: 12, scale: 2
+    t.decimal  "service_fee",                    precision: 12, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "saleman_commission_template_id"
@@ -1463,9 +1463,9 @@ ActiveRecord::Schema.define(version: 20160316015152) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1520,6 +1520,7 @@ ActiveRecord::Schema.define(version: 20160316015152) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time",                                   default: 0
     t.json     "mechanics"
@@ -1529,7 +1530,6 @@ ActiveRecord::Schema.define(version: 20160316015152) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
     t.string   "inspector"
   end
@@ -1620,24 +1620,25 @@ ActiveRecord::Schema.define(version: 20160316015152) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
     t.boolean  "regular",                                                     default: true
+    t.boolean  "demission",                                                   default: false
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree

@@ -15,7 +15,7 @@ class StoreOrderArchive
       reward_points
       pay_finish
       auto_outing
-      deal_with_divideable
+      deal_with_material_cost_price
     end
   end
 
@@ -134,7 +134,7 @@ class StoreOrderArchive
 
   def pay_finish
     if @order.payments.any?(&->(pi){pi.hanging?})
-      @order.pay_hanging!
+      @order.hanging!
       @customer.store_customer_entity.store_customer_settlement.increase_credit_bill_amount!(@order.amount)
     else
       @order.pay_finished!
@@ -151,13 +151,15 @@ class StoreOrderArchive
     depot.outing_order_materials!(@order)
   end
 
-  def deal_with_divideable
+  def deal_with_material_cost_price
     @order.items.materials.each do |order_item|
       if order_item.orderable.divide_to_retail?
         order_item.divide_to_retail = true
         order_item.standard_volume_per_bill = order_item.orderable.divide_volume_per_bill
         order_item.actual_volume_per_bill = order_item.orderable.divide_volume_per_bill
         order_item.save!
+      else
+        order_item.update!(cost_price: order_item.orderable.cost_price)
       end
     end
   end

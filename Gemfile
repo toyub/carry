@@ -71,6 +71,7 @@ group :development do
   gem 'quiet_assets'
   gem 'pry', "~> 0.9.12"
   gem 'pry-nav', "~> 0.2.3"
+  gem 'capistrano-logrotate', git: 'git@gitlab.icar99.com:zc/capistrano-logrotate.git', tag: 'v0.0.1', require: false
 end
 
 gem 'backbone-on-rails'

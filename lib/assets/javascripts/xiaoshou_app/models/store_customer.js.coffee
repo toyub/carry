@@ -43,7 +43,10 @@ class Mis.Models.StoreCustomer extends Backbone.Model
 
   vehicleArchivesUrl: ->
     if @id
-      "/crm/store_customers/#{@id}/store_vehicles/new"
+      if @get 'first_vehicle_id'
+        "/crm/store_customers/#{@id}/store_vehicles/#{(@get 'first_vehicle_id')}"
+      else
+        "/crm/store_customers/#{@id}/store_vehicles/new"
     else
       "javascript:void(0)"
 
