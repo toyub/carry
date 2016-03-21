@@ -43,11 +43,20 @@
         &:nth-child(odd){
           background: #F2F2F2;
         }
+
+        &:hover{
+          background: #dce2e5;
+        }
+        
         td{
           @include col-width;
           height:28px;
           text-align:center;
           @include border-color;
+
+          a:hover, a:hover i{
+            color: #edf2f5;
+          }
         }
       }
     }
