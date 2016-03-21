@@ -11,9 +11,13 @@ class Crm::ExpenseRecordsController < Crm::BaseController
 
     def set_search_params
       params[:q] ||= {}
+      begin
+        created_at_gteq = Time.zone.parse(params[:q][:created_at_gteq])
+        created_at_lteq = Time.zone.parse(params[:q][:created_at_lteq]).try(:end_of_day)
+      rescue Exception => e
+        created_at_gteq = created_at_lteq = nil
+      end
       get_search_params
-      params[:q][:created_at_gteq] = Time.zone.parse(params[:q][:created_at_gteq]).beginning_of_day if params[:q][:created_at_gteq].present?
-      params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]).end_of_day if params[:q][:created_at_lteq].present?
     end
 
     def enmu
