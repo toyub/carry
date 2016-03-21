@@ -3,5 +3,6 @@
 *= require common/head
 *= require common/master
 *= require common/sidebar
+*= require common/loading
 *= require_self
 */
