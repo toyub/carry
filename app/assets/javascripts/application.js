@@ -36,7 +36,6 @@
 //= require dialogs/upload
 //= require dialogs/piccut
 //= require dialogs/form
-//= require fake_loader/fakeLoader.min
 //= require jquery_ext/jquery.datetimepicker
 //= require 'echarts/2.2.7'
 //= require payment_methods
