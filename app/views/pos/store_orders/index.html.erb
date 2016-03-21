@@ -10,18 +10,23 @@
 		</div>
 		<div class="item-query">
 			<label>日期</label>
-			<input type="text" class="width-160 datetimepicker js-store-order-date">
+			<input type="date" class="width-160 js-store-order-date">
 		</div>
 		<div class="item-query">
 			<label>状态</label>
-      <select type="text" class="width-140 state-select">
+      <select type="text" class="width-140 task-status">
         <option value="">全部订单</option>
         <option value="0">草稿订单</option>
-        <option value="1">正在排队订单</option>
-        <option value="2">正在施工订单</option>
-        <option value="3">等待付款订单</option>
-        <option value="4">已完成订单</option>
+        <option value="1">待施工</option>
+        <option value="2">施工中</option>
+        <option value="5">完工</option>
 			</select>
+
+      <select class="width-140 pay-status">
+        <option value="">全部</option>
+        <option value="0">未付款</option>
+        <option value="1">已付款</option>
+      </select>
 		</div>
 		<div class="item-query">
 			<a href="javascript:void(0);" class="query_btn btn" v-on:click="searchStoreOrder">查&nbsp;询</a>

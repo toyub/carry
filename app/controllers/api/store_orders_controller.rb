@@ -12,10 +12,29 @@ module Api
         orders = orders.where(store_vehicle_id: store_vehicle_ids)
       end
       if params[:created_at].present?
-        orders = orders.where(created_at: params[:created_at])
+        parsed_date = begin
+          Date.parse(params[:created_at])
+        rescue
+         nil
+        end
+        if parsed_date
+          orders = orders.where("created_at between ? and ?", parsed_date.to_datetime.beginning_of_day, parsed_date.to_datetime.end_of_day)
+        end
       end
       if params[:state].present?
         orders = orders.where(state: params[:state])
+      end
+
+      if params[:pay_status].present?
+        if params[:pay_status].to_i == 0
+          orders = orders.where(pay_status: [0,1])
+        else
+          orders = orders.where(pay_status: [2,3])
+        end
+      end
+
+      if params[:task_status].present?
+        orders = orders.where(task_status: params[:task_status])
       end
 
       render json: orders.order('id desc')
