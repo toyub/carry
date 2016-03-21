@@ -43,16 +43,12 @@
       </ul>
     </div>
 
+    <%= render 'shared/loading' %>
   </div>
 </div>
 
 <% content_for :javascripts do %>
   <script>
-    $(".fakeloader").fakeLoader({
-      timeToHide:2200,
-      bgColor:"#2ecc71",
-      spinner:"spinner2"
-    });
     jQuery(function($){
       handle = new $$MIS.CashierCheckoutsHandleView({urlRoot: '/api/store_orders/'});
     });
