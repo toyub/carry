@@ -25,6 +25,18 @@ module Api
         orders = orders.where(state: params[:state])
       end
 
+      if params[:pay_status].present?
+        if params[:pay_status].to_i == 0
+          orders = orders.where(pay_status: [0,1])
+        else
+          orders = orders.where(pay_status: [2,3])
+        end
+      end
+
+      if params[:task_status].present?
+        orders = orders.where(task_status: params[:task_status])
+      end
+
       render json: orders.order('id desc')
     end
 

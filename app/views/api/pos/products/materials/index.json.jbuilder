@@ -6,5 +6,5 @@ json.array! @materials do |material|
   json.store_material_root_category_id material.store_material.store_material_root_category_id
   json.store_material_category_id material.store_material.store_material_category_id
   json.category_name material.sale_category.try :name
-  json.services material.services, :id, :name, :mechanic_level_type, :work_time, :work_time_in_seconds, :work_time_unit, :quantity
+  json.services material.services.not_deleted, :id, :name, :mechanic_level_type, :work_time, :work_time_in_seconds, :work_time_unit, :quantity
 end
