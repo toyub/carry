@@ -28,6 +28,13 @@ module Entities
     expose(:region, if: {type: :full}) {|model| model.district['region']}
     expose :tags, using: CustomerTags, if: {type: :full}
 
+    expose :entity, using: StoreCustomerEntityInfo, if: {type: :full}
+
+    private
+    def entity
+      object.store_customer_entity
+    end
+
     def bank
       object.store_customer_entity.try(:store_customer_settlement).try(:bank)
     end
