@@ -4,7 +4,7 @@
 <td><%= @entity.categoryName() %></td>
 <td><%= @entity.storeCustomer.get 'vehicles_count'  %></td>
 <td></td>
-<td><%= @entity.storeCustomer.get 'customer_asset' %></td>
+<td><%= @entity.storeCustomer.get 'has_customer_asset' %></td>
 <td><%= @entity.storeCustomer.get 'orders_count' %></td>
 <td><%= @entity.storeCustomer.get 'total_amount' %></td>
 <td></td>

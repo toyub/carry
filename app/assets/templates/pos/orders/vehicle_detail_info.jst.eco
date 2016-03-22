@@ -67,7 +67,7 @@
       <dd>
         <label class="width-77">购买日期</label>
         <% if @detail and @detail.bought_on : %>
-        <span class="form-control"><%= @detail.bought_on %></span>
+        <span class="form-control width-90"><%= @detail.bought_on %></span>
         <% else : %>
         <input type="date" class="width-90" name='vehicle[detail][bought_on]' value={{vehicle.detail.bought_on}}>
         <% end %>

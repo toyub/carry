@@ -22,6 +22,7 @@ class Kucun::SaleinfosController < Kucun::BaseController
     saleinfo.save!
 
     render json: {
+      material_id: @store_material.id,
       saleinfo: saleinfo,
       services_attributes: saleinfo.services
     }
@@ -47,6 +48,7 @@ class Kucun::SaleinfosController < Kucun::BaseController
     end
     saleinfo.update!(safe_params)
     render json: {
+      material_id: @store_material.id,
       saleinfo: saleinfo,
       services_attributes: saleinfo.services
     }

@@ -7,3 +7,15 @@
   <%= render "/soa/shared/top_info" %>
   <%= render partial: 'form' %>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $("#staff_form").submit(function(evt){
+      if ($('#staff_phone_number').val() != <%= @staff.phone_number %>) {
+        if (!confirm("新修改的手机号将成为新的登录名，是否继续？")) {
+          evt.preventDefault();
+        }
+      }
+    })
+  })
+</script>
