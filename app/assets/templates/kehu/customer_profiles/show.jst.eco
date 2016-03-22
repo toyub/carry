@@ -149,7 +149,7 @@
             <div class="item_content">
               <label class="width-75">挂账额度</label>
 							<span class="width-176"><%= @entity.storeCustomerSettlement.credit() %></span>
-              <span class="width-176"><%= @entity.storeCustomerSettlement.get 'credit_limit' %></span>
+              <span class="width-176 margin-left-100"><%= @entity.storeCustomerSettlement.get 'credit_limit' %></span>
             </div>
 
             <div class="item_content">

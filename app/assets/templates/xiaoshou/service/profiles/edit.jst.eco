@@ -20,8 +20,8 @@
             </div>
             <div class="item_content">
               <input type="hidden" name="bargain_price_enabled" value="0">
-              <input type="checkbox" id="bargain_price_enabled" name="bargain_price_enabled" class="toggleable margin-left-15" <%= 'checked' if @service.get 'bargain_price_enabled' %> >
-              <label class="width-40">
+              <label class="width-75">
+                <input type="checkbox" id="bargain_price_enabled" name="bargain_price_enabled" class="toggleable margin-left-15" <%= 'checked' if @service.get 'bargain_price_enabled' %> >
                 优惠价
               </label>
               <input type="text" id="bargain_price" class="width-165" name="bargain_price" value="<%= @service.get 'bargain_price' %>" <%= 'disabled' unless @service.get 'bargain_price_enabled' %>>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="item_content">
-              <label class="width-100"><input type="checkbox" <%= 'checked' if @service.get('vip_price_enabled') %> name="vip_price_enabled">启用会员价</label>
+              <label class="width-75"><input type="checkbox" <%= 'checked' if @service.get('vip_price_enabled') %> name="vip_price_enabled">启用会员价</label>
             </div>
 
             <div class="item_textarea ">
