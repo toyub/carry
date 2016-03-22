@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resource :saleinfo do
         resources :saleinfo_services
       end
-      resource :tracking, only: [:show, :create, :update] do
+      resource :tracking, only: [:show, :edit, :create, :update] do
         get :sections, on: :collection
         resources :tracking_sections
       end

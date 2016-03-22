@@ -13,13 +13,24 @@
         <label class="margin-right-8 line-height-25">选择类型</label>
         <select name="category" id="category">
           <option value="">所有类型</option>
-          <% SmsSwitchType.collection.each do |category| %>
-          <optgroup label="<%= category.name[:type] %>">
-            <% category.name[:sub_category].constantize.collection.each do |sub| %>
-            <option value="<%= category.name[:type]%>-<%= sub.id %>"><%= sub.name %></option>
+
+          <optgroup label="提醒">
+            <% SmsNotifySwitchType.collection.each do |sub_type| %>
+              <option value="<%= SmsNotifySwitchType.name %>-<%= sub_type.id %>"><%= sub_type.name %></option>
             <% end %>
           </optgroup>
-          <% end %>
+
+          <optgroup label="回访">
+            <% SmsTrackingSwitchType.collection.each do |sub_type| %>
+              <option value="<%= SmsTrackingSwitchType.name %>-<%= sub_type.id %>"><%= sub_type.name %></option>
+            <% end %>
+          </optgroup>
+
+          <optgroup label="验证">
+            <% SmsCaptchaSwitchType.collection.each do |sub_type| %>
+              <option value="<%= SmsCaptchaSwitchType.name %>-<%= sub_type.id %>"><%= sub_type.name %></option>
+            <% end %>
+          </optgroup>
         </select>
         <span>日期</span>
         <input type="date" name="start_date" value="<%= params[:start_date]%>">
