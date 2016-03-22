@@ -119,6 +119,21 @@
 
 <% content_for :javascripts do %>
   <script>
+    function set_checked_to_material(material) {
+      var material_ids = [];
+      var material_len = $('table.check_order > tbody > tr').length;
+      for(var i = 0; i < material_len; i++){
+        material_ids[i] = $('table.check_order > tbody > tr:eq("' + i +'")').attr('data-id');
+      }
+      material.checked = false;
+      for(var i = 0; i < material_len; i++){
+        if(material.id == material_ids[i]){
+          material.checked = true;
+          break;
+        }
+      }
+    }
+
     jQuery(function(){
       var choice_tmpl = JST['kucun/transfer/pickings/new/choice'];
       var chosen_tmpl = JST['kucun/transfer/pickings/new/chosen'];
@@ -142,6 +157,7 @@
             inventory.store_material.depot_name = inventory.depot_name;
             inventory.store_material.inventory_id = inventory.id;
             inventory.store_material.idx = idx+1;
+            set_checked_to_material(inventory.store_material);
             return choice_tmpl(inventory.store_material);
           }).join('');
           $('#choices').html(html);
