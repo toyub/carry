@@ -21,7 +21,8 @@ Mis.Views.Concerns.Top =
   subResourceName:
     profiles: '信息'
     settings: '设置'
-    trackings: '回访'
+    trackings: '回访设置'
+    sales: '销售记录'
 
 
   renderTop: ->

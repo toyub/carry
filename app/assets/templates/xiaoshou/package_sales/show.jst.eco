@@ -1,0 +1,202 @@
+<div class="details">
+
+  <div id="masterNav" class="details_nav">
+  </div>
+
+  <div class="details_content package">
+    <table border="0" id="packageSummary" class="abstract">
+    </table>
+
+    <div class="search_bar">
+      <span>发生时间：</span>
+      <input type="date">
+      <span>到</span>
+      <input type="date">
+      <input type="button" class="search_btn_in_nav btn" value="查询">
+    </div>
+
+
+    <div class="sales_record_abstract">
+      <ul class="record_header">
+        <li>#</li>
+        <li>销售日期</li>
+        <li>订单号</li>
+        <li>销售价</li>
+        <li>数量</li>
+        <li>优惠</li>
+        <li>实收</li>
+        <li>付款方式</li>
+        <li>技师</li>
+        <li>操作</li>
+      </ul>
+
+      <div class="record_contents" id='package_order_items'>
+      </div>
+
+    </div>
+
+    <div class="sales_record_details bg-color-ebf7f7" style="display:none;">
+      <div class="basic_info">
+        <table border="1">
+          <caption class="text-align-left">
+            业务单<label>YW2014122800019</label>
+            <span class="float-right padding-6-10 cursor-pointer font-18 close_record_details">✕</span>
+          </caption>
+          <thead>
+            <tr class="font-weight-bold">
+              <td>姓名</td>
+              <td>客户代码</td>
+              <td>手机号码</td>
+              <td>客户属性</td>
+              <td>客户类别</td>
+              <td>车牌号</td>
+              <td>车辆品牌</td>
+              <td>车型</td>
+              <td>车系</td>
+              <td>车龄</td>
+              <td>开单时间</td>
+              <td>结束时间</td>
+              <td>开单人</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>李冰冰</td>
+              <td>KH201311090018</td>
+              <td>13805790009</td>
+              <td>个人</td>
+              <td>VIP会员</td>
+              <td>浙A95888</td>
+              <td>大众</td>
+              <td>迈乐威</td>
+              <td>进口大众</td>
+              <td>1</td>
+              <td>2014-12-18 11:30</td>
+              <td>2014-12-28 14:56</td>
+              <td>张国荣</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="record_details">
+        <div class="vehicle_check_record float-left bg-color-fff position-relative">
+          <img src="/images/vehicle_check_record.png" alt="车辆部位" class="float-left">
+          <input type="checkbox" class="vehicle_part01 " disabled="" checked="">
+          <input type="checkbox" class="vehicle_part02 " disabled="">
+          <input type="checkbox" class="vehicle_part03 " disabled="">
+          <input type="checkbox" class="vehicle_part04 " disabled="">
+          <input type="checkbox" class="vehicle_part05 " disabled="">
+          <input type="checkbox" class="vehicle_part06 " disabled="">
+          <input type="checkbox" class="vehicle_part07 " disabled="">
+          <input type="checkbox" class="vehicle_part08 " disabled="">
+          <input type="checkbox" class="vehicle_part09 " disabled="">
+          <input type="checkbox" class="vehicle_part10 " disabled="">
+          <input type="checkbox" class="vehicle_part11 " disabled="">
+          <input type="checkbox" class="vehicle_part12 " disabled="">
+          <label class="float-right text-align-center font-16">车况检查记录</label>
+          <div class="check_record_descript float-right width-265">
+            <ul>
+              <li>xx部位：xxxxxxxxxx</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="service_price float-right bg-color-fff">
+          <ul class="text-align-center">
+            <li class="text-align-left">#</li>
+            <li>项目</li>
+            <li><label>单价</label></li>
+            <li>数量</li>
+            <li>优惠</li>
+            <li><label>实收</label></li>
+            <li>摘要</li>
+            <li><label>小计</label></li>
+          </ul>
+
+          <div class="service_items">
+            <ul class="border-none">
+              <li class="text-align-left">1.</li>
+              <li>普通洗车</li>
+              <li>25.00</li>
+              <li>1</li>
+              <li>0</li>
+              <li>25.00</li>
+              <li><nbsp1></nbsp1></li>
+              <li>25.00</li>
+            </ul>
+
+            <ul>
+              <li class="text-align-left">2.</li>
+              <li>米其林 205/55/16 3TC 91V</li>
+              <li>625.00</li>
+              <li>2</li>
+              <li>0</li>
+              <li>625.00</li>
+              <li><nbsp1></nbsp1></li>
+              <li>625.00</li>
+            </ul>
+          </div>
+
+          <div class="total_price float-right margin-right-40">
+            合计：
+            <label class="width-50">1625.00</label>
+          </div>
+
+          <div class="clr"></div>
+
+          <ul class="border-top-ededee line-height-46">
+            <li class="width-110">收银：<label class="width-55 margin-left-8"></label></li>
+            <li class="float-right width-110">实收：<label class="width-55 margin-left-8"></label></li>
+          </ul>
+        </div>
+
+        <div class="clr"></div>
+
+        <div class="vehicle_check bg-color-fff padding-bottom-10">
+          <ul class="text-align-center">
+            <li>#</li>
+            <li>项目</li>
+            <li>工位</li>
+            <li>施工时间</li>
+            <li>加时</li>
+            <li>超时</li>
+            <li>流程技师</li>
+            <li><label>质检1</label></li>
+            <li><label>质检2</label></li>
+            <li><label>质检3</label></li>
+          </ul>
+
+          <ul class="text-align-center">
+            <li><label class="width-50"></label></li>
+            <li class="text-align-left"><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+          </ul>
+
+          <ul class="text-align-center">
+            <li><label class="width-50"></label></li>
+            <li class="text-align-left"><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+            <li><label class="width-50"></label></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
