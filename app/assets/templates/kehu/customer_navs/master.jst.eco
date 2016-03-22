@@ -7,5 +7,4 @@
 
 <li id="xiaofeijilu"><a href="<%= @customer.ordersUrl() %>" class="width-90">消费记录</a></li>
 <li id="huifangjilu"><a href="<%= @customer.trackingsUrl() %>" class="width-90">回访记录</a></li>
-<li id="yixiang"><a href="<%= @customer.preOrdersUrl() %>" class="width-90 ">意向产品</a></li>
 <li id="tousu"><a href="<%= @customer.complaintsUrl() %>" class="width-90">投诉记录</a></li>

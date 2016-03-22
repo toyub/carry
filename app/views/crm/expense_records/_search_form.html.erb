@@ -1,21 +1,16 @@
-  <div class="nav_query_wrap">
-    <div class="nav-item-query">
-      <label>选择车辆</label>
-      <select class="width-120" name="q[store_vehicle_id_eq]">
-        <option value="" >全部车辆</option>
-        <% @customer.store_vehicles.each do |vehicle| %>
-          <option value="<%= vehicle.id%>" > <%= vehicle.license_number %> </option>
-        <% end %>
-      </select>
-    </div>
-
-    <div class="nav-item-query">
-      <label>选择时间</label>
-      <input type="date" class="width-120" name="q[created_at_gt]">
-      <input type="date" class="width-120" name="q[created_at_lteq]">
-    </div>
-
-    <div class="nav-item-query">
-      <input type="submit" value="查  询" class='btn query_btn'>
-    </div>
+<div class="nav_query_wrap">
+  <div class="nav-item-query">
+    <label>选择车辆</label>
+    <%= select_tag 'q[store_vehicle_id_eq]', options_for_select(@vehicles, @vehicle_id), include_blank: '全部车辆', class: 'width-120' %>
   </div>
+
+  <div class="nav-item-query">
+    <label>选择时间</label>
+    <input type="date" class="width-120" name="q[created_at_gteq]" value='<%= @beginning %>'>
+    <input type="date" class="width-120" name="q[created_at_lteq]" value='<%= @end %>'>
+  </div>
+
+  <div class="nav-item-query">
+    <input type="submit" value="查  询" class='btn query_btn'>
+  </div>
+</div>

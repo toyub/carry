@@ -43,7 +43,7 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
       else
         @add_new_item()
     else if @model.isStoreService()
-      if @model.price() < @model.retail_price()
+      if @model.price() - @model.retail_price() < 0
         @confirm_item_price('该服务设置的套餐价低于售价，是否继续？')
       else
         @add_new_item()
