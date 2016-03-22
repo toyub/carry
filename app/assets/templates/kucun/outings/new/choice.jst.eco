@@ -1,6 +1,6 @@
 <div class="list_content list_tr border_left ">
   <ul>
-    <li>1.</li>
+    <li><%= @idx %></li>
     <li><%= @name %></li>
     <li><%= @barcode %></li>
     <li><%= @speci %></li>
@@ -18,7 +18,7 @@
     <li><%= @depot_name %></li>
     <li><label><%= @remark %></label></li>
     <li>
-      <input data-id='<%= @id %>' type="checkbox" name="sub_check">
+      <input data-id='<%= @id %>' type="checkbox" name="sub_check" <%= 'checked' if @checked %> >
     </li>
   </ul>
 </div>
