@@ -18,8 +18,8 @@
             <input type="text" class="width-165" value="<%= @service.get 'retail_price' %>" readonly="">
           </div>
           <div class="item_content">
-            <input type="checkbox" disabled class="toggleable margin-left-15" <%= 'checked' if @service.get 'bargain_price_enabled' %> >
-            <label class="width-40">
+            <label class="width-75">
+              <input type="checkbox" disabled class="toggleable margin-left-15" <%= 'checked' if @service.get 'bargain_price_enabled' %> >
               优惠价
             </label>
             <input type="text" class="width-165" disabled="" value="<%= @service.get 'bargain_price' %>" readonly="">
