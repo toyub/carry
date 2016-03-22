@@ -65,7 +65,7 @@ class StoreOrderArchive
                                                                 {store_id: @order.store_id,
                                                                  store_chain_id: @order.store_chain_id,
                                                                  store_customer_id: @order.store_customer_id,
-                                                                 assetable: package_item,
+                                                                 assetable: package_item.package_itemable,
                                                                  total_quantity: package_item.quantity,
                                                                  workflowable_hash: package_item.package_itemable.to_workflowable_hash
                                                                }
