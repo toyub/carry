@@ -115,7 +115,7 @@
 
       <div>
         <label for="">手机号</label>
-        <input type="text" name="employee[phone_number]"  value="<%= @employee.phone_number%>" placeholder="请输入11位手机号码" pattern="^1\d{10}" required>
+        <input type="text" name="employee[phone_number]"  value="<%= @employee.phone_number || @staff.phone_number %>" id="staff_phone_number" placeholder="请输入11位手机号码" pattern="^1\d{10}" required>
       </div>
 
       <div>
