@@ -7,11 +7,13 @@ class SmsRecord < ActiveRecord::Base
   belongs_to :party, polymorphic: true
 
   FIRST_CATEGORY_CN_NAME = {
-    'SaptchaSwitchType': "验证",
+    'SmsCaptchaSwitchType': "验证",
     'SmsNotifySwitchType': "提醒",
     'SmsTrackingSwitchType': "回访"
   }
   def category_cn_name
-    FIRST_CATEGORY_CN_NAME[first_category.to_sym].to_s + first_category.constantize.find(second_category).try(:name)
+    if FIRST_CATEGORY_CN_NAME.keys.include? first_category.try(:to_sym)
+      FIRST_CATEGORY_CN_NAME[first_category.to_sym].to_s + ": " + first_category.constantize.find(second_category).try(:name)
+    end
   end
 end
