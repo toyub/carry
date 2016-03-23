@@ -17,14 +17,26 @@ module V1
         end
       end
 
+      resource :manufacturers do
+        params do
+          requires :platform, type: String, desc: '调用的平台(app或者erp)'
+          requires :vehicle_brand_id, type: Integer, desc: "车品牌的id"
+        end
+        add_desc "车辆制造商"
+        get do
+          manufacturers = VehicleManufacturer.by_brand(params[:vehicle_brand_id])
+          present manufacturers, with: ::Entities::VehicleBrand
+        end
+      end
+
       resource :series do
         params do
           requires :platform, type: String, desc: '调用的平台(app或者erp)'
-          optional :vehicle_brand_id, type: Integer, desc: "所属品牌ID"
+          requires :vehicle_manufacturer_id, type: Integer, desc: "制造商的id"
         end
         add_desc "车系"
         get do
-          series = VehicleSeries.where(vehicle_brand_id: params[:vehicle_brand_id])
+          series = VehicleSeries.by_manufacturer(params[:vehicle_manufacturer_id])
           present series, with: ::Entities::VehicleBrand
         end
       end
@@ -32,11 +44,11 @@ module V1
       resource :models do
         params do
           requires :platform, type: String, desc: '调用的平台(app或者erp)'
-          optional :vehicle_series_id, type: Integer, desc: '所属车系的id'
+          requires :vehicle_series_id, type: Integer, desc: '所属车系的id'
         end
         add_desc "车型"
         get do
-          models = VehicleModel.where(vehicle_series_id: params[:vehicle_series_id])
+          models = VehicleModel.by_series(params[:vehicle_series_id])
           present models, with: ::Entities::VehicleBrand
         end
       end
