@@ -64,8 +64,13 @@
         }
       }
 
+      .order-items{
+        float: left;
+        width: 70%;
+      }
+
       table.by_item{
-        width:69.95%;
+        width:100%;
         float:left;
         thead{
           tr{
