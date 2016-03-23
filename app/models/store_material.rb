@@ -40,7 +40,9 @@ class StoreMaterial < ActiveRecord::Base
 
   after_create :generate_barcode!
 
-  CURRENT_MONTH = Date.today.strftime("%Y%m")
+  def current_month
+    Date.today.strftime("%Y%m")
+  end
 
   def inventory(depot_id=nil)
     count_scope = self.store_material_inventories
@@ -72,11 +74,11 @@ class StoreMaterial < ActiveRecord::Base
     incomes.where(created_month: prev_month).last
   end
 
-  def current_incomes(month = CURRENT_MONTH)
+  def current_incomes(month = current_month())
     incomes.where(created_month: month)
   end
 
-  def current_outgos(month = CURRENT_MONTH)
+  def current_outgos(month = current_month())
     outgos.where(created_month: month)
   end
 

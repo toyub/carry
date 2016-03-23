@@ -167,7 +167,6 @@
                               <option <%= 'selected' if opt.id == @saleinfo.saleman_commission_template_id %> data-template='<%= json_for(opt, root:false) %>' value="<%= opt.id %>"><%= opt.name %></option>
                             <% end %>
                           </select>
-                          <a class="detail color-0C489C do_click_btn" href="javascript:void(0)">详情</a>
                         </div>
                       </fieldset>
                     </td>
@@ -182,7 +181,7 @@
               <div class="server_list" >
                 <div class="top">
                   <h2>服务项目列表</h2>
-                  <span class="new_btn btn margin-top-10 float-right click_btn cursor <%='disabled' unless @saleinfo.service_needed %>" id="add_server_btn" data-id="service_needed">创建</span>
+                  <span class="new_btn btn margin-top-10 float-right click_btn cursor disabled" id="add_server_btn" data-id="service_needed">创建</span>
                 </div>
                 <div class="none_server_data">
                   <p class="none_server_p">当前没有配套服务</p>
@@ -214,3 +213,17 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      var urlRoot = "/kucun/materials/<%= @store_material.id %>/saleinfo";
+      var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
+      handle = new $$MIS.SaleinfoHandleView({urlRoot: urlRoot});
+      handle.store_commission_templates = store_commission_templates;
+      $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
+        $('#commission_tempalte_detail').hide();
+      });
+    });
+  </script>
+<% end -%>

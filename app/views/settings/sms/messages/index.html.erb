@@ -60,7 +60,7 @@
         <td><%= record.created_at.strftime("%Y-%m-%d")%></td>
         <td><%= record.phone_number%></td>
         <td><%= record.receiver_name%></td>
-        <td><%= record.first_category%> <%= SmsNotifySwitchType.find(record.second_category).name%></td>
+        <td><%= record.category_cn_name%></td>
         <td><%= record.content%></td>
         <td><%= record.quantity%></td>
       </tr>

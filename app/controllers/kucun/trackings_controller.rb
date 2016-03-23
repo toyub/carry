@@ -34,7 +34,7 @@ class Kucun::TrackingsController < Kucun::BaseController
       render json: {
         material_id: store_material.id,
         tracking: tracking
-      }
+      }, root: false
     else
       render json: {msg: 'store material tracking not found, use create!'}
     end

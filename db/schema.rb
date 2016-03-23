@@ -1650,10 +1650,10 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.integer  "workflow_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.string   "taskable_type"
-    t.integer  "taskable_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "taskable_type"
+    t.integer  "taskable_id"
     t.integer  "mechanic_id"
   end
 

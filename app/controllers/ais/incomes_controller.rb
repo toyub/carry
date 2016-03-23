@@ -18,7 +18,7 @@ class Ais::IncomesController < Ais::BaseController
     elsif params[:type] == 'materials'
       @material_categories = SaleCategory.all
     elsif params[:type] == 'services'
-      @service_categories = ServiceCategory.all
+      @service_categories =  ServiceCategory.all
     end
     @first_category = @service_categories.try(:first) || @material_categories.try(:first)
   end
