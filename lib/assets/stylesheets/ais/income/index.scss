@@ -28,9 +28,10 @@
         float:left;
         thead{
           tr{
-            height:45px;
+
             border:1px solid #d5d5d5;
             th{
+              height:45px;
               @include category-col-width;
               background:#D2EAE9;
             }
@@ -39,7 +40,6 @@
 
         tbody{
           tr{
-            height:28px;
             cursor: pointer;
             padding-left: 1px;
             &.active, &:hover{
@@ -54,6 +54,7 @@
             td{
               @include category-col-width;
               text-align:center;
+              height:28px;
               border:1px solid #d5d5d5;
 
               &:nth-child(1),&:nth-child(3){
@@ -64,8 +65,13 @@
         }
       }
 
+      .order-items{
+        float: left;
+        width: 70%;
+      }
+
       table.by_item{
-        width:69.95%;
+        width:100%;
         float:left;
         thead{
           tr{
