@@ -1,10 +1,10 @@
-<li></li>
-<li><%= @item.created_at %></li>
-<li>YW20141228000019</li>
-<li>1000.00</li>
 <li>1</li>
-<li>0</li>
-<li>1000.00</li>
-<li>现金</li>
-<li>王晓明 李方 周宏</li>
-<li><span class="open_record_details">详情</span></li>
+<li><%= @item.created_at %></li>
+<li><%= @item.numero %></li>
+<li><%= @item.retail_price %></li>
+<li><%= @item.quantity %></li>
+<li><%= @item.discount %></li>
+<li><%= @item.amount %></li>
+<li><%= @item.payment_methods %></li>
+<li><%= @item.mechanics %></li>
+<li><span class="open_record_details"><a href='/printer/pos/orders/<%= @item.order_id %>' target='_blank'>详情</a></span></li>

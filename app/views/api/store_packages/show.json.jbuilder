@@ -6,9 +6,10 @@ json.package_setting do
 end
 json.trackings @package.trackings, :id, :mode, :notice_required, :content, :delay_unit, :delay_interval, :trigger_timing
 json.order_items @package.store_order_items do |item|
-  json.(item, :id, :retail_price, :quantity, :discount, :amount)
+  json.(item, :retail_price, :quantity, :discount, :amount)
   json.created_at item.created_at.strftime('%Y-%m-%d %H:%M')
   json.mechanics item.workflow_mechanics
   json.numero item.store_order.numero
   json.payment_methods item.store_order.payment_methods
+  json.order_id item.store_order.id
 end

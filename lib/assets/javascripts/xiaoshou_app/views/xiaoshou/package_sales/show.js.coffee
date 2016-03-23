@@ -3,6 +3,9 @@ class Mis.Views.XiaoshouPackageSalesShow extends Mis.Base.View
 
   template: JST['xiaoshou/package_sales/show']
 
+  events:
+    'click #js-search' : 'searchOrderItems'
+
   initialize: ->
     @listenTo(@model, 'change', @render)
 
@@ -41,6 +44,9 @@ class Mis.Views.XiaoshouPackageSalesShow extends Mis.Base.View
     view = new Mis.Views.XiaoshouPackageOrderItems(model: item)
     @renderChild(view)
     @$("#package_order_items").append view.el
+
+  searchOrderItems: ->
+
 
   rootResource: ->
     "package"
