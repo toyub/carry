@@ -176,8 +176,8 @@ class StoreCustomer < ActiveRecord::Base
     orders.pluck(:amount).reduce(:+) || 0.0
   end
 
-  def customer_asset
-    store_customer_entity.try(:membership) == true ? "有" : "无"
+  def has_customer_asset
+    store_customer_entity.try(:membership)
   end
 
   def integrity

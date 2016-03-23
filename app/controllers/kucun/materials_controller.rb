@@ -69,7 +69,7 @@ class Kucun::MaterialsController < Kucun::BaseController
                                      :min_price, :cost_price,
                                      :inventory_alarmify, :max_inventory, :min_inventory,
                                      :expiry_alarmify, :shelf_life, :permitted_to_internal,
-                                     :permitted_to_saleable, :remark)
+                                     :permitted_to_saleable, :remark, :introduction)
   end
 
   def set_material
