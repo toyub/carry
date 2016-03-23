@@ -19,6 +19,7 @@ module Entities
     expose(:bought_on) {|model| model.current_vehicle.try(:detail).try(:bought_on,[])}
     expose(:barnd_name) {|model| model.current_vehicle.try(:vehicle_brand).try(:name)}
     expose(:series_name) {|model| model.current_vehicle.try(:vehicle_serie).try(:name)}
+    expose(:model_name) {|model| model.current_vehicle.try(:vehicle_model).try(:name)}
     expose(:vip) {|model| model.store_customer.try(:store_customer_entity).try(:membership) == true ? true : false}
     expose :customer, using: StoreCustomerInfo
 
