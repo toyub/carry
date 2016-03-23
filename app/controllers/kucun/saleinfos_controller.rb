@@ -77,9 +77,9 @@ class Kucun::SaleinfosController < Kucun::BaseController
     @store_material = @store.store_materials.find(params[:material_id])
     @saleinfo = @store_material.store_material_saleinfo
     if @saleinfo.blank?
-      @saleinfo = StoreMaterialSaleinfo.new  
+      @saleinfo = StoreMaterialSaleinfo.new
     end
     @sale_categories = SaleCategory.all
-    @store_commission_templates = StoreCommissionTemplate.where(status: 0)
+    @store_commission_templates = current_store.store_commission_templates.available
   end
 end
