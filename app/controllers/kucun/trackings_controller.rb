@@ -10,7 +10,10 @@ class Kucun::TrackingsController < Kucun::BaseController
       section.store_material_id = tracking.store_material_id
     end
     tracking.save!
-    render json: tracking, root: false
+      render json: {
+        material_id: store_material.id,
+        tracking: tracking
+      }
   end
 
   def update

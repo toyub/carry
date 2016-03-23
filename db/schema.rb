@@ -1464,9 +1464,9 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
-    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
+    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1521,7 +1521,6 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
-    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time",                                   default: 0
     t.json     "mechanics"
@@ -1531,6 +1530,7 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
+    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
     t.string   "inspector"
   end
@@ -1650,10 +1650,10 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.integer  "workflow_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.string   "taskable_type"
-    t.integer  "taskable_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "taskable_type"
+    t.integer  "taskable_id"
     t.integer  "mechanic_id"
   end
 
