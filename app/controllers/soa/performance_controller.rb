@@ -2,7 +2,7 @@ class Soa::PerformanceController < Soa::BaseController
   def index
     @staffs = current_store.store_staff
     @departments = current_store.store_departments
-    @positions = @departments[0].store_positions
+    @positions = @departments[0].try(:store_positions) || []
     @month = Time.now
     @staff_performances = ConstructPerformance.new(@staffs, @month).performances
   end
