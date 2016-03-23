@@ -177,7 +177,7 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def has_customer_asset
-    store_customer_entity.try(:membership) == true ? "有" : "无"
+    store_customer_entity.try(:membership)
   end
 
   def integrity
