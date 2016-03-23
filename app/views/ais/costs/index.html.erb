@@ -16,10 +16,10 @@
       <tbody>
         <% @materials.each do |material| %>
 
-          <% intial_income = material.initial_income(@prev_month) || material.incomes.build %>
+          <% intial_income = StoreMaterialLog.by_material_id(material.id).by_month(@prev_month).last || StoreMaterialLog.new %>
           <% current_incomes = material.current_incomes(@month) %>
           <% current_outgos = material.current_outgos(@month) %>
-          <% current_outgo = (current_outgos.try :last) || material.outgos.build %>
+          <% current_outgo = StoreMaterialLog.by_material_id(material.id).by_month(@month).last || StoreMaterialLog.new %>
           <tr>
             <td><%= Date.today.strftime("%Y-%m") %></td>
             <td><%= material.barcode %></td>
@@ -27,20 +27,21 @@
             <td><%= material.speci %></td>
             <td><%= StoreMaterialUnit.find(material.store_material_unit_id).name %></td>
 
-            <td><%= intial_income.openings.try(:[], 'inventory_cost_price') || 0.0 %></td>
-            <td><%= intial_income.openings.try(:[], 'inventory_quantity') || 0.0  %></td>
-            <td><%= intial_income.try(:openings_amount) || 0.0  %></td>
+            <td><%= intial_income.closings.try(:[], 'material_cost_price') || 0.0 %></td>
+            <td><%= intial_income.closings.try(:[], 'material_quantity') || 0.0  %></td>
+            <td><%= intial_income.try(:closings_amount) || 0.0  %></td>
 
-            <td><%= (current_incomes.try :total_cost_prices)  || 0.0 %></td>
-            <td><%= (current_incomes.try :total_quantities)  || 0.0 %></td>
-            <td><%= (current_incomes.try :total_accruals_amount)  || 0.0 %></td>
+            <td><%= StoreMaterialIncome.price_by_material(material) %></td>
+            <td><%= StoreMaterialIncome.count_by_material(material) %></td>
+            <td><%= StoreMaterialIncome.amount_by_material(material) %></td>
 
-            <td><%= (current_outgos.try :total_cost_prices)  || 0.0 %></td>
-            <td><%= (current_outgos.try :total_quantities)  || 0.0 %></td>
-            <td><%= (current_outgos.try :total_accruals_amount)  || 0.0 %></td>
+            <td><%= StoreMaterialOutgo.price_by_material(material) %></td>
+            <td><%= StoreMaterialOutgo.count_by_material(material) %></td>
+            <td><%= StoreMaterialOutgo.amount_by_material(material) %></td>
 
-            <td><%= current_outgo.try(:closings).try(:[], 'inventory_cost_price')  || 0.0 %></td>
-            <td><%= current_outgo.try(:closings).try(:[], 'inventory_quantity')  || 0.0 %></td>
+
+            <td><%= current_outgo.try(:closings).try(:[], 'material_cost_price')  || 0.0 %></td>
+            <td><%= current_outgo.try(:closings).try(:[], 'material_quantity')  || 0.0 %></td>
             <td><%= current_outgo.try(:closings_amount) || 0.0  %></td>
           </tr>
     <% end %>
