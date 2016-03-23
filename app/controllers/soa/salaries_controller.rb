@@ -7,7 +7,7 @@ class Soa::SalariesController < Soa::BaseController
     @staffs = current_store.store_staff.salary_has_been_confirmed
     @departments = current_store.store_departments
     @positions = @departments[0].try(:store_positions) || []
-    @salaries = StoreSalary.where(created_month: Time.now.strftime("%Y%m"))
+    @salaries = current_store.store_salaries.where(created_month: Time.now.strftime("%Y%m"))
   end
 
   def search
@@ -24,7 +24,7 @@ class Soa::SalariesController < Soa::BaseController
 
     @departments = current_store.store_departments
     @positions = @departments[0].try(:store_positions) || []
-    @salaries = StoreSalary.where(created_month: month)
+    @salaries = current_store.store_salaries.where(created_month: month)
     render 'record'
   end
 
