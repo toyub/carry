@@ -24,7 +24,6 @@ module Ajax
       search_scope = search_scope.where('store_materials.name like ?', "%#{params[:name]}%") if params[:name].present?
       search_scope = search_scope.where('store_materials.store_material_root_category_id = ?', params[:root_category_id]) if params[:root_category_id].present?
       search_scope = search_scope.where('store_materials.store_material_category_id = ?', params[:category_id]) if params[:category_id].present?
-
       respond_with search_scope.all
     end
 

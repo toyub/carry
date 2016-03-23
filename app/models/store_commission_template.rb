@@ -11,6 +11,8 @@ class StoreCommissionTemplate < ActiveRecord::Base
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
+  scope :available, ->{where(status: 0)}
+
   def level_weight
     self.level_weight_hash
   end
@@ -60,6 +62,7 @@ class StoreCommissionTemplate < ActiveRecord::Base
       amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.retail_amount
     when 1 #"阶梯提成"
       section = sections.where(mode_id: mode_id).where("min < ?", order_item.quantity).last
+      return 0.0 if section.blank?
       amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.retail_amount
     when 2 #"分段提成"
       within_secs = sections.where(mode_id: mode_id).where("max < ?", order_item.quantity)
