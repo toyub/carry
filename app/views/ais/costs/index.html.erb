@@ -17,8 +17,8 @@
         <% @materials.each do |material| %>
 
           <% intial_income = StoreMaterialLog.by_material_id(material.id).by_month(@prev_month).last || StoreMaterialLog.new %>
-          <% current_incomes = material.current_incomes(@month) %>
-          <% current_outgos = material.current_outgos(@month) %>
+          <% current_incomes = StoreMaterialIncome.count_by_material(material, @month) %>
+          <% current_outgos = StoreMaterialOutgo.count_by_material(material, @month) %>
           <% current_outgo = StoreMaterialLog.by_material_id(material.id).by_month(@month).last || StoreMaterialLog.new %>
           <tr>
             <td><%= Date.today.strftime("%Y-%m") %></td>
@@ -31,13 +31,13 @@
             <td><%= intial_income.closings.try(:[], 'material_quantity') || 0.0  %></td>
             <td><%= intial_income.try(:closings_amount) || 0.0  %></td>
 
-            <td><%= StoreMaterialIncome.price_by_material(material) %></td>
-            <td><%= StoreMaterialIncome.count_by_material(material) %></td>
-            <td><%= StoreMaterialIncome.amount_by_material(material) %></td>
+            <td><%= material.cost_price %></td>
+            <td><%= current_incomes[:quantity] %></td>
+            <td><%= current_incomes[:amount] %></td>
 
-            <td><%= StoreMaterialOutgo.price_by_material(material) %></td>
-            <td><%= StoreMaterialOutgo.count_by_material(material) %></td>
-            <td><%= StoreMaterialOutgo.amount_by_material(material) %></td>
+            <td><%= material.cost_price %></td>
+            <td><%= current_outgos[:quantity] %></td>
+            <td><%= current_outgos[:amount] %></td>
 
 
             <td><%= current_outgo.try(:closings).try(:[], 'material_cost_price')  || 0.0 %></td>

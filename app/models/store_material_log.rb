@@ -7,6 +7,7 @@ class StoreMaterialLog < ActiveRecord::Base
 
   scope :by_month, ->(month) { where(created_month: month) }
   scope :by_material_id, ->(material_id) { where(store_material_id: material_id) }
+  scope :by_depot_id, ->(depot_id) { where(store_depot_id: depot_id) }
 
   def loggable!(loggable)
     self.logged_item = loggable

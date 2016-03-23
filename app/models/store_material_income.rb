@@ -1,19 +1,13 @@
 class StoreMaterialIncome < StoreMaterialLog
 
-  def self.count_by_material(material)
-    where(store_material_id: material.id).map do |income|
+  def self.count_by_material(material, month = nil, depot_id = nil)
+    month = Time.now.strftime("%Y%m") if month == nil
+    incomes = where(store_material_id: material.id).by_month(month)
+    incomes.by_depot_id(depot_id) if depot_id.present?
+    count = incomes.map do |income|
       income.accruals['quantity'].to_i
     end.sum
+    {quantity: count, amount: (count * material.cost_price.to_f)}
   end
-
-  def self.price_by_material(material)
-    #FIXME
-    material.cost_price.to_f
-  end
-
-  def self.amount_by_material(material)
-    price_by_material(material) * count_by_material(material)
-  end
-
 
 end
