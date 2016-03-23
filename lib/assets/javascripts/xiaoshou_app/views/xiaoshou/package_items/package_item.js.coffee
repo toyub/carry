@@ -22,7 +22,10 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Mis.Base.View
     @
 
   clear: ->
-    @package_setting.items.remove @model
+    $.confirm
+      text: '确认删除?',
+      confirm: =>
+        @package_setting.items.remove @model
 
   isShow: ->
     @action == 'show'

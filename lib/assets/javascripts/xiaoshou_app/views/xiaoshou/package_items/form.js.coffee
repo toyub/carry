@@ -33,7 +33,6 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
 
   saveOnClick: ->
     attrs = @$el.find("input, select").serializeJSON()
-    @model.clear(silent: true)
     @model.set attrs
     if @model.isStoreMaterial()
       if @model.price() - @model.cost_price() < 0

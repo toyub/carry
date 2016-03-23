@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321033740) do
+ActiveRecord::Schema.define(version: 20160323071749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1251,9 +1251,10 @@ ActiveRecord::Schema.define(version: 20160321033740) do
     t.string   "package_itemable_type"
     t.integer  "package_itemable_id"
     t.integer  "store_package_setting_id"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
     t.decimal  "denomination",             precision: 12, scale: 2
+    t.boolean  "deleted",                                           default: false
   end
 
   create_table "store_package_settings", force: :cascade do |t|
