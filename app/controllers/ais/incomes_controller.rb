@@ -13,12 +13,12 @@ class Ais::IncomesController < Ais::BaseController
     end
 
     if params[:type].blank?
-      @service_categories = current_store.service_categories
-      @material_categories = current_store.sale_categories
+      @service_categories = ServiceCategory.all
+      @material_categories = SaleCategory.all
     elsif params[:type] == 'materials'
-      @material_categories = current_store.sale_categories
+      @material_categories = SaleCategory.all
     elsif params[:type] == 'services'
-      @service_categories = current_store.service_categories
+      @service_categories =  ServiceCategory.all
     end
     @first_category = @service_categories.try(:first) || @material_categories.try(:first)
   end
