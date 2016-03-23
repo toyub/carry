@@ -52,6 +52,10 @@ class Store <  ActiveRecord::Base
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
     class_name: 'StoreMaterialCategory'
+  
+  has_many :categories, foreign_key: 'parent_id'
+  has_many :service_categories, foreign_key: 'parent_id'
+  has_many :sale_categories, foreign_key: 'parent_id'
 
   has_many :store_groups
   has_many :store_group_members
