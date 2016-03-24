@@ -33,7 +33,6 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
 
   saveOnClick: ->
     attrs = @$el.find("input, select").serializeJSON()
-    @model.clear(silent: true)
     @model.set attrs
     if @model.isStoreMaterial()
       if @model.price() - @model.cost_price() < 0
@@ -75,11 +74,11 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
     view = new Mis.Views.XiaoshouPackageItemsMaterial(model: @model)
     materials = new Mis.Collections.StoreMaterials()
     materials.fetch
-        success: =>
-          Mis.materials = materials
-          @renderChildInto(view, @$("#itemsCreateContents"))
-          @currentView.leave() if @currentView
-          @currentView = view
+      success: =>
+        Mis.materials = materials
+        @renderChildInto(view, @$("#itemsCreateContents"))
+        @currentView.leave() if @currentView
+        @currentView = view
 
   invalid: (model, errors) ->
     console.log errors

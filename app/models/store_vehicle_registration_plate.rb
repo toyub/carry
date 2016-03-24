@@ -22,7 +22,7 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
   end
 
   def current_vehicle
-    @vehicle = @vehicle || vehicle_plates.last
+    @vehicle ||= vehicle_plates.last.try(:store_vehicle)
   end
 
   private
