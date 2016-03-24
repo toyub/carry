@@ -16,8 +16,9 @@ class Mis.Views.XiaoshouServiceMaterialsResult extends Mis.Base.View
     @
 
   renderSelectedMaterials: ->
+    console.log 'xxxxxx'
     $("#selectedMaterials").empty()
-    _.each @store.materials.selected(), @renderMaterial
+    _.each @model.collection.selected(), @renderMaterial
 
   renderMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsSelectedItem(model: material)

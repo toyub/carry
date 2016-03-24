@@ -36,17 +36,21 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     @renderQueryResults()
 
   renderQueryResults: =>
-    materials = @store.materials
-    console.log materials
-    if _.isEmpty(@categoryCriterial())
-      materials = materials.models
-    else
-      materials = materials.where(@categoryCriterial())
-      console.log materials
-    materials = _.filter(materials, @queryCriterial)
+    materials = Mis.Reqres.getConsumableMaterialEntities()
+    #materials = @store.materials
+    $.when(materials).then(
+      (materials) =>
+        console.log materials
+        if _.isEmpty(@categoryCriterial())
+          materials = materials.models
+        else
+          materials = materials.where(@categoryCriterial())
+          console.log materials
+        materials = _.filter(materials, @queryCriterial)
 
-    @$("#queryResults").empty()
-    _.each materials, @addMaterial
+        @$("#queryResults").empty()
+        _.each materials, @addMaterial
+    )
 
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsResult(model: material)
