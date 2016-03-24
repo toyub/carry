@@ -1,0 +1,39 @@
+<div class="details">
+
+  <div id="masterNav" class="details_nav">
+  </div>
+
+  <div class="details_content package">
+    <table border="0" id="packageSummary" class="abstract">
+    </table>
+
+    <div class="search_bar">
+      <span>发生时间：</span>
+      <input type="date" name="created_at_gteq">
+      <span>到</span>
+      <input type="date" name="created_at_lteq">
+      <input type="botton" id='js-search' class="search_btn_in_nav btn" value="查询">
+    </div>
+
+
+    <div class="sales_record_abstract">
+      <ul class="record_header">
+        <li>#</li>
+        <li>销售日期</li>
+        <li>订单号</li>
+        <li>销售价</li>
+        <li>数量</li>
+        <li>优惠</li>
+        <li>实收</li>
+        <li>付款方式</li>
+        <li>技师</li>
+        <li>操作</li>
+      </ul>
+
+      <div class="record_contents" id='package_order_items'>
+      </div>
+
+    </div>
+
+  </div>
+</div>
