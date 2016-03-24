@@ -1687,6 +1687,8 @@ ActiveRecord::Schema.define(version: 20160323071749) do
     t.integer  "taskable_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "taskable_type"
+    t.integer  "taskable_id"
     t.integer  "mechanic_id"
   end
 
