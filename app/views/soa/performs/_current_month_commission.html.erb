@@ -34,7 +34,7 @@
     </td>
     <td colspan="2">
       <span class="width-80"><%= @order_items.map(&:amount).sum %></span>
-      <label>提成总金额：</label><span><%= @staff.commission_amount_total %></span>
+      <label>提成总金额：</label><span><%= @staff.commission_amount_total(@date) %></span>
     </td>
   </tr>
 </tfoot>

@@ -2,13 +2,13 @@ class Sas::SellsController < Sas::BaseController
   before_action :search_params, only: :report
 
   def index
-    @material_amount = StoreMaterialSaleinfo.amount_by_month
-    @service_amount = StoreService.amount_by_month
-    @package_amount = StorePackage.amount_by_month
-    @top_saler = StoreStaff.best_saler
-    @top_material = StoreMaterialSaleinfo.top_sales_by_month
-    @top_service = StoreService.top_sales_by_month
-    @top_package = StorePackage.top_sales_by_month
+    @material_amount = current_store.store_material_saleinfos.amount_by_month
+    @service_amount = current_store.store_services.amount_by_month
+    @package_amount = current_store.store_packages.amount_by_month
+    @top_saler = current_store.store_staff.best_saler
+    @top_material = current_store.store_material_saleinfos.top_sales_by_month
+    @top_service = current_store.store_services.top_sales_by_month
+    @top_package = current_store.store_packages.top_sales_by_month
   end
 
   def report
@@ -22,11 +22,11 @@ class Sas::SellsController < Sas::BaseController
     end
     case params[:type]
     when 'materials' 
-      @order_items = StoreOrderItem.by_month(@date).by_type("StoreMaterialSaleinfo")
+      @order_items = current_store.store_order_items.by_month(@date).by_type("StoreMaterialSaleinfo")
     when 'services'
-      @order_items = StoreOrderItem.by_month(@date).by_type("StoreService")
+      @order_items = current_store.store_order_items.by_month(@date).by_type("StoreService")
     else
-      @order_items = StoreOrderItem.by_month(@date)
+      @order_items = current_store.store_order_items.by_month(@date)
     end
   end
 
