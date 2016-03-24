@@ -9,10 +9,10 @@
 
     <div class="search_bar">
       <span>发生时间：</span>
-      <input type="date">
+      <input type="date" name="created_at_gteq">
       <span>到</span>
-      <input type="date">
-      <input type="button" id='js-search' class="search_btn_in_nav btn" value="查询">
+      <input type="date" name="created_at_lteq">
+      <input type="botton" id='js-search' class="search_btn_in_nav btn" value="查询">
     </div>
 
 
