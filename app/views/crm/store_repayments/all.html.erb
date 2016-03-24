@@ -23,7 +23,7 @@
         <input type="hidden" id="count" value="<%= @count%>">
         <%= render 'all_info' %>
       </div>
-      <%= render 'link_more_info' %>
+      <%= render 'link_more_info' if @orders.count >= @count %>
     </div>
   </div>
 

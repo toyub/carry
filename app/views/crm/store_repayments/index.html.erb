@@ -28,7 +28,7 @@
       <div class="orders">
         <%= render 'order_info' %>
       </div>
-      <%= render 'link_more_info' %>
+      <%= render 'link_more_info' if @orders.count >= @count %>
       <% end %>
     </div>
   </div>

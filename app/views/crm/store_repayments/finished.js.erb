@@ -1,1 +1,4 @@
 $("div.orders").html("<%= j render('click_more_info_in_finished')%>");
+<% if @orders.count % @count > 0 %>
+  $('#js-load-more-btn').hide();
+<% end %>
