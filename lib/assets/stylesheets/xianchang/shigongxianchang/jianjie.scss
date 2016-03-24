@@ -2,13 +2,13 @@
 
 .construction_site{
 	width: 99.80%;
-	height: 65px;
+	height: 70px;
 	border: 1px solid #DFDFDF;
 
 	.title{
 		width:48px;
 		color: #fff;
-		height: 65px;
+		height: 70px;
 		text-align: center;
 		float: left;
 
@@ -24,11 +24,13 @@
 
 	ul{
 		float: left;
+    white-space: nowrap;
+    overflow-x: scroll;
+    width: 1309px;
 		li{
 			width:100px;
-			height: 85px;
+			height: 63px;
 			display: inline-block;
-			float:left;
 			text-align: center;
 
 			span{
