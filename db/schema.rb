@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322014154) do
+ActiveRecord::Schema.define(version: 20160323071749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1252,9 +1252,10 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.string   "package_itemable_type"
     t.integer  "package_itemable_id"
     t.integer  "store_package_setting_id"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
     t.decimal  "denomination",             precision: 12, scale: 2
+    t.boolean  "deleted",                                           default: false
   end
 
   create_table "store_package_settings", force: :cascade do |t|
@@ -1464,9 +1465,9 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1521,6 +1522,7 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time",                                   default: 0
     t.json     "mechanics"
@@ -1530,7 +1532,6 @@ ActiveRecord::Schema.define(version: 20160322014154) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
     t.string   "inspector"
   end

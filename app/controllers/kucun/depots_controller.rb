@@ -7,6 +7,7 @@ class Kucun::DepotsController < Kucun::BaseController
                                .by_primary_category(params[:root_category_id])
                                .by_sub_category(params[:category_id])
                                .keyword(params[:keyword])
+                               .order('id asc')
     if params[:root_category_id].present?
       @root_category = @store.store_material_categories.find(params[:root_category_id])
     end

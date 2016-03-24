@@ -13,6 +13,7 @@ class Store <  ActiveRecord::Base
   has_many :store_workstation_categories
   has_many :store_commission_templates
   has_many :store_staff
+  has_many :store_salaries, through: :store_staff
   has_many :store_material_returnings
   has_many :store_material_returning_items
   has_many :store_settlement_accounts
@@ -52,7 +53,7 @@ class Store <  ActiveRecord::Base
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
     class_name: 'StoreMaterialCategory'
-
+  
   has_many :store_groups
   has_many :store_group_members
 

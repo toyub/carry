@@ -16,7 +16,14 @@ class CustomerTrackingJob < ActiveJob::Base
           automatic: true,
         }
       )
-      SmsJob.perform_later(options)
+      SmsJob.perform_later({
+        store_id: customer.store.id,
+        receiver_type: StoreCustomer.name,
+        receiver_id: customer_id,
+        content: options[:content],
+        first_category: options[:first_category],
+        second_category: options[:second_category]
+      })
     end
   end
 end

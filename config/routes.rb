@@ -116,9 +116,7 @@ Rails.application.routes.draw do
 
   namespace :ais do
     resources :incomes, only: [:index]
-    resources :costs, only: [:index] do
-      get 'search', on: :collection
-    end
+    resources :costs, only: :index
     resources :categories, only: [:show] do
       resources :order_items, only: [:index]
     end

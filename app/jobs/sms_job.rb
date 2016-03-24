@@ -16,7 +16,7 @@ class SmsJob < ActiveJob::Base
         second_category: options[:second_category],
         quantity: quantity
       })
-      SmsClient.publish(options[:phone_number], options[:content])
+      SmsClient.publish(receiver.phone_number, options[:content])
       store.sms_balance.increase_sent_quantity!(quantity)
       {success: true, notice: "sending message successfully"}
     else
