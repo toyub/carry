@@ -1,0 +1,10 @@
+<li><%= @index %></li>
+<li><%= @item.created_at %></li>
+<li><%= @item.numero %></li>
+<li><%= @item.retail_price %></li>
+<li><%= @item.quantity %></li>
+<li><%= @item.discount %></li>
+<li><%= @item.amount %></li>
+<li><%= @item.payment_methods %></li>
+<li><%= @item.mechanics %></li>
+<li><span class="open_record_details"><a href='/printer/pos/orders/<%= @item.order_id %>' target='_blank'>详情</a></span></li>
