@@ -16,4 +16,8 @@ class SmsRecord < ActiveRecord::Base
       FIRST_CATEGORY_CN_NAME[first_category.to_sym].to_s + ": " + first_category.constantize.find(second_category).try(:name)
     end
   end
+
+  def self.receiver_type_available? (receiver_type)
+    %w(StoreStaff StoreCustomer).include? receiver_type
+  end
 end

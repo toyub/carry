@@ -3,7 +3,7 @@ class SmsJob < ActiveJob::Base
 
   def perform(options)
     store = Store.find_by_id(options[:store_id])
-    if options[:receiver_type].present? && (%w(StoreCustomer StoreStaff).include? options[:receiver_type])
+    if options[:receiver_type].present? && (SmsRecord.receiver_type_available? options[:receiver_type])
       receiver = options[:receiver_type].constantize.find(options[:receiver_id])
     else
       return {success: false, notice: "Error: Can't find receiver"}
