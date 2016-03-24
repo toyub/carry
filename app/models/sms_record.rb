@@ -17,7 +17,7 @@ class SmsRecord < ActiveRecord::Base
     end
   end
 
-  def self.receiver_type_available? (receiver_type)
+  def self.receiver_type_available?(receiver_type)
     %w(StoreStaff StoreCustomer).include? receiver_type
   end
 end
