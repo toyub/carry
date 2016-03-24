@@ -242,6 +242,7 @@ Rails.application.routes.draw do
 
     resources :store_materials, only: :index
     resources :consumable_store_materials, only: :index
+    resources :store_material_categories, only: :index
 
     #Order
     namespace :order do

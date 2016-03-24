@@ -39,8 +39,12 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
     @model.save() if @model.isValid(true)
 
   openMaterialForm: ->
-    view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
-    @appendChildTo(view, @$(".server_list"))
+    categories = Mis.Reqres.getRootMaterialCategoryEntities()
+    $.when(categories).done(
+      (categories) =>
+        view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model, categories: categories)
+        @appendChildTo(view, @$(".server_list"))
+    )
 
   triggerPriceInput: (e) ->
     checkbox = $(e.target)

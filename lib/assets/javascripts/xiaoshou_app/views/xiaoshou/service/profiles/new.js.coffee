@@ -34,8 +34,12 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
     @model.save() if @model.isValid(true)
 
   openMaterialForm: ->
-    view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
-    @appendChildTo(view, @$(".server_list"))
+    categories = Mis.Reqres.getRootMaterialCategoryEntities()
+    $.when(categories).done(
+      (categories) =>
+        view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model, categories: categories)
+        @appendChildTo(view, @$(".server_list"))
+    )
 
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model)

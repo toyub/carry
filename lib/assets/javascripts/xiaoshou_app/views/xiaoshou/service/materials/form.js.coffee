@@ -3,8 +3,9 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
 
   template: JST['xiaoshou/service/materials/form']
 
-  initialize: ->
+  initialize: (options) ->
     @store = Mis.store
+    @categories = options.categories
 
   events:
     'change #rootCategory': 'renderSubCategory'
@@ -14,7 +15,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     'click .save_btn': 'addRelatedOnClick'
 
   render: ->
-    @$el.html(@template(service: @model, store: @store))
+    @$el.html(@template(service: @model, categories: @categories))
     @
 
   close: =>
@@ -26,18 +27,15 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
 
   renderSubCategory: (event) ->
     rootId = $(event.target).find("option:selected").attr("value")
-    rootCategory = @store.rootMaterialCategories.get(rootId)
-    if rootCategory
-      subCategories = rootCategory.subMaterialCategories
-    else
-      subCategories = new Mis.Collections.StoreMaterialCategories()
-    view = new Mis.Views.XiaoshouServiceMaterialsCategory(collection: subCategories)
-    @renderChild(view)
+    rootCategory = @categories.get rootId
+    subCategories = new Mis.Collections.StoreMaterialCategories(rootCategory?.get 'sub_categories')
+    view = new Mis.Views.XiaoshouServiceMaterialsCategory
+      collection: subCategories
+    @renderChild view
     @renderQueryResults()
 
   renderQueryResults: =>
     materials = Mis.Reqres.getConsumableMaterialEntities()
-    #materials = @store.materials
     $.when(materials).then(
       (materials) =>
         console.log materials
