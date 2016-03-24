@@ -14,7 +14,7 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Mis.Base.View
     @listenTo(@model, 'change', @render)
 
   events:
-    #'click span.delete': 'clear'
+    'click span.delete': 'clear'
     'click label.name': 'edit'
 
   render: ->
@@ -22,12 +22,18 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Mis.Base.View
     @
 
   clear: ->
-    @package_setting.items.remove @model
+    $.confirm
+      text: '确认删除?',
+      confirm: =>
+        @package_setting.items.remove @model
 
   isShow: ->
     @action == 'show'
 
   edit: ->
-    view = new Mis.Views.XiaoshouPackageItemsShow(model: @model)
+    if @isShow()
+      view = new Mis.Views.XiaoshouPackageItemsShow(model: @model)
+    else
+      view = new Mis.Views.XiaoshouPackageItemsForm(model: @model)
     @renderChild(view)
     $("#newPackageItem").html view.el
