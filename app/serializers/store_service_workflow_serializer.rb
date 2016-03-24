@@ -22,7 +22,7 @@ class StoreServiceWorkflowSerializer < ActiveModel::Serializer
 
   ## TODO 为什么不取名workstations?
   def store_workstations
-    StoreWorkstation.all #FIXME store.workstation
+    object.store.workstations
   end
 
   def commissions
