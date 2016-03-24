@@ -41,10 +41,12 @@ module Api
 
       def set_search_params
         params[:q] ||= {}
-        created_at_gteq = params[:q][:created_at_gteq]
-        created_at_lteq = params[:q][:created_at_lteq]
-        created_at_gteq = Time.zone.parse(created_at_gteq).beginning_of_day if created_at_gteq.present?
-        created_at_lteq = Time.zone.parse(created_at_lteq).end_of_day if created_at_lteq.present?
+        begin
+          params[:q][:created_at_gteq] = Time.zone.parse(params[:q][:created_at_gteq])
+          params[:q][:created_at_lteq] = Time.zone.parse(params[:q][:created_at_lteq]).try(:end_of_day)
+        rescue Exception => e
+          params[:q][:created_at_gteq] = params[:q][:created_at_lteq] = nil
+        end
       end
   end
 end
