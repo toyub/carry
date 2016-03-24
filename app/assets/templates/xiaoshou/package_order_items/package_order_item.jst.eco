@@ -1,4 +1,4 @@
-<li>1</li>
+<li><%= @index %></li>
 <li><%= @item.created_at %></li>
 <li><%= @item.numero %></li>
 <li><%= @item.retail_price %></li>

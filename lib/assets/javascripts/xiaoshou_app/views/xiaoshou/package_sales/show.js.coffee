@@ -4,7 +4,7 @@ class Mis.Views.XiaoshouPackageSalesShow extends Mis.Base.View
   template: JST['xiaoshou/package_sales/show']
 
   events:
-    'click #js-search' : 'searchOrderItems'
+    'click #js-search' : 'searchFormAction'
 
   initialize: ->
     @listenTo(@model, 'change', @render)
@@ -16,6 +16,7 @@ class Mis.Views.XiaoshouPackageSalesShow extends Mis.Base.View
     @renderPackage()
     @renderItems()
     @renderOrderItems()
+    @searchFormAction()
     @
 
   renderNav: ->
@@ -37,16 +38,16 @@ class Mis.Views.XiaoshouPackageSalesShow extends Mis.Base.View
     @$("#itemList").append view.el
 
   renderOrderItems: ->
-    for item in @model.store_package.get('order_items')
-      @renderOrderItem(item)
+    for item, index in @model.store_package.get('order_items')
+      @renderOrderItem(item, index)
 
-  renderOrderItem: (item) =>
-    view = new Mis.Views.XiaoshouPackageOrderItems(model: item)
+  renderOrderItem: (item, index) =>
+    view = new Mis.Views.XiaoshouPackageOrderItems(model: item, index: index)
     @renderChild(view)
     @$("#package_order_items").append view.el
 
-  searchOrderItems: ->
-
+  searchFormAction: ->
+    alert('x')
 
   rootResource: ->
     "package"
