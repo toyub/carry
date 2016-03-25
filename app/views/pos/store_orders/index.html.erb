@@ -85,7 +85,7 @@
     Mis.Vues.StoreOrderListView = new Vue(Mis.Vues.Opts.list);
     Mis.Vues.StoreOrderListView.storeOrdersCollection = new Mis.Collections.StoreOrders;
     Mis.Vues.StoreOrderListView.storeOrdersCollection.fetch({
-      data: {created_at: "<%= Date.today %>"},
+      data: {created_at: $(".js-store-order-date").val()},
       success: function(){
         Mis.Vues.StoreOrderListView.storeOrders = Mis.Vues.StoreOrderListView.storeOrdersCollection.models;
         $('#js-order-list').show();
