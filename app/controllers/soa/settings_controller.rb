@@ -38,6 +38,7 @@ class Soa::SettingsController < Soa::BaseController
       params[:protocols][:new_salary] = params[:reset_salary]
       @protocol = @staff.store_protocols.create(protocol_param)
     }
+    @staff.update!(regular: true) if @staff.could_regular?
     respond_to do |format|
       if @protocol
         format.html { render plain: @protocol.reason_for }
