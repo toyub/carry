@@ -84,10 +84,10 @@ class Mis.Models.StorePackageSetting extends Backbone.Model
 
   toJSON: ->
     hashWithRoot = {}
-    json = _.clone(@attributes)
+    json = _.omit(_.clone(@attributes), "store_package")
     json.items_attributes = @items.map(
       (item) ->
-        item.attributes
+        _.omit item.attributes, "package_setting"
     )
     hashWithRoot[@modelName] = json
     hashWithRoot
