@@ -6,7 +6,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
   initialize: ->
     @validateBinding()
 
-    @listenTo(@model.materials, 'add', @addMaterial)
+    @listenTo(@model.materials, 'add', @renderMaterials)
     @listenTo(@model, 'sync', @handleSuccess)
 
   template: JST['xiaoshou/service/profiles/new']
@@ -22,6 +22,7 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
     @renderTop()
     @renderNav()
     @renderUploadTemplate()
+    @renderMaterials()
     @
 
   renderNav: ->
@@ -34,11 +35,20 @@ class Mis.Views.XiaoshouServiceProfilesNew extends Mis.Base.View
     @model.save() if @model.isValid(true)
 
   openMaterialForm: ->
-    view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
-    @appendChildTo(view, @$(".server_list"))
+    categories = Mis.Reqres.getRootMaterialCategoryEntities()
+    materials = Mis.Reqres.getConsumableMaterialEntities()
+    $.when(categories, materials).done(
+      (categories, materials) =>
+        view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model, categories: categories, materials: materials)
+        @appendChildTo(view, @$(".server_list"))
+    )
 
-  addMaterial: (material) =>
-    view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model)
+  renderMaterials: ->
+    @$(".materialList").empty()
+    @model.materials.each @addMaterial
+
+  addMaterial: (material, index) =>
+    view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model, index: index)
     @appendChildTo(view, @$(".materialList"))
     @$(".materialList").parent().show()
 

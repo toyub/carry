@@ -8,7 +8,7 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
   initialize: ->
     @validateBinding()
     @listenTo(@model, 'sync', @handleSuccess)
-    @listenTo(@model.materials, 'add', @addMaterial)
+    @listenTo(@model.materials, 'add', @renderMaterials)
 
   events:
     'submit #editStoreService': 'updateOnSubmit'
@@ -21,16 +21,20 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
     @renderTop()
     @renderNav()
     @renderUploadTemplate()
-    @model.materials.each @addMaterial
+    @renderMaterials()
     @
 
   renderNav: ->
     view = new Mis.Views.XiaoshouServiceNavsMaster(model: @model, active: 'service')
     @renderChildInto(view, @$("#masterNav"))
 
-  addMaterial: (material) =>
+  renderMaterials: ->
+    @$(".materialList").empty()
+    @model.materials.each @addMaterial
+
+  addMaterial: (material, index) =>
     @$(".materialList").parent().show()
-    view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model)
+    view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'edit', service: @model, index: index)
     @appendChildTo(view, @$(".materialList"))
 
   updateOnSubmit: ->
@@ -39,13 +43,18 @@ class Mis.Views.XiaoshouServiceProfilesEdit extends Mis.Base.View
     @model.save() if @model.isValid(true)
 
   openMaterialForm: ->
-    view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model)
-    @appendChildTo(view, @$(".server_list"))
+    categories = Mis.Reqres.getRootMaterialCategoryEntities()
+    materials = Mis.Reqres.getConsumableMaterialEntities()
+    $.when(categories, materials).done(
+      (categories, materials) =>
+        view = new Mis.Views.XiaoshouServiceMaterialsForm(model: @model, categories: categories, materials: materials)
+        @appendChildTo(view, @$(".server_list"))
+    )
 
   triggerPriceInput: (e) ->
     checkbox = $(e.target)
     input_bargain_price = $("#bargain_price")
-    checkbox.val(checkbox.prop('checked'));
+    checkbox.val(checkbox.prop('checked'))
     if checkbox.prop("checked")
       input_bargain_price.prop("disabled", false)
     else

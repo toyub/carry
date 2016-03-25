@@ -3,8 +3,10 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
 
   template: JST['xiaoshou/service/materials/form']
 
-  initialize: ->
+  initialize: (options) ->
     @store = Mis.store
+    @categories = options.categories
+    @materials = options.materials
 
   events:
     'change #rootCategory': 'renderSubCategory'
@@ -14,7 +16,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     'click .save_btn': 'addRelatedOnClick'
 
   render: ->
-    @$el.html(@template(service: @model, store: @store))
+    @$el.html(@template(service: @model, categories: @categories))
     @
 
   close: =>
@@ -26,22 +28,18 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
 
   renderSubCategory: (event) ->
     rootId = $(event.target).find("option:selected").attr("value")
-    rootCategory = @store.rootMaterialCategories.get(rootId)
-    if rootCategory
-      subCategories = rootCategory.subMaterialCategories
-    else
-      subCategories = new Mis.Collections.StoreMaterialCategories()
-    view = new Mis.Views.XiaoshouServiceMaterialsCategory(collection: subCategories)
-    @renderChild(view)
+    rootCategory = @categories.get rootId
+    subCategories = new Mis.Collections.StoreMaterialCategories(rootCategory?.get 'sub_categories')
+    view = new Mis.Views.XiaoshouServiceMaterialsCategory
+      collection: subCategories
+    @renderChild view
     @renderQueryResults()
 
   renderQueryResults: =>
-    materials = @store.materials
-    console.log materials
     if _.isEmpty(@categoryCriterial())
-      materials = materials.models
+      materials = @materials.models
     else
-      materials = materials.where(@categoryCriterial())
+      materials = @materials.where(@categoryCriterial())
       console.log materials
     materials = _.filter(materials, @queryCriterial)
 
@@ -66,7 +64,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     criterial
 
   addRelatedOnClick: ->
-    _.each @store.materials.selected(), @addOneMaterial
+    _.each @materials.selected(), @addOneMaterial
     @close()
 
   addOneMaterial: (material) =>

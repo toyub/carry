@@ -83,7 +83,7 @@ class StoreMaterial < ActiveRecord::Base
   end
 
   def retail_price
-    store_material_saleinfo.retail_price
+    store_material_saleinfo.try(:retail_price)
   end
 
   private
