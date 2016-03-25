@@ -3,6 +3,15 @@ module Api
     class CustomersController < Api::BaseController
       include StatusObject
 
+      def check
+        customer = current_store.store_customers.find_by(phone_number: params[:phone_number])
+        if customer.present?
+          render json: Status.new(success: true, notice: "用户存在!", customer: customer)
+        else
+          render json: Status.new(success: false, notice: "无该用户!")
+        end
+      end
+
       def create
         render json: check_vehicle_info
       end

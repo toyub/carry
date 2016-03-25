@@ -5,18 +5,18 @@
   <div class="new_vehicle">
     <div class="form_item">
       <label>*车牌号</label>
-      <input type="text" value="" name="vehicle[license_number]" required>
+      <input type="text" value="" name="vehicle[license_number]" class="dialog-license" required>
     </div>
 
     <div class="form_item">
       <label>*手机号</label>
-      <input type="text" value="" title='请输入11位手机号码' pattern='^\d{11}$' name="vehicle[phone_number]" autocomplete='off' required>
+      <input type="text" value="<%= @customer.phone_number%>" title='请输入11位手机号码' pattern='^\d{11}$' name="vehicle[phone_number]" autocomplete='off' required>
     </div>
 
     <div class="form_item">
       <label>*客户名称</label>
-      <input type="text" name="vehicle[customer][last_name]" placeholder="姓" class="width-80" required>
-      <input type="text" name="vehicle[customer][first_name]" placeholder="名" class="width-80" required>
+      <input type="text" value="<%= @customer.last_name %>" name="vehicle[customer][first_name]" placeholder="名" class="width-80" required>
+      <input type="text" value="<%= @customer.first_name %>" name="vehicle[customer][last_name]" placeholder="姓" class="width-80" required>
     </div>
 
     <div class="form_item">
@@ -30,3 +30,9 @@
     <input type="reset" name="commit" value="取消" class="cancel_btn">
   </div>
 </form>
+
+<script>
+  jQuery(function($){
+    $(".dialog-license").val($(".vehicle_info .license-number").val());
+  })
+</script>
