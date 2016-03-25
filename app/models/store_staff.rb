@@ -115,7 +115,11 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def regular?
-    regular
+    regular || could_regular?
+  end
+
+  def has_regularized?
+    store_protocols.where(type: "StoreZhuanZheng").present?
   end
 
   def could_regular?

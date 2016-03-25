@@ -1,27 +1,29 @@
 <tbody>
   <% @order_items.each do |item| %>
-    <% if item.saled_by?(@staff) && item.has_commission? %>
+    <% has_commission_amount = (item.has_commission? && item.saled_by?(@staff)) || item.constructed_by?(@staff)  %>
+    <% if has_commission_amount %>
+      <% task_commission_amount = 0.0%>
       <tr>
         <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
         <td><%= item.store_order.numero %></td>
         <td><%= item.orderable.name %></td>
-        <td> 卖出<em><%= item.quantity %></em>件</td>
+        <td> 
+          <% if item.has_commission? && item.saled_by?(@staff) %>
+            卖出<em><%= item.quantity %></em>件<%= @staff.sale_commission_of item %>
+          <% task_commission_amount += @staff.sale_commission_of(item) %>
+        <% end %>
+        <% if item.constructed_by? @staff %>
+          <% item.store_staff_tasks.tasks_of(@staff.id).each do |task| %>
+            <% if task.has_commission? %>
+              <em><%= task.workflow_snapshot.name || "常规流程" %> <%= @staff.task_commission_of(task) %></em>
+              <% task_commission_amount += @staff.task_commission_of(task) %>
+            <% end %>
+          <% end %>
+        <% end %>
+        </td>
         <td><%= item.amount %></td>
-        <td> <%= @staff.sale_commission_of item %> </td>
+        <td> <%= task_commission_amount %> </td>
       </tr>
-    <% end %>
-    <% if item.constructed_by? @staff %>
-      <% @staff.store_staff_tasks.where(store_order_item_id: item).each do |task| %>
-        <% next unless task.has_commission? %>
-        <tr>
-          <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
-          <td><%= item.store_order.numero %></td>
-          <td><%= item.orderable.name %></td>
-          <td> <em><%= task.workflow_snapshot.name %> <%= @staff.task_commission_of(task) %></em></td>
-          <td><%= 0.0 %></td>
-          <td> <%= @staff.task_commission_of task %> </td>
-        </tr>
-      <% end %>
     <% end %>
   <% end %>
 </tbody>
@@ -34,7 +36,7 @@
     </td>
     <td colspan="2">
       <span class="width-80"><%= @order_items.map(&:amount).sum %></span>
-      <label>提成总金额：</label><span><%= @staff.commission_amount_total %></span>
+      <label>提成总金额：</label><span><%= @staff.commission_amount_total(@date) %></span>
     </td>
   </tr>
 </tfoot>
