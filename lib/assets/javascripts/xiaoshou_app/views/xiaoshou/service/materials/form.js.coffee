@@ -6,6 +6,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
   initialize: (options) ->
     @store = Mis.store
     @categories = options.categories
+    @materials = options.materials
 
   events:
     'change #rootCategory': 'renderSubCategory'
@@ -35,20 +36,15 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     @renderQueryResults()
 
   renderQueryResults: =>
-    materials = Mis.Reqres.getConsumableMaterialEntities()
-    $.when(materials).then(
-      (materials) =>
-        console.log materials
-        if _.isEmpty(@categoryCriterial())
-          materials = materials.models
-        else
-          materials = materials.where(@categoryCriterial())
-          console.log materials
-        materials = _.filter(materials, @queryCriterial)
+    if _.isEmpty(@categoryCriterial())
+      materials = @materials.models
+    else
+      materials = @materials.where(@categoryCriterial())
+      console.log materials
+    materials = _.filter(materials, @queryCriterial)
 
-        @$("#queryResults").empty()
-        _.each materials, @addMaterial
-    )
+    @$("#queryResults").empty()
+    _.each materials, @addMaterial
 
   addMaterial: (material) =>
     view = new Mis.Views.XiaoshouServiceMaterialsResult(model: material)
@@ -68,7 +64,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
     criterial
 
   addRelatedOnClick: ->
-    _.each @store.materials.selected(), @addOneMaterial
+    _.each @materials.selected(), @addOneMaterial
     @close()
 
   addOneMaterial: (material) =>

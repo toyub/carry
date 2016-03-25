@@ -4,6 +4,7 @@ class Mis.Views.XiaoshouServiceMaterialsItem extends Mis.Base.View
   initialize: (options) ->
     @action = options.action
     @service = options.service
+    @index = options.index
 
     @listenTo(@model, 'remove', @leave)
 
