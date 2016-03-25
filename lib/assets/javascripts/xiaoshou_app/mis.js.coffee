@@ -3,6 +3,7 @@ window.Mis =
   Collections: {}
   Views:
     Concerns: {}
+  Reqres: {}
   Routers: {}
   Mixins: {}
   Base: {}

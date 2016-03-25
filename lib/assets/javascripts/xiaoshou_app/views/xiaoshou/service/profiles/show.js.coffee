@@ -22,8 +22,8 @@ class Mis.Views.XiaoshouServiceProfilesShow extends Mis.Base.View
   renderMaterials: =>
     @model.materials.each @renderMaterial
 
-  renderMaterial: (material) =>
-    view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'show')
+  renderMaterial: (material, index) =>
+    view = new Mis.Views.XiaoshouServiceMaterialsItem(model: material, action: 'show', index: index)
     @appendChildTo(view, @$(".materialList"))
 
   rootResource: ->
