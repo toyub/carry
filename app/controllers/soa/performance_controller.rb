@@ -1,6 +1,6 @@
 class Soa::PerformanceController < Soa::BaseController
   def index
-    @staffs = current_store.store_staff
+    @staffs = current_store.store_staff.order("id ASC")
     @departments = current_store.store_departments
     @positions = @departments[0].try(:store_positions) || []
     @month = Time.now

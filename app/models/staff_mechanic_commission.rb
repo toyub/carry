@@ -31,7 +31,7 @@ class StaffMechanicCommission
   end
 
   def commission_amount
-    @staff.store_order_items.by_month(@month).map(&:commission).sum + @staff.store_staff_tasks.by_month(@month).map(&:commission).sum
+    @staff.commission? ? @staff.store_order_items.by_month(@month).map(&:commission).sum + @staff.store_staff_tasks.by_month(@month).map(&:commission).sum : 0.0
   end
 
 end

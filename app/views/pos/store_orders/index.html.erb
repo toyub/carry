@@ -10,7 +10,7 @@
 		</div>
 		<div class="item-query">
 			<label>日期</label>
-			<input type="date" class="width-160 js-store-order-date">
+			<input type="date" class="width-160 js-store-order-date" value="<%= Date.today %>">
 		</div>
 		<div class="item-query">
 			<label>状态</label>
@@ -84,11 +84,14 @@
   jQuery(function($){
     Mis.Vues.StoreOrderListView = new Vue(Mis.Vues.Opts.list);
     Mis.Vues.StoreOrderListView.storeOrdersCollection = new Mis.Collections.StoreOrders;
-    Mis.Vues.StoreOrderListView.storeOrdersCollection.fetch({success: function(){
-      Mis.Vues.StoreOrderListView.storeOrders = Mis.Vues.StoreOrderListView.storeOrdersCollection.models;
-			$('#js-order-list').show();
-			$('#loading').hide();
-    }});
+    Mis.Vues.StoreOrderListView.storeOrdersCollection.fetch({
+      data: {created_at: $(".js-store-order-date").val()},
+      success: function(){
+        Mis.Vues.StoreOrderListView.storeOrders = Mis.Vues.StoreOrderListView.storeOrdersCollection.models;
+        $('#js-order-list').show();
+        $('#loading').hide();
+      }
+    });
   });
   </script>
 <% end %>
