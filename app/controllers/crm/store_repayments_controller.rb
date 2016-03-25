@@ -1,10 +1,11 @@
 class Crm::StoreRepaymentsController < Crm::BaseController
   before_action :set_customer
-  before_action :set_created_date, :set_limit, :action_params, only: [:index, :finished, :all]
+  before_action :set_created_date, :set_per_page_quantity, :action_params, only: [:index, :finished, :hanging]
 
   def index
-    @q = @customer.orders.pay_hanging.ransack(params[:q])
-    set_show
+    @q = @customer.orders.where(hanging: true).ransack(params[:q])
+    @orders = @q.result.order("id asc").page(params[:page]).per_page(@quantity)
+    set_current_page
   end
 
   def create
@@ -12,20 +13,21 @@ class Crm::StoreRepaymentsController < Crm::BaseController
     if creator.call
       redirect_to crm_store_customer_store_repayments_path(@customer), notice: "回款成功!"
     else
-      render :index, notice: '回款失败!'
+      render :hanging, notice: '回款失败!'
     end
   end
 
   def finished
     @q = @customer.orders.pay_finished.where(hanging: true).ransack(params[:q])
-    set_show
+    @orders = @q.result.order("id asc").page(params[:page]).per_page(@quantity)
+    set_current_page
   end
 
-  def all
-    @q = @customer.orders.where(hanging: true).ransack(params[:q])
-    set_show
+  def hanging
+    @q = @customer.orders.pay_hanging.ransack(params[:q])
+    @orders = @q.result.order("id asc").page(params[:page]).per_page(@quantity)
+    set_current_page
   end
-
 
   private
     def set_created_date
@@ -44,18 +46,16 @@ class Crm::StoreRepaymentsController < Crm::BaseController
       append_attrs(form_params, store_option, staff_option, customer_option)
     end
 
-    def set_limit
-      @count = 10
+    def set_current_page
+      @current_page = @orders.current_page
+    end
+
+    def set_per_page_quantity
+      @quantity = 10
     end
 
     def action_params
       @action = params[:action].gsub("index","")
     end
 
-    def set_show
-      if params[:count]
-        @count = params[:count].to_i + 10
-      end
-      @orders = @q.result.order("id asc").limit(@count)
-    end
 end

@@ -12,7 +12,7 @@
     <%= notice %>
 
     <div class="content customer_account">
-      <input type="hidden" id="action" value="<%= @action%>">
+      <input type="hidden" id="action" value="<%= @action %>">
       <div class="panel_query">
         <%= search_form_for @q , url: crm_store_customer_store_repayments_path(@customer), class: 'float-left' do  -%>
           <%= render 'search_form' %>
@@ -25,10 +25,11 @@
         </div>
       </div>
 
-      <div class="orders">
+      <div class="orders" id='js-orders'>
         <%= render 'order_info' %>
       </div>
-      <%= render 'link_more_info' %>
+      <input type="hidden" id="js-current-page" value="<%= @current_page %>">
+      <%= render 'link_more_info' if @current_page < @orders.total_pages %>
       <% end %>
     </div>
   </div>

@@ -1,1 +1,5 @@
-$("div.orders").html("<%= j render('click_more_info_in_index')%>")
+$('#js-current-page').val(<%= @current_page %>);
+$('#js-orders').append("<%= j render('order_info')%>");
+<% if @current_page == @orders.total_pages %>
+  $('#js-load-more').hide();
+<% end %>

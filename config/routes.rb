@@ -472,7 +472,7 @@ Rails.application.routes.draw do
       resources :store_trackings, only: [:index, :create]
       resources :store_repayments, only: [:index, :create] do
         collection do
-          get :finished, :all
+          get :finished, :hanging
         end
       end
       resources :store_assets, only: [:index, :show] do
