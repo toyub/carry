@@ -35,7 +35,7 @@ class Mis.Views.KehuCustomerProfilesNew extends Mis.Base.View
 
   createCustomer: (e) ->
     e.preventDefault()
-    attrs = @$("#customerForm").find("input, select, textarea").filter( -> $.trim(this.value).length > 0).serializeJSON()
+    attrs = @$("#customerForm").find("input, select, textarea").filter( -> $.trim(this.value).length > 0).serializeJSON({checkboxUncheckedValue: 'true', parseBooleans: true})
     customerAttrs = attrs.store_customer
     settlementAttrs = attrs.store_customer_settlement
     @model.storeCustomer.set customerAttrs

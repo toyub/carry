@@ -35,7 +35,7 @@ class Mis.Views.KehuCustomerProfilesEdit extends Mis.Base.View
 
   updateCustomer: (e) ->
     e.preventDefault()
-    attrs = @$("#customerForm").serializeJSON()
+    attrs = @$("#customerForm").serializeJSON({checkboxUncheckedValue: 'true', parseBooleans: true})
     customerAttrs = attrs.store_customer
     settlementAttrs = attrs.store_customer_settlement
     @model.storeCustomer.set customerAttrs
