@@ -15,8 +15,8 @@
 
     <div class="form_item">
       <label>*客户名称</label>
-      <input type="text" value="<%= @customer.last_name %>" name="vehicle[customer][first_name]" placeholder="名" class="width-80" required>
       <input type="text" value="<%= @customer.first_name %>" name="vehicle[customer][last_name]" placeholder="姓" class="width-80" required>
+      <input type="text" value="<%= @customer.last_name %>" name="vehicle[customer][first_name]" placeholder="名" class="width-80" required>
     </div>
 
     <div class="form_item">
