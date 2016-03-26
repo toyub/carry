@@ -115,8 +115,8 @@ class StoreOrderItem < ActiveRecord::Base
 
   def destroy_related_workflows
     ActiveRecord::Base.transaction do
-      self.store_service_snapshot.destroy
-      self.store_service_workflow_snapshots.map(&:remove!)
+      self.store_service_snapshot.destroy if self.store_service_snapshot.present?
+      self.store_service_workflow_snapshots.map(&->(workflow){workflow.remove!})
       self.store_service_workflow_snapshots.delete_all
     end
   end

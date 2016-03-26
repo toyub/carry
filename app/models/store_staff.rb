@@ -92,6 +92,10 @@ class StoreStaff <  ActiveRecord::Base
     self.includes_roles?([0, 1])
   end
 
+  def has_waste_order_authority?
+    self.includes_roles?([0, 1])
+  end
+
   def reset_password(new_password, password_confirmation)
     self.password = new_password
     self.password_confirmation = password_confirmation
