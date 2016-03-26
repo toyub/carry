@@ -6,13 +6,17 @@
       <input type="text" name="license-number" class="width-110 license-number" value={{vehicleInfoData.license_number}}>
     </dd>
     <dd>
-      <label class="width-50" >客户姓名</label>
-      <input type="text" value='{{vehicleInfoData.store_customer.full_name}}' class="width-110" >
-    </dd>
-    <dd>
       <label class="width-50">手机号</label>
       <input type="text" name="phone_number" value={{vehicleInfoData.store_customer.phone_number}} class="width-110" >
     </dd>
+    <dd>
+      <label class="width-50" >客户姓名</label>
+      <input type="text" value='{{vehicleInfoData.store_customer.full_name}}' class="width-110" >
+    </dd>
+  </dl>
+  <dl>
+    <dd class="add_new_vehicle">添加车辆</dd>
+    <dd class="add_new_customer">添加客户</dd>
   </dl>
   <div class="vehicle_order_title title doslide">详细信息
   <i class="fa-angle-double-up fa cursor-pointer"></i>
@@ -20,25 +24,25 @@
   </div>
   <div class="vehicle_details_info">
     <div class="item_content">
-      <label class="width-50">车辆品牌</label><input type="text" value={{vehicleInfoData.vehicle_brand.name}} class="width-110"  >
+      <label class="width-50">车辆品牌</label><input type="text" value={{vehicleInfoData.vehicle_brand.name}} class="width-110" readonly>
     </div>
     <div class="item_content">
-      <label class="width-50" >车系</label><input type="text" value={{vehicleInfoData.vehicle_series.name}} class="width-110"  >
+      <label class="width-50" >车系</label><input type="text" value={{vehicleInfoData.vehicle_series.name}} class="width-110"  readonly>
     </div>
     <div class="item_content">
-      <label class="width-50">车型</label><input type="text" value={{vehicleInfoData.vehicle_model.name}} class="width-110"  >
+      <label class="width-50">车型</label><input type="text" value={{vehicleInfoData.vehicle_model.name}} class="width-110"  readonly>
     </div>
     <div class="item_content">
       <label class="width-50" >客户属性</label>
-      <input type="text" value={{vehicleInfoData.store_customer.property_i18n}} class="width-110" >
+      <input type="text" value={{vehicleInfoData.store_customer.property_i18n}} class="width-110" readonly>
     </div>
     <div class="item_content">
       <label class="width-50" >客户类别</label>
-      <input type="text" value="{{vehicleInfoData.store_customer.category_name}}" class="width-110"  >
+      <input type="text" value="{{vehicleInfoData.store_customer.category_name}}" class="width-110"  readonly>
     </div>
     <div class="item_content">
       <label class="width-50">结算方式</label>
-      <input type="text" value="{{vehicleInfoData.store_customer.payment_mode_i18n}}" class="width-110"  >
+      <input type="text" value="{{vehicleInfoData.store_customer.payment_mode_i18n}}" class="width-110"  readonly>
     </div>
   </div>
 </div>

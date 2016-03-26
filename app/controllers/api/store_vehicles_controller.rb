@@ -14,7 +14,11 @@ module Api
 
     def search
       @store_vehicle = current_store.store_vehicles.by_license_number(params[:license_number]).order("id asc").last
-      respond_with @store_vehicle, location: nil
+      if @store_vehicle.present?
+        render json: {vehicle_id: @store_vehicle.id}
+      else
+        render json: {}
+      end
     end
   end
 end
