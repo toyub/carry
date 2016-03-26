@@ -4,7 +4,7 @@ module Api
     before_action :set_vehicle, only: [:draft, :update_draft, :create, :update]
 
     def index
-      orders = current_store.store_orders
+      orders = current_store.store_orders.available
       if params[:license_number].present?
         store_vehicle_ids = current_store.store_vehicles.joins(vehicle_plates: :plate).
           where('license_number like ?', "%#{params[:license_number]}%").pluck(:id)
@@ -106,7 +106,7 @@ module Api
 
     private
       def set_order
-        @order = StoreOrder.find(params[:id])
+        @order = current_store.store_orders.available.find(params[:id])
       end
 
       def material_items

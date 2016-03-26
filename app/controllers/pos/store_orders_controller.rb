@@ -22,6 +22,12 @@ module Pos
       end
     end
 
+    def destroy
+      order = current_store.store_orders.find(params[:id])
+      order.waste!
+      redirect_to action: 'new'
+    end
+
     private
     def load_vehicle_brands
       @vehicle_brands = VehicleBrand.all
