@@ -134,6 +134,11 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.tasks.delete_all
   end
 
+  def waste!
+    self.tasks.each(&->(task){task.waste!})
+    self.update!(deleted: true)
+  end
+
   private
   def big_brothers_finished?
     big_brothers.all? { |w| w.finished? }

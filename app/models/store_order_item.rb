@@ -121,6 +121,11 @@ class StoreOrderItem < ActiveRecord::Base
     end
   end
 
+  def waste!
+    self.store_service_snapshot.waste! if self.store_service_snapshot.present?
+    self.update!(deleted: true)
+  end
+
   private
 
     def set_amount

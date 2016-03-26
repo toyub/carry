@@ -203,6 +203,11 @@ class StoreOrder < ActiveRecord::Base
     self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
   end
 
+  def waste!
+    self.items.each(&->(item){item.waste!})
+    self.update!(deleted: true)
+  end
+
   private
     def construction_items
       self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
