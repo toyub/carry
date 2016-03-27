@@ -29,7 +29,7 @@ module Api
         end
         vehicle = customer.store_vehicles.create!(vehicle_params)
         plate = vehicle.plates.create!(plate_params)
-        Status.new(success: true, notice: "添加#{plate.license_number}成功!", license_number: params[:vehicle][:license_number])
+        Status.new(success: true, notice: "添加#{plate.license_number}成功!", license_number: plate.license_number)
       end
 
       def customer_params
