@@ -1,4 +1,4 @@
- <form action="<%= @url %>">
+ <form action="<%= @url %>" id='js-update-customer'>
   <input type="hidden" name="store_customer_entity[id]"  value="<%= @id %>">
   <input type="hidden" name="store_customer_entity[store_customer_attributes][id]"  value="<%= @store_customer.id %>">
   <input type="hidden" name="store_customer_entity[store_customer_settlement_attributes][id]"  value="<%= @store_customer_settlement.id %>">
@@ -142,7 +142,7 @@
   </div>
 
   <div class="btn_group float-right  margin-right-10   margin-top-20">
-    <input type="reset" class="cancel_btn btn" value="取消">
+    <input type="button" class="js-customer-edit-cancel cancel_btn btn" value="取消">
     <input type="submit" class="save_btn btn"  value="保存">
   </div>
 </form>
