@@ -25,7 +25,7 @@ module V1
         add_desc "车辆制造商"
         get do
           manufacturers = VehicleManufacturer.by_brand(params[:vehicle_brand_id])
-          present manufacturers, with: ::Entities::VehicleBrand
+          present manufacturers, with: ::Entities::VehicleBrand, type: :manufacturer
         end
       end
 
