@@ -76,6 +76,7 @@
       <p class="instruction">请先验证权限</p>
 
       <%= form_for([:pos, @order], method: 'delete', html:{class: 'discount_confirmation'}) do %>
+        <input type="hidden" name="deleted_authorizer_id" value="">
         <div class="form_group">
           <label for="" class="width-100">登录名</label>
           <input type="text" title="请输入登录名" name="login_name" value="" class="width-150" required autocomplete="off">
@@ -87,7 +88,7 @@
 
         <div class="form_group">
           <label for="" class="width-100">作废原因</label>
-          <input type="text" title="请输入原因" name="delete_reason" value="" class="width-150" required autocomplete="off">
+          <input type="text" title="请输入原因" name="deleted_reason" value="" class="width-150" required autocomplete="off">
         </div>
 
         <div class="form_group">

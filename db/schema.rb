@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325235112) do
+ActiveRecord::Schema.define(version: 20160326081516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1242,6 +1242,10 @@ ActiveRecord::Schema.define(version: 20160325235112) do
     t.integer  "cashier_id",                                                                                            comment: "收银员"
     t.boolean  "service_included",                                                         default: false
     t.boolean  "deleted",                                                                  default: false
+    t.integer  "deleted_authorizer_id",                                                                                 comment: "授权人"
+    t.integer  "deleted_operator_id",                                                                                   comment: "操作员"
+    t.string   "deleted_reason"
+    t.datetime "deleted_at"
   end
 
   create_table "store_package_items", force: :cascade do |t|
