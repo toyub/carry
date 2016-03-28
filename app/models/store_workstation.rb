@@ -12,6 +12,10 @@ class StoreWorkstation < ActiveRecord::Base
 
   enum status: [:idle, :busy, :unavailable]
 
+  def working?
+    self.busy? && !self.current_workflow.try(:deleted)
+  end
+
   def assign_workflow!
     pending_workflows.each do |w|
       w.execute!(self) and break if w.executable?
