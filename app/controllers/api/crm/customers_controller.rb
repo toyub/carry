@@ -1,14 +1,13 @@
 module Api
   module Crm
     class CustomersController < Api::BaseController
-      include StatusObject
 
       def check
         customer = current_store.store_customers.find_by(phone_number: params[:phone_number])
         if customer.present?
-          render json: Status.new(success: true, notice: "用户存在!", customer: customer)
+          render json: {success: true, notice: "用户存在!", customer: customer}
         else
-          render json: Status.new(success: false, notice: "无该用户!")
+          render json: {success: false, notice: "无该用户!"}
         end
       end
 
@@ -18,7 +17,7 @@ module Api
 
       private
       def check_vehicle_info
-        return Status.new(success: true, notice: '车辆已存在!') if current_store.store_vehicle_registration_plates.find_by(license_number: params[:vehicle][:license_number])
+        return {success: true, notice: '车辆已存在!'} if current_store.store_vehicle_registration_plates.find_by(license_number: params[:vehicle][:license_number])
         customer = current_store.store_customers.find_by(phone_number: params[:vehicle][:phone_number])
         if customer.present?
           customer.update!(customer_params)
@@ -29,7 +28,7 @@ module Api
         end
         vehicle = customer.store_vehicles.create!(vehicle_params)
         plate = vehicle.plates.create!(plate_params)
-        Status.new(success: true, notice: "添加#{plate.license_number}成功!", customer: customer, license_number: plate.license_number, store_vehicle_id: vehicle.id)
+        {success: true, notice: "添加#{plate.license_number}成功!", customer: customer, license_number: plate.license_number, store_vehicle_id: vehicle.id}
       end
 
       def customer_params

@@ -1,4 +1,4 @@
- <form action="<%= @url %>" id='js-update-customer'>
+ <form action="<%= @url %>">
   <input type="hidden" name="store_customer_entity[id]"  value="<%= @id %>">
   <input type="hidden" name="store_customer_entity[store_customer_attributes][id]"  value="<%= @store_customer.id %>">
   <input type="hidden" name="store_customer_entity[store_customer_settlement_attributes][id]"  value="<%= @store_customer_settlement.id %>">
