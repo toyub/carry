@@ -149,6 +149,7 @@ class StoreOrder < ActiveRecord::Base
       if self.task_finished? || self.task_pending?
         self.task_queuing!
         self.queuing!
+        SpotDispatchJob.perform_later(self.store_id)
       end
     end
   end

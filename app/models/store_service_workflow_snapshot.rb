@@ -45,6 +45,11 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.standard_time.to_i + self.buffering_time.to_i + self.factor_time.to_i
   end
 
+  def real_work_time
+    return used_time if used_time > 0
+    work_time_in_minutes
+  end
+
   def mechanics
     tasks.map(&:mechanic).compact
   end
@@ -59,7 +64,13 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def executable?
     return false if self.store_vehicle.blank?
-    self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+    self.has_qualified_mechaincs? && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+  end
+  
+  def has_qualified_mechaincs?
+    mechanics_quantity = self.engineer_count_enable ? [self.engineer_count, 1].max : 1
+    mechanics_level = (self.engineer_level if self.engineer_level_enable) || ServiceMechanicLevelType.find_by_name('初级以上(含初级)').id
+    self.store_workstation.store_group.store_group_members
   end
 
   def execute!(workstation)

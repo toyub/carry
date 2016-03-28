@@ -12,7 +12,7 @@
             <% end %>
           </select>
         </li>
-        <li><input type="text" name="workflow[<%= workflow.id %>][used_time]" <%= 'disabled' unless workflow.store_order.task_queuing? %> value="<%= workflow.used_time || workflow.work_time_in_minutes %>" class="width-60"></li>
+        <li><input type="text" name="workflow[<%= workflow.id %>][used_time]" <%= 'disabled' unless workflow.store_order.task_queuing? %> value="<%= workflow.real_work_time %>" class="width-60"></li>
         <li>
         <div class="assign_technician">
           <ul id="workflow-<%= workflow.id %>-mechanics">
