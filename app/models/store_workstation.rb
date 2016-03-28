@@ -14,7 +14,7 @@ class StoreWorkstation < ActiveRecord::Base
 
   def assign_workflow!
     pending_workflows.each do |w|
-      w.execute!(self) and break if w.executable?
+      w.execute!(self) and break if w.executable?(self)
     end
   end
 

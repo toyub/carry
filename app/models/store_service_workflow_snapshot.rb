@@ -62,15 +62,19 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store.store_staff.mechanics.map(&:store_group_member).any? {|mem| mem.ready? && mem.eligible_for?(self)}
   end
 
-  def executable?
+  def executable?(workstation)
     return false if self.store_vehicle.blank?
-    self.has_qualified_mechaincs? && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+    self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
   end
 
-  def has_qualified_mechaincs?
-    self.store_workstation.store_group.store_group_members.ready.select do |engineer|
-      engineer.member.level_type_id.to_i >= mechanics_level.to_i
-    end.size >= mechanics_quantity
+  def has_qualified_mechaincs?(workstation)
+    if self.tasks.present?
+      self.mechanics.all? { |m| m.store_group_member.ready? }
+    else
+      workstation.store_group.store_group_members.ready.select do |engineer|
+        engineer.member.level_type_id.to_i >= mechanics_level.to_i
+      end.size >= mechanics_quantity
+    end
   end
 
   def mechanics_quantity
@@ -95,7 +99,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       store_id: self.store_id,
       store_chain_id: self.store_chain_id
     )
-    engineer.busy!
   end
 
   def execute(workstation)
@@ -104,7 +107,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     workstation.busy!
     self.store_workstation.store_group.store_group_members.ready.select do |engineer|
       engineer.member.level_type_id >= mechanics_level
-    end.first(mechanics_quantity).each { |engineer| assign_mechanic(engineer) }
+    end.first(mechanics_quantity).each { |engineer| assign_mechanic(engineer) } unless self.tasks.present?
+    self.mechanics.map(&:store_group_member).map(&:busy!)
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!

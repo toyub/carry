@@ -12,7 +12,6 @@ class UpdateWorkflowService
         return false
       end
       w = StoreServiceWorkflowSnapshot.find(id)
-      StoreStaffTask.where(workflow_id: w.id).where.not(mechanic_id: attrs[:mechanics].map {|m| m[:id]}).map(&:free)
       attrs.delete(:mechanics).each do |mechanic|
         task = StoreStaffTask.find_by(workflow_id: w.id, mechanic_id: mechanic[:id])
         task ||= StoreStaffTask.create(
@@ -23,7 +22,6 @@ class UpdateWorkflowService
           store_id: w.store_id,
           store_chain_id: w.store_chain_id
         )
-        task.mechanic.store_group_member.busy!
       end
       w.update!(attrs)
     end
