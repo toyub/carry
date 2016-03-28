@@ -5,7 +5,7 @@
   <div class="new_vehicle">
     <div class="form_item">
       <label>*车牌号</label>
-      <input type="text" value="" name="vehicle[license_number]" class="dialog-license" required>
+      <input type="text" value="<%= @license_number %>" name="vehicle[license_number]" class="dialog-license" required>
     </div>
 
     <div class="form_item">
@@ -30,9 +30,3 @@
     <input type="reset" name="commit" value="取消" class="cancel_btn">
   </div>
 </form>
-
-<script>
-  jQuery(function($){
-    $(".dialog-license").val($(".vehicle_info .license-number").val());
-  })
-</script>
