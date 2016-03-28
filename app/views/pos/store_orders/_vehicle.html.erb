@@ -7,7 +7,7 @@
     </dd>
     <dd>
       <label class="width-50">手机号</label>
-      <input type="text" name="phone_number" value={{vehicleInfoData.store_customer.phone_number}} class="width-110" >
+      <input type="text" name="phone_number" value={{vehicleInfoData.store_customer.phone_number}} class="width-110">
     </dd>
     <dd>
       <label class="width-50" >客户姓名</label>
@@ -15,7 +15,8 @@
     </dd>
   </dl>
   <dl>
-    <dd><%= link_to "", '#', class: "add_new_vehicle_or_customer trigger-vehicle-form", style: "display: none" %></dd>
+    <dd><%= link_to "添加车辆", 'javascript:void(0)', class: "add_new_vehicle trigger-vehicle-form", style: "display: none" %></dd>
+    <dd><%= link_to "添加客户", 'javascript:void(0)', class: "add_new_customer trigger-vehicle-form", style: "display: none" %></dd>
   </dl>
   <div class="vehicle_order_title title doslide">详细信息
   <i class="fa-angle-double-up fa cursor-pointer"></i>
