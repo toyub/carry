@@ -12,7 +12,7 @@ module Xianchang
     end
 
     def check_dispatch
-      render json: {status: @store_order.store_vehicle.orders.task_processing.count == 0}
+      render json: {status: @store_order.store_vehicle.orders.task_processing.available.count == 0}
     end
 
     def check_mechanic

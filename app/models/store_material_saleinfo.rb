@@ -70,7 +70,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
     id = joins(:store_order_items)
       .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
-      .group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+      .group(:orderable_id).order("sum_#{sort_by} DESC").limit(1).sum(sort_by).keys[0]
 
     find_by_id(id)
   end

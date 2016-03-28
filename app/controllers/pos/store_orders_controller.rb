@@ -22,6 +22,18 @@ module Pos
       end
     end
 
+    def destroy
+      order = current_store.store_orders.find(params[:id])
+      order.deleted_authorizer_id = params[:deleted_authorizer_id]
+      order.deleted_operator_id = current_staff.id
+      order.deleted_reason = params[:deleted_reason]
+      order.deleted_at = Time.now
+      order.save
+      order.waste!
+      order.terminate!
+      redirect_to action: 'new'
+    end
+
     private
     def load_vehicle_brands
       @vehicle_brands = VehicleBrand.all
