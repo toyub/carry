@@ -169,11 +169,11 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def orders_count
-    orders.count
+    orders.available.count
   end
 
   def total_amount
-    orders.pluck(:amount).reduce(:+) || 0.0
+    orders.available.pluck(:amount).reduce(:+) || 0.0
   end
 
   def has_customer_asset

@@ -2,7 +2,7 @@ class Crm::VehicleServicesController < ApplicationController
   before_action :set_customer, :set_vehicle, :set_vehicle_ids
 
   def show
-    @orders = @vehicle.orders.order('id asc')
+    @orders = @vehicle.orders.available.order('id asc')
   end
 
   private

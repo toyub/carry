@@ -14,6 +14,7 @@ module Xianchang
       @mechanics_count = StoreStaff.mechanics.count
 
       @task_finished_orders = current_store.store_orders.task_finished.paying.available.today
+      
       @workstations = current_store.workstations.order("id asc")
     end
 
@@ -42,7 +43,7 @@ module Xianchang
     end
 
     def perform
-      @store_order = current_store.store_orders.find(params[:order_id])
+      @store_order = current_store.store_orders.available.find(params[:order_id])
       @idle_workstation = @store_order.workflows.processing.first.try(:store_workstation)
       @workstation.perform!(@store_order)
       @store_order.reload
