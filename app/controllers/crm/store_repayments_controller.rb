@@ -3,7 +3,7 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   before_action :set_created_date, :set_per_page_quantity, :action_params, only: [:index, :finished, :hanging]
 
   def index
-    @q = @customer.orders.where(hanging: true).ransack(params[:q])
+    @q = @customer.orders.available.where(hanging: true).ransack(params[:q])
     @orders = @q.result.order("id asc").page(params[:page]).per_page(@quantity)
     set_current_page
   end
@@ -18,13 +18,13 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   end
 
   def finished
-    @q = @customer.orders.pay_finished.where(hanging: true).ransack(params[:q])
+    @q = @customer.orders.available.pay_finished.where(hanging: true).ransack(params[:q])
     @orders = @q.result.order("id asc").page(params[:page]).per_page(@quantity)
     set_current_page
   end
 
   def hanging
-    @q = @customer.orders.pay_hanging.ransack(params[:q])
+    @q = @customer.orders.available.pay_hanging.ransack(params[:q])
     @orders = @q.result.order("id asc").page(params[:page]).per_page(@quantity)
     set_current_page
   end

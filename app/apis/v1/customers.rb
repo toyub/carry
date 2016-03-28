@@ -142,7 +142,7 @@ module V1
           end
         end
         get "orders", requirements: { customer_id: /[0-9]*/ } do
-          q = @customer.orders.ransack(params[:q])
+          q = @customer.orders.available.ransack(params[:q])
           orders = q.result.order('id asc')
           present orders, with: ::Entities::Order
         end

@@ -4,16 +4,16 @@ module Xianchang
     before_action :set_groups, only: [:new, :edit]
 
     def index
-      @queuing_orders = current_store.store_orders.task_queuing
+      @queuing_orders = current_store.store_orders.available.task_queuing
 
-      @processing_orders_count = current_store.store_orders.processing.count
-      @paying_orders_count = current_store.store_orders.paying.count
-      @finished_orders_count = current_store.store_orders.finished.count
-      @orders_count = current_store.store_orders.count
-      @pending_orders_count = current_store.store_orders.pending.count
+      @processing_orders_count = current_store.store_orders.available.processing.count
+      @paying_orders_count = current_store.store_orders.available.paying.count
+      @finished_orders_count = current_store.store_orders.available.finished.count
+      @orders_count = current_store.store_orders.available.count
+      @pending_orders_count = current_store.store_orders.available.pending.count
       @mechanics_count = StoreStaff.mechanics.count
 
-      @task_finished_orders = current_store.store_orders.task_finished.paying.today
+      @task_finished_orders = current_store.store_orders.available.task_finished.paying.today
       @workstations = current_store.workstations.order("id asc")
     end
 
@@ -42,7 +42,7 @@ module Xianchang
     end
 
     def perform
-      @store_order = current_store.store_orders.find(params[:order_id])
+      @store_order = current_store.store_orders.available.find(params[:order_id])
       @idle_workstation = @store_order.workflows.processing.first.try(:store_workstation)
       @workstation.perform!(@store_order)
       @store_order.reload

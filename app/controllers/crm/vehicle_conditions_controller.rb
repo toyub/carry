@@ -2,7 +2,7 @@ class Crm::VehicleConditionsController < ApplicationController
   before_action :set_customer, :set_vehicle, :set_vehicle_ids
 
   def show
-    orders = @vehicle.orders.order('created_at desc')
+    orders = @vehicle.orders.available.order('created_at desc')
     @damages = orders.map(&damages).flatten!
   end
 

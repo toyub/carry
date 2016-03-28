@@ -10,7 +10,7 @@ module Api
       captcha = $redis.get("sms.captcha.pos.pay-#{store_customer.phone_number}")
       if captcha.present? && captcha == params[:authentication_code]
         amount = params[:amount].to_f
-        order = store_customer.orders.find(params[:order_id])
+        order = store_customer.orders.available.find(params[:order_id])
         if order.paid?
           render json: {valid: true, paid: true}
         else
