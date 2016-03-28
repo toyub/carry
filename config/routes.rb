@@ -421,6 +421,7 @@ Rails.application.routes.draw do
 
       namespace :auth do
         resources :discount_authorities
+        resources :waste_order_authorities
       end
     end
 

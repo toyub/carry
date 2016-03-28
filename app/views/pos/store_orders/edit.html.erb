@@ -32,6 +32,9 @@
           </div>
           <div class="construction_status">
             <div class="btn_group">
+              <% unless @order.paid?%>
+                <a href="javascript:void(0);" data-url="<%= pos_store_order_path(@order) %>" title='将此订单销毁，销毁后订单一切相关数据将一起被删除！' class="btn delete_btn js-waste-order">作废订单</a>
+              <% end %>
               <a href="javascript:void(0);" style='<%= "display:none" unless @order.pending? %>' class="end_construction_btn js-update-draft">更新草稿</a>
               <a href="javascript:void(0);" style='<%= "display:none" unless @order.pending? %>' class="go_payment_btn js-update-and-execute">生成订单</a>
               <a href="javascript:void(0);" style='<%= "display:none" if @order.pending? %>' class="go_payment_btn js-update-order">更新订单</a>
@@ -65,4 +68,38 @@
     }
   })
 </script>
+<% end %>
+<% unless @order.paid?%>
+  <% content_for :scenes do %>
+    <template style='display:none' id="waste-form">
+      <a href="javascript:void(0)" class="close">×</a><h2>订单作废</h2>
+      <p class="instruction">请先验证权限</p>
+
+      <%= form_for([:pos, @order], method: 'delete', html:{class: 'discount_confirmation'}) do %>
+        <input type="hidden" name="deleted_authorizer_id" value="">
+        <div class="form_group">
+          <label for="" class="width-100">登录名</label>
+          <input type="text" title="请输入登录名" name="login_name" value="" class="width-150" required autocomplete="off">
+        </div>
+        <div class="form_group">
+          <label for="" class="width-100">密码</label>
+          <input type="password" title="请输入登录密码" name="password" value="" class="width-150" required autocomplete="off">
+        </div>
+
+        <div class="form_group">
+          <label for="" class="width-100">作废原因</label>
+          <input type="text" title="请输入原因" name="deleted_reason" value="" class="width-150" required autocomplete="off">
+        </div>
+
+        <div class="form_group">
+          <label for="" class="width-100">重要提示</label>
+          <span class="width-150 color-0ab149">此操作不可逆转</span>
+        </div>
+        <div class="btn_group">
+          <input type="reset" value="取消" class="button cancel_btn">
+          <input type="submit" value="销毁" class="button save_btn">
+        </div>
+      <% end %>
+    </template>
+  <% end %>
 <% end %>

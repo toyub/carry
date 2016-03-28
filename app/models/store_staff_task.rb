@@ -26,4 +26,8 @@ class StoreStaffTask < ActiveRecord::Base
     workflow_snapshot.mechanic_commission.present?
   end
 
+  def waste!
+    self.update!(deleted: true)
+  end
+
 end

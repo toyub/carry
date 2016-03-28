@@ -24,6 +24,8 @@ class StoreOrder < ActiveRecord::Base
   scope :unfinished, -> { where.not(state: StoreOrder.states[:finished]) }
   scope :unpending, -> { where.not(state: StoreOrder.states[:pending]) }
 
+  scope :available, -> {where(deleted: false)}
+
   enum state: %i[pending queuing processing paying finished]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
   enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]
@@ -201,6 +203,11 @@ class StoreOrder < ActiveRecord::Base
   def assign_mechanics
     self.workflows.pending.order("created_at asc").map(&:assign_mechanics)
     self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
+  end
+
+  def waste!
+    self.items.each(&->(item){item.waste!})
+    self.update!(deleted: true)
   end
 
   private
