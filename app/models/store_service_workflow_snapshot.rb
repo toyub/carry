@@ -15,6 +15,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   validates :store_service_id, presence: true
 
   scope :of_store, -> (store_id) { where(store_id: store_id) }
+  scope :unfinished, -> { where.not(status: StoreServiceWorkflowSnapshot.statuses[:finished]) }
 
   enum status: [:pending, :processing, :finished]
 
@@ -102,9 +103,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def execute(workstation)
-    self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
-    workstation.update!(current_workflow: self)
-    workstation.busy!
+    assign_workstation(workstation)
     self.store_workstation.store_group.store_group_members.ready.select do |engineer|
       engineer.member.level_type_id >= mechanics_level
     end.first(mechanics_quantity).each { |engineer| assign_mechanic(engineer) } unless self.tasks.present?
@@ -112,6 +111,12 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
+  end
+
+  def assign_workstation(workstation)
+    self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
+    workstation.update!(current_workflow: self)
+    workstation.busy!
   end
 
   def assign_mechanics

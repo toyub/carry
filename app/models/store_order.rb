@@ -118,7 +118,7 @@ class StoreOrder < ActiveRecord::Base
   def terminate
     ActiveRecord::Base.transaction do
       self.terminate!
-      self.workflows.map(&:terminate!)
+      self.workflows.unfinished.map(&:terminate!)
     end
   end
 
