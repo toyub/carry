@@ -1,7 +1,7 @@
 <tr class="construction_process">
   <td><%= service.name %></td>
   <td colspan="5">
-    <% service.workflow_snapshots.each_with_index do |workflow, i| %>
+    <% service.workflow_snapshots.order("created_at asc").each_with_index do |workflow, i| %>
       <ul class="item_project">
         <li><span class="number"><%= i + 1 %></span>-<%= workflow.name %></li>
         <li>
