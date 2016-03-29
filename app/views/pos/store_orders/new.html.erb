@@ -7,14 +7,6 @@
   <div class="main_top"><h2>业务开单</h2></div>
   <div class="details">
     <div class="search_nav">
-      <div class="width-400" style="float: left;">
-        <label class="width-75">查找车辆</label>
-        <select class="width-230 query-license-number js-store-vehicle-license-number-input" name="license-number" ><select>
-      </div>
-      <div class="width-100" style="float:left">
-        <a class='button js-add-vehicle' href="javascript:void(0);">添加车辆</a>
-      </div>
-
       <div class="query_div pos_page_card">
         <a href="javascript:void(0)"  class="active">开单</a>
         <a href="/pos/store_orders/">列表</a>
@@ -55,7 +47,10 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-    x = new Mis.Views.PosOrderIndexView();
+    $(".vehicle_info .license-number").autocomplete({
+      source: <%= @license_numbers.to_json.html_safe %>,
+    });
+    var x = new Mis.Views.PosOrderIndexView();
   })
 </script>
 <% end %>

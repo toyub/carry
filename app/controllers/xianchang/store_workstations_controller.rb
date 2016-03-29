@@ -14,6 +14,7 @@ module Xianchang
       @mechanics_count = StoreStaff.mechanics.count
 
       @task_finished_orders = current_store.store_orders.task_finished.paying.available.today
+      
       @workstations = current_store.workstations.order("id asc")
     end
 

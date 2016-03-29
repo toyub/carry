@@ -2,17 +2,21 @@
   <input type="hidden" name="order[store_vehicle_id]" id='store_vehicle_id' value="{{vehicleInfoData.id}}">
   <dl>
     <dd>
-      <label class="width-50" >车牌号</label>
-      <input type="text" class="width-110" readonly value={{vehicleInfoData.license_number}}>
-    </dd>
-    <dd>
-      <label class="width-50" >客户姓名</label>
-      <input type="text" value='{{vehicleInfoData.store_customer.full_name}}' class="width-110" readonly>
+      <label for="license_number" class="width-50" >车牌号</label>
+      <input type="text" name="license_number" class="width-110 license-number" value={{vehicleInfoData.license_number}}>
     </dd>
     <dd>
       <label class="width-50">手机号</label>
-      <input type="text" value={{vehicleInfoData.store_customer.phone_number}} class="width-110" readonly>
+      <input type="text" name="phone_number" value={{vehicleInfoData.store_customer.phone_number}} class="width-110">
     </dd>
+    <dd>
+      <label class="width-50" >客户姓名</label>
+      <input type="text" name="customer_name" value='{{vehicleInfoData.store_customer.full_name}}' class="width-110" readonly >
+    </dd>
+  </dl>
+  <dl>
+    <dd><%= link_to "添加车辆", 'javascript:void(0)', class: "add_new_vehicle trigger-vehicle-form", style: "display: none" %></dd>
+    <dd><%= link_to "添加客户", 'javascript:void(0)', class: "add_new_customer trigger-vehicle-form", style: "display: none" %></dd>
   </dl>
   <div class="vehicle_order_title title doslide">详细信息
   <i class="fa-angle-double-up fa cursor-pointer"></i>
@@ -20,7 +24,7 @@
   </div>
   <div class="vehicle_details_info">
     <div class="item_content">
-      <label class="width-50">车辆品牌</label><input type="text" value={{vehicleInfoData.vehicle_brand.name}} class="width-110"  readonly>
+      <label class="width-50">车辆品牌</label><input type="text" value={{vehicleInfoData.vehicle_brand.name}} class="width-110" readonly>
     </div>
     <div class="item_content">
       <label class="width-50" >车系</label><input type="text" value={{vehicleInfoData.vehicle_series.name}} class="width-110"  readonly>

@@ -21,7 +21,7 @@ module Xianchang
 
     private
     def set_store_order
-      @store_order = current_store.store_orders.find(params[:id])
+      @store_order = current_store.store_orders.available.find(params[:id])
     end
   end
 end

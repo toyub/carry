@@ -40,10 +40,6 @@ class StoreOrder < ActiveRecord::Base
 
   belongs_to :cashier, class_name: 'StoreStaff', foreign_key: 'cashier_id'
 
-  def self.today
-    where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day)
-  end
-
   def self.counts_by_state(date_time = Time.now)
     counts = self.where('created_at BETWEEN ? AND ?', date_time.beginning_of_day, date_time.end_of_day)
                  .group(:state).count(:id)

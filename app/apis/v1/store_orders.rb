@@ -80,16 +80,6 @@ module V1
           present status: status.success, info: status.notice
         end
 
-        add_desc '取消订单'
-        params do
-          requires :order_id, type: Integer, desc: '订单的id'
-          requires :platform, type: String, desc: '验证平台！'
-        end
-        delete  do
-          @order.delete
-          present info: '取消订单成功'
-        end
-
         add_desc '订单详情'
         params do
           requires :platform, type: String, desc: '验证平台！'
@@ -114,7 +104,7 @@ module V1
         end
       end
       get do
-        orders = current_store.store_orders.ransack(params[:q]).result
+        orders = current_store.store_orders.available.ransack(params[:q]).result
         if params[:service_included]
           orders = orders.has_service.unfinished.unpending
         end
