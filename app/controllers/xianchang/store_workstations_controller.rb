@@ -43,8 +43,9 @@ module Xianchang
 
     def perform
       @store_order = current_store.store_orders.find(params[:order_id])
-      @idle_workstation = @store_order.workflows.processing.first.try(:store_workstation)
-      @workstation.perform!(@store_order)
+      workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
+      @idle_workstation = workflow.try(:store_workstation)
+      @workstation.perform!(@store_order, workflow)
       @store_order.reload
     end
 

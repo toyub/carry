@@ -51,9 +51,9 @@ class StoreWorkstation < ActiveRecord::Base
     self.idle!
   end
 
-  def perform!(store_order)
+  def perform!(store_order, workflow)
     ActiveRecord::Base.transaction do
-      store_order.workflows.processing.first.try(:finish!)
+      workflow.try(:finish!)
       w = store_order.workflows.pending.order("created_at asc").first
       return if w.blank?
       w.executable?(self) ? w.execute(self) : w.assign_workstation(self)
