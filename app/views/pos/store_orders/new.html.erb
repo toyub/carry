@@ -50,7 +50,7 @@
     $(".vehicle_info .license-number").autocomplete({
       source: <%= @license_numbers.to_json.html_safe %>,
     });
-    x = new Mis.Views.PosOrderIndexView();
+    var x = new Mis.Views.PosOrderIndexView();
   })
 </script>
 <% end %>
