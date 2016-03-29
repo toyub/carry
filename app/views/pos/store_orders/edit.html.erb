@@ -102,14 +102,16 @@
 <script>
   jQuery(function($){
     if($(".pos-orders-index").length > 0){
-      x = new Mis.Views.PosOrderIndexView();
-      x.setVehicleInfoData({target: {value: '<%= @order.store_vehicle_id %>'}})
-     order = $('#order_data').data('order');
-     x.order = order;
-     x.vehicle_situation.set_situation(order.situation)
-     Mis.Vues.ServiceItem.$set('items',order.services.items.slice());
-     Mis.Vues.MaterialItem.$set('items', order.materials.items.slice());
-     Mis.Vues.PackageItem.$set('items', order.packages.items.slice());
+      var x = new Mis.Views.PosOrderIndexView();
+      var order = $('#order_data').data('order');
+
+      x.storeVehicle.id = <%= @order.store_vehicle_id %>;
+      x.storeVehicle.fetch();
+      x.order = order;
+      x.vehicle_situation.set_situation(order.situation);
+      Mis.Vues.ServiceItem.$set('items',order.services.items.slice());
+      Mis.Vues.MaterialItem.$set('items', order.materials.items.slice());
+      Mis.Vues.PackageItem.$set('items', order.packages.items.slice());
     }
   })
 </script>
