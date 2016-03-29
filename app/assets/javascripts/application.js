@@ -21,6 +21,7 @@
 //= require jquery_ext/jquery.validate_ext
 //= require jquery_ext/jquery.alert
 //= require jquery_ext/jquery.confirm
+//= require jquery_ext/jquery.multi_confirm
 //= require menu
 //= require underscore
 //= require underscore_string/3.2.2

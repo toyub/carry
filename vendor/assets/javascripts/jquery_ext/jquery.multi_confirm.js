@@ -1,5 +1,5 @@
 (function ($) {
-  $.fn.confirm = function (options) {
+  $.fn.multiConfirm = function (options) {
     if (typeof options === 'undefined') {
       options = {};
     }
@@ -11,13 +11,13 @@
           button: $(this)
       }, options);
 
-      $.confirm(newOptions, e);
+      $.multiConfirm(newOptions, e);
     });
 
     return this;
   };
 
-  $.confirm = function (options, e) {
+  $.multiConfirm = function (options, e) {
     if ($('.confirmation-modal').length > 0)
         return;
 
@@ -35,8 +35,10 @@
       });
     }
 
-    var settings = $.extend({}, $.confirm.options, {
-      confirm: function () {
+    var settings = $.extend({}, $.multiConfirm.options, {
+      exchange: function () {
+      },
+      terminate: function () {
       },
       cancel: function (o) {
         $("#FloatWindow").fadeOut();
@@ -64,7 +66,8 @@
           '</div>' +
           '<div class="ffooter">' +
             '<input type="button"  name="reset"  value="取消"  class="cancel_btn">' +
-            '<input type="button" name="commit" value="确认"  class="confirm_btn">' +
+            '<input type="button"  name="exchange"  value="切换工位"  class="exchange_btn">' +
+            '<input type="button" name="terminate" value="结束流程"  class="terminate_btn">' +
           '</div>' +
         '</div>' +
       '</div>'
@@ -78,8 +81,13 @@
       settings.cancel(settings.button);
       modal.remove()
     })
-    modal.find(".confirm_btn").click(function () {
-      settings.confirm(settings.button);
+    modal.find(".exchange_btn").click(function () {
+      settings.exchange(settings.button);
+      settings.cancel(settings.button);
+      modal.remove()
+    });
+    modal.find(".terminate_btn").click(function () {
+      settings.terminate(settings.button);
       settings.cancel(settings.button);
       modal.remove()
     });
@@ -88,7 +96,7 @@
     modal.fadeIn();
   };
 
-  $.confirm.options = {
+  $.multiConfirm.options = {
       text: "是否确定?",
       title: "系统提示",
       confirmButton: "确定",
