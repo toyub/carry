@@ -24,6 +24,9 @@ class StoreOrder < ActiveRecord::Base
   scope :unfinished, -> { where.not(state: StoreOrder.states[:finished]) }
   scope :unpending, -> { where.not(state: StoreOrder.states[:pending]) }
 
+  scope :unpaid, ->{where(pay_status: StoreOrder.pay_statuses[:pay_queuing])}
+  scope :paid, ->{where(pay_status: [ StoreOrder.pay_statuses[:pay_hanging], StoreOrder.pay_statuses[:pay_finished] ])}
+
   scope :available, -> {where(deleted: false)}
 
   enum state: %i[pending queuing processing paying finished]

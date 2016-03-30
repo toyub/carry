@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330043541) do
+ActiveRecord::Schema.define(version: 20160330083109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1246,6 +1246,7 @@ ActiveRecord::Schema.define(version: 20160330043541) do
     t.integer  "deleted_operator_id",                                                                                   comment: "操作员"
     t.string   "deleted_reason"
     t.datetime "deleted_at"
+    t.datetime "paid_at"
   end
 
   create_table "store_package_items", force: :cascade do |t|
