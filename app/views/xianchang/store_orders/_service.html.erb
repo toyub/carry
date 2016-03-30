@@ -5,32 +5,32 @@
       <ul class="item_project">
         <li><span class="number"><%= i + 1 %></span>-<%= workflow.name %></li>
         <li>
-          <select class="width-100 js-select-workstations" data-id="<%= workflow.id %>" name="workflow[<%= workflow.id %>][store_workstation_id]" <%= 'disabled' unless workflow.store_order.task_queuing? %>>
+          <select class="width-100 js-select-workstations" data-id="<%= workflow.id %>" name="workflow[<%= workflow.id %>][store_workstation_id]" <%= 'disabled' if workflow.finished? %>>
             <option>请选择</option>
             <% workflow.screen_workstations.each do |w| %>
               <option value="<%= w.id %>" <%= 'selected' if w.id == workflow.store_workstation_id %>><%= w.name %></option>
             <% end %>
           </select>
         </li>
-        <li><input type="text" name="workflow[<%= workflow.id %>][used_time]" <%= 'disabled' unless workflow.store_order.task_queuing? %> value="<%= workflow.real_work_time %>" class="width-60"></li>
+        <li><input type="text" name="workflow[<%= workflow.id %>][used_time]" <%= 'disabled' if workflow.finished? %> value="<%= workflow.real_work_time %>" class="width-60"></li>
         <li>
         <div class="assign_technician">
           <ul id="workflow-<%= workflow.id %>-mechanics">
             <% workflow.mechanics.each do |m| %>
               <li class="do_coise_close js-mechanic" id="workflow-<%= workflow.id %>-mechanics-<%= m.id %>">
-                <span><%= m.full_name %><i class="coise_close lnr <%= 'lnr-cross js-mechanic-close' if workflow.store_order.task_queuing? %>"></i></span>
+                <span><%= m.full_name %><i class="coise_close lnr <%= 'lnr-cross js-mechanic-close' unless workflow.finished? %>"></i></span>
                 <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][id]" value="<%= m.id %>" />
                 <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][name]" value="<%= m.full_name %>" />
               </li>
             <% end %>
           </ul>
-          <i class="action_button fa-plus fa <%= 'js-show-mechanics' if workflow.store_order.task_queuing? %>" data-id="<%= workflow.id %>"></i>
+          <i class="action_button fa-plus fa <%= 'js-show-mechanics' unless workflow.finished? %>" data-id="<%= workflow.id %>"></i>
         </div>
         <ul class="technician js-mechanics" id="workflow-<%= workflow.id %>" data-id="<%= workflow.id %>" style="display:none;">
         </ul>
         </li>
         <li>
-          <input type="text" class="width-60" name="workflow[<%= workflow.id %>][inspector]" value="<%= workflow.inspector %>" <%= 'disabled' unless workflow.store_order.task_queuing? %>/>
+          <input type="text" class="width-60" name="workflow[<%= workflow.id %>][inspector]" value="<%= workflow.inspector %>" <%= 'disabled' if workflow.finished? %>/>
         </li>
       </ul>
     <% end %>

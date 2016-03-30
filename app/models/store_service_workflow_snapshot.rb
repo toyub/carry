@@ -92,8 +92,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
-  def exchange!(workstation)
-    self.store_workstation.free
+  def exchange!(previous_workstation, workstation)
+    previous_workstation.free
     self.processing? ? execute(workstation) : assign_workstation(workstation)
   end
 
@@ -119,6 +119,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def assign_workstation(workstation)
+    self.store.workstations.with_workflow(self.id).each(&:free)
     self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
     workstation.update!(current_workflow: self)
     workstation.busy!

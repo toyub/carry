@@ -53,8 +53,8 @@ module Xianchang
     def exchange
       @store_order = current_store.store_orders.find(params[:order_id])
       @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
-      @previous_workstation = @workflow.store_workstation
-      @workflow.exchange!(@workstation)
+      @previous_workstation = current_store.workstations.find(params[:previous_workstation])
+      @workflow.exchange!(@previous_workstation, @workstation)
     end
 
     private

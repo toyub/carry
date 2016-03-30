@@ -15,6 +15,11 @@ module Xianchang
       UpdateWorkflowService.call(order_params)
     end
 
+    def execute
+      UpdateWorkflowService.call(order_params)
+      SpotDispatchJob.perform_now(current_store.id)
+    end
+
     def check_dispatch
       render json: {status: @store_order.store_vehicle.orders.task_processing.available.count == 0}
     end

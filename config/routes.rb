@@ -132,9 +132,12 @@ Rails.application.routes.draw do
       put :exchange, on: :member
     end
     resources :store_orders, only: [:show, :update] do
-      put :terminate, on: :member
-      get :check_dispatch, on: :member
-      get :check_mechanic, on: :member
+      member do
+        put :terminate
+        get :check_dispatch
+        get :check_mechanic
+        put :execute
+      end
     end
     resources :store_workflows, only: [:edit, :update] do
       get :free_mechanics, on: :member
