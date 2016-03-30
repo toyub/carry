@@ -12,7 +12,7 @@
     <% if @first_category.present? %>
       <%= render 'item_category' %>
       <div class="order-items">
-        <%= render "order_items", order_items: @first_category.order_items.joins(:store_order).by_month(@date) %>
+        <%= render "order_items", order_items: @first_category.order_items.joins(:store_order).where(store_id: current_store.id).by_month(@date) %>
       </div>
     <% else %>
       <h2>无相关数据请重新查询</h2>
@@ -25,6 +25,7 @@
 
 <script type="text/javascript" charset="utf-8">
   jQuery(function(){
+    $(".sale-category tr:first-child").addClass("active");
     $(".sale-category").on('click', 'tr', function(){
       var url = '/ais/categories/' + $(this).data('category-id') + '/order_items?date=<%= @date.strftime("%Y-%m-%d") %>';
       $(this).addClass("active").siblings('tr').removeClass("active")
