@@ -13,14 +13,20 @@
   <span id="serviceName"><%= item.name('StoreService') %></span>
 </li>
 <li>
-  <label>零售价：</label>
+  <label>零售单价：</label>
   <span id="servicePrice"><%= item.retail_price('StoreService') %></span>
+  <label>正常累计价</label>
+  <span class="color-282726">300</span>
 </li>
 <li>
   <label>次数：</label>
   <input type="text" name="quantity" value="<%= item.quantity('StoreService') %>"> 次
 </li>
 <li>
-  <label>套餐价：</label>
-  <input type="text" name="price" value="<%= item.price('StoreService') %>"> 元
+  <label>套餐总价：</label>
+  <input type="text" name="amount" value="<%= item.packagedItemAmount('StoreService') %>"> 元
+</li>
+<li>
+  <label>套餐单价：</label>
+  <input type="text" name="price" value="<%= item.price('StoreService') %>" readonly> 元
 </li>

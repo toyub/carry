@@ -7,6 +7,7 @@ class Mis.Views.XiaoshouPackageItemsService extends Mis.Base.View
 
   events:
     'change #store_service_id': 'renderDetails'
+    'blur [name="quantity"]': 'setQuantity'
 
   render: ->
     @$el.html(@template(item: @model))
@@ -15,10 +16,20 @@ class Mis.Views.XiaoshouPackageItemsService extends Mis.Base.View
     @
 
   renderDetails: (e) ->
-    service = Mis.services.get($(e.target).val())
-    if service
-      $("#serviceName").text(service.get 'name')
-      $("#servicePrice").text(service.get 'retail_price')
+    package_itemable = Mis.services.get($(e.target).val())
+    if package_itemable
+      @model.set('package_itemable_id', package_itemable.id)
+      @model.set('package_itemable_type', 'StoreService')
+      $("#serviceName").text(package_itemable.get 'name')
+      $("#servicePrice").text(package_itemable.get 'retail_price')
+      @renderAmount()
     else
       $("#serviceName").text("")
       $("#servicePrice").text("")
+
+  setQuantity: (evt)->
+    target = evt.target
+    @model.set('quantity', target.value)
+
+  renderAmount: ->
+    @$el.find('[name="amount"]').val(@model.packagedItemAmount())

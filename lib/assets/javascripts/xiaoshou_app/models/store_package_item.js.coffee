@@ -9,6 +9,7 @@ class Mis.Models.StorePackageItem extends Backbone.Model
 
   defaults:
     package_itemable_type: 'StoreService'
+    quantity: 1
 
   ITEM_TYPE:
     'StoreService': '服务'
@@ -44,7 +45,6 @@ class Mis.Models.StorePackageItem extends Backbone.Model
     itemable ? new Mis.Models.NullObject()
 
   name: (type = '') ->
-    return '' if type != '' && type != @get('package_itemable_type')
     @packageItemable().get 'name'
 
   retail_price: (type = '') ->
@@ -60,7 +60,7 @@ class Mis.Models.StorePackageItem extends Backbone.Model
     @get 'price'
 
   quantity: (type = '') ->
-    return '' if type != '' && type != @get('package_itemable_type')
+    return 1 if type != '' && type != @get('package_itemable_type')
     @get 'quantity'
 
   category: ->
@@ -80,3 +80,13 @@ class Mis.Models.StorePackageItem extends Backbone.Model
 
   isStoreDepositCard: ->
     @get('package_itemable_type') == 'StoreDepositCard'
+
+  packagedItemAmount: (expect_type)->
+    @get('amount') || @regularAmount()
+
+  packagedItemPrice: (expect_type)->
+    parseFloat(@get('amount'))/parseFloat(@get('quantity'))
+
+  discountRate: ->
+    m = (parseFloat(@get('amount'))/parseFloat(@regularAmount()))
+    (m*100).toFixed(2)+'%'
