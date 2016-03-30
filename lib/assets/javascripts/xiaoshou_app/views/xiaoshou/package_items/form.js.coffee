@@ -54,7 +54,7 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
 
   renderItemForm: ->
     switch @model.get('package_itemable_type')
-      when 'StoreMaterial' then @openMaterialItem()
+      when 'StoreMaterialSaleinfo' then @openMaterialItem()
       when 'StoreService' then @openServiceItem()
       when 'StoreDepositCard' then @openDepositItem()
 
