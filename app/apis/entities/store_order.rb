@@ -5,7 +5,7 @@ module Entities
            :discount_reason, :vip_price, :quantity, :package_type, :package_id,
            :assetable_type, :assetable_id, :store_customer_asset_item_id
     expose(:name) {|model|model.orderable.name}
-    expose(:speci) {|model| model.orderable.speci if model.orderable_type == 'StoreMaterial'}
+    expose(:speci) {|model| model.orderable.speci if model.orderable_type == 'StoreMaterialSaleinfo'}
     expose(:price) {|model|model.retail_price}
     expose(:standard_time) {|model|model.orderable.try(:standard_time)}
   end
