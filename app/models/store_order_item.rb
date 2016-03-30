@@ -26,6 +26,7 @@ class StoreOrderItem < ActiveRecord::Base
   scope :except_from_customer_assets, -> { where.not(from_customer_asset: true) }
 
   validates_presence_of :orderable
+  validates :quantity, numericality: { only_integer: true, less_than: 50}
 
   def gross_profit
     self.amount - self.total_cost
