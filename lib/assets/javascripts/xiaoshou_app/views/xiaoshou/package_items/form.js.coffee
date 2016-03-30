@@ -72,13 +72,9 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
 
   openMaterialItem: ->
     view = new Mis.Views.XiaoshouPackageItemsMaterial(model: @model)
-    materials = new Mis.Collections.StoreMaterials()
-    materials.fetch
-      success: =>
-        Mis.materials = materials
-        @renderChildInto(view, @$("#itemsCreateContents"))
-        @currentView.leave() if @currentView
-        @currentView = view
+    @renderChildInto(view, @$("#itemsCreateContents"))
+    @currentView.leave() if @currentView
+    @currentView = view
 
   invalid: (model, errors) ->
     console.log errors
