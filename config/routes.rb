@@ -129,6 +129,7 @@ Rails.application.routes.draw do
       post :construction, on: :collection
       put :finish, on: :member
       put :perform, on: :member
+      put :exchange, on: :member
     end
     resources :store_orders, only: [:show] do
       put :terminate, on: :member

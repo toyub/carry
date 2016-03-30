@@ -92,6 +92,11 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
+  def exchange!(workstation)
+    self.store_workstation.free
+    self.processing? ? execute(workstation) : assign_workstation(workstation)
+  end
+
   def assign_mechanic(engineer)
     self.tasks.create!(
       mechanic_id: engineer.member.id,
