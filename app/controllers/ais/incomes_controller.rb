@@ -20,5 +20,8 @@ class Ais::IncomesController < Ais::BaseController
       @service_categories =  ServiceCategory.all
     end
     @first_category = @service_categories.try(:first) || @material_categories.try(:first)
+    if @first_category.present?
+      @order_items = @first_category.order_items.joins(:store_order).where(store_id: current_store.id).by_month(@date).order("id DESC")
+    end
   end
 end
