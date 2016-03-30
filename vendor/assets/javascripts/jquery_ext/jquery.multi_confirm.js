@@ -65,9 +65,9 @@
              '</div >' +
           '</div>' +
           '<div class="ffooter">' +
-            '<input type="button"  name="reset"  value="取消"  class="cancel_btn">' +
-            '<input type="button"  name="exchange"  value="切换工位"  class="exchange_btn">' +
-            '<input type="button" name="terminate" value="结束流程"  class="terminate_btn">' +
+            '<input type="button"  name="reset"  value="取消"  class="cancel_btn js-cancel">' +
+            '<input type="button"  name="exchange"  value="切换工位"  class="confirm_btn js-exchange">' +
+            '<input type="button" name="terminate" value="结束流程"  class="confirm_btn js-terminate">' +
           '</div>' +
         '</div>' +
       '</div>'
@@ -77,16 +77,16 @@
       settings.cancel(settings.button);
       modal.remove()
     });
-    modal.find(".cancel_btn").click(function(){
+    modal.find(".js-cancel").click(function(){
       settings.cancel(settings.button);
       modal.remove()
     })
-    modal.find(".exchange_btn").click(function () {
+    modal.find(".js-exchange").click(function () {
       settings.exchange(settings.button);
       settings.cancel(settings.button);
       modal.remove()
     });
-    modal.find(".terminate_btn").click(function () {
+    modal.find(".js-terminate").click(function () {
       settings.terminate(settings.button);
       settings.cancel(settings.button);
       modal.remove()
