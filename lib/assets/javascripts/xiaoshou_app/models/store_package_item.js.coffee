@@ -70,7 +70,10 @@ class Mis.Models.StorePackageItem extends Backbone.Model
     @price() * (@get('quantity') ? 1)
 
   regularAmount: ->
-    @retail_price() * (@get('quantity') ? 1)
+    if @get('package_itemable_id')
+      @retail_price(@get('package_itemable_type')) * @get('quantity')
+    else
+      ''
 
   isStoreService: ->
     @get('package_itemable_type') == 'StoreService'
@@ -82,11 +85,14 @@ class Mis.Models.StorePackageItem extends Backbone.Model
     @get('package_itemable_type') == 'StoreDepositCard'
 
   packagedItemAmount: (expect_type)->
-    @get('amount') || @regularAmount()
+    @get('amount')
 
   packagedItemPrice: (expect_type)->
     parseFloat(@get('amount'))/parseFloat(@get('quantity'))
 
   discountRate: ->
-    m = (parseFloat(@get('amount'))/parseFloat(@regularAmount()))
-    (m*100).toFixed(2)+'%'
+    rate = (parseFloat(@get('amount'))/parseFloat(@regularAmount()))
+    if rate
+      (rate*100).toFixed(2)+'%'
+    else
+      ''

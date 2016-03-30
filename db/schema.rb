@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160326081516) do
+ActiveRecord::Schema.define(version: 20160330043541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1262,6 +1262,7 @@ ActiveRecord::Schema.define(version: 20160326081516) do
     t.datetime "updated_at",                                                        null: false
     t.decimal  "denomination",             precision: 12, scale: 2
     t.boolean  "deleted",                                           default: false
+    t.decimal  "amount",                   precision: 14, scale: 2
   end
 
   create_table "store_package_settings", force: :cascade do |t|
@@ -1471,9 +1472,9 @@ ActiveRecord::Schema.define(version: 20160326081516) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
+    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
-    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
@@ -1529,6 +1530,7 @@ ActiveRecord::Schema.define(version: 20160326081516) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
+    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
     t.integer  "used_time",                                   default: 0
     t.json     "mechanics"
@@ -1538,7 +1540,6 @@ ActiveRecord::Schema.define(version: 20160326081516) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
-    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
     t.string   "inspector"
     t.boolean  "deleted",                                     default: false
@@ -1630,20 +1631,20 @@ ActiveRecord::Schema.define(version: 20160326081516) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false

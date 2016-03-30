@@ -15,8 +15,8 @@
 <li>
   <label>零售单价：</label>
   <span id="servicePrice"><%= item.retail_price('StoreService') %></span>
-  <label>正常累计价</label>
-  <span class="color-282726">300</span>
+  <label>零售总价：</label>
+  <span class='js-regular-amount color-282726'><%= item.regularAmount() %></span>
 </li>
 <li>
   <label>次数：</label>
@@ -29,4 +29,5 @@
 <li>
   <label>套餐单价：</label>
   <input type="text" name="price" value="<%= item.price('StoreService') %>" readonly> 元
+  (<span>单品折扣率：</span><span class='js-discount-rate'><%= item.discountRate() %></span>)
 </li>

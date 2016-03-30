@@ -23,10 +23,19 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Mis.Base.View
       @model.set('package_itemable_type', 'StoreMaterial')
       $("#materialName").text(package_itemable.get 'name')
       $("#materialPrice").text(package_itemable.get 'retail_price')
-      @renderAmount()
+      @model.set('amount', @model.regularAmount())
+      @$el.find('[name="amount"]').val(@model.packagedItemAmount())
+      @renderPrice()
     else
-      $("#materialName").text("")
-      $("#materialPrice").text("")
+      @clearResult()
+
+  clearResult: ->
+    $("#materialName").text("")
+    $("#materialPrice").text("")
+    @$el.find('[name="amount"]').val('')
+    @$el.find('[name="price"]').val('')
+    @$el.find('.js-regular-amount').text('')
+    @$el.find('.js-discount-rate').text('')
 
   setQuantity: (evt)->
     target = evt.target
@@ -37,9 +46,6 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Mis.Base.View
     target = evt.target
     @model.set('amount', target.value)
     @renderPrice()
-
-  renderAmount: ->
-    @$el.find('[name="amount"]').val(@model.packagedItemAmount())
 
   renderPrice: ->
     @$el.find('.js-regular-amount').text(@model.regularAmount())

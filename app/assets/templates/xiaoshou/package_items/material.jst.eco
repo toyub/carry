@@ -18,7 +18,7 @@
   <label>零售单价：</label>
   <span id="materialPrice"><%= item.retail_price('StoreMaterial') %></span>
   <label>零售总价：</label>
-  <span class='js-regular-amount color-282726'></span>
+  <span class='js-regular-amount color-282726'><%= item.regularAmount() %></span>
 </li>
 
 <li>
@@ -34,6 +34,5 @@
 <li>
   <label>套餐单价：</label>
   <input name="price" type="text" value="<%= item.price('StoreMaterial') %>" readonly> 元
-  <label>单品折扣率：</label>
-  <span class='js-discount-rate'></span>
+  (<span>单品折扣率：</span><span class='js-discount-rate'><%= item.discountRate() %></span>)
 </li>
