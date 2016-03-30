@@ -19,6 +19,9 @@
   </div>
   <div class="btn_group float-right margin-top-20">
     <a class="cancel_btn btn js-close">取消</a>
-    <%= submit_tag "保存", class: "save_btn btn" %>
+    <% unless order.task_finished? %>
+      <%= button_tag "保存", class: "save_btn btn js-save" %>
+      <%= button_tag "保存并施工", class: "save_btn btn js-execute" %>
+    <% end %>
   </div>
 <% end -%>
