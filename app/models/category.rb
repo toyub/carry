@@ -1,11 +1,11 @@
 class Category < ActiveRecord::Base
 
-  def items_total_quantity(month = Time.now)
-    order_items.joins(:store_order).by_month(month).inject(0) {|sum, item| sum += item.quantity }
+  def items_total_quantity(store, month = Time.now)
+    order_items.joins(:store_order).where(store_id: store.id).by_month(month).map(&:quantity).sum
   end
 
-  def items_total_amount(month = Time.now)
-    order_items.joins(:store_order).by_month(month).inject(0) {|sum, item| sum += item.amount }
+  def items_total_amount(store, month = Time.now)
+    order_items.joins(:store_order).where(store_id: store.id).by_month(month).map(&:amount).sum
   end
 
 end

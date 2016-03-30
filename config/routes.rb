@@ -427,6 +427,7 @@ Rails.application.routes.draw do
 
     namespace :crm do
       resources :customers do
+        get 'check', on: :collection
         resources :vehicles
         resources :assets
       end

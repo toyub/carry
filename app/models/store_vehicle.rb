@@ -26,6 +26,8 @@ class StoreVehicle < ActiveRecord::Base
 
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_vehicle_id
 
+  scope :by_license_number, ->(license_number) { joins(vehicle_plates: [:plate]).where("store_vehicle_registration_plates.license_number" => license_number) }
+
   def license_number
     if current_plate.present?
       current_plate.license_number
