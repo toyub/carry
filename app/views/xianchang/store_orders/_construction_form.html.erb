@@ -1,4 +1,4 @@
-<%= form_tag "/xianchang/store_workstations/construction", remote: true do -%>
+<%= form_tag "/xianchang/store_workstations/construction", data: {order_id: order.id}, id: 'constructionForm', remote: true do -%>
   <h2>编辑施工信息</h2>
   <div class="constrction_info_tab">
     <table cellspacing="0" cellpadding="0">
@@ -21,7 +21,7 @@
     <a class="cancel_btn btn js-close">取消</a>
     <% unless order.task_finished? %>
       <%= button_tag "保存", class: "save_btn btn js-save" %>
-      <%= button_tag "保存并施工", class: "save_btn btn js-execute" %>
+      <%= button_tag "施工", class: "save_btn btn js-execute" %>
     <% end %>
   </div>
 <% end -%>

@@ -131,7 +131,7 @@ Rails.application.routes.draw do
       put :perform, on: :member
       put :exchange, on: :member
     end
-    resources :store_orders, only: [:show] do
+    resources :store_orders, only: [:show, :update] do
       put :terminate, on: :member
       get :check_dispatch, on: :member
       get :check_mechanic, on: :member
