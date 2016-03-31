@@ -17,7 +17,7 @@
     <li class="color-dad8d8">
     <label>
       商品
-      <input type="radio" id="materialItem" name="package_itemable_type" value="StoreMaterial" <%= 'checked' if @item.isStoreMaterial() %>>
+      <input type="radio" id="materialItem" name="package_itemable_type" value="StoreMaterialSaleinfo" <%= 'checked' if @item.isStoreMaterial() %>>
     </label>
     </li>
   </ul>

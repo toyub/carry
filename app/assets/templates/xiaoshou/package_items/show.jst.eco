@@ -16,7 +16,7 @@
     <li class="color-dad8d8">
       <label>
         商品
-        <input type="radio" disabled id="materialItem" name="package_itemable_type" value="StoreMaterial" <%= 'checked' if @item.isStoreMaterial() %>>
+        <input type="radio" disabled id="materialItem" name="package_itemable_type" value="StoreMaterialSaleinfo" <%= 'checked' if @item.isStoreMaterial() %>>
       </label>
     </li>
   </ul>
@@ -56,40 +56,40 @@
         <input type="text" class="width-260" value="<%= @item.name('StoreDepositCard') %>" disabled>
       </li>
       <li>
-        <label>套餐面额：</label>
+        <label>储值面额：</label>
         <input type="text" disabled value="<%= @item.get 'denomination' %>"> 元
       </li>
       <li>
-        <label>套餐价：</label>
+        <label>储值售价：</label>
         <input type="text" disabled value="<%= @item.price('StoreDepositCard') %>"> 元
       </li>
     </ul>
     <ul class="goods_wrap wrap" style="<%= 'display: block;' if @item.isStoreMaterial() %>">
       <li>
         <label>商品名称：</label>
-        <input type="text" class="width-260" disabled value="<%= @item.name('StoreMaterial') %>">
+        <input type="text" class="width-260" disabled value="<%= @item.name('StoreMaterialSaleinfo') %>">
       </li>
       <li>
         <label>名称：</label>
-        <span><%= @item.name('StoreMaterial') %></span>
+        <span><%= @item.name('StoreMaterialSaleinfo') %></span>
       </li>
       <li>
         <label>零售单价：</label>
-        <span><%= @item.retail_price('StoreMaterial') %></span>
+        <span><%= @item.retail_price('StoreMaterialSaleinfo') %></span>
         <label>零售总价：</label>
         <span class='js-regular-amount color-282726'><%= @item.regularAmount() %></span>
       </li>
       <li>
         <label>数量：</label>
-        <input type="text" disabled value="<%= @item.quantity('StoreMaterial') %>"> 件
+        <input type="text" disabled value="<%= @item.quantity('StoreMaterialSaleinfo') %>"> 件
       </li>
       <li>
         <label>套餐总价：</label>
-        <input name="amount" type="text" value="<%= @item.packagedItemAmount('StoreMaterial') %>" disabled> 元
+        <input name="amount" type="text" value="<%= @item.packagedItemAmount('StoreMaterialSaleinfo') %>" disabled> 元
       </li>
       <li>
         <label>套餐价：</label>
-        <input type="text" disabled value="<%= @item.price('StoreMaterial') %>"> 元
+        <input type="text" disabled value="<%= @item.price('StoreMaterialSaleinfo') %>"> 元
         (<span>单品折扣率：</span><span class='js-discount-rate'><%= @item.discountRate() %></span>)
       </li>
     </ul>

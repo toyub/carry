@@ -54,7 +54,7 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
 
   renderItemForm: ->
     switch @model.get('package_itemable_type')
-      when 'StoreMaterial' then @openMaterialItem()
+      when 'StoreMaterialSaleinfo' then @openMaterialItem()
       when 'StoreService' then @openServiceItem()
       when 'StoreDepositCard' then @openDepositItem()
 
@@ -72,13 +72,9 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
 
   openMaterialItem: ->
     view = new Mis.Views.XiaoshouPackageItemsMaterial(model: @model)
-    materials = new Mis.Collections.StoreMaterials()
-    materials.fetch
-      success: =>
-        Mis.materials = materials
-        @renderChildInto(view, @$("#itemsCreateContents"))
-        @currentView.leave() if @currentView
-        @currentView = view
+    @renderChildInto(view, @$("#itemsCreateContents"))
+    @currentView.leave() if @currentView
+    @currentView = view
 
   invalid: (model, errors) ->
     console.log errors

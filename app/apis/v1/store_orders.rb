@@ -29,9 +29,13 @@ module V1
           optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，
                                                       套餐服务情况下： store_package_id,其他情况可不填!'
           optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService
-                                                         套餐服务情况下: StorePackageItem,其他情况可不填!'
+                                                         套餐服务情况下: 同orderable一样,其他情况可不填!'
           optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
-                                                        套餐服务情况下: store_package_item_id,其他情况可不填!'
+                                                        套餐服务情况下: 同orderable一样,其他情况可不填!'
+          optional :package_item_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService,
+                                                            套餐服务情况下: StorePackageItem'
+          optional :package_item_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
+                                                            套餐服务情况下: store_package_item_id'
         end
       end
 
@@ -69,9 +73,13 @@ module V1
             optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，
                                                         套餐服务情况下： store_package_id,其他情况可不填!'
             optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService
-                                                           套餐服务情况下: StorePackageItem,其他情况可不填!'
+                                                           套餐服务情况下: 同orderable一样,其他情况可不填!'
             optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
-                                                          套餐服务情况下: store_package_item_id,其他情况可不填!'
+                                                          套餐服务情况下: 同orderable一样,其他情况可不填!'
+            optional :package_item_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService,
+                                                              套餐服务情况下: StorePackageItem'
+            optional :package_item_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
+                                                              套餐服务情况下: store_package_item_id'
           end
         end
         put  do
@@ -154,7 +162,9 @@ module V1
             :assetable_type,
             :assetable_id,
             :package_id,
-            :package_type
+            :package_type,
+            :package_item_id,
+            :package_item_type
           ]
         )
       end

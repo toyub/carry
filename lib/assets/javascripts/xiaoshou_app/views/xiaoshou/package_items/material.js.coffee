@@ -20,7 +20,7 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Mis.Base.View
     package_itemable = Mis.materials.get($(e.target).val())
     if package_itemable
       @model.set('package_itemable_id', package_itemable.id)
-      @model.set('package_itemable_type', 'StoreMaterial')
+      @model.set('package_itemable_type', 'StoreMaterialSaleinfo')
       $("#materialName").text(package_itemable.get 'name')
       $("#materialPrice").text(package_itemable.get 'retail_price')
       @model.set('amount', @model.regularAmount())
