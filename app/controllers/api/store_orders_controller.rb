@@ -128,7 +128,9 @@ module Api
                                           package_type: info['package_type'],
                                           package_id: info['package_id'],
                                           assetable_type: info['assetable_type'],
-                                          assetable_id: info['assetable_id'])
+                                          assetable_id: info['assetable_id'],
+                                          package_item_id: info['package_item_id'],
+                                          package_item_type: info['package_item_type'])
           end
         else
           []
