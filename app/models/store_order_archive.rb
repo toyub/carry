@@ -66,6 +66,7 @@ class StoreOrderArchive
                                                                  store_chain_id: @order.store_chain_id,
                                                                  store_customer_id: @order.store_customer_id,
                                                                  assetable: package_item.package_itemable,
+                                                                 package_item: package_item,
                                                                  total_quantity: package_item.quantity,
                                                                  workflowable_hash: package_item.package_itemable.to_workflowable_hash
                                                                }
@@ -94,6 +95,7 @@ class StoreOrderArchive
                                                          store_chain_id: @order.store_chain_id,
                                                          store_customer_id: @order.store_customer_id,
                                                          assetable: taozhuang_item,
+                                                         package_item: taozhuang_item,
                                                          total_quantity: taozhuang_item.quantity,
                                                          workflowable_hash: taozhuang_item.as_json
                                                        }
@@ -170,7 +172,7 @@ class StoreOrderArchive
     customer_assets.each do |asset|
       asset.items.each do |item|
         used_items.each do |used_item|
-          if item.assetable == used_item.assetable
+          if item.package_item == used_item.package_item
             item.increment!(:used_quantity, 1)
             item.logs.create! store_id: @order.store_id,
                               store_chain_id: @order.store_chain_id,
