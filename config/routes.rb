@@ -126,7 +126,6 @@ Rails.application.routes.draw do
     resources :field_constructions, only: [:index]
     resources :groups, only: [:index]
     resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
-      post :construction, on: :collection
       member do
         put :finish
         put :perform

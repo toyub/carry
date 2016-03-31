@@ -1,6 +1,6 @@
-<% if @idle_workstation.present? -%>
-  $("#workstation-<%= @idle_workstation.id %> .vehicle_info").remove();
-  $("#workstation-<%= @idle_workstation.id %>").append("<%= j render partial: 'idle_workstation' %>");
+<% if @previous_workstation.present? -%>
+  $("#workstation-<%= @previous_workstation.id %> .vehicle_info").remove();
+  $("#workstation-<%= @previous_workstation.id %>").append("<%= j render partial: 'idle_workstation' %>");
 <% end -%>
 <% unless @store_order.task_finished? -%>
   $("ul.waiting #order-<%= @store_order.id %>").remove();
