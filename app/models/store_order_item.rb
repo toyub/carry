@@ -4,6 +4,7 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :orderable, polymorphic: true
   belongs_to :package, polymorphic: true
   belongs_to :assetable, polymorphic: true
+  belongs_to :package_item, polymorphic: true
   belongs_to :store_order
   belongs_to :store_customer
   belongs_to :store_staff
@@ -26,7 +27,8 @@ class StoreOrderItem < ActiveRecord::Base
   scope :except_from_customer_assets, -> { where.not(from_customer_asset: true) }
 
   validates_presence_of :orderable
-  validates :quantity, numericality: { only_integer: true, less_than: 50}
+  validates :quantity, numericality: { only_integer: true, less_than_or_equal_to: 1000}
+  validates :quantity, numericality: { only_integer: true, less_than_or_equal_to: 50, message: "错误: 套餐或商品组合下单时数量不能多于%{count}，请核对数量后再操作"}, if: :assetable_item?
 
   def gross_profit
     self.amount - self.total_cost
@@ -42,6 +44,12 @@ class StoreOrderItem < ActiveRecord::Base
 
   def mechanics
     ['王晓勇', '李明亮']
+  end
+
+  def assetable_item?
+    return true if self.orderable_type == StorePackage.name
+    return true if self.orderable_type == StoreMaterialSaleinfo.name && self.orderable.service_needed
+    false
   end
 
   def from_customer_asset?

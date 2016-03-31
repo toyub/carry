@@ -56,11 +56,11 @@
         <input type="text" class="width-260" value="<%= @item.name('StoreDepositCard') %>" disabled>
       </li>
       <li>
-        <label>套餐面额：</label>
+        <label>储值面额：</label>
         <input type="text" disabled value="<%= @item.get 'denomination' %>"> 元
       </li>
       <li>
-        <label>套餐价：</label>
+        <label>储值售价：</label>
         <input type="text" disabled value="<%= @item.price('StoreDepositCard') %>"> 元
       </li>
     </ul>
