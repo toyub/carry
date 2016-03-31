@@ -2,7 +2,7 @@ class StorePackageItem < ActiveRecord::Base
   include BaseModel
 
   belongs_to :package_itemable, polymorphic: true
-  belongs_to :store_order_items, as: :package_item
+  has_many :store_order_items, as: :package_item
 
   before_validation :create_deposit_card, if: :without_itemable_id?
 

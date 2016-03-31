@@ -47,7 +47,9 @@ class StoreOrderService
       assetable_type: item[:assetable_type],
       assetable_id: item[:assetable_id],
       package_id: item[:package_id],
-      package_type: item[:package_type]
+      package_type: item[:package_type],
+      package_item_id: item[:package_item_id],
+      package_item_type: item[:package_item_type]
     }
   end
 
