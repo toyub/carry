@@ -3,5 +3,5 @@ class StoreVehicleFrame < ActiveRecord::Base
 
   belongs_to :store_vehicle
 
-  validates :vin, presence: true, uniqueness: { scope: :store_id }
+  validates :vin, uniqueness: { scope: :store_id }, allow_blank: true
 end
