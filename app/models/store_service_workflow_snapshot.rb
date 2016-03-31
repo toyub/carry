@@ -15,12 +15,13 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   validates :store_service_id, presence: true
 
   scope :of_store, -> (store_id) { where(store_id: store_id) }
+  scope :unfinished, -> { where.not(status: StoreServiceWorkflowSnapshot.statuses[:finished]) }
 
   enum status: [:pending, :processing, :finished]
 
   def ready_mechanics(workstation_id)
     workstation = StoreWorkstation.find(workstation_id)
-    workstation.store_group.members.select {|m| m.store_group_member.ready?} if workstation
+    workstation.store_group.members if workstation
   end
 
   def workstations
@@ -29,20 +30,17 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     store.workstations
   end
 
-  def free_workstations
-    self.workstations.idle
-  end
-
-  def screen_workstations
-    self.store_order.task_queuing? ? free_workstations : workstations
-  end
-
   def workstaiton_ids
     self.store_workstation_ids.to_s.split(",").map(&:to_i)
   end
 
   def work_time_in_minutes
     self.standard_time.to_i + self.buffering_time.to_i + self.factor_time.to_i
+  end
+
+  def real_work_time
+    return used_time.to_i if used_time.to_i > 0
+    work_time_in_minutes
   end
 
   def mechanics
@@ -57,9 +55,27 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store.store_staff.mechanics.map(&:store_group_member).any? {|mem| mem.ready? && mem.eligible_for?(self)}
   end
 
-  def executable?
+  def executable?(workstation)
     return false if self.store_vehicle.blank?
-    self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+    self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+  end
+
+  def has_qualified_mechaincs?(workstation)
+    if self.tasks.present?
+      self.mechanics.all? { |m| m.store_group_member.ready? }
+    else
+      workstation.store_group.store_group_members.ready.select do |engineer|
+        engineer.member.level_type_id.to_i >= mechanics_level.to_i
+      end.size >= mechanics_quantity
+    end
+  end
+
+  def mechanics_quantity
+    self.engineer_count_enable ? [self.engineer_count, 1].max : 1
+  end
+
+  def mechanics_level
+    (self.engineer_level if self.engineer_level_enable) || ServiceMechanicLevelType.find_by_name('初级以上(含初级)').id
   end
 
   def execute!(workstation)
@@ -68,14 +84,37 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
+  def exchange!(previous_workstation, workstation)
+    previous_workstation.free
+    self.processing? ? execute(workstation) : assign_workstation(workstation)
+  end
+
+  def assign_mechanic(engineer)
+    self.tasks.create!(
+      mechanic_id: engineer.member.id,
+      store_order_item_id: self.store_order_item_id,
+      store_staff_id: self.store_staff_id,
+      store_id: self.store_id,
+      store_chain_id: self.store_chain_id
+    )
+  end
+
   def execute(workstation)
-    self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
-    workstation.update!(current_workflow: self)
-    workstation.busy!
+    assign_workstation(workstation)
+    self.store_workstation.store_group.store_group_members.ready.select do |engineer|
+      engineer.member.level_type_id >= mechanics_level
+    end.first(mechanics_quantity).each { |engineer| assign_mechanic(engineer) } unless self.tasks.present?
     self.mechanics.map(&:store_group_member).map(&:busy!)
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
+  end
+
+  def assign_workstation(workstation)
+    self.store.workstations.with_workflow(self.id).each(&:free)
+    self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
+    workstation.update!(current_workflow: self)
+    workstation.busy!
   end
 
   def assign_mechanics

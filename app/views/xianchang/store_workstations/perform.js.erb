@@ -1,11 +1,14 @@
-<% if @idle_workstation.present? -%>
-  $("#workstation-<%= @idle_workstation.id %> .vehicle_info").remove();
-  $("#workstation-<%= @idle_workstation.id %>").append("<%= j render partial: 'idle_workstation' %>");
+<% if @previous_workstation.present? -%>
+  $("#workstation-<%= @previous_workstation.id %> .vehicle_info").remove();
+  $("#workstation-<%= @previous_workstation.id %>").append("<%= j render partial: 'idle_workstation' %>");
 <% end -%>
 <% unless @store_order.task_finished? -%>
   $("ul.waiting #order-<%= @store_order.id %>").remove();
   $("#workstation-<%= @workstation.id %> .idle_station").remove();
-  $("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation} %>");
+  $("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation, is_started: @store_order.workflows.processing.present?} %>");
+  <% if @store_order.workflows.processing.blank? %>
+    ZhanchuangAlert('技师不符合条件，流程无法进行，请手动分配技师');
+  <% end %>
 <% else %>
-  $(".js-finished").prepend("<%= j render partial: 'order', locals: {order: @store_order} %>")
+  $(".js-finished").prepend("<%= j render partial: 'order', locals: {order: @store_order} %>");
 <% end -%>

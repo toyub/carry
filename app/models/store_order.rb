@@ -118,7 +118,7 @@ class StoreOrder < ActiveRecord::Base
   def terminate
     ActiveRecord::Base.transaction do
       self.terminate!
-      self.workflows.map(&:terminate!)
+      self.workflows.unfinished.map(&:terminate!)
     end
   end
 
@@ -149,6 +149,7 @@ class StoreOrder < ActiveRecord::Base
       if self.task_finished? || self.task_pending?
         self.task_queuing!
         self.queuing!
+        SpotDispatchJob.perform_now(self.store_id)
       end
     end
   end

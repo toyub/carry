@@ -1,0 +1,5 @@
+<li class="do_coise_close js-mechanic" id="workflow-<%= @workflow.id %>-mechanics-<%= @m.id %>">
+  <span><%= @m.full_name %><i class="coise_close lnr lnr-cross js-mechanic-close"></i></span>
+  <input type="hidden" name="workflow[<%= @workflow.id %>][mechanics][<%= @m.id %>][id]" value="<%= @m.id %>" />
+  <input type="hidden" name="workflow[<%= @workflow.id %>][mechanics][<%= @m.id %>][name]" value="<%= @m.full_name %>" />
+</li>

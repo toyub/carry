@@ -126,14 +126,20 @@ Rails.application.routes.draw do
     resources :field_constructions, only: [:index]
     resources :groups, only: [:index]
     resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
-      post :construction, on: :collection
-      put :finish, on: :member
-      put :perform, on: :member
+      member do
+        put :finish
+        put :perform
+        put :exchange
+        put :start
+      end
     end
-    resources :store_orders, only: [:show] do
-      put :terminate, on: :member
-      get :check_dispatch, on: :member
-      get :check_mechanic, on: :member
+    resources :store_orders, only: [:show, :update] do
+      member do
+        put :terminate
+        get :check_dispatch
+        get :check_mechanic
+        put :execute
+      end
     end
     resources :store_workflows, only: [:edit, :update] do
       get :free_mechanics, on: :member

@@ -5,8 +5,8 @@
   </div>
   <% if workstation.unavailable? %>
     <%= render partial: 'unavailable_workstation' %>
-  <% elsif workstation.working? %>
-    <%= render partial: 'busy_workstation', locals: {workstation: workstation} %>
+  <% elsif workstation.busy? %>
+    <%= render partial: 'busy_workstation', locals: {workstation: workstation, is_started: true} %>
   <% else %>
     <%= render partial: 'idle_workstation' %>
   <% end %>
