@@ -21,21 +21,13 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def ready_mechanics(workstation_id)
     workstation = StoreWorkstation.find(workstation_id)
-    workstation.store_group.members.select {|m| m.store_group_member.ready?} if workstation
+    workstation.store_group.members if workstation
   end
 
   def workstations
     stations = StoreWorkstation.where(id: self.workstaiton_ids)
     return stations if stations.present?
     store.workstations
-  end
-
-  def free_workstations
-    self.workstations.idle
-  end
-
-  def screen_workstations
-    self.store_order.task_queuing? ? free_workstations : workstations
   end
 
   def workstaiton_ids

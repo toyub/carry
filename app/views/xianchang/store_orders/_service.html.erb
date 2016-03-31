@@ -7,7 +7,7 @@
         <li>
           <select class="width-100 js-select-workstations" data-id="<%= workflow.id %>" name="workflow[<%= workflow.id %>][store_workstation_id]" <%= 'disabled' if workflow.finished? %>>
             <option>请选择</option>
-            <% workflow.screen_workstations.each do |w| %>
+            <% workflow.workstations.each do |w| %>
               <option value="<%= w.id %>" <%= 'selected' if w.id == workflow.store_workstation_id %>><%= w.name %></option>
             <% end %>
           </select>
