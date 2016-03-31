@@ -4,6 +4,7 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :orderable, polymorphic: true
   belongs_to :package, polymorphic: true
   belongs_to :assetable, polymorphic: true
+  belongs_to :package_item, polymorphic: true
   belongs_to :store_order
   belongs_to :store_customer
   belongs_to :store_staff

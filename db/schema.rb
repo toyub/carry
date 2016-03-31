@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160326081516) do
+ActiveRecord::Schema.define(version: 20160331032552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1208,6 +1208,8 @@ ActiveRecord::Schema.define(version: 20160326081516) do
     t.string   "assetable_type"
     t.integer  "assetable_id"
     t.boolean  "deleted",                                                           default: false
+    t.string   "package_item_type"
+    t.integer  "package_item_id"
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
@@ -1262,6 +1264,7 @@ ActiveRecord::Schema.define(version: 20160326081516) do
     t.datetime "updated_at",                                                        null: false
     t.decimal  "denomination",             precision: 12, scale: 2
     t.boolean  "deleted",                                           default: false
+    t.decimal  "amount",                   precision: 14, scale: 2
   end
 
   create_table "store_package_settings", force: :cascade do |t|
