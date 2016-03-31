@@ -74,6 +74,7 @@ class StoreOrderArchive
                                                                           store_chain_id: @order.store_chain_id,
                                                                           store_customer_id: @order.store_customer_id,
                                                                           store_vehicle_id: @order.store_vehicle_id,
+                                                                          package_item: order_item.package_item,
                                                                           package: order_item.orderable,
                                                                           package_name: order_item.orderable.name,
                                                                           items_attributes: items_attributes)
@@ -102,6 +103,7 @@ class StoreOrderArchive
                                          store_chain_id: @order.store_chain_id,
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,
+                                         package_item: order_item.package_item,
                                          package: order_item.orderable,
                                          package_name: order_item.orderable.name,
                                          items_attributes: items_attributes)
@@ -169,7 +171,7 @@ class StoreOrderArchive
     customer_assets.each do |asset|
       asset.items.each do |item|
         used_items.each do |used_item|
-          if item.assetable == used_item.assetable
+          if item.package_item == used_item.package_item
             item.increment!(:used_quantity, 1)
             item.logs.create! store_id: @order.store_id,
                               store_chain_id: @order.store_chain_id,
