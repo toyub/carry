@@ -66,6 +66,7 @@ class StoreOrderArchive
                                                                  store_chain_id: @order.store_chain_id,
                                                                  store_customer_id: @order.store_customer_id,
                                                                  assetable: package_item.package_itemable,
+                                                                 package_item: package_item.package_item,
                                                                  total_quantity: package_item.quantity,
                                                                  workflowable_hash: package_item.package_itemable.to_workflowable_hash
                                                                }
@@ -74,7 +75,6 @@ class StoreOrderArchive
                                                                           store_chain_id: @order.store_chain_id,
                                                                           store_customer_id: @order.store_customer_id,
                                                                           store_vehicle_id: @order.store_vehicle_id,
-                                                                          package_item: order_item.package_item,
                                                                           package: order_item.orderable,
                                                                           package_name: order_item.orderable.name,
                                                                           items_attributes: items_attributes)
@@ -95,6 +95,7 @@ class StoreOrderArchive
                                                          store_chain_id: @order.store_chain_id,
                                                          store_customer_id: @order.store_customer_id,
                                                          assetable: taozhuang_item,
+                                                         package_item: taozhuang_item.package_item,
                                                          total_quantity: taozhuang_item.quantity,
                                                          workflowable_hash: taozhuang_item.as_json
                                                        }
@@ -103,7 +104,6 @@ class StoreOrderArchive
                                          store_chain_id: @order.store_chain_id,
                                          store_customer_id: @order.store_customer_id,
                                          store_vehicle_id: @order.store_vehicle_id,
-                                         package_item: order_item.package_item,
                                          package: order_item.orderable,
                                          package_name: order_item.orderable.name,
                                          items_attributes: items_attributes)
