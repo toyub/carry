@@ -45,7 +45,8 @@ module Api
             :price,
             :denomination,
             :package_itemable_id,
-            :package_itemable_type
+            :package_itemable_type,
+            :amount
           ]
         )
       end

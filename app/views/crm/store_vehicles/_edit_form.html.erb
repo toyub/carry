@@ -35,11 +35,23 @@
   </div>
   <div class="item_content">
     <label class='width-75'>VIN号码</label>
-    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vin %>' >
+    <% if @vehicle.vin.present? %>
+      <input type='text' class='width-165' disabled='true' value='<%= @vehicle.vin %>' >
+    <% else %>
+      <%= f.fields_for :frame, @vehicle.build_frame do |ff| %>
+        <%= ff.text_field :vin, class: 'width-165', autoComplete: 'off' %>
+      <% end %>
+    <% end %>
   </div>
   <div class="item_content">
     <label class='width-75'>发动机号码</label>
-    <input type='text' class='width-165' disabled='true' value='<%= @vehicle.current_identification_number %>' >
+    <% if @vehicle.identification_number.present? %>
+      <input type='text' class='width-165' disabled='true' value='<%= @vehicle.current_identification_number %>' >
+    <% else %>
+      <%= f.fields_for :engines, @vehicle.engines.build do |ff| %>
+        <%= ff.text_field :identification_number, class: 'width-165', autoComplete: 'off' %>
+      <% end %>
+    <% end %>
   </div>
   <%= f.fields_for :detail do |ff| %>
     <div class="item_content">
@@ -48,7 +60,7 @@
     </div>
     <div class="item_content">
       <%= ff.label '座位数', class: 'width-75' %>
-      <%= ff.text_field :capacity, class: 'width-165', value: @vehicle.detail_by('capacity'), readonly: true %>
+      <%= ff.text_field :capacity, class: 'width-165', value: @vehicle.detail_by('capacity'), readonly: @vehicle.detail_by('capacity').present? %>
     </div>
     <div class="item_content">
       <%= ff.label '档案编号', class: 'width-75' %>

@@ -429,6 +429,10 @@ Rails.application.routes.draw do
         resources :discount_authorities
         resources :waste_order_authorities
       end
+
+      namespace :cashier do
+        resources :orders
+      end
     end
 
     namespace :crm do

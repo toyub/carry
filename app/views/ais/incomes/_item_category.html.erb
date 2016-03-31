@@ -11,15 +11,15 @@
     <% @service_categories.try(:each) do |category| %>
       <tr data-category-id='<%= category.id %>'>
         <td><%= category.name %></td>
-        <td><%= category.items_total_quantity(@date) %></td>
-        <td><%= category.items_total_amount(@date) %> </td>
+        <td><%= category.items_total_quantity(current_store, @date) %></td>
+        <td><%= category.items_total_amount(current_store, @date) %> </td>
       </tr>
     <% end %>
     <% @material_categories.try(:each) do |category| %>
       <tr data-category-id='<%= category.id %>'>
         <td><%= category.name %></td>
-        <td><%= category.items_total_quantity(@date) %></td>
-        <td><%= category.items_total_amount(@date) %> </td>
+        <td><%= category.items_total_quantity(current_store, @date) %></td>
+        <td><%= category.items_total_amount(current_store, @date) %> </td>
       </tr>
     <% end %>
   </tbody>
