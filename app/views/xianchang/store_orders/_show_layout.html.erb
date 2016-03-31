@@ -11,7 +11,7 @@
             <%= render partial: 'vehicle', locals: {order: order} %>
             <div class="vehicle_order_title title doslide">详细信息
               <i class="fa fa-angle-double-down"></i>
-              <a href="/xiaoshou/main#store_customers/<%= order.store_customer.store_customer_entity.id %>/edit" target="_blank">完善客户信息</a>
+              <a href="/xiaoshou/main#store_customers/<%= order.store_customer.try(:store_customer_entity_id) %>/edit" target="_blank">完善客户信息</a>
             </div>
             <div class="vehicle_details_info" style="display: none;">
               <%= render partial: 'vehicle_detail', locals: {order: order} %>
@@ -21,7 +21,9 @@
             <span class="vehicle_order_title title doslide">
               车辆状态
               <i class="fa cursor-pointer fa-angle-double-down"></i>
-              <%= link_to "完善车辆信息", edit_crm_store_customer_store_vehicle_path(order.store_customer, order.store_vehicle), target: '_blank' %>
+              <% if order.store_customer.present? %>
+                <%= link_to "完善车辆信息", edit_crm_store_customer_store_vehicle_path(order.store_customer, order.store_vehicle), target: '_blank' %>
+              <% end %>
             </span>
             <div class="vehicle_condition_info" style="display: none;">
               <%= render partial: 'condition', locals: {order: order} %>

@@ -127,9 +127,12 @@ Rails.application.routes.draw do
     resources :groups, only: [:index]
     resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
       post :construction, on: :collection
-      put :finish, on: :member
-      put :perform, on: :member
-      put :exchange, on: :member
+      member do
+        put :finish
+        put :perform
+        put :exchange
+        put :start
+      end
     end
     resources :store_orders, only: [:show, :update] do
       member do

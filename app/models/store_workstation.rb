@@ -64,4 +64,8 @@ class StoreWorkstation < ActiveRecord::Base
       w.executable?(self) ? w.execute(self) : w.assign_workstation(self)
     end
   end
+
+  def start!(workflow)
+    workflow.execute(self) if workflow.executable?(self) 
+  end
 end

@@ -1,6 +1,6 @@
 module Xianchang
   class StoreWorkstationsController < BaseController
-    before_action :set_workstation, only: [:edit, :update, :finish, :perform, :exchange]
+    before_action :set_workstation, only: [:edit, :update, :finish, :perform, :exchange, :start]
     before_action :set_groups, only: [:new, :edit]
 
     def index
@@ -55,6 +55,12 @@ module Xianchang
       @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
       @previous_workstation = current_store.workstations.find(params[:previous_workstation])
       @workflow.exchange!(@previous_workstation, @workstation)
+    end
+
+    def start
+      @store_order = current_store.store_orders.find(params[:order_id])
+      @workflow = @store_order.workflows.pending.first
+      @workstation.start!(@workflow)
     end
 
     private

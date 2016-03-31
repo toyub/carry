@@ -47,7 +47,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def real_work_time
-    return used_time if used_time > 0
+    return used_time.to_i if used_time.to_i > 0
     work_time_in_minutes
   end
 
