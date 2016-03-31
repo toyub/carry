@@ -7,6 +7,6 @@ class StoreVehicleEngine < ActiveRecord::Base
   has_many :vehicle_engines
   has_many :store_vehicles, through: :vehicle_engines
 
-  validates :identification_number, presence: true, uniqueness: { scope: :store_id }
+  validates :identification_number, uniqueness: { scope: :store_id }, allow_blank: true
 
 end
