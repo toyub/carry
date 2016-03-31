@@ -135,6 +135,7 @@ class StoreOrderArchive
   end
 
   def pay_finish
+    @order.paid_at = Time.now
     if @order.payments.any?(&->(pi){pi.hanging?})
       @order.hanging!
       @customer.store_customer_entity.store_customer_settlement.increase_credit_bill_amount!(@order.amount)
