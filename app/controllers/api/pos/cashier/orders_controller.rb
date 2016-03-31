@@ -4,7 +4,7 @@ module Api
       class OrdersController < Api::BaseController
         def index
           unpaid_orders = current_store.store_orders.available.unpaid
-          today_paid_orders = current_store.store_orders.available.today.paid
+          today_paid_orders = current_store.store_orders.available.paid_on(Time.now)
           @orders = unpaid_orders + today_paid_orders
         end
 

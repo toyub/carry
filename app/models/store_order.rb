@@ -26,6 +26,7 @@ class StoreOrder < ActiveRecord::Base
 
   scope :unpaid, ->{where(pay_status: StoreOrder.pay_statuses[:pay_queuing])}
   scope :paid, ->{where(pay_status: [ StoreOrder.pay_statuses[:pay_hanging], StoreOrder.pay_statuses[:pay_finished] ])}
+  scope :paid_on, ->(date){where(paid_at: date.beginning_of_day..date.end_of_day)}
 
   scope :available, -> {where(deleted: false)}
 
