@@ -52,7 +52,7 @@
             <dl>
               <dd>
                 <label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E
-                <input type="range" value="<%= @store_order.situation['fuel_gauge'] %>" disabled style="margin-left: -37pt;">
+                <input type="range" value="<%= @store_order.situation['fuel_gauge'].to_i %>" disabled style="margin-left: -37pt;">
                 <%= @store_order.situation['fuel_gauge'] %>%
               </dd>
             </dl>
