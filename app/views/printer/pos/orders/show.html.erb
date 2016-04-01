@@ -19,11 +19,11 @@
         </div>
         <div class="item_content" >
           <label>车辆品牌</label>
-          <span><%= @store_order.store_vehicle.vehicle_brand.try :name %></span>
+          <span><%= @store_order.store_vehicle.brand_name %></span>
         </div>
         <div class="item_content">
           <label>车系</label>
-          <span><%= @store_order.store_vehicle.vehicle_series.try :name %></span>
+          <span><%= @store_order.store_vehicle.series_name %></span>
         </div>
         <div class="item_content">
           <label>车型</label>
@@ -51,8 +51,9 @@
           <div class="status">
             <dl>
               <dd>
-                <label>油表油量</label>F<span class="oil"></span><span class="oil"></span>E
-                <input type="range" value="<%= @store_order.situation['fuel_gauge'] %>" disabled style="width: 35.76mm;"> <%= @store_order.situation['fuel_gauge'] %>%
+                <label>油表油量</label>E<span class="oil"></span><span class="oil"></span>F
+                <input type="range" value="<%= @store_order.situation['fuel_gauge'].to_i %>" disabled style="margin-left: -37pt;">
+                <%= @store_order.situation['fuel_gauge'] %>%
               </dd>
             </dl>
             <dl><dd><label>行驶公里</label><span class="mileage"><%= @store_order.situation['mileage'] %></span></dd></dl>
@@ -90,7 +91,7 @@
         <div class="vehicle_check_info">
           <label>车况检查记录</label>
           <ul>
-            <% (@store_order.situation['damages'] || []).each_with_index do |damage, idx| %>
+            <% @store_order.situation['damages'].to_a.each_with_index do |damage, idx| %>
             <li><%= idx + 1 %>:<span><%= damage['content'] %></span></li>
             <% end %>
           </ul>
