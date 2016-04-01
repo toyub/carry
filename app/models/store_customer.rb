@@ -28,13 +28,12 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :trackings, class_name: 'StoreTracking', as: :trackable
 
-  scope :female, -> { where(gender: false) }
+  scope :female, -> { where("gender is null or gender = ?", false) }
   scope :male, -> { where(gender: true) }
   scope :membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: true})}
   scope :non_membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: false})}
-  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'company'})}
-  scope :personal_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'personal'})}
-
+  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 1})}
+  scope :personal_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 0})}
 
   validates :first_name, presence: true
   validates :last_name, presence: true
