@@ -97,6 +97,22 @@ class Store <  ActiveRecord::Base
     return if "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}" == "~"
     "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}"
   end
+  
+  def material_sales_volume(month)
+    store_order_items.by_month(month).materials.map(&:amount).sum.to_f
+  end
+
+  def service_sales_volume(month)
+    store_order_items.by_month(month).where(orderable_type: StoreService.name).map(&:amount).sum.to_f
+  end
+
+  def package_sales_volume(month)
+    store_order_items.by_month(month).packages.map(&:amount).sum.to_f
+  end
+
+  def sales_volume(month = Time.now)
+    material_sales_volume(month) + service_sales_volume(month) + package_sales_volume(month)
+  end
 
   def last_year_sales
     last_year = Date.today.year - 1
