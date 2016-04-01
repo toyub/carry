@@ -39,7 +39,7 @@ class StoreService < ActiveRecord::Base
   }
 
   def create_service_reminds
-    StoreServiceRemind::TIMING.keys.each do |t|
+    StoreServiceRemind.trigger_timings.keys.each do |t|
       self.reminds.create(store_id: self.store_id, store_staff_id: self.store_staff_id, trigger_timing: t, enable: false)
     end
   end
