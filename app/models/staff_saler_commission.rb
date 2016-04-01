@@ -31,7 +31,7 @@ class StaffSalerCommission
   end
 
   def commission_amount
-    @staff.commission? ? @staff.store_order_items.by_month(@month).map(&:commission).sum : 0.0
+    @staff.commission? ? @staff.store_order_items.where(from_customer_asset: false).by_month(@month).map(&:commission).sum : 0.0
   end
 
 end
