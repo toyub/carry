@@ -1,5 +1,5 @@
 class Sas::SellsController < Sas::BaseController
-  before_action :search_params, only: :report
+  before_action :set_search_params, :search_params, only: :report
 
   def index
     @material_amount = current_store.store_material_saleinfos.amount_by_month
@@ -16,18 +16,19 @@ class Sas::SellsController < Sas::BaseController
 
   private
   def search_params
-    @date = Date.today
-    if params["date(1i)"] && params["date(2i)"]
-      @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
-    end
-    case params[:type]
-    when 'materials' 
-      @order_items = current_store.store_order_items.by_month(@date).by_type("StoreMaterialSaleinfo")
-    when 'services'
-      @order_items = current_store.store_order_items.by_month(@date).by_type("StoreService")
-    else
-      @order_items = current_store.store_order_items.by_month(@date)
-    end
+    @order_items = current_store.store_order_items.ransack(params[:q]).result
+    get_search_params
+  end
+
+  def set_search_params
+    params[:q] ||= {}
+    params[:q][:created_at_lteq].to_date.end_of_day if params[:q][:created_at_lteq].present?
+  end
+
+  def get_search_params
+    @orderable_type = params[:q][:orderable_type_eq]
+    @beginning = params[:q][:created_at_gteq]
+    @end = params[:q][:created_at_lteq]
   end
 
 end
