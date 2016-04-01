@@ -317,7 +317,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def sales_quantity(month = Time.now)
-    store_order_items.by_month(month).sum(:quantity)
+    store_orders.by_month(month).size
   end
 
   def photo
