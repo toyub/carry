@@ -98,15 +98,15 @@ class Store <  ActiveRecord::Base
     "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}"
   end
   
-  def material_sales_volume(month)
+  def material_sales_volume(month = Time.now)
     store_order_items.by_month(month).materials.map(&:amount).sum.to_f
   end
 
-  def service_sales_volume(month)
+  def service_sales_volume(month = Time.now)
     store_order_items.by_month(month).where(orderable_type: StoreService.name).map(&:amount).sum.to_f
   end
 
-  def package_sales_volume(month)
+  def package_sales_volume(month = Time.now)
     store_order_items.by_month(month).packages.map(&:amount).sum.to_f
   end
 
