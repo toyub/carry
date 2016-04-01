@@ -60,7 +60,7 @@
     </div>
     <div class="item_content">
       <%= ff.label '座位数', class: 'width-75' %>
-      <%= ff.text_field :capacity, class: 'width-165', value: @vehicle.capacity, readonly: @vehicle.capacity.present? %>
+      <%= ff.text_field :capacity, class: 'width-165', value: @vehicle.capacity, readonly: @vehicle.capacity.present?, required: true %>
     </div>
     <div class="item_content">
       <%= ff.label '档案编号', class: 'width-75' %>
@@ -68,11 +68,11 @@
     </div>
     <div class="item_content">
       <%= ff.label '车辆性质', class: 'width-75' %>
-      <%= ff.select :organization_type, options_for_select(StoreVehicle::ORGANIZATION_TYPE.invert, @vehicle.detail['organization_type']), {}, {class: 'width-165'} %>
+      <%= ff.select :organization_type, options_for_select(StoreVehicle::ORGANIZATION_TYPE.invert, @vehicle.detail['organization_type']), {}, {class: 'width-165', required: true} %>
     </div>
     <div class="item_content">
       <%= ff.label '上牌日期', class: 'width-75' %>
-      <%= ff.date_field :registered_on, class: 'width-165', value: @vehicle.registered_on, readonly: @vehicle.registered_on.present? %>
+      <%= ff.date_field :registered_on, class: 'width-165', value: @vehicle.registered_on, readonly: @vehicle.registered_on.present?, required: true %>
     </div>
     <div class="item_content">
       <%= ff.label '公里数', class: 'width-75' %>
