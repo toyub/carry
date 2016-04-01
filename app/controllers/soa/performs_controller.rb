@@ -17,13 +17,12 @@ class Soa::PerformsController < Soa::BaseController
       @commission_items = @commission_items.by_type(params[:category]) if params[:category].present? && params[:category] != 'all'
     else
       if @staff.commission?
-        @order_items = (@staff.store_order_items.where.not(orderable_type: StoreMaterialSaleinfoService.name).joins(:store_order).by_month(@date) unless params[:category] == 'constructed') || []
+        @order_items = (@staff.store_order_items.joins(:store_order).where(from_customer_asset: false).by_month(@date).order("id desc") unless params[:category] == 'constructed') || []
         if @staff.mechanic? && params[:category] != 'sale'
           items = current_store.store_order_items.joins(:store_staff_tasks).where(store_staff_tasks: {mechanic_id: @staff.id}).by_month(@date)
           @order_items += items if items.present?
           @order_items.uniq!
         end
-        @orders_count = @order_items.size
       end
     end
   end

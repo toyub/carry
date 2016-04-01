@@ -233,12 +233,12 @@ class StoreStaff <  ActiveRecord::Base
     !erp_login_enabled
   end
 
-  def job_has_commission?(job_type)
-    [JobType::TYPES_ID['销售'], JobType::TYPES_ID['技师']].include? job_type
+  def job_has_commission?
+    [JobType::TYPES_ID['销售'], JobType::TYPES_ID['技师']].include? self.job_type_id
   end
 
   def commission?
-    regular && deduct_enabled && job_has_commission?(job_type_id)
+    regular && deduct_enabled && job_has_commission?
   end
 
   def materials_amount_total(month = Time.now)
