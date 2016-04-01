@@ -58,6 +58,10 @@ class Kucun::SaleinfosController < Kucun::BaseController
   end
 
   def show
+    if @saleinfo.new_record?
+      render :edit
+      return
+    end
   end
 
   private
