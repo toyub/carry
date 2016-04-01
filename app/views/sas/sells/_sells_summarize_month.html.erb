@@ -9,8 +9,8 @@
       <li><%= @material_amount %></li>
       <li>本月</li>
       <li class="position-relative">
-        <span><%= @material_growth_rate %></span>
-        <i class="fa fa-long-arrow-up"></i>
+        <span><%= number_to_percentage((@material_growth_rate.abs * 100), precision: 1) %></span>
+        <i class="<%= @material_growth_rate >= 0 ? "fa fa-long-arrow-up" : "fa fa-long-arrow-down" %>"></i>
       </li>
     </ul>
   </div>
@@ -26,8 +26,8 @@
       <li><%= @service_amount %></li>
       <li>本月</li>
       <li class="position-relative">
-        <span><%= @service_growth_rate %></span>
-        <i class="fa fa-long-arrow-up"></i>
+        <span><%= number_to_percentage((@service_growth_rate.abs * 100), precision: 1) %></span>
+        <i class="<%= @service_growth_rate >= 0 ? "fa fa-long-arrow-up" : "fa fa-long-arrow-down" %>"></i>
       </li>
     </ul>
   </div>
@@ -43,8 +43,8 @@
       <li><%= @package_amount %></li>
       <li>本月</li>
       <li class="position-relative">
-        <span><%= @package_growth_rate %></span>
-        <i class="fa fa-long-arrow-up"></i>
+        <span><%= number_to_percentage((@package_growth_rate.abs * 100), precision: 1) %></span>
+        <i class="<%= @package_growth_rate >= 0 ? "fa fa-long-arrow-up" : "fa fa-long-arrow-down" %>"></i>
       </li>
     </ul>
   </div>
