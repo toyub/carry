@@ -28,6 +28,10 @@ class StoreVehicle < ActiveRecord::Base
 
   scope :by_license_number, ->(license_number) { joins(vehicle_plates: [:plate]).where("store_vehicle_registration_plates.license_number" => license_number) }
 
+  accepts_nested_attributes_for :frame
+  accepts_nested_attributes_for :plates
+  accepts_nested_attributes_for :engines
+
   def license_number
     if current_plate.present?
       current_plate.license_number
@@ -60,14 +64,11 @@ class StoreVehicle < ActiveRecord::Base
     self.store_staff.full_name
   end
 
-  accepts_nested_attributes_for :frame
-  accepts_nested_attributes_for :plates
-  accepts_nested_attributes_for :engines
 
   ORGANIZATION_TYPE = {
     0 => '私家车',
     1 => '公务车',
-    2 => '商务车'
+    2 => '其他'
   }
 
   def organization_type_name
@@ -96,6 +97,10 @@ class StoreVehicle < ActiveRecord::Base
 
   def detail_by(name)
     self.detail && self.detail[name]
+  end
+
+  def numero
+    detail_by('numero')
   end
 
   def organization_type
