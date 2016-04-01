@@ -117,7 +117,11 @@
 
         </div>
         <div class="btn_group">
-          <a href='<%= kucun_material_saleinfo_path(@store_material) %>' class="btn cancel_btn">取消</a>
+          <% if @saleinfo.new_record? %>
+            <a href='<%= edit_kucun_material_path(@store_material) %>' class="btn cancel_btn">返回上一步</a>
+          <% else %>
+            <a href='<%= kucun_material_saleinfo_path(@store_material) %>' class="btn cancel_btn">取消</a>
+          <% end %>
           <input type="submit" class="save_btn btn" value="保存">
         </div>
 

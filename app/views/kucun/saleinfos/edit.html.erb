@@ -4,6 +4,9 @@
 </div>
 <div class="details">
   <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
+  <% if @saleinfo.new_record? %>
+    <p class="color-FF2929 border-all text-align-center line-height-25 font-18">请完善商品销售设置，否则商品将无法下单。</p>
+  <% end %>
   <div class="details_content">
     <div class="base_info"><%= render 'form' %></div>
   </div>

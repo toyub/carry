@@ -51,6 +51,10 @@ class Kucun::MaterialsController < Kucun::BaseController
   end
 
   def show
+    if @store_material.permitted_to_saleable && @store_material.store_material_saleinfo.blank?
+      redirect_to edit_kucun_material_saleinfo_path(material_id: @store_material.id)
+      return
+    end
   end
 
   def autocomplete_name
