@@ -1,4 +1,4 @@
-json.(@package, :id, :name, :code, :abstract, :remark)
+json.(@package, :id, :name, :code, :abstract, :remark, :sold_count)
 json.uploads @package.uploads, :file_url
 json.package_setting do
   json.id @package.package_setting.id

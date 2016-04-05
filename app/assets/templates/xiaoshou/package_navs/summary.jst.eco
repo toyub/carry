@@ -26,6 +26,6 @@
         <% end %>
       </label>
   </td>
-  <td>已销售<label></label></td>
+  <td>已销售<label><%= @package.get 'sold_count' %></label></td>
   <td></td>
 </tr>
