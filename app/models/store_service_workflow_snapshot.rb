@@ -144,6 +144,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     ((Time.now - self.started_time)/60).ceil
   end
 
+  def ended_at
+    self.count_down.minutes.from_now.strftime("%Y/%m/%d %H:%M:%S")
+  end
+
   def actual_time_in_minutes
     elapsed_time
   end
