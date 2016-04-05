@@ -97,8 +97,8 @@
 
 <script type="text/javascript" charset="utf-8">
 $(function(){
-  $("#work_station .times").each(function(){
-    var $this = $(this), finalDate = $(this).data('countdown');
+  window.Countdown = function(object){
+    var $this = $(object), finalDate = $(object).data('countdown');
     var updateCallback = function(event) {
       var totalMins = event.offset.totalDays * 24 * 60 + event.offset.hours * 60 + event.offset.minutes;
       $this.html(event.strftime(totalMins + ':%S'));
@@ -115,6 +115,11 @@ $(function(){
     $this.countdown(finalDate)
       .on('update.countdown', updateCallback)
       .on('finish.countdown', finishCallback);
+
+  };
+
+  $("#work_station .times").each(function(){
+    Countdown(this);
   })
 })
 </script>
