@@ -22,6 +22,26 @@
             <% end %>
           </div>
           <div class="vehicle_order_details">
+            <div class="vehicle_info">
+              <dl>
+                <dd>
+                  <label for="license_number" class="width-50" >车牌号</label>
+                  <input type="text" name="license_number" class="width-110 js-license-number" value=''>
+                </dd>
+                <dd>
+                  <label class="width-50">手机号</label>
+                  <input type="text" name="phone_number" class="width-110 js-phone-number" value=''>
+                </dd>
+                <dd>
+                  <label class="width-50" >客户姓名</label>
+                  <input type="text" name="customer_name" class="width-110" readonly value=''>
+                </dd>
+              </dl>
+              <dl>
+                <dd><%= link_to "添加车辆", 'javascript:void(0)', class: "add_new_vehicle trigger-vehicle-form", style: "display: none" %></dd>
+                <dd><%= link_to "添加客户", 'javascript:void(0)', class: "add_new_customer trigger-vehicle-form", style: "display: none" %></dd>
+              </dl>
+            </div>
             <%= render partial: 'vehicle' %>
             <%= render partial: 'vehicle_condition' %>
             <%= render partial: 'items' %>
@@ -47,8 +67,11 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-    $(".vehicle_info .license-number").autocomplete({
+    $(".vehicle_info .js-license-number").autocomplete({
       source: <%= @license_numbers.to_json.html_safe %>,
+      change: function(){
+        $(this).trigger('change');
+      }
     });
     var x = new Mis.Views.PosOrderIndexView();
   })
