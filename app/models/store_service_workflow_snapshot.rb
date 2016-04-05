@@ -71,7 +71,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics_quantity
-    self.engineer_count_enable ? [self.engineer_count, 1].max : 1
+    self.engineer_count_enable ? [self.engineer_count.to_i, 1].max : 1
   end
 
   def mechanics_level
@@ -184,6 +184,9 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def big_brothers
+    p self
+    puts "\n"*10
+
     store_service.workflow_snapshots.order("id asc").to_a.select do |w|
       w.id < self.id
     end
