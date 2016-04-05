@@ -102,7 +102,7 @@ $(function(){
     var updateCallback = function(event) {
       var totalMins = event.offset.totalDays * 24 * 60 + event.offset.hours * 60 + event.offset.minutes;
       $this.html(event.strftime(totalMins + ':%S'));
-      if(totalMins < 2)
+      if(totalMins < <%= Setting.countdown_warnning_interval rescue 2 %>)
         $this.addClass("warnning");
     };
     var finishCallback = function(event) {
