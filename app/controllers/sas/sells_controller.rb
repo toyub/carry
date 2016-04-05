@@ -22,6 +22,7 @@ class Sas::SellsController < Sas::BaseController
 
   def set_search_params
     params[:q] ||= {}
+    set_default_search_params
     params[:q][:created_at_lteq].to_date.end_of_day if params[:q][:created_at_lteq].present?
   end
 
@@ -29,6 +30,18 @@ class Sas::SellsController < Sas::BaseController
     @orderable_type = params[:q][:orderable_type_eq]
     @beginning = params[:q][:created_at_gteq]
     @end = params[:q][:created_at_lteq]
+  end
+
+  def set_default_search_params
+    day = DateTime.now
+    if params[:q][:created_at_gteq].blank? && params[:q][:created_at_gteq].blank?
+      params[:q][:created_at_gteq] = day.at_beginning_of_month
+      params[:q][:created_at_lteq] = day.at_end_of_month
+    elsif params[:q][:created_at_gteq].blank?
+      params[:q][:created_at_gteq] = day.at_beginning_of_month
+    else
+      params[:q][:created_at_lteq] = day.at_end_of_month
+    end
   end
 
 end
