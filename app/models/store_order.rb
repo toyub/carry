@@ -119,6 +119,7 @@ class StoreOrder < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       self.terminate!
       self.workflows.unfinished.map(&:terminate!)
+      self.workflows.last.send_sms
     end
   end
 

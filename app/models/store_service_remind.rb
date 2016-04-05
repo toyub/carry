@@ -14,4 +14,12 @@ class StoreServiceRemind < ActiveRecord::Base
     I18n.t "enums.store_service_remind.trigger_timing.#{self.trigger_timing}"
   end
 
+  def sms_enabled?
+    self.enable? && self.sms?
+  end
+
+  def message
+    content
+  end
+
 end
