@@ -21,6 +21,14 @@ zh-CN:
         task_checking: 检查中
         task_checked: 验收通过
         task_finished: 完工
+    store_service_remind:
+      mode:
+        sms: 短信
+        wechat: 微信
+      trigger_timing:
+        ordered: 开单后
+        started: 技师上岗后
+        finished: 施工结束后
     store_customer_entity:
       property:
         company: 集团客户

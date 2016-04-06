@@ -8,6 +8,8 @@
   $("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation, is_started: @store_order.workflows.processing.present?} %>");
   <% if @store_order.workflows.processing.blank? %>
     ZhanchuangAlert('技师不符合条件，流程无法进行，请手动分配技师');
+  <% else %>
+    Countdown($("#workstation-<%= @workstation.id %> .vehicle_info span.times"));
   <% end %>
 <% else %>
   $(".js-finished").prepend("<%= j render partial: 'order', locals: {order: @store_order} %>");

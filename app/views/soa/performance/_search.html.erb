@@ -13,6 +13,7 @@
   <div class="department nav_item">
     <span>部门</span>
     <select name="store_department_id" class="width-100">
+      <option value="">全部</option>
       <%= options_from_collection_for_select(@departments, 'id', 'name', params[:store_department_id]) %>
     </select>
   </div>
@@ -21,6 +22,7 @@
   <div class="position nav_item">
     <span>职务</span>
     <select name="store_position_id" class="width-100">
+      <option value="">全部</option>
       <%= options_from_collection_for_select(@positions, 'id', 'name', params[:store_position_id]) %>
     </select>
   </div>

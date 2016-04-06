@@ -125,11 +125,24 @@ class StoreStaff <  ActiveRecord::Base
   def has_regularized?
     store_protocols.where(type: "StoreZhuanZheng").present?
   end
+  
+  def regular_protocal
+    store_protocols.where(type: "StoreZhuanZheng").last
+  end
 
   def could_regular?
     return true if trial_period.blank?
-    protocol = store_protocols.where(type: "StoreZhuanZheng").last
+    protocol = regular_protocal
     protocol.present? ? Time.now > protocol.effected_on : Time.now > trial_period.month.since(employed_date)
+  end
+
+  def current_month_regulared?
+    protocol = regular_protocal
+    if protocol.present? && (protocol.effected_on.strftime("%Y%m") == Time.now.strftime("%Y%m"))
+      return true
+    else
+      return false
+    end
   end
 
   def working_age
@@ -233,12 +246,12 @@ class StoreStaff <  ActiveRecord::Base
     !erp_login_enabled
   end
 
-  def job_has_commission?(job_type)
-    [JobType::TYPES_ID['销售'], JobType::TYPES_ID['技师']].include? job_type
+  def job_has_commission?
+    [JobType::TYPES_ID['销售'], JobType::TYPES_ID['技师']].include? self.job_type_id
   end
 
   def commission?
-    regular && deduct_enabled && job_has_commission?(job_type_id)
+    regular && deduct_enabled && job_has_commission?
   end
 
   def materials_amount_total(month = Time.now)
@@ -285,7 +298,15 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def has_commission?(month = Time.now)
-    store_order_items.by_month(month).any? { |item| item.orderable.saleman_commission_template.present? } || (mechanic? ? store_staff_tasks.by_month(month).any? { |task| task.workflow_snapshot.mechanic_commission_template_id.present? } : false)
+    if commission?
+      if current_month_regulared?
+        store_order_items.where("created_at > ?", regular_protocal.effected_on).any? { |item| item.orderable.saleman_commission_template.present? } || (mechanic? ? store_staff_tasks.where("created_at > ?", regular_protocal.effected_on).any? { |task| task.workflow_snapshot.mechanic_commission_template_id.present? } : false)
+      else
+        store_order_items.by_month(month).any? { |item| item.orderable.saleman_commission_template.present? } || (mechanic? ? store_staff_tasks.by_month(month).any? { |task| task.workflow_snapshot.mechanic_commission_template_id.present? } : false)
+      end
+    else
+      false
+    end
   end
 
   def sale_commission_of(item, beneficiary = 'person')
@@ -317,7 +338,7 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def sales_quantity(month = Time.now)
-    store_order_items.by_month(month).sum(:quantity)
+    store_orders.by_month(month).size
   end
 
   def photo

@@ -14,7 +14,7 @@ module Sas
       ((month - 6)..month).each do |i|
         next if i < 1
         @data[:months] << i.to_s + "月份"
-        @data[:figures] <<  store.store_material_saleinfos.amount_by_month(i.month.ago)
+        @data[:figures] << store.sales_volume((month-i).month.ago)
       end
     end
   end
