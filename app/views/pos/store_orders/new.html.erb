@@ -22,27 +22,34 @@
             <% end %>
           </div>
           <div class="vehicle_order_details">
-            <div class="vehicle_info">
+            <div class="vehicle-search">
               <dl>
                 <dd>
                   <label for="without-license-number"><input type="checkbox" id='without-license-number' value="无牌">无牌</label>
                   <label for="license_number" class="width-50" >车牌号</label>
-                  <input type="text" name="license_number" class="width-110 js-license-number" value=''>
+                  <input type="text" name="license_number" class="width-110 js-license-number" value='' placeholder="请输入车牌">
                 </dd>
                 <dd>
                   <label class="width-50">手机号</label>
                   <input type="text" name="phone_number" class="width-110 js-phone-number" value=''>
                 </dd>
-                <dd>
+                <dd class='frequenter'>
                   <label class="width-50" >客户姓名</label>
-                  <input type="text" name="customer_name" class="width-110" readonly value=''>
+                  <span class="width-110 border-all bg-color-efeae5 js-customer-name"></span>
+                </dd>
+
+                <dd class='fresh'>
+                  <label class="width-50" >姓<input type="text" name="last_name" class="width-30 js-customer-name-input" value=''></label>
+                  <label class="width-70" >名<input type="text" name="first_name" class="width-50 js-customer-name-input" value=''></label>
                 </dd>
               </dl>
-              <div class="">
-                <p style='display:none' class='js-new-vehicle-and-customer'>该车辆还未在系统中登记，下单后将会添加新车辆与客户</p>
-                <p style='display:none' class='js-add-vehicle-to-customer'>该车辆还未绑定到客户<span class='js-customer-name'></span>名下，下单后系统将自动绑定</p>
-                <p style='display:none' class='js-add-none-lisence-and-customer'>已经选择无牌开单，下单后将会添加无牌车辆与新客户(<span class='js-customer-name'></span>)</p>
-                <p style='display:none' class='js-add-none-lisence-to-customer'>已经选择无牌开单，下单后将会绑定到<span class='js-customer-name'></span>名下</p>
+              <div class="customer-tips">
+                <p style='display:none' class='customer-tip js-new-vehicle-and-anonymous'>该车辆还未在系统中登记，下单后将会添加新车辆与匿名客户</p>
+                <p style='display:none' class='customer-tip js-new-vehicle-and-customer'>该客户信息还未在系统中登记，下单后将会添加新车辆与新客户</p>
+                <p style='display:none' class='customer-tip js-add-vehicle-to-customer'>该车辆还未绑定到客户<span class='js-customer-name'></span>名下，下单后系统将自动绑定</p>
+                <p style='display:none' class='customer-tip js-new-none-license-and-customer'>已经选择无牌开单，下单后将会添加无牌车辆与新客户(<span class='js-customer-name'></span>)</p>
+                <p style='display:none' class='customer-tip js-add-none-license-to-customer'>已经选择无牌开单，下单后将会绑定到<span class='js-customer-name'></span>名下</p>
+                <p style='display:none' class='customer-tip js-new-none-license-and-anonymous'>已经选择无牌开单，下单后将会添加无牌车辆与匿名客户。</p>
               </div>
             </div>
             <%= render partial: 'vehicle' %>
@@ -70,7 +77,7 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-    $(".vehicle_info .js-license-number").autocomplete({
+    $(".vehicle-search .js-license-number").autocomplete({
       source: <%= @license_numbers.to_json.html_safe %>,
       change: function(){
         $(this).trigger('change');
