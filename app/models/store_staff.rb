@@ -298,7 +298,15 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def has_commission?(month = Time.now)
-    store_order_items.by_month(month).any? { |item| item.orderable.saleman_commission_template.present? } || (mechanic? ? store_staff_tasks.by_month(month).any? { |task| task.workflow_snapshot.mechanic_commission_template_id.present? } : false)
+    if commission?
+      if current_month_regulared?
+        store_order_items.where("created_at > ?", regular_protocal.effected_on).any? { |item| item.orderable.saleman_commission_template.present? } || (mechanic? ? store_staff_tasks.where("created_at > ?", regular_protocal.effected_on).any? { |task| task.workflow_snapshot.mechanic_commission_template_id.present? } : false)
+      else
+        store_order_items.by_month(month).any? { |item| item.orderable.saleman_commission_template.present? } || (mechanic? ? store_staff_tasks.by_month(month).any? { |task| task.workflow_snapshot.mechanic_commission_template_id.present? } : false)
+      end
+    else
+      false
+    end
   end
 
   def sale_commission_of(item, beneficiary = 'person')

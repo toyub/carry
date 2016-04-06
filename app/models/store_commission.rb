@@ -5,6 +5,11 @@ class StoreCommission < ActiveRecord::Base
 
   def commission
     {
+      id:                        ownerable.id,
+      name:                      ownerable.screen_name,
+      numero:                    ownerable.numero,
+      department:                ownerable.store_department.try(:name),
+      position:                  ownerable.store_position.try(:name),
       order_quantity:            order_quantity,
       sale_quantity:             sale_quantity,
       sale_amount:               sale_amount,
