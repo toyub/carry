@@ -106,8 +106,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def finish!
-    self.task_finished! if workflows_finished?
-    self.paid? ? self.finished! : self.paying!
+    terminate! if workflows_finished?
   end
 
   def terminate!
@@ -119,6 +118,7 @@ class StoreOrder < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       self.terminate!
       self.workflows.unfinished.map(&:terminate!)
+      self.workflows.last.send_sms
     end
   end
 

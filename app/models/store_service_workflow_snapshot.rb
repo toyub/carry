@@ -108,6 +108,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
+    send_sms
   end
 
   def assign_workstation(workstation)
@@ -143,6 +144,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     ((Time.now - self.started_time)/60).ceil
   end
 
+  def ended_at
+    self.count_down.minutes.from_now.strftime("%Y/%m/%d %H:%M:%S")
+  end
+
   def actual_time_in_minutes
     elapsed_time
   end
@@ -150,6 +155,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def finish!
     self.terminate!
     self.store_order.finish!
+    send_sms
   end
 
   def terminate!
@@ -178,15 +184,62 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.update!(deleted: true)
   end
 
+  def send_sms
+    SmsJob.set(wait_until: remind_delay_interval.minutes.from_now).perform_later(sms_options) if can_send_sms?
+  end
+
   private
   def big_brothers_finished?
     big_brothers.all? { |w| w.finished? }
   end
 
   def big_brothers
-    store_service.workflow_snapshots.order("id asc").to_a.select do |w|
+    store_service.workflow_snapshots.order("id asc").to_a.compact.select do |w|
       w.id < self.id
     end
+  end
+
+  def can_send_sms?
+    (started? || service_finished?) && sms_enabled?
+  end
+
+  def sms_options
+    {
+      store_id: self.store_id,
+      receiver_type: 'StoreCustomer',
+      receiver_id: self.store_order.store_customer_id,
+      content: message,
+      first_category: SmsNotifySwitchType.name,
+      second_category: SmsNotifySwitchType.find_by_name('施工流程提醒').try(:id)
+    }
+  end
+
+  def message
+    store_service.message(remind_type) || "尊敬的客户，您的爱车开始施工流程——#{name}"
+  end
+
+  def remind_delay_interval
+    store_service.remind_delay_interval(remind_type)
+  end
+
+  def sms_enabled?
+    store_service.sms_enabled?(remind_type)
+  end
+
+  def remind_type
+    if started?
+      :started
+    elsif service_finished?
+      :finished
+    end
+  end
+
+  def started?
+    self.processing?
+  end
+
+  def service_finished?
+    self.persisted? && self.finished? && store_service.workflow_snapshots.reject {|w| w.id == self.id}.all? {|w| w.finished?}
   end
 
 end
