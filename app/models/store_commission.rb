@@ -1,8 +1,19 @@
 class StoreCommission < ActiveRecord::Base
-  include StaffBaseCommission
 
   belongs_to :ownerable, polymorphic: true
   has_many :store_commission_items
+
+  def commission
+    {
+      order_quantity:            order_quantity,
+      sale_quantity:             sale_quantity,
+      sale_amount:               sale_amount,
+      task_quantity:             task_quantity,
+      task_amount:               task_amount,
+      trade_amount:              trade_amount,
+      commission_amount:         commission_amount
+    }
+  end
 
   def order_quantity
     store_commission_items.select(:store_order_id).uniq.count

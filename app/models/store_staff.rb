@@ -125,11 +125,24 @@ class StoreStaff <  ActiveRecord::Base
   def has_regularized?
     store_protocols.where(type: "StoreZhuanZheng").present?
   end
+  
+  def regular_protocal
+    store_protocols.where(type: "StoreZhuanZheng").last
+  end
 
   def could_regular?
     return true if trial_period.blank?
-    protocol = store_protocols.where(type: "StoreZhuanZheng").last
+    protocol = regular_protocal
     protocol.present? ? Time.now > protocol.effected_on : Time.now > trial_period.month.since(employed_date)
+  end
+
+  def current_month_regulared?
+    protocol = regular_protocal
+    if protocol.present? && (protocol.effected_on.strftime("%Y%m") == Time.now.strftime("%Y%m"))
+      return true
+    else
+      return false
+    end
   end
 
   def working_age

@@ -1,4 +1,10 @@
-module StaffBaseCommission
+class StaffBaseCommission
+  def initialize(staff, month)
+    @staff = staff
+    @month = month
+    staff_order_items
+  end
+
   def commission
     {
       order_quantity:            order_quantity,
@@ -10,4 +16,15 @@ module StaffBaseCommission
       commission_amount:         commission_amount
     }
   end
+
+  private
+  def staff_order_items
+    @tasks = @staff.store_staff_tasks.by_month(@month)
+    @order_items = @staff.store_order_items.except_from_customer_assets.by_month(@month)
+    if @staff.current_month_regulared?
+      @order_items.where("created_at > ?", @staff.regular_protocal.effected_on)
+      @tasks.where("created_at > ?", @staff.regular_protocal.effected_on)
+    end
+  end
+
 end
