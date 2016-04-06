@@ -1,5 +1,6 @@
 <div class="fheader">
   <span class="color-395C61">新建车辆</span>
+  车辆还没有保存，如果要编辑车辆请先保存车辆到服务器!
 </div>
 <form method="post" class="form_content">
   <div class="new_vehicle">
