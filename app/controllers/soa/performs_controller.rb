@@ -19,7 +19,11 @@ class Soa::PerformsController < Soa::BaseController
       if @staff.commission?
         @order_items = (@staff.store_order_items.joins(:store_order).where(from_customer_asset: false).by_month(@date).order("id desc") unless params[:category] == 'constructed') || []
         if @staff.mechanic? && params[:category] != 'sale'
-          items = current_store.store_order_items.joins(:store_staff_tasks).where(store_staff_tasks: {mechanic_id: @staff.id}).by_month(@date)
+          if @staff.current_month_regulared?
+            items = current_store.store_order_items.joins(:store_staff_tasks).where("store_staff_tasks.created_at > ?", @staff.regular_protocal.effected_on).where(store_staff_tasks: {mechanic_id: @staff.id})
+          else
+            items = current_store.store_order_items.joins(:store_staff_tasks).where(store_staff_tasks: {mechanic_id: @staff.id}).by_month(@date)
+          end
           @order_items += items if items.present?
           @order_items.uniq!
         end

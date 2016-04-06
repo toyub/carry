@@ -3,7 +3,7 @@
 <% items_amount = 0.0 %>
 <tbody>
   <% @order_items.each do |item| %>
-    <% has_commission_amount = (item.has_commission? && (item.saled_by?(@staff) || item.constructed_by?(@staff))) %>
+    <% has_commission_amount = ((item.has_commission? && item.saled_by?(@staff)) || item.constructed_by?(@staff)) %>
     <% if has_commission_amount %>
       <% task_commission_amount = 0.0%>
       <% task_commission_quantity += 1 %>
