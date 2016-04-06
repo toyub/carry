@@ -9,3 +9,6 @@ class Mis.Views.XiaoshouPackageNavsSummary extends Mis.Base.View
   render: ->
     @$el.html(@template(package: @package))
     @
+
+  period_unit_name: ->
+    @PERIOD_UNIT[@get('period_unit')]

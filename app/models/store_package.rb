@@ -68,4 +68,8 @@ class StorePackage < ActiveRecord::Base
     package_setting.present? ? package_setting.sale_commission(order_item, staff, beneficiary) : 0.0
   end
 
+  def sold_count
+    store_order_items.count
+  end
+
 end
