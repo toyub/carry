@@ -28,9 +28,12 @@ class Mis.Views.XiaoshouServiceNavsMaster extends Mis.Base.View
 
   goToTracking: ->
     unless @model.isNew()
-      @parent.leave()
-      view = new Mis.Views.XiaoshouServiceTrackingsShow(model: @setting)
-      $("#bodyContent").html view.render().el
+      self = @
+      @setting.fetch(success: () ->
+        self.parent.leave()
+        view = new Mis.Views.XiaoshouServiceTrackingsShow(model: self.setting)
+        $("#bodyContent").html view.render().el
+      )
 
   goToService: ->
     unless @model.isNew()
