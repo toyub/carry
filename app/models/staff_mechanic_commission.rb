@@ -1,9 +1,7 @@
-class StaffMechanicCommission
-  include StaffBaseCommission
+class StaffMechanicCommission < StaffBaseCommission
 
   def initialize(staff, month)
-    @staff = staff
-    @month = month
+    super
   end
 
   def order_quantity
@@ -11,15 +9,15 @@ class StaffMechanicCommission
   end
 
   def sale_quantity
-    @staff.store_order_items.except_from_customer_assets.by_month(@month).count
+    @order_items.count
   end
 
   def sale_amount
-    @staff.materials_amount_total(@month)
+    @order_items.materials.map(&:amount).sum
   end
 
   def task_quantity
-    @staff.store_staff_tasks.by_month(@month).select(:store_order_item_id).uniq.count
+    @tasks.select(:store_order_item_id).uniq.count
   end
 
   def task_amount
@@ -27,11 +25,11 @@ class StaffMechanicCommission
   end
 
   def trade_amount
-    @staff.store_order_items.by_month(@month).map(&:amount).sum
+    @order_items.map(&:amount).sum
   end
 
   def commission_amount
-    @staff.commission? ? @staff.store_order_items.by_month(@month).map(&:commission).sum + @staff.store_staff_tasks.by_month(@month).map(&:commission).sum : 0.0
+    @staff.commission? ? @order_items.map(&:commission).sum + @tasks.map(&:commission).sum : 0.0
   end
 
 end

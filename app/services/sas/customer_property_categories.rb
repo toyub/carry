@@ -5,12 +5,12 @@ module Sas
     def set_data(store)
       @data = {
         property: {
-          group: store.store_customers.enterprise_member.count,
-          personal: store.store_customers.personal_member.count
+          group: store.store_customer_entities.company.count,
+          personal: store.store_customer_entities.personal.count
         },
         membership: {
-          vip: store.store_customers.membership.count,
-          normal: store.store_customers.non_membership.count
+          vip: store.store_customer_entities.where(membership: true).count,
+          normal: store.store_customer_entities.where(membership: false).count
         }
       }
     end
