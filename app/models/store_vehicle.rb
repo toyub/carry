@@ -83,11 +83,15 @@ class StoreVehicle < ActiveRecord::Base
   end
 
   def brand_name
-    vehicle_brand.try(:name)
+    vehicle_brand.try(:name) || '未选择'
   end
 
   def series_name
-    vehicle_series.try(:name)
+    vehicle_series.try(:name) || '未选择'
+  end
+
+  def vehicle_model_name
+    vehicle_model.try(:name) || '未选择'
   end
 
   def detail

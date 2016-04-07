@@ -1,0 +1,5 @@
+<span><%= @license_number %></span>
+<span><%= @brand_name %></span>
+<span><%= @series_name %></span>
+<span><%= @vehicle_model_name %></span>
+<input type="button" class='btn' value="选择此车辆">

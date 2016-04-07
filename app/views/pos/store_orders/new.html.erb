@@ -44,12 +44,20 @@
                 </dd>
               </dl>
               <div class="customer-tips">
+                <p style='display:none' class='customer-tip js-phone-not-exists'>该手机号码还没有在系统中登记，请先登记信息或核对输入手机号码。</p>
                 <p style='display:none' class='customer-tip js-new-vehicle-and-anonymous'>该客户信息还未在系统中登记，下单后将会添加新车辆与新客户(<span class='js-customer-name'>匿名客户</span>)</p>
                 <p style='display:none' class='customer-tip js-new-vehicle-and-customer'>该客户信息还未在系统中登记，下单后将会添加新车辆与新客户(<span class='js-customer-name'>匿名客户</span>)</p>
                 <p style='display:none' class='customer-tip js-add-vehicle-to-customer'>该车辆还未绑定到客户(<span class='js-customer-name'></span>)名下，下单后系统将自动绑定</p>
                 <p style='display:none' class='customer-tip js-new-none-license-and-customer'>已经选择无牌开单，下单后将会添加无牌车辆与新客户(<span class='js-customer-name'>匿名客户</span>)</p>
                 <p style='display:none' class='customer-tip js-add-none-license-to-customer'>已经选择无牌开单，下单后将会绑定到(<span class='js-customer-name'></span>)名下</p>
                 <p style='display:none' class='customer-tip js-new-none-license-and-anonymous'>已经选择无牌开单，下单后将会添加无牌车辆与新客户(<span class='js-customer-name'>匿名客户</span>)。</p>
+              </div>
+
+              <div id="existing-vehicles" style="display:none;">
+                <h6>该客户名下有以下车辆，请选择</h6>
+                <div class="vehicles">
+
+                </div>
               </div>
             </div>
             <%= render partial: 'vehicle' %>
