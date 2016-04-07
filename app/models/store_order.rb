@@ -24,6 +24,8 @@ class StoreOrder < ActiveRecord::Base
   scope :unfinished, -> { where.not(state: StoreOrder.states[:finished]) }
   scope :unpending, -> { where.not(state: StoreOrder.states[:pending]) }
 
+  scope :waiting, -> {where(task_status: [StoreOrder.task_statuses[:task_queuing], StoreOrder.task_statuses[:task_pausing]])}
+
   scope :unpaid, ->{where(pay_status: StoreOrder.pay_statuses[:pay_queuing])}
   scope :paid, ->{where(pay_status: [ StoreOrder.pay_statuses[:pay_hanging], StoreOrder.pay_statuses[:pay_finished] ])}
   scope :paid_on, ->(date){where(paid_at: date.beginning_of_day..date.end_of_day)}
@@ -197,10 +199,6 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def check_mechanic
-    self.workflows.all? {|w| w.has_mechanic? }
-  end
-
   def assign_mechanics
     self.workflows.pending.order("created_at asc").map(&:assign_mechanics)
     self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
@@ -209,6 +207,33 @@ class StoreOrder < ActiveRecord::Base
   def waste!
     self.items.each(&->(item){item.waste!})
     self.update!(deleted: true)
+  end
+
+  def pause!
+
+  end
+
+  def pause_in_queuing_area!
+    workflow = self.workflows.processing.first || self.workflows.pending.first
+    workflow.pause_in_queuing_area!
+    self.pausing!
+    self.task_pausing!
+  end
+
+  def pause_in_workstation!
+    workflow = self.workflows.processing.first || self.workflows.pending.first
+    workflow.pause_in_workstation!
+    self.pausing!
+    self.task_pausing!
+  end
+
+  def self.waiting_in_queuing_area
+    self.waiting.reject { |o| o.task_pausing? && o.waiting_in_workstation? }
+  end
+
+  def waiting_in_workstation?
+    workflow = self.workflows.processing.first || self.workflows.pending.first
+    workflow.waiting_in_workstation?
   end
 
   private

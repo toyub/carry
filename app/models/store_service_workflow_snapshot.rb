@@ -140,8 +140,12 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def elapsed_time
-    return 0 unless self.started_time
+    return 0 if pausing? || self.started_time.blank?
     ((Time.now - self.started_time)/60).ceil
+  end
+
+  def pausing?
+    self.store_order.task_pausing?
   end
 
   def ended_at
@@ -186,6 +190,19 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def send_sms
     SmsJob.set(wait_until: remind_delay_interval.minutes.from_now).perform_later(sms_options) if can_send_sms?
+  end
+
+  def pause_in_workstation!
+    self.free_mechanics if self.processing?
+  end
+
+  def pause_in_queuing_area!
+    self.free_workstation
+    self.free_mechanics if self.processing?
+  end
+
+  def waiting_in_workstation?
+    self.store_workstation.present? && self.store_workstation.workflow_id == self.id
   end
 
   private

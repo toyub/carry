@@ -22,6 +22,11 @@
     <% unless order.task_finished? %>
       <%= button_tag "保存", class: "save_btn btn js-save" %>
       <%= button_tag "施工", class: "save_btn btn js-execute" %>
+      <% if order.task_pausing? %>
+        <%= button_tag "开启", class: "save_btn btn js-play" %>
+      <% else %>
+        <%= button_tag "暂停", class: "save_btn btn js-pause" %>
+      <% end %>
     <% end %>
   </div>
 <% end -%>
