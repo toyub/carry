@@ -53,7 +53,7 @@ class Sas::SellsController < Sas::BaseController
       params[:q][:created_at_lteq] = day.at_end_of_month
     elsif params[:q][:created_at_gteq].blank?
       params[:q][:created_at_gteq] = day.at_beginning_of_month
-    else
+    elsif params[:q][:created_at_lteq].blank?
       params[:q][:created_at_lteq] = day.at_end_of_month
     end
   end

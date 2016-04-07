@@ -64,7 +64,7 @@ class Mis.Models.StoreService extends Backbone.Model
     @reminds = new Mis.Collections.StoreServiceReminds(@get "reminds")
 
   parseTrackings: ->
-    @trackings = new Mis.Collections.StoreServiceTrackings(@get "trackings")
+    @trackings = new Mis.Collections.StoreServiceTrackings(@get("trackings"), store_service: @)
 
   parseSetting: ->
     attrs = @get 'setting'
@@ -79,4 +79,3 @@ class Mis.Models.StoreService extends Backbone.Model
     )
     hashWithRoot[@modelName] = json
     hashWithRoot
-
