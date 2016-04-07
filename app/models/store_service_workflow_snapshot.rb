@@ -57,7 +57,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def executable?(workstation)
     return false if self.store_vehicle.blank?
-    self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+    !self.store_order.task_pausing? && self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
   end
 
   def has_qualified_mechaincs?(workstation)
