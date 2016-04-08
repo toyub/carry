@@ -4,9 +4,11 @@ class StoreMaterialOrder < ActiveRecord::Base
 
   belongs_to :store_material
   belongs_to :store_supplier
+  belongs_to :withdrawaler, class: "StoreStaff", foreign_key: "withdrawal_by"
 
   belongs_to :store_material_inventory
   has_many :items, class_name: 'StoreMaterialOrderItem'
+  has_many :store_materials, through: :items
   has_many :payments, class_name: 'StoreMaterialOrderPayment'
 
 
@@ -28,6 +30,10 @@ class StoreMaterialOrder < ActiveRecord::Base
     else
       "#{process}入库"
     end
+  end
+
+  def withdrawaled?
+    withdrawal_by.present?
   end
 
   def set_numero

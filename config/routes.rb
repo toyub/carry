@@ -120,7 +120,7 @@ Rails.application.routes.draw do
     resources :categories, only: [:show] do
       resources :order_items, only: [:index]
     end
-    resources :dealings, only: :index
+    resources :material_orders, only: [:index, :show, :update]
     resources :reports, only: :index
   end
 
