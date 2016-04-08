@@ -5,7 +5,7 @@ class CheckMonthCommission
 
   def run
     StoreOrderItem.by_month(@month).each do |item|
-      if item.orderable.saleman_commission_template.present?
+      if !item.from_customer_asset && item.orderable.saleman_commission_template.present?
         make_sale_commission(item)
       end
 
@@ -21,6 +21,7 @@ class CheckMonthCommission
   private
   def make_sale_commission(item)
     staff = item.store_staff
+    return if staff.current_month_regulared? && (item.created_at < staff.regular_protocal.effected_on)
     if item.orderable.saleman_commission_template.present?
       if item.orderable.saleman_commission_template.confined_to == CommissionConfineType::TYPES_ID['部门']
         commission = staff.store_department.store_commissions.find_or_create_by(commission_params(staff))
@@ -35,6 +36,7 @@ class CheckMonthCommission
   def make_constructe_commission(task)
     staff = task.mechanic
     item = task.store_order_item
+    return if staff.current_month_regulared? && (task.created_at < staff.regular_protocal.effected_on)
     if task.constructed_commission_template.present?
       if task.constructed_commission_template.confined_to == CommissionConfineType::TYPES_ID['部门']
         commission = staff.store_department.store_commissions.find_or_create_by(commission_params(staff))

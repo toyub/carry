@@ -5,7 +5,8 @@ class Mis.Models.StoreServiceTracking extends Backbone.Model
   urlRoot: ->
     @store_service.url() + '/store_service_trackings'
 
-  initialize: (options) ->
+  initialize: (attrs, options) ->
+    super(attrs)
     @store_service = options.store_service
 
   defaults:

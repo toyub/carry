@@ -3,13 +3,12 @@ module Sas
 
     private
     def set_data(store)
-      orderitems = store.store_order_items.by_month
-      total_count = orderitems.count.to_f
+      total_count = store.sales_volume.to_f
 
-      unless total_count > 0
-        materials= orderitems.materials.count / total_count
-        services= orderitems.services.count / total_count
-        packages = orderitems.packages.count / total_count
+      if total_count > 0
+        materials= store.material_sales_volume / total_count
+        services= store.service_sales_volume / total_count
+        packages = store.package_sales_volume / total_count
       end
 
       @data = [

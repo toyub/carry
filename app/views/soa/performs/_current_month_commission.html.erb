@@ -1,14 +1,19 @@
+<% task_commission_quantity = 0 %>
+<% task_commission_total = 0.0 %>
+<% items_amount = 0.0 %>
 <tbody>
   <% @order_items.each do |item| %>
-    <% has_commission_amount = (item.has_commission? && item.saled_by?(@staff)) || item.constructed_by?(@staff)  %>
+    <% has_commission_amount = ((item.has_commission? && item.saled_by?(@staff)) || item.constructed_by?(@staff)) %>
     <% if has_commission_amount %>
       <% task_commission_amount = 0.0%>
+      <% task_commission_quantity += 1 %>
+      <% items_amount += item.amount %>
       <tr>
         <td><label class="width-90"><%= item.store_order.created_at.strftime("%Y/%m/%d") %></label><label><%= item.store_order.created_at.strftime("%H:%S") %></label></td>
         <td><%= item.store_order.numero %></td>
         <td><%= item.orderable.name %></td>
         <td> 
-          <% if item.has_commission? && item.saled_by?(@staff) %>
+          <% if item.saled_by?(@staff) %>
             卖出<em><%= item.quantity %></em>件<%= @staff.sale_commission_of item %>
           <% task_commission_amount += @staff.sale_commission_of(item) %>
         <% end %>
@@ -23,6 +28,7 @@
         </td>
         <td><%= item.amount %></td>
         <td> <%= task_commission_amount %> </td>
+        <% task_commission_total += task_commission_amount %>
       </tr>
     <% end %>
   <% end %>
@@ -31,12 +37,12 @@
   <tr>
     <td colspan="3"></td>
     <td class="text-align-right">
-      <label>项目数：</label><span class="width-90 text-align-left"><%= @orders_count %></span>
+      <label>项目数：</label><span class="width-90 text-align-left"><%= task_commission_quantity %></span>
       <label class="width-100">项目总金额：</label>
     </td>
     <td colspan="2">
-      <span class="width-80"><%= @order_items.map(&:amount).sum %></span>
-      <label>提成总金额：</label><span><%= @staff.commission_amount_total(@date) %></span>
+      <span class="width-80"><%= items_amount %></span>
+      <label>提成总金额：</label><span><%= task_commission_total %></span>
     </td>
   </tr>
 </tfoot>

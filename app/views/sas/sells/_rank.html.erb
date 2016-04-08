@@ -1,8 +1,10 @@
 <ul class="achives_top">
   <li>业绩 TOP</li>
-  <li><%= @top_saler.screen_name %></li>
-  <li><%= @top_saler.sales_quantity %>单</li>
-  <li><%= @top_saler.sales_amount %></li>
+  <% if @top_saler.present? %>
+    <li><%= @top_saler.screen_name %></li>
+    <li><%= @top_saler.sales_quantity %>单</li>
+    <li><%= @top_saler.sales_amount %></li>
+  <% end %>
 </ul>
 
 <ul class="material_top">
