@@ -74,44 +74,28 @@
         </tr>
       </thead>
       <tbody>
-        <% 2.times.each do |i|%>
+        <% @material_orders.each.with_index(1) do |order, index|%>
         <tr>
-          <td><%= i+1 %>.</td>
-          <td>杭州车世界汽车服务有限公司</td>
-          <td>2014-8-11</td>
-          <td>DH2015071900091</td>
-          <td>岳微</td>
-          <td>36000</td>
-          <td>10000</td>
-          <td>26000</td>
-          <td></td>
-          <td>未入库</td>
+          <td><%= index %>.</td>
+          <td><%= order.store_supplier.name %></td>
+          <td><%= order.created_at.strftime("%Y-%m-%d") %></td>
+          <td><%= order.numero %></td>
+          <td><%= order.creator.full_name %></td>
+          <td><%= order.amount %></td>
+          <td><%= order.paid_amount %></td>
+          <td><%= order.amount - order.paid_amount%></td>
+          <td><%= order.remark %></td>
+          <td><%= order.process_status_cn %></td>
           <td></td>
           <td></td>
           <td><button type="button" class="cancellation_btn">核销</button></td>
+          <!-- <td><a href="#">详情</a></td> -->
         </tr>
         <% end %>
-
-        <tr>
-          <td>3.</td>
-          <td>供应商2</td>
-          <td>2014-8-11</td>
-          <td>DH2015071900091</td>
-          <td>岳微</td>
-          <td>36000</td>
-          <td>36000</td>
-          <td>0</td>
-          <td></td>
-          <td>入库完成</td>
-          <td>吴莉莉</td>
-          <td>2015-7-19 10:11</td>
-          <td><a href="#">详情</a></td>
-        </tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<%= render 'detail' %>
-
-<%= render 'info' %>
+<%# <%= render 'detail' %>
+<%# <%= render 'info' %>

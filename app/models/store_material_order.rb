@@ -20,6 +20,16 @@ class StoreMaterialOrder < ActiveRecord::Base
     self.amount - self.paid_amount
   end
 
+  def process_status_cn
+    if process == 0
+      '未入库'
+    elsif process == 100
+      '入库完成'
+    else
+      "#{process}入库"
+    end
+  end
+
   def set_numero
     time_now = Time.now
     today_count = self.class.unscoped.where('created_at between ? and ?', time_now.beginning_of_day, time_now.end_of_day).count(:id) + 1
