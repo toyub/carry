@@ -1,7 +1,7 @@
 <div class="fheader">
   <span class="color-395C61">新建车辆</span>
-  车辆还没有保存，如果要编辑车辆请先保存车辆到服务器!
 </div>
+<p>车辆还没有登记到系统中，如果要完善信息请先保存车辆到服务器!</p>
 <form method="post" class="form_content">
   <div class="new_vehicle">
     <div class="form_item">

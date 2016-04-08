@@ -27,7 +27,10 @@
         <% else : %>
           <select name='vehicle[vehicle_series_id]' class="width-90 js-select-vehicle-series" required>
             <option value="">请选择</option>
-            <option value={{series.id}} v-for="series in vehicleSeries">{{series.name}}</option>
+            <optgroup v-for="manufacturer in vehicleManufacturers" label="{{manufacturer.name}}">
+                <option value={{series.id}} v-for="series in manufacturer.series">{{series.name}}</option>
+            </optgroup>
+
           </select>
         <% end %>
       </dd>
