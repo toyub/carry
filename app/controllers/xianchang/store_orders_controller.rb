@@ -34,7 +34,7 @@ module Xianchang
     end
 
     def play
-      @store_order.play!
+      @store_order.play!(params[:from])
     end
 
     private

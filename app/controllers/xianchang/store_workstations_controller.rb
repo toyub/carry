@@ -49,7 +49,7 @@ module Xianchang
     end
 
     def start
-      @workflow = @store_order.workflows.pending.first
+      @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
       @workstation.start!(@workflow)
     end
 

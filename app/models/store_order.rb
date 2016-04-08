@@ -213,11 +213,16 @@ class StoreOrder < ActiveRecord::Base
 
   end
 
-  def play!
-    self.processing!
-    self.task_processing!
+  def play!(from = 'processing')
     workflow = self.workflows.processing.first || self.workflows.pending.first
-    workflow.play!
+    if from == 'queuing'
+      self.queuing!
+      self.task_queuing!
+    else
+      self.processing!
+      self.task_processing!
+      workflow.play!
+    end
   end
 
   def pause_in_queuing_area!
