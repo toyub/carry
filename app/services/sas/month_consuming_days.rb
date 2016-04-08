@@ -4,6 +4,7 @@ module Sas
     private
     def set_data(store)
       orderitems = store.store_order_items.by_month
+      day = Time.now.beginning_of_month.to_date
 
       @data = {
         days: [],
@@ -12,15 +13,13 @@ module Sas
         packages: []
       }
 
-      @data[:days] = (1..Date.today.day).to_a
+      @data[:days] += (Time.now.beginning_of_month.day..Time.now.end_of_month.day).to_a
 
-      len = @data[:days].size - 1
-
-      len.downto(0) do |i|
-        date = i.days.ago
-        @data[:materials] << orderitems.by_day(date).materials.total_amount
-        @data[:services] <<  orderitems.by_day(date).services.total_amount
-        @data[:packages] <<  orderitems.by_day(date).packages.total_amount
+      @data[:days].each do |d|
+        @data[:materials] << orderitems.by_day(day).materials.total_amount
+        @data[:services] <<  orderitems.by_day(day).services.total_amount
+        @data[:packages] <<  orderitems.by_day(day).packages.total_amount
+        day += 1
       end
 
     end
