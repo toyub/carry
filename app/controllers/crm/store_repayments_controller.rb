@@ -11,7 +11,7 @@ class Crm::StoreRepaymentsController < Crm::BaseController
   def create
     creator = CreateRepaymentService.new(form_params, @customer)
     if creator.call
-      redirect_to crm_store_customer_store_repayments_path(@customer), notice: "回款成功!"
+      redirect_to hanging_crm_store_customer_store_repayments_path(@customer), notice: "回款成功!"
     else
       render :hanging, notice: '回款失败!'
     end
