@@ -215,7 +215,7 @@ class StoreOrder < ActiveRecord::Base
 
   def pause_in_queuing_area!
     workflow = self.workflows.processing.first || self.workflows.pending.first
-    workflow.pause_in_queuing_area!
+    workflow.pause_in_queuing_area! if self.task_processing?
     self.pausing!
     self.task_pausing!
   end

@@ -1,4 +1,4 @@
-<%= form_tag "", data: {order_id: order.id}, id: 'constructionForm', remote: true do -%>
+<%= form_tag "", data: {order_id: order.id, order_state: order.task_status}, id: 'constructionForm', remote: true do -%>
   <h2>编辑施工信息</h2>
   <div class="constrction_info_tab">
     <table cellspacing="0" cellpadding="0">
