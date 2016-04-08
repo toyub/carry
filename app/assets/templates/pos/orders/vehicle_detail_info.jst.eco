@@ -4,7 +4,7 @@
     <dl>
       <dd class="license_number">
         <label class="width-77">车牌号码</label>
-        <span class="width-90 form-control">{{vehicle.license_number}}</span>
+        <span class="width-90 form-control"><%= @license_number %></span>
       </dd>
       <dd>
         <label class="width-77">*品牌</label>
@@ -27,10 +27,6 @@
         <% else : %>
           <select name='vehicle[vehicle_series_id]' class="width-90 js-select-vehicle-series" required>
             <option value="">请选择</option>
-            <optgroup v-for="manufacturer in vehicleManufacturers" label="{{manufacturer.name}}">
-                <option value={{series.id}} v-for="series in manufacturer.series">{{series.name}}</option>
-            </optgroup>
-
           </select>
         <% end %>
       </dd>
