@@ -57,7 +57,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def executable?(workstation)
     return false if self.store_vehicle.blank?
-    !self.store_order.task_pausing? && self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+    !self.store_order.task_pausing? && self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.where.not({id: self.id}).blank? && big_brothers_finished?
   end
 
   def has_qualified_mechaincs?(workstation)
@@ -111,11 +111,15 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     send_sms
   end
 
-  def assign_workstation(workstation)
-    self.store.workstations.with_workflow(self.id).each(&:free)
-    self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
-    workstation.update!(current_workflow: self)
-    workstation.busy!
+  def assign_workstation(ws)
+    self.store.workstations.with_workflow(self.id).where.not({id: ws.id}).each(&:free)
+    self.update!(store_workstation_id: ws.id, started_time: Time.now, used_time: work_time_in_minutes)
+    ws.update!(workflow_id: self.id)
+    ws.busy!
+  end
+
+  def play!
+    self.store_workstation.start!(self)
   end
 
   def assign_mechanics

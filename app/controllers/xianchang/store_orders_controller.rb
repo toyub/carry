@@ -33,6 +33,10 @@ module Xianchang
       #@workstation = current_store.store_workstations.find(params[:workstation])
     end
 
+    def play
+      @store_order.play!
+    end
+
     private
     def set_store_order
       @store_order = current_store.store_orders.available.find(params[:id])

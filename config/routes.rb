@@ -140,6 +140,7 @@ Rails.application.routes.draw do
         put :pause_in_queuing_area
         put :pause_in_workstation
         put :pause
+        put :play
       end
     end
     resources :store_workflows, only: [:edit, :update] do
