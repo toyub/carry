@@ -165,3 +165,23 @@
     <input class="save_btn btn" type="submit" value="保存">
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("#staff_phone_number").change(function(){
+      var _this = $(this);
+      var url = "/api/store_staff/check_phone?phone_number=" + $(this).val();
+      $.get(url, function(respone){
+        if(respone.success){
+          _this.css('border', '1px solid #dbd9d9');
+          $('.save_btn').prop('disabled', false);
+        }
+        else {
+          ZhanchuangAlert(respone.notice);
+          _this.css('border', '1px solid red');
+          $('.save_btn').prop('disabled', true);
+        }
+      })
+    })
+  })
+</script>
