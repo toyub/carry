@@ -54,6 +54,7 @@ class Mis.Models.Store extends Backbone.Model
     @workstations = new Mis.Collections.StoreWorkstations(@get 'workstations')
 
   parseCommissionTemplates: ->
+    console.log(new Mis.Collections.StoreCommissionTemplates)
     @commissionTemplates = new Mis.Collections.StoreCommissionTemplates(@get 'commissions')
 
   parseCustomerCategories: ->

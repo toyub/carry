@@ -12,6 +12,7 @@ class StoreCommissionTemplate < ActiveRecord::Base
   accepts_nested_attributes_for :sections, allow_destroy: true
 
   scope :available, ->{where(status: 0)}
+  scope :for_material, -> { where(aim_to: 0)}
 
   def level_weight
     self.level_weight_hash

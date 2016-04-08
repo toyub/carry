@@ -84,6 +84,6 @@ class Kucun::SaleinfosController < Kucun::BaseController
       @saleinfo = StoreMaterialSaleinfo.new
     end
     @sale_categories = SaleCategory.all
-    @store_commission_templates = current_store.store_commission_templates.available
+    @store_commission_templates = current_store.store_commission_templates.available.for_material
   end
 end
