@@ -147,7 +147,7 @@
               <select class="width-190" name="mechanic_commission_template_id" id="workflow_engineer_commission_template_id">
                 <option value="">请选择</option>
                 <% commission = @setting.get 'mechanic_commission_template_id' %>
-                <% @store.commissionTemplates.each (c) ->: %>
+                <% @store.machanicCommissionTemplates.each (c) ->: %>
                 <option <%= 'selected' if String(commission ) == String(c.get 'id') %> value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
               <% end %>
               </select>
