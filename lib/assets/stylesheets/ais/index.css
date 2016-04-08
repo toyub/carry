@@ -13,4 +13,5 @@
  *= require_tree ./cost
  *= require_tree ./income
  *= require_tree ./dealings
+  *= require_tree ./reports
  */

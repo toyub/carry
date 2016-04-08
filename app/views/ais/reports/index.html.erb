@@ -38,7 +38,7 @@
         </div>
       </form>
     </div>
-    <table class="accounts_payable_tab index_list">
+    <table class="reports_tab">
       <thead>
         <tr>
           <th>#</th>
@@ -57,8 +57,9 @@
         </tr>
       </thead>
       <tbody>
+        <% 3.times.each do|i| %>
         <tr>
-          <td>1.</td>
+          <td><%= i+1 %>.</td>
           <td>2014-8-11</td>
           <td>YW2014081100011</td>
           <td>浙A-16034</td>
@@ -70,38 +71,10 @@
           <td>现金</td>
           <td></td>
           <td>王丽丽</td>
-          <td><button type="button" class="cancellation_btn">核销</button></td>
+          <td><a href="#" class="">订单详情</a></td>
         </tr>
-        <tr>
-          <td>2.</td>
-          <td>2014-8-11</td>
-          <td>YW2014081100011</td>
-          <td>浙A-16034</td>
-          <td>李先生</td>
-          <td>18679843334</td>
-          <td>18,375.00</td>
-          <td>0.00</td>
-          <td>18,375.00</td>
-          <td>现金</td>
-          <td>卡扣</td>
-          <td>王丽丽</td>
-          <td><button type="button" class="cancellation_btn">核销</button></td>
-        </tr>
-        <tr>
-          <td>3.</td>
-          <td>2014-8-11</td>
-          <td>YW2014081100011</td>
-          <td>浙A-16034</td>
-          <td>李先生</td>
-          <td>18679843334</td>
-          <td>18,375.00</td>
-          <td>0.00</td>
-          <td>18,375.00</td>
-          <td>银行卡</td>
-          <td>卡扣</td>
-          <td>王丽丽</td>
-          <td><button type="button" class="cancellation_btn">核销</button></td>
-        </tr>
+        <% end %>
+
       </tbody>
     </table>
   </div>
