@@ -1,1 +1,134 @@
-<h2>Hi this is 往来</h2>
+<div class="page_head main_top">
+  <span class="font-24 margin-right-15">往来</span>
+  <select class="width-90">
+    <option value="option">应付账款</option>
+    <option value="option">应收账款</option>
+  </select>
+</div>
+
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <form>
+        <div class="item-query">
+          <label for="">日期</label>
+          <select class="width-100" >
+            <option></option>
+          </select>
+          <select class="width-100" >
+            <option></option>
+          </select>
+        </div>
+
+        <div class="item-query">
+          <label for="">模糊查询</label>
+          <input type="text" value="" class="width-165">
+        </div>
+
+        <div class="item-query">
+          <label for="">供应商类别</label>
+          <select class="width-100" >
+            <option>全部</option>
+          </select>
+          <select class="width-100" >
+            <option>全部</option>
+          </select>
+        </div>
+
+        <div class="item-query">
+          <input type="button" value="查询" class="btn query_btn do_search_result">
+        </div>
+
+        <div class="query_div">
+          <a href="#" class="print_btn btn">打印</a>
+          <a href="#" class="export_btn btn">导出</a>
+        </div>
+      </form>
+    </div>
+    <table class="accounts_payable_tab index_list">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>供应商</th>
+          <th>
+            <div class="sequence">
+              日期
+              <i class="fa fa-sort-desc"></i>
+            </div>
+          </th>
+          <th>上期余额</th>
+          <th>应付余额</th>
+          <th>付款金额</th>
+          <th>定金</th>
+          <th>
+            <div class="sequence">
+              截至余额
+              <i class="fa fa-sort-desc"></i>
+            </div>
+          </th>
+          <th>类型</th>
+          <th>备注</th>
+          <th>单号</th>
+          <th>经办</th>
+          <th>记账时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1.</td>
+          <td>杭州车世界汽车服务有限公司</td>
+          <td>2014-8-11</td>
+          <td>0.00</td>
+          <td>18,375.00</td>
+          <td></td>
+          <td></td>
+          <td>-18,375.00</td>
+          <td>订货入库</td>
+          <td></td>
+          <td>DH2015071900091</td>
+          <td>吴莉莉</td>
+          <td>2015-7-19 10:11</td>
+          <td><button type="button" class="cancellation_btn">核销</button></td>
+        </tr>
+        <tr>
+          <td>1.</td>
+          <td>杭州车世界汽车服务有限公司</td>
+          <td>2014-8-11</td>
+          <td>0.00</td>
+          <td>18,375.00</td>
+          <td></td>
+          <td></td>
+          <td>-18,375.00</td>
+          <td>订货入库</td>
+          <td></td>
+          <td>DH2015071900091</td>
+          <td>吴莉莉</td>
+          <td>2015-7-19 10:11</td>
+          <td><button type="button" class="cancellation_btn">核销</button></td>
+        </tr>
+        <tr>
+          <td>1.</td>
+          <td>杭州车世界汽车服务有限公司</td>
+          <td>2014-8-11</td>
+          <td>0.00</td>
+          <td>18,375.00</td>
+          <td></td>
+          <td></td>
+          <td>-18,375.00</td>
+          <td>订货入库</td>
+          <td></td>
+          <td>DH2015071900091</td>
+          <td>吴莉莉</td>
+          <td>2015-7-19 10:11</td>
+          <td><a href="#">详情</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= render 'detail' %>
+
+
+<%= render 'info' %>
