@@ -86,7 +86,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def exchange!(previous_workstation, workstation)
     previous_workstation.free
-    self.processing? ? execute(workstation) : assign_workstation(workstation)
+    (!self.pausing? && self.processing?) ? execute(workstation) : assign_workstation(workstation)
   end
 
   def assign_mechanic(engineer)
