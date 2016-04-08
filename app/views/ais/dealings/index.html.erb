@@ -52,73 +52,57 @@
           <th>供应商</th>
           <th>
             <div class="sequence">
-              日期
+              订货日期
               <i class="fa fa-sort-desc"></i>
             </div>
           </th>
-          <th>上期余额</th>
-          <th>应付余额</th>
-          <th>付款金额</th>
-          <th>定金</th>
+          <th>单号</th>
+          <th>订货人</th>
+          <th>订单金额</th>
+          <th>已经付</th>
           <th>
             <div class="sequence">
-              截至余额
+              余额
               <i class="fa fa-sort-desc"></i>
             </div>
           </th>
-          <th>类型</th>
           <th>备注</th>
-          <th>单号</th>
-          <th>经办</th>
-          <th>记账时间</th>
+          <th>入库状态</th>
+          <th>核销人</th>
+          <th>核销时间</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
+        <% 2.times.each do |i|%>
         <tr>
-          <td>1.</td>
+          <td><%= i+1 %>.</td>
           <td>杭州车世界汽车服务有限公司</td>
           <td>2014-8-11</td>
-          <td>0.00</td>
-          <td>18,375.00</td>
-          <td></td>
-          <td></td>
-          <td>-18,375.00</td>
-          <td>订货入库</td>
-          <td></td>
           <td>DH2015071900091</td>
-          <td>吴莉莉</td>
-          <td>2015-7-19 10:11</td>
+          <td>岳微</td>
+          <td>36000</td>
+          <td>10000</td>
+          <td>26000</td>
+          <td></td>
+          <td>未入库</td>
+          <td></td>
+          <td></td>
           <td><button type="button" class="cancellation_btn">核销</button></td>
         </tr>
+        <% end %>
+
         <tr>
-          <td>1.</td>
-          <td>杭州车世界汽车服务有限公司</td>
+          <td>3.</td>
+          <td>供应商2</td>
           <td>2014-8-11</td>
-          <td>0.00</td>
-          <td>18,375.00</td>
-          <td></td>
-          <td></td>
-          <td>-18,375.00</td>
-          <td>订货入库</td>
-          <td></td>
           <td>DH2015071900091</td>
-          <td>吴莉莉</td>
-          <td>2015-7-19 10:11</td>
-          <td><button type="button" class="cancellation_btn">核销</button></td>
-        </tr>
-        <tr>
-          <td>1.</td>
-          <td>杭州车世界汽车服务有限公司</td>
-          <td>2014-8-11</td>
-          <td>0.00</td>
-          <td>18,375.00</td>
+          <td>岳微</td>
+          <td>36000</td>
+          <td>36000</td>
+          <td>0</td>
           <td></td>
-          <td></td>
-          <td>-18,375.00</td>
-          <td>订货入库</td>
-          <td></td>
-          <td>DH2015071900091</td>
+          <td>入库完成</td>
           <td>吴莉莉</td>
           <td>2015-7-19 10:11</td>
           <td><a href="#">详情</a></td>
@@ -129,6 +113,5 @@
 </div>
 
 <%= render 'detail' %>
-
 
 <%= render 'info' %>
