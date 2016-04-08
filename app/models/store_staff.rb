@@ -26,6 +26,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_commissions, as: :ownerable
 
   validates_presence_of :phone_number
+  validates_uniqueness_of :phone_number
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
 
   before_validation :set_full_name
