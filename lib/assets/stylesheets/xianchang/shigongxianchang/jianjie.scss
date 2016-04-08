@@ -56,7 +56,7 @@
 
 
   >ul{
-		width: 95.2%;
+		width: 100%;
 		margin: 0 auto;
 
 		>li{
@@ -64,12 +64,13 @@
 			width: 236px;
 			height: 216px;
 			display: inline-block;
-			margin-left: 30px;
+			margin-left: 44px;
       padding: 0 15px 25px 15px;
       border: 1px dashed #999;
       box-sizing: border-box;
+      margin-bottom: 20px;
 
-			&:nth-child(6n+1){margin-left:0px;}
+			&:nth-child(5n+1){margin-left:0px;}
 
 			div.work_station_info{
 				background: #4449BE;
