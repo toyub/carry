@@ -15,6 +15,11 @@ module Api
         render json: check_vehicle_info
       end
 
+      def show
+        customer = current_store.store_customers.find(params[:id])
+        respond_with customer, location: nil
+      end
+
       private
       def check_vehicle_info
         return {success: true, notice: '车辆已存在!'} if current_store.store_vehicle_registration_plates.find_by(license_number: params[:vehicle][:license_number])
