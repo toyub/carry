@@ -3,7 +3,7 @@
     <li id='js-show-orderable-materials' data-target=".js-orderables-materials" class="bg-color-8E81B8 color-fff">商品</li>
     <li id='js-show-orderable-services'  data-target=".js-orderables-services">服务</li>
     <li id='js-show-orderable-packages'  data-target=".js-orderables-packages">套餐</li>
-    <li id='js-show-orderable-assets'    data-target='.js-orderables-assets' style='display:none'>客户资产</li>
+    <li id='js-show-orderable-assets'    data-target='.js-orderables-assets'>客户资产</li>
   </ul>
 </div>
 
