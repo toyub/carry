@@ -295,7 +295,9 @@ Rails.application.routes.draw do
     #Order end
 
 
-    resources :store_staff, only: [:index, :update]
+    resources :store_staff, only: [:index, :update] do
+      get 'check_phone', on: :collection
+    end
     resources :store_operators, only: [:index, :update]
     resources :store_service_categories, only: [:create]
     resources :store_services, only: [:index, :show, :create, :update] do

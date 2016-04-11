@@ -5,7 +5,7 @@ class CheckMonthCommission
 
   def run
     StoreOrderItem.by_month(@month).each do |item|
-      if item.orderable.saleman_commission_template.present?
+      if !item.from_customer_asset && item.orderable.saleman_commission_template.present?
         make_sale_commission(item)
       end
 

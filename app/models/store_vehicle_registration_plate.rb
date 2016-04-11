@@ -14,7 +14,7 @@ class StoreVehicleRegistrationPlate < ActiveRecord::Base
   before_validation :set_license_number
 
   def vehicle_id
-    vehicle_plates.last.store_vehicle.id
+    vehicle_plates.last.store_vehicle_id
   end
 
   def store_customer

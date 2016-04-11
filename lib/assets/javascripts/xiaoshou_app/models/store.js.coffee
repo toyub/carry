@@ -28,6 +28,7 @@ class Mis.Models.Store extends Backbone.Model
     @parseCustomerCategories()
     @parseProvinces()
     @parseTags()
+    @parseMachanicCommissionTemplates()
 
   parseTags: ->
     @tags = new Mis.Collections.Tags(@get 'tags')
@@ -55,6 +56,9 @@ class Mis.Models.Store extends Backbone.Model
 
   parseCommissionTemplates: ->
     @commissionTemplates = new Mis.Collections.StoreCommissionTemplates(@get 'commissions')
+
+  parseMachanicCommissionTemplates: ->
+    @machanicCommissionTemplates = new Mis.Collections.StoreCommissionTemplates(@get 'machanic_commissions')
 
   parseCustomerCategories: ->
     @customerCategories = new Mis.Collections.StoreCustomerCategories(@get 'customer_categories')
