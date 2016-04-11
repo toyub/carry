@@ -82,11 +82,11 @@
     <% @material_order.payments.each do |payment| %>
       <div class="item margin-right-20">
         <label class="width-75  item-label">本次付款：</label>
-        <input type="text" value="<%= payment.amount %>" class="width-253" id="payment_amount" <%= 'disabled' if @material_order.withdrawaled? %>>
+        <input type="text" value="<%= @material_order.amount %>" class="width-253" id="payment_amount" disabled>
       </div>
       <div class="item margin-right-20">
         <label class="width-75  item-label">结算账户：</label>
-        <%= select_tag :settlement_account, options_for_select(current_store.store_settlement_accounts.collect {|sc| [sc.name, sc.id] }, payment.store_settlement_account.id), class: "width-253", id: "settlement_account", disabled: @material_order.withdrawaled? %>
+        <%= select_tag :settlement_account, options_for_select(current_store.store_settlement_accounts.collect {|sc| [sc.name, sc.id] }, payment.store_settlement_account.id), class: "width-253", id: "settlement_account", disabled: true %>
       </div>
       <div class="item margin-right-20">
         <label class="width-75  item-label">本次欠款：</label>
