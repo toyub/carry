@@ -82,15 +82,15 @@
     <% @material_order.payments.each do |payment| %>
       <div class="item margin-right-20">
         <label class="width-75  item-label">本次付款：</label>
-        <input type="text" value="<%= payment.amount %>" class="width-253" id="payment_amount">
+        <input type="text" value="<%= payment.amount %>" class="width-253" id="payment_amount" <%= 'disabled' if @material_order.withdrawaled? %>>
       </div>
       <div class="item margin-right-20">
         <label class="width-75  item-label">结算账户：</label>
-        <input type="text" class="width-253 " id="settlement_account" value="<%= payment.store_settlement_account.name %>">
+        <%= select_tag :settlement_account, options_for_select(current_store.store_settlement_accounts.collect {|sc| [sc.name, sc.id] }, payment.store_settlement_account.id), class: "width-253", id: "settlement_account", disabled: @material_order.withdrawaled? %>
       </div>
       <div class="item margin-right-20">
         <label class="width-75  item-label">本次欠款：</label>
-        <input type="text" name="name" value="<%= payment.order_balance %>" disabled class="width-253">
+        <input type="text" name="name" value="<%= payment.order_balance %>" disabled class="width-253 order-balance">
       </div>
     <% end %>
     <div class="item">
@@ -109,6 +109,17 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function(){
+    var balance = $(".order-balance");
+
+    $(".cancel_btn").click(function(){
+      $(".orders").hide();
+    });
+
+    $("#payment_amount").change(function(){
+      var diff = ($(this).val() - <%= @material_order.amount %>).toFixed(2);
+      balance.val(diff);
+    })
+
     $("#confirm_btn").click(function(){
       var amount = $("#payment_amount").val(),
           account = $("#settlement_account").val();
@@ -117,9 +128,9 @@
         $.ajax({
           url: url,
           method: 'patch',
-          data: {payment_amount: amount, account: account},
+          data: {payment_amount: amount, account_id: account, order_balance: balance.val()},
           success: function(){
-            console.log("hello");
+            $(".orders").hide();
           },
           error: function(){
             console.log('error');

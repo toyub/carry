@@ -75,26 +75,9 @@
       </thead>
       <tbody>
         <% @material_orders.each.with_index(1) do |order, index|%>
-        <tr>
+        <tr class="material-order-<%= order.id %>" data-index="<%= index %>">
           <td><%= index %>.</td>
-          <td><%= order.store_supplier.name %></td>
-          <td><%= order.created_at.strftime("%Y-%m-%d") %></td>
-          <td><%= order.numero %></td>
-          <td><%= order.creator.full_name %></td>
-          <td><%= order.amount %></td>
-          <td><%= order.paid_amount %></td>
-          <td><%= order.amount - order.paid_amount%></td>
-          <td><%= order.remark %></td>
-          <td><%= order.process_status_cn %></td>
-          <td><% order.withdrawaler.try(:full_name) %></td>
-          <td><%= order.withdrawal_at.strftime("%Y-%m-%d") if order.withdrawaled? %></td>
-          <td>
-            <% if order.withdrawaled? %>
-              <%= link_to "详情", ais_material_order_path(order), remote: true %>
-            <% else %>
-              <%= link_to "核销", ais_material_order_path(order), class: "cancellation_btn", remote: true %>
-            <% end %>
-          </td>
+          <%= render 'material_order', order: order %>
         </tr>
         <% end %>
       </tbody>

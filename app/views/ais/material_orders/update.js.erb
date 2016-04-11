@@ -1,0 +1,4 @@
+var tr_material_order = $(".material-order-<%= @material_order.id %>"),
+    index = tr_material_order.data("index");
+tr_material_order.html("<%=j render 'material_order', order: @material_order, index: 'index' %>")
+tr_material_order.prepend("<td>" + index + ".</td>");
