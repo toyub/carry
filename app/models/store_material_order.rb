@@ -17,6 +17,7 @@ class StoreMaterialOrder < ActiveRecord::Base
   scope :pending, ->{where('store_material_orders.process = 0')}
   scope :suspense, ->{where('0 <= store_material_orders.process and store_material_orders.process < 100')}
   scope :finished, ->{where('store_material_orders.process = 100')}
+  scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
 
   def balance
     self.amount - self.paid_amount

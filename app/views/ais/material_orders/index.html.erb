@@ -1,50 +1,10 @@
 <div class="page_head main_top">
-  <span class="font-24 margin-right-15">往来</span>
-  <select class="width-90">
-    <option value="option">应付账款</option>
-    <option value="option">应收账款</option>
-  </select>
+  <span class="font-24 margin-right-15">财物管理> 往来</span>
 </div>
 
 <div class="details">
   <div class="list_table">
-    <div class="search_nav">
-      <form>
-        <div class="item-query">
-          <label for="">日期</label>
-          <select class="width-100" >
-            <option></option>
-          </select>
-          <select class="width-100" >
-            <option></option>
-          </select>
-        </div>
-
-        <div class="item-query">
-          <label for="">模糊查询</label>
-          <input type="text" value="" class="width-165">
-        </div>
-
-        <div class="item-query">
-          <label for="">供应商类别</label>
-          <select class="width-100" >
-            <option>全部</option>
-          </select>
-          <select class="width-100" >
-            <option>全部</option>
-          </select>
-        </div>
-
-        <div class="item-query">
-          <input type="button" value="查询" class="btn query_btn do_search_result">
-        </div>
-
-        <div class="query_div">
-          <a href="#" class="print_btn btn">打印</a>
-          <a href="#" class="export_btn btn">导出</a>
-        </div>
-      </form>
-    </div>
+    <%= render 'search' %>
     <table class="accounts_payable_tab index_list">
       <thead>
         <tr>
