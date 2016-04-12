@@ -9,8 +9,8 @@ class Ais::MaterialOrdersController < Ais::BaseController
 
   def update
     @material_order = current_store.store_material_orders.find_by_id(params[:id])
-    @material_order.update!(withdrawal_by: current_staff.id, withdrawal_at: Time.now)
-    @material_order.payments.last.update!(amount: params[:payment_amount], store_settlement_account_id: params[:account_id], order_balance: params[:order_balance])
+    @material_order.update!(withdrawaler_id: current_staff.id, withdrawal_at: Time.now)
+    @material_order.payments.last.update!(amount: params[:payment_amount], store_settlement_account_id: params[:account_id], order_balance: params[:order_balance]) if params[:payment_amount].present?
   end
 
   private
