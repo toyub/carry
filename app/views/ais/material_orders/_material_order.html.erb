@@ -11,7 +11,7 @@
 <td><%= order.withdrawal_at.strftime("%Y-%m-%d") if order.withdrawaled? %></td>
 <td>
   <% if order.withdrawaled? %>
-    <%= link_to "详情", ais_material_order_path(order), remote: true %>
+    <%= link_to "详情", "/printer/ais/material_orders/#{order.id}" %>
   <% else %>
     <%= link_to "核销", ais_material_order_path(order), class: "cancellation_btn", remote: true %>
   <% end %>

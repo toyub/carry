@@ -464,6 +464,9 @@ Rails.application.routes.draw do
     namespace :pos do
       resources :orders
     end
+    namespace :ais do
+      resources :material_orders, only: :show
+    end
   end
 
   namespace :open do
