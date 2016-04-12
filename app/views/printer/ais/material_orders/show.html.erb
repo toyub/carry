@@ -53,8 +53,8 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= @material_order.quantity %></td>
         <td><%= @material_order.amount %></td>
+        <td><%= @material_order.quantity %></td>
         <td></td>
         <td></td>
       </tr>
@@ -68,22 +68,22 @@
     </div>
 
     <% @material_order.payments.each do |payment| %>
-      <div class="margin-right-20">
-        <label class="width-75  item-label">本次付款：</label>
+      <div class="item">
+        <label class="item-label">本次付款：</label>
         <span><%= @material_order.amount %></span>
       </div>
-      <div class="margin-right-20">
-        <label class="width-75  item-label">结算账户：</label>
+      <div class="item">
+        <label class="item-label">结算账户：</label>
         <span><%=  payment.store_settlement_account.name %></span>
       </div>
-      <div class="margin-right-20">
-        <label class="width-75  item-label">本次欠款：</label>
+      <div class="item">
+        <label class="item-label">本次欠款：</label>
         <span><%=  payment.order_balance %></span>
       </div>
     <% end %>
     <div class="item">
-      <label class="width-75 item-label">制单人：</label>
-      <span class="width-253 item-span"><%= @material_order.creator.screen_name %></span>
+      <label class="item-label">制单人：</label>
+      <span class="item-span"><%= @material_order.creator.screen_name %></span>
     </div>
   </div>
 

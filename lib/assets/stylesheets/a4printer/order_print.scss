@@ -29,7 +29,7 @@
       padding-left: 5mm;
 
       label{
-        font-size: 0.8em;
+        font-size: 0.89em;
         color: #8B8C8B;
       }
 
@@ -64,6 +64,9 @@
         border: 1px solid #A0A0A0;
         text-align: center;
         box-sizing: border-box;
+
+        &:nth-child(6){text-align: right;}
+        &:last-child{width: 50mm;}
       }
     }
   }
@@ -77,7 +80,7 @@
         color: #272525;
         font-weight: 600;
         &:nth-child(2){text-align: left;}
-        &:nth-child(10){text-align: right;}
+        &:nth-child(6){text-align: right;}
       }
     }
   }
@@ -85,17 +88,16 @@
 
 .order_accout{
   .item{
-    display: inline-block;
-    margin-top: 5mm;
+    margin-top: 3mm;
     label.item-label{
       display:inline-flex;
-      height: 12mm;
+      height: 5mm;
       vertical-align: top;
       justify-content:flex-start;
     }
 
     .remarks_textarea{
-      width: 186mm;
+      width: 189mm;
       box-sizing: border-box;
     }
 
