@@ -1,8 +1,8 @@
 module V1
   class Mechanics < Grape::API
     before do
-      authenticate_platform!
-      authenticate_user!
+      # authenticate_platform!
+      # authenticate_user!
     end
 
     resource :mechanics do
@@ -16,6 +16,15 @@ module V1
         else
           {status: 0}
         end
+      end
+
+      add_desc '技师上岗'
+      params do
+        requires :platform, type: String, desc: '调用的平台!'
+      end
+      put do
+        current_user = StoreStaff.find(10)
+        
       end
     end
 
