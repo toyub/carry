@@ -1,6 +1,7 @@
 module Api
   module Crm
     class CustomersController < Api::BaseController
+      before_filter :check_vehicle_params
 
       def check
         customer = current_store.store_customers.find_by(phone_number: params[:phone_number])
@@ -12,7 +13,9 @@ module Api
       end
 
       def create
-        render json: check_vehicle_info
+        create_status = AddVehicleService.call(current_store, vehicle_params, customer_params)
+        resul = {success: true, notice: "车辆保存成功!", store_vehicle_id: create_status.vehicle.id}
+        render json: resul
       end
 
       def show
@@ -21,39 +24,26 @@ module Api
       end
 
       private
-      def check_vehicle_info
-        return {success: true, notice: '车辆已存在!'} if current_store.store_vehicle_registration_plates.find_by(license_number: params[:vehicle][:license_number])
-        customer = current_store.store_customers.find_by(phone_number: params[:vehicle][:phone_number])
-        if customer.present?
-          customer.update!(customer_params)
-        else
-          customer = current_store.store_customers.create!(customer_params)
-          entity = customer.create_store_customer_entity(customer_relative_params)
-          entity.create_store_customer_settlement(customer_relative_params)
-        end
-        vehicle = customer.store_vehicles.create!(vehicle_params)
-        plate = vehicle.plates.create!(plate_params)
-        {success: true, notice: "添加#{plate.license_number}成功!", customer: customer, license_number: plate.license_number, store_vehicle_id: vehicle.id}
+
+      def wild_params
+        @wild_params ||= append_store_attrs(params[:vehicle])
       end
 
       def customer_params
-        customer = append_store_attrs ActionController::Parameters.new(first_name: params[:vehicle][:customer][:first_name], last_name: params[:vehicle][:customer][:last_name], phone_number: params[:vehicle][:phone_number])
-        customer.permit(:store_id, :store_staff_id, :first_name, :last_name, :phone_number)
-      end
-
-      def customer_relative_params
-        (append_store_attrs ActionController::Parameters.new).permit(:store_id, :store_staff_id).to_h
+        wild_params.permit(:store_staff_id, :first_name, :last_name, :phone_number)
       end
 
       def vehicle_params
-        vehicle = append_store_attrs ActionController::Parameters.new(detail: params[:vehicle][:detail])
-        vehicle.permit(:store_id, :store_staff_id, detail: [:bought_on])
+        wild_params.permit(:store_staff_id, :license_number, :provisional, detail: [:bought_on])
       end
 
-      def plate_params
-        plate = append_store_attrs ActionController::Parameters.new(license_number: params[:vehicle][:license_number])
-        plate.permit(:store_id, :store_staff_id, :license_number)
+      def check_vehicle_params
+        if params[:vehicle].blank?
+          render json: {success: false, messages: ['params error']}
+          return false
+        end
       end
+
     end
   end
 end

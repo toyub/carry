@@ -26,15 +26,12 @@ class StoreVehicle < ActiveRecord::Base
 
   has_many :workflows, class_name: 'StoreServiceWorkflowSnapshot', foreign_key: :store_vehicle_id
 
-  scope :by_license_number, ->(license_number) { joins(vehicle_plates: [:plate]).where("store_vehicle_registration_plates.license_number" => license_number) }
+  scope :by_license_number, ->(license_number) { where(license_number: license_number) }
+  scope :regular_chain_mode, ->{where(chain_business_model_id: 0)}
 
-  def license_number
-    if current_plate.present?
-      current_plate.license_number
-    else
-      nil
-    end
-  end
+  before_validation :check_license_number
+
+  after_save :associate_plate
 
   def current_plate
     self.vehicle_plates.last.try(:plate)
@@ -75,7 +72,7 @@ class StoreVehicle < ActiveRecord::Base
   end
 
   def current_license_number
-    self.plates.last.try(:license_number)
+    self.license_number
   end
 
   def current_identification_number
@@ -192,5 +189,30 @@ class StoreVehicle < ActiveRecord::Base
 
   def total_pay
     orders.pluck(:amount).reduce(0.0,:+)
+  end
+
+  def check_license_number
+    if self.new_record?
+      if license_number.blank?
+        self.license_number = '暂无牌照'
+        self.provisional = true
+      end
+    else
+      if self.license_number_changed?
+        self.provisional = false
+      end
+    end
+    true
+  end
+
+  def associate_plate
+    return nil if self.provisional
+    return nil if self.plates.exists?(license_number: self.license_number)
+    registration_plate = VehicleRegistrationPlate.find_or_initialize_by(license_number: self.license_number)
+    if registration_plate.new_record?
+      registration_plate.save
+    end
+    self.vehicle_plates.each(&->(vehicle_plate){vehicle_plate.disable!})
+    self.vehicle_plates.create!(plate: registration_plate)
   end
 end
