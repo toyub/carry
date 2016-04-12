@@ -57,7 +57,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def executable?(workstation)
     return false if self.store_vehicle.blank?
-    self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+    !self.store_order.task_pausing? && self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.where.not({id: self.id}).blank? && big_brothers_finished?
   end
 
   def has_qualified_mechaincs?(workstation)
@@ -86,7 +86,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def exchange!(previous_workstation, workstation)
     previous_workstation.free
-    self.processing? ? execute(workstation) : assign_workstation(workstation)
+    (!self.pausing? && self.processing?) ? execute(workstation) : assign_workstation(workstation)
   end
 
   def assign_mechanic(engineer)
@@ -111,11 +111,15 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     send_sms
   end
 
-  def assign_workstation(workstation)
-    self.store.workstations.with_workflow(self.id).each(&:free)
-    self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
-    workstation.update!(current_workflow: self)
-    workstation.busy!
+  def assign_workstation(ws)
+    self.store.workstations.with_workflow(self.id).where.not({id: ws.id}).each(&:free)
+    self.update!(store_workstation_id: ws.id, started_time: Time.now, used_time: work_time_in_minutes)
+    ws.update!(workflow_id: self.id)
+    ws.busy!
+  end
+
+  def play!
+    self.store_workstation.start!(self)
   end
 
   def assign_mechanics
@@ -140,8 +144,12 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def elapsed_time
-    return 0 unless self.started_time
+    return 0 if pausing? || self.started_time.blank?
     ((Time.now - self.started_time)/60).ceil
+  end
+
+  def pausing?
+    self.store_order.task_pausing?
   end
 
   def ended_at
@@ -186,6 +194,19 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def send_sms
     SmsJob.set(wait_until: remind_delay_interval.minutes.from_now).perform_later(sms_options) if can_send_sms?
+  end
+
+  def pause_in_workstation!
+    self.free_mechanics if self.processing?
+  end
+
+  def pause_in_queuing_area!
+    self.free_workstation
+    self.free_mechanics if self.processing?
+  end
+
+  def waiting_in_workstation?
+    self.store_workstation.present? && self.store_workstation.workflow_id == self.id
   end
 
   private
