@@ -13,9 +13,6 @@
       <label for="">单号:</label>
       <span><%= @material_order.numero %></span>
     </div>
-    <div class="display-inline-block">
-      <a href="#" class="print_btn btn">打印</a>
-    </div>
   </div>
 
   <table class="order_tab">
@@ -26,12 +23,9 @@
         <th>条码</th>
         <th>规格</th>
         <th>单位</th>
-        <th>一级分类</th>
-        <th>二级分类></th>
         <th>单价</th>
         <th>数量</th>
         <th>小计</th>
-        <th>仓库</th>
         <th>备注</th>
       </tr>
     </thead>
@@ -44,12 +38,9 @@
         <td><%= item.store_material.barcode %></td>
         <td><%= item.store_material.speci %></td>
         <td><%= item.store_material.store_material_unit.try(:name) %></td>
-        <td><%= item.store_material.store_material_root_category.try(:name) %></td>
-        <td><%= item.store_material.store_material_category.try(:name) %></td>
         <td><%= item.price %></td>
         <td><%= item.quantity %></td>
         <td><%= item.amount %></td>
-        <td></td>
         <td><%= item.remark %></td>
       </tr>
     <% end %>
@@ -59,9 +50,6 @@
       <tr>
         <td></td>
         <td>合计：</td>
-        <td></td>
-        <td></td>
-        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -80,17 +68,17 @@
     </div>
 
     <% @material_order.payments.each do |payment| %>
-      <div class="item margin-right-20">
+      <div class="margin-right-20">
         <label class="width-75  item-label">本次付款：</label>
-        <input type="text" value="<%= @material_order.amount %>" class="width-253" id="payment_amount" disabled>
+        <span><%= @material_order.amount %></span>
       </div>
-      <div class="item margin-right-20">
+      <div class="margin-right-20">
         <label class="width-75  item-label">结算账户：</label>
-        <%= select_tag :settlement_account, options_for_select(current_store.store_settlement_accounts.collect {|sc| [sc.name, sc.id] }, payment.store_settlement_account.id), class: "width-253", id: "settlement_account", disabled: true %>
+        <span><%=  payment.store_settlement_account.name %></span>
       </div>
-      <div class="item margin-right-20">
+      <div class="margin-right-20">
         <label class="width-75  item-label">本次欠款：</label>
-        <input type="text" name="name" value="<%= payment.order_balance %>" disabled class="width-253 order-balance">
+        <span><%=  payment.order_balance %></span>
       </div>
     <% end %>
     <div class="item">
