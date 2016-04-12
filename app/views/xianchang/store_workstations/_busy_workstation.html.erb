@@ -4,7 +4,7 @@
       <span class="service_name"><%= workstation.current_workflow.try(:name) %></span>
       <span class="current_license_number"><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number)%> </span>
     </div>
-    <%= image_tag 'workstation_car', class: 'car_img'%>
+    <%= image_tag 'workstation_car.png', class: 'car_img'%>
   </dl>
   <dl class="license_plate" >
     <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
