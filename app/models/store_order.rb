@@ -209,10 +209,6 @@ class StoreOrder < ActiveRecord::Base
     self.update!(deleted: true)
   end
 
-  def pause!
-
-  end
-
   def play!(from = 'processing')
     workflow = self.workflows.processing.first || self.workflows.pending.first
     if from == 'queuing'
