@@ -55,8 +55,6 @@ class StoreOrderService
 
   def order_params_merge_vehicle
     @basic_params.merge(
-      store_vehicle_id: @order_params[:vehicle_id],
-      store_vehicle_registration_plate_id: @order_params[:plate_id]
-    )
+      store_vehicle_id: @order_params[:vehicle_id])
   end
 end

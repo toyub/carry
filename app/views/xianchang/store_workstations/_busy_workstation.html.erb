@@ -1,14 +1,14 @@
 <div class="vehicle_info">
-  <dl class="construction_info">
+  <dl class="construction_info js-vehicle js-draggable" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order='{"previous_workstation": <%= workstation.id %>, "id": <%= workstation.current_workflow.store_order_id %>, "state": "processing"}'>
     <div class="car_info">
       <span class="service_name"><%= workstation.current_workflow.try(:name) %></span>
       <span class="current_license_number"><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number)%> </span>
     </div>
-    <img src="/images/workstation_car.png" class="car_img">
+    <%= image_tag 'workstation_car.png', class: 'car_img'%>
   </dl>
-  <dl class="license_plate js-vehicle js-draggable" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order='{"previous_workstation": <%= workstation.id %>, "id": <%= workstation.current_workflow.store_order_id %>, "state": "processing"}'>
+  <dl class="license_plate" >
     <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
-    <span class="time do_dbclick <%= 'times' if is_started %>" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
+    <span class="time do_dbclick <%= 'times' if is_started && !workstation.current_workflow.pausing? %>" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
   </dl>
 
   <dl class="add_time_wrap">

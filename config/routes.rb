@@ -136,9 +136,11 @@ Rails.application.routes.draw do
     resources :store_orders, only: [:show, :update] do
       member do
         put :terminate
-        get :check_dispatch
-        get :check_mechanic
         put :execute
+        put :pause_in_queuing_area
+        put :pause_in_workstation
+        put :pause
+        put :play
       end
     end
     resources :store_workflows, only: [:edit, :update] do
@@ -402,7 +404,6 @@ Rails.application.routes.draw do
     resources :subscribe_orders
 
     resources :vehicle_brands, only: [:index] do
-      get :search_series
       resources :vehicle_manufacturers, only: [:index]
     end
 

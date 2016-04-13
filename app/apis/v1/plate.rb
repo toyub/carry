@@ -16,7 +16,7 @@ module V1
       end
 
       get do
-        q = current_store_chain.plates.ransack(params[:q])
+        q = current_store_chain.store_vehicles.regular_chain_mode.ransack(params[:q])
         plates = q.result.order('id asc')
         present plates, with: ::Entities::VehiclePlate
       end
