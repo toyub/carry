@@ -1,0 +1,37 @@
+<div class="search_nav">
+  <%= form_tag("/ais/material_orders", method: :get) do -%>
+    <div class="item-query">
+      <label for="">日期</label>
+      <%= date_select(
+        "", :date,
+        { start_year: 2000, use_short_month: true, discard_day: true, :default => @date},
+        {:include_blank => @date.nil?, class: "width-100" }
+      )
+    %>
+    </div>
+
+    <div class="item-query">
+      <label for="">模糊查询</label>
+      <input type="text" value="" class="width-165">
+    </div>
+
+    <div class="item-query">
+      <label for="">供应商类别</label>
+      <select class="width-100" >
+        <option>全部</option>
+      </select>
+      <select class="width-100" >
+        <option>全部</option>
+      </select>
+    </div>
+
+    <div class="item-query">
+      <%= submit_tag '查询', class: "btn query_btn do_search_result"%>
+    </div>
+
+    <div class="query_div">
+      <a href="#" class="print_btn btn">打印</a>
+      <a href="#" class="export_btn btn">导出</a>
+    </div>
+  <% end %>
+</div>

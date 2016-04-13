@@ -120,6 +120,8 @@ Rails.application.routes.draw do
     resources :categories, only: [:show] do
       resources :order_items, only: [:index]
     end
+    resources :material_orders, only: [:index, :show, :update]
+    resources :reports, only: :index
   end
 
   namespace :xianchang do
@@ -462,6 +464,9 @@ Rails.application.routes.draw do
   namespace :printer do
     namespace :pos do
       resources :orders
+    end
+    namespace :ais do
+      resources :material_orders, only: :show
     end
   end
 
