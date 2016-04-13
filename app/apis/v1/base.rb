@@ -29,7 +29,7 @@ module V1
     mount V1::VerifyCaptchaCode
     mount V1::ResetPassword
     mount V1::DiscountAuthorities
-
+    mount V1::Mechanics
 
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,

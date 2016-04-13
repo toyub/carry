@@ -20,12 +20,21 @@ module Xianchang
       SpotDispatchJob.perform_now(current_store.id)
     end
 
-    def check_dispatch
-      render json: {status: @store_order.store_vehicle.orders.task_processing.available.count == 0}
+    def pause
+      @store_order.pause!
     end
 
-    def check_mechanic
-      render json: {status: @store_order.check_mechanic}
+    def pause_in_queuing_area
+      @store_order.pause_in_queuing_area!
+    end
+
+    def pause_in_workstation
+      @store_order.pause_in_workstation!
+      #@workstation = current_store.store_workstations.find(params[:workstation])
+    end
+
+    def play
+      @store_order.play!(params[:from])
     end
 
     private

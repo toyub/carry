@@ -187,11 +187,6 @@
                   font-size: 12px;
                 }
               }
-
-              &.warnning{
-                @extend .blink;
-                color: #dd3a2e;
-              }
             }
 					}
 
@@ -227,6 +222,11 @@
             display: inline-block;
             font-weight: bold;
             text-align: right;
+          }
+
+          .warnning{
+            @extend .blink;
+            color: #dd3a2e;
           }
 				}
 

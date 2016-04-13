@@ -66,8 +66,8 @@
           '</div>' +
           '<div class="ffooter">' +
             '<input type="button"  name="reset"  value="取消"  class="cancel_btn js-cancel">' +
-            '<input type="button"  name="exchange"  value="切换工位"  class="confirm_btn js-exchange">' +
-            '<input type="button" name="terminate" value="结束流程"  class="confirm_btn js-terminate">' +
+            '<input type="button"  name="exchange"  value="' + settings.exchangeButton + '"  class="confirm_btn js-exchange">' +
+            '<input type="button" name="terminate" value="' + settings.termianteButton + '"  class="confirm_btn js-terminate">' +
           '</div>' +
         '</div>' +
       '</div>'
@@ -101,5 +101,7 @@
       title: "系统提示",
       confirmButton: "确定",
       cancelButton: "取消",
+      exchangeButton: "切换工位",
+      termianteButton: "结束流程",
   }
 })(jQuery);

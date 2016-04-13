@@ -10,6 +10,7 @@ class Store <  ActiveRecord::Base
   has_many :store_suppliers
   has_many :store_material_inventories
   has_many :store_services
+  has_many :store_workstations
   has_many :store_workstation_categories
   has_many :store_commission_templates
   has_many :store_staff
