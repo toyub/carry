@@ -2,7 +2,7 @@
   <form id="queryForm" action="/crm/store_customers/<%= @customer.id %>/store_trackings" accept-charset='UTF-8' method="get">
     <div class="nav-item-query">
       <label>选择车辆</label>
-      <%= select_tag 'q[store_order_plate_id_eq]', options_for_select(@customer.plates.pluck(:license_number, :id), @search[:plate]), include_blank: '全部车辆', class: 'width-120' %>
+      <%= select_tag 'q[store_order_store_vehicle_id_eq]', options_for_select(@customer.store_vehicles.pluck(:license_number, :id), @search[:plate]), include_blank: '全部车辆', class: 'width-120' %>
     </div>
 
     <div class="nav-item-query">
