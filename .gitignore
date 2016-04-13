@@ -36,3 +36,4 @@ config/sidekiq_web.yml
 TODOLIST.md
 .DS_Store
 .idea
+dump.rdb
