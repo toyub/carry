@@ -1,0 +1,18 @@
+<td><%= order.store_supplier.name %></td>
+<td><%= order.created_at.strftime("%Y-%m-%d") %></td>
+<td><%= order.numero %></td>
+<td><%= order.creator.full_name %></td>
+<td><%= order.amount %></td>
+<td><%= order.paid_amount %></td>
+<td><%= order.amount - order.paid_amount%></td>
+<td><%= order.remark %></td>
+<td><%= order.process_status_cn %></td>
+<td><%= order.withdrawaler.try(:full_name) %></td>
+<td><%= order.withdrawal_at.strftime("%Y-%m-%d") if order.withdrawaled? %></td>
+<td>
+  <% if order.withdrawaled? %>
+    <%= link_to "详情", "/printer/ais/material_orders/#{order.id}" %>
+  <% else %>
+    <%= link_to "核销", ais_material_order_path(order), class: "cancellation_btn", remote: true %>
+  <% end %>
+</td>

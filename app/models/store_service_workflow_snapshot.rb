@@ -57,7 +57,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def executable?(workstation)
     return false if self.store_vehicle.blank?
-    self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.blank? && big_brothers_finished?
+    !self.store_order.task_pausing? && self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.where.not({id: self.id}).blank? && big_brothers_finished?
   end
 
   def has_qualified_mechaincs?(workstation)
@@ -71,7 +71,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics_quantity
-    self.engineer_count_enable ? [self.engineer_count, 1].max : 1
+    self.engineer_count_enable ? [self.engineer_count.to_i, 1].max : 1
   end
 
   def mechanics_level
@@ -86,7 +86,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def exchange!(previous_workstation, workstation)
     previous_workstation.free
-    self.processing? ? execute(workstation) : assign_workstation(workstation)
+    (!self.pausing? && self.processing?) ? execute(workstation) : assign_workstation(workstation)
   end
 
   def assign_mechanic(engineer)
@@ -108,13 +108,18 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
+    send_sms
   end
 
-  def assign_workstation(workstation)
-    self.store.workstations.with_workflow(self.id).each(&:free)
-    self.update!(store_workstation_id: workstation.id, started_time: Time.now, used_time: work_time_in_minutes)
-    workstation.update!(current_workflow: self)
-    workstation.busy!
+  def assign_workstation(ws)
+    self.store.workstations.with_workflow(self.id).where.not({id: ws.id}).each(&:free)
+    self.update!(store_workstation_id: ws.id, started_time: Time.now, used_time: work_time_in_minutes)
+    ws.update!(workflow_id: self.id)
+    ws.busy!
+  end
+
+  def play!
+    self.store_workstation.start!(self)
   end
 
   def assign_mechanics
@@ -139,8 +144,16 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def elapsed_time
-    return 0 unless self.started_time
+    return 0 if pausing? || self.started_time.blank?
     ((Time.now - self.started_time)/60).ceil
+  end
+
+  def pausing?
+    self.store_order.task_pausing?
+  end
+
+  def ended_at
+    self.count_down.minutes.from_now.strftime("%Y/%m/%d %H:%M:%S")
   end
 
   def actual_time_in_minutes
@@ -150,6 +163,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def finish!
     self.terminate!
     self.store_order.finish!
+    send_sms
   end
 
   def terminate!
@@ -178,15 +192,75 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.update!(deleted: true)
   end
 
+  def send_sms
+    SmsJob.set(wait_until: remind_delay_interval.minutes.from_now).perform_later(sms_options) if can_send_sms?
+  end
+
+  def pause_in_workstation!
+    self.free_mechanics if self.processing?
+  end
+
+  def pause_in_queuing_area!
+    self.free_workstation
+    self.free_mechanics if self.processing?
+  end
+
+  def waiting_in_workstation?
+    self.store_workstation.present? && self.store_workstation.workflow_id == self.id
+  end
+
   private
   def big_brothers_finished?
     big_brothers.all? { |w| w.finished? }
   end
 
   def big_brothers
-    store_service.workflow_snapshots.order("id asc").to_a.select do |w|
+    store_service.workflow_snapshots.order("id asc").to_a.compact.select do |w|
       w.id < self.id
     end
+  end
+
+  def can_send_sms?
+    (started? || service_finished?) && sms_enabled?
+  end
+
+  def sms_options
+    {
+      store_id: self.store_id,
+      receiver_type: 'StoreCustomer',
+      receiver_id: self.store_order.store_customer_id,
+      content: message,
+      first_category: SmsNotifySwitchType.name,
+      second_category: SmsNotifySwitchType.find_by_name('施工流程提醒').try(:id)
+    }
+  end
+
+  def message
+    store_service.message(remind_type) || "尊敬的客户，您的爱车开始施工流程——#{name}"
+  end
+
+  def remind_delay_interval
+    store_service.remind_delay_interval(remind_type)
+  end
+
+  def sms_enabled?
+    store_service.sms_enabled?(remind_type)
+  end
+
+  def remind_type
+    if started?
+      :started
+    elsif service_finished?
+      :finished
+    end
+  end
+
+  def started?
+    self.processing?
+  end
+
+  def service_finished?
+    self.persisted? && self.finished? && store_service.workflow_snapshots.reject {|w| w.id == self.id}.all? {|w| w.finished?}
   end
 
 end

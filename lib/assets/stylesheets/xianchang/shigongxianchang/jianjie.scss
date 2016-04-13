@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import "xianchang/common/blink.scss";
 
 .construction_site{
 	width: 99.80%;
@@ -55,28 +56,21 @@
 
 
   >ul{
-		width: 95.2%;
+		width: 100%;
 		margin: 0 auto;
 
 		>li{
 			float:left;
-			width: 190px;
-			height: 155px;
+			width: 236px;
+			height: 216px;
 			display: inline-block;
-			text-align: center;
-			margin-left: 30px;
-			padding-bottom: 25px;
+			margin-left: 44px;
+      padding: 0 15px 25px 15px;
+      border: 1px dashed #999;
+      box-sizing: border-box;
+      margin-bottom: 20px;
 
-			.station_info{
-				.edit_button{
-					margin: 0;
-					padding: 0 5px;
-					color: #5570E5;
-					text-decoration: underline;
-				}
-			}
-
-			&:nth-child(6n+1){margin-left:0px;}
+			&:nth-child(5n+1){margin-left:0px;}
 
 			div.work_station_info{
 				background: #4449BE;
@@ -111,41 +105,31 @@
 			}
 
 			div.station_info{
-				display: block;
-				height: 35px;
-				line-height: 35px;
+				display: flex;
+        justify-content: space-between;
+        align-items: center;
+				height: 40px;
 				width: 100%;
-				outline: 1px solid #eee;
 				margin-top: 1px;
-				border-bottom: 5px solid;
+				border-bottom: 1px solid;
 
-				span{
-					height: 35px;
-					line-height: 35px;
-					float: left;
+        span{
+          font-size: 14px;
+          font-weight: bold;
+          color: #333;
+        }
+        .edit_button{
+          margin: 0;
+          width: 66px;
+          height: 22px;
+          line-height: 22px;
+          background: #999;
+          font-size: 12px;
+          color: #fff;
+          border-radius: 6px;
+          text-align: center;
+        }
 
-					input[type="text"]{
-						font-weight: bold;
-						background: none;
-
-						border:1px solid transparent;
-
-						&:hover{
-
-							border:1px dashed #252121;
-						}
-					}
-
-					input[readonly]{
-						cursor:pointer;
-					}
-
-					input[type="checkbox"]{
-					  border: none;
-						margin-right: 10px;
-
-					}
-				}
 
 				i{margin-left:5px;
 					float:left;
@@ -157,10 +141,15 @@
 			}
 
 			.vehicle_info{
-				height: 114px;
-				display: flex;
-				align-items: center;
+        box-sizing: border-box;
 				width: 100%;
+        padding-top: 10px;
+
+        .car_img{
+          width: 89px;
+          height: 27px;
+          cursor: pointer;
+        }
 
 				span{
 					display: block;
@@ -169,83 +158,132 @@
 				}
 
 				.construction_info{
-					width: 90px;
+					width: 100%;
 					text-align: left;
-					span{
-						font-size: 16px;
-						font-weight: bold;
-						padding: 10px 0px;
-						cursor:pointer;
+          display: flex;
+          height: 50px;
+          justify-content: space-between;
+          align-items: center;
 
-						&.times{
-							font-size:24px;
+          .car_info{
+            width: 128px;
 
-							&:after{
-								content: "分钟";
-								font-size: 12px;
-							}
-						}
+            .service_name{
+              font-size: 14px;
+              font-weight: bold;
+              color: #020e65;
+            }
 
+            .current_license_number{
+              font-size: 12px;
+              color: #020e65;
+            }
+            span{
+
+              &.times{
+                font-size:24px;
+
+                &:after{
+                  font-size: 12px;
+                }
+              }
+            }
 					}
 
-					.add_time{
-						padding: 3px 5px;
-						color: #918D8D;
-						display: inline-block;
-
-						&:after{
-							content: "+";
-							font-weight: bold;
-							display: inline-block;
-							font-size: 11px;
-							text-align: center;
-							margin-left: 10px;
-					    color: #fff;
-					    width: 15px;
-					    height: 15px;
-					    border: 1px solid #26A617;
-					    background-color: #53C853;
-						}
-					}
 
 				}
 
 				.license_plate{
-          width: 80px;
-					height: 100%;
+          width:100%;
+          box-sizing: border-box;
+          height: 65px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
 
-					img{
-						width: 75px;
-						cursor: pointer;
-					}
-					span{
-						padding: 10px 0px 0px 0px;
-					}
+          .time_icon{
+            font-size: 12px;
+            color: #bfbfbf;
+            width: 60px;
+            height: 40px;
+            i{
+              display: block;
+              color: #bfbfbf;
+              font-size: 20px;
+            }
+          }
+
+          .time{
+            font-size:36px;
+            color: #333;
+            height: 40px;
+            line-height: 40px;
+            width: 180px;
+            display: inline-block;
+            font-weight: bold;
+            text-align: right;
+          }
+
+          .warnning{
+            @extend .blink;
+            color: #dd3a2e;
+          }
 				}
+
+        .add_time_wrap{
+          padding-top: 3px;
+          .add_time{
+            display: inline-block;
+            width: 206px;
+            height: 30px;
+            line-height: 30px;
+            background: #020e65;
+            color: #fff;
+            font-size: 13px;
+            text-align: center;
+            border-radius: 6px;
+
+            &:before{
+              margin-right: 10px;
+            }
+          }
+        }
 			}
 			.idle_station,.disable_station{
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				height: 114px;
+				height: 165px;
 
 				span{
-					display: flex;
-					align-items: center;
-					justify-content: center;
 					font-size: 18px;
 					color: #004898;
-					width: 50px;
-					height: 50px;
-					border:3px solid #004898;
-					border-radius: 40px;
+          width: 92px;
+          font-size: 24px;
+          text-align: center;
+
+          i{
+            font-size: 100px;
+            display: block;
+          }
 				}
 			}
 
+      .idle_station{
+        span{
+          color: #f6d242;
+          i{
+            color: inherit;
+          }
+        }
+      }
+
 			.disable_station{
 				span{
-					color: #FF0824;
-					border:3px solid #FF0824;
+					color: #aa0046;
+          i{
+            color: inherit;
+          }
 				}
 			}
 		}

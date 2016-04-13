@@ -27,7 +27,66 @@
 	.vehicle_order_details{
 		padding: 0px 10px 0px 20px;
 
+    .vehicle-search{
+			width: 100%;
+      margin-top: 20px;
 
+      dl{
+        overflow: auto;
+  			dd{
+  				height: 30px;
+  				padding: 0px 0px;
+  				display: inline-block;
+          float: left;
+  				input{
+  					height: 20px;
+  					line-height: 20px;
+  				}
+
+  				label{
+  					text-align: right;
+            float: left;
+            padding-right: 7px;
+  				}
+
+          span{
+            height: 20px;
+            line-height: 20px;
+            border: 1px solid #e6e6e6;
+            display: inline-block;
+            vertical-align: middle;
+            text-indent: 10px;
+          }
+  			}
+
+        dd.fresh {
+          display: none;
+        }
+  		}
+			.vehicle_details_info{
+        overflow: auto;
+        padding-top: 10px;
+
+        .item_content{
+          padding:5px 0px;
+          float: left;
+          width: 32.7%;
+          display: inline-block;
+          input{
+            height: 20px;
+            line-height: 20px;
+            float: left;
+          }
+
+          label{
+            text-align: right;
+            padding-right: 7px;
+            float:left;
+          }
+
+        }
+			}
+		}
 
 		.vehicle_info{
 			width: 100%;
@@ -381,7 +440,7 @@
               tr{
                 td{
                   text-align: right;
-            
+
                   input{
                     border: 1px solid #fff;
                     height: 20px;

@@ -1,0 +1,45 @@
+.accounts_payable_tab{
+  width: 100%;
+  box-sizing: border-box;
+  thead{
+    tr{
+      th{
+        height: 38px;
+        border: 1px solid #C5C5C5;
+        background: #FCF9CE !important;
+        font-size: 14px;
+
+        &:nth-child(1){border-right:0;}
+        &:nth-child(2){border-left:0;}
+
+        .sequence i{
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  tbody{
+    tr{
+      td{
+        height: 28px;
+        border: 1px solid #C5C5C5;
+        padding: 0px 2px;
+
+
+        &:nth-child(1){ background: #FCF9CE; width: 35px;}
+        &:nth-child(2){ width: 191px;}
+        &:nth-child(3){width: 94px;}
+        &:nth-child(4){width: 130px;}
+        &:nth-child(5){width: 106px;}
+        &:nth-child(6){text-align: right; width: 101px;}
+        &:nth-child(7){text-align: right; width: 99px;}
+        &:nth-child(8){ width: 102px; text-align: right;}
+        &:nth-child(9){ width: 216px;}
+        &:nth-child(10){ width: 138px;}
+        &:nth-child(11){ width: 84px;}
+        &:nth-child(12){ width: 114px;}
+        &:nth-child(13){ width: 66px;}
+      }
+    }
+  }
+}

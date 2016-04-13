@@ -1,5 +1,4 @@
-class StaffOtherCommission
-  include StaffBaseCommission
+class StaffOtherCommission < StaffBaseCommission
 
   def initialize(staff, month)
     @staff = staff

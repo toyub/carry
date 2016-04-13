@@ -14,7 +14,7 @@ module Sas
       @data = [0, 0, 0, 0, 0]
       store.store_customers.all.each do |customer|
         CONSUMING_LEVEL.select do |level, flag|
-          if level === customer.store_order_items.by_month.total_amount
+          if level === customer.orders.map(&:amount).sum
             @data[flag.to_i] += 1
             break
           end

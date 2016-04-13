@@ -4,7 +4,6 @@ class StoreOrder < ActiveRecord::Base
   belongs_to :store_customer
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
   belongs_to :store_vehicle
-  belongs_to :plate, class_name: 'StoreVehicleRegistrationPlate', foreign_key: 'store_vehicle_registration_plate_id'
 
   has_one :store_tracking
   has_many :items, class_name: 'StoreOrderItem'
@@ -24,14 +23,16 @@ class StoreOrder < ActiveRecord::Base
   scope :unfinished, -> { where.not(state: StoreOrder.states[:finished]) }
   scope :unpending, -> { where.not(state: StoreOrder.states[:pending]) }
 
+  scope :waiting, -> {where(task_status: [StoreOrder.task_statuses[:task_queuing], StoreOrder.task_statuses[:task_pausing]])}
+
   scope :unpaid, ->{where(pay_status: StoreOrder.pay_statuses[:pay_queuing])}
   scope :paid, ->{where(pay_status: [ StoreOrder.pay_statuses[:pay_hanging], StoreOrder.pay_statuses[:pay_finished] ])}
   scope :paid_on, ->(date){where(paid_at: date.beginning_of_day..date.end_of_day)}
 
   scope :available, -> {where(deleted: false)}
 
-  enum state: %i[pending queuing processing paying finished]
-  enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished]
+  enum state: %i[pending queuing processing paying finished pausing]
+  enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]
   enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]
 
   before_create :set_numero
@@ -106,8 +107,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def finish!
-    self.task_finished! if workflows_finished?
-    self.paid? ? self.finished! : self.paying!
+    terminate! if workflows_finished?
   end
 
   def terminate!
@@ -119,6 +119,7 @@ class StoreOrder < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       self.terminate!
       self.workflows.unfinished.map(&:terminate!)
+      self.workflows.last.send_sms
     end
   end
 
@@ -197,10 +198,6 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def check_mechanic
-    self.workflows.all? {|w| w.has_mechanic? }
-  end
-
   def assign_mechanics
     self.workflows.pending.order("created_at asc").map(&:assign_mechanics)
     self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
@@ -209,6 +206,41 @@ class StoreOrder < ActiveRecord::Base
   def waste!
     self.items.each(&->(item){item.waste!})
     self.update!(deleted: true)
+  end
+
+  def play!(from = 'processing')
+    workflow = self.workflows.processing.first || self.workflows.pending.first
+    if from == 'queuing'
+      self.queuing!
+      self.task_queuing!
+    else
+      self.processing!
+      self.task_processing!
+      workflow.play!
+    end
+  end
+
+  def pause_in_queuing_area!
+    workflow = self.workflows.processing.first || self.workflows.pending.first
+    workflow.pause_in_queuing_area! if self.task_processing?
+    self.pausing!
+    self.task_pausing!
+  end
+
+  def pause_in_workstation!
+    workflow = self.workflows.processing.first || self.workflows.pending.first
+    workflow.pause_in_workstation!
+    self.pausing!
+    self.task_pausing!
+  end
+
+  def self.waiting_in_queuing_area
+    self.waiting.reject { |o| o.task_pausing? && o.waiting_in_workstation? }
+  end
+
+  def waiting_in_workstation?
+    workflow = self.workflows.processing.first || self.workflows.pending.first
+    workflow.waiting_in_workstation?
   end
 
   private

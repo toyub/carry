@@ -10,6 +10,7 @@ class StoreStaffTask < ActiveRecord::Base
   scope :by_item, ->(item_id) { where(store_order_item_id: item_id) }
   scope :tasks_of, ->(staff_id) { where(mechanic_id: staff_id) }
 
+  enum status: %i[ready busy]
   def commission(beneficiary = 'person')
     workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.task_commission(store_order_item, self, mechanic, beneficiary) : 0.0
   end

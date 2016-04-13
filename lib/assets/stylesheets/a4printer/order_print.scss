@@ -1,0 +1,114 @@
+.orders{
+  border: 0.5mm solid #D7D7D7;
+  position: absolute;
+  top: 0mm;
+  width: 100%;
+  background: #fff;
+  padding: 4mm;
+  box-sizing: border-box;
+
+  .order_head{
+    display: inline-block;
+    padding: 5mm 0;
+
+    .font-borderradius{
+      width: 8mm;
+      height: 8mm;
+      line-height: 8mm;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border: 0.25mm solid #252121;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .item{
+      display: inline-block;
+      width: 60mm;
+      box-sizing: border-box;
+      padding-left: 5mm;
+
+      label{
+        font-size: 0.89em;
+        color: #8B8C8B;
+      }
+
+      span{
+        font-size: 1em;
+        color: #363535;
+        padding-left: 3mm;
+      }
+    }
+  }
+
+}
+
+
+.order_tab{
+  width: 100%;
+  thead{
+    tr{
+      th{
+        height: 10mm;
+        background: #DFE1CF;
+        border: 1px solid #A0A0A0;
+        font-size: 1em;
+      }
+    }
+  }
+
+  tbody{
+    tr{
+      td{
+        height: 8mm;
+        border: 1px solid #A0A0A0;
+        text-align: center;
+        box-sizing: border-box;
+
+        &:nth-child(6){text-align: right;}
+        &:last-child{width: 50mm;}
+      }
+    }
+  }
+
+  tfoot{
+    tr{
+      td{
+        text-align: center;
+        height: 8mm;
+        border: 1px solid #A0A0A0;
+        color: #272525;
+        font-weight: 600;
+        &:nth-child(2){text-align: left;}
+        &:nth-child(6){text-align: right;}
+      }
+    }
+  }
+}
+
+.order_accout{
+  .item{
+    margin-top: 3mm;
+    label.item-label{
+      display:inline-flex;
+      height: 5mm;
+      vertical-align: top;
+      justify-content:flex-start;
+    }
+
+    .remarks_textarea{
+      width: 189mm;
+      box-sizing: border-box;
+    }
+
+    span{
+      display: inline-block;
+    }
+  }
+}
+
+.btn_group{
+  text-align: right;
+  width: 100%;
+  box-sizing: border-box;
+}

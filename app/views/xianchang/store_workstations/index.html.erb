@@ -97,18 +97,30 @@
 
 <script type="text/javascript" charset="utf-8">
 $(function(){
-  setInterval(function(){
-    $("#work_station .times").each(function(){
-      var interval = parseInt(this.innerText) - 1;
-      if(interval > 0){
-        this.innerText = interval;
-      }else{
-        $.ajax({
-          url: "/xianchang/store_workstations/" + this.dataset.stationid + "/finish",
-          method: "PUT"
-        });
-      }
-    });
-  }, 59900);
+  window.Countdown = function(object){
+    var $this = $(object), finalDate = $(object).data('countdown');
+    var updateCallback = function(event) {
+      var totalHours = event.offset.totalDays * 24 + event.offset.hours;
+      var totalMins = event.offset.totalDays * 24 * 60 + event.offset.hours * 60 + event.offset.minutes;
+      $this.html(event.strftime(totalHours + ':%M:%S'));
+      if(totalMins < <%= Setting.countdown_warnning_interval rescue 2 %>)
+        $this.addClass("warnning");
+    };
+    var finishCallback = function(event) {
+      $.ajax({
+        url: "/xianchang/store_workstations/" + $this.data('stationid')+ "/finish",
+        method: "PUT"
+      });
+    }
+
+    $this.countdown(finalDate)
+      .on('update.countdown', updateCallback)
+      .on('finish.countdown', finishCallback);
+
+  };
+
+  $("#work_station .times").each(function(){
+    Countdown(this);
+  })
 })
 </script>

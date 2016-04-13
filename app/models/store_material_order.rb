@@ -4,9 +4,11 @@ class StoreMaterialOrder < ActiveRecord::Base
 
   belongs_to :store_material
   belongs_to :store_supplier
+  belongs_to :withdrawaler, class_name: "StoreStaff", foreign_key: "withdrawaler_id"
 
   belongs_to :store_material_inventory
   has_many :items, class_name: 'StoreMaterialOrderItem'
+  has_many :store_materials, through: :items
   has_many :payments, class_name: 'StoreMaterialOrderPayment'
 
 
@@ -15,9 +17,24 @@ class StoreMaterialOrder < ActiveRecord::Base
   scope :pending, ->{where('store_material_orders.process = 0')}
   scope :suspense, ->{where('0 <= store_material_orders.process and store_material_orders.process < 100')}
   scope :finished, ->{where('store_material_orders.process = 100')}
+  scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
 
   def balance
     self.amount - self.paid_amount
+  end
+
+  def process_status_cn
+    if process == 0
+      '未入库'
+    elsif process == 100
+      '入库完成'
+    else
+      "#{process}入库"
+    end
+  end
+
+  def withdrawaled?
+    withdrawaler.present?
   end
 
   def set_numero

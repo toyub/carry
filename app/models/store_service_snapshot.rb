@@ -19,4 +19,17 @@ class StoreServiceSnapshot < ActiveRecord::Base
     self.workflow_snapshots.each(&->(workflow){workflow.waste!})
     self.update!(deleted: true)
   end
+
+  def sms_enabled?(remind_type)
+    self.templateable.sms_enabled?(remind_type)
+  end
+
+  def message(remind_type)
+    self.templateable.message(remind_type)
+  end
+
+  def remind_delay_interval(remind_type)
+    self.templateable.remind_delay_interval(remind_type)
+  end
+
 end

@@ -1,0 +1,49 @@
+<div class="page_head main_top">
+  <span class="font-24 margin-right-15">财物管理> 往来</span>
+</div>
+
+<div class="details">
+  <div class="list_table">
+    <%= render 'search' %>
+    <table class="accounts_payable_tab index_list">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>供应商</th>
+          <th>
+            <div class="sequence">
+              订货日期
+              <i class="fa fa-sort-desc"></i>
+            </div>
+          </th>
+          <th>单号</th>
+          <th>订货人</th>
+          <th>订单金额</th>
+          <th>已经付</th>
+          <th>
+            <div class="sequence">
+              余额
+              <i class="fa fa-sort-desc"></i>
+            </div>
+          </th>
+          <th>备注</th>
+          <th>入库状态</th>
+          <th>核销人</th>
+          <th>核销时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @material_orders.each.with_index(1) do |order, index|%>
+        <tr class="material-order-<%= order.id %>" data-index="<%= index %>">
+          <td><%= index %>.</td>
+          <%= render 'material_order', order: order %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="material_order_info">
+</div>

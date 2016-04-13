@@ -1,12 +1,10 @@
 <%= form_for @vehicle, url: crm_store_customer_store_vehicle_path do |f| %>
   <div class="item_content">
     <label class='width-75'>车牌号码</label>
-    <% if @vehicle.current_license_number.present? %>
-      <input type='text' class='width-165' value='<%= @vehicle.current_license_number %>' disabled>
+    <% if @vehicle.license_number.blank? || @vehicle.provisional %>
+      <%= f.text_field :license_number, class: 'width-165', autoComplete: 'off', value: '', required: true %>
     <% else %>
-      <%= f.fields_for :plates, @vehicle.plates.build do |ff| %>
-        <%= ff.text_field :license_number, class: 'width-165', autoComplete: 'off' %>
-      <% end %>
+      <input type='text' class='width-165' value='<%= @vehicle.current_license_number %>' disabled>
     <% end %>
   </div>
   <div class="item_content">

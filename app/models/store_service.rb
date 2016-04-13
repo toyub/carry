@@ -39,9 +39,25 @@ class StoreService < ActiveRecord::Base
   }
 
   def create_service_reminds
-    StoreServiceRemind::TIMING.keys.each do |t|
+    StoreServiceRemind.trigger_timings.keys.each do |t|
       self.reminds.create(store_id: self.store_id, store_staff_id: self.store_staff_id, trigger_timing: t, enable: false)
     end
+  end
+
+  def sms_enabled?(remind_type)
+    remind(remind_type).sms_enabled?
+  end
+
+  def message(remind_type)
+    remind(remind_type).message
+  end
+
+  def remind_delay_interval(remind_type)
+    remind(remind_type).delay_interval.to_i
+  end
+
+  def remind(remind_type)
+    [:started, :finished].include?(remind_type) ? self.reminds.send(remind_type).first : NullStoreServiceRemind.new
   end
 
   def vip_price_enabled

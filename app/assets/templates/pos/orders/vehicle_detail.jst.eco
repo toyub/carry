@@ -1,10 +1,10 @@
-<form id='js-update-vehicle'>
+<form id='js-update-vehicle' data-action="/api/crm/customers/<%= @store_customer_id %>/vehicles/<%= @id %>">
 <h2>完善车辆信息</h2>
   <div class="vehicle_info">
     <dl>
       <dd class="license_number">
         <label class="width-77">车牌号码</label>
-        <span class="width-90 form-control">{{vehicle.license_number}}</span>
+        <span class="width-90 form-control"><%= @license_number %></span>
       </dd>
       <dd>
         <label class="width-77">*品牌</label>
@@ -27,7 +27,6 @@
         <% else : %>
           <select name='vehicle[vehicle_series_id]' class="width-90 js-select-vehicle-series" required>
             <option value="">请选择</option>
-            <option value={{series.id}} v-for="series in vehicleSeries">{{series.name}}</option>
           </select>
         <% end %>
       </dd>
@@ -38,7 +37,6 @@
         <% else : %>
           <select class="width-90 js-select-vehicle-model" name='vehicle[vehicle_model_id]' required>
             <option value="">请选择</option>
-            <option value={{model.id}} v-for="model in vehicleModels">{{model.name}}</option>
           </select>
         <% end %>
       </dd>
@@ -49,7 +47,7 @@
         <% if @vin : %>
           <span class="width-90 form-control"><%= @vin %></span>
         <% else : %>
-          <input type="text" class="width-90" name="vehicle[frame_attributes][vin]" value={{vehicle.vin}} required>
+          <input type="text" class="width-90" name="vehicle[frame_attributes][vin]" value='<%= @vin %>' required>
         <% end %>
       </dd>
       <dd>
@@ -57,11 +55,11 @@
         <% if @engine_num : %>
           <span class="width-90 form-control"><%= @engine_num %></span>
         <% else : %>
-          <input type="text" class="width-90" name="vehicle[engines_attributes][{{vehicle.engine_id}}][identification_number]" value={{vehicle.engine_num}} required>
+          <input type="text" class="width-90" name="vehicle[engines_attributes][<%= @engine_id %>][identification_number]" value='<%= @engine_num %>' required>
         <% end %>
       </dd>
-      <dd><label class="width-77">颜色</label><input type="color" name="vehicle[detail][color]" class="width-90" value="{{vehicle.detail.color}}"></dd>
-      <dd><label class="width-77">座位数</label><input type="number" min="1" name='vehicle[detail][capacity]' class="width-90" value="{{vehicle.detail.capacity}}"></dd>
+      <dd><label class="width-77">颜色</label><input type="color" name="vehicle[detail][color]" class="width-90" value="<%= @detail.color || '#000000' %>"></dd>
+      <dd><label class="width-77">座位数</label><input type="number" min="1" name='vehicle[detail][capacity]' class="width-90" value="<%= @detail.capacity %>"></dd>
     </dl>
     <dl>
       <dd>
@@ -69,7 +67,7 @@
         <% if @detail and @detail.bought_on : %>
         <span class="form-control width-90"><%= @detail.bought_on %></span>
         <% else : %>
-        <input type="date" class="width-90" name='vehicle[detail][bought_on]' value={{vehicle.detail.bought_on}}>
+        <input type="date" class="width-90" name='vehicle[detail][bought_on]' value='<%= @detail.bought_on %>'>
         <% end %>
       </dd>
       <dd>
@@ -77,7 +75,7 @@
         <% if @detail and @detail.ex_factory_date : %>
         <span class="form-control"><%= @detail.ex_factory_date %></span>
         <% else : %>
-        <input type="date" class="width-90" name="vehicle[detail][ex_factory_date]" value={{vehicle.detail.ex_factory_date}}>
+        <input type="date" class="width-90" name="vehicle[detail][ex_factory_date]" value='<%= @detail.ex_factory_date %>'>
         <% end %>
       </dd>
       <dd>
@@ -85,12 +83,12 @@
         <% if @detail and @detail.registered_on : %>
         <span class="form-control"><%= @detail.registered_on %></span>
         <% else : %>
-        <input type="date" class="width-90" name="vehicle[detail][registered_on]" value={{vehicle.detail.registered_on}}>
+        <input type="date" class="width-90" name="vehicle[detail][registered_on]" value='<%= @detail.registered_on %>'>
         <% end %>
       </dd>
       <dd>
         <label class="width-77">公里数</label>
-        <input type="number" min="0" class="width-90" name="vehicle[detail][mileage]" value={{vehicle.detail.mileage}}>
+        <input type="number" min="0" class="width-90" name="vehicle[detail][mileage]" value='<%= @detail.mileage %>'>
       </dd>
     </dl>
     <dl>
@@ -104,11 +102,11 @@
       </dd>
       <dd>
         <label class="width-77">最近保养时间</label>
-        <input type="date" class="width-90" name="vehicle[detail][maintained_at]" value={{vehicle.detail.maintained_at}}>
+        <input type="date" class="width-90" name="vehicle[detail][maintained_at]" value='<%= @detail.maintained_at %>'>
       </dd>
       <dd>
         <label class="width-77">最近保养里程</label>
-        <input type="number" min="0" class="width-90" name="vehicle[detail][maintained_mileage]" value={{vehicle.detail.maintained_mileage}}>
+        <input type="number" min="0" class="width-90" name="vehicle[detail][maintained_mileage]" value='<%= @detail.maintained_mileage %>'>
       </dd>
     </dl>
   </div>
@@ -116,7 +114,7 @@
   <dl class="remark">
     <dd>
       <label class="width-77 vertical-align-top">备注</label>
-      <textarea name="vehicle[remark]">{{vehicle.remark}}</textarea>
+      <textarea name="vehicle[remark]"><%= @remark %></textarea>
     </dd>
   </dl>
 

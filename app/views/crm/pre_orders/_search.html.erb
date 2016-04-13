@@ -2,7 +2,7 @@
   <form id='queryForm' action='/crm/store_customers/<%= @customer.id %>/pre_orders' accept-charset='UTF-8' method='get'>
     <div class="nav-item-query">
       <label>选择车辆</label>
-      <%= select_tag 'q[store_vehicle_registration_plate_id_eq]', options_for_select(@customer.plates.pluck(:license_number, :id)), class: 'width-120' %>
+      <%= select_tag 'q[vehicle_registration_plate_id_eq]', options_for_select(@customer.plates.pluck(:license_number, :id)), class: 'width-120' %>
     </div>
     <div class="nav-item-query">
       <label class="width-70">选择时间</label>

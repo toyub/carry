@@ -1,27 +1,37 @@
 <div class="fheader">
   <span class="color-395C61">新建车辆</span>
 </div>
+<p>车辆还没有登记到系统中，如果要完善信息请先保存车辆到服务器!</p>
 <form method="post" class="form_content">
   <div class="new_vehicle">
     <div class="form_item">
-      <label>*车牌号</label>
-      <input type="text" value="<%= @license_number %>" name="vehicle[license_number]" class="dialog-license" required>
+      <label>车牌号(必填)</label>
+      <% if @provisional : %>
+        <input type="text" value="暂无牌照" name="vehicle[license_number]" class="dialog-license" readonly> *提示:您选择了无牌开单，此处不可更改
+      <% else : %>
+        <input type="text" value="<%= @license_number %>" name="vehicle[license_number]" class="dialog-license" autocomplete='off' placeholder="请输入车牌号" required>
+      <% end %>
     </div>
 
     <div class="form_item">
-      <label>*手机号</label>
-      <input type="text" value="<%= @customer.phone_number if @customer %>" <%= 'readonly' if @customer %> title='请输入11位手机号码' pattern='^\d{11}$' name="vehicle[phone_number]" autocomplete='off' required>
+      <label>手机号</label>
+      <% if @customer.isNew() : %>
+        <input type="text" value="<%= @phone_number %>"  title='请输入11位手机号码' name="vehicle[phone_number]" autocomplete='off' placeholder="请输入11位手机号码">
+      <% else : %>
+        <input type="text" name="vehicle[phone_number]" value="<%= @customer.get('phone_number') %>" readonly>
+      <% end %>
     </div>
 
     <div class="form_item">
-      <label>*客户名称</label>
-      <input type="text" value="<%= @customer.last_name  if @customer %>" <%= 'readonly' if @customer %> name="vehicle[customer][last_name]" placeholder="姓" class="width-80" required>
-      <input type="text" value="<%= @customer.first_name  if @customer %>" <%= 'readonly' if @customer %> name="vehicle[customer][first_name]" placeholder="名" class="width-80" required>
-    </div>
-
-    <div class="form_item">
-      <label>购车日期</label>
-      <input type="date" name="vehicle[detail][bought_on]">
+      <label>客户名称</label>
+      <% if @customer.isNew() : %>
+        <input type="text" value="<%= @customer.get('last_name') %>" name="vehicle[last_name]" placeholder="姓" class="width-80">
+        <input type="text" value="<%= @customer.get('first_name') %>" name="vehicle[first_name]" placeholder="名" class="width-80">
+      <% else : %>
+        <span class="margin-left-18"><%= @customer.get('full_name') %></span>
+        <input type="hidden" name="vehicle[last_name]" value="<%= @customer.get('last_name') %>">
+        <input type="hidden" name="vehicle[first_name]" value="<%= @customer.get('first_name') %>">
+      <% end %>
     </div>
   </div>
 

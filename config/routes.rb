@@ -120,6 +120,8 @@ Rails.application.routes.draw do
     resources :categories, only: [:show] do
       resources :order_items, only: [:index]
     end
+    resources :material_orders, only: [:index, :show, :update]
+    resources :reports, only: :index
   end
 
   namespace :xianchang do
@@ -136,9 +138,11 @@ Rails.application.routes.draw do
     resources :store_orders, only: [:show, :update] do
       member do
         put :terminate
-        get :check_dispatch
-        get :check_mechanic
         put :execute
+        put :pause_in_queuing_area
+        put :pause_in_workstation
+        put :pause
+        put :play
       end
     end
     resources :store_workflows, only: [:edit, :update] do
@@ -293,7 +297,9 @@ Rails.application.routes.draw do
     #Order end
 
 
-    resources :store_staff, only: [:index, :update]
+    resources :store_staff, only: [:index, :update] do
+      get 'check_phone', on: :collection
+    end
     resources :store_operators, only: [:index, :update]
     resources :store_service_categories, only: [:create]
     resources :store_services, only: [:index, :show, :create, :update] do
@@ -400,7 +406,6 @@ Rails.application.routes.draw do
     resources :subscribe_orders
 
     resources :vehicle_brands, only: [:index] do
-      get :search_series
       resources :vehicle_manufacturers, only: [:index]
     end
 
@@ -459,6 +464,9 @@ Rails.application.routes.draw do
   namespace :printer do
     namespace :pos do
       resources :orders
+    end
+    namespace :ais do
+      resources :material_orders, only: :show
     end
   end
 

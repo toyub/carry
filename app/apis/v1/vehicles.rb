@@ -56,10 +56,10 @@ module V1
       add_desc "添加车辆"
       params do
         requires :platform, type: String, desc: '调用的平台(app或者erp)'
-        requires :license_number, type: String, desc: '车牌号'
-        requires :first_name, type: String, desc: '名字'
-        requires :last_name, type: String, desc: '姓'
-        requires :phone_number, type: Integer, desc: '客户电话号码'
+        optional :license_number, type: String, desc: '车牌号'
+        optional :first_name, type: String, desc: '名字'
+        optional :last_name, type: String, desc: '姓'
+        optional :phone_number, type: Integer, desc: '客户电话号码'
         optional :vehicle_brand_id, type: Integer, desc: '品牌'
         optional :vehicle_series_id, type: Integer, desc: '车系'
         optional :vehicle_model_id, type: Integer, desc: '车型'
@@ -68,51 +68,39 @@ module V1
         end
       end
       post do
-        customer = StoreCustomer.where(phone_number: params[:phone_number]).last
-        status = AddVehicleService.call(vehicle_params, plate_params, customer_params: customer_params, customer: customer)
+        status = AddVehicleService.call(current_store, vehicle_params, customer_params)
         present info: status.notice, customer_id: status.customer.try(:id)
       end
     end
 
     helpers do
-      def basic_params
-        params[:store_id] = current_store.id
-        params[:store_chain_id] = current_store_chain.id
-        params[:store_staff_id] = current_user.id
+      def wild_params
+        @basic_params ||= {
+          store_id: current_store.id,
+          store_chain_id: current_store_chain.id,
+          store_staff_id: current_user.id
+        }
+        @wild_params ||= ActionController::Parameters.new(@basic_params.merge(params))
       end
 
       def vehicle_params
-        basic_params
-        vehicle = ActionController::Parameters.new(params)
-        vehicle.permit(:store_id,
-                       :store_chain_id,
-                       :store_staff_id,
-                       :vehicle_brand_id,
-                       :vehicle_series_id,
-                       :vehicle_model_id,
-                       detail: [
-                         :bought_on
-                         ])
+        wild_params.permit :store_id,
+                           :store_chain_id,
+                           :store_staff_id,
+                           :vehicle_brand_id,
+                           :vehicle_series_id,
+                           :vehicle_model_id,
+                           :license_number,
+                           detail: [:bought_on]
       end
 
       def customer_params
-        vehicle = ActionController::Parameters.new(params)
-        basic_params
-        vehicle.permit(:first_name,
-                        :last_name,
-                        :phone_number,
-                        :store_id,
-                        :store_chain_id,
-                        :store_staff_id)
-      end
-
-      def plate_params
-        vehicle = ActionController::Parameters.new(params)
-        basic_params
-        vehicle.permit(:license_number,
-                     :store_id,
-                     :store_chain_id,
-                     :store_staff_id)
+        wild_params.permit :first_name,
+                           :last_name,
+                           :phone_number,
+                           :store_id,
+                           :store_chain_id,
+                           :store_staff_id
       end
     end
 
