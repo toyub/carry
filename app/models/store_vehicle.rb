@@ -33,14 +33,6 @@ class StoreVehicle < ActiveRecord::Base
   accepts_nested_attributes_for :plates
   accepts_nested_attributes_for :engines
 
-  def license_number
-    if current_plate.present?
-      current_plate.license_number
-    else
-      nil
-    end
-  end
-
   before_validation :check_license_number
 
   after_save :associate_plate
