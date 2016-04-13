@@ -1,0 +1,24 @@
+<div class="vehicle_order_title title doslide">详细信息
+<i class="fa-angle-double-up fa cursor-pointer"></i>
+<a href="javascript:void(0)" data-target="completing_customer" class="do_show js-edit-customer">完善客户信息</a>
+</div>
+<div class="vehicle_details_info">
+  <div class="item_content">
+    <label class="width-50">车辆品牌</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110" readonly>
+  </div>
+  <div class="item_content">
+    <label class="width-50" >车系</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110"  readonly>
+  </div>
+  <div class="item_content">
+    <label class="width-50">车型</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110"  readonly>
+  </div>
+  <div class="item_content">
+    <label class="width-50" >客户属性</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110" readonly>
+  </div>
+  <div class="item_content">
+    <label class="width-50" >客户类别</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110" readonly>
+  </div>
+  <div class="item_content">
+    <label class="width-50">结算方式</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110" readonly>
+  </div>
+</div>

@@ -2,7 +2,7 @@
 <input type="hidden" id='super_material_categories' data-categories='<%= @super_material_categories.to_json(root: nil) %>'>
 <input type="hidden" id='store_material_brands' data-categories='<%= @store_material_brands.to_json(root: nil) %>'>
 <input type="hidden" id='service_categories' data-categories='<%= @service_categories.to_json(root: nil) %>'>
-
+<input type="hidden" name="order[store_vehicle_id]" id='store_vehicle_id' value="">
 <div class="content pos-orders-index" id="content">
   <div class="main_top"><h2>业务开单</h2></div>
   <div class="details">
@@ -55,13 +55,11 @@
 
               <div id="existing-vehicles" style="display:none;">
                 <h6>该客户名下有以下车辆，请选择</h6>
-                <div class="vehicles">
-
-                </div>
+                <div class="vehicles"></div>
               </div>
             </div>
-            <%= render partial: 'vehicle' %>
-            <%= render partial: 'vehicle_condition' %>
+            <div id='vehicle-essentials' class="vehicle_info"></div>
+            <%= render partial: 'vehicle_situation' %>
             <%= render partial: 'items' %>
           </div>
           <div class="construction_status">
