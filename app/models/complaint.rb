@@ -49,7 +49,7 @@ class Complaint < ActiveRecord::Base
   end
 
   def license_number
-    self.store_vehicle.plates.last.license_number
+    self.store_vehicle.license_number
   end
 
   def categoried

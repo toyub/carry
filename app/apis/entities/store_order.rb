@@ -17,7 +17,7 @@ module Entities
     expose :id, :numero, :amount, :store_customer_id
     expose :only_today, :human_readable_status, if: {type: :default}
     expose(:full_name, if: {type: :default}) {|model| model.store_customer.full_name}
-    expose(:license_number, if: {type: :default}) {|model| model.store_vehicle.vehicle_plates.last.try(:plate).try(:license_number)}
+    expose(:license_number, if: {type: :default}) {|model| model.store_vehicle.license_number}
     expose(:phone_number, if: {type: :default}) {|model| model.store_customer.phone_number}
     expose :state, :state_i18n, :pay_status_i18n, :pay_status,
            :task_status, :task_status_i18n, if: {type: :default}
