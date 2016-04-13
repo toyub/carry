@@ -1,15 +1,13 @@
 <%= form_for @vehicle, url: crm_store_customer_store_vehicles_path do |f| %>
   <div class="item_content">
     <%= f.label "车牌号码", class: 'width-75' %>
-    <%= f.fields_for :plates, @vehicle.plates.build do |ff| %>
-      <%= ff.text_field :license_number, class: 'width-165', autoComplete: 'off' %>
-    <% end %>
+    <%= f.text_field :license_number, class: 'width-165', autoComplete: 'off', required: true %>
   </div>
   <div class="item_content">
     <%= f.label "品牌", class: 'width-75' %>
     <%= f.select :vehicle_brand_id, [], {include_blank: '请选择'}, {id: 'brand', class: "width-165", required: true} %>
   </div>
-  <div class="item_content">
+  <div class="item_content ">
     <%= f.label "车系", class: 'width-75' %>
     <%= f.select :vehicle_series_id, [], {include_blank: '请选择'}, {id: 'series', class: "width-165", required: true} %>
   </div>

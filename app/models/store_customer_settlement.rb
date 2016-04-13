@@ -1,4 +1,6 @@
 class StoreCustomerSettlement < ActiveRecord::Base
+  include BaseModel
+  
   belongs_to :store_customer_entity
 
   enum credit: %w[unpermitted custom unlimited ]

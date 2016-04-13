@@ -126,7 +126,7 @@ class StoreStaff <  ActiveRecord::Base
   def has_regularized?
     store_protocols.where(type: "StoreZhuanZheng").present?
   end
-  
+
   def regular_protocal
     store_protocols.where(type: "StoreZhuanZheng").last
   end

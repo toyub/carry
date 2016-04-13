@@ -2,7 +2,7 @@
 <input type="hidden" id='super_material_categories' data-categories='<%= @super_material_categories.to_json(root: nil) %>'>
 <input type="hidden" id='store_material_brands' data-categories='<%= @store_material_brands.to_json(root: nil) %>'>
 <input type="hidden" id='service_categories' data-categories='<%= @service_categories.to_json(root: nil) %>'>
-
+<input type="hidden" name="order[store_vehicle_id]" id='store_vehicle_id' value="">
 <div class="content pos-orders-index" id="content">
   <div class="main_top"><h2>业务开单</h2></div>
   <div class="details">
@@ -22,8 +22,44 @@
             <% end %>
           </div>
           <div class="vehicle_order_details">
-            <%= render partial: 'vehicle' %>
-            <%= render partial: 'vehicle_condition' %>
+            <div class="vehicle-search">
+              <dl>
+                <dd>
+                  <label for="without-license-number"><input type="checkbox" id='without-license-number' value="无牌">无牌</label>
+                  <label for="license_number" class="width-50">车牌号</label>
+                  <input type="text" name="license_number" class="width-110 js-license-number" value='' placeholder="请输入车牌">
+                </dd>
+                <dd>
+                  <label class="width-50">手机号</label>
+                  <input type="text" name="phone_number" class="width-110 js-phone-number" value=''>
+                </dd>
+                <dd class='frequenter'>
+                  <label class="width-50" >客户姓名</label>
+                  <span class="width-110 border-all bg-color-efeae5 js-customer-name"></span>
+                </dd>
+
+                <dd class='fresh'>
+                  <label class="width-50" >姓<input type="text" name="last_name" class="width-30 js-customer-name-input" value=''></label>
+                  <label class="width-70" >名<input type="text" name="first_name" class="width-50 js-customer-name-input" value=''></label>
+                </dd>
+              </dl>
+              <div class="customer-tips">
+                <p style='display:none' class='customer-tip js-phone-not-exists'>该手机号码还没有在系统中登记，请先登记信息或核对输入手机号码。</p>
+                <p style='display:none' class='customer-tip js-new-vehicle-and-anonymous'>该客户信息还未在系统中登记，下单后将会添加新车辆与新客户(<span class='js-customer-name'>匿名客户</span>)</p>
+                <p style='display:none' class='customer-tip js-new-vehicle-and-customer'>该客户信息还未在系统中登记，下单后将会添加新车辆与新客户(<span class='js-customer-name'>匿名客户</span>)</p>
+                <p style='display:none' class='customer-tip js-add-vehicle-to-customer'>该车辆还未绑定到客户(<span class='js-customer-name'></span>)名下，下单后系统将自动绑定</p>
+                <p style='display:none' class='customer-tip js-new-none-license-and-customer'>已经选择无牌开单，下单后将会添加无牌车辆与新客户(<span class='js-customer-name'>匿名客户</span>)</p>
+                <p style='display:none' class='customer-tip js-add-none-license-to-customer'>已经选择无牌开单，下单后将会绑定到(<span class='js-customer-name'></span>)名下</p>
+                <p style='display:none' class='customer-tip js-new-none-license-and-anonymous'>已经选择无牌开单，下单后将会添加无牌车辆与新客户(<span class='js-customer-name'>匿名客户</span>)。</p>
+              </div>
+
+              <div id="existing-vehicles" style="display:none;">
+                <h6>该客户名下有以下车辆，请选择</h6>
+                <div class="vehicles"></div>
+              </div>
+            </div>
+            <div id='vehicle-essentials' class="vehicle_info"></div>
+            <%= render partial: 'vehicle_situation' %>
             <%= render partial: 'items' %>
           </div>
           <div class="construction_status">
@@ -47,10 +83,13 @@
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-    $(".vehicle_info .license-number").autocomplete({
+    $(".vehicle-search .js-license-number").autocomplete({
       source: <%= @license_numbers.to_json.html_safe %>,
+      change: function(){
+        $(this).trigger('acchange');
+      }
     });
-    var x = new Mis.Views.PosOrderIndexView();
+    var handle = new Mis.Views.PosOrderIndexView();
   })
 </script>
 <% end %>

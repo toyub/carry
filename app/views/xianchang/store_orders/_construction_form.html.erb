@@ -1,4 +1,4 @@
-<%= form_tag "", data: {order_id: order.id}, id: 'constructionForm', remote: true do -%>
+<%= form_tag "", data: {order_id: order.id, order_state: order.task_status}, id: 'constructionForm', remote: true do -%>
   <h2>编辑施工信息</h2>
   <div class="constrction_info_tab">
     <table cellspacing="0" cellpadding="0">
@@ -22,6 +22,11 @@
     <% unless order.task_finished? %>
       <%= button_tag "保存", class: "save_btn btn js-save" %>
       <%= button_tag "施工", class: "save_btn btn js-execute" %>
+      <% if order.task_pausing? %>
+        <%= button_tag "开启", class: "save_btn btn js-play" %>
+      <% else %>
+        <%= button_tag "暂停", class: "save_btn btn js-pause" %>
+      <% end %>
     <% end %>
   </div>
 <% end -%>
