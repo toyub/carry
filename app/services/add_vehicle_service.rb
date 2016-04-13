@@ -15,13 +15,15 @@ class AddVehicleService
   end
 
   def call
-    ActiveRecord::Base.transaction do
-      create_vehicle
-      Status.new(success: true, notice: '创建成功', customer: @customer, vehicle: @vehicle)
+    begin
+      ActiveRecord::Base.transaction do
+        create_vehicle
+        Status.new(success: true, notice: '创建成功', customer: @customer, vehicle: @vehicle)
+      end
+    rescue => e
+      Rails.logger.info e
+      Status.new(success: false, notice: '创建失败，请重试')
     end
-  rescue => e
-    Rails.logger.info e
-    Status.new(success: false, notice: '创建失败，请重试')
   end
 
   private
