@@ -104,7 +104,7 @@ module V1
         requires :platform, type: String, desc: '验证平台！'
         requires :service_included, type: Boolean, desc: 'true为需要施工，false为不需要施工'
         optional :q, type: Hash, default: {} do
-          optional :plate_license_number_cont, type: String
+          optional :store_vehicle_license_number_cont, type: String
           optional :store_customer_phone_number_cont, type: String
           optional :state_eq, type: Integer, desc: '订单状态'
           optional :task_status_eq, type: Integer, desc: '订单施工状态'

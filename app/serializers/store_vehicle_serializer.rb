@@ -1,7 +1,7 @@
 class StoreVehicleSerializer < ActiveModel::Serializer
   attributes :id, :store_id, :store_chain_id, :store_staff_id, :store_customer_id,
     :vehicle_brand_id, :vehicle_model_id, :vehicle_series_id, :detail,
-    :numero, :remark, :created_at, :updated_at, :license_number,
+    :numero, :remark, :created_at, :updated_at, :license_number, :provisional,
     :store_customer, :remark, :vin, :engine_num, :engine_id
 
   has_one :vehicle_brand

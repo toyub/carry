@@ -404,7 +404,6 @@ Rails.application.routes.draw do
     resources :subscribe_orders
 
     resources :vehicle_brands, only: [:index] do
-      get :search_series
       resources :vehicle_manufacturers, only: [:index]
     end
 

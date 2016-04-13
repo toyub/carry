@@ -71,7 +71,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics_quantity
-    self.engineer_count_enable ? [self.engineer_count, 1].max : 1
+    self.engineer_count_enable ? [self.engineer_count.to_i, 1].max : 1
   end
 
   def mechanics_level
