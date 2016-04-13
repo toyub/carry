@@ -54,43 +54,43 @@
   <%= f.fields_for :detail do |ff| %>
     <div class="item_content">
       <%= ff.label '颜色', class: 'width-75' %>
-      <%= ff.color_field :color, class: 'width-165', value: @vehicle.detail_by('color') %>
+      <%= ff.color_field :color, class: 'width-165', value: @vehicle.color %>
     </div>
     <div class="item_content">
       <%= ff.label '座位数', class: 'width-75' %>
-      <%= ff.text_field :capacity, class: 'width-165', value: @vehicle.detail_by('capacity'), readonly: @vehicle.detail_by('capacity').present? %>
+      <%= ff.text_field :capacity, class: 'width-165', value: @vehicle.capacity, readonly: @vehicle.capacity.present?, required: true %>
     </div>
     <div class="item_content">
       <%= ff.label '档案编号', class: 'width-75' %>
-      <%= ff.text_field :numero, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('numero'), readonly: @vehicle.detail_by('numero').present? %>
+      <%= ff.text_field :numero, class: 'width-165', autoComplete: 'off', value: @vehicle.numero, readonly: @vehicle.numero.present? %>
     </div>
     <div class="item_content">
       <%= ff.label '车辆性质', class: 'width-75' %>
-      <%= ff.select :organization_type, options_for_select(StoreVehicle::ORGANIZATION_TYPE.invert, @vehicle.detail['organization_type']), {}, {class: 'width-165'} %>
+      <%= ff.select :organization_type, options_for_select(StoreVehicle::ORGANIZATION_TYPE.invert, @vehicle.detail['organization_type']), {}, {class: 'width-165', required: true} %>
     </div>
     <div class="item_content">
       <%= ff.label '上牌日期', class: 'width-75' %>
-      <%= ff.date_field :registered_on, class: 'width-165', value: @vehicle.detail_by('registered_on'), readonly: @vehicle.detail_by('registered_on').present? %>
+      <%= ff.date_field :registered_on, class: 'width-165', value: @vehicle.registered_on, readonly: @vehicle.registered_on.present?, required: true %>
     </div>
     <div class="item_content">
       <%= ff.label '公里数', class: 'width-75' %>
-      <%= ff.text_field :mileage, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('mileage') %>
+      <%= ff.text_field :mileage, class: 'width-165', autoComplete: 'off', value: @vehicle.mileage %>
     </div>
     <div class="item_content">
       <%= ff.label '购买日期', class: 'width-75' %>
-      <%= ff.date_field :bought_on, class: 'width-165', value: @vehicle.detail_by('bought_on'), readonly: @vehicle.detail_by('bought_on').present? %>
+      <%= ff.date_field :bought_on, class: 'width-165', value: @vehicle.bought_on, readonly: @vehicle.bought_on.present? %>
     </div>
     <div class="item_content">
       <%= ff.label '出厂日期', class: 'width-75' %>
-      <%= ff.date_field :ex_factory_date, class: 'width-165', value: @vehicle.detail_by('ex_factory_date'), readonly: @vehicle.detail_by('ex_factory_date').present? %>
+      <%= ff.date_field :ex_factory_date, class: 'width-165', value: @vehicle.ex_factory_date, readonly: @vehicle.ex_factory_date.present? %>
     </div>
     <div class="item_content">
       <%= ff.label '最近保养日期', class: 'width-75' %>
-      <%= ff.date_field :maintained_at, class: 'width-165', value: @vehicle.detail_by('maintained_at') %>
+      <%= ff.date_field :maintained_at, class: 'width-165', value: @vehicle.maintained_at %>
     </div>
     <div class="item_content">
       <%= ff.label '最近保养里程', class: 'width-75' %>
-      <%= ff.text_field :maintained_mileage, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('maintained_mileage') %>
+      <%= ff.text_field :maintained_mileage, class: 'width-165', autoComplete: 'off', value: @vehicle.maintained_mileage %>
     </div>
     <div class="item_content">
       <%= ff.label '完整度', class: 'width-75' %>
@@ -104,63 +104,63 @@
     <div class="bg-color-efeae5 float-left margin-top-10 section">
       <div class="item_content">
         <%= ff.label '年检日期', class: 'width-75' %>
-        <%= ff.date_field :annual_check_at, class: 'width-165', value: @vehicle.detail_by('annual_check_at') %>
+        <%= ff.date_field :annual_check_at, class: 'width-165', value: @vehicle.annual_check_at %>
       </div>
       <div class="item_content">
         <span class="display-inline-block width-120 text-align-right">
           <label>提醒客户</label>
-          <%= ff.check_box :annual_check_customer_alermify, value: '1', checked: @vehicle.detail && (@vehicle.detail['annual_check_customer_alermify'] == '1') %>
+          <%= ff.check_box :annual_check_customer_alermify, value: 'true', checked: @vehicle.detail && (@vehicle.annual_check_customer_alermify == '1') %>
         </span>
         <span class=" width-115 text-align-right padding-right-7">
           <label>提醒门店</label>
-          <%= ff.check_box :annual_check_store_alermify, value: '1', checked: @vehicle.detail && (@vehicle.detail['annual_check_store_alermify'] == '1') %>
+          <%= ff.check_box :annual_check_store_alermify, value: 'true', checked: @vehicle.detail && (@vehicle.annual_check_store_alermify == '1') %>
         </span>
       </div>
       <div class="item_content margin-right-150">
         <%= ff.label '保险公司', class: 'width-75' %>
-        <%= ff.text_field :insurance_company, class: 'width-165', autoComplete: 'off', value: @vehicle.detail_by('insurance_compnay') %>
+        <%= ff.text_field :insurance_company, class: 'width-165', autoComplete: 'off', value: @vehicle.insurance_compnay %>
       </div>
       <div class="item_content">
         <%= ff.label '保险截至', class: 'width-75' %>
-        <%= ff.date_field :insurance_expire_at, class: 'width-165', value: @vehicle.detail_by('insurance_expire_at') %>
+        <%= ff.date_field :insurance_expire_at, class: 'width-165', value: @vehicle.insurance_expire_at %>
       </div>
       <div class="item_content">
         <span class="display-inline-block width-120 text-align-right">
           <label>提醒客户</label>
-          <%= ff.check_box :insurance_customer_alermify, value: '1', checked: @vehicle.detail && (@vehicle.detail['insurance_customer_alermify'] == '1') %>
+          <%= ff.check_box :insurance_customer_alermify, value: 'true', checked: @vehicle.detail && (@vehicle.insurance_customer_alermify == '1') %>
         </span>
         <span class="display-inline-block width-115 text-align-right padding-right-7">
           <label>提醒门店</label>
-          <%= ff.check_box :insurance_store_alermify, value: '1', checked: @vehicle.detail && (@vehicle.detail['insurance_store_alermify'] == '1') %>
+          <%= ff.check_box :insurance_store_alermify, value: 'true', checked: @vehicle.detail && (@vehicle.insurance_store_alermify == '1') %>
         </span>
       </div>
     </div>
     <div class="bg-color-efeae5 float-left margin-top-10 section">
       <div class="item_content">
         <%= ff.label '保养间隔天数', class: 'width-75' %>
-        <%= ff.text_field :maintain_interval_time, class: 'width-165', value: @vehicle.detail_by('maintain_interval_time'), autoComplete: 'off' %>
+        <%= ff.text_field :maintain_interval_time, class: 'width-165', value: @vehicle.maintain_interval_time, autoComplete: 'off' %>
       </div>
       <div class="item_content">
         <%= ff.label '保养间隔里程', class: 'width-75' %>
-        <%= ff.text_field :maintain_interval_mileage, class: 'width-165', value: @vehicle.detail_by('maintain_interval_mileage'), autoComplete: 'off' %>
+        <%= ff.text_field :maintain_interval_mileage, class: 'width-165', value: @vehicle.maintain_interval_mileage, autoComplete: 'off' %>
       </div>
       <div class="item_content">
         <span class="display-inline-block width-120 text-align-right">
           <label>提醒客户</label>
-          <%= ff.check_box :next_maintain_customer_alermify, value: '1', checked: @vehicle.detail && (@vehicle.detail['next_maintain_customer_alermify'] == '1') %>
+          <%= ff.check_box :next_maintain_customer_alermify, value: 'true', checked: @vehicle.detail && (@vehicle.next_maintain_customer_alermify == '1') %>
         </span>
         <span class="display-inline-block width-115 text-align-right padding-right-7">
           <label>提醒门店</label>
-          <%= ff.check_box :next_maintain_store_alermify, value: '1', checked: @vehicle.detail && (@vehicle.detail['next_maintain_store_alermify'] == '1') %>
+          <%= ff.check_box :next_maintain_store_alermify, value: 'true', checked: @vehicle.detail && (@vehicle.next_maintain_store_alermify == '1') %>
         </span>
       </div>
       <div class="item_content">
         <%= ff.label '下次保养里程', class: 'width-75' %>
-        <%= ff.text_field :next_maintain_mileage, class: 'width-165', value: @vehicle.detail_by('next_maintain_mileage'), autoComplete: 'off' %>
+        <%= ff.text_field :next_maintain_mileage, class: 'width-165', value: @vehicle.next_maintain_mileage, autoComplete: 'off' %>
       </div>
       <div class="item_content next_maintenance_time">
         <%= ff.label '下次保养日期', class: 'width-75' %>
-        <%= ff.date_field :next_maintain_at, class: 'width-165', value: @vehicle.detail_by('next_maintain_at') %>
+        <%= ff.date_field :next_maintain_at, class: 'width-165', value: @vehicle.next_maintain_at %>
       </div>
     </div>
     </div>
