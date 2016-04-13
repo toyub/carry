@@ -7,18 +7,18 @@
     <label class="width-50">车辆品牌</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110" readonly>
   </div>
   <div class="item_content">
-    <label class="width-50" >车系</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110"  readonly>
+    <label class="width-50" >车系</label><input type="text" value='<%= @vehicle.series_name %>' class="width-110"  readonly>
   </div>
   <div class="item_content">
-    <label class="width-50">车型</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110"  readonly>
+    <label class="width-50">车型</label><input type="text" value='<%= @vehicle.model_name %>' class="width-110"  readonly>
   </div>
   <div class="item_content">
-    <label class="width-50" >客户属性</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110" readonly>
+    <label class="width-50" >客户属性</label><input type="text" value='<%= @customer.property_i18n %>' class="width-110" readonly>
   </div>
   <div class="item_content">
-    <label class="width-50" >客户类别</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110" readonly>
+    <label class="width-50" >客户类别</label><input type="text" value='<%= @customer.category_name %>' class="width-110" readonly>
   </div>
   <div class="item_content">
-    <label class="width-50">结算方式</label><input type="text" value='<%= @vehicle.brand_name %>' class="width-110" readonly>
+    <label class="width-50">结算方式</label><input type="text" value='<%= @customer.payment_mode_i18n %>' class="width-110" readonly>
   </div>
 </div>

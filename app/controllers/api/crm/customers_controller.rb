@@ -1,7 +1,7 @@
 module Api
   module Crm
     class CustomersController < Api::BaseController
-      before_filter :check_vehicle_params
+      before_filter :check_vehicle_params, only: [:create]
 
       def check
         customer = current_store.store_customers.find_by(phone_number: params[:phone_number])
