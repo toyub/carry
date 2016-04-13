@@ -3,7 +3,7 @@
 <input type="hidden" id='super_material_categories' data-categories='<%= @super_material_categories.to_json(root: nil) %>'>
 <input type="hidden" id='store_material_brands' data-categories='<%= @store_material_brands.to_json(root: nil) %>'>
 <input type="hidden" id='service_categories' data-categories='<%= @service_categories.to_json(root: nil) %>'>
-
+<input type="hidden" name="order[store_vehicle_id]" id='store_vehicle_id' value="<%= @order.store_vehicle_id %>">
 <div class="content pos-orders-index" id="content">
   <div class="main_top"><h2>业务开单 > <%= @order.store_vehicle.license_number %>, #<%= @order.numero %> </h2></div>
   <div class="details">
@@ -26,53 +26,24 @@
             <% end %>
           </div>
           <div class="vehicle_order_details">
-
-            <div class="vehicle_info">
-              <input type="hidden" name="order[store_vehicle_id]" id='store_vehicle_id' value="{{vehicleInfoData.id}}">
+            <div class="vehicle-search">
               <dl>
                 <dd>
-                  <label class="width-50" >车牌号</label>
-                  <input type="text" class="width-110" readonly value={{vehicleInfoData.license_number}}>
-                </dd>
-                <dd>
-                  <label class="width-50" >客户姓名</label>
-                  <input type="text" value='{{vehicleInfoData.store_customer.full_name}}' class="width-110" readonly>
+                  <label class="width-50">车牌号</label>
+                  <input type="text" class="width-110 js-license-number" value='<%= @order.store_vehicle.license_number %>' disabled>
                 </dd>
                 <dd>
                   <label class="width-50">手机号</label>
-                  <input type="text" value={{vehicleInfoData.store_customer.phone_number}} class="width-110" readonly>
+                  <input type="text" class="width-110 js-phone-number" value='<%= @order.store_customer.phone_number %>' disabled>
+                </dd>
+                <dd class='frequenter'>
+                  <label class="width-50" >客户姓名</label>
+                  <span class="width-110 border-all bg-color-efeae5 js-customer-name"><%= @order.store_customer.full_name %></span>
                 </dd>
               </dl>
-              <div class="vehicle_order_title title doslide">详细信息
-              <i class="fa-angle-double-up fa cursor-pointer"></i>
-              <a href="javascript:void(0)" data-target="completing_customer" class="do_show js-edit-customer">完善客户信息</a>
-              </div>
-              <div class="vehicle_details_info">
-                <div class="item_content">
-                  <label class="width-50">车辆品牌</label><input type="text" value={{vehicleInfoData.vehicle_brand.name}} class="width-110"  readonly>
-                </div>
-                <div class="item_content">
-                  <label class="width-50" >车系</label><input type="text" value={{vehicleInfoData.vehicle_series.name}} class="width-110"  readonly>
-                </div>
-                <div class="item_content">
-                  <label class="width-50">车型</label><input type="text" value={{vehicleInfoData.vehicle_model.name}} class="width-110"  readonly>
-                </div>
-                <div class="item_content">
-                  <label class="width-50" >客户属性</label>
-                  <input type="text" value={{vehicleInfoData.store_customer.property_i18n}} class="width-110" readonly>
-                </div>
-                <div class="item_content">
-                  <label class="width-50" >客户类别</label>
-                  <input type="text" value="{{vehicleInfoData.store_customer.category_name}}" class="width-110"  readonly>
-                </div>
-                <div class="item_content">
-                  <label class="width-50">结算方式</label>
-                  <input type="text" value="{{vehicleInfoData.store_customer.payment_mode_i18n}}" class="width-110"  readonly>
-                </div>
-              </div>
             </div>
-
-            <%= render partial: 'vehicle_condition' %>
+            <div id='vehicle-essentials' class="vehicle_info"></div>
+            <%= render partial: 'vehicle_situation' %>
             <%= render partial: 'items' %>
           </div>
           <div class="construction_status">
@@ -90,7 +61,7 @@
 
       <div class="right_information">
         <div class="order_items float-left store-order-item-block" data-id="order_items"></div>
-        
+
         <div class="improve_crm_wrap float-left"></div>
         <div class="completing_vehicle_info float-left"></div>
       </div>
@@ -102,16 +73,14 @@
 <script>
   jQuery(function($){
     if($(".pos-orders-index").length > 0){
-      var x = new Mis.Views.PosOrderIndexView();
       var order = $('#order_data').data('order');
-
-      x.storeVehicle.id = <%= @order.store_vehicle_id %>;
-      x.storeVehicle.fetch();
-      x.order = order;
-      x.vehicle_situation.set_situation(order.situation);
+      handle = new Mis.Views.PosOrderIndexView();
+      handle.order = order;
+      handle.vehicle_situation.set_situation(order.situation);
       Mis.Vues.ServiceItem.$set('items',order.services.items.slice());
       Mis.Vues.MaterialItem.$set('items', order.materials.items.slice());
       Mis.Vues.PackageItem.$set('items', order.packages.items.slice());
+      handle.editOrder();
     }
   })
 </script>
