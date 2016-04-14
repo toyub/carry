@@ -98,6 +98,7 @@ class StoreOrderArchive
                                                          store_chain_id: @order.store_chain_id,
                                                          store_customer_id: @order.store_customer_id,
                                                          assetable: taozhuang_item,
+                                                         name: taozhuang_item.name,
                                                          package_item: taozhuang_item,
                                                          total_quantity: taozhuang_item.quantity,
                                                          workflowable_hash: taozhuang_item.as_json
