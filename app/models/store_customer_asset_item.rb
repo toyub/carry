@@ -12,10 +12,6 @@ class StoreCustomerAssetItem < ActiveRecord::Base
     total_quantity.to_i - used_quantity.to_i
   end
 
-  def name
-    assetable.try(:name)
-  end
-
   def service
     case self.assetable_type
     when StoreService.name
