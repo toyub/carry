@@ -28,20 +28,22 @@ class StoreCustomer < ActiveRecord::Base
 
   has_many :trackings, class_name: 'StoreTracking', as: :trackable
 
-  scope :female, -> { where(gender: false) }
+  scope :female, -> { where("gender is null or gender = ?", false) }
   scope :male, -> { where(gender: true) }
   scope :membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: true})}
   scope :non_membership, -> {joins(:store_customer_entity).where(store_customer_entities: { membership: false})}
-  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'company'})}
-  scope :personal_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 'personal'})}
 
+  scope :enterprise_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 1})}
+  scope :personal_member, -> {joins(:store_customer_entity).where(store_customer_entities: { property: 0})}
+  scope :regular_chain_mode, ->{where(chain_business_model_id: 0)}
 
   validates :first_name, presence: true
   validates :last_name, presence: true
 
   accepts_nested_attributes_for :taggings
 
-  before_save :set_full_name
+  before_validation :set_full_name
+  before_validation :check_phone_number
 
   enum education: %w[middle high academy graduate postgraduate]
   enum profession: %w[it finance energy education engineering others]
@@ -53,6 +55,13 @@ class StoreCustomer < ActiveRecord::Base
 
   COMPANY_COUNT = 21
   PERSONAL = 15
+
+  def self.create_with_entity!(*args)
+    customer = self.create!(*args)
+    entity = customer.create_store_customer_entity(store_staff_id: customer.store_staff_id)
+    entity.create_store_customer_settlement(store_staff_id: customer.store_staff_id)
+    customer
+  end
 
   def deposit_cards_assets
     assets.where(type: "StoreCustomerDepositCard")
@@ -73,10 +82,6 @@ class StoreCustomer < ActiveRecord::Base
   def age
     now = Time.now.to_date
     now.year - birthday.year - (birthday.to_date.change(year: now.year) > now ? 1 : 0)
-  end
-
-  def first_vehicle_id
-    self.store_vehicles.ids.sort.first
   end
 
   def operator
@@ -177,15 +182,15 @@ class StoreCustomer < ActiveRecord::Base
   end
 
   def orders_count
-    orders.count
+    orders.available.count
   end
 
   def total_amount
-    orders.pluck(:amount).reduce(:+) || 0.0
+    orders.available.pluck(:amount).reduce(:+) || 0.0
   end
 
-  def customer_asset
-    store_customer_entity.try(:membership) == true ? "有" : "无"
+  def has_customer_asset
+    store_customer_entity.try(:membership)
   end
 
   def integrity
@@ -202,9 +207,26 @@ class StoreCustomer < ActiveRecord::Base
     ((orders.count.to_f/days)*100).round(2) if days != 0
   end
 
+  def first_vehicle_id
+    store_vehicles.sort.first.try(:id)
+  end
+
   private
   def set_full_name
+    if first_name.blank?
+      self.first_name = '-'
+    end
+
+    if last_name.blank?
+      self.last_name = '-'
+    end
     self.full_name = "#{last_name}#{first_name}"
+  end
+
+  def check_phone_number
+    if phone_number.blank?
+      self.phone_number = '未填写'
+    end
   end
 
   def customer_complation_count

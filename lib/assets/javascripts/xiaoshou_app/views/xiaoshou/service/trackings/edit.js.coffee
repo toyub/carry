@@ -37,7 +37,7 @@ class Mis.Views.XiaoshouServiceTrackingsEdit extends Mis.Base.View
     @appendChildTo(view, @$("#reminds"))
 
   openTrackingForm: ->
-    model = new Mis.Models.StoreServiceTracking(store_service: @store_service)
+    model = new Mis.Models.StoreServiceTracking({}, store_service: @store_service)
     view = new Mis.Views.XiaoshouServiceTrackingsForm(model: model)
     @appendChildTo(view, @$(".tracking_list"))
 

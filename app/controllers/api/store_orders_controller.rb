@@ -4,7 +4,7 @@ module Api
     before_action :set_vehicle, only: [:draft, :update_draft, :create, :update]
 
     def index
-      orders = current_store.store_orders
+      orders = current_store.store_orders.available
       if params[:license_number].present?
         store_vehicle_ids = current_store.store_vehicles.joins(vehicle_plates: :plate).
           where('license_number like ?', "%#{params[:license_number]}%").pluck(:id)
@@ -12,10 +12,29 @@ module Api
         orders = orders.where(store_vehicle_id: store_vehicle_ids)
       end
       if params[:created_at].present?
-        orders = orders.where(created_at: params[:created_at])
+        parsed_date = begin
+          Date.parse(params[:created_at])
+        rescue
+         nil
+        end
+        if parsed_date
+          orders = orders.where("created_at between ? and ?", parsed_date.to_datetime.beginning_of_day, parsed_date.to_datetime.end_of_day)
+        end
       end
       if params[:state].present?
         orders = orders.where(state: params[:state])
+      end
+
+      if params[:pay_status].present?
+        if params[:pay_status].to_i == 0
+          orders = orders.where(pay_status: [0,1])
+        else
+          orders = orders.where(pay_status: [2,3])
+        end
+      end
+
+      if params[:task_status].present?
+        orders = orders.where(task_status: params[:task_status])
       end
 
       render json: orders.order('id desc')
@@ -87,7 +106,7 @@ module Api
 
     private
       def set_order
-        @order = StoreOrder.find(params[:id])
+        @order = current_store.store_orders.available.find(params[:id])
       end
 
       def material_items
@@ -104,12 +123,14 @@ module Api
         if params[:services].present?
           params[:services].map do |info|
             basic_item_params(info).merge(orderable_type: info['orderable_type'],
-                                          from_customer_asset: info['from_customer_asset'],
+                                          from_customer_asset: info['from_customer_asset'] || false,
                                           store_customer_asset_item_id: info['store_customer_asset_item_id'],
                                           package_type: info['package_type'],
                                           package_id: info['package_id'],
                                           assetable_type: info['assetable_type'],
-                                          assetable_id: info['assetable_id'])
+                                          assetable_id: info['assetable_id'],
+                                          package_item_id: info['package_item_id'],
+                                          package_item_type: info['package_item_type'])
           end
         else
           []

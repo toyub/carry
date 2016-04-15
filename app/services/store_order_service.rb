@@ -47,14 +47,14 @@ class StoreOrderService
       assetable_type: item[:assetable_type],
       assetable_id: item[:assetable_id],
       package_id: item[:package_id],
-      package_type: item[:package_type]
+      package_type: item[:package_type],
+      package_item_id: item[:package_item_id],
+      package_item_type: item[:package_item_type]
     }
   end
 
   def order_params_merge_vehicle
     @basic_params.merge(
-      store_vehicle_id: @order_params[:vehicle_id],
-      store_vehicle_registration_plate_id: @order_params[:plate_id]
-    )
+      store_vehicle_id: @order_params[:vehicle_id])
   end
 end

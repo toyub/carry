@@ -13,10 +13,6 @@ module Grape
               description: "用户名称",
               required: false
             },
-            "X-SN-Code" => {
-              description: "设备唯一识别码",
-              required: false
-            },
             "X-Client-Key" => {
               description: "访问权限",
               required: false

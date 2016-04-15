@@ -39,13 +39,29 @@ class StoreService < ActiveRecord::Base
   }
 
   def create_service_reminds
-    StoreServiceRemind::TIMING.keys.each do |t|
+    StoreServiceRemind.trigger_timings.keys.each do |t|
       self.reminds.create(store_id: self.store_id, store_staff_id: self.store_staff_id, trigger_timing: t, enable: false)
     end
   end
 
+  def sms_enabled?(remind_type)
+    remind(remind_type).sms_enabled?
+  end
+
+  def message(remind_type)
+    remind(remind_type).message
+  end
+
+  def remind_delay_interval(remind_type)
+    remind(remind_type).delay_interval.to_i
+  end
+
+  def remind(remind_type)
+    [:started, :finished].include?(remind_type) ? self.reminds.send(remind_type).first : NullStoreServiceRemind.new
+  end
+
   def vip_price_enabled
-    self.read_attribute(:vip_price_enabled) || rand(2) == 0
+    self.read_attribute(:vip_price_enabled)
   end
 
   def barcode
@@ -134,8 +150,7 @@ class StoreService < ActiveRecord::Base
   end
 
   def time
-
-    self.setting.workflows.map { |w| w.work_time_in_minutes }.sum
+    setting.workflows.present? ? self.setting.workflows.map { |w| w.work_time_in_minutes }.sum : 0
   end
 
   def mechanic_levles
@@ -158,14 +173,14 @@ class StoreService < ActiveRecord::Base
     true
   end
 
-  def commission(order_item)
-    saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
+  def commission(order_item, staff, beneficiary)
+    saleman_commission_template.present? ? saleman_commission_template.sale_commission(order_item, staff, beneficiary) : 0.0
   end
 
   def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
     id = joins(:store_order_items)
       .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
-      .group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+      .group(:orderable_id).order("sum_#{sort_by} DESC").limit(1).sum(sort_by).keys[0]
 
     find_by_id(id)
   end

@@ -1,0 +1,50 @@
+.reports_tab{
+
+  width: 100%;
+  box-sizing: border-box;
+  thead{
+    tr{
+      border: 1px solid #C5C5C5;
+      th{
+        height: 38px;
+        border: 0 !important;
+        font-size: 14px;
+      }
+    }
+  }
+  tbody{
+    tr{
+      td{
+        height: 28px;
+        border: 1px solid #C5C5C5;
+        padding: 0px 2px;
+        text-align: center;
+
+        &:nth-child(1){width: 35px;}
+        &:nth-child(2){width: 114px;}
+        &:nth-child(3){width: 165px;}
+        &:nth-child(4){width: 116px;}
+        &:nth-child(5){width: 105px;}
+        &:nth-child(6){width: 130px;}
+        &:nth-child(7){width: 123px; text-align: right;}
+        &:nth-child(8){width: 116px; text-align: right;}
+        &:nth-child(9){width: 112px; text-align: right;}
+        &:nth-child(10){width: 147px;}
+        &:nth-child(11){width: 138px;}
+        &:nth-child(12){width: 129px;}
+        &:nth-child(13){width: 112px;}
+      }
+
+      &:nth-child(odd){
+        background: #FAFAFA;
+      }
+      &:hover{
+        background: #dce2e5;
+        a{
+          color: blue;
+        }
+      }
+    }
+  }
+
+}

@@ -1,5 +1,5 @@
 <ul class="list_tr_hover">
-  <li><%= @id %></li>
+  <li><%= @view.index + 1 %></li>
   <li><label class="cursor-pointer click_btn showMaterial"><%= @name %></label></li>
   <li><%= @mode %>
     <% if @view.isEdit(): %>

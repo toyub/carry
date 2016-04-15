@@ -1,5 +1,5 @@
 <tr data-id=<%= @id %>>
-  <td class="number">1</td>
+  <td class="number"><%= @idx %></td>
   <td>
     <%= @name %>
     <input type="hidden" name="outing[items_attributes][<%= @id %>][store_material_id]" value="<%= @id %>">

@@ -1,0 +1,81 @@
+<div class="page_head main_top">
+  <span class="font-24 margin-right-15">报表</span>
+</div>
+
+
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <form>
+        <div class="item-query">
+          <label for="">日期</label>
+          <select class="width-100" >
+            <option></option>
+          </select>
+          <select class="width-100" >
+            <option></option>
+          </select>
+        </div>
+
+
+        <div class="item-query">
+          <label for="">报表类型</label>
+          <select class="width-100" >
+            <option>收入明细</option>
+          </select>
+          <select class="width-100" >
+            <option>现金</option>
+          </select>
+        </div>
+
+        <div class="item-query">
+          <input type="button" value="查询" class="btn query_btn do_search_result">
+        </div>
+
+        <div class="query_div">
+          <a href="#" class="print_btn btn">打印</a>
+          <a href="#" class="export_btn btn">导出</a>
+        </div>
+      </form>
+    </div>
+    <table class="reports_tab">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>日期</th>
+          <th>订单号</th>
+          <th>车牌</th>
+          <th>客户</th>
+          <th>手机号</th>
+          <th>订单金额</th>
+          <th>优惠金额</th>
+          <th>付款金额</th>
+          <th>付款方式一</th>
+          <th>付款方式二</th>
+          <th>收款人</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% 3.times.each do|i| %>
+        <tr>
+          <td><%= i+1 %>.</td>
+          <td>2014-8-11</td>
+          <td>YW2014081100011</td>
+          <td>浙A-16034</td>
+          <td>李先生</td>
+          <td>18679843334</td>
+          <td>18,375.00</td>
+          <td>0.00</td>
+          <td>18,375.00</td>
+          <td>现金</td>
+          <td></td>
+          <td>王丽丽</td>
+          <td><a href="#" class="">订单详情</a></td>
+        </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+</div>

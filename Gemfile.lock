@@ -7,6 +7,14 @@ GIT
       puma (>= 2.6)
 
 GIT
+  remote: git@gitlab.icar99.com:zc/capistrano-logrotate.git
+  revision: 0af82d748dcee4ce6bedfd32d4fec43cb3b14c04
+  tag: v0.0.1
+  specs:
+    capistrano-logrotate (0.1.0)
+      capistrano
+
+GIT
   remote: git@gitlab.icar99.com:zc/capistrano-monit.git
   revision: 6caa6023864cc1b56560e7ef3fbac862ae099df8
   tag: v0.0.2
@@ -179,6 +187,9 @@ GEM
     erubis (2.7.0)
     ethon (0.8.0)
       ffi (>= 1.3.0)
+    exception_notification (4.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     execjs (2.6.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
@@ -409,6 +420,7 @@ GEM
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     webrobots (0.1.2)
+    will_paginate (3.0.7)
     yajl-ruby (1.2.1)
 
 PLATFORMS
@@ -421,6 +433,7 @@ DEPENDENCIES
   byebug
   capistrano (~> 3.3.0)
   capistrano-bundler (~> 1.1.2)
+  capistrano-logrotate!
   capistrano-monit!
   capistrano-rails (~> 1.1)
   capistrano-rails-console
@@ -430,6 +443,7 @@ DEPENDENCIES
   carrierwave
   carrierwave-base64
   coffee-rails (= 4.1.0)
+  exception_notification
   faraday
   font-awesome-rails (= 4.4.0)
   geo!
@@ -473,6 +487,7 @@ DEPENDENCIES
   typhoeus
   uglifier (= 2.7.0)
   web-console (~> 2.0)
+  will_paginate (~> 3.0.6)
   yajl-ruby (~> 1.2, >= 1.2.1)
 
 BUNDLED WITH

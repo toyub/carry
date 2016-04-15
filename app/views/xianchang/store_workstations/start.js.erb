@@ -1,0 +1,12 @@
+<% if @workflow.pausing? %>
+    ZhanchuangAlert('订单暂停中，请先开启！');
+<% else %>
+  <% if @workflow.processing? %>
+    $("ul.waiting #order-<%= @workflow.store_order.id %>").remove();
+    $("#workstation-<%= @workstation.id %> .idle_station").remove();
+    $("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation, is_started: @workflow.processing?} %>");
+    Countdown($("#workstation-<%= @workstation.id %> .vehicle_info span.times"));
+  <% else %>
+    ZhanchuangAlert('信息不符，不能开始施工，请编辑施工信息！');
+  <% end %>
+<% end %>

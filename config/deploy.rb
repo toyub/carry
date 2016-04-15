@@ -15,7 +15,7 @@ set :html_deploy_to, "#{fetch(:deploy_to)}/html"
 
 set :scm, :git
 
-set :linked_files, fetch(:linked_files, []).push('config/sms_client.yml', 'config/database.yml', 'config/redis.yml', 'config/initializers/secret_token.rb', '.ruby-version', 'config/alipay.yml', 'config/qiniu.yml', 'config/scheduler.yml')
+set :linked_files, fetch(:linked_files, []).push('config/sms_client.yml', 'config/database.yml', 'config/redis.yml', 'config/initializers/secret_token.rb', '.ruby-version', 'config/alipay.yml', 'config/qiniu.yml', 'config/sidekiq_web.yml')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/uploads')
 set :keep_releases, 5
 set :deploy_via, :remote_cache
@@ -45,7 +45,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
+      invoke 'puma:phased-restart'
     end
   end
 

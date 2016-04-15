@@ -2,7 +2,7 @@
   <label class="width-75">一级分类</label>
   <select class="width-130" id="rootCategory">
     <option>请选择</option>
-    <% @store.rootMaterialCategories.each (c) ->: %>
+    <% @categories.each (c) ->: %>
       <option value="<%= c.get 'id' %>"><%= c.get 'name' %></option>
     <% end %>
   </select>

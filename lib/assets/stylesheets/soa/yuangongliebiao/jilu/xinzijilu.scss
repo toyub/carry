@@ -68,6 +68,14 @@
           @include border;
           text-align:center;
           @include salary-payment-col-width;
+
+          a:hover, a:hover i{
+            color: #178efe;
+          }
+        }
+
+        &:hover{
+          background: #edf2f5;
         }
       }
     }

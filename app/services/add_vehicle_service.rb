@@ -2,29 +2,60 @@ class AddVehicleService
   include Serviceable
   include StatusObject
 
-  attr_reader :customer, :vehicle, :plate
+  attr_reader :customer, :vehicle
 
-  def initialize(vehicle_params, plate_params, options = {})
-    @customer_params = options[:customer_params]
+  def initialize(store, vehicle_params, customer_params)
+    if vehicle_params[:license_number].blank?
+      vehicle_params[:provisional] = true if vehicle_params[:provisional].nil?
+    end
+    @store = store
+    @chain = store.store_chain
+    @customer_params = customer_params
     @vehicle_params = vehicle_params
-    @plate_params = plate_params
-    @customer = options[:customer]
   end
 
   def call
-    ActiveRecord::Base.transaction do
-      if @customer.blank?
-        @customer ||= StoreCustomer.create!(@customer_params)
-        entity = @customer.create_store_customer_entity(@plate_params.except(:license_number))
-        entity.create_store_customer_settlement(@plate_params.except(:license_number))
+    begin
+      ActiveRecord::Base.transaction do
+        create_vehicle
+        Status.new(success: true, notice: '创建成功', customer: @customer, vehicle: @vehicle)
       end
-      @vehicle = StoreVehicle.create!(@vehicle_params.merge(store_customer_id: @customer.id))
-      @plate = @vehicle.plates.create!(@plate_params)
+    rescue => e
+      Rails.logger.info e
+      Status.new(success: false, notice: '创建失败，请重试')
     end
-    Status.new(success: true, notice: '添加成功!', customer: @customer)
-  rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error e.message
-    customer = StoreVehicleRegistrationPlate.where(license_number: @plate_params[:license_number]).first.try(:store_customer)
-    Status.new(success: false, notice: e.message, customer: customer)
+  end
+
+  private
+  def create_vehicle
+    if @vehicle_params[:provisional] #无牌开单
+      create_provisional_vehicle
+    else
+      @vehicle = @chain.store_vehicles.regular_chain_mode.find_by(license_number: @vehicle_params[:license_number])
+      if @vehicle.present?
+        @customer = @vehicle.store_customer
+      else
+        create_regular_vehicle
+      end
+    end
+  end
+
+  def find_or_create_customer
+    if @customer_params[:phone_number].present?
+      @customer = @chain.store_customers.regular_chain_mode.find_by(phone_number: @customer_params[:phone_number])
+    end
+    if @customer.blank?
+      @customer = @store.store_customers.create_with_entity!(@customer_params)
+    end
+  end
+
+  def create_regular_vehicle
+    find_or_create_customer
+    @vehicle = @customer.store_vehicles.create!(@vehicle_params)
+  end
+
+  def create_provisional_vehicle
+    find_or_create_customer
+    @vehicle = @customer.store_vehicles.create!(@vehicle_params.merge(license_number: '暂无牌照'))
   end
 end

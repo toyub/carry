@@ -13,6 +13,7 @@ class Captcha < ActiveRecord::Base
   EXPRIED = 15.minutes
 
   def self.generate!(phone, type_id)
+    return false unless StoreStaff.phone_exist_or_available? phone
     create!(verification: generate_varification(6), switch_type_id: type_id, sent_at: Time.now, phone: phone)
   end
 
@@ -29,7 +30,7 @@ class Captcha < ActiveRecord::Base
   end
 
   def validate_with_token(token_code)
-     token == token_code && !expried?
+    verification == token_code && !expried?
   end
 
   def expried?
@@ -37,7 +38,8 @@ class Captcha < ActiveRecord::Base
   end
 
   def send_message
-    SmsClient.publish(phone, token)
+    content =  "尊敬的用户：您正在重置密码，验证码：#{self.verification}，请在15分钟内按提示进行操作，切勿将验证码泄漏。"
+    SmsClient.publish(phone, content)
   end
 
   private
@@ -47,7 +49,7 @@ class Captcha < ActiveRecord::Base
   end
 
   def encrypt_token
-    self.token = Digest::SHA256.hexdigest("#{self.phone}")
+    self.token = SecureRandom.hex(32)
   end
 
 end

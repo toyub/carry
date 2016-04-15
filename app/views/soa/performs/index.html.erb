@@ -24,7 +24,11 @@
       <% if @date < Time.now.at_beginning_of_month %>
         <%= render 'pass_month_commission' %>
       <% else %>
-        <%= render 'current_month_commission' %>
+        <% if @staff.commission? %>
+          <%= render 'current_month_commission' %>
+        <% else %>
+          <strong><em><%= @staff.full_name %></em>未设置可获得提成或还不是正式员工，是否<%= link_to "设置", soa_staff_setting_path(@staff), class: "btn record_btn width-40" %>?</strong>
+        <% end %>
       <% end %>
     </table>
   </div>

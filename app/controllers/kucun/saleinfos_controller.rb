@@ -1,4 +1,5 @@
 class Kucun::SaleinfosController < Kucun::BaseController
+  before_action :set_material_info, only: [:show, :edit]
 
   def create
     @store = current_user.store
@@ -21,6 +22,7 @@ class Kucun::SaleinfosController < Kucun::BaseController
     saleinfo.save!
 
     render json: {
+      material_id: @store_material.id,
       saleinfo: saleinfo,
       services_attributes: saleinfo.services
     }
@@ -46,21 +48,20 @@ class Kucun::SaleinfosController < Kucun::BaseController
     end
     saleinfo.update!(safe_params)
     render json: {
+      material_id: @store_material.id,
       saleinfo: saleinfo,
       services_attributes: saleinfo.services
     }
   end
 
+  def edit
+  end
+
   def show
-    @store = current_user.store
-    @store_material = @store.store_materials.find(params[:material_id])
-    @saleinfo = @store_material.store_material_saleinfo
-     
-    if @saleinfo.blank?
-      @saleinfo = StoreMaterialSaleinfo.new  
+    if @saleinfo.new_record?
+      render :edit
+      return
     end
-    @sale_categories = SaleCategory.all
-    @store_commission_templates = StoreCommissionTemplate.where(status: 0)
   end
 
   private
@@ -73,5 +74,16 @@ class Kucun::SaleinfosController < Kucun::BaseController
                                                            :work_time_unit, :work_time_in_seconds, :tracking_needed, :tracking_delay,
                                                            :tracking_delay_unit, :tracking_delay_in_seconds, :tracking_contact_way,
                                                            :tracking_content, :mechanic_commission_template_id, :quantity]
+  end
+
+  def set_material_info
+    @store = current_user.store
+    @store_material = @store.store_materials.find(params[:material_id])
+    @saleinfo = @store_material.store_material_saleinfo
+    if @saleinfo.blank?
+      @saleinfo = StoreMaterialSaleinfo.new
+    end
+    @sale_categories = SaleCategory.all
+    @store_commission_templates = current_store.store_commission_templates.available.for_saleman
   end
 end

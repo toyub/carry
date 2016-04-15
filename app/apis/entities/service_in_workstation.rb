@@ -1,6 +1,6 @@
 module Entities
   class StoreMechainic < Grape::Entity
-    expose :name, :id
+    expose :full_name, :id
   end
 
   class StoreServiceWorkflowSnapshot < Grape::Entity
@@ -8,9 +8,10 @@ module Entities
     expose(:workflow_id){|model|model.store_service_workflow_id}
     expose(:workstation_id){|model|model.store_workstation.try(:id)}
     expose(:workstation_name){|model|model.store_workstation.try(:name)}
-    expose :standard_time
+    expose :count_down
+    expose(:started_time){|model| model.try(:started_time).try(:strftime, '%Y-%m-%d %H:%M:%S')}
     expose :store_mechanics, using: StoreMechainic
-    expose :mechanics
+    expose :mechanics, using: StoreMechainic
 
     def store_mechanics
       StoreStaff.mechanics

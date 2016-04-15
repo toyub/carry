@@ -15,7 +15,7 @@ class StoreOrderArchive
       reward_points
       pay_finish
       auto_outing
-      deal_with_divideable
+      deal_with_material_cost_price
     end
   end
 
@@ -65,7 +65,11 @@ class StoreOrderArchive
                                                                 {store_id: @order.store_id,
                                                                  store_chain_id: @order.store_chain_id,
                                                                  store_customer_id: @order.store_customer_id,
-                                                                 assetable: package_item,
+                                                                 name: package_item.package_itemable.name,
+                                                                 retail_price: package_item.package_itemable.retail_price,
+                                                                 price: package_item.price,
+                                                                 assetable: package_item.package_itemable,
+                                                                 package_item: package_item,
                                                                  total_quantity: package_item.quantity,
                                                                  workflowable_hash: package_item.package_itemable.to_workflowable_hash
                                                                }
@@ -94,6 +98,8 @@ class StoreOrderArchive
                                                          store_chain_id: @order.store_chain_id,
                                                          store_customer_id: @order.store_customer_id,
                                                          assetable: taozhuang_item,
+                                                         name: taozhuang_item.name,
+                                                         package_item: taozhuang_item,
                                                          total_quantity: taozhuang_item.quantity,
                                                          workflowable_hash: taozhuang_item.as_json
                                                        }
@@ -133,8 +139,9 @@ class StoreOrderArchive
   end
 
   def pay_finish
+    @order.paid_at = Time.now
     if @order.payments.any?(&->(pi){pi.hanging?})
-      @order.pay_hanging!
+      @order.hanging!
       @customer.store_customer_entity.store_customer_settlement.increase_credit_bill_amount!(@order.amount)
     else
       @order.pay_finished!
@@ -151,13 +158,15 @@ class StoreOrderArchive
     depot.outing_order_materials!(@order)
   end
 
-  def deal_with_divideable
+  def deal_with_material_cost_price
     @order.items.materials.each do |order_item|
       if order_item.orderable.divide_to_retail?
         order_item.divide_to_retail = true
         order_item.standard_volume_per_bill = order_item.orderable.divide_volume_per_bill
         order_item.actual_volume_per_bill = order_item.orderable.divide_volume_per_bill
         order_item.save!
+      else
+        order_item.update!(cost_price: order_item.orderable.cost_price)
       end
     end
   end
@@ -167,7 +176,7 @@ class StoreOrderArchive
     customer_assets.each do |asset|
       asset.items.each do |item|
         used_items.each do |used_item|
-          if item.assetable == used_item.assetable
+          if item.package_item == used_item.package_item
             item.increment!(:used_quantity, 1)
             item.logs.create! store_id: @order.store_id,
                               store_chain_id: @order.store_chain_id,

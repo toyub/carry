@@ -1,0 +1,116 @@
+.orders{
+  border: 2px solid #D7D7D7;
+  box-shadow: 0px 5px 45px 0px rgba(118,113,113,.35),0px -5px 45px 0px rgba(118,113,113,.35);
+  position: absolute;
+  top: 226px;
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .order_head{
+    display: inline-block;
+    padding: 10px 0;
+
+    .item{
+      display: inline-block;
+      width: 380px;
+      box-sizing: border-box;
+      padding-left: 30px;
+
+      label{
+        font-size: 12px;
+        color: #8B8C8B;
+      }
+
+      span{
+        font-size: 14px;
+        color: #363535;
+        padding-left: 15px;
+      }
+    }
+  }
+
+}
+
+
+.order_tab{
+  width: 100%;
+  thead{
+    tr{
+      th{
+        height: 30px;
+        background: #DFE1CF;
+        border: 1px solid #A0A0A0;
+        font-size: 14px;
+      }
+    }
+  }
+
+  tbody{
+    tr{
+      td{
+        height: 28px;
+        border: 1px solid #A0A0A0;
+        text-align: center;
+        box-sizing: border-box;
+        &:nth-child(1){width: 44px;}
+        &:nth-child(2){width: 259px;}
+        &:nth-child(3){width: 141px;}
+        &:nth-child(4){width: 141px;}
+        &:nth-child(5){width: 76px;}
+        &:nth-child(6){width: 102px;}
+        &:nth-child(7){width: 107px;}
+        &:nth-child(8){text-align: right; width: 67px;}
+        &:nth-child(9){width: 78px;}
+        &:nth-child(10){text-align: right; width: 80px;}
+        &:nth-child(11){width: 106px;}
+        &:nth-child(12){width: 228px;}
+        &:nth-child(13){width: 78px;}
+
+      }
+    }
+  }
+
+  tfoot{
+    tr{
+      td{
+        text-align: center;
+        height: 28px;
+        border: 1px solid #A0A0A0;
+        color: #272525;
+        font-weight: 600;
+        &:nth-child(2){text-align: left;}
+        &:nth-child(10){text-align: right;}
+      }
+    }
+  }
+}
+
+.order_accout{
+  .item{
+    display: inline-block;
+    margin-top: 10px;
+    label.item-label{
+      display:inline-flex;
+      height: 35px;
+      vertical-align: top;
+      justify-content:flex-start;
+    }
+
+    .remarks_textarea{
+      width: 1237px;
+      box-sizing: border-box;
+    }
+
+    span{
+      display: inline-block;
+    }
+  }
+}
+
+.btn_group{
+  text-align: right;
+  width: 100%;
+  box-sizing: border-box;
+}

@@ -21,7 +21,7 @@ class Soa::SettingsController < Soa::BaseController
     @store = current_store
     @staff = @store.store_staff.find(params[:staff_id])
     params[:store_staff]["skills"]["other_skills"].reject!(&:empty?)
-    @staff.unregular if params[:store_staff][:trial_salary].present?
+    @staff.update!(regular: false) if params[:store_staff][:trial_salary].present?
 
     if @staff.update!(setting_staff_param)
       redirect_to soa_staff_setting_path(@staff)
@@ -38,6 +38,7 @@ class Soa::SettingsController < Soa::BaseController
       params[:protocols][:new_salary] = params[:reset_salary]
       @protocol = @staff.store_protocols.create(protocol_param)
     }
+    @staff.update!(regular: true) if @staff.could_regular?
     respond_to do |format|
       if @protocol
         format.html { render plain: @protocol.reason_for }
@@ -64,7 +65,7 @@ class Soa::SettingsController < Soa::BaseController
 
   private
   def setting_staff_param
-    params.require(:store_staff).permit(:trial_salary, :trial_period, :regular_salary, :mis_login_enabled, :app_login_enabled, :deduct_enabled,
+    params.require(:store_staff).permit(:trial_salary, :trial_period, :regular_salary, :mis_login_enabled, :app_login_enabled, :erp_login_enabled, :deduct_enabled,
                                        :contract_notice_enabled, :deadline_days,
                                        bonus: [:gangwei, :zhusu, :canfei, :laobao, :gaowen, :yibaofei, :baoxianjing, :gerendanbao, :insurence_enabled ],
                                        skills: [:theory, :operate, :integrate, :certificate, :other_skills => [] ]
@@ -76,7 +77,7 @@ class Soa::SettingsController < Soa::BaseController
   end
 
   def staff_password_param
-    params.require(:store_staff).permit(:password, :password_confirmation, :mis_login_enabled, :app_login_enabled)
+    params.require(:store_staff).permit(:password, :password_confirmation, :mis_login_enabled, :app_login_enabled, :erp_login_enabled)
   end
 
 end

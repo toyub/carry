@@ -29,9 +29,13 @@ module V1
           optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，
                                                       套餐服务情况下： store_package_id,其他情况可不填!'
           optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService
-                                                         套餐服务情况下: StorePackageItem,其他情况可不填!'
+                                                         套餐服务情况下: 同orderable一样,其他情况可不填!'
           optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
-                                                        套餐服务情况下: store_package_item_id,其他情况可不填!'
+                                                        套餐服务情况下: 同orderable一样,其他情况可不填!'
+          optional :package_item_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService,
+                                                            套餐服务情况下: StorePackageItem'
+          optional :package_item_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
+                                                            套餐服务情况下: store_package_item_id'
         end
       end
 
@@ -69,9 +73,13 @@ module V1
             optional :package_id, type: Integer, desc: '商品服务情况下： store_material_saleinfo_id，
                                                         套餐服务情况下： store_package_id,其他情况可不填!'
             optional :assetable_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService
-                                                           套餐服务情况下: StorePackageItem,其他情况可不填!'
+                                                           套餐服务情况下: 同orderable一样,其他情况可不填!'
             optional :assetable_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
-                                                          套餐服务情况下: store_package_item_id,其他情况可不填!'
+                                                          套餐服务情况下: 同orderable一样,其他情况可不填!'
+            optional :package_item_type, type: String, desc: '商品服务情况下: StoreMaterialSaleinfoService,
+                                                              套餐服务情况下: StorePackageItem'
+            optional :package_item_id, type: Integer, desc: '商品服务情况下: store_material_saleinfo_service_id,
+                                                              套餐服务情况下: store_package_item_id'
           end
         end
         put  do
@@ -80,23 +88,13 @@ module V1
           present status: status.success, info: status.notice
         end
 
-        add_desc '取消订单'
-        params do
-          requires :order_id, type: Integer, desc: '订单的id'
-          requires :platform, type: String, desc: '验证平台！'
-        end
-        delete  do
-          @order.delete
-          present info: '取消订单成功'
-        end
-
         add_desc '订单详情'
         params do
           requires :platform, type: String, desc: '验证平台！'
           requires :order_id, type: Integer, desc: '订单的id'
         end
         get do
-          present @order.items, with: ::Entities::StoreOrder, type: :full
+          present @order, with: ::Entities::StoreOrder, type: :full
         end
 
       end
@@ -106,15 +104,17 @@ module V1
         requires :platform, type: String, desc: '验证平台！'
         requires :service_included, type: Boolean, desc: 'true为需要施工，false为不需要施工'
         optional :q, type: Hash, default: {} do
-          optional :plate_license_number_cont, type: String
+          optional :store_vehicle_license_number_cont, type: String
           optional :store_customer_phone_number_cont, type: String
-          optional :state_eq, type: Integer
+          optional :state_eq, type: Integer, desc: '订单状态'
+          optional :task_status_eq, type: Integer, desc: '订单施工状态'
+          optional :pay_status_in, type: Array, desc: '订单付费状态'
         end
       end
       get do
-        orders = current_store.store_orders.ransack(params[:q]).result
+        orders = current_store.store_orders.available.ransack(params[:q]).result
         if params[:service_included]
-          orders = orders.has_service
+          orders = orders.has_service.unfinished.unpending
         end
         present orders, with: ::Entities::StoreOrder, type: :default
       end
@@ -162,7 +162,9 @@ module V1
             :assetable_type,
             :assetable_id,
             :package_id,
-            :package_type
+            :package_type,
+            :package_item_id,
+            :package_item_type
           ]
         )
       end

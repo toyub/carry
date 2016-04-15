@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resource :saleinfo do
         resources :saleinfo_services
       end
-      resource :tracking, only: [:show, :create, :update] do
+      resource :tracking, only: [:show, :edit, :create, :update] do
         get :sections, on: :collection
         resources :tracking_sections
       end
@@ -116,26 +116,34 @@ Rails.application.routes.draw do
 
   namespace :ais do
     resources :incomes, only: [:index]
-    resources :costs, only: [:index] do
-      get 'search', on: :collection
-    end
+    resources :costs, only: :index
     resources :categories, only: [:show] do
       resources :order_items, only: [:index]
     end
+    resources :material_orders, only: [:index, :show, :update]
+    resources :reports, only: :index
   end
 
   namespace :xianchang do
     resources :field_constructions, only: [:index]
     resources :groups, only: [:index]
     resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
-      post :construction, on: :collection
-      put :finish, on: :member
-      put :perform, on: :member
+      member do
+        put :finish
+        put :perform
+        put :exchange
+        put :start
+      end
     end
-    resources :store_orders, only: [:show] do
-      put :terminate, on: :member
-      get :check_dispatch, on: :member
-      get :check_mechanic, on: :member
+    resources :store_orders, only: [:show, :update] do
+      member do
+        put :terminate
+        put :execute
+        put :pause_in_queuing_area
+        put :pause_in_workstation
+        put :pause
+        put :play
+      end
     end
     resources :store_workflows, only: [:edit, :update] do
       get :free_mechanics, on: :member
@@ -240,6 +248,10 @@ Rails.application.routes.draw do
   #Api
   namespace :api do
 
+    resources :store_materials, only: :index
+    resources :consumable_store_materials, only: :index
+    resources :store_material_categories, only: :index
+
     #Order
     namespace :order do
 
@@ -285,7 +297,9 @@ Rails.application.routes.draw do
     #Order end
 
 
-    resources :store_staff, only: [:index, :update]
+    resources :store_staff, only: [:index, :update] do
+      get 'check_phone', on: :collection
+    end
     resources :store_operators, only: [:index, :update]
     resources :store_service_categories, only: [:create]
     resources :store_services, only: [:index, :show, :create, :update] do
@@ -392,7 +406,6 @@ Rails.application.routes.draw do
     resources :subscribe_orders
 
     resources :vehicle_brands, only: [:index] do
-      get :search_series
       resources :vehicle_manufacturers, only: [:index]
     end
 
@@ -419,11 +432,17 @@ Rails.application.routes.draw do
 
       namespace :auth do
         resources :discount_authorities
+        resources :waste_order_authorities
+      end
+
+      namespace :cashier do
+        resources :orders
       end
     end
 
     namespace :crm do
       resources :customers do
+        get 'check', on: :collection
         resources :vehicles
         resources :assets
       end
@@ -445,6 +464,9 @@ Rails.application.routes.draw do
   namespace :printer do
     namespace :pos do
       resources :orders
+    end
+    namespace :ais do
+      resources :material_orders, only: :show
     end
   end
 
@@ -470,7 +492,7 @@ Rails.application.routes.draw do
       resources :store_trackings, only: [:index, :create]
       resources :store_repayments, only: [:index, :create] do
         collection do
-          get :finished, :all
+          get :finished, :hanging
         end
       end
       resources :store_assets, only: [:index, :show] do
@@ -494,6 +516,9 @@ Rails.application.routes.draw do
   end
   root 'kucun/materials#index'
 
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == SIDEKIQ[:username] && password == SIDEKIQ[:password]
+  end if (Rails.env.production? || Rails.env.staging?)
   mount Sidekiq::Web => '/sidekiq'
 
 end

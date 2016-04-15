@@ -1,0 +1,10 @@
+
+$("#workstation-<%= @previous_workstation.id %> .vehicle_info").remove();
+$("#workstation-<%= @previous_workstation.id %>").append("<%= j render partial: 'idle_workstation' %>");
+$("#workstation-<%= @workstation.id %> .idle_station").remove();
+$("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation, is_started: @workflow.processing?} %>");
+<% unless @workflow.processing? %>
+  ZhanchuangAlert('当前工位未开始执行流程，请编辑施工信息点击开始');
+<% else %>
+  Countdown($("#workstation-<%= @workstation.id %> .vehicle_info span.times"));
+<% end %>

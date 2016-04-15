@@ -1,0 +1,90 @@
+<div class="orders">
+  <div class="order_head">
+    <div class="font-borderradius text-align-center font-20 display-inline-block">订</div>
+    <div class="item">
+      <label for="">供应商:</label>
+      <span><%= @material_order.store_supplier.name %></span>
+    </div>
+    <div class="item">
+      <label for="">时间:</label>
+      <span><%= @material_order.created_at.strftime("%Y-%m-%d") %></span>
+    </div>
+    <div class="item">
+      <label for="">单号:</label>
+      <span><%= @material_order.numero %></span>
+    </div>
+  </div>
+
+  <table class="order_tab">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>商品名称</th>
+        <th>条码</th>
+        <th>规格</th>
+        <th>单位</th>
+        <th>单价</th>
+        <th>数量</th>
+        <th>小计</th>
+        <th>备注</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @material_order.items.each.with_index(1) do |item, index| %>
+      <tr>
+        <td><%= index %></td>
+        <td><%= item.store_material.name %></td>
+        <td><%= item.store_material.barcode %></td>
+        <td><%= item.store_material.speci %></td>
+        <td><%= item.store_material.store_material_unit.try(:name) %></td>
+        <td><%= item.price %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.amount %></td>
+        <td><%= item.remark %></td>
+      </tr>
+    <% end %>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td></td>
+        <td>合计：</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= @material_order.amount %></td>
+        <td><%= @material_order.quantity %></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="order_accout">
+    <div class="item">
+      <label class="width-75  item-label">备注：</label>
+      <textarea class="remarks_textarea" disabled><%= @material_order.remark %></textarea>
+    </div>
+
+    <% @material_order.payments.each do |payment| %>
+      <div class="item">
+        <label class="item-label">本次付款：</label>
+        <span><%= @material_order.amount %></span>
+      </div>
+      <div class="item">
+        <label class="item-label">结算账户：</label>
+        <span><%=  payment.store_settlement_account.name %></span>
+      </div>
+      <div class="item">
+        <label class="item-label">本次欠款：</label>
+        <span><%=  payment.order_balance %></span>
+      </div>
+    <% end %>
+    <div class="item">
+      <label class="item-label">制单人：</label>
+      <span class="item-span"><%= @material_order.creator.screen_name %></span>
+    </div>
+  </div>
+
+</div>

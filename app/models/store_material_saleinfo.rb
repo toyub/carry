@@ -14,6 +14,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   has_many :recommended_order_items, as: :itemable
 
   scope :by_category, ->(sale_category_id){ where(sale_category_id: sale_category_id) if sale_category_id.present? }
+  scope :exclude_service, -> { where(service_needed: false) }
 
   accepts_nested_attributes_for :services
 
@@ -62,14 +63,14 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
     sale_category
   end
 
-  def commission(order_item)
-    saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
+  def commission( order_item, staff, beneficiary)
+    saleman_commission_template.present? ? saleman_commission_template.sale_commission(order_item, staff, beneficiary) : 0.0
   end
 
   def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
     id = joins(:store_order_items)
       .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
-      .group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+      .group(:orderable_id).order("sum_#{sort_by} DESC").limit(1).sum(sort_by).keys[0]
 
     find_by_id(id)
   end
@@ -89,5 +90,9 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   def inventory
     depot = self.store.store_depots.preferred.first
     self.store_material.inventory(depot.id)
+  end
+
+  def sold_count
+    try(:store_order_items).try(:count)
   end
 end

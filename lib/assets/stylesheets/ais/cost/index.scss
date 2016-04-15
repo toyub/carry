@@ -93,9 +93,6 @@
     tbody{
       tr{
         height:28px;
-        &:nth-child(even){
-          @include tbody-tr-bgcolor;
-        }
         td{
           text-align:center;
           @include border;

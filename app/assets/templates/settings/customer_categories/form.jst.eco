@@ -58,7 +58,7 @@
             <div class="category_head">
               <label>商品一级分类</label>
               <label>二级分类</label>
-              <label>折扣率</label>
+              <label>折扣率(%)</label>
             </div>
 
             <div class="primary_category">
@@ -76,7 +76,7 @@
             <div class="category_head">
               <label>服务类别</label>
               <label>项目</label>
-              <label>折扣率</label>
+              <label>折扣率(%)</label>
             </div>
 
             <div class="primary_category">

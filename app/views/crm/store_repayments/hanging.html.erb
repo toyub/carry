@@ -1,0 +1,37 @@
+<%= render '/crm/common/page_head' %>
+
+<div class="details">
+
+<%= render 'crm/common/customer_nav' %>
+
+  <div class="details_content">
+    <div class="panel_tab">
+      <ul class="tab_items">
+        <%= render 'repayment_nav' %>
+      </ul>
+    </div>
+    <%= notice %>
+
+    <div class="content customer_account">
+      <input type="hidden" id="action" value="<%= @action %>">
+      <div class="panel_query">
+        <%= search_form_for @q , url: hanging_crm_store_customer_store_repayments_path(@customer), class: 'float-left' do  -%>
+          <%= render 'search_form' %>
+        <% end %>
+        <%= form_for @customer, url: crm_store_customer_store_repayments_path(@customer), method: 'POST', class: 'float-right' do %>
+          <div class="query_item float-right">
+            <label class="margin-right-10">回款合计</label>
+            <input type="text" class="height-29 margin-right-10" name="repayment[total]" value="">
+            <input type="submit" class="btn button_confirm width-86 height-29" id="submit" value="确认回款">
+          </div>
+      </div>
+      <div class="orders" id='js-orders'>
+        <%= render 'order_info' %>
+      </div>
+      <input type="hidden" id="js-current-page" value="<%= @current_page %>">
+      <%= render 'link_more_info' if @current_page < @orders.total_pages %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

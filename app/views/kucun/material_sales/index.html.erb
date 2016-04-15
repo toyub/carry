@@ -21,18 +21,18 @@
           <td><label class="float-left">商品名称</label></td>
           <td><label class="float-left">零售价</label></td>
           <td><label class="float-left">会员价</label></td>
-          <td class="border-bottom-d1d1d1"><label class="float-left">商品积分</label> <span><%= @material_saleinfo.point %></span></td>
-          <td class="border-bottom-d1d1d1"><label class="float-left">销售分类</label><span><%= @material_saleinfo.sale_category.try(:name) %></span></td>
-          <td class="border-bottom-d1d1d1"><label class="float-left">计量单位</label><span><%= @material_saleinfo.divide_unit_type %></span></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left">商品积分</label> <span><%= @material_saleinfo.try(:point) %></span></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left">销售分类</label><span><%= @material_saleinfo.try(:sale_category).try(:name) %></span></td>
+          <td class="border-bottom-d1d1d1"><label class="float-left">计量单位</label><span><%= @material_saleinfo.try(:divide_unit_type) %></span></td>
           <td class="border-bottom-d1d1d1"><label class="float-left"></label><span></span></td>
           <td><label class="float-left"></label><span></span></td>
         </tr>
         <tr>
-          <td><span class="font-18 "><%= @store_material.name %></span></td>
-          <td><span class="float-left"><%= @material_saleinfo.retail_price %></span></td>
+          <td><span class="font-18 "><%= @store_material.try(:name) %></span></td>
+          <td><span class="float-left"><%= @material_saleinfo.try(:retail_price) %></span></td>
           <td><span class="float-left"></span></td>
           <td><label class="float-left"></label><span></span></td>
-          <td><label class="float-left">销售方式</label><% if @material_saleinfo.divide_to_retail %><span>拆分销售</span><% else %> <span>整件销售</span> <% end %></td>
+          <td><label class="float-left">销售方式</label><% if @material_saleinfo.try(:divide_to_retail) %><span>拆分销售</span><% else %> <span>整件销售</span> <% end %></td>
           <td><label class="float-left"></label><span></span></td>
           <td><label class="float-left"></label><span></span></td>
           <td><label class="float-left"></label><span></span></td>

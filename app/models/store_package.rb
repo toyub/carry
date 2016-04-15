@@ -53,7 +53,10 @@ class StorePackage < ActiveRecord::Base
   end
 
   def self.top_sales_by_month(sort_by = 'amount', month = Time.now)
-    id = StoreOrderItem.packages.by_month(month).group(:orderable_id).order("sum_#{sort_by}").limit(1).sum(sort_by).keys[0]
+    id = joins(:store_order_items)
+      .where(store_order_items: {created_at: month.at_beginning_of_month..month.at_end_of_month})
+      .group(:orderable_id).order("sum_#{sort_by} DESC").limit(1).sum(sort_by).keys[0]
+
     find_by_id(id)
   end
 
@@ -61,8 +64,12 @@ class StorePackage < ActiveRecord::Base
     StoreOrderItem.packages.by_month.sum(:amount)
   end
 
-  def commission(order_item)
-    package_setting.present? ? package_setting.commission(order_item) : 0.0
+  def commission(order_item, staff, beneficiary)
+    package_setting.present? ? package_setting.sale_commission(order_item, staff, beneficiary) : 0.0
+  end
+
+  def sold_count
+    store_order_items.count
   end
 
 end

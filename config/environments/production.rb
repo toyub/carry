@@ -46,7 +46,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -76,4 +76,34 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+   # 邮件配置
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = {host: 'https://www.icar99.com'}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "",
+    port: 25,
+    domain: '',
+    user_name: '',
+    password: '',
+    authentication: 'login'
+  }
+
+  config.middleware.use ExceptionNotification::Rack,
+    :ignore_crawlers => %w{Googlebot bingbot},
+    :email => {
+      :email_prefix => "[Error From ZC] ",
+      :sender_address => %{"notifier" <bug@icar99.com>},
+      :exception_recipients => %w{buging@icar99.com},
+      :delivery_method => :smtp,
+          :smtp_settings => {
+            :port => 25,
+            :domain => "icar99.com",
+            :authentication => 'login',
+            :address => "smtp.icar99.com",
+            :user_name => "bug@icar99.com",
+            :password => "0.amet1piyu2x4j9k90.32u7ir88wge0o1or"
+          }
+  }
 end

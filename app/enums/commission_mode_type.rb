@@ -9,6 +9,7 @@ class CommissionModeType
   end
 
   def self.find(id)
+    id=id.to_i
     if ID_TYPES[id]
       self.new(id, ID_TYPES[id])
     else
@@ -17,6 +18,7 @@ class CommissionModeType
   end
 
   def self.find_by_name(name)
+    name = name.to_s
     if TYPES_ID[name]
       self.new(TYPES_ID[name], name)
     else

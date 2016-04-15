@@ -21,6 +21,7 @@ require 'capistrano/sidekiq'
 require 'capistrano/sidekiq/monit'
 
 require 'capistrano/monit'
+require 'capistrano/logrotate'
 
 # Include tasks from other gems included in your Gemfile
 #

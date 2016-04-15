@@ -1,0 +1,11 @@
+/**
+*= require pos/completing_customer
+*= require pos/completing_vehicle
+*= require pos/discount
+*= require pos/shouyin
+*= require pos/yewukaidan
+*= require pos/yewutuidan
+*= require pos/yuyuepaidan
+*= require pos/store_orders
+*= require_self
+*/

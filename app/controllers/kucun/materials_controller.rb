@@ -9,6 +9,7 @@ class Kucun::MaterialsController < Kucun::BaseController
                              .by_primary_category(params[:root_category_id])
                              .by_sub_category(params[:category_id])
                              .keyword(params[:keyword])
+                             .order('id asc')
 
     if params[:root_category_id].present?
       @root_category = @store.store_material_categories.find(params[:root_category_id])
@@ -50,6 +51,10 @@ class Kucun::MaterialsController < Kucun::BaseController
   end
 
   def show
+    if @store_material.permitted_to_saleable && @store_material.store_material_saleinfo.blank?
+      redirect_to edit_kucun_material_saleinfo_path(material_id: @store_material.id)
+      return
+    end
   end
 
   def autocomplete_name
@@ -69,7 +74,7 @@ class Kucun::MaterialsController < Kucun::BaseController
                                      :min_price, :cost_price,
                                      :inventory_alarmify, :max_inventory, :min_inventory,
                                      :expiry_alarmify, :shelf_life, :permitted_to_internal,
-                                     :permitted_to_saleable, :remark)
+                                     :permitted_to_saleable, :remark, :introduction)
   end
 
   def set_material

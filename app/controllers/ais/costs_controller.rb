@@ -1,13 +1,7 @@
 class Ais::CostsController < Ais::BaseController
-  before_action :search_month, only: :search
+  before_action :search_month, only: :index
 
   def index
-    @materials = StoreMaterial.all
-  end
-
-  def search
-    @materials = StoreMaterial.all
-    render "index"
   end
 
   private
@@ -19,5 +13,8 @@ class Ais::CostsController < Ais::BaseController
     end
     @month = @date.strftime("%Y%m")
     @prev_month = 1.month.ago.strftime("%Y%m")
+
+    @store_depots = current_store.store_depots
+    @materials = current_store.store_materials
   end
 end

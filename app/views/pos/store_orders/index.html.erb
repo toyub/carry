@@ -10,18 +10,23 @@
 		</div>
 		<div class="item-query">
 			<label>日期</label>
-			<input type="text" class="width-160 datetimepicker js-store-order-date">
+			<input type="date" class="width-160 js-store-order-date" value="<%= Date.today %>">
 		</div>
 		<div class="item-query">
 			<label>状态</label>
-      <select type="text" class="width-140 state-select">
+      <select type="text" class="width-140 task-status">
         <option value="">全部订单</option>
         <option value="0">草稿订单</option>
-        <option value="1">正在排队订单</option>
-        <option value="2">正在施工订单</option>
-        <option value="3">等待付款订单</option>
-        <option value="4">已完成订单</option>
+        <option value="1">待施工</option>
+        <option value="2">施工中</option>
+        <option value="5">完工</option>
 			</select>
+
+      <select class="width-140 pay-status">
+        <option value="">全部</option>
+        <option value="0">未付款</option>
+        <option value="1">已付款</option>
+      </select>
 		</div>
 		<div class="item-query">
 			<a href="javascript:void(0);" class="query_btn btn" v-on:click="searchStoreOrder">查&nbsp;询</a>
@@ -32,8 +37,8 @@
 		</div>
 	</div>
 
-	<div class="billing_records">
-	  <table cellpadding="0" cellspacing="0" class='billing_record_list'>
+	<div id='js-order-list' class="billing_records list_table display-none">
+	  <table cellpadding="0" cellspacing="0" class='billing_record_list index_list'>
       <thead>
 			  <tr>
 				  <th>#</th>
@@ -69,17 +74,24 @@
 			</tbody>
 		</table>
 	</div>
-</div>
 
+	<%= render 'shared/loading' %>
+
+</div>
 
 <% content_for :javascripts do %>
   <script>
   jQuery(function($){
     Mis.Vues.StoreOrderListView = new Vue(Mis.Vues.Opts.list);
     Mis.Vues.StoreOrderListView.storeOrdersCollection = new Mis.Collections.StoreOrders;
-    Mis.Vues.StoreOrderListView.storeOrdersCollection.fetch({success: function(){
-      Mis.Vues.StoreOrderListView.storeOrders = Mis.Vues.StoreOrderListView.storeOrdersCollection.models;
-    }});
+    Mis.Vues.StoreOrderListView.storeOrdersCollection.fetch({
+      data: {created_at: $(".js-store-order-date").val()},
+      success: function(){
+        Mis.Vues.StoreOrderListView.storeOrders = Mis.Vues.StoreOrderListView.storeOrdersCollection.models;
+        $('#js-order-list').show();
+        $('#loading').hide();
+      }
+    });
   });
   </script>
 <% end %>

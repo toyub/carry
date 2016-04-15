@@ -4,6 +4,7 @@ class StoreOrderItem < ActiveRecord::Base
   belongs_to :orderable, polymorphic: true
   belongs_to :package, polymorphic: true
   belongs_to :assetable, polymorphic: true
+  belongs_to :package_item, polymorphic: true
   belongs_to :store_order
   belongs_to :store_customer
   belongs_to :store_staff
@@ -23,8 +24,11 @@ class StoreOrderItem < ActiveRecord::Base
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }
   scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
   scope :by_type, ->(type) { where(orderable_type: type) }
+  scope :except_from_customer_assets, -> { where.not(from_customer_asset: true) }
 
   validates_presence_of :orderable
+  validates :quantity, numericality: { only_integer: true, less_than_or_equal_to: 1000}
+  validates :quantity, numericality: { only_integer: true, less_than_or_equal_to: 50, message: "错误: 套餐或商品组合下单时数量不能多于%{count}，请核对数量后再操作"}, if: :assetable_item?
 
   def gross_profit
     self.amount - self.total_cost
@@ -40,6 +44,12 @@ class StoreOrderItem < ActiveRecord::Base
 
   def mechanics
     ['王晓勇', '李明亮']
+  end
+
+  def assetable_item?
+    return true if self.orderable_type == StorePackage.name
+    return true if self.orderable_type == StoreMaterialSaleinfo.name && self.orderable.service_needed
+    false
   end
 
   def from_customer_asset?
@@ -84,16 +94,20 @@ class StoreOrderItem < ActiveRecord::Base
     orderable.try(:speci)
   end
 
-  def commission
-    store_staff.commission? ? orderable.commission(self) : 0.0
+  def commission(beneficiary = 'person')
+    store_staff.commission? ? orderable.commission(self, store_staff, beneficiary) : 0.0
   end
 
   def constructed_by? staff
-    staff.store_staff_tasks.by_item(id).present?
+    store_staff_tasks.exists?(mechanic_id: staff)
   end
 
   def saled_by? staff
     store_staff_id == staff.id
+  end
+
+  def has_commission?
+    orderable.saleman_commission_template.present?
   end
 
   def self.total_amount
@@ -110,10 +124,15 @@ class StoreOrderItem < ActiveRecord::Base
 
   def destroy_related_workflows
     ActiveRecord::Base.transaction do
-      self.store_service_snapshot.destroy
-      self.store_service_workflow_snapshots.map(&:remove!)
+      self.store_service_snapshot.destroy if self.store_service_snapshot.present?
+      self.store_service_workflow_snapshots.map(&->(workflow){workflow.remove!})
       self.store_service_workflow_snapshots.delete_all
     end
+  end
+
+  def waste!
+    self.store_service_snapshot.waste! if self.store_service_snapshot.present?
+    self.update!(deleted: true)
   end
 
   private

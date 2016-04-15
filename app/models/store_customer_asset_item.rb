@@ -1,5 +1,6 @@
 class StoreCustomerAssetItem < ActiveRecord::Base
   belongs_to :assetable, polymorphic: true
+  belongs_to :package_item, polymorphic: true
   belongs_to :store_customer
   has_many :logs, class_name: "StoreCustomerAssetLog"
   belongs_to :store
@@ -11,14 +12,10 @@ class StoreCustomerAssetItem < ActiveRecord::Base
     total_quantity.to_i - used_quantity.to_i
   end
 
-  def name
-    assetable.try(:name)
-  end
-
   def service
     case self.assetable_type
-    when StorePackageItem.name
-      self.assetable.try(:package_itemable)
+    when StoreService.name
+      self.assetable
     when StoreMaterialSaleinfoService.name
       self.assetable
     else

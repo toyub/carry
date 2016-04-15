@@ -22,15 +22,15 @@
     </dl>
     <dl class="client_type">
       <dd>投诉类别</dd>
-      <dd class="dd-category">
+      <dd class="dd-categories">
         <% @complaint_categories.each do |key, value|  %>
-          <label><%= value %><input type="checkbox" value="<%= key%>" name="complaint[detail][category][]" class="category-checkbox-<%= key%>" ></label>
+          <label><%= value %><input type="checkbox" value="<%= key%>" name="complaint[detail][categories][]" class="category-checkbox-<%= key%>" ></label>
         <% end %>
       </dd>
       <dd>投诉渠道</dd>
-      <dd class="dd-way">
+      <dd class="dd-ways">
         <% @complaint_ways.each do |key, value|  %>
-          <label> <%= value %> <input type="checkbox" name="complaint[detail][way][]" value="<%= key%>" class="way-checkbox-<%= key%>" ></label>
+          <label> <%= value %> <input type="checkbox" name="complaint[detail][ways][]" value="<%= key%>" class="way-checkbox-<%= key%>" ></label>
         <% end %>
       </dd>
     </dl>
@@ -55,7 +55,7 @@
         </div>
         <div class="liable_person">
           <h2>施工技师</h2>
-          <ul id="complaint-mechanic">
+          <ul id="complaint-mechanics">
           </ul>
         </div>
       </dd>

@@ -16,4 +16,4 @@ Rails.application.config.assets.precompile += %w[ tiny.js kucun.js settings.js x
 
 Rails.application.config.assets.precompile += %w[ Linearicons-Free.eot Linearicons-Free.woff Linearicons-Free.ttf Linearicons-Free.svg icomoon.eot icomoon.woff icomoon.ttf icomoon.svg]
 
-Rails.application.config.assets.precompile += %w[ login.css receipter_layout.css a4printer_layout.css ]
+Rails.application.config.assets.precompile += %w[ login.css receipter_layout.css a4printer_layout.css open_layout.css ]

@@ -11,23 +11,52 @@ class StoreCommissionTemplate < ActiveRecord::Base
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
+  scope :available, ->{where(status: 0)}
+  scope :for_saleman, -> { where(aim_to: 0) }
+  scope :for_machanic, -> { where(aim_to: 1) }
+
   def level_weight
     self.level_weight_hash
   end
 
   def mode_type
-    CommissionModeType.find(self.mode_id).name
+    CommissionModeType.find(self.mode_id).try(:name)
   end
 
   def confined_type
-    CommissionConfineType.find(self.confined_to).name
+    CommissionConfineType.find(self.confined_to).try(:name)
   end
 
   def aim_type
-    CommissionAimType.find(self.aim_to).name
+    CommissionAimType.find(self.aim_to).try(:name)
   end
 
-  def commission(order_item)
+  def task_commission(item, task, staff, beneficiary = 'person')
+    if confined_to == CommissionConfineType::TYPES_ID['部门']
+      beneficiary == 'department' ? (account_for(task, staff) * calculate_commission(item)).round(2) : 0.0
+    else
+      beneficiary == 'person' ? (account_for(task, staff) * calculate_commission(item)).round(2) : 0.0
+    end
+  end
+
+  def sale_commission(item, staff, beneficiary = 'person')
+    if confined_to == CommissionConfineType::TYPES_ID['部门']
+      beneficiary == 'department' ? calculate_commission(item).round(2) : 0.0
+    else
+      beneficiary == 'person' ? calculate_commission(item).round(2) : 0.0
+    end
+  end
+
+  def account_for(task, staff)
+    if sharing_enabled
+      base = task.workflow_snapshot.mechanics.map {|mech| level_weight_hash[mech.level_type_id.to_s] }.sum.to_f
+      base > 0 ? (level_weight_hash[staff.level_type_id.to_s].to_f / base ) : 0.0
+    else
+      1
+    end
+  end
+
+  def calculate_commission(order_item)
     amount = 0.0
     case mode_id
     when 0 #"标准提成"
@@ -35,6 +64,7 @@ class StoreCommissionTemplate < ActiveRecord::Base
       amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.retail_amount
     when 1 #"阶梯提成"
       section = sections.where(mode_id: mode_id).where("min < ?", order_item.quantity).last
+      return 0.0 if section.blank?
       amount = section.type_id == 0 ? section.amount : (section.amount/100).to_f * order_item.retail_amount
     when 2 #"分段提成"
       within_secs = sections.where(mode_id: mode_id).where("max < ?", order_item.quantity)

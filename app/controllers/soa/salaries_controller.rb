@@ -1,13 +1,13 @@
 class Soa::SalariesController < Soa::BaseController
   def index
-    @staffs = current_store.store_staff.salary_has_been_not_confirmed.by_keyword(params[:keyword])
+    @staffs = current_store.store_staff.order("id asc").salary_has_been_not_confirmed.by_keyword(params[:keyword])
   end
 
   def record
-    @staffs = current_store.store_staff.salary_has_been_confirmed
+    @staffs = current_store.store_staff.order("store_staff.id asc").salary_has_been_confirmed
     @departments = current_store.store_departments
-    @positions = @departments[0].store_positions
-    @salaries = StoreSalary.where(created_month: Time.now.strftime("%Y%m"))
+    @positions = @departments[0].try(:store_positions) || []
+    @salaries = current_store.store_salaries.where(created_month: Time.now.strftime("%Y%m"))
   end
 
   def search
@@ -16,15 +16,15 @@ class Soa::SalariesController < Soa::BaseController
       @date = Date.new params["date(1i)"].to_i, params["date(2i)"].to_i, params["date(3i)"].to_i
     end
     month = @date.strftime("%Y%m")
-    @staffs = current_store.store_staff.salary_has_been_confirmed
+    @staffs = current_store.store_staff.order("id asc").salary_has_been_confirmed
                                        .by_keyword(params[:keyword])
                                        .by_created_month_in_salary(month)
                                        .by_department_id(params[:store_department_id])
                                        .by_position_id(params[:store_position_id])
 
     @departments = current_store.store_departments
-    @positions = @departments[0].store_positions
-    @salaries = StoreSalary.where(created_month: month)
+    @positions = @departments[0].try(:store_positions) || []
+    @salaries = current_store.store_salaries.where(created_month: month)
     render 'record'
   end
 

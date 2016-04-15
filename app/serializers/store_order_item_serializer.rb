@@ -9,7 +9,7 @@ class StoreOrderItemSerializer < ActiveModel::Serializer
               :created_at, :updated_at
 
   def name
-    object.orderable.name
+    object.orderable.try(:name)
   end
 
   def speci

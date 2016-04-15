@@ -7,7 +7,7 @@ module Api
 
           auth_serv = AuthenticateStaffService.call(staff, params[:password])
           if auth_serv.success? && staff.has_discount_authority?
-            render json: {valid: true, message: '用户验证成功'}
+            render json: {valid: true, message: '用户验证成功', staff:{id: staff.id}}
           else
             render json: {valid: false, message: '用户验证失败'}, status: 422
           end

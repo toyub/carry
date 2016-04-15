@@ -9,6 +9,7 @@ module Api
     end
 
     def update
+      @setting.items.where.not(id: (setting_params[:items_attributes] || []).map {|x| x[:id]}).update_all(deleted: true)
       @setting.update(append_store_attrs setting_params)
       respond_with @setting, location: nil
     end
@@ -44,7 +45,8 @@ module Api
             :price,
             :denomination,
             :package_itemable_id,
-            :package_itemable_type
+            :package_itemable_type,
+            :amount
           ]
         )
       end

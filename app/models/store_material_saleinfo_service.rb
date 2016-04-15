@@ -1,6 +1,6 @@
 class StoreMaterialSaleinfoService < ActiveRecord::Base
   include BaseModel
-  
+
   belongs_to :store_material
   belongs_to :store_material_saleinfo
   belongs_to :mechanic_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'mechanic_commission_template_id'
@@ -10,7 +10,8 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
 
   scope :available, ->{where(deleted: false)}
 
-  default_scope {order('id asc')}
+  scope :has_deleted, ->{where(deleted: true)}
+  scope :not_deleted, ->{where(deleted: false)}
 
   def mechanic_level_type
     ServiceMechanicLevelType.find(self.mechanic_level).name
@@ -18,7 +19,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
 
   def to_snapshot!(order_item)
     service = StoreServiceSnapshot.create! self.base_attrs(order_item).merge(templateable: self, retail_price: 0)
-    StoreServiceWorkflowSnapshot.create! self.base_attrs(order_item).merge(store_service_id: service.id, standard_time: self.standard_time)
+    StoreServiceWorkflowSnapshot.create! self.base_attrs(order_item).merge(mechanic_commission_template_id: self.mechanic_commission_template_id, store_service_id: service.id, standard_time: self.standard_time)
   end
 
   def base_attrs(order_item)
@@ -42,6 +43,10 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     0
   end
 
+  def category
+    self
+  end
+
   def standard_time
     (self.work_time_in_seconds/60.0).ceil
   end
@@ -50,8 +55,8 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     tracking_delay_in_seconds.seconds
   end
 
-  def commission(order_item)
-    mechanic_commission_template.present? ? mechanic_commission_template.commission(order_item) : 0.0
+  def commission(order_item, staff, beneficiary = 'person')
+    0.0
   end
 
   def saleman_commission_template

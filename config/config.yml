@@ -1,6 +1,7 @@
 defaults: &defaults
   app_name: "MIS"
   auth_host: "http://staging.open.icar99.com"
+  countdown_warnning_interval: 2
 
 development:
   <<: *defaults
@@ -10,6 +11,7 @@ test:
 
 production:
   <<: *defaults
+  auth_host: "http://open.icar99.cn"
 
 staging:
   <<: *defaults

@@ -1,0 +1,32 @@
+defaults: &defaults
+  GeneratePastStoreCommission:
+    cron: '0 1 1 * *'
+    class: StoreCommissionJob
+    queue: default
+    description: 'This job is going to generate history commission of store at first day of every month'
+
+  CheckStaffRegularStatus:
+    cron: '0 1 * * *'
+    class: SetStaffRegularJob
+    queue: default
+    description: 'This job check the regular status of staff in 1:00AM of every day'
+
+development:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+  ScanTaskJob:
+    every: '10s'
+    class: ScanTaskWorker
+    queue: default
+    description: 'This job will check state of stations.'
+
+production:
+  <<: *defaults
+  ScanTaskJob:
+    every: '10s'
+    class: ScanTaskWorker
+    queue: default
+    description: 'This job will check state of stations.'
+

@@ -1,6 +1,8 @@
 class StoreOrderSerializer < ActiveModel::Serializer
-  attributes :id, :numero, :state, :amount, :packages, :services, :materials, :pay_status, :task_status,
-    :created_at, :updated_at, :items_content, :state_i18n, :pay_status_i18n, :paid, :human_readable_status
+  attributes :id, :store_vehicle_id, :store_customer_id,
+             :numero, :state, :amount, :packages, :services, :materials,
+             :pay_status, :task_status, :created_at, :updated_at, :items_content,
+             :state_i18n, :pay_status_i18n, :paid, :human_readable_status, :situation
 
   has_many :payments
   has_one :store_vehicle
@@ -37,7 +39,7 @@ class StoreOrderSerializer < ActiveModel::Serializer
 
   def items_content
     if object.items.present?
-      "包含 #{object.items.first.orderable.name} 等 #{object.items.count} 个项目 "
+      "包含 #{object.items.first.orderable.try(:name)} 等 #{object.items.count} 个项目 "
     else
       "包含0个项目"
     end

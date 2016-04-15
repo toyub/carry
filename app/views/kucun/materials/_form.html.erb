@@ -37,7 +37,7 @@
 
         <div class="item_content">
           <label class="width-75">成本价</label>
-          <input name='material[cost_price]' type="text" class="width-165" placeholder="输入成本价会影响平均成本" value="<%= @store_material.cost_price %>">
+          <input name='material[cost_price]' type="text" class="width-165" placeholder="输入成本价会影响平均成本" value="<%= @store_material.cost_price %>" disabled="true">
         </div>
         <div class="item_content">
           <label class="width-75">最低售价</label>
@@ -148,10 +148,13 @@
             <span>天</span>
           </div>
         </div>
-
+        <div class="item_textarea ">
+          <label class="width-75">商品介绍</label>
+          <textarea name='material[introduction]' class="textarea-width height-120 text-indent-5 width-976"><%= @store_material.introduction %></textarea>
+        </div>
         <div class="item_textarea ">
           <label class="width-75 vertical-align-top">备注</label>
-          <textarea name='material[remark]' class="height-120 text-indent-5 width-978" placeholder="输入备注"></textarea>
+          <textarea name='material[remark]' class="height-120 text-indent-5 width-978" placeholder="输入备注"> <%= @store_material.remark %>  </textarea>
         </div>
 
 

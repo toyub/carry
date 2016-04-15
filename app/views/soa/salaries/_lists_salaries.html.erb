@@ -16,7 +16,7 @@
 
 <% if @staffs.present? %>
   <div class="list_wrap">
-    <table class="salary_list">
+    <table class="salary_list  index_list">
       <tbody>
         <% @staffs.each.with_index(1) do |staff, index| %>
           <% salary = StoreSalaryReview.new(staff).salary %>

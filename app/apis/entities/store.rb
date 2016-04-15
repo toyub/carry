@@ -10,7 +10,7 @@ module Entities
       end
     end
     expose :commission
-    expose :departmentsd do |store, options|
+    expose :departments do |store, options|
       store.store_departments.map do |department|
         {
           id: department.id,

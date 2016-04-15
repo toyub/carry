@@ -1,0 +1,213 @@
+@charset "UTF-8";
+
+
+.cashiering{
+  overflow: auto;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+
+  .vehicle_state{
+		width: 250px;
+		border: 1px solid #E0E0E0;
+    border-bottom: 0px;
+		height: 738px;
+    overflow-y: scroll;
+    float: left;
+
+		ul.vehicle_state_list{
+			>li{
+				border-bottom: 1px solid #e0e0e0;
+				.vehicle_operating{
+					height: 60px;
+         	padding: 0px 10px;
+          display: flex;
+          align-items: center;
+				}
+				ul.item_vehicle{
+					border-top: 1px solid #e0e0e0;
+          padding: 0px 7px 25px 7px;
+          display: none;
+
+					li{
+						display: flex;
+						align-items: flex-end;
+						height: 60px;
+						border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+						div{
+							&:nth-child(1){width: 90px; text-align: center;}
+							&:nth-child(2){
+                margin-left: 10px;
+                text-align: left;
+                font-weight: bold;
+              }
+
+							float: left;
+							span{
+								display: inline-block;
+							  padding-bottom: 5px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+  .cashiering_vehicle_order{
+    height: 735px;
+    float: left;
+    border: 1px solid #e0e0e0;
+    border-bottom:none;
+    margin-left: 5px;
+    margin-top: 3px;
+    overflow-y: scroll;
+
+    .order_details{
+      width: 590px;
+
+      .dialog_nav{
+        display: flex;
+        justify-content: space-between;
+        a{
+          line-height: 40px;
+          color:#602FC7;
+        }
+      }
+    }
+  }
+
+
+  .payment_wrap{
+    background: #FCF2E3;
+    width: 483px;
+    height: 719px;
+  	padding:10px 10px;
+  	float: left;
+    .payment,.payment_method_wrap,.payment_btn{
+      border: 1px solid #E2E1E0;
+      background:#fff;
+      padding: 10px 10px;
+      margin-top: 10px;
+
+      dl{
+        display: block;
+        padding: 10px 0px 10px 0px;
+        dd{
+          display: inline-block;
+
+          label{
+            text-align: right;
+          }
+
+          input,select{text-align: right;padding:0px 5px;}
+        }
+      }
+    }
+
+    .payment{
+      dl{
+        text-align: center;
+        dd{
+          label{
+            font-size: 16px;
+          }
+
+          span{
+            display: inline-block;
+            border: 1px solid #E2E1E0;
+            height: 25px;
+            line-height: 25px;
+            vertical-align: middle;
+            width: 190px;
+            text-align: right;
+            padding: 0px 10px;
+            margin-left: 10px;
+          }
+        }
+        &:nth-child(2){
+          dd{
+            span,label{color:#F22A34;}
+          }
+        }
+      }
+
+    }
+
+    .payment_method_wrap{
+      overflow: auto;
+
+      .payment_method{
+        max-height: 95px;
+      }
+      dl{
+        dd{
+          a{
+            text-align: right;
+            display: inline-block;
+          }
+          a.code{
+            padding: 5px;
+            background: #949494;
+            display: inline-block;
+            color: #fff;
+          }
+          &:nth-child(2){
+            label,input,input::-webkit-input-placeholder{color:#F22A34;}
+          }
+        }
+      }
+
+      .prompt{
+        padding:0px 22px;
+        a.add_method::after{
+          content: "添加收款方式";
+        }
+
+        a.modify_prompt::before{
+          content: "最多只能有两种支付方式";
+          color: red;
+        }
+      }
+
+
+    }
+
+    .payment_btn{
+      dl{
+        dd{
+          a{
+            display: inline-block;
+            margin-left: 15px;
+            &.receipt_btn{
+              width: 40px;
+              height:40px;
+              line-height:40px;
+              border-radius: 25px;
+              text-align: center;
+              -webkit-filter:drop-shadow(0 0 3px #B3B2B2);
+            }
+          }
+          span{
+            display: inline-block;
+            margin-left: 15px;
+
+            &.invoice{
+              border: 1px solid #B3B2B2;
+              width: 80px;
+              height: 30px;
+              line-height: 30px;
+              text-align: center;
+
+              input{
+                vertical-align: middle;
+                margin-left: 10px;
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}

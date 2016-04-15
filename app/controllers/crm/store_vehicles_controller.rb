@@ -8,7 +8,7 @@ class Crm::StoreVehiclesController < Crm::BaseController
   end
 
   def create
-    vehicle = StoreVehicle.new(vehicle_params)
+    vehicle = StoreVehicle.new(append_attrs(vehicle_params, store_option, staff_option))
     if vehicle.save
       redirect_to crm_store_customer_store_vehicle_path(@customer, vehicle)
     else
@@ -25,47 +25,55 @@ class Crm::StoreVehiclesController < Crm::BaseController
   end
 
   def update
-    @vehicle.update(vehicle_params)
+    @vehicle.update!(vehicle_params)
     redirect_to crm_store_customer_store_vehicle_path
   end
 
   private
 
     def vehicle_params
-      vehicle_params = params.require(:store_vehicle).permit(
-        :vehicle_brand_id,
-        :vehicle_series_id,
-        :vehicle_model_id,
-        detail: [
-                 :numero,
-                 :organization_type,
-                 :bought_on,
-                 :ex_factory_date,
-                 :maintained_at,
-                 :maintained_mileage,
-                 :maintain_interval_time,
-                 :maintain_interval_mileage,
-                 :next_maintain_mileage,
-                 :next_maintain_at,
-                 :color,
-                 :capacity,
-                 :registered_on,
-                 :mileage,
-                 :annual_check_at,
-                 :insurance_compnay,
-                 :insurance_expire_at,
-                 :next_maintain_customer_alermify,
-                 :next_maintain_store_alermify,
-                 :annual_check_customer_alermify,
-                 :annual_check_store_alermify,
-                 :insurance_customer_alermify,
-                 :insurance_store_alermify
-               ],
-        frame_attributes: [:vin],
-        engines_attributes: [:identification_number],
-        plates_attributes: [:license_number]
-        )
-        append_attrs(vehicle_params, store_option, staff_option)
+      wild_params = params.require(:store_vehicle)
+      if wild_params[:frame_attributes].present?
+        wild_params[:frame_attributes][:store_staff_id] = current_staff.id
+      end
+
+      if wild_params[:engines_attributes].present?
+        wild_params[:engines_attributes].each_with_index do |eattrs,idx|
+          wild_params[:engines_attributes][idx.to_s][:store_staff_id] = current_staff.id
+        end
+      end
+
+      wild_params.permit :vehicle_brand_id,
+                        :vehicle_series_id,
+                        :vehicle_model_id,
+                        :license_number,
+                        detail: [
+                                 :numero,
+                                 :organization_type,
+                                 :bought_on,
+                                 :ex_factory_date,
+                                 :maintained_at,
+                                 :maintained_mileage,
+                                 :maintain_interval_time,
+                                 :maintain_interval_mileage,
+                                 :next_maintain_mileage,
+                                 :next_maintain_at,
+                                 :color,
+                                 :capacity,
+                                 :registered_on,
+                                 :mileage,
+                                 :annual_check_at,
+                                 :insurance_compnay,
+                                 :insurance_expire_at,
+                                 :next_maintain_customer_alermify,
+                                 :next_maintain_store_alermify,
+                                 :annual_check_customer_alermify,
+                                 :annual_check_store_alermify,
+                                 :insurance_customer_alermify,
+                                 :insurance_store_alermify
+                               ],
+                        frame_attributes: [:vin, :store_staff_id],
+                        engines_attributes: [:identification_number, :store_staff_id]
     end
 
     def set_customer

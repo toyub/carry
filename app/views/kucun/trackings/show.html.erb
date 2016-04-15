@@ -27,69 +27,14 @@
                 <col width="50%">
               </colgroup>
               <tbody>
-                <tr>
-                  <td>
-                    <label class="width-75">商品名称</label>
-                    <span class="width-167 show_content"><%= @store_material.name %></span>
-                  </td>
-                  <td>
-                    <label class="width-75">条形码</label>
-                    <span class="width-167 show_content"><%= @store_material.barcode %></span>
-                 </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="width-75">助记码</label>
-                    <span class="width-167 show_content"><%= @store_material.mnemonic %></span>
-                  </td>
-                  <td>
-                    <label class="width-75">一级分类</label>
-                    <span class="width-167 show_content"><%= @store_material.store_material_root_category.name %></span>
-                 </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="width-75">二级分类</label>
-                    <span class="width-167 show_content"><%= @store_material.store_material_category.name %></span>
-                  </td>
-                  <td>
-                    <label class="width-75">商品品牌</label>
-                    <span class="width-167 show_content"><%= @store_material.store_material_brand.name %></span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="width-75">生产单位</label>
-                    <span class="width-167 show_content"><%= @store_material.store_material_manufacturer.name %></span>
-                  </td>
-                  <td>
-                    <label class="width-75">商品规格</label>
-                    <span class="width-167 show_content"><%= @store_material.speci %></span>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <label class="width-75">最低售价</label>
-                    <span class="width-167 show_content"><%= @store_material.min_price %></span>
-                  </td>
-                  <td>
-                    <label class="width-75">保质期</label>
-                    <span class="width-167 show_content">
-                      <% if @store_material.shelf_life %>
-                        <%= @store_material.shelf_life %> 天
-                      <% end %>
-                    </span>
-                  </td>
-                </tr>
-
+                <%= render 'basic_info' %>
                 <tr>
                   <td>
                     <label class="width-75">回访类型</label>
                     <% if @tracking.id %>
                       <input type="hidden" id='tracking_id' value="<%= @tracking.id %>">
                     <% end %>
-                    <select name='tracking[tracking_mode]' class="width-167" >
+                    <select name='tracking[tracking_mode]' class="width-167" disabled>
                       <option <%= 'selected' if @tracking.tracking_mode.to_i == 0 %> value="0">没有回访</option>
                       <option <%= 'selected' if @tracking.tracking_mode.to_i == 1 %> value="1">人工回访</option>
                       <option <%= 'selected' if @tracking.tracking_mode.to_i == 2 %> value="2">自动回访</option>
@@ -97,8 +42,8 @@
                   </td>
                   <td>
                     <label class="width-75">系统提醒</label>
-                      <label class="width-65 text-align-left"><input type="radio" value=0 <%= 'disabled' if @tracking.tracking_mode.to_i == 0 %> <%= 'checked' unless @tracking.reminder_required %> name="tracking[reminder_required]">关闭</label>
-                      <label class="width-65 text-align-left"><input type="radio" value=1 <%= 'disabled' if @tracking.tracking_mode.to_i == 0 %> <%= 'checked' if @tracking.reminder_required %> name="tracking[reminder_required]">打开</label>
+                      <label class="width-65 text-align-left"><input type="radio" value=0 <%= 'checked' unless @tracking.reminder_required %> name="tracking[reminder_required]" disabled>关闭</label>
+                      <label class="width-65 text-align-left"><input type="radio" value=1 <%= 'checked' if @tracking.reminder_required %> name="tracking[reminder_required]" disabled>打开</label>
                   </td>
                 </tr>
               </tbody>
@@ -108,7 +53,7 @@
             <div class="visit_list" id='sections'>
               <div class="top">
                 <h2>回访内容列表</h2>
-                <span class="new_btn btn click_btn margin-top-10 float-right cursor <%= 'disabled' unless @tracking.tracking_mode.to_i == 2 %>">创建</span>
+                <span class="new_btn btn click_btn margin-top-10 float-right cursor disabled">创建</span>
               </div>
               <div class="none_visit_data">
                 <p class="none_visit_p">当前没回访内容</p>
@@ -134,8 +79,7 @@
       </div>
 
       <div class="btn_group">
-        <a href='<%= kucun_material_tracking_path(@store_material) %>' class="btn cancel_btn">取消</a>
-        <input type="submit" id='save_tracking' class="btn save_btn" value="保存">
+        <a href='<%= edit_kucun_material_tracking_path(@store_material) %>' class="btn edit_btn">编辑</a>
       </div>
 
     </div>

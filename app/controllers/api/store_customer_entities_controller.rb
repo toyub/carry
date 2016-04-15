@@ -12,15 +12,19 @@ module Api
       attrs[:store_customer_attributes][:taggings_attributes] = []
       @entity = current_store.store_customer_entities.create(attrs)
       @entity.store_customer.update(taggings_attributes: taggings)
-      respond_with @entity, location: nil
+      if @entity.errors.present?
+        render json: {errors: @entity.errors.full_messages}, status: 422
+      else
+        respond_with @entity, location: nil
+      end
     end
 
     def update
       @entity = current_store.store_customer_entities.find(params[:id])
       if @entity.update(append_store_attrs entity_params)
-        render json: StoreCustomerSerializer.new(@entity.store_customer).as_json(root: nil)
-      else
         respond_with @entity, location: nil
+      else
+        render json: {errors: @entity.errors.full_messages}, status: 422
       end
     end
 

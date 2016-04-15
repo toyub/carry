@@ -1,5 +1,5 @@
 <div class="search_nav">
-  <%= form_tag("/ais/costs/search", method: :get) do -%>
+  <%= form_tag("/ais/costs", method: :get) do -%>
     <div class="item-query">
       <label>时间</label>
       <%= date_select(
@@ -12,9 +12,7 @@
 
     <div class="item-query">
       <label>仓库选择</label>
-      <select type="text" class="width-100">
-        <option>全部</option>
-      </select>
+      <%= select_tag :store_depot_id, options_from_collection_for_select(@store_depots, 'id', 'name', params[:store_depot_id]), :include_blank => '所有仓库', class: "width-100" %>
 
       <%= submit_tag "查询", class: "btn query_btn do_search_result" %>
     </div>

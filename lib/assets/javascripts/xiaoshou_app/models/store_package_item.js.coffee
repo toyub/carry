@@ -9,16 +9,17 @@ class Mis.Models.StorePackageItem extends Backbone.Model
 
   defaults:
     package_itemable_type: 'StoreService'
+    quantity: 1
 
   ITEM_TYPE:
     'StoreService': '服务'
-    'StoreMaterial': '商品'
+    'StoreMaterialSaleinfo': '商品'
     'StoreDepositCard': '储值'
 
   validation:
     package_itemable_id:
       required: (val, attr, model) ->
-        _.contains(['StoreMaterial', 'StoreService'], model.package_itemable_type)
+        _.contains(['StoreMaterialSaleinfo', 'StoreService'], model.package_itemable_type)
       msg: '项目名称不能为空'
     name:
       required: (val, attr, model) ->
@@ -30,7 +31,7 @@ class Mis.Models.StorePackageItem extends Backbone.Model
       msg: '面额不能为空'
     quantity:
       required: (val, attr, model) ->
-        _.contains(['StoreMaterial', 'StoreService'], model.package_itemable_type)
+        _.contains(['StoreMaterialSaleinfo', 'StoreService'], model.package_itemable_type)
       msg: '次数或数量不能为空'
     price:
       required: true
@@ -38,26 +39,28 @@ class Mis.Models.StorePackageItem extends Backbone.Model
 
   packageItemable: ->
     itemable = switch @get('package_itemable_type')
-      when 'StoreMaterial' then Mis.materials.get(@get 'package_itemable_id')
+      when 'StoreMaterialSaleinfo' then Mis.materials.get(@get 'package_itemable_id')
       when 'StoreService' then Mis.services.get(@get 'package_itemable_id')
       else @
     itemable ? new Mis.Models.NullObject()
 
   name: (type = '') ->
-    return '' if type != '' && type != @get('package_itemable_type')
     @packageItemable().get 'name'
 
   retail_price: (type = '') ->
     return '' if type != '' && type != @get('package_itemable_type')
     return @get 'denomination' if @isStoreDepositCard()
-    @packageItemable().get 'price'
+    @packageItemable().get 'retail_price'
+
+  cost_price: ->
+    @packageItemable().get 'cost_price'
 
   price: (type = '') ->
     return '' if type != '' && type != @get('package_itemable_type')
     @get 'price'
 
   quantity: (type = '') ->
-    return '' if type != '' && type != @get('package_itemable_type')
+    return 1 if type != '' && type != @get('package_itemable_type')
     @get 'quantity'
 
   category: ->
@@ -67,13 +70,29 @@ class Mis.Models.StorePackageItem extends Backbone.Model
     @price() * (@get('quantity') ? 1)
 
   regularAmount: ->
-    @retail_price() * (@get('quantity') ? 1)
+    if @get('package_itemable_id')
+      @retail_price(@get('package_itemable_type')) * @get('quantity')
+    else
+      ''
 
   isStoreService: ->
     @get('package_itemable_type') == 'StoreService'
 
   isStoreMaterial: ->
-    @get('package_itemable_type') == 'StoreMaterial'
+    @get('package_itemable_type') == 'StoreMaterialSaleinfo'
 
   isStoreDepositCard: ->
     @get('package_itemable_type') == 'StoreDepositCard'
+
+  packagedItemAmount: (expect_type)->
+    @get('amount')
+
+  packagedItemPrice: (expect_type)->
+    parseFloat(@get('amount'))/parseFloat(@get('quantity'))
+
+  discountRate: ->
+    rate = (parseFloat(@get('amount'))/parseFloat(@regularAmount()))
+    if rate
+      (rate*100).toFixed(2)+'%'
+    else
+      ''

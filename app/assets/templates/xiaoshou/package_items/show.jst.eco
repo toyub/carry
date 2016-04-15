@@ -16,7 +16,7 @@
     <li class="color-dad8d8">
       <label>
         商品
-        <input type="radio" disabled id="materialItem" name="package_itemable_type" value="StoreMaterial" <%= 'checked' if @item.isStoreMaterial() %>>
+        <input type="radio" disabled id="materialItem" name="package_itemable_type" value="StoreMaterialSaleinfo" <%= 'checked' if @item.isStoreMaterial() %>>
       </label>
     </li>
   </ul>
@@ -31,16 +31,23 @@
         <span><%= @item.name('StoreService') %></span>
       </li>
       <li>
-        <label>零售价：</label>
+        <label>零售单价：</label>
         <span><%= @item.retail_price('StoreService') %></span>
+        <label>零售总价：</label>
+        <span class='js-regular-amount color-282726'><%= @item.regularAmount() %></span>
       </li>
       <li>
         <label>次数：</label>
         <input type="text" disabled value="<%= @item.quantity('StoreService') %>"> 次
       </li>
       <li>
+        <label>套餐总价：</label>
+        <input name="amount" type="text" value="<%= @item.packagedItemAmount('StoreService') %>" disabled> 元
+      </li>
+      <li>
         <label>套餐价：</label>
         <input type="text" disabled value="<%= @item.price('StoreService') %>"> 元
+        (<span>单品折扣率：</span><span class='js-discount-rate'><%= @item.discountRate() %></span>)
       </li>
     </ul>
     <ul class="fee_charge_wrap wrap" style="<%= 'display: block;' if @item.isStoreDepositCard() %>">
@@ -49,34 +56,41 @@
         <input type="text" class="width-260" value="<%= @item.name('StoreDepositCard') %>" disabled>
       </li>
       <li>
-        <label>套餐面额：</label>
+        <label>储值面额：</label>
         <input type="text" disabled value="<%= @item.get 'denomination' %>"> 元
       </li>
       <li>
-        <label>套餐价：</label>
+        <label>储值售价：</label>
         <input type="text" disabled value="<%= @item.price('StoreDepositCard') %>"> 元
       </li>
     </ul>
     <ul class="goods_wrap wrap" style="<%= 'display: block;' if @item.isStoreMaterial() %>">
       <li>
         <label>商品名称：</label>
-        <input type="text" class="width-260" disabled value="<%= @item.name('StoreMaterial') %>">
+        <input type="text" class="width-260" disabled value="<%= @item.name('StoreMaterialSaleinfo') %>">
       </li>
       <li>
         <label>名称：</label>
-        <span><%= @item.name('StoreMaterial') %></span>
+        <span><%= @item.name('StoreMaterialSaleinfo') %></span>
       </li>
       <li>
-        <label>零售价：</label>
-        <span><%= @item.retail_price('StoreMaterial') %></span>
+        <label>零售单价：</label>
+        <span><%= @item.retail_price('StoreMaterialSaleinfo') %></span>
+        <label>零售总价：</label>
+        <span class='js-regular-amount color-282726'><%= @item.regularAmount() %></span>
       </li>
       <li>
         <label>数量：</label>
-        <input type="text" disabled value="<%= @item.quantity('StoreMaterial') %>"> 件
+        <input type="text" disabled value="<%= @item.quantity('StoreMaterialSaleinfo') %>"> 件
+      </li>
+      <li>
+        <label>套餐总价：</label>
+        <input name="amount" type="text" value="<%= @item.packagedItemAmount('StoreMaterialSaleinfo') %>" disabled> 元
       </li>
       <li>
         <label>套餐价：</label>
-        <input type="text" disabled value="<%= @item.price('StoreMaterial') %>"> 元
+        <input type="text" disabled value="<%= @item.price('StoreMaterialSaleinfo') %>"> 元
+        (<span>单品折扣率：</span><span class='js-discount-rate'><%= @item.discountRate() %></span>)
       </li>
     </ul>
   </div>
@@ -85,8 +99,6 @@
   <label class="cancel_btn btn cancel color-000" id="closeWithoutSave">关闭</label>
 </div>
 <div class="tips float-right">
-  <h4 class="text-align-center">提示</h4>
-  <p>在这里可以按您的需要将一个服务精细划分成多个流程，或者工序来进行施工操作，对该项服务实行精确管理。
-  流程设置可以应用在多种服务上，尤其是需要多工种共同完成一种服务。
-  </p>
+  <h4 class="text-align-center"></h4>
+  <p></p>
 </div>

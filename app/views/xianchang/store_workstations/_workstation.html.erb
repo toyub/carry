@@ -1,12 +1,12 @@
 <li class="item_station js-station" id="workstation-<%= workstation.id %>" data-id="<%= workstation.id %>">
-  <div class="station_info" style="border-color:#7658cf">
+  <div class="station_info" style="border-color:#999">
     <span class="do_dbclick width-120"><%= workstation.name %></span>
-    <%= link_to "编辑", edit_xianchang_store_workstation_path(workstation), remote: true, class: 'edit_button' %>
+    <%= link_to "编辑工位", edit_xianchang_store_workstation_path(workstation), remote: true, class: 'edit_button' %>
   </div>
   <% if workstation.unavailable? %>
     <%= render partial: 'unavailable_workstation' %>
   <% elsif workstation.busy? %>
-    <%= render partial: 'busy_workstation', locals: {workstation: workstation} %>
+    <%= render partial: 'busy_workstation', locals: {workstation: workstation, is_started: true} %>
   <% else %>
     <%= render partial: 'idle_workstation' %>
   <% end %>

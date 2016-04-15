@@ -19,21 +19,42 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
     @renderItemForm()
     @
 
-  saveOnClick: ->
-    attrs = @$el.find("input, select").serializeJSON()
-    @model.clear(silent: true)
-    @model.set attrs
+  add_new_item: ->
     if @model.isValid(true) && @model.package_setting
       @model.package_setting.items.add @model
       @close()
     @close()
+
+  confirm_item_price: (msg) ->
+    $.confirm
+      text: msg,
+      confirm: =>
+        @add_new_item()
+
+  saveOnClick: ->
+    attrs = @$el.find("input, select").serializeJSON()
+    @model.set attrs
+    if @model.isStoreMaterial()
+      if @model.price() - @model.cost_price() < 0
+        @confirm_item_price('该商品设置的套餐价低于成本价，是否继续？')
+      else if @model.price() - @model.retail_price() < 0
+        @confirm_item_price('该商品设置的套餐价低于销售价，是否继续？')
+      else
+        @add_new_item()
+    else if @model.isStoreService()
+      if @model.price() - @model.retail_price() < 0
+        @confirm_item_price('该服务设置的套餐价低于售价，是否继续？')
+      else
+        @add_new_item()
+    else
+      @add_new_item()
 
   close: ->
     @leave()
 
   renderItemForm: ->
     switch @model.get('package_itemable_type')
-      when 'StoreMaterial' then @openMaterialItem()
+      when 'StoreMaterialSaleinfo' then @openMaterialItem()
       when 'StoreService' then @openServiceItem()
       when 'StoreDepositCard' then @openDepositItem()
 

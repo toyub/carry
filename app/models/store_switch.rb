@@ -5,6 +5,7 @@ class StoreSwitch < ActiveRecord::Base
 
   scope :by_switchable_type, ->(type) { where(switchable_type: type) }
   scope :by_switchable_id, ->(id) { where(switchable_id: id) }
+  scope :by_switchable, ->(switchable) { where(switchable_type: switchable.class.name, switchable_id: switchable.id)}
 
   SaleCategory = {
     "StoreService": 0,

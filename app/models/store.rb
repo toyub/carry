@@ -10,9 +10,11 @@ class Store <  ActiveRecord::Base
   has_many :store_suppliers
   has_many :store_material_inventories
   has_many :store_services
+  has_many :store_workstations
   has_many :store_workstation_categories
   has_many :store_commission_templates
   has_many :store_staff
+  has_many :store_salaries, through: :store_staff
   has_many :store_material_returnings
   has_many :store_material_returning_items
   has_many :store_settlement_accounts
@@ -52,7 +54,7 @@ class Store <  ActiveRecord::Base
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
     class_name: 'StoreMaterialCategory'
-
+  
   has_many :store_groups
   has_many :store_group_members
 
@@ -95,6 +97,22 @@ class Store <  ActiveRecord::Base
   def business_hours
     return if "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}" == "~"
     "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}"
+  end
+  
+  def material_sales_volume(month = Time.now)
+    store_order_items.by_month(month).materials.map(&:amount).sum.to_f
+  end
+
+  def service_sales_volume(month = Time.now)
+    store_order_items.by_month(month).where(orderable_type: StoreService.name).map(&:amount).sum.to_f
+  end
+
+  def package_sales_volume(month = Time.now)
+    store_order_items.by_month(month).packages.map(&:amount).sum.to_f
+  end
+
+  def sales_volume(month = Time.now)
+    material_sales_volume(month) + service_sales_volume(month) + package_sales_volume(month)
   end
 
   def last_year_sales

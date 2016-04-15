@@ -256,7 +256,13 @@
       trial_salary.val() ? trial_salary.attr("disabled", "disabled") : $(".transfer_btn").attr("disabled", "disabled");
     }
 
+    var check_has_regularized = function(){
+      if (<%= @staff.has_regularized? %>)
+        $(".transfer_btn").attr("disabled", "disabled")
+    }
+
     check_trial();
+    check_has_regularized();
     protocol_form_operation();
     set_staff_passowrd();
 

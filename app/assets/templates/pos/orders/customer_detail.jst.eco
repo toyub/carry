@@ -1,0 +1,148 @@
+ <form action="<%= @url %>">
+  <input type="hidden" name="store_customer_entity[id]"  value="<%= @id %>">
+  <input type="hidden" name="store_customer_entity[store_customer_attributes][id]"  value="<%= @store_customer.id %>">
+  <input type="hidden" name="store_customer_entity[store_customer_settlement_attributes][id]"  value="<%= @store_customer_settlement.id %>">
+  <h2>完善客户信息</h2>
+  <div class="improve_crm_info">
+    <div class="basic_info crm_info">
+      <div class="item_content">
+        <label class="width-55">姓</label>
+        <input type="text" class="width-55" name='store_customer_entity[store_customer_attributes][last_name]' value="<%= @store_customer.last_name %>" required>
+        <label class="width-30">名</label>
+        <input type="text" class="width-56" name='store_customer_entity[store_customer_attributes][first_name]' value="<%= @store_customer.first_name %>" required>
+      </div>
+      <div class="item_content">
+        <label class="width-55">性别</label>
+        <label class="width-75 sex">男<input type="radio" <%= 'checked' if @store_customer.gender %> name="store_customer_entity[store_customer_attributes][gender]" value='true'></label>
+        <label class="width-73 sex">女<input type="radio" <%= 'checked' unless @store_customer.gender %> name="store_customer_entity[store_customer_attributes][gender]" value='false'></label>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">生日</label>
+        <input type="date" class="width-150" name='store_customer_entity[store_customer_attributes][birthday]' value="<%= @store_customer.birthday %>">
+      </div>
+      <div class="item_content">
+        <label class="width-55">客户属性</label>
+        <select class="width-152" name='store_customer_entity[property]'>
+          <option <%= 'selected' if @store_customer.property == 'personal' %> value='personal'>个人客户</option>
+          <option <%= 'selected' if @store_customer.property == 'company' %> value='company'>集团客户</option>
+        </select>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">证件号码</label>
+        <input type="text" class="width-150" value="<%= @store_customer.resident_id %>" name='store_customer_entity[store_customer_attributes][resident_id]'>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">移动电话</label>
+        <input type="text" class="width-150" value="<%= @store_customer.phone_number %>" name='store_customer_entity[store_customer_attributes][phone_number]'>
+      </div>
+      <div class="item_content">
+        <label class="width-55">QQ</label>
+        <input type="text" class="width-150" value="<%= @store_customer.qq %>" name='store_customer_entity[store_customer_attributes][qq]'>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">区域</label>
+        <span class="area">
+          <label>省:</label>
+          <select class="width-70" id="province" data-oldid='<%= @province %>' name='store_customer_entity[district][province]'></select>
+          <label>市:</label>
+          <select class="width-70" id="city" data-oldid='<%= @city %>' name='store_customer_entity[district][city]'></select>
+          <label>区/县:</label>
+          <select class="width-70" id="region" data-oldid='<%= @region %>' name='store_customer_entity[district][region]'></select>
+        </span>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">联系地址</label>
+        <input type="text" class="width-150" name='store_customer_entity[address]' value="<%= @address %>">
+      </div>
+
+       <div class="item_content">
+        <label class="width-55">车程</label>
+        <input type="number" class="width-100" name='store_customer_entity[range]' value="<%= @range %>">
+        <span class="width-20">km</span>
+      </div>
+
+      <div class="item_content">
+        <label class="width-102"><input type="checkbox" name='store_customer_entity[store_customer_attributes][tracking_accepted]' <%= 'checked' if @store_customer.tracking_accepted %> class="width-15">不接受回访</label>
+        <label class="width-102"><input type="checkbox" name='store_customer_entity[store_customer_attributes][message_accepted]' <%= 'checked' if @store_customer.message_accepted %> class="width-15">不接受短信</label>
+      </div>
+    </div>
+
+    <div class="crm_info">
+
+      <div class="item_content">
+        <label class="width-55">挂账额度</label>
+        <select class="width-152" required id='credit' name='store_customer_entity[store_customer_settlement_attributes][credit]'>
+            <option value="unpermitted" <%= 'selected' if @store_customer_settlement.credit == 'unpermitted' %> >不允许挂账</option>
+            <option value="unlimited" <%= 'selected' if @store_customer_settlement.credit == 'unlimited' %> >不限金额</option>
+            <option value="custom" <%= 'selected' if @store_customer_settlement.credit == 'custom' %> >自定义</option>
+        </select>
+        <input type="number" id='credit_limit' <%= 'disabled' unless @store_customer_settlement.credit == 'custom' %> class="width-150 margin-left-75" name='store_customer_entity[store_customer_settlement_attributes][credit_limit]' value='<%= @store_customer_settlement.credit_limit %>' required>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">结算提醒</label>
+        <select class="width-150" name='store_customer_entity[store_customer_settlement_attributes][notice_period]'>
+          <option value="_3days" <%= 'selected' if @store_customer_settlement.notice_period == '_3days' %> >月底前3天</option>
+          <option value="_5days" <%= 'selected' if @store_customer_settlement.notice_period == '_5days' %> >月底前5天</option>
+          <option value="_7days" <%= 'selected' if @store_customer_settlement.notice_period == '_7days' %> >月底前7天</option>
+        </select>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">单位</label>
+        <input type="text" class="width-380" value="<%= @store_customer.company %>" name='store_customer_entity[store_customer_attributes][company]' value="<%= @store_customer.company %>">
+      </div>
+      <div class="item_content">
+        <label class="width-55">发票种类</label>
+        <select class="width-150" name="store_customer_entity[store_customer_settlement_attributes][invoice_type]">
+          <option value="common" <%= "selected" if @store_customer_settlement.invoice_type == 'common' %> >普票</option>
+          <option value="extra" <%= "selected" if @store_customer_settlement.invoice_type == 'extra' %> >增值税发票</option>
+        </select>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">开户银行</label>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][bank]' value="<%= @store_customer_settlement.bank %>">
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">发票抬头</label>
+        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][invoice_title]' value="<%= @store_customer_settlement.invoice_title %>">
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">银行账号</label>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][bank_account]' value="<%= @store_customer_settlement.bank_account %>">
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">收款方式</label>
+        <select class="width-150" name='store_customer_entity[store_customer_settlement_attributes][payment_mode]'>
+          <% for payment_method in PaymentMethods.available_methods() : %>
+          <option <%= 'selected' if payment_method.enumable_name == @store_customer_settlement.payment_mode %> value="<%= payment_method.enumable_name %>"><%= payment_method.cn_name %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">税号</label>
+        <input type="text" class="width-380" name='store_customer_entity[store_customer_settlement_attributes][tax]' value="<%= @store_customer_settlement.tax %>">
+      </div>
+
+      <div class="item_content">
+        <label class="width-55">联系人</label>
+        <input type="text" class="width-150" name='store_customer_entity[store_customer_settlement_attributes][contact]' value="<%= @store_customer_settlement.contact %>">
+      </div>
+    </div>
+  </div>
+
+  <div class="btn_group float-right  margin-right-10   margin-top-20">
+    <input type="button" class="js-customer-edit-cancel cancel_btn btn" value="取消">
+    <input type="submit" class="save_btn btn"  value="保存">
+  </div>
+</form>

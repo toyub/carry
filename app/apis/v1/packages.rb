@@ -24,7 +24,7 @@ module V1
 
       get do
         packages = StorePackage.by_store_chain(params[:chain_id]).by_store(params[:store_id])
-        store_packages = packages.order(params[:q][:s]).ransack(params[:q].except(:s)).result.order('id asc')
+        store_packages = packages.ransack(params[:q]).result.order('id asc')
         present store_packages, with: ::Entities::Package
       end
     end

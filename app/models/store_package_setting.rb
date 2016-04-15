@@ -2,7 +2,7 @@ class StorePackageSetting < ActiveRecord::Base
   include BaseModel
 
   belongs_to :store_package
-  has_many :items, class_name: 'StorePackageItem', dependent: :delete_all
+  has_many :items, -> {where(deleted: false)}, class_name: 'StorePackageItem', dependent: :delete_all
   belongs_to :saleman_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'store_commission_template_id'
   before_save :set_retail_price
 
@@ -37,8 +37,8 @@ class StorePackageSetting < ActiveRecord::Base
     end
   end
 
-  def commission(order_item)
-    saleman_commission_template.present? ? saleman_commission_template.commission(order_item) : 0.0
+  def sale_commission(staff, order_item, beneficiary)
+    saleman_commission_template.present? ? saleman_commission_template.sale_commission(staff, order_item, beneficiary) : 0.0
   end
 
 end

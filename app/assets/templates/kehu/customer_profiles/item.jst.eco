@@ -1,10 +1,14 @@
-<td><%= @entity.get 'id' %></td>
+<td><%= @view.index + 1 %></td>
 <td><span class="span_border_left"><%= @entity.storeCustomer.get 'full_name' %></span></td>
 <td><%= @entity.storeCustomer.get 'phone_number' %></td>
 <td><%= @entity.categoryName() %></td>
 <td><%= @entity.storeCustomer.get 'vehicles_count'  %></td>
 <td></td>
-<td><%= @entity.storeCustomer.get 'customer_asset' %></td>
+<% if @entity.storeCustomer.get 'has_customer_asset' : %>
+<td><%= '有' %></td>
+<% else : %>
+<td><%= '无'%></td>
+<% end %>
 <td><%= @entity.storeCustomer.get 'orders_count' %></td>
 <td><%= @entity.storeCustomer.get 'total_amount' %></td>
 <td></td>

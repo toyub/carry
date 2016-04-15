@@ -1,11 +1,17 @@
-<ul class="vehicle_info">
-  <li class="float-left construction_info">
-  <span><%= workstation.current_workflow.try(:name) %></span>
-  <span class="do_dbclick times" data-stationid='<%=  workstation.id %>'><%= workstation.current_workflow.try(:count_down) %></span>
-  <%= link_to "加时", edit_xianchang_store_workflow_path(workstation.current_workflow), class: "add_time js-add-time", remote: true %>
-  </li>
-  <li class="float-left license_plate js-vehicle js-draggable" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order='{"id": <%= workstation.current_workflow.store_order_id %>, "state": "processing"}'>
-  <span><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number)%> </span>
-  <img src="/images/car_front.png">
-  </li>
-</ul>
+<div class="vehicle_info">
+  <dl class="construction_info js-vehicle js-draggable" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order='{"previous_workstation": <%= workstation.id %>, "id": <%= workstation.current_workflow.store_order_id %>, "state": "processing"}'>
+    <div class="car_info">
+      <span class="service_name"><%= workstation.current_workflow.try(:name) %></span>
+      <span class="current_license_number"><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number)%> </span>
+    </div>
+    <%= image_tag 'workstation_car.png', class: 'car_img'%>
+  </dl>
+  <dl class="license_plate" >
+    <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
+    <span class="time do_dbclick <%= 'times' if is_started && !workstation.current_workflow.pausing? %>" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
+  </dl>
+
+  <dl class="add_time_wrap">
+    <%= link_to "加时", edit_xianchang_store_workflow_path(workstation.current_workflow), class: "add_time js-add-time fa fa-plus", remote: true %>
+  </dl>
+</div>

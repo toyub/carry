@@ -27,7 +27,7 @@ module V1
       get do
         materials = StoreMaterial.by_store_chain(params[:chain_id]).by_store(params[:store_id])
         store_materials = materials.saleable.ransack(params[:q]).result
-        present store_materials, with: ::Entities::Material, type: :default
+        present store_materials, with: ::Entities::Material
       end
 
       add_desc "商品品牌"
@@ -51,7 +51,7 @@ module V1
       end
       get :sales do
         material_sales = current_store.store_material_saleinfos.ransack(params[:q]).result
-        present material_sales, with: ::Entities::Material, type: :full
+        present material_sales, with: ::Entities::SaleMaterial
       end
     end
   end

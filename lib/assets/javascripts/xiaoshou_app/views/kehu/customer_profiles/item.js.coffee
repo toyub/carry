@@ -3,7 +3,8 @@ class Mis.Views.KehuCustomerProfilesItem extends Mis.Base.View
 
   template: JST['kehu/customer_profiles/item']
 
-  initialize: ->
+  initialize: (options) ->
+    @index = options.index
     @listenTo(@model, 'remove', @leave)
 
   render: ->

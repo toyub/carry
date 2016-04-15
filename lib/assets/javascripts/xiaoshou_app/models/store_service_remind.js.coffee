@@ -9,13 +9,13 @@ class Mis.Models.StoreServiceRemind extends Backbone.Model
     notice_required: false
 
   TIMING:
-    1: "开单后"
-    2: "技师上岗后"
-    3: "施工结束后"
+    ordered: "开单后"
+    started: "技师上岗后"
+    finished: "施工结束后"
 
   MODE:
-    0: "短信"
-    1: "微信"
+    sms: "短信"
+    wechat: "微信"
 
   timingName: ->
     @TIMING[@get 'trigger_timing']

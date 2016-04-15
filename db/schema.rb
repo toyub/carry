@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309072235) do
+ActiveRecord::Schema.define(version: 20160414100041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   end
 
   create_table "credits", force: :cascade do |t|
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",     precision: 14, scale: 4
     t.string   "subject"
     t.integer  "order_id"
     t.datetime "created_at"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   end
 
   create_table "debits", force: :cascade do |t|
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",     precision: 14, scale: 4
     t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   create_table "journal_entries", force: :cascade do |t|
     t.string   "party_type"
     t.integer  "party_id"
-    t.decimal  "balance",          precision: 10, scale: 2
+    t.decimal  "balance",          precision: 14, scale: 4
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "journalable_type"
@@ -133,9 +133,9 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "order_id"
     t.string   "orderable_type"
     t.integer  "orderable_id"
-    t.integer  "quantity",                               null: false
-    t.decimal  "price",          precision: 6, scale: 2, null: false
-    t.decimal  "amount",         precision: 8, scale: 2, null: false, comment: "amount = price * quantity"
+    t.integer  "quantity",                                null: false
+    t.decimal  "price",          precision: 12, scale: 2, null: false
+    t.decimal  "amount",         precision: 14, scale: 4, null: false, comment: "amount = price * quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "party_type"
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "subject"
-    t.decimal  "amount",     precision: 10, scale: 2,                 comment: "amount = sum(order_items.amount)"
+    t.decimal  "amount",     precision: 14, scale: 4,                 comment: "amount = sum(order_items.amount)"
     t.integer  "staffer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "order_id"
     t.string   "party_type"
     t.integer  "party_id"
-    t.decimal  "amount",              precision: 10, scale: 2
+    t.decimal  "amount",              precision: 14, scale: 4
     t.string   "payment_method_type"
     t.json     "third_party_params"
     t.datetime "created_at"
@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   create_table "renewal_records", force: :cascade do |t|
     t.datetime "pay_date",                                            null: false
     t.integer  "renewal_days",                                        null: false
-    t.decimal  "renewal_money",              precision: 10, scale: 2, null: false
+    t.decimal  "renewal_money",              precision: 12, scale: 2, null: false
     t.string   "pay_party",      limit: 255,                          null: false
     t.string   "settlement_way", limit: 6,                            null: false
     t.string   "invoice_type",   limit: 4,                            null: false
@@ -380,12 +380,18 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_customer_id"
     t.string   "assetable_type"
     t.integer  "assetable_id"
-    t.integer  "total_quantity",          default: 0
-    t.integer  "used_quantity",           default: 0
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "total_quantity",                                   default: 0
+    t.integer  "used_quantity",                                    default: 0
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "store_customer_asset_id"
-    t.json     "workflowable_hash",       default: {}
+    t.json     "workflowable_hash",                                default: {}
+    t.integer  "package_item_id"
+    t.string   "package_item_type"
+    t.integer  "chain_business_model_id",                          default: 0,  null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+    t.string   "name"
+    t.decimal  "retail_price",            precision: 12, scale: 2
+    t.decimal  "price",                   precision: 12, scale: 2
   end
 
   create_table "store_customer_asset_logs", force: :cascade do |t|
@@ -401,6 +407,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "balance",                      default: 0
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.integer  "chain_business_model_id",      default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_customer_assets", force: :cascade do |t|
@@ -409,26 +416,28 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_chain_id"
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "package_type"
     t.integer  "package_id"
     t.string   "package_name"
+    t.integer  "chain_business_model_id", default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_customer_categories", force: :cascade do |t|
-    t.integer  "store_id",                              null: false
-    t.integer  "store_chain_id",                        null: false
-    t.integer  "store_staff_id",                        null: false
-    t.string   "name",                                  null: false
+    t.integer  "store_id",                                null: false
+    t.integer  "store_chain_id",                          null: false
+    t.integer  "store_staff_id",                          null: false
+    t.string   "name",                                    null: false
     t.string   "description"
     t.string   "color"
-    t.boolean  "auto_promoted_enabled", default: false
+    t.boolean  "auto_promoted_enabled",   default: false
     t.json     "conditions"
     t.json     "discounts"
     t.json     "privileges"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id", default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_customer_deposit_logs", force: :cascade do |t|
@@ -439,11 +448,12 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
     t.string   "subject"
-    t.decimal  "latest"
-    t.decimal  "amount"
-    t.decimal  "balance"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.decimal  "latest",                  precision: 12, scale: 2, default: 0.0
+    t.decimal  "amount",                  precision: 14, scale: 4, default: 0.0
+    t.decimal  "balance",                 precision: 14, scale: 4, default: 0.0
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.integer  "chain_business_model_id",                          default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_customer_entities", force: :cascade do |t|
@@ -464,6 +474,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.decimal  "balance",                    default: 0.0,   null: false
     t.integer  "points"
     t.boolean  "membership",                 default: false
+    t.integer  "chain_business_model_id",    default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_customer_payments", force: :cascade do |t|
@@ -473,11 +484,12 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_customer_debit_id"
     t.string   "payment_method_type"
     t.string   "subject"
-    t.decimal  "amount",                  precision: 10, scale: 2, default: 0.0
+    t.decimal  "amount",                  precision: 14, scale: 4, default: 0.0
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
     t.integer  "store_order_id"
     t.integer  "store_staff_id"
+    t.integer  "chain_business_model_id",                          default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_customer_settlements", force: :cascade do |t|
@@ -492,13 +504,14 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.datetime "created_at",                                                      null: false
     t.datetime "updated_at",                                                      null: false
     t.integer  "store_customer_entity_id"
-    t.decimal  "credit_bill_amount",       precision: 10, scale: 2, default: 0.0, null: false
-    t.decimal  "credit_limit",             precision: 12, scale: 2, default: 0.0
+    t.decimal  "credit_bill_amount",       precision: 12, scale: 2, default: 0.0, null: false
+    t.decimal  "credit_limit",             precision: 12, scale: 2, default: 0.0, null: false
     t.integer  "credit",                                            default: 0
     t.integer  "notice_period",                                     default: 0
     t.integer  "payment_mode",                                      default: 0
     t.integer  "invoice_type",                                      default: 0
     t.string   "contact"
+    t.integer  "chain_business_model_id",                           default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_customers", force: :cascade do |t|
@@ -528,6 +541,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "profession",                            default: 0
     t.integer  "income",                                default: 0
     t.integer  "points"
+    t.integer  "chain_business_model_id",               default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_departments", force: :cascade do |t|
@@ -539,14 +553,15 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   end
 
   create_table "store_deposit_cards", force: :cascade do |t|
-    t.decimal  "price",          precision: 10, scale: 2
-    t.decimal  "denomination",   precision: 10, scale: 2
+    t.decimal  "price",                   precision: 12, scale: 2, default: 0.0
+    t.decimal  "denomination",            precision: 12, scale: 2, default: 0.0
     t.string   "name"
     t.integer  "store_id"
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.integer  "chain_business_model_id",                          default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_depots", force: :cascade do |t|
@@ -587,6 +602,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.string   "remark",                   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "store_staff_id"
   end
 
   create_table "store_envelopes", force: :cascade do |t|
@@ -668,98 +684,105 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_id"
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
-    t.string   "name",           limit: 45
+    t.string   "name",                    limit: 45
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",            default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_categories", force: :cascade do |t|
-    t.integer  "store_id",                              null: false
-    t.integer  "store_chain_id",                        null: false
-    t.integer  "store_staff_id",                        null: false
-    t.integer  "parent_id",                 default: 0, null: false
-    t.string   "name",           limit: 45
+    t.integer  "store_id",                                       null: false
+    t.integer  "store_chain_id",                                 null: false
+    t.integer  "store_staff_id",                                 null: false
+    t.integer  "parent_id",                          default: 0, null: false
+    t.string   "name",                    limit: 45
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",            default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_checkin_items", force: :cascade do |t|
-    t.integer  "store_id",                                                         null: false
-    t.integer  "store_chain_id",                                                   null: false
-    t.integer  "store_staff_id",                                                   null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_material_inventory_id",                                      null: false
-    t.integer  "store_material_checkin_id",                                        null: false
-    t.integer  "quantity",                                                         null: false
+    t.integer  "store_id",                                                                     null: false
+    t.integer  "store_chain_id",                                                               null: false
+    t.integer  "store_staff_id",                                                               null: false
+    t.integer  "store_depot_id",                                                               null: false
+    t.integer  "store_material_id",                                                            null: false
+    t.integer  "store_material_inventory_id",                                                  null: false
+    t.integer  "store_material_checkin_id",                                                    null: false
+    t.integer  "quantity",                                                                     null: false
     t.integer  "prior_quantity"
-    t.decimal  "price",                                   precision: 10, scale: 2
-    t.decimal  "amount",                                  precision: 10, scale: 2
-    t.decimal  "prior_cost_price",                        precision: 10, scale: 2
-    t.decimal  "latest_cost_price",                       precision: 10, scale: 2
+    t.decimal  "price",                                   precision: 12, scale: 2
+    t.decimal  "amount",                                  precision: 14, scale: 4
+    t.decimal  "prior_cost_price",                        precision: 12, scale: 2
+    t.decimal  "latest_cost_price",                       precision: 12, scale: 2
     t.string   "remark",                      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                          default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_checkins", force: :cascade do |t|
-    t.integer  "store_id",                                                          null: false
-    t.integer  "store_chain_id",                                                    null: false
-    t.integer  "store_staff_id",                                                    null: false
+    t.integer  "store_id",                                                                   null: false
+    t.integer  "store_chain_id",                                                             null: false
+    t.integer  "store_staff_id",                                                             null: false
     t.integer  "store_depot_id"
-    t.string   "numero",         limit: 45
-    t.integer  "quantity",                                            default: 0
-    t.decimal  "amount",                     precision: 10, scale: 2, default: 0.0
-    t.string   "remark",         limit: 255
-    t.string   "search_keys",    limit: 255
+    t.string   "numero",                  limit: 45
+    t.integer  "quantity",                                                     default: 0
+    t.decimal  "amount",                              precision: 14, scale: 4, default: 0.0
+    t.string   "remark",                  limit: 255
+    t.string   "search_keys",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                      default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_commissions", force: :cascade do |t|
     t.string   "type",                         limit: 45
-    t.integer  "store_id",                                null: false
-    t.integer  "store_chain_id",                          null: false
-    t.integer  "store_staff_id",                          null: false
+    t.integer  "store_id",                                            null: false
+    t.integer  "store_chain_id",                                      null: false
+    t.integer  "store_staff_id",                                      null: false
     t.integer  "store_material_id"
     t.integer  "store_commission_template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                 default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   add_index "store_material_commissions", ["type"], name: "type", using: :btree
 
   create_table "store_material_inventories", force: :cascade do |t|
-    t.integer  "store_id",                                                 null: false
-    t.integer  "store_chain_id",                                           null: false
-    t.integer  "store_staff_id",                                           null: false
-    t.integer  "store_material_id",                                        null: false
-    t.integer  "store_depot_id",                                           null: false
-    t.decimal  "cost_price",        precision: 10, scale: 2, default: 0.0
-    t.integer  "quantity",                                   default: 0,   null: false
+    t.integer  "store_id",                                                       null: false
+    t.integer  "store_chain_id",                                                 null: false
+    t.integer  "store_staff_id",                                                 null: false
+    t.integer  "store_material_id",                                              null: false
+    t.integer  "store_depot_id",                                                 null: false
+    t.decimal  "cost_price",              precision: 12, scale: 2, default: 0.0
+    t.integer  "quantity",                                         default: 0,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                          default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_inventory_records", force: :cascade do |t|
-    t.integer  "store_id",                                              null: false
-    t.integer  "store_chain_id",                                        null: false
-    t.integer  "store_staff_id",                                        null: false
-    t.integer  "store_depot_id",                                        null: false
-    t.integer  "store_material_id",                                     null: false
-    t.integer  "store_material_order_id",                               null: false
-    t.integer  "store_material_order_item_id",                          null: false
-    t.integer  "store_material_inventory_id",                           null: false
-    t.integer  "store_material_receipt_id",                             null: false
-    t.integer  "quantity",                                              null: false
+    t.integer  "store_id",                                                          null: false
+    t.integer  "store_chain_id",                                                    null: false
+    t.integer  "store_staff_id",                                                    null: false
+    t.integer  "store_depot_id",                                                    null: false
+    t.integer  "store_material_id",                                                 null: false
+    t.integer  "store_material_order_id",                                           null: false
+    t.integer  "store_material_order_item_id",                                      null: false
+    t.integer  "store_material_inventory_id",                                       null: false
+    t.integer  "store_material_receipt_id",                                         null: false
+    t.integer  "quantity",                                                          null: false
     t.integer  "prior_quantity"
     t.integer  "ordered_quantiry"
-    t.decimal  "prior_cost_price",             precision: 10, scale: 2
-    t.decimal  "ordered_cost_price",           precision: 10, scale: 2
-    t.decimal  "latest_cost_price",            precision: 10, scale: 2
+    t.decimal  "prior_cost_price",             precision: 12, scale: 2
+    t.decimal  "ordered_cost_price",           precision: 12, scale: 2
+    t.decimal  "latest_cost_price",            precision: 12, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remark"
+    t.integer  "chain_business_model_id",                               default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_logs", force: :cascade do |t|
@@ -778,15 +801,17 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.json     "closings",                               default: {}
     t.json     "accruals",                               default: {}
     t.string   "created_month",               limit: 20
+    t.integer  "chain_business_model_id",                default: 0,  null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_manufacturers", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
-    t.string   "name",           limit: 45
+    t.integer  "store_id",                                       null: false
+    t.integer  "store_chain_id",                                 null: false
+    t.integer  "store_staff_id",                                 null: false
+    t.string   "name",                    limit: 45
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",            default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_order_items", force: :cascade do |t|
@@ -796,172 +821,185 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_material_id",                                                        null: false
     t.integer  "store_supplier_id",                                                        null: false
     t.integer  "store_material_order_id",                                                  null: false
-    t.decimal  "price",                               precision: 10, scale: 2,             null: false
+    t.decimal  "price",                               precision: 12, scale: 2,             null: false
     t.integer  "quantity",                                                                 null: false
     t.integer  "received_quantity",                                            default: 0, null: false
     t.integer  "returned_quantity",                                            default: 0, null: false
     t.integer  "process",                                                      default: 0, null: false
-    t.decimal  "amount",                              precision: 12, scale: 4
+    t.decimal  "amount",                              precision: 14, scale: 4
     t.string   "remark",                  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                      default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_order_payments", force: :cascade do |t|
-    t.integer  "store_id",                                             null: false
-    t.integer  "store_chain_id",                                       null: false
-    t.integer  "store_staff_id",                                       null: false
-    t.integer  "store_supplier_id",                                    null: false
-    t.integer  "store_material_order_id",                              null: false
-    t.integer  "store_settlement_account_id",                          null: false
-    t.decimal  "amount",                      precision: 10, scale: 2
-    t.decimal  "order_balance",               precision: 10, scale: 2
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "store_material_orders", force: :cascade do |t|
-    t.integer  "store_id",                                                             null: false
-    t.integer  "store_chain_id",                                                       null: false
-    t.integer  "store_staff_id",                                                       null: false
-    t.integer  "store_supplier_id",                                                    null: false
-    t.string   "numero",            limit: 45
-    t.decimal  "amount",                        precision: 12, scale: 4, default: 0.0
-    t.integer  "quantity",                                               default: 0
-    t.decimal  "paid_amount",                   precision: 10, scale: 2, default: 0.0
-    t.integer  "process",                                                default: 0,   null: false
-    t.string   "remark",            limit: 255
-    t.integer  "status",                                                 default: 0
-    t.integer  "paid_status",                                            default: 0
-    t.integer  "received_status",                                        default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "store_material_outing_items", force: :cascade do |t|
-    t.integer  "outing_type_id"
-    t.integer  "store_id",                                                         null: false
-    t.integer  "store_chain_id",                                                   null: false
-    t.integer  "store_staff_id",                                                   null: false
-    t.integer  "store_material_outing_id",                                         null: false
-    t.integer  "requester_id"
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_material_inventory_id",                                      null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "quantity"
-    t.decimal  "amount",                                  precision: 10, scale: 2
-    t.decimal  "cost_price",                              precision: 10, scale: 2
-    t.decimal  "inventory_cost_price",                    precision: 10, scale: 2
-    t.string   "remark",                      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "store_material_outings", force: :cascade do |t|
-    t.integer  "store_id",                                             null: false
-    t.integer  "store_chain_id",                                       null: false
-    t.integer  "store_staff_id",                                       null: false
-    t.integer  "requester_id"
-    t.integer  "outing_type_id"
-    t.string   "numero",          limit: 45
-    t.integer  "total_quantity"
-    t.decimal  "total_amount",                precision: 10, scale: 2
-    t.string   "remark",          limit: 45
-    t.string   "search_keys",     limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "outingable_type"
-    t.integer  "outingable_id"
-  end
-
-  create_table "store_material_picking_items", force: :cascade do |t|
-    t.integer  "store_id",                                                         null: false
-    t.integer  "store_chain_id",                                                   null: false
-    t.integer  "store_staff_id",                                                   null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "dest_depot_id",                                                    null: false
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_material_inventory_id",                                      null: false
-    t.integer  "store_material_picking_id",                                        null: false
-    t.integer  "quantity",                                                         null: false
-    t.decimal  "cost_price",                              precision: 10, scale: 2, null: false
-    t.decimal  "amount",                                  precision: 10, scale: 2
-    t.decimal  "inventory_cost_price",                    precision: 10, scale: 2
-    t.string   "remark",                      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "store_material_pickings", force: :cascade do |t|
-    t.integer  "store_id",                                                                null: false
-    t.integer  "store_chain_id",                                                          null: false
-    t.integer  "store_staff_id",                                                          null: false
-    t.string   "numero",                 limit: 45
-    t.integer  "total_quantity"
-    t.decimal  "total_amount",                       precision: 10, scale: 2
-    t.decimal  "total_inventory_amount",             precision: 10, scale: 2
-    t.string   "remark",                 limit: 255
-    t.string   "search_keys",            limit: 255
-    t.integer  "status",                                                      default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "store_material_receipts", force: :cascade do |t|
-    t.integer  "store_id",                                                             null: false
-    t.integer  "store_chain_id",                                                       null: false
-    t.integer  "store_staff_id",                                                       null: false
-    t.string   "numero",            limit: 45
-    t.string   "remark",            limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "type"
-    t.integer  "quantity"
-    t.decimal  "amount",                        precision: 10, scale: 2, default: 0.0
-    t.string   "search_keys"
-    t.string   "source_order_type"
-    t.integer  "source_order_id"
-  end
-
-  create_table "store_material_returning_items", force: :cascade do |t|
     t.integer  "store_id",                                                         null: false
     t.integer  "store_chain_id",                                                   null: false
     t.integer  "store_staff_id",                                                   null: false
     t.integer  "store_supplier_id",                                                null: false
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_material_inventory_id",                                      null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "store_material_returning_id",                                      null: false
-    t.integer  "quantity",                                                         null: false
-    t.decimal  "price",                                   precision: 10, scale: 2, null: false
-    t.integer  "prior_quantity",                                                   null: false
+    t.integer  "store_material_order_id",                                          null: false
+    t.integer  "store_settlement_account_id",                                      null: false
+    t.decimal  "amount",                      precision: 14, scale: 4
+    t.decimal  "order_balance",               precision: 14, scale: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                              default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+  end
+
+  create_table "store_material_orders", force: :cascade do |t|
+    t.integer  "store_id",                                                                   null: false
+    t.integer  "store_chain_id",                                                             null: false
+    t.integer  "store_staff_id",                                                             null: false
+    t.integer  "store_supplier_id",                                                          null: false
+    t.string   "numero",                  limit: 45
+    t.decimal  "amount",                              precision: 14, scale: 4, default: 0.0
+    t.integer  "quantity",                                                     default: 0
+    t.decimal  "paid_amount",                         precision: 14, scale: 4, default: 0.0
+    t.integer  "process",                                                      default: 0,   null: false
+    t.string   "remark",                  limit: 255
+    t.integer  "status",                                                       default: 0
+    t.integer  "paid_status",                                                  default: 0
+    t.integer  "received_status",                                              default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "withdrawaler_id"
+    t.datetime "withdrawal_at"
+    t.integer  "chain_business_model_id",                                      default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+  end
+
+  create_table "store_material_outing_items", force: :cascade do |t|
+    t.integer  "outing_type_id"
+    t.integer  "store_id",                                                                     null: false
+    t.integer  "store_chain_id",                                                               null: false
+    t.integer  "store_staff_id",                                                               null: false
+    t.integer  "store_material_outing_id",                                                     null: false
+    t.integer  "requester_id"
+    t.integer  "store_material_id",                                                            null: false
+    t.integer  "store_material_inventory_id",                                                  null: false
+    t.integer  "store_depot_id",                                                               null: false
+    t.integer  "quantity"
+    t.decimal  "amount",                                  precision: 14, scale: 4
+    t.decimal  "cost_price",                              precision: 12, scale: 2
+    t.decimal  "inventory_cost_price",                    precision: 12, scale: 2
     t.string   "remark",                      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                          default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+  end
+
+  create_table "store_material_outings", force: :cascade do |t|
+    t.integer  "store_id",                                                                 null: false
+    t.integer  "store_chain_id",                                                           null: false
+    t.integer  "store_staff_id",                                                           null: false
+    t.integer  "requester_id"
+    t.integer  "outing_type_id"
+    t.string   "numero",                  limit: 45
+    t.integer  "total_quantity"
+    t.decimal  "total_amount",                        precision: 14, scale: 4
+    t.string   "remark",                  limit: 45
+    t.string   "search_keys",             limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "outingable_type"
+    t.integer  "outingable_id"
+    t.integer  "chain_business_model_id",                                      default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+  end
+
+  create_table "store_material_picking_items", force: :cascade do |t|
+    t.integer  "store_id",                                                                       null: false
+    t.integer  "store_chain_id",                                                                 null: false
+    t.integer  "store_staff_id",                                                                 null: false
+    t.integer  "store_depot_id",                                                                 null: false
+    t.integer  "dest_depot_id",                                                                  null: false
+    t.integer  "store_material_id",                                                              null: false
+    t.integer  "store_material_inventory_id",                                                    null: false
+    t.integer  "store_material_picking_id",                                                      null: false
+    t.integer  "quantity",                                                                       null: false
+    t.decimal  "cost_price",                              precision: 12, scale: 2, default: 0.0, null: false
+    t.decimal  "amount",                                  precision: 14, scale: 4
+    t.decimal  "inventory_cost_price",                    precision: 12, scale: 2, default: 0.0, null: false
+    t.string   "remark",                      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                          default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+  end
+
+  create_table "store_material_pickings", force: :cascade do |t|
+    t.integer  "store_id",                                                                 null: false
+    t.integer  "store_chain_id",                                                           null: false
+    t.integer  "store_staff_id",                                                           null: false
+    t.string   "numero",                  limit: 45
+    t.integer  "total_quantity"
+    t.decimal  "total_amount",                        precision: 14, scale: 4
+    t.decimal  "total_inventory_amount",              precision: 14, scale: 4
+    t.string   "remark",                  limit: 255
+    t.string   "search_keys",             limit: 255
+    t.integer  "status",                                                       default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                      default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+  end
+
+  create_table "store_material_receipts", force: :cascade do |t|
+    t.integer  "store_id",                                                                   null: false
+    t.integer  "store_chain_id",                                                             null: false
+    t.integer  "store_staff_id",                                                             null: false
+    t.string   "numero",                  limit: 45
+    t.string   "remark",                  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type"
+    t.integer  "quantity"
+    t.decimal  "amount",                              precision: 14, scale: 4, default: 0.0
+    t.string   "search_keys"
+    t.string   "source_order_type"
+    t.integer  "source_order_id"
+    t.integer  "chain_business_model_id",                                      default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+  end
+
+  create_table "store_material_returning_items", force: :cascade do |t|
+    t.integer  "store_id",                                                                       null: false
+    t.integer  "store_chain_id",                                                                 null: false
+    t.integer  "store_staff_id",                                                                 null: false
+    t.integer  "store_supplier_id",                                                              null: false
+    t.integer  "store_material_id",                                                              null: false
+    t.integer  "store_material_inventory_id",                                                    null: false
+    t.integer  "store_depot_id",                                                                 null: false
+    t.integer  "store_material_returning_id",                                                    null: false
+    t.integer  "quantity",                                                                       null: false
+    t.decimal  "price",                                   precision: 12, scale: 2, default: 0.0, null: false
+    t.integer  "prior_quantity",                                                                 null: false
+    t.string   "remark",                      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                          default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_returnings", force: :cascade do |t|
-    t.integer  "store_id",                                                            null: false
-    t.integer  "store_chain_id",                                                      null: false
-    t.integer  "store_staff_id",                                                      null: false
-    t.integer  "store_supplier_id",                                                   null: false
-    t.string   "numero",            limit: 45,                                        null: false
+    t.integer  "store_id",                                                                   null: false
+    t.integer  "store_chain_id",                                                             null: false
+    t.integer  "store_staff_id",                                                             null: false
+    t.integer  "store_supplier_id",                                                          null: false
+    t.string   "numero",                  limit: 45,                                         null: false
     t.integer  "total_quantity"
-    t.decimal  "total_amount",                  precision: 10, scale: 2
-    t.string   "remark",            limit: 255
-    t.string   "search_keys",       limit: 255,                          default: ""
+    t.decimal  "total_amount",                        precision: 14, scale: 4, default: 0.0
+    t.string   "remark",                  limit: 255
+    t.string   "search_keys",             limit: 255,                          default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                      default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_saleinfo_categories", force: :cascade do |t|
-    t.integer  "store_id",                              null: false
-    t.integer  "store_chain_id",                        null: false
-    t.integer  "store_staff_id",                        null: false
+    t.integer  "store_id",                                          null: false
+    t.integer  "store_chain_id",                                    null: false
+    t.integer  "store_staff_id",                                    null: false
     t.integer  "store_material_category_id"
-    t.string   "name",                       limit: 45, null: false
+    t.string   "name",                       limit: 45,             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",               default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_saleinfo_services", force: :cascade do |t|
@@ -987,6 +1025,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "mechanic_commission_template_id"
     t.integer  "quantity"
     t.boolean  "deleted",                                     default: false
+    t.integer  "chain_business_model_id",                     default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_saleinfos", force: :cascade do |t|
@@ -995,54 +1034,57 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_staff_id",                                                          null: false
     t.integer  "store_material_id",                                                       null: false
     t.boolean  "bargainable",                                             default: false
-    t.decimal  "bargain_price",                  precision: 10, scale: 2, default: 0.0
-    t.decimal  "retail_price",                   precision: 10, scale: 2, default: 0.0
-    t.decimal  "trade_price",                    precision: 10, scale: 2, default: 0.0
+    t.decimal  "bargain_price",                  precision: 12, scale: 2, default: 0.0,   null: false
+    t.decimal  "retail_price",                   precision: 12, scale: 2, default: 0.0,   null: false
+    t.decimal  "trade_price",                    precision: 12, scale: 2, default: 0.0
     t.integer  "reward_points",                                           default: 0
     t.boolean  "divide_to_retail",                                        default: false
     t.integer  "divide_unit_type_id"
     t.decimal  "divide_total_volume",            precision: 10, scale: 2
     t.boolean  "service_needed",                                          default: false
     t.boolean  "service_fee_needed",                                      default: false
-    t.decimal  "service_fee",                    precision: 10, scale: 2
+    t.decimal  "service_fee",                    precision: 12, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "saleman_commission_template_id"
     t.integer  "sale_category_id"
-    t.decimal  "vip_price",                      precision: 10, scale: 2
+    t.decimal  "vip_price",                      precision: 12, scale: 2
     t.boolean  "vip_price_enabled",                                       default: false
-    t.decimal  "divide_volume_per_bill",         precision: 10, scale: 2
+    t.decimal  "divide_volume_per_bill",         precision: 12, scale: 2, default: 0.0
+    t.integer  "chain_business_model_id",                                 default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_shrinkage_items", force: :cascade do |t|
-    t.integer  "store_id",                                                         null: false
-    t.integer  "store_chain_id",                                                   null: false
-    t.integer  "store_staff_id",                                                   null: false
-    t.integer  "store_material_shrinkage_id",                                      null: false
-    t.integer  "store_material_id",                                                null: false
-    t.integer  "store_depot_id",                                                   null: false
-    t.integer  "store_material_inventory_id",                                      null: false
+    t.integer  "store_id",                                                                     null: false
+    t.integer  "store_chain_id",                                                               null: false
+    t.integer  "store_staff_id",                                                               null: false
+    t.integer  "store_material_shrinkage_id",                                                  null: false
+    t.integer  "store_material_id",                                                            null: false
+    t.integer  "store_depot_id",                                                               null: false
+    t.integer  "store_material_inventory_id",                                                  null: false
     t.integer  "quantity"
     t.integer  "prior_quantity"
-    t.decimal  "cost_price",                              precision: 10, scale: 2
-    t.decimal  "inventory_cost_price",                    precision: 10, scale: 2
-    t.decimal  "amount",                                  precision: 10, scale: 2
+    t.decimal  "cost_price",                              precision: 12, scale: 2
+    t.decimal  "inventory_cost_price",                    precision: 12, scale: 2
+    t.decimal  "amount",                                  precision: 14, scale: 4
     t.string   "remark",                      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                          default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_shrinkages", force: :cascade do |t|
-    t.integer  "store_id",                                                          null: false
-    t.integer  "store_chain_id",                                                    null: false
-    t.integer  "store_staff_id",                                                    null: false
-    t.string   "numero",         limit: 45
-    t.integer  "total_quantity",                                      default: 0
-    t.decimal  "total_amount",               precision: 10, scale: 2, default: 0.0
-    t.string   "remark",         limit: 255
-    t.string   "search_keys",    limit: 255
+    t.integer  "store_id",                                                                   null: false
+    t.integer  "store_chain_id",                                                             null: false
+    t.integer  "store_staff_id",                                                             null: false
+    t.string   "numero",                  limit: 45
+    t.integer  "total_quantity",                                               default: 0
+    t.decimal  "total_amount",                        precision: 14, scale: 4, default: 0.0
+    t.string   "remark",                  limit: 255
+    t.string   "search_keys",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                      default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_snapshots", force: :cascade do |t|
@@ -1058,8 +1100,8 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.string   "barcode",                         limit: 45
     t.string   "mnemonic",                        limit: 45
     t.string   "speci",                           limit: 45
-    t.decimal  "cost_price",                                 precision: 10, scale: 2
-    t.decimal  "min_price",                                  precision: 10, scale: 2
+    t.decimal  "cost_price",                                 precision: 12, scale: 2
+    t.decimal  "min_price",                                  precision: 12, scale: 2
     t.boolean  "inventory_alarmify",                                                  default: false
     t.integer  "min_inventory"
     t.integer  "max_inventory"
@@ -1071,6 +1113,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "store_material_id"
+    t.integer  "chain_business_model_id",                                             default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_tracking_sections", force: :cascade do |t|
@@ -1088,49 +1131,53 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "deleted",                                default: false
+    t.integer  "chain_business_model_id",                default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_trackings", force: :cascade do |t|
-    t.integer  "store_id",                          null: false
-    t.integer  "store_chain_id",                    null: false
-    t.integer  "store_staff_id",                    null: false
-    t.integer  "store_material_id",                 null: false
-    t.boolean  "enabled",           default: false, null: false
-    t.integer  "tracking_mode",     default: 0,     null: false
-    t.boolean  "reminder_required", default: false, null: false
+    t.integer  "store_id",                                null: false
+    t.integer  "store_chain_id",                          null: false
+    t.integer  "store_staff_id",                          null: false
+    t.integer  "store_material_id",                       null: false
+    t.boolean  "enabled",                 default: false, null: false
+    t.integer  "tracking_mode",           default: 0,     null: false
+    t.boolean  "reminder_required",       default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id", default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_trans_receipt_items", force: :cascade do |t|
-    t.integer  "store_id",                                                            null: false
-    t.integer  "store_chain_id",                                                      null: false
-    t.integer  "store_staff_id",                                                      null: false
-    t.integer  "store_depot_id",                                                      null: false
-    t.integer  "store_material_id",                                                   null: false
-    t.integer  "store_material_picking_id",                                           null: false
-    t.integer  "store_material_picking_item_id",                                      null: false
-    t.integer  "store_material_inventory_id",                                         null: false
-    t.integer  "store_material_receipt_id",                                           null: false
-    t.integer  "quantity",                                                            null: false
+    t.integer  "store_id",                                                                        null: false
+    t.integer  "store_chain_id",                                                                  null: false
+    t.integer  "store_staff_id",                                                                  null: false
+    t.integer  "store_depot_id",                                                                  null: false
+    t.integer  "store_material_id",                                                               null: false
+    t.integer  "store_material_picking_id",                                                       null: false
+    t.integer  "store_material_picking_item_id",                                                  null: false
+    t.integer  "store_material_inventory_id",                                                     null: false
+    t.integer  "store_material_receipt_id",                                                       null: false
+    t.integer  "quantity",                                                                        null: false
     t.integer  "prior_quantity"
     t.integer  "ordered_quantity"
-    t.decimal  "prior_cost_price",                           precision: 10, scale: 2
-    t.decimal  "ordered_cost_price",                         precision: 10, scale: 2
-    t.decimal  "inventory_cost_price",                       precision: 10, scale: 2
-    t.decimal  "latest_cost_price",                          precision: 10, scale: 2
+    t.decimal  "prior_cost_price",                           precision: 12, scale: 2
+    t.decimal  "ordered_cost_price",                         precision: 12, scale: 2
+    t.decimal  "inventory_cost_price",                       precision: 12, scale: 2
+    t.decimal  "latest_cost_price",                          precision: 12, scale: 2
     t.string   "remark",                         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                             default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_units", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
-    t.string   "name",           limit: 45
+    t.integer  "store_id",                                       null: false
+    t.integer  "store_chain_id",                                 null: false
+    t.integer  "store_staff_id",                                 null: false
+    t.string   "name",                    limit: 45
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",            default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_materials", force: :cascade do |t|
@@ -1146,8 +1193,8 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.string   "barcode",                         limit: 45
     t.string   "mnemonic",                        limit: 45
     t.string   "speci",                           limit: 45
-    t.decimal  "cost_price",                                  precision: 10, scale: 2
-    t.decimal  "min_price",                                   precision: 10, scale: 2
+    t.decimal  "cost_price",                                  precision: 12, scale: 2
+    t.decimal  "min_price",                                   precision: 12, scale: 2
     t.boolean  "inventory_alarmify",                                                   default: false
     t.integer  "min_inventory"
     t.integer  "max_inventory"
@@ -1158,6 +1205,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.text     "remark"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "introduction"
   end
 
   create_table "store_messages", force: :cascade do |t|
@@ -1182,7 +1230,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.datetime "updated_at"
     t.integer  "quantity",                                                          default: 0
     t.decimal  "price",                                    precision: 12, scale: 2, default: 0.0
-    t.decimal  "amount",                                   precision: 12, scale: 4, default: 0.0
+    t.decimal  "amount",                                   precision: 14, scale: 4, default: 0.0
     t.string   "remark",                       limit: 255
     t.integer  "orderable_id",                                                                      null: false
     t.string   "orderable_type",               limit: 60,                                           null: false
@@ -1206,6 +1254,10 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "package_id"
     t.string   "assetable_type"
     t.integer  "assetable_id"
+    t.boolean  "deleted",                                                           default: false
+    t.string   "package_item_type"
+    t.integer  "package_item_id"
+    t.integer  "chain_business_model_id",                                           default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
@@ -1215,45 +1267,55 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.decimal  "remaining"
     t.integer  "store_order_id"
     t.integer  "store_repayment_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "chain_business_model_id", default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_orders", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                                                                 null: false
-    t.integer  "store_chain_id",                                                                           null: false
-    t.integer  "store_staff_id",                                                                           null: false
-    t.decimal  "amount",                                          precision: 12, scale: 4, default: 0.0
-    t.string   "remark",                              limit: 255
+    t.integer  "store_id",                                                                     null: false
+    t.integer  "store_chain_id",                                                               null: false
+    t.integer  "store_staff_id",                                                               null: false
+    t.decimal  "amount",                              precision: 14, scale: 4, default: 0.0
+    t.string   "remark",                  limit: 255
     t.integer  "store_customer_id"
     t.integer  "store_vehicle_id"
     t.integer  "state"
     t.string   "numero"
-    t.integer  "store_vehicle_registration_plate_id"
-    t.boolean  "hanging",                                                                  default: false
-    t.integer  "pay_status",                                                               default: 0
-    t.integer  "task_status",                                                              default: 0
-    t.decimal  "filled",                                          precision: 12, scale: 4, default: 0.0
+    t.boolean  "hanging",                                                      default: false
+    t.integer  "pay_status",                                                   default: 0
+    t.integer  "task_status",                                                  default: 0
+    t.decimal  "filled",                              precision: 14, scale: 4, default: 0.0
     t.json     "situation"
-    t.integer  "cashier_id",                                                                                            comment: "收银员"
-    t.boolean  "service_included",                                                         default: false
+    t.integer  "cashier_id",                                                                                comment: "收银员"
+    t.boolean  "service_included",                                             default: false
+    t.boolean  "deleted",                                                      default: false
+    t.integer  "deleted_authorizer_id",                                                                     comment: "授权人"
+    t.integer  "deleted_operator_id",                                                                       comment: "操作员"
+    t.string   "deleted_reason"
+    t.datetime "deleted_at"
+    t.datetime "paid_at"
+    t.integer  "chain_business_model_id",                                      default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_package_items", force: :cascade do |t|
     t.string   "name"
     t.integer  "quantity",                                          default: 1
-    t.decimal  "price",                    precision: 10, scale: 2
+    t.decimal  "price",                    precision: 12, scale: 2, default: 0.0
     t.integer  "store_id"
     t.integer  "store_chain_id"
     t.integer  "store_staff_id"
     t.string   "package_itemable_type"
     t.integer  "package_itemable_id"
     t.integer  "store_package_setting_id"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
-    t.decimal  "denomination",             precision: 10, scale: 2
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
+    t.decimal  "denomination",             precision: 12, scale: 2
+    t.boolean  "deleted",                                           default: false
+    t.decimal  "amount",                   precision: 14, scale: 2
+    t.integer  "chain_business_model_id",                           default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_package_settings", force: :cascade do |t|
@@ -1263,7 +1325,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_chain_id",                                                       null: false
     t.integer  "store_staff_id",                                                       null: false
     t.integer  "store_package_id"
-    t.decimal  "retail_price",                 precision: 10, scale: 2, default: 0.0
+    t.decimal  "retail_price",                 precision: 12, scale: 2, default: 0.0
     t.integer  "period",                                                default: 0
     t.integer  "period_unit",                                           default: 0
     t.boolean  "period_enable",                                         default: true
@@ -1293,15 +1355,16 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   create_table "store_packages", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",                                                          null: false
-    t.integer  "store_chain_id",                                                    null: false
-    t.integer  "store_staff_id",                                                    null: false
-    t.string   "name",           limit: 45
-    t.string   "code",           limit: 45
-    t.string   "abstract",       limit: 255
+    t.integer  "store_id",                                                                   null: false
+    t.integer  "store_chain_id",                                                             null: false
+    t.integer  "store_staff_id",                                                             null: false
+    t.string   "name",                    limit: 45
+    t.string   "code",                    limit: 45
+    t.string   "abstract",                limit: 255
     t.text     "remark"
-    t.decimal  "price",                      precision: 10, scale: 2
-    t.decimal  "retail_price",               precision: 10, scale: 2, default: 0.0
+    t.decimal  "price",                               precision: 12, scale: 2
+    t.decimal  "retail_price",                        precision: 10, scale: 2, default: 0.0
+    t.integer  "chain_business_model_id",                                      default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_payments", force: :cascade do |t|
@@ -1310,7 +1373,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_chain_id"
     t.integer  "renewal_type_id"
     t.datetime "paid_at"
-    t.decimal  "amount",           precision: 10, scale: 2
+    t.decimal  "amount",           precision: 14, scale: 4, default: 0.0
     t.integer  "payment_type_id"
     t.integer  "invoice_type_id"
     t.boolean  "receipt_required"
@@ -1331,18 +1394,18 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   end
 
   create_table "store_physical_inventory_items", force: :cascade do |t|
-    t.integer  "store_id",                                                                     null: false
-    t.integer  "store_chain_id",                                                               null: false
-    t.integer  "store_staff_id",                                                               null: false
-    t.integer  "store_material_id",                                                            null: false
-    t.integer  "store_depot_id",                                                               null: false
-    t.integer  "store_inventory_id",                                                           null: false
-    t.integer  "store_physical_inventory_id",                                                  null: false
-    t.integer  "inventory",                                                                    null: false
-    t.integer  "physical",                                                                     null: false
-    t.integer  "diff",                                                                         null: false
-    t.decimal  "inventory_cost_price",                    precision: 10, scale: 2
-    t.decimal  "cost_price",                              precision: 10, scale: 2
+    t.integer  "store_id",                                                                       null: false
+    t.integer  "store_chain_id",                                                                 null: false
+    t.integer  "store_staff_id",                                                                 null: false
+    t.integer  "store_material_id",                                                              null: false
+    t.integer  "store_depot_id",                                                                 null: false
+    t.integer  "store_inventory_id",                                                             null: false
+    t.integer  "store_physical_inventory_id",                                                    null: false
+    t.integer  "inventory",                                                                      null: false
+    t.integer  "physical",                                                                       null: false
+    t.integer  "diff",                                                                           null: false
+    t.decimal  "inventory_cost_price",                    precision: 12, scale: 2, default: 0.0
+    t.decimal  "cost_price",                              precision: 12, scale: 2, default: 0.0
     t.string   "remark",                      limit: 255
     t.integer  "status",                                                           default: 0
     t.datetime "created_at"
@@ -1370,8 +1433,8 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_chain_id"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.decimal  "previous_salary", precision: 10, scale: 2
-    t.decimal  "new_salary",      precision: 10, scale: 2
+    t.decimal  "previous_salary", precision: 12, scale: 2
+    t.decimal  "new_salary",      precision: 12, scale: 2
   end
 
   create_table "store_repayments", force: :cascade do |t|
@@ -1386,23 +1449,23 @@ ActiveRecord::Schema.define(version: 20160309072235) do
 
   create_table "store_salaries", force: :cascade do |t|
     t.integer  "store_staff_id"
-    t.decimal  "amount_deduction",     precision: 8, scale: 2
-    t.json     "deduction",                                    default: {}
-    t.decimal  "amount_overtime",      precision: 8, scale: 2
-    t.decimal  "amount_reward",        precision: 8, scale: 2
-    t.decimal  "amount_bonus",         precision: 8, scale: 2
-    t.json     "bonus",                                        default: {}
-    t.decimal  "amount_insurence",     precision: 8, scale: 2
-    t.json     "insurence",                                    default: {}
-    t.decimal  "amount_cutfee",        precision: 8, scale: 2
-    t.decimal  "amount_should_cutfee", precision: 8, scale: 2
-    t.json     "cutfee",                                       default: {}
-    t.decimal  "salary_should_pay",    precision: 8, scale: 2
-    t.decimal  "salary_actual_pay",    precision: 8, scale: 2
-    t.boolean  "status",                                       default: false
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
-    t.decimal  "basic_salary",         precision: 8, scale: 2, default: 0.0
+    t.decimal  "amount_deduction",     precision: 14, scale: 4
+    t.json     "deduction",                                     default: {}
+    t.decimal  "amount_overtime",      precision: 14, scale: 4
+    t.decimal  "amount_reward",        precision: 14, scale: 4
+    t.decimal  "amount_bonus",         precision: 14, scale: 4
+    t.json     "bonus",                                         default: {}
+    t.decimal  "amount_insurence",     precision: 14, scale: 4
+    t.json     "insurence",                                     default: {}
+    t.decimal  "amount_cutfee",        precision: 14, scale: 4
+    t.decimal  "amount_should_cutfee", precision: 14, scale: 4
+    t.json     "cutfee",                                        default: {}
+    t.decimal  "salary_should_pay",    precision: 14, scale: 4
+    t.decimal  "salary_actual_pay",    precision: 14, scale: 4
+    t.boolean  "status",                                        default: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+    t.decimal  "basic_salary",         precision: 12, scale: 2, default: 0.0
     t.string   "created_month"
   end
 
@@ -1450,8 +1513,8 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.string   "code",                  limit: 45
     t.integer  "standard_time"
     t.integer  "store_service_unit_id"
-    t.decimal  "retail_price",                     precision: 10, scale: 2, default: 0.0
-    t.decimal  "bargain_price",                    precision: 10, scale: 2, default: 0.0
+    t.decimal  "retail_price",                     precision: 12, scale: 2, default: 0.0
+    t.decimal  "bargain_price",                    precision: 12, scale: 2, default: 0.0
     t.integer  "point"
     t.text     "introduction"
     t.text     "remark"
@@ -1463,12 +1526,13 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.boolean  "favorable",                                                 default: false
     t.integer  "setting_type",                                              default: 0
     t.integer  "store_service_id"
-    t.integer  "store_order_item_id"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
+    t.integer  "store_order_item_id"
     t.integer  "templateable_id"
     t.string   "templateable_type"
     t.integer  "category_id"
+    t.boolean  "deleted",                                                   default: false
   end
 
   create_table "store_service_store_materials", force: :cascade do |t|
@@ -1520,9 +1584,8 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_workstation_id"
     t.string   "store_engineer_ids",              limit: 45
     t.integer  "store_service_setting_id"
-    t.integer  "store_order_item_id"
     t.boolean  "finished",                                    default: false
-    t.integer  "used_time"
+    t.integer  "used_time",                                   default: 0
     t.json     "mechanics"
     t.integer  "store_vehicle_id"
     t.integer  "store_order_id"
@@ -1530,8 +1593,10 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "elapsed"
     t.json     "overtimes",                                   default: []
     t.integer  "status",                                      default: 0
+    t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
     t.string   "inspector"
+    t.boolean  "deleted",                                     default: false
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1568,8 +1633,8 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.string   "code",                           limit: 45
     t.integer  "standard_time"
     t.integer  "store_service_unit_id"
-    t.decimal  "retail_price",                              precision: 10, scale: 2, default: 0.0
-    t.decimal  "bargain_price",                             precision: 10, scale: 2, default: 0.0
+    t.decimal  "retail_price",                              precision: 12, scale: 2, default: 0.0
+    t.decimal  "bargain_price",                             precision: 12, scale: 2, default: 0.0
     t.integer  "point"
     t.text     "introduction"
     t.text     "remark"
@@ -1584,6 +1649,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.boolean  "bargain_price_enabled",                                              default: false
     t.integer  "saleman_commission_template_id"
     t.boolean  "vip_price_enabled",                                                  default: false
+    t.integer  "chain_business_model_id",                                            default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_settlement_accounts", force: :cascade do |t|
@@ -1620,24 +1686,26 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
     t.integer  "store_employee_id"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false
     t.boolean  "regular",                                                     default: true
+    t.boolean  "demission",                                                   default: false
+    t.integer  "chain_business_model_id",                                     default: 0,              null: false,              comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
@@ -1648,11 +1716,13 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "workflow_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "taskable_type"
     t.integer  "taskable_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
     t.integer  "mechanic_id"
+    t.boolean  "deleted",             default: false
+    t.integer  "status",              default: 0
   end
 
   create_table "store_subscribe_order_items", force: :cascade do |t|
@@ -1725,6 +1795,7 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "status",                                     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                    default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_switches", force: :cascade do |t|
@@ -1775,21 +1846,12 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.integer  "store_vehicle_id"
   end
 
-  create_table "store_vehicle_registration_plates", force: :cascade do |t|
-    t.integer  "store_id",                  null: false
-    t.integer  "store_chain_id",            null: false
-    t.integer  "store_staff_id",            null: false
-    t.string   "license_number", limit: 45, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "store_vehicles", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_id",          null: false
-    t.integer  "store_chain_id",    null: false
-    t.integer  "store_staff_id",    null: false
+    t.integer  "store_id",                                           null: false
+    t.integer  "store_chain_id",                                     null: false
+    t.integer  "store_staff_id",                                     null: false
     t.integer  "store_customer_id"
     t.integer  "vehicle_brand_id"
     t.integer  "vehicle_model_id"
@@ -1797,6 +1859,9 @@ ActiveRecord::Schema.define(version: 20160309072235) do
     t.json     "detail"
     t.string   "numero"
     t.text     "remark"
+    t.string   "license_number",          limit: 45
+    t.boolean  "provisional",                        default: false,              comment: "汽车是否为无牌开单"
+    t.integer  "chain_business_model_id",            default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_workstation_categories", force: :cascade do |t|
@@ -1823,17 +1888,18 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   end
 
   create_table "stores", force: :cascade do |t|
-    t.integer  "store_chain_id",                            null: false
+    t.integer  "store_chain_id",                                    null: false
     t.integer  "admin_id"
-    t.string   "name",            limit: 60,                null: false
-    t.integer  "business_status",            default: 0
-    t.integer  "payment_status",             default: 0
+    t.string   "name",                    limit: 60,                null: false
+    t.integer  "business_status",                    default: 0
+    t.integer  "payment_status",                     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "expired_at"
     t.decimal  "balance"
-    t.boolean  "available",                  default: true
+    t.boolean  "available",                          default: true
     t.integer  "creator_id"
+    t.integer  "chain_business_model_id",            default: 0,    null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -1878,18 +1944,25 @@ ActiveRecord::Schema.define(version: 20160309072235) do
   create_table "vehicle_models", force: :cascade do |t|
     t.string   "name"
     t.integer  "vehicle_series_id"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.string   "manufacturing_year"
-    t.decimal  "min_price",          precision: 12, scale: 2
-    t.decimal  "max_price",          precision: 12, scale: 2
+    t.decimal  "min_price",          precision: 12, scale: 2, default: 0.0
+    t.decimal  "max_price",          precision: 12, scale: 2, default: 0.0
   end
 
   create_table "vehicle_plates", force: :cascade do |t|
     t.integer  "store_vehicle_id"
-    t.integer  "store_vehicle_registration_plate_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.integer  "vehicle_registration_plate_id"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "status",                        default: 0
+  end
+
+  create_table "vehicle_registration_plates", force: :cascade do |t|
+    t.string   "license_number", limit: 45, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "vehicle_series", force: :cascade do |t|

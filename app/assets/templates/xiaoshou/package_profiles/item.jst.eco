@@ -1,4 +1,4 @@
-<td class="sequence_num"><%= @package.get 'id' %></td>
+<td class="sequence_num"><%= @view.index + 1 %></td>
 <td><a class='name' href="<%= @view.packageUrl() %>"><%= @package.get 'name' %></a></td>
 <td><%= @package.get 'code' %></td>
 <td><%= @package.validPeriod() %></td>

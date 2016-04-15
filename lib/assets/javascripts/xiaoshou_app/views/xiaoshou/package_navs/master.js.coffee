@@ -8,6 +8,7 @@ class Mis.Views.XiaoshouPackageNavsMaster extends Mis.Base.View
     'click a.setting': 'goToSetting'
     'click a.tracking': 'goToTracking'
     'click a.package': 'goToPackage'
+    'click a.sale': 'goToSale'
 
   initialize: (options) ->
     @active = options.active
@@ -37,3 +38,12 @@ class Mis.Views.XiaoshouPackageNavsMaster extends Mis.Base.View
       @parent.leave()
       view = new Mis.Views.XiaoshouPackageProfilesShow(model: @model)
       $("#bodyContent").html view.render().el
+
+  goToSale: ->
+    unless @model.isNew()
+      self = this
+      @setting.fetch(success: () ->
+        self.parent.leave()
+        view = new Mis.Views.XiaoshouPackageSalesShow(model: self.setting)
+        $("#bodyContent").html view.render().el
+      )
