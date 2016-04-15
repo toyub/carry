@@ -1,0 +1,5 @@
+<%= "\uFEFF" %>商品名称,商品条形码,一级分类,二级分类,规格,单位,成本价,库存数,备注
+<% @store_materials.each_with_index do |material, idx| %>
+"<%= material.name %>","<%= material.barcode %>","<%= material.store_material_root_category.try(:name) %>","<%= material.store_material_category.try(:name) %>","<%= material.speci %>","<%= material.store_material_unit.try(:name) %>","<%= material.cost_price %>","<%= material.inventory %>","<%= material.remark %>"
+
+<% end %>

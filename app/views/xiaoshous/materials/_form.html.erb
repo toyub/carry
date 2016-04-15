@@ -1,0 +1,167 @@
+  <% action_uri = @store_material.new_record? ? kucun_materials_path : kucun_material_path(@store_material) %>
+  <%= form_for(@store_material, url: action_uri, as: :material, html: {id: 'material_form'}) do %>
+  <div class="base_info">
+
+    <div class="goods_img">
+      <div id='material_img_preview' class="goods_main_img"></div>
+      <ul id='material_img_thumbnails' class="goods_small_img">
+        <li id='preview_list'>
+          <% @store_material.uploads.each do |image| %>
+            <img class='cached' src="<%= image.file_url %>">
+          <% end %>
+        </li>
+        <% if @store_material.uploads.length < 5 %>
+        <li data-id='0'><a class='fa fa-plus-square add_img font-30' href="javascript:void(0);"></a></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="car_content materials_info">
+
+        <div class="item_content">
+          <label class="width-75">商品名称</label>
+          <input name='material[name]' type="text" class="width-165 autocomplete" required=true autocomplete='off' placeholder='请输入名称' value="<%= @store_material.name %>">
+        </div>
+        <div class="item_content">
+          <label class="width-75">条形码</label>
+          <input type="text" name='material[barcode]' class="width-165" placeholder='若不填则系统自动生成' value="<%= @store_material.barcode %>">
+        </div>
+        <div class="item_content">
+          <label class="width-75">助记码</label>
+          <input name='material[mnemonic]' type="text" class="width-165" value="<%= @store_material.mnemonic %>">
+        </div>
+        <div class="item_content">
+          <label class="width-75">商品规格</label>
+          <input name='material[speci]' type="text" class="width-165" required=true placeholder='请输入规格' value="<%= @store_material.speci %>">
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">成本价</label>
+          <input name='material[cost_price]' type="text" class="width-165" placeholder="输入成本价会影响平均成本" value="<%= @store_material.cost_price %>" disabled="true">
+        </div>
+        <div class="item_content">
+          <label class="width-75">最低售价</label>
+          <input name='material[min_price]' type="text" class="width-165" required=true value="<%= @store_material.min_price %>" placeholder="请输入最低售价">
+        </div>
+
+        <div class="item_content">
+          <% category = @store_material.store_material_root_category || StoreMaterialCategory.new(name: '请选择') %>
+          <label class="width-75">一级分类</label>
+          <input type="hidden" name='material[store_material_root_category_id]' value="<%= category.id %>">
+          <span id='store_material_root_category_id' class="width-157 as_select" data-select='#material_root_category_select' data-target='input[name="material[store_material_root_category_id]"]'><%= category.name %></span>
+          <div id='material_root_category_select' class="select width-165">
+            <ol class="width-165">
+              <% @store.store_material_categories.super_categories.each do |option| %>
+              <li data-value="<%= option.id %>"><%= option.name %></li>
+              <% end %>
+            </ol>
+            <a class='add_btn width-158' data-method='add_root_category' href="javascript:void(0);">新增</a>
+          </div>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">二级分类</label>
+          <% sub_category = @store_material.store_material_category || StoreMaterialCategory.new(name: '请选择') %>
+          <input type="hidden" name='material[store_material_category_id]' value="<%= sub_category.id %>">
+          <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'><%= sub_category.name %></span>
+          <div id='material_category_select' class="select width-165">
+            <ol class="width-165">
+              <% category.sub_categories.each do |option| %>
+              <li data-value="<%= option.id %>"><%= option.name %></li>
+              <% end %>
+            </ol>
+            <a class='add_btn width-158' data-method='add_category' href="javascript:void(0);">新增</a>
+          </div>
+        </div>
+
+        <div class="item_content">
+          <% unit = @store_material.store_material_unit || StoreMaterialUnit.new(name: '请选择') %>
+          <label class="width-75">商品单位</label>
+          <input type="hidden" name='material[store_material_unit_id]' value="<%= unit.id %>">
+          <span id='store_material_unit_id' class="width-157 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'><%= unit.name %></span>
+          <div id='material_unit_select' class="select width-165">
+            <ol class="width-165">
+              <% @store.store_material_units.each do |option| %>
+              <li data-value="<%= option.id %>"><%= option.name %></li>
+              <% end %>
+            </ol>
+            <a class='add_btn width-158' data-method='add_unit' href="javascript:void(0);">新增</a>
+          </div>
+        </div>
+
+
+        <div class="item_content">
+          <% brand = @store_material.store_material_brand || StoreMaterialBrand.new(name: '请选择') %>
+          <label class="width-75">商品品牌</label>
+          <input name='material[store_material_brand_id]' type="hidden" value="<%= brand.id %>">
+          <span id='store_material_brand_id' class="width-157 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'><%= brand.name %></span>
+          <div id='material_brand_select' class="select width-165">
+            <ol class="width-165">
+              <% @store.store_material_brands.each do |option| %>
+              <li data-value="<%= option.id %>"><%= option.name %></li>
+              <% end %>
+            </ol>
+            <a class='add_btn width-158' data-method='add_brand' href="javascript:void(0);">新增</a>
+          </div>
+        </div>
+        <div class="item_content">
+          <% manufacturer = @store_material.store_material_manufacturer || StoreMaterialManufacturer.new(name: '请选择') %>
+          <label class="width-75">生产单位</label>
+          <input name='material[store_material_manufacturer_id]' type="hidden" value="<%= manufacturer.id %>">
+          <span id='store_material_manufacturer_id' class="width-157 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'><%= manufacturer.name %></span>
+          <div id='material_manufacturer_select' class="select width-165">
+            <ol class="width-165">
+              <% @store.store_material_manufacturers.each do |option| %>
+              <li data-value="<%= option.id %>"><%= option.name %></li>
+              <% end %>
+            </ol>
+            <a class='add_btn width-158' data-method='add_manufacturer' href="javascript:void(0);">新增</a>
+          </div>
+        </div>
+
+
+        <div class="item_content outline item_property text-align-left">
+          <label class="width-49">商品属性</label>
+          <input class="margin-left-15" type="checkbox" value='true' name="material[permitted_to_internal]" <%= "checked='checked'" if @store_material.permitted_to_internal %>><label for="">自用</label>
+          <input class="margin-left-26" type="checkbox" value='true' name="material[permitted_to_saleable]" <%= "checked='checked'" if @store_material.permitted_to_saleable %>><label for="">销售</label>
+        </div>
+
+
+
+        <div class="item_content outline item_inventory margin-left-106">
+          <label class="width-80 font-weight-bold"><input name='material[inventory_alarmify]' <%= "checked data-checked='checked'" if @store_material.inventory_alarmify %> type="checkbox" class='toggleable width-13' data-target='inventory'>库存预警：</label>
+          <div class='display-inline-block width-155 text-align-center'>
+            <label class="width-75">数量上限</label>
+            <input data-id='inventory' name='material[max_inventory]' <%= "disabled=true" unless @store_material.inventory_alarmify %> type="text" class="width-53" required=true min=0.0 step='any' value='<%= @store_material.max_inventory %>'>
+          </div>
+
+          <div class="display-inline-block width-155 text-align-center">
+            <label class="lab_50">数量下限</label>
+            <input data-id='inventory' name='material[min_inventory]' <%= "disabled=true" unless @store_material.inventory_alarmify %> type="text" class="width-53" required=true min=0.0 step='any' value='<%= @store_material.min_inventory %>'>
+          </div>
+        </div>
+
+        <div class="item_content outline shelf_life margin-left-50">
+          <label class="width-75"><input type="checkbox" name='material[expiry_alarmify]' <%= "checked data-checked='checked'" if @store_material.expiry_alarmify %> data-target='shelf_life' class="toggleable width-13">保质期提醒</label>
+          <div class="input_div width-80">
+            <input type="text" data-id='shelf_life' name='material[shelf_life]' <%= "disabled=true" unless @store_material.expiry_alarmify %> class="width-50 border-none " style="border:0px;" required=true value='<%= @store_material.shelf_life %>'>
+            <span>天</span>
+          </div>
+        </div>
+        <div class="item_textarea ">
+          <label class="width-75">商品介绍</label>
+          <textarea name='material[introduction]' class="textarea-width height-120 text-indent-5 width-976"><%= @store_material.introduction %></textarea>
+        </div>
+        <div class="item_textarea ">
+          <label class="width-75 vertical-align-top">备注</label>
+          <textarea name='material[remark]' class="height-120 text-indent-5 width-978" placeholder="输入备注"> <%= @store_material.remark %>  </textarea>
+        </div>
+
+
+    </div>
+  </div>
+  <div class="btn_group">
+    <a class="btn cancel_btn" href='/kucun/materials'>取消</a>
+    <input type='submit' class="btn save_btn" value='保存'>
+  </div>
+  <% end %>

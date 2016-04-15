@@ -1,0 +1,29 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '商品', '销售设置'], "/kucun/materials/") %>
+</div>
+<div class="details">
+  <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
+  <% if @saleinfo.new_record? %>
+    <p class="color-FF2929 border-all text-align-center line-height-25 font-18">请完善商品销售设置，否则商品将无法下单。</p>
+  <% end %>
+  <div class="details_content">
+    <div class="base_info"><%= render 'form' %></div>
+  </div>
+</div>
+<% content_for :scenes do %>
+  <div class="list_new_page_wrap do_create_ticheng_window" style='display:none;' id="commission_tempalte_detail"></div>
+<% end %>
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      var urlRoot = "/kucun/materials/<%= @store_material.id %>/saleinfo";
+      var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
+      handle = new $$MIS.SaleinfoHandleView({urlRoot: urlRoot});
+      handle.store_commission_templates = store_commission_templates;
+      $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
+        $('#commission_tempalte_detail').hide();
+      });
+    });
+  </script>
+<% end -%>

@@ -1,0 +1,44 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '商品', '编辑信息'], "/kucun/materials/") %>
+</div>
+<div class="details">
+  <div class="container_list">
+    <div class="top_content records"></div>
+    <div class="details_nav">
+      <ul>
+        <li class="bg-color-fff"><a href="#" class="width-90">商品信息</a></li>
+        <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">销售设置</a></li>
+        <li class='ext_info'><a href="javascript:void(0);" onclick="alert(this.dataset.alert);" data-alert='请先保存商品信息！' class="width-90">回访</a></li>
+      </ul>
+    </div>
+    <div class="details_content"><%= render 'form' %></div>
+    <input type="hidden" data-material='<%= @store_material.to_json.html_safe %>' id='material_json'>
+  </div>
+</div>
+
+<% content_for :scenes do %>
+  <div id='piccut'>
+    <div class="overlay">
+  		<div class="overlay-inner"></div>
+  	</div>
+  	<div id='arrange'>
+  	  <div id='gallery' class="resize-container"></div>
+  	</div>
+    <div class="btn_group">
+      <input type="file" id='imgfile' size="12" accept="image/jpeg,image/png" />
+      <button class="crop_btn btn-crop js-crop">截图</button>
+      <input class="cancel_btn btn-cancel js-cancel" type="button" value="取消"/>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :javascripts do %>
+<script>
+  jQuery(function($){
+    material = $('#material_json').data('material');
+    v = new $$MIS.NewMaterialView({urlRoot: "/kucun/materials/<%=@store_material.id%>", model: new $$MIS.Material(material)});
+  });
+
+</script>
+<% end %>

@@ -1,0 +1,98 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '商品', '回访设置'], "/kucun/materials/") %>
+</div>
+<div class="details">
+  <div class="content_list">
+    <div class="details_nav">
+        <%= render partial: '/kucun/materials/material_settings_url' %>
+    </div>
+    <div class="details_content">
+      <div class="base_info">
+        <div class="goods_img">
+          <div id='material_img_preview' class="goods_main_img"></div>
+          <ul id='material_img_thumbnails' class="goods_small_img">
+            <li id='preview_list'>
+              <% @store_material.uploads.each do |image| %>
+                <img src="<%= image.file_url %>">
+              <% end %>
+            </li>
+          </ul>
+        </div>
+        <div class=" car_content">
+          <div class="grid-1-2 float-left">
+            <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
+              <colgroup>
+                <col width="50%">
+                <col width="50%">
+              </colgroup>
+              <tbody>
+                <%= render 'basic_info' %>
+                <tr>
+                  <td>
+                    <label class="width-75">回访类型</label>
+                    <% if @tracking.id %>
+                      <input type="hidden" id='tracking_id' value="<%= @tracking.id %>">
+                    <% end %>
+                    <select name='tracking[tracking_mode]' class="width-167" disabled>
+                      <option <%= 'selected' if @tracking.tracking_mode.to_i == 0 %> value="0">没有回访</option>
+                      <option <%= 'selected' if @tracking.tracking_mode.to_i == 1 %> value="1">人工回访</option>
+                      <option <%= 'selected' if @tracking.tracking_mode.to_i == 2 %> value="2">自动回访</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label class="width-75">系统提醒</label>
+                      <label class="width-65 text-align-left"><input type="radio" value=0 <%= 'checked' unless @tracking.reminder_required %> name="tracking[reminder_required]" disabled>关闭</label>
+                      <label class="width-65 text-align-left"><input type="radio" value=1 <%= 'checked' if @tracking.reminder_required %> name="tracking[reminder_required]" disabled>打开</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div  class="grid-1-2 float-left">
+            <div class="visit_list" id='sections'>
+              <div class="top">
+                <h2>回访内容列表</h2>
+                <span class="new_btn btn click_btn margin-top-10 float-right cursor disabled">创建</span>
+              </div>
+              <div class="none_visit_data">
+                <p class="none_visit_p">当前没回访内容</p>
+                <p class="none_details">
+                  你可以先选择回访下拉菜单中的"是"来激活回访列表，然后点击创建来添加配套的回访内容
+                </p>
+              </div>
+              <div class="list">
+                <div class="list_top list_tr">
+                  <ul>
+                    <li class="margin-left-2">#</li>
+                    <li>内容</li>
+                    <li>间隔时间</li>
+                    <li>方式</li>
+                  </ul>
+                </div>
+                <div id="lists" class="list_contents"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn_group">
+        <a href='<%= edit_kucun_material_tracking_path(@store_material) %>' class="btn edit_btn">编辑</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+
+  <script type="text/javascript">
+    jQuery(function($) {
+      var urlRoot = '/kucun/materials/<%= @store_material.id %>/tracking';
+      handle =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot});
+    });
+  </script>
+
+<% end %>

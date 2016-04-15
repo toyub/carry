@@ -1,0 +1,229 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '商品', '销售设置'], "/kucun/materials/") %>
+</div>
+<div class="details">
+  <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
+  <div class="details_content">
+    <div class="base_info">
+      <%= form_tag kucun_material_saleinfo_path(@store_material), id: 'saleinfo_form' do %>
+        <% if @saleinfo.id %>
+          <input type="hidden" name="saleinfo[id]" value="<%= @saleinfo.id %>">
+        <% end %>
+        <div class="base_info">
+          <div class="goods_img">
+            <div id='material_img_preview' class="goods_main_img"></div>
+            <ul id='material_img_thumbnails' class="goods_small_img">
+              <li id='preview_list'>
+                <% @store_material.uploads.each do |image| %>
+                  <img src="<%= image.file_url %>">
+                <% end %>
+              </li>
+            </ul>
+          </div>
+          <div class=" car_content">
+            <div class="float-left grid-1-2">
+              <table cellpadding="0" cellspacing="0" width="100%" class="car_info">
+                <tbody>
+                  <tr>
+                    <td>
+                      <label class="width-75">商品名称</label>
+                      <input type="text" class="width-165" value="<%= @store_material.name %>" readonly disabled/>
+                    </td>
+                    <td>
+                      <label class="width-75">规格</label>
+                      <input type="text" class="width-165" value="<%= @store_material.speci %>" readonly disabled/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="width-75">商品积分</label>
+                      <input num int un type="text" class="width-165" name="saleinfo[reward_points]" autocomplete="off" value="<%= @saleinfo.reward_points %>" disabled>
+                    </td>
+                    <td>
+                      <label class="width-75">销售分类</label>
+                      <select name="saleinfo[sale_category_id]" class="width-165" disabled>
+                        <%= options_from_collection_for_select(@sale_categories, :id, :name, @saleinfo.sale_category_id) %>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="width-75">最低售价</label>
+                      <input type="text" num un class="width-165" value="<%= @store_material.min_price  %>" readonly disabled/>
+                    </td>
+                    <td>
+                      <label class="width-75">零售价</label>
+                      <input type="text" num un class="width-165 normal-price required" name="saleinfo[retail_price]" required="true" autocomplete="off" value="<%= @saleinfo.retail_price if !@saleinfo.divide_to_retail %>" disabled >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="width-75 display-inline-block text-align-right">
+                        <input type="checkbox" name='saleinfo[bargainable]' <%= 'checked' if @saleinfo.bargainable && !@saleinfo.divide_to_retail %>  class="toggleable width-13 normal-price" data-target="bargain" data-checked='<%="checked" if @saleinfo.bargainable && !@saleinfo.divide_to_retail %>' disabled >
+                        优惠价
+                      </span>
+                      <input type="text" num un class="width-165 normal-price" data-id="bargain" name='saleinfo[bargain_price]' <%= 'disabled="disabled"' unless @saleinfo.bargainable %> required="true" autocomplete="off" value='<%= @saleinfo.bargain_price if !@saleinfo.divide_to_retail %>' disabled >
+                    </td>
+                    <td>
+                      <label class="width-75">批发价</label>
+                      <input type="text" num un class="width-165 normal-price required" name="saleinfo[trade_price]" autocomplete="off" value="<%= @saleinfo.trade_price if !@saleinfo.divide_to_retail %>"  disabled >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="width-100 display-inline-block text-align-right">
+                        <input type="checkbox" name='saleinfo[vip_price_enabled]' class="width-13 normal-price" <%= 'checked' if @saleinfo.vip_price_enabled && !@saleinfo.divide_to_retail %> disabled >
+                        开启会员价
+                      </span>
+                    </td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <fieldset class="width-490 margin-left-26">
+                        <legend class="margin-left-10">
+                          <input type="checkbox" id='divide_toggle' name="saleinfo[divide_to_retail]" <%= 'checked' if  @saleinfo.divide_to_retail %> disabled>
+                          <label>此商品拆分销售</label>
+                        </legend>
+
+                        <div class="float-left">
+                          <label class="width-75">总量</label>
+                          <input type="text" num un min=0 name='saleinfo[divide_total_volume]' class="width-160 divide-price required" required="true" value="<%= @saleinfo.divide_total_volume if  @saleinfo.divide_to_retail %>" disabled >
+                        </div>
+                        <div class="float-left">
+                          <label class="width-75">拆分单位</label>
+                          <select class="width-160 divide-price required" name='saleinfo[divide_unit_type_id]' required="true" disabled >
+                            <%= options_from_collection_for_select(MaterialDivideUnitType.collection, :id, :name, @saleinfo.divide_unit_type_id) %>
+                          </select>
+                        </div>
+                        <div class="float-left">
+                          <label class="width-75">单次用量</label>
+                          <input type="text" num un min=0 name='saleinfo[divide_volume_per_bill]' class="width-100 divide-price required" required="true" value="<%= @saleinfo.divide_volume_per_bill if  @saleinfo.divide_to_retail %>"  disabled >
+                          <span id='divide_unit' class="display-inline-block width-57"><%= @saleinfo.divide_unit_type %></span>
+                        </div>
+
+                        <div class="float-left">
+                          <label class="width-75">零售价</label>
+                          <input type="text" num un name='saleinfo[retail_price]' class="width-160 divide-price required" value="<%= @saleinfo.retail_price if  @saleinfo.divide_to_retail %>" required="true" disabled >
+                        </div>
+
+                        <div class="float-left">
+                          <span class="width-75 display-inline-block text-align-right">
+                            <input type="checkbox" data-target='dividebargain' name="saleinfo[bargainable]"  class="toggleable width-13 divide-price" <%= 'checked' if @saleinfo.bargainable && @saleinfo.divide_to_retail %> data-checked='<%="checked" if @saleinfo.bargainable && @saleinfo.divide_to_retail %>' disabled>
+                            优惠价
+                          </span>
+                          <input type="text" num un name='saleinfo[bargain_price]' class="width-160 divide-price" data-id='dividebargain' required="true" value='<%= @saleinfo.bargain_price if @saleinfo.divide_to_retail %>' disabled >
+                        </div>
+
+                        <div class="float-left">
+                          <span class="width-100 display-inline-block text-align-right">
+                            <input type="checkbox" name="saleinfo[vip_price_enabled]" class="width-13 divide-price" <%= 'checked' if @saleinfo.vip_price_enabled && @saleinfo.divide_to_retail %> disabled>
+                            启用会员价
+                          </span>
+                        </div>
+
+                        <div class="float-left">
+                          <label class="width-75">批发价</label>
+                          <input type="text" num un name='saleinfo[trade_price]' class="width-160 divide-price required" value="<%= @saleinfo.trade_price if @saleinfo.divide_to_retail %>" disabled >
+                        </div>
+                      </fieldset>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <fieldset class="width-490 margin-left-26">
+                        <legend class="margin-left-10">
+                          <label>
+                            <input type="checkbox" name='saleinfo[service_needed]' <%= 'checked' if @saleinfo.service_needed %> class="toggleable" data-target="service_needed"  data-checked='<%= "checked" if @saleinfo.service_needed %>' disabled>
+                            需要施工</label>
+                        </legend>
+                        <div class="float-left margin-left-20">
+                          <label class="width-75 text-align-left margin-left-10">
+                            <input type="radio" class="width-15" <%= 'checked' unless @saleinfo.service_fee_needed %> name="saleinfo[service_fee_needed]" value='0' data-id="service_needed" disabled >包含施工费
+                          </label>
+                        </div>
+                        <div class="float-left">
+                          <label class="width-75  margin-left-26">
+                            <input type="radio" class="width-15" <%= 'checked' if @saleinfo.service_fee_needed %> name="saleinfo[service_fee_needed]" value='1' data-id="service_needed" <%= 'disabled' unless @saleinfo.service_needed%> data-target="service_fee" data-checked="<%= 'checked' if @saleinfo.service_fee_needed %>" disabled>另计施工费
+                          </label>
+                          <input type="text" num un class="width-165" data-id="service_fee" name='saleinfo[service_fee]' <%= 'disabled' unless @saleinfo.service_fee_needed %> required="true" value='<%= @saleinfo.service_fee %>' disabled>
+                        </div>
+                      </fieldset>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="2">
+                      <fieldset class="width-490 margin-left-26">
+                        <legend class="margin-left-10">
+                          <label>销售提成</label>
+                        </legend>
+                        <div class="commission_scheme">
+                          <label class="width-100">选择提成方案：</label>
+                          <select class="width-235" name='saleinfo[saleman_commission_template_id]' disabled>
+                            <option value=""></option>
+                            <% @store_commission_templates.each do |opt| %>
+                              <option <%= 'selected' if opt.id == @saleinfo.saleman_commission_template_id %> data-template='<%= json_for(opt, root:false) %>' value="<%= opt.id %>"><%= opt.name %></option>
+                            <% end %>
+                          </select>
+                        </div>
+                      </fieldset>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+            </div>
+
+            <div  class="grid-1-2 float-left">
+              <div class="server_list" >
+                <div class="top">
+                  <h2>服务项目列表</h2>
+                  <span class="new_btn btn margin-top-10 float-right click_btn cursor disabled" id="add_server_btn" data-id="service_needed">创建</span>
+                </div>
+                <div class="none_server_data">
+                  <p class="none_server_p">当前没有配套服务</p>
+                  <p class="none_details">你可以先选择"需要施工"来激活服务列表，然后点击创建来添加配套的服务项目</p>
+                </div>
+                <div id='services' class="list" style="<%= 'display:block' if @saleinfo.services.present? %>">
+                  <div class="list_top">
+                    <ul>
+                      <li>#</li>
+                      <li>名称</li>
+                      <li>次数</li>
+                      <li>施工时间</li>
+                      <li>技师</li>
+                    </ul>
+                  </div>
+                  <div id="lists" class="list_contents"></div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="btn_group">
+            <%= link_to "编辑", edit_kucun_material_saleinfo_path(@store_material), class: "btn edit_btn" %>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      var urlRoot = "/kucun/materials/<%= @store_material.id %>/saleinfo";
+      var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
+      handle = new $$MIS.SaleinfoHandleView({urlRoot: urlRoot});
+      handle.store_commission_templates = store_commission_templates;
+      $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
+        $('#commission_tempalte_detail').hide();
+      });
+    });
+  </script>
+<% end -%>

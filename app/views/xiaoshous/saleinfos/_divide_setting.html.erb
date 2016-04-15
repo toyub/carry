@@ -1,0 +1,53 @@
+<% divided = @saleinfo.divide_to_retail %>
+<% disabled = divided ? '' : 'disabled' %>
+<tr>
+    <td colspan="2">
+      <fieldset class="width-490 margin-left-26">
+        <legend class="margin-left-10">
+          <input type="checkbox" id='divide_toggle' name="saleinfo[divide_to_retail]" <%= 'checked' if  divided %> >
+          <label>此商品拆分销售</label>
+        </legend>
+
+        <div class="float-left">
+          <label class="width-75">总量</label>
+          <input type="text" num un min=0 name='saleinfo[divide_total_volume]' class="width-160 divide-price required" required="true" value="<%= @saleinfo.divide_total_volume if divided %>" <%= disabled %> >
+        </div>
+        <div class="float-left">
+          <label class="width-75">拆分单位</label>
+          <select class="width-160 divide-price required" name='saleinfo[divide_unit_type_id]' required="true" <%= disabled %> >
+            <%= options_from_collection_for_select(MaterialDivideUnitType.collection, :id, :name, @saleinfo.divide_unit_type_id) %>
+          </select>
+        </div>
+        <div class="float-left">
+          <label class="width-75">单次用量</label>
+          <input type="text" num un min=0 name='saleinfo[divide_volume_per_bill]' class="width-100 divide-price required" required="true" value="<%= @saleinfo.divide_volume_per_bill if divided %>" <%= disabled %> >
+          <span id='divide_unit' class="display-inline-block width-57"><%= @saleinfo.divide_unit_type %></span>
+        </div>
+
+        <div class="float-left">
+          <label class="width-75">零售价</label>
+          <input type="text" num un name='saleinfo[retail_price]' class="width-160 divide-price required" value="<%= @saleinfo.retail_price if divided %>" required="true" <%= disabled %> >
+        </div>
+
+        <div class="float-left">
+          <span class="width-75 display-inline-block text-align-right">
+            <input type="checkbox" data-target='dividebargain' name="saleinfo[bargainable]"  class="toggleable width-13 divide-price" <%= 'checked' if @saleinfo.bargainable && divided %> <%= disabled %> data-checked='<%="checked" if @saleinfo.bargainable && divided %>'>
+            优惠价
+          </span>
+          <input type="text" num un name='saleinfo[bargain_price]' class="width-160 divide-price" data-id='dividebargain' required="true" value='<%= @saleinfo.bargain_price if divided %>' <%= 'disabled' if !divided || !@saleinfo.bargainable %> >
+        </div>
+
+        <div class="float-left">
+          <span class="width-100 display-inline-block text-align-right">
+            <input type="checkbox" name="saleinfo[vip_price_enabled]" class="width-13 divide-price" <%= 'checked' if @saleinfo.vip_price_enabled && divided %>  <%= disabled %>>
+            启用会员价
+          </span>
+        </div>
+
+        <div class="float-left">
+          <label class="width-75">批发价</label>
+          <input type="text" num un name='saleinfo[trade_price]' class="width-160 divide-price required" value="<%= @saleinfo.trade_price if divided %>" <%= disabled %> >
+        </div>
+      </fieldset>
+    </td>
+  </tr>
