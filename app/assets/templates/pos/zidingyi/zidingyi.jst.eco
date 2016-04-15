@@ -1,0 +1,42 @@
+
+<table>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>名称</th>
+			<th>规格</th>
+			<th>单位</th>
+			<th>销售类别</th>
+			<th>数量</th>
+			<th>零售价</th>
+			<th>小计</th>
+		</tr>
+		<tbody class="list-new-material">
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td><i class="fa fa-plus new-material"></i></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>数量合计:</td>
+				<td><span>8</span></td>
+				<td>金额合计:</td>
+				<td><span>2979.00</span></td>
+			</tr>
+		</tfoot>
+	</thead>
+</table>
+<div class="btn_group margin-right-20">
+	<a class="save_btn btn" href="javascript:void(0)">提交</a>
+</div>

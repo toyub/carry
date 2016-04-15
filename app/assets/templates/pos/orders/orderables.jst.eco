@@ -4,7 +4,7 @@
     <li id='js-show-orderable-services'  data-target=".js-orderables-services">服务</li>
     <li id='js-show-orderable-packages'  data-target=".js-orderables-packages">套餐</li>
     <li id='js-show-orderable-assets'    data-target='.js-orderables-assets'>客户资产</li>
-    <li id='js-show-add-materials'       data-target='.js-add-materials'>自定义</li>
+    <li id='js-show-zidingyi'            data-target='.js-zidingyi'>自定义</li>
   </ul>
 </div>
 
@@ -101,58 +101,4 @@
 </div>
 
 <div class="order_item order_custom add_material js-add-materials" data-id="custom">
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>名称</th>
-        <th>规格</th>
-        <th>单位</th>
-        <th>销售类别</th>
-        <th>数量</th>
-        <th>零售价</th>
-        <th>小计</th>
-      </tr>
-      <tbody class="list-new-material">
-
-        <tr>
-          <td class="number">1</td>
-          <td><span>气门油封</span></td>
-          <td><span>EA888发动机专用</span></td>
-          <td><span>套</span></td>
-          <td>
-            <select>
-              <option>汽车配件</option>
-              <option></option>
-            </select>
-          </td>
-          <td><span>1</span></td>
-          <td><span>230.00</span></td>
-          <td><span>230.00</span></td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td></td>
-          <td><i class="fa fa-plus new-material"></i></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>数量合计:</td>
-          <td><span>8</span></td>
-          <td>金额合计:</td>
-          <td><span>2979.00</span></td>
-        </tr>
-      </tfoot>
-    </thead>
-  </table>
 </div>

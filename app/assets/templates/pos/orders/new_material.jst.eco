@@ -1,15 +1,15 @@
 <tr>
-	<td class="number">1</td>
-	<td><span><input type="text" name="name" id="" value=""> </span></td>
-	<td><span><input type="text" name="spci" id="" value="EA888发动机专用"></span></td>
-	<td><span><input type="text" name="unit" id="" value=""> </span></td>
-	<td>
-		<select>
-			<option>汽车配件</option>
-			<option>其他</option>
-		</select>
-	</td>
-	<td><span><input type="number" name="quantity" id="" value=""> </span></td>
-	<td><span><input type="number" name="retail_price" id="" value=""> </span></td>
-	<td><span><input type="number" name="amount" id="" value=""> </span></td>
+  <td class="number">1</td>
+  <td><span><input type="text" name="name" id="" class="width-150" value=""> </span></td>
+  <td><span><input type="text" name="spci" id="" class="width-140" value=""></span></td>
+  <td><span><input type="text" name="unit" id="" class="width-35" value=""> </span></td>
+  <td>
+    <select>
+      <option>汽车配件</option>
+      <option>其他</option>
+    </select>
+  </td>
+  <td><span><input type="number" name="quantity" id="" class="width-35" value=""> </span></td>
+  <td><input type="number" name="retail_price" id="" class="width-50" value=""> </span></td>
+  <td><span><input type="number" name="amount" id="" class="width-50" value=""> </span></td>
 </tr>
