@@ -1,6 +1,6 @@
 class StoreMaterialSaleinfoService < ActiveRecord::Base
   include BaseModel
-  
+
   belongs_to :store_material
   belongs_to :store_material_saleinfo
   belongs_to :mechanic_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'mechanic_commission_template_id'
@@ -8,7 +8,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
   has_many :store_order_items, as: :orderable
   has_many :store_staff_tasks, as: :taskable
 
-  default_scope {order('id asc')}
+  scope :available, ->{where(deleted: false)}
 
   scope :has_deleted, ->{where(deleted: true)}
   scope :not_deleted, ->{where(deleted: false)}
@@ -27,7 +27,7 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
       :store_id,
       :store_chain_id,
       :store_staff_id,
-      :name,
+      :name
     ).merge(
       store_vehicle_id: order_item.store_order.store_vehicle_id,
       store_order_item_id: order_item.id,
