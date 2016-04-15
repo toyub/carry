@@ -1,0 +1,15 @@
+<tr>
+	<td class="number">1</td>
+	<td><span><input type="text" name="name" id="" value=""> </span></td>
+	<td><span><input type="text" name="spci" id="" value="EA888发动机专用"></span></td>
+	<td><span><input type="text" name="unit" id="" value=""> </span></td>
+	<td>
+		<select>
+			<option>汽车配件</option>
+			<option>其他</option>
+		</select>
+	</td>
+	<td><span><input type="number" name="quantity" id="" value=""> </span></td>
+	<td><span><input type="number" name="retail_price" id="" value=""> </span></td>
+	<td><span><input type="number" name="amount" id="" value=""> </span></td>
+</tr>
