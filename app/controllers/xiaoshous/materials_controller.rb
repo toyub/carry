@@ -74,7 +74,8 @@ module Xiaoshous
     end
 
     def set_material
-      @store_material = current_store.store_material_saleinfos.find(params[:id])
+      @store_material = current_store.store_materials.find(params[:id])
+      # @store_material = @store_material_saleinfo.store_material
     end
 
     def get_type

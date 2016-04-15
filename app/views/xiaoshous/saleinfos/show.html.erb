@@ -3,7 +3,7 @@
   <%= breadcrumb_navigation(['库存', '商品', '销售设置'], "/kucun/materials/") %>
 </div>
 <div class="details">
-  <div class="details_nav"><%= render partial: 'kucun/materials/material_settings_url' %></div>
+  <div class="details_nav"><%= render partial: 'xiaoshous/materials/material_settings_url' %></div>
   <div class="details_content">
     <div class="base_info">
       <%= form_tag kucun_material_saleinfo_path(@store_material), id: 'saleinfo_form' do %>
