@@ -1,6 +1,10 @@
 
 <div class="main_top">
-  <%= breadcrumb_navigation(['库存', '商品列表']) %>
+  <% if @type %>
+    <%= breadcrumb_navigation(['库存', '商品列表']) %>
+  <% else %>
+    <%= breadcrumb_navigation(['销售商品', '商品列表']) %>
+  <% end %>
 </div>
 <div class="details">
 
@@ -41,7 +45,7 @@
           <td><%= material.cost_price %></td>
           <td><%= material.inventory %></td>
           <td><%= material.remark %></td>
-          <td><a href='<%= kucun_material_path(material) %>' class="operate_icon"><i class="fa fa-file-text-o "></i></a></td>
+          <td><a href='<%= kucun_material_path(material, type: @type) %>' class="operate_icon"><i class="fa fa-file-text-o "></i></a></td>
         </tr>
         <% end %>
       </tbody>

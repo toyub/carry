@@ -1,6 +1,6 @@
 class Kucun::MaterialsController < Kucun::BaseController
   include Uploadable
-
+  before_action :get_type, only:[:index]
   before_filter :set_material, only: [:show, :edit]
 
   def index
@@ -79,5 +79,9 @@ class Kucun::MaterialsController < Kucun::BaseController
 
   def set_material
     @store_material = current_store.store_materials.find(params[:id])
+  end
+
+  def get_type
+    @type = params[:type] if params[:type]
   end
 end
