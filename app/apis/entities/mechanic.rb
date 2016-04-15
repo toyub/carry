@@ -18,5 +18,11 @@ module Entities
   class Mechanic < Grape::Entity
     expose :full_name, :phone_number
     expose :store_staff_tasks, using: StoreStaffTask
+    expose :status
+
+    private
+    def status
+      1
+    end
   end
 end
