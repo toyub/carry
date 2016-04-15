@@ -487,6 +487,10 @@
 				border: 1px solid #e0e0e0;
 				table{
 					thead{
+            tr {
+              height: 42px;
+              border-bottom: 1px solid #e0e0e0;
+            }
 						th{
 							&:nth-child(1){width:4.94%;}
 							&:nth-child(2){width:24.26%;}
@@ -501,6 +505,8 @@
 
 					tbody{
 						tr{
+              height: 30px;
+              border-bottom: 1px solid #d3d3d3;
 							&:nth-child(2n){background: #D8E4D4;}
 							td{
 								border-right: 1px solid #CACCCA;
