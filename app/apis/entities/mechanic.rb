@@ -8,6 +8,9 @@ module Entities
            :store_service_workflow_id, :store_workstation_id, :store_service_setting_id,
            :used_time, :finished
     expose :mechanics, using: MechanicOfWorkflowSnapshot
+    expose(:service_name) {|model|model.store_service.name}
+    expose :store_workstation
+    expose(:license_number) {|model|model.store_order.store_vehicle.license_number}
   end
 
   class StoreStaffTask < Grape::Entity
