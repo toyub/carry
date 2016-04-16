@@ -18,7 +18,6 @@ class AddVehicleService
     begin
       ActiveRecord::Base.transaction do
         create_vehicle
-        Status.new(success: true, notice: '创建成功', customer: @customer, vehicle: @vehicle)
       end
     rescue => e
       Rails.logger.info e
@@ -34,6 +33,7 @@ class AddVehicleService
       @vehicle = @chain.store_vehicles.regular_chain_mode.find_by(license_number: @vehicle_params[:license_number])
       if @vehicle.present?
         @customer = @vehicle.store_customer
+        Status.new(success: true, notice: "车牌号为 #{@vehicle.license_number} 的车辆已经存在", customer: @customer, vehicle: @vehicle)
       else
         create_regular_vehicle
       end
@@ -52,10 +52,12 @@ class AddVehicleService
   def create_regular_vehicle
     find_or_create_customer
     @vehicle = @customer.store_vehicles.create!(@vehicle_params)
+    Status.new(success: true, notice: "车辆创建成功,车牌保存为: #{@vehicle.license_number}", customer: @customer, vehicle: @vehicle)
   end
 
   def create_provisional_vehicle
     find_or_create_customer
     @vehicle = @customer.store_vehicles.create!(@vehicle_params.merge(license_number: '暂无牌照'))
+    Status.new(success: true, notice: '车辆创建成功,车辆暂无牌照', customer: @customer, vehicle: @vehicle)
   end
 end
