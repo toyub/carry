@@ -1,9 +1,9 @@
 <div class="main_top">
-  <%= breadcrumb_navigation(['库存商品', '记录'], "/xiaoshous/materials/") %>
+  <%= breadcrumb_navigation(['销售商品', '记录'], "/mkis/materials/") %>
 </div>
 
 <div class="details">
-  <div class="details_nav"><%= render partial: 'xiaoshous/materials/material_settings_url' %></div>
+  <div class="details_nav"><%= render partial: 'mkis/materials/material_settings_url' %></div>
   <div class="details_content">
     <table cellpadding="0" cellspacing="0" class="sales_notes_top_tab">
       <colgroup>
@@ -62,7 +62,7 @@
           <div class="list_tr list_content">
             <ul>
               <li><%= idx + 1 %>.</li>
-              <li><%= item.store_order.try :created_at.try(:to_s, :date_with_short_time) %></li>
+              <li><%= item.store_order.created_at.to_s(:date_with_short_time) %></li>
               <li><%= item.store_order.numero  %></li>
               <li><%= item.retail_price %></li>
               <li><%= item.price %></li>
