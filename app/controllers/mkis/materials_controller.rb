@@ -1,4 +1,4 @@
-module Xiaoshous
+module Mkis
   class MaterialsController < BaseController
     include Uploadable
     before_action :get_type, only:[:index]
@@ -75,7 +75,6 @@ module Xiaoshous
 
     def set_material
       @store_material = current_store.store_materials.find(params[:id])
-      # @store_material = @store_material_saleinfo.store_material
     end
 
     def get_type

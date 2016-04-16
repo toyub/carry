@@ -1,4 +1,4 @@
-class Xiaoshous::SaleinfosController < Xiaoshous::BaseController
+class Mkis::SaleinfosController < Mkis::BaseController
   before_action :set_material_info, only: [:show, :edit]
 
   def create

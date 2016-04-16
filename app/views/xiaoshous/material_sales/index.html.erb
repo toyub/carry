@@ -62,7 +62,7 @@
           <div class="list_tr list_content">
             <ul>
               <li><%= idx + 1 %>.</li>
-              <li><%= item.store_order.created_at.to_s(:date_with_short_time) %></li>
+              <li><%= item.store_order.try :created_at.try(:to_s, :date_with_short_time) %></li>
               <li><%= item.store_order.numero  %></li>
               <li><%= item.retail_price %></li>
               <li><%= item.price %></li>

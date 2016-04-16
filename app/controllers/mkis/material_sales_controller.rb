@@ -1,4 +1,4 @@
-module Xiaoshous
+module Mkis
   class MaterialSalesController < BaseController
     def index
       @store_material = current_store.store_materials.find(params[:material_id])

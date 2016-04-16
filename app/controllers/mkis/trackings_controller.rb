@@ -1,4 +1,4 @@
-class Xiaoshous::TrackingsController < Xiaoshous::BaseController
+class Mkis::TrackingsController < Mkis::BaseController
   def create
     store = current_store
     store_material = store.store_materials.find(params[:material_id])
