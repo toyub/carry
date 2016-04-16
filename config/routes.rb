@@ -82,7 +82,7 @@ Rails.application.routes.draw do
 
   get "xiaoshou/main", to:  "xiaoshou#main"
 
-  namespace :xiaoshous do
+  namespace :mkis do
     resources :materials do
       collection do
         get :autocomplete_name
