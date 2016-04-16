@@ -438,6 +438,11 @@ Rails.application.routes.draw do
       namespace :cashier do
         resources :orders
       end
+
+      namespace :zidingyi do
+        resources :store_materials
+      end
+
     end
 
     namespace :crm do

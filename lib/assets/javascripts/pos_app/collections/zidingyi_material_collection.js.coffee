@@ -1,5 +1,10 @@
-class Mis.ZidingYiMaterial extends Backbone.Model
+class Mis.ZidingYiMaterialModel extends Backbone.Model
+
+  urlRoot: '/api/pos/zidingyi/store_materials'
 
 class Mis.ZiDingYiMaterialCollection extends Backbone.Collection
-	model: Mis.ZidingYiMaterial
+
+  url: '/api/pos/zidingyi/store_materials'
+
+	model: Mis.ZidingYiMaterialModel
 
