@@ -1,4 +1,4 @@
-  <%= form_tag kucun_material_saleinfo_path(@store_material), id: 'saleinfo_form' do %>
+  <%= form_tag mkis_material_saleinfo_path(@store_material), id: 'saleinfo_form' do %>
       <% if @saleinfo.id %>
       <input type="hidden" name="saleinfo[id]" value="<%= @saleinfo.id %>">
       <% end %>
@@ -118,9 +118,9 @@
         </div>
         <div class="btn_group">
           <% if @saleinfo.new_record? %>
-            <a href='<%= edit_kucun_material_path(@store_material) %>' class="btn cancel_btn">返回上一步</a>
+            <a href='<%= edit_mkis_material_path(@store_material) %>' class="btn cancel_btn">返回上一步</a>
           <% else %>
-            <a href='<%= kucun_material_saleinfo_path(@store_material) %>' class="btn cancel_btn">取消</a>
+            <a href='<%= mkis_material_saleinfo_path(@store_material) %>' class="btn cancel_btn">取消</a>
           <% end %>
           <input type="submit" class="save_btn btn" value="保存">
         </div>

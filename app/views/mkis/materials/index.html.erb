@@ -26,7 +26,7 @@
         <% @store_materials.each_with_index do |material, idx| %>
         <tr>
           <td class="number"><%= idx + 1 %></td>
-          <td title="<%= material.name %>"><a href="<%= mkis_material_path(material.store_material) %>"><%= material.name.truncate(11) %></a></td>
+          <td title="<%= material.name %>"><a href="<%= mkis_material_saleinfo_path(material.store_material) %>"><%= material.name.truncate(11) %></a></td>
           <td><%= material.barcode %></td>
           <td><%= material.store_material.store_material_root_category.try(:name) %></td>
           <td><%= material.store_material.store_material_category.try(:name) %></td>
@@ -34,7 +34,7 @@
           <td><%= material.store_material.store_material_unit.try(:name) %></td>
           <td><%= material.inventory %></td>
           <td><%= material.store_material.remark %></td>
-          <td><a href='<%= mkis_material_path(material.store_material) %>' class="operate_icon"><i class="fa fa-file-text-o "></i></a></td>
+          <td><a href='<%= mkis_material_saleinfo_path(material.store_material) %>' class="operate_icon"><i class="fa fa-file-text-o "></i></a></td>
         </tr>
         <% end %>
       </tbody>

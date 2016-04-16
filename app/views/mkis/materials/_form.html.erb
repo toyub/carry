@@ -1,4 +1,4 @@
-  <% action_uri = @store_material.new_record? ? kucun_materials_path : kucun_material_path(@store_material) %>
+  <% action_uri = @store_material.new_record? ? mkis_materials_path : mkis_material_path(@store_material) %>
   <%= form_for(@store_material, url: action_uri, as: :material, html: {id: 'material_form'}) do %>
   <div class="base_info">
 
@@ -161,7 +161,7 @@
     </div>
   </div>
   <div class="btn_group">
-    <a class="btn cancel_btn" href='/kucun/materials'>取消</a>
+    <a class="btn cancel_btn" href='/mkis/materials'>取消</a>
     <input type='submit' class="btn save_btn" value='保存'>
   </div>
   <% end %>
