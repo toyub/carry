@@ -43,6 +43,7 @@ module Mkis
       store = current_store
       store_material = store.store_materials.find(params[:id])
       store_material.update!(material_params)
+      # redirect_to mkis_material_saleinfo_path(store_material)
       render json: store_material, root: nil
     end
 
