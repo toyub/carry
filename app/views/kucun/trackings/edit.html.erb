@@ -92,7 +92,8 @@
   <script type="text/javascript">
     jQuery(function($) {
       var urlRoot = '/kucun/materials/<%= @store_material.id %>/tracking';
-      handle =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot});
+      var redirectUrlRoot = '/kucun'
+      handle =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot, redirectUrlRoot: redirectUrlRoot});
     });
   </script>
 
