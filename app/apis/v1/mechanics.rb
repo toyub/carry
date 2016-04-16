@@ -33,9 +33,9 @@ module V1
       put do
         if task = current_user.store_staff_tasks.where(id: params[:id]).last
           task.busy!
-          {status: 1}
+          {status: true, message: '上岗成功！'}
         else
-          {status: 0}
+          {status: false, message: '上岗失败!'}
         end
       end
     end
