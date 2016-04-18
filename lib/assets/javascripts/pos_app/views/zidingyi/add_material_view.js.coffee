@@ -4,6 +4,6 @@ class Mis.addMaterialView extends Backbone.View
 	tagName: "tr"
 
 	render: ->
-		@$el.html(@template(@model))
+		@$el.html(@template(@model.toJSON() ))
 		@
 

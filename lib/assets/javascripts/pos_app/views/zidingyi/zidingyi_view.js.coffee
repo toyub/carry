@@ -3,8 +3,8 @@ class Mis.ziDingYiView extends Backbone.View
 	el: ".order_custom"
 
 	initialize: ->
-		@collection = new Mis.ZiDingYiMaterialCollection()
-		@listenTo(@collection, "add", @add_material_view)
+		@collection = new Mis.Collections.ZiDingYiMaterialCollection()
+		@listenTo(@collection, "add", @addMaterialView)
 		@render()
 
 	events: 
@@ -19,7 +19,7 @@ class Mis.ziDingYiView extends Backbone.View
   newMaterial: ->
   	@collection.add({})
 
-  add_material_view: (model) ->
-  	@view = new Mis.addMaterialView({model: model})
-  	$(".list-new-material").append(@view.render().el)
+  addMaterialView: (model) ->
+    view = new Mis.addMaterialView(model: model)
+    $(".list-new-material").append(view.render().el)
 
