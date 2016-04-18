@@ -38,5 +38,5 @@
 	</thead>
 </table>
 <div class="btn_group margin-right-20">
-	<a class="save_btn btn" href="javascript:void(0)">提交</a>
+	<a class="save_btn btn save-once" href="javascript:void(0)">提交</a>
 </div>

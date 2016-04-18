@@ -9,6 +9,7 @@ class Mis.ziDingYiView extends Backbone.View
 
 	events: 
 		'click .new-material': 'newMaterial'
+		'click .save-once': 'saveOnce'
 
 	render: ->
 		 @$el.html(@template())
@@ -23,3 +24,5 @@ class Mis.ziDingYiView extends Backbone.View
     view = new Mis.addMaterialView(model: model)
     $(".list-new-material").append(view.render().el)
 
+  saveOnce: ->
+    @collection.saveAll()
