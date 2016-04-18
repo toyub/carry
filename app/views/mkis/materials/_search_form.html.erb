@@ -1,42 +1,26 @@
 <div class="item-query">
   <label>查找产品</label>
-  <input class="width-150" name="q[store_material_name_count]" placeholder="输入产品关键字" type="text" value="<%= params[:keyword] %>">
+  <input class="width-150" name="q[store_material_name_cont]" placeholder="输入产品关键字" type="text" value="<%= params[:q][:store_material_name_cont] %>">
 </div>
 
 <div class="item-query">
   <label>一级分类</label>
-  <!-- <select id='root_category' type="text" class="width-150" name='q[store_material_store_material_root_category_id_eq]'>
-    <option value=""></option>
-    <% @store.store_material_categories.super_categories.each do |category| %>
-      <option <%= 'selected="selected"' if category.id == params[:root_category_id].to_i %> value="<%= category.id %>"><%= category.name %></option>
-    <% end %>
-  </select> -->
-
   <%= select_tag 'q[store_material_store_material_root_category_id_eq]',
-      options_for_select(@root_categories, @root_category_id), include_blank: '', class: 'width-150' %>
+      options_for_select(@root_categories, @root_category_id),
+      include_blank: '', class: 'width-150', id: 'root_category' %>
 </div>
 
 <div class="item-query">
   <label>二级分类</label>
-
-  <select id='sub_category' type="text" class="width-150" name='q[store_material_store_material_category_id_eq]'>
-    <option></option>
-    <% if @root_category.present? %>
-      <% @root_category.sub_categories.each do |category| %>
-        <option <%= 'selected="selected"' if category.id == params[:q][:store_material_store_material_category_id_eq].to_i %>
-                value="<%= category.id %>"><%= category.name %></option>
-      <% end %>
-    <% end %>
-  </select>
-
+  <%= select_tag 'q[store_material_store_material_category_id_eq]',
+      options_from_collection_for_select(@sub_categories, "id", "name", @sub_category_id),
+      class: 'width-150', include_blank: '', id: 'sub_category' %>
 </div>
 
 <div class="item-query">
   <label>选择仓库</label>
-  <!-- <select id='materials_kucun_depot' class="width-150" type="text" name="store_depot_id">
-    <%= options_from_collection_for_select(@store.store_depots, :id, :name, params[:store_depot_id]) %>
-  </select> -->
   <%= select_tag 'q[store_material_store_material_inventories_store_depot_id_eq]',
-      options_for_select(@store_deports, @deport_id), class: 'width-150' %>
+      options_for_select(@store_deports, @deport_id),
+       class: 'width-150', id: 'materials_kucun_depot' %>
   <input class="btn query_btn" type="submit" value="查  询" />
 </div>

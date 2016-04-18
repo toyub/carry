@@ -1,18 +1,12 @@
 module Mkis
   class MaterialsController < BaseController
     include Uploadable
-    before_action :get_type, only:[:index]
+    before_action :set_search_params, only:[:index]
     before_filter :set_material, only: [:show, :edit]
 
     def index
-      set_search_params
-      @store = current_store
-      @q = @store.store_material_saleinfos.ransack(params[:q])
+      @q = current_store.store_material_saleinfos.ransack(params[:q])
       @store_materials = @q.result.order('id asc')
-
-      if params[:root_category_id].present?
-        @root_category = @store.store_material_categories.find(params[:root_category_id])
-      end
 
       respond_to do |format|
         format.json {
@@ -81,10 +75,6 @@ module Mkis
       @store_material = current_store.store_materials.find(params[:id])
     end
 
-    def get_type
-      @type = params[:type] if params[:type]
-    end
-
     def set_search_params
       params[:q] ||= {}
       @root_categories = current_store.store_material_categories.super_categories.map{|root| [root.name, root.id]}
@@ -96,6 +86,13 @@ module Mkis
       @root_category_id = params[:q][:store_material_store_material_root_category_id_eq]
       @sub_category_id = params[:q][:store_material_store_material_category_id_eq]
       @deport_id = params[:q][:store_material_store_material_inventories_store_depot_id_eq]
+      @root_category = current_store.store_material_categories.where(id: @root_category_id).last
+      if @root_category.present?
+        @sub_categories = @root_category.sub_categories
+      else
+        @sub_categories = {}
+      end
     end
+
   end
 end
