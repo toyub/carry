@@ -30,6 +30,7 @@
 <div class="item-query">
   <label>选择仓库</label>
   <select id='materials_kucun_depot' class="width-150" type="text" name="store_depot_id">
+    <option></option>
     <%= options_from_collection_for_select(@store.store_depots, :id, :name, params[:store_depot_id]) %>
   </select>
   <input class="btn query_btn" type="submit" value="查  询" />

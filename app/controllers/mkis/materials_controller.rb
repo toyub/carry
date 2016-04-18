@@ -78,9 +78,6 @@ module Mkis
       params[:q] ||= {}
       @root_categories = current_store.store_material_categories.super_categories.map{|root| [root.name, root.id]}
       @store_deports = current_store.store_depots.map{|deport| [deport.name, deport.id]}
-      if params[:q].blank?
-        params[:q][:store_material_store_material_inventories_store_depot_id_eq] = current_store.store_depots.first.id
-      end
       get_search_params
     end
 

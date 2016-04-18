@@ -21,6 +21,6 @@
   <label>选择仓库</label>
   <%= select_tag 'q[store_material_store_material_inventories_store_depot_id_eq]',
       options_for_select(@store_deports, @deport_id),
-       class: 'width-150', id: 'materials_kucun_depot' %>
+       class: 'width-150', id: 'materials_kucun_depot', include_blank: '' %>
   <input class="btn query_btn" type="submit" value="查  询" />
 </div>
