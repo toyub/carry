@@ -16,6 +16,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   scope :of_store, -> (store_id) { where(store_id: store_id) }
   scope :unfinished, -> { where.not(status: StoreServiceWorkflowSnapshot.statuses[:finished]) }
+  scope :not_deleted, ->{where(deleted: false)}
 
   enum status: [:pending, :processing, :finished]
 
@@ -96,24 +97,13 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def execute!(workstation)
+    if self.store_service.blank?
+      self.store_order.waste!
+      return 'FUCK OFF'
+    end
     ActiveRecord::Base.transaction do
       self.execute(workstation)
     end
-  end
-
-  def exchange!(previous_workstation, workstation)
-    previous_workstation.free
-    (!self.pausing? && self.processing?) ? execute(workstation) : assign_workstation(workstation)
-  end
-
-  def assign_mechanic(engineer)
-    self.tasks.create!(
-      mechanic_id: engineer.member.id,
-      store_order_item_id: self.store_order_item_id,
-      store_staff_id: self.store_staff_id,
-      store_id: self.store_id,
-      store_chain_id: self.store_chain_id
-    )
   end
 
   def execute(workstation)
@@ -133,6 +123,21 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store_order.task_processing!
     self.store_order.processing!
     send_sms
+  end
+
+  def exchange!(previous_workstation, workstation)
+    previous_workstation.free
+    (!self.pausing? && self.processing?) ? execute(workstation) : assign_workstation(workstation)
+  end
+
+  def assign_mechanic(engineer)
+    self.tasks.create!(
+      mechanic_id: engineer.member.id,
+      store_order_item_id: self.store_order_item_id,
+      store_staff_id: self.store_staff_id,
+      store_id: self.store_id,
+      store_chain_id: self.store_chain_id
+    )
   end
 
   def assign_workstation(ws)
@@ -239,8 +244,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def big_brothers
-    store_service.workflow_snapshots.order("id asc").to_a.compact.select do |w|
-      w.id < self.id
+    if self.store_service.present?
+      store_service.workflow_snapshots.order("id asc").where('id < ?', self.id)
+    else
+      []
     end
   end
 

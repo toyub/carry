@@ -15,6 +15,8 @@ class StoreServiceSnapshot < ActiveRecord::Base
   validates :retail_price, presence: true
   validates :store_staff_id, presence: true
 
+  scope :not_deleted, ->{where(deleted: false)}
+
   def waste!
     self.workflow_snapshots.each(&->(workflow){workflow.waste!})
     self.update!(deleted: true)

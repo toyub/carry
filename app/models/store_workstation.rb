@@ -19,19 +19,24 @@ class StoreWorkstation < ActiveRecord::Base
 
   def assign_workflow!
     pending_workflows.each do |w|
-      w.execute!(self) and break if w.executable?(self)
+      if w.executable?(self)
+        w.execute!(self)
+        break
+      end
     end
   end
 
   def pending_workflows
-    StoreServiceWorkflowSnapshot.of_store(store_id).pending.order("created_at asc").to_a.select do |w|
+    StoreServiceWorkflowSnapshot.of_store(store_id).not_deleted.pending.order("id asc").select do |w|
       w.store_workstation_id == self.id || w.workstations.map(&:id).include?(self.id)
     end
   end
 
   def finish!
     ActiveRecord::Base.transaction do
-      current_workflow.finish!
+      if current_workflow.present?
+        current_workflow.finish!
+      end
       self.free
       SpotDispatchJob.perform_now(self.store_id)
     end
