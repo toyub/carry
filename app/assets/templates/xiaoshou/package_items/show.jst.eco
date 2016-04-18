@@ -1,5 +1,5 @@
 <h3>创建套餐内容</h3>
-<div class="creating_details float-left">
+<div class="creating_details">
   <ul class="items_create_head" id="do_sel_types_to_create_package_card">
     <li class="color-dad8d8">
       <label>
@@ -22,30 +22,37 @@
   </ul>
   <div id="itemsCreateContents" class="position-relative height-355">
     <ul class="service_wrap wrap" style="<%= 'display: block;' if @item.isStoreService() %>">
-      <li>
-        <label>服务项目：</label>
+      <li class="project">
+        <label class="width-70">选择项目：</label>
         <input type="text" disabled class="width-260" value="<%= @item.name('StoreService') %>">
+
+        <div class="project_price">
+          <label for="" class="width-70">项目单价:</label>
+          <span><%= @item.retail_price('StoreService') %></span>
+          <label for="" class="width-30">元</label>
+        </div>
+      </li>
+
+      <li>
+        <h4 class="title">套餐项目设置</h4>
       </li>
       <li>
-        <label>名称：</label>
+        <label>已选择项目：</label>
         <span><%= @item.name('StoreService') %></span>
       </li>
       <li>
-        <label>零售单价：</label>
-        <span><%= @item.retail_price('StoreService') %></span>
-        <label>零售总价：</label>
+        <label>项目数量：</label>
+        <input type="text" disabled value="<%= @item.quantity('StoreService') %>"> 次
+
+        <label for="">原总价参考：</label>
         <span class='js-regular-amount color-282726'><%= @item.regularAmount() %></span>
       </li>
       <li>
-        <label>次数：</label>
-        <input type="text" disabled value="<%= @item.quantity('StoreService') %>"> 次
-      </li>
-      <li>
-        <label>套餐总价：</label>
+        <label>项目合计价格：</label>
         <input name="amount" type="text" value="<%= @item.packagedItemAmount('StoreService') %>" disabled> 元
       </li>
       <li>
-        <label>套餐价：</label>
+        <label>当前套餐单价：</label>
         <input type="text" disabled value="<%= @item.price('StoreService') %>"> 元
         (<span>单品折扣率：</span><span class='js-discount-rate'><%= @item.discountRate() %></span>)
       </li>
@@ -97,8 +104,4 @@
 </div>
 <div class=" btn_group_in_package">
   <label class="cancel_btn btn cancel color-000" id="closeWithoutSave">关闭</label>
-</div>
-<div class="tips float-right">
-  <h4 class="text-align-center"></h4>
-  <p></p>
 </div>
