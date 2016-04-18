@@ -34,6 +34,8 @@ class StoreStaff <  ActiveRecord::Base
   before_create :set_default_password
   before_create :check_phone_number
 
+  after_save :check_group_member
+
   scope :by_keyword, ->(keyword){ where('full_name like :name or phone_number like :phone_number',
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
   scope :by_level, ->(level_type_id){ where(level_type_id: level_type_id) if level_type_id.present?}
@@ -380,6 +382,18 @@ class StoreStaff <  ActiveRecord::Base
     if StoreStaff.by_phone(self.phone_number).unterminated.present?
       errors.add(:notice, "您输入的号码正在使用，请使用新号码或停用该号码后再进行绑定。")
       false
+    end
+  end
+
+  def check_group_member
+    if self.mechanic?
+      if self.store_group_member.present?
+        self.store_group_member.set_level_type_id
+      end
+    else
+      if self.store_group_member.present?
+        self.store_group_member.set_deleted!
+      end
     end
   end
 end

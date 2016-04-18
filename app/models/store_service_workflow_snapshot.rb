@@ -44,6 +44,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def mechanics
+    #TODO:
     tasks.map(&:mechanic).compact
   end
 
@@ -56,26 +57,42 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def executable?(workstation)
-    return false if self.store_vehicle.blank?
-    !self.store_order.task_pausing? && self.has_qualified_mechaincs?(workstation) && self.store_vehicle.workflows.processing.where.not({id: self.id}).blank? && big_brothers_finished?
+    if self.store_vehicle.blank?
+      return false
+    else
+     !self.store_order.task_pausing? &&
+     self.has_qualified_mechaincs?(workstation) &&
+     self.store_vehicle.workflows.processing.where.not({id: self.id}).blank? &&
+     big_brothers_finished?
+   end
   end
 
   def has_qualified_mechaincs?(workstation)
     if self.tasks.present?
-      self.mechanics.all? { |m| m.store_group_member.ready? }
+      self.mechanics.all?(&->(m){m.store_group_member.ready? })
     else
-      workstation.store_group.store_group_members.ready.select do |engineer|
-        engineer.member.level_type_id.to_i >= mechanics_level.to_i
-      end.size >= mechanics_quantity
+      available_mechanics_count = workstation.store_group
+                                             .store_group_members
+                                             .available
+                                             .ready.level_at_least(mechanics_level.to_i).count
+      available_mechanics_count >= mechanics_quantity
     end
   end
 
   def mechanics_quantity
-    self.engineer_count_enable ? [self.engineer_count.to_i, 1].max : 1
+    if self.engineer_count_enable
+      [self.engineer_count.to_i.abs, 1].max
+    else
+      1
+    end
   end
 
   def mechanics_level
-    (self.engineer_level if self.engineer_level_enable) || ServiceMechanicLevelType.find_by_name('初级以上(含初级)').id
+    if self.engineer_level_enable
+      self.engineer_level.to_i
+    else
+      ServiceMechanicLevelType.find_by_name('初级以上(含初级)').id
+    end
   end
 
   def execute!(workstation)
@@ -101,10 +118,17 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def execute(workstation)
     assign_workstation(workstation)
-    self.store_workstation.store_group.store_group_members.ready.select do |engineer|
-      engineer.member.level_type_id >= mechanics_level
-    end.first(mechanics_quantity).each { |engineer| assign_mechanic(engineer) } unless self.tasks.present?
-    self.mechanics.map(&:store_group_member).map(&:busy!)
+    if self.tasks.blank?
+      self.store_workstation
+          .store_group
+          .store_group_members
+          .available.ready
+          .level_at_least(mechanics_level.to_i)
+          .limit(mechanics_quantity).each(&->(group_member){assign_mechanic(group_member)})
+    end
+    self.mechanics.each do |mechanic|
+     mechanic.store_group_member.busy!
+   end
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
