@@ -6,6 +6,12 @@
 
   <div class="list_table">
     <div class="search_nav">
+      <%= search_form_for @q, url: mkis_materials_path, class: 'search navbar-form' do |f| -%>
+        <%= render 'search_form' %>
+      <% end -%>
+      <div class="query_div">
+        <a class="export_btn btn" href="/mkis/materials.csv?<%= request.query_string %>" target="_blank">导出</a>
+      </div>
     </div>
     <table id='materials' cellpadding="0" cellspacing="0" class="index_list materials">
       <thead>

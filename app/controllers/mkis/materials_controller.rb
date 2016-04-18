@@ -5,7 +5,10 @@ module Mkis
     before_filter :set_material, only: [:show, :edit]
 
     def index
-      @store_materials = current_store.store_material_saleinfos.order('id asc')
+      set_search_params
+      @store = current_store
+      @q = @store.store_material_saleinfos.ransack(params[:q])
+      @store_materials = @q.result.order('id asc')
 
       if params[:root_category_id].present?
         @root_category = @store.store_material_categories.find(params[:root_category_id])
@@ -80,6 +83,19 @@ module Mkis
 
     def get_type
       @type = params[:type] if params[:type]
+    end
+
+    def set_search_params
+      params[:q] ||= {}
+      @root_categories = current_store.store_material_categories.super_categories.map{|root| [root.name, root.id]}
+      @store_deports = current_store.store_depots.map{|deport| [deport.name, deport.id]}
+      get_search_params
+    end
+
+    def get_search_params
+      @root_category_id = params[:q][:store_material_store_material_root_category_id_eq]
+      @sub_category_id = params[:q][:store_material_store_material_category_id_eq]
+      @deport_id = params[:q][:store_material_store_material_inventories_store_depot_id_eq]
     end
   end
 end
