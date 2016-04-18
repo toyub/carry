@@ -1,5 +1,5 @@
 <h3>创建套餐内容</h3>
-<div class="creating_details float-left">
+<div class="creating_details">
   <ul class="items_create_head" id="do_sel_types_to_create_package_card">
     <li class="color-dad8d8">
       <label>
@@ -97,8 +97,4 @@
 </div>
 <div class=" btn_group_in_package">
   <label class="cancel_btn btn cancel color-000" id="closeWithoutSave">关闭</label>
-</div>
-<div class="tips float-right">
-  <h4 class="text-align-center"></h4>
-  <p></p>
 </div>
