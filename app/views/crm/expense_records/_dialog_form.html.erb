@@ -1,101 +1,102 @@
 <form action="" method="post" id="complaint_form" name="complain" >
    <%= render 'hidden_value' %>
   <div class="complaints_records_wrap">
-  <h2>投诉事件记录</h2>
-  <ul class="top">
-    <li>
-      <label>日期:</label>
-      <span> <%= Time.now.strftime("%Y-%m-%d") %> </span>
-    </li>
-  </ul>
-  <div class="complaints_records">
-    <dl class="client_base_info">
-      <dd>客户名称</dd>
-      <dd> <%= @customer.full_name %> </dd>
-      <dd>联系方式</dd>
-      <dd> <%= @customer.phone_number %> </dd>
-      <dd>车牌号</dd>
-      <dd class="dd-vehicle"></dd>
-      <dd>订单号</dd>
-      <dd class="dd-order-numero"></dd>
-    </dl>
-    <dl class="client_type">
-      <dd>投诉类别</dd>
-      <dd>
-        <% @complaint_categories.each do |key, value|  %>
-          <label> <%= value %> <input name="complaint[detail][categories][]" type="checkbox" value="<%= key%>" ></label>
-        <% end %>
-      </dd>
-      <dd>投诉渠道</dd>
-      <dd>
-        <% @complaint_ways.each do |key, value|  %>
-          <label> <%= value %> <input name="complaint[detail][ways][]" type="checkbox" value="<%= key%>" ></label>
-        <% end %>
-      </dd>
-    </dl>
-    <dl class="opinion">
-      <dd>客诉内容</dd>
-      <dd>
-        <textarea name="complaint[detail][content]"></textarea>
-      </dd>
-    </dl>
-    <dl class="opinion">
-      <dd>调查结果</dd>
-      <dd><textarea name="complaint[detail][inquire]"></textarea></dd>
-    </dl>
+    <h2>投诉事件记录</h2>
+    <a href="#" class="delete">x</a>
+    <ul class="top">
+      <li>
+        <label>日期:</label>
+        <span> <%= Time.now.strftime("%Y-%m-%d") %> </span>
+      </li>
+    </ul>
+    <div class="complaints_records">
+      <dl class="client_base_info">
+        <dd>客户名称</dd>
+        <dd> <%= @customer.full_name %> </dd>
+        <dd>联系方式</dd>
+        <dd> <%= @customer.phone_number %> </dd>
+        <dd>车牌号</dd>
+        <dd class="dd-vehicle"></dd>
+        <dd>订单号</dd>
+        <dd class="dd-order-numero"></dd>
+      </dl>
+      <dl class="client_type">
+        <dd>投诉类别</dd>
+        <dd>
+          <% @complaint_categories.each do |key, value|  %>
+            <label> <%= value %> <input name="complaint[detail][categories][]" type="checkbox" value="<%= key%>" ></label>
+          <% end %>
+        </dd>
+        <dd>投诉渠道</dd>
+        <dd>
+          <% @complaint_ways.each do |key, value|  %>
+            <label> <%= value %> <input name="complaint[detail][ways][]" type="checkbox" value="<%= key%>" ></label>
+          <% end %>
+        </dd>
+      </dl>
+      <dl class="opinion">
+        <dd>客诉内容</dd>
+        <dd>
+          <textarea name="complaint[detail][content]"></textarea>
+        </dd>
+      </dl>
+      <dl class="opinion">
+        <dd>调查结果</dd>
+        <dd><textarea name="complaint[detail][inquire]"></textarea></dd>
+      </dl>
 
-    <dl class="opinion">
-      <dd>责任人</dd>
-      <dd>
-        <div class="liable_person">
-          <h2>销售接待</h2>
-          <ul id="creator">
-          </ul>
-        </div>
-        <div class="liable_person">
-          <h2>施工技师</h2>
-          <ul id="mechanic">
-          </ul>
-        </div>
-      </dd>
-    </dl>
+      <dl class="opinion">
+        <dd>责任人</dd>
+        <dd>
+          <div class="liable_person">
+            <h2>销售接待</h2>
+            <ul id="creator">
+            </ul>
+          </div>
+          <div class="liable_person">
+            <h2>施工技师</h2>
+            <ul id="mechanic">
+            </ul>
+          </div>
+        </dd>
+      </dl>
 
-    <dl class="opinion">
-      <dd>处理结果</dd>
-      <dd>
-        <dl class="result">
-          <dd>客户</dd>
-          <dd>责任人</dd>
-        </dl>
-        <dl class="result">
-          <dd><textarea name="complaint[detail][response][customer]" ></textarea></dd>
-          <dd><textarea name="complaint[detail][response][principal]" ></textarea></dd>
-        </dl>
+      <dl class="opinion">
+        <dd>处理结果</dd>
+        <dd>
+          <dl class="result">
+            <dd>客户</dd>
+            <dd>责任人</dd>
+          </dl>
+          <dl class="result">
+            <dd><textarea name="complaint[detail][response][customer]" ></textarea></dd>
+            <dd><textarea name="complaint[detail][response][principal]" ></textarea></dd>
+          </dl>
 
-      </dd>
-    </dl>
+        </dd>
+      </dl>
 
-    <dl class="opinion">
-      <dd>反馈</dd>
-      <dd>
-        <div class="liable_person">
-          客户对处理方式满意
-        </div>
-        <div class="liable_person text-align-right">
-          <ul>
-            <li><label>满意<input name="complaint[satisfaction]" type="checkbox" value="1" ></label></li>
-            <li><label>不满意<input name="complaint[satisfaction]" type="checkbox" value="2" ></label></li>
-          </ul>
-        </div>
-      </dd>
-    </dl>
+      <dl class="opinion">
+        <dd>反馈</dd>
+        <dd>
+          <div class="liable_person">
+            客户对处理方式满意
+          </div>
+          <div class="liable_person text-align-right">
+            <ul>
+              <li><label>满意<input name="complaint[satisfaction]" type="checkbox" value="1" ></label></li>
+              <li><label>不满意<input name="complaint[satisfaction]" type="checkbox" value="2" ></label></li>
+            </ul>
+          </div>
+        </dd>
+      </dl>
 
-  </div>
+    </div>
 
     <div class="btn_group">
       <%= link_to '取消', 'javascript:void(0)', class: "btn cancel_btn", id: 'tousu_cancel' %>
       <input type="submit" value="确定", class="btn save_btn">
     </div>
-</div>
+  </div>
 
 </form>

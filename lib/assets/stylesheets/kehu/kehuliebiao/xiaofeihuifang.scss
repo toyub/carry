@@ -93,12 +93,13 @@
 		position: fixed;
 		top: 0px;
 		bottom: 0px;
+    align-items:flex-start;
 
 		.new_return_info{
 			width:860px;
 			height: 400px;
 			margin: 0 auto;
-			margin-top: 234px;
+			margin-top: 145px;
 			padding: 0px 20px;
 			background: #fff;
 			border-top: 10px solid #F6EFA4;
@@ -108,9 +109,27 @@
 				height: 45px;
 				padding: 10px 0px;
 				line-height: 45px;
+        position: relative;
 				span{
 					font-size: 16px;
 				}
+
+        .delete{
+          position: absolute;
+          top: -21px;
+          right: -32px;
+          width: 24px;
+          height: 24px;
+          line-height: 24px;
+          border-radius: 15px;
+          background: #4e6ab2;
+          text-align: center;
+          color: #fff;
+
+          &:hover{
+            background: #E87F7F;
+          }
+        }
 
 			}
 
