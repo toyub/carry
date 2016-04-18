@@ -6,7 +6,7 @@ module Mkis
 
     def index
       @q = current_store.store_material_saleinfos.ransack(params[:q])
-      @store_materials = @q.result.order('id asc')
+      @store_materials = @q.result(distinct: true).order('id asc')
 
       respond_to do |format|
         format.json {
@@ -40,7 +40,6 @@ module Mkis
       store = current_store
       store_material = store.store_materials.find(params[:id])
       store_material.update!(material_params)
-      # redirect_to mkis_material_saleinfo_path(store_material)
       render json: store_material, root: nil
     end
 
@@ -79,6 +78,9 @@ module Mkis
       params[:q] ||= {}
       @root_categories = current_store.store_material_categories.super_categories.map{|root| [root.name, root.id]}
       @store_deports = current_store.store_depots.map{|deport| [deport.name, deport.id]}
+      if params[:q].blank?
+        params[:q][:store_material_store_material_inventories_store_depot_id_eq] = current_store.store_depots.first.id
+      end
       get_search_params
     end
 
