@@ -2,7 +2,7 @@ module Mkis
   class MaterialsController < BaseController
     include Uploadable
     before_action :set_search_params, only:[:index]
-    before_filter :set_material, only: [:show, :edit]
+    before_filter :set_material, only: [:show]
 
     def index
       @q = current_store.store_material_saleinfos.ransack(params[:q])
@@ -17,30 +17,6 @@ module Mkis
 
         format.html {}
       end
-    end
-
-    def new
-      @store = current_user.store
-      @store_material = @store.store_materials.new
-    end
-
-    def create
-      store = current_store
-      store_material = store.store_materials.build(material_params)
-      store_material.store_staff_id=current_user.id
-      store_material.save!
-      render json: store_material, root: nil
-    end
-
-    def edit
-      @store = current_store
-    end
-
-    def update
-      store = current_store
-      store_material = store.store_materials.find(params[:id])
-      store_material.update!(material_params)
-      render json: store_material, root: nil
     end
 
     def show
@@ -60,15 +36,6 @@ module Mkis
       @store_material ||= set_material
     end
 
-    def material_params
-      params.require(:material).permit(:store_material_root_category_id, :store_material_category_id, :store_material_unit_id,
-                                       :store_material_manufacturer_id, :store_material_brand_id,
-                                       :name, :speci, :barcode, :mnemonic,
-                                       :min_price, :cost_price,
-                                       :inventory_alarmify, :max_inventory, :min_inventory,
-                                       :expiry_alarmify, :shelf_life, :permitted_to_internal,
-                                       :permitted_to_saleable, :remark, :introduction)
-    end
 
     def set_material
       @store_material = current_store.store_materials.find(params[:id])

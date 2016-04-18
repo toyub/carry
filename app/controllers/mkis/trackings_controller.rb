@@ -1,20 +1,20 @@
 class Mkis::TrackingsController < Mkis::BaseController
-  def create
-    store = current_store
-    store_material = store.store_materials.find(params[:material_id])
-
-    tracking = store_material.build_store_material_tracking(tracking_params)
-    tracking.store_staff_id = current_user.id
-    tracking.sections.each do |section|
-      section.store_staff_id = tracking.store_staff_id
-      section.store_material_id = tracking.store_material_id
-    end
-    tracking.save!
-    render json: {
-                    material_id: store_material.id,
-                    tracking: tracking
-                  }, root: false
-  end
+  # def create
+  #   store = current_store
+  #   store_material = store.store_materials.find(params[:material_id])
+  #
+  #   tracking = store_material.build_store_material_tracking(tracking_params)
+  #   tracking.store_staff_id = current_user.id
+  #   tracking.sections.each do |section|
+  #     section.store_staff_id = tracking.store_staff_id
+  #     section.store_material_id = tracking.store_material_id
+  #   end
+  #   tracking.save!
+  #   render json: {
+  #                   material_id: store_material.id,
+  #                   tracking: tracking
+  #                 }, root: false
+  # end
 
   def update
     store = current_store
