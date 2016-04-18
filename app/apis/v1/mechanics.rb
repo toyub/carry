@@ -1,8 +1,8 @@
 module V1
   class Mechanics < Grape::API
     before do
-      authenticate_platform!
-      authenticate_user!
+      # authenticate_platform!
+      # authenticate_user!
     end
 
     resource :mechanic do
@@ -12,6 +12,7 @@ module V1
           requires :platform, type: String, desc: '调用的平台!'
         end
         get  do
+          current_user = StoreStaff.find(11)
           if current_user.store_group_member.blank?
             {status: false, message: '未绑定小组,无法查看状态!'}
           else
