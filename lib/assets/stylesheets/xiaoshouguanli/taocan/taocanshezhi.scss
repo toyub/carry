@@ -159,57 +159,122 @@
       }
     }
     .creating_window {
-      width:99.99%;
-      height:446px;
-      box-shadow:0px 5px 8px #E0DEDE;
+      width:940px;
+      height:500px;
+      box-shadow:0px 3px 8px 0 rgba(36,36,36,0.33);
       padding-bottom:10px;
-      background:#fff;
-      position:absolute; left:0; top:34px;
+      background:#f5f5f5;
+      box-sizing: border-box;
+      position:absolute; left:0; top:0px;
       h3{
-        font-size:12px;
+        font-size:16px;
         color:#fff;
-        height:32px;
-        line-height:32px;
-        background:#5C5D5D;
-        text-indent:24px;
+        height:42px;
+        line-height:42px;
+        background:#400c84;
+        text-align: center;
         letter-spacing:1px;
       }
       .creating_details{
-        width:68%;
+        width:900px;
+        margin: 0 auto;
         margin-top:14px;
-        padding:0 0 0 40px;
         position:relative;
         ul.items_create_head{
           margin: 10px auto;
-          width : 80%;
+          height: 38px;
+          width : 100%;
+          background: #dedede;
           li{
             text-align:left;
             display:inline-block;
             border:none;
-            width:160px;
-            label{
-              input[type="radio"]{ margin-left:4px;}
+            width:104px;
+            height: 38px;
+            line-height: 38px;
+            color: #888;
+            text-align: center;
+            font-size: 14px;
+
+
+            &.active{
+              background: #400c84;
+              label{
+                color:#fff;
+              }
+            }
+
+            &:hover{
+              background: #c9c9c9;
+
             }
           }
         }
         ul.service_wrap,ul.fee_charge_wrap,ul.goods_wrap{
           display:none;
           margin : 20px auto;
-          width:80%;
+          width:100%;
           height:346px;
           &>li{
             width:100%;
             display:flex;
             align-items: center;
-            height:48px;
-            label { width : 70px; margin-right : 15px; text-align : right;}
+            min-height:53px;
+            background: #fff;
+            label { width : 125px; margin-right : 15px; text-align : right;}
             span{ display: block;}
-            input[type="text"] { margin-right:5px;}
+            input[type="text"] { margin-right:5px; height: 32px;}
+
+            .title{
+              padding: 19px 30px;
+              color: #333;
+              font-size: 16px;
+            }
+
+            .regular_amount{
+              height: 32px;
+              float: left;
+              width: 150px;
+              display: inline-block;
+              margin-right: 5px;
+              border: 1px solid #dbd9d9;
+
+            }
+            .amount{
+              width: 339px;
+            }
           }
+
+          .project{
+            height: 90px;
+            background: #fff;
+            box-sizing: border-box;
+            padding-left: 70px;
+            margin-bottom: 10px;
+
+            label{
+              height: 32px;
+              line-height: 32px;
+              float: left;
+            }
+
+            .service_price{
+              height: 32px;
+              float: left;
+              display: inline-block;
+              border: 1px solid #dbd9d9;
+
+            }
+            .project_price{
+              margin-left: 16px;
+            }
+          }
+
+
         }
       }
       .btn_group_in_package{
-        width:62%;
+        width:93%;
         text-align:right;
         position:absolute;
         bottom:40px;
@@ -217,19 +282,7 @@
           width:58px;
         }
       }
-      .tips{
-        border:1px solid #E6E6E6;
-        width:26%;
-        min-height:390px;
-        margin-top:14px;
-        margin-right:5px;
-        p{
-          line-height:32px;
-          width:81%;
-          font-size:11px;
-          margin:0 auto;
-        }
-      }
+
     }
   }
 }

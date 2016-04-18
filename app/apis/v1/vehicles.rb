@@ -69,7 +69,7 @@ module V1
       end
       post do
         status = AddVehicleService.call(current_store, vehicle_params, customer_params)
-        present info: status.notice, customer_id: status.customer.try(:id)
+        present info: status.notice, customer_id: status.customer.try(:id), vehicle_id: status.vehicle.try(:id)
       end
     end
 
