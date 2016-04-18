@@ -10,8 +10,12 @@ class StoreStaffTask < ActiveRecord::Base
   scope :by_item, ->(item_id) { where(store_order_item_id: item_id) }
   scope :tasks_of, ->(staff_id) { where(mechanic_id: staff_id) }
   scope :by_busy, -> { where(status: StoreStaffTask.statuses[:busy])}
+  scope :by_ready, -> { where(status: StoreStaffTask.statuses[:ready]) }
   scope :undeleted, -> { where(deleted: false) }
-  enum status: %i[ready busy]
+  scope :current_workflow, -> { where(store_service_workflow_snapshots: {status: StoreServiceWorkflowSnapshot.statuses[:processing]}) }
+
+  enum status: %i[ready busy finished]
+
   def commission(beneficiary = 'person')
     workflow_snapshot.mechanic_commission.present? ? workflow_snapshot.mechanic_commission.task_commission(store_order_item, self, mechanic, beneficiary) : 0.0
   end
@@ -30,6 +34,10 @@ class StoreStaffTask < ActiveRecord::Base
 
   def waste!
     self.update!(deleted: true)
+  end
+
+  def self.current_task
+    by_ready.undeleted.joins(:workflow_snapshot).current_workflow.last
   end
 
 end

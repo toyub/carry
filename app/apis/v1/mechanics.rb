@@ -1,8 +1,8 @@
 module V1
   class Mechanics < Grape::API
     before do
-      # authenticate_platform!
-      # authenticate_user!
+      authenticate_platform!
+      authenticate_user!
     end
 
     resource :mechanic do
@@ -12,17 +12,12 @@ module V1
           requires :platform, type: String, desc: '调用的平台!'
         end
         get  do
-          current_user = StoreStaff.find(11)
-          if current_user.store_group_member.blank?
-            {status: false, message: '未绑定小组,无法查看状态!'}
+          has_workflow = current_user.store_staff_tasks.current_task
+          if has_workflow.present?
+            present current_user, with: ::Entities::Mechanic
           else
-            if current_user.store_group_member.busy?
-              present current_user, with: ::Entities::Mechanic
-            else
-              {status: false, message: '暂时没有服务流程，请注意查收!'}
-            end
+            {status: false, message: '暂时不存在流程，请注意查收!'}
           end
-
         end
       end
 
@@ -34,6 +29,7 @@ module V1
       put do
         if task = current_user.store_staff_tasks.where(id: params[:id]).last
           task.busy!
+          current_user.store_group_member.busy!
           {status: true, message: '上岗成功！'}
         else
           {status: false, message: '上岗失败!'}

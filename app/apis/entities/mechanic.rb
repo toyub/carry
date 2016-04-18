@@ -28,7 +28,7 @@ module Entities
     end
 
     def store_staff_task
-      object.store_staff_tasks.undeleted.by_busy.last
+      object.store_staff_tasks.current_task
     end
   end
 end
