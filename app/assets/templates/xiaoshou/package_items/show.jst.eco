@@ -42,14 +42,14 @@
       </li>
       <li>
         <label>项目数量：</label>
-        <input type="text" disabled value="<%= @item.quantity('StoreService') %>"> 次
+        <input type="text" disabled value="<%= @item.quantity('StoreService') %>" class="width-30"> 次
 
         <label for="">原总价参考：</label>
-        <span class='js-regular-amount color-282726'><%= @item.regularAmount() %></span>
+        <span class='js-regular-amount color-282726 regular_amount'><%= @item.regularAmount() %></span>
       </li>
       <li>
         <label>项目合计价格：</label>
-        <input name="amount" type="text" value="<%= @item.packagedItemAmount('StoreService') %>" disabled> 元
+        <input name="amount" class="amount" type="text" value="<%= @item.packagedItemAmount('StoreService') %>" disabled> 元
       </li>
       <li>
         <label>当前套餐单价：</label>
@@ -73,29 +73,37 @@
     </ul>
     <ul class="goods_wrap wrap" style="<%= 'display: block;' if @item.isStoreMaterial() %>">
       <li>
-        <label>商品名称：</label>
+        <label>选择商品：</label>
         <input type="text" class="width-260" disabled value="<%= @item.name('StoreMaterialSaleinfo') %>">
+
+        <div class="project_price">
+          <label  class="width-70">商品单价：</label>
+          <span  class="width-210 service_price"><%= @item.retail_price('StoreMaterialSaleinfo') %></span>
+          <label for="" class="width-30">元</label>
+        </div>
       </li>
+
       <li>
-        <label>名称：</label>
+        <h4 class="title">套餐项目设置</h4>
+      </li>
+
+      <li>
+        <label>已选择商品：</label>
         <span><%= @item.name('StoreMaterialSaleinfo') %></span>
       </li>
       <li>
-        <label>零售单价：</label>
-        <span><%= @item.retail_price('StoreMaterialSaleinfo') %></span>
-        <label>零售总价：</label>
-        <span class='js-regular-amount color-282726'><%= @item.regularAmount() %></span>
+        <label>商品数量：</label>
+        <input type="text" disabled value="<%= @item.quantity('StoreMaterialSaleinfo') %>" class="width-30"> 件
+
+        <label>原总价参考：</label>
+        <span class='js-regular-amount color-282726 regular_amount'><%= @item.regularAmount() %></span>
       </li>
       <li>
-        <label>数量：</label>
-        <input type="text" disabled value="<%= @item.quantity('StoreMaterialSaleinfo') %>"> 件
+        <label>商品合计价格：</label>
+        <input name="amount"  class="amount" type="text" value="<%= @item.packagedItemAmount('StoreMaterialSaleinfo') %>" disabled> 元
       </li>
       <li>
-        <label>套餐总价：</label>
-        <input name="amount" type="text" value="<%= @item.packagedItemAmount('StoreMaterialSaleinfo') %>" disabled> 元
-      </li>
-      <li>
-        <label>套餐价：</label>
+        <label>当前商品套餐单价：</label>
         <input type="text" disabled value="<%= @item.price('StoreMaterialSaleinfo') %>"> 元
         (<span>单品折扣率：</span><span class='js-discount-rate'><%= @item.discountRate() %></span>)
       </li>
