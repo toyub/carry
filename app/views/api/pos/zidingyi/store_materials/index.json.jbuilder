@@ -1,6 +1,6 @@
 json.array! @store_materials do |material|
   json.id           material.id
-  json.name         material.id
+  json.name         material.name
   json.speci        material.speci
 
   json.store_material_unit do

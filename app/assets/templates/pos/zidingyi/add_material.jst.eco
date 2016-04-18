@@ -1,13 +1,13 @@
 <td class="number">1</td>
-<td><span><input type="text" name="name" id="" class="width-150" value=""> </span></td>
-<td><span><input type="text" name="speci" id="" class="width-140" value=""></span></td>
-<td><span><input type="text" name="unit" id="" class="width-35" value=""> </span></td>
+<td><span><input type="text" name="[store_material][name]" id="" class="width-150" value=""> </span></td>
+<td><span><input type="text" name="[store_material][speci]" id="" class="width-140" value=""></span></td>
+<td><span><input type="text" name="[store_material_unit][name]" id="" class="width-35" value=""> </span></td>
 <td>
-  <select>
+  <select name="[store_material_root_category][name]">
     <option>汽车配件</option>
     <option>其他</option>
   </select>
 </td>
 <td><span><input type="number" name="quantity" id="" class="width-35" value=""> </span></td>
-<td><input type="number" name="retail_price" id="" class="width-50" value=""> </span></td>
+<td><input type="number" name="[store_material_saleinfo][retail_price]" id="" class="width-50" value=""> </span></td>
 <td><span><input type="number" name="amount" id="" class="width-50" value=""> </span></td>
