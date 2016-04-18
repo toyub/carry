@@ -1,7 +1,7 @@
 <% item = @item %>
 <li class="project">
   <label class="width-70">选择商品：</label>
-  <select name="package_itemable_id" id="store_material_id" style="width: 250px;">
+  <select name="package_itemable_id" id="store_material_id" style="width: 210px;">
     <option>请选择</option>
     <% Mis.materials.each (m) ->: %>
     <option value="<%= m.get 'id' %>" <%= 'selected' if (String(item.get('package_itemable_id')) == String(m.get 'id') && item.isStoreMaterial())  %>><%= m.get 'name' %></option>
@@ -37,7 +37,7 @@
 </li>
 
 <li>
-  <label>当前桑普套餐单价：</label>
+  <label>当前商品套餐单价：</label>
   <span name="price" ><%= item.price('StoreMaterialSaleinfo') %></span>元
   (<span>单品折扣率：</span><span class='js-discount-rate'><%= item.discountRate() %></span>)
 </li>
