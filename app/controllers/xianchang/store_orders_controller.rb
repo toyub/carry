@@ -30,7 +30,6 @@ module Xianchang
 
     def pause_in_workstation
       @store_order.pause_in_workstation!
-      #@workstation = current_store.store_workstations.find(params[:workstation])
     end
 
     def play

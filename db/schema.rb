@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418051548) do
+ActiveRecord::Schema.define(version: 20160418075808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1598,6 +1598,7 @@ ActiveRecord::Schema.define(version: 20160418051548) do
     t.integer  "mechanic_commission_template_id"
     t.string   "inspector"
     t.boolean  "deleted",                                     default: false
+    t.datetime "finished_at"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|

@@ -12,7 +12,15 @@
             <% end %>
           </select>
         </li>
-        <li><input type="text" name="workflow[<%= workflow.id %>][used_time]" <%= 'disabled' if workflow.finished? %> value="<%= workflow.real_work_time %>" class="width-60"></li>
+        <li>
+          <% if workflow.pending? %>
+            <input type="text" name="workflow[<%= workflow.id %>][used_time]" value="<%= workflow.real_work_time %>" class="width-60">
+          <% elsif workflow.processing? %>
+            <input type="text" title='无法再次编辑，请使用加时功能！' value="<%= workflow.real_work_time %>" class="width-60" disabled>
+          <% else %>
+            <input type="text" title='已经结束施工，无法编辑。' value="<%= workflow.real_work_time %>" class="width-60" disabled>
+          <% end %>
+        </li>
         <li>
         <div class="assign_technician">
           <ul id="workflow-<%= workflow.id %>-mechanics">

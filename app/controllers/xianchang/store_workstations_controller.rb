@@ -5,14 +5,9 @@ module Xianchang
     before_action :set_store_order, only: [:start, :exchange, :perform]
 
     def index
-      @queuing_orders = current_store.store_orders.available.waiting_in_queuing_area
-      @processing_orders_count = current_store.store_orders.processing.available.count
-      @paying_orders_count = current_store.store_orders.paying.available.count
-      @finished_orders_count = current_store.store_orders.finished.available.count
-      @orders_count = current_store.store_orders.available.count
-      @pending_orders_count = current_store.store_orders.pending.available.count
-      @mechanics_count = current_store.store_staff.mechanics.count
+      counts
       @task_finished_orders = current_store.store_orders.task_finished.paying.available.today
+      @queuing_orders = current_store.store_orders.available.waiting_in_queuing_area
       @workstations = current_store.workstations.order("id asc")
     end
 

@@ -3,58 +3,7 @@
 </div>
 
 <div class="details">
-  <table cellspacing="0" cellpadding="0" class="on_site_top">
-    <tbody>
-    <tr>
-      <td class="border-bottom-none">正在施工车辆</td>
-      <td class="border-bottom-none">正在排队车辆</td>
-      <td class="border-bottom-none">等待付款车辆</td>
-      <td class="border-bottom-none">离场车辆</td>
-      <td>
-        <label class="width-70">技师人数</label>
-        <label class="width-80 text-align-center"><%= @mechanics_count %></label>
-      </td>
-      <td>
-        <label class="width-70">技师忙碌</label>
-        <label class="width-80 text-align-center"></label>
-      </td>
-      <td>
-        <label class="width-70">工位总数</label>
-        <label class="width-80 text-align-center"><%= @workstations.count %></label>
-      </td>
-      <td>
-        <label class="width-70">工位使用</label>
-        <label class="width-80 text-align-center"><%= @workstations.busy.count %></label>
-      </td>
-      <td class="border-bottom-none">今天施工总台次</td>
-    </tr>
-    <tr>
-      <td class="font-18 text-align-center"><%= @processing_orders_count %><label class="margin-left-5 font-18">台</label></td>
-      <td class="font-18 text-align-center"><%= @queuing_orders.count %><label class="margin-left-5 font-18">台</label></td>
-      <td class="font-18 text-align-center"><%= @paying_orders_count %><label class="margin-left-5 font-18">台</label></td>
-      <td class="font-18 text-align-center"><%= @finished_orders_count %><label class="margin-left-5 font-18">台</label></td>
-      <td>
-        <label class="width-70">技师到岗</label>
-        <label class="width-80 text-align-center"></label>
-      </td>
-      <td>
-        <label class="width-70">技师空闲</label>
-        <label class="width-80 text-align-center"></label>
-      </td>
-      <td>
-        <label class="width-70">工位正常</label>
-        <label class="width-80 text-align-center"><%= @workstations.available.count %></label>
-      </td>
-      <td>
-        <label class="width-70">预约等待</label>
-        <label class="width-80 text-align-center"><%= @pending_orders_count %></label>
-      </td>
-      <td class="font-18 text-align-center"><%= @orders_count %><label class="margin-left-5 font-18">台</label></td>
-    </tr>
-
-    </tbody>
-  </table>
-
+  <%= render partial: 'xianchang/partials/top' %>
   <div class="search_nav margin-top-5">
     <div class="item-query">
       <label class="width-85">查找项目或车辆</label>
@@ -98,7 +47,8 @@
 <script type="text/javascript" charset="utf-8">
 $(function(){
   window.Countdown = function(object){
-    var $this = $(object), finalDate = $(object).data('countdown');
+    var $this = $(object);
+    var finalDate = $(object).data('countdown');
     var updateCallback = function(event) {
       var totalHours = event.offset.totalDays * 24 + event.offset.hours;
       var totalMins = event.offset.totalDays * 24 * 60 + event.offset.hours * 60 + event.offset.minutes;

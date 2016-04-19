@@ -35,15 +35,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store_workstation_ids.to_s.split(",").map(&:to_i)
   end
 
-  def work_time_in_minutes
-    self.standard_time.to_i + self.buffering_time.to_i + self.factor_time.to_i
-  end
-
-  def real_work_time
-    return used_time.to_i if used_time.to_i > 0
-    work_time_in_minutes
-  end
-
   def mechanics
     #TODO:
     tasks.map(&:mechanic).compact
@@ -59,24 +50,51 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def executable?(workstation)
     if self.store_vehicle.blank?
+      self.errors.add(:store_vehicle, "订单无效:订单所属车辆为空。无法进行施工！")
       return false
-    else
-     !self.store_order.task_pausing? &&
-     self.has_qualified_mechaincs?(workstation) &&
-     self.store_vehicle.workflows.processing.where.not({id: self.id}).blank? &&
-     big_brothers_finished?
-   end
+    end
+
+    if self.store_order.task_pausing?
+      self.errors.add(:status, "当前施工项目已经暂停，请先恢复施工状态！")
+      return false
+    end
+
+    unless self.has_qualified_mechaincs?(workstation)
+      return false
+    end
+
+    unless self.store_vehicle.workflows.processing.where.not({id: self.id}).blank?
+      self.errors.add(:already, '该车辆已经在其他工位施工！')
+      return false
+    end
+
+    unless big_brothers_finished?
+      self.errors.add(:processing, '该车辆正在施工其他项目！')
+      return false
+    end
+
+    return true
   end
 
   def has_qualified_mechaincs?(workstation)
     if self.tasks.present?
-      self.mechanics.all?(&->(m){m.store_group_member.ready? })
+      if self.mechanics.all?(&->(m){m.store_group_member.ready?})
+        return true
+      else
+        self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有正在忙碌的技师。若要开始请重新分配技师！')
+        return false
+      end
     else
       available_mechanics_count = workstation.store_group
                                              .store_group_members
                                              .available
                                              .ready.level_at_least(mechanics_level.to_i).count
-      available_mechanics_count >= mechanics_quantity
+      if available_mechanics_count >= mechanics_quantity
+        return true
+      else
+        self.errors.add(:mechanics, '无法开始施工，因为技师数量不满足；该服务需要 #{mechanics_quantity}个技师，而只分配了#{available_mechanics_count}个！')
+        return false
+      end
     end
   end
 
@@ -168,13 +186,35 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.mechanics.map(&:store_group_member).map(&:busy!)
   end
 
+  def work_time_in_minutes
+    if self.used_time.to_i > 0
+      return self.used_time.to_i
+    else
+      needed_time = self.standard_time.to_i + self.buffering_time.to_i + self.factor_time.to_i
+      needed_time > 0 ? needed_time : 2
+    end
+  end
+
+  def real_work_time
+    if self.used_time.to_i > 0
+      return self.used_time
+    else
+      will_used_time = work_time_in_minutes
+      self.update(:used_time, will_used_time)
+      will_used_time
+    end
+  end
+
   def count_down
     self.used_time.to_i - self.elapsed_time
   end
 
   def elapsed_time
-    return 0 if pausing? || self.started_time.blank?
-    ((Time.now - self.started_time)/60).ceil
+    if pausing? || self.started_time.blank?
+      return 0
+    else
+      ((Time.now - self.started_time)/60).ceil
+    end
   end
 
   def pausing?
@@ -199,7 +239,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.free_workstation
     self.free_mechanics
     self.finished!
-    self.update!(elapsed: actual_time_in_minutes)
+    self.update!(elapsed: actual_time_in_minutes, finished_at: Time.now)
   end
 
   def free_workstation

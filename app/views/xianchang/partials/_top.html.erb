@@ -15,11 +15,11 @@
 				</td>
 				<td>
 					<label class="width-70">工位总数</label>
-					<label class="width-80 text-align-center">8</label>
+					<label class="width-80 text-align-center"><%= @workstations.count %></label>
 				</td>
 				<td>
 					<label class="width-70">工位使用</label>
-					<label class="width-80 text-align-center">8</label>
+					<label class="width-80 text-align-center"><%= @workstations.busy.count %></label>
 				</td>
 				<td class="border-bottom-none">今天施工总台次</td>
 			</tr>
@@ -38,11 +38,11 @@
 				</td>
 				<td>
 					<label class="width-70">工位正常</label>
-					<label class="width-80 text-align-center">8</label>
+					<label class="width-80 text-align-center"><%= @workstations.available.count %></label>
 				</td>
 				<td>
-					<label class="width-70">预约等待</label>
-					<label class="width-80 text-align-center">0</label>
+					<label class="width-70"></label>
+					<label class="width-80 text-align-center"></label>
 				</td>
 				<td class="font-18 text-align-center"><%= @order_counts.map{|key, value| value}.sum %><label class="margin-left-5 font-18">台</label></td>
 			</tr>
