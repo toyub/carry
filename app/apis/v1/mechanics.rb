@@ -1,8 +1,8 @@
 module V1
   class Mechanics < Grape::API
     before do
-      # authenticate_platform!
-      # authenticate_user!
+      authenticate_platform!
+      authenticate_user!
     end
 
     resource :mechanic do
@@ -12,7 +12,6 @@ module V1
           requires :platform, type: String, desc: '调用的平台!'
         end
         get  do
-          current_user = StoreStaff.find(11)
           workflowing = current_user.store_staff_tasks.current_task
           has_workflow = current_user.store_staff_tasks.have_task
           if workflowing.present?
