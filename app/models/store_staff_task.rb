@@ -37,6 +37,10 @@ class StoreStaffTask < ActiveRecord::Base
   end
 
   def self.current_task
+    by_busy.undeleted.joins(:workflow_snapshot).current_workflow.last
+  end
+
+  def self.have_task
     by_ready.undeleted.joins(:workflow_snapshot).current_workflow.last
   end
 

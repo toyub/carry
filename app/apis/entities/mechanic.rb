@@ -10,7 +10,7 @@ module Entities
     expose :mechanics, using: MechanicOfWorkflowSnapshot
     expose(:service_name) {|model|model.store_service.name}
     expose(:workstation_name) {|model|model.store_workstation.name}
-    expose(:license_number) {|model|model.store_order.store_vehicle.license_number }
+    expose(:license_number) {|model|model.store_order.try(:store_vehicle).try(:license_number) }
   end
 
   class StoreStaffTask < Grape::Entity
@@ -23,12 +23,29 @@ module Entities
     expose :store_staff_task, using: StoreStaffTask
 
     private
-    def status
-      true
+    def store_staff_task
+      if object.store_staff_tasks.current_task.present?
+        object.store_staff_tasks.current_task
+      else
+        object.store_staff_tasks.have_task
+      end
     end
 
-    def store_staff_task
-      object.store_staff_tasks.current_task
+    def status
+      if object.store_staff_tasks.current_task.present?
+        2
+      else
+        1
+      end
     end
+
+    def message
+      if object.store_staff_tasks.current_task.present?
+        "您当前有施工中的流程!"
+      else
+        "您有需要去施工的流程!"
+      end
+    end
+
   end
 end
