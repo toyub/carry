@@ -11,8 +11,8 @@ module Api
 
         def create
           ActiveRecord::Base.transaction do
-            unit = current_store.store_material_units.create!(unit_params)
-            root_category = current_store.root_material_categories.create!(root_category_params)
+            unit = current_store.store_material_units.find_or_create_by!(name: params[:store_material_unit][:name]) {unit_params}
+            root_category = current_store.root_material_categories.find_or_create_by!(name: params[:store_material_root_category][:name]) {root_category_params}
             @store_material = current_store.store_materials.create!(material_params.merge!(store_material_root_category_id: root_category.id, store_material_unit_id: unit.id))
             @saleinfo = @store_material.create_store_material_saleinfo(saleinfo_params)
           end
