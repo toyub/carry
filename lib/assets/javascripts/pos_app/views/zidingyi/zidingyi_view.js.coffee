@@ -25,8 +25,4 @@ class Mis.ziDingYiView extends Backbone.View
     $(".list-new-material").append(view.render().el)
 
   saveOnce: ->
-    @collection.saveAll
-      success: (res) ->
-        $('.save-once').hide()
-      error: (res) ->
-        alert res
+    @collection.saveAll()

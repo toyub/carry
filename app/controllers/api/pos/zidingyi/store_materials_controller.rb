@@ -13,10 +13,10 @@ module Api
           ActiveRecord::Base.transaction do
             unit = current_store.store_material_units.create!(unit_params)
             root_category = current_store.root_material_categories.create!(root_category_params)
-            store_material = current_store.store_materials.create!(material_params.merge!(store_material_root_category_id: root_category.id, store_material_unit_id: unit.id))
-            store_material.create_store_material_saleinfo(saleinfo_params)
+            @store_material = current_store.store_materials.create!(material_params.merge!(store_material_root_category_id: root_category.id, store_material_unit_id: unit.id))
+            @saleinfo = @store_material.create_store_material_saleinfo(saleinfo_params)
           end
-          render json: {status: "almost done!"}
+          render json: {success: true, name: @store_material.name, speci: @store_material.speci, retail_price: @saleinfo.retail_price, orderable_id: @saleinfo.id}
         end
 
         private
