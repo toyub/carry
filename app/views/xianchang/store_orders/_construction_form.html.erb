@@ -1,5 +1,5 @@
 <%= form_tag "", data: {order_id: order.id, order_state: order.task_status}, id: 'constructionForm', remote: true do -%>
-  <h2>编辑施工信息</h2>
+  <h2>施工信息(<%= link_to "去添加项目", edit_pos_store_order_path(order), target: '_blank', class: 'color-C6676D' %>)</h2>
   <div class="constrction_info_tab">
     <table cellspacing="0" cellpadding="0">
       <thead>
