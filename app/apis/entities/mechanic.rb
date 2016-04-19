@@ -10,7 +10,7 @@ module Entities
     expose :mechanics, using: MechanicOfWorkflowSnapshot
     expose(:service_name) {|model|model.store_service.name}
     expose(:workstation_name) {|model|model.store_workstation.name}
-    expose(:license_number) {|model|model.store_order.try :store_vehicle.try :license_number}
+    expose(:license_number) {|model|model.store_order.store_vehicle.license_number }
   end
 
   class StoreStaffTask < Grape::Entity
