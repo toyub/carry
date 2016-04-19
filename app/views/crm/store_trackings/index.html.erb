@@ -12,6 +12,7 @@
 
 <%= render 'new_tracking' %>
 
+<% content_for :javascripts do %>
 <script type="text/javascript">
   function submit_search_form(){
     $('#queryForm').submit();
@@ -38,3 +39,4 @@
 
   });
 </script>
+<% end %>

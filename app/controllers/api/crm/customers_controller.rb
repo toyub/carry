@@ -15,7 +15,7 @@ module Api
       def create
         create_status = AddVehicleService.call(current_store, vehicle_params, customer_params)
         if create_status.success
-          render json: {success: true, notice: "车辆保存成功!", store_vehicle_id: create_status.vehicle.id}
+          render json: {success: true, notice:  create_status.notice, store_vehicle_id: create_status.vehicle.id}
         else
           render json: {success: false, notice: "车辆保存失败，请重试!"}, status: 507
         end

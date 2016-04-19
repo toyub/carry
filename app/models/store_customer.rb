@@ -75,6 +75,10 @@ class StoreCustomer < ActiveRecord::Base
     assets.where(type: "StoreCustomerTaozhuang")
   end
 
+  def available_orderable_assets
+    self.assets.serviceable.select(&->(asset){asset.available_items.present?})
+  end
+
   def age
     now = Time.now.to_date
     now.year - birthday.year - (birthday.to_date.change(year: now.year) > now ? 1 : 0)

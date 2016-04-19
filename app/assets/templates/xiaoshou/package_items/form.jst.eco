@@ -1,24 +1,15 @@
 <h3>创建套餐内容</h3>
 
-<div class="creating_details float-left">
+<div class="creating_details">
   <ul class="items_create_head" id="do_sel_types_to_create_package_card">
-    <li class="color-dad8d8">
-    <label>
-      服务项目
-      <input type="radio" id="serviceItem" name="package_itemable_type" value="StoreService" <%= 'checked' if @item.isStoreService() %>>
-    </label>
+    <li class="<%= 'active' if @item.isStoreService() %> " id="serviceItem" name="package_itemable_type">
+      <label >服务项目</label>
     </li>
-    <li>
-    <label>
-      储值
-      <input type="radio" id="depositItem" name="package_itemable_type" value="StoreDepositCard" <%= 'checked' if @item.isStoreDepositCard() %>>
-    </label>
+    <li class="<%= 'active' if @item.isStoreDepositCard() %>" id="depositItem" name="package_itemable_type" >
+      <label>储值</label>
     </li>
-    <li class="color-dad8d8">
-    <label>
-      商品
-      <input type="radio" id="materialItem" name="package_itemable_type" value="StoreMaterialSaleinfo" <%= 'checked' if @item.isStoreMaterial() %>>
-    </label>
+    <li class="<%= 'active' if @item.isStoreMaterial() %>" id="materialItem" name="package_itemable_type">
+      <label> 商品</label>
     </li>
   </ul>
   <div id="itemsCreateContents" class="position-relative height-355">
@@ -26,11 +17,6 @@
   </div>
 </div>
 <div class=" btn_group_in_package">
-  <label class="cancel_btn btn cancel color-000" id="closeWithoutSave">取消</label>
   <label class="save_btn btn" id="saveAndClose">确定</label>
-</div>
-
-<div class="tips float-right">
-  <h4 class="text-align-center"></h4>
-  <p></p>
+  <label class="cancel_btn btn cancel color-000" id="closeWithoutSave">取消</label>
 </div>

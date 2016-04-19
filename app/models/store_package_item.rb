@@ -1,6 +1,7 @@
 class StorePackageItem < ActiveRecord::Base
   include BaseModel
 
+  belongs_to :store_package_setting
   belongs_to :package_itemable, polymorphic: true
   has_many :store_order_items, as: :package_item
 
@@ -9,7 +10,9 @@ class StorePackageItem < ActiveRecord::Base
   scope :deposits_cards, ->{where(package_itemable_type: StoreDepositCard.name)}
   scope :packaged_services, ->{where(package_itemable_type: StoreService.name)}
 
-  belongs_to :store_package_setting
+  def name
+    read_attribute(:name) || package_itemable.try(:name)
+  end
 
   def retail_price
     package_itemable.retail_price
