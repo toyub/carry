@@ -30,9 +30,9 @@
 				<td></td>
 				<td></td>
 				<td>数量合计:</td>
-				<td><span>8</span></td>
+				<td><span id="total-quantity"></span></td>
 				<td>金额合计:</td>
-				<td><span>2979.00</span></td>
+				<td><span id="total-amount"></span></td>
 			</tr>
 		</tfoot>
 	</thead>

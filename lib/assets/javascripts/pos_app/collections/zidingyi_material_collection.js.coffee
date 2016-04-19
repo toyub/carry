@@ -14,7 +14,7 @@ class Mis.Models.ZidingYiMaterial extends Backbone.Model
       price: data.retail_price,
       cached_price: 0,
       cost_price: 0,
-      quantity: @get('quantity),
+      quantity: @get('quantity'),
       discount: null,
       discount_reason: null
     }
