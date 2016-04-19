@@ -8,13 +8,16 @@ class Mis.Collections.ZiDingYiMaterialCollection extends Backbone.Collection
   model: Mis.Models.ZidingYiMaterial
   url: '/api/pos/zidingyi/store_materials'
 
-  saveAll: ->
+  saveAll: (options) ->
     @models.map @createMaterial
+    options.success()
 
   createMaterial: (model) ->
     className = ".list-new-material tr." + model.cid
-    model.set (@$(className).find("input,select").serializeJSON())
+    input_or_select = @$(className).find("input,select")
+    model.set input_or_select.serializeJSON()
     if model.isValid()
       model.save()
+      (input.disabled = true) for input in input_or_select
     else
       alert(model.validationError)
