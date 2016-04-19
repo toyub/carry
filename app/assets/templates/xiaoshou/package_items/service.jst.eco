@@ -1,33 +1,41 @@
 <% item = @item %>
-<li>
-  <label>服务项目：</label>
-  <select name="package_itemable_id" id="store_service_id" style="width:132px;">
+<li class="project">
+  <label class="width-70">选择项目：</label>
+  <select name="package_itemable_id" id="store_service_id" style="width:210px;">
     <option>请选择</option>
     <% Mis.services.each (service) ->: %>
     <option value="<%= service.get 'id' %>" <%= 'selected' if (String(item.get('package_itemable_id')) == String(service.get('id')) && item.isStoreService()) %>><%= service.get 'name' %></option>
   <% end %>
   </select>
+
+  <div class="project_price">
+    <label for="" class="width-70">项目单价:</label>
+    <span id="servicePrice" class="width-210 service_price"><%= item.retail_price('StoreService') %></span>
+    <label for="" class="width-30">元</label>
+  </div>
+</li>
+
+<li>
+  <h4 class="title">套餐项目设置</h4>
 </li>
 <li>
-  <label>名称：</label>
+  <label>已选择项目：</label>
   <span id="serviceName"><%= item.name('StoreService') %></span>
 </li>
 <li>
-  <label>零售单价：</label>
-  <span id="servicePrice"><%= item.retail_price('StoreService') %></span>
-  <label>零售总价：</label>
-  <span class='js-regular-amount color-282726'><%= item.regularAmount() %></span>
+  <label>项目数量：</label>
+  <input type="text" name="quantity" value="<%= item.quantity('StoreService') %>" class="width-30"> 次
+
+  <label for="">原总价参考：</label>
+  <span class='js-regular-amount color-282726 regular_amount'><%= item.regularAmount() %></span>  元
 </li>
 <li>
-  <label>次数：</label>
-  <input type="text" name="quantity" value="<%= item.quantity('StoreService') %>"> 次
+  <label>项目合计价格：</label>
+  <input type="text" name="amount" value="<%= item.packagedItemAmount('StoreService') %>" class="amount"> 元
 </li>
+
 <li>
-  <label>套餐总价：</label>
-  <input type="text" name="amount" value="<%= item.packagedItemAmount('StoreService') %>"> 元
-</li>
-<li>
-  <label>套餐单价：</label>
-  <input type="text" name="price" value="<%= item.price('StoreService') %>" readonly> 元
+  <label>当前套餐单价：</label>
+  <span name="price" ><%= item.price('StoreService') %></span>元
   (<span>单品折扣率：</span><span class='js-discount-rate'><%= item.discountRate() %></span>)
 </li>

@@ -13,6 +13,15 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
   scope :has_deleted, ->{where(deleted: true)}
   scope :not_deleted, ->{where(deleted: false)}
 
+  # HACK: 商品中带的服务是没有施工提醒的，但是为了兼容服务，
+  # 所以在这里hack了一下
+  HACKED_SERVICE_REMINDS = {
+    ordered: ->(service){"尊敬的客户您在本店购买的服务【#{service.name}】已经下单成功，即将开始施工。 <#{service.store.name}>"},
+    started: ->(service){"尊敬的客户您在本店购买的服务【#{service.name}】已经开始施工，预计施工时间: #{service.standard_time}分钟。 <#{service.store.name}>"},
+    finished: ->(service){"尊敬的客户您在本店购买的服务【#{service.name}】已经施工完成。 <#{service.store.name}>"}
+  }
+
+
   def mechanic_level_type
     ServiceMechanicLevelType.find(self.mechanic_level).name
   end
@@ -59,8 +68,28 @@ class StoreMaterialSaleinfoService < ActiveRecord::Base
     0.0
   end
 
+  #HACK: 商品中的服务是没有销售提成的
   def saleman_commission_template
     nil
+  end
+
+  #HACK: 是否启用施工提醒
+  def sms_enabled?(remind_type)
+    HACKED_SERVICE_REMINDS.keys.include?(remind_type) && self.tracking_needed
+  end
+
+  #HACK: 施工提醒内容
+  def message(remind_type)
+    if HACKED_SERVICE_REMINDS.keys.include?(remind_type)
+      HACKED_SERVICE_REMINDS[remind_type].call(self)
+    else
+      ''
+    end
+  end
+
+  #HACK: 施工提醒时间(节)点
+  def remind_delay_interval(*args)
+    (0.5).minutes
   end
 
 end
