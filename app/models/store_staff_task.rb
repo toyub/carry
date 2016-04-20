@@ -9,8 +9,7 @@ class StoreStaffTask < ActiveRecord::Base
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_item, ->(item_id) { where(store_order_item_id: item_id) }
   scope :tasks_of, ->(staff_id) { where(mechanic_id: staff_id) }
-  scope :by_busy, -> { where(status: StoreStaffTask.statuses[:busy])}
-  scope :by_ready, -> { where(status: StoreStaffTask.statuses[:ready]) }
+  scope :unfinished, -> { where.not(status: StoreStaffTask.statuses[:finished])}
   scope :undeleted, -> { where(deleted: false) }
   scope :current_workflow, -> { where(store_service_workflow_snapshots: {status: StoreServiceWorkflowSnapshot.statuses[:processing]}) }
 
@@ -37,11 +36,7 @@ class StoreStaffTask < ActiveRecord::Base
   end
 
   def self.current_task
-    by_busy.undeleted.joins(:workflow_snapshot).current_workflow.last
-  end
-
-  def self.have_task
-    by_ready.undeleted.joins(:workflow_snapshot).current_workflow.last
+    undeleted.unfinished.joins(:workflow_snapshot).current_workflow.last
   end
 
 end

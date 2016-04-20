@@ -18,34 +18,9 @@ module Entities
     expose :workflow_snapshot, using: ServiceWorkflowSnapshot
   end
 
-  class Mechanic < Grape::Entity
-    expose :full_name, :phone_number, :status, :message
-    expose :store_staff_task, using: StoreStaffTask
-
-    private
-    def store_staff_task
-      if object.store_staff_tasks.current_task.present?
-        object.store_staff_tasks.current_task
-      else
-        object.store_staff_tasks.have_task
-      end
-    end
-
-    def status
-      if object.store_staff_tasks.current_task.present?
-        2
-      else
-        1
-      end
-    end
-
-    def message
-      if object.store_staff_tasks.current_task.present?
-        "您当前有施工中的流程!"
-      else
-        "您有需要去施工的流程!"
-      end
-    end
-
+  class TaskResult < Grape::Entity
+    expose :status, :message
+    expose :task, using: StoreStaffTask
   end
+
 end

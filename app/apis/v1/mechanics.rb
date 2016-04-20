@@ -12,17 +12,14 @@ module V1
           requires :platform, type: String, desc: '调用的平台!'
         end
         get  do
-          workflowing = current_user.store_staff_tasks.current_task
-          has_workflow = current_user.store_staff_tasks.have_task
-          if workflowing.present?
-            present current_user, with: ::Entities::Mechanic
+          task = current_user.store_staff_tasks.current_task
+
+          if task.present?
+            result = {status: 1, message: 'Yes!', task: task}
           else
-            if has_workflow.present?
-              present current_user, with: ::Entities::Mechanic
-            else
-              {status: 0, message: '暂时不存在流程，请注意查收!'}
-            end
+            result = {status: 0, message: '暂时不存在流程，请注意查收!', task: nil}
           end
+          present result, with: ::Entities::TaskResult
         end
       end
 
@@ -32,12 +29,16 @@ module V1
         requires :id, type: Integer, desc: 'task的id！'
       end
       put do
-        if task = current_user.store_staff_tasks.where(id: params[:id]).last
+        if task = current_user.store_staff_tasks.ready.where(id: params[:id]).last
           task.busy!
-          current_user.store_group_member.busy!
-          {status: true, message: '上岗成功！'}
+          if current_user.store_group_member
+            current_user.store_group_member.busy!
+            {status: true, message: '上岗成功！'}
+          else
+            {status: false, message: '由于系统原因请重试！'}
+          end
         else
-          {status: false, message: '上岗失败!'}
+          {status: false, message: '当前不存在需要上岗任务!'}
         end
       end
     end
