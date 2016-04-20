@@ -15,9 +15,9 @@ module V1
           task = current_user.store_staff_tasks.current_task
 
           if task.present?
-            result = {status: 1, message: 'Yes!', task: task}
+            result = {status: true, message: '存在流程!', task: task}
           else
-            result = {status: 0, message: '暂时不存在流程，请注意查收!', task: nil}
+            result = {status: false, message: '暂时不存在流程，请注意查收!', task: nil}
           end
           present result, with: ::Entities::TaskResult
         end
