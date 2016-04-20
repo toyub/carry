@@ -12,7 +12,7 @@ class Mis.ziDingYiView extends Backbone.View
     @total_quantity = 0
     @total_amount = 0.0
 
-  events: 
+  events:
     'click .new-material': 'newMaterial'
     'click .save-once': 'saveOnce'
     'change .list-new-material input[name="quantity"]' : 'resetTotalQuantity'
