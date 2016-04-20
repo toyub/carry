@@ -14,6 +14,8 @@ module Entities
   end
 
   class StoreStaffTask < Grape::Entity
+    expose(:status) {|model| ActiveRecord::Base::StoreStaffTask.statuses[:"#{model.status}"]}
+    expose(:status_i18n) {|model|model.status}
     expose :id, :workflow_id, :mechanic_id, :store_order_item_id
     expose :workflow_snapshot, using: ServiceWorkflowSnapshot
   end
