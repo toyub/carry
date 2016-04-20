@@ -1,9 +1,9 @@
 <td><%= @view.index + 1 %></td>
 <td><span class="span_border_left"><%= @entity.storeCustomer.get 'full_name' %></span></td>
 <td><%= @entity.storeCustomer.get 'phone_number' %></td>
-<td><%= @entity.categoryName() %></td>
+<td><%= @entity.storeCustomer.get 'property'  %></td>
 <td><%= @entity.storeCustomer.get 'vehicles_count'  %></td>
-<td></td>
+<td><%= @entity.categoryName() %></td>
 <% if @entity.storeCustomer.get 'has_customer_asset' : %>
 <td><%= '有' %></td>
 <% else : %>
