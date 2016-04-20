@@ -200,7 +200,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       return self.used_time
     else
       will_used_time = work_time_in_minutes
-      self.update(:used_time, will_used_time)
+      self.update(used_time: will_used_time)
       will_used_time
     end
   end

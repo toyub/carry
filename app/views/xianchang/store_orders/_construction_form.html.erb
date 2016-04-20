@@ -1,5 +1,5 @@
 <%= form_tag "", data: {order_id: order.id, order_state: order.task_status}, id: 'constructionForm', remote: true do -%>
-  <h2>施工信息(<%= link_to "去添加项目", edit_pos_store_order_path(order), target: '_blank', class: 'color-C6676D' %>)</h2>
+  <h2>施工信息(<%= link_to "去编辑订单", edit_pos_store_order_path(order), target: '_blank', class: 'color-C6676D' %>)</h2>
   <div class="constrction_info_tab">
     <table cellspacing="0" cellpadding="0">
       <thead>
@@ -19,12 +19,11 @@
   </div>
   <div class="btn_group float-right margin-top-20">
     <% unless order.task_finished? %>
-      <%= button_tag "更新施工信息", class: "save_btn btn width-140 js-save" %>
-      <%= button_tag "保存并立即施工", class: "save_btn btn width-140 js-execute" %>
       <% if order.task_pausing? %>
+        <span>施工暂停</span>
         <%= button_tag "恢复施工", class: "save_btn btn width-100 js-play" %>
       <% else %>
-        <%= button_tag "暂停", class: "save_btn btn js-pause" %>
+        <%= button_tag "暂停本单", class: "save_btn btn width-100 js-pause" %>
       <% end %>
     <% end %>
   </div>

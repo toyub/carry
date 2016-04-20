@@ -7,8 +7,15 @@
     <%= image_tag 'workstation_car.png', class: 'car_img'%>
   </dl>
   <dl class="license_plate" >
-    <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
-    <span class="time do_dbclick <%= 'times' if is_started && !workstation.current_workflow.pausing? %>" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
+    <% if is_started && !workstation.current_workflow.pausing? %>
+      <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
+      <span class="time do_dbclick times" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
+    <% elsif workstation.current_workflow.pausing? %>
+      <span>施工暂停</span>
+    <% else %>
+      <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
+      <span class="time do_dbclick" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
+    <% end %>
   </dl>
 
   <dl class="add_time_wrap">
