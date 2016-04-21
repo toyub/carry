@@ -41,6 +41,29 @@ module V1
           {status: false, message: '当前不存在需要上岗任务!'}
         end
       end
+
+      resource :workflowing do
+        add_desc '技师结束施工'
+        params do
+          requires :platform, type: String, desc: '调用的平台!'
+          requires :id, type: Integer, desc: 'task的id！'
+        end
+        put do
+          if task = current_user.store_staff_tasks.busy.where(id: params[:id]).last
+            task.finished!
+            if current_user.store_group_member.busy?
+              current_user.store_group_member.ready!
+              {status: true, message: '成功结束任务！'}
+            else
+              {status: false, message: '由于系统原因请重试!'}
+            end
+          else
+            {status: false, message: '当前不存在需要结束的任务!'}
+          end
+        end
+      end
+
+
     end
 
   end
