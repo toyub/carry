@@ -48,6 +48,9 @@ Rails.application.routes.draw do
       resources :material_orders
       resources :assessments, controller: 'store_supplier_assessments'
     end
+    resources :store_temporary_suppliers do
+      get :check_item, on: :collection
+    end
     resources :outings
     namespace :transfer do
       resources :pickings

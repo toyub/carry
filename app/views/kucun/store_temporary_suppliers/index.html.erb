@@ -1,0 +1,265 @@
+<div class="main_top">
+  <h2>临时订货</h2>
+  <span class="back_to_list">
+    <a class="fa-arrow-circle-left  fa" href="javascript:void(0)"></a>
+    返回列表
+  </span>
+</div>
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>时间</label>
+        <input type="date" class="width-150">
+      </div>
+      <div class="item-query">
+        <label>操作人</label>
+        <select  class="width-150">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>商品名称</label>
+        <input type="text" class="width-150">
+      </div>
+      <div class="item-query">
+        <label>供应商</label>
+        <select  class="width-150">
+          <option></option>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <a href="#" class="query_btn btn">查<nbsp1></nbsp1>询</a>
+      </div>
+      <div class="query_div">
+        <a  href="javascript:void(0)" class="print_btn btn">打印</a>
+        <a  href="javascript:void(0)" class="export_btn btn">导出</a>
+      </div>
+    </div>
+
+    <div class="common_storage jit_wrap">
+      <div class="list">
+        <div class="list_top list_tr">
+          <ul>
+            <li  >#</li>
+            <li >时间</li>
+            <li >业务订单</li>
+            <li >相关商品</li>
+            <li >销售类别</li>
+            <li >金额</li>
+            <li >客户</li>
+            <li >手机号</li>
+            <li >车牌号</li>
+            <li >车型</li>
+            <li >操作</li>
+          </ul>
+        </div>
+        <div class="list_contents">
+          <% @temporary_orders.each.with_index(1) do |order, index| %>
+            <div class="list_content list_tr border_left ">
+              <ul>
+                <li class="number"><%= index %>.</li>
+                <li ><%= order.created_at.strftime("%Y-%m-%d") %></li>
+                <li ><%= order.numero %></li>
+                <li > 气门油封,气门组件,气门室盖垫,大修包等 </li>
+                <li >未设置....</li>
+                <li ><%= order.amount %></li>
+                <li ><%= order.store_customer.full_name %></li>
+                <li ><%= order.store_customer.phone_number %></li>
+                <li ><%= order.store_vehicle.license_number %></li>
+                <li ><%= order.store_vehicle.vehicle_series.try(:name) %></li>
+                <li>
+                  <i class="fa fa-chevron-down cursor-pointer click_btn detailsbtn" id="cursor-pointer"></i>
+                </li>
+              </ul>
+            </div>
+            <div class=" common_storage_content jit_material" style="display:none;" >
+              <table cellpadding="0" cellspacing="0" >
+                <thead>
+                  <tr class="color-282726">
+                    <th>#</th>
+                    <th>名称</th>
+                    <th>规格</th>
+                    <th>单位</th>
+                    <th>销售类别</th>
+                    <th>数量</th>
+                    <th>零售价</th>
+                    <th>成本价</th>
+                    <th>零售小计</th>
+                    <th>
+                      操作
+                      <input type="checkbox" class="float-right margin-right-10 all_check">
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class='list-materials'>
+                  <% order.items.materials.each.with_index(1) do |item, index| %>
+                    <tr>
+                      <td class="number"><%= index %></td>
+                      <td><%= item.orderable.name %></td>
+                      <td><%= item.orderable.speci %></td>
+                      <td><%= item.orderable.store_material_unit.try('name') %></td>
+                      <td>未设置</td>
+                      <td><%= item.quantity %></td>
+                      <td><%= item.retail_price %></td>
+                      <td>未核实</td>
+                      <td><%= item.amount %></td>
+                      <td>
+                        <input type="checkbox" class="margin-right-10" name="sub_check" data-item_id=<%= item.id %>>
+                      </td>
+                    </tr>
+                  <% end %>
+
+                </tbody>
+              </table>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= form_tag kucun_store_temporary_suppliers_path, id: 'temporary_form' do %>
+    <div class=" common_storage_content jit_single_wrap">
+      <div class="ordergoods_query">
+        <div class="nav-item-query margin-left-15">
+          <div class="font-20 font-borderradius text-align-center">订</div>
+        </div>
+        <div class="nav-item-query">
+          <label>供应商：</label>
+          <input type="text" class="width-200" readonly>
+        </div>
+        <div class="nav-item-query " >
+          <label>时间：</label>
+          <input type="text" class="width-135" readonly>
+        </div>
+        <div class="nav-item-query">
+          <label>单号：</label>
+          <input type="text" class="width-135" readonly>
+        </div>
+        <div class="nav-item-query float-right">
+          <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
+          <a href="#" class="print_barcode_btn">打印条码</a>
+        </div>
+      </div>
+      <div class="common_storage_tab jit_single">
+        <table cellpadding="0" cellspacing="0" id="" class="storage_tab check_order">
+          <thead>
+            <tr class="bg-color-e0e2cf color-282726">
+              <th >#</th>
+              <th >商品名称</th>
+              <th >条码</th>
+              <th >规格</th>
+              <th >单位</th>
+              <th >一级分类</th>
+              <th >二级分类</th>
+              <th >成本价</th>
+              <th >数量</th>
+              <th >小计</th>
+              <th >备注</th>
+              <th >操作</th>
+            </tr>
+          </thead>
+          <tbody class="list-add-materials"> </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td class="text-align-left " colspan="7">合计:</td>
+              <td class="temporary-order-quantity"></td>
+              <td class="temporary-order-amount"></td>
+              <td colspan="3"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+
+      <div class="order_form_info">
+        <div class="item_content margin-left-10">
+          <label class="width-75 vertical-align-top ">备注：</label>
+          <textarea class="remarks_textarea width-1251"></textarea>
+        </div>
+
+        <div class="height-50 ">
+          <div class="item_content margin-left-10 float-left">
+            <label class="width-75">本次付款：</label>
+            <input type="text" class="width-253 ">
+          </div>
+
+          <div class="item_content float-left  margin-left-20">
+            <label class="width-75 ">结算账户：</label>
+            <select  class="width-253 ">
+              <option></option>
+              <option></option>
+            </select>
+          </div>
+
+          <div class="item_content float-left margin-left-20">
+            <label  class="width-75">本次欠款：</label>
+            <input type="text" class="width-253">
+          </div>
+        </div>
+
+        <div class="item_content  margin-left-10">
+          <label class="width-75">制单人：</label>
+          <label class="width-253"></label>
+        </div>
+
+
+        <div class="btn_group margin-right-20 margin-top-10">
+          <input type="reset" class="cancel_btn" value='取消' >
+          <input type="submit" class="save_btn btn" value="保存">
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    var chosen_items = []
+
+    $(".jit_single_wrap").show()
+    $(".detailsbtn").click(function(){
+      $(".detailsbtn").closest('div').next().hide();
+      var detail = $(this).closest('div').next();
+      detail.slideToggle('500')
+    })
+    $(".list-materials").on("change", 'input:checkbox', function(){
+      var item_id = $(this).data('item_id');
+      if(this.checked){
+        var url = "item_id=" + item_id;
+        $.ajax({
+          type: 'GET',
+          url: '/kucun/store_temporary_suppliers/check_item',
+          data: {item_id: item_id},
+          dataType: 'script',
+          success: function() {
+            chosen_items.push(item_id)
+            td_number = $(".tr_number_" + item_id + " td:first-child")
+            td_number.text(chosen_items.length)
+            $("input[name=amount]").change(function(){
+              var total_amount = 0.0;
+              $('.list-add-materials input[name=amount]').each(function(){
+                total_amount += +$(this).val();
+              })
+              $('.temporary-order-amount').text(total_amount);
+            })
+          }
+        })
+      }else{
+        chosen_items.pop(item_id)
+        var tr = $(".tr_number_" + item_id)
+        tr.remove()
+        $(".list-add-materials tr").each(function(index){
+          $(this).children("td.number").text(index + 1)
+        })
+      }
+    })
+
+  })
+</script>
+
