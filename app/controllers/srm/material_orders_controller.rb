@@ -48,7 +48,7 @@ class Srm::MaterialOrdersController < Srm::BaseController
       end
       order.save!
     end
-    redirect_to kucun_store_supplier_material_orders_path({store_supplier_id: order.store_supplier_id})
+    redirect_to srm_store_supplier_material_orders_path({store_supplier_id: order.store_supplier_id})
   end
 
   def show
