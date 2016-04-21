@@ -50,6 +50,8 @@ Rails.application.routes.draw do
     end
     resources :store_temporary_suppliers do
       get :check_item, on: :collection
+
+      resources :material_orders
     end
     resources :outings
     namespace :transfer do

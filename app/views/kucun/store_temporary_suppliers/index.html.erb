@@ -122,7 +122,7 @@
     </div>
   </div>
 
-  <%= form_tag kucun_store_temporary_suppliers_path, id: 'temporary_form' do %>
+  <%= form_tag "/kucun/material_orders/", id: 'temporary_form' do %>
     <div class=" common_storage_content jit_single_wrap">
       <div class="ordergoods_query">
         <div class="nav-item-query margin-left-15">
@@ -130,7 +130,7 @@
         </div>
         <div class="nav-item-query">
           <label>供应商：</label>
-          <input type="text" class="width-200" readonly>
+          <%= select_tag :store_supplier_id, options_for_select(@store_supplier.collect {|supplier| [supplier.name, supplier.id]}), class: "width-200" %>
         </div>
         <div class="nav-item-query " >
           <label>时间：</label>
@@ -182,20 +182,22 @@
         <div class="height-50 ">
           <div class="item_content margin-left-10 float-left">
             <label class="width-75">本次付款：</label>
-            <input type="text" class="width-253 ">
+            <input type="text" class="width-253" id="pay-field">
           </div>
 
           <div class="item_content float-left  margin-left-20">
             <label class="width-75 ">结算账户：</label>
-            <select  class="width-253 ">
-              <option></option>
-              <option></option>
+
+            <select class="width-253" name='store_material_order[payments_attributes][][store_settlement_account_id]' required>
+              <% current_store.store_settlement_accounts.each do |opt| %>
+                <option value="<%= opt.id %>"><%= opt.name %></option>
+              <% end %>
             </select>
           </div>
 
           <div class="item_content float-left margin-left-20">
             <label  class="width-75">本次欠款：</label>
-            <input type="text" class="width-253">
+            <input type="text" class="width-253" id="debt-field" readonly>
           </div>
         </div>
 
@@ -243,6 +245,8 @@
                 total_amount += +$(this).val();
               })
               $('.temporary-order-amount').text(total_amount);
+              $('.temporary-order-amount').text(total_amount);
+              $("#debt-field").val(Math.abs(total_amount - $("#pay-field").val()));
             })
           }
         })
@@ -254,6 +258,12 @@
           $(this).children("td.number").text(index + 1)
         })
       }
+    })
+    $("#pay-field").change(function(){
+      var pay = +$(this).val(),
+          amount = +$('.temporary-order-amount').text();
+
+      $("#debt-field").val( Math.abs(pay - amount) )
     })
 
   })
