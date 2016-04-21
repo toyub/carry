@@ -10,6 +10,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   belongs_to :store_order
   belongs_to :store_vehicle
   has_many :tasks, class_name: 'StoreStaffTask', foreign_key: :workflow_id
+  has_many :mechanics, through: :tasks
+  has_many :store_group_members, through: :tasks
 
   validates :store_staff_id, presence: true
   validates :store_service_id, presence: true
@@ -17,8 +19,9 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   scope :of_store, -> (store_id) { where(store_id: store_id) }
   scope :unfinished, -> { where.not(status: StoreServiceWorkflowSnapshot.statuses[:finished]) }
   scope :not_deleted, ->{where(deleted: false)}
+  scope :not_finished, -> { where.not(status: StoreServiceWorkflowSnapshot.statuses[:finished]) }
 
-  enum status: [:pending, :processing, :finished]
+  enum status: [:pending, :processing, :finished, :pausing]
 
   def ready_mechanics(workstation_id)
     workstation = StoreWorkstation.find(workstation_id)
@@ -35,18 +38,27 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store_workstation_ids.to_s.split(",").map(&:to_i)
   end
 
-  def mechanics
-    #TODO:
-    tasks.map(&:mechanic).compact
+  def has_free_mechanic?
+    self.store.store_group_members.level_at_least(self.mechanics_level.to_i).ready
   end
 
   def has_mechanic?
     mechanics.present? || has_free_mechanic?
   end
 
-  def has_free_mechanic?
-    self.store.store_staff.mechanics.map(&:store_group_member).any? {|mem| mem.ready? && mem.eligible_for?(self)}
+  def pause_in_workstation!
+    self.pausing!
+    self.free_mechanics
+    self.remove_tasks
   end
+
+  def pause_in_queue!
+    self.pausing!
+    self.free_mechanics
+    self.remove_tasks
+    self.free_workstation
+  end
+
 
   def executable?(workstation)
     if self.store_vehicle.blank?
@@ -54,7 +66,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       return false
     end
 
-    if self.store_order.task_pausing?
+    if self.is_pausing?
       self.errors.add(:status, "当前施工项目已经暂停，请先恢复施工状态！")
       return false
     end
@@ -64,12 +76,12 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
 
     unless self.store_vehicle.workflows.processing.where.not({id: self.id}).blank?
-      self.errors.add(:already, '该车辆已经在其他工位施工！')
+      self.errors.add(:already, '该车辆正在施工其他项目！')
       return false
     end
 
     unless big_brothers_finished?
-      self.errors.add(:processing, '该车辆正在施工其他项目！')
+      self.errors.add(:brothers, '该车辆已经在施工其他流程！')
       return false
     end
 
@@ -78,7 +90,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def has_qualified_mechaincs?(workstation)
     if self.tasks.present?
-      if self.mechanics.all?(&->(m){m.store_group_member.ready?})
+      if self.store_group_members.all?(&:ready?)
         return true
       else
         self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有正在忙碌的技师。若要开始请重新分配技师！')
@@ -126,17 +138,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def execute(workstation)
     assign_workstation(workstation)
-    if self.tasks.blank?
-      self.store_workstation
-          .store_group
-          .store_group_members
-          .available.ready
-          .level_at_least(mechanics_level.to_i)
-          .limit(mechanics_quantity).each(&->(group_member){assign_mechanic(group_member)})
-    end
-    self.mechanics.each do |mechanic|
-     mechanic.store_group_member.busy!
-   end
+    assign_mechanics
     self.processing!
     self.store_order.task_processing!
     self.store_order.processing!
@@ -145,17 +147,35 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def exchange!(previous_workstation, workstation)
     previous_workstation.free
-    (!self.pausing? && self.processing?) ? execute(workstation) : assign_workstation(workstation)
+    if self.processing?
+      execute(workstation)
+    else
+      assign_workstation(workstation)
+    end
   end
 
-  def assign_mechanic(engineer)
-    self.tasks.create!(
-      mechanic_id: engineer.member.id,
-      store_order_item_id: self.store_order_item_id,
-      store_staff_id: self.store_staff_id,
+  def task_the_mechanic(group_member)
+    task_attributes = {
       store_id: self.store_id,
-      store_chain_id: self.store_chain_id
-    )
+      store_chain_id: self.store_chain_id,
+      store_staff_id: self.store_staff_id,
+      store_order_item_id: self.store_order_item_id,
+      store_group_member_id: group_member.id,
+      mechanic_id: group_member.member.id
+    }
+    task = self.tasks.create!(task_attributes)
+    task.store_group_member.busy!
+  end
+
+  def assign_mechanics
+    if self.tasks.blank?
+      self.store_workstation
+          .store_group
+          .store_group_members
+          .available.ready
+          .level_at_least(mechanics_level.to_i)
+          .limit(mechanics_quantity).each(&->(group_member){task_the_mechanic(group_member)})
+    end
   end
 
   def assign_workstation(ws)
@@ -165,25 +185,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     ws.busy!
   end
 
-  def play!
+  def replay!
     self.store_workstation.start!(self)
-  end
-
-  def assign_mechanics
-    return if mechanics.present?
-    store_staff = self.store.store_staff.mechanics.map(&:store_group_member).select {|mem| mem.ready? && mem.eligible_for?(self)}.first.member
-    StoreStaffTask.create!(
-      workflow_id: self.id,
-      mechanic_id: store_staff.id,
-      store_order_item_id: self.store_order_item_id,
-      store_staff_id: self.store_staff_id,
-      store_id: self.store_id,
-      store_chain_id: self.store_chain_id
-    )
-  end
-
-  def set_mechanic_busy
-    self.mechanics.map(&:store_group_member).map(&:busy!)
   end
 
   def work_time_in_minutes
@@ -210,15 +213,15 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def elapsed_time
-    if pausing? || self.started_time.blank?
+    if is_pausing? || self.started_time.blank?
       return 0
     else
       ((Time.now - self.started_time)/60).ceil
     end
   end
 
-  def pausing?
-    self.store_order.task_pausing?
+  def is_pausing?
+    self.pausing? || self.store_service.pausing? || self.store_order.task_pausing?
   end
 
   def ended_at
@@ -247,13 +250,17 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def free_mechanics
-    self.mechanics.map(&:store_group_member).map(&:free!)
+    self.store_group_members.map(&:free!)
+  end
+
+  def remove_tasks
+    self.tasks.destroy_all
   end
 
   def remove!
     self.free_workstation
     self.free_mechanics
-    self.tasks.delete_all
+    self.remove_tasks
   end
 
   def waste!
@@ -265,14 +272,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     SmsJob.set(wait_until: remind_delay_interval.minutes.from_now).perform_later(sms_options) if can_send_sms?
   end
 
-  def pause_in_workstation!
-    self.free_mechanics if self.processing?
-  end
-
-  def pause_in_queuing_area!
-    self.free_workstation
-    self.free_mechanics if self.processing?
-  end
 
   def waiting_in_workstation?
     self.store_workstation.present? && self.store_workstation.workflow_id == self.id

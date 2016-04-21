@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418075808) do
+ActiveRecord::Schema.define(version: 20160420072300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1299,6 +1299,7 @@ ActiveRecord::Schema.define(version: 20160418075808) do
     t.datetime "deleted_at"
     t.datetime "paid_at"
     t.integer  "chain_business_model_id",                                      default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+    t.integer  "waiting_area_id",                                              default: 0
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1534,6 +1535,8 @@ ActiveRecord::Schema.define(version: 20160418075808) do
     t.string   "templateable_type"
     t.integer  "category_id"
     t.boolean  "deleted",                                                   default: false
+    t.integer  "status",                                                    default: 0
+    t.integer  "waiting_area_id",                                           default: 0
   end
 
   create_table "store_service_store_materials", force: :cascade do |t|
@@ -1720,11 +1723,12 @@ ActiveRecord::Schema.define(version: 20160418075808) do
     t.integer  "store_chain_id"
     t.string   "taskable_type"
     t.integer  "taskable_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "mechanic_id"
-    t.boolean  "deleted",             default: false
-    t.integer  "status",              default: 0
+    t.boolean  "deleted",               default: false
+    t.integer  "status",                default: 0
+    t.integer  "store_group_member_id"
   end
 
   create_table "store_subscribe_order_items", force: :cascade do |t|

@@ -7,10 +7,10 @@
     <%= image_tag 'workstation_car.png', class: 'car_img'%>
   </dl>
   <dl class="license_plate" >
-    <% if is_started && !workstation.current_workflow.pausing? %>
+    <% if is_started && !workstation.current_workflow.is_pausing? %>
       <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
       <span class="time do_dbclick times" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
-    <% elsif workstation.current_workflow.pausing? %>
+    <% elsif workstation.current_workflow.is_pausing? %>
       <span>施工暂停</span>
     <% else %>
       <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>

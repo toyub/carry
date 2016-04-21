@@ -34,10 +34,12 @@ class StoreOrder < ActiveRecord::Base
   enum state: %i[pending queuing processing paying finished pausing]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]
   enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]
+  enum waiting_area_id: %i[ waiting_in_queue waiting_in_workstation ]
 
   before_create :set_numero
 
   before_save :set_amount
+  before_save :service_included_check
 
   accepts_nested_attributes_for :items
 
@@ -140,6 +142,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def execute!
+
     return self.paying! if !executeable?
     self.update(service_included: true)
     ActiveRecord::Base.transaction do
@@ -198,11 +201,6 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def assign_mechanics
-    self.workflows.pending.order("created_at asc").map(&:assign_mechanics)
-    self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
-  end
-
   def waste!
     self.items.each(&->(item){item.waste!})
     self.update!(deleted: true)
@@ -220,27 +218,35 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
+  def replay!
+    if self.waiting_in_queue?
+      self.queuing!
+      self.task_queuing!
+    else
+      self.processing!
+      self.task_processing!
+    end
+    self.store_service_snapshots.pausing.each do |service|
+      service.replay!
+    end
+  end
+
   def pause_in_queuing_area!
-    workflow = self.workflows.processing.first || self.workflows.pending.first
-    workflow.pause_in_queuing_area! if self.task_processing?
     self.pausing!
     self.task_pausing!
+    self.waiting_in_queue!
+    self.store_service_snapshots.not_deleted.not_finished.each do |service|
+      service.pause_in_queue!
+    end
   end
 
   def pause_in_workstation!
-    workflow = self.workflows.processing.first || self.workflows.pending.first
-    workflow.pause_in_workstation!
     self.pausing!
     self.task_pausing!
-  end
-
-  def self.waiting_in_queuing_area
-    self.waiting.reject { |o| o.task_pausing? && o.waiting_in_workstation? }
-  end
-
-  def waiting_in_workstation?
-    workflow = self.workflows.processing.first || self.workflows.pending.first
-    workflow.waiting_in_workstation?
+    self.waiting_in_workstation!
+    self.store_service_snapshots.not_deleted.not_finished.each do |service|
+      service.pause_in_workstation!
+    end
   end
 
   private
@@ -259,5 +265,9 @@ class StoreOrder < ActiveRecord::Base
 
     def set_amount
       self.amount = self.items.map(&:cal_amount).sum
+    end
+
+    def service_included_check
+      self.service_included = self.items.any?(&->(item){item.orderable_type == StoreService.name || item.orderable_type == StoreMaterialSaleinfoService.name })
     end
 end

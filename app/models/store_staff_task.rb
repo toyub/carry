@@ -5,6 +5,7 @@ class StoreStaffTask < ActiveRecord::Base
   belongs_to :mechanic, class_name: 'StoreStaff', foreign_key: :mechanic_id
   belongs_to :taskable, polymorphic: true
   belongs_to :workflow_snapshot, class_name: StoreServiceWorkflowSnapshot.name, foreign_key: 'workflow_id'
+  belongs_to :store_group_member
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_item, ->(item_id) { where(store_order_item_id: item_id) }
@@ -17,10 +18,6 @@ class StoreStaffTask < ActiveRecord::Base
 
   def constructed_commission_template
     workflow_snapshot.mechanic_commission
-  end
-
-  def free
-    self.mechanic.store_group_member.free!
   end
 
   def has_commission?

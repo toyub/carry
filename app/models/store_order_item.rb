@@ -12,6 +12,7 @@ class StoreOrderItem < ActiveRecord::Base
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
   has_many :store_staff_tasks
+  has_many :mechanics, class_name: 'StoreStaff', through: :store_staff_tasks
 
   before_save :set_amount
   before_create :set_store_info
@@ -42,10 +43,6 @@ class StoreOrderItem < ActiveRecord::Base
     _amount()
   end
 
-  def mechanics
-    ['王晓勇', '李明亮']
-  end
-
   def assetable_item?
     return true if self.orderable_type == StorePackage.name
     return true if self.orderable_type == StoreMaterialSaleinfo.name && self.orderable.service_needed
@@ -68,7 +65,7 @@ class StoreOrderItem < ActiveRecord::Base
      standard_volume: self.standard_volume_per_bill,
      actual_volume: self.actual_volume_per_bill,
      numero: self.store_order.numero,
-     mechanics: self.mechanics,
+     mechanics: self.mechanics.pluck(:full_name),
      cost_price_per_unit: self.cost_price,
      total_cost: self.total_cost
     }
@@ -126,7 +123,7 @@ class StoreOrderItem < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       self.store_service_snapshot.destroy if self.store_service_snapshot.present?
       self.store_service_workflow_snapshots.map(&->(workflow){workflow.remove!})
-      self.store_service_workflow_snapshots.delete_all
+      self.store_service_workflow_snapshots.destroy_all
     end
   end
 
