@@ -2,168 +2,228 @@
 <%= form_for @staff, url: action_uri, html: {id: 'staff_form'} do |form| %>
 
   <div class="details_content employee_basic_info">
-    <div class="photo_info width-247 float-left">
+    <div class="photo_info">
       <div class="photo width-197"></div>
       <input type="button" class="choose_img_btn cursor-pointer" value="选择图片">
     </div>
 
-    <div class="basic_info float-right width-1050">
-      <div class="name">
-        <label class="width-50">姓</label> <input type="text" class="width-50" name="employee[last_name]" value="<%= @staff.last_name%>" required>
-        <label>名</label> <input type="text" class="width-90" name="employee[first_name]" value="<%= @staff.first_name%>" required>
-      </div>
+    <div class="info">
+      <section class="basic_info">
+        <div class="title">
+          <h2>基本信息</h2>
+          <span class="tip">注：<b>*</b>为必填项</span>
+        </div>
 
-      <div class="gender">
-        <label>性别</label>
-        <span>
-          <label><input type="radio" name="employee[gender]" value="male" <%= 'checked' if @employee.gender == 'male' %> >男</label>
-          <label class="margin-left-36"><input type="radio" name="employee[gender]"  value="female" <%= 'checked' if @employee.gender == 'female' %> >女</label>
-        </span>
-      </div>
+        <div class="item">
+          <label><b>*</b>姓</label> <input type="text" class="width-56" name="employee[last_name]" value="<%= @staff.last_name%>" required>
+          <label class="width-24">名</label> <input type="text" class="width-76" name="employee[first_name]" value="<%= @staff.first_name%>" required>
+        </div>
 
-      <div class="birth">
-        <label for="">出生日期</label>
-        <input type="date" name="employee[birthday]"  value="<%= @employee.birthday.try(:strftime,"%Y-%m-%d")%>">
-      </div>
+        <div class="gender item">
+          <label><b>*</b>性别</label>
+          <span>
+            <label><input type="radio" name="employee[gender]" value="male" <%= 'checked' if @employee.gender == 'male' %> >男</label>
+            <label><input type="radio" name="employee[gender]"  value="female" <%= 'checked' if @employee.gender == 'female' %> >女</label>
+          </span>
+        </div>
 
-      <div>
-        <label for="">文化程度</label>
-        <input type="text" name="employee[education]" value="<%= @employee.education%>">
-      </div>
+        <div class="item">
+          <label for=""><b>*</b>手机号</label>
+          <input type="text" name="employee[phone_number]"  value="<%= @employee.phone_number || @staff.phone_number %>" id="staff_phone_number" placeholder="请输入11位手机号码" pattern="^1\d{10}" required>
+        </div>
 
-      <div class="no.">
-        <label for="">编号</label> <input type="text" name="staff[numero]" value="<%= @staff.numero%>">
-      </div>
+        <div class="id item">
+          <label for=""><b>*</b>身份证号</label>
+          <input type="text" name="employee[identity_card]" value="<%= @employee.identity_card%>" placeholder="请输入18位有效身份证号" pattern="\d{18}" >
+        </div>
 
-      <div class="department">
-        <label for="">所属部门</label>
-        <select name="staff[store_department_id]">
-          <%= options_from_collection_for_select(@departments, 'id', 'name', @staff.store_department_id) %>
-        </select>
-      </div>
+        <div class="item">
+          <label for=""><b>*</b>工种</label>
+          <select name="staff[job_type_id]">
+            <%= options_from_collection_for_select(JobType.collection, 'id', 'name', @staff.job_type_id) %>
+          </select>
+        </div>
 
-      <div class="position">
-        <label for="" class="width-50">职务属性</label>
-        <select name="staff[job_type_id]">
-          <%= options_from_collection_for_select(JobType.collection, 'id', 'name', @staff.job_type_id) %>
-        </select>
+        <div class="level item">
+          <label for=""><b>*</b>职称</label>
+          <select name="staff[level_type_id]">
+            <%= options_from_collection_for_select(StoreStaffLevel.collection, 'id', 'name') %>
+          </select>
+        </div>
 
-        <label for="">职务</label>
-        <select name="staff[store_position_id]">
-          <%= options_from_collection_for_select(@positions, 'id', 'name', @staff.store_position_id ) %>
-        </select>
-      </div>
+        <div class="department item">
+          <label for=""><b>*</b>部门</label>
+          <select name="staff[store_department_id]">
+            <%= options_from_collection_for_select(@departments, 'id', 'name', @staff.store_department_id) %>
+          </select>
+        </div>
 
-      <div class="level">
-        <label for="">职称</label>
-        <select name="staff[level_type_id]">
-          <%= options_from_collection_for_select(StoreStaffLevel.collection, 'id', 'name') %>
-        </select>
-      </div>
+        <div class="item">
+          <label for=""><b>*</b>职位</label>
+          <select name="staff[store_position_id]">
+            <%= options_from_collection_for_select(@positions, 'id', 'name', @staff.store_position_id ) %>
+          </select>
+        </div>
 
-      <div>
-        <label for="">政治面貌</label>
-        <input type="text" name="employee[polity]" value="<%= @employee.polity%>">
-      </div>
+        <div class="item">
+          <label for="">入职时间</label>
+          <input type="date" name="staff[employeed_at]" value="<%= @staff.employeed_at.try(:strftime, '%Y-%m-%d') %>">
+        </div>
 
-      <div>
-        <label for="">籍贯</label>
-        <input type="text" name="employee[native_place]" value="<%= @employee.native_place%>">
-      </div>
+        <div class="item">
+          <label>档案状态</label>
+          <select>
+            <option></option>
+          </select>
+        </div>
 
-      <div>
-        <label for="">户籍类型</label>
-        <input type="text" name="employee[census_register]" value="<%= @employee.census_register%>">
-      </div>
+        <div class="item">
+          <label for="">离职时间</label>
+          <input type="date" name="staff[terminated_at]" value="<%= @staff.terminated_at.try(:strftime, '%Y-%m-%d')%>">
+        </div>
 
-      <div class="id">
-        <label for="">身份证号</label>
-        <input type="text" name="employee[identity_card]" value="<%= @employee.identity_card%>" placeholder="请输入18位有效身份证号" pattern="\d{18}" >
-      </div>
+        <div class="item">
+          <label for="">离职原因</label>
+          <input type="text" name="staff[reason_for_leave]" value="<%= @staff.reason_for_leave%>">
+        </div>
+      </section>
 
-      <div>
-        <label for="">婚姻状况</label>
-        <input type="text" name="employee[marital_status]" value="<%= @employee.marital_status%>">
-      </div>
+      <section class="other_info">
+        <div class="title">
+          <h2>其他信息</h2>
+        </div>
 
-      <div>
-        <label for="">入职时间</label>
-        <input type="date" name="staff[employeed_at]" value="<%= @staff.employeed_at.try(:strftime, '%Y-%m-%d') %>">
-      </div>
+        <div class="birth item">
+          <label for="">出生日期</label>
+          <input type="date" name="employee[birthday]"  value="<%= @employee.birthday.try(:strftime,"%Y-%m-%d")%>">
+        </div>
 
-      <div>
-        <label for="">离职时间</label>
-        <input type="date" name="staff[terminated_at]" value="<%= @staff.terminated_at.try(:strftime, '%Y-%m-%d')%>">
-      </div>
+        <div class="item">
+          <label for="">出生地</label>
+          <input type="text" value="">
+        </div>
 
-      <div>
-        <label for="">离职原因</label>
-        <input type="text" name="staff[reason_for_leave]" value="<%= @staff.reason_for_leave%>">
-      </div>
+        <div class="item">
+          <label for="">籍贯</label>
+          <input type="text" name="employee[native_place]" value="<%= @employee.native_place%>">
+        </div>
 
-      <div class="height">
-        <label for="">身高</label>
-        <input type="text" name="employee[height]" value="<%= @employee.height%>">
-        <label class="height">cm</label>
-      </div>
 
-      <div class="weight">
-        <label for="">体重</label>
-        <input type="text" name="employee[weight]" value="<%= @employee.weight%>">
-        <label class="weight">kg</label>
-      </div>
+        <div class="item">
+          <label for="">民族</label>
+          <input type="text" value="">
+        </div>
 
-      <div>
-        <label for="">手机号</label>
-        <input type="text" name="employee[phone_number]"  value="<%= @employee.phone_number || @staff.phone_number %>" id="staff_phone_number" placeholder="请输入11位手机号码" pattern="^1\d{10}" required>
-      </div>
+        <div class="item">
+          <label for="">户籍类型</label>
+          <select name="employee[census_register]" >
+            <option></option>
+          </select>
+        </div>
 
-      <div>
-        <label for="">邮箱</label>
-        <input type="text" name="employee[mailbox]"  value="<%= @employee.mailbox%>">
-      </div>
+        <div class="item">
+          <label for="">学历</label>
+          <select name="employee[education]" >
+            <option></option>
+          </select>
+        </div>
 
-      <div class="address">
-        <label for="">现住址</label>
-        <input type="text" name="employee[address]"  value="<%= @employee.address%>" >
-      </div>
+        <div class="item">
+          <label for="">专业</label>
+          <input type="text" value="">
+        </div>
 
-      <div class="address">
-        <label for="">户籍地址</label>
-        <input type="text" name="employee[census_register_address]"  value="<%= @employee.census_register_address%>">
-      </div>
+        <div class="item">
+          <label for="">政治面貌</label>
+          <select name="employee[polity]" >
+            <option></option>
+          </select>
+        </div>
 
-      <div>
-        <label for="">联系人</label>
-        <input type="text" name="employee[contact_one]"  value="<%= @employee.contact_one%>">
-      </div>
+        <div class="address item">
+          <label for="">户籍地址</label>
+          <input type="text" name="employee[census_register_address]"  value="<%= @employee.census_register_address%>">
+        </div>
 
-      <div>
-        <label for="">电话</label>
-        <input type="text" name="employee[contact_one_phone_number]"  value="<%= @employee.contact_one_phone_number%>">
-      </div>
+        <div class="address item">
+          <label for="">现住地址</label>
+          <input type="text" name="employee[address]"  value="<%= @employee.address%>" >
+        </div>
 
-      <div>
-        <label for="">联系人2</label>
-        <input type="text" name="employee[contact_two]"  value="<%= @employee.contact_two%>">
-      </div>
+        <div class="item">
+          <label for="">邮箱</label>
+          <input type="text" name="employee[mailbox]"  value="<%= @employee.mailbox%>">
+        </div>
 
-      <div>
-        <label for="">电话</label>
-        <input type="text" name="employee[contact_two_phone_number]"  value="<%= @employee.contact_two_phone_number%>">
-      </div>
+        <div class="item">
+          <label for="">QQ</label>
+          <input type="text" >
+        </div>
 
-      <div class="remark">
-        <label for="">备注</label>
-        <textarea name="employee[remark]"><%= @employee.remark%></textarea>
+        <div class="item">
+          <label for="">其他联系方式</label>
+          <input type="text"class="width-443">
+        </div>
+
+        <div class="item">
+          <label for="">紧急联系人</label>
+          <input type="text" name="employee[contact_one]"  value="<%= @employee.contact_one%>">
+        </div>
+
+        <div class="item">
+          <label for="">联系电话</label>
+          <input type="text" name="employee[contact_one_phone_number]"  value="<%= @employee.contact_one_phone_number%>">
+        </div>
+
+        <div class="item">
+          <label for="">联系人2</label>
+          <input type="text" name="employee[contact_two]"  value="<%= @employee.contact_two%>">
+        </div>
+
+        <div class="item">
+          <label for="">联系电话</label>
+          <input type="text" name="employee[contact_two_phone_number]"  value="<%= @employee.contact_two_phone_number%>">
+        </div>
+
+        <div class="height item">
+          <label for="">身高</label>
+          <input type="text" name="employee[height]" value="<%= @employee.height%>">
+          <label class="height">cm</label>
+        </div>
+
+        <div class="weight item">
+          <label for="">体重</label>
+          <input type="text" name="employee[weight]" value="<%= @employee.weight%>">
+          <label class="weight">kg</label>
+        </div>
+
+        <div class="item">
+          <label for="">血型</label>
+          <select>
+            <option>O型血</option>
+          </select>
+        </div>
+
+        <div class="item">
+          <label for="">健康状况</label>
+          <select>
+            <option></option>
+          </select>
+        </div>
+
+        <div class="remark item">
+          <label for="">备注</label>
+          <textarea name="employee[remark]"><%= @employee.remark%></textarea>
+        </div>
+      </section>
+
+      <div class="btn_group">
+        <input class="save_btn btn" type="submit" value="保存">
       </div>
 
     </div>
   </div>
 
-  <div class="btn_group">
-    <input class="save_btn btn" type="submit" value="保存">
-  </div>
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
