@@ -48,7 +48,7 @@ Rails.application.routes.draw do
       resources :material_orders
       resources :assessments, controller: 'store_supplier_assessments'
     end
-    resources :store_temporary_suppliers do
+    resources :temporary_material_orders do
       get :check_item, on: :collection
 
       resources :material_orders
