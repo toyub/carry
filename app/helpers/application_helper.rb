@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def include_javascript_by_namespace
     namespace = params[:controller].split('/')[0]
-    if ["kucun", "settings", "soa", "xianchang", "xiaoshou", "pos", "sas", "crm"].include?(namespace)
+    if ["kucun", "settings", "soa", "xianchang", "xiaoshou", "pos", "sas", "crm", "mkis"].include?(namespace)
       content_for :pre_assets do
         javascript_include_tag namespace
       end

@@ -21,7 +21,7 @@
         <%= form_for @customer, url: crm_store_customer_store_repayments_path(@customer), method: 'POST', class: 'float-right' do %>
           <div class="query_item float-right">
             <label class="margin-right-10">回款合计</label>
-            <input type="text" class="height-29 margin-right-10" name="repayment[total]" value="">
+            <input type="number" step="any"  class="height-29 margin-right-10" name="repayment[total]" value="">
             <input type="submit" class="btn button_confirm width-86 height-29" id="submit" value="确认回款">
           </div>
       </div>
