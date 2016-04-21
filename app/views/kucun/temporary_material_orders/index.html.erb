@@ -122,7 +122,7 @@
     </div>
   </div>
 
-  <%= form_tag "/kucun/material_orders/", id: 'temporary_form' do %>
+  <%= form_tag "/kucun/temporary_material_orders/", id: 'temporary_form' do %>
     <div class=" common_storage_content jit_single_wrap">
       <div class="ordergoods_query">
         <div class="nav-item-query margin-left-15">
@@ -134,7 +134,7 @@
         </div>
         <div class="nav-item-query " >
           <label>时间：</label>
-          <label><%= Date.today.strftime("%Y-%m-%d") %></label>
+          <label><%= Date.today.strftime("%Y-%m-%d %H:%M") %></label>
         </div>
         <div class="nav-item-query float-right">
           <a href="#" class="print_btn">打&nbsp;&nbsp;&nbsp;印</a>
@@ -176,19 +176,18 @@
       <div class="order_form_info">
         <div class="item_content margin-left-10">
           <label class="width-75 vertical-align-top ">备注：</label>
-          <textarea class="remarks_textarea width-1251"></textarea>
+          <textarea name="temporary_material_order[remark]" class="remarks_textarea width-1251"></textarea>
         </div>
 
         <div class="height-50 ">
           <div class="item_content margin-left-10 float-left">
             <label class="width-75">本次付款：</label>
-            <input type="text" class="width-253" id="pay-field">
+            <input type="text" name="temporary_material_order[payments_attributes][][amount]" class="width-253" id="pay-field">
           </div>
 
           <div class="item_content float-left  margin-left-20">
             <label class="width-75 ">结算账户：</label>
-
-            <select class="width-253" name='store_material_order[payments_attributes][][store_settlement_account_id]' required>
+            <select class="width-253" name='temporary_material_order[payments_attributes][][store_settlement_account_id]' required>
               <% current_store.store_settlement_accounts.each do |opt| %>
                 <option value="<%= opt.id %>"><%= opt.name %></option>
               <% end %>
@@ -245,8 +244,7 @@
                 total_amount += +$(this).val();
               })
               $('.temporary-order-amount').text(total_amount);
-              $('.temporary-order-amount').text(total_amount);
-              $("#debt-field").val(Math.abs(total_amount - $("#pay-field").val()));
+              $("#debt-field").val(total_amount - +$("#pay-field").val());
             })
           }
         })
@@ -263,7 +261,7 @@
       var pay = +$(this).val(),
           amount = +$('.temporary-order-amount').text();
 
-      $("#debt-field").val( Math.abs(pay - amount) )
+      $("#debt-field").val( amount - pay )
     })
 
   })

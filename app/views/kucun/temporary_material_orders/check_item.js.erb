@@ -1,7 +1,7 @@
 $('.list-add-materials').append("<%= j render 'material' %>");
-$('.tr_number_<%= @item.id %>').on('change', 'input[name=quantity], input[name=cost_price]', function(){
-  var quantity = +$(".tr_number_<%= @item.id %> input[name=quantity]").val(),
-      cost_price = +$(".tr_number_<%= @item.id %> input[name=cost_price]").val(),
+$('.tr_number_<%= @item.id %>').on('change', '.quantity, .cost_price', function(){
+  var quantity = +$(".tr_number_<%= @item.id %> input.quantity").val(),
+      cost_price = +$(".tr_number_<%= @item.id %> input.cost_price").val(),
       amount = $(".tr_number_<%= @item.id %> input[name=amount]");
 
   amount.val(quantity * cost_price);

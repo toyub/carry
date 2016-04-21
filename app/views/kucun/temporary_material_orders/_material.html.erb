@@ -1,5 +1,6 @@
 <tr class="tr_number_<%= @item.id %>">
-  <td class="number"></td>
+  <input type="hidden" name="temporary_material_order[items_attributes][][store_material_id]"  value="<%= @material.id %>">
+  <td class="number"> </td>
   <td><%= @material.name %></td>
   <td><%= @material.barcode %></td>
   <td><%= @material.speci %></td>
@@ -14,9 +15,9 @@
       <option><%= @material.store_material_category.try(:name) %></option>
     </select>
   </td>
-  <td><input type="number" value="" class="width-75" name="cost_price"></td>
-  <td><input type="number" value="<%= @item.quantity %>" name="quantity" class="width-50"></td>
+  <td><input type="number" value="" class="width-75 cost_price" name="temporary_material_order[items_attributes][][price]" required></td>
+  <td><input type="number" value="<%= @item.quantity %>" name="temporary_material_order[items_attributes][][quantity]" class="width-50 quantity" required></td>
   <td><input type="number" value="" name="amount" disabled></td>
-  <td><input type="text" value="" class="width-160"></td>
+  <td><input type="text" value="" class="width-160" name="temporary_material_order[items_attributes][][remark]"></td>
   <td style="text-align:center"><i class="lnr lnr-cross-circle font-18"></i></td>
 </tr>
