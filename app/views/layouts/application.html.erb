@@ -56,9 +56,11 @@
           <li><a href="javascript:void(0);" class="caiwu"><i class="fa fa-jpy"></i></a></li>
           <li><a href="javascript:void(0);" class="tongji"><i class="fa fa-line-chart"></i></a></li>
           <li><a href="javascript:void(0);" class="shezhi"><i class="fa fa-cog"></i></a></li>
+          <li><a href="javascript:void(0);" class="gongyingshang"><i class="fa fa-question"></i></a></li>
         </ul>
       </div>
       <div id="second_menu">
+
         <div class='float-left sec_menu xianchang' id="xianchang" style="display:block;">
           <div class=" menulist">
             <h4>现场管理</h4>
@@ -72,6 +74,7 @@
             </ul>
           </div>
         </div>
+
         <div class='float-left sec_menu shouyin' id="shouyin" style="display:block;">
           <div class=" menulist">
             <h4>POS</h4>
@@ -83,6 +86,7 @@
             </ul>
           </div>
         </div>
+
         <div class='float-left sec_menu kehu' id="kehu" style="display:block;">
           <div class=" menulist">
             <h4>客户管理</h4>
@@ -91,6 +95,7 @@
             </ul>
           </div>
         </div>
+
         <div class='float-left sec_menu xiaoshou' id="xiaoshou" style="display:block;">
           <div class=" menulist">
             <h4>销售管理</h4>
@@ -101,6 +106,7 @@
             </ul>
           </div>
         </div>
+
         <div class='float-left sec_menu yuangong' id="yuangong" style="display:block;">
           <div class=" menulist">
             <h4>员工管理</h4>
@@ -112,6 +118,7 @@
             </ul>
           </div>
         </div>
+
         <div class='float-left sec_menu kucun' id="kucun" style="display:block;">
           <div class=" menulist">
             <h4>库存管理</h4>
@@ -119,13 +126,14 @@
               <li><%= link_to '库存列表', kucun_path %></li>
               <li><a href="/kucun/material_inventories/new">入库</a></li>
               <li><a href="/kucun/outings/new">出库</a></li>
-              <li><a href="/kucun/store_suppliers">订货</a></li>
+              <li><%= link_to '采购', srm_nowaus_path %></li>
               <li><a href="/kucun/physical_inventories/new">盘点</a></li>
               <li><a href="/kucun/shrinkages/new">报损</a></li>
               <li><a href="/kucun/returnings/new">退货</a></li>
             </ul>
           </div>
         </div>
+
         <div class='float-left sec_menu caiwu' id="caiwu" style="display:block;">
           <div class=" menulist">
           <h4>财务管理</h4>
@@ -137,6 +145,7 @@
             </ul>
           </div>
         </div>
+
         <div class='float-left sec_menu tongji' id="tongji" style="display:block;">
           <div class=" menulist">
           <h4>统计分析</h4>
@@ -146,6 +155,7 @@
             </ul>
           </div>
         </div>
+
         <div class='float-left sec_menu shezhi' id="shezhi" style="display:block;">
           <div class=" menulist">
           <h4>设置</h4>
@@ -161,6 +171,16 @@
             </ul>
           </div>
         </div>
+
+        <div class='float-left sec_menu tongji' id="gongyingshang" style="display:block;">
+          <div class=" menulist">
+          <h4>供应商管理</h4>
+            <ul class="second_menu">
+              <li><%= link_to '供应商列表', srm_store_suppliers_path %> </li>
+            </ul>
+          </div>
+        </div>
+
       </div>
   </menu>
 

@@ -520,7 +520,18 @@ Rails.application.routes.draw do
         resources :store_asset_items, only: [:show]
       end
     end
+  end
 
+  namespace :srm do
+    get "material_orders/nowaus", controller: 'material_orders', action: 'nowaus', as: :nowaus
+    resources :material_orders
+    resources :store_suppliers do
+      collection do
+        get :add
+      end
+      resources :material_orders
+      resources :assessments, controller: 'store_supplier_assessments'
+    end
   end
 
   namespace :receipt do
