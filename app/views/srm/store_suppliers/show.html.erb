@@ -1,0 +1,120 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['采购','供应商', '详情'], '/srm/store_suppliers/') %>
+</div>
+<div class="details">
+  <%= render partial: 'nav' -%>
+  <form action="<%= edit_srm_store_supplier_path(@store_supplier) %>" method="get" >
+    <div class="details_content">
+      <div class="supplier_info base_info">
+          <div class="item_content">
+            <label class="width-75">供应商编号</label>
+            <input type="text" class="width-285"  readonly="true" value="<%= @store_supplier.numero %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">供应商名称</label>
+            <input type="text" class="width-245" readonly="true"  value="<%= @store_supplier.name %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">联系人</label>
+            <input type="text" class="width-130" readonly="true" value="<%= @store_supplier.contact_name %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">手机号码</label>
+            <input type="text"  class="width-130" readonly="true" value="<%= @store_supplier.contact_phone_number %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">固定电话</label>
+            <input type="text"  class="width-130" readonly="true" value="<%= @store_supplier.contact_tel_number %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">国家</label>
+            <select class="width-65"   disabled="true">
+              <option><%= @store_supplier.location_country.try(:name) %></option>
+            </select>
+             <label class="width-40">省份</label>
+            <select class="width-68" disabled="true">
+              <option><%= @store_supplier.location_state.try(:name) %></option>
+            </select>
+             <label class="width-40">市</label>
+            <select class="width-60" disabled="true">
+              <option><%= @store_supplier.location_city.try(:name) %></option>
+            </select>
+          </div>
+           <div class="item_content">
+            <label class="width-75">地址</label>
+            <input type="text" class="width-245" readonly="true"  value="<%= @store_supplier.location_address %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">助记码</label>
+            <input type="text"  class="width-130" readonly="true"  value="<%= @store_supplier.mnemonic %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">传真号码</label>
+            <input type="text"  class="width-130"  readonly="true" value="<%= @store_supplier.contact_fax_number %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">Email</label>
+            <input type="text"  class="width-130" readonly="true" value="<%= @store_supplier.contact_email %>" >
+          </div>
+          <div class="item_content">
+            <label class="width-75">一级分类</label>
+            <span  class="width-100 disable"><%= @store_supplier.store_material_root_category.try(:name) %></span>
+            <label class="width-75">二级分类</label>
+            <span class="width-103 disable"><%= @store_supplier.store_material_category.try(:name) %></span>
+          </div>
+          <div class="item_content">
+            <label class="width-75">信息来源</label>
+            <input type="text" class='width-85 disable' readonly value="<%= @store_supplier.info_source %>">
+          </div>
+          <div class="item_content">
+            <label class="width-65">重要程度</label>
+            <input type="text" class="width-85 disable" value="<%= @store_supplier.weight %>" readonly>
+          </div>
+          <div class="item_content">
+            <label class="width-75">结算方式</label>
+            <input type="text" class='width-130 margin-left-1 disable' value="<%= @store_supplier.clearing_mode %>" readonly>
+          </div>
+          <div class="item_content">
+            <label class="width-75">结算周期</label>
+            <input type="text" class="width-130 margin-left-1 disable" value="<%= @store_supplier.clearing_cycle %>" readonly>
+          </div>
+          <div class="item_content">
+            <label class="width-75">结算日</label>
+            <input type="text"  class="width-40" readonly="true" value="<%= @store_supplier.clearing_day %>">
+          </div>
+          <div class="item_content">
+            <label class="width-75">结算提醒<input type="checkbox" disabled  class="width-13" <%= 'checked="true"' if @store_supplier.clearing_alarmify %>></label>
+          </div>
+          <div class="item_content">
+            <label class="width-75">开户银行</label>
+            <input type="text"  class="width-285" value="<%= @store_supplier.clearing_bank %>" readonly="true">
+          </div>
+          <div class="item_content">
+            <label class="width-75">银行帐号</label>
+            <input type="text"  class="width-245" readonly="true" value="<%= @store_supplier.clearing_account %>" >
+          </div>
+          <div class="item_content">
+            <label class="width-75">税号</label>
+            <input type="text"  class="width-345" readonly="true" value="<%= @store_supplier.clearing_vatin %>">
+          </div>
+           <div class="item_content">
+            <label class="width-75">付款方式</label>
+            <input type="text"  class="width-130" readonly="true" value="<%= @store_supplier.clearing_payment_method %>" >
+          </div>
+          <div class="item_content">
+            <label class="width-75 vertical-align-top">备注:</label>
+            <span class="border-none margin-left-10"><%= @store_supplier.remark %></span>
+          </div>
+      </div>
+      <div class="supplier_related" >
+          <div  class="float-right margin-right-40">
+            <label>停用供应商</label>
+            <input type="checkbox" disabled="true" <%= 'checked="checked"' if @store_supplier.status_suspended? %> >
+          </div>
+      </div>
+    </div>
+    <div class="btn_group margin-top-80 margin-right-40">
+      <input type="submit" class="edit_btn btn" value="编辑">
+    </div>
+  </form>
+</div>

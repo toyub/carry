@@ -1,0 +1,86 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['采购', '订货', '快速订货']) %>
+</div>
+<div class="details">
+  <div class="details_nav">
+    <ul>
+      <li><a href="javascript:void(0)" class="width-90">供应商信息</a></li>
+      <li class="bg-color-fff"><a href="javascript:void(0)" class="width-90">订货</a></li>
+      <li><a href="javascript:void(0)"  class="width-90">记录</a></li>
+    </ul>
+  </div>
+  <div class="details_content">
+      <div class=" common_storage_content margin-bottom-50">
+        <%= form_tag "/srm/material_orders/", id: 'nowaus_form' do %>
+        <div class="ordergoods_query">
+          <div class="nav-item-query">
+            <label>供应商：</label>
+            <input name='store_supplier_id' type="hidden">
+            <span id='store_supplier_id' class="width-150 as_select" data-select='#material_supplier_select' data-target='input[name="store_supplier_id"]'>请选择</span>
+            <div id='material_supplier_select' class="select width-165">
+              <ol class='width-165'>
+                <% @store.store_suppliers.each do |option| %>
+                <li data-value="<%= option.id %>"><%= option.name %></li>
+                <% end %>
+              </ol>
+              <a class='add_btn width-158 add_supplier' data-method='add_supplier' href="javascript:void(0);">新增</a>
+            </div>
+          </div>
+          <div class="nav-item-query ">
+            <label>时间：</label>
+            <input type="text" class="width-135" readonly value="<%= Time.now.to_s(:date_only) %>">
+          </div>
+          <div class="nav-item-query">
+            <label>单号：</label>
+            <input type="text" class="width-135" readonly value='2015041500006' />
+          </div>
+          <div class="ordergoods_print">
+            <a href="javascript:void(0);" class="print_btn">打<nbsp1></nbsp1>印</a>
+          </div>
+        </div>
+        <%= render partial: 'form'  %>
+        <div class="btn_group margin-right-20">
+          <input type="reset" class="cancel_btn" value='取消' >
+          <input type="submit" class="save_btn btn" value="保存">
+        </div>
+        <% end %>
+      </div>
+  </div>
+</div>
+
+<% content_for :scenes do %>
+  <%= render partial: 'material_form' %>
+  <%= render partial: 'choose_goods' %>
+  <%= render partial: 'supplier_form' %>
+<% end %>
+
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function(){
+      <% if @store_material.present? %>
+         var store_material = <%= StoreMaterialSerializer.new(@store_material).as_json(root: false).to_json.html_safe -%>;
+      <% end %>
+
+      new_order_view = new $$MIS.NewMaterialOrderView({
+        el: $("#content")
+      });
+      if(typeof(store_material)!=typeof(undefined)){
+          new_order_view.loadWith(store_material);
+      }
+
+      $("#nowaus_form").on('submit', function(){
+        if(!$('input[name="store_supplier_id"]').val()){
+          ZhanchuangAlert('请选择供应商！');
+          return false;
+        }
+
+        if($("#storage_tab > tbody >tr:not(.handle)").length < 1){
+          ZhanchuangAlert('请选择订货的商品');
+          return false;
+        }
+      });
+
+    });
+  </script>
+<% end %>

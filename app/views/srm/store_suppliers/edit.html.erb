@@ -1,0 +1,21 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['库存', '供应商', '编辑信息']) %>
+</div>
+<div class="details">
+  <div class="details_nav">
+    <ul>
+      <li class="bg-color-fff"><a href="gongyingshangxinxishow.html" class="width-90">供应商信息</a></li>
+      <li><a href="javascript:void(0);" onclick='alert("请先保存供应商信息")' class="width-90">订货</a></li>
+      <li><a href="javascript:void(0);" onclick='alert("请先保存供应商信息")' class="width-90">记录</a></li>
+    </ul>
+  </div>
+  <%= render partial: 'form' -%>
+</div>
+
+<% content_for :javascripts do %>
+   <script>
+      jQuery(function($){
+        supplier_init();
+      });
+   </script>
+<% end %>

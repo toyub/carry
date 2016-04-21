@@ -1,0 +1,44 @@
+<div class="popup_box" id="pop_choose_goods">
+    <span class="verticalAlign"></span>
+    <div   class="choose_ordergoods" >
+      <div class="top">
+        <span class="float-left">选择商品</span>
+        <span class="font-28 float-right padding-right-10 cursor-pointer doclose" >×</span>
+      </div>
+      <div class="title">
+        <span class="font-20 float-left first_title">选择订货商品</span>
+        <span class="second_title">
+            如果供应商关联的商品不在列表内，请通过类别下拉菜单进行选择类别查询，如果还是没有，请点击新建按钮，添加新商品
+            <a class="new_btn float-right btn margin-top-10 add_material">新建商品</a>
+        </span>
+      </div>
+      <div class="ordergoods_content" >
+        <div class="order_list">
+          <div class="list">
+            <div class="list_top list_tr border-none">
+              <ul>
+                <li class="see_search first_td" >
+                  <span class="do_see_search cursor-pointer">商品</span>
+                  <div class="select_ordergoods_div">
+                    <input type="text" required class="keyword autocomplete width-165"  placeholder="查找产品">
+                    <a href="#" class="search_btn btn">查找</a>
+                  </div>
+                </li>
+                <li class="second_td">条 码</li>
+                <li class="third_td">规格</li>
+                <li class="forth_td">类别</li>
+                <li class="fifth_td border-none">操作</li>
+              </ul>
+            </div>
+
+            <div class="material_list">
+            </div>
+          </div>
+        </div>
+        <div class="popup_order_foot">
+          <a href="#" class="cancel_btn btn margin-top-10">取消</a>
+          <input type="submit" value="选中" class="save_btn btn" id="pitch_on">
+        </div>
+      </div>
+    </div>
+  </div>

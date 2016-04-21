@@ -1,0 +1,147 @@
+<template id="new_material_template">
+  <span class="verticalAlign"></span>
+  <div class="new_products">
+    <div class="new_products_inner">
+      <div class="top">
+        <span class="float-left">新建商品</span>
+        <span class="font-28 float-right padding-right-10 cursor-pointer doclose" id="close_02">×</span>
+      </div>
+      <div class="new_product_content">
+        <form id='new_material'>
+          <div class="item_content">
+            <label class="width-75">商品名称</label>
+            <input type="text" class="width-165" name='material[name]' placeholder="请输入名称" required="true">
+          </div>
+          <div class="item_content">
+            <label class="width-75">条形码</label>
+            <input type="text" class="width-165" name='material[barcode]' placeholder="若不填则系统自动生成">
+          </div>
+          <div class="item_content">
+            <label class="width-75">助记码</label>
+            <input type="text" name='material[mnemonic]' class="width-165">
+          </div>
+          <div class="item_content">
+            <label class="width-75">商品规格</label>
+            <input type="text" name='material[speci]' class="width-165" required="true" placeholder='请输入规格'>
+          </div>
+          <div class="item_content">
+            <label class="width-75">成本价</label>
+            <input type="text" name='material[cost_price]' class="width-165" placeholder="输入成本价会影响平均成本" disabled="true">
+          </div>
+          <div class="item_content">
+            <label class="width-75">最低售价</label>
+            <input type="text" name='material[min_price]' class="width-165" placeholder="请输入最低售价" required=true>
+          </div>
+
+          <div class="item_content">
+            <label class="width-75">一级分类</label>
+            <input type="hidden" name='material[store_material_root_category_id]' value="">
+            <span id='store_material_root_category_id' class="width-157 as_select" data-select='#material_root_category_select' data-target='input[name="material[store_material_root_category_id]"]'>请选择</span>
+            <div id='material_root_category_select' class="select width-165">
+              <ol class="width-165">
+                <% @store.store_material_categories.super_categories.each do |option| %>
+                <li data-value="<%= option.id %>"><%= option.name %></li>
+                <% end %>
+              </ol>
+              <a class='add_btn width-158' data-method='add_root_category' href="javascript:void(0);">新增</a>
+            </div>
+          </div>
+
+          <div class="item_content">
+            <label class="width-75">二级分类</label>
+            <input type="hidden" name='material[store_material_category_id]' value="">
+            <span id='store_material_category_id' class="width-157 as_select" data-select='#material_category_select' data-target='input[name="material[store_material_category_id]"]'>请选择</span>
+            <div id='material_category_select' class="select width-165">
+              <ol class="width-165">
+              </ol>
+              <a class='add_btn width-158' data-method='add_category' href="javascript:void(0);">新增</a>
+            </div>
+          </div>
+
+          <div class="item_content">
+            <label class="width-75">商品单位</label>
+            <input type="hidden" name='material[store_material_unit_id]' value="">
+            <span id='store_material_unit_id' class="width-157 as_select" data-select='#material_unit_select' data-target='input[name="material[store_material_unit_id]"]'>请选择</span>
+            <div id='material_unit_select' class="select width-165">
+              <ol class="width-165">
+                <% @store.store_material_units.each do |option| %>
+                <li data-value="<%= option.id %>"><%= option.name %></li>
+                <% end %>
+              </ol>
+              <a class='add_btn width-158' data-method='add_unit' href="javascript:void(0);">新增</a>
+            </div>
+          </div>
+
+          <div class="item_content">
+            <label class="width-75">商品品牌</label>
+            <input name='material[store_material_brand_id]' type="hidden" value="">
+            <span id='store_material_brand_id' class="width-157 as_select" data-select='#material_brand_select' data-target='input[name="material[store_material_brand_id]"]'>请选择</span>
+            <div id='material_brand_select' class="select width-165">
+              <ol class="width-165">
+                <% @store.store_material_brands.each do |option| %>
+                <li data-value="<%= option.id %>"><%= option.name %></li>
+                <% end %>
+              </ol>
+              <a class='add_btn width-158' data-method='add_brand' href="javascript:void(0);">新增</a>
+            </div>
+          </div>
+
+          <div class="item_content">
+            <label class="width-75">生产单位</label>
+            <input name='material[store_material_manufacturer_id]' type="hidden" value="">
+            <span id='store_material_manufacturer_id' class="width-157 as_select" data-select='#material_manufacturer_select' data-target='input[name="material[store_material_manufacturer_id]"]'>请选择</span>
+            <div id='material_manufacturer_select' class="select width-165">
+              <ol class="width-165">
+                <% @store.store_material_manufacturers.each do |option| %>
+                <li data-value="<%= option.id %>"><%= option.name %></li>
+                <% end %>
+              </ol>
+              <a class='add_btn width-158' data-method='add_manufacturer' href="javascript:void(0);">新增</a>
+            </div>
+          </div>
+
+
+          <div class="item_content outline item_property text-align-left">
+            <label class="width-75">商品属性</label>
+            <input type="checkbox" name="material[permitted_to_internal]" checked="checked" class="margin-left-15"><label>自用</label>
+            <input type="checkbox" name="material[permitted_to_saleable]" class="margin-left-26" ><label >销售</label>
+          </div>
+
+
+          <div class="item_content outline item_inventory margin-left-106">
+            <label class="width-80  font-weight-bold">
+              <input type="checkbox"  class="toggleable width-13" name='material[inventory_alarmify]' data-target="inventory" data-checked>
+              库存预警：
+            </label>
+            <div class="display-inline-block width-155 text-align-center">
+              <label>数量上限</label>
+              <input data-id="inventory" name='material[max_inventory]' disabled="true" type="text" class="width-80" required="true">
+            </div>
+            <div class="display-inline-block width-155 text-align-center">
+              <label>数量下限</label>
+              <input data-id="inventory" name='material[min_inventory]' disabled="true" type="text" class="width-80" required="true">
+            </div>
+          </div>
+
+          <div class="item_content outline shelf_life margin-left-50">
+            <input type="checkbox" class="toggleable width-13" name='material[expiry_alarmify]' data-target="shelf_life" data-checked>
+            <label class="">保质期提醒</label>
+            <div class="input_div width-80">
+              <input type="text" name='material[shelf_life]' class="width-50 border-none" data-id="shelf_life" disabled="disabled" required="true">
+              <label>天</label>
+            </div>
+          </div>
+
+          <div class="item_textarea ">
+            <label class="width-75">备注</label>
+            <textarea name='material[remark]' class="textarea-width  text-indent-5  width-976"></textarea>
+          </div>
+      </form>
+      </div>
+      <div class="btn_group">
+        <a href="#" class="cancel_btn btn">取消</a>
+        <input type="submit" form='new_material' value="保存" class="save_btn btn" id="save">
+      </div>
+    </div>
+  </div>
+</template>

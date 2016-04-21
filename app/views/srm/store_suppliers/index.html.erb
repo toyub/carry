@@ -1,0 +1,74 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['采购', '供应商', '供应商列表']) %>
+</div>
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <div class="item-query">
+        <label>查找供应商</label>
+        <input type="text" name='name' class="width-150" placeholder="按供应商名称查找">
+      </div>
+      <div class="item-query">
+        <label>一级分类</label>
+        <select type="text" class="width-150" name='root_category_id'>
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>二级分类</label>
+        <select type="text" class="width-150" name="category_id">
+          <option></option>
+        </select>
+      </div>
+      <div class="item-query">
+        <label>结算规则</label>
+        <select type="text" class="width-150">
+        <option></option>
+        <option></option>
+        </select>
+        <a class=" btn query_btn">查<nbsp1></nbsp1>询</a>
+      </div>
+      <div class="query_div">
+        <a href="/kucun/store_suppliers/add" class="new_btn btn">新建</a>
+        <a href="/kucun/material_orders/nowaus" class="quick_order_btn btn">快速订货</a>
+      </div>
+    </div>
+    <table cellpadding="0" cellspacing="0" class="index_list order_goods">
+      <thead>
+        <tr>
+          <th style="border-right:0px;" >#</th>
+          <th>供应商编号</th>
+          <th>供应商名称</th>
+          <th>供应商类别</th>
+          <th>联系人</th>
+          <th>手机号码</th>
+          <th>结算方式</th>
+          <th>结算周期</th>
+          <th>结算日</th>
+          <th>备注</th>
+          <th class=""> 操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @store_suppliers.each_with_index do |supplier, idx| %>
+        <tr>
+          <td><%= idx + 1 %></td>
+          <td><%= supplier.numero %></td>
+          <td><%= supplier.name %></td>
+          <td><%= supplier.store_material_root_category.try(:name) %></td>
+          <td><%= supplier.contact_name %></td>
+          <td><%= supplier.contact_phone_number %></td>
+          <td><%= supplier.clearing_mode %></td>
+          <td><%= supplier.clearing_cycle %></td>
+          <td><%= supplier.clearing_day %></td>
+          <td><%= supplier.remark %></td>
+          <td class=" ">
+            <a href="<%= srm_store_supplier_path(supplier) %>" class="edit_a"><i class="fa fa-file-text-o "></i></a>
+            <a class="literal-order " href="<%=new_srm_store_supplier_material_order_path(supplier)%>">订</a>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

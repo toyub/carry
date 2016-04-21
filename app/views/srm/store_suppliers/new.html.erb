@@ -1,0 +1,21 @@
+<div>
+  <%= form_for(@store_supplier, url: kucun_store_suppliers_path, html:{style:"width:70%;margin:auto;"}) do |form|%>
+    <%= form.text_field :name, placeholder: '请输入单位名称', required: true %>
+    <%= form.submit value: '保存' %>
+  <% end %>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+  jQuery(function($){
+    $('#new_store_supplier').on('submit', function(){
+      $(this).ajaxSubmit(function(data, status, xhr){
+        if(window.top != window.self){
+          window.top.$$MIS.methods.get('add_supplier_callback').apply(data)
+        }
+      });
+      return false;
+    })
+  });
+  </script>
+<% end %>

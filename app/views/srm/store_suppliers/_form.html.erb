@@ -1,0 +1,116 @@
+<%= form_for([:kucun, @store_supplier]) do |form| %>
+  <div class="details_content">
+    <div class="supplier_info base_info ">
+        <div class="item_content">
+          <label class="width-75">供应商编号</label>
+          <%= form.text_field :numero, class: 'width-286' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">供应商名称</label>
+          <%= form.text_field :name, class: 'width-245', required:true %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">联系人</label>
+          <%= form.text_field :contact_name, class: 'width-130' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">手机号码</label>
+          <%= form.text_field :contact_phone_number, class: 'width-130' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">固定电话</label>
+          <%= form.text_field :contact_tel_number, class: 'width-130' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">国家</label>
+          <%= form.select :location_country_code, options_for_select(Geo.countries.map{|country| [country.name, country.code]}, @store_supplier.location_country_code), {}, {class: "width-65 margin-left-0"} %>
+          <label class="width-40">省份</label>
+          <% country_code = (@store_supplier.location_country_code || '1').to_s %>
+          <%= form.select :location_state_code, options_for_select(Geo.states(country_code).map{|state| [state.name, state.code]}, @store_supplier.location_state_code), {}, {class: "width-65 margin-left-0"} %>
+          <label class="width-40">市</label>
+          <% state_code = (@store_supplier.location_state_code || '11').to_s %>
+          <%= form.select :location_city_code, options_for_select(Geo.cities(country_code, state_code).map{|city| [city.name, city.code]}, @store_supplier.location_city_code), {}, {class: "width-64 margin-left-0"} %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">地址</label>
+          <%= form.text_field :location_address, class: 'width-245' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">助记码</label>
+          <%= form.text_field :mnemonic, class: 'width-130' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">传真号码</label>
+          <%= form.text_field :contact_fax_number, class: 'width-130' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">Email</label>
+          <%= form.text_field :contact_email, class: 'width-130' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">一级分类</label>
+          <%= form.select :store_material_root_category_id, options_for_select(@store.store_material_categories.super_categories.map { |category| [category.name, category.id] }, @store_supplier.store_material_root_category_id), {}, {class: "width-103"} %>
+          <label class="width-75">二级分类</label>
+          <% category = @store_supplier.store_material_root_category || @store.store_material_categories.super_categories.first %>
+          <%= form.select :store_material_category_id, options_for_select(category.sub_categories.map { |category| [category.name, category.id] }, @store_supplier.store_material_category_id), {}, {class: "width-103"} %>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">信息来源</label>
+          <%= form.select :info_source_id, options_for_select(StoreSupplier::INFO_SOURCES.map{|key, value| [value, key]}, @store_supplier.info_source_id), {}, {class: "width-87"} %>
+        </div>
+
+        <div class="item_content">
+          <label class="width-68">重要程度</label>
+          <%= form.select :weight_id, options_for_select(StoreSupplier::WEIGHTS.map{|key, value| [value, key]}, @store_supplier.weight_id), {}, {class: "width-85"} %>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">结算方式</label>
+          <%= form.select :clearing_mode_id, options_for_select(StoreSupplier::CLEARING_MODES.map{|key, value| [value, key]}, @store_supplier.clearing_mode_id), {}, {class: "width-132"} %>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">结算周期</label>
+          <%= form.select :clearing_cycle_id, options_for_select(StoreSupplier::CLEARING_CYCLES.map{|key, value| [value, key]}, @store_supplier.clearing_cycle_id), {}, {class: "width-132"} %>
+        </div>
+
+        <div class="item_content">
+          <label class="width-75">结算日</label>
+          <%= form.text_field :clearing_day, class: 'width-40' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">结算提醒<%= form.check_box :clearing_alarmify, class: 'width-13' %></label>
+        </div>
+        <div class="item_content">
+          <label class="width-75">开户银行</label>
+          <%= form.text_field :clearing_bank, class:"width-286" %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">银行账号</label>
+          <%= form.text_field :clearing_account, class: 'width-245' %>
+        </div>
+        <div class="item_content">
+          <label class="width-75">税号</label>
+          <%= form.text_field :clearing_vatin, class: 'width-345' %>
+        </div>
+         <div class="item_content">
+          <label class="width-75">付款方式</label>
+          <%= form.select :clearing_payment_method_id, options_for_select(StoreSupplier::CLEARING_PAYMENT_METHODS.map{|key, value| [value, key]}), {}, {class: "width-130"} %>
+        </div>
+        <div class="item_content">
+          <label class="width-75 vertical-align-top">备注</label>
+          <%= form.text_area :remark, maxlength: 200, class:"width-1258 height-100 border-dbd9d9 texarea_width" %>
+        </div>
+    </div>
+    <div class="supplier_related" >
+        <div  class="float-right margin-right-40">
+          <label>停用供应商<%= form.check_box :status %></label>
+        </div>
+    </div>
+  </div>
+  <div class="btn_group margin-top-80 margin-right-40">
+    <a href="/kucun/store_suppliers/<%= @store_supplier.id %>" class="btn cancel_btn">取消</a>
+    <input type="submit" class="save_btn btn" value="保存">
+  </div>
+<% end %>
