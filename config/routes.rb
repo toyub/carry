@@ -322,7 +322,7 @@ Rails.application.routes.draw do
     end
     #Order end
 
-
+    resources :sale_categories, only: :index
     resources :store_staff, only: [:index, :update] do
       get 'check_phone', on: :collection
     end

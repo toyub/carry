@@ -8,6 +8,8 @@ class Mis.ziDingYiView extends Backbone.View
   initialize: ->
     @collection = new Mis.Collections.ZiDingYiMaterialCollection()
     @listenTo(@collection, "add", @addMaterialView)
+    @sale_categories = new Mis.Collections.SaleCategoriesCollection()
+    @sale_categories.fetch()
     @render()
     @total_quantity = 0
     @total_amount = 0.0
@@ -38,7 +40,7 @@ class Mis.ziDingYiView extends Backbone.View
     @collection.add({})
 
   addMaterialView: (model) ->
-    view = new Mis.addMaterialView(model: model)
+    view = new Mis.addMaterialView({model: model, sale_categories: @sale_categories})
     $(".list-new-material").append(view.render().el)
 
   saveOnce: ->

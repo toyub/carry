@@ -3,6 +3,10 @@ class Mis.addMaterialView extends Backbone.View
 
   tagName: "tr"
 
+  initialize: (options) ->
+    @model = options.model
+    @sale_categories = options.sale_categories
+
   events: ->
     'change input[name="quantity"], .retail_price' : 'resetAmount'
 
@@ -13,7 +17,7 @@ class Mis.addMaterialView extends Backbone.View
     @$('.amount').change()
 
   render: ->
-    @$el.html(@template(@model.toJSON() ))
+    @$el.html(@template(sale_categories: @sale_categories))
     @$el.addClass(@model.cid)
     @
 

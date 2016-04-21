@@ -2,6 +2,13 @@
 <td><span><input type="text" name="[store_material][name]" id="" class="width-150" value=""> </span></td>
 <td><span><input type="text" name="[store_material][speci]" id="" class="width-140" value=""></span></td>
 <td><span><input type="text" name="[store_material_unit][name]" id="" class="width-50" value=""> </span></td>
-<td><span><input type="number" name="quantity" id="" class="width-75" value=""> </span></td>
+<td><span>
+    <select name="[store_material_saleinfo][sale_category_id]">
+      <% @sale_categories.models.forEach (m) ->: %>
+        <option value="<%= m.get 'id' %>"><%= m.get 'name' %></option>
+      <% end %>
+    </select>
+</span></td>
+<td><span><input type="number" name="quantity" id="" class="width-40" value=""> </span></td>
 <td><span><input type="number" name="[store_material_saleinfo][retail_price]" id="" class="width-50 retail_price" value=""> </span></td>
 <td><span><input type="number" name="amount" id="" class="width-50 amount" value="" disabled> </span></td>

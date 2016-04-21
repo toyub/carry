@@ -36,7 +36,7 @@ module Api
         end
 
         def saleinfo_params
-          params.require(:store_material_saleinfo).permit(:retail_price).merge! base_params
+          params.require(:store_material_saleinfo).permit(:sale_category_id, :retail_price).merge! base_params
         end
       end
     end
