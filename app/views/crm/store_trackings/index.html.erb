@@ -20,6 +20,9 @@
 
   function hide_dialog(){
     $('.window_wrap').hide();
+    $("input#store_tracking_title").val("");
+    $("textarea#store_tracking_content").val("");
+    $("textarea#store_tracking_feedback").val("");
   }
 
   function show_dialog() {
@@ -36,6 +39,7 @@
     $(document).on('click', '.query_btn', submit_search_form);
     $(document).on('click', '.cancel_btn', hide_dialog);
     $(document).on('click', '.new_return_record', show_dialog);
+    $(document).on('click', '.close', hide_dialog);
 
   });
 </script>

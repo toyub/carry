@@ -9,22 +9,20 @@ module Entities
            :used_time, :finished
     expose :mechanics, using: MechanicOfWorkflowSnapshot
     expose(:service_name) {|model|model.store_service.name}
-    expose :store_workstation
-    expose(:license_number) {|model|model.store_order.store_vehicle.license_number}
+    expose(:workstation_name) {|model|model.store_workstation.name}
+    expose(:license_number) {|model|model.store_order.try(:store_vehicle).try(:license_number) }
   end
 
   class StoreStaffTask < Grape::Entity
+    expose(:status) {|model| ActiveRecord::Base::StoreStaffTask.statuses[:"#{model.status}"]}
+    expose(:status_i18n) {|model|model.status}
     expose :id, :workflow_id, :mechanic_id, :store_order_item_id
     expose :workflow_snapshot, using: ServiceWorkflowSnapshot
   end
 
-  class Mechanic < Grape::Entity
-    expose :full_name, :phone_number, :status
-    expose :store_staff_tasks, using: StoreStaffTask
-
-    private
-    def status
-      true
-    end
+  class TaskResult < Grape::Entity
+    expose :status, :message
+    expose :task, using: StoreStaffTask
   end
+
 end

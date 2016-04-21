@@ -12,16 +12,14 @@ module V1
           requires :platform, type: String, desc: '调用的平台!'
         end
         get  do
-          if current_user.store_group_member.blank?
-            {status: false, message: '未绑定小组,无法查看状态!'}
-          else
-            if current_user.store_group_member.busy?
-              present current_user, with: ::Entities::Mechanic
-            else
-              {status: false, message: '暂时没有服务流程，请注意查收!'}
-            end
-          end
+          task = current_user.store_staff_tasks.current_task
 
+          if task.present?
+            result = {status: true, message: '存在流程!', task: task}
+          else
+            result = {status: false, message: '暂时不存在流程，请注意查收!', task: nil}
+          end
+          present result, with: ::Entities::TaskResult
         end
       end
 
@@ -31,13 +29,41 @@ module V1
         requires :id, type: Integer, desc: 'task的id！'
       end
       put do
-        if task = current_user.store_staff_tasks.where(id: params[:id]).last
+        if task = current_user.store_staff_tasks.ready.where(id: params[:id]).last
           task.busy!
-          {status: true, message: '上岗成功！'}
+          if current_user.store_group_member
+            current_user.store_group_member.busy!
+            {status: true, message: '上岗成功！'}
+          else
+            {status: false, message: '由于系统原因请重试！'}
+          end
         else
-          {status: false, message: '上岗失败!'}
+          {status: false, message: '当前不存在需要上岗任务!'}
         end
       end
+
+      resource :workflowing do
+        add_desc '技师结束施工'
+        params do
+          requires :platform, type: String, desc: '调用的平台!'
+          requires :id, type: Integer, desc: 'task的id！'
+        end
+        put do
+          if task = current_user.store_staff_tasks.busy.where(id: params[:id]).last
+            task.finished!
+            if current_user.store_group_member.busy?
+              current_user.store_group_member.ready!
+              {status: true, message: '成功结束任务！'}
+            else
+              {status: false, message: '由于系统原因请重试!'}
+            end
+          else
+            {status: false, message: '当前不存在需要结束的任务!'}
+          end
+        end
+      end
+
+
     end
 
   end
