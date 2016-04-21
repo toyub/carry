@@ -1,9 +1,21 @@
 @charset "utf-8";
 
+@mixin section{
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #e5e5e5;
+  color: #333;
+  box-shadow: 0 3px 8px 0 rgba(36,36,36,0.12);
+}
+
 .employee_basic_info{
+  display: flex;
+  justify-content:space-between;
   .photo_info{
     padding:0 25px;
     margin-top:9px;
+    display: inline-block;
+    width: 210px;
     .photo{
       height:248px;
       border:1px solid #D9D9D9;
@@ -13,31 +25,76 @@
     }
 
   }
-  .basic_info{
-    margin-right:12px;
-    margin-top:4px;
+  .info{
+    margin-top:9px;
+    display: inline-block;
+    width: 1112px;
 
-    & > div{
-      width : 240px;
+    .title{
+      display: flex;
+      justify-content: space-between;
+      padding: 24px 20px;
+      h2{
+        font-size: 16px;
+        font-weight: 100;
+      }
+
+      .tip{
+        color: #b8b8b8;
+        font-size: 12px;
+        b{
+          display: inline-flex;
+          align-items: center;
+          vertical-align: middle;
+          color: #f23c18;
+          font-size: 14px;
+          padding: 3px;
+        }
+      }
+    }
+
+    .basic_info{
+      @include section;
+
+      label{
+        b{
+          display: inline-flex;
+          align-items: center;
+          vertical-align: middle;
+          color: #f23c18;
+          font-size: 14px;
+          padding: 3px;
+        }
+      }
+    }
+
+    .other_info{
+      @include section;
+      margin-top: 18px;
+    }
+
+    .item{
       display : inline-block;
       margin :0 18px 20px 0px;
 
       label {
-        width : 50px;
+        width : 77px;
         text-align : right;
         margin-right : 5px;
       }
 
-      input[type="text"]{
-        width : 170px;
+      input[type="text"],input[type="date"]{
+        width : 168px;
+        box-sizing: border-box;
       }
 
       span.show_content{
-        width : 172px;
+        width : 168px;
+        background: #fff;
       }
 
       select{
-        width : 170px;
+        width : 168px;
       }
 
       &.name {
@@ -46,22 +103,17 @@
         }
       }
 
-      &.position {
-        label {
-          width : 26px;
-        }
-        select,span.show_content{
-          width : 67px;
-        }
-      }
-
       &.gender{
         span {
           display : inline-block;
           height : 25px;
           line-height : 25px;
-          width : 170px;
-          border : 1px solid #d9d9d9;
+          width: 168px;
+          box-sizing: border-box;
+
+          label{
+            width: 76px;
+          }
         }
       }
 
@@ -74,9 +126,14 @@
       }
 
       &.address{
-        width : 502px;
-        input[type="text"] { width : 431px;}
-        span.show_content { width : 433px;}
+        input[type="text"] { width : 443px;}
+        span.show_content { width : 443px;}
+      }
+
+      &.home_address{
+        margin-right: 0px;
+        input[type="text"] { width : 443px;}
+        span.show_content { width : 443px;}
       }
 
       &.remark {
@@ -84,14 +141,13 @@
         display : flex;
         align-items : flex-start;
         justify-content: flex-start;
-        textarea {
-          width : 958px;
+        textarea,span.show_content{
+          width : 993px;
           height: 50px;
+          margin-left: 4px;
+          box-sizing: border-box;
         }
-        span.show_content{
-          width : 960px;
-          height : 50px;
-        }
+
       }
     }
   }
