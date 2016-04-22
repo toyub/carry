@@ -1,0 +1,57 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['供应商', '订货', '新建订货单']) %>
+</div>
+<div class="details">
+  <%= render partial: 'srm/store_suppliers/nav' -%>
+  <div class="details_content">
+      <div class=" common_storage_content margin-bottom-50">
+      <%= form_tag "/srm/material_orders/", id: 'new_order_form' do %>
+        <div class="ordergoods_query">
+          <div class="nav-item-query">
+            <label>供应商：</label>
+            <input type="text" class="width-200" readonly="true" value="<%= @store_supplier.name %>">
+            <input type="hidden" name="store_supplier_id" value="<%= @store_supplier.id %>">
+          </div>
+          <div class="nav-item-query ">
+            <label>时间：</label>
+            <input type="text" class="width-135" readonly="true" value="<%= Time.now.strftime('%Y-%m-%d %H:%M') %>">
+          </div>
+          <div class="nav-item-query">
+            <label>单号：</label>
+            <input type="text" class="width-135" readonly="true" value="">
+          </div>
+          <div class="ordergoods_print">
+            <a href="javascript:void(0);" class="print_btn">打<nbsp1></nbsp1>印</a>
+          </div>
+        </div>
+        <%= render partial: 'form' %>
+        <div class="btn_group margin-right-20">
+          <a class="edit_btn" href="#" >取消</a>
+          <input type='submit' class="save_btn btn" value='保存' />
+        </div>
+      <% end %>
+      </div>
+  </div>
+</div>
+<% content_for :scenes do %>
+  <%= render partial: 'material_form' %>
+  <%= render partial: 'choose_goods' %>
+<% end %>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function(){
+      new_order_view = new $$MIS.NewMaterialOrderView({
+        el: $("#content")
+      });
+
+      $("#new_order_form").on('submit', function(){
+        if($("#storage_tab > tbody >tr:not(.handle)").length < 1){
+          ZhanchuangAlert('请选择订货的商品');
+          return false;
+        }
+      });
+    });
+  </script>
+<% end %>
