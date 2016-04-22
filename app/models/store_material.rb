@@ -19,7 +19,6 @@ class StoreMaterial < ActiveRecord::Base
   has_one :store_material_tracking
 
   has_many :store_material_inventories
-  has_many :store_material_inventory_records
   has_many :store_material_orders
   has_many :snapshots, class_name: "StoreMaterialSnapshot", foreign_key: :store_material_id
   has_many :store_material_checkin_items
@@ -29,7 +28,6 @@ class StoreMaterial < ActiveRecord::Base
 
   has_many :incomes, class_name: "StoreMaterialIncome"
   has_many :outgos, class_name: "StoreMaterialOutgo"
-  has_many :checkin_items, class_name: 'StoreMaterialCheckinItem'
 
   scope :name_contains, -> (name) {where("store_materials.name like ?", "%#{name}%")}
   scope :by_sub_category, -> (category) {where(store_material_category_id: category) if category.present?}
