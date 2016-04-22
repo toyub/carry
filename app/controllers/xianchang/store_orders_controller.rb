@@ -33,7 +33,7 @@ module Xianchang
     end
 
     def play
-      @store_order.play!(params[:from])
+      @store_order.replay!
     end
 
     private

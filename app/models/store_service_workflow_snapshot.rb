@@ -22,43 +22,43 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   scope :not_finished, -> { where.not(status: StoreServiceWorkflowSnapshot.statuses[:finished]) }
 
   enum status: [:pending, :processing, :finished, :pausing]
+  enum waiting_area_id: %i[ waiting_in_queue waiting_in_workstation ]
 
   def ready_mechanics(workstation_id)
-    workstation = StoreWorkstation.find(workstation_id)
-    workstation.store_group.members if workstation
+    workstation = StoreWorkstation.find_by(id: workstation_id)
+    if workstation.present?
+      workstation.store_group.members
+    else
+      []
+    end
   end
 
   def workstations
-    stations = StoreWorkstation.where(id: self.workstaiton_ids)
-    return stations if stations.present?
-    store.workstations
-  end
-
-  def workstaiton_ids
-    self.store_workstation_ids.to_s.split(",").map(&:to_i)
-  end
-
-  def has_free_mechanic?
-    self.store.store_group_members.level_at_least(self.mechanics_level.to_i).ready
-  end
-
-  def has_mechanic?
-    mechanics.present? || has_free_mechanic?
+    default_workstation_ids = self.store_workstation_ids.to_s.split(",").map(&:to_i)
+    if default_workstation_ids.present?
+      stations = StoreWorkstation.where(id: default_workstation_ids)
+      if stations.present?
+        return stations
+      else
+        return store.workstations
+      end
+    else
+      return store.workstations
+    end
   end
 
   def pause_in_workstation!
+    self.waiting_in_workstation!
     self.pausing!
     self.free_mechanics
-    self.remove_tasks
   end
 
   def pause_in_queue!
+    self.waiting_in_queue!
     self.pausing!
     self.free_mechanics
-    self.remove_tasks
     self.free_workstation
   end
-
 
   def executable?(workstation)
     if self.store_vehicle.blank?
@@ -129,7 +129,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def execute!(workstation)
     if self.store_service.blank?
       self.store_order.waste!
-      return 'FUCK OFF'
+      return false
     end
     ActiveRecord::Base.transaction do
       self.execute(workstation)
@@ -145,6 +145,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     send_sms
   end
 
+  #Change workstation
   def exchange!(previous_workstation, workstation)
     previous_workstation.free
     if self.processing?
@@ -185,10 +186,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     ws.busy!
   end
 
-  def replay!
-    self.store_workstation.start!(self)
-  end
-
   def work_time_in_minutes
     if self.used_time.to_i > 0
       return self.used_time.to_i
@@ -220,16 +217,25 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
-  def is_pausing?
-    self.pausing? || self.store_service.pausing? || self.store_order.task_pausing?
-  end
-
   def ended_at
     self.count_down.minutes.from_now.strftime("%Y/%m/%d %H:%M:%S")
   end
 
   def actual_time_in_minutes
     elapsed_time
+  end
+
+  def is_pausing?
+    self.pausing? || self.store_service.pausing? || self.store_order.task_pausing?
+  end
+
+  def replay!
+    if self.waiting_in_workstation?
+      self.processing!
+      self.store_workstation.start!(self)
+    else
+      
+    end
   end
 
   def finish!
@@ -241,6 +247,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def terminate!
     self.free_workstation
     self.free_mechanics
+    self.tasks.each(&:finished!)
     self.finished!
     self.update!(elapsed: actual_time_in_minutes, finished_at: Time.now)
   end
@@ -253,14 +260,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store_group_members.map(&:free!)
   end
 
-  def remove_tasks
-    self.tasks.destroy_all
-  end
-
   def remove!
     self.free_workstation
     self.free_mechanics
-    self.remove_tasks
+    self.tasks.destroy_all
   end
 
   def waste!
@@ -270,11 +273,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def send_sms
     SmsJob.set(wait_until: remind_delay_interval.minutes.from_now).perform_later(sms_options) if can_send_sms?
-  end
-
-
-  def waiting_in_workstation?
-    self.store_workstation.present? && self.store_workstation.workflow_id == self.id
   end
 
   private

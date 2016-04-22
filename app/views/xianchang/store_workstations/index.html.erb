@@ -17,12 +17,22 @@
   </div>
 
   <div class="construction_site margin-top-36 do_wrap">
-    <div class="title bg-color-fb962d waiting">
-      <span>等候</span>
+    <div class="title bg-color-r27-g171-b204-a82 waiting">
+      <span>排队</span>
       <span><i class="fa fa-chevron-left font-28 color-fff"></i></span>
     </div>
     <ul class="waiting">
       <%= render partial: "order", collection: @queuing_orders, as: :order %>
+    </ul>
+  </div>
+
+  <div class="construction_site margin-top-36 do_wrap">
+    <div class="title bg-color-fb962d waiting">
+      <span>暂停</span>
+      <span><i class="fa fa-pause font-28 color-fff"></i></span>
+    </div>
+    <ul class="pausing">
+      <%= render partial: "order", collection: @pausing_orders, as: :order %>
     </ul>
   </div>
 
@@ -36,7 +46,7 @@
   <div class="construction_site margin-top-50 do_wrap js-finished-orders">
     <div class="title bg-color-36a54a ">
       <span>完工</span>
-      <span><i class="fa fa-ban font-28"></i></span>
+      <span><i class="fa fa-check font-28"></i></span>
     </div>
     <ul class="completion js-finished">
       <%= render partial: "order", collection: @task_finished_orders, as: :order %>

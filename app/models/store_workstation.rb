@@ -14,7 +14,12 @@ class StoreWorkstation < ActiveRecord::Base
   enum status: [:idle, :busy, :unavailable]
 
   def working?
-    self.busy? && !self.current_workflow.try(:deleted)
+    if self.workflow_id.blank? || self.current_workflow.blank? || self.current_workflow.deleted
+      self.free
+      return false
+    else
+      return self.busy?
+    end
   end
 
   def assign_workflow!

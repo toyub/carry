@@ -46,7 +46,7 @@ class StoreServiceSnapshot < ActiveRecord::Base
       self.processing!
     end
     self.workflow_snapshots.pausing.each do |workflow|
-
+      workflow.replay!
     end
   end
 

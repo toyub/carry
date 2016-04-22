@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420072300) do
+ActiveRecord::Schema.define(version: 20160421063420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1300,6 +1300,7 @@ ActiveRecord::Schema.define(version: 20160420072300) do
     t.datetime "paid_at"
     t.integer  "chain_business_model_id",                                      default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
     t.integer  "waiting_area_id",                                              default: 0
+    t.datetime "task_finished_at"
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1602,6 +1603,7 @@ ActiveRecord::Schema.define(version: 20160420072300) do
     t.string   "inspector"
     t.boolean  "deleted",                                     default: false
     t.datetime "finished_at"
+    t.integer  "waiting_area_id",                             default: 0
   end
 
   create_table "store_service_workflows", force: :cascade do |t|

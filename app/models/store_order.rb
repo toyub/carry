@@ -31,6 +31,8 @@ class StoreOrder < ActiveRecord::Base
 
   scope :available, -> {where(deleted: false)}
 
+  scope :task_finished_on, ->(date){where(task_finished_at: date.beginning_of_day..date.end_of_day)}
+
   enum state: %i[pending queuing processing paying finished pausing]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]
   enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]
@@ -46,18 +48,6 @@ class StoreOrder < ActiveRecord::Base
   validates_presence_of :items, :store_customer, :store_vehicle
 
   belongs_to :cashier, class_name: 'StoreStaff', foreign_key: 'cashier_id'
-
-  def self.counts_by_state(date_time = Time.now)
-    counts = self.where('created_at BETWEEN ? AND ?', date_time.beginning_of_day, date_time.end_of_day)
-                 .group(:state).count(:id)
-    {
-      pending: counts[StoreOrder.states[:pending]].to_i,
-      queuing: counts[StoreOrder.states[:queuing]].to_i,
-      processing: counts[StoreOrder.states[:processing]].to_i,
-      paying: counts[StoreOrder.states[:paying]].to_i,
-      finished: counts[StoreOrder.states[:finished]].to_i
-    }
-  end
 
   def state_i18n
     I18n.t self.state, scope: [:enums, :store_order, :state]
@@ -114,6 +104,7 @@ class StoreOrder < ActiveRecord::Base
 
   def terminate!
     self.task_finished!
+    self.task_finished_at = Time.now
     self.paid? ? self.finished! : self.paying!
   end
 

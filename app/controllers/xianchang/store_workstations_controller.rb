@@ -6,8 +6,9 @@ module Xianchang
 
     def index
       counts
-      @task_finished_orders = current_store.store_orders.available.task_finished.paying.today
-      @queuing_orders = current_store.store_orders.available.waiting.waiting_in_queue
+      @task_finished_orders = current_store.store_orders.available.task_finished.paying.task_finished_on(Time.now)
+      @pausing_orders = current_store.store_orders.available.pausing.waiting_in_queue
+      @queuing_orders = current_store.store_orders.available.queuing.waiting_in_queue
       @workstations = current_store.workstations.order("id asc")
     end
 
