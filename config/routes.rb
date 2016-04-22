@@ -21,6 +21,10 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :outings, obly: [] do
+        get :outgo_records, on: :collection
+      end
+
       resource :saleinfo do
         resources :saleinfo_services
       end

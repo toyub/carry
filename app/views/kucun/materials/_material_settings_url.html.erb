@@ -13,4 +13,7 @@
 <li class="width-90 <%= is_hover 'material_inventories', 'kucun',  dom_class: ' bg-color-fff' %>">
   <%= link_to '入库记录', income_records_kucun_material_material_inventories_path(@store_material) %>
 </li>
+<li class="width-90 <%= is_hover 'outings', 'kucun',  dom_class: ' bg-color-fff' %>">
+  <%= link_to '出库记录', outgo_records_kucun_material_outings_path(@store_material) %>
+</li>
 </ul>
