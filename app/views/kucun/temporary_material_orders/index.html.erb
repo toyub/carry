@@ -62,7 +62,7 @@
                 <li class="number"><%= index %>.</li>
                 <li ><%= order.created_at.strftime("%Y-%m-%d") %></li>
                 <li ><%= order.numero %></li>
-                <li > <%= order.items.first(3).map {|item| item.orderable.name }.join(",") %> <%= '等' if order.items.size > 3 %> </li>
+                <li > <%= order.items.temporary_materials.first(3).map {|item| item.orderable.name }.join(",") %> <%= '等' if order.items.size > 3 %> </li>
                 <li ><%= order.amount %></li>
                 <li ><%= order.store_customer.full_name %></li>
                 <li ><%= order.store_customer.phone_number %></li>
@@ -93,14 +93,14 @@
                   </tr>
                 </thead>
                 <tbody class='list-materials'>
-                  <% order.items.materials.each.with_index(1) do |item, index| %>
+                  <% order.items.temporary_materials.each.with_index(1) do |item, index| %>
                     <tr>
                       <td class="number"><%= index %></td>
                       <td><%= item.orderable.name %></td>
                       <td><%= item.orderable.speci %></td>
                       <td><%= item.orderable.store_material_unit.try('name') %></td>
                       <td><%= item.category_name %></td>
-                      <td><%= item.quantity %></td>
+                      <td><%= item.quantity - item.has_purchased_quantity %></td>
                       <td><%= item.retail_price %></td>
                       <td>未核实</td>
                       <td><%= item.amount %></td>
@@ -180,7 +180,7 @@
         <div class="height-50 ">
           <div class="item_content margin-left-10 float-left">
             <label class="width-75">本次付款：</label>
-            <input type="text" name="temporary_material_order[payments_attributes][][amount]" class="width-253" id="pay-field">
+            <input type="number" name="temporary_material_order[payments_attributes][][amount]" class="width-253" id="pay-field" required>
           </div>
 
           <div class="item_content float-left  margin-left-20">

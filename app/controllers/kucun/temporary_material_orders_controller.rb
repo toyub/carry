@@ -30,7 +30,16 @@ class Kucun::TemporaryMaterialOrdersController < Kucun::BaseController
     if order_params[:payments_attributes].present?
       order.paid_amount += order_params[:payments_attributes][0][:amount].to_f
     end
-    order.save!
+
+    if order.save!
+      order.items.each.with_index do |item, index|
+        store_order_items = current_store.store_order_items.find_by_id(params[:temporary_material_order][:items_attributes][index][:order_item_id])
+        store_order_items.increment!(:has_purchased_quantity, item.quantity)
+        if store_order_items.has_purchased_quantity >= store_order_items.quantity
+          store_order_items.update!(need_temporary_purchase: false)
+        end
+      end
+    end
 
     redirect_to kucun_store_supplier_material_orders_path({store_supplier_id: store_supplier.id})
   end
