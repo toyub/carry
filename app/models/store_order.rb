@@ -31,6 +31,8 @@ class StoreOrder < ActiveRecord::Base
 
   scope :available, -> {where(deleted: false)}
 
+  scope :need_temporary_purchase, -> { joins(:items).where('store_order_items.need_temporary_purchase is true').group("store_orders.id") }
+
   enum state: %i[pending queuing processing paying finished pausing]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]
   enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]

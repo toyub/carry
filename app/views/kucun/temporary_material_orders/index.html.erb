@@ -47,7 +47,6 @@
             <li >时间</li>
             <li >业务订单</li>
             <li >相关商品</li>
-            <li >销售类别</li>
             <li >金额</li>
             <li >客户</li>
             <li >手机号</li>
@@ -63,8 +62,7 @@
                 <li class="number"><%= index %>.</li>
                 <li ><%= order.created_at.strftime("%Y-%m-%d") %></li>
                 <li ><%= order.numero %></li>
-                <li > 气门油封,气门组件,气门室盖垫,大修包等 </li>
-                <li >未设置....</li>
+                <li > <%= order.items.first(3).map {|item| item.orderable.name }.join(",") %> <%= '等' if order.items.size > 3 %> </li>
                 <li ><%= order.amount %></li>
                 <li ><%= order.store_customer.full_name %></li>
                 <li ><%= order.store_customer.phone_number %></li>
@@ -101,7 +99,7 @@
                       <td><%= item.orderable.name %></td>
                       <td><%= item.orderable.speci %></td>
                       <td><%= item.orderable.store_material_unit.try('name') %></td>
-                      <td>未设置</td>
+                      <td><%= item.category_name %></td>
                       <td><%= item.quantity %></td>
                       <td><%= item.retail_price %></td>
                       <td>未核实</td>

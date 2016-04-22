@@ -1,6 +1,6 @@
 class Kucun::TemporaryMaterialOrdersController < Kucun::BaseController
   def index
-    @temporary_orders = StoreOrder.last(5)
+    @temporary_orders = current_store.store_orders.need_temporary_purchase
     @store_supplier = current_store.store_suppliers.select(:id, :name)
   end
 
