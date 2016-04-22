@@ -16,7 +16,8 @@ class Mis.Models.ZidingYiMaterial extends Backbone.Model
       cost_price: 0,
       quantity: @get('quantity'),
       discount: null,
-      discount_reason: null
+      discount_reason: null,
+      need_temporary_purchase: true
     }
     Mis.Vues.MaterialItem.items.push(attrs);
 
