@@ -1,4 +1,5 @@
 class Kucun::MaterialInventoriesController < Kucun::BaseController
+  before_action :get_material, only: [:income_records]
   def index
     @record_items = StoreMaterialInventoryRecord.where(store_id: current_store.id)
   end
@@ -30,6 +31,10 @@ class Kucun::MaterialInventoriesController < Kucun::BaseController
       smr.save!
     end
     redirect_to action: :new
+  end
+
+  def income_records
+    @income_records = @store_material.incomes
   end
 
 
@@ -69,5 +74,9 @@ class Kucun::MaterialInventoriesController < Kucun::BaseController
     inventory.save!
     item.store_material.save!
     item.save!
+  end
+
+  def get_material
+    @store_material = current_user.store_chain.store_materials.find(params[:material_id])
   end
 end

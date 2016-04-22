@@ -10,4 +10,7 @@
   <li class="width-90 <%= is_hover 'saleinfos', 'kucun', dom_class: ' bg-color-fff' %>"><a href="javascript: alert('商品被设置为内部使用， 请先开启销售选项！')" class="width-90">销售设置</a></li>
   <li class="width-90 <%= is_hover 'trackings', 'kucun',  dom_class: ' bg-color-fff' %>"><a href="javascript: alert('商品被设置为内部使用， 请先开启销售选项！')" class="width-90">回访设置</a></li>
 <% end %>
+<li class="width-90 <%= is_hover 'material_inventory_records', 'kucun',  dom_class: ' bg-color-fff' %>">
+  <%= link_to '入库记录', income_records_kucun_material_material_inventories_path(@store_material) %>
+</li>
 </ul>
