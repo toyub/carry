@@ -128,7 +128,16 @@
         </div>
         <div class="nav-item-query">
           <label>供应商：</label>
-          <%= select_tag :store_supplier_id, options_for_select(@store_supplier.collect {|supplier| [supplier.name, supplier.id]}), class: "width-200" %>
+          <input name='store_supplier_id' type="hidden">
+          <span id='store_supplier_id' class="width-150 as_select" data-select='#material_supplier_select' data-target='input[name="store_supplier_id"]'>请选择</span>
+          <div id='material_supplier_select' class="select width-165">
+            <ol class='width-165'>
+              <% @store_supplier.each do |supplier| %>
+                <li data-value="<%= supplier.id %>"><%= supplier.name %></li>
+              <% end %>
+            </ol>
+            <a class='add_btn width-158 add_supplier' data-method='add_supplier' href="javascript:void(0);">新增</a>
+          </div>
         </div>
         <div class="nav-item-query " >
           <label>时间：</label>
