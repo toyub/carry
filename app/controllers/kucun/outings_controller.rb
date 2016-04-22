@@ -44,7 +44,7 @@ class Kucun::OutingsController < Kucun::BaseController
   end
 
   def outgo_records
-    @outgo_records = @store_material.outgos
+    @outgo_records = @store_material.outing_items
   end
 
   private

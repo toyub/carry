@@ -28,19 +28,19 @@
           <% @outgo_records.each_with_index do |record, idx| %>
           <tr>
             <td><%= idx + 1 %></td>
-            <td><%= record.logged_item.created_at.to_s(:date_only) %></td>
-            <td title="<%= record.logged_item.store_material.name %>"><%= record.logged_item.store_material.name.to_s.truncate(11) %></td>
-            <td><%= record.logged_item.store_material.barcode %></td>
-            <td><%= record.logged_item.store_material.store_material_root_category.name %></td>
-            <td><%= record.logged_item.store_material.store_material_category.name %></td>
-            <td><%= record.logged_item.store_material.speci %></td>
-            <td><%= record.logged_item.store_material.store_material_unit.name %></td>
-            <td class="text-align-right"><%= record.logged_item.store_material.cost_price %></td>
-            <td><%= record.logged_item.quantity -%></td>
-            <td class="text-align-right"><%= record.logged_item.amount %></td>
-            <td><%= record.logged_item.outing_type.name %></td>
-            <td class="text-align-right"><%= record.logged_item.requester.try(:screen_name) -%></td>
-            <td><%= record.logged_item.creator.screen_name %></td>
+            <td><%= record.created_at.to_s(:date_only) %></td>
+            <td title="<%= record.store_material.name %>"><%= record.store_material.name.to_s.truncate(11) %></td>
+            <td><%= record.store_material.barcode %></td>
+            <td><%= record.store_material.store_material_root_category.name %></td>
+            <td><%= record.store_material.store_material_category.name %></td>
+            <td><%= record.store_material.speci %></td>
+            <td><%= record.store_material.store_material_unit.name %></td>
+            <td class="text-align-right"><%= record.store_material.cost_price %></td>
+            <td><%= record.quantity -%></td>
+            <td class="text-align-right"><%= record.amount %></td>
+            <td><%= record.outing_type.name %></td>
+            <td class="text-align-right"><%= record.requester.try(:screen_name) -%></td>
+            <td><%= record.creator.screen_name %></td>
           </tr>
           <% end %>
         </tbody>

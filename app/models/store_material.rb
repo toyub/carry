@@ -22,6 +22,8 @@ class StoreMaterial < ActiveRecord::Base
   has_many :store_material_orders
   has_many :snapshots, class_name: "StoreMaterialSnapshot", foreign_key: :store_material_id
   has_many :store_material_checkin_items
+
+  has_many :outing_items, class_name: 'StoreMaterialOutingItem'
   #has_many :store_material_images, foreign_key: 'host_id'
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_package_items, as: :package_itemable
