@@ -2,7 +2,7 @@ class StorePackageSetting < ActiveRecord::Base
   include BaseModel
 
   belongs_to :store_package
-  has_many :items, -> {where(deleted: false)}, class_name: 'StorePackageItem', dependent: :delete_all
+  has_many :items, -> {where(deleted: false)}, class_name: 'StorePackageItem', dependent: :destroy_all
   belongs_to :saleman_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'store_commission_template_id'
   before_save :set_retail_price
 

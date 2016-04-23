@@ -8,7 +8,7 @@ class StoreService < ActiveRecord::Base
   has_many :snapshots, class_name: "StoreServiceSnapshot", as: :templateable
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
   has_many :store_order_items, as: :orderable
-  has_many :store_service_workflows, dependent: :delete_all
+  has_many :store_service_workflows
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_one :setting, class_name: 'StoreServiceSetting', dependent: :destroy
   has_many :reminds, class_name: 'StoreServiceRemind', dependent: :destroy

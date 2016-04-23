@@ -6,7 +6,7 @@ module Xianchang
 
     def index
       counts
-      @task_finished_orders = current_store.store_orders.available.task_finished.paying.task_finished_on(Time.now)
+      @task_finished_orders = current_store.store_orders.available.task_finished.task_finished_on(Time.now)
       @pausing_orders = current_store.store_orders.available.pausing.waiting_in_queue
       @queuing_orders = current_store.store_orders.available.queuing.waiting_in_queue
       @workstations = current_store.workstations.order("id asc")
@@ -45,8 +45,13 @@ module Xianchang
     end
 
     def start
-      @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
-      @workstation.start!(@workflow)
+      service = @store_order.store_service_snapshots.not_deleted.order('store_order_item_id asc').first
+      if service.present?
+        @workflow = service.workflow_snapshots.not_deleted.order('store_service_workflow_id asc').first
+        if @workflow.present?
+          @workstation.start!(@workflow)
+        end
+      end
     end
 
     private

@@ -260,5 +260,6 @@ class StoreOrder < ActiveRecord::Base
 
     def service_included_check
       self.service_included = self.items.any?(&->(item){item.orderable_type == StoreService.name || item.orderable_type == StoreMaterialSaleinfoService.name })
+      self
     end
 end

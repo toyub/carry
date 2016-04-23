@@ -36,14 +36,14 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def workstations
     default_workstation_ids = self.store_workstation_ids.to_s.split(",").map(&:to_i)
     if default_workstation_ids.present?
-      stations = StoreWorkstation.where(id: default_workstation_ids)
+      stations = StoreWorkstation.where(id: default_workstation_ids).available
       if stations.present?
         return stations
       else
-        return store.workstations
+        return store.workstations.available
       end
     else
-      return store.workstations
+      return store.workstations.available
     end
   end
 
@@ -226,7 +226,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def is_pausing?
-    self.pausing? || self.store_service.pausing? || self.store_order.task_pausing?
+    self.persisted? && (self.pausing? || self.store_service.pausing? || self.store_order.task_pausing?)
   end
 
   def replay!
@@ -234,12 +234,17 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       self.processing!
       self.store_workstation.start!(self)
     else
-      
+      workstations.idle.each do |workstation|
+        if self.executable?(workstation)
+          self.execute!(workstation)
+          break
+        end
+      end
     end
   end
 
   def finish!
-    self.terminate!
+    
     self.store_order.finish!
     send_sms
   end
@@ -247,17 +252,20 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def terminate!
     self.free_workstation
     self.free_mechanics
-    self.tasks.each(&:finished!)
+    self.finish_tasks
     self.finished!
-    self.update!(elapsed: actual_time_in_minutes, finished_at: Time.now)
+    self.record_times
   end
 
-  def free_workstation
-    self.store_workstation.try(:free)
+  def complete!
+    self.finished!
+    self.free_workstation
+    self.free_mechanics
+    
   end
 
-  def free_mechanics
-    self.store_group_members.map(&:free!)
+  def discontinue!
+    
   end
 
   def remove!
@@ -269,6 +277,22 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def waste!
     self.tasks.each(&->(task){task.waste!})
     self.update!(deleted: true)
+  end
+
+  def free_workstation
+    self.store_workstation.try(:free)
+  end
+
+  def free_mechanics
+    self.store_group_members.map(&:free!)
+  end
+
+  def finish_tasks
+    self.tasks.each(&:finished!)
+  end
+
+  def record_times
+    self.update!(elapsed: actual_time_in_minutes, finished_at: Time.now)
   end
 
   def send_sms
