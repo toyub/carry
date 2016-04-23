@@ -98,55 +98,23 @@ class StoreOrder < ActiveRecord::Base
     self.store_vehicle.license_number
   end
 
-  def finish!
-    terminate! if workflows_finished?
+  def task_status_i18n
+    I18n.t self.task_status, scope: [:enums, :store_order, :task_status]
   end
 
-  def terminate!
-    self.task_finished!
-    self.task_finished_at = Time.now
-    self.paid? ? self.finished! : self.paying!
+  def repayment_remaining
+    self.amount.to_f - self.filled.to_f
   end
 
-  def terminate
-    ActiveRecord::Base.transaction do
-      self.terminate!
-      self.workflows.unfinished.map(&:terminate!)
-      self.workflows.last.send_sms
+  def repay!(filled)
+    self.update!(filled: self.filled.to_f + filled.to_f)
+    if self.filled == self.amount
+      self.pay_finished!
     end
   end
 
-  def settle_down
-    if self.paying?
-      self.state = :finished
-    end
-  end
-
-  def settle_down!
-    if self.paying?
-      self.finished!
-    end
-  end
-
-  def workflows_finished?
-    workflows.all? { |w| w.finished? }
-  end
-
-  def execute!
-
-    return self.paying! if !executeable?
-    self.update(service_included: true)
-    ActiveRecord::Base.transaction do
-      construction_items.each do |item|
-        service = item.orderable
-        service.to_snapshot!(item)
-      end
-      if self.task_finished? || self.task_pending?
-        self.task_queuing!
-        self.queuing!
-        SpotDispatchJob.perform_now(self.store_id)
-      end
-    end
+  def payment_methods
+    payments.map {|payment| payment.payment_method_cn_name }.join(',')
   end
 
   def situation
@@ -169,27 +137,74 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def task_status_i18n
-    I18n.t self.task_status, scope: [:enums, :store_order, :task_status]
+  def finish!
+    if workflows_finished?
+      self.task_finished!
+      self.task_finished_at = Time.now
+      self.paid? ? self.finished! : self.paying!
+    end
   end
 
-  def repayment_remaining
-    self.amount.to_f - self.filled.to_f
+  def terminate
+      self.task_finished!
+      self.task_finished_at = Time.now
+      self.paid? ? self.finished! : self.paying!
+
+      self.workflows.unfinished.map(&:terminate!)
+      self.workflows.last.send_sms
   end
 
-  def payment_methods
-    payments.map {|payment| payment.payment_method_cn_name }.join(',')
+  def settle_down
+    if self.paying?
+      self.state = :finished
+    end
+  end
+
+  def settle_down!
+    if self.paying?
+      self.finished!
+    end
+  end
+
+  def workflows_finished?
+    workflows.all? { |w| w.finished? }
+  end
+
+  def complete!
+    self.task_finished!
+    self.task_finished_at = Time.now
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def continue_execute!(workstation)
+    service = @store_order.store_service_snapshots.not_deleted.pending.order('store_order_item_id asc').first
+    if service.present?
+      @workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+      if @workflow.present?
+        @workflow.find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
+      end
+    end
+  end
+
+  def execute!
+
+    return self.paying! if !executeable?
+    self.update(service_included: true)
+    ActiveRecord::Base.transaction do
+      construction_items.each do |item|
+        service = item.orderable
+        service.to_snapshot!(item)
+      end
+      if self.task_finished? || self.task_pending?
+        self.task_queuing!
+        self.queuing!
+        SpotDispatchJob.perform_now(self.store_id)
+      end
+    end
   end
 
   def execution_job
     OrderExecutionJob.perform_now(id)
-  end
-
-  def repay!(filled)
-    self.update!(filled: self.filled.to_f + filled.to_f)
-    if self.filled == self.amount
-      self.pay_finished!
-    end
   end
 
   def waste!

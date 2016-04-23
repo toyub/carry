@@ -40,14 +40,13 @@ module Xianchang
 
     def exchange
       @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
-      @previous_workstation = current_store.workstations.find(params[:previous_workstation])
-      @workflow.exchange!(@previous_workstation, @workstation)
+      @workflow.change_workstation_to!(@workstation)
     end
 
     def start
-      service = @store_order.store_service_snapshots.not_deleted.order('store_order_item_id asc').first
+      service = @store_order.store_service_snapshots.not_deleted.pending.order_by_itemd.first
       if service.present?
-        @workflow = service.workflow_snapshots.not_deleted.order('store_service_workflow_id asc').first
+        @workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
         if @workflow.present?
           @workstation.start!(@workflow)
         end

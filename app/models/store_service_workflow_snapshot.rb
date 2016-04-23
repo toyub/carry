@@ -21,6 +21,11 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   scope :not_deleted, ->{where(deleted: false)}
   scope :not_finished, -> { where.not(status: StoreServiceWorkflowSnapshot.statuses[:finished]) }
 
+  scope :previous_siblings_of, ->(flow_id){where('store_service_workflow_id < ?', flow_id)}
+  scope :next_siblings_of, ->(flow_id){where('store_service_workflow_id > ?', flow_id)}
+
+  scope :order_by_flow, ->{order('store_service_workflow_id asc')}
+
   enum status: [:pending, :processing, :finished, :pausing]
   enum waiting_area_id: %i[ waiting_in_queue waiting_in_workstation ]
 
@@ -47,17 +52,21 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
-  def pause_in_workstation!
-    self.waiting_in_workstation!
-    self.pausing!
-    self.free_mechanics
-  end
-
-  def pause_in_queue!
-    self.waiting_in_queue!
-    self.pausing!
-    self.free_mechanics
-    self.free_workstation
+  def find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
+    if self.executable?(workstation)
+      self.execute!(workstation)
+    else
+      self.workstations.each do |ws|
+        if self.executable?(ws)
+          self.execute!(ws)
+        end
+      end
+    end
+    if self.store_workstation.blank?
+      self.store_workstation = workstation
+      self.store_workstation.busy!
+      self.save
+    end
   end
 
   def executable?(workstation)
@@ -97,6 +106,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
         return false
       end
     else
+      if workstation.store_group.blank?
+        self.errors.add(:mechanics, '无法开始施工，工位没有绑定小组，无法分配技师！')
+        return false
+      end
       available_mechanics_count = workstation.store_group
                                              .store_group_members
                                              .available
@@ -128,7 +141,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def execute!(workstation)
     if self.store_service.blank?
-      self.store_order.waste!
+      self.destroy
       return false
     end
     ActiveRecord::Base.transaction do
@@ -145,9 +158,11 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     send_sms
   end
 
-  #Change workstation
-  def exchange!(previous_workstation, workstation)
-    previous_workstation.free
+  def change_workstation_to!(workstation)
+    if self.store_workstation.present?
+      self.store_workstation.free
+    end
+
     if self.processing?
       execute(workstation)
     else
@@ -175,7 +190,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
           .store_group_members
           .available.ready
           .level_at_least(mechanics_level.to_i)
-          .limit(mechanics_quantity).each(&->(group_member){task_the_mechanic(group_member)})
+          .order_by_update
+          .first(mechanics_quantity).each(&->(group_member){task_the_mechanic(group_member)})
     end
   end
 
@@ -229,6 +245,19 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.persisted? && (self.pausing? || self.store_service.pausing? || self.store_order.task_pausing?)
   end
 
+  def pause_in_workstation!
+    self.waiting_in_workstation!
+    self.pausing!
+    self.free_mechanics
+  end
+
+  def pause_in_queue!
+    self.waiting_in_queue!
+    self.pausing!
+    self.free_mechanics
+    self.free_workstation
+  end
+
   def replay!
     if self.waiting_in_workstation?
       self.processing!
@@ -243,29 +272,24 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
-  def finish!
-    
-    self.store_order.finish!
-    send_sms
-  end
-
-  def terminate!
+  def complete!
     self.free_workstation
     self.free_mechanics
     self.finish_tasks
-    self.finished!
     self.record_times
-  end
-
-  def complete!
     self.finished!
-    self.free_workstation
-    self.free_mechanics
-    
+    send_sms
+    self
   end
 
   def discontinue!
-    
+    self.free_workstation
+    self.free_mechanics
+    self.finish_tasks
+    self.record_times
+    self.finished!
+    send_sms
+    nil
   end
 
   def remove!
@@ -299,6 +323,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     SmsJob.set(wait_until: remind_delay_interval.minutes.from_now).perform_later(sms_options) if can_send_sms?
   end
 
+  def next_workflow
+    next_siblings.first
+  end
+
   private
   def big_brothers_finished?
     big_brothers.all? { |w| w.finished? }
@@ -306,7 +334,23 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def big_brothers
     if self.store_service.present?
-      store_service.workflow_snapshots.order("id asc").where('id < ?', self.id)
+      self.store_service.workflow_snapshots
+                        .not_deleted
+                        .pending
+                        .order_by_flow
+                        .previous_siblings_of(self.store_service_workflow_id)
+    else
+      []
+    end
+  end
+
+  def next_siblings
+    if self.store_service.present?
+      self.store_service.workflow_snapshots
+                        .not_deleted
+                        .pending
+                        .order_by_flow
+                        .next_siblings_of(self.store_service_workflow_id)
     else
       []
     end

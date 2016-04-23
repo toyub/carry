@@ -23,10 +23,15 @@ class StoreWorkstation < ActiveRecord::Base
   end
 
   def assign_workflow!
-    pending_workflows.each do |w|
-      if w.executable?(self)
-        w.execute!(self)
-        break
+    self.store.store_orders.available.has_service.task_queuing.each do |order|
+      service = order.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+      if service.present?
+        workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+        if workflow.present?
+          if workflow.executable?(self)
+            workflow.execute!(self)
+          end
+        end
       end
     end
   end
@@ -40,7 +45,7 @@ class StoreWorkstation < ActiveRecord::Base
   def finish!
     ActiveRecord::Base.transaction do
       if current_workflow.present?
-        current_workflow.finish!
+        current_workflow.complete!
       end
       self.free
       SpotDispatchJob.perform_now(self.store_id)

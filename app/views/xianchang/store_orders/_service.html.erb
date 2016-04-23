@@ -3,7 +3,11 @@
   <td colspan="5">
     <% service.workflow_snapshots.order("created_at asc").each_with_index do |workflow, i| %>
       <ul class="item_project">
-        <li><span class="number"><%= i + 1 %></span>-<%= workflow.name %></li>
+        <li><% if workflow.processing? %>
+           >
+          <% end %>
+          <span class="number"><%= i + 1 %></span>-<%= workflow.name %>
+        </li>
         <li>
           <select class="width-100 js-select-workstations" data-id="<%= workflow.id %>" name="workflow[<%= workflow.id %>][store_workstation_id]" <%= 'disabled' if workflow.finished? %>>
             <option>请选择</option>
