@@ -82,6 +82,27 @@ Rails.application.routes.draw do
 
   get "xiaoshou/main", to:  "xiaoshou#main"
 
+  namespace :mkis do
+    resources :materials do
+      collection do
+        get :autocomplete_name
+      end
+      member do
+        post :save_picture
+      end
+
+      resource :saleinfo do
+        resources :saleinfo_services
+      end
+      resource :tracking, only: [:show, :edit, :create, :update] do
+        get :sections, on: :collection
+        resources :tracking_sections
+      end
+      resources :material_sales
+    end
+  end
+  resources :xiaoshou
+
   namespace :soa do
     resources :staff do
       resource :setting do
@@ -498,7 +519,18 @@ Rails.application.routes.draw do
         resources :store_asset_items, only: [:show]
       end
     end
+  end
 
+  namespace :srm do
+    get "material_orders/nowaus", controller: 'material_orders', action: 'nowaus', as: :nowaus
+    resources :material_orders
+    resources :store_suppliers do
+      collection do
+        get :add
+      end
+      resources :material_orders
+      resources :assessments, controller: 'store_supplier_assessments'
+    end
   end
 
   namespace :receipt do

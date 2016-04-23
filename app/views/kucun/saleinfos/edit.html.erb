@@ -18,8 +18,9 @@
   <script>
     jQuery(function($){
       var urlRoot = "/kucun/materials/<%= @store_material.id %>/saleinfo";
+      var redirectUrlRoot = '/kucun';
       var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
-      handle = new $$MIS.SaleinfoHandleView({urlRoot: urlRoot});
+      handle = new $$MIS.SaleinfoHandleView({urlRoot: urlRoot, redirectUrlRoot: redirectUrlRoot});
       handle.store_commission_templates = store_commission_templates;
       $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
         $('#commission_tempalte_detail').hide();
