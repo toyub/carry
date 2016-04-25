@@ -52,15 +52,22 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
-  def find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
-    if self.executable?(workstation)
-      self.execute!(workstation)
-    else
+  def find_a_workstaion_and_execute
+    if self.store_workstation.blank?
       self.workstations.each do |ws|
         if self.executable?(ws)
           self.execute!(ws)
         end
+        break
       end
+    end
+  end
+
+  def find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
+    if self.executable?(workstation)
+      self.execute!(workstation)
+    else
+      self.find_a_workstaion_and_execute
     end
     if self.store_workstation.blank?
       self.store_workstation = workstation

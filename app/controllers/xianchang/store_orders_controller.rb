@@ -13,11 +13,13 @@ module Xianchang
 
     def update
       UpdateWorkflowService.call(order_params)
+      if @store_order.task_pending?
+        @store_order.try_to_execute
+      end
     end
 
     def execute
       UpdateWorkflowService.call(order_params)
-      SpotDispatchJob.perform_now(current_store.id)
     end
 
     def pause
