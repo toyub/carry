@@ -1,4 +1,5 @@
 class Kucun::OutingsController < Kucun::BaseController
+  before_action :get_material, only: [:outgo_records]
   def index
     @store = current_store
     @outing_items = StoreMaterialOutingItem.where(store_id: @store.id)
@@ -17,7 +18,7 @@ class Kucun::OutingsController < Kucun::BaseController
     outing = StoreMaterialOuting.new(outing_params)
     outing.total_quantity=0
     outing.total_amount = 0
-    
+
     ActiveRecord::Base.transaction do
       outing.items.each do |item|
         inventory = item.store_material_inventory
@@ -42,14 +43,22 @@ class Kucun::OutingsController < Kucun::BaseController
     redirect_to action: 'index'
   end
 
+  def outgo_records
+    @outgo_records = @store_material.outing_items
+  end
+
   private
   def outing_params
-    safe_params = params.require(:outing).permit(:requester_id, :outing_type_id, :remark, 
+    safe_params = params.require(:outing).permit(:requester_id, :outing_type_id, :remark,
                                     items_attributes: [:store_material_id, :quantity,
                                                        :remark, :store_material_inventory_id, :store_depot_id])
     safe_params.merge!({
       store_staff_id: current_user.id
     })
     safe_params
+  end
+
+  def get_material
+    @store_material = current_user.store_chain.store_materials.find(params[:material_id])
   end
 end

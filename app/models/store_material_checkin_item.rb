@@ -9,4 +9,8 @@ class StoreMaterialCheckinItem < ActiveRecord::Base
   def cost_price
     self.price
   end
+
+  def numero
+    store_material_checkin.numero
+  end
 end

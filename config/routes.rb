@@ -15,6 +15,16 @@ Rails.application.routes.draw do
         post :save_picture
       end
 
+      resources :material_inventories, only: [] do
+        collection do
+          get :income_records
+        end
+      end
+
+      resources :outings, obly: [] do
+        get :outgo_records, on: :collection
+      end
+
       resource :saleinfo do
         resources :saleinfo_services
       end
