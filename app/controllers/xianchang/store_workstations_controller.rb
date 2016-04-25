@@ -40,6 +40,7 @@ module Xianchang
 
     def exchange
       @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
+      @previous_workstation = @workflow.store_workstation
       @workflow.change_workstation_to!(@workstation)
     end
 

@@ -7,6 +7,9 @@
            >
           <% end %>
           <span class="number"><%= i + 1 %></span>-<%= workflow.name %>
+          <% if workflow.pausing? %>
+            [暂停]
+          <% end %>
         </li>
         <li>
           <select class="width-100 js-select-workstations" data-id="<%= workflow.id %>" name="workflow[<%= workflow.id %>][store_workstation_id]" <%= 'disabled' if workflow.finished? %>>
@@ -46,16 +49,5 @@
         </li>
       </ul>
     <% end %>
-    <div class="">
-      <% if @store_order.task_pausing? %>
-        <span>保存更改</span>
-        <span>保存并立即施工</span>
-        <span>暂停中</span>
-      <% else %>
-        <button type="button">保存更改</button>
-        <button type="button" class="width-120">保存并立即施工</button>
-        <button type="button" class="width-120">暂停此项目</button>
-      <% end %>
-    </div>
   </td>
 </tr>

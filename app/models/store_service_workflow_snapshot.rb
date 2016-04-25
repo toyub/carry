@@ -263,6 +263,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       self.processing!
       self.store_workstation.start!(self)
     else
+      self.pending!
       workstations.idle.each do |workstation|
         if self.executable?(workstation)
           self.execute!(workstation)
