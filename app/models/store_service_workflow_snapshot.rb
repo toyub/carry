@@ -57,8 +57,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       self.workstations.each do |ws|
         if self.executable?(ws)
           self.execute!(ws)
+          break
         end
-        break
       end
     end
   end
@@ -73,6 +73,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       self.store_workstation = workstation
       self.store_workstation.busy!
       self.save
+    else
+      self.store_workstation.busy!
     end
   end
 
@@ -124,7 +126,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       if available_mechanics_count >= mechanics_quantity
         return true
       else
-        self.errors.add(:mechanics, '无法开始施工，因为技师数量不满足；该服务需要 #{mechanics_quantity}个技师，而只分配了#{available_mechanics_count}个！')
+        self.errors.add(:mechanics, "无法开始施工，因为技师数量不满足；该服务需要 #{mechanics_quantity}个技师，而只分配了#{available_mechanics_count}个！")
         return false
       end
     end
@@ -296,7 +298,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.finish_tasks
     self.record_times
     self.finished!
-    send_sms
     nil
   end
 

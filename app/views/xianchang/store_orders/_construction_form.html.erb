@@ -18,9 +18,9 @@
     </table>
   </div>
   <div class="btn_group float-right margin-top-20">
-    <%= button_tag "保存", class: "save_btn btn js-save" %>
-    <%= button_tag "施工", class: "save_btn btn js-execute" %>
     <% unless order.task_finished? %>
+      <%= button_tag "保存", class: "save_btn btn js-save" %>
+      <%= button_tag "施工", class: "save_btn btn js-execute" %>
       <% if order.task_pausing? %>
         <span>施工暂停</span>
         <%= button_tag "恢复施工", class: "save_btn btn width-100 js-play" %>

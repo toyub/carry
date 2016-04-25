@@ -7,19 +7,18 @@ module Xianchang
 
     def terminate
       @state = params[:from]
-      @store_order.terminate
+      @store_order.force_finish!
       @store_order.reload
     end
 
     def update
       UpdateWorkflowService.call(order_params)
-      if @store_order.task_pending?
-        @store_order.try_to_execute
-      end
+      @store_order.execution_job
     end
 
     def execute
       UpdateWorkflowService.call(order_params)
+      @store_order.execution_job
     end
 
     def pause

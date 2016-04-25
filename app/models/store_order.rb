@@ -135,24 +135,7 @@ class StoreOrder < ActiveRecord::Base
     else
       "#{self.state_i18n}(#{self.pay_status_i18n})"
     end
-  end
-
-  def finish!
-    if workflows_finished?
-      self.task_finished!
-      self.task_finished_at = Time.now
-      self.paid? ? self.finished! : self.paying!
-    end
-  end
-
-  def terminate
-      self.task_finished!
-      self.task_finished_at = Time.now
-      self.paid? ? self.finished! : self.paying!
-
-      self.workflows.unfinished.map(&:terminate!)
-      self.workflows.last.send_sms
-  end
+  end 
 
   def settle_down
     if self.paying?
@@ -176,6 +159,39 @@ class StoreOrder < ActiveRecord::Base
     self.paid? ? self.finished! : self.paying!
   end
 
+  def force_finish!
+    self.workflows.unfinished.each(&->(workflow){ workflow.discontinue!})
+    self.task_finished!
+    self.task_finished_at = Time.now
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def execution_job
+    if self.service_included
+      actualize
+      try_to_execute
+    else
+      self.task_finished!
+      self.paying!
+    end
+    self.pay_queuing!
+    self
+  end
+
+  def discontinue!
+    self.task_finished!
+    self.task_finished_at = Time.now
+    self.finished!
+    self.workflows.unfinished.each(&->(workflow){ workflow.discontinue!})
+    #Send message tell the customer that his/her order is droped!
+  end
+
+  def waste!
+    discontinue!
+    self.items.each(&->(item){item.waste!})
+    self.update!(deleted: true)
+  end
+
   def continue_execute!(workstation)
     service = @store_order.store_service_snapshots.not_deleted.pending.order('store_order_item_id asc').first
     if service.present?
@@ -186,42 +202,8 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def execute!
-
-    return self.paying! if !executeable?
-    self.update(service_included: true)
-    ActiveRecord::Base.transaction do
-      construction_items.each do |item|
-        service = item.orderable
-        service.to_snapshot!(item)
-      end
-      if self.task_finished? || self.task_pending?
-        self.task_queuing!
-        self.queuing!
-        SpotDispatchJob.perform_now(self.store_id)
-      end
-    end
-  end
-
-  def execution_job
-    OrderExecutionJob.perform_now(id)
-  end
-
-  def waste!
-    self.items.each(&->(item){item.waste!})
-    self.update!(deleted: true)
-  end
-
-  def play!(from = 'processing')
-    workflow = self.workflows.processing.first || self.workflows.pending.first
-    if from == 'queuing'
-      self.queuing!
-      self.task_queuing!
-    else
-      self.processing!
-      self.task_processing!
-      workflow.play!
-    end
+  def play!
+    execution_job
   end
 
   def replay!
@@ -256,25 +238,63 @@ class StoreOrder < ActiveRecord::Base
   end
 
   private
-    def construction_items
-      self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
-    end
 
-    def executeable?
-      construction_items.present?
+  def try_to_execute
+    if self.pending?
+      self.queuing!
+      execute_the_first_service
+    elsif self.processing?
+      #do nothing
+    elsif self.queuing?
+      execute_the_first_service
+    elsif self.pausing?
+      if self.waiting_in_queue?
+        self.store_service_snapshots.not_pausing.each(&->(service){service.pause_in_queue!})
+      else
+        self.store_service_snapshots.not_pausing.each(&->(service){service.pause_in_workstation!})
+      end
     end
+  end
 
-    def set_numero
-      idx = store.store_orders.today.count + 1
-      self.numero = Time.now.to_date.to_s(:number) + idx.to_s.rjust(7, '0')
+  def actualize
+    if actualization_demand_exists?
+      self.update(service_included: true)
+      actualization_demands.each do |item|
+        service = item.orderable
+        service.to_snapshot!(item)
+      end
     end
+  end
 
-    def set_amount
-      self.amount = self.items.map(&:cal_amount).sum
+  def execute_the_first_service
+    service = self.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+    if service.present?
+      workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+      if workflow.present?
+        workflow.find_a_workstaion_and_execute
+      end
     end
+  end
 
-    def service_included_check
-      self.service_included = self.items.any?(&->(item){item.orderable_type == StoreService.name || item.orderable_type == StoreMaterialSaleinfoService.name })
-      self
-    end
+  def actualization_demands
+    self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
+  end
+
+  def actualization_demand_exists?
+    actualization_demands.exists?
+  end
+
+  def set_numero
+    idx = store.store_orders.today.count + 1
+    self.numero = Time.now.to_date.to_s(:number) + idx.to_s.rjust(7, '0')
+  end
+
+  def set_amount
+    self.amount = self.items.map(&:cal_amount).sum
+  end
+
+  def service_included_check
+    self.service_included = self.items.any?(&->(item){item.orderable_type == StoreService.name || item.orderable_type == StoreMaterialSaleinfoService.name })
+    self
+  end
 end

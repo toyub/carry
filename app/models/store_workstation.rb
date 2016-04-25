@@ -43,12 +43,16 @@ class StoreWorkstation < ActiveRecord::Base
   end
 
   def finish!
-    ActiveRecord::Base.transaction do
-      if current_workflow.present?
-        current_workflow.complete!
-      end
+    if self.workflow_id.blank? || self.current_workflow.blank? || self.current_workflow.deleted
       self.free
-      SpotDispatchJob.perform_now(self.store_id)
+      return true
+    end
+    workflow = self.current_workflow
+    workflow.complete!
+    if workflow.next_workflow.present?
+      workflow.next_workflow.find_a_workstaion_and_execute_otherwise_waiting_in(self)
+    else
+      workflow.store_service.complete!
     end
   end
 
