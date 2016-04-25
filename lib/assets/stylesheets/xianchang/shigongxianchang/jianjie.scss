@@ -263,7 +263,7 @@
           text-align: center;
 
           i{
-            font-size: 100px;
+            font-size: 80px;
             display: block;
           }
 				}
@@ -271,9 +271,10 @@
 
       .idle_station{
         span{
-          color: #f6d242;
+          color: #bfbfbf;
           i{
             color: inherit;
+            padding-bottom: 10px;
           }
         }
       }
@@ -283,6 +284,7 @@
 					color: #aa0046;
           i{
             color: inherit;
+            padding-bottom: 10px;
           }
 				}
 			}
