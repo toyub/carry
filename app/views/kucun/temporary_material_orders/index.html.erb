@@ -224,30 +224,49 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function(){
-    var chosen_items = {}
+    window.chosen_items = {}
 
     $(".jit_single_wrap").show()
-    $(".detailsbtn").click(function(){
-      $(".detailsbtn").not(this).closest('div').next().hide();
-      var detail = $(this).closest('div').next();
-      detail.slideToggle('500')
-    })
+      $(".detailsbtn").click(function(){
+        $(".detailsbtn").not(this).closest('div').next().hide();
+        var detail = $(this).closest('div').next();
+        detail.slideToggle('500')
+      })
+
+    var singleCheck = function(currentObj){
+        var item_id = currentObj.data('item-id');
+        if(currentObj.is(":checked")){
+          chosen_items[item_id] = new Mis.Views.TemporaryMaterialView({item_id: item_id})
+        }else{
+          chosen_items[item_id].remove();
+          delete chosen_items[item_id]
+        }
+    }
+
     $(".list-materials").on("change", 'input:checkbox', function(){
-      var item_id = $(this).data('item-id');
+      singleCheck( $(this) );
+    })
+
+    $(".common_storage_content").on("change", '.all_check', function(){
+      var trs = $(this).parents('thead').next('tbody').children("tr");
       if(this.checked){
-        chosen_items.item_id = new Mis.Views.TemporaryMaterialView({item_id: item_id})
-      }else{
-        chosen_items.item_id.remove()
-        delete chosen_items.item_id
+        trs.each(function(){
+          $(this).find('input:checkbox').prop('checked', true).change()
+        })
+      }
+      else{
+        trs.each(function(){
+          $(this).find('input:checkbox').prop('checked', false).change()
+        })
       }
     })
+
     $("#pay-field").change(function(){
       var pay = +$(this).val(),
-          amount = +$('.temporary-order-amount').text();
+      amount = +$('.temporary-order-amount').text();
 
       $("#debt-field").val( amount - pay )
     })
-
   })
 </script>
 

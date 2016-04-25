@@ -31,6 +31,8 @@ class Mis.Views.TemporaryMaterialView extends Backbone.View
 
   removeItem: ->
     @remove()
+    originItem = '.list-materials input[data-item-id=' + @item.id + ']'
+    $(originItem).prop('checked', false)
 
   render: ->
     @$el.html(@template(item: @item.toJSON() ))
