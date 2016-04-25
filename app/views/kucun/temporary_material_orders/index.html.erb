@@ -105,7 +105,7 @@
                       <td>未核实</td>
                       <td><%= item.amount %></td>
                       <td>
-                        <input type="checkbox" class="margin-right-10" name="sub_check" data-item_id=<%= item.id %>>
+                        <input type="checkbox" class="margin-right-10" name="sub_check" data-item-id=<%= item.id %>>
                       </td>
                     </tr>
                   <% end %>
@@ -224,7 +224,7 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function(){
-    var chosen_items = []
+    var chosen_items = {}
 
     $(".jit_single_wrap").show()
     $(".detailsbtn").click(function(){
@@ -233,35 +233,12 @@
       detail.slideToggle('500')
     })
     $(".list-materials").on("change", 'input:checkbox', function(){
-      var item_id = $(this).data('item_id');
+      var item_id = $(this).data('item-id');
       if(this.checked){
-        var url = "item_id=" + item_id;
-        $.ajax({
-          type: 'GET',
-          url: '/kucun/temporary_material_orders/check_item',
-          data: {item_id: item_id},
-          dataType: 'script',
-          success: function() {
-            chosen_items.push(item_id)
-            td_number = $(".tr_number_" + item_id + " td:first-child")
-            td_number.text(chosen_items.length)
-            $("input[name=amount]").change(function(){
-              var total_amount = 0.0;
-              $('.list-add-materials input[name=amount]').each(function(){
-                total_amount += +$(this).val();
-              })
-              $('.temporary-order-amount').text(total_amount);
-              $("#debt-field").val(total_amount - +$("#pay-field").val());
-            })
-          }
-        })
+        chosen_items.item_id = new Mis.Views.TemporaryMaterialView({item_id: item_id})
       }else{
-        chosen_items.pop(item_id)
-        var tr = $(".tr_number_" + item_id)
-        tr.remove()
-        $(".list-add-materials tr").each(function(index){
-          $(this).children("td.number").text(index + 1)
-        })
+        chosen_items.item_id.remove()
+        delete chosen_items.item_id
       }
     })
     $("#pay-field").change(function(){

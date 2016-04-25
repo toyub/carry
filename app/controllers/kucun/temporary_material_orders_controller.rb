@@ -4,11 +4,6 @@ class Kucun::TemporaryMaterialOrdersController < Kucun::BaseController
     @store_supplier = current_store.store_suppliers.select(:id, :name)
   end
 
-  def check_item
-    @item = current_store.store_order_items.find(params[:item_id])
-    @material = @item.orderable.store_material
-  end
-
   def create
     store_supplier = current_store.store_suppliers.find(params[:store_supplier_id])
     order = current_store.store_material_orders.new(order_params)

@@ -49,8 +49,6 @@ Rails.application.routes.draw do
       resources :assessments, controller: 'store_supplier_assessments'
     end
     resources :temporary_material_orders do
-      get :check_item, on: :collection
-
       resources :material_orders
     end
     resources :outings
@@ -275,6 +273,7 @@ Rails.application.routes.draw do
   namespace :api do
 
     resources :store_materials, only: :index
+    resources :store_temporary_items, only: [:index, :show]
     resources :consumable_store_materials, only: :index
     resources :store_material_categories, only: :index
 
