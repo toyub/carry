@@ -1,5 +1,5 @@
 class Kucun::MaterialInventoriesController < Kucun::BaseController
-  before_action :get_material, only: [:income_records, :outgo_records]
+  before_action :get_material, only: [:income_records]
   def index
     @record_items = StoreMaterialInventoryRecord.where(store_id: current_store.id)
   end
