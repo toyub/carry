@@ -27,7 +27,7 @@ module Api
         end
 
         def material_params
-          params.require(:store_material).permit(:name, :speci, :store_material_unit_id).merge! base_params
+          params.require(:store_material).permit(:name, :speci, :store_material_unit_id, :store_material_root_category_id, :store_material_category_id).merge! base_params
         end
 
         def saleinfo_params

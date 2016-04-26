@@ -1,4 +1,9 @@
 class Kucun::MaterialCategoriesController < Kucun::BaseController
+  def index
+    @category = current_store.root_material_categories.select(:id, :name).to_json
+    render json: @category, root: nil
+  end
+
   def new
     @category = StoreMaterialCategory.new
     render layout: 'tiny'

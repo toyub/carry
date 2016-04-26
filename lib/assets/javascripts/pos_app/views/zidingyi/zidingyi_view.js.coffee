@@ -12,6 +12,8 @@ class Mis.ziDingYiView extends Backbone.View
     @sale_categories.fetch()
     @material_units = new Mis.Collections.MaterialUnitsCollection()
     @material_units.fetch()
+    @material_root_category = new Mis.Collections.MaterialRootCategoryCollection()
+    @material_root_category.fetch()
     @render()
     @total_quantity = 0
     @total_amount = 0.0
@@ -42,7 +44,7 @@ class Mis.ziDingYiView extends Backbone.View
     @collection.add({})
 
   addMaterialView: (model) ->
-    view = new Mis.addMaterialView({model: model, sale_categories: @sale_categories, material_units: @material_units})
+    view = new Mis.addMaterialView({model: model, sale_categories: @sale_categories, material_units: @material_units, material_root_category: @material_root_category})
     $(".list-new-material").append(view.render().el)
     view.$el.find('.as_select').as_select();
 
