@@ -7,37 +7,7 @@
 </div>
 <div class="details">
   <div class="list_table">
-    <div class="search_nav">
-      <div class="item-query">
-        <label>时间</label>
-        <input type="date" class="width-150">
-      </div>
-      <div class="item-query">
-        <label>操作人</label>
-        <select  class="width-150">
-          <option></option>
-          <option></option>
-        </select>
-      </div>
-      <div class="item-query">
-        <label>商品名称</label>
-        <input type="text" class="width-150">
-      </div>
-      <div class="item-query">
-        <label>供应商</label>
-        <select  class="width-150">
-          <option></option>
-          <option></option>
-        </select>
-      </div>
-      <div class="item-query">
-        <a href="#" class="query_btn btn">查<nbsp1></nbsp1>询</a>
-      </div>
-      <div class="query_div">
-        <a  href="javascript:void(0)" class="print_btn btn">打印</a>
-        <a  href="javascript:void(0)" class="export_btn btn">导出</a>
-      </div>
-    </div>
+    <%= render 'search' %>
 
     <div class="common_storage jit_wrap">
       <div class="list">
@@ -128,7 +98,7 @@
         </div>
         <div class="nav-item-query">
           <label>供应商：</label>
-          <input name='store_supplier_id' type="hidden">
+          <input name='store_supplier_id' type="hidden" required>
           <span id='store_supplier_id' class="width-150 as_select" data-select='#material_supplier_select' data-target='input[name="store_supplier_id"]'>请选择</span>
           <div id='material_supplier_select' class="select width-165">
             <ol class='width-165'>
@@ -266,6 +236,13 @@
       amount = +$('.temporary-order-amount').text();
 
       $("#debt-field").val( amount - pay )
+    })
+
+    $("#temporary_form input[type='submit']").click(function(e){
+      if( !$("input[name='store_supplier_id']").val() ) {
+        e.preventDefault();
+        ZhanchuangAlert("请选择供应商")
+      }
     })
   })
 </script>

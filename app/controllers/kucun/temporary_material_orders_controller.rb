@@ -1,6 +1,9 @@
 class Kucun::TemporaryMaterialOrdersController < Kucun::BaseController
   def index
-    @temporary_orders = current_store.store_orders.need_temporary_purchase
+    @temporary_orders = current_store.store_orders
+                                                  .need_temporary_purchase
+                                                  .by_day(set_day)
+                                                  .by_numero(params[:order_numero])
     @store_supplier = current_store.store_suppliers.select(:id, :name)
   end
 
@@ -51,5 +54,14 @@ class Kucun::TemporaryMaterialOrdersController < Kucun::BaseController
     safe_params.delete(:payments_attributes) if safe_params[:payments_attributes][0][:amount].to_f < 1
     safe_params
   end
+
+  def set_day
+    if params[:day].present?
+      Date.parse(params[:day]) 
+    else
+      ""
+    end
+  end
+
 end
 
