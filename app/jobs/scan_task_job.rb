@@ -9,7 +9,7 @@ class ScanTaskJob < ActiveJob::Base
         next
       end
 
-      if workstation.current_workflow.ended_at < Time.now
+      if workstation.current_workflow.processing? && workstation.current_workflow.ended_at < Time.now
         workstation.finish!
       end
     end

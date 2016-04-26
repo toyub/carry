@@ -29,26 +29,41 @@
           <% end %>
         </li>
         <li>
-        <div class="assign_technician">
-          <ul id="workflow-<%= workflow.id %>-mechanics">
-            <% workflow.mechanics.each do |m| %>
-              <li class="do_coise_close js-mechanic" id="workflow-<%= workflow.id %>-mechanics-<%= m.id %>">
-                <span><%= m.full_name %><i class="coise_close lnr <%= 'lnr-cross js-mechanic-close' unless workflow.finished? %>"></i></span>
-                <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][id]" value="<%= m.id %>" />
-                <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][name]" value="<%= m.full_name %>" />
-              </li>
-            <% end %>
-          </ul>
-          <i class="action_button fa-plus fa <%= 'js-show-mechanics' unless workflow.finished? %>" data-id="<%= workflow.id %>"></i>
-        </div>
-        <ul class="technician js-mechanics" id="workflow-<%= workflow.id %>" data-id="<%= workflow.id %>" style="display:none;">
-        </ul>
+          <% if workflow.finished? %>
+            <div class="assign_technician bg-color-f7f7f7">
+              <ul id="workflow-<%= workflow.id %>-mechanics">
+                <% workflow.mechanics.each do |m| %>
+                  <li class="do_coise_close" id="workflow-<%= workflow.id %>-mechanics-<%= m.id %>">
+                    <span><%= m.full_name %></span>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% else %>
+            <div class="assign_technician">
+              <ul id="workflow-<%= workflow.id %>-mechanics">
+                <% workflow.mechanics.each do |m| %>
+                  <li class="do_coise_close js-mechanic" id="workflow-<%= workflow.id %>-mechanics-<%= m.id %>">
+                    <span><%= m.full_name %><i class="coise_close lnr <%= 'lnr-cross js-mechanic-close' unless workflow.finished? %>"></i></span>
+                    <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][id]" value="<%= m.id %>" />
+                    <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][name]" value="<%= m.full_name %>" />
+                  </li>
+                <% end %>
+              </ul>
+              <i class="action_button fa-plus fa <%= 'js-show-mechanics' unless workflow.finished? %>" data-id="<%= workflow.id %>"></i>
+            </div>
+            <ul class="technician js-mechanics" id="workflow-<%= workflow.id %>" data-id="<%= workflow.id %>" style="display:none;"></ul>
+          <% end %>
         </li>
         <li>
-          <%= select_tag :store_depot_id,
-            options_from_collection_for_select(current_store.store_staff.act_as_inspectors, 'id', 'full_name', @store_order.store_staff_id),
-            class: "width-60",
-            name: "workflow[#{workflow.id}][inspector_id]" %>
+          <% if workflow.finished? %>
+            <input type="text" class="width-60" value="<%= workflow.inspector.try :name %>" disabled>
+          <% else %>
+            <%= select_tag :store_depot_id,
+              options_from_collection_for_select(current_store.store_staff.act_as_inspectors, 'id', 'full_name', @store_order.store_staff_id),
+              class: "width-60",
+              name: "workflow[#{workflow.id}][inspector_id]" %>
+          <% end %>
         </li>
       </ul>
     <% end %>

@@ -102,7 +102,8 @@ class StoreService < ActiveRecord::Base
     self.setting.workflows.each do |w|
       options = {
         store_service_id: service.id,
-        store_service_workflow_id: w.id
+        store_service_workflow_id: w.id,
+        inspector_id: order_item.store_staff_id
       }
       StoreServiceWorkflowSnapshot.create! w.snapshot_attrs(self.base_attrs(order_item).merge options)
     end

@@ -12,6 +12,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   has_many :tasks, class_name: 'StoreStaffTask', foreign_key: :workflow_id
   has_many :mechanics, through: :tasks
   has_many :store_group_members, through: :tasks
+  belongs_to :inspector, class_name: 'StoreStaff', foreign_key: :inspector_id
 
   validates :store_staff_id, presence: true
   validates :store_service_id, presence: true
@@ -26,7 +27,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   scope :order_by_flow, ->{order('store_service_workflow_id asc')}
 
-  enum status: [:pending, :processing, :finished, :pausing]
+  enum status: [:pending, :processing, :finished, :pausing, :dilemma]
   enum waiting_area_id: %i[ waiting_in_queue waiting_in_workstation ]
 
   def ready_mechanics(workstation_id)
@@ -63,6 +64,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
+  def raise_a_dilemma
+    
   def find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
     if self.executable?(workstation)
       self.execute!(workstation)
@@ -71,9 +74,12 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
     if self.store_workstation.blank?
       self.store_workstation = workstation
+      self.store_workstation.current_workflow = self
       self.store_workstation.busy!
+      self.dilemma
       self.save
     else
+      self.store_workstation.current_workflow = self
       self.store_workstation.busy!
     end
   end
