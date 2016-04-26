@@ -1,0 +1,6 @@
+<ol class="width-75">
+  <% @categories.forEach (c) ->: %>
+    <li data-value="<%= c.id %>"><%= c.name %></li>
+  <% end %>
+</ol>
+<a class='add_btn width-68' data-method='add_category' href="javascript:void(0);">新增</a>

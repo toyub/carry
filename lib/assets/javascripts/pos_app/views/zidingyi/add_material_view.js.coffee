@@ -11,7 +11,7 @@ class Mis.addMaterialView extends Backbone.View
 
   events: ->
     'change input[name="quantity"], .retail_price' : 'resetAmount'
-    'change input.root_category': 'getSubCategory'
+    'change input.root_category': 'resetSubCategory'
 
   resetAmount: ->
     quantity = +@$('input[name="quantity"]').val()
@@ -19,8 +19,12 @@ class Mis.addMaterialView extends Backbone.View
     @$('.amount').val(quantity * retail_price)
     @$('.amount').change()
 
-  getSubCategory: ->
-    console.log "hfdafdas"
+  resetSubCategory: (evt) ->
+    id = evt.target.value
+    category = @material_root_category.get(id)
+    sub_category = category.get('sub_category')
+    view = new Mis.subCategorySelectView(model: sub_category)
+    $("#material_category_select").html(view.render().el)
 
   render: ->
     @$el.html(@template(sale_categories: @sale_categories, material_units: @material_units, material_root_category: @material_root_category))

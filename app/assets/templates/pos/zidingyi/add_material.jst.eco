@@ -3,7 +3,7 @@
 <td><span><input type="text" name="[store_material][speci]" id="" class="width-90" value=""></span></td>
 <td>
   <div class="item_content">
-    <input type="hidden" name='[store_material][store_material_root_category_id]' value="" class="root_category">
+    <input type="hidden" name='[store_material][store_material_root_category_id]' value="" class="root_category" data-id="">
     <span id='store_material_root_category_id' class="width-65 as_select" data-select='#material_root_category_select' data-target='input[name="[store_material][store_material_root_category_id]"'>请选择</span>
     <div id='material_root_category_select' class="select width-75">
       <ol class="width-75">
@@ -17,12 +17,9 @@
 </td>
 <td>
   <div class="item_content">
-    <input type="hidden" name='[store_material][store_material_category_id]' value="">
+    <input type="hidden" name='[store_material][store_material_category_id]' value="" class="category" data-id="">
     <span id='store_material_category_id' class="width-65 as_select" data-select='#material_category_select' data-target='input[name="[store_material][store_material_category_id]"'>请选择</span>
     <div id='material_category_select' class="select width-75">
-      <ol class="width-75">
-      </ol>
-      <a class='add_btn width-68' data-method='add_category' href="javascript:void(0);">新增</a>
     </div>
   </div>
 </td>

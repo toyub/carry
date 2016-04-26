@@ -8,21 +8,24 @@ class Mis.ziDingYiView extends Backbone.View
   initialize: ->
     @collection = new Mis.Collections.ZiDingYiMaterialCollection()
     @listenTo(@collection, "add", @addMaterialView)
-    @sale_categories = new Mis.Collections.SaleCategoriesCollection()
-    @sale_categories.fetch()
-    @material_units = new Mis.Collections.MaterialUnitsCollection()
-    @material_units.fetch()
-    @material_root_category = new Mis.Collections.MaterialRootCategoryCollection()
-    @material_root_category.fetch()
-    @render()
+    @initSelection()
     @total_quantity = 0
     @total_amount = 0.0
+    @render()
 
   events:
     'click .new-material': 'newMaterial'
     'click .save-once': 'saveOnce'
     'change .list-new-material input[name="quantity"]' : 'resetTotalQuantity'
     'change .list-new-material input[name="amount"]' : 'resetTotalAmount'
+
+  initSelection: ->
+    @sale_categories = new Mis.Collections.SaleCategoriesCollection()
+    @sale_categories.fetch()
+    @material_units = new Mis.Collections.MaterialUnitsCollection()
+    @material_units.fetch()
+    @material_root_category = new Mis.Collections.MaterialRootCategoryCollection()
+    @material_root_category.fetch()
 
   resetTotalQuantity: ->
     @total_quantity = 0

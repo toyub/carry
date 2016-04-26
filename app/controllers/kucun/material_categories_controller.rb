@@ -1,7 +1,6 @@
 class Kucun::MaterialCategoriesController < Kucun::BaseController
   def index
-    @category = current_store.root_material_categories.select(:id, :name).to_json
-    render json: @category, root: nil
+    @root_categories = current_store.root_material_categories
   end
 
   def new
