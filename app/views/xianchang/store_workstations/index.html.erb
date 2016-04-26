@@ -87,4 +87,9 @@ $(function(){
   handle = new Mis.Views.WorkstationsHandle()
 })
 </script>
+<% if flash[:error] %>
+  <script type="text/javascript">
+    alert('<%= flash[:error] %>')
+  </script>
+<% end %>
 <% end %>

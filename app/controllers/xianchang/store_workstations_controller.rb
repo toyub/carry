@@ -41,7 +41,7 @@ module Xianchang
     end
 
     def exchange
-      @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
+      @workflow = @store_order.workflows.find_by(id: params[:workflow_id])
       @previous_workstation = @workflow.store_workstation
       @workflow.change_workstation_to!(@workstation)
     end

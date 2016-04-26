@@ -26,6 +26,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   scope :next_siblings_of, ->(flow_id){where('store_service_workflow_id > ?', flow_id)}
 
   scope :order_by_flow, ->{order('store_service_workflow_id asc')}
+  scope :actively, ->{where(status: [ StoreServiceWorkflowSnapshot.statuses[:processing], StoreServiceWorkflowSnapshot.statuses[:dilemma] ])}
 
   enum status: [:pending, :processing, :finished, :pausing, :dilemma]
   enum waiting_area_id: %i[ waiting_in_queue waiting_in_workstation ]
@@ -64,7 +65,18 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
   end
 
-  def raise_a_dilemma
+  def raise_a_dilemma(workstation)
+    if self.processing?
+      return
+    end
+
+    if self.store_workstation.blank?
+      self.store_workstation = workstation
+    end
+    self.store_workstation.current_workflow = self
+    self.store_workstation.busy!
+    self.dilemma!
+  end
     
   def find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
     if self.executable?(workstation)
@@ -72,15 +84,8 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     else
       self.find_a_workstaion_and_execute
     end
-    if self.store_workstation.blank?
-      self.store_workstation = workstation
-      self.store_workstation.current_workflow = self
-      self.store_workstation.busy!
-      self.dilemma
-      self.save
-    else
-      self.store_workstation.current_workflow = self
-      self.store_workstation.busy!
+    if self.store_workstation.blank? || !self.processing?
+      raise_a_dilemma(workstation)
     end
   end
 

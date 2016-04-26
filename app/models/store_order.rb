@@ -209,9 +209,14 @@ class StoreOrder < ActiveRecord::Base
       if workflow.present?
         if workflow.store_workstation.present?
           workflow.execute(workflow.store_workstation) if workflow.executable?(workflow.store_workstation)
+          return workflow
+        else
+          workflow.errors.add(:workstation, '请先指定施工的工位')
+          return workflow
         end
       end
     end
+    nil
   end
 
   def replay!
@@ -243,6 +248,10 @@ class StoreOrder < ActiveRecord::Base
     self.store_service_snapshots.not_deleted.not_finished.each do |service|
       service.pause_in_workstation!
     end
+  end
+
+  def current_workflow
+    workflows.actively.first
   end
 
   private

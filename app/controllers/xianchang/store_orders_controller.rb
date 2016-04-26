@@ -18,7 +18,14 @@ module Xianchang
 
     def execute
       UpdateWorkflowService.call(order_params)
-      @store_order.play!
+      music = @store_order.play!
+      if music.present?
+        if music.errors.present?
+          flash[:error] = music.errors.messages.values.flatten.to_sentence
+        end
+      else
+        flash[:error] = '当前订单没有可以施工的！'
+      end
     end
 
     def pause

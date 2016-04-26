@@ -48,6 +48,9 @@ class StoreWorkstation < ActiveRecord::Base
     else
       workflow.store_service.complete!
     end
+    if self.current_workflow.blank?
+      assign_workflow!
+    end
   end
 
   def free?
