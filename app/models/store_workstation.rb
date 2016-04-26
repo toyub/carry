@@ -36,12 +36,6 @@ class StoreWorkstation < ActiveRecord::Base
     end
   end
 
-  def pending_workflows
-    StoreServiceWorkflowSnapshot.of_store(store_id).not_deleted.pending.order("id asc").select do |w|
-      w.store_workstation_id == self.id || w.workstations.map(&:id).include?(self.id)
-    end
-  end
-
   def finish!
     if self.workflow_id.blank? || self.current_workflow.blank? || self.current_workflow.deleted
       self.free
@@ -60,27 +54,17 @@ class StoreWorkstation < ActiveRecord::Base
     current_workflow.blank?
   end
 
-  def dispatch
-    if free?
-      SpotDispatchJob.perform_now(self.store_id)
-    else
-      if current_workflow.count_down <= 0
-        finish!
-      end
-    end
-  end
-
   def free
     self.update!(workflow_id: nil)
     self.idle!
   end
 
   def perform!(store_order, workflow)
-    ActiveRecord::Base.transaction do
-      workflow.try(:finish!)
-      w = store_order.workflows.pending.order("created_at asc").first
-      return if w.blank?
-      w.executable?(self) ? w.execute(self) : w.assign_workstation(self)
+    workflow.complete!
+    if workflow.next_workflow.present?
+      workflow.next_workflow.find_a_workstaion_and_execute_otherwise_waiting_in(self)
+    else
+      workflow.store_service.complete!
     end
   end
 

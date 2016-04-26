@@ -52,6 +52,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
   scope :verifiers, -> { where(mis_login_enabled: true) }
   scope :unregular, -> { where(regular: false) }
+  scope :act_as_inspectors, ->{ where(job_type_id: [JobType.find_by_name("技师").id, JobType.find_by_name("销售").id])}
 
   ROLES = [
         {code: 0, name: '管理员'},

@@ -7,6 +7,7 @@ class StoreGroupMember < ActiveRecord::Base
   scope :available, ->{where(deleted: false)}
   scope :level_at_least, ->(level){where("COALESCE(level_type_id, 0) >= :level", level: level.to_i)}
   scope :order_by_update, ->{order('updated_at asc')}
+  scope :attendances, ->{where.not(work_status: StoreGroupMember.work_statuses[:absence])}
 
   def self.count_by_work_statuses
     counts = self.group(:work_status).count(:id)

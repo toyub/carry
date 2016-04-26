@@ -13,16 +13,20 @@
         </tr>
       </thead>
       <tbody>
-      <%= render partial: 'service', collection: order.store_service_snapshots, as: :service %>
+      <%= render partial: 'service', collection: order.store_service_snapshots.order_by_itemd, as: :service %>
       </tbody>
     </table>
   </div>
   <div class="btn_group float-right margin-top-20">
+    <% if order.task_pausing? %>
+      <span>施工暂停</span>
+    <% end %>
     <% unless order.task_finished? %>
       <%= button_tag "保存", class: "save_btn btn js-save" %>
-      <%= button_tag "施工", class: "save_btn btn js-execute" %>
+      <% if !order.processing? %>
+        <%= button_tag "施工", class: "save_btn btn js-execute" %>
+      <% end %>
       <% if order.task_pausing? %>
-        <span>施工暂停</span>
         <%= button_tag "恢复施工", class: "save_btn btn width-100 js-play" %>
       <% else %>
         <%= button_tag "暂停本单", class: "save_btn btn width-100 js-pause" %>

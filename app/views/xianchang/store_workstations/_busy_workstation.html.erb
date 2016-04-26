@@ -1,5 +1,6 @@
 <div class="vehicle_info">
-  <dl class="construction_info js-vehicle js-draggable" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order='{"previous_workstation": <%= workstation.id %>, "id": <%= workstation.current_workflow.store_order_id %>, "state": "processing"}'>
+  <input type="hidden" id='ws<%= workstation.id %>-current-workflow' value="">
+  <dl class="construction_info js-vehicle js-draggable" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order='{"previous_workstation": <%= workstation.id %>, "id": <%= workstation.current_workflow.store_order_id %>, "state": "processing", "workflow_id": <%= workstation.current_workflow.id %>}'>
     <div class="car_info">
       <span class="service_name"><%= workstation.current_workflow.try(:name) %></span>
       <span class="current_license_number"><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number)%> </span>
@@ -12,6 +13,8 @@
       <span class="time do_dbclick times" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
     <% elsif workstation.current_workflow.is_pausing? %>
       <span>施工暂停</span>
+    <% elsif !is_started %>
+      <span>无法施工</span>
     <% else %>
       <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
       <span class="time do_dbclick" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>

@@ -45,20 +45,12 @@
         </ul>
         </li>
         <li>
-          <input type="text" class="width-60" name="workflow[<%= workflow.id %>][inspector]" value="<%= workflow.inspector %>" <%= 'disabled' if workflow.finished? %>/>
+          <%= select_tag :store_depot_id,
+            options_from_collection_for_select(current_store.store_staff.act_as_inspectors, 'id', 'full_name', @store_order.store_staff_id),
+            class: "width-60",
+            name: "workflow[#{workflow.id}][inspector_id]" %>
         </li>
       </ul>
     <% end %>
-    <div class="">
-      <% if @store_order.task_pausing? %>
-        <span>保存更改</span>
-        <span>保存并立即施工</span>
-        <span>暂停中</span>
-      <% else %>
-        <button type="button">保存更改</button>
-        <button type="button" class="width-120">保存并立即施工</button>
-        <button type="button" class="width-120">暂停此项目</button>
-      <% end %>
-    </div>
   </td>
 </tr>

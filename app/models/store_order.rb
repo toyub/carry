@@ -193,17 +193,25 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def continue_execute!(workstation)
-    service = @store_order.store_service_snapshots.not_deleted.pending.order('store_order_item_id asc').first
+    service = self.store_service_snapshots.not_deleted.pending.order_by_itemd.first
     if service.present?
-      @workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
-      if @workflow.present?
-        @workflow.find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
+      workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+      if workflow.present?
+        workflow.find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
       end
     end
   end
 
   def play!
-    execution_job
+    service = self.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+    if service.present?
+      workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+      if workflow.present?
+        if workflow.store_workstation.present?
+          workflow.execute(workflow.store_workstation) if workflow.executable?(workflow.store_workstation)
+        end
+      end
+    end
   end
 
   def replay!

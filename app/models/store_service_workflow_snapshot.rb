@@ -32,7 +32,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   def ready_mechanics(workstation_id)
     workstation = StoreWorkstation.find_by(id: workstation_id)
     if workstation.present?
-      workstation.store_group.members
+      workstation.store_group.store_group_members.available.attendances
     else
       []
     end
@@ -243,7 +243,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def ended_at
-    self.count_down.minutes.from_now.strftime("%Y/%m/%d %H:%M:%S")
+    self.count_down.minutes.from_now(self.started_time || Time.now).strftime("%Y/%m/%d %H:%M:%S")
   end
 
   def actual_time_in_minutes

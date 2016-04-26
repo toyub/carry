@@ -8,7 +8,7 @@ module Xianchang
       queuing_count = available_orders_scope.queuing.count(:id)
       processing_count = available_orders_scope.processing.count(:id)
       pausing_count = available_orders_scope.pausing.count(:id)
-      task_finished_count = available_orders_scope.task_finished.task_finished_on(Date.today).count
+      task_finished_count = available_orders_scope.paying.task_finished_on(Date.today).count
       finished_count = available_orders_scope.finished.paid_on(Date.today).count
 
 

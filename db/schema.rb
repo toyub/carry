@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421063420) do
+ActiveRecord::Schema.define(version: 20160426013929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1600,10 +1600,10 @@ ActiveRecord::Schema.define(version: 20160421063420) do
     t.integer  "status",                                      default: 0
     t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
-    t.string   "inspector"
     t.boolean  "deleted",                                     default: false
     t.datetime "finished_at"
     t.integer  "waiting_area_id",                             default: 0
+    t.integer  "inspector_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|

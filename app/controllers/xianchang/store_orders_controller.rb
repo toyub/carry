@@ -18,7 +18,7 @@ module Xianchang
 
     def execute
       UpdateWorkflowService.call(order_params)
-      @store_order.execution_job
+      @store_order.play!
     end
 
     def pause

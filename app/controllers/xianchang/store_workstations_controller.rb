@@ -32,9 +32,11 @@ module Xianchang
     end
 
     def perform
-      workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
-      @previous_workstation = workflow.try(:store_workstation)
-      @workstation.perform!(@store_order, workflow)
+      workflow = @store_order.workflows.find_by(id: params[:workflow_id])
+      if workflow.present?
+        @previous_workstation = workflow.store_workstation
+        @workstation.perform!(@store_order, workflow)
+      end
       @store_order.reload
     end
 
