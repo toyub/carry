@@ -6,6 +6,8 @@
 			<th>名称</th>
 			<th>规格</th>
 			<th>单位</th>
+			<th>一级分类</th>
+			<th>二级分类</th>
 			<th>销售类别</th>
 			<th>数量</th>
 			<th>零售价</th>
@@ -17,6 +19,8 @@
 			<tr>
 				<td></td>
 				<td><i class="fa fa-plus new-material"></i></td>
+				<td></td>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
