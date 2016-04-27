@@ -138,4 +138,8 @@ class Store <  ActiveRecord::Base
   def today_complaints
     complaints.by_day
   end
+
+  def today_trackings
+    store_customers.map(&->(customer){customer.trackings.by_day}).select{|c|c.present?}
+  end
 end
