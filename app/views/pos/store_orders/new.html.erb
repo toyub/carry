@@ -79,14 +79,14 @@
       </div>
     </div>
   </div>
-  <div class="create-order-loading">
+  <div id="loading-position">
     <%= render 'shared/loading' %>
   </div>
 </div>
 <% content_for :javascripts do %>
 <script>
   jQuery(function($){
-    $('#loading').hide();
+    $('#loading-position').hide();
     $(".vehicle-search .js-license-number").autocomplete({
       source: <%= @license_numbers.to_json.html_safe %>,
       change: function(){
