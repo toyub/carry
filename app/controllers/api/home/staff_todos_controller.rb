@@ -12,7 +12,10 @@ module Api
       end
 
       def index
-
+        todos = current_user.todos.order("id desc")
+        done = current_user.todos.done.order("id desc")
+        undone = current_user.todos.undone.order("id desc")
+        render json: {done: done, undone: undone, todos: todos}
       end
 
       private
