@@ -7,8 +7,12 @@ module Api
         if todo.save
           render json: {todo: todo}
         else
-          render json: {msg: '创建失败!'}
+          render json: {msg: todo.errors.full_messages.first}, status: 400
         end
+      end
+
+      def index
+
       end
 
       private
