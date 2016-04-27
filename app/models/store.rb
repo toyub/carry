@@ -55,6 +55,8 @@ class Store <  ActiveRecord::Base
   has_many :root_material_categories, -> { where parent_id: 0 },
     class_name: 'StoreMaterialCategory'
 
+  has_many :complaints
+
   has_many :store_groups
   has_many :store_group_members
 
@@ -127,5 +129,13 @@ class Store <  ActiveRecord::Base
 
   def today_orders
     store_orders.by_day
+  end
+
+  def today_order_items
+    store_order_items.by_day(Date.today)
+  end
+
+  def today_complaints
+    complaints.by_day
   end
 end

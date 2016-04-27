@@ -30,6 +30,7 @@ class StoreOrder < ActiveRecord::Base
   scope :paid_on, ->(date){where(paid_at: date.beginning_of_day..date.end_of_day)}
 
   scope :available, -> {where(deleted: false)}
+  scope :hanging, -> { where(hanging: true) }
 
   enum state: %i[pending queuing processing paying finished pausing]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]

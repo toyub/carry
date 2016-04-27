@@ -63,7 +63,7 @@
               <dd>
                 <label class="tip-icon"><i class="fa fa-phone"></i></label>
                 <label for="" class="tips-label">投诉事件</label>
-                <span class="tips-span">1</span>
+                <span class="tips-span"><%= @complaints.count%></span>
               </dd>
             </dl>
           </div>
@@ -75,15 +75,15 @@
           </div>
           <dl class="item">
             <dd>营业额</dd>
-            <dd class="number">45,00.00</dd>
+            <dd class="number"><%= @orders.finished.sum(:amount)%></dd>
           </dl>
           <dl class="item">
             <dd>挂账</dd>
-            <dd class="number">3,90.00</dd>
+            <dd class="number"><%= @orders.hanging.sum(:amount)%></dd>
           </dl>
           <dl class="item">
             <dd>卡扣</dd>
-            <dd class="number">28,00.00</dd>
+            <dd class="number"><%= @order_items.from_asset.sum(:amount)%></dd>
           </dl>
         </div>
       </div>
