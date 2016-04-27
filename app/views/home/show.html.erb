@@ -81,7 +81,7 @@ jQuery(function($){
                var html = ""
                    html += "<li class='item'>"
                    html += "<span class='choose-icon'>"
-                   html += "<label class='fa fa-check-circle check' for='check'></label>"
+                   html += "<label class='unchecked' for='check'></label>"
                    html += "<input type='checkbox' value="
                    html += data.todo.id
                    html += " id='check'>"
@@ -141,7 +141,7 @@ jQuery(function($){
                 data.undone.forEach(function(todo){
                   html += "<li class='item'>"
                   html += "<span class='choose-icon'>"
-                  html += "<label class='fa fa-check-circle check' for='check'></label>"
+                  html += "<label class='unchecked' for='check'></label>"
                   html += "<input type='checkbox' value="
                   html += todo.id
                   html += " id='check'>"
@@ -168,7 +168,7 @@ jQuery(function($){
                 data.todos.forEach(function(todo){
                   html += "<li class='item'>"
                   html += "<span class='choose-icon'>"
-                  html += "<label class='fa fa-check-circle check' for='check'></label>"
+                  html += todo.done == true? "<label class='fa fa-check-circle check' for='check'></label>" : "<label class='unchecked' for='check'></label>"
                   html += "<input type='checkbox' value="
                   html += todo.id
                   html += " id='check'>"

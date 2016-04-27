@@ -11,7 +11,11 @@
      <% @todos.each do |todo| %>
       <li class="item">
         <span class="choose-icon">
-          <label class="fa fa-check-circle check" for="check"></label>
+          <% if todo.done == true %>
+            <label class="fa fa-check-circle check" for="check"></label>
+          <% else %>
+            <label class="unchecked" for="check"></label>
+          <% end %>
           <input type="checkbox" value="<%= todo.id%>" id="check">
         </span>
 
@@ -22,6 +26,15 @@
       </li>
      <% end %>
     </ul>
+
+
+
+
+
+
+
+
+
 
     <div class="planning-controls-wrap">
       <dl class="planning-controls">
