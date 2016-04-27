@@ -54,7 +54,7 @@ class Store <  ActiveRecord::Base
   # 一级商品类别
   has_many :root_material_categories, -> { where parent_id: 0 },
     class_name: 'StoreMaterialCategory'
-  
+
   has_many :store_groups
   has_many :store_group_members
 
@@ -98,7 +98,7 @@ class Store <  ActiveRecord::Base
     return if "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}" == "~"
     "#{self.info_by('上班时间')}~#{self.info_by('下班时间')}"
   end
-  
+
   def material_sales_volume(month = Time.now)
     store_order_items.by_month(month).materials.map(&:amount).sum.to_f
   end
@@ -123,5 +123,9 @@ class Store <  ActiveRecord::Base
   def current_year_sales
     current_year = Date.today.year
     self.store_orders.where('extract(year from created_at) = ?', current_year).sum(:amount)
+  end
+
+  def today_orders
+    store_orders.by_day
   end
 end
