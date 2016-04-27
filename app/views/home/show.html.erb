@@ -88,7 +88,7 @@ $("#new-todo").keyup(function(event){
              html += data.todo.content
              html += "</span><i class='lnr lnr-chevron-down'></i>"
              html += "</div></li>"
-        $("ul.planning-list").append(html);
+        $("ul.js-planning-list").append(html);
        },
        error: function(){
          ZhanchuangAlert('网络错误，请重试!');

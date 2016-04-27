@@ -7,7 +7,7 @@
     <div class="planning-input">
       <input type="text" name="name" id="new-todo" value="" placeholder="有什么需要记下的吗？">
     </div>
-    <ul class="planning-list">
+    <ul class="planning-list js-planning-list">
      <% @todos.each do |todo| %>
       <li class="item">
         <span class="choose-icon">
@@ -22,5 +22,15 @@
       </li>
      <% end %>
     </ul>
+
+    <div class="planning-controls-wrap">
+      <dl class="planning-controls">
+        <dd><a href="javascript:void(0)">全部</a></dd>
+        <dd><a href="javascript:void(0)">已解决</a></dd>
+        <dd><a href="javascript:void(0)">未解决</a></dd>
+      </dl>
+      <a href="javascript:void(0)">清除已解决事件</a>
+    </div>
+
   </div>
 </div>
