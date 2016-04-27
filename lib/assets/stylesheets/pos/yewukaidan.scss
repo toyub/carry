@@ -151,11 +151,11 @@
 	.right_information{
 		margin-top: 3px;
 		.order_items{
-			width: 679px;
+			width: 700px;
 			margin-left: 10px;
 			margin-right: 3px;
 			margin-top: 3px;
-			padding: 0px 10px;
+			padding: 0px 5px;
 			height: 700px;
 			border: 1px solid #e0e0e0;
 
@@ -486,20 +486,24 @@
 			.order_custom{
 				border: 1px solid #e0e0e0;
 				table{
+          width: 100%;
+          box-sizing: border-box;
 					thead{
             tr {
               height: 42px;
               border-bottom: 1px solid #e0e0e0;
             }
 						th{
-							&:nth-child(1){width:4.94%;}
-							&:nth-child(2){width:24.26%;}
-							&:nth-child(3){width:23.33%;}
-							&:nth-child(4){width:7.10%;}
+							&:nth-child(1){width:3.44%;}
+							&:nth-child(2){width:16.26%;}
+							&:nth-child(3){width:11.33%;}
+							&:nth-child(4){width:13.10%;}
 							&:nth-child(5){width:13.51%;}
-							&:nth-child(6){width:7.34%;}
+							&:nth-child(6){width:9.84%;}
 							&:nth-child(7){width:9.89%;}
-							&:nth-child(8){width:9.58%;}
+							&:nth-child(8){width:5.58%;}
+              &:nth-child(9){width:9%;}
+              &:nth-child(10){width:6%;}
 						}
 					}
 
@@ -510,12 +514,14 @@
 							&:nth-child(2n){background: #D8E4D4;}
 							td{
 								border-right: 1px solid #CACCCA;
+                padding: 0 3px;
 								&:nth-child(1),&:nth-child(4),&:nth-child(6){text-align: center;}
 								&:nth-child(2),&:nth-child(3){text-align: left;}
 								&:nth-child(5),&:nth-child(7),&:nth-child(8){text-align: right;}
 
+
 								select{
-									width: 78px;
+									width: 50px;
 									border: none;
 									background: transparent;
 								}
@@ -523,6 +529,12 @@
 								select,input{
 									height: 20px;
 								}
+
+                .item_content{
+                  span{
+                    padding: 0;
+                  }
+                }
 							}
 
 							&:last-child{

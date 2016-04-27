@@ -29,14 +29,10 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>数量合计:</td>
+
+				<td colspan="7" class="text-align-right">数量合计:</td>
 				<td><span id="total-quantity"></span></td>
-				<td>金额合计:</td>
-				<td><span id="total-amount"></span></td>
+				<td colspan="2">金额合计:<span id="total-amount"></span></td>
 			</tr>
 		</tfoot>
 	</thead>
