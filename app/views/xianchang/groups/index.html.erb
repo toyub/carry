@@ -71,9 +71,6 @@
         var staff_html = '<li class="drag_staff" data-staff="'+ staffi.id + '" id="staff_'+ staffi.id +'" draggable="true" >'+ staffi.screen_name +'</li>';
         if(!staffi.store_group_member){
           $('#pool').append(staff_html);
-        }else{
-          var group = "#group_"+staffi.store_group_member.store_group_id + '_' + staffi.store_group_member.work_status;
-          $(group).append(staff_html);
         }
       });
     });
