@@ -81,10 +81,16 @@ jQuery(function($){
                var html = ""
                    html += "<li class='item'>"
                    html += "<span class='choose-icon'>"
-                   html += "<label class='unchecked' for='check'></label>"
+                   html += "<label class='unchecked' for='check_"
+                   html += data.todo.id
+                   html += "'></label>"
                    html += "<input type='checkbox' value="
                    html += data.todo.id
-                   html += " id='check'>"
+                   html += " data-id="
+                   html += data.todo.id
+                   html += " id='check_"
+                   html += data.todo.id
+                   html += "'>"
                    html += "</span><div class='item-content'>"
                    html += "<span>"
                    html += data.todo.content
@@ -114,10 +120,16 @@ jQuery(function($){
                 data.done.forEach(function(todo){
                       html += "<li class='item'>"
                       html += "<span class='choose-icon'>"
-                      html += "<label class='fa fa-check-circle check' for='check'></label>"
+                      html += "<label class='fa fa-check-circle check' for='check_"
+                      html += todo.id
+                      html += "'></label>"
                       html += "<input type='checkbox' value="
                       html += todo.id
-                      html += " id='check'>"
+                      html += " data-id="
+                      html += todo.id
+                      html += " id='check_"
+                      html += todo.id
+                      html += "'>"
                       html += "</span><div class='item-content'>"
                       html += "<span>"
                       html += todo.content
@@ -141,10 +153,16 @@ jQuery(function($){
                 data.undone.forEach(function(todo){
                   html += "<li class='item'>"
                   html += "<span class='choose-icon'>"
-                  html += "<label class='unchecked' for='check'></label>"
+                  html += "<label class='unchecked' for='check_"
+                  html += todo.id
+                  html += "'></label>"
                   html += "<input type='checkbox' value="
                   html += todo.id
-                  html += " id='check'>"
+                  html += " data-id="
+                  html += todo.id
+                  html += " id='check_"
+                  html += todo.id
+                  html += "'>"
                   html += "</span><div class='item-content'>"
                   html += "<span>"
                   html += todo.content
@@ -168,10 +186,14 @@ jQuery(function($){
                 data.todos.forEach(function(todo){
                   html += "<li class='item'>"
                   html += "<span class='choose-icon'>"
-                  html += todo.done == true? "<label class='fa fa-check-circle check' for='check'></label>" : "<label class='unchecked' for='check'></label>"
+                  html += todo.done == true ? "<label class='fa fa-check-circle check' for='check_" + todo.id + "'></label>" : "<label class='unchecked' for='check_" + todo.id +"'></label>"
+                  // html +=
+                  // html +=
                   html += "<input type='checkbox' value="
                   html += todo.id
-                  html += " id='check'>"
+                  html += " data-id="
+                  html += todo.id
+                  html += " id='check_" + todo.id +"'>"
                   html += "</span><div class='item-content'>"
                   html += "<span>"
                   html += todo.content
@@ -198,6 +220,25 @@ jQuery(function($){
       $(document).on('click', 'a#done-todos', function(){ doneTodos(); });
       $(document).on('click', 'a#unfinished-todos', function(){ unfinishedTodos(); });
       $(document).on('click', 'a#all-todos', function(){ allTodos(); });
+
+
+      $(document).on('click',"input:checkbox",function(){
+         var todoId = $(this).data("id");
+         $.ajax({
+           url: "/api/home/staff_todos/" + todoId,
+           type: "put",
+           success: function(data){
+             if(data.todo.done == true){
+               $("label[for=check_"+ todoId +"]").removeClass("unchecked")
+               $("label[for=check_"+ todoId +"]").addClass("fa fa-check-circle check")
+             }else{
+               $("label[for=check_"+ todoId +"]").addClass("unchecked")
+               $("label[for=check_"+ todoId +"]").removeClass("fa fa-check-circle check")
+             }
+
+           }
+         });
+   	 });
 
   });
 </script>

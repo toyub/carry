@@ -12,11 +12,11 @@
       <li class="item">
         <span class="choose-icon">
           <% if todo.done == true %>
-            <label class="fa fa-check-circle check" for="check"></label>
+            <label class="fa fa-check-circle check" for="check_<%= todo.id%>"></label>
           <% else %>
-            <label class="unchecked" for="check"></label>
+            <label class="unchecked" for="check_<%= todo.id%>"></label>
           <% end %>
-          <input type="checkbox" value="<%= todo.id%>" id="check">
+          <input type="checkbox" value="<%= todo.id%>" data-id="<%= todo.id%>" id="check_<%= todo.id%>">
         </span>
 
         <div class="item-content">

@@ -23,6 +23,13 @@ module Api
         render json: {msg: '已删除完成的事项!'}
       end
 
+      def update
+        # binding.pry
+        todo = current_user.todos.find(params[:id])
+        todo.update(done: !todo.done)
+        render json: {msg: 'Ok!', todo: todo}
+      end
+
       private
       def todo_params
         basic_params = {store_id: current_user.store_id}
