@@ -14,7 +14,7 @@ module Api
       private
       def todo_params
         basic_params = {store_id: current_user.store_id}
-        params.permit(:store_id, :content)
+        params.permit(:store_id, :content).merge(basic_params)
       end
     end
   end
