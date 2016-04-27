@@ -24,6 +24,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
   has_many :store_commission_items, as: :ownerable
   has_many :store_commissions, as: :ownerable
+  has_many :todos, class_name: 'StaffTodo', as: :creator
 
   validates_presence_of :phone_number
   validates_uniqueness_of :phone_number

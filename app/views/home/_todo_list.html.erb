@@ -5,20 +5,22 @@
   <div class="planning-content">
     <span></span>
     <div class="planning-input">
-      <input type="text" name="name" value="" placeholder="有什么需要记下的吗？">
+      <input type="text" name="name" id="new-todo" value="" placeholder="有什么需要记下的吗？">
     </div>
     <ul class="planning-list">
+     <% @todos.each do |todo| %>
       <li class="item">
         <span class="choose-icon">
           <label class="fa fa-check-circle check" for="check"></label>
-          <input type="checkbox" value="" id="check">
+          <input type="checkbox" value="<%= todo.id%>" id="check">
         </span>
 
         <div class="item-content">
-          <span>中午12点忘了吃药，中午12点...</span>
+          <span><%= todo.content  %> </span>
           <i class="lnr lnr-chevron-down"></i>
         </div>
       </li>
+     <% end %>
     </ul>
   </div>
 </div>

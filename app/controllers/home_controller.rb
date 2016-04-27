@@ -7,6 +7,7 @@ class HomeController < ApplicationController
     @order_items = current_store.today_order_items
     @complaints = current_store.today_complaints
     @store_trackings = current_store.today_trackings
+    @todos = current_user.todos
   end
 
 end

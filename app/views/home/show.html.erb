@@ -65,3 +65,35 @@
   </div>
 
 </div>
+
+<script type="text/javascript">
+$("#new-todo").keyup(function(event){
+   if(event.keyCode == 13){
+     var pushContent = $("#new-todo").val();
+     $.ajax({
+       url: "/api/home/staff_todos",
+       type: "Post",
+       data: {content: pushContent },
+       success: function(data){
+         $("#new-todo").val("");
+         var html = ""
+             html += "<li class='item'>"
+             html += "<span class='choose-icon'>"
+             html += "<label class='fa fa-check-circle check' for='check'></label>"
+             html += "<input type='checkbox' value="
+             html += data.todo.id
+             html += " id='check'>"
+             html += "</span><div class='item-content'>"
+             html += "<span>"
+             html += data.todo.content
+             html += "</span><i class='lnr lnr-chevron-down'></i>"
+             html += "</div></li>"
+        $("ul.planning-list").append(html);
+       },
+       error: function(){
+         ZhanchuangAlert('网络错误，请重试!');
+       }
+     });
+   }
+  });
+</script>
