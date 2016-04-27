@@ -90,7 +90,9 @@ jQuery(function($){
                    html += data.todo.content
                    html += "</span><i class='lnr lnr-chevron-down'></i>"
                    html += "</div></li>"
+              allTodos();
               $("ul.js-planning-list").append(html);
+
              },
              error: function(response){
                ZhanchuangAlert(response.responseJSON.msg);
@@ -102,85 +104,100 @@ jQuery(function($){
        }
       });
 
-      $(document).on('click', 'a#done-todos', function(){
+      function doneTodos(){
+          $.ajax({
+            url: "/api/home/staff_todos",
+            type: "get",
+            success: function(data){
+              var html = ""
+              if(data.done.length > 0){
+                data.done.forEach(function(todo){
+                      html += "<li class='item'>"
+                      html += "<span class='choose-icon'>"
+                      html += "<label class='fa fa-check-circle check' for='check'></label>"
+                      html += "<input type='checkbox' value="
+                      html += todo.id
+                      html += " id='check'>"
+                      html += "</span><div class='item-content'>"
+                      html += "<span>"
+                      html += todo.content
+                      html += "</span><i class='lnr lnr-chevron-down'></i>"
+                      html += "</div></li>"
+                });
+              };
+              $("ul.js-planning-list").html(html);
+            }
+          });
+      };
+
+
+      function unfinishedTodos(){
+          $.ajax({
+            url: "/api/home/staff_todos",
+            type: "get",
+            success: function(data){
+              var html = ""
+              if(data.undone.length > 0){
+                data.undone.forEach(function(todo){
+                  html += "<li class='item'>"
+                  html += "<span class='choose-icon'>"
+                  html += "<label class='fa fa-check-circle check' for='check'></label>"
+                  html += "<input type='checkbox' value="
+                  html += todo.id
+                  html += " id='check'>"
+                  html += "</span><div class='item-content'>"
+                  html += "<span>"
+                  html += todo.content
+                  html += "</span><i class='lnr lnr-chevron-down'></i>"
+                  html += "</div></li>"
+                });
+              };
+              $("ul.js-planning-list").html(html);
+            }
+          });
+      };
+
+
+      function allTodos(){
+          $.ajax({
+            url: "/api/home/staff_todos",
+            type: "get",
+            success: function(data){
+              var html = ""
+              if(data.todos.length > 0){
+                data.todos.forEach(function(todo){
+                  html += "<li class='item'>"
+                  html += "<span class='choose-icon'>"
+                  html += "<label class='fa fa-check-circle check' for='check'></label>"
+                  html += "<input type='checkbox' value="
+                  html += todo.id
+                  html += " id='check'>"
+                  html += "</span><div class='item-content'>"
+                  html += "<span>"
+                  html += todo.content
+                  html += "</span><i class='lnr lnr-chevron-down'></i>"
+                  html += "</div></li>"
+                });
+              };
+              $("ul.js-planning-list").html(html);
+            }
+          });
+      };
+
+      $(document).on('click','a#delete_done_todos', function(){
         $.ajax({
-          url: "/api/home/staff_todos",
+          url: "/api/home/staff_todos/clear_done",
           type: "get",
           success: function(data){
-            var html = ""
-            if(data.done.length > 0){
-              data.done.forEach(function(todo){
-                    html += "<li class='item'>"
-                    html += "<span class='choose-icon'>"
-                    html += "<label class='fa fa-check-circle check' for='check'></label>"
-                    html += "<input type='checkbox' value="
-                    html += todo.id
-                    html += " id='check'>"
-                    html += "</span><div class='item-content'>"
-                    html += "<span>"
-                    html += todo.content
-                    html += "</span><i class='lnr lnr-chevron-down'></i>"
-                    html += "</div></li>"
-              });
-            };
-            $("ul.js-planning-list").html(html);
+            doneTodos();
+            ZhanchuangAlert(data.msg);
           }
         });
       });
 
-      $(document).on('click', 'a#unfinished-todos', function(){
-        $.ajax({
-          url: "/api/home/staff_todos",
-          type: "get",
-          success: function(data){
-            var html = ""
-            if(data.undone.length > 0){
-              data.undone.forEach(function(todo){
-                html += "<li class='item'>"
-                html += "<span class='choose-icon'>"
-                html += "<label class='fa fa-check-circle check' for='check'></label>"
-                html += "<input type='checkbox' value="
-                html += todo.id
-                html += " id='check'>"
-                html += "</span><div class='item-content'>"
-                html += "<span>"
-                html += todo.content
-                html += "</span><i class='lnr lnr-chevron-down'></i>"
-                html += "</div></li>"
-              });
-            };
-            $("ul.js-planning-list").html(html);
-          }
-        });
-      });
-
-
-      $(document).on('click', 'a#all-todos', function(){
-        $.ajax({
-          url: "/api/home/staff_todos",
-          type: "get",
-          success: function(data){
-            var html = ""
-            if(data.todos.length > 0){
-              data.todos.forEach(function(todo){
-                html += "<li class='item'>"
-                html += "<span class='choose-icon'>"
-                html += "<label class='fa fa-check-circle check' for='check'></label>"
-                html += "<input type='checkbox' value="
-                html += todo.id
-                html += " id='check'>"
-                html += "</span><div class='item-content'>"
-                html += "<span>"
-                html += todo.content
-                html += "</span><i class='lnr lnr-chevron-down'></i>"
-                html += "</div></li>"
-              });
-            };
-            $("ul.js-planning-list").html(html);
-          }
-        });
-      });
-
+      $(document).on('click', 'a#done-todos', function(){ doneTodos(); });
+      $(document).on('click', 'a#unfinished-todos', function(){ unfinishedTodos(); });
+      $(document).on('click', 'a#all-todos', function(){ allTodos(); });
 
   });
 </script>

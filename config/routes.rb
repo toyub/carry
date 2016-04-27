@@ -279,7 +279,11 @@ Rails.application.routes.draw do
   #Api
   namespace :api do
     namespace :home do
-      resources :staff_todos
+      resources :staff_todos do
+        collection do
+          get :clear_done
+        end
+      end
     end
 
     resources :store_materials, only: :index
