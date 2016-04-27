@@ -11,7 +11,7 @@ class ScanTaskJob < ActiveJob::Base
 
       if workstation.current_workflow.processing?
         if workstation.current_workflow.ended_at < Time.now
-          workstation.finish!
+          workstation.current_workflow.complete!
         end
       elsif workstation.current_workflow.dilemma?
         workstation.current_workflow.find_a_workstaion_and_execute_otherwise_waiting_in(workstation)

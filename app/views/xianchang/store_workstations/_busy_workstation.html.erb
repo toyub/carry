@@ -1,23 +1,29 @@
 <div class="vehicle_info">
-  <input type="hidden" id='ws<%= workstation.id %>-current-workflow' value="">
-  <dl class="construction_info js-vehicle js-draggable" draggable="true" id="order-<%= workstation.current_workflow.store_order_id %>" data-order='{"previous_workstation": <%= workstation.id %>, "id": <%= workstation.current_workflow.store_order_id %>, "state": "processing", "workflow_id": <%= workstation.current_workflow.id %>}'>
+  <% current_workflow = workstation.current_workflow %>
+  <% order_data = {
+                    previous_workstation: workstation.id ,
+                    id: current_workflow.store_order_id,
+                    state: "processing",
+                    workflow_id: current_workflow.id
+                  }
+  %>
+  <dl id="order-<%= current_workflow.store_order_id %>"
+      class="construction_info js-vehicle js-draggable"
+      draggable="true" data-order='<%= order_data.to_json.html_safe %>'>
     <div class="car_info">
-      <span class="service_name"><%= workstation.current_workflow.try(:name) %></span>
-      <span class="current_license_number"><%= workstation.current_workflow.try(:store_vehicle).try(:current_license_number)%> </span>
+      <span class="service_name"><%= current_workflow.name %></span>
+      <span class="current_license_number"><%= current_workflow.store_vehicle.current_license_number %></span>
     </div>
     <%= image_tag 'workstation_car.png', class: 'car_img'%>
   </dl>
-  <dl class="license_plate" >
-    <% if is_started && !workstation.current_workflow.is_pausing? %>
+  <dl class="license_plate">
+    <% if current_workflow.processing? %>
       <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
-      <span class="time do_dbclick times" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
+      <span class="time do_dbclick times" data-countdown='<%= current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>' data-workflowid='<%= current_workflow.id %>'></span>
     <% elsif workstation.current_workflow.is_pausing? %>
       <span>施工暂停</span>
-    <% elsif !is_started %>
-      <span>无法施工</span>
     <% else %>
-      <span class="time_icon"><i class="fa fa-clock-o"></i>用时</span>
-      <span class="time do_dbclick" data-countdown='<%= workstation.current_workflow.try(:ended_at) %>' data-stationid='<%=  workstation.id %>'></span>
+      <span>无法施工</span>
     <% end %>
   </dl>
 

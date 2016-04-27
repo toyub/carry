@@ -77,7 +77,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store_workstation.busy!
     self.dilemma!
   end
-    
+
   def find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
     if self.executable?(workstation)
       self.execute!(workstation)
@@ -90,6 +90,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def executable?(workstation)
+    if self.processing?
+      return true
+    end
+    
     if self.store_vehicle.blank?
       self.errors.add(:store_vehicle, "订单无效:订单所属车辆为空。无法进行施工！")
       return false
@@ -119,11 +123,19 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def has_qualified_mechaincs?(workstation)
     if self.tasks.present?
+      if self.store_group_members.any?(&:absence?)
+        self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有未出勤的技师。若要开始请重新分配技师！')
+        return false
+      end
       if self.store_group_members.all?(&:ready?)
         return true
       else
-        self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有正在忙碌的技师。若要开始请重新分配技师！')
-        return false
+        if self.store_group_members.all?(&->(member){member.current_processing_workflow.try(:id) == self.id})
+          return true
+        else
+          self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有正在施工其他项目的技师。若要开始请重新分配技师！')
+          return false
+        end
       end
     else
       if workstation.store_group.blank?
@@ -249,12 +261,24 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     if is_pausing? || self.started_time.blank?
       return 0
     else
-      ((Time.now - self.started_time)/60).ceil
+      ((Time.now - self.started_time)/60).floor
     end
   end
 
   def ended_at
-    self.count_down.minutes.from_now(self.started_time || Time.now).strftime("%Y/%m/%d %H:%M:%S")
+    if self.finished_at.present?
+      self.finished_at
+    else
+      self.estimated_completed_time
+    end
+  end
+
+  def estimated_completed_time
+    if self.started_time.present?
+      self.count_down.minutes.from_now(self.started_time)
+    else
+      self.count_down.minutes.from_now(Time.now)
+    end
   end
 
   def actual_time_in_minutes
@@ -300,6 +324,13 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.record_times
     self.finished!
     send_sms
+
+    if self.next_workflow.present?
+      self.next_workflow.find_a_workstaion_and_execute_otherwise_waiting_in(self.store_workstation)
+    else
+      self.store_service.complete!
+    end
+
     self
   end
 

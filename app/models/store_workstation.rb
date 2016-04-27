@@ -39,17 +39,8 @@ class StoreWorkstation < ActiveRecord::Base
   def finish!
     if self.workflow_id.blank? || self.current_workflow.blank? || self.current_workflow.deleted
       self.free
-      return true
-    end
-    workflow = self.current_workflow
-    workflow.complete!
-    if workflow.next_workflow.present?
-      workflow.next_workflow.find_a_workstaion_and_execute_otherwise_waiting_in(self)
-    else
-      workflow.store_service.complete!
-    end
-    if self.current_workflow.blank?
       assign_workflow!
+      return true
     end
   end
 
@@ -64,11 +55,6 @@ class StoreWorkstation < ActiveRecord::Base
 
   def perform!(store_order, workflow)
     workflow.complete!
-    if workflow.next_workflow.present?
-      workflow.next_workflow.find_a_workstaion_and_execute_otherwise_waiting_in(self)
-    else
-      workflow.store_service.complete!
-    end
   end
 
   def start!(workflow)

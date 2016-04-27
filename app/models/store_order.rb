@@ -135,7 +135,7 @@ class StoreOrder < ActiveRecord::Base
     else
       "#{self.state_i18n}(#{self.pay_status_i18n})"
     end
-  end 
+  end
 
   def settle_down
     if self.paying?
@@ -160,9 +160,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def force_finish!
-    self.workflows.unfinished.each(&->(workflow){ workflow.discontinue!})
-    self.task_finished!
-    self.task_finished_at = Time.now
+    discontinue!
     self.paid? ? self.finished! : self.paying!
   end
 
@@ -179,10 +177,10 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def discontinue!
-    self.task_finished!
     self.task_finished_at = Time.now
+    self.task_finished!
     self.finished!
-    self.workflows.unfinished.each(&->(workflow){ workflow.discontinue!})
+    self.store_service_snapshots.unfinished.each(&->(service){ service.discontinue!})
     #Send message tell the customer that his/her order is droped!
   end
 

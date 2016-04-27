@@ -23,6 +23,7 @@ class StoreServiceSnapshot < ActiveRecord::Base
   scope :not_finished, ->{where.not(status: StoreServiceSnapshot.statuses[:finished])}
   scope :order_by_itemd, ->{order('store_order_item_id asc')}
   scope :not_pausing, ->{where.not(status: StoreServiceSnapshot.statuses[:pausing])}
+  scope :unfinished, ->{where.not(status: StoreServiceSnapshot.statuses[:finished])}
 
   def waste!
     self.workflow_snapshots.each(&->(workflow){workflow.waste!})
@@ -59,6 +60,11 @@ class StoreServiceSnapshot < ActiveRecord::Base
     else
       self.store_order.complete!
     end
+  end
+
+  def discontinue!
+    self.finished!
+    self.workflow_snapshots.not_deleted.unfinished.each(&->(workflow){ workflow.discontinue!})
   end
 
   def pause_in_workstation!

@@ -3,6 +3,8 @@ class StoreGroupMember < ActiveRecord::Base
   belongs_to :store_group
   belongs_to :member, class_name: 'StoreStaff', foreign_key: 'member_id'
   enum work_status: %i[absence ready busy]
+  has_many :store_staff_tasks
+  has_many :workflow_snapshots, class_name: 'StoreServiceWorkflowSnapshot', through: :store_staff_tasks
 
   scope :available, ->{where(deleted: false)}
   scope :level_at_least, ->(level){where("COALESCE(level_type_id, 0) >= :level", level: level.to_i)}
@@ -16,6 +18,14 @@ class StoreGroupMember < ActiveRecord::Base
       ready: counts[self.work_statuses[:ready]].to_i,
       busy: counts[self.work_statuses[:busy]].to_i
     }
+  end
+
+  def current_busy_task
+    self.store_staff_tasks.undeleted.busy.first
+  end
+
+  def current_processing_workflow
+    workflow_snapshots.processing.first
   end
 
   def free!

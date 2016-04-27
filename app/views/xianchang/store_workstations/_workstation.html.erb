@@ -6,7 +6,7 @@
   <% if workstation.unavailable? %>
     <%= render partial: 'unavailable_workstation' %>
   <% elsif workstation.busy? %>
-    <%= render partial: 'busy_workstation', locals: {workstation: workstation, is_started: workstation.current_workflow.present? && workstation.current_workflow.processing?} %>
+    <%= render partial: 'busy_workstation', locals: {workstation: workstation} %>
   <% else %>
     <%= render partial: 'idle_workstation' %>
   <% end %>

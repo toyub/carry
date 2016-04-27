@@ -26,6 +26,7 @@ class StoreStaffTask < ActiveRecord::Base
 
   def free
     self.mechanic.store_group_member.free!
+    self.finished!
   end
 
   def has_commission?
