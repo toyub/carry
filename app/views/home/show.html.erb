@@ -12,60 +12,10 @@
       <div class="panel-body">
         <div class="info-box">
           <div class="vehicle-info-wrap">
-            <ul class="vehicle-info">
-              <li>
-                <div class="stats">
-                  <h4><i class="fa fa-car"></i>进场车辆</h4>
-                  <span class="number"><%= @orders.queuing.count%></span>
-                </div>
-              </li>
-              <li>
-                <div class="stats">
-                  <h4><i class="fa fa-car"></i>施工车辆</h4>
-                  <span class="number"><%= @orders.processing.count%></span>
-                </div>
-              </li>
-              <li>
-                <div class="stats">
-                  <h4><i class="fa fa-car"></i>消费车辆</h4>
-                  <span class="number"><%= @orders.finished.count%></span>
-                </div>
-              </li>
-            </ul>
+            <%= render 'vehicle_info' %>
           </div>
           <div class="tips-info-wrap">
-            <dl class="tips-info">
-              <dd>
-                <label class="tip-icon"><i class="fa fa-male"></i></label>
-                <label for="" class="tips-label">到岗人数</label>
-                <span class="tips-span">12</span>
-              </dd>
-              <dd>
-                <label class="tip-icon"><i class="fa fa-wrench"></i></label>
-                <label for="" class="tips-label">到岗技师</label>
-                <span class="tips-span">11</span>
-              </dd>
-              <dd>
-                <label class="tip-icon"><i class="fa fa-trophy"></i></label>
-                <label for="" class="tips-label">奖励人数</label>
-                <span class="tips-span">0</span>
-              </dd>
-              <dd>
-                <label class="tip-icon"><i class="fa fa-bolt"></i></label>
-                <label for="" class="tips-label">惩戒人数</label>
-                <span class="tips-span">3</span>
-              </dd>
-              <dd>
-                <label class="tip-icon"><i class="fa fa-bell"></i></label>
-                <label for="" class="tips-label">提醒事件</label>
-                <span class="tips-span">1222</span>
-              </dd>
-              <dd>
-                <label class="tip-icon"><i class="fa fa-phone"></i></label>
-                <label for="" class="tips-label">投诉事件</label>
-                <span class="tips-span"><%= @complaints.count%></span>
-              </dd>
-            </dl>
+            <%= render 'staffer' %>
           </div>
         </div>
 
@@ -95,49 +45,7 @@
       </div>
 
       <div class="panel-body">
-        <ul class="work-menu">
-          <li class="item">
-            <a href="javascript:void(0)">
-              <div class="item-icon">
-                <i class="fa fa-cubes"></i>
-              </div>
-              <span class="item-menu">库存列表</span>
-            </a>
-          </li>
-          <li class="item">
-            <a href="javascript:void(0)">
-              <div class="item-icon">
-                <i class="fa fa-user"></i>
-              </div>
-              <span class="item-menu">客户列表</span>
-            </a>
-          </li>
-          <li class="item">
-            <a href="javascript:void(0)">
-              <div class="item-icon">
-                <i class="fa fa-cog"></i>
-              </div>
-              <span class="item-menu">设置</span>
-            </a>
-          </li>
-          <li class="item">
-            <a href="javascript:void(0)">
-              <div class="item-icon">
-                <i class="fa fa-users"></i>
-              </div>
-              <span class="item-menu">供应商管理</span>
-            </a>
-          </li>
-          <li class="item">
-            <a href="javascript:void(0)">
-              <div class="item-icon">
-                <i class="fa fa-gears"></i>
-              </div>
-              <span class="item-menu">服务设置</span>
-            </a>
-          </li>
-
-        </ul>
+        <%= render 'my_work' %>
       </div>
     </div>
   </div>
@@ -148,97 +56,12 @@
     </div>
 
     <div class="panel message-list">
-      <div class="title">
-        <h3>消息列表</h3>
-      </div>
-      <section class="reminders">
-        <ul class="items">
-          <li class="item">
-            <div class="item-icon">
-              <i class="fa fa-envelope"></i>
-            </div>
-            <dl class="item-content">
-              <dd>信息提醒</dd>
-              <dd><span class="number">3</span></dd>
-            </dl>
-          </li>
-          <li class="item">
-            <div class="item-icon">
-              <i class="fa fa-phone"></i>
-            </div>
-            <dl class="item-content">
-              <dd>回访提醒</dd>
-              <dd><span  class="number"><%= @store_trackings.count%></span></dd>
-            </dl>
-          </li>
-          <li class="item">
-            <div class="item-icon">
-              <i class="fa fa-commenting"></i>
-            </div>
-            <dl class="item-content">
-              <dd>消息提醒</dd>
-              <dd><span  class="number">3</span></dd>
-            </dl>
-          </li>
-          <li class="item">
-            <div class="item-icon">
-              <i class="fa fa-calendar"></i>
-            </div>
-            <dl class="item-content">
-              <dd>日历提醒</dd>
-              <dd><span  class="number">3</span></dd>
-            </dl>
-          </li>
-          <li class="item">
-            <div class="item-icon">
-              <i class="fa fa-cog"></i>
-            </div>
-            <dl class="item-content">
-              <dd>系统消息</dd>
-              <dd><span  class="number">3</span></dd>
-            </dl>
-          </li>
-          <li class="item">
-            <div class="item-icon">
-              <i class="fa-university"></i>
-            </div>
-            <dl class="item-content">
-              <dd>总部消息</dd>
-              <dd><span  class="number">3</span></dd>
-            </dl>
-          </li>
-        </ul>
-      </section>
-
+      <%= render 'message_list' %>
     </div>
   </div>
 
   <div class="col-right">
-    <div class="panel planning-tools">
-      <div class="title">
-        <h3>记事工具</h3>
-      </div>
-      <div class="planning-content">
-        <span></span>
-        <div class="planning-input">
-          <input type="text" name="name" value="" placeholder="有什么需要记下的吗？">
-        </div>
-        <ul class="planning-list">
-          <li class="item">
-            <span class="choose-icon">
-              <label class="fa fa-check-circle check" for="check"></label>
-              <input type="checkbox" value="" id="check">
-            </span>
-
-
-            <div class="item-content">
-              <span>中午12点忘了吃药，中午12点...</span>
-              <i class="lnr lnr-chevron-down"></i>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <%= render 'todo_list' %>
   </div>
 
 </div>
