@@ -3,9 +3,9 @@
 <td><span><input type="text" name="[store_material][speci]" id="" class="width-90" value=""></span></td>
 <td>
   <div class="item_content">
-    <input type="hidden" name='[store_material][store_material_root_category_id]' value="" class="root_category" data-id="">
-    <span id='store_material_root_category_id' class="width-65 as_select" data-select='#material_root_category_select' data-target='input[name="[store_material][store_material_root_category_id]"'>请选择</span>
-    <div id='material_root_category_select' class="select width-75">
+    <input type="hidden" name='[store_material][store_material_root_category_id]' value="" class="root_category" id="store_material_root_category_id_<%= @cid %>">
+    <span class="width-65 as_select" data-select='.material_root_category_select_<%= @cid %>' data-target='#store_material_root_category_id_<%= @cid %>'>请选择</span>
+    <div id='material_root_category_select' class="select width-75 material_root_category_select_<%= @cid %>">
       <ol class="width-75">
         <% @material_root_category.models.forEach (e) ->: %>
           <li data-value="<%= e.get("id") %>"><%= e.get 'name' %></li>
@@ -17,17 +17,17 @@
 </td>
 <td>
   <div class="item_content">
-    <input type="hidden" name='[store_material][store_material_category_id]' value="" class="category" data-id="">
-    <span id='store_material_category_id' class="width-65 as_select" data-select='#material_category_select' data-target='input[name="[store_material][store_material_category_id]"'>请选择</span>
-    <div id='material_category_select' class="select width-75">
+    <input type="hidden" name='[store_material][store_material_category_id]' value="" class="category" id="store_material_category_id_<%= @cid %>">
+    <span class="width-65 as_select" data-select='.material_category_select_<%= @cid %>' data-target='#store_material_category_id_<%= @cid %>'>请选择</span>
+    <div id='material_category_select' class="select width-75 material_category_select_<%= @cid %>">
     </div>
   </div>
 </td>
 <td>
   <div class="item_content">
-    <input type="hidden" name='[store_material][store_material_unit_id]' value="">
-    <span id='store_material_unit_id' class="width-65 as_select" data-select='#material_unit_select' data-target='input[name="[store_material][store_material_unit_id]"'>请选择</span>
-    <div id='material_unit_select' class="select width-75">
+    <input type="hidden" name='[store_material][store_material_unit_id]' value="" id="store_material_unit_id_<%= @cid %>">
+    <span class="width-65 as_select" data-select='.material_unit_select_<%= @cid %>' data-target='#store_material_unit_id_<%= @cid %>'>请选择</span>
+    <div id='material_unit_select' class="select width-75 material_unit_select_<%= @cid %>">
       <ol class="width-75">
         <% @material_units.models.forEach (e) ->: %>
           <li data-value="<%= e.get("id") %>"><%= e.get 'name' %></li>
