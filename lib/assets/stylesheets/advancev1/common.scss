@@ -217,8 +217,8 @@ main{
         .work-menu{
           padding: 21px 0;
           .item{
-            width: 122px;
-            height: 120px;
+            width: 108px;
+            height: 108px;
             display: inline-block;
             background: #5ac8fb;
             box-sizing: border-box;
@@ -256,32 +256,45 @@ main{
 
         .reminders{
           .items{
+            padding: 0 12px;
             .item{
               display: flex;
-              height: 35px;
+              height: 48px;
               box-sizing: border-box;
               .item-icon{
-                width: 20%;
-                height: 35px;
-                line-height: 35px;
+                width: 15%;
+                height: 48px;
+                line-height: 48px;
+                box-sizing: border-box;
+                padding-right: 18px;
+                text-align: right;
                 i{
-                  font-size: 20px;
+                  font-size: 18px;
+                  color: #999;
                 }
               }
 
               .item-content{
-                width: 80%;
-                height: 35px;
-                line-height: 35px;
-                border-bottom: 1px dashed #eee;
+                width: 85%;
+                height: 48px;
+                line-height: 48px;
+                border-bottom: 1px dashed #cfcfcf;
                 dd{
                   display: inline-block;
-
+                  a{
+                    font-size: 14px;
+                    color: #333;
+                  }
                   .number{
-                    background: blue;
-                    border-radius: 10px;
-                    padding: 0 10px;
+                    background: #007aff;
+                    border-radius: 12px;
+                    display: inline-block;
+                    height: 24px;
+                    line-height: 24px;
+                    text-align: center;
+                    width: 42px;
                     color: #fff;
+                    font-weight: bold;
                   }
 
                   &:nth-child(1){
@@ -300,24 +313,28 @@ main{
     }
 
     .col-right{
-      width: 333px;
+      width: 345px;
 
       .planning-tools{
         height: 911px;
-        padding: 0 30px;
+        padding: 0 12px;
 
         .planning-content{
           .planning-input{
             display: flex;
             align-items: center;
-            margin-left: 15%;
-            width: 85%;
+            margin-left: 45px;
+            width: 264px;
             border-bottom: 1px solid #dedede;
-            height: 45px;
+            height: 66px;
             input{
               border: none;
               font-size: 14px;
               outline: none;
+              padding: 0 10px;
+              width: 100%;
+              color: #333;
+              box-sizing: border-box;
 
             }
           }
@@ -326,19 +343,30 @@ main{
             .item{
               display: flex;
               justify-content: space-between;
-              height: 45px;
+              height: 66px;
               align-items: center;
 
               .choose-icon{
-                width: 15%;
+                width: 45px;
                 position: relative;
                 height: 25px;
 
-                label.check{
+                .unchecked{
                   position: absolute;
                   top: 2px;
-                  font-size: 25px;
+                  border: 1px solid #007aff;
+                  width: 20px;
+                  height: 20px;
+                  border-radius: 10px;
                 }
+
+                label.check{
+                  position: absolute;
+                  font-size: 25px;
+                  color: #007aff;
+                }
+
+
 
                 input[type="checkbox"]{
                   background: #fff;
@@ -348,19 +376,68 @@ main{
               }
 
               .item-content{
-                width: 85%;
+                width: 264px;
                 border-bottom: 1px solid #dedede;
                 height: 45px;
                 line-height: 45px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                color: #333;
+
+                .text{
+                  padding-left: 11px;
+                  color: inherit;
+                  font-size: 14px;
+                }
                 i{
                   margin-left: 15px;
+                  color: inherit;
                 }
               }
             }
           }
+
+          .planning-controls-wrap{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            .planning-controls{
+              width: 246px;
+              height: 45px;
+              display: block;
+              dd{
+                display: inline-block;
+                width: 82px;
+                float: left;
+                a{
+                  display: inline-block;
+                  width: 60px;
+                  height: 30px;
+                  line-height: 30px;
+                  text-align: center;
+                  border-radius: 5px;
+                  font-size: 14px;
+                  color: #333;
+                  outline: none;
+
+                  &:hover{
+                    border: 1px solid #007aff;
+                  }
+                }
+              }
+            }
+
+            a{
+              margin-right: 16px;
+              color: #007aff;
+              font-size: 14px;
+            }
+
+          }
+
+
         }
 
       }
