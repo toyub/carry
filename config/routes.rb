@@ -556,7 +556,7 @@ Rails.application.routes.draw do
       get :send_validate_code
     end
   end
-  root 'kucun/materials#index'
+  root 'home#show'
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == SIDEKIQ[:username] && password == SIDEKIQ[:password]
