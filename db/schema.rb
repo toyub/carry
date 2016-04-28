@@ -225,6 +225,16 @@ ActiveRecord::Schema.define(version: 201604198905987) do
   add_index "roles", ["abbrev"], name: "abbrev_UNIQUE", unique: true, using: :btree
   add_index "roles", ["name"], name: "name_UNIQUE", unique: true, using: :btree
 
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "store_staff_id"
+    t.string   "title"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.text     "remark"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "sms_balances", force: :cascade do |t|
     t.string   "party_type"
     t.integer  "party_id"
@@ -249,6 +259,16 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.string   "party_type"
     t.integer  "party_id"
     t.string   "receiver_type"
+  end
+
+  create_table "staff_schedules", force: :cascade do |t|
+    t.integer  "store_staff_id"
+    t.string   "title"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.text     "remark"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "staff_todos", force: :cascade do |t|

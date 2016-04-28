@@ -1,0 +1,40 @@
+<div class="calendar">
+  <%= render "month_calendar" %>
+</div>
+
+<div class="fda">
+  
+<%= link_to '+', 'javascript:void(0)', id: 'js-new-event' %>
+
+<div class="add-new-event-form" >
+  <%= form_tag "/api/home/schedules", remote: true do %>
+    <div class="field">
+      <label for="">标题</label>
+      <input type="text" name="schedule[title]" id="" value="">
+    </div>
+    <div class="field">
+      <label for="">开始时间</label>
+      <input type="date" name="schedule[start_time]" id="" value="">
+    </div>
+    <div class="field">
+      <label for="">结束时间</label>
+      <input type="date" name="schedule[end_time]" id="" value="">
+    </div>
+    <div class="field">
+      <label for="">备注</label>
+      <input type="text" name="schedule[remark]" id="" value="">
+    </div>
+    <div class="groupd">
+      <input type="submit" name="" id="" value="提交">
+    </div>
+  <% end %>
+</div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("#js-new-event").on('click', function(){
+      console.log("hello")
+    })
+  })
+</script>

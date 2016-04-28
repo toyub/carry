@@ -287,6 +287,7 @@ Rails.application.routes.draw do
           get :clear_done
         end
       end
+      resources :schedules
     end
 
     resources :store_materials, only: :index

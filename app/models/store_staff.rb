@@ -25,6 +25,7 @@ class StoreStaff <  ActiveRecord::Base
   has_many :store_commission_items, as: :ownerable
   has_many :store_commissions, as: :ownerable
   has_many :todos, class_name: 'StaffTodo', as: :creator
+  has_many :schedules, class_name: StaffSchedule.name, foreign_key: :store_staff_id
 
   validates_presence_of :phone_number
   validates_uniqueness_of :phone_number
