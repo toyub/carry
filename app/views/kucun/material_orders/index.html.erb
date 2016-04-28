@@ -92,9 +92,9 @@
                 <td><%= item.store_material.name %></td>
                 <td><%= item.store_material.barcode %></td>
                 <td><%= item.store_material.speci %></td>
-                <td><%= item.store_material.store_material_unit.name %></td>
-                <td><%= item.store_material.store_material_root_category.name %></td>
-                <td><%= item.store_material.store_material_category.name %></td>
+                <td><%= item.store_material.store_material_unit.try(:name) %></td>
+                <td><%= item.store_material.store_material_root_category.try(:name) %></td>
+                <td><%= item.store_material.store_material_category.try(:name) %></td>
                 <td><%= item.price %></td>
                 <td><%= item.quantity %></td>
                 <td><%= item.amount %></td>

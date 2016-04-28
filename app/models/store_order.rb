@@ -17,7 +17,7 @@ class StoreOrder < ActiveRecord::Base
   has_many :store_repayments, through: :store_order_repayments
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
-  scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
+  scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) if date.present? }
   scope :today, -> { by_day(Date.today) }
   scope :has_service, -> { where(service_included: true) }
   scope :unfinished, -> { where.not(state: StoreOrder.states[:finished]) }
@@ -31,6 +31,9 @@ class StoreOrder < ActiveRecord::Base
 
   scope :available, -> {where(deleted: false)}
   scope :hanging, -> { where(hanging: true) }
+
+  scope :need_temporary_purchase, -> { joins(:items).where('store_order_items.need_temporary_purchase is true').group("store_orders.id") }
+  scope :by_numero, ->(numero) { where("numero like ?", "%#{numero}%") if numero.present? }
 
   enum state: %i[pending queuing processing paying finished pausing]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]

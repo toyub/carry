@@ -1,20 +1,32 @@
+<div class="approach-vehicle">
+  <div class="stats">
+    <h4><i class="fa fa-car"></i>进场车辆</h4>
+    <span class="number"><%= @orders.queuing.count%></span>
+  </div>
+</div>
 <ul class="vehicle-info">
   <li>
     <div class="stats">
-      <h4><i class="fa fa-car"></i>进场车辆</h4>
-      <span class="number"><%= @orders.queuing.count%></span>
+      <div class="vehicle-icon">
+        <i class="fa fa-car"></i>
+      </div>
+      <div class="vehicle-item">
+        <h4>施工车辆</h4>
+        <span class="number"><%= @orders.processing.count%></span>
+      </div>
+
     </div>
   </li>
   <li>
     <div class="stats">
-      <h4><i class="fa fa-car"></i>施工车辆</h4>
-      <span class="number"><%= @orders.processing.count%></span>
-    </div>
-  </li>
-  <li>
-    <div class="stats">
-      <h4><i class="fa fa-car"></i>消费车辆</h4>
-      <span class="number"><%= @orders.finished.count%></span>
+      <div class="vehicle-icon">
+        <i class="fa fa-car"></i>
+      </div>
+      <div class="vehicle-item">
+        <h4>消费车辆</h4>
+        <span class="number"><%= @orders.finished.count%></span>
+      </div>
+
     </div>
   </li>
 </ul>
