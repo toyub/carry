@@ -41,7 +41,7 @@
     <div class="panel work">
       <div class="title">
         <h3>我的工作</h3>
-        <a href="#" class="add"><i class="fa fa-plus"></i></a>
+        <a href="#" class="add js-add"><i class="fa fa-plus"></i></a>
       </div>
 
       <div class="panel-body">
@@ -68,3 +68,16 @@
   </div>
 
 </div>
+
+
+<script type="text/javascript">
+  jQuery(function($){
+    $(document).on("click", 'a.js-add', function(){
+      $("div.js-work-floatwindow-wrap").show();
+    });
+
+    $(document).on('click', 'a.js-close-work-floatwindow-wrap', function(){
+      $("div.js-work-floatwindow-wrap").hide();
+    });
+  });
+</script>
