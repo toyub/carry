@@ -485,7 +485,7 @@ main{
                   color: #333;
                   outline: none;
 
-                  &:hover{
+                  &:hover, &.active{
                     border: 1px solid #007aff;
                   }
                 }
