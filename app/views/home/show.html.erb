@@ -214,9 +214,20 @@ jQuery(function($){
         });
       });
 
-      $(document).on('click', 'a#done-todos', function(){ doneTodos(); });
-      $(document).on('click', 'a#unfinished-todos', function(){ unfinishedTodos(); });
-      $(document).on('click', 'a#all-todos', function(){ allTodos(); });
+      $(document).on('click', 'a#done-todos', function(){
+        doneTodos();
+        $(this).addClsss("active")
+      });
+
+      $(document).on('click', 'a#unfinished-todos', function(){
+        unfinishedTodos();
+        $(this).addClsss("active")
+      });
+
+      $(document).on('click', 'a#all-todos', function(){
+        allTodos();
+        $(this).addClsss("active")
+      });
 
 
       $(document).on('click',"input:checkbox",function(){
