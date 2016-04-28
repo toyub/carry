@@ -216,17 +216,23 @@ jQuery(function($){
 
       $(document).on('click', 'a#done-todos', function(){
         doneTodos();
-        $(this).addClsss("active")
+        $("#done-todos").attr("class", "active")
+        $("#unfinished-todos").attr("class", "");
+        $("#all-todos").attr("class", "");
       });
 
       $(document).on('click', 'a#unfinished-todos', function(){
         unfinishedTodos();
-        $(this).addClsss("active")
+        $("#unfinished-todos").attr("class", "active");
+        $("#all-todos").attr("class", "");
+        $("#done-todos").attr("class", "")
       });
 
       $(document).on('click', 'a#all-todos', function(){
         allTodos();
-        $(this).addClsss("active")
+        $("#unfinished-todos").attr("class", "");
+        $("#all-todos").attr("class", "active");
+        $("#done-todos").attr("class", "")
       });
 
 
