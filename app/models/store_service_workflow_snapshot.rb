@@ -27,9 +27,12 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   scope :order_by_flow, ->{order('store_service_workflow_id asc')}
   scope :actively, ->{where(status: [ StoreServiceWorkflowSnapshot.statuses[:processing], StoreServiceWorkflowSnapshot.statuses[:dilemma] ])}
+  scope :in_executable_state, ->{where(status: EXECUTABLE_STATUSES)}
 
   enum status: [:pending, :processing, :finished, :pausing, :dilemma]
   enum waiting_area_id: %i[ waiting_in_queue waiting_in_workstation ]
+
+  EXECUTABLE_STATUSES = [ StoreServiceWorkflowSnapshot.statuses[:processing], StoreServiceWorkflowSnapshot.statuses[:dilemma], StoreServiceWorkflowSnapshot.statuses[:pending] ]
 
   def ready_mechanics(workstation_id)
     workstation = StoreWorkstation.find_by(id: workstation_id)
@@ -90,10 +93,6 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
   end
 
   def executable?(workstation)
-    if self.processing?
-      return true
-    end
-    
     if self.store_vehicle.blank?
       self.errors.add(:store_vehicle, "订单无效:订单所属车辆为空。无法进行施工！")
       return false
@@ -104,11 +103,12 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       return false
     end
 
-    unless self.has_qualified_mechaincs?(workstation)
+    if workstation.busy? && workstation.workflow_id != self.id
+      self.errors.add(:workstation, '工位正在施工其他的项目!')
       return false
     end
 
-    unless self.store_vehicle.workflows.processing.where.not({id: self.id}).blank?
+    unless self.store_vehicle.workflows.actively.where.not({id: self.id}).blank?
       self.errors.add(:already, '该车辆正在施工其他项目！')
       return false
     end
@@ -118,40 +118,51 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       return false
     end
 
+    unless self.has_qualified_mechaincs?(workstation)
+      return false
+    end
+
     return true
   end
 
   def has_qualified_mechaincs?(workstation)
-    if self.tasks.present?
-      if self.store_group_members.any?(&:absence?)
-        self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有未出勤的技师。若要开始请重新分配技师！')
-        return false
-      end
-      if self.store_group_members.all?(&:ready?)
-        return true
-      else
-        if self.store_group_members.all?(&->(member){member.current_processing_workflow.try(:id) == self.id})
-          return true
-        else
-          self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有正在施工其他项目的技师。若要开始请重新分配技师！')
-          return false
-        end
-      end
-    else
-      if workstation.store_group.blank?
-        self.errors.add(:mechanics, '无法开始施工，工位没有绑定小组，无法分配技师！')
-        return false
-      end
-      available_mechanics_count = workstation.store_group
-                                             .store_group_members
-                                             .available
-                                             .ready.level_at_least(mechanics_level.to_i).count
-      if available_mechanics_count >= mechanics_quantity
-        return true
-      else
-        self.errors.add(:mechanics, "无法开始施工，因为技师数量不满足；该服务需要 #{mechanics_quantity}个技师，而只分配了#{available_mechanics_count}个！")
-        return false
-      end
+    (self.tasks.present? && tasked_mechanics_all_ready?) || can_allocate_adequate_mechanics?(workstation)
+  end
+
+  def tasked_mechanics_all_ready?
+    if self.store_group_members.blank?
+      self.errors.add(:mechanics, '无法开始施工，请分配技师！')
+      return false
+    end
+
+    if self.store_group_members.any?(&:absence?)
+      self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有未出勤的技师。若要开始请重新分配技师！')
+      return false
+    end
+
+    if self.store_group_members.any?(&:busy?)
+      self.errors.add(:mechanics, '无法开始施工，因为指定的技师中有正在施工其他项目的技师。若要开始请重新分配技师！')
+      return false
+    end
+    true
+  end
+
+  def can_allocate_adequate_mechanics?(workstation)
+    if workstation.store_group.blank?
+      self.errors.add(:mechanics, '无法开始施工，指定的施工工位没有绑定小组，无法分配技师！')
+      return false
+    end
+    available_mechanics_count = workstation.store_group
+                                           .store_group_members
+                                           .available
+                                           .ready.level_at_least(mechanics_level.to_i).count(:id)
+    if available_mechanics_count < mechanics_quantity
+      msg= %[无法开始施工:
+            该服务需要 #{mechanics_quantity} 个 #{self.mechanics_level_name} 技师，
+            而只能找到 #{available_mechanics_count} 个；如果要施工，请手动分配！
+           ]
+      self.errors.add(:mechanics, msg)
+      return false
     end
   end
 
@@ -168,6 +179,14 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
       self.engineer_level.to_i
     else
       ServiceMechanicLevelType.find_by_name('初级以上(含初级)').id
+    end
+  end
+
+  def mechanics_level_name
+    if self.engineer_level_enable
+      ServiceMechanicLevelType.find(self.engineer_level.to_i).name
+    else
+      ServiceMechanicLevelType.find_by_name('初级以上(含初级)').name
     end
   end
 
@@ -304,7 +323,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def replay!
     if self.waiting_in_workstation?
-      self.processing!
+      self.pending!
       self.store_workstation.start!(self)
     else
       self.pending!
@@ -332,6 +351,15 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     end
 
     self
+  end
+
+  def force_finish!
+    self.free_workstation
+    self.free_mechanics
+    self.finish_tasks
+    self.record_times
+    self.finished!
+    send_sms
   end
 
   def discontinue!
@@ -387,7 +415,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     if self.store_service.present?
       self.store_service.workflow_snapshots
                         .not_deleted
-                        .pending
+                        .in_executable_state
                         .order_by_flow
                         .previous_siblings_of(self.store_service_workflow_id)
     else

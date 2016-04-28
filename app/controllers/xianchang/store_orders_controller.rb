@@ -18,10 +18,10 @@ module Xianchang
 
     def execute
       UpdateWorkflowService.call(order_params)
-      music = @store_order.play!
-      if music.present?
-        if music.errors.present?
-          flash[:error] = music.errors.messages.values.flatten.to_sentence
+      workflow = @store_order.play!
+      if workflow.present?
+        if workflow.errors.present?
+          flash[:error] = workflow.errors.messages.values.flatten.to_sentence
         end
       else
         flash[:error] = '当前订单没有可以施工的！'
@@ -50,7 +50,7 @@ module Xianchang
     end
 
     def order_params
-      params.permit(workflow: [:store_workstation_id, :inspector, :used_time, mechanics: [:id, :name]])
+      params.permit(workflow: [:id, :store_workstation_id, :inspector_id, :used_time, mechanics: [:id, :name, :group_member_id]])
     end
   end
 end

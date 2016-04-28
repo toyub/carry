@@ -2,6 +2,7 @@
   <td><%= service.name %></td>
   <td colspan="5">
     <% service.workflow_snapshots.order("created_at asc").each_with_index do |workflow, i| %>
+      <input type="hidden" name="workflow[<%= workflow.id %>][id]" value="<%= workflow.id %>">
       <ul class="item_project">
         <li><% if workflow.processing? %>
            >
@@ -13,7 +14,7 @@
         </li>
         <li>
           <select class="width-100 js-select-workstations" data-id="<%= workflow.id %>" name="workflow[<%= workflow.id %>][store_workstation_id]" <%= 'disabled' if workflow.finished? %>>
-            <option>请选择</option>
+            <option value="">请选择</option>
             <% workflow.workstations.each do |w| %>
               <option value="<%= w.id %>" <%= 'selected' if w.id == workflow.store_workstation_id %>><%= w.name %></option>
             <% end %>
@@ -42,11 +43,13 @@
           <% else %>
             <div class="assign_technician">
               <ul id="workflow-<%= workflow.id %>-mechanics">
-                <% workflow.mechanics.each do |m| %>
+                <% workflow.tasks.each do |task| %>
+                  <% m = task.mechanic %>
                   <li class="do_coise_close js-mechanic" id="workflow-<%= workflow.id %>-mechanics-<%= m.id %>">
                     <span><%= m.full_name %><i class="coise_close lnr <%= 'lnr-cross js-mechanic-close' unless workflow.finished? %>"></i></span>
                     <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][id]" value="<%= m.id %>" />
                     <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][name]" value="<%= m.full_name %>" />
+                    <input type="hidden" name="workflow[<%= workflow.id %>][mechanics][<%= m.id %>][group_member_id]" value="<%= task.store_group_member_id %>">
                   </li>
                 <% end %>
               </ul>
@@ -57,7 +60,7 @@
         </li>
         <li>
           <% if workflow.finished? %>
-            <input type="text" class="width-60" value="<%= workflow.inspector.try :name %>" disabled>
+            <input type="text" class="width-60" value="<%= workflow.inspector.try :full_name %>" disabled>
           <% else %>
             <%= select_tag :store_depot_id,
               options_from_collection_for_select(current_store.store_staff.act_as_inspectors, 'id', 'full_name', @store_order.store_staff_id),

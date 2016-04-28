@@ -30,6 +30,7 @@ class StoreWorkstation < ActiveRecord::Base
         if workflow.present?
           if workflow.executable?(self)
             workflow.execute!(self)
+            break
           end
         end
       end
@@ -54,7 +55,13 @@ class StoreWorkstation < ActiveRecord::Base
   end
 
   def perform!(store_order, workflow)
-    workflow.complete!
+    workflow.force_finish!
+
+    if workflow.next_workflow.present?
+      workflow.next_workflow.find_a_workstaion_and_execute_otherwise_waiting_in(self)
+    else
+      workflow.store_service.complete_and_perform_with!(self)
+    end
   end
 
   def start!(workflow)

@@ -17,9 +17,14 @@
             </span>
             <div>
                 <% workflow = order.current_workflow %>
-                <% if workflow.present?
-                  workflow.executable?(workflow.store_workstation) %>
-                  <%= workflow.errors.messages.values.flatten.to_sentence %>
+                <% if workflow.present? && !workflow.processing? %>
+                  <% if workflow.executable?(workflow.store_workstation) %>
+                    无法施工流程: <%= workflow.name %>； 原因可能是：
+                    <%= workflow.errors.messages.values.flatten.to_sentence %>
+                  <% else %>
+                    无法施工流程: <%= workflow.name %>； 原因可能是：
+                    技师无法调度。请手动调度。
+                  <% end %>
                 <% end %>
             </div>
           </div>

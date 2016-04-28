@@ -56,9 +56,9 @@ module Xianchang
     end
 
     def start
-      service = @store_order.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+      service = @store_order.store_service_snapshots.not_deleted.in_executable_state.order_by_itemd.first
       if service.present?
-        @workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+        @workflow = service.workflow_snapshots.not_deleted.in_executable_state.order_by_flow.first
         if @workflow.present?
           @workstation.start!(@workflow)
         end

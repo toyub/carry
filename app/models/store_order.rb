@@ -154,9 +154,9 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def complete!
-    self.task_finished!
     self.task_finished_at = Time.now
     self.paid? ? self.finished! : self.paying!
+    self.task_finished!
   end
 
   def force_finish!
@@ -177,10 +177,10 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def discontinue!
+    self.store_service_snapshots.unfinished.each(&->(service){ service.discontinue!})
     self.task_finished_at = Time.now
     self.task_finished!
     self.finished!
-    self.store_service_snapshots.unfinished.each(&->(service){ service.discontinue!})
     #Send message tell the customer that his/her order is droped!
   end
 
@@ -191,9 +191,9 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def continue_execute!(workstation)
-    service = self.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+    service = self.store_service_snapshots.not_deleted.in_executable_state.order_by_itemd.first
     if service.present?
-      workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+      workflow = service.workflow_snapshots.not_deleted.in_executable_state.order_by_flow.first
       if workflow.present?
         workflow.find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
       end
@@ -201,9 +201,9 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def play!
-    service = self.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+    service = self.store_service_snapshots.not_deleted.in_executable_state.order_by_itemd.first
     if service.present?
-      workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+      workflow = service.workflow_snapshots.not_deleted.in_executable_state.order_by_flow.first
       if workflow.present?
         if workflow.store_workstation.present?
           workflow.execute(workflow.store_workstation) if workflow.executable?(workflow.store_workstation)

@@ -23,9 +23,9 @@
     <% end %>
     <% unless order.task_finished? %>
       <%= button_tag "保存", class: "save_btn btn js-save" %>
-      <% if !order.processing? %>
-        <%= button_tag "施工", class: "save_btn btn js-execute" %>
-      <% end %>
+
+      <%= button_tag "施工", class: "save_btn btn js-execute" %>
+
       <% if order.task_pausing? %>
         <%= button_tag "恢复施工", class: "save_btn btn width-100 js-play" %>
       <% else %>
