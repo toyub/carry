@@ -1,0 +1,65 @@
+.calendar-floatwindow{
+  width: 351px;
+  height: 474px;
+  border: 1px solid#cfcfcf;
+  background: #fff;
+  box-shadow: 0 3px 12px 0 rgba(0,0,0,0.18);
+  margin-left: 24px;
+  box-sizing: border-box;
+  position: relative;
+
+  .close{
+    position: absolute;
+    right: 9px;
+    top: 6px;
+    font-size: 14px;
+    color: #b8b8b8;
+  }
+
+  .add-new-event-form{
+    .title{
+      height: 65px;
+      background: #fafafa;
+      border-bottom: 1px solid #cfcfcf;
+
+      .form-input{
+        width: 263px;
+      }
+    }
+
+    .field{
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .form-label{
+        font-size: 14px;
+        color: #4d4d4d;
+        margin-right: 10px;
+      }
+
+      .form-input{
+        width: 236px;
+        height: 36px;
+        border-radius: 5px;
+        background: #fff;
+        border: 1px solid #cfcfcf;
+        box-sizing: border-box;
+
+        &[placeholder]{
+          font-size: 14px;
+          color: #b8b8b8;
+        }
+      }
+
+      i{
+        position: absolute;
+        right: 34px;
+        top: 10px;
+      }
+    }
+  }
+
+
+}
