@@ -33,10 +33,10 @@ module Xianchang
         if @workflow.id == @workstation.workflow_id #此处因为后台可能已经结束过了，而且分配了下一个任务。所以要判断一下
           @workflow.complete!
         else
-          puts "\n"*25, '有问题', @workflow.id, @workstation.workflow_id, "\n"*10
+
         end
       else
-        puts "\n"*25, '找不到了', @workflow, @workstation.workflow_id, "\n"*10
+        
       end
     end
 

@@ -1,0 +1,15 @@
+<div class="search_nav">
+  <form action="/kucun/temporary_material_orders" method="get">
+    <div class="item-query">
+      <label>时间</label>
+      <input type="date" name='day' class="width-150" value="<%= params[:day] %>">
+    </div>
+    <div class="item-query">
+      <label>订单号</label>
+      <input type="text" name="order_numero" class="width-150" value="<%= params[:order_numero] %>">
+    </div>
+    <div class="item-query">
+      <input type="submit" value="查询" class="query_btn btn">
+    </div>
+  </form>
+</div>

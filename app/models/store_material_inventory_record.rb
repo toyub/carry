@@ -14,4 +14,8 @@ class StoreMaterialInventoryRecord < ActiveRecord::Base
   def amount
     self.quantity * self.price
   end
+
+  def numero
+    receipt.numero
+  end
 end

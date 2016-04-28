@@ -1,0 +1,131 @@
+@charset "UTF-8";
+.jit_material{
+	table{
+		width: 100%;
+		thead{
+			tr{
+				background:#fff;
+				height: 40px;
+				th{
+					border: none;
+					padding: 0px 5px;
+					&:nth-child(1){width:2.50%; }
+					&:nth-child(2){width:20.19%; }
+					&:nth-child(3){width:20.95%; }
+					&:nth-child(4){width:9.79%; }
+					&:nth-child(5){width:11.84%; }
+					&:nth-child(6){width:5.61%; }
+					&:nth-child(7){width:7.21%; }
+					&:nth-child(8){width:7.66%; }
+					&:nth-child(9){width:8.20%; }
+					&:nth-child(10){width:5.99%; }
+
+				}
+			}
+		}
+		tbody{
+			tr{
+				&:last-child{
+					td{
+						border-bottom: 0px;
+					}
+				}
+
+				&:nth-child(2n){
+					background: #EBF2E6;
+				}
+				td{
+					border: 1px solid #D1D1D1;
+					height: 28px;
+
+					&:first-child{
+						border-left: none;
+					}
+
+					&:last-child{
+						text-align: right;
+            border-right: none;
+					}
+
+					&:nth-child(7),&:nth-child(9){
+						text-align: right;
+					}
+					&:nth-child(8){
+						text-align: center;
+					}
+
+					i{
+						margin-right: 20px;
+						font-size: 16px;
+						cursor: pointer;
+					}
+					input[type="checkbox"]{
+						margin-right: 5px;
+					}
+				}
+			}
+		}
+
+	}
+}
+
+
+
+
+.jit_single_wrap{
+	margin-bottom: 20px;
+	float: left;
+
+	.jit_single{
+		table{
+			thead{
+				tr{
+					th{
+						&:nth-child(1){width:2.93%; }
+						&:nth-child(2){width:17.12%; }
+						&:nth-child(3){width:9.41%; }
+						&:nth-child(4){width:9.41%; }
+						&:nth-child(5){width:5.16%; }
+						&:nth-child(6){width:6.71%; }
+						&:nth-child(7){width:7.09%; }
+						&:nth-child(8){width:4.47%; }
+						&:nth-child(9){width:5.16%; }
+						&:nth-child(10){width:5.24%; }
+						&:nth-child(11){width:6.94%; }
+						&:nth-child(12){width:15.20%; }
+						&:nth-child(13){width:5.09%; }
+					}
+				}
+			}
+
+			tbody{
+				tr{
+					td{
+						height: 25px;
+						input,select{
+							height: 20px;
+						}
+
+					}
+				}
+			}
+			tfoot{
+				tr{
+					border: 1px solid #D1D1D1;
+					td{
+						height: 25px;
+				    text-align: center;
+				    font-weight: bold;
+				    text-indent: 10px;
+
+						&:nth-child(4){
+							border-right: 1px solid #D1D1D1;
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+}

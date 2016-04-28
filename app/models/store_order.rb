@@ -30,8 +30,8 @@ class StoreOrder < ActiveRecord::Base
   scope :paid_on, ->(date){where(paid_at: date.beginning_of_day..date.end_of_day)}
 
   scope :available, -> {where(deleted: false)}
-
   scope :task_finished_on, ->(date){where(task_finished_at: date.beginning_of_day..date.end_of_day)}
+  scope :by_numero, ->(numero) { where("numero like ?", "%#{numero}%") if numero.present? }
 
   enum state: %i[pending queuing processing paying finished pausing]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]
@@ -297,19 +297,10 @@ class StoreOrder < ActiveRecord::Base
 
   def execute_the_first_service
     service = self.store_service_snapshots.not_deleted.pending.order_by_itemd.first
-    puts "\n" * 22
-    p service
-    puts "\n" * 20
     if service.present?
       workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
-      puts "\n" * 22
-      p workflow
-      puts "\n" * 20
       if workflow.present?
         workflow.find_a_workstaion_and_execute
-        puts "\n" * 22
-        p workflow.errors
-        puts "\n" * 20
       end
     end
   end

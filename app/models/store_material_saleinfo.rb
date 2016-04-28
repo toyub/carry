@@ -4,6 +4,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   belongs_to :sale_category
   belongs_to :store_material
+  delegate   :store_material_unit, to: :store_material, allow_nil: true
   belongs_to :store
   belongs_to :saleman_commission_template,
                           class_name: 'StoreCommissionTemplate', foreign_key: 'saleman_commission_template_id'

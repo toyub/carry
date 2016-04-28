@@ -15,6 +15,16 @@ Rails.application.routes.draw do
         post :save_picture
       end
 
+      resources :material_inventories, only: [] do
+        collection do
+          get :income_records
+        end
+      end
+
+      resources :outings, obly: [] do
+        get :outgo_records, on: :collection
+      end
+
       resource :saleinfo do
         resources :saleinfo_services
       end
@@ -47,6 +57,9 @@ Rails.application.routes.draw do
       end
       resources :material_orders
       resources :assessments, controller: 'store_supplier_assessments'
+    end
+    resources :temporary_material_orders do
+      resources :material_orders
     end
     resources :outings
     namespace :transfer do
@@ -269,6 +282,7 @@ Rails.application.routes.draw do
   namespace :api do
 
     resources :store_materials, only: :index
+    resources :store_temporary_items, only: [:index, :show]
     resources :consumable_store_materials, only: :index
     resources :store_material_categories, only: :index
 
@@ -316,7 +330,7 @@ Rails.application.routes.draw do
     end
     #Order end
 
-
+    resources :sale_categories, only: :index
     resources :store_staff, only: [:index, :update] do
       get 'check_phone', on: :collection
     end
@@ -458,6 +472,11 @@ Rails.application.routes.draw do
       namespace :cashier do
         resources :orders
       end
+
+      namespace :zidingyi do
+        resources :store_materials
+      end
+
     end
 
     namespace :crm do
@@ -545,7 +564,7 @@ Rails.application.routes.draw do
       get :send_validate_code
     end
   end
-  root 'kucun/materials#index'
+  root 'home#show'
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == SIDEKIQ[:username] && password == SIDEKIQ[:password]

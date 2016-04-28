@@ -17,6 +17,7 @@ class AuthenticateStaffService
   def call
     return Status.new(success: false, notice: '用户名或密码错误') if !validated?
     return Status.new(success: false, notice: '用户已停用') if locked?
+    return Status.new(success: false, notice: '该门店已停用,请联系管理员！') if store_closed?
 
     Status.new(success: true, notice: '登陆成功')
   end
@@ -33,6 +34,10 @@ class AuthenticateStaffService
     else
       mis_locked?
     end
+  end
+
+  def store_closed?
+    !@user.store.available
   end
 
 
