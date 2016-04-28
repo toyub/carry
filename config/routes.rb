@@ -287,6 +287,8 @@ Rails.application.routes.draw do
           get :clear_done
         end
       end
+
+      resource :store_staff
     end
 
     resources :store_materials, only: :index

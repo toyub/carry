@@ -81,7 +81,28 @@
     });
 
     $(document).on("click", 'a.js-sub-menu', function(){
-      $(this).parent().toggleClass("check");
+      var value = $("input#"+$(this).data("id")).val();
+      if(value.length > 0){
+        $("input#"+$(this).data("id")).val("");
+        $(this).parent().attr("class", "");
+      }else {
+        $("input#"+$(this).data("id")).val($(this).data("id"));
+        $(this).parent().attr("class", "check");
+      }
+    });
+
+    $(document).on('click', 'button.js-confirm-btn', function(){
+      var arr = new Array()
+      $('#works_form input').each(function(i){
+        if($(this).val().length > 0){
+          arr.push($(this).val());
+        }
+      });
+
+      $.ajax({
+        url: "/api/home/store_staff",
+        type: 'put',
+      });
     });
 
 

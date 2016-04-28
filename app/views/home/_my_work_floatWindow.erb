@@ -6,14 +6,15 @@
     </div>
 
     <div class="menu">
-
+    <form class="" action="" method="put" id="works_form">
     <% @works.each do |root_category| %>
       <div class="item">
         <h3><%= root_category[:name]%></h3>
         <ul class="menu-list">
           <% root_category[:sub_categories].each do |work| %>
             <li>
-              <a href="javascript:void(0)" class="sub-menu js-sub-menu">
+              <a href="javascript:void(0)" class="sub-menu js-sub-menu" data-id="<%= work[:idx]%>" >
+                <input type="hidden" name="works[<%= work[:idx]%>]" id="<%= work[:idx]%>" value="" >
                 <div class="menu-icons">
                   <i class="fa fa-users menu-icon"></i>
                   <i class="fa fa-check check-icon"></i>
@@ -26,11 +27,11 @@
       </div>
     <% end %>
 
-
     </div>
 
     <div class="foot">
-      <button type="button" name="button" class="confirm-btn">确定</button>
+      <button type="button" name="button" class="confirm-btn js-confirm-btn">确定</button>
     </div>
+  </form>
   </div>
 </div>
