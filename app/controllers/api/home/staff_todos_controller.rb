@@ -24,7 +24,6 @@ module Api
       end
 
       def update
-        # binding.pry
         todo = current_user.todos.find(params[:id])
         todo.update(done: !todo.done)
         render json: {msg: 'Ok!', todo: todo}

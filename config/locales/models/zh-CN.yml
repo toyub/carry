@@ -18,6 +18,8 @@ zh-CN:
           quantity: '订单项目数量'
       store_order_item:
         quantity: 数量
+      staff_todo:
+        content: 内容
     errors:
       models:
         store_service_store_material:
