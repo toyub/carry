@@ -79,5 +79,11 @@
     $(document).on('click', 'a.js-close-work-floatwindow-wrap', function(){
       $("div.js-work-floatwindow-wrap").hide();
     });
+
+    $(document).on("click", 'a.js-sub-menu', function(){
+      $(this).parent().toggleClass("check");
+    });
+
+
   });
 </script>

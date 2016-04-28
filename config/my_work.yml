@@ -1,0 +1,70 @@
+works:
+  -
+    name: pos管理
+    sub_categories:
+      -
+        name: 收银
+        url: /pos/cashier/checkouts
+      -
+        name: 业务开单
+        url: /pos/store_orders/new
+  -
+    name: 现场管理
+    sub_categories:
+      -
+        name: 施工现场
+        url: /xianchang/store_workstations
+      -
+        name: 人员调度
+        url: /xianchang/groups
+  -
+    name: 销售管理
+    sub_categories:
+      -
+        name: 商品
+        url: /mkis/materials
+      -
+        name: 服务
+        url: /xiaoshou/main#store_services
+      -
+        name: 套餐
+        url: /xiaoshou/main#store_packages
+  -
+    name: 库存管理
+    sub_categories:
+      -
+        name: 商品目录
+        url: /kucun
+      -
+        name: 入库
+        url: /kucun/material_inventories/new
+      -
+        name: 出库
+        url: /kucun/outings/new
+      -
+        name: 采购
+        url: /srm/material_orders/nowaus
+      -
+        name: 临时订货
+        url: /kucun/temporary_material_orders
+      -
+        name: 盘点
+        url: /kucun/physical_inventories/new
+      -
+        name: 报损
+        url: /kucun/shrinkages/new
+      -
+        name: 退货
+        url: /kucun/returnings/new
+  -
+    name: 客户管理
+    sub_categories:
+      -
+        name: 客户列表
+        url: /xiaoshou/main#store_customers
+  -
+    name: 供应商管理
+    sub_categories:
+      -
+        name: 供应商列表
+        url: /srm/store_suppliers
