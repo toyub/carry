@@ -1,13 +1,7 @@
 class StoreMaterial < ActiveRecord::Base
   include BaseModel
 
-  validates :store_material_root_category_id,
-            :store_material_category_id,
-            :store_material_unit_id,
-            :store_material_manufacturer_id,
-            :store_material_brand_id,
-            :name,
-            presence: true
+  validates :name, presence: true
 
   belongs_to :store_material_unit
   belongs_to :store_material_brand

@@ -112,7 +112,8 @@ module Api
       def material_items
         if params[:materials].present?
           params[:materials].map do |info|
-            basic_item_params(info).merge(orderable_type: "StoreMaterialSaleinfo")
+            basic_item_params(info).merge(orderable_type: "StoreMaterialSaleinfo",
+                                          need_temporary_purchase: info['need_temporary_purchase'])
           end
         else
           []
