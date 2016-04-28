@@ -65,6 +65,10 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
           break
         end
       end
+    else
+      if self.executable?(self.store_workstation)
+        self.execute!(self.store_workstation)
+      end
     end
   end
 
@@ -157,13 +161,11 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
                                            .available
                                            .ready.level_at_least(mechanics_level.to_i).count(:id)
     if available_mechanics_count < mechanics_quantity
-      msg= %[无法开始施工:
-            该服务需要 #{mechanics_quantity} 个 #{self.mechanics_level_name} 技师，
-            而只能找到 #{available_mechanics_count} 个；如果要施工，请手动分配！
-           ]
+      msg="无法开始施工:该服务需要 #{mechanics_quantity} 个 #{self.mechanics_level_name} 技师，而只能找到 #{available_mechanics_count} 个；如果要施工，请手动分配！"
       self.errors.add(:mechanics, msg)
       return false
     end
+    true
   end
 
   def mechanics_quantity

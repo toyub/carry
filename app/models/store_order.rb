@@ -206,7 +206,9 @@ class StoreOrder < ActiveRecord::Base
       workflow = service.workflow_snapshots.not_deleted.in_executable_state.order_by_flow.first
       if workflow.present?
         if workflow.store_workstation.present?
-          workflow.execute(workflow.store_workstation) if workflow.executable?(workflow.store_workstation)
+          if workflow.executable?(workflow.store_workstation)
+            workflow.execute(workflow.store_workstation)
+          end
           return workflow
         else
           workflow.errors.add(:workstation, '请先指定施工的工位')
@@ -257,9 +259,21 @@ class StoreOrder < ActiveRecord::Base
   def try_to_execute
     if self.pending?
       self.queuing!
+      self.task_queuing!
       execute_the_first_service
     elsif self.processing?
-      #do nothing
+      workflow = current_workflow
+      if workflow.blank?
+        if self.workflows.not_deleted.count(:id) == self.workflows.not_deleted.finished.count(:id) #已经都结束了
+          self.complete!
+        else
+          execute_the_first_service
+        end
+      else
+        if workflow.dilemma?
+          workflow.find_a_workstaion_and_execute
+        end
+      end
     elsif self.queuing?
       execute_the_first_service
     elsif self.pausing?
@@ -283,10 +297,19 @@ class StoreOrder < ActiveRecord::Base
 
   def execute_the_first_service
     service = self.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+    puts "\n" * 22
+    p service
+    puts "\n" * 20
     if service.present?
       workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+      puts "\n" * 22
+      p workflow
+      puts "\n" * 20
       if workflow.present?
         workflow.find_a_workstaion_and_execute
+        puts "\n" * 22
+        p workflow.errors
+        puts "\n" * 20
       end
     end
   end
