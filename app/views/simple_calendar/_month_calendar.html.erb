@@ -1,7 +1,9 @@
 <div class="simple-calendar">
-  <%= link_to "Previous2", calendar.url_for_previous_view %>
+<% previou_month =  date_range.first - 1.day %>
+<% next_month =  date_range.last + 1.day %>
+  <%= link_to "<<", ("/api/home/schedules?start_time=" + previou_month.to_s), remote: true %>
   <%= I18n.t("date.month_names")[start_date.month] %> <%= start_date.year %>
-  <%= link_to "Next", calendar.url_for_next_view %>
+  <%= link_to "<<", ("/api/home/schedules?start_time=" + next_month.to_s), remote: true %>
 
   <table class="table table-striped">
     <thead>

@@ -1,6 +1,10 @@
 module Api
   module Home
     class SchedulesController < BaseController
+      def index
+        @schedules = current_user.schedules
+      end
+
       def create
         @schedules = current_user.schedules
         @schedules.create!(schedule_param)
