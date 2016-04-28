@@ -1,0 +1,34 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['销售商品', '销售设置'], "/mkis/materials/") %>
+</div>
+<div class="details">
+  <div class="details_nav"><%= render partial: 'mkis/materials/material_settings_url' %></div>
+  <div class="details_content">
+    <div class="base_info">
+      <%= form_tag mkis_material_saleinfo_path(@store_material), id: 'saleinfo_form' do %>
+        <%= render 'partials/saleinfos/show' %>
+        <div class="btn_group">
+          <%= link_to "编辑", edit_mkis_material_saleinfo_path(@store_material), class: "btn edit_btn" %>
+        </div>
+
+    </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($){
+      var urlRoot = "/mkis/materials/<%= @store_material.id %>/saleinfo";
+      var redirectUrlRoot = '/mkis'
+      var store_commission_templates = <%= json_for(@store_commission_templates).html_safe %>;
+      handle = new $$MIS.SaleinfoHandleView({urlRoot: urlRoot, redirectUrlRoot: redirectUrlRoot});
+      handle.store_commission_templates = store_commission_templates;
+      $("#commission_tempalte_detail").on('click', '.do_cancel, .cancel_btn', function(){
+        $('#commission_tempalte_detail').hide();
+      });
+    });
+  </script>
+<% end -%>

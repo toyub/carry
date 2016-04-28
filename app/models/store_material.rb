@@ -1,13 +1,7 @@
 class StoreMaterial < ActiveRecord::Base
   include BaseModel
 
-  validates :store_material_root_category_id,
-            :store_material_category_id,
-            :store_material_unit_id,
-            :store_material_manufacturer_id,
-            :store_material_brand_id,
-            :name,
-            presence: true
+  validates :name, presence: true
 
   belongs_to :store_material_unit
   belongs_to :store_material_brand
@@ -21,7 +15,9 @@ class StoreMaterial < ActiveRecord::Base
   has_many :store_material_inventories
   has_many :store_material_orders
   has_many :snapshots, class_name: "StoreMaterialSnapshot", foreign_key: :store_material_id
+  has_many :store_material_checkin_items
 
+  has_many :outing_items, class_name: 'StoreMaterialOutingItem'
   #has_many :store_material_images, foreign_key: 'host_id'
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_many :store_package_items, as: :package_itemable

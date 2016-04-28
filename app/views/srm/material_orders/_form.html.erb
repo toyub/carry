@@ -1,0 +1,83 @@
+<div class=" order_goods_tab common_storage_tab">
+  <table cellpadding="0" cellspacing="0" id="storage_tab" class="storage_tab order_tab">
+    <thead>
+      <tr class="bg-color-e0e2cf color-282726">
+        <th>#</th>
+        <th>商品名称</th>
+        <th>条码</th>
+        <th>规格</th>
+        <th>单位</th>
+        <th>一级分类</th>
+        <th>二级分类</th>
+        <th>单价</th>
+        <th>数量</th>
+        <th>小计</th>
+        <th>备注</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tfoot>
+        <tr>
+          <td></td>
+          <td class="text-align-left ">合计:</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+        </tr>
+    </tfoot>
+    <tbody>
+      <tr class='handle'>
+        <td class="number"></td>
+        <td>
+          <div class="text_div add_material">
+            <input type="text" placeholder="请选择要订货的商品"  readonly>
+            <span class="bg-color-fff">...</span>
+          </div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-align-center"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="order_goods_account">
+  <div class="item_content margin-left-10">
+    <label class="width-75 margin-top-10 ">备注：</label>
+    <textarea name='store_material_order[remark]' class="remarks_textarea width-1251"></textarea>
+  </div>
+  <div class="item_content margin-top-10  margin-left-10 float-left">
+    <label class="width-75">本次付款：</label>
+    <input id='downpayment' name='store_material_order[payments_attributes][][amount]' type='text' num un min=0 class="width-253" />
+  </div>
+  <div class="item_content margin-top-10 float-left  margin-left-20">
+    <label class="width-75 ">结算账户：</label>
+    <select class="width-253" name='store_material_order[payments_attributes][][store_settlement_account_id]' required>
+      <% @store.store_settlement_accounts.each do |opt| %>
+         <option value="<%= opt.id %>"><%= opt.name %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="item_content margin-top-10 margin-left-20">
+    <label class="width-75">本次欠款：</label>
+    <input id='debt' type="text" class="width-253" value='0' readonly>
+  </div>
+  <div class="item_content  margin-left-10">
+    <label class="width-75">制单人：</label>
+    <label class="width-253"><%= current_user.screen_name %></label>
+  </div>
+</div>

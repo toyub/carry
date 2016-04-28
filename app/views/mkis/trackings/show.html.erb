@@ -1,0 +1,31 @@
+
+<div class="main_top">
+  <%= breadcrumb_navigation(['销售商品', '回访设置'], "/mkis/materials/") %>
+</div>
+<div class="details">
+  <div class="content_list">
+    <div class="details_nav">
+        <%= render partial: '/mkis/materials/material_settings_url' %>
+    </div>
+    <div class="details_content">
+
+      <%= render 'partials/trackings/show' %>
+      <div class="btn_group">
+        <a href='<%= edit_mkis_material_tracking_path(@store_material) %>' class="btn edit_btn">编辑</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+
+  <script type="text/javascript">
+    jQuery(function($) {
+      var urlRoot = '/kucun/materials/<%= @store_material.id %>/tracking';
+      var redirectUrlRoot = '/mkis'
+      handle =  new $$MIS.MaterialTrackingView({urlRoot: urlRoot, redirectUrlRoot: redirectUrlRoot});
+    });
+  </script>
+
+<% end %>

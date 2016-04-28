@@ -1,6 +1,6 @@
 class Kucun::MaterialUnitsController < Kucun::BaseController
   def index
-
+    render json: current_store.store_material_units.select(:id, :name).to_json(root: false)
   end
 
   def show
