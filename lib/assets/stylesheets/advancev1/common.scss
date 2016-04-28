@@ -1,5 +1,9 @@
 body{
   background: #ededed;
+
+  .sidemenu{
+    display: none;
+  }
 }
 main{
   margin-top: 60px;
@@ -529,10 +533,7 @@ main{
             }
 
           }
-
-
         }
-
       }
     }
 
