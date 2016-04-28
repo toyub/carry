@@ -247,10 +247,14 @@ jQuery(function($){
              }else{
                $("label[for=check_"+ todoId +"]").addClass("unchecked").removeClass("fa fa-check-circle check")
              }
-
            }
          });
    	 });
+
+      $(document).on('click','i.js-lnr', function(){
+        $(this).toggleClass("lnr-chevron-down lnr-chevron-up");
+        $("span.js-text_"+ $(this).data("id")).toggleClass("acronyms");
+      });
 
   });
 </script>
