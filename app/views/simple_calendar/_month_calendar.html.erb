@@ -1,35 +1,42 @@
 <div class="simple-calendar">
-<% previou_month =  date_range.first - 1.day %>
-<% next_month =  date_range.last + 1.day %>
-  <%= link_to "<<", ("/api/home/schedules?start_time=" + previou_month.to_s), remote: true %>
-  <%= I18n.t("date.month_names")[start_date.month] %> <%= start_date.year %>
-  <%= link_to "<<", ("/api/home/schedules?start_time=" + next_month.to_s), remote: true %>
+  <div class="month">
+    <% previou_month =  date_range.first - 1.day %>
+    <% next_month =  date_range.last + 1.day %>
+      <%= link_to "", ("/api/home/schedules?start_time=" + previou_month.to_s), class: "lnr lnr-chevron-left", remote: true %>
+      <%= I18n.t("date.month_names")[start_date.month] %> <%= start_date.year %>
+      <%= link_to "", ("/api/home/schedules?start_time=" + next_month.to_s), class: "lnr lnr-chevron-right", remote: true %>
+  </div>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <% date_range.slice(0, 7).each do |day| %>
-          <th><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
-        <% end %>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% date_range.each_slice(7) do |week| %>
+  <div class="table-wrap">
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <% week.each do |day| %>
-            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
-              <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(block) %>
-                <% capture_haml do %>
-                  <% block.call day, sorted_events.fetch(day, []) %>
-                <% end %>
-              <% else %>
-                <% block.call day, sorted_events.fetch(day, []) %>
-              <% end %>
-            <% end %>
+          <% date_range.slice(0, 7).each do |day| %>
+            <th><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
           <% end %>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% date_range.each_slice(7) do |week| %>
+          <tr>
+            <% week.each do |day| %>
+              <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+                <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(block) %>
+                  <% capture_haml do %>
+                    <% block.call day, sorted_events.fetch(day, []) %>
+                  <% end %>
+                <% else %>
+                  <% block.call day, sorted_events.fetch(day, []) %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+
 </div>
