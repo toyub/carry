@@ -92,9 +92,9 @@ jQuery(function($){
                    html += data.todo.id
                    html += "'>"
                    html += "</span><div class='item-content'>"
-                   html += "<span>"
+                   html += "<span class='text acronyms js-text_"+ data.todo.id + "'>"
                    html += data.todo.content
-                   html += "</span><i class='lnr lnr-chevron-down'></i>"
+                   html += "</span><i class='lnr lnr-chevron-down js-lnr' data-id='"+ data.todo.id +"'></i>"
                    html += "</div></li>"
               allTodos();
               $("ul.js-planning-list").append(html);
@@ -130,9 +130,9 @@ jQuery(function($){
                       html += todo.id
                       html += "'>"
                       html += "</span><div class='item-content'>"
-                      html += "<span>"
+                      html += "<span class='text acronyms js-text_"+ todo.id + "'>"
                       html += todo.content
-                      html += "</span><i class='lnr lnr-chevron-down'></i>"
+                      html += "</span><i class='lnr lnr-chevron-down js-lnr' data-id='"+ todo.id +"'></i>"
                       html += "</div></li>"
                 });
               };
@@ -163,9 +163,9 @@ jQuery(function($){
                   html += todo.id
                   html += "'>"
                   html += "</span><div class='item-content'>"
-                  html += "<span>"
+                  html += "<span class='text acronyms js-text_"+ todo.id + "'>"
                   html += todo.content
-                  html += "</span><i class='lnr lnr-chevron-down'></i>"
+                  html += "</span><i class='lnr lnr-chevron-down js-lnr' data-id='"+ todo.id +"'></i>"
                   html += "</div></li>"
                 });
               };
@@ -192,9 +192,9 @@ jQuery(function($){
                   html += todo.id
                   html += " id='check_" + todo.id +"'>"
                   html += "</span><div class='item-content'>"
-                  html += "<span>"
+                  html += "<span class='text acronyms js-text_"+ todo.id + "'>"
                   html += todo.content
-                  html += "</span><i class='lnr lnr-chevron-down'></i>"
+                  html += "</span><i class='lnr lnr-chevron-down js-lnr' data-id='"+ todo.id +"'></i>"
                   html += "</div></li>"
                 });
               };
@@ -209,30 +209,43 @@ jQuery(function($){
           type: "get",
           success: function(data){
             doneTodos();
+            highLightDoneTodo();
             ZhanchuangAlert(data.msg);
           }
         });
       });
 
-      $(document).on('click', 'a#done-todos', function(){
-        doneTodos();
+      function highLightDoneTodo(){
         $("#done-todos").attr("class", "active")
         $("#unfinished-todos").attr("class", "");
         $("#all-todos").attr("class", "");
+      };
+
+      function highLightUnfinishedTodo(){
+        $("#unfinished-todos").attr("class", "active");
+        $("#all-todos").attr("class", "");
+        $("#done-todos").attr("class", "");
+      };
+
+      function highLightAllTodo(){
+        $("#unfinished-todos").attr("class", "");
+        $("#all-todos").attr("class", "active");
+        $("#done-todos").attr("class", "");
+      };
+
+      $(document).on('click', 'a#done-todos', function(){
+        doneTodos();
+        highLightDoneTodo();
       });
 
       $(document).on('click', 'a#unfinished-todos', function(){
         unfinishedTodos();
-        $("#unfinished-todos").attr("class", "active");
-        $("#all-todos").attr("class", "");
-        $("#done-todos").attr("class", "")
+        highLightUnfinishedTodo();
       });
 
       $(document).on('click', 'a#all-todos', function(){
         allTodos();
-        $("#unfinished-todos").attr("class", "");
-        $("#all-todos").attr("class", "active");
-        $("#done-todos").attr("class", "")
+        highLightAllTodo();
       });
 
 
