@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427043254) do
+ActiveRecord::Schema.define(version: 201604198905987) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1194,11 +1194,11 @@ ActiveRecord::Schema.define(version: 20160427043254) do
     t.integer  "store_id",                                                                             null: false
     t.integer  "store_chain_id",                                                                       null: false
     t.integer  "store_staff_id",                                                                       null: false
-    t.integer  "store_material_root_category_id",                                                      null: false
-    t.integer  "store_material_category_id",                                                           null: false
-    t.integer  "store_material_unit_id",                                                               null: false
-    t.integer  "store_material_manufacturer_id",                                                       null: false
-    t.integer  "store_material_brand_id",                                                              null: false
+    t.integer  "store_material_root_category_id"
+    t.integer  "store_material_category_id"
+    t.integer  "store_material_unit_id"
+    t.integer  "store_material_manufacturer_id"
+    t.integer  "store_material_brand_id"
     t.string   "name",                            limit: 100,                                          null: false
     t.string   "barcode",                         limit: 45
     t.string   "mnemonic",                        limit: 45
@@ -1268,6 +1268,8 @@ ActiveRecord::Schema.define(version: 20160427043254) do
     t.string   "package_item_type"
     t.integer  "package_item_id"
     t.integer  "chain_business_model_id",                                           default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+    t.boolean  "need_temporary_purchase",                                           default: false
+    t.integer  "has_purchased_quantity",                                            default: 0
   end
 
   add_index "store_order_items", ["orderable_id"], name: "orderable", using: :btree
