@@ -4,6 +4,7 @@
     <li id='js-show-orderable-services'  data-target=".js-orderables-services">服务</li>
     <li id='js-show-orderable-packages'  data-target=".js-orderables-packages">套餐</li>
     <li id='js-show-orderable-assets'    data-target='.js-orderables-assets'>客户资产</li>
+    <li id='js-show-zidingyi'            data-target='.js-zidingyi'>自定义</li>
   </ul>
 </div>
 
@@ -97,4 +98,7 @@
 
 <div class="order_item order_vip js-orderables-assets">
 	<div class="card_item" id='js-orderables-assets'></div>
+</div>
+
+<div class="order_item order_custom add_material js-add-materials" data-id="custom">
 </div>

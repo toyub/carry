@@ -58,6 +58,9 @@ Rails.application.routes.draw do
       resources :material_orders
       resources :assessments, controller: 'store_supplier_assessments'
     end
+    resources :temporary_material_orders do
+      resources :material_orders
+    end
     resources :outings
     namespace :transfer do
       resources :pickings
@@ -280,6 +283,7 @@ Rails.application.routes.draw do
   namespace :api do
 
     resources :store_materials, only: :index
+    resources :store_temporary_items, only: [:index, :show]
     resources :consumable_store_materials, only: :index
     resources :store_material_categories, only: :index
 
@@ -327,7 +331,7 @@ Rails.application.routes.draw do
     end
     #Order end
 
-
+    resources :sale_categories, only: :index
     resources :store_staff, only: [:index, :update] do
       get 'check_phone', on: :collection
     end
@@ -469,6 +473,11 @@ Rails.application.routes.draw do
       namespace :cashier do
         resources :orders
       end
+
+      namespace :zidingyi do
+        resources :store_materials
+      end
+
     end
 
     namespace :crm do
