@@ -1,0 +1,143 @@
+.work-floatwindow-wrap{
+  border: 1px solid #cfcfcf;
+  width: 1142px;
+  height: 731px;
+  background: #fff;
+  margin-left: 24px;
+  position: absolute;
+  top: 190px;
+
+  .work-floatwindow{
+    padding: 0 16px;
+    .title{
+      display: flex;
+      height: 60px;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #dedede;
+
+      h3{
+        font-size: 18px;
+        color: #4d4d4d;
+        font-weight: 100;
+        padding: 0 8px;
+      }
+
+      a{
+        margin-bottom: 20px;
+      }
+
+      i{
+        font-size: 18px;
+        color: #b8b8b8;
+      }
+    }
+
+    .menu{
+      height: 612px;
+      box-sizing: border-box;
+      overflow-y: scroll;
+
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 6px;
+        border: 0;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: #e5e5e5;
+      }
+
+      &::-webkit-scrollbar-track {
+        border-radius: 5px;
+      }
+
+      .item{
+        padding: 36px 0 0 22px;
+        overflow: auto;
+        h3{
+          font-size: 18px;
+          color: #4d4d4d;
+          font-weight: 100;
+        }
+
+        .menu-list{
+          padding: 22px 0 12px 0;
+          li{
+            display: inline-block;
+            margin-right: 9px;
+            float: left;
+
+            .sub-menu{
+              display: inline-block;
+              width: 93px;
+              height: 93px;
+              background: #00bcdc;
+              box-sizing: border-box;
+              padding: 10px 8px;
+              .menu-icons{
+                display: flex;
+                justify-content:space-between;
+                height: 51px;
+                .menu-icon{
+                  display: inline-block;
+                  color: #fff;
+                  font-size: 24px;
+                  width: 51px;
+                  text-align: center;
+                }
+                .check-icon{
+                  display: none;
+                }
+              }
+              .menu-name{
+                padding-top: 4px;
+                display: block;
+                color: #eee;
+                text-align: right;
+                font-size: 12px;
+              }
+            }
+          }
+
+          li.check{
+            .sub-menu{
+              background: #01899a;
+
+              .check-icon{
+                display: inline-block;
+                font-size: 24px;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .foot{
+      height: 58px;
+      border-top: 1px solid #cfcfcf;
+      box-sizing: border-box;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      padding: 0 36px;
+      justify-content: flex-end;
+      margin: 0 -16px;
+      .confirm-btn{
+        width: 108px;
+        height: 36px;
+        line-height: 36px;
+        border: 1px solid #1f70c4;
+        background: #3498db;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
