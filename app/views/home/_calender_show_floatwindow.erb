@@ -10,12 +10,12 @@
     </div>
     <a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a>
     <div class="chevrons">
-      <%= render 'schedules_nav', current_schedule: current_schedule %>
+      <%= render '/home/schedules_nav', current_schedule: current_schedule %>
     </div>
   </div>
   <div class="add-new-event-form" >
     <div class="schedule-detail">
-      <%= render 'current_schedule', current_schedule: current_schedule %>
+      <%= render '/home/current_schedule', current_schedule: current_schedule %>
     </div>
   </div>
 </div>

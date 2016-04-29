@@ -7,6 +7,10 @@ module Api
         @schedules = current_user.schedules
       end
 
+      def search
+        @schedules = current_user.schedules.by_date((Date.parse(params[:date]) if params[:date].present?) )
+      end
+
       def show
         @schedule = current_user.schedules.find(params[:id])
       end
