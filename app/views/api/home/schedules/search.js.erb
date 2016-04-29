@@ -1,1 +1,4 @@
-$(".show-floatwindow-wrap").html("<%=j render '/home/calender_show_floatwindow' %>")
+console.log(<%= @schedules.count %>);
+<% if @schedules.present? %>
+  $(".show-floatwindow-wrap").html("<%=j render '/home/calender_show_floatwindow' %>")
+<% end %>
