@@ -12,9 +12,17 @@
         <h3><%= root_category[:name]%></h3>
         <ul class="menu-list">
           <% root_category[:sub_categories].each do |work| %>
-            <li class="<%= 'check' if current_user.works.include?(work[:idx].to_s) %>">
+          <% if current_user.works.present?%>
+            <li class="<%= 'check' if current_user.works.include?(work[:idx].to_s)  %>">
+          <% else %>
+            <li>
+          <% end %>
               <a href="javascript:void(0)" class="sub-menu js-sub-menu" data-id="<%= work[:idx]%>" >
-                <input type="hidden" name="works[<%= work[:idx]%>]" id="<%= work[:idx]%>" value="<%= work[:idx] if current_user.works.include?(work[:idx].to_s) %>" >
+                <% if current_user.works.present?%>
+                  <input type="hidden" name="works[<%= work[:idx]%>]" id="<%= work[:idx]%>" value="<%= work[:idx] if current_user.works.include?(work[:idx].to_s) %>" >
+                <% else %>
+                  <input type="hidden" name="works[<%= work[:idx]%>]" id="<%= work[:idx]%>" value="" >
+                <% end %>
                 <div class="menu-icons">
                   <i class="fa fa-users menu-icon"></i>
                   <i class="fa fa-check check-icon"></i>
