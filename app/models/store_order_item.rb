@@ -12,6 +12,7 @@ class StoreOrderItem < ActiveRecord::Base
   has_one :store_service_snapshot
   has_many :store_service_workflow_snapshots
   has_many :store_staff_tasks
+  has_many :mechanics, class_name: 'StoreStaff', through: :store_staff_tasks
 
   before_save :set_amount
   before_create :set_store_info
@@ -20,6 +21,7 @@ class StoreOrderItem < ActiveRecord::Base
   scope :packages, -> { where(orderable_type: "StorePackage") }
   scope :services, -> { where(orderable_type: ["StoreService", 'StoreMaterialSaleinfoService']) }
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
+  scope :temporary_materials, -> { where(orderable_type: "StoreMaterialSaleinfo", need_temporary_purchase: true) }
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month..month.at_end_of_month) }
   scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
@@ -40,10 +42,6 @@ class StoreOrderItem < ActiveRecord::Base
 
   def cal_amount
     _amount()
-  end
-
-  def mechanics
-    ['王晓勇', '李明亮']
   end
 
   def assetable_item?
@@ -68,7 +66,7 @@ class StoreOrderItem < ActiveRecord::Base
      standard_volume: self.standard_volume_per_bill,
      actual_volume: self.actual_volume_per_bill,
      numero: self.store_order.numero,
-     mechanics: self.mechanics,
+     mechanics: self.mechanics.pluck(:full_name),
      cost_price_per_unit: self.cost_price,
      total_cost: self.total_cost
     }
@@ -126,7 +124,7 @@ class StoreOrderItem < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       self.store_service_snapshot.destroy if self.store_service_snapshot.present?
       self.store_service_workflow_snapshots.map(&->(workflow){workflow.remove!})
-      self.store_service_workflow_snapshots.delete_all
+      self.store_service_workflow_snapshots.destroy_all
     end
   end
 

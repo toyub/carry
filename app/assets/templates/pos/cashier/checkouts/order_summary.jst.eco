@@ -4,6 +4,11 @@
     <img src="/images/small_car.png" class="width-80"></img>
   </div>
   <div>
-    <span>订单金额:</span>
-    <span class="margin-left-5"><i class="fa fa-jpy"></i><%= @amount %></span>
+    <p>
+      <span class="margin-left-5">#<%= @numero %></span>
+    </p>
+    <p>
+      <span>订单金额:</span>
+      <span class="margin-left-5"><i class="fa fa-jpy"></i><%= @amount %></span>
+    </p>
   </div>

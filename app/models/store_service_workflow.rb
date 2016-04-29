@@ -44,11 +44,15 @@ class StoreServiceWorkflow < ActiveRecord::Base
   end
 
   def snapshot_attrs(options = {})
-    self.attributes.symbolize_keys.except(
+    _attrs = self.attributes.symbolize_keys.except(
       :id,
       :created_at,
       :updated_at,
       :store_service_id).merge(options)
+    if _attrs[:name].blank?
+      _attrs[:name] = '常规流程'
+    end
+    _attrs
   end
 
   def work_time_in_minutes

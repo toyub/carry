@@ -30,32 +30,25 @@ class StoreOrder < ActiveRecord::Base
   scope :paid_on, ->(date){where(paid_at: date.beginning_of_day..date.end_of_day)}
 
   scope :available, -> {where(deleted: false)}
+  scope :task_finished_on, ->(date){where(task_finished_at: date.beginning_of_day..date.end_of_day)}
+  scope :by_numero, ->(numero) { where("numero like ?", "%#{numero}%") if numero.present? }
+  scope :need_temporary_purchase, -> { joins(:items).where('store_order_items.need_temporary_purchase is true').group("store_orders.id") }
 
   enum state: %i[pending queuing processing paying finished pausing]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]
   enum pay_status: %i[pay_pending pay_queuing pay_hanging pay_finished]
+  enum waiting_area_id: %i[ waiting_in_queue waiting_in_workstation ]
 
   before_create :set_numero
 
   before_save :set_amount
+  before_save :service_included_check
 
   accepts_nested_attributes_for :items
 
   validates_presence_of :items, :store_customer, :store_vehicle
 
   belongs_to :cashier, class_name: 'StoreStaff', foreign_key: 'cashier_id'
-
-  def self.counts_by_state(date_time = Time.now)
-    counts = self.where('created_at BETWEEN ? AND ?', date_time.beginning_of_day, date_time.end_of_day)
-                 .group(:state).count(:id)
-    {
-      pending: counts[StoreOrder.states[:pending]].to_i,
-      queuing: counts[StoreOrder.states[:queuing]].to_i,
-      processing: counts[StoreOrder.states[:processing]].to_i,
-      paying: counts[StoreOrder.states[:paying]].to_i,
-      finished: counts[StoreOrder.states[:finished]].to_i
-    }
-  end
 
   def state_i18n
     I18n.t self.state, scope: [:enums, :store_order, :state]
@@ -106,53 +99,23 @@ class StoreOrder < ActiveRecord::Base
     self.store_vehicle.license_number
   end
 
-  def finish!
-    terminate! if workflows_finished?
+  def task_status_i18n
+    I18n.t self.task_status, scope: [:enums, :store_order, :task_status]
   end
 
-  def terminate!
-    self.task_finished!
-    self.paid? ? self.finished! : self.paying!
+  def repayment_remaining
+    self.amount.to_f - self.filled.to_f
   end
 
-  def terminate
-    ActiveRecord::Base.transaction do
-      self.terminate!
-      self.workflows.unfinished.map(&:terminate!)
-      self.workflows.last.send_sms
+  def repay!(filled)
+    self.update!(filled: self.filled.to_f + filled.to_f)
+    if self.filled == self.amount
+      self.pay_finished!
     end
   end
 
-  def settle_down
-    if self.paying?
-      self.state = :finished
-    end
-  end
-
-  def settle_down!
-    if self.paying?
-      self.finished!
-    end
-  end
-
-  def workflows_finished?
-    workflows.all? { |w| w.finished? }
-  end
-
-  def execute!
-    return self.paying! if !executeable?
-    self.update(service_included: true)
-    ActiveRecord::Base.transaction do
-      construction_items.each do |item|
-        service = item.orderable
-        service.to_snapshot!(item)
-      end
-      if self.task_finished? || self.task_pending?
-        self.task_queuing!
-        self.queuing!
-        SpotDispatchJob.perform_now(self.store_id)
-      end
-    end
+  def payment_methods
+    payments.map {|payment| payment.payment_method_cn_name }.join(',')
   end
 
   def situation
@@ -175,89 +138,193 @@ class StoreOrder < ActiveRecord::Base
     end
   end
 
-  def task_status_i18n
-    I18n.t self.task_status, scope: [:enums, :store_order, :task_status]
-  end
-
-  def repayment_remaining
-    self.amount.to_f - self.filled.to_f
-  end
-
-  def payment_methods
-    payments.map {|payment| payment.payment_method_cn_name }.join(',')
-  end
-
-  def execution_job
-    OrderExecutionJob.perform_now(id)
-  end
-
-  def repay!(filled)
-    self.update!(filled: self.filled.to_f + filled.to_f)
-    if self.filled == self.amount
-      self.pay_finished!
+  def settle_down
+    if self.paying?
+      self.state = :finished
     end
   end
 
-  def assign_mechanics
-    self.workflows.pending.order("created_at asc").map(&:assign_mechanics)
-    self.workflows.pending.order("created_at asc").map(&:set_mechanic_busy)
+  def settle_down!
+    if self.paying?
+      self.finished!
+    end
+  end
+
+  def workflows_finished?
+    workflows.all? { |w| w.finished? }
+  end
+
+  def complete!
+    self.task_finished_at = Time.now
+    self.paid? ? self.finished! : self.paying!
+    self.task_finished!
+  end
+
+  def force_finish!
+    discontinue!
+    self.paid? ? self.finished! : self.paying!
+  end
+
+  def execution_job
+    if self.service_included
+      actualize
+      try_to_execute
+    else
+      self.task_finished!
+      self.paying!
+    end
+    self.pay_queuing!
+    self
+  end
+
+  def discontinue!
+    self.store_service_snapshots.unfinished.each(&->(service){ service.discontinue!})
+    self.task_finished_at = Time.now
+    self.task_finished!
+    self.finished!
+    #Send message tell the customer that his/her order is droped!
   end
 
   def waste!
+    discontinue!
     self.items.each(&->(item){item.waste!})
     self.update!(deleted: true)
   end
 
-  def play!(from = 'processing')
-    workflow = self.workflows.processing.first || self.workflows.pending.first
-    if from == 'queuing'
+  def continue_execute!(workstation)
+    service = self.store_service_snapshots.not_deleted.in_executable_state.order_by_itemd.first
+    if service.present?
+      workflow = service.workflow_snapshots.not_deleted.in_executable_state.order_by_flow.first
+      if workflow.present?
+        workflow.find_a_workstaion_and_execute_otherwise_waiting_in(workstation)
+      end
+    end
+  end
+
+  def play!
+    service = self.store_service_snapshots.not_deleted.in_executable_state.order_by_itemd.first
+    if service.present?
+      workflow = service.workflow_snapshots.not_deleted.in_executable_state.order_by_flow.first
+      if workflow.present?
+        if workflow.store_workstation.present?
+          if workflow.executable?(workflow.store_workstation)
+            workflow.execute(workflow.store_workstation)
+          end
+          return workflow
+        else
+          workflow.errors.add(:workstation, '请先指定施工的工位')
+          return workflow
+        end
+      end
+    end
+    nil
+  end
+
+  def replay!
+    if self.waiting_in_queue?
       self.queuing!
       self.task_queuing!
     else
       self.processing!
       self.task_processing!
-      workflow.play!
+    end
+    self.store_service_snapshots.pausing.each do |service|
+      service.replay!
     end
   end
 
   def pause_in_queuing_area!
-    workflow = self.workflows.processing.first || self.workflows.pending.first
-    workflow.pause_in_queuing_area! if self.task_processing?
     self.pausing!
     self.task_pausing!
+    self.waiting_in_queue!
+    self.store_service_snapshots.not_deleted.not_finished.each do |service|
+      service.pause_in_queue!
+    end
   end
 
   def pause_in_workstation!
-    workflow = self.workflows.processing.first || self.workflows.pending.first
-    workflow.pause_in_workstation!
     self.pausing!
     self.task_pausing!
+    self.waiting_in_workstation!
+    self.store_service_snapshots.not_deleted.not_finished.each do |service|
+      service.pause_in_workstation!
+    end
   end
 
-  def self.waiting_in_queuing_area
-    self.waiting.reject { |o| o.task_pausing? && o.waiting_in_workstation? }
-  end
-
-  def waiting_in_workstation?
-    workflow = self.workflows.processing.first || self.workflows.pending.first
-    workflow.waiting_in_workstation?
+  def current_workflow
+    workflows.actively.first
   end
 
   private
-    def construction_items
-      self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
-    end
 
-    def executeable?
-      construction_items.present?
+  def try_to_execute
+    if self.pending?
+      self.queuing!
+      self.task_queuing!
+      execute_the_first_service
+    elsif self.processing?
+      workflow = current_workflow
+      if workflow.blank?
+        if self.workflows.not_deleted.count(:id) == self.workflows.not_deleted.finished.count(:id) #已经都结束了
+          self.complete!
+        else
+          execute_the_first_service
+        end
+      else
+        if workflow.dilemma?
+          workflow.find_a_workstaion_and_execute
+        end
+      end
+    elsif self.queuing?
+      execute_the_first_service
+    elsif self.pausing?
+      if self.waiting_in_queue?
+        self.store_service_snapshots.not_pausing.each(&->(service){service.pause_in_queue!})
+      else
+        self.store_service_snapshots.not_pausing.each(&->(service){service.pause_in_workstation!})
+      end
     end
+  end
 
-    def set_numero
-      idx = store.store_orders.today.count + 1
-      self.numero = Time.now.to_date.to_s(:number) + idx.to_s.rjust(7, '0')
+  def actualize
+    if actualization_demand_exists?
+      self.update(service_included: true)
+      actualization_demands.each do |item|
+        service = item.orderable
+        service.to_snapshot!(item)
+      end
     end
+  end
 
-    def set_amount
-      self.amount = self.items.map(&:cal_amount).sum
+  def execute_the_first_service
+    service = self.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+    if service.present?
+      workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+      if workflow.present?
+        workflow.find_a_workstaion_and_execute
+      end
     end
+  end
+
+  def actualization_demands
+    self.items.services.where.not(id: self.store_service_snapshots.pluck(:store_order_item_id))
+  end
+
+  def actualization_demand_exists?
+    actualization_demands.exists?
+  end
+
+  def set_numero
+    idx = store.store_orders.today.count + 1
+    self.numero = Time.now.to_date.to_s(:number) + idx.to_s.rjust(7, '0')
+  end
+
+  def set_amount
+    self.amount = self.items.map(&:cal_amount).sum
+  end
+
+  def service_included_check
+    self.service_included = self.items.any?(&->(item){item.orderable_type == StoreService.name || item.orderable_type == StoreMaterialSaleinfoService.name })
+    self
+  end
 end

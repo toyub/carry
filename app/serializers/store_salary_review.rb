@@ -13,7 +13,7 @@ class StoreSalaryReview
   private
   def default_salary_params(staff)
     {
-      amount_deduction: staff.commission_amount_total,
+      amount_deduction: staff.commission_amount_total.to_f.round(2),
       deduction: {
         shigong: staff.services_commission,
         shangpin: staff.materials_commission,

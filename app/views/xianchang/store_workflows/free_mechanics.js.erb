@@ -1,4 +1,8 @@
 $("#workflow-<%= @workflow.id %>").empty();
-<% @mechanics.each do |m| -%>
-  $("#workflow-<%= @workflow.id %>").append("<%= j render partial: 'mechanic', locals: {mechanic: m} %>");
-<% end -%>
+<% if @mechanics.blank? %>
+  $("#workflow-<%= @workflow.id %>").append('<li>没有合适技师可供选择。</li>');
+<% else %>
+  <% @mechanics.each do |m| -%>
+    $("#workflow-<%= @workflow.id %>").append("<%= j render partial: 'mechanic', locals: {mechanic: m} %>");
+  <% end -%>
+<% end %>

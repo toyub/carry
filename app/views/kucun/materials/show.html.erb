@@ -46,33 +46,33 @@
           <div class="item_content">
             <label class="width-75">一级分类</label>
             <select  class="width-167" disabled>
-              <option selected="selected"><%= @store_material.store_material_root_category.name %></option>
+              <option selected="selected"><%= @store_material.store_material_root_category.try(:name) %></option>
             </select>
 
           </div>
           <div class="item_content">
             <label class="width-75">二级分类</label>
             <select  class="width-167" disabled>
-              <option selected="selected"><%= @store_material.store_material_category.name %></option>
+              <option selected="selected"><%= @store_material.store_material_category.try(:name) %></option>
             </select>
           </div>
 
           <div class="item_content">
             <label class="width-75">商品单位</label>
             <select class="width-167" disabled="disabled">
-              <option selected="selected"><%= @store_material.store_material_unit.name %></option>
+              <option selected="selected"><%= @store_material.store_material_unit.try(:name) %></option>
             </select>
           </div>
           <div class="item_content">
             <label class="width-75">商品品牌</label>
             <select class="width-167" disabled>
-              <option selected="selected" ><%= @store_material.store_material_brand.name %></option>
+              <option selected="selected" ><%= @store_material.store_material_brand.try(:name) %></option>
             </select>
           </div>
           <div class="item_content">
             <label class="width-75">生产单位</label>
             <select class="width-167" disabled>
-              <option selected="selected"><%= @store_material.store_material_manufacturer.name %></option>
+              <option selected="selected"><%= @store_material.store_material_manufacturer.try(:name) %></option>
             </select>
           </div>
           <div class="item_content outline item_property text-align-left">
