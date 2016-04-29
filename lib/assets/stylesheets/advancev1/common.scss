@@ -313,11 +313,37 @@ main{
             margin-left: 21px;
             margin-bottom: 18px;
             box-shadow: 0 5px 5px 0 rgba(0,0,0,0.31);
+
+
             .item-icon{
               height: 60px;
+              position: relative;
               i{
                 color: #fff;
-                font-size: 40px;
+                font-size: 30px;
+              }
+            }
+            .close{
+              font-size: 12px;
+              position: absolute;
+              right: -14px;
+              top: -12px;
+              width: 18px;
+              height: 18px;
+              border-radius: 10px;
+              text-align: center;
+              i{
+                font-size: 12px;
+                color: #abf4fd;
+                visibility: hidden;
+              }
+
+              &:hover{
+                background: #df5640;
+                i{
+                  color: #fff;
+                  visibility: visible;
+                }
               }
             }
 
