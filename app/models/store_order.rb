@@ -30,13 +30,10 @@ class StoreOrder < ActiveRecord::Base
   scope :paid_on, ->(date){where(paid_at: date.beginning_of_day..date.end_of_day)}
 
   scope :available, -> {where(deleted: false)}
-<<<<<<< HEAD
   scope :hanging, -> { where(hanging: true) }
 
   scope :need_temporary_purchase, -> { joins(:items).where('store_order_items.need_temporary_purchase is true').group("store_orders.id") }
-=======
   scope :task_finished_on, ->(date){where(task_finished_at: date.beginning_of_day..date.end_of_day)}
->>>>>>> ca660a8234f8f7951fce57bc9e42a2d66d08476b
   scope :by_numero, ->(numero) { where("numero like ?", "%#{numero}%") if numero.present? }
   scope :need_temporary_purchase, -> { joins(:items).where('store_order_items.need_temporary_purchase is true').group("store_orders.id") }
 
