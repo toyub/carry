@@ -11,6 +11,7 @@ class HomeController < ApplicationController
     @store_trackings = current_store.today_trackings
     @todos = current_user.todos.order("id desc")
     @schedules = current_user.schedules
+    @mechanics = current_store.store_group_members.available
   end
 
 
