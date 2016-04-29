@@ -13,6 +13,7 @@ main{
   .row{
     width: 100%;
     display: flex;
+    padding-bottom: 15px;
 
     .col-left{
       width: 1166px;
@@ -313,8 +314,10 @@ main{
 
     .col-center{
       width: 374px;
+      position: relative;
 
       .calendar{
+        width: 350px;
         height: 444px;
         border: 1px solid #cfcfcf;
         background: #e5e5e5;
@@ -326,7 +329,6 @@ main{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #cfcfcf;
 
             .add-btn, .show-btn{
               border: 1px solid #cfcfcf;
