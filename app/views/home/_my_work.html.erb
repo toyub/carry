@@ -1,23 +1,3 @@
-<!-- <ul class="work-menu js-work-menu">
-  <% if current_user.works.present? %>
-   <% @works.each do |root_category|%>
-    <% root_category[:sub_categories].each do |work| %>
-      <% if current_user.works.include?(work[:idx].to_s) %>
-        <li class="item">
-          <a href="<%= work[:url]%>">
-            <div class="item-icon">
-              <i class="fa fa-cubes"></i>
-            </div>
-            <span class="item-menu"><%= work[:name]%></span>
-          </a>
-        </li>
-      <% end %>
-    <% end %>
-   <% end %>
-  <% end %>
-</ul> -->
-
-
 <ul class="work-menu js-work-menu">
   <% @my_works.each do |work| %>
     <li class="item">
