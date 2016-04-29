@@ -91,3 +91,87 @@ works:
         name: 供应商列表
         url: /srm/store_suppliers
         idx: 17
+  -
+    name: 员工管理
+    code: soa
+    sub_categories:
+      -
+        name: 员工列表
+        url: /soa/staff
+        idx: 18
+      -
+        name: 考勤奖励
+        url: /soa/events
+        idx: 19
+      -
+        name: 绩效提成
+        url: /soa/performance
+        idx: 20
+      -
+        name: 薪资管理
+        url: /soa/salaries
+        idx: 21
+  -
+    name: 财务管理
+    code: ais
+    sub_categories:
+      -
+        name: 收入
+        url: /ais/incomes
+        idx: 22
+      -
+        name: 成本
+        url: /ais/costs
+        idx: 23
+      -
+        name: 往来
+        url: /ais/material_orders
+        idx: 24
+  -
+    name: 统计分析
+    code: sas
+    sub_categories:
+      -
+        name: 销售
+        url: /sas/sells
+        idx: 25
+      -
+        name: 客户
+        url: /sas/customers
+        idx: 26
+  -
+    name: 设置
+    code: settings
+    sub_categories:
+      -
+        name: 门店信息
+        url: /settings/store
+        idx: 27
+      -
+        name: 结算信息
+        url: /settings/settlements/accounts
+        idx: 28
+      -
+        name: 组织架构
+        url: /settings/organizational_structure
+        idx: 29
+      -
+        name: 权限设置
+        url: /settings/privileges
+        idx: 30
+      -
+        name: 提成方案
+        url: /settings/commission_templates
+        idx: 31
+      -
+        name: 仓库管理
+        url: /settings/depots
+        idx: 32
+      -
+        name: 类别设置
+        url: /settings/material_categories
+        idx: 33
+      -
+        name: 短信设置
+        url: /settings/sms/topups
+        idx: 34
