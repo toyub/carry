@@ -9,7 +9,7 @@
 
 
   <div class="table-wrap">
-    <table class="table table-striped">
+    <table class="table table-striped" data-month=<%= date_range[7].strftime("%Y-%m") %>>
       <thead>
         <tr>
           <% date_range.slice(0, 7).each do |day| %>

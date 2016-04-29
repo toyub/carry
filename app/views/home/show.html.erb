@@ -78,15 +78,3 @@
   </div>
 
 </div>
-
-<script type="text/javascript">
-  jQuery(function($){
-    $(".js-add-event, .js-show-events").on('click', function(){
-      var target_wrap  = $(this).data('target');
-      $(target_wrap).slideDown();
-      $(target_wrap).on("click", '.cancel-btn, .close', function(){
-        $(target_wrap).slideUp();
-      })
-    })
-  });
-</script>
