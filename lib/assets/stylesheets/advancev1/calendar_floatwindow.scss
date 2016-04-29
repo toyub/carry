@@ -1,0 +1,144 @@
+.calendar-floatwindow-wrap{
+  position: absolute;
+  top: 393px;
+  z-index: 10;
+}
+
+.calendar-floatwindow{
+  width: 351px;
+  height: 474px;
+  border: 1px solid#cfcfcf;
+  background: #fff;
+  box-shadow: 0 3px 12px 0 rgba(0,0,0,0.18);
+  margin-left: 24px;
+  box-sizing: border-box;
+  position: relative;
+
+  .close{
+    position: absolute;
+    right: 9px;
+    top: 6px;
+    font-size: 14px;
+    color: #b8b8b8;
+    z-index: 11;
+  }
+
+  .add-new-event-form{
+    .field{
+
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-bottom: 11px;
+
+      .form-label{
+        font-size: 14px;
+        color: #4d4d4d;
+        margin-right: 10px;
+      }
+
+      .form-input{
+
+        height: 36px;
+        border-radius: 5px;
+        background: #fff;
+        border: 1px solid #cfcfcf;
+        box-sizing: border-box;
+
+        &[placeholder]{
+          font-size: 14px;
+          color: #b8b8b8;
+        }
+      }
+
+      i{
+        position: absolute;
+        right: 34px;
+        top: 10px;
+      }
+    }
+
+    .title{
+      height: 65px;
+      background: #fafafa;
+      border-bottom: 1px solid #cfcfcf;
+      padding: 0 22px;
+
+      .form-input{
+        width: 263px;
+      }
+    }
+
+
+    .start-time, .end-time{
+      padding: 0 12px;
+      margin:0 10px;
+      .form-input{
+        width: 234px;
+      }
+    }
+
+    .start-time{
+      margin-top: 18px;
+      padding-bottom: 11px;
+    }
+
+    .end-time{
+      padding-bottom: 18px;
+      border-bottom: 1px dashed #cfcfcf;
+    }
+
+    .remarks{
+      display: block;
+      padding: 0 22px;
+      .form-label{
+        height: 44px;
+        box-sizing: border-box;
+        padding-top: 18px;
+        display: block;
+      }
+
+      .form-textarea{
+        width: 302px;
+        border: 1px solid #cfcfcf;
+        height: 166px;
+        border-radius: 5px;
+      }
+    }
+
+    .foot{
+      height: 54px;
+      margin-top: 17px;
+      background: #fafafa;
+      box-sizing: border-box;
+      border-top: 1px solid #cfcfcf;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 26px;
+
+      .save-btn, .cancel-btn{
+        width: 90px;
+        height: 30px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-align: center;
+        line-height: 30px;
+        border: 1px solid #cfcfcf;
+      }
+
+      .save-btn{
+        background: #3498db;
+        color: #fff;
+        margin-right: 11px;
+      }
+
+      .cancel-btn{
+        background: #ededed;
+        color: #5c5c5c;
+      }
+    }
+  }
+
+
+}

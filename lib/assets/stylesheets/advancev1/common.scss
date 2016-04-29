@@ -1,5 +1,9 @@
 body{
   background: #ededed;
+
+  .sidemenu{
+    display: none;
+  }
 }
 main{
   margin-top: 60px;
@@ -312,6 +316,36 @@ main{
 
       .calendar{
         height: 444px;
+        border: 1px solid #cfcfcf;
+        background: #e5e5e5;
+
+        .calendar-wrap{
+          .calendar-controls{
+            height: 50px;
+            padding: 0 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #cfcfcf;
+
+            .add-btn, .show-btn{
+              border: 1px solid #cfcfcf;
+              background: #ededed;
+              width: 84px;
+              height: 30px;
+              line-height: 30px;
+              text-align: center;
+              font-size: 14px;
+              color: #4c4c4c;
+              border-radius: 5px;
+              i{
+                font-size: 16px;
+                color: #a2a2a2;
+                padding-right: 5px;
+              }
+            }
+          }
+        }
       }
 
       .message-list{

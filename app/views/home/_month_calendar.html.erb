@@ -1,0 +1,8 @@
+<%= month_calendar events: @schedules do |date, schedules| %>
+  <%= date.strftime("%d") %>
+  <% schedules.each do |s| %>
+    <div>
+      <%= s.title %>
+    </div>
+  <% end %>
+<% end %>
