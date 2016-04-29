@@ -56,8 +56,8 @@
     </div>
 
     <div class="floatwindow">
-      <div class="calendar-floatwindow-wrap">
-        <%= render 'calendar_floatwindow'%>      
+      <div class="calendar-floatwindow-wrap" style="display:none">
+        <%= render 'calendar_floatwindow'%>
       </div>
     </div>
 
@@ -240,6 +240,13 @@ jQuery(function($){
            }
          });
    	 });
+
+    $(".js-add-event").on('click', function(){
+      $(".calendar-floatwindow-wrap").slideDown();
+      $(".cancel-btn, .close").click(function(){
+        $(".calendar-floatwindow-wrap").slideUp();
+      })
+    })
 
   });
 </script>

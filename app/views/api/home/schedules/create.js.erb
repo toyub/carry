@@ -1,2 +1,3 @@
-$(".calendar").html("<%=j render('/home/month_calendar') %>");
-$("#js-new-event").hide();
+$(".month_calendar").html("<%=j render('/home/month_calendar') %>");
+$(".calendar-floatwindow-wrap").slideUp();
+$('.calendar-floatwindow').find("input, textarea").not(":button, :submit, :hidden").val('');
