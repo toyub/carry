@@ -1,0 +1,3 @@
+class CircuitInspection
+  
+end

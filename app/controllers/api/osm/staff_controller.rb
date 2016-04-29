@@ -3,7 +3,8 @@ module Api
 
     class StaffController < BaseController
       def index
-        staff = current_store.store_staff.where(job_type_id: JobType.find_by_name('技师').id)
+        grouped_staff_ids = current_store.store_group_members.available.uniq.pluck(:member_id)
+        staff = current_store.store_staff.where(job_type_id: JobType.find_by_name('技师').id).where.not(id: grouped_staff_ids)
         respond_with staff.map { |staffi| StaffWithGroupSerializer.new(staffi).as_json(root: nil) }, location: nil
       end
 

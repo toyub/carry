@@ -1,0 +1,1 @@
+<li class="drag_staff" title='<%= @department_name %> <%= @position_name%> <%= @level_type_name %><%= @job_type_name %>' data-staff="<%= @id %>" id="staff_<%= @id %>" draggable="true"><%= @screen_name %></li>
