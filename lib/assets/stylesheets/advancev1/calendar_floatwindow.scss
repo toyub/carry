@@ -50,6 +50,7 @@
 
 .add-new-event-form{
   background: #fff;
+  height: 474px;
   .field{
     @include field;
     .form-label{
@@ -169,9 +170,61 @@
 
   .show-floatwindow{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     height: 100%;
+
+    .page{
+      width: 328px;
+      display: flex;
+      height: 33px;
+      align-items: center;
+
+      i{
+        color: #fff;
+      }
+
+      .page-numbers{
+
+        width: 318px;
+        text-overflow: ellipsis;
+        white-space:nowrap;
+        overflow: hidden;
+        color: #fff;
+        padding: 0 23px 0 6px;
+        .page-number{
+          color: #999;
+          font-size: 14px;
+          margin-left: 17px;
+
+          &.active{
+            color: #3498db;
+            background: none;
+          }
+        }
+      }
+
+      .chevrons{
+        a{
+          position: absolute;
+          top: 48%;
+
+
+          &.chevron-left{
+            left: 7px;
+          }
+
+          &.chevron-right{
+            right: 7px;
+          }
+          i{
+            font-size: 42px;
+            color: #999;
+          }
+        }
+      }
+    }
 
     .close{
       @include close;
