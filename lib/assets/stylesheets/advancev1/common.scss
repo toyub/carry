@@ -441,7 +441,7 @@ main{
           .planning-list{
             .item{
               display: flex;
-              height: 66px;
+              min-height: 66px;
               align-items: center;
 
               .choose-icon{
@@ -476,8 +476,7 @@ main{
               .item-content{
                 width: 248px;
                 border-bottom: 1px solid #dedede;
-                height: 45px;
-                line-height: 45px;
+                padding: 27px 0;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -487,7 +486,17 @@ main{
                   padding-left: 11px;
                   color: inherit;
                   font-size: 14px;
+                  line-height: 20px;
+
+                  &.acronyms{
+                    width: 230px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                  }
                 }
+
+
                 i{
                   margin-left: 15px;
                   color: inherit;
@@ -501,6 +510,7 @@ main{
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-end;
+            padding: 28px 0;
             .planning-controls{
               width: 246px;
               height: 45px;
@@ -532,7 +542,6 @@ main{
               color: #007aff;
               font-size: 14px;
             }
-
           }
         }
       }

@@ -287,6 +287,7 @@ Rails.application.routes.draw do
           get :clear_done
         end
       end
+      resource :store_staff
       resources :schedules
     end
 
