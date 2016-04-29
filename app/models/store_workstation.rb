@@ -14,41 +14,39 @@ class StoreWorkstation < ActiveRecord::Base
   enum status: [:idle, :busy, :unavailable]
 
   def working?
-    self.busy? && !self.current_workflow.try(:deleted)
-  end
-
-  def assign_workflow!
-    pending_workflows.each do |w|
-      w.execute!(self) and break if w.executable?(self)
+    if self.workflow_id.blank? || self.current_workflow.blank? || self.current_workflow.deleted
+      self.free
+      return false
+    else
+      return self.busy?
     end
   end
 
-  def pending_workflows
-    StoreServiceWorkflowSnapshot.of_store(store_id).pending.order("created_at asc").to_a.select do |w|
-      w.store_workstation_id == self.id || w.workstations.map(&:id).include?(self.id)
+  def assign_workflow!
+    self.store.store_orders.available.has_service.task_queuing.each do |order|
+      service = order.store_service_snapshots.not_deleted.pending.order_by_itemd.first
+      if service.present?
+        workflow = service.workflow_snapshots.not_deleted.pending.order_by_flow.first
+        if workflow.present?
+          if workflow.executable?(self)
+            workflow.execute!(self)
+            break
+          end
+        end
+      end
     end
   end
 
   def finish!
-    ActiveRecord::Base.transaction do
-      current_workflow.finish!
+    if self.workflow_id.blank? || self.current_workflow.blank? || self.current_workflow.deleted
       self.free
-      SpotDispatchJob.perform_now(self.store_id)
+      assign_workflow!
+      return true
     end
   end
 
   def free?
     current_workflow.blank?
-  end
-
-  def dispatch
-    if free?
-      SpotDispatchJob.perform_now(self.store_id)
-    else
-      if current_workflow.count_down <= 0
-        finish!
-      end
-    end
   end
 
   def free
@@ -57,11 +55,12 @@ class StoreWorkstation < ActiveRecord::Base
   end
 
   def perform!(store_order, workflow)
-    ActiveRecord::Base.transaction do
-      workflow.try(:finish!)
-      w = store_order.workflows.pending.order("created_at asc").first
-      return if w.blank?
-      w.executable?(self) ? w.execute(self) : w.assign_workstation(self)
+    workflow.force_finish!
+
+    if workflow.next_workflow.present?
+      workflow.next_workflow.find_a_workstaion_and_execute_otherwise_waiting_in(self)
+    else
+      workflow.store_service.complete_and_perform_with!(self)
     end
   end
 

@@ -9,7 +9,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
   belongs_to :saleman_commission_template,
                           class_name: 'StoreCommissionTemplate', foreign_key: 'saleman_commission_template_id'
 
-  has_many :services, class_name:'StoreMaterialSaleinfoService', dependent: :delete_all
+  has_many :services, class_name:'StoreMaterialSaleinfoService', dependent: :destroy
   has_many :store_subscribe_order_items, as: :itemable
   has_many :store_order_items, as: :orderable
   has_many :recommended_order_items, as: :itemable

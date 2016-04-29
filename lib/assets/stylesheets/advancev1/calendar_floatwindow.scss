@@ -50,8 +50,11 @@
 
 .add-new-event-form{
   background: #fff;
+<<<<<<< HEAD
   height: 474px;
   margin-bottom: 20px;
+=======
+>>>>>>> ca660a8234f8f7951fce57bc9e42a2d66d08476b
   .field{
     @include field;
     .form-label{
@@ -165,17 +168,26 @@
   background: #535353;
   border-radius: 5px;
   position: absolute;
+<<<<<<< HEAD
   top: 349px;
   right: -69px;
+=======
+  top: 371px;
+  right: 318px;
+>>>>>>> ca660a8234f8f7951fce57bc9e42a2d66d08476b
   z-index: 20;
 
   .show-floatwindow{
     display: flex;
+<<<<<<< HEAD
     flex-wrap: wrap;
+=======
+>>>>>>> ca660a8234f8f7951fce57bc9e42a2d66d08476b
     justify-content: center;
     align-items: center;
     height: 100%;
 
+<<<<<<< HEAD
     .page{
       width: 328px;
       display: flex;
@@ -227,6 +239,8 @@
       }
     }
 
+=======
+>>>>>>> ca660a8234f8f7951fce57bc9e42a2d66d08476b
     .close{
       @include close;
       top: 12px;

@@ -31,7 +31,6 @@ module Pos
       order.deleted_at = Time.now
       order.save
       order.waste!
-      order.terminate!
       redirect_to action: 'new'
     end
 

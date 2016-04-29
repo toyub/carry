@@ -7,6 +7,6 @@
     $("#workstation-<%= @workstation.id %>").append("<%= j render partial: 'busy_workstation', locals: {workstation: @workstation, is_started: @workflow.processing?} %>");
     Countdown($("#workstation-<%= @workstation.id %> .vehicle_info span.times"));
   <% else %>
-    ZhanchuangAlert('信息不符，不能开始施工，请编辑施工信息！');
+    ZhanchuangAlert('<%= @workflow.errors.messages.values.flatten.to_sentence %>');
   <% end %>
 <% end %>
