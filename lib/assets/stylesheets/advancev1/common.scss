@@ -13,6 +13,7 @@ main{
   .row{
     width: 100%;
     display: flex;
+    padding-bottom: 15px;
 
     .col-left{
       width: 1166px;
@@ -315,6 +316,7 @@ main{
       width: 374px;
 
       .calendar{
+        width: 350px;
         height: 444px;
         border: 1px solid #cfcfcf;
         background: #e5e5e5;
