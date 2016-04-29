@@ -5,7 +5,8 @@ class HomeController < ApplicationController
 
   def show
     @orders = current_store.today_orders
-    @order_items = current_store.today_order_items
+    @paid_orders = current_store.paid_on_today_orders
+    @paid_use_asset = current_store.paid_use_asset
     @complaints = current_store.today_complaints
     @store_trackings = current_store.today_trackings
     @todos = current_user.todos.order("id desc")
