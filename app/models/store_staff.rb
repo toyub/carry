@@ -73,15 +73,15 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def job_type
-    JobType.find(self.job_type_id)
+    JobType.find(self.job_type_id.to_i)
   end
 
   def mechanic?
-    self.job_type_id == JobType::TYPES_ID['技师']
+    self.job_type_id.to_i == JobType::TYPES_ID['技师']
   end
 
   def level_type
-    StoreStaffLevel.find(self.level_type_id)
+    StoreStaffLevel.find(self.level_type_id.to_i)
   end
 
   def includes_roles?(roles_codes=nil)
@@ -116,7 +116,7 @@ class StoreStaff <  ActiveRecord::Base
     when 'firstname_pre'
       "#{self.first_name} #{self.last_name}"
     when 'lastname_pre'
-      "#{self.last_name} #{self.first_name}"
+      "#{self.last_name}#{self.first_name}"
     else
       "#{self.first_name} #{self.last_name}"
     end

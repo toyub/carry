@@ -3,6 +3,6 @@ class StoreGroupSerializer < ActiveModel::Serializer
   has_many :store_group_members
 
   def store_group_members
-    object.store_group_members.order_by_update
+    object.store_group_members.available.order_by_update
   end
 end

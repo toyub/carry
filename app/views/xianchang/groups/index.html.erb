@@ -26,7 +26,8 @@
 <% content_for :javascripts do%>
 <script>
   jQuery(function(){
-    handle = new $$MIS.GroupsHandleView({
+    var member_tmpl = JST["xianchang/groups/member"];
+    var handle = new $$MIS.GroupsHandleView({
       urlRoot: '/api/osm/groups'
     });
 
@@ -68,7 +69,7 @@
     $.get('/api/osm/staff.json', function(staff){
       handle.group_members = new $$MIS.GroupMemberCollection(staff);
       staff.forEach(function(staffi){
-        var staff_html = '<li class="drag_staff" data-staff="'+ staffi.id + '" id="staff_'+ staffi.id +'" draggable="true" >'+ staffi.screen_name +'</li>';
+        var staff_html = member_tmpl(staffi);
         if(!staffi.store_group_member){
           $('#pool').append(staff_html);
         }
