@@ -1,0 +1,18 @@
+<% if current_schedule.prev.present? %>
+  <a href="javascript:void(0)" class="chevron-left" data-schedule-id=<%= current_schedule.prev.id %>><i class="lnr lnr-chevron-left"></i></a>
+<% end %>
+<% if current_schedule.next.present? %>
+  <a href="javascript:void(0)" class="chevron-right" data-schedule-id=<%= current_schedule.next.id %>><i class="lnr lnr-chevron-right"></i></a>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(".chevron-left, .chevron-right").click(function(){
+    var url = 'api/home/schedules/' + $(this).data('schedule-id');
+    $.ajax({
+      url: url,
+      dataType: 'script',
+      success: function(res){
+      }
+    })
+  })
+</script>

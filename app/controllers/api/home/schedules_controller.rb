@@ -7,6 +7,10 @@ module Api
         @schedules = current_user.schedules
       end
 
+      def show
+        @schedule = current_user.schedules.find(params[:id])
+      end
+
       def create
         @schedules = current_user.schedules
         @schedules.create!(schedule_param)
