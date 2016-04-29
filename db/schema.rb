@@ -675,8 +675,10 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.integer  "store_group_id"
     t.integer  "member_id"
     t.integer  "work_status",    default: 0
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "level_type_id",  default: 0
+    t.boolean  "deleted",        default: false
   end
 
   create_table "store_groups", force: :cascade do |t|
@@ -1320,6 +1322,8 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.datetime "deleted_at"
     t.datetime "paid_at"
     t.integer  "chain_business_model_id",                                      default: 0,     null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+    t.integer  "waiting_area_id",                                              default: 0
+    t.datetime "task_finished_at"
   end
 
   create_table "store_package_items", force: :cascade do |t|
@@ -1555,6 +1559,8 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.string   "templateable_type"
     t.integer  "category_id"
     t.boolean  "deleted",                                                   default: false
+    t.integer  "status",                                                    default: 0
+    t.integer  "waiting_area_id",                                           default: 0
   end
 
   create_table "store_service_store_materials", force: :cascade do |t|
@@ -1617,8 +1623,10 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.integer  "status",                                      default: 0
     t.integer  "store_order_item_id"
     t.integer  "mechanic_commission_template_id"
-    t.string   "inspector"
     t.boolean  "deleted",                                     default: false
+    t.datetime "finished_at"
+    t.integer  "waiting_area_id",                             default: 0
+    t.integer  "inspector_id"
   end
 
   create_table "store_service_workflows", force: :cascade do |t|
@@ -1741,11 +1749,12 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.integer  "store_chain_id"
     t.string   "taskable_type"
     t.integer  "taskable_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "mechanic_id"
-    t.boolean  "deleted",             default: false
-    t.integer  "status",              default: 0
+    t.boolean  "deleted",               default: false
+    t.integer  "status",                default: 0
+    t.integer  "store_group_member_id"
   end
 
   create_table "store_subscribe_order_items", force: :cascade do |t|

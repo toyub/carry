@@ -131,6 +131,10 @@ class Store <  ActiveRecord::Base
     store_orders.by_day
   end
 
+  def paid_on_today_orders
+    store_orders.paid_on(Date.today)
+  end
+
   def today_order_items
     store_order_items.by_day(Date.today)
   end

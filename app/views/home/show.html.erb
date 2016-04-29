@@ -25,11 +25,11 @@
           </div>
           <dl class="item">
             <dd>营业额</dd>
-            <dd class="number"><%= @orders.finished.sum(:amount)%></dd>
+            <dd class="number"><%= @paid_orders.finished.sum(:amount)%></dd>
           </dl>
           <dl class="item">
             <dd>挂账</dd>
-            <dd class="number"><%= @orders.hanging.sum(:amount)%></dd>
+            <dd class="number"><%= @paid_orders.hanging.sum(:amount)%></dd>
           </dl>
           <dl class="item">
             <dd>卡扣</dd>
@@ -69,6 +69,12 @@
 
     <div class="panel message-list">
       <%= render 'message_list' %>
+    </div>
+
+    <div class="floatwindow">
+      <div class="message-floatwindow-wrap">
+        <!-- <%= render 'message_floatwindow'%> -->
+      </div>
     </div>
   </div>
 

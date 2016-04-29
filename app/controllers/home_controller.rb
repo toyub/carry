@@ -5,17 +5,19 @@ class HomeController < ApplicationController
 
   def show
     @orders = current_store.today_orders
+    @paid_orders = current_store.paid_on_today_orders
     @order_items = current_store.today_order_items
     @complaints = current_store.today_complaints
     @store_trackings = current_store.today_trackings
     @todos = current_user.todos.order("id desc")
     @schedules = current_user.schedules
+    @mechanics = current_store.store_group_members.available
   end
 
 
   private
   def get_works
-    @works = (YAML.load_file Rails.root.join("config", "my_work.yml")).with_indifferent_access[:works]
+    @works = current_user.work_list
   end
 
   def my_works

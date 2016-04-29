@@ -13,6 +13,11 @@ defaults: &defaults
 
 development:
   <<: *defaults
+  ScanTaskJob:
+    every: '10s'
+    class: ScanTaskWorker
+    queue: default
+    description: 'This job will check state of stations.'
 
 staging:
   <<: *defaults
