@@ -1,0 +1,40 @@
+<div class="message-floatwindow">
+  <div class="title">
+    <h3>信息列表</h3>
+    <a href="javascript:void(0)" class="close"><i class="fa fa-close"></i></a>
+  </div>
+  <div class="single-message-list">
+    <div class="table-head">
+      <table>
+        <thead>
+          <tr>
+            <th>来源</th>
+            <th>内容</th>
+            <th>发起人</th>
+            <th>状态</th>
+            <th>时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="table-body">
+      <table>
+        <% 10.times do |i|%>
+        <tr>
+          <td>系统</td>
+          <td>微软必应(英文名: Bing)是微软公司于2009年5月28日推出的。微软必应(英文名: Bing)是微软公司于2009年5月28日推出的。</td>
+          <td>系统</td>
+          <td>未读</td>
+          <td>2016.4.29</td>
+          <td>
+            <input type="button" value="删除" class="delete-btn">
+            <input type="button" value="删除" class="read-btn">
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+
+  </div>
+</div>

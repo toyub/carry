@@ -9,12 +9,14 @@ zh-CN:
         auto: 自主
     store_order:
       state:
+        pausing: 暂停
         pending: 草稿
         queuing: 待施工
         processing: 施工中
         paying: 待付款
         finished: 已完成
       task_status:
+        task_pausing: 暂停
         task_pending: 草稿
         task_queuing: 待施工
         task_processing: 施工中
