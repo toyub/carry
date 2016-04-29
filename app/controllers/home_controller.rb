@@ -15,7 +15,7 @@ class HomeController < ApplicationController
 
   private
   def get_works
-    @works = (YAML.load_file Rails.root.join("config", "my_work.yml")).with_indifferent_access[:works]
+    @works = current_user.work_list
   end
 
   def my_works
