@@ -45,12 +45,12 @@
       </div>
 
       <div class="panel-body">
-        <%= render 'my_work' %>
+        <%# <%= render 'my_work' %>
       </div>
     </div>
 
     <div class="floatwindow">
-      <%= render 'my_work_floatWindow'%>
+      <%# <%= render 'my_work_floatWindow'%>
     </div>
   </div>
 
@@ -62,6 +62,9 @@
     <div class="floatwindow">
       <div class="calendar-floatwindow-wrap" style="display:none">
         <%= render 'calendar_floatwindow'%>
+      </div>
+      <div class="show-floatwindow-wrap" style="display:none">
+        <%= render 'calender_show_floatwindow'%>
       </div>
     </div>
 
@@ -76,17 +79,15 @@
 
 </div>
 
-<%= render 'calender_show_floatwindow'%>
 
 <script type="text/javascript">
-jQuery(function($){
-
-    $(".js-add-event").on('click', function(){
-      $(".calendar-floatwindow-wrap").slideDown();
-      $(".cancel-btn, .close").click(function(){
-        $(".calendar-floatwindow-wrap").slideUp();
+  jQuery(function($){
+    $(".js-add-event, .js-show-events").on('click', function(){
+      var target_wrap  = $(this).data('target');
+      $(target_wrap).slideDown();
+      $(target_wrap).on("click", '.cancel-btn, .close', function(){
+        $(target_wrap).slideUp();
       })
     })
-
   });
 </script>
