@@ -1,59 +1,58 @@
-<div class="show-floatwindow-wrap">
-  <div class="show-floatwindow">
-    <%= link_to '', 'javascript:void(0)', class: 'fa fa-close close', id: 'js-new-event' %>
-    <div class="page">
-      <a href="javascript:void(0)"><i class="fa fa-caret-left"></i></a>
-      <div class="page-numbers">
-        <a href="javascript:void(0)" class="page-number">1</a>
-        <a href="javascript:void(0)" class="page-number active">2</a>
-        <a href="javascript:void(0)" class="page-number">3</a>
-        <a href="javascript:void(0)" class="page-number">4</a>
-        <a href="javascript:void(0)" class="page-number">5</a>
-        <a href="javascript:void(0)" class="page-number">6</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
-        <a href="javascript:void(0)" class="page-number">7</a>
 
-      </div>
-      <a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a>
-      <div class="chevrons">
-        <a href="javascript:void(0)" class="chevron-left"><i class="lnr lnr-chevron-left"></i></a>
-        <a href="javascript:void(0)" class="chevron-right"><i class="lnr lnr-chevron-right"></i></a>
-      </div>
+<div class="show-floatwindow">
+  <%= link_to '', 'javascript:void(0)', class: 'fa fa-close close', id: 'js-new-event' %>
+  <div class="page">
+    <a href="javascript:void(0)"><i class="fa fa-caret-left"></i></a>
+    <div class="page-numbers">
+      <a href="javascript:void(0)" class="page-number">1</a>
+      <a href="javascript:void(0)" class="page-number active">2</a>
+      <a href="javascript:void(0)" class="page-number">3</a>
+      <a href="javascript:void(0)" class="page-number">4</a>
+      <a href="javascript:void(0)" class="page-number">5</a>
+      <a href="javascript:void(0)" class="page-number">6</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+      <a href="javascript:void(0)" class="page-number">7</a>
+
     </div>
-    <div class="add-new-event-form" >
-      <%= form_tag "/api/home/schedules", remote: true do %>
-        <div class="field title">
-          <label for="" class="form-label">标题</label>
-          <span class="form-span">入货</span>
-        </div>
-        <div class="field start-time">
-          <label for="" class="form-label">开始时间</label>
-          <span  class="form-span">00:00</span>
-        </div>
-        <div class="field end-time">
-          <label for="" class="form-label">结束时间</label>
-          <span class="form-span">24:00</span>
-        </div>
-        <div class="field remarks">
-          <label for="" class="form-label">备注</label>
-          <div class="form-text">供货商米其林，商品轮胎。。。</div>
-        </div>
-        <div class="foot">
-          <input type="submit" name="" id="" value="已完成" class="finish-btn">
-          <input type="button" name="" id="" value="删除" class="delete-btn">
-        </div>
-      <% end %>
+    <a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a>
+    <div class="chevrons">
+      <a href="javascript:void(0)" class="chevron-left"><i class="lnr lnr-chevron-left"></i></a>
+      <a href="javascript:void(0)" class="chevron-right"><i class="lnr lnr-chevron-right"></i></a>
     </div>
-
-
   </div>
+  <div class="add-new-event-form" >
+    <%= form_tag "/api/home/schedules", remote: true do %>
+      <div class="field title">
+        <label for="" class="form-label">标题</label>
+        <span class="form-span">入货</span>
+      </div>
+      <div class="field start-time">
+        <label for="" class="form-label">开始时间</label>
+        <span  class="form-span">00:00</span>
+      </div>
+      <div class="field end-time">
+        <label for="" class="form-label">结束时间</label>
+        <span class="form-span">24:00</span>
+      </div>
+      <div class="field remarks">
+        <label for="" class="form-label">备注</label>
+        <div class="form-text">供货商米其林，商品轮胎。。。</div>
+      </div>
+      <div class="foot">
+        <input type="submit" name="" id="" value="已完成" class="finish-btn">
+        <input type="button" name="" id="" value="删除" class="delete-btn">
+      </div>
+    <% end %>
+  </div>
+
+
 </div>
