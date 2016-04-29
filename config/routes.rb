@@ -287,7 +287,9 @@ Rails.application.routes.draw do
         end
       end
       resource :store_staff
-      resources :schedules
+      resources :schedules do
+        get :search, on: :collection
+      end
     end
 
     resources :store_materials, only: :index
