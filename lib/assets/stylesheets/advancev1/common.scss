@@ -301,6 +301,8 @@ main{
 
         .work-menu{
           padding: 21px 0;
+          max-height: 312px;
+          overflow-y: scroll;
           .item{
             width: 93px;
             height: 93px;
@@ -309,6 +311,7 @@ main{
             box-sizing: border-box;
             padding: 10px 10px;
             margin-left: 21px;
+            margin-bottom: 18px;
             box-shadow: 0 5px 5px 0 rgba(0,0,0,0.31);
             .item-icon{
               height: 60px;
@@ -316,7 +319,6 @@ main{
                 color: #fff;
                 font-size: 40px;
               }
-
             }
 
             .item-menu{
@@ -461,6 +463,8 @@ main{
           }
 
           .planning-list{
+            max-height: 675px;
+            overflow-y: scroll;
             .item{
               display: flex;
               min-height: 66px;
@@ -470,6 +474,8 @@ main{
                 width: 45px;
                 position: relative;
                 height: 25px;
+                box-sizing: border-box;
+                padding-left: 5px;
 
                 .unchecked{
                   position: absolute;

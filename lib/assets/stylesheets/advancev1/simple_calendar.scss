@@ -50,7 +50,7 @@
     color: #333;
     font-size: 12px;
     &:hover{
-      background: #dedede;
+      background: #eee;
     }
   }
 
@@ -63,8 +63,7 @@
   .wday-6 {}
 
   .today {
-    background: #3498db;
-    color: #fff;
+    background: #dedede;
   }
   .past {}
   .future {}
@@ -80,9 +79,17 @@
   .current-month {}
 
   .has-events {
-    &:before{
-      content: ".";
-      color: red;
+    position: relative;
+    i{
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      color: #cfcfcf;
     }
+  }
+
+  .active{
+    background: #3498db;
+    color: #fff;
   }
 }
