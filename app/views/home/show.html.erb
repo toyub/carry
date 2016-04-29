@@ -33,7 +33,7 @@
           </dl>
           <dl class="item">
             <dd>卡扣</dd>
-            <dd class="number"><%= @paid_use_asset.sum%></dd>
+            <dd class="number"><%= @order_items.from_asset.sum(:amount)%></dd>
           </dl>
         </div>
       </div>

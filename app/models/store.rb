@@ -135,12 +135,8 @@ class Store <  ActiveRecord::Base
     store_orders.paid_on(Date.today)
   end
 
-  def paid_use_asset
-    asset_amount = []
-    store_orders.paid_on(Date.today).each do |order|
-      asset_amount << order.items.from_asset.map(&->(item){item.amount})
-    end
-    asset_amount.flatten
+  def today_order_items
+    store_order_items.by_day(Date.today)
   end
 
   def today_complaints
