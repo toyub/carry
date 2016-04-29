@@ -1,0 +1,117 @@
+@mixin col {
+  &:nth-child(1){width: 170px;}
+  &:nth-child(2){width: 492px;}
+  &:nth-child(3){width: 108px;}
+  &:nth-child(4){width: 76px;}
+  &:nth-child(5){width: 110px;}
+  &:nth-child(6){width: 167px;}
+}
+
+.message-floatwindow-wrap{
+  position: absolute;
+  top: 184px;
+  z-index: 30;
+  right: -212px;
+  .message-floatwindow{
+    width: 1152px;
+    height: 540px;
+    box-sizing: border-box;
+    border: 1px solid #cfcfcf;
+    background: #fff;
+    box-shadow: 0 3px 12px 0 rgba(0,0,0,0.18);
+
+    .title{
+      height: 54px;
+      background: #fafafa;
+      border-bottom: 1px solid #cfcfcf;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      h3{
+        font-size:18px;
+        color: #4d4d4d;
+      }
+
+      .close{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        i{
+          font-size: 18px;
+          color: #b8b8b8;
+        }
+      }
+    }
+
+    .single-message-list{
+      width: 100%;
+      box-sizing: border-box;
+      height: 485px;
+
+      table{
+        width: 1124px;
+        tr{
+          td{
+            text-align: left;
+            box-sizing: border-box;
+            padding: 0 14px;
+            @include col;
+          }
+          th{
+            text-align: left;
+            padding: 0 14px;
+            box-sizing: border-box;
+            @include col;
+          }
+        }
+      }
+
+      .table-head{
+        padding-left: 14px;
+        tr{
+          border-bottom: 2px solid #cfcfcf;
+          th{
+            height: 47px;
+            font-size: 14px;
+            color: #4d4d4d;
+          }
+        }
+      }
+
+      .table-body{
+        overflow-y: scroll;
+        padding-left: 14px;
+        height: 436px;
+        tr {
+          border-bottom: 1px solid #cfcfcf;
+          td{
+            height: 48px;
+            font-size: 14px;
+            color: #4d4d4d;
+
+            .delete-btn,.read-btn{
+              width: 60px;
+              height: 23px;
+              line-height: 23px;
+              text-align: center;
+              color: #fff;
+              border-radius: 5px;
+            }
+
+            .delete-btn{
+              border: 1px solid #c92525;
+              background: #df5640;
+              margin-right: 13px;
+            }
+
+            .read-btn{
+              border: 1px solid #45ab40;
+              background: #70ca63;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
