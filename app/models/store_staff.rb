@@ -27,14 +27,15 @@ class StoreStaff <  ActiveRecord::Base
   has_many :todos, class_name: 'StaffTodo', as: :creator
   has_many :schedules, class_name: StaffSchedule.name, foreign_key: :store_staff_id
 
-  validates_presence_of :phone_number
-  validates_uniqueness_of :phone_number
+  validates :phone_number, presence: true, uniqueness: {scope: [:store_id]}
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}
 
   before_validation :set_full_name
   before_create     :encrypt_password
   before_create :set_default_password
   before_create :check_phone_number
+
+  after_save :check_group_member
 
   scope :by_keyword, ->(keyword){ where('full_name like :name or phone_number like :phone_number',
                                                                                       name: keyword, phone_number: keyword)  if keyword.present?}
@@ -52,6 +53,7 @@ class StoreStaff <  ActiveRecord::Base
   scope :mechanics, -> { where(job_type_id: JobType.find_by_name("技师").id ) }
   scope :verifiers, -> { where(mis_login_enabled: true) }
   scope :unregular, -> { where(regular: false) }
+  scope :act_as_inspectors, ->{ where(job_type_id: [JobType.find_by_name("技师").id, JobType.find_by_name("销售").id])}
 
   ROLES = [
         {code: 0, name: '管理员'},
@@ -72,15 +74,15 @@ class StoreStaff <  ActiveRecord::Base
   end
 
   def job_type
-    JobType.find(self.job_type_id)
+    JobType.find(self.job_type_id.to_i)
   end
 
   def mechanic?
-    self.job_type_id == JobType::TYPES_ID['技师']
+    self.job_type_id.to_i == JobType::TYPES_ID['技师']
   end
 
   def level_type
-    StoreStaffLevel.find(self.level_type_id)
+    StoreStaffLevel.find(self.level_type_id.to_i)
   end
 
   def includes_roles?(roles_codes=nil)
@@ -115,7 +117,7 @@ class StoreStaff <  ActiveRecord::Base
     when 'firstname_pre'
       "#{self.first_name} #{self.last_name}"
     when 'lastname_pre'
-      "#{self.last_name} #{self.first_name}"
+      "#{self.last_name}#{self.first_name}"
     else
       "#{self.first_name} #{self.last_name}"
     end
@@ -382,6 +384,18 @@ class StoreStaff <  ActiveRecord::Base
     if StoreStaff.by_phone(self.phone_number).unterminated.present?
       errors.add(:notice, "您输入的号码正在使用，请使用新号码或停用该号码后再进行绑定。")
       false
+    end
+  end
+
+  def check_group_member
+    if self.mechanic?
+      if self.store_group_member.present?
+        self.store_group_member.set_level_type_id
+      end
+    else
+      if self.store_group_member.present?
+        self.store_group_member.set_deleted!
+      end
     end
   end
 end

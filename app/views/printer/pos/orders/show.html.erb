@@ -232,7 +232,7 @@
                     <span><%= m.full_name %></span>
                   <% end %>
                 </dd>
-                <dd><%= workflow.inspector %></dd>
+                <dd><%= workflow.inspector.try(:full_name) %></dd>
               </dl>
             <% end %>
           </div>

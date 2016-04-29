@@ -8,7 +8,7 @@ class StoreService < ActiveRecord::Base
   has_many :snapshots, class_name: "StoreServiceSnapshot", as: :templateable
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
   has_many :store_order_items, as: :orderable
-  has_many :store_service_workflows, dependent: :delete_all
+  has_many :store_service_workflows
   has_many :uploads, class_name: 'StoreFile', as: :fileable, dependent: :destroy
   has_one :setting, class_name: 'StoreServiceSetting', dependent: :destroy
   has_many :reminds, class_name: 'StoreServiceRemind', dependent: :destroy
@@ -102,7 +102,8 @@ class StoreService < ActiveRecord::Base
     self.setting.workflows.each do |w|
       options = {
         store_service_id: service.id,
-        store_service_workflow_id: w.id
+        store_service_workflow_id: w.id,
+        inspector_id: order_item.store_staff_id
       }
       StoreServiceWorkflowSnapshot.create! w.snapshot_attrs(self.base_attrs(order_item).merge options)
     end
@@ -136,7 +137,7 @@ class StoreService < ActiveRecord::Base
   end
 
   def to_workflowable_hash
-    self.as_json.merge(workflows: self.store_service_workflows.unscoped.as_json)
+    self.as_json.merge(workflows: self.store_service_workflows.as_json)
   end
 
   # jbuilder used

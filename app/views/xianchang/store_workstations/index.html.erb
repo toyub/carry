@@ -1,60 +1,15 @@
+<% content_for :pre_assets do %>
+<script>
+  window.CountdownWarnningInterval = <%= Setting.countdown_warnning_interval rescue 2 %>;
+</script>
+<% end %>
+
 <div class="main_top">
   <h2>施工现场</h2>
 </div>
 
 <div class="details">
-  <table cellspacing="0" cellpadding="0" class="on_site_top">
-    <tbody>
-    <tr>
-      <td class="border-bottom-none">正在施工车辆</td>
-      <td class="border-bottom-none">正在排队车辆</td>
-      <td class="border-bottom-none">等待付款车辆</td>
-      <td class="border-bottom-none">离场车辆</td>
-      <td>
-        <label class="width-70">技师人数</label>
-        <label class="width-80 text-align-center"><%= @mechanics_count %></label>
-      </td>
-      <td>
-        <label class="width-70">技师忙碌</label>
-        <label class="width-80 text-align-center"></label>
-      </td>
-      <td>
-        <label class="width-70">工位总数</label>
-        <label class="width-80 text-align-center"><%= @workstations.count %></label>
-      </td>
-      <td>
-        <label class="width-70">工位使用</label>
-        <label class="width-80 text-align-center"><%= @workstations.busy.count %></label>
-      </td>
-      <td class="border-bottom-none">今天施工总台次</td>
-    </tr>
-    <tr>
-      <td class="font-18 text-align-center"><%= @processing_orders_count %><label class="margin-left-5 font-18">台</label></td>
-      <td class="font-18 text-align-center"><%= @queuing_orders.count %><label class="margin-left-5 font-18">台</label></td>
-      <td class="font-18 text-align-center"><%= @paying_orders_count %><label class="margin-left-5 font-18">台</label></td>
-      <td class="font-18 text-align-center"><%= @finished_orders_count %><label class="margin-left-5 font-18">台</label></td>
-      <td>
-        <label class="width-70">技师到岗</label>
-        <label class="width-80 text-align-center"></label>
-      </td>
-      <td>
-        <label class="width-70">技师空闲</label>
-        <label class="width-80 text-align-center"></label>
-      </td>
-      <td>
-        <label class="width-70">工位正常</label>
-        <label class="width-80 text-align-center"><%= @workstations.available.count %></label>
-      </td>
-      <td>
-        <label class="width-70">预约等待</label>
-        <label class="width-80 text-align-center"><%= @pending_orders_count %></label>
-      </td>
-      <td class="font-18 text-align-center"><%= @orders_count %><label class="margin-left-5 font-18">台</label></td>
-    </tr>
-
-    </tbody>
-  </table>
-
+  <%= render partial: 'xianchang/partials/top' %>
   <div class="search_nav margin-top-5">
     <div class="item-query">
       <label class="width-85">查找项目或车辆</label>
@@ -68,12 +23,22 @@
   </div>
 
   <div class="construction_site margin-top-36 do_wrap">
-    <div class="title bg-color-fb962d waiting">
-      <span>等候</span>
+    <div class="title bg-color-r27-g171-b204-a82 waiting">
+      <span>排队</span>
       <span><i class="fa fa-chevron-left font-28 color-fff"></i></span>
     </div>
     <ul class="waiting">
       <%= render partial: "order", collection: @queuing_orders, as: :order %>
+    </ul>
+  </div>
+
+  <div class="construction_site margin-top-36 do_wrap">
+    <div class="title bg-color-fb962d waiting">
+      <span>暂停</span>
+      <span><i class="fa fa-pause font-28 color-fff"></i></span>
+    </div>
+    <ul class="pausing">
+      <%= render partial: "order", collection: @pausing_orders, as: :order %>
     </ul>
   </div>
 
@@ -87,7 +52,7 @@
   <div class="construction_site margin-top-50 do_wrap js-finished-orders">
     <div class="title bg-color-36a54a ">
       <span>完工</span>
-      <span><i class="fa fa-ban font-28"></i></span>
+      <span><i class="fa fa-check font-28"></i></span>
     </div>
     <ul class="completion js-finished">
       <%= render partial: "order", collection: @task_finished_orders, as: :order %>
@@ -95,21 +60,32 @@
   </div>
 </div>
 
+<% content_for :javascripts do %>
 <script type="text/javascript" charset="utf-8">
 $(function(){
   window.Countdown = function(object){
-    var $this = $(object), finalDate = $(object).data('countdown');
+    var $this = $(object);
+    var finalDate = $(object).data('countdown');
+    
     var updateCallback = function(event) {
       var totalHours = event.offset.totalDays * 24 + event.offset.hours;
       var totalMins = event.offset.totalDays * 24 * 60 + event.offset.hours * 60 + event.offset.minutes;
       $this.html(event.strftime(totalHours + ':%M:%S'));
-      if(totalMins < <%= Setting.countdown_warnning_interval rescue 2 %>)
+      if(totalMins < CountdownWarnningInterval){
         $this.addClass("warnning");
+      }
     };
+    var data = {
+      workflow_id: $this.data('workflowid')
+    };
+
     var finishCallback = function(event) {
+      
       $.ajax({
         url: "/xianchang/store_workstations/" + $this.data('stationid')+ "/finish",
-        method: "PUT"
+        contentType: 'application/json',
+        method: "PUT",
+        data: JSON.stringify(data)
       });
     }
 
@@ -122,5 +98,13 @@ $(function(){
   $("#work_station .times").each(function(){
     Countdown(this);
   })
+
+  handle = new Mis.Views.WorkstationsHandle()
 })
 </script>
+<% if flash[:error] %>
+  <script type="text/javascript">
+    alert('<%= flash[:error] %>')
+  </script>
+<% end %>
+<% end %>
