@@ -290,6 +290,7 @@ Rails.application.routes.draw do
       resources :schedules do
         get :search, on: :collection
       end
+      resources :my_works, only:[:index]
     end
 
     resources :store_materials, only: :index

@@ -8,6 +8,12 @@ module Api
         render json: {msg: '添加成功！', my_works: current_user.works, works: @works}
       end
 
+      def destroy
+        work_idx = current_user.works - ([] << params[:id])
+        current_user.update!(works: work_idx)
+        render json: {msg: '删除成功!'}
+      end
+
       private
       def get_works
         @works = []
