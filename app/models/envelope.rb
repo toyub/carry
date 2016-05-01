@@ -7,6 +7,8 @@ class Envelope < ActiveRecord::Base
 
   scope :work_reminders, ->{where(extra_type: Notifications::WorkReminder.name)}
   scope :system_bulletins, ->{where(extra_type: Notifications::SystemBulletin.name)}
+  scope :tracking_reminders, ->{where(extra_type: Notifications::TrackingReminder.name)}
+  scope :calendar_schedule_reminders, ->{where(extra_type: Notifications::CalendarScheduleReminder.name)}
 
   enum status: %i[ pending open deleted ]
 

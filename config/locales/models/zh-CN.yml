@@ -7,6 +7,8 @@ zh-CN:
       store_order_item: '订单项目'
       notifications/work_reminder: 工作消息
       notifications/system_bulletin: 系统消息
+      notifications/calendar_schedule_reminder: 日历提醒
+      notifications/tracking_reminder: 回访消息
     attributes:
       store_service_store_material:
         store_material_id: id
