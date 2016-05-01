@@ -294,6 +294,8 @@ Rails.application.routes.draw do
       namespace :notifications do
         resources :work_reminders
         resources :system_bulletins
+        resources :calendar_schedule_reminders
+        resources :tracking_reminders
         resources :counters
         resources :envelopes
       end
