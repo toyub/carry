@@ -28,8 +28,8 @@
           <td><%= notification.status_i18n %></td>
           <td><%= notification.created_on %></td>
           <td>
-            <input type="button" value="删除" class="delete-btn">
-            <input type="button" value="已阅" class="read-btn">
+            <input type="button" value="删除" class="delete-btn js-envelope-destroy" data-id='<%= notification.id %>'>
+            <input type="button" value="已阅" class="read-btn js-envelope-open" data-id='<%= notification.id %>'>
           </td>
         </tr>
         <% end %>

@@ -295,6 +295,7 @@ Rails.application.routes.draw do
         resources :work_reminders
         resources :system_bulletins
         resources :counters
+        resources :envelopes
       end
     end
 
