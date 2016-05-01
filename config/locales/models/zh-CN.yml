@@ -5,6 +5,8 @@ zh-CN:
       store_customer: 客户
       store_order: '订单'
       store_order_item: '订单项目'
+      notifications/work_reminder: 工作消息
+      notifications/system_bulletin: 系统消息
     attributes:
       store_service_store_material:
         store_material_id: id

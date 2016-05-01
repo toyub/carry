@@ -4,4 +4,8 @@ class SystemNarrator < ActiveRecord::Base
   def name
     '系统'
   end
+
+  def full_name
+    '系统'
+  end
 end

@@ -258,16 +258,6 @@ ActiveRecord::Schema.define(version: 201604198905987) do
   add_index "roles", ["abbrev"], name: "abbrev_UNIQUE", unique: true, using: :btree
   add_index "roles", ["name"], name: "name_UNIQUE", unique: true, using: :btree
 
-  create_table "schedules", force: :cascade do |t|
-    t.integer  "store_staff_id"
-    t.string   "title"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.text     "remark"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
   create_table "sms_balances", force: :cascade do |t|
     t.string   "party_type"
     t.integer  "party_id"
@@ -666,7 +656,6 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.string   "remark",                   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "store_staff_id"
   end
 
   create_table "store_envelopes", force: :cascade do |t|
@@ -1791,8 +1780,6 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.integer  "workflow_id"
     t.integer  "store_id"
     t.integer  "store_chain_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
     t.string   "taskable_type"
     t.integer  "taskable_id"
     t.datetime "created_at",                            null: false

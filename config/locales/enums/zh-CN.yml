@@ -74,3 +74,8 @@ zh-CN:
       invoice_type:
         common: 普票
         extra: 增值税发票
+    envelope:
+      status:
+        pending: 未读
+        open: 已阅
+        deleted: 已删除
