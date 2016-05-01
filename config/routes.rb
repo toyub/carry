@@ -288,6 +288,9 @@ Rails.application.routes.draw do
         end
       end
       resources :schedules
+      namespace :notifications do
+        resources :counters
+      end
     end
 
     resources :store_materials, only: :index

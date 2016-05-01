@@ -61,9 +61,15 @@
       </div>
     </div>
 
-    <div class="panel message-list">
-      <%= render 'message_list' %>
+    <div id='js-notifications' class="panel message-list">
+      <div class="title">
+        <h3>消息列表</h3>
+      </div>
+      <section class="reminders">
+        <ul class="items"></ul>
+      </section>
     </div>
+    
   </div>
 
   <div class="col-right">
@@ -74,6 +80,7 @@
 
 <script type="text/javascript">
 jQuery(function($){
+    notifications_handle = new $$MIS.HomeNotificationHandle();
     $("#new-todo").keyup(function(event){
        if(event.keyCode == 13){
          var pushContent = $("#new-todo").val();

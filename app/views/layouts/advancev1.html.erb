@@ -6,7 +6,7 @@
   <%= csrf_meta_tags %>
   <title>MIS-<% if content_for?(:title) %><%= yield :title %><% else %><%= I18n.t 'site.name' %><% end %></title>
   <%= stylesheet_link_tag    'advancev1_layout', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', 'home' %>
   <%= yield :pre_assets %>
 </head>
 <body>
