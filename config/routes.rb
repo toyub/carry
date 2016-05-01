@@ -290,6 +290,12 @@ Rails.application.routes.draw do
       resources :schedules do
         get :search, on: :collection
       end
+
+      namespace :notifications do
+        resources :work_reminders
+        resources :system_bulletins
+        resources :counters
+      end
     end
 
     resources :store_materials, only: :index

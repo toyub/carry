@@ -67,14 +67,17 @@
       </div>
     </div>
 
-    <div class="panel message-list">
-      <%= render 'message_list' %>
+    <div id='js-notification-counters' class="panel message-list">
+      <div class="title">
+        <h3>消息列表</h3>
+      </div>
+      <section class="reminders">
+        <ul class="items"></ul>
+      </section>
     </div>
 
     <div class="floatwindow">
-      <div class="message-floatwindow-wrap">
-        <!-- <%= render 'message_floatwindow'%> -->
-      </div>
+      <div id='js-notifications' class="message-floatwindow-wrap"></div>
     </div>
   </div>
 
@@ -83,3 +86,11 @@
   </div>
 
 </div>
+
+<% content_for :javascripts do %>
+  <script>
+    jQuery(function($) {
+      new $$MIS.HomeNotificationHandle();
+    });
+  </script>
+<% end %>

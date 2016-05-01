@@ -1,0 +1,9 @@
+<li data-type='<%= @resource_type %>' class="item">
+  <div class="item-icon">
+    <i class="<%= @dom_class %>"></i>
+  </div>
+  <dl class="item-content">
+    <dd><%= @extra_type_name %></dd>
+    <dd><span  class="number"><%= @counter %></span></dd>
+  </dl>
+</li>
