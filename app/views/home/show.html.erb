@@ -25,11 +25,11 @@
           </div>
           <dl class="item">
             <dd>营业额</dd>
-            <dd class="number"><%= @orders.finished.sum(:amount)%></dd>
+            <dd class="number"><%= @paid_orders.finished.sum(:amount)%></dd>
           </dl>
           <dl class="item">
             <dd>挂账</dd>
-            <dd class="number"><%= @orders.hanging.sum(:amount)%></dd>
+            <dd class="number"><%= @paid_orders.hanging.sum(:amount)%></dd>
           </dl>
           <dl class="item">
             <dd>卡扣</dd>
@@ -41,12 +41,16 @@
     <div class="panel work">
       <div class="title">
         <h3>我的工作</h3>
-        <a href="#" class="add"><i class="fa fa-plus"></i></a>
+        <a href="#" class="add js-add"><i class="fa fa-plus"></i></a>
       </div>
 
       <div class="panel-body">
         <%= render 'my_work' %>
       </div>
+    </div>
+
+    <div class="floatwindow">
+       <%= render 'my_work_floatWindow'%>
     </div>
   </div>
 
@@ -59,17 +63,19 @@
       <div class="calendar-floatwindow-wrap" style="display:none">
         <%= render 'calendar_floatwindow'%>
       </div>
+      <div class="show-floatwindow-wrap" style="display:none">
+      </div>
     </div>
 
-    <div id='js-notifications' class="panel message-list">
-      <div class="title">
-        <h3>消息列表</h3>
-      </div>
-      <section class="reminders">
-        <ul class="items"></ul>
-      </section>
+    <div class="panel message-list">
+      <%= render 'message_list' %>
     </div>
-    
+
+    <div class="floatwindow">
+      <div class="message-floatwindow-wrap">
+        <!-- <%= render 'message_floatwindow'%> -->
+      </div>
+    </div>
   </div>
 
   <div class="col-right">
@@ -77,183 +83,3 @@
   </div>
 
 </div>
-
-<script type="text/javascript">
-jQuery(function($){
-    notifications_handle = new $$MIS.HomeNotificationHandle();
-    $("#new-todo").keyup(function(event){
-       if(event.keyCode == 13){
-         var pushContent = $("#new-todo").val();
-         if(pushContent != ""){
-           $.ajax({
-             url: "/api/home/staff_todos",
-             type: "Post",
-             data: {content: pushContent },
-             success: function(data){
-               $("#new-todo").val("");
-               var html = ""
-                   html += "<li class='item'>"
-                   html += "<span class='choose-icon'>"
-                   html += "<label class='unchecked' for='check_"
-                   html += data.todo.id
-                   html += "'></label>"
-                   html += "<input type='checkbox' value="
-                   html += data.todo.id
-                   html += " data-id="
-                   html += data.todo.id
-                   html += " id='check_"
-                   html += data.todo.id
-                   html += "'>"
-                   html += "</span><div class='item-content'>"
-                   html += "<span>"
-                   html += data.todo.content
-                   html += "</span><i class='lnr lnr-chevron-down'></i>"
-                   html += "</div></li>"
-              allTodos();
-              $("ul.js-planning-list").append(html);
-             },
-             error: function(response){
-               ZhanchuangAlert(response.responseJSON.msg);
-             }
-           });
-         }else {
-           ZhanchuangAlert("请输入有效的内容!");
-         };
-       }
-      });
-
-      function doneTodos(){
-          $.ajax({
-            url: "/api/home/staff_todos",
-            type: "get",
-            success: function(data){
-              var html = ""
-              if(data.done.length > 0){
-                data.done.forEach(function(todo){
-                      html += "<li class='item'>"
-                      html += "<span class='choose-icon'>"
-                      html += "<label class='fa fa-check-circle check' for='check_"
-                      html += todo.id
-                      html += "'></label>"
-                      html += "<input type='checkbox' value="
-                      html += todo.id
-                      html += " data-id="
-                      html += todo.id
-                      html += " id='check_"
-                      html += todo.id
-                      html += "'>"
-                      html += "</span><div class='item-content'>"
-                      html += "<span>"
-                      html += todo.content
-                      html += "</span><i class='lnr lnr-chevron-down'></i>"
-                      html += "</div></li>"
-                });
-              };
-              $("ul.js-planning-list").html(html);
-            }
-          });
-      };
-
-
-      function unfinishedTodos(){
-          $.ajax({
-            url: "/api/home/staff_todos",
-            type: "get",
-            success: function(data){
-              var html = ""
-              if(data.undone.length > 0){
-                data.undone.forEach(function(todo){
-                  html += "<li class='item'>"
-                  html += "<span class='choose-icon'>"
-                  html += "<label class='unchecked' for='check_"
-                  html += todo.id
-                  html += "'></label>"
-                  html += "<input type='checkbox' value="
-                  html += todo.id
-                  html += " data-id="
-                  html += todo.id
-                  html += " id='check_"
-                  html += todo.id
-                  html += "'>"
-                  html += "</span><div class='item-content'>"
-                  html += "<span>"
-                  html += todo.content
-                  html += "</span><i class='lnr lnr-chevron-down'></i>"
-                  html += "</div></li>"
-                });
-              };
-              $("ul.js-planning-list").html(html);
-            }
-          });
-      };
-
-
-      function allTodos(){
-          $.ajax({
-            url: "/api/home/staff_todos",
-            type: "get",
-            success: function(data){
-              var html = ""
-              if(data.todos.length > 0){
-                data.todos.forEach(function(todo){
-                  html += "<li class='item'>"
-                  html += "<span class='choose-icon'>"
-                  html += todo.done == true ? "<label class='fa fa-check-circle check' for='check_" + todo.id + "'></label>" : "<label class='unchecked' for='check_" + todo.id +"'></label>"
-                  html += "<input type='checkbox' value="
-                  html += todo.id
-                  html += " data-id="
-                  html += todo.id
-                  html += " id='check_" + todo.id +"'>"
-                  html += "</span><div class='item-content'>"
-                  html += "<span>"
-                  html += todo.content
-                  html += "</span><i class='lnr lnr-chevron-down'></i>"
-                  html += "</div></li>"
-                });
-              };
-              $("ul.js-planning-list").html(html);
-            }
-          });
-      };
-
-      $(document).on('click','a#delete_done_todos', function(){
-        $.ajax({
-          url: "/api/home/staff_todos/clear_done",
-          type: "get",
-          success: function(data){
-            doneTodos();
-            ZhanchuangAlert(data.msg);
-          }
-        });
-      });
-
-      $(document).on('click', 'a#done-todos', function(){ doneTodos(); });
-      $(document).on('click', 'a#unfinished-todos', function(){ unfinishedTodos(); });
-      $(document).on('click', 'a#all-todos', function(){ allTodos(); });
-
-
-      $(document).on('click',"input:checkbox",function(){
-         var todoId = $(this).data("id");
-         $.ajax({
-           url: "/api/home/staff_todos/" + todoId,
-           type: "put",
-           success: function(data){
-             if(data.todo.done == true){
-               $("label[for=check_"+ todoId +"]").removeClass("unchecked").addClass("fa fa-check-circle check")
-             }else{
-               $("label[for=check_"+ todoId +"]").addClass("unchecked").removeClass("fa fa-check-circle check")
-             }
-
-           }
-         });
-   	 });
-
-    $(".js-add-event").on('click', function(){
-      $(".calendar-floatwindow-wrap").slideDown();
-      $(".cancel-btn, .close").click(function(){
-        $(".calendar-floatwindow-wrap").slideUp();
-      })
-    })
-
-  });
-</script>

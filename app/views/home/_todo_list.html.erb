@@ -20,8 +20,8 @@
         </span>
 
         <div class="item-content">
-          <span><%= todo.content  %> </span>
-          <i class="lnr lnr-chevron-down"></i>
+          <span class="text acronyms js-text_<%= todo.id%>"><%= todo.content  %> </span>
+          <a href="javascript:void(0)"> <i class="lnr lnr-chevron-down js-lnr" data-id="<%= todo.id%>" ></i></a>
         </div>
       </li>
      <% end %>

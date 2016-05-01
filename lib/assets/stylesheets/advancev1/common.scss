@@ -13,6 +13,7 @@ main{
   .row{
     width: 100%;
     display: flex;
+    padding-bottom: 15px;
 
     .col-left{
       width: 1166px;
@@ -83,8 +84,9 @@ main{
 
                     i{
                       margin-right: 10px;
-                      color: inherit;
+                      color: #bbb;
                       width: 40px;
+                      font-size: 18px;
                     }
                   }
                   .number{
@@ -113,6 +115,19 @@ main{
                     .vehicle-icon{
                       width: 68px;
                       text-align: center;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+
+                      .construction{
+                        color: #c4c4c4;
+                        font-size: 45px;
+                      }
+
+                      .consumer{
+                        color: #c4c4c4;
+                        font-size: 31px;
+                      }
                     }
 
                     .vehicle-item{
@@ -177,14 +192,17 @@ main{
                     margin-bottom: 5px;
 
                     i{
+                      font-size: 25px;
+                      color: #a6a6a6;
+                    }
+                    .male{
                       font-size: 30px;
-                      color: #888;
                     }
                   }
 
                   .tips-label{
                     font-size: 12px;
-                    color: #888;
+                    color: #a6a6a6;
                   }
 
                   .tips-span{
@@ -283,6 +301,8 @@ main{
 
         .work-menu{
           padding: 21px 0;
+          max-height: 312px;
+          overflow-y: scroll;
           .item{
             width: 93px;
             height: 93px;
@@ -291,14 +311,40 @@ main{
             box-sizing: border-box;
             padding: 10px 10px;
             margin-left: 21px;
+            margin-bottom: 18px;
             box-shadow: 0 5px 5px 0 rgba(0,0,0,0.31);
+            position: relative;
+
+            &:hover{
+              .close{
+                display: block;
+              }
+            }
+
+
             .item-icon{
               height: 60px;
+              position: relative;
               i{
                 color: #fff;
-                font-size: 40px;
+                font-size: 30px;
               }
-
+            }
+            .close{
+              font-size: 12px;
+              position: absolute;
+              right: 0px;
+              top: 0px;
+              width: 24px;
+              height: 24px;
+              line-height: 18px;
+              border-radius: 10px;
+              text-align: center;
+              display: none;
+              i{
+                font-size: 12px;
+                color: #abf4fd;
+              }
             }
 
             .item-menu{
@@ -313,8 +359,10 @@ main{
 
     .col-center{
       width: 374px;
+      position: relative;
 
       .calendar{
+        width: 350px;
         height: 444px;
         border: 1px solid #cfcfcf;
         background: #e5e5e5;
@@ -326,7 +374,6 @@ main{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #cfcfcf;
 
             .add-btn, .show-btn{
               border: 1px solid #cfcfcf;
@@ -367,8 +414,12 @@ main{
                 padding-right: 18px;
                 text-align: right;
                 i{
-                  font-size: 18px;
+                  font-size: 20px;
                   color: #999;
+                }
+
+                i.envelope{
+                  font-size: 14px;
                 }
               }
 
@@ -438,15 +489,19 @@ main{
           }
 
           .planning-list{
+            max-height: 675px;
+            overflow-y: scroll;
             .item{
               display: flex;
-              height: 66px;
+              min-height: 66px;
               align-items: center;
 
               .choose-icon{
                 width: 45px;
                 position: relative;
                 height: 25px;
+                box-sizing: border-box;
+                padding-left: 5px;
 
                 .unchecked{
                   position: absolute;
@@ -475,8 +530,7 @@ main{
               .item-content{
                 width: 248px;
                 border-bottom: 1px solid #dedede;
-                height: 45px;
-                line-height: 45px;
+                padding: 27px 0;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -486,7 +540,17 @@ main{
                   padding-left: 11px;
                   color: inherit;
                   font-size: 14px;
+                  line-height: 20px;
+
+                  &.acronyms{
+                    width: 230px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                  }
                 }
+
+
                 i{
                   margin-left: 15px;
                   color: inherit;
@@ -500,6 +564,7 @@ main{
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-end;
+            padding: 28px 0;
             .planning-controls{
               width: 246px;
               height: 45px;
@@ -531,7 +596,6 @@ main{
               color: #007aff;
               font-size: 14px;
             }
-
           }
         }
       }

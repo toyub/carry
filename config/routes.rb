@@ -159,7 +159,6 @@ Rails.application.routes.draw do
   end
 
   namespace :xianchang do
-    resources :field_constructions, only: [:index]
     resources :groups, only: [:index]
     resources :store_workstations, only: [:index, :new, :create, :edit, :update] do
       member do
@@ -287,7 +286,11 @@ Rails.application.routes.draw do
           get :clear_done
         end
       end
-      resources :schedules
+      resource :store_staff
+      resources :schedules do
+        get :search, on: :collection
+      end
+
       namespace :notifications do
         resources :counters
       end

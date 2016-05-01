@@ -1,0 +1,22 @@
+<form action="" method="post">
+  <div class="field title">
+    <label for="" class="form-label">标题</label>
+    <span class="form-span"><%= current_schedule.title %></span>
+  </div>
+  <div class="field start-time">
+    <label for="" class="form-label">开始时间</label>
+    <span  class="form-span"><%= current_schedule.start_time.strftime("%H:%m") %></span>
+  </div>
+  <div class="field end-time">
+    <label for="" class="form-label">结束时间</label>
+    <span class="form-span"><%= current_schedule.end_time.strftime("%H:%m") %></span>
+  </div>
+  <div class="field remarks">
+    <label for="" class="form-label">备注</label>
+    <div class="form-text"><%= current_schedule.remark %></div>
+  </div>
+  <div class="foot">
+    <input type="submit" name="" id="" value="已完成" class="finish-btn">
+    <input type="button" name="" id="" value="删除" class="delete-btn">
+  </div>
+</form>

@@ -1,4 +1,5 @@
 .simple-calendar {
+  height: 394px;
   .month{
     height: 51px;
     display: flex;
@@ -29,7 +30,7 @@
         tr{
           th{
             width: 50px;
-            height: 50px;
+            height: 26px;
             border: 1px solid #ededed;
             color: #333;
             font-size: 12px;
@@ -49,7 +50,7 @@
     color: #333;
     font-size: 12px;
     &:hover{
-      background: #dedede;
+      background: #eee;
     }
   }
 
@@ -62,8 +63,7 @@
   .wday-6 {}
 
   .today {
-    background: #3498db;
-    color: #fff;
+    background: #dedede;
   }
   .past {}
   .future {}
@@ -79,9 +79,17 @@
   .current-month {}
 
   .has-events {
-    &:before{
-      content: ".";
-      color: red;
+    position: relative;
+    i{
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      color: #cfcfcf;
     }
+  }
+
+  .active{
+    background: #3498db;
+    color: #fff;
   }
 }

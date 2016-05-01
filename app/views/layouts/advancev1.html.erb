@@ -22,16 +22,17 @@
         <span class="user-info">你好,<%= current_user.full_name %>！</span>
         <span class="date">
           <i class="fa fa-calendar "></i>
-          <%= Time.now.strftime("%Y年%m月%d日 上午%H:%S")%>
+          <%= Time.now.strftime("%Y年%m月%d日 %H:%S")%>
         </span>
       </a>
 
       <div class="nav_top_right top_right">
         <ul class="nav_right">
-          <li><i class="fa fa-comment"></i></li>
+          <li> <a href="javascript:void(0)"> <i class="icon icon-bubble-o"></i></a></li>
+          <li> <a href="javascript:void(0)"><i class="icon icon-th"></i></a></li>
           <li>
             <a href="javascript:void(0)">
-              <i class="fa  fa-user"></i>
+              <i class="icon icon-user-o"></i>
               <span></span>
             </a>
             <ul class="dropdown_menu list-group">
