@@ -5,11 +5,11 @@
   </div>
   <div class="field start-time">
     <label for="" class="form-label">开始时间</label>
-    <span  class="form-span"><%= current_schedule.start_time.strftime("%H:%m") %></span>
+    <span  class="form-span"><%= current_schedule.start_time.strftime("%I:%M %p") %></span>
   </div>
   <div class="field end-time">
     <label for="" class="form-label">结束时间</label>
-    <span class="form-span"><%= current_schedule.end_time.strftime("%H:%m") %></span>
+    <span class="form-span"><%= current_schedule.end_time.strftime("%I:%M %p") %></span>
   </div>
   <div class="field remarks">
     <label for="" class="form-label">备注</label>

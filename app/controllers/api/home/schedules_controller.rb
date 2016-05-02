@@ -26,8 +26,12 @@ module Api
       end
 
       def reset_date
-        params[:schedule][:start_time] = DateTime.parse(params[:schedule_date] + ' ' + params[:schedule][:start_time]) if params[:schedule][:start_time].present?
-        params[:schedule][:end_time] = DateTime.parse(params[:schedule_date] + ' ' + params[:schedule][:end_time]) if params[:schedule][:end_time].present?
+        if params[:schedule][:start_time].present?
+          params[:schedule][:start_time] = DateTime.parse(params[:schedule_date] + ' ' + params[:schedule][:start_time] + "#{Time.zone}")
+        end
+        if params[:schedule][:end_time].present?
+          params[:schedule][:end_time] = DateTime.parse(params[:schedule_date] + ' ' + params[:schedule][:end_time] + "#{Time.zone}")
+        end
       end
     end
   end
