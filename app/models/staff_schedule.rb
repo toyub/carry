@@ -4,10 +4,10 @@ class StaffSchedule < ActiveRecord::Base
   scope :by_date, ->(date = Date.today) { where(start_time: date.beginning_of_day..date.end_of_day) }
 
   def next
-    self.class.where("id > ?", id).first
+    self.class.by_date(self.start_time).where("id > ?", id).first
   end
 
   def prev
-    self.class.where("id < ?", id).last
+    self.class.by_date(self.start_time).where("id < ?", id).last
   end
 end
