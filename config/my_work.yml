@@ -1,6 +1,6 @@
 works:
   -
-    name: pos管理
+    name: POS
     code: pos
     icon: icon-POS
     sub_categories:

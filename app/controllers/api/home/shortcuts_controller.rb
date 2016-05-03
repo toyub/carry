@@ -8,7 +8,7 @@ module Api
 
       private
       def get_works
-        @works = current_user.work_list
+        @works = Menu.candidate_shortcuts_for_staff(current_user)
       end
     end
   end
