@@ -299,6 +299,7 @@ Rails.application.routes.draw do
         resources :counters
         resources :envelopes
       end
+      resources :my_works, only:[:index]
     end
 
     resources :store_materials, only: :index

@@ -10,7 +10,7 @@
     <% @works.each do |root_category| %>
       <div class="item">
         <h3><%= root_category[:name]%></h3>
-        <ul class="menu-list">
+        <ul class="menu-list js-menu-list">
           <% root_category[:sub_categories].each do |work| %>
           <% if current_user.works.present?%>
             <li class="<%= 'check' if current_user.works.include?(work[:idx].to_s)  %>">
