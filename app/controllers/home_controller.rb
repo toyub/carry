@@ -7,7 +7,8 @@ class HomeController < ApplicationController
     @store_trackings = current_store.today_trackings
     @todos = current_user.todos.order("id desc")
     @schedules = current_user.schedules
-    @home = HomeCountersPresenter.new(current_store)
+    @today_counter = HomeCountersPresenter.new(current_store, Time.now)
+    @yesterday_counter = HomeCountersPresenter.new(current_store, Time.now.yesterday)
   end
 
 

@@ -8,8 +8,9 @@
           <li class="js-yesterday-data"><a href="#"><i class="fa fa-sun-o"></i>昨天数据</a></li>
         </ul>
       </div>
-      <%= render 'today_data_counters' %>
-      <%= render 'yesterday_data_counters' %>
+
+      <div class="panel-body js-today-panel-body"><%= render partial: 'data_counters', locals: {counter: @today_counter} %></div>
+      <div class="panel-body js-yesterday-panel-body" style="display:none"><%= render partial: 'data_counters', locals: {counter: @yesterday_counter} %></div>
     </div>
     <div class="panel work">
       <div class="title">
