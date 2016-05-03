@@ -18,7 +18,7 @@ module Api
       def create
         @schedules = current_user.schedules
         schedule = @schedules.create!(schedule_param)
-        if schedule.remain_until < 1.hour
+        if schedule.remain_until <= 0
           NotifyCalendarScheduleJob.perform_later schedule
         else
           NotifyCalendarScheduleJob.set(wait: schedule.remain_until).perform_later schedule

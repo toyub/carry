@@ -12,6 +12,6 @@ class StaffSchedule < ActiveRecord::Base
   end
 
   def remain_until
-    (((self.start_time - s.created_at) / 1.hour).round - 1).hour
+     self.start_time.to_i -  self.created_at.to_i - 1.hour
   end
 end
