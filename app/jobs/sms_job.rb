@@ -10,14 +10,9 @@ class SmsJob < ActiveJob::Base
       return {success: false, notice: "错误: 接收哲类型错误"}
     end
 
-    if store.blank?
-      return {success: false, notice: "错误: 门店不存在"}
-    end
-    if store.sms_balance.blank?
-      return {success: false, notice: "错误: 该门店未充值短信费用"}
-    end
-    if store.sms_balance.remaining < 0
-      return {success: false, notice: "错误: 该门店短信费用不足"}
+    status = JobHelp::StoreSms.check_sms(store)
+    if !status[:success]
+      return status[:notice]
     end
 
     receiver = options[:receiver_type].constantize.find(options[:receiver_id])
@@ -34,7 +29,6 @@ class SmsJob < ActiveJob::Base
     })
     SmsClient.publish(receiver.phone_number, options[:content])
     store.sms_balance.increase_sent_quantity!(quantity)
-    {success: true, notice: "发送成功"}
   end
 
 end
