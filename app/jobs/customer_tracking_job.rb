@@ -6,7 +6,7 @@ class CustomerTrackingJob < ActiveJob::Base
 
     if customer.message_accepted
 
-      status = JobHelp::StoreSms.check_sms(store)
+      status = JobHelp::StoreSms.check_sms(customer.store)
       if status[:success]
         customer.trackings.create!(
           {
@@ -24,7 +24,7 @@ class CustomerTrackingJob < ActiveJob::Base
         Notifications::TrackingReminder.send_message(content, customer.store.store_staff)
 
         SmsJob.perform_later({
-          store_id: customer.store.id,
+          store_id: customer.store_id,
           receiver_type: StoreCustomer.name,
           receiver_id: customer.id,
           content: options[:content],
