@@ -70,6 +70,7 @@
     <div id='js-notification-counters' class="panel message-list">
       <div class="title">
         <h3>消息列表</h3>
+        <a class='text-decoration-underline js-notifications-reload' href="javascript:void(0)">刷新列表</a>
       </div>
       <section class="reminders">
         <ul class="items"></ul>
@@ -90,7 +91,7 @@
 <% content_for :javascripts do %>
   <script>
     jQuery(function($) {
-      new $$MIS.HomeNotificationHandle();
+      handle = new $$MIS.HomeNotificationHandle();
     });
   </script>
 <% end %>
