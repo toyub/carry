@@ -16,7 +16,7 @@ class CustomerTrackingJob < ActiveJob::Base
           automatic: true,
         }
       )
-      SmsJob.perform_later({
+      status = SmsJob.perform_later({
         store_id: customer.store.id,
         receiver_type: StoreCustomer.name,
         receiver_id: customer.id,
@@ -24,6 +24,10 @@ class CustomerTrackingJob < ActiveJob::Base
         first_category: options[:first_category],
         second_category: options[:second_category]
       })
+      if status[:success]
+        content = "您设定的回访信息发送成功，内容如下：#{options[:content]}"
+        Notifications::TrackingReminder.send_message(content, customer.store.store_staff)
+      end
     end
   end
 end
