@@ -6,7 +6,7 @@ body{
   }
 }
 main{
-  margin-top: 60px;
+  margin-top: 46px;
   box-sizing: border-box;
   padding-top: 1px;
 
@@ -333,13 +333,14 @@ main{
             .close{
               font-size: 12px;
               position: absolute;
-              right: 0px;
-              top: 0px;
-              width: 24px;
-              height: 24px;
-              line-height: 18px;
-              border-radius: 10px;
+              right: -8px;
+              top: -8px;
+              width: 22px;
+              height: 22px;
+              line-height: 19px;
+              border-radius: 100%;
               text-align: center;
+              background: rgba(245, 3, 3, 0.87);
               display: none;
               i{
                 font-size: 12px;
@@ -465,7 +466,7 @@ main{
       width: 355px;
 
       .planning-tools{
-        height: 920px;
+        height: 905px;
         padding: 0 12px;
 
         .planning-content{
@@ -603,7 +604,7 @@ main{
 
     .panel{
       background: #fff;
-      margin-top: 26px;
+      margin-top: 10px;
       margin-left: 24px;
 
       .title{
