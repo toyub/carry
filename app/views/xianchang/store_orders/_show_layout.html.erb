@@ -1,51 +1,31 @@
-<div class="window_wrap js-dialog" id="vehicle_order_details" style="display: flex;">
+<div class="window_wrap js-dialog" id="vehicle_order_details">
   <div class="wrap_order">
     <div class="dialog_nav">
       <span class="dialog_title "><%= order.numero %></span>
-      <a href="javascript:void(0);" class="dialog_close  lnr-cross lnr do_close js-close"></a>
+      <a href="javascript:void(0);" class="dialog_close  lnr-cross lnr do_close js-close" title="点击取消更改"></a>
     </div>
     <div class="float-left workplace_order">
       <div class="order_details">
         <div class="vehicle_order_details">
-          <div class="vehicle_info">
-            <%= render partial: 'vehicle', locals: {order: order} %>
-            <div class="vehicle_order_title title doslide">详细信息
-              <i class="fa fa-angle-double-down"></i>
-              <a href="/xiaoshou/main#store_customers/<%= order.store_customer.try(:store_customer_entity_id) %>/edit" target="_blank">完善客户信息</a>
-            </div>
-            <div class="vehicle_details_info" style="display: none;">
-              <%= render partial: 'vehicle_detail', locals: {order: order} %>
-            </div>
-          </div>
+          <%= render partial: 'vehicle_summary', locals: {order: order} %>
           <div class="vehicle_condition">
             <span class="vehicle_order_title title doslide">
-              车辆状态
-              <i class="fa cursor-pointer fa-angle-double-down"></i>
+              车辆状况<%= link_to "去编辑车况", edit_pos_store_order_path(order), target: '_blank', class: 'color-C6676D' %>
               <% if order.store_customer.present? %>
                 <%= link_to "完善车辆信息", edit_crm_store_customer_store_vehicle_path(order.store_customer, order.store_vehicle), target: '_blank' %>
               <% end %>
             </span>
-            <div class="vehicle_condition_info" style="display: none;">
-              <%= render partial: 'condition', locals: {order: order} %>
-            </div>
-          </div>
-          <div class="vehicle_order">
-            <span class="vehicle_order_title title doslide">
-              业务信息
-              <i class="fa cursor-pointer fa-angle-double-down"></i>
-              <%= link_to "添加项目", edit_pos_store_order_path(order), target: '_blank' %>
-            </span>
-            <div class="order_info" style="display: none;">
-              <%= render partial: 'order', locals: {order: order} %>
-            </div>
-          </div>
-          <div class="construction">
-            <div class="vehicle_order_title title doslide">施工信息
-              <i class="fa fa-angle-double-down"></i>
-              <a href="javascript:void(0)" class="edit_construction_info_btn js-edit-construction-form">编辑施工信息</a>
-            </div>
-            <div class="construction_info js-construction" style="display: none;">
-              <%= render partial: 'construction', locals: {order: order} %>
+            <div>
+                <% workflow = order.current_workflow %>
+                <% if workflow.present? && !workflow.processing? %>
+                  <% if workflow.executable?(workflow.store_workstation) %>
+                    无法施工流程: <%= workflow.name %>； 原因可能是：
+                    <%= workflow.errors.messages.values.flatten.to_sentence %>
+                  <% else %>
+                    无法施工流程: <%= workflow.name %>； 原因可能是：
+                    技师无法调度。请手动调度。
+                  <% end %>
+                <% end %>
             </div>
           </div>
         </div>

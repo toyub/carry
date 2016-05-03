@@ -1,0 +1,36 @@
+<div class="vehicle_info">
+  <div class="vehicle_order_title title doslide">客户信息
+    <a href="/xiaoshou/main#store_customers/<%= order.store_customer.try(:store_customer_entity_id) %>/edit" target="_blank">完善客户信息</a>
+  </div>
+  <dl>
+    <dd>
+    <label class="width-50">车牌号</label><input type="text" value="<%= order.license_number %>" class="width-110" readonly="">
+    </dd>
+    <dd>
+    <label class="width-50">客户姓名</label><input type="text" value="<%= order.store_customer.try(:full_name) %>" class="width-110" readonly="">
+    </dd>
+    <dd>
+    <label class="width-50">手机号</label><input type="text" value="<%= order.store_customer.try(:phone_number) %>" class="width-110" readonly="">
+    </dd>
+  </dl>
+  <div class="vehicle_details_info">
+    <div class="item_content">
+      <label class="width-50">车辆品牌</label><input type="text" value="<%= order.store_vehicle.vehicle_brand.try(:name )%>" class="width-110" readonly="">
+    </div>
+    <div class="item_content">
+      <label class="width-50">车型</label><input type="text" value="<%= order.store_vehicle.vehicle_model.try(:name )%>" class="width-110" readonly="">
+    </div>
+    <div class="item_content">
+      <label class="width-50">车系</label><input type="text" value="<%= order.store_vehicle.vehicle_series.try(:name )%>" class="width-110" readonly="">
+    </div>
+    <div class="item_content">
+      <label class="width-50">客户属性</label><input type="text" value="<%= order.store_customer.try(:property) %>" class="width-110" readonly="">
+    </div>
+    <div class="item_content">
+      <label class="width-50">客户类别</label><input type="text" value="<%= order.store_customer.try(:category) %>" class="width-110" readonly="">
+    </div>
+    <div class="item_content">
+      <label class="width-50">结算方式</label><input type="text" value="<%= order.store_customer.try(:settlement) %>" class="width-110" readonly="">
+    </div>
+  </div>
+</div>

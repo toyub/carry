@@ -5,14 +5,10 @@ module Xianchang
     before_action :set_store_order, only: [:start, :exchange, :perform]
 
     def index
-      @queuing_orders = current_store.store_orders.available.waiting_in_queuing_area
-      @processing_orders_count = current_store.store_orders.processing.available.count
-      @paying_orders_count = current_store.store_orders.paying.available.count
-      @finished_orders_count = current_store.store_orders.finished.available.count
-      @orders_count = current_store.store_orders.available.count
-      @pending_orders_count = current_store.store_orders.pending.available.count
-      @mechanics_count = current_store.store_staff.mechanics.count
-      @task_finished_orders = current_store.store_orders.task_finished.paying.available.today
+      counts
+      @task_finished_orders = current_store.store_orders.available.paying.task_finished_on(Time.now)
+      @pausing_orders = current_store.store_orders.available.pausing.waiting_in_queue
+      @queuing_orders = current_store.store_orders.available.queuing.waiting_in_queue
       @workstations = current_store.workstations.order("id asc")
     end
 
@@ -32,25 +28,41 @@ module Xianchang
     end
 
     def finish
-      @workstation.finish!
+      @workflow = StoreServiceWorkflowSnapshot.find_by(id: params[:workflow_id]) #要结束的流程，一定是页面上显示的流程
+      if @workflow.present?
+        if @workflow.id == @workstation.workflow_id #此处因为后台可能已经结束过了，而且分配了下一个任务。所以要判断一下
+          @workflow.complete!
+        else
+
+        end
+      else
+        
+      end
     end
 
     def perform
-      workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
-      @previous_workstation = workflow.try(:store_workstation)
-      @workstation.perform!(@store_order, workflow)
+      workflow = @store_order.workflows.find_by(id: params[:workflow_id])
+      if workflow.present?
+        @previous_workstation = workflow.store_workstation
+        @workstation.perform!(@store_order, workflow)
+      end
       @store_order.reload
     end
 
     def exchange
-      @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
-      @previous_workstation = current_store.workstations.find(params[:previous_workstation])
-      @workflow.exchange!(@previous_workstation, @workstation)
+      @workflow = @store_order.workflows.find_by(id: params[:workflow_id])
+      @previous_workstation = @workflow.store_workstation
+      @workflow.change_workstation_to!(@workstation)
     end
 
     def start
-      @workflow = @store_order.workflows.processing.first || @store_order.workflows.pending.first
-      @workstation.start!(@workflow)
+      service = @store_order.store_service_snapshots.not_deleted.in_executable_state.order_by_itemd.first
+      if service.present?
+        @workflow = service.workflow_snapshots.not_deleted.in_executable_state.order_by_flow.first
+        if @workflow.present?
+          @workstation.start!(@workflow)
+        end
+      end
     end
 
     private
