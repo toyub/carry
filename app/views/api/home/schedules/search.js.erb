@@ -1,6 +1,6 @@
 <% if @schedules.present? %>
   $(".show-floatwindow-wrap").html("<%=j render '/home/calender_show_floatwindow' %>")
-  var target_wrap  = $(".js-show-events").data('target');
+  var target_wrap  = $(".js-show-event").data('target');
   $(target_wrap).slideDown();
   $(".page-numbers a").eq(0).addClass('active');
   $(".page-numbers").on('click', 'a', function(){
