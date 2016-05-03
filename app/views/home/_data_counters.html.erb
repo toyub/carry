@@ -1,0 +1,89 @@
+
+  <div class="info-box">
+    <div class="vehicle-info-wrap">
+      <div class="approach-vehicle">
+        <div class="stats">
+          <h4><i class="icon icon-approach-car"></i>进场车辆</h4>
+          <span class="number"><%= counter.orders_count %></span>
+        </div>
+      </div>
+      <ul class="vehicle-info">
+        <li>
+          <div class="stats">
+            <div class="vehicle-icon">
+              <i class="icon icon-construction-car construction"></i>
+            </div>
+            <div class="vehicle-item">
+              <h4>施工车辆</h4>
+              <span class="number"><%= counter.processing_orders_count %></span>
+            </div>
+
+          </div>
+        </li>
+        <li>
+          <div class="stats">
+            <div class="vehicle-icon">
+              <i class="icon icon-consumer-car consumer"></i>
+            </div>
+            <div class="vehicle-item">
+              <h4>离场车辆</h4>
+              <span class="number"><%= counter.finished_orders_count %></span>
+            </div>
+
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="tips-info-wrap">
+      <dl class="tips-info">
+        <dd>
+          <label class="tip-icon"><i class="icon icon-male male"></i></label>
+          <label for="" class="tips-label">可分配技师</label>
+          <span class="tips-span"><%= counter.attendances_mechanics_count %></span>
+        </dd>
+        <dd>
+          <label class="tip-icon"><i class="icon icon-wrench"></i></label>
+          <label for="" class="tips-label">可用工位</label>
+          <span class="tips-span"><%= counter.available_workstations_count %></span>
+        </dd>
+        <dd>
+          <label class="tip-icon"><i class="icon icon-trophy"></i></label>
+          <label for="" class="tips-label">待付款车辆</label>
+          <span class="tips-span"><%= counter.payings_count %></span>
+        </dd>
+        <dd>
+          <label class="tip-icon"><i class="icon icon-bolt"></i></label>
+          <label for="" class="tips-label">暂停施工车辆</label>
+          <span class="tips-span"><%= counter.task_pausings_count %></span>
+        </dd>
+        <dd>
+          <label class="tip-icon"><i class="icon icon-bell"></i></label>
+          <label for="" class="tips-label">排队车辆</label>
+          <span class="tips-span"><%= counter.task_queuings_count %></span>
+        </dd>
+        <dd>
+          <label class="tip-icon"><i class="icon icon-telephone"></i></label>
+          <label for="" class="tips-label">投诉事件</label>
+          <span class="tips-span"><%= counter.complaints_count %></span>
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="amount">
+    <div class="title">
+      <h3>营业金额</h3>
+    </div>
+    <dl class="item">
+      <dd>营业额</dd>
+      <dd class="number"><%= counter.sale_revenue %></dd>
+    </dl>
+    <dl class="item">
+      <dd>挂账</dd>
+      <dd class="number"><%= counter.pay_hangings_amount %></dd>
+    </dl>
+    <dl class="item">
+      <dd>卡扣</dd>
+      <dd class="number"><%= counter.customer_assets_revenue %></dd>
+    </dl>
+  </div>

@@ -1770,7 +1770,7 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.boolean  "regular",                                                     default: true
     t.boolean  "demission",                                                   default: false
     t.integer  "chain_business_model_id",                                     default: 0,              null: false,              comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
-    t.json     "works"
+    t.json     "home_shortcuts"
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree

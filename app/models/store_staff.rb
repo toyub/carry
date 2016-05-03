@@ -356,10 +356,6 @@ class StoreStaff <  ActiveRecord::Base
     read_attribute(:full_name) || ""
   end
 
-  def work_list
-    (YAML.load_file Rails.root.join("config", "my_work.yml")).with_indifferent_access[:works]
-  end
-
   private
   def encrypt_password()
     self.salt = Digest::MD5.hexdigest("--#{Time.now.to_f}--")

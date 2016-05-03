@@ -1,0 +1,1 @@
+$menus = YAML.load_file(Rails.root.join("config", "my_work.yml")).with_indifferent_access[:works]

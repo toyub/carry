@@ -1,0 +1,9 @@
+<li>
+  <a href='javascript:void(0)' class='sub-menu js-sub-menu' data-id='<%= @idx %>' >
+    <div class='menu-icons'>
+      <i class='menu-icon icon <%= @root_category.icon %>'></i>
+      <i class='fa fa-check check-icon'></i>
+    </div>
+    <span class='menu-name'><%= @name %></span>
+  </a>
+</li>

@@ -36,6 +36,7 @@ class StoreOrder < ActiveRecord::Base
   scope :task_finished_on, ->(date){where(task_finished_at: date.beginning_of_day..date.end_of_day)}
   scope :by_numero, ->(numero) { where("numero like ?", "%#{numero}%") if numero.present? }
   scope :need_temporary_purchase, -> { joins(:items).where('store_order_items.need_temporary_purchase is true').group("store_orders.id") }
+  scope :created_before, ->(date = Time.now){where("created_at <= ?", date.end_of_day)}
 
   enum state: %i[pending queuing processing paying finished pausing]
   enum task_status: %i[task_pending task_queuing task_processing task_checking task_checked task_finished task_pausing]
