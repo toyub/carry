@@ -7,33 +7,6 @@
 
     <div class="menu">
     <form class="" action="" method="put" id="works_form">
-    <% @works.each do |root_category| %>
-      <div class="item">
-        <h3><%= root_category[:name]%></h3>
-        <ul class="menu-list js-menu-list">
-          <% root_category[:sub_categories].each do |work| %>
-          <% if current_user.home_shortcuts.present?%>
-            <li class="<%= 'check' if current_user.home_shortcuts.include?(work[:idx].to_s)  %>">
-          <% else %>
-            <li>
-          <% end %>
-              <a href="javascript:void(0)" class="sub-menu js-sub-menu" data-id="<%= work[:idx]%>" >
-                <% if current_user.home_shortcuts.present?%>
-                  <input type="hidden" name="works[<%= work[:idx]%>]" id="<%= work[:idx]%>" value="<%= work[:idx] if current_user.home_shortcuts.include?(work[:idx].to_s) %>" >
-                <% else %>
-                  <input type="hidden" name="works[<%= work[:idx]%>]" id="<%= work[:idx]%>" value="" >
-                <% end %>
-                <div class="menu-icons">
-                  <i class="menu-icon icon <%= root_category[:icon]%> "></i>
-                  <i class="fa fa-check check-icon"></i>
-                </div>
-                <span class="menu-name"><%= work[:name]%></span>
-              </a>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
 
     </div>
 
