@@ -302,6 +302,7 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.text     "remark"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.boolean  "finished"
   end
 
   create_table "staff_todos", force: :cascade do |t|
