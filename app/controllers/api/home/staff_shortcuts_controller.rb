@@ -1,16 +1,16 @@
 module Api
   module Home
 
-    class StoreStaffController < BaseController
+    class StaffShortcutsController < BaseController
       before_action :get_works, only:[:update]
       def update
-        staff = current_user.update!(works: params[:value])
-        render json: {msg: '添加成功！', my_works: current_user.works, works: @works}
+        staff = current_user.update!(home_shortcuts: params[:value])
+        render json: {msg: '添加成功！', my_works: current_user.home_shortcuts, works: @works}
       end
 
       def destroy
-        work_idx = current_user.works - ([] << params[:id])
-        current_user.update!(works: work_idx)
+        work_idx = current_user.home_shortcuts - ([] << params[:id])
+        current_user.update!(home_shortcuts: work_idx)
         render json: {msg: '删除成功!'}
       end
 

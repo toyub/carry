@@ -1,9 +1,9 @@
 module Api
   module Home
-    class MyWorksController < BaseController
+    class ShortcutsController < BaseController
       before_action :get_works, only: [:index]
       def index
-        render json: {works: @works, my_works: current_user.works}
+        render json: {works: @works, my_works: current_user.home_shortcuts}
       end
 
       private

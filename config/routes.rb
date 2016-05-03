@@ -286,7 +286,7 @@ Rails.application.routes.draw do
           get :clear_done
         end
       end
-      resource :store_staff
+      resource :staff_shortcuts
       resources :schedules do
         get :search, on: :collection
       end
@@ -299,7 +299,7 @@ Rails.application.routes.draw do
         resources :counters
         resources :envelopes
       end
-      resources :my_works, only:[:index]
+      resources :shortcuts, only:[:index]
     end
 
     resources :store_materials, only: :index

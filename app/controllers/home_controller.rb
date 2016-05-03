@@ -19,10 +19,10 @@ class HomeController < ApplicationController
   def my_works
     get_works
     @my_works = []
-    if current_user.works.present?
+    if current_user.home_shortcuts.present?
       @works.each do |root_category|
         root_category[:sub_categories].each do |work|
-          @my_works << work if current_user.works.include?(work[:idx].to_s)
+          @my_works << work if current_user.home_shortcuts.include?(work[:idx].to_s)
         end
       end
     end
