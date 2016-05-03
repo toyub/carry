@@ -4,14 +4,10 @@ class HomeController < ApplicationController
   before_action :get_works, :my_works, only: [:show]
 
   def show
-    @orders = current_store.today_orders
-    @paid_orders = current_store.paid_on_today_orders
-    @order_items = current_store.today_order_items
-    @complaints = current_store.today_complaints
     @store_trackings = current_store.today_trackings
     @todos = current_user.todos.order("id desc")
     @schedules = current_user.schedules
-    @mechanics = current_store.store_group_members.available
+    @home = HomeCountersPresenter.new(current_store)
   end
 
 
