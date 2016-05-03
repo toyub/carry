@@ -4,7 +4,8 @@ module Api
     class StaffShortcutsController < BaseController
       before_action :get_works, only:[:update]
       def update
-        staff = current_user.update!(home_shortcuts: params[:value])
+        shortcuts = current_user.home_shortcuts.to_a + params[:value]
+        staff = current_user.update!(home_shortcuts: shortcuts)
         render json: {msg: '添加成功！', my_works: current_user.home_shortcuts, works: @works}
       end
 
