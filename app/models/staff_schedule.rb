@@ -2,6 +2,7 @@ class StaffSchedule < ActiveRecord::Base
   belongs_to :store_staff
 
   scope :by_date, ->(date = Date.today) { where(start_time: date.beginning_of_day..date.end_of_day) }
+  scope :unfinished, -> { where(finished: false) }
 
   def next
     self.class.by_date(self.start_time).where("id > ?", id).first

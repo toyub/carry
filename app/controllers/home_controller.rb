@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     @complaints = current_store.today_complaints
     @store_trackings = current_store.today_trackings
     @todos = current_user.todos.order("id desc")
-    @schedules = current_user.schedules
+    @schedules = current_user.schedules.unfinished
     @mechanics = current_store.store_group_members.available
   end
 

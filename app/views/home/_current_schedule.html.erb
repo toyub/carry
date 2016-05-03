@@ -16,7 +16,36 @@
     <div class="form-text"><%= current_schedule.remark %></div>
   </div>
   <div class="foot">
-    <input type="submit" name="" id="" value="已完成" class="finish-btn">
-    <input type="button" name="" id="" value="删除" class="delete-btn">
+    <a href="javascript:void(0)" class="finish-btn">已完成</a>
+    <a href="javascript:void(0)" class="delete-btn">删除</a>
   </div>
 </form>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $(".finish-btn").on('click', function(){
+      url = "/api/home/schedules/" + <%= current_schedule.id %>
+      $.ajax({
+        url: url,
+        method: 'patch',
+        success: function(res){
+          if(res.success) {
+            $(".finish-btn").hide();
+          }
+        }
+      })
+    })
+
+    $(".delete-btn").on('click', function(){
+      url = "/api/home/schedules/" + <%= current_schedule.id %>
+      $.ajax({
+        url: url,
+        method: 'delete',
+        success: function(res){
+        }
+      })
+    })
+
+  })
+  
+</script>
