@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
   def show
     @todos = current_user.todos.order("id desc")
-    @schedules = current_user.schedules.unfinished
+    @schedules = current_user.schedules
     @my_works = Menu.shortcuts_for(current_user)
     @today_counter = HomeCountersPresenter.new(current_store, Time.now)
     @yesterday_counter = HomeCountersPresenter.new(current_store, Time.now.yesterday)

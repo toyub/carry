@@ -16,7 +16,9 @@
     <div class="form-text"><%= current_schedule.remark %></div>
   </div>
   <div class="foot">
-    <a href="javascript:void(0)" class="finish-btn">已完成</a>
+    <% if !current_schedule.finished %>
+      <a href="javascript:void(0)" class="finish-btn">已完成</a>
+    <% end %>
     <a href="javascript:void(0)" class="delete-btn">删除</a>
   </div>
 </form>
