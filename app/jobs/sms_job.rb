@@ -4,10 +4,10 @@ class SmsJob < ActiveJob::Base
   def perform(options)
     store = Store.find_by_id(options[:store_id])
     if options[:receiver_type].blank? 
-      return {success: false, notice: "错误: 接收哲类型错误"}
+      return {success: false, notice: "错误: 接收者类型错误"}
     end
     unless SmsRecord.receiver_type_available? options[:receiver_type]
-      return {success: false, notice: "错误: 接收哲类型错误"}
+      return {success: false, notice: "错误: 接收者类型错误"}
     end
 
     status = JobHelp::StoreSms.check_sms(store)
