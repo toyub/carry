@@ -391,6 +391,11 @@ main{
                 color: #a2a2a2;
                 padding-right: 5px;
               }
+
+              &[disabled]{
+                background: #CCCACA;
+                cursor: default;
+              }
             }
           }
         }
