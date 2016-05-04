@@ -12,7 +12,7 @@ class Mis.Routers.StoreServices extends Mis.Base.Router
   show: (id) ->
     model = @collection.get(id)
     self = this
-    console.log(model)
+    
     model.fetch(success: () ->
       model.parseMaterials()
       view = new Mis.Views.XiaoshouServiceProfilesShow(model: model, collection: self.collection)

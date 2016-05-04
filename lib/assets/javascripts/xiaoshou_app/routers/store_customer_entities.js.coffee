@@ -14,7 +14,7 @@ class Mis.Routers.StoreCustomerEntities extends Mis.Base.Router
     self = this
     model.fetch(success: () ->
       view = new Mis.Views.KehuCustomerProfilesShow(model: model, collection: self.collection)
-      console.log model.toJSON()
+      
       self.swap(view)
     )
 

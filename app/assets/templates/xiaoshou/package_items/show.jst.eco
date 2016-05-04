@@ -1,22 +1,28 @@
 <h3>创建套餐内容</h3>
 <div class="creating_details">
   <ul class="items_create_head" id="do_sel_types_to_create_package_card">
-    <li class="color-dad8d8">
+    <li class="color-dad8d8 <%= 'bg-color-8E81B8' if @item.isStoreService() %>">
       <label>
         服务项目
-        <input type="radio" disabled id="serviceItem" name="package_itemable_type" value="StoreService" <%= 'checked' if @item.isStoreService() %>>
+        <% if @item.isStoreService() : %>
+          <input type="radio" disabled id="serviceItem" name="package_itemable_type" value="StoreService" checked>
+        <% end %>
       </label>
     </li>
-    <li>
+    <li class="color-dad8d8 <%= 'bg-color-8E81B8' if @item.isStoreDepositCard() %>">
       <label>
         储值
-        <input type="radio" disabled id="depositItem" name="package_itemable_type" value="StoreDepositCard" <%= 'checked' if @item.isStoreDepositCard() %>>
+        <% if @item.isStoreDepositCard() : %>
+          <input type="radio" disabled id="depositItem" name="package_itemable_type" value="StoreDepositCard" checked>
+        <% end %>
       </label>
     </li>
-    <li class="color-dad8d8">
+    <li class="color-dad8d8 <%= 'bg-color-8E81B8' if @item.isStoreMaterial() %>">
       <label>
         商品
-        <input type="radio" disabled id="materialItem" name="package_itemable_type" value="StoreMaterialSaleinfo" <%= 'checked' if @item.isStoreMaterial() %>>
+        <%if @item.isStoreMaterial() : %>
+          <input type="radio" disabled id="materialItem" name="package_itemable_type" value="StoreMaterialSaleinfo" checked>
+        <% end %>
       </label>
     </li>
   </ul>

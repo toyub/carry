@@ -20,7 +20,7 @@ class Mis.Views.KehuCustomerTagsForm extends Mis.Base.View
 
   renderTag: (tag) =>
     view = new Mis.Views.KehuCustomerTagsItem(model: tag, customer: @customer)
-    console.log @$(".links")
+
     @prependChildTo(view, @$(".links"))
 
   close: (e) ->
@@ -34,7 +34,7 @@ class Mis.Views.KehuCustomerTagsForm extends Mis.Base.View
     if model.isValid(true)
       model.save {},
         success: ->
-          console.log model
+          
           window.Mis.store.tags.add model
 
   addTags: (e) ->

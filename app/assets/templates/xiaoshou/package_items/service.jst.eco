@@ -2,7 +2,7 @@
 <li class="project">
   <label class="width-70">选择项目：</label>
   <select name="package_itemable_id" id="store_service_id" style="width:210px;">
-    <option>请选择</option>
+    <option value=''>请选择</option>
     <% Mis.services.each (service) ->: %>
     <option value="<%= service.get 'id' %>" <%= 'selected' if (String(item.get('package_itemable_id')) == String(service.get('id')) && item.isStoreService()) %>><%= service.get 'name' %></option>
   <% end %>
@@ -36,6 +36,7 @@
 
 <li>
   <label>当前套餐单价：</label>
-  <span name="price" ><%= item.price('StoreService') %></span>元
+  <input type="hidden" name="price" value="<%= item.price('StoreService') %>">
+  <span class='js-price-apparent'><%= item.price('StoreService') %></span>元
   (<span>单品折扣率：</span><span class='js-discount-rate'><%= item.discountRate() %></span>)
 </li>

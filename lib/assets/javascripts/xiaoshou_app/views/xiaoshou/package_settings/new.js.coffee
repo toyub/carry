@@ -38,6 +38,7 @@ class Mis.Views.XiaoshouPackageSettingsNew extends Backbone.View
     view.open()
 
   renderItem: (item) ->
+    
     view = new Mis.Views.XiaoshouPackageItemsPackageItem(model: item)
     @$("#itemList").append view.render().el
 
