@@ -41,8 +41,7 @@ class Mis.Views.KehuCustomerProfilesNew extends Mis.Base.View
     @model.storeCustomer.set customerAttrs
     @model.storeCustomerSettlement.set settlementAttrs
     @model.set _.omit(attrs, "store_customer", "store_customer_settlement")
-    console.log @model
-    console.log @model.toJSON()
+    
     @model.save() if @model.isValid(true)
 
   handleSuccess: ->

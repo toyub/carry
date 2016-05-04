@@ -94,7 +94,7 @@
     <td></td>
     <td colspan="5" rowspan="3">
       <div>
-        <% console.log workflow.get('nominated_workstation') %>
+        
         <ul id="nominated_stations" style="<%= 'display: none;' unless workflow.get('nominated_workstation') %>">
 
         </ul>

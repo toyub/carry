@@ -38,6 +38,7 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
     ZhanchuangAlert("套餐保存成功！")
 
   openPackageItemForm: ->
+    
     model = new Mis.Models.StorePackageItem(package_setting: @model)
     view = new Mis.Views.XiaoshouPackageItemsForm(model: model)
     @renderChildInto(view, $("#newPackageItem"))

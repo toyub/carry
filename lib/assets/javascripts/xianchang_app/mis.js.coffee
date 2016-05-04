@@ -5,7 +5,7 @@ window.Mis =
   Routers: {}
   Helpers: {}
   initialize: ->
-    console.log 'Hello from Backbone!'
+    return this;
 
 $(document).ready ->
   Mis.initialize()
