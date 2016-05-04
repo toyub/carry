@@ -20,7 +20,7 @@ class Mis.Models.StorePackageItem extends Backbone.Model
     package_itemable_id:
       required: (val, attr, model) ->
         _.contains(['StoreMaterialSaleinfo', 'StoreService'], model.package_itemable_type)
-      msg: '项目名称不能为空'
+      msg: '请选择关联的项目'
     name:
       required: (val, attr, model) ->
         'StoreDepositCard' == model.package_itemable_type

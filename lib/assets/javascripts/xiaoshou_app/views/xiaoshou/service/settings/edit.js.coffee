@@ -53,7 +53,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
 
   renderWorkstations: ->
     @$("#storeWorkstations").empty()
-    console.log @store.workstations
+
     @store.workstations.each @addWorkstation
 
   addWorkstation: (workstation) =>
@@ -125,7 +125,7 @@ class Mis.Views.XiaoshouServiceSettingsEdit extends Mis.Base.View
   openWorkflowForm: ->
     model = new Mis.Models.StoreServiceWorkflow()
     view = new Mis.Views.XiaoshouServiceWorkflowsForm(model: model, setting: @model)
-    console.log 'open workflow form'
+    
     @appendChildTo(view, @$(".j_workflow_setting"))
 
   handleSuccess: ->
