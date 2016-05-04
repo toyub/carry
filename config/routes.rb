@@ -280,6 +280,27 @@ Rails.application.routes.draw do
 
   #Api
   namespace :api do
+    namespace :home do
+      resources :staff_todos do
+        collection do
+          get :clear_done
+        end
+      end
+      resource :staff_shortcuts
+      resources :schedules do
+        get :search, on: :collection
+      end
+
+      namespace :notifications do
+        resources :work_reminders
+        resources :system_bulletins
+        resources :calendar_schedule_reminders
+        resources :tracking_reminders
+        resources :counters
+        resources :envelopes
+      end
+      resources :shortcuts, only:[:index]
+    end
 
     resources :store_materials, only: :index
     resources :store_temporary_items, only: [:index, :show]

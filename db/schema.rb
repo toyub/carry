@@ -111,6 +111,25 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.integer  "payment_id"
   end
 
+  create_table "envelopes", force: :cascade do |t|
+    t.string   "extra_type"
+    t.string   "message_type"
+    t.integer  "message_id"
+    t.string   "receiver_type"
+    t.integer  "receiver_id"
+    t.string   "sender_type"
+    t.integer  "sender_id"
+    t.integer  "status",        default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "envelopes", ["extra_type"], name: "index_envelopes_on_extra_type", using: :btree
+  add_index "envelopes", ["message_type", "message_id"], name: "index_envelopes_on_message_type_and_message_id", using: :btree
+  add_index "envelopes", ["receiver_type", "receiver_id"], name: "index_envelopes_on_receiver_type_and_receiver_id", using: :btree
+  add_index "envelopes", ["sender_type", "sender_id"], name: "index_envelopes_on_sender_type_and_sender_id", using: :btree
+  add_index "envelopes", ["status"], name: "index_envelopes_on_status", using: :btree
+
   create_table "info_categories", force: :cascade do |t|
     t.string   "name",       limit: 45, null: false
     t.integer  "parent_id"
@@ -128,6 +147,20 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.string   "journalable_type"
     t.integer  "journalable_id"
   end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "type"
+    t.string   "creator_type"
+    t.integer  "creator_id"
+    t.text     "content",                     null: false
+    t.integer  "envelopes_count", default: 0
+    t.integer  "status",          default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "notifications", ["creator_type", "creator_id"], name: "index_notifications_on_creator_type_and_creator_id", using: :btree
+  add_index "notifications", ["type", "status"], name: "index_notifications_on_type_and_status", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "order_id"
@@ -257,8 +290,9 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.text     "remark"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "finished",       default: false
   end
 
   create_table "staff_todos", force: :cascade do |t|
@@ -1736,6 +1770,7 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.boolean  "regular",                                                     default: true
     t.boolean  "demission",                                                   default: false
     t.integer  "chain_business_model_id",                                     default: 0,              null: false,              comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+    t.json     "home_shortcuts"
   end
 
   add_index "store_staff", ["login_name", "work_status"], name: "login_name_work_status_index", using: :btree
@@ -1932,6 +1967,15 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.integer  "creator_id"
     t.integer  "chain_business_model_id",            default: 0,    null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
+
+  create_table "system_narrators", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "extra_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "system_narrators", ["type", "extra_id"], name: "index_system_narrators_on_type_and_extra_id", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"

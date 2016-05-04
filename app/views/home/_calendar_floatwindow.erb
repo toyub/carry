@@ -1,0 +1,33 @@
+<div class="calendar-floatwindow">
+  <%= link_to '', 'javascript:void(0)', class: 'fa fa-close close' %>
+
+  <div class="add-new-event-form" >
+    <%= form_tag "/api/home/schedules", remote: true, id: "schedule_form" do %>
+      <input type="hidden" name="start_date" value="" class="calendar-start-date">
+      <input type="hidden" name="schedule_date" value="" class="schedule-date">
+      <div class="field title">
+        <label for="" class="form-label">标题</label>
+        <input type="text" name="schedule[title]" id="" value="" class="form-input" placeholder="请输入标题">
+      </div>
+      <div class="field start-time">
+        <label for="" class="form-label">开始时间</label>
+        <input type="time" name="schedule[start_time]" value="" class="form-input" required>
+        <i class="fa fa-clock-o"></i>
+      </div>
+      <div class="field end-time">
+        <label for="" class="form-label">结束时间</label>
+        <input type="time" name="schedule[end_time]" value="" class="form-input">
+        <i class="fa fa-clock-o"></i>
+      </div>
+      <div class="field remarks">
+        <label for="" class="form-label">备注</label>
+        <textarea name="schedule[remark]" class="form-textarea"></textarea>
+      </div>
+      <div class="foot">
+        <input type="submit" name="" id="" value="保存" class="save-btn">
+        <input type="button" name="" id="" value="取消" class="cancel-btn">
+      </div>
+    <% end %>
+  </div>
+
+</div>

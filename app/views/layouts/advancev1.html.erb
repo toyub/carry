@@ -6,7 +6,7 @@
   <%= csrf_meta_tags %>
   <title>MIS-<% if content_for?(:title) %><%= yield :title %><% else %><%= I18n.t 'site.name' %><% end %></title>
   <%= stylesheet_link_tag    'advancev1_layout', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', 'home' %>
   <%= yield :pre_assets %>
 </head>
 <body>
@@ -19,8 +19,11 @@
 
       <a href="#" class="nav_top_center">
         <img src="" alt="" />
-        <span class="user-info">你好,王丽！</span>
-        <span class="date"><i class="fa fa-calendar "></i>2016年4月18日上午11:00</span>
+        <span class="user-info">你好,<%= current_user.full_name %>！</span>
+        <span class="date">
+          <i class="fa fa-calendar "></i>
+          <%= Time.now.strftime("%Y年%m月%d日 %H:%S")%>
+        </span>
       </a>
 
       <div class="nav_top_right top_right">
