@@ -1,0 +1,13 @@
+<ul class="work-menu js-work-menu">
+  <% @my_works.each do |work| %>
+    <li class="item" id="<%= work[:idx]%>">
+      <a href='javascript:void(0)' class="close js-close-my-work" data-id="<%= work[:idx]%>"><i class="fa fa-close"></i></a>
+      <a href="<%= work[:url]%>">
+        <div class="item-icon">
+          <i class="icon <%= work[:icon]%>"></i>
+        </div>
+        <span class="item-menu"><%= work[:name]%></span>
+      </a>
+    </li>
+  <% end %>
+</ul>

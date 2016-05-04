@@ -1,0 +1,40 @@
+<div class="panel planning-tools">
+  <div class="title">
+    <h3>记事工具</h3>
+  </div>
+  <div class="planning-content">
+    <span></span>
+    <div class="planning-input">
+      <input type="text" name="name" id="new-todo" value="" placeholder="有什么需要记下的吗？">
+    </div>
+    <ul class="planning-list js-planning-list">
+     <% @todos.each do |todo| %>
+      <li class="item">
+        <span class="choose-icon">
+          <% if todo.done == true %>
+            <label class="fa fa-check-circle check" for="check_<%= todo.id%>"></label>
+          <% else %>
+            <label class="unchecked" for="check_<%= todo.id%>"></label>
+          <% end %>
+          <input type="checkbox" value="<%= todo.id%>" data-id="<%= todo.id%>" id="check_<%= todo.id%>">
+        </span>
+
+        <div class="item-content">
+          <span class="text acronyms js-text_<%= todo.id%>"><%= todo.content  %> </span>
+          <a href="javascript:void(0)"> <i class="lnr lnr-chevron-down js-lnr" data-id="<%= todo.id%>" ></i></a>
+        </div>
+      </li>
+     <% end %>
+    </ul>
+
+    <div class="planning-controls-wrap">
+      <dl class="planning-controls">
+        <dd><a href="javascript:void(0)" class="active" id="all-todos">全部</a></dd>
+        <dd><a href="javascript:void(0)" id="done-todos">已解决</a></dd>
+        <dd><a href="javascript:void(0)" id="unfinished-todos">未解决</a></dd>
+      </dl>
+      <a href="javascript:void(0)" id="delete_done_todos">清除已解决事件</a>
+    </div>
+
+  </div>
+</div>
