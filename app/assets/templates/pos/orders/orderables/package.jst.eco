@@ -27,7 +27,7 @@
   </dl>
 
   <% for service in @services : %>
-  <dl style="display: none">
+  <dl>
     <dd><%= service.name %></dd>
     <dd><nbsp1></nbsp1></dd>
     <dd><nbsp1></nbsp1></dd>
@@ -36,7 +36,7 @@
   </dl>
   <% end %>
   <% for material in @materials : %>
-  <dl>
+  <dl style="display: none">
     <dd><%= material.name %></dd>
     <dd><%= material.speci %></dd>
     <dd><nbsp1></nbsp1></dd>
