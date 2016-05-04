@@ -4,11 +4,11 @@ module Api
       before_action :reset_date, only: :create
 
       def index
-        @schedules = current_user.schedules.unfinished
+        @schedules = current_user.schedules
       end
 
       def search
-        @schedules = current_user.schedules.unfinished.by_date((Date.parse(params[:date]) if params[:date].present?) )
+        @schedules = current_user.schedules.by_date((Date.parse(params[:date]) if params[:date].present?) )
       end
 
       def show
@@ -32,9 +32,9 @@ module Api
 
       def destroy
         schedule = current_user.schedules.find(params[:id])
-        date = schedule.created_at.strftime("%Y-%m-%d")
+        date = schedule.start_time
         schedule.destroy
-        redirect_to action: 'search', date: date, status: 303
+        @schedules = current_user.schedules.by_date(date)
       end
 
       private

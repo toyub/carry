@@ -1,0 +1,29 @@
+<% if @schedules.present? %>
+  $(".show-floatwindow-wrap").html("<%=j render '/home/calender_show_floatwindow' %>")
+  var target_wrap  = $(".js-show-event").data('target');
+  $(target_wrap).slideDown();
+  $(".page-numbers a").eq(0).addClass('active');
+  $(".page-numbers").on('click', 'a', function(){
+    $(this).addClass('active').siblings('a').removeClass('active');
+    get_current_schedule($(this).data('schedule-id'))
+  })
+  $(target_wrap).on("click", '.cancel-btn, .close', function(){
+    $(target_wrap).slideUp();
+    $(".show-floatwindow").remove();
+  })
+
+  get_current_schedule = function(id){
+    var url = 'api/home/schedules/' + id;
+    $.ajax({
+      url: url,
+      dataType: 'script',
+      success: function(res){
+      }
+    })
+  }
+<% else %>
+  $(".show-floatwindow-wrap").slideUp();
+  var day = $(".simple-calendar td.active");
+  day.removeClass('has-events');
+  day.children("i").remove();
+<% end %>
