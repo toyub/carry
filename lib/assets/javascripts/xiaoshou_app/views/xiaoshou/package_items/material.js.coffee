@@ -36,6 +36,7 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Mis.Base.View
     @$el.find('[name="price"]').val('')
     @$el.find('.js-regular-amount').text('')
     @$el.find('.js-discount-rate').text('')
+    @$el.find('.js-price-apparent').text('')
 
   setQuantity: (evt)->
     target = evt.target
@@ -50,4 +51,5 @@ class Mis.Views.XiaoshouPackageItemsMaterial extends Mis.Base.View
   renderPrice: ->
     @$el.find('.js-regular-amount').text(@model.regularAmount())
     @$el.find('[name="price"]').val(@model.packagedItemPrice())
+    @$el.find('.js-price-apparent').text(@model.packagedItemPrice())
     @$el.find('.js-discount-rate').text(@model.discountRate())

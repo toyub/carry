@@ -40,7 +40,7 @@ class Mis.Views.XiaoshouServiceMaterialsForm extends Mis.Base.View
       materials = @materials.models
     else
       materials = @materials.where(@categoryCriterial())
-      console.log materials
+      
     materials = _.filter(materials, @queryCriterial)
 
     @$("#queryResults").empty()

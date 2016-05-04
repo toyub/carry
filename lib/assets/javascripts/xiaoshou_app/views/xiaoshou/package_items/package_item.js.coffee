@@ -12,6 +12,7 @@ class Mis.Views.XiaoshouPackageItemsPackageItem extends Mis.Base.View
 
     @listenTo(@model, 'remove', @leave)
     @listenTo(@model, 'change', @render)
+    @model.package_setting = @package_setting
 
   events:
     'click span.delete': 'clear'

@@ -23,7 +23,7 @@
         <li>
           <div class="stats">
             <div class="vehicle-icon">
-              <i class="icon icon-consumer-car consumer"></i>
+              <i class="icon icon-departure consumer"></i>
             </div>
             <div class="vehicle-item">
               <h4>离场车辆</h4>
@@ -37,27 +37,27 @@
     <div class="tips-info-wrap">
       <dl class="tips-info">
         <dd>
-          <label class="tip-icon"><i class="icon icon-male male"></i></label>
+          <label class="tip-icon"><i class="icon icon-technician"></i></label>
           <label for="" class="tips-label">可分配技师</label>
           <span class="tips-span"><%= counter.attendances_mechanics_count %></span>
         </dd>
         <dd>
-          <label class="tip-icon"><i class="icon icon-wrench"></i></label>
+          <label class="tip-icon"><i class="icon icon-station"></i></label>
           <label for="" class="tips-label">可用工位</label>
           <span class="tips-span"><%= counter.available_workstations_count %></span>
         </dd>
         <dd>
-          <label class="tip-icon"><i class="icon icon-trophy"></i></label>
+          <label class="tip-icon"><i class="icon icon-no-payment-car no-payment"></i></label>
           <label for="" class="tips-label">待付款车辆</label>
           <span class="tips-span"><%= counter.payings_count %></span>
         </dd>
         <dd>
-          <label class="tip-icon"><i class="icon icon-bolt"></i></label>
+          <label class="tip-icon"><i class="icon icon-suspend-car"></i></label>
           <label for="" class="tips-label">暂停施工车辆</label>
           <span class="tips-span"><%= counter.task_pausings_count %></span>
         </dd>
         <dd>
-          <label class="tip-icon"><i class="icon icon-bell"></i></label>
+          <label class="tip-icon"><i class="icon icon-waiting-car waiting"></i></label>
           <label for="" class="tips-label">排队车辆</label>
           <span class="tips-span"><%= counter.task_queuings_count %></span>
         </dd>

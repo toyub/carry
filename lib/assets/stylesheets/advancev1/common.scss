@@ -126,8 +126,9 @@ main{
 
                       .consumer{
                         color: #c4c4c4;
-                        font-size: 31px;
+                        font-size: 44px;
                       }
+
                     }
 
                     .vehicle-item{
@@ -186,18 +187,26 @@ main{
                   }
 
                   .tip-icon{
-                    display: block;
+                    display: flex;
                     height: 33px;
                     line-height: 33px;
                     margin-bottom: 5px;
+                    align-items: center;
+                    justify-content: center;
 
                     i{
-                      font-size: 25px;
+                      font-size: 21px;
                       color: #a6a6a6;
                     }
-                    .male{
+
+                    .no-payment{
                       font-size: 30px;
                     }
+
+                    .waiting{
+                      font-size: 28px;
+                    }
+
                   }
 
                   .tips-label{
@@ -390,6 +399,11 @@ main{
                 font-size: 16px;
                 color: #a2a2a2;
                 padding-right: 5px;
+              }
+
+              &[disabled]{
+                background: #CCCACA;
+                cursor: default;
               }
             }
           }
