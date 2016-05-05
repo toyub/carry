@@ -1,0 +1,221 @@
+works:
+  -
+    name: POS
+    code: pos
+    icon: icon-POS
+    sub_categories:
+      -
+        name: 收银
+        url: /pos/cashier/checkouts
+        idx: 1
+        icon: icon-POS
+      -
+        name: 业务开单
+        url: /pos/store_orders/new
+        idx: 2
+        icon: icon-POS
+  -
+    name: 现场管理
+    code: xianchang
+    icon: icon-clock-o-bold
+    sub_categories:
+      -
+        name: 施工现场
+        url: /xianchang/store_workstations
+        idx: 3
+        icon: icon-clock-o-bold
+      -
+        name: 人员调度
+        url: /xianchang/groups
+        idx: 4
+        icon: icon-clock-o-bold
+  -
+    name: 销售管理
+    code: xiaoshou
+    icon: icon-shopping-cart
+    sub_categories:
+      -
+        name: 商品
+        url: /mkis/materials
+        idx: 5
+        icon: icon-shopping-cart
+      -
+        name: 服务
+        url: /xiaoshou/main#store_services
+        idx: 6
+        icon: icon-shopping-cart
+      -
+        name: 套餐
+        url: /xiaoshou/main#store_packages
+        idx: 7
+        icon: icon-shopping-cart
+  -
+    name: 库存管理
+    code: kucun
+    icon: icon-cubes
+    sub_categories:
+      -
+        name: 商品目录
+        url: /kucun
+        idx: 8
+        icon: icon-cubes
+      -
+        name: 入库
+        url: /kucun/material_inventories/new
+        idx: 9
+        icon: icon-cubes
+      -
+        name: 出库
+        url: /kucun/outings/new
+        idx: 10
+        icon: icon-cubes
+      -
+        name: 采购
+        url: /srm/material_orders/nowaus
+        idx: 11
+        icon: icon-cubes
+      -
+        name: 临时订货
+        url: /kucun/temporary_material_orders
+        idx: 12
+        icon: icon-cubes
+      -
+        name: 盘点
+        url: /kucun/physical_inventories/new
+        idx: 13
+        icon: icon-cubes
+      -
+        name: 报损
+        url: /kucun/shrinkages/new
+        idx: 14
+        icon: icon-cubes
+      -
+        name: 退货
+        url: /kucun/returnings/new
+        idx: 15
+        icon: icon-cubes
+  -
+    name: 客户管理
+    code: crm
+    icon: icon-cus
+    sub_categories:
+      -
+        name: 客户列表
+        url: /xiaoshou/main#store_customers
+        idx: 16
+        icon: icon-cus
+  -
+    name: 供应商管理
+    code: srm
+    icon: icon-truck
+    sub_categories:
+      -
+        name: 供应商列表
+        url: /srm/store_suppliers
+        idx: 17
+        icon: icon-truck
+  -
+    name: 员工管理
+    code: soa
+    icon: icon-group
+    sub_categories:
+      -
+        name: 员工列表
+        url: /soa/staff
+        idx: 18
+        icon: icon-group
+      -
+        name: 考勤奖励
+        url: /soa/events
+        idx: 19
+        icon: icon-group
+      -
+        name: 绩效提成
+        url: /soa/performance
+        idx: 20
+        icon: icon-group
+      -
+        name: 薪资管理
+        url: /soa/salaries
+        idx: 21
+        icon: icon-group
+  -
+    name: 财务管理
+    code: ais
+    icon: icon-cny
+    sub_categories:
+      -
+        name: 收入
+        url: /ais/incomes
+        idx: 22
+        icon: icon-cny
+      -
+        name: 成本
+        url: /ais/costs
+        idx: 23
+        icon: icon-cny
+      -
+        name: 往来
+        url: /ais/material_orders
+        idx: 24
+        icon: icon-cny
+  -
+    name: 统计分析
+    code: sas
+    icon: icon-line-chart
+    sub_categories:
+      -
+        name: 销售
+        url: /sas/sells
+        idx: 25
+        icon: icon-line-chart
+      -
+        name: 客户
+        url: /sas/customers
+        idx: 26
+        icon: icon-line-chart
+  -
+    name: 设置
+    code: settings
+    icon: icon-cog
+    sub_categories:
+      -
+        name: 门店信息
+        url: /settings/store
+        idx: 27
+        icon: icon-cog
+      -
+        name: 结算信息
+        url: /settings/settlements/accounts
+        idx: 28
+        icon: icon-cog
+      -
+        name: 组织架构
+        url: /settings/organizational_structure
+        idx: 29
+        icon: icon-cog
+      -
+        name: 权限设置
+        url: /settings/privileges
+        idx: 30
+        icon: icon-cog
+      -
+        name: 提成方案
+        url: /settings/commission_templates
+        idx: 31
+        icon: icon-cog
+      -
+        name: 仓库管理
+        url: /settings/depots
+        idx: 32
+        icon: icon-cog
+      -
+        name: 类别设置
+        url: /settings/material_categories
+        idx: 33
+        icon: icon-cog
+      -
+        name: 短信设置
+        url: /settings/sms/topups
+        idx: 34
+        icon: icon-cog

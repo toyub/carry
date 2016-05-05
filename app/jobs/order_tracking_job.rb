@@ -17,15 +17,7 @@ class OrderTrackingJob < ActiveJob::Base
         service_tracking(order, item, item.orderable.services) if item.orderable == StoreMaterialSaleinfo.name && item.orderable.service_needed && item.orderable.services.present?
         if item.orderable.trackings.present?
           item.orderable.trackings.each do |tracking|
-            options = {
-              store_id:              order.store_id,
-              store_order_id:        order.id,
-              store_order_item_id:   item.id,
-              customer_id:           order.store_customer_id,
-              content:               tracking.content,
-              first_category:        SmsTrackingSwitchType.name,
-              second_category:       switch.switchable_id
-            }
+            options = set_options(order, item, tracking.content, switch.switchable_id)
             CustomerTrackingJob.set(wait: tracking.delay_until).perform_later(options)
           end
         end
@@ -37,16 +29,20 @@ class OrderTrackingJob < ActiveJob::Base
   def service_tracking(order, item, trackings)
     trackings.each do |tracking|
       next unless tracking.tracking_needed
-      options = {
-        store_id:              order.store_id,
-        store_order_id:        order.id,
-        store_order_item_id:   item.id,
-        customer_id:           order.store_customer_id,
-        content:               tracking.tracking_content,
-        first_category:        SmsTrackingSwitchType.name,
-        second_category:       StoreSwitch::SaleCategory[item.orderable_type.to_sym]
-      }
+      options = set_options(order, item, tracking.tracking_content, StoreSwitch::SaleCategory[item.orderable_type.to_sym])
       CustomerTrackingJob.set(wait: tracking.delay_until).perform_later(options)
     end
+  end
+
+  def set_options(order, item, content, second_category_id)
+    {
+      store_id:              order.store_id,
+      store_order_id:        order.id,
+      store_order_item_id:   item.id,
+      customer_id:           order.store_customer_id,
+      content:               content,
+      first_category:        SmsTrackingSwitchType.name,
+      second_category:       second_category_id
+    }
   end
 end

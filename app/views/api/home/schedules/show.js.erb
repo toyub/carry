@@ -1,0 +1,7 @@
+$(".chevrons").html("<%=j render('/home/schedules_nav', current_schedule: @schedule)  %>");
+$(".schedule-detail").html("<%=j render('/home/current_schedule', current_schedule: @schedule)  %>");
+$(".page-numbers .page-number").each(function(){
+  if(+$(this).data('schedule-id') == <%= @schedule.id %>){
+    $(this).addClass('active').siblings('a').removeClass('active');
+  }
+})

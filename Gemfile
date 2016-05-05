@@ -131,6 +131,9 @@ gem "http_client", git: 'git@gitlab.icar99.com:zc/http_client.git', tag: '0.0.4'
 # add comments to migration
 gem 'migration_comments', '~> 0.3.2'
 
+# simple calender
+gem "simple_calendar", "~> 2.0"
+
 # 爬虫
 gem 'mechanize'
 

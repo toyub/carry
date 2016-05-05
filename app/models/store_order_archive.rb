@@ -36,7 +36,7 @@ class StoreOrderArchive
                                          items_attributes: [{store_id: @order.store_id,
                                                              store_chain_id: @order.store_chain_id,
                                                              store_customer_id: @order.store_customer_id,
-                                                             assetable: card.package_item,
+                                                             assetable: card.package_itemable,
                                                              package_item: card,
                                                              total_quantity: 1,
                                                              used_quantity: 1}]

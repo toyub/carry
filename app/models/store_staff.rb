@@ -24,6 +24,10 @@ class StoreStaff <  ActiveRecord::Base
   has_many :sale_histories, class_name: 'StoreStaffSaleHistory'
   has_many :store_commission_items, as: :ownerable
   has_many :store_commissions, as: :ownerable
+  has_many :todos, class_name: 'StaffTodo', as: :creator
+  has_many :schedules, class_name: StaffSchedule.name, foreign_key: :store_staff_id
+  has_many :receiving_letters, class_name: Envelope.name, as: :receiver
+  has_many :sending_letters, class_name: Envelope.name, as: :sender
 
   validates :phone_number, presence: true, uniqueness: {scope: [:store_id]}
   validates :password, confirmation: true, unless: ->(staff){staff.password.blank?}

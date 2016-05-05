@@ -5,6 +5,7 @@ class StoreTracking < ActiveRecord::Base
   validates :title, presence: true
   validates :content, presence: true
 
+  scope :by_day, ->(date = Time.now) { where(created_at: date.beginning_of_day .. date.end_of_day) }
   CONTACT_WAY = {
     0 => '电话',
     1 => '短信'

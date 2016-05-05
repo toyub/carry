@@ -19,4 +19,15 @@ json.array! @packages do |package|
     json.package_itemable_type service.package_itemable_type
     json.package_itemable_id service.package_itemable_id
   end
+
+  json.materials package.package_setting.materials do |material|
+    json.id material.id
+    json.name material.package_itemable.name
+    json.speci material.package_itemable.speci
+    json.quantity material.quantity
+    json.retail_price material.package_itemable.retail_price
+    json.price material.price
+    json.package_itemable_type material.package_itemable_type
+    json.package_itemable_id material.package_itemable_id
+  end
 end

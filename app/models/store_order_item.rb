@@ -27,6 +27,8 @@ class StoreOrderItem < ActiveRecord::Base
   scope :by_day, ->(date) { where(created_at: date.beginning_of_day..date.end_of_day) }
   scope :by_type, ->(type) { where(orderable_type: type) }
   scope :except_from_customer_assets, -> { where.not(from_customer_asset: true) }
+  scope :from_asset, -> { where(from_customer_asset: true) }
+  scope :available, ->{where(deleted: false)}
 
   validates_presence_of :orderable
   validates :quantity, numericality: { only_integer: true, less_than_or_equal_to: 1000}
@@ -118,6 +120,10 @@ class StoreOrderItem < ActiveRecord::Base
 
   def retail_amount
     quantity.to_i * retail_price.to_f
+  end
+
+  def vip_amount
+    quantity.to_i * vip_price.to_f
   end
 
   def destroy_related_workflows

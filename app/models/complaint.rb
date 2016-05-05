@@ -5,6 +5,7 @@ class Complaint < ActiveRecord::Base
   belongs_to :order, class_name: 'StoreOrder', foreign_key: :store_order_id
   has_one :store_staff
 
+  scope :by_day, ->(date = Time.now) { where(created_at: date.beginning_of_day .. date.end_of_day)}
 
   CATEGORY = {
               1 => '服务',
