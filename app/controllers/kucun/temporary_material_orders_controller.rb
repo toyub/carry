@@ -56,11 +56,9 @@ class Kucun::TemporaryMaterialOrdersController < Kucun::BaseController
   end
 
   def set_day
-    if params[:day].present?
-      Date.parse(params[:day]) 
-    else
-      ""
-    end
+    @date = Date.parse(params[:day]) 
+  rescue
+    @date = Date.today
   end
 
 end
