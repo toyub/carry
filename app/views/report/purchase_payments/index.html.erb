@@ -11,7 +11,7 @@
             <th>序号</th>
             <th>单号</th>
             <th>付款金额</th>
-            <th>付款方式</th>
+            <th>结算账户</th>
             <th>付款日期</th>
             <th>付款人</th>
             <th>供应商名称</th>
@@ -27,8 +27,8 @@
             <td><%= payment.store_material_order.numero%></td>
             <td><%= payment.amount %></td>
             <td><%= payment.store_settlement_account.name %></td>
-            <td><%= payment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-            <td><%= payment.creator.full_name%></td>
+            <td><%= payment.store_material_order.withdrawal_at.try(:strftime,("%Y-%m-%d %H:%M:%S")) %></td>
+            <td><%= payment.store_material_order.withdrawaler.try(:full_name)%></td>
             <td><%= payment.store_supplier.name%></td>
             <td><%= payment.store_material_order.creator.full_name%></td>
             <td><%= payment.store_material_order.created_at.strftime("%Y-%m-%d %H:%M:%S")%></td>
