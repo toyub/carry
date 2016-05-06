@@ -573,6 +573,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :report do
+      resources :purchase_payments, only: [:index]
+  end
+
   namespace :receipt do
     namespace :pos do
       resources :orders
