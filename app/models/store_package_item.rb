@@ -5,7 +5,7 @@ class StorePackageItem < ActiveRecord::Base
   belongs_to :package_itemable, polymorphic: true
   has_many :store_order_items, as: :package_item
 
-  before_validation :create_deposit_card, if: :without_itemable_id?
+  before_save :create_deposit_card, :if :need_create_new_deposit_card?
 
   scope :deposits_cards, ->{where(package_itemable_type: StoreDepositCard.name)}
   scope :packaged_services, ->{where(package_itemable_type: StoreService.name)}
@@ -21,11 +21,12 @@ class StorePackageItem < ActiveRecord::Base
 
   private
     def create_deposit_card
-      package_itemable = StoreDepositCard.create(self.attributes.slice(:price, :denomination, :name))
+      package_itemable = StoreDepositCard.create(self.attributes.symbolize_keys.slice(:price, :denomination, :name, :store_staff_id))
       self.package_itemable_id = package_itemable.id
+      package_itemable
     end
 
-    def without_itemable_id?
-      self.package_itemable_type.to_s == 'StoreDepositCard' && self.package_itemable_id.blank?
+    def need_create_new_deposit_card?
+      (self.package_itemable_type == StoreDepositCard.name) && (self.package_itemable_id.blank? || self.package_itemable.blank?)
     end
 end
