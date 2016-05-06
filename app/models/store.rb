@@ -39,6 +39,7 @@ class Store <  ActiveRecord::Base
   has_many :store_order_items, through: 'store_orders', source: 'items'
   has_many :store_payments
   has_many :store_customer_payments
+  has_many :store_material_order_payments
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
 
   has_many :recommended_orders
