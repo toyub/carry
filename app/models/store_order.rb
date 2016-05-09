@@ -96,7 +96,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def taozhuangs
-    items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
+    items.where(orderable_type: StoreMaterialSaleinfo.name, from_customer_asset: false).select{|order_item| order_item.orderable.service_needed}
   end
 
   def license_number
