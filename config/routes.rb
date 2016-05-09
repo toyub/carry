@@ -574,8 +574,8 @@ Rails.application.routes.draw do
   end
 
   namespace :report do
-      resources :purchase_payments, only: [:index]
-      resources :receipts, only: [:index]
+    resources :purchase_payments, only: [:index]
+    resources :store_customer_payments, only: [:index]
   end
 
   namespace :receipt do
