@@ -113,6 +113,11 @@ module Api
         if params[:materials].present?
           params[:materials].map do |info|
             basic_item_params(info).merge(orderable_type: "StoreMaterialSaleinfo",
+                                          from_customer_asset: info['from_customer_asset'] || false,
+                                          package_type: info['package_type'],
+                                          package_id: info['package_id'],
+                                          package_item_id: info['package_item_id'],
+                                          package_item_type: info['package_item_type'],
                                           need_temporary_purchase: info['need_temporary_purchase'])
           end
         else
