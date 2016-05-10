@@ -20,6 +20,7 @@ module V1
     mount V1::ServiceCategories
     mount V1::Staff
     mount V1::Sessions
+    mount V1::StoreVehicles
     mount V1::Vehicles
     mount V1::Plate
     mount V1::MaterialCategories
