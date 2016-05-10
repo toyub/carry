@@ -21,12 +21,20 @@ module V1
       params do
         requires :platform, type: String, desc: '调用的平台(app或者erp)'
         requires :id, type: Integer, desc: '订单id'
-        # requires :workflow, type: Json, desc: '服务流程明细' do
-        # end
+        requires :workflow, type: Array, desc: '服务流程明细' do
+          optional :id, type: Integer, desc: '流程id'
+          optional :store_workstation_id, type: Integer, desc: '工位id'
+          optional :used_time, type: Integer, desc: '施工时间'
+          optional :mechanics, type: Hash, desc: '技师' do
+            optional :id, type: Integer, desc: '技师id'
+            optional :name, type: String, desc: '技师姓名'
+            optional :group_member_id, type: Integer, desc: '小组id'
+          end
+        end
       end
       put 'store_orders/:id' do
         @store_order = current_store.store_orders.available.find(params[:id])
-        present hello: {"fd": "fda"}
+        present hello: {p: params}
       end
 
       add_desc "立即施工"
