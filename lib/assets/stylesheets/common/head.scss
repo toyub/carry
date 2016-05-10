@@ -9,7 +9,7 @@
 	margin: 0px;
 	top: 0px;
 	background: #fff;
-	z-index:11;
+	z-index:150;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
 
 	.nav{
@@ -62,10 +62,21 @@
       }
 
       .nav_top_left{
-        height: 54px;
-        width: 68px;
+        height: 52px;
+        width: 54px;
         text-align: center;
+        margin-left: 5px;
+        background: #fff;
+        margin-top: 5px;
       }
+
+      .nav_top_left{
+        &.open{
+          border: 1px solid #b8b8b8;
+          border-bottom-color: #fff;
+        }
+      }
+
 
       .nav_top_center{
         padding-left: 24px;
