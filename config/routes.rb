@@ -580,6 +580,7 @@ Rails.application.routes.draw do
     resources :store_material_sold_logs, only: [:index]
     resources :store_package_sold_logs, only: [:index]
     resources :store_service_sold_logs, only: [:index]
+    resources :store_orders, only: [:index]
   end
 
   namespace :receipt do

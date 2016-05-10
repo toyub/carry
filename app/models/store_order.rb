@@ -259,6 +259,35 @@ class StoreOrder < ActiveRecord::Base
     workflows.actively.first
   end
 
+  def discount_total
+    dis = []
+    items.pluck(:discount).each do |s|
+      next if s.blank?
+      dis << s
+    end
+    dis.reduce(:+)
+  end
+
+  def total_retail_price
+    items.pluck(:retail_price).reduce(:+)
+  end
+
+  def material_amount
+    items.materials.pluck(:amount).reduce(:+)
+  end
+
+  def service_amount
+    items.pure_services.pluck(:amount).reduce(:+)
+  end
+
+  def package_amount
+    items.packages.pluck(:amount).reduce(:+)
+  end
+
+  def total_cost_price
+    items.pluck(:cost_price).reduce(:+)
+  end
+
   private
 
   def try_to_execute
