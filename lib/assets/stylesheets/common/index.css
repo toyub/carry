@@ -2,7 +2,6 @@
 *= require common/details_nav
 *= require common/head
 *= require common/master
-*= require common/sidebar
 *= require common/loading
 *= require common/jit_material
 *= require_self
