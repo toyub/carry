@@ -25,6 +25,7 @@
             <th>客户名称</th>
             <th>开单日期</th>
             <th>收银日期</th>
+            <th>收款方式</th>
             <th>开单员</th>
             <th>销售类型</th>
             <th>备注</th>
@@ -51,6 +52,11 @@
             <td><%= item.store_order.store_customer.full_name %></td>
             <td><%= item.created_at.strftime("%Y-%m-%d") %></td>
             <td><%= item.store_order.paid_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td>
+              <% item.store_order.store_customer_payments.each do |payment| %>
+                <%= payment.payment_method_cn_name %>
+              <% end %>
+            </td>
             <td><%= item.creator.full_name %></td>
             <td><%= item.orderable.sale_category.try :name %></td>
             <td><%= item.remark %></td>

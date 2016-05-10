@@ -20,6 +20,8 @@ class StoreOrderItem < ActiveRecord::Base
   scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
   scope :packages, -> { where(orderable_type: "StorePackage") }
   scope :services, -> { where(orderable_type: ["StoreService", 'StoreMaterialSaleinfoService']) }
+  scope :pure_services, -> { where(orderable_type: "StoreService") }
+
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
   scope :temporary_materials, -> { where(orderable_type: "StoreMaterialSaleinfo", need_temporary_purchase: true) }
 

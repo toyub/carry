@@ -1,5 +1,5 @@
 <div class="main_top">
-  <%= breadcrumb_navigation(['报表', '套餐销售明细表']) %>
+  <%= breadcrumb_navigation(['报表', '服务销售明细表']) %>
 </div>
 <div class="details">
     <div class="list_table">
@@ -9,46 +9,48 @@
           <tr>
             <th>序号</th>
             <th>单号</th>
-            <th>套餐代码</th>
-            <th>套餐名称</th>
-            <th>套餐内容</th>
-            <th>套餐单价</th>
-            <th>数量</th>
-            <th>实收</th>
+            <th>服务代码</th>
+            <th>服务名称</th>
+            <th>工时</th>
+            <th>服务单价</th>
+            <th>优惠</th>
+            <th>实收金额</th>
             <th>车牌号</th>
             <th>客户名称</th>
-            <th>开单日期</th>
-            <th>收银日期</th>
-            <th>收款方式</th>
+            <th>施工技师</th>
             <th>开单员</th>
+            <th>服务类型</th>
+            <th>收款方式</th>
+            <th>收款日期</th>
             <th>备注</th>
           </tr>
         </thead>
         <tbody>
-          <% @sold_packages.each_with_index do |item, idx| %>
+          <% @services_sold.each_with_index do |item, idx| %>
           <tr>
             <td><%= idx + 1 %></td>
             <td><%= item.store_order.numero%></td>
             <td><%= item.orderable.code %></td>
             <td><%= item.orderable.name %></td>
-            <td>
-              <% item.orderable.package_setting.items.each do |w| %>
-                <%= w.package_itemable.name %>
-              <% end %>
-            </td>
+            <td><%= item.orderable.standard_time %></td>
             <td><%= item.retail_price %> </td>
-            <td><%= item.quantity %></td>
-            <td><%= item.price %></td>
+            <td><%= item.vip_price %></td>
+            <td><%= item.amount %></td>
             <td><%= item.store_order.store_vehicle.license_number %></td>
             <td><%= item.store_order.store_customer.full_name %></td>
-            <td><%= item.created_at.strftime("%Y-%m-%d") %></td>
-            <td><%= item.store_order.paid_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td>
+              <% item.mechanics.each do |m| %>
+                <%= m.full_name %>
+              <% end %>
+            </td>
+            <td><%= item.creator.full_name %></td>
+            <td><%= item.orderable.service_category.try :name %></td>
             <td>
               <% item.store_order.store_customer_payments.each do |payment| %>
                 <%= payment.payment_method_cn_name %>
               <% end %>
             </td>
-            <td><%= item.creator.full_name %></td>
+            <td><%= item.store_order.paid_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
             <td><%= item.remark %></td>
           </tr>
           <% end %>

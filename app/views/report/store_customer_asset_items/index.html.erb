@@ -11,6 +11,8 @@
             <th>单号</th>
             <th>资产项目</th>
             <th>消费内容</th>
+            <th>原价</th>
+            <th>优惠价</th>
             <th>消费金额</th>
             <th>车牌号</th>
             <th>客户姓名</th>
@@ -28,6 +30,8 @@
             <td><%= item.store_order.numero %></td>
             <td><%= item.package.name %></td>
             <td><%= item.orderable.name %></td>
+            <td><%= item.retail_price %></td>
+            <td><%= item.vip_price %></td>
             <td><%= item.amount %></td>
             <td><%= item.store_order.store_vehicle.license_number %></td>
             <td><%= item.store_order.store_customer.full_name %></td>
