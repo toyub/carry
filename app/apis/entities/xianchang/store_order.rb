@@ -6,7 +6,7 @@ module Entities
     end
 
     class StoreServiceWorkflowSnapshots < Grape::Entity
-      expose :id, :name
+      expose :id, :name, :used_time
       expose :store_workstation do |snapshot, options|
         {
           id: snapshot.store_workstation.try(:id),
@@ -24,7 +24,6 @@ module Entities
       expose(:retail_price) {|item| item.retail_price }
       expose(:quantity) {|item| item.quantity }
       expose(:name) {|item| item.store_service_snapshot.name }
-      expose(:stand_time) {|item| item.store_service_snapshot.standard_time }
       expose :workflow_snapshots, using: StoreServiceWorkflowSnapshots
 
       def workflow_snapshots
