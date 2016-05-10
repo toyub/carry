@@ -1,0 +1,43 @@
+<p><input type="file" name="xlfile" id="xlf"/></p>
+<table id='results'>
+  <thead></thead>
+  <tbody></tbody>
+</table>
+<script>
+function process_wb(workbook) {
+
+  workbook.SheetNames.forEach(function(sheetName) {
+    var sheet = workbook.Sheets[sheetName];
+    var sheet_rows = sheet_to_row(sheet);
+    var trs = [];
+    var theads = sheet_rows.shift();
+    var thead = "<tr>" + theads.map(function(th){
+      return "<th>" + th + "</th>";
+    }).join('') + '</tr>';
+
+    sheet_rows.forEach(function(row){
+      var tr = "<tr>"
+      row.forEach(function(col){
+        tr += "<td>" + col + "</td>";
+      });
+      tr += "</tr>";
+      trs.push(tr);
+    });
+    $('#results > thead').html(thead);
+    $('#results > tbody').html(trs.join(''))
+  });
+}
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var data = e.target.result;
+    wb = XLSX.read(data, {type: 'binary'});
+    process_wb(wb);
+  };
+  
+  document.getElementById('xlf').addEventListener('change', function(e) {
+    var files = e.target.files;
+    var f = files[0];
+    reader.readAsBinaryString(f);
+  }, false);
+</script>

@@ -585,6 +585,11 @@ Rails.application.routes.draw do
       get :send_validate_code
     end
   end
+
+  namespace :import do
+    resources :materials
+  end
+
   root 'home#show'
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
