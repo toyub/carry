@@ -3,156 +3,21 @@
 
 <div class="menu-wrap">
   <div class="menu-list-wrap">
+    <% Menu.all_menus_for(current_staff).each do |menu| %>
     <div class="menu-list">
-      <h3 class="title">施工现场</h3>
+      <h3 class="title"><%= menu['name'] %></h3>
       <ul class="menu-items">
+        <% menu['sub_categories'].each do |sub_menu| %>
         <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">现场管理</span>
+          <a href="<%= sub_menu['url'] %>">
+            <i class="icon <%= sub_menu['icon'] %>"></i>
+            <span class="menu-title"><%= sub_menu['name'] %></span>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工设置</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工调整</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">预约管理</span>
-          </a>
-        </li>
+        <% end %>
       </ul>
     </div>
-
-    <div class="menu-list">
-      <h3 class="title">收银pos</h3>
-      <ul class="menu-items">
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title"></span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工设置</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工调整</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">预约管理</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="menu-list">
-      <h3 class="title">收银pos</h3>
-      <ul class="menu-items">
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title"></span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工设置</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工调整</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">预约管理</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="menu-list">
-      <h3 class="title">收银pos</h3>
-      <ul class="menu-items">
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title"></span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工设置</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工调整</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">预约管理</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="menu-list">
-      <h3 class="title">收银pos</h3>
-      <ul class="menu-items">
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title"></span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工设置</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">施工调整</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0)">
-            <i class="icon icon-clock-o"></i>
-            <span class="menu-title">预约管理</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
+    <% end %>
   </div>
 
 

@@ -50,6 +50,7 @@
     a{
       display: flex;
       flex-wrap: wrap;
+      flex-direction: column;
       width: 84px;
       height: 84px;
       justify-content: center;
@@ -58,6 +59,8 @@
 
     .icon{
       font-size: 37px;
+      color: #737373;
+      padding-bottom: 15px;
     }
 
     .menu-title{
