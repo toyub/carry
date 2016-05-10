@@ -126,8 +126,4 @@ class Store <  ActiveRecord::Base
     current_year = Date.today.year
     self.store_orders.where('extract(year from created_at) = ?', current_year).sum(:amount)
   end
-
-  def today_trackings
-    store_customers.map(&->(customer){customer.trackings.by_day}).select{|c|c.present?}
-  end
 end

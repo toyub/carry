@@ -27,6 +27,14 @@ class StorePackageSetting < ActiveRecord::Base
     self.items.packaged_services
   end
 
+  def materials
+    self.items.packaged_materials
+  end
+
+  def deposit_cards
+    self.items.deposits_cards
+  end
+
   def contains_service
     self.services.length > 0
   end
