@@ -26,6 +26,10 @@ class StoreServiceSnapshot < ActiveRecord::Base
   scope :unfinished, ->{where.not(status: StoreServiceSnapshot.statuses[:finished])}
   scope :in_executable_state, ->{where(status: [StoreServiceSnapshot.statuses[:pending], StoreServiceSnapshot.statuses[:processing]])}
 
+  def used_time
+    self.workflow_snapshots.map(&:used_time).sum
+  end
+
   def waste!
     self.workflow_snapshots.each(&->(workflow){workflow.waste!})
     self.update!(deleted: true)

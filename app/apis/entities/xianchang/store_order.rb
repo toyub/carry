@@ -24,6 +24,7 @@ module Entities
       expose(:retail_price) {|item| item.retail_price }
       expose(:quantity) {|item| item.quantity }
       expose(:name) {|item| item.store_service_snapshot.name }
+      expose(:used_time) {|item| item.store_service_snapshot.used_time }
       expose :workflow_snapshots, using: StoreServiceWorkflowSnapshots
 
       def workflow_snapshots
