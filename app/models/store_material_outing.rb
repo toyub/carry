@@ -5,6 +5,7 @@ class StoreMaterialOuting < ActiveRecord::Base
 
   has_many :items, class_name: 'StoreMaterialOutingItem'
   belongs_to :outingable, polymorphic: true
+  
 
   accepts_nested_attributes_for :items
 

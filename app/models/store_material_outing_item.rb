@@ -6,6 +6,9 @@ class StoreMaterialOutingItem < ActiveRecord::Base
   belongs_to :store_material
 
   before_save :calc_amount
+  belongs_to :outingable_item, polymorphic: true
+  belongs_to :store_material_outing
+  scope :sold, -> { where(outing_type_id: OutingType.find_by_name("销售出库").id) }
 
   def outing_type
     OutingType.find(self.outing_type_id)

@@ -61,6 +61,8 @@ class Store <  ActiveRecord::Base
 
   has_many :store_groups
   has_many :store_group_members
+  # has_many :outgos, class_name: 'StoreMaterialOutgo'
+  has_many :outing_items, class_name: 'StoreMaterialOutingItem'
 
   validates :name, presence: true
 

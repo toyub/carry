@@ -14,7 +14,7 @@ class StoreOrderItem < ActiveRecord::Base
   has_many :store_staff_tasks
   has_many :mechanics, class_name: 'StoreStaff', through: :store_staff_tasks
 
-  before_save :set_amount
+  before_save :set_amount 
   before_create :set_store_info
 
   scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
