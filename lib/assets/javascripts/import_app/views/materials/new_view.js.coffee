@@ -38,17 +38,22 @@ class Mis.Views.Materials.NewView extends Backbone.View
     for sheetName in workbook.SheetNames
       sheet = workbook.Sheets[sheetName];
       sheet_rows = sheet_to_row(sheet);
-      trs = [];
       theads = sheet_rows.shift();
-      is_valid = @validate_header(theads);
-      console.log is_valid
+      valid = @validate_header(theads);
+      if valid.success
+        @parseBodyData(sheet_rows)
+      else
+        $("input#xlf").val('');
+        ZhanchuangAlert(valid.notice + "请重新上传")
 
   validate_header: (header) ->
-    return false if header.length < 11
+    return {success: false, notice: "上传数据少与要求"} if header.length < 11
     for head, i in @standard_thead
-      return if head != header[i]
+      return {success: false, notice: "上传数据顺序有误"} if head != header[i]
 
-    true
+    {success: true, notice: "上传数据正确"}
+
+  @parseBodyData: (rows) ->
 
   render: ->
     @$el.html(@template())
