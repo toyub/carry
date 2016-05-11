@@ -1,74 +1,7 @@
-<p><input type="file" name="xlfile" id="xlf"/></p>
 <div class="field">
 </div>
 <script>
-
   jQuery(function($){
     var view = new Mis.Views.Materials.NewView();
-    $(".field").html(view.render().el);
   })
-
-  // var standard_thead = [
-  //     "商品名称",
-  //     "条码",
-  //     "一级分类",
-  //     "二级分类",
-  //     "规格",
-  //     "单位",
-  //     "品牌",
-  //     "生产商",
-  //     "是否销售",
-  //     "成本价格",
-  //     "销售价格",
-  // ]
-  //
-  // function validate_header(header){
-  //   var len = header.length;
-  //   if(len < 11) return false;
-  //
-  //   for(i = 0; i < standard_thead.length; i++) {
-  //     if(standard_thead[i] != header[i]) return false;
-  //   }
-  //   return true
-  // }
-  //
-  // function process_wb(workbook) {
-  //
-  //   workbook.SheetNames.forEach(function(sheetName) {
-  //     var sheet = workbook.Sheets[sheetName];
-  //     var sheet_rows = sheet_to_row(sheet);
-  //     var trs = [];
-  //     var theads = sheet_rows.shift();
-  //     var is_valid = validate_header(theads);
-  //     console.log(is_valid);
-  //
-  //     // var thead = "<tr>" + theads.map(function(th){
-  //     //   return "<th>" + th + "</th>";
-  //     // }).join('') + '</tr>';
-  //     //
-  //     // sheet_rows.forEach(function(row){
-  //     //   var tr = "<tr>"
-  //     //     row.forEach(function(col){
-  //     //       tr += "<td>" + col + "</td>";
-  //     //     });
-  //     //   tr += "</tr>";
-  //     //   trs.push(tr);
-  //     // });
-  //     // $('#results > thead').html(thead);
-  //     // $('#results > tbody').html(trs.join(''))
-  //   });
-  // }
-  //
-  // var reader = new FileReader();
-  // reader.onload = function(e) {
-  //   var data = e.target.result;
-  //   wb = XLSX.read(data, {type: 'binary'});
-  //   process_wb(wb);
-  // };
-  //
-  // document.getElementById('xlf').addEventListener('change', function(e) {
-  //   var files = e.target.files;
-  //   var f = files[0];
-  //   reader.readAsBinaryString(f);
-  // }, false);
 </script>

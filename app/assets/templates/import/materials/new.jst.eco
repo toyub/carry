@@ -1,4 +1,4 @@
-<h2> hello import </h2>
+<input type="file" name="xlfile" id="xlf"/>
 <table id='results'>
   <thead> </thead>
   <tbody> </tbody>
