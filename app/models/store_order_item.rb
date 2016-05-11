@@ -14,7 +14,7 @@ class StoreOrderItem < ActiveRecord::Base
   has_many :store_staff_tasks
   has_many :mechanics, class_name: 'StoreStaff', through: :store_staff_tasks
 
-  before_save :set_amount 
+  before_save :set_amount
   before_create :set_store_info
 
   scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
@@ -31,6 +31,7 @@ class StoreOrderItem < ActiveRecord::Base
   scope :except_from_customer_assets, -> { where.not(from_customer_asset: true) }
   scope :from_asset, -> { where(from_customer_asset: true) }
   scope :available, ->{where(deleted: false)}
+  scope :finished, -> { where(store_order: StoreOrder.finished) }
 
   validates_presence_of :orderable
   validates :quantity, numericality: { only_integer: true, less_than_or_equal_to: 1000}
