@@ -1,0 +1,64 @@
+<menu style="display: none;" id="menu">
+  <div class="menu-filter">
+  </div>
+
+  <div class="menu-wrap">
+    <div class="menu-list-wrap">
+      <% Menu.all_menus_for(current_staff).each do |menu| %>
+      <div class="menu-list">
+        <h3 class="title"><%= menu['name'] %></h3>
+        <ul class="menu-items">
+          <% menu['sub_categories'].each do |sub_menu| %>
+          <li class="menu-item">
+            <a href="<%= sub_menu['url'] %>">
+              <i class="icon <%= sub_menu['icon'] %>"></i>
+              <span class="menu-title"><%= sub_menu['name'] %></span>
+            </a>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+    </div>
+    <div class="menu-footer">
+      <ul class="icons">
+        <li>
+          <a href="javascript:void(0)" class="active">
+            <i class="fa fa-th"></i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="fa fa-search"></i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="fa fa-eye"></i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="fa fa-globe"></i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="fa fa-sun-o"></i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="fa fa-gear"></i>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="fa fa-dashboard"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</menu>
