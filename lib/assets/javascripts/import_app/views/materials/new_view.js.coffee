@@ -41,6 +41,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
       theads = sheet_rows.shift();
       valid = @validate_header(theads);
       if valid.success
+        @insertThead(theads)
         @parseBodyData(sheet_rows)
       else
         $("input#xlf").val('');
@@ -53,7 +54,11 @@ class Mis.Views.Materials.NewView extends Backbone.View
 
     {success: true, notice: "上传数据正确"}
 
-  @parseBodyData: (rows) ->
+  insertThead: (header) ->
+    view = new Mis.Views.Materials.tableThead(header: header)
+    $('#results > thead').html(view.render().el);
+
+  parseBodyData: (rows) ->
 
   render: ->
     @$el.html(@template())
