@@ -16,7 +16,16 @@ module V1
         requires :previous_workstation_id, type: String, desc: '上一工位id'
       end
       put 'store_workstations/:id/exchange' do
-        present notice: {msg: 'perform'}
+        @workstation = current_store.workstations.find(params[:id])
+        @store_order = current_store.store_orders.available.find(params[:order_id])
+        @workflow = @store_order.workflows.find_by(id: params[:workflow_id])
+        if @workflow.present?
+          @previous_workstation = @workflow.store_workstation
+          @workflow.change_workstation_to!(@workstation)
+          present status: {success: true, notice: '切换工位成功'}
+        else
+          present status: {success: false, notice: '切换工位失败, 未找到工位'}
+        end
       end
 
     end

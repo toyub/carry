@@ -66,6 +66,9 @@ module V1
         @store_order = current_store.store_orders.available.find(params[:id])
         if %w[terminate pause_in_queuing_area pause_in_workstation pause play].include? params[:operate]
           @store_order.send(params[:operate] + "!")
+          present status: {success: true, notice: '执行成功'}
+        else
+          present status: {success: false, notice: '执行失败'}
         end
       end
 
