@@ -17,4 +17,9 @@ class StoreMaterialOutingItem < ActiveRecord::Base
   def calc_amount
     self.amount = self.quantity * self.cost_price
   end
+
+  def gross_profit_rate
+    ((outingable_item.amount - outingable_item.cost_price.to_f * outingable_item.quantity)/outingable_item.amount).round(2)
+  end
+
 end
