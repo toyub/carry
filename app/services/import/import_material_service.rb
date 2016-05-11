@@ -12,8 +12,7 @@ module Import
       if validate
         if @material.save
           if @material.permitted_to_saleable
-            @saleinfo = @material.build_store_material_saleinfo(retail_price: @retail_price.to_f, store_staff_id: @staff.id)
-            @saleinfo.valid?
+            @material.create_store_material_saleinfo(retail_price: @retail_price.to_f, store_staff_id: @staff.id)
           else
             true
           end
@@ -21,11 +20,11 @@ module Import
           if @depots_names.present?
             @depots_names.each_with_index do |name, idx|
               depot = get_depot(name)
-              inventory_quantity = @inventories[idx].try(:value).try(:strip)
+              inventory_quantity = @inventories[idx].try(:value).to_s.try(:strip)
               if inventory_quantity.present?
                 inventory = StoreMaterialInventory.find_or_initialize_by(store_depot_id: depot.id,store_material_id: @material.id)
                 if inventory.store_staff_id.blank?
-                  inventory.store_staff_id = current_user.id
+                  inventory.store_staff_id = @staff.id
                   inventory.save
                 end
                 inventory.checkin!(inventory_quantity.to_f)
@@ -76,24 +75,23 @@ module Import
 
     private
     def parse
-      @name               = @cells[0].try(:value).try(:strip)
-      @bar_code           = @cells[1].try(:value).try(:strip)
-      @root_category_name = @cells[2].try(:value).try(:strip)
-      @category_name      = @cells[3].try(:value).try(:strip)
-      @speci              = @cells[4].try(:value).try(:strip)
-      @unit_name          = @cells[5].try(:value).try(:strip)
-      @brand_name         = @cells[6].try(:value).try(:strip)
-      @manufactor_name    = @cells[7].try(:value).try(:strip)
-      @is_sale            = @cells[8].try(:value).try(:strip)
-      @cost_price         = @cells[9].try(:value).try(:strip)
-      @retail_price       = @cells[10].try(:value).try(:strip)
+      @name               = @cells[0].try(:value).to_s.try(:strip)
+      @barcode            = @cells[1].try(:value).to_s.try(:strip)
+      @root_category_name = @cells[2].try(:value).to_s.try(:strip)
+      @category_name      = @cells[3].try(:value).to_s.try(:strip)
+      @speci              = @cells[4].try(:value).to_s.try(:strip)
+      @unit_name          = @cells[5].try(:value).to_s.try(:strip)
+      @brand_name         = @cells[6].try(:value).to_s.try(:strip)
+      @manufactor_name    = @cells[7].try(:value).to_s.try(:strip)
+      @is_sale            = @cells[8].try(:value).to_s.try(:strip)
+      @cost_price         = @cells[9].try(:value).to_s.try(:strip)
+      @retail_price       = @cells[10].try(:value).to_s.try(:strip)
       @inventories        = @cells[11 .. -1]
 
       deal_category()
       deal_unit()
       deal_manufacturer()
       deal_brand()
-
     end
 
     def deal_category
