@@ -61,6 +61,31 @@ class Kucun::MaterialsController < Kucun::BaseController
     render text: "#{params[:callback]}(#{result.to_json})"
   end
 
+  def importing
+  end
+
+  def import
+    @upload_file = params[:materials]
+    @book = RubyXL::Parser.parse(@upload_file.path)
+    @sheet1 = @book.worksheets[0]
+    @counter = 0
+    @all_line_counter = 0
+    @all_material_counter = 0
+    line_one = @sheet1[0]
+    @depots_names = line_one.cells[11..-1].map { |e| e.value.to_s.strip  }
+
+    @sheet1.each do |row|
+      @all_line_counter += 1
+      next if @all_line_counter == 1 #Skip first line case it is title
+      @all_material_counter += 1
+      import_result = Import::ImportMaterialService.new(current_staff, row.cells, @depots_names).save
+      if import_result
+        @counter += 1
+      else
+      end
+    end
+  end
+
   private
   def resource
     @store_material ||= set_material
