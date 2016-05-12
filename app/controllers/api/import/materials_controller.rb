@@ -7,6 +7,11 @@ module Api
       end
 
       def create
+        render json: {hello: "world-create"}
+      end
+
+      def update
+        render json: {hello: "world"}
       end
     end
   end

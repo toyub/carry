@@ -26,6 +26,10 @@ class Mis.Views.Materials.NewView extends Backbone.View
 
   events: ->
     'change input#xlf' : 'handleUploadXlf'
+    'click button#import' : 'importMaterials'
+
+  importMaterials: ->
+    model.save() for model in @collection.models
 
   handleUploadXlf: (e) ->
     files = e.target.files;
