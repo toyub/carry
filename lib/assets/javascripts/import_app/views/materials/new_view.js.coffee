@@ -44,10 +44,10 @@ class Mis.Views.Materials.NewView extends Backbone.View
     for sheetName in workbook.SheetNames
       sheet = workbook.Sheets[sheetName];
       sheet_rows = sheet_to_row(sheet);
-      theads = sheet_rows.shift();
-      valid = @validate_header(theads);
+      @theads = sheet_rows.shift();
+      valid = @validate_header(@theads);
       if valid.success
-        @insertThead(theads)
+        @insertThead(@theads)
         @parseBodyData(sheet_rows)
       else
         $("input#xlf").val('');
@@ -68,6 +68,14 @@ class Mis.Views.Materials.NewView extends Backbone.View
     view = new Mis.Views.Materials.tableTbodyRow({rowData: rowData, new_record: new_record})
     $('#results > tbody').append(view.render().el);
 
+  toDepot: (dataArray) ->
+    depots = {}
+    head = @theads.slice(11)
+    for data, i in dataArray
+      depots[head[i]] = data
+
+    depots
+
   convertToObj: (dataArray)->
     {
       name:             dataArray[0],
@@ -81,7 +89,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
       forSell:          dataArray[8],
       cost_price:       dataArray[9],
       retail_price:     dataArray[10],
-      store_house:      dataArray.slice(11),
+      depots:           @toDepot(dataArray.slice(11)),
     }
 
   checkRowData: (rowData) ->
