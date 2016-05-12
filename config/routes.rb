@@ -584,6 +584,7 @@ Rails.application.routes.draw do
     resources :purchase_materials, only: [:index]
     resources :sold_costs, only: [:index]
     resources :sold_gross_profits, only: [:index]
+    resources :store_material_incomes, only: [:index]
   end
 
   namespace :receipt do

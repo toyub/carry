@@ -2,7 +2,8 @@ class StoreMaterialLog < ActiveRecord::Base
   include BaseModel
 
   belongs_to :logged_item, polymorphic: true
-
+  belongs_to :store_material
+  belongs_to :store_depot
   before_validation :set_created_month
 
   scope :by_month, ->(month) { where(created_month: month) if month.present? }
