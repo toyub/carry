@@ -2,6 +2,6 @@
 </div>
 <script>
   jQuery(function($){
-    var view = new Mis.Views.Materials.NewView();
+    var view = new Mis.Views.Materials.NewView({materials: <%= current_store.store_materials.select(:id, :name).to_json.html_safe %> });
   })
 </script>

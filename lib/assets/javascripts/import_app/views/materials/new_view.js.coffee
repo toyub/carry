@@ -17,9 +17,11 @@ class Mis.Views.Materials.NewView extends Backbone.View
       "销售价格",
   ]
 
-  initialize: ->
+  initialize: (opt) ->
     @reader = new FileReader()
     @reader.onload = @listenWorkBook
+    @collection = new Mis.Collections.ImportMaterialsCollection()
+    @collection.reset opt.materials
     $('.field').html(@render().el)
 
   events: ->
@@ -62,8 +64,29 @@ class Mis.Views.Materials.NewView extends Backbone.View
     view = new Mis.Views.Materials.tableTbodyRow(rowData: rowData)
     $('#results > tbody').append(view.render().el);
 
+  convertToObj: (dataArray)->
+    {
+      name:             dataArray[0],
+      barcode:          dataArray[1],
+      root_category:    dataArray[2],
+      second_category:  dataArray[3],
+      speci:            dataArray[4],
+      unit:             dataArray[5],
+      brand:            dataArray[6],
+      manufacture:      dataArray[7],
+      forSell:          dataArray[8],
+      cost_price:       dataArray[9],
+      retail_price:     dataArray[10],
+      store_house:      dataArray.slice(11),
+    }
+
+  checkRowData: (rowData) ->
+    @collection.add(@convertToObj(rowData))
+
   parseBodyData: (rows) ->
-    @insertRow(row) for row in rows
+    for rowData in rows
+      model = @checkRowData(rowData)
+      @insertRow(rowData)
 
   render: ->
     @$el.html(@template())
