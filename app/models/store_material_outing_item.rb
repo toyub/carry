@@ -22,4 +22,12 @@ class StoreMaterialOutingItem < ActiveRecord::Base
     ((outingable_item.amount - outingable_item.cost_price.to_f * outingable_item.quantity)/outingable_item.amount).round(2)
   end
 
+  def numero
+    store_material_outing.numero
+  end
+
+  def format_created_at
+    created_at.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
 end

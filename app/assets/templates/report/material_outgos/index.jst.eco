@@ -1,0 +1,46 @@
+<thead>
+  <tr class="bg-color-e0e2cf color-282726">
+    <th>#</th>
+    <th>开单日期</th>
+    <th>发生日期</th>
+    <th>商品条码</th>
+    <th>商品名称</th>
+    <th>品牌</th>
+    <th>规格</th>
+    <th>单位</th>
+    <th>单号</th>
+    <th>仓库</th>
+    <th>出库数量</th>
+    <th>出库单价</th>
+    <th>库存剩余</th>
+    <th>库存成本价</th
+  </tr>
+</thead>
+<tbody>
+  <% for item, i in @outgos : %>
+  <tr>
+    <td class="number"><%= i + 1 %></td>
+    <td><%= item.logged_item.created_at %></td>
+    <td><%= item.format_created_at %></td>
+    <td><%= item.store_material.barcode %></td>
+    <td title="<%= item.store_material.name %>"><%= item.store_material.name %></td>
+    <% if item.store_material.store_material_brand :%>
+      <td><%= item.store_material.store_material_brand.name %></td>
+    <% else : %>
+      <td><%= "" %></td>
+    <% end %>
+    <td><%= item.store_material.speci %></td>
+    <% if item.store_material.store_material_unit : %>
+      <td><%= item.store_material.store_material_unit.name %></td>
+    <% else : %>
+      <td></td>
+    <% end %>
+    <td><%= item.logged_item.numero %></td>
+    <td><%= item.store_depot.name %></td>
+    <td><%= item.accruals["quantity"] %></td>
+    <td><%= item.accruals["material_cost_price"] %></td>
+    <td><%= item.closings["inventory_quantity"] %></td>
+    <td><%= item.closings["material_cost_price"] %></td>
+  </tr>
+  <% end %>
+</tbody>

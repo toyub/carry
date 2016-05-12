@@ -1,5 +1,5 @@
 <div class="main_top">
-  <%= breadcrumb_navigation(['库存', '入库', '按商品入库', '记录']) %>
+  <%= breadcrumb_navigation(['库存', '入库记录']) %>
 </div>
 
 
@@ -7,9 +7,8 @@
     <div class="list_table">
       <div class="search_nav">
         <div class="query_div">
-          <a class="in_stg_btn btn" href="/kucun/checkins/new">入库</a>
-          <a class="notes_btn btn" href="javascript:void(0);">记录
-          </a>
+          <a class="in_stg_btn btn js-material-income" href="/report/store_material_inventories">入库记录</a>
+          <a class="notes_btn btn js-material-outgo" href="javascript:void(0);">出库记录</a>
         </div>
       </div>
       <div>
@@ -56,3 +55,25 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    jQuery(function($){
+      var outgo_tmpl = JST['report/material_outgos/index'];
+      function outgos(){
+        html = ""
+        $.ajax({
+          url: "/report/store_material_inventories/outgos",
+          dataType: "json",
+          type: 'get',
+          success: function(data){
+            console.log(data.outgos);
+            $("table#storage_tab").html(outgo_tmpl(data))
+          }
+        })
+      };
+
+      $(document).on('click', 'a.js-material-outgo', function(){
+        outgos();
+      });
+    });
+  </script>
