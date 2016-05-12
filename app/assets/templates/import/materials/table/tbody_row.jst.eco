@@ -1,4 +1,11 @@
-<td> <span> <%= "*" if !@new_record %> </span> <%= @row.shift() %> </td>
-<% @row.forEach (cell) ->: %>
-  <td> <%= cell %> </td>
-<% end %>
+<td class="<%= 'highlight' if !@new_record %>"> <input type="text" name="material[name]"  value="<%= @model.get('name') %>"> </td>
+<td> <input type="text" name="material[barcode]"  value="<%= @model.get('barcode') %>"> </td>
+<td> <input type="text" name="material[root_category]"  value="<%= @model.get('root_category') %>"> </td>
+<td> <input type="text" name="material[category]"  value="<%= @model.get('category') %>"> </td>
+<td> <input type="text" name="material[speci]"  value="<%= @model.get('speci') %>"> </td>
+<td> <input type="text" name="material[unit]"  value="<%= @model.get('unit') %>"> </td>
+<td> <input type="text" name="material[brand]"  value="<%= @model.get('brand') %>"> </td>
+<td> <input type="text" name="material[manufacture]"  value="<%= @model.get('manufacture') %>"> </td>
+<td> <input type="text" name="material[for_sell]"  value="<%= @model.get('for_sell') %>"> </td>
+<td> <input type="text" name="material[cost_price]"  value="<%= @model.get('cost_price') %>"> </td>
+<td> <input type="text" name="material[ratail_price]"  value="<%= @model.get('retail_price') %>"> </td>

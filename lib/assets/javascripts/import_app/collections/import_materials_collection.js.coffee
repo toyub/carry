@@ -1,14 +1,19 @@
 class Mis.Models.ImportMaterials extends Backbone.Model
 
+  import: ->
+    @trigger('importSave')
+
 class Mis.Collections.ImportMaterialsCollection extends Backbone.Collection
   url: "/api/import/materials"
   model: Mis.Models.ImportMaterials
 
-  add: (material) ->
+  checkExistByName: (name) ->
     isDupe = @any (_material) ->
-      return _material.get('name') == material.name
+      return _material.get('name') == name
 
     return false if (isDupe)
 
-    Backbone.Collection.prototype.add.call(this, material);
     true
+
+  saveAll: ->
+    model.import() for model in @models

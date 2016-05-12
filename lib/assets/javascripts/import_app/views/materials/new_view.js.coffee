@@ -29,7 +29,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
     'click button#import' : 'importMaterials'
 
   importMaterials: ->
-    model.save() for model in @collection.models
+    @collection.saveAll()
 
   handleUploadXlf: (e) ->
     files = e.target.files;
@@ -64,8 +64,8 @@ class Mis.Views.Materials.NewView extends Backbone.View
     view = new Mis.Views.Materials.tableThead(header: header)
     $('#results > thead').html(view.render().el);
 
-  insertRow: (rowData, new_record) ->
-    view = new Mis.Views.Materials.tableTbodyRow({rowData: rowData, new_record: new_record})
+  insertRow: (model, new_record) ->
+    view = new Mis.Views.Materials.tableTbodyRow({model: model, new_record: new_record})
     $('#results > tbody').append(view.render().el);
 
   toDepot: (dataArray) ->
@@ -86,7 +86,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
       unit:             dataArray[5],
       brand:            dataArray[6],
       manufacture:      dataArray[7],
-      forSell:          dataArray[8],
+      for_sell:          dataArray[8],
       cost_price:       dataArray[9],
       retail_price:     dataArray[10],
       depots:           @toDepot(dataArray.slice(11)),
@@ -96,8 +96,9 @@ class Mis.Views.Materials.NewView extends Backbone.View
 
   parseBodyData: (rows) ->
     for rowData in rows
-      new_record = @collection.add(@convertToObj(rowData))
-      @insertRow(rowData, new_record)
+      new_record = @collection.checkExistByName(rowData[0])
+      model = @collection.add(@convertToObj(rowData))
+      @insertRow(model, new_record)
 
   render: ->
     @$el.html(@template())
