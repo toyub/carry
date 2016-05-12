@@ -58,7 +58,12 @@ class Mis.Views.Materials.NewView extends Backbone.View
     view = new Mis.Views.Materials.tableThead(header: header)
     $('#results > thead').html(view.render().el);
 
+  insertRow: (rowData) ->
+    view = new Mis.Views.Materials.tableTbodyRow(rowData: rowData)
+    $('#results > tbody').append(view.render().el);
+
   parseBodyData: (rows) ->
+    @insertRow(row) for row in rows
 
   render: ->
     @$el.html(@template())

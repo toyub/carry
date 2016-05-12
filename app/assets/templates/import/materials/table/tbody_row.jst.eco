@@ -1,0 +1,3 @@
+<% @row.forEach (cell) ->: %>
+  <td> <%= cell %> </td>
+<% end %>
