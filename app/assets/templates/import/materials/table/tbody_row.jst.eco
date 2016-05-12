@@ -1,3 +1,4 @@
+<td> <span> <%= "*" if !@new_record %> </span> <%= @row.shift() %> </td>
 <% @row.forEach (cell) ->: %>
   <td> <%= cell %> </td>
 <% end %>

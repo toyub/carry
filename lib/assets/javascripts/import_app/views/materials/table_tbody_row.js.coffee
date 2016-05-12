@@ -5,8 +5,9 @@ class Mis.Views.Materials.tableTbodyRow extends Backbone.View
 
   initialize: (opts) ->
     @row = opts.rowData
+    @new_record = opts.new_record
 
   render: ->
-    @$el.html(@template(row: @row))
+    @$el.html(@template({row: @row, new_record: @new_record}))
     @
 

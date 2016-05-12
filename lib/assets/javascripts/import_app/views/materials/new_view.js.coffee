@@ -60,8 +60,8 @@ class Mis.Views.Materials.NewView extends Backbone.View
     view = new Mis.Views.Materials.tableThead(header: header)
     $('#results > thead').html(view.render().el);
 
-  insertRow: (rowData) ->
-    view = new Mis.Views.Materials.tableTbodyRow(rowData: rowData)
+  insertRow: (rowData, new_record) ->
+    view = new Mis.Views.Materials.tableTbodyRow({rowData: rowData, new_record: new_record})
     $('#results > tbody').append(view.render().el);
 
   convertToObj: (dataArray)->
@@ -81,12 +81,11 @@ class Mis.Views.Materials.NewView extends Backbone.View
     }
 
   checkRowData: (rowData) ->
-    @collection.add(@convertToObj(rowData))
 
   parseBodyData: (rows) ->
     for rowData in rows
-      model = @checkRowData(rowData)
-      @insertRow(rowData)
+      new_record = @collection.add(@convertToObj(rowData))
+      @insertRow(rowData, new_record)
 
   render: ->
     @$el.html(@template())
