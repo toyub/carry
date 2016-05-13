@@ -16,5 +16,6 @@ class Mis.Views.Materials.tableTbodyRow extends Backbone.View
 
   render: ->
     @$el.html(@template({model: @model, new_record: @new_record}))
+    @$el.find('.as_select').as_select();
     @
 
