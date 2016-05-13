@@ -100,8 +100,6 @@ class Mis.Views.Materials.NewView extends Backbone.View
     for rowData in rows
       new_record = @collection.checkExistByName(rowData[0])
       model = @collection.add(@convertToObj(rowData))
-      if !new_record
-        console.log model
       @insertRow(model, new_record)
 
   render: ->
