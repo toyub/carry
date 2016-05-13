@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :materials do
       collection do
         get :autocomplete_name
+        get :importing
+        post :import
       end
       member do
         post :save_picture

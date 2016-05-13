@@ -1,0 +1,4 @@
+<%= form_tag({action: :import}, multipart: true) do %>
+  <%= file_field_tag 'materials' %>
+  <input type="submit" value="上传">
+<% end %>
