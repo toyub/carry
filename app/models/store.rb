@@ -65,6 +65,7 @@ class Store <  ActiveRecord::Base
   has_many :outing_items, class_name: 'StoreMaterialOutingItem'
   has_many :incomes, class_name: "StoreMaterialIncome"
   has_many :outgos, class_name: "StoreMaterialOutgo"
+  has_many :store_account_reports
 
   validates :name, presence: true
 

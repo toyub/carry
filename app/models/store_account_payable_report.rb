@@ -1,0 +1,2 @@
+class StoreAccountPayableReport < StoreAccountReport
+end

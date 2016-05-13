@@ -337,6 +337,19 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.string   "login_name"
   end
 
+  create_table "store_account_reports", force: :cascade do |t|
+    t.integer  "store_id",       null: false
+    t.integer  "store_chain_id", null: false
+    t.json     "openings"
+    t.json     "accruals"
+    t.json     "closings"
+    t.string   "type"
+    t.string   "account_type"
+    t.integer  "account_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "store_attachments", force: :cascade do |t|
     t.string   "type",         limit: 45, null: false
     t.integer  "host_id",                 null: false

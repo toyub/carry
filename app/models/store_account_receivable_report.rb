@@ -1,0 +1,2 @@
+class StoreAccountReceivableReport < StoreAccountReport
+end

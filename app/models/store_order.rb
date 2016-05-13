@@ -17,6 +17,7 @@ class StoreOrder < ActiveRecord::Base
   has_many :store_repayments, through: :store_order_repayments
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
+  # scope :by_last_month, ->(month = Time.now.last_month) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
   scope :today, -> { by_day(Date.today) }
   scope :has_service, -> { where(service_included: true) }
