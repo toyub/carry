@@ -2,20 +2,50 @@
 <td> <input type="text" name="material[barcode]"  value="<%= @model.get('barcode') %>"> </td>
 <td>
   <div class="item_content">
-    <input type="hidden" name='material[root_category_id]' value="" class="root_category" id="material_root_category_id_<%= @model.cid %>">
-    <span class="width-75 as_select" data-select='.material_root_category_select_<%= @model.cid %>' data-target='#material_root_category_id_<%= @model.cid %>'>请选择</span>
-    <div id='material_root_category_select' class="select width-75 material_root_category_select_<%= @model.cid %>">
-      <ol class="width-75">
+    <input type="hidden" name='material[root_category_id]' value="" id="material_root_category_id_<%= @model.cid %>">
+    <span class="width-85 as_select" data-select='.material_root_category_select_<%= @model.cid %>' data-target='#material_root_category_id_<%= @model.cid %>'>请选择</span>
+    <div class="select width-85 material_root_category_select_<%= @model.cid %>">
+      <ol class="width-85">
       </ol>
-      <a class='add_btn width-68' data-method='add_root_category' href="javascript:void(0);">新增</a>
+      <a class='add_btn width-85' data-method='add_root_category' href="javascript:void(0);">新增</a>
     </div>
   </div>
 </td>
-<td> <input type="text" name="material[category]"  value="<%= @model.get('category') %>"> </td>
+<td> 
+  <div class="item_content">
+    <input type="hidden" name='material[category_id]' value="" id="material_category_id_<%= @model.cid %>">
+    <span class="width-85 as_select" data-select='.material_category_select_<%= @model.cid %>' data-target='#material_category_id_<%= @model.cid %>'>请选择</span>
+    <div class="select width-85 material_category_select_<%= @model.cid %>">
+      <ol class="width-85">
+      </ol>
+      <a class='add_btn width-85' data-method='add_category' href="javascript:void(0);">新增</a>
+    </div>
+  </div>
+</td>
 <td> <input type="text" name="material[speci]"  value="<%= @model.get('speci') %>"> </td>
-<td> <input type="text" name="material[unit]"  value="<%= @model.get('unit') %>"> </td>
+<td>
+  <div class="item_content">
+    <input type="hidden" name='material[unit_id]' value="" id="material_unit_id_<%= @model.cid %>">
+    <span class="width-85 as_select" data-select='.material_unit_select_<%= @model.cid %>' data-target='#material_unit_id_<%= @model.cid %>'>请选择</span>
+    <div class="select width-85 material_unit_select_<%= @model.cid %>">
+      <ol class="width-85">
+      </ol>
+      <a class='add_btn width-85' data-method='add_unit' href="javascript:void(0);">新增</a>
+    </div>
+  </div>
+</td>
 <td> <input type="text" name="material[brand]"  value="<%= @model.get('brand') %>"> </td>
 <td> <input type="text" name="material[manufacture]"  value="<%= @model.get('manufacture') %>"> </td>
-<td> <input type="text" name="material[for_sell]"  value="<%= @model.get('for_sell') %>"> </td>
-<td> <input type="text" name="material[cost_price]"  value="<%= @model.get('cost_price') %>"> </td>
-<td> <input type="text" name="material[ratail_price]"  value="<%= @model.get('retail_price') %>"> </td>
+<td> 
+  <select name="material[for_sell]" value="<%= @model.get('for_sell') %>" class="width-60">
+    <option value="true">是</option>
+    <option value="false">否</option>
+  </select>
+</td>
+<td> <input type="text" name="material[cost_price]"  value="<%= @model.get('cost_price') %>" class="width-85"> </td>
+<td> <input type="text" name="material[ratail_price]"  value="<%= @model.get('retail_price') %>" class="width-85"> </td>
+<% $.each @model.get('depots'), (key, value) ->: %>
+<td> 
+  <input type="text" name="material[depot][<%= key %>]"  value="<%= value %>" class="width-85"> 
+</td>
+<% end %>
