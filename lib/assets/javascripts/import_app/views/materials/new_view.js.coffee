@@ -67,6 +67,8 @@ class Mis.Views.Materials.NewView extends Backbone.View
   insertRow: (model, new_record) ->
     view = new Mis.Views.Materials.tableTbodyRow({model: model, new_record: new_record})
     $('#results > tbody').append(view.render().el);
+    view.$el.find('.as_select').as_select();
+
 
   toDepot: (dataArray) ->
     depots = {}
