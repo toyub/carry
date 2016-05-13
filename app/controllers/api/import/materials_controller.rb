@@ -17,21 +17,21 @@ module Api
           category.store_id = current_store.id
           category.store_chain_id = current_store.store_chain_id
           category.store_staff_id = current_staff.id
-          category.name = params[:root_category]
+          category.name = params[:category]
         end
         @unit = current_store.store_material_units.find_or_create_by(id: params[:material][:unit_id]) do |unit|
           unit.store_chain_id = current_store.store_chain_id
           unit.name = params[:unit]
         end
-        @brand = current_store.store_material_brands.find_or_create_by(name: params[:material][:brand]) do |brand|
+        @brand = current_store.store_material_brands.find_or_create_by(id: params[:material][:brand_id]) do |brand|
           brand.store_chain_id = current_store.store_chain_id
           brand.store_staff_id = current_staff.id
-          brand.name = params[:material][:brand]
+          brand.name = params[:brand]
         end
-        @manufacturer = current_store.store_material_manufacturers.find_or_create_by(name: params[:material][:brand]) do |mf|
+        @manufacturer = current_store.store_material_manufacturers.find_or_create_by(id: params[:material][:manufacture_id]) do |mf|
           mf.store_chain_id = current_store.store_chain_id
           mf.store_staff_id = current_staff.id
-          mf.name = params[:material][:manufacture]
+          mf.name = params[:manufacture]
         end
 
         @store_material = current_store.store_materials.find_or_create_by(name: params[:material][:name])
@@ -55,7 +55,17 @@ module Api
         })
 
         params[:material][:depot].each do |name, quantity|
-          @depost = current_store.store_depots.find_or_create_by(name: name)
+          depot = current_store.store_depots.find_or_create_by(name: name) do |depot|
+            depot.store_chain_id = current_store.store_chain_id
+            depot.store_staff_id = current_staff.id
+          end
+          if quantity.present?
+            inventory = current_store.store_material_inventories.find_or_initialize_by(store_depot_id: depot.id,store_material_id: @material.id)
+            inventory.store_staff_id = current_staff.id if inventory.store_staff_id.blank?
+            inventory.store_chain_id = current_store.store_chain_id if inventory.store_chain_id.blank?
+            inventory.save
+            inventory.checkin!(quantity.to_f)
+          end
         end
 
         render json: {success: true}

@@ -34,8 +34,28 @@
     </div>
   </div>
 </td>
-<td> <input type="text" name="material[brand]"  value="<%= @model.get('brand') %>"> </td>
-<td> <input type="text" name="material[manufacture]"  value="<%= @model.get('manufacture') %>"> </td>
+<td> 
+  <div class="item_content">
+    <input type="hidden" name='material[brand_id]' value="" id="material_brand_id_<%= @model.cid %>">
+    <span class="width-85 as_select" data-select='.material_brand_select_<%= @model.cid %>' data-target='#material_brand_id_<%= @model.cid %>'><%= @model.get('brand') %></span>
+    <div class="select width-85 material_brand_select_<%= @model.cid %>">
+      <ol class="width-85">
+      </ol>
+      <a class='add_btn width-85' data-method='add_brand' href="javascript:void(0);">新增</a>
+    </div>
+  </div>
+</td>
+<td> 
+  <div class="item_content">
+    <input type="hidden" name='material[manufacture_id]' value="" id="material_manufacture_id_<%= @model.cid %>">
+    <span class="width-85 as_select" data-select='.material_manufacture_select_<%= @model.cid %>' data-target='#material_manufacture_id_<%= @model.cid %>'><%= @model.get('manufacture') %></span>
+    <div class="select width-85 material_manufacture_select_<%= @model.cid %>">
+      <ol class="width-85">
+      </ol>
+      <a class='add_btn width-85' data-method='add_manufacture' href="javascript:void(0);">新增</a>
+    </div>
+  </div>
+</td>
 <td> 
   <select name="material[for_sell]" value="<%= @model.get('for_sell') %>" class="width-60">
     <option value="true">是</option>
