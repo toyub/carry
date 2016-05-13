@@ -1,5 +1,5 @@
 <div class="main_top">
-  <%= breadcrumb_navigation(['库存', '入库记录']) %>
+  <%= breadcrumb_navigation(['报表', '入库记录']) %>
 </div>
 
 
@@ -55,25 +55,3 @@
       </div>
     </div>
   </div>
-
-  <script type="text/javascript">
-    jQuery(function($){
-      var outgo_tmpl = JST['report/material_outgos/index'];
-      function outgos(){
-        html = ""
-        $.ajax({
-          url: "/report/store_material_inventories/outgos",
-          dataType: "json",
-          type: 'get',
-          success: function(data){
-            console.log(data.outgos);
-            $("table#storage_tab").html(outgo_tmpl(data))
-          }
-        })
-      };
-
-      $(document).on('click', 'a.js-material-outgo', function(){
-        outgos();
-      });
-    });
-  </script>

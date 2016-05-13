@@ -1,5 +1,3 @@
-
-
 json.outgos @outgos do |out|
   json.(out, :accruals, :chain_business_model_id, :closings, :format_created_at, :created_month, :id, :openings, :store_depot)
   json.logged_item do
