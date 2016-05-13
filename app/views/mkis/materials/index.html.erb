@@ -40,7 +40,7 @@
           <td><%= material.speci %></td>
           <td><%= material.store_material.store_material_unit.try(:name) %></td>
           <td><%= material.store_material.cost_price %></td>
-          <td><%= material.store_material.inventory(params[:q][:store_material_store_material_inventories_store_depot_id_eq]) %></td>
+          <td><%= material.store_material.inventory(@deport_id) %></td>
           <td><%= material.store_material.remark %></td>
           <td><a href='<%= mkis_material_saleinfo_path(material.store_material) %>' class="operate_icon"><i class="fa fa-file-text-o "></i></a></td>
         </tr>
