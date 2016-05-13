@@ -83,7 +83,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
       name:             dataArray[0],
       barcode:          dataArray[1],
       root_category:    dataArray[2],
-      second_category:  dataArray[3],
+      category:         dataArray[3],
       speci:            dataArray[4],
       unit:             dataArray[5],
       brand:            dataArray[6],
@@ -100,6 +100,8 @@ class Mis.Views.Materials.NewView extends Backbone.View
     for rowData in rows
       new_record = @collection.checkExistByName(rowData[0])
       model = @collection.add(@convertToObj(rowData))
+      if !new_record
+        console.log model
       @insertRow(model, new_record)
 
   render: ->

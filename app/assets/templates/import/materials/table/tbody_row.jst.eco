@@ -3,7 +3,7 @@
 <td>
   <div class="item_content">
     <input type="hidden" name='material[root_category_id]' value="" id="material_root_category_id_<%= @model.cid %>">
-    <span class="width-85 as_select" data-select='.material_root_category_select_<%= @model.cid %>' data-target='#material_root_category_id_<%= @model.cid %>'>请选择</span>
+    <span class="width-85 as_select" data-select='.material_root_category_select_<%= @model.cid %>' data-target='#material_root_category_id_<%= @model.cid %>'><%= @model.get('root_category') %></span>
     <div class="select width-85 material_root_category_select_<%= @model.cid %>">
       <ol class="width-85">
       </ol>
@@ -14,7 +14,7 @@
 <td> 
   <div class="item_content">
     <input type="hidden" name='material[category_id]' value="" id="material_category_id_<%= @model.cid %>">
-    <span class="width-85 as_select" data-select='.material_category_select_<%= @model.cid %>' data-target='#material_category_id_<%= @model.cid %>'>请选择</span>
+    <span class="width-85 as_select" data-select='.material_category_select_<%= @model.cid %>' data-target='#material_category_id_<%= @model.cid %>'><%= @model.get('category') %></span>
     <div class="select width-85 material_category_select_<%= @model.cid %>">
       <ol class="width-85">
       </ol>
@@ -26,7 +26,7 @@
 <td>
   <div class="item_content">
     <input type="hidden" name='material[unit_id]' value="" id="material_unit_id_<%= @model.cid %>">
-    <span class="width-85 as_select" data-select='.material_unit_select_<%= @model.cid %>' data-target='#material_unit_id_<%= @model.cid %>'>请选择</span>
+    <span class="width-85 as_select" data-select='.material_unit_select_<%= @model.cid %>' data-target='#material_unit_id_<%= @model.cid %>'><%= @model.get('unit') %></span>
     <div class="select width-85 material_unit_select_<%= @model.cid %>">
       <ol class="width-85">
       </ol>
