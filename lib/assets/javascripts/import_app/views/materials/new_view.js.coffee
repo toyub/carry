@@ -29,6 +29,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
     'click button#import' : 'importMaterials'
 
   importMaterials: ->
+    $("#loading-position").show()
     @collection.saveAll () ->
       window.location.replace("/kucun")
 

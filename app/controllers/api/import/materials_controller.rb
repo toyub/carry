@@ -16,13 +16,13 @@ module Api
           end
         end
         @category = @root_category.sub_categories.find_by_id(params[:material][:category_id])
-        if @category.blank? && params[:category]
-          @category = @root_category.sub_categories.find_or_create_by(name: params[:category]) do |category|
-            category.store_id = current_store.id
-            category.store_chain_id = current_store.store_chain_id
-            category.store_staff_id = current_staff.id
-          end
-        end
+        # if @category.blank? && @root_category.present? && params[:category]
+        #   @category = @root_category.sub_categories.find_or_create_by(name: params[:category]) do |category|
+        #     category.store_id = current_store.id
+        #     category.store_chain_id = current_store.store_chain_id
+        #     category.store_staff_id = current_staff.id
+        #   end
+        # end
 
         @unit = current_store.store_material_units.find_by_id(params[:material][:unit_id])
         if @unit.blank? && params[:unit]
@@ -51,6 +51,7 @@ module Api
         if @store_material.new_record?
           @store_material.store_chain_id = current_store.store_chain_id
           @store_material.store_staff_id = current_user.id
+          @store_material.save
           @store_material.create_store_material_saleinfo({
             store_id: current_store.id,
             store_chain_id: current_store.store_chain_id,

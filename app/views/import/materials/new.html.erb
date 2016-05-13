@@ -1,5 +1,9 @@
 <div class="field">
 </div>
+<div id="loading-position" style="display:none">
+  <%= render 'shared/loading' %>
+</div>
+
 <script>
   jQuery(function($){
     var view = new Mis.Views.Materials.NewView({materials: <%= current_store.store_materials.select(:id, :name).to_json.html_safe %> });
