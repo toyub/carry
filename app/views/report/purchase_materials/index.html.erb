@@ -19,6 +19,7 @@
             <th>采购数量</th>
             <th>供应商名称</th>
             <th>开单日期</th>
+            <th>是否入库</th>
             <th>摘要</th>
           </tr>
         </thead>
@@ -37,6 +38,7 @@
             <td><%= item.quantity%></td>
             <td><%= item.store_material_order.store_supplier.name %></td>
             <td><%= item.store_material_order.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td><%= item.is_incomes? %></td>
             <td><%= item.store_material_order.remark%></td>
           </tr>
           <% end %>

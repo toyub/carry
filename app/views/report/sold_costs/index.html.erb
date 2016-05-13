@@ -37,7 +37,7 @@
             <td><%= item.store_material.store_material_unit.name %></td>
             <td><%= item.outingable_item.quantity %></td>
             <td><%= item.cost_price %></td>
-            <td><%= item.outingable_item.cost_price %></td>
+            <td><%= item.cost_price * item.outingable_item.quantity %></td>
           </tr>
           <% end %>
         </tbody>

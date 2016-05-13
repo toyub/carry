@@ -33,9 +33,9 @@
             <td><%= item.outingable_item.quantity %></td>
             <td><%= item.outingable_item.price %></td>
             <td><%= item.outingable_item.amount %></td>
-            <td><%= '出库数量' %></td>
+            <td><%= item.quantity %></td>
             <td><%= item.cost_price %></td>
-            <td><%= item.outingable_item.cost_price %></td>
+            <td><%= item.cost_price * item.outingable_item.quantity %></td>
             <td><%= item.outingable_item.amount - (item.outingable_item.cost_price.to_f * item.outingable_item.quantity) %></td>
             <td><%= item.gross_profit_rate.to_s + "%" %></td>
           </tr>
