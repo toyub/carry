@@ -5,7 +5,7 @@ class CreateAccountReportService
   end
 
   def income
-    @store.store_customers.each do |customer|
+    hanging_customers.each do |customer|
       opening_balance(customer)
       hanging_amount_by_month = customer.orders.by_month(@accountant_date).available.pay_hanging.pluck(:amount).sum
       payment_amount_by_month = customer.store_repayments.by_month(@accountant_date).pluck(:amount).sum
@@ -44,6 +44,14 @@ class CreateAccountReportService
     else
       0.0
     end
+  end
+
+  def hanging_customers
+    customers = []
+    @store.store_customers.each do |c|
+      customers << c if c.orders.pluck(:hanging).include?(true)
+    end
+    customers
   end
 
 end
