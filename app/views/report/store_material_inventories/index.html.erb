@@ -47,7 +47,7 @@
               <td><%= item.accruals["quantity"] %></td>
               <td><%= item.accruals["material_cost_price"] %></td>
               <td><%= item.closings["inventory_quantity"] %></td>
-              <td><%= item.closings["material_cost_price"] %></td>
+              <td><%= item.closings["material_cost_price"].to_f.round(2) %></td>
             </tr>
             <% end %>
           </tbody>
