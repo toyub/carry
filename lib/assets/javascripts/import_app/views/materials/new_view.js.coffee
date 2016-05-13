@@ -29,7 +29,8 @@ class Mis.Views.Materials.NewView extends Backbone.View
     'click button#import' : 'importMaterials'
 
   importMaterials: ->
-    @collection.saveAll()
+    @collection.saveAll () ->
+      window.location.replace("/kucun")
 
   handleUploadXlf: (e) ->
     files = e.target.files;

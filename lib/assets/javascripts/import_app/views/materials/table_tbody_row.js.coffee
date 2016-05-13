@@ -10,9 +10,10 @@ class Mis.Views.Materials.tableTbodyRow extends Backbone.View
 
   handleSave: =>
     data = @$el.find('input, select')
-    @model.save data.serializeJSON(), {
-      success: (model, respone)->
-    }
+    if !@new_record
+      @model.save data.serializeJSON(), {
+        success: (model, respone)->
+      }
 
   render: ->
     @$el.html(@template({model: @model}))

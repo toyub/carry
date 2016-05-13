@@ -15,5 +15,6 @@ class Mis.Collections.ImportMaterialsCollection extends Backbone.Collection
 
     true
 
-  saveAll: ->
+  saveAll: (callback)->
     model.import() for model in @models
+    callback()
