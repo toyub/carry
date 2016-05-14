@@ -7,6 +7,13 @@ class Mis.Collections.ImportMaterialsCollection extends Backbone.Collection
   url: "/api/import/materials"
   model: Mis.Models.ImportMaterials
 
+  asSelectOptions: {
+    root_categories: "",
+    brands: "",
+    units: "",
+    manufacturers: ""
+  }
+
   allModels: []
 
   checkExistByName: (name) ->

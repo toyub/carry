@@ -14,7 +14,14 @@ class Mis.Views.Materials.tableTbodyRow extends Backbone.View
     @collection.allModels.push data.serializeJSON()
 
   render: ->
-    @$el.html(@template({model: @model}))
+
+    @$el.html(@template({
+      root_categories:@collection.asSelectOptions.root_categories.toJSON(),
+      brands:         @collection.asSelectOptions.brands.toJSON(),
+      units:          @collection.asSelectOptions.units.toJSON(),
+      manufacturers:  @collection.asSelectOptions.manufacturers.toJSON(),
+      model:          @model
+      }))
     if !@new_record
       @$el.addClass('hightlight')
     @

@@ -7,7 +7,9 @@
     <span class="width-85 as_select" data-select='.material_root_category_select_<%= @model.cid %>' data-target='#material_root_category_id_<%= @model.cid %>'><%= @model.get('root_category') %></span>
     <div id="material_root_category_select" class="select width-85 material_root_category_select_<%= @model.cid %>">
       <ol class="width-85">
-      </ol>
+        <% @root_categories.forEach (c) ->: %>
+          <li data-value="<%= c.id %>"><%= c.name %></li>
+        <% end %>
       <a class='add_btn width-85' data-method='add_root_category' href="javascript:void(0);">新增</a>
     </div>
   </div>
@@ -32,6 +34,9 @@
     <span class="width-85 as_select" data-select='.material_unit_select_<%= @model.cid %>' data-target='#material_unit_id_<%= @model.cid %>'><%= @model.get('unit') %></span>
     <div id="material_unit_select" class="select width-85 material_unit_select_<%= @model.cid %>">
       <ol class="width-85">
+        <% @units.forEach (u) ->: %>
+          <li data-value="<%= u.id %>"><%= u.name %></li>
+        <% end %>
       </ol>
       <a class='add_btn width-85' data-method='add_unit' href="javascript:void(0);">新增</a>
     </div>
@@ -44,6 +49,9 @@
     <span class="width-85 as_select" data-select='.material_brand_select_<%= @model.cid %>' data-target='#material_brand_id_<%= @model.cid %>'><%= @model.get('brand') %></span>
     <div id="material_brand_select" class="select width-85 material_brand_select_<%= @model.cid %>">
       <ol class="width-85">
+        <% @brands.forEach (b) ->: %>
+          <li data-value="<%= b.id %>"><%= b.name %></li>
+        <% end %>
       </ol>
       <a class='add_btn width-85' data-method='add_brand' href="javascript:void(0);">新增</a>
     </div>
@@ -56,6 +64,9 @@
     <span class="width-85 as_select" data-select='.material_manufacture_select_<%= @model.cid %>' data-target='#material_manufacture_id_<%= @model.cid %>'><%= @model.get('manufacture') %></span>
     <div id="material_manufacturer_select" class="select width-85 material_manufacture_select_<%= @model.cid %>">
       <ol class="width-85">
+        <% @manufacturers.forEach (m) ->: %>
+          <li data-value="<%= m.id %>"><%= m.name %></li>
+        <% end %>
       </ol>
       <a class='add_btn width-85' data-method='add_manufacturer' href="javascript:void(0);">新增</a>
     </div>

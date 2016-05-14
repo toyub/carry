@@ -18,15 +18,33 @@ class Mis.Views.Materials.NewView extends Backbone.View
   ]
 
   initialize: (opt) ->
-    @reader = new FileReader()
-    @reader.onload = @listenWorkBook
     @collection = new Mis.Collections.ImportMaterialsCollection()
     @collection.reset opt.materials
+    @reader = new FileReader()
+    @reader.onload = @listenWorkBook
+    @fetchAsSelectData()
     $('.field').html(@render().el)
 
   events: ->
     'change input#xlf' : 'handleUploadXlf'
     'click button#import' : 'importMaterials'
+
+  fetchAsSelectData: ->
+    @root_categories = new Mis.Collections.MaterialRootCategoryCollection()
+    @root_categories.fetch()
+    @collection.asSelectOptions.root_categories = @root_categories
+
+    @units = new Mis.Collections.MaterialUnitsCollection()
+    @units.fetch()
+    @collection.asSelectOptions.units = @units
+
+    @brands = new Mis.Collections.MaterialBrandsCollection()
+    @brands.fetch()
+    @collection.asSelectOptions.brands = @brands
+
+    @manufacturers = new Mis.Collections.MaterialManufacturersCollection()
+    @manufacturers.fetch()
+    @collection.asSelectOptions.manufacturers = @manufacturers
 
   importMaterials: ->
     $("#loading-position").show()
