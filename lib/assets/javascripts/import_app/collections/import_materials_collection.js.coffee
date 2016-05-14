@@ -7,14 +7,29 @@ class Mis.Collections.ImportMaterialsCollection extends Backbone.Collection
   url: "/api/import/materials"
   model: Mis.Models.ImportMaterials
 
+  allModels: []
+
   checkExistByName: (name) ->
     isDupe = @any (_material) ->
       return _material.get('name') == name
 
-    return false if (isDupe)
+    return true if (isDupe)
 
-    true
+    false
 
-  saveAll: (callback)->
-    model.import() for model in @models
-    callback()
+  saveAll: ->
+    for model, i in @models
+      model.import()
+      if i == (@models.length - 1)
+        $.ajax({
+          url: @url,
+          method: 'post',
+          data: {store_materials: @allModels},
+          success: (res)->
+            console.log res
+            $("#loading-position").hide()
+            window.location.replace("/kucun")
+          error: (res)->
+            console.log res
+        })
+

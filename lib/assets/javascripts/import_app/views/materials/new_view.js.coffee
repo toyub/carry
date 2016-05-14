@@ -30,8 +30,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
 
   importMaterials: ->
     $("#loading-position").show()
-    @collection.saveAll () ->
-      window.location.replace("/kucun")
+    @collection.saveAll()
 
   handleUploadXlf: (e) ->
     files = e.target.files;
@@ -67,7 +66,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
     $('#results > thead').html(view.render().el);
 
   insertRow: (model, new_record) ->
-    view = new Mis.Views.Materials.tableTbodyRow({model: model, new_record: new_record})
+    view = new Mis.Views.Materials.tableTbodyRow({collection: @collection, model: model, new_record: new_record})
     $('#results > tbody').append(view.render().el);
     view.$el.find('.as_select').as_select();
 
@@ -100,9 +99,9 @@ class Mis.Views.Materials.NewView extends Backbone.View
 
   parseBodyData: (rows) ->
     for rowData in rows
-      new_record = @collection.checkExistByName(rowData[0])
+      exist = @collection.checkExistByName(rowData[0])
       model = @collection.add(@convertToObj(rowData))
-      @insertRow(model, new_record)
+      @insertRow(model, !exist)
 
   render: ->
     @$el.html(@template())

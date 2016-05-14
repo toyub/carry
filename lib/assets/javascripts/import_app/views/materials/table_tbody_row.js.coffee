@@ -4,15 +4,14 @@ class Mis.Views.Materials.tableTbodyRow extends Backbone.View
   tagName: 'tr'
 
   initialize: (opts) ->
+    @collection = opts.collection
     @model = opts.model
     @new_record = opts.new_record
     @model.on('importSave', @handleSave)
 
   handleSave: =>
     data = @$el.find('input, select')
-    @model.save data.serializeJSON(), {
-      success: (model, respone)->
-    }
+    @collection.allModels.push data.serializeJSON()
 
   render: ->
     @$el.html(@template({model: @model}))
