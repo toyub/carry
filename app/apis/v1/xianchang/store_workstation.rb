@@ -3,8 +3,8 @@ module V1
 
     resource 'xianchang', desc: "现场施工管理" do
       before do
-        # authenticate_platform!
-        # authenticate_user!
+        authenticate_platform!
+        authenticate_user!
       end
 
       add_desc "切换工位"

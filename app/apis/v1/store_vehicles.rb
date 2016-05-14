@@ -12,7 +12,7 @@ module V1
         requires :platform, type: String, desc: '调用的平台(app或者erp)'
         requires :id, type: Integer, desc: '车辆的id'
       end
-      get 'store_vehicles/:id' do
+      get ':id' do
         @store_vehicle = current_store.store_vehicles.find(params[:id])
         present @store_vehicle, with: ::Entities::StoreVehicle
       end

@@ -3,8 +3,8 @@ module V1
 
     resource 'xianchang', desc: "订单施工信息" do
       before do
-        # authenticate_platform!
-        # authenticate_user!
+        authenticate_platform!
+        authenticate_user!
       end
 
       add_desc "获取订单施工信息"
