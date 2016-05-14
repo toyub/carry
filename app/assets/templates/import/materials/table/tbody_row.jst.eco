@@ -84,3 +84,4 @@
   <input type="text" name="depot[<%= key %>]"  value="<%= value %>" class="width-85"> 
 </td>
 <% end %>
+<td class='delete-row'> x </td>

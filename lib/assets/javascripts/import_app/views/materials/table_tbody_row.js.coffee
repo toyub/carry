@@ -11,6 +11,10 @@ class Mis.Views.Materials.tableTbodyRow extends Backbone.View
 
   events: ->
     'change input.root_category': 'resetSubCategory'
+    'click  td.delete-row': 'removeRow'
+
+  removeRow: ->
+    @remove()
 
   handleSave: =>
     data = @$el.find('input, select')
