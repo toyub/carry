@@ -7,7 +7,7 @@ module Api
       end
 
       def create
-        ::Import::StoreMaterialsService.new(params[:store_materials])
+        ::Import::StoreMaterialsService.new(current_store, current_staff, params[:store_materials])
         render json: {success: true}
       end
     end
