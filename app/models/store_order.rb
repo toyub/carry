@@ -280,6 +280,7 @@ class StoreOrder < ActiveRecord::Base
         end
       end
     elsif self.queuing?
+      self.task_queuing!
       execute_the_first_service
     elsif self.pausing?
       if self.waiting_in_queue?
