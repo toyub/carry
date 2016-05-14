@@ -1,0 +1,39 @@
+<header class="header">
+  <nav class="nav">
+    <div class="top">
+      <div class='nav_top_left top_left'>
+        <i id='menutoggle' class="fa fa-list curcor_hand"></i>
+      </div>
+
+      <a href="#" class="nav_top_center">
+        <img src="" alt="" />
+        <span class="user-info">你好,<%= current_user.full_name %>！</span>
+        <span class="date">
+          <i class="fa fa-calendar "></i>
+          <%= Time.now.strftime("%Y年%m月%d日 %H:%S")%>
+        </span>
+      </a>
+
+      <div class="nav_top_right top_right">
+        <ul class="nav_right">
+            <li> <a href="javascript:void(0)"> <i class="icon icon-bubble-o"></i></a></li>
+          <li> <a href="/"> <i class="icon icon-th"></i></a></li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="icon icon-user-o"></i>
+              <span></span>
+            </a>
+            <ul class="dropdown_menu list-group">
+              <li>
+                <%= link_to '修改密码', new_password_path %>
+              </li>
+              <li>
+                <%= link_to "退出登录", session_path, method: :delete %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

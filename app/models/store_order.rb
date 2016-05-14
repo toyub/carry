@@ -97,7 +97,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def taozhuangs
-    items.where(orderable_type: StoreMaterialSaleinfo.name).select{|order_item| order_item.orderable.service_needed}
+    items.where(orderable_type: StoreMaterialSaleinfo.name, from_customer_asset: false).select{|order_item| order_item.orderable.service_needed}
   end
 
   def license_number
@@ -310,6 +310,7 @@ class StoreOrder < ActiveRecord::Base
         end
       end
     elsif self.queuing?
+      self.task_queuing!
       execute_the_first_service
     elsif self.pausing?
       if self.waiting_in_queue?

@@ -16,7 +16,6 @@
   </ul>
 </div>
 
-<% if @contains_service: %>
 <div class="services" id='StorePackage<%= @id %>'>
   <dl>
     <dt>服务项目</dt>
@@ -32,17 +31,27 @@
     <dd><nbsp1></nbsp1></dd>
     <dd><nbsp1></nbsp1></dd>
     <dd><%= service.quantity %></dd>
-    <dd><input type="checkbox" class='js-package-service' data-parentid='<%= @id %>' data-itemid='<%= service.id %>'></dd>
+    <dd><input type="checkbox" title='勾选表示立即施工' class='js-package-service' data-parentid='<%= @id %>' data-itemid='<%= service.id %>'></dd>
   </dl>
   <% end %>
+
   <% for material in @materials : %>
-  <dl style="display: none">
+  <dl>
     <dd><%= material.name %></dd>
     <dd><%= material.speci %></dd>
     <dd><nbsp1></nbsp1></dd>
     <dd><%= material.quantity %></dd>
-    <dd><input type="checkbox" checked disabled></dd>
+    <dd>√</dd>
+  </dl>
+  <% end %>
+
+  <% for card in @deposit_cards : %>
+  <dl>
+    <dd><%= card.name %></dd>
+    <dd><%= card.denomination %></dd>
+    <dd><%= card.price %></dd>
+    <dd><nbsp1></nbsp1></dd>
+    <dd>√</dd>
   </dl>
   <% end %>
 </div>
-<% end %>

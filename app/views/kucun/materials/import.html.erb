@@ -1,0 +1,16 @@
+<%= @depots_names %>
+<%= @counter %>/<%= @all_material_counter %>/<%=@all_line_counter%>
+<table>
+  <thead></thead>
+  <tbody>
+    <% @sheet1.each do |row| %>
+      <tr>
+        <% row.cells.each do |col| %>
+        <td>
+          <%= col && col.value %>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

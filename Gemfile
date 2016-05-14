@@ -154,3 +154,4 @@ gem 'font-awesome-rails', '4.4.0'
 gem 'exception_notification'
 
 gem 'will_paginate', '~> 3.0.6'
+gem 'rubyXL'
