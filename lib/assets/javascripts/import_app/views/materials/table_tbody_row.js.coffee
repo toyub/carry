@@ -14,6 +14,7 @@ class Mis.Views.Materials.tableTbodyRow extends Backbone.View
     'click  td.delete-row': 'removeRow'
 
   removeRow: ->
+    @collection.remove(@model)
     @remove()
 
   handleSave: =>
