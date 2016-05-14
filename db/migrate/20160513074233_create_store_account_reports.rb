@@ -9,8 +9,13 @@ class CreateStoreAccountReports < ActiveRecord::Migration
       t.string :type
       t.string :account_type
       t.integer :account_id
+      t.string :created_month, length: 10
 
       t.timestamps null: false
+
+
     end
+
+    add_index :store_account_reports, :created_month
   end
 end

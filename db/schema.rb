@@ -346,9 +346,12 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.string   "type"
     t.string   "account_type"
     t.integer  "account_id"
+    t.string   "created_month"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
+
+  add_index "store_account_reports", ["created_month"], name: "index_store_account_reports_on_created_month", using: :btree
 
   create_table "store_attachments", force: :cascade do |t|
     t.string   "type",         limit: 45, null: false
