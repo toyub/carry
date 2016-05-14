@@ -589,6 +589,8 @@ Rails.application.routes.draw do
         get :outgos
       end
     end
+    resources :store_account_receivable_reports, only: [:index]
+    resources :store_account_payable_reports, only: [:index]
   end
 
   namespace :receipt do

@@ -1,0 +1,45 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['报表', '应付款汇总']) %>
+</div>
+  <div class="details">
+    <div class="list_table">
+      <div class="search_nav">
+        <!-- <div class="query_div">
+          <a class="in_stg_btn btn js-material-income" href="/report/store_material_inventories">入库记录</a>
+          <a class="notes_btn btn js-material-outgo" href="#outgos">出库记录</a>
+        </div> -->
+      </div>
+      <div>
+        <table cellpadding="0" cellspacing="0" class="storage_tab" id="storage_tab">
+          <thead>
+            <tr class="bg-color-e0e2cf color-282726">
+              <th>#</th>
+              <th>核算对象名称</th>
+              <th>期间</th>
+              <th>期初余额</th>
+              <th>本期应付</th>
+              <th>本期实付</th>
+              <th>本年累计应付</th>
+              <th>本年累计实付</th>
+              <th>期末余额</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @payable_reports.each_with_index do |report, idx| %>
+            <tr>
+              <td class="number"><%= idx + 1 %></td>
+              <td><%= report.object_name %></td>
+              <td><%= report.created_month %></td>
+              <td><%= report.openings["balance"] %></td>
+              <td><%= report.accruals["current_payable"] %></td>
+              <td><%= report.accruals["current_paid"] %></td>
+              <td><%= report.closings["payable"] %></td>
+              <td><%= report.closings["paid"] %></td>
+              <td><%= report.closings["balance"] %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
