@@ -14,7 +14,14 @@ module V1
       end
       get ':id' do
         @store_vehicle = current_store.store_vehicles.find(params[:id])
-        present @store_vehicle, with: ::Entities::StoreVehicle
+
+        if @store_vehicle.blank?
+          present status: {success: false, msg: "未找到相关车辆"}
+        elsif @store_vehicle.store_customer.blank?
+          present status: {success: false, msg: "该车辆未绑定相应客户"}
+        else
+          present @store_vehicle, with: ::Entities::StoreVehicle
+        end
       end
     end
   end

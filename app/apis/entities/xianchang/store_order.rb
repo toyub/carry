@@ -2,18 +2,22 @@ module Entities
   module Xianchang
     class StoreServiceWorkflowSnapshotMechanics < Grape::Entity
       expose(:id) {|task| task.mechanic_id }
-      expose(:name) {|task| task.mechanic.try(:full_name) }
+      expose(:name) {|task| task.mechanic.full_name }
+    end
+
+    class StoreServiceWorkflowSnapshotWorkstation < Grape::Entity
+      expose :id, :name
     end
 
     class StoreServiceWorkflowSnapshots < Grape::Entity
       expose :id, :name, :used_time
-      expose :store_workstation do |snapshot, options|
-        {
-          id: snapshot.store_workstation.try(:id),
-          name: snapshot.store_workstation.try(:name)
-        }
-      end
+      expose :store_workstation, using: StoreServiceWorkflowSnapshotWorkstation
       expose :mechanics, using: StoreServiceWorkflowSnapshotMechanics
+
+      def store_workstation
+        object.store_workstation
+      end
+
       def mechanics
         object.tasks
       end
