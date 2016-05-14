@@ -14,7 +14,7 @@ module Entities
     expose(:name) {|model|model.orderable}
   end
   class StoreOrder < Grape::Entity
-    expose :id, :numero, :amount, :store_customer_id
+    expose :id, :numero, :amount, :store_customer_id, :store_vehicle_id
     expose :only_today, :human_readable_status, if: {type: :default}
     expose(:full_name, if: {type: :default}) {|model| model.store_customer.full_name}
     expose(:license_number, if: {type: :default}) {|model| model.store_vehicle.license_number}

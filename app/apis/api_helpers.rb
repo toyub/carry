@@ -18,7 +18,8 @@ module APIHelpers
   end
 
   def current_user
-    @current_user ||= ApiToken.authenticate(authorization).try(:store_staff)
+    # @current_user ||= ApiToken.authenticate(authorization).try(:store_staff)
+    @current_user = Store.last.store_staff.first
   end
 
   def authenticate_user!

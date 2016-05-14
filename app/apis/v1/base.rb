@@ -20,6 +20,7 @@ module V1
     mount V1::ServiceCategories
     mount V1::Staff
     mount V1::Sessions
+    mount V1::StoreVehicles
     mount V1::Vehicles
     mount V1::Plate
     mount V1::MaterialCategories
@@ -30,6 +31,7 @@ module V1
     mount V1::ResetPassword
     mount V1::DiscountAuthorities
     mount V1::Mechanics
+    mount V1::Xianchang::Base
 
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
