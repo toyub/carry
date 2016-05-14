@@ -16,4 +16,9 @@ class StoreMaterialTransReceiptItem < ActiveRecord::Base
   def numero
     store_material_receipt.numero
   end
+
+  def format_created_at
+    created_at.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
 end

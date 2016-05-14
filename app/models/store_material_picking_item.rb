@@ -10,4 +10,12 @@ class StoreMaterialPickingItem < ActiveRecord::Base
   def outing_type
     OutingType.find_by_name('转移出库')
   end
+
+  def format_created_at
+    created_at.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
+  def numero
+    store_material_picking.numero
+  end
 end
