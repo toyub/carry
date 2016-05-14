@@ -313,7 +313,7 @@ main{
           max-height: 312px;
           overflow-y: scroll;
           .item{
-            width: 93px;
+            min-width: 93px;
             height: 93px;
             display: inline-block;
             background: #00bcdc;
