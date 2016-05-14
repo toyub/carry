@@ -12,4 +12,8 @@ class StoreMaterialTransReceiptItem < ActiveRecord::Base
   def amount
     self.quantity * self.ordered_cost_price
   end
+
+  def numero
+    store_material_receipt.numero
+  end
 end
