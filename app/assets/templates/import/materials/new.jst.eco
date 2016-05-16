@@ -1,6 +1,8 @@
 <input type="file" name="xlfile" id="xlf"/>
-<button id="import"> 完成 </button>
-<table id='results'>
-  <thead> </thead>
-  <tbody> </tbody>
-</table>
+<form action="javascript:void(0)" id="import-materials">
+  <table id='results'>
+    <thead> </thead>
+    <tbody> </tbody>
+  </table>
+  <input type="submit" name="" class="import-btn" value="提交" style="display:none">
+</form>

@@ -27,7 +27,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
 
   events: ->
     'change input#xlf' : 'handleUploadXlf'
-    'click button#import' : 'importMaterials'
+    'submit form#import-materials' : 'importMaterials'
 
   fetchAsSelectData: ->
     @root_categories = new Mis.Collections.MaterialRootCategoryCollection()
@@ -46,9 +46,11 @@ class Mis.Views.Materials.NewView extends Backbone.View
     @manufacturers.fetch()
     @collection.asSelectOptions.manufacturers = @manufacturers
 
-  importMaterials: ->
+  importMaterials: (e) ->
+    e.preventDefault()
     $("#loading-position").show()
     @collection.saveAll()
+    $(".import-btn").hide()
 
   handleUploadXlf: (e) ->
     files = e.target.files;
@@ -68,6 +70,7 @@ class Mis.Views.Materials.NewView extends Backbone.View
       if valid.success
         @insertThead(@theads)
         @parseBodyData(sheet_rows)
+        $('.import-btn').show()
       else
         $("input#xlf").val('');
         ZhanchuangAlert(valid.notice + "请重新上传")

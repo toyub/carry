@@ -1,4 +1,4 @@
-<td> <input type="text" name="name"  value="<%= @model.get('name') %>"> </td>
+<td> <input type="text" name="name"  value="<%= @model.get('name') %>" required> </td>
 <td> <input type="text" name="barcode"  value="<%= @model.get('barcode') %>"> </td>
 <td>
   <div class="item_content">

@@ -74,7 +74,7 @@ module Import
 
       @store_material.barcode = material[:barcode]
       @store_material.speci = material[:speci]
-      @store_material.cost_price = material[:cost_price],
+      @store_material.cost_price = material[:cost_price]
       @store_material.permitted_to_saleable = material[:for_sell]
       @store_material.store_material_unit_id = @unit.id if @unit.present?
       @store_material.store_material_root_category_id = @root_category.id if @root_category.present?
