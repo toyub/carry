@@ -124,6 +124,13 @@ class Mis.Views.Materials.NewView extends Backbone.View
       model = @collection.add(@convertToObj(rowData))
       @insertRow(model, !exist)
 
+    @orderRowIndex()
+
+  orderRowIndex: ->
+    rows = $(".row-index")
+    for tdIndex in rows
+      tdIndex.innerText = tdIndex.parentElement.rowIndex
+
   render: ->
     @$el.html(@template())
     @

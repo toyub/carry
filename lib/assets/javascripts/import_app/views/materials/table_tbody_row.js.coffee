@@ -16,6 +16,12 @@ class Mis.Views.Materials.tableTbodyRow extends Backbone.View
   removeRow: ->
     @collection.remove(@model)
     @remove()
+    @reorderRowIndex()
+
+  reorderRowIndex: ->
+    rows = $(".row-index")
+    for tdIndex in rows
+      tdIndex.innerText = tdIndex.parentElement.rowIndex
 
   handleSave: =>
     data = @$el.find('input, select')

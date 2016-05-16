@@ -1,3 +1,4 @@
+<td class="row-index"> </td>
 <td> <input type="text" name="name"  value="<%= @model.get('name') %>" required> </td>
 <td> <input type="text" name="barcode"  value="<%= @model.get('barcode') %>"> </td>
 <td>

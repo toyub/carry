@@ -1,3 +1,4 @@
+<th> # </th >
 <% @header.forEach (head) ->: %>
   <th> <%= head %> </th >
 <% end %>
