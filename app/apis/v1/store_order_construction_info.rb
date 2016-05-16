@@ -3,8 +3,8 @@ module V1
 
     resource :store_order_workflow, desc: "订单施工信息2" do
       before do
-        # authenticate_platform!
-        # authenticate_user!
+        authenticate_platform!
+        authenticate_user!
       end
 
       route_param :order_id do
