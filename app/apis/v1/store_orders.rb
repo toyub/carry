@@ -1,8 +1,8 @@
 module V1
   class StoreOrders < Grape::API
     before do
-      # authenticate_platform!
-      # authenticate_user!
+      authenticate_platform!
+      authenticate_user!
     end
 
     resource :store_orders, desc: "订单相关" do
