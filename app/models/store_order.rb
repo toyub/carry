@@ -286,7 +286,7 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def total_cost_price
-    items.pluck(:cost_price).reduce(:+)
+    items.select(&->(i){i.cost_price.present?}).map(&:cost_price).reduce(:+)
   end
 
   private
