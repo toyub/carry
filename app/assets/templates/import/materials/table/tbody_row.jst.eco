@@ -73,9 +73,9 @@
   </div>
 </td>
 <td> 
-  <select name="for_sell" value="<%= @model.get('for_sell') %>" class="width-60">
-    <option value="true">是</option>
-    <option value="false">否</option>
+  <select name="for_sell" class="width-60">
+    <option value="true" <%= 'selected' if @model.get('for_sell') == '是' %> >是</option>
+    <option value="false" <%= 'selected' if @model.get('for_sell') == '否' %> >否</option>
   </select>
 </td>
 <td> <input type="text" name="cost_price"  value="<%= @model.get('cost_price') %>" class="width-85"> </td>
