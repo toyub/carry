@@ -356,6 +356,18 @@ class StoreStaff <  ActiveRecord::Base
     read_attribute(:full_name) || ""
   end
 
+  def device_token
+    $redis.get("device_token_of_#{self.id}")
+  end
+
+  def device_token=(token)
+    if token
+      $redis.set("device_token_of_#{self.id}", token)
+    else
+      $redis.del("device_token_of_#{self.id}")
+    end
+  end
+
   private
   def encrypt_password()
     self.salt = Digest::MD5.hexdigest("--#{Time.now.to_f}--")

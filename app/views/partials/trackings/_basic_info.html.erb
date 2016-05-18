@@ -15,23 +15,23 @@
   </td>
   <td>
     <label class="width-75">一级分类</label>
-    <span class="width-167 show_content"><%= @store_material.store_material_root_category.name %></span>
+    <span class="width-167 show_content"><%= @store_material.store_material_root_category.try(:name) %></span>
   </td>
 </tr>
 <tr>
   <td>
     <label class="width-75">二级分类</label>
-    <span class="width-167 show_content"><%= @store_material.store_material_category.name %></span>
+    <span class="width-167 show_content"><%= @store_material.store_material_category.try(:name) %></span>
   </td>
   <td>
     <label class="width-75">商品品牌</label>
-    <span class="width-167 show_content"><%= @store_material.store_material_brand.name %></span>
+    <span class="width-167 show_content"><%= @store_material.store_material_brand.try(:name) %></span>
   </td>
 </tr>
 <tr>
   <td>
     <label class="width-75">生产单位</label>
-    <span class="width-167 show_content"><%= @store_material.store_material_manufacturer.name %></span>
+    <span class="width-167 show_content"><%= @store_material.store_material_manufacturer.try(:name) %></span>
   </td>
   <td>
     <label class="width-75">商品规格</label>

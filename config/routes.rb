@@ -512,6 +512,10 @@ Rails.application.routes.draw do
 
     resources :store_commission_templates, only: [:show]
 
+    namespace :import do
+      resources :materials
+    end
+
   end#End of api
 
   namespace :pos do
@@ -607,6 +611,11 @@ Rails.application.routes.draw do
       get :send_validate_code
     end
   end
+
+  namespace :import do
+    resources :materials
+  end
+
   root 'home#show'
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|

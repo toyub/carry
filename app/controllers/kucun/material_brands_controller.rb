@@ -1,4 +1,8 @@
 class Kucun::MaterialBrandsController < Kucun::BaseController
+  def index
+    render json: current_store.store_material_brands.select(:id, :name).to_json(root: false)
+  end
+
   def new
     @material_brand = StoreMaterialBrand.new
     render layout: 'tiny'

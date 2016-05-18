@@ -42,7 +42,7 @@ module V1
       add_desc '下单'
       post do
         status = StoreOrderService.call(order_params, basic_params)
-        present status: status.success, order_id: status.notice
+        present status: status.success, order_id: status.order_id
       end
 
       route_param :order_id do
