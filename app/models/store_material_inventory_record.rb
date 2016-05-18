@@ -16,6 +16,6 @@ class StoreMaterialInventoryRecord < ActiveRecord::Base
   end
 
   def numero
-    receipt.numero
+    receipt.try(:numero)
   end
 end
