@@ -48,6 +48,8 @@ class StoreOrder < ActiveRecord::Base
   before_save :set_amount
   before_save :service_included_check
 
+  after_save :update_vehicle_situation
+
   accepts_nested_attributes_for :items
 
   validates_presence_of :items, :store_customer, :store_vehicle
@@ -123,11 +125,11 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def situation
-    read_attribute(:situation) || {}
+    (read_attribute(:situation) || {}).symbolize_keys
   end
 
   def damages
-    situation.fetch(:damages, [])
+    situation.fetch(:damages, []) || []
   end
 
   def human_readable_status
@@ -331,5 +333,15 @@ class StoreOrder < ActiveRecord::Base
   def service_included_check
     self.service_included = self.items.any?(&->(item){item.orderable_type == StoreService.name || item.orderable_type == StoreMaterialSaleinfoService.name })
     self
+  end
+
+  def update_vehicle_situation
+    saved_mileage = self.store_vehicle.vehicle_detail.mileage
+    input_mileage = self.situation[:mileage]
+    if input_mileage.to_f > saved_mileage.to_f
+      self.store_vehicle.detail=self.store_vehicle.detail.merge("mileage" => input_mileage)
+      self.store_vehicle.save
+    end
+    true
   end
 end

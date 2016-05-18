@@ -37,6 +37,10 @@ class StoreVehicle < ActiveRecord::Base
 
   after_save :associate_plate
 
+  def vehicle_detail
+    @vehicle_detail ||= VehicleDetail.new(self.detail)
+  end
+
   def current_plate
     self.vehicle_plates.last.try(:plate)
   end
