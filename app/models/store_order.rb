@@ -259,6 +259,16 @@ class StoreOrder < ActiveRecord::Base
     workflows.actively.first
   end
 
+  def notify_mechanic
+    self.items.services.each do |service|
+      service.store_service_snapshot.workflow_snapshots.each do |workflow|
+        workflow.tasks.each do |task|
+          NotifyMechanicWork.new(task.mechanic, "您有一条施工消息")
+        end
+      end
+    end
+  end
+
   private
 
   def try_to_execute

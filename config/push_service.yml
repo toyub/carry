@@ -1,0 +1,15 @@
+defaults: &defaults
+   host: localhost
+   port: 3002
+   urls:
+      ios: /ios/push
+
+development:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+

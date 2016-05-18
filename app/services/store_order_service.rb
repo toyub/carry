@@ -20,7 +20,7 @@ class StoreOrderService
       end
       create_order
     end
-    Status.new(success: true, notice: @order.id)
+    Status.new(success: true, notice: 'create order successfully', order_id: @order.id)
   rescue ActiveRecord::RecordInvalid => e
     Status.new(success: false, notice: e.message)
   end
