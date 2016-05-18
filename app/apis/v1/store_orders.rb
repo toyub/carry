@@ -42,6 +42,8 @@ module V1
       add_desc '下单'
       post do
         status = StoreOrderService.call(order_params, basic_params)
+        order = StoreOrder.find(status.notice)
+        order.notify_mechanic if order.service_included
         present status: status.success, order_id: status.notice
       end
 
