@@ -18,7 +18,7 @@ module V1
         staff = StoreStaff.where(login_name: params[:login_name]).unterminated.last
         status = AuthenticateStaffService.call(staff, params[:password],platform: params[:platform])
         if status.success?
-          staff.set_device_token(params[:device_token]) if params[:platform] == 'app' && params[:device_token].present?
+          staff.device_token = params[:device_token] if params[:platform] == 'app' && params[:device_token].present?
           api_token = ApiToken.find_or_create_by(staff_id: staff.id)
           api_token.reset_token
           present api_token, with: ::Entities::Session
@@ -35,7 +35,7 @@ module V1
       delete do
         authenticate_user!
         if params[:platform] == 'app' && params[:device_token].present? && params[:device_token] == current_user.device_token
-          current_user.delete_device_token
+          current_user.device_token = nil
         end
         api_token = ApiToken.by_token(authorization)
         api_token.reset_token

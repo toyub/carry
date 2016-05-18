@@ -82,7 +82,6 @@ module Api
       if order.save
         order.pay_queuing!
         order.execution_job
-        order.notify_mechanic if order.service_included
         render json: {success: true, order: order}
       else
         render json: {success: false, error: order.errors.full_messages}, status: 422

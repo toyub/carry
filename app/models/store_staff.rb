@@ -360,12 +360,12 @@ class StoreStaff <  ActiveRecord::Base
     $redis.get("device_token_of_#{self.id}")
   end
 
-  def set_device_token(token)
-    $redis.set("device_token_of_#{self.id}", token)
-  end
-
-  def delete_device_token
-    $redis.del("device_token_of_#{self.id}")
+  def device_token=(token)
+    if token
+      $redis.set("device_token_of_#{self.id}", token)
+    else
+      $redis.del("device_token_of_#{self.id}")
+    end
   end
 
   private

@@ -209,6 +209,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store_order.task_processing!
     self.store_order.processing!
     send_sms
+    notify_mechanic
   end
 
   def change_workstation_to!(workstation)
@@ -402,6 +403,12 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
 
   def send_sms
     SmsJob.set(wait_until: remind_delay_interval.minutes.from_now).perform_later(sms_options) if can_send_sms?
+  end
+
+  def notify_mechanics
+    self.mechanics.each do |mechanic|
+      NotifyMechanicWork.new(mechanic, "您有一条施工信息")
+    end
   end
 
   def next_workflow
