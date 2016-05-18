@@ -13,6 +13,7 @@ config/redis.yml
 config/qiniu.yml
 config/alipay.yml
 config/sidekiq_web.yml
+config/push_service.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
