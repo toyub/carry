@@ -1,5 +1,29 @@
 @charset "utf-8";
 
+@keyframes   shine_red {
+  from {box-shadow: 0 0 5px #bbb; }
+  50%  { box-shadow: 0 0 10px red; }
+  to  {box-shadow: 0 0 5px #bbb; }
+}
+
+@-webkit-keyframes  shine_red {
+  from { -webkit-box-shadow: 0 0 5px #bbb; }
+  50% { -webkit-box-shadow: 0 0 10px red; }
+  to { -webkit-box-shadow: 0 0 5px #bbb; }
+}
+
+@keyframes   red_alarm {
+  from {box-shadow: 0 0 5px #bbb; background: #198FFF;}
+  50%  { box-shadow: 0 0 10px red; background: #072B8A; }
+  to  {box-shadow: 0 0 5px #bbb; background: #198FFF}
+}
+
+@-webkit-keyframes  red_alarm {
+  from {box-shadow: 0 0 5px #bbb; background: #198FFF;}
+  50%  { box-shadow: 0 0 10px red; background: #072B8A; }
+  to  {box-shadow: 0 0 5px #bbb; background: #198FFF}
+}
+  
 .btn{
 
 	&:hover{
@@ -11,19 +35,15 @@
 	  -webkit-animation-duration: 1s;
 	  -webkit-animation-iteration-count: infinite;
 	}
+}
 
-	@keyframes   shine_red {
-		from {box-shadow: 0 0 5px #bbb; }
-		50%  { box-shadow: 0 0 10px red; }
-		to  {box-shadow: 0 0 5px #bbb; }
-	}
-
-	@-webkit-keyframes  shine_red {
-		from { -webkit-box-shadow: 0 0 5px #bbb; }
-		50% { -webkit-box-shadow: 0 0 10px red; }
-		to { -webkit-box-shadow: 0 0 5px #bbb; }
-	}
-
+.warning {
+  animation-name: red_alarm;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: red_alarm;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
 }
 
 

@@ -110,6 +110,7 @@
       </div>
     </div>
     <div class="btn_group">
+      <a href="javascript:void(0);" id="goToShow" class="cancel_btn btn">取消</a>
       <input type="submit" class="save_btn btn" id="createPackageSetting" value="保存">
     </div>
   </form>

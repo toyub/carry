@@ -37,7 +37,7 @@ class XiaoshouController < ApplicationController
           json.(s, :id, :store_id, :parent_id, :name)
         end
       end
-      json.materials current_store.store_material_saleinfos.exclude_service.joins(:store_material).where(store_materials: {permitted_to_saleable: true}), :id, :name, :retail_price
+      json.materials current_store.store_material_saleinfos.joins(:store_material).where(store_materials: {permitted_to_saleable: true}), :id, :name, :retail_price
       json.tags current_store.tags, :id, :name
       json.provinces Geo.provinces(1), :name, :code
       json.workstations current_store.workstations, :id, :name

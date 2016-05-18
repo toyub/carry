@@ -25,6 +25,7 @@ class Mis.Views.XiaoshouPackageItemsForm extends Mis.Base.View
       if @model.isValid(trigger_error)
         @model.package_setting.items.add @model
         @close()
+        $('#createPackageSetting').addClass('warning')
       else
         @model.unset()
 
