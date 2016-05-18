@@ -1,4 +1,7 @@
 class Kucun::MaterialManufacturersController < Kucun::BaseController
+  def index
+    render json: current_store.store_material_manufacturers.select(:id, :name).to_json(root: false)
+  end
   def new
     @material_manufacturer = StoreMaterialManufacturer.new
     render layout: 'tiny'

@@ -1,0 +1,5 @@
+<th> # </th >
+<% @header.forEach (head) ->: %>
+  <th> <%= head %> </th >
+<% end %>
+<th> 删除 </th >
