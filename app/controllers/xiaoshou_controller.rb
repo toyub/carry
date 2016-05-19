@@ -24,7 +24,7 @@ class XiaoshouController < ApplicationController
       json.machanic_commissions current_store.commission_templates.for_machanic, :id, :name
       json.services current_store.store_services.order("id asc"), :id, :name, :code, :bargain_price, :bargain_price_enabled, :point, :retail_price, :standard_time, :engineer_level, :category, :category_name, :saleman_commission_template_id, :vip_price_enabled
       json.service_categories ServiceCategory.all, :id, :name
-      json.customers current_store.store_customer_entities do |entity|
+      json.customers current_store.store_customer_entities.order("updated_at desc") do |entity|
         json.(entity, :id, :region, :address, :remark, :property, :store_customer_category_id)
         json.store_customer entity.store_customer, :phone_number, :full_name, :operator,
                                                    :vehicles_count, :orders_count, :total_amount,

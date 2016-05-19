@@ -14,7 +14,6 @@ class Mis.Routers.StoreCustomerEntities extends Mis.Base.Router
     self = this
     model.fetch(success: () ->
       view = new Mis.Views.KehuCustomerProfilesShow(model: model, collection: self.collection)
-      
       self.swap(view)
     )
 
@@ -29,6 +28,7 @@ class Mis.Routers.StoreCustomerEntities extends Mis.Base.Router
   index: ->
     view = new Mis.Views.KehuCustomerProfilesIndex(collection: @collection)
     @swap(view)
+
 
   newCustomer: ->
     model = new Mis.Models.StoreCustomerEntity()
