@@ -8,6 +8,7 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
     'click #openPackageItemForm': 'openPackageItemForm'
     'click #periodEnable': 'togglePeriodEnable'
     'click #noticeRequired': 'toggleNoticeRequired'
+    'click #goToShow': 'goToShow'
 
   initialize: ->
     @listenTo(@model.items, 'all', @renderItems)
@@ -83,3 +84,17 @@ class Mis.Views.XiaoshouPackageSettingsEdit extends Mis.Base.View
 
   action: ->
     "edit"
+
+  goToShow: ->
+    @model.unset()
+    @model.items.reset(@model.items.reject( (item)->
+      !item.id
+    ))
+    @leave()
+  
+    @model.fetch(success: () =>
+      @model.parseItems()
+      view = new Mis.Views.XiaoshouPackageSettingsShow(model: @model)
+      $("#bodyContent").html view.render().el
+    )
+    

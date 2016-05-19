@@ -16,7 +16,7 @@ class StoreMaterialInventoryRecord < ActiveRecord::Base
   end
 
   def numero
-    receipt.numero
+    receipt.try(:numero)
   end
 
   def format_created_at
