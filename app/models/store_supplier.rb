@@ -13,8 +13,6 @@ class StoreSupplier < ActiveRecord::Base
 
   enum status: { active: 0, inactive: 1 }
 
-  default_scope { self.active }
-
   def info_source
     INFO_SOURCES[self.info_source_id.to_s]
   end
