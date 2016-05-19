@@ -209,7 +209,7 @@ class StoreServiceWorkflowSnapshot < ActiveRecord::Base
     self.store_order.task_processing!
     self.store_order.processing!
     send_sms
-    notify_mechanic
+    notify_mechanics
   end
 
   def change_workstation_to!(workstation)
