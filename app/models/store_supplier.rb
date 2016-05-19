@@ -11,6 +11,10 @@ class StoreSupplier < ActiveRecord::Base
   CLEARING_CYCLES = {'1' => '按月', '2'=>'按周'}
   CLEARING_PAYMENT_METHODS={'1' => '现金', '2' => '银行卡', '3' => '支票', '4' => '支付宝'}
 
+  enum status: { active: 0, inactive: 1 }
+
+  default_scope { self.active }
+
   def info_source
     INFO_SOURCES[self.info_source_id.to_s]
   end
