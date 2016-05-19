@@ -579,6 +579,26 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :report do
+    resources :purchase_payments, only: [:index]
+    resources :store_customer_payments, only: [:index]
+    resources :store_customer_asset_items, only: [:index]
+    resources :store_material_sold_logs, only: [:index]
+    resources :store_package_sold_logs, only: [:index]
+    resources :store_service_sold_logs, only: [:index]
+    resources :store_orders, only: [:index]
+    resources :purchase_materials, only: [:index]
+    resources :sold_costs, only: [:index]
+    resources :sold_gross_profits, only: [:index]
+    resources :store_material_inventories, only: [:index] do
+      collection do
+        get :outgos
+      end
+    end
+    resources :store_account_receivable_reports, only: [:index]
+    resources :store_account_payable_reports, only: [:index]
+  end
+
   namespace :receipt do
     namespace :pos do
       resources :orders

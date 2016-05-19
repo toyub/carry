@@ -9,7 +9,7 @@ class StoreDepot  < ActiveRecord::Base
   def material_types_count
     self.store_material_inventories.count(:id)
   end
-  
+
   def toggle_useable!
     self.update!(useable: !self.useable)
   end
@@ -48,6 +48,8 @@ class StoreDepot  < ActiveRecord::Base
 
       items_attributes = {
         outing_type_id: OutingType.find_by_name('销售出库').id,
+        outingable_item_type: 'StoreOrderItem',
+        outingable_item_id: order_item.id,
         store_id: store_id,
         store_chain_id: store_chain_id,
         store_staff_id: self.store_staff_id,

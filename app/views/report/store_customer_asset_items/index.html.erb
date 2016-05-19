@@ -1,0 +1,53 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['报表', '客户资产消费明细']) %>
+</div>
+<div class="details">
+    <div class="list_table">
+      <div class="details_nav"></div>
+      <table cellpadding="0" cellspacing="0" class="index_list">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>单号</th>
+            <th>资产项目</th>
+            <th>消费内容</th>
+            <th>原价</th>
+            <th>优惠价</th>
+            <th>消费金额</th>
+            <th>车牌号</th>
+            <th>客户姓名</th>
+            <th>手机号</th>
+            <th>开单日期</th>
+            <th>施工技师</th>
+            <th>开单员</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @asset_item_logs.each_with_index do |item, idx| %>
+          <tr>
+            <td><%= idx + 1 %></td>
+            <td><%= item.store_order.numero %></td>
+            <td><%= item.store_customer_asset_item.store_customer_asset.name %></td>
+            <td><%= item.orderable.name %></td>
+            <td><%= item.retail_price %></td>
+            <td><%= item.vip_price %></td>
+            <td><%= item.amount %></td>
+            <td><%= item.store_order.store_vehicle.license_number %></td>
+            <td><%= item.store_order.store_customer.full_name %></td>
+            <td><%= item.store_order.store_customer.phone_number %></td>
+            <td><%= item.store_order.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td>
+              <% item.mechanics.each do |mechanic|%>
+                <%= mechanic.full_name %>
+              <% end %>
+            </td>
+            <td><%= item.creator.full_name %></td>
+            <td><%= item.remark %></td>
+
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>

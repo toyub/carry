@@ -1,6 +1,7 @@
 class StoreCustomerPayment < ActiveRecord::Base
   belongs_to :store_customer
   belongs_to :creator, class_name: "StoreStaff", foreign_key: :store_staff_id
+  belongs_to :store_order
 
   scope :by_month, -> (month = Time.now) { where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)}
   scope :payment_method, -> (type = "PaymentMethods::Internalcredit") { where(payment_method_type: type)}

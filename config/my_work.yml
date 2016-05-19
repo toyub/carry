@@ -219,3 +219,73 @@ works:
         url: /settings/sms/topups
         idx: 34
         icon: icon-cog
+  -
+    name: 报表
+    code: report
+    icon: icon-cog
+    sub_categories:
+      -
+        name: 采购付款明细
+        url: /report/purchase_payments
+        idx: 35
+        icon: icon-cog
+      -
+        name: 收款明细
+        url: /report/store_customer_payments
+        idx: 36
+        icon: icon-cog
+      -
+        name: 客户资产消费明细
+        url: /report/store_customer_asset_items
+        idx: 37
+        icon: icon-cog
+      -
+        name: 商品销售明细
+        url: /report/store_material_sold_logs
+        idx: 38
+        icon: icon-cog
+      -
+        name: 套餐销售明细
+        url: /report/store_package_sold_logs
+        idx: 39
+        icon: icon-cog
+      -
+        name: 服务销售明细
+        url: /report/store_service_sold_logs
+        idx: 40
+        icon: icon-cog
+      -
+        name: 业务单汇总表
+        url: /report/store_orders
+        idx: 41
+        icon: icon-cog
+      -
+        name: 商品采购明细
+        url: /report/purchase_materials
+        idx: 42
+        icon: icon-cog
+      -
+        name: 销售成本明细
+        url: /report/sold_costs
+        idx: 43
+        icon: icon-cog
+      -
+        name: 销售毛利润汇总
+        url: /report/sold_gross_profits
+        idx: 44
+        icon: icon-cog
+      -
+        name: 商品出入库明细
+        url: /report/store_material_inventories
+        idx: 45
+        icon: icon-cog
+      -
+        name: 应收款汇总
+        url: /report/store_account_receivable_reports
+        idx: 46
+        icon: icon-cog
+      -
+        name: 应付款汇总
+        url: /report/store_account_payable_reports
+        idx: 47
+        icon: icon-cog

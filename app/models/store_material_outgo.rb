@@ -1,5 +1,9 @@
 class StoreMaterialOutgo < StoreMaterialLog
 
+  def format_created_at
+    created_at.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
   def self.count_by_material(material, month = nil, depot_id = nil)
     month = Time.now.strftime("%Y%m") if month == nil
     outgos = by_material_id(material.id).by_depot_id(depot_id).by_month(month)

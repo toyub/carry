@@ -17,6 +17,7 @@ class StoreOrder < ActiveRecord::Base
   has_many :store_repayments, through: :store_order_repayments
 
   scope :by_month, ->(month = Time.now) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
+  # scope :by_last_month, ->(month = Time.now.last_month) { where(created_at: month.at_beginning_of_month .. month.at_end_of_month) }
   scope :by_day, ->(date = Date.today) { where(created_at: date.beginning_of_day..date.end_of_day) }
   scope :today, -> { by_day(Date.today) }
   scope :has_service, -> { where(service_included: true) }
@@ -259,6 +260,45 @@ class StoreOrder < ActiveRecord::Base
 
   def current_workflow
     workflows.actively.first
+  end
+
+  def discount_total
+    dis = []
+    items.pluck(:discount).each do |s|
+      next if s.blank?
+      dis << s
+    end
+    dis.reduce(:+)
+  end
+
+  def total_retail_price
+    items.pluck(:retail_price).reduce(:+)
+  end
+
+  def material_amount
+    items.materials.pluck(:amount).reduce(:+)
+  end
+
+  def service_amount
+    items.pure_services.pluck(:amount).reduce(:+)
+  end
+
+  def package_amount
+    items.packages.pluck(:amount).reduce(:+)
+  end
+
+  def total_cost_price
+    items.select(&->(i){i.cost_price.present?}).map(&:cost_price).reduce(:+)
+  end
+
+  def notify_mechanic
+    self.items.services.each do |service|
+      service.store_service_snapshot.workflow_snapshots.each do |workflow|
+        workflow.tasks.each do |task|
+          NotifyMechanicWork.new(task.mechanic, "您有一条施工消息")
+        end
+      end
+    end
   end
 
   private

@@ -12,4 +12,13 @@ class StoreMaterialTransReceiptItem < ActiveRecord::Base
   def amount
     self.quantity * self.ordered_cost_price
   end
+
+  def numero
+    store_material_receipt.numero
+  end
+
+  def format_created_at
+    created_at.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
 end

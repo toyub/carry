@@ -39,6 +39,8 @@ class Store <  ActiveRecord::Base
   has_many :store_order_items, through: 'store_orders', source: 'items'
   has_many :store_payments
   has_many :store_customer_payments
+  has_many :store_material_order_payments
+  has_many :store_material_order_items
   has_many :store_customer_entities, class_name: 'StoreCustomerEntity'
 
   has_many :recommended_orders
@@ -59,6 +61,11 @@ class Store <  ActiveRecord::Base
 
   has_many :store_groups
   has_many :store_group_members
+  # has_many :outgos, class_name: 'StoreMaterialOutgo'
+  has_many :outing_items, class_name: 'StoreMaterialOutingItem'
+  has_many :incomes, class_name: "StoreMaterialIncome"
+  has_many :outgos, class_name: "StoreMaterialOutgo"
+  has_many :store_account_reports
 
   validates :name, presence: true
 

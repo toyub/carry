@@ -1,0 +1,42 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['报表', '收款明细表']) %>
+</div>
+<div class="details">
+    <div class="list_table">
+      <div class="details_nav"></div>
+      <table cellpadding="0" cellspacing="0" class="index_list">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>单号</th>
+            <th>收款金额</th>
+            <th>收款方式</th>
+            <th>收款日期</th>
+            <th>收银员</th>
+            <th>车牌号</th>
+            <th>客户姓名</th>
+            <th>手机号</th>
+            <th>开单日期</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @store_customer_payments.each_with_index do |payment, idx| %>
+          <tr>
+            <td><%= idx + 1 %></td>
+            <td><%= payment.store_order.numero%></td>
+            <td><%= payment.store_order.amount %></td>
+            <td><%= payment.payment_method_cn_name %></td>
+            <td><%= payment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td><%= payment.creator.full_name%></td>
+            <td><%= payment.store_order.store_vehicle.license_number%></td>
+            <td><%= payment.store_customer.full_name%></td>
+            <td><%= payment.store_customer.phone_number%></td>
+            <td><%= payment.store_order.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td><%= payment.store_order.remark %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>

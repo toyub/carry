@@ -5,11 +5,14 @@ class StoreSupplier < ActiveRecord::Base
   belongs_to :store_material_root_category, class_name: 'StoreMaterialCategory'
   belongs_to :store_material_category
 
+
   INFO_SOURCES = {'1'=>'上门拜访','2' => '同行推荐','3'=>'网络搜索','4'=>'媒体杂志'}
   WEIGHTS = {'1' => '一般', '2'=>'重要', '3'=>'非常重要'}
   CLEARING_MODES = {'1'=>'现结', '2'=>'挂账'}
   CLEARING_CYCLES = {'1' => '按月', '2'=>'按周'}
   CLEARING_PAYMENT_METHODS={'1' => '现金', '2' => '银行卡', '3' => '支票', '4' => '支付宝'}
+
+  enum status: { active: 0, inactive: 1 }
 
   def info_source
     INFO_SOURCES[self.info_source_id.to_s]
