@@ -1,3 +1,6 @@
+total:
+    maxindex: 47
+    comment: maxindex是对works中的所有列表的统计；当添加链接时，要增长，请手动维护。值为最后一个添加的 work url 的 idx值
 works:
   -
     name: POS
@@ -94,6 +97,11 @@ works:
         url: /kucun/returnings/new
         idx: 15
         icon: icon-cubes
+      -
+        name: 商品收发存表
+        url: /kucun/costs
+        idx: 23
+        icon: icon-cubes
   -
     name: 客户管理
     code: crm
@@ -148,11 +156,6 @@ works:
         name: 收入
         url: /ais/incomes
         idx: 22
-        icon: icon-cny
-      -
-        name: 成本
-        url: /ais/costs
-        idx: 23
         icon: icon-cny
       -
         name: 往来
