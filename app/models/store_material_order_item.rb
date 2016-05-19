@@ -1,7 +1,7 @@
 class StoreMaterialOrderItem < ActiveRecord::Base
   belongs_to :store_material
   belongs_to :store_material_order
-
+  belongs_to :store
   attr_accessor :checked
   scope :pending, ->{where('store_material_order_items.process = 0')}
   scope :suspense, ->{where('0 <= store_material_order_items.process and store_material_order_items.process < 100')}
@@ -34,5 +34,10 @@ class StoreMaterialOrderItem < ActiveRecord::Base
     self.received_quantity = received_quantity
     self.returned_quantity = 0
     self.process = (((self.received_quantity + self.returned_quantity)/self.quantity.to_f) * 100).to_i
+  end
+
+  def is_incomes?
+    result = store.incomes.pluck(:store_material_id).include?(store_material.id)
+    result == true ? "是" : "否"
   end
 end

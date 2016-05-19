@@ -20,6 +20,8 @@ class StoreOrderItem < ActiveRecord::Base
   scope :materials, -> { where(orderable_type: "StoreMaterialSaleinfo") }
   scope :packages, -> { where(orderable_type: "StorePackage") }
   scope :services, -> { where(orderable_type: ["StoreService", 'StoreMaterialSaleinfoService']) }
+  scope :pure_services, -> { where(orderable_type: "StoreService") }
+
   scope :revenue_ables, ->{where(orderable_type: [StoreService.name, StoreMaterialSaleinfo.name])}
   scope :temporary_materials, -> { where(orderable_type: "StoreMaterialSaleinfo", need_temporary_purchase: true) }
 
@@ -29,10 +31,14 @@ class StoreOrderItem < ActiveRecord::Base
   scope :except_from_customer_assets, -> { where.not(from_customer_asset: true) }
   scope :from_asset, -> { where(from_customer_asset: true) }
   scope :available, ->{where(deleted: false)}
+  scope :finished, -> { where(store_order: StoreOrder.finished) }
+  scope :paid, ->{ where(store_orders: {pay_status: StoreOrder.pay_statuses[:pay_finished]}) }
 
   validates_presence_of :orderable
   validates :quantity, numericality: { only_integer: true, less_than_or_equal_to: 1000}
   validates :quantity, numericality: { only_integer: true, less_than_or_equal_to: 50, message: "错误: 套餐或商品组合下单时数量不能多于%{count}，请核对数量后再操作"}, if: :assetable_item?
+
+  delegate :numero, to: :store_order
 
   def gross_profit
     self.amount - self.total_cost
@@ -137,6 +143,10 @@ class StoreOrderItem < ActiveRecord::Base
   def waste!
     self.store_service_snapshot.waste! if self.store_service_snapshot.present?
     self.update!(deleted: true)
+  end
+
+  def format_created_at
+    created_at.strftime("%Y-%m-%d %H:%M:%S")
   end
 
   private

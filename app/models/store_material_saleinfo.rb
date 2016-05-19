@@ -19,7 +19,7 @@ class StoreMaterialSaleinfo  <  ActiveRecord::Base
 
   accepts_nested_attributes_for :services
 
-  delegate :name, to: :store_material
+  delegate :name, :speci, to: :store_material
 
   scope :by_month, ->(month = Time.now) {where("created_at between ? and ?", month.at_beginning_of_month, month.at_end_of_month)}
 

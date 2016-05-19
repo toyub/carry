@@ -11,6 +11,12 @@ defaults: &defaults
     queue: default
     description: 'This job check the regular status of staff in 1:00AM of every day'
 
+  AccountReportJob:
+    cron: '0 0 1 * *'
+    class: AccountReportWorker
+    queue: default
+    description: 'This job will create account report in every month'
+
 development:
   <<: *defaults
   ScanTaskJob:
@@ -34,4 +40,3 @@ production:
     class: ScanTaskWorker
     queue: default
     description: 'This job will check state of stations.'
-

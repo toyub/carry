@@ -2,12 +2,14 @@ class StoreMaterialLog < ActiveRecord::Base
   include BaseModel
 
   belongs_to :logged_item, polymorphic: true
-
+  belongs_to :store_material
+  belongs_to :store_depot
   before_validation :set_created_month
 
   scope :by_month, ->(month) { where(created_month: month) if month.present? }
   scope :by_material_id, ->(material_id) { where(store_material_id: material_id) if material_id.present? }
   scope :by_depot_id, ->(depot_id) { where(store_depot_id: depot_id) if depot_id.present? }
+  scope :sold, -> { where(logged_item_type: 'StoreOrderItem') }
 
   def loggable!(loggable)
     self.logged_item = loggable

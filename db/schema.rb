@@ -337,6 +337,22 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.string   "login_name"
   end
 
+  create_table "store_account_reports", force: :cascade do |t|
+    t.integer  "store_id",       null: false
+    t.integer  "store_chain_id", null: false
+    t.json     "openings"
+    t.json     "accruals"
+    t.json     "closings"
+    t.string   "type"
+    t.string   "account_type"
+    t.integer  "account_id"
+    t.string   "created_month"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "store_account_reports", ["created_month"], name: "index_store_account_reports_on_created_month", using: :btree
+
   create_table "store_attachments", force: :cascade do |t|
     t.string   "type",         limit: 45, null: false
     t.integer  "host_id",                 null: false
@@ -919,9 +935,9 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.integer  "received_status",                                              default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chain_business_model_id",                                      default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
     t.integer  "withdrawaler_id"
     t.datetime "withdrawal_at"
-    t.integer  "chain_business_model_id",                                      default: 0,   null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
   end
 
   create_table "store_material_outing_items", force: :cascade do |t|
@@ -942,6 +958,8 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "chain_business_model_id",                                          default: 0, null: false, comment: "门店加入连锁时选择的商业模式，目前有连锁模式和加盟模式，默认是连锁模式（0）"
+    t.string   "outingable_item_type"
+    t.integer  "outingable_item_id"
   end
 
   create_table "store_material_outings", force: :cascade do |t|
@@ -1750,20 +1768,20 @@ ActiveRecord::Schema.define(version: 201604198905987) do
     t.string   "reason_for_leave"
     t.string   "numero"
     t.integer  "store_position_id"
+    t.json     "bonus",                                                       default: {}
+    t.decimal  "trial_salary",                       precision: 10, scale: 2
+    t.decimal  "regular_salary",                     precision: 10, scale: 2
+    t.decimal  "previous_salary",                    precision: 10, scale: 2
+    t.integer  "trial_period"
     t.integer  "store_employee_id"
+    t.json     "skills",                                                      default: {}
+    t.json     "other",                                                       default: {}
     t.string   "full_name"
     t.string   "phone_number"
     t.boolean  "mis_login_enabled",                                           default: false
     t.boolean  "app_login_enabled",                                           default: false
     t.boolean  "erp_login_enabled",                                           default: false
     t.integer  "roles",                                                                                             array: true
-    t.json     "bonus",                                                       default: {}
-    t.decimal  "trial_salary",                       precision: 10, scale: 2
-    t.decimal  "regular_salary",                     precision: 10, scale: 2
-    t.decimal  "previous_salary",                    precision: 10, scale: 2
-    t.integer  "trial_period"
-    t.json     "skills",                                                      default: {}
-    t.json     "other",                                                       default: {}
     t.boolean  "deduct_enabled",                                              default: false
     t.integer  "deadline_days"
     t.boolean  "contract_notice_enabled",                                     default: false

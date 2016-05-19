@@ -5,6 +5,7 @@ class StoreSupplier < ActiveRecord::Base
   belongs_to :store_material_root_category, class_name: 'StoreMaterialCategory'
   belongs_to :store_material_category
 
+
   INFO_SOURCES = {'1'=>'上门拜访','2' => '同行推荐','3'=>'网络搜索','4'=>'媒体杂志'}
   WEIGHTS = {'1' => '一般', '2'=>'重要', '3'=>'非常重要'}
   CLEARING_MODES = {'1'=>'现结', '2'=>'挂账'}

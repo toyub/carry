@@ -27,7 +27,7 @@ class XiaoshouController < ApplicationController
       json.customers current_store.store_customer_entities.order("updated_at desc") do |entity|
         json.(entity, :id, :region, :address, :remark, :property, :store_customer_category_id)
         json.store_customer entity.store_customer, :phone_number, :full_name, :operator,
-                                                   :vehicles_count, :orders_count, :total_amount,
+                                                   :vehicles_count, :orders_count, :total_amount, :property,
                                                    :has_customer_asset, :integrity, :activeness
       end
       json.customer_categories current_store.store_customer_categories, :id, :name

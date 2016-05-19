@@ -13,4 +13,8 @@ class StoreMaterialCheckinItem < ActiveRecord::Base
   def numero
     store_material_checkin.numero
   end
+
+  def format_created_at
+    created_at.strftime("%Y-%m-%d %H:%M:%S")
+  end
 end
