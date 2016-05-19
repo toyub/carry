@@ -20,7 +20,7 @@
             <span id='store_supplier_id' class="width-150 as_select" data-select='#material_supplier_select' data-target='input[name="store_supplier_id"]'>请选择</span>
             <div id='material_supplier_select' class="select width-165">
               <ol class='width-165'>
-                <% @store.store_suppliers.each do |option| %>
+                <% @store.store_suppliers.active.each do |option| %>
                 <li data-value="<%= option.id %>"><%= option.name %></li>
                 <% end %>
               </ol>

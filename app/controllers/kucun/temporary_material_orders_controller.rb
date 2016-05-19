@@ -4,7 +4,7 @@ class Kucun::TemporaryMaterialOrdersController < Kucun::BaseController
                                                   .need_temporary_purchase
                                                   .by_day(set_day)
                                                   .by_numero(params[:order_numero])
-    @store_supplier = current_store.store_suppliers.select(:id, :name)
+    @store_supplier = current_store.store_suppliers.active.select(:id, :name)
   end
 
   def create
