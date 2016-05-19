@@ -8,12 +8,16 @@ class NotifyMechanicWork
   end
 
   def notify_mechanic
-    uri = URI($ios_push_api)
-    arguments = {
-      device_token: @mechanic.device_token,
-      msg: @msg
-    }
-    uri.query = URI.encode_www_form(arguments)
-    Net::HTTP.get_response(uri)
+    begin
+      uri = URI($ios_push_api)
+      arguments = {
+        device_token: @mechanic.device_token,
+        msg: @msg
+      }
+      uri.query = URI.encode_www_form(arguments)
+      Net::HTTP.get_response(uri)
+    rescue 
+      nil
+    end
   end
 end
