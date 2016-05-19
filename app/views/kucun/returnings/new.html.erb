@@ -73,7 +73,7 @@
       </div>
       <div class="nav-item-query">
         <label>供应商</label>
-        <select class="width-150" name='returning[store_supplier_id]'>
+        <select class="width-150" name='returning[store_supplier_id]' required>
           <% @store.store_suppliers.each do |opt| %>
             <option value="<%= opt.id %>"><%= opt.name %></option>
           <% end %>
@@ -283,9 +283,21 @@
        if(this.value < 1){
          return false;
        }
-       $(this).parents('tr').find('td:eq(11)').html(this.value * this.dataset.price);
+       var $tr = $(this).parents('tr');
+       var $price = $tr.find('.js-price');
+       this.dataset.price = $price.val();
+       $tr.find('td:eq(11)').html((this.value * $price.val()).toFixed(2));
        calc_total();
      });
+
+     $("#returning_form").on('input', '[name$="[price]"]', function(){
+       var $tr = $(this).parents('tr');
+       var $quantity = $tr.find('.js-quantity');
+       $tr.find('td:eq(11)').html((this.value * $quantity.val()).toFixed(2));
+       $quantity[0].dataset.price = this.value;
+       calc_total();
+     });
+
      $("#returning_form").on('submit', function(){
        if($('#storage_tab tbody > tr').length < 1 ){
         return false;

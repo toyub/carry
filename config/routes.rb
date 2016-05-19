@@ -93,6 +93,8 @@ Rails.application.routes.draw do
     namespace :purchase do
       resources :receipts
     end
+    
+    resources :costs, only: :index
   end# END of namespace :kucun
 
   get "xiaoshou/main", to:  "xiaoshou#main"
@@ -152,7 +154,6 @@ Rails.application.routes.draw do
 
   namespace :ais do
     resources :incomes, only: [:index]
-    resources :costs, only: :index
     resources :categories, only: [:show] do
       resources :order_items, only: [:index]
     end

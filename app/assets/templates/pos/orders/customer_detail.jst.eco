@@ -142,7 +142,7 @@
   </div>
 
   <div class="btn_group float-right  margin-right-10   margin-top-20">
-    <input type="button" class="js-customer-edit-cancel cancel_btn btn" value="取消">
+    <input type="button" class="js-customer-edit-cancel cancel_btn btn" value="关闭">
     <input type="submit" class="save_btn btn"  value="保存">
   </div>
 </form>

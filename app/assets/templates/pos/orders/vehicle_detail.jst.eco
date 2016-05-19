@@ -119,7 +119,7 @@
   </dl>
 
   <div class="btn_group">
-    <input type="button" class="js-vehicle-edit-cancel cancel_btn btn" value="取消">
+    <input type="button" class="js-vehicle-edit-cancel cancel_btn btn" value="关闭">
     <input type="submit" class="save_btn btn" value="保存">
   </div>
 </form>
