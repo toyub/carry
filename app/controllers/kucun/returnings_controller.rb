@@ -21,7 +21,7 @@ class Kucun::ReturningsController < Kucun::BaseController
     total_quantity = 0
     returning.items.each do |item|
       item.store_supplier_id = returning.store_supplier_id
-      item.price = item.store_material.cost_price
+      item.price = item.price || item.store_material.cost_price
       item.prior_quantity = item.store_material_inventory.quantity
       total_quantity += item.quantity
       total_amount += (item.quantity * item.price)
@@ -37,11 +37,8 @@ class Kucun::ReturningsController < Kucun::BaseController
       end
     end
 
-    if saved
-      redirect_to action: 'index'
-    else
-      render text: '退货失败'
-    end
+    redirect_to action: 'index'
+    
   end
 
   private
@@ -55,7 +52,7 @@ class Kucun::ReturningsController < Kucun::BaseController
         :store_material_id,
         :store_material_inventory_id,
         :store_depot_id,
-        :remark, :quantity
+        :remark, :quantity, :price
       ])
 
 
