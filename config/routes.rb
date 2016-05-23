@@ -93,7 +93,7 @@ Rails.application.routes.draw do
     namespace :purchase do
       resources :receipts
     end
-    
+
     resources :costs, only: :index
   end# END of namespace :kucun
 
@@ -550,6 +550,7 @@ Rails.application.routes.draw do
 
 
   namespace :crm do
+    resources :store_vehicles, only: [:index]
     resources :store_customers do
       resources :store_vehicles, only: [:new, :create, :show, :edit, :update]
       resources :vehicle_conditions, only: [:show]

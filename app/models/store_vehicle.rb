@@ -37,6 +37,10 @@ class StoreVehicle < ActiveRecord::Base
 
   after_save :associate_plate
 
+  delegate :name, to: :vehicle_brand, prefix: :brand,  allow_nil: true
+  delegate :name, to: :vehicle_series, prefix: :series,  allow_nil: true
+  delegate :name, to: :vehicle_model, prefix: :model,  allow_nil: true
+
   def vehicle_detail
     @vehicle_detail ||= VehicleDetail.new(self.detail)
   end
@@ -198,6 +202,10 @@ class StoreVehicle < ActiveRecord::Base
 
   def total_pay
     orders.pluck(:amount).reduce(0.0,:+)
+  end
+
+  def paid_times
+    orders.count
   end
 
   def check_license_number
