@@ -37,10 +37,6 @@ class StoreVehicle < ActiveRecord::Base
 
   after_save :associate_plate
 
-  delegate :name, to: :vehicle_brand, prefix: :brand,  allow_nil: true
-  delegate :name, to: :vehicle_series, prefix: :series,  allow_nil: true
-  delegate :name, to: :vehicle_model, prefix: :model,  allow_nil: true
-
   def vehicle_detail
     @vehicle_detail ||= VehicleDetail.new(self.detail)
   end

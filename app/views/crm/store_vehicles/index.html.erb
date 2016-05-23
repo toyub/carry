@@ -5,11 +5,12 @@
   <div class="list_table">
     <div class="search_nav">
       <%= search_form_for @q, url: crm_store_vehicles_path, class: 'search navbar-form' do |f| -%>
-        <%= render 'search_form' %>
+        <div class="item-query">
+          <label>查找车辆</label>
+          <input class="width-150" name="q[license_number_cont]" placeholder="输入车牌号" type="text" value="<%= params[:q][:license_number_cont] %>">
+        </div>
+
       <% end -%>
-      <div class="query_div">
-        <a class="export_btn btn" href="/mkis/materials.csv?<%= request.query_string %>" target="_blank">导出</a>
-      </div>
     </div>
     <table id='materials' cellpadding="0" cellspacing="0" class="index_list materials">
       <thead>
@@ -34,9 +35,9 @@
         <tr>
           <td class="number"><%= idx + 1 %></td>
           <td><a href="<%= crm_store_customer_store_vehicle_path(vehicle.store_customer_id, vehicle) %>"><%= vehicle.license_number %></a></td>
-          <td><%= vehicle.try(:brand_name) %></td>
-          <td><%= vehicle.try :series_name %></td>
-          <td><%= vehicle.try :model_name %></td>
+          <td><%= vehicle.brand_name %></td>
+          <td><%= vehicle.series_name %></td>
+          <td><%= vehicle.vehicle_model_name %></td>
           <td><%= vehicle.store_customer.full_name %></td>
           <td><%= vehicle.store_customer.phone_number %></td>
           <td><%= vehicle.store_customer.property %></td>

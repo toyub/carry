@@ -7,7 +7,6 @@ class Crm::StoreVehiclesController < Crm::BaseController
     params[:q] ||= {}
     @q = current_store.store_vehicles.ransack(params[:q])
     @vehicles = @q.result
-    # binding.pry
   end
 
   def new
