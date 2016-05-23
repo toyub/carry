@@ -1,6 +1,6 @@
 <div class="item-query">
   <label>查找客户</label>
-  <input type="text" class="width-150" name="q[store_customer_full_name_cont]" placeholder="输入关键字">
+  <input type="text" class="width-150" name="q[store_customer_full_name_or_store_customer_phone_number_cont]" placeholder="输入关键字">
   <a id="searchCustomers" class="btn query_btn do_search_result">查<nbsp1></nbsp1>询</a>
 </div>
 <div class="query_div">

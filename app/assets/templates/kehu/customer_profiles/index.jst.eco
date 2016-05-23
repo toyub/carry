@@ -15,13 +15,13 @@
             <div class="font-14 sequence">车辆<i class="fa fa-sort"></i></div>
           </th>
           <th>
-            <div class="font-14 sequence">优惠特权<i class="fa fa-sort"></i></div>
+            <div class="font-14 sequence">客户属性<i class="fa fa-sort"></i></div>
           </th>
           <th>
             <div class="font-14 sequence">资产<i class="fa fa-sort"></i></div>
           </th>
           <th>
-            <div class="font-14 sequence">来店次数<i class="fa fa-sort"></i></div>
+            <div class="font-14 sequence">订单总数<i class="fa fa-sort"></i></div>
           </th>
           <th>
             <div class="font-14 sequence">消费总金额<i class="fa fa-sort"></i></div>
@@ -37,6 +37,12 @@
           </th>
           <th>
             <div class="font-14 sequence">满意度<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">客户来源<i class="fa fa-sort"></i></div>
+          </th>
+          <th>
+            <div class="font-14 sequence">微信绑定<i class="fa fa-sort"></i></div>
           </th>
           <th> 维护</th>
           <th> 操作</th>
