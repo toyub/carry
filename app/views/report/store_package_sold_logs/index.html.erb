@@ -42,7 +42,7 @@
             <td><%= item.store_order.store_vehicle.license_number %></td>
             <td><%= item.store_order.store_customer.full_name %></td>
             <td><%= item.created_at.strftime("%Y-%m-%d") %></td>
-            <td><%= item.store_order.paid_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td><%= item.store_order.paid_at.strftime("%Y-%m-%d %H:%M:%S") if item.store_order.paid_at %></td>
             <td>
               <% item.store_order.store_customer_payments.each do |payment| %>
                 <%= payment.payment_method_cn_name %>
