@@ -41,6 +41,16 @@ module V1
       params do
         requires :platform, type: String, desc: '调用的平台(app或者erp)'
         requires :id, type: Integer, desc: '订单id'
+        requires :workflow, type: Array, desc: '服务流程明细' do
+          optional :id, type: Integer, desc: '流程id'
+          optional :store_workstation_id, type: Integer, desc: '工位id'
+          optional :used_time, type: Integer, desc: '施工时间'
+          optional :mechanics, type: Hash, desc: '技师' do
+            optional :id, type: Integer, desc: '技师id'
+            optional :name, type: String, desc: '技师姓名'
+            optional :group_member_id, type: Integer, desc: '小组id'
+          end
+        end
       end
       put 'store_orders/:id/execute' do
         @store_order = current_store.store_orders.available.find(params[:id])
@@ -60,15 +70,28 @@ module V1
       params do
         requires :platform, type: String, desc: '调用的平台(app或者erp)'
         requires :id, type: Integer, desc: '订单id'
-        requires :operate, type: String, desc: '修改订单施工状态类型[terminate pause_in_queuing_area pause_in_workstation pause play]'
+        requires :operate, type: String, desc: '修改订单施工状态类型[terminate(完成施工) pause(暂停流程) replay(恢复施工)]'
       end
       put 'store_orders/:id/change_workflow' do
         @store_order = current_store.store_orders.available.find(params[:id])
-        if %w[terminate pause_in_queuing_area pause_in_workstation pause play].include? params[:operate]
-          @store_order.send(params[:operate] + "!")
+        if %w[terminate pause replay].include? params[:operate]
+          case params[:operate]
+          when 'replay'
+            if @store_order.task_pausing?
+              @store_order.replay!
+              present status: {success: true, notice: '执行成功'}
+            else
+              present status: {success: false, notice: '当前该订单流程正在施工'}
+            end
+          when 'terminate'
+            @store_order.force_finish!
+            @store_order.reload
+          else
+            @store_order.pause_in_workstation!
+          end
           present status: {success: true, notice: '执行成功'}
         else
-          present status: {success: false, notice: '执行失败'}
+          present status: {success: false, notice: '执行失败: 无效操作'}
         end
       end
 
