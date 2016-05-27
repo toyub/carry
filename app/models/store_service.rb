@@ -18,7 +18,7 @@ class StoreService < ActiveRecord::Base
   has_many :recommended_order_items, as: :itemable
   belongs_to :saleman_commission_template, class_name: 'StoreCommissionTemplate', foreign_key: 'saleman_commission_template_id'
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :retail_price, presence: true
   validates :store_staff_id, presence: true
 
