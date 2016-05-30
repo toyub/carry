@@ -125,7 +125,7 @@
     <td>
       <select name="workflow[mechanic_commission_template_id]">
         <option></option>
-        <% @store.commissionTemplates.each (c) ->: %>
+        <% @store.machanicCommissionTemplates.each (c) ->: %>
           <option value="<%= c.get 'id' %>" <%= 'selected' if String(c.get('id')) == String(workflow.get('mechanic_commission_template_id')) %>><%= c.get 'name' %></option>
         <% end %>
       </select>
