@@ -1,7 +1,13 @@
 class Crm::StoreVehiclesController < Crm::BaseController
-  before_action :set_customer
+  before_action :set_customer, except: [:index]
   before_action :set_vehicle, only:[:show, :edit, :update]
   before_action :set_vehicle_ids, only: [:new, :show]
+
+  def index
+    params[:q] ||= {}
+    @q = current_store.store_vehicles.ransack(params[:q])
+    @vehicles = @q.result
+  end
 
   def new
     @vehicle = StoreVehicle.new

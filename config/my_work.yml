@@ -1,5 +1,5 @@
 total:
-    maxindex: 47
+    maxindex: 48
     comment: maxindex是对works中的所有列表的统计；当添加链接时，要增长，请手动维护。值为最后一个添加的 work url 的 idx值
 works:
   -
@@ -111,6 +111,11 @@ works:
         name: 客户列表
         url: /xiaoshou/main#store_customers
         idx: 16
+        icon: icon-cus
+      -
+        name: 车辆列表
+        url: /crm/store_vehicles
+        idx: 48
         icon: icon-cus
   -
     name: 供应商管理

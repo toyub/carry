@@ -200,6 +200,10 @@ class StoreVehicle < ActiveRecord::Base
     orders.pluck(:amount).reduce(0.0,:+)
   end
 
+  def paid_times
+    orders.count
+  end
+
   def check_license_number
     if self.new_record?
       if license_number.blank?

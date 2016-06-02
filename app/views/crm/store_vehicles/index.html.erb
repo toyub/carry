@@ -1,0 +1,54 @@
+<div class="main_top">
+  <%= breadcrumb_navigation(['客户管理', '车辆列表']) %>
+</div>
+<div class="details">
+  <div class="list_table">
+    <div class="search_nav">
+      <%= search_form_for @q, url: crm_store_vehicles_path, class: 'search navbar-form' do |f| -%>
+        <div class="item-query">
+          <label>查找车辆</label>
+          <input class="width-150" name="q[license_number_cont]" placeholder="输入车牌号" type="text" value="<%= params[:q][:license_number_cont] %>">
+        </div>
+
+      <% end -%>
+    </div>
+    <table id='vehicle_list' cellpadding="0" cellspacing="0" class="index_list vehicle-list">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>车牌号</th>
+          <th>车辆品牌</th>
+          <th>车系</th>
+          <th>车型</th>
+          <th>客户名称</th>
+          <th>手机号码</th>
+          <th>客户属性</th>
+          <th>客户类别</th>
+          <th>车辆消费金额</th>
+          <th>车辆消费次数</th>
+          <th>维护人</th>
+          <th>详情</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @vehicles.each_with_index do |vehicle, idx| %>
+        <tr>
+          <td class="number"><%= idx + 1 %></td>
+          <td><a href="<%= crm_store_customer_store_vehicle_path(vehicle.store_customer_id, vehicle) %>"><%= vehicle.license_number %></a></td>
+          <td><%= vehicle.brand_name %></td>
+          <td><%= vehicle.series_name %></td>
+          <td><%= vehicle.vehicle_model_name %></td>
+          <td><%= vehicle.store_customer.full_name %></td>
+          <td><%= vehicle.store_customer.phone_number %></td>
+          <td><%= vehicle.store_customer.property %></td>
+          <td><%= vehicle.store_customer.store_customer_entity.membership_i18n %></td>
+          <td><%= vehicle.total_pay %></td>
+          <td><%= vehicle.paid_times %></td>
+          <td><%= vehicle.creator.full_name %></td>
+          <td><a href='<%= crm_store_customer_store_vehicle_path(vehicle.store_customer_id, vehicle) %>' class="operate_icon"><i class="fa fa-file-text-o "></i></a></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
