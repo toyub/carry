@@ -83,4 +83,12 @@ class StoreCustomerEntity < ActiveRecord::Base
      self.save!
   end
 
+  def membership_i18n
+    if membership
+      "VIP"
+    else
+      "普通客户"
+    end
+  end
+
 end

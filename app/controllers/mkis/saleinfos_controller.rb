@@ -85,5 +85,6 @@ class Mkis::SaleinfosController < Mkis::BaseController
     end
     @sale_categories = SaleCategory.all
     @store_commission_templates = current_store.store_commission_templates.available.for_saleman
+    @store_machanic_commission_templates = current_store.store_commission_templates.available.for_machanic
   end
 end

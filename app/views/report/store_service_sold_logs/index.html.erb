@@ -50,7 +50,7 @@
                 <%= payment.payment_method_cn_name %>
               <% end %>
             </td>
-            <td><%= item.store_order.paid_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td><%= item.store_order.paid_at.strftime("%Y-%m-%d %H:%M:%S") if item.store_order.paid_at %></td>
             <td><%= item.remark %></td>
           </tr>
           <% end %>

@@ -272,23 +272,23 @@ class StoreOrder < ActiveRecord::Base
   end
 
   def total_retail_price
-    items.pluck(:retail_price).reduce(:+)
+    items.pluck(:retail_price).reduce(:+).to_f
   end
 
   def material_amount
-    items.materials.pluck(:amount).reduce(:+)
+    items.materials.pluck(:amount).reduce(:+).to_f
   end
 
   def service_amount
-    items.pure_services.pluck(:amount).reduce(:+)
+    items.pure_services.pluck(:amount).reduce(:+).to_f
   end
 
   def package_amount
-    items.packages.pluck(:amount).reduce(:+)
+    items.packages.pluck(:amount).reduce(:+).to_f
   end
 
   def total_cost_price
-    items.select(&->(i){i.cost_price.present?}).map(&:cost_price).reduce(:+)
+    items.select(&->(i){i.cost_price.present?}).map(&:cost_price).reduce(:+).to_f
   end
 
   def notify_mechanic

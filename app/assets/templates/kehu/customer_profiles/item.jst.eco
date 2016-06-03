@@ -1,5 +1,5 @@
 <td><%= @view.index + 1 %></td>
-<td><span class="span_border_left"><%= @entity.storeCustomer.get 'full_name' %></span></td>
+<td><span class="span_border_left"><a href="<%= @view.customerUrl() %>"><%= @entity.storeCustomer.get 'full_name' %></a></span></td>
 <td><%= @entity.storeCustomer.get 'phone_number' %></td>
 <td><%= @entity.storeCustomer.get 'property'  %></td>
 <td><%= @entity.storeCustomer.get 'vehicles_count'  %></td>
@@ -15,6 +15,12 @@
 <td><%= @entity.storeCustomer.get 'integrity' %>%</td>
 <td><%= @entity.storeCustomer.get 'activeness' %>%</td>
 <td>
+</td>
+<td>
+客户来源
+</td>
+<td>
+微信绑定
 </td>
 <td><%= @entity.storeCustomer.get 'operator' %></td>
 <td>
