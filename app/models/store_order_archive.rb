@@ -55,7 +55,7 @@ class StoreOrderArchive
 
   def save_package_services
     @package_service_assets = []
-    @immediate_used_package_items = @order.items.where(from_customer_asset: true, package_type: StorePackage.name)
+    @immediate_used_package_items = @order.items.services.where(from_customer_asset: true, package_type: StorePackage.name)
     @order.packages.each do |order_item|
       if order_item.orderable.contain_service?
         order_item.quantity.times do
@@ -119,7 +119,7 @@ class StoreOrderArchive
   end
 
   def update_customer_assets
-    customer_asset_items = @order.items.where("store_customer_asset_item_id IS NOT NULL AND from_customer_asset = 'true'")
+    customer_asset_items = @order.items.services.from_asset.where('store_customer_asset_item_id IS NOT NULL')
     customer_asset_items.each do |item|
       item.store_customer_asset_item.increment!(:used_quantity, 1)
       item.store_customer_asset_item.logs.create! store_id: @order.store_id,
@@ -178,16 +178,8 @@ class StoreOrderArchive
       asset.items.each do |item|
         used_items.each do |used_item|
           if item.package_item == used_item.package_item
-            item.increment!(:used_quantity, 1)
-            item.logs.create! store_id: @order.store_id,
-                              store_chain_id: @order.store_chain_id,
-                              store_customer_id: @order.store_customer_id,
-                              store_vehicle_id: @order.store_vehicle_id,
-                              store_order_id: @order.id,
-                              store_order_item_id: used_item.id,
-                              latest: 1,
-                              quantity: 1,
-                              balance: item.left_quantity
+            used_item.store_customer_asset_item_id = item.id
+            used_item.save
             break
           end
         end

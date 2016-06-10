@@ -11,7 +11,7 @@
         <% if @vehicle_brand and @vehicle_brand.name : %>
           <span class='width-90 form-control'> <%= @vehicle_brand.name %> </span>
         <% else : %>
-          <select name='vehicle[vehicle_brand_id]' class="width-90 js-select-vehicle-brand" required>
+          <select name='vehicle[vehicle_brand_id]' class="width-90 js-select-vehicle-brand">
             <option value="">请选择</option>
             <% for brand in @vehicle_brands : %>
               <option <%= 'selected' if String(@vehicle_brand && @vehicle_brand.id) == String(brand.id) %> value ="<%= brand.id %>"><%= brand.name %></option>
@@ -25,7 +25,7 @@
         <% if @vehicle_series and @vehicle_series.name : %>
           <span class='width-90 form-control'> <%= @vehicle_series.name %> </span>
         <% else : %>
-          <select name='vehicle[vehicle_series_id]' class="width-90 js-select-vehicle-series" required>
+          <select name='vehicle[vehicle_series_id]' class="width-90 js-select-vehicle-series">
             <option value="">请选择</option>
           </select>
         <% end %>
@@ -35,7 +35,7 @@
         <% if @vehicle_model and @vehicle_model.name : %>
           <span class='width-90 form-control'> <%= @vehicle_model.name %> </span>
         <% else : %>
-          <select class="width-90 js-select-vehicle-model" name='vehicle[vehicle_model_id]' required>
+          <select class="width-90 js-select-vehicle-model" name='vehicle[vehicle_model_id]'>
             <option value="">请选择</option>
           </select>
         <% end %>
@@ -47,7 +47,7 @@
         <% if @vin : %>
           <span class="width-90 form-control"><%= @vin %></span>
         <% else : %>
-          <input type="text" class="width-90" name="vehicle[frame_attributes][vin]" value='<%= @vin %>' required>
+          <input type="text" class="width-90" name="vehicle[frame_attributes][vin]" value='<%= @vin %>'>
         <% end %>
       </dd>
       <dd>
@@ -55,7 +55,7 @@
         <% if @engine_num : %>
           <span class="width-90 form-control"><%= @engine_num %></span>
         <% else : %>
-          <input type="text" class="width-90" name="vehicle[engines_attributes][<%= @engine_id %>][identification_number]" value='<%= @engine_num %>' required>
+          <input type="text" class="width-90" name="vehicle[engines_attributes][<%= @engine_id %>][identification_number]" value='<%= @engine_num %>'>
         <% end %>
       </dd>
       <dd><label class="width-77">颜色</label><input type="color" name="vehicle[detail][color]" class="width-90" value="<%= @detail.color || '#000000' %>"></dd>
